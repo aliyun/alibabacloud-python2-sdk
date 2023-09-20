@@ -276,7 +276,7 @@ class CreateDefenseRuleRequest(TeaModel):
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
         # The configurations of the protection rule. Specify a string that contains multiple parameters in the JSON format.
         # 
-        # >  The parameters vary based on the value of the **DefenseScene** parameter.**** For more information, see the "**Protection rule parameters**" section in this topic.
+        # >  The parameters vary based on the value of the **DefenseScene** parameter. For more information, see the "**Protection rule parameters**" section in this topic.
         self.rules = rules  # type: str
         # The ID of the protection rule template for which you want to create a protection rule.
         self.template_id = template_id  # type: long
@@ -545,36 +545,72 @@ class CreateDomainRequestListen(TeaModel):
                  focus_https=None, http_2enabled=None, http_ports=None, https_ports=None, ipv_6enabled=None,
                  protection_resource=None, sm2access_only=None, sm2cert_id=None, sm2enabled=None, tlsversion=None, xff_header_mode=None,
                  xff_headers=None):
-        # $.parameters[3].schema.properties.TLSVersion.example
+        # The ID of the certificate that you want to add. This parameter is available only if you specify **HttpsPorts**.
         self.cert_id = cert_id  # type: str
-        # $.parameters[3].schema.properties.EnableTLSv3.example
+        # The type of cipher suite that you want to add. This parameter is available only if you specify **HttpsPorts**. Valid values:
+        # 
+        # *   **1:** all cipher suites.
+        # *   **2:** strong cipher suites. You can select this value only if you set **TLSVersion** to **tlsv1.2**.
+        # *   **99:** custom cipher suites.
         self.cipher_suite = cipher_suite  # type: int
-        # $.parameters[3].schema.properties.EnableTLSv3.enumValueTitles
+        # The custom cipher suites.
         self.custom_ciphers = custom_ciphers  # type: list[str]
-        # $.parameters[3].schema.properties.EnableTLSv3.description
+        # Specifies whether to support TLS 1.3. This parameter is available only if you specify **HttpsPorts**. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.enable_tlsv_3 = enable_tlsv_3  # type: bool
-        # $.parameters[3].schema.properties.CustomCiphers.example
+        # Specifies whether to enable an exclusive IP address. This parameter is available only if you set **IPv6Enabled** to **false** and **ProtectionResource** to **share**. Valid values:
+        # 
+        # *   **true**\
+        # *   **false** (default)
         self.exclusive_ip = exclusive_ip  # type: bool
-        # $.parameters[3].schema.properties.CipherSuite.example
+        # Specifies whether to enable the HTTP to HTTPS redirection feature. This parameter is available only if you specify HttpsPorts and leave HttpPorts empty. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.focus_https = focus_https  # type: bool
-        # $.parameters[3].schema.properties.TLSVersion.description
+        # Specifies whether to enable HTTP/2. This parameter is available only if you specify **HttpsPorts**. Valid values:
+        # 
+        # *   true
+        # *   **false** (default)
         self.http_2enabled = http_2enabled  # type: bool
-        # $.parameters[3].schema.properties.CertId.example
+        # The HTTP listener port.
         self.http_ports = http_ports  # type: list[int]
-        # $.parameters[3].schema.properties.Http2Enabled.enumValueTitles
+        # The HTTPS listener port.
         self.https_ports = https_ports  # type: list[int]
-        # $.parameters[3].schema.properties.CustomCiphers.items.enumValueTitles
+        # Specifies whether to enable IPv6. Valid values:
+        # 
+        # *   **true**\
+        # *   **false** (default)
         self.ipv_6enabled = ipv_6enabled  # type: bool
-        # $.parameters[3].schema.properties.CustomCiphers.description
+        # The type of the protection resource. Valid values:
+        # 
+        # *   **share:** shared cluster. This is the default value.
+        # *   **gslb:** shared cluster-based intelligent load balancing.
         self.protection_resource = protection_resource  # type: str
+        # Specifies whether to allow access only from SM certificate-based clients. This parameter is available only if you set SM2Enabled to true.
+        # 
+        # *   true
+        # *   false
         self.sm2access_only = sm2access_only  # type: bool
+        # The ID of the SM certificate that you want to add. This parameter is available only if you set SM2Enabled to true.
         self.sm2cert_id = sm2cert_id  # type: str
+        # Specifies whether to enable the SM certificate.
         self.sm2enabled = sm2enabled  # type: bool
-        # $.parameters[3].schema.properties.TLSVersion.enumValueTitles
+        # The version of the Transport Layer Security (TLS) protocol. This parameter is available only if you specify **HttpsPorts**. Valid values:
+        # 
+        # *   **tlsv1**\
+        # *   **tlsv1.1**\
+        # *   **tlsv1.2**\
         self.tlsversion = tlsversion  # type: str
-        # $.parameters[3].schema.properties.CipherSuite.enumValueTitles
+        # The method that you want WAF to use to obtain the actual IP address of a client. Valid values:
+        # 
+        # *   **0:** No Layer 7 proxies are deployed in front of WAF. This is the default value.
+        # *   **1:** WAF reads the first value of the X-Forwarded-For (XFF) header field as the IP address of the client.
+        # *   **2:** WAF reads the value of a custom header field as the IP address of the client.
         self.xff_header_mode = xff_header_mode  # type: int
-        # $.parameters[3].schema.properties.CustomCiphers.items.description
+        # The custom header field that you want WAF to use to obtain the IP address of a client.
         self.xff_headers = xff_headers  # type: list[str]
 
     def validate(self):
@@ -663,9 +699,9 @@ class CreateDomainRequestListen(TeaModel):
 
 class CreateDomainRequestRedirectRequestHeaders(TeaModel):
     def __init__(self, key=None, value=None):
-        # $.parameters[3].schema.properties.XffHeaders.items.enumValueTitles
+        # The key of the custom header field.
         self.key = key  # type: str
-        # $.parameters[3].schema.properties.XffHeaders.description
+        # The value of the custom header field.
         self.value = value  # type: str
 
     def validate(self):
@@ -696,44 +732,66 @@ class CreateDomainRequestRedirect(TeaModel):
     def __init__(self, backends=None, cname_enabled=None, connect_timeout=None, focus_http_backend=None,
                  keepalive=None, keepalive_requests=None, keepalive_timeout=None, loadbalance=None, read_timeout=None,
                  request_headers=None, retry=None, routing_rules=None, sni_enabled=None, sni_host=None, write_timeout=None):
-        # $.parameters[3].schema.properties.FocusHttps.description
+        # The back-to-origin IP addresses or domain names.
         self.backends = backends  # type: list[str]
-        # 是否开启公共云容灾。取值：
+        # Specifies whether to enable the public cloud disaster recovery feature. Valid values:
         # 
-        # - **true**：表示开启公共云容灾。
-        # 
-        # - **false**（默认）：表示不开启公共云容灾。
+        # *   **true**\
+        # *   **false** (default)
         self.cname_enabled = cname_enabled  # type: bool
-        # $.parameters[3].schema.properties.XffHeaders.example
+        # The connection timeout period. Unit: seconds. Valid values: 1 to 3600.
         self.connect_timeout = connect_timeout  # type: int
-        # $.parameters[3].schema.properties.XffHeaderMode.description
+        # Specifies whether to enable HTTPS to HTTP redirection for back-to-origin requests. This parameter is available only if you specify **HttpsPorts**. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.focus_http_backend = focus_http_backend  # type: bool
-        # $.parameters[3].schema.properties.IPv6Enabled.example
+        # Specifies whether to enable the persistent connection feature. Valid values:
+        # 
+        # *   **true** (default)
+        # *   **false**\
         self.keepalive = keepalive  # type: bool
-        # $.parameters[3].schema.properties.ProtectionResource.description
+        # The number of reused persistent connections. Valid values: 60 to 1000.
+        # 
+        # > This parameter specifies the number of reused persistent connections after you enable the persistent connection feature.
         self.keepalive_requests = keepalive_requests  # type: int
-        # $.parameters[3].schema.properties.ProtectionResource.example
+        # The timeout period of persistent connections that are in the Idle state. Unit: seconds. Valid values: 1 to 60. Default value: 15.
+        # 
+        # > This parameter specifies the period of time during which a reused persistent connection is allowed to remain in the Idle state before the persistent connection is released.
         self.keepalive_timeout = keepalive_timeout  # type: int
-        # $.parameters[3].schema.properties.FocusHttps.enumValueTitles
+        # The load balancing algorithm that you want WAF to use to forward requests to the origin server. Valid values:
+        # 
+        # *   **iphash**\
+        # *   **roundRobin**\
+        # *   **leastTime**. You can select this value only if you set **ProtectionResource** to **gslb**.
         self.loadbalance = loadbalance  # type: str
-        # $.parameters[3].schema.properties.XffHeaders.enumValueTitles
+        # The read timeout period. Unit: seconds. Valid values: 1 to 3600.
         self.read_timeout = read_timeout  # type: int
-        # $.parameters[3].schema.properties.XffHeaders.items.description
+        # The key-value pairs that you want to use to mark the requests that pass through the WAF instance.
+        # 
+        # WAF adds the key-value pairs to the request headers. This way, the requests that pass through WAF are identified.
         self.request_headers = request_headers  # type: list[CreateDomainRequestRedirectRequestHeaders]
-        # $.parameters[3].schema.properties.IPv6Enabled.enumValueTitles
+        # Specifies whether WAF retries to forward requests when the requests fail to be forwarded to the origin server. Valid values:
+        # 
+        # *   **true** (default)
+        # *   **false**\
         self.retry = retry  # type: bool
-        # 混合云转发规则。使用JSON数组转化的字符串格式表示。JSON数组中的每个元素是一个结构体，包含以下字段：
-        # - **rs**：Array类型 | 表示回源IP地址或者回源CNAME列表
+        # The forwarding rules that you want to configure for the domain name that you want to add to WAF in hybrid cloud mode. Set this parameter to a string that consists of JSON arrays. Each element in a JSON array is a JSON struct that contains the following fields:
         # 
-        # - **location**：String类型 | 表示防护节点名称
-        # 
-        # - **locationId**：Long类型 | 表示防护节点ID
+        # *   **rs:** The back-to-origin IP addresses or CNAMEs. The value must be of the ARRAY type.
+        # *   **location:** The name of the protection node. The value must be of the STRING type.
+        # *   **locationId:** The ID of the protection node. The value must be of the LONG type.
         self.routing_rules = routing_rules  # type: str
-        # $.parameters[3].schema.properties.XffHeaderMode.example
+        # Specifies whether to enable origin Server Name Indication (SNI). This parameter is available only if you specify **HttpsPorts**. Valid values:
+        # 
+        # *   **true**\
+        # *   **false** (default)
         self.sni_enabled = sni_enabled  # type: bool
-        # $.parameters[3].schema.properties.XffHeaderMode.enumValueTitles
+        # The value of the custom SNI field. If you do not specify this parameter, the value of the **Host** field in the request header is used. If you want WAF to use an SNI field value that is different from the value of the Host field in back-to-origin requests, you can specify a custom value for the SNI field.
+        # 
+        # > This parameter is available only if you set **SniEnabled** to **true**.
         self.sni_host = sni_host  # type: str
-        # $.parameters[3].schema.properties.IPv6Enabled.description
+        # The write timeout period. Unit: seconds. Valid values: 1 to 3600.
         self.write_timeout = write_timeout  # type: int
 
     def validate(self):
@@ -823,20 +881,29 @@ class CreateDomainRequestRedirect(TeaModel):
 class CreateDomainRequest(TeaModel):
     def __init__(self, access_type=None, domain=None, instance_id=None, listen=None, redirect=None, region_id=None,
                  resource_manager_resource_group_id=None, source_ip=None):
-        # $.parameters[3].schema.properties.ExclusiveIp.description
+        # The mode in which you want to add the domain name to WAF. Valid values:
+        # 
+        # *   **share:** adds the domain name to WAF in CNAME record mode. This is the default value.
+        # *   **hybrid_cloud_cname:** adds the domain name to WAF in hybrid cloud reverse proxy mode.
         self.access_type = access_type  # type: str
-        # $.parameters[3].schema.properties.Http2Enabled.description
+        # The domain name that you want to add to WAF.
         self.domain = domain  # type: str
-        # $.parameters[3].schema.properties.HttpPorts.enumValueTitles
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # > You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
-        # $.parameters[3].schema.properties.Http2Enabled.example
+        # The configurations of the listeners.
         self.listen = listen  # type: CreateDomainRequestListen
-        # $.parameters[3].schema.properties.CustomCiphers.enumValueTitles
+        # The configurations of the forwarding rule.
         self.redirect = redirect  # type: CreateDomainRequestRedirect
-        # $.parameters[3].schema.properties.ProtectionResource.enumValueTitles
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou**: the Chinese mainland
+        # *   **ap-southeast-1**: outside the Chinese mainland
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
-        # $.parameters[3].schema.properties.ExclusiveIp.example
+        # The source IP address of the request. You do not need to specify this parameter. It is automatically obtained by the system.
         self.source_ip = source_ip  # type: str
 
     def validate(self):
@@ -895,20 +962,29 @@ class CreateDomainRequest(TeaModel):
 class CreateDomainShrinkRequest(TeaModel):
     def __init__(self, access_type=None, domain=None, instance_id=None, listen_shrink=None, redirect_shrink=None,
                  region_id=None, resource_manager_resource_group_id=None, source_ip=None):
-        # $.parameters[3].schema.properties.ExclusiveIp.description
+        # The mode in which you want to add the domain name to WAF. Valid values:
+        # 
+        # *   **share:** adds the domain name to WAF in CNAME record mode. This is the default value.
+        # *   **hybrid_cloud_cname:** adds the domain name to WAF in hybrid cloud reverse proxy mode.
         self.access_type = access_type  # type: str
-        # $.parameters[3].schema.properties.Http2Enabled.description
+        # The domain name that you want to add to WAF.
         self.domain = domain  # type: str
-        # $.parameters[3].schema.properties.HttpPorts.enumValueTitles
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # > You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
-        # $.parameters[3].schema.properties.Http2Enabled.example
+        # The configurations of the listeners.
         self.listen_shrink = listen_shrink  # type: str
-        # $.parameters[3].schema.properties.CustomCiphers.enumValueTitles
+        # The configurations of the forwarding rule.
         self.redirect_shrink = redirect_shrink  # type: str
-        # $.parameters[3].schema.properties.ProtectionResource.enumValueTitles
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou**: the Chinese mainland
+        # *   **ap-southeast-1**: outside the Chinese mainland
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
-        # $.parameters[3].schema.properties.ExclusiveIp.example
+        # The source IP address of the request. You do not need to specify this parameter. It is automatically obtained by the system.
         self.source_ip = source_ip  # type: str
 
     def validate(self):
@@ -961,9 +1037,9 @@ class CreateDomainShrinkRequest(TeaModel):
 
 class CreateDomainResponseBodyDomainInfo(TeaModel):
     def __init__(self, cname=None, domain=None):
-        # $.parameters[3].schema.enumValueTitles
+        # The CNAME that is assigned by WAF to the domain name.
         self.cname = cname  # type: str
-        # $.parameters[4].schema.properties.Backends.items.description
+        # The domain name that you added to WAF.
         self.domain = domain  # type: str
 
     def validate(self):
@@ -992,9 +1068,9 @@ class CreateDomainResponseBodyDomainInfo(TeaModel):
 
 class CreateDomainResponseBody(TeaModel):
     def __init__(self, domain_info=None, request_id=None):
-        # $.parameters[3].schema.example
+        # The information about the domain name.
         self.domain_info = domain_info  # type: CreateDomainResponseBodyDomainInfo
-        # $.parameters[3].schema.description
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1966,7 +2042,9 @@ class DescribeDefenseResourceGroupResponse(TeaModel):
 
 class DescribeDefenseResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -2017,6 +2095,7 @@ class DescribeDefenseResourcesRequest(TeaModel):
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
         # The source IP address of the request. The value of this parameter is specified by the system.
         self.source_ip = source_ip  # type: str
+        # The tag of the resource. You can specify up to 20 tags.
         self.tag = tag  # type: list[DescribeDefenseResourcesRequestTag]
 
     def validate(self):
@@ -2076,9 +2155,28 @@ class DescribeDefenseResourcesRequest(TeaModel):
 
 
 class DescribeDefenseResourcesResponseBodyResources(TeaModel):
-    def __init__(self, custom_headers=None, description=None, detail=None, gmt_create=None, gmt_modified=None,
-                 pattern=None, product=None, resource=None, resource_group=None, resource_manager_resource_group_id=None,
-                 resource_origin=None, xff_status=None):
+    def __init__(self, acw_cookie_status=None, acw_secure_status=None, acw_v3secure_status=None,
+                 custom_headers=None, description=None, detail=None, gmt_create=None, gmt_modified=None, pattern=None, product=None,
+                 resource=None, resource_group=None, resource_manager_resource_group_id=None, resource_origin=None,
+                 xff_status=None):
+        # 跟踪cookie开关状态。
+        # 
+        # - **0**：表示关闭。
+        # 
+        # - **1**：表示开启。
+        self.acw_cookie_status = acw_cookie_status  # type: int
+        # 跟踪cookie的secure属性状态。
+        # 
+        # - **0**：表示关闭。
+        # 
+        # - **1**：表示开启。
+        self.acw_secure_status = acw_secure_status  # type: int
+        # 滑块cookie的secure属性状态。
+        # 
+        # - **0**：表示关闭。
+        # 
+        # - **1**：表示开启。
+        self.acw_v3secure_status = acw_v3secure_status  # type: int
         # An array of custom XFF headers that are used to identify the originating IP addresses of clients. If the value of the XffStatus parameter is 1 and the CustomHeaders field is left empty, the first IP address in the XFF header is the originating IP address of the client.
         self.custom_headers = custom_headers  # type: list[str]
         # The description of the protected object.
@@ -2113,6 +2211,12 @@ class DescribeDefenseResourcesResponseBodyResources(TeaModel):
             return _map
 
         result = dict()
+        if self.acw_cookie_status is not None:
+            result['AcwCookieStatus'] = self.acw_cookie_status
+        if self.acw_secure_status is not None:
+            result['AcwSecureStatus'] = self.acw_secure_status
+        if self.acw_v3secure_status is not None:
+            result['AcwV3SecureStatus'] = self.acw_v3secure_status
         if self.custom_headers is not None:
             result['CustomHeaders'] = self.custom_headers
         if self.description is not None:
@@ -2141,6 +2245,12 @@ class DescribeDefenseResourcesResponseBodyResources(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AcwCookieStatus') is not None:
+            self.acw_cookie_status = m.get('AcwCookieStatus')
+        if m.get('AcwSecureStatus') is not None:
+            self.acw_secure_status = m.get('AcwSecureStatus')
+        if m.get('AcwV3SecureStatus') is not None:
+            self.acw_v3secure_status = m.get('AcwV3SecureStatus')
         if m.get('CustomHeaders') is not None:
             self.custom_headers = m.get('CustomHeaders')
         if m.get('Description') is not None:
@@ -2310,14 +2420,14 @@ class DescribeDefenseRuleRequest(TeaModel):
 class DescribeDefenseRuleResponseBodyRule(TeaModel):
     def __init__(self, config=None, defense_origin=None, defense_scene=None, gmt_modified=None, rule_id=None,
                  rule_name=None, status=None, template_id=None):
-        # The details of the protection rule. The value of this parameter is a string that contains multiple parameters in the JSON format. For more information, see the "**Protection rule parameters**" section in the [CreateDefenseRule](~~ID~~) topic.
+        # The details of the protection rule. The value is a JSON string that contains multiple parameters. For more information, see the "**Protection rule parameters**" section of the [CreateDefenseRule](~~CreateDefenseRule~~) topic.
         self.config = config  # type: str
         # The origin of the protection rule. Valid values:
         # 
         # *   **custom:** The protection rule is created by the user.
         # *   **system:** The protection rule is automatically generated by the system.
         self.defense_origin = defense_origin  # type: str
-        # The scenario in which the protection rule template is used. For more information, see the description of the **DefenseScene** parameter in the [CreateDefenseRule](~~ID~~) topic.
+        # The scenario in which the protection rule is used. For more information, see the description of **DefenseScene** in the [CreateDefenseRule](~~CreateDefenseRule~~) topic.
         self.defense_scene = defense_scene  # type: str
         # The most recent time when the protection rule was modified.
         self.gmt_modified = gmt_modified  # type: long
@@ -2385,7 +2495,7 @@ class DescribeDefenseRuleResponseBody(TeaModel):
     def __init__(self, request_id=None, rule=None):
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The configurations of the protection rule. The value of this parameter is a string that contains multiple parameters in the JSON format.
+        # The configurations of the protection rule. The value is a JSON string that contains multiple parameters.
         self.rule = rule  # type: DescribeDefenseRuleResponseBodyRule
 
     def validate(self):
@@ -2732,10 +2842,11 @@ class DescribeDefenseTemplateRequest(TeaModel):
 
 
 class DescribeDefenseTemplateResponseBodyTemplate(TeaModel):
-    def __init__(self, defense_scene=None, description=None, gmt_modified=None, template_id=None,
-                 template_name=None, template_origin=None, template_status=None, template_type=None):
-        # The scenario in which the protection rule template is used. For more information, see the description of the **DefenseScene** parameter in the [CreateDefenseRule](~~ID~~) topic.
+    def __init__(self, defense_scene=None, defense_sub_scene=None, description=None, gmt_modified=None,
+                 template_id=None, template_name=None, template_origin=None, template_status=None, template_type=None):
+        # The scenario in which the template is used. For more information, see the description of the **DefenseScene** parameter in the [CreateDefenseRule](~~CreateDefenseRule~~) topic.
         self.defense_scene = defense_scene  # type: str
+        self.defense_sub_scene = defense_sub_scene  # type: str
         # The description of the protection rule template.
         self.description = description  # type: str
         # The most recent time when the protection rule template was modified.
@@ -2768,6 +2879,8 @@ class DescribeDefenseTemplateResponseBodyTemplate(TeaModel):
         result = dict()
         if self.defense_scene is not None:
             result['DefenseScene'] = self.defense_scene
+        if self.defense_sub_scene is not None:
+            result['DefenseSubScene'] = self.defense_sub_scene
         if self.description is not None:
             result['Description'] = self.description
         if self.gmt_modified is not None:
@@ -2788,6 +2901,8 @@ class DescribeDefenseTemplateResponseBodyTemplate(TeaModel):
         m = m or dict()
         if m.get('DefenseScene') is not None:
             self.defense_scene = m.get('DefenseScene')
+        if m.get('DefenseSubScene') is not None:
+            self.defense_sub_scene = m.get('DefenseSubScene')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('GmtModified') is not None:
@@ -2809,7 +2924,7 @@ class DescribeDefenseTemplateResponseBody(TeaModel):
     def __init__(self, request_id=None, template=None):
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The information about the protection rule template.
+        # The information about the template.
         self.template = template  # type: DescribeDefenseTemplateResponseBodyTemplate
 
     def validate(self):
@@ -2879,9 +2994,18 @@ class DescribeDefenseTemplateResponse(TeaModel):
 
 class DescribeDomainDetailRequest(TeaModel):
     def __init__(self, domain=None, instance_id=None, region_id=None, source_ip=None):
+        # The domain name that you want to query.
         self.domain = domain  # type: str
+        # The ID of the WAF instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
         self.region_id = region_id  # type: str
+        # The source IP address of the request. The value of this parameter is specified by the system.
         self.source_ip = source_ip  # type: str
 
     def validate(self):
@@ -2918,11 +3042,17 @@ class DescribeDomainDetailRequest(TeaModel):
 
 class DescribeDomainDetailResponseBodyCertDetail(TeaModel):
     def __init__(self, common_name=None, end_time=None, id=None, name=None, sans=None, start_time=None):
+        # The domain name of your website.
         self.common_name = common_name  # type: str
+        # The end of the validity period of the SSL certificate. The value is in the UNIX timestamp format. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The ID of the SSL certificate.
         self.id = id  # type: str
+        # The name of the SSL certificate.
         self.name = name  # type: str
+        # All domain names that are bound to the certificate.
         self.sans = sans  # type: list[str]
+        # The beginning of the validity period of the SSL certificate. The value is in the UNIX timestamp format. Unit: milliseconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -2970,22 +3100,66 @@ class DescribeDomainDetailResponseBodyListen(TeaModel):
                  focus_https=None, http_2enabled=None, http_ports=None, https_ports=None, ipv_6enabled=None,
                  protection_resource=None, sm2access_only=None, sm2cert_id=None, sm2enabled=None, tlsversion=None, xff_header_mode=None,
                  xff_headers=None):
+        # The ID of the certificate.
         self.cert_id = cert_id  # type: long
+        # The type of the cipher suites. Valid values:
+        # 
+        # *   **1:** all cipher suites.
+        # *   **2:** strong cipher suites.
+        # *   **99:** custom cipher suites.
         self.cipher_suite = cipher_suite  # type: long
+        # An array of custom cipher suites.
         self.custom_ciphers = custom_ciphers  # type: list[str]
+        # Indicates whether TLS 1.3 is supported. Valid values:
+        # 
+        # *   **true:** TLS 1.3 is supported.
+        # *   **false:** TLS 1.3 is not supported.
         self.enable_tlsv_3 = enable_tlsv_3  # type: bool
+        # Indicates whether an exclusive IP address is enabled. Valid values:
+        # 
+        # *   **true:** An exclusive IP address is enabled for the domain name.
+        # *   **false:** No exclusive IP addresses are enabled for the domain name.
         self.exclusive_ip = exclusive_ip  # type: bool
+        # Indicates whether HTTP to HTTPS redirection is enabled for the domain name. Valid values:
+        # 
+        # *   **true:** HTTP to HTTPS redirection is enabled.
+        # *   **false:** HTTP to HTTPS redirection is disabled.
         self.focus_https = focus_https  # type: bool
+        # Indicates whether HTTP/2 is enabled. Valid values:
+        # 
+        # *   **true:** HTTP/2 is enabled.
+        # *   **false:** HTTP/2 is disabled.
         self.http_2enabled = http_2enabled  # type: bool
+        # An array of HTTP listener ports.
         self.http_ports = http_ports  # type: list[long]
+        # An array of HTTPS listener ports.
         self.https_ports = https_ports  # type: list[long]
+        # Indicates whether IPv6 is enabled. Valid values:
+        # 
+        # *   **true:** IPv6 is enabled.
+        # *   **false:** IPv6 is disabled.
         self.ipv_6enabled = ipv_6enabled  # type: bool
+        # The type of protection resource that is used. Valid values:
+        # 
+        # *   **share:** shared cluster.
+        # *   **gslb:** shared cluster-based intelligent load balancing.
         self.protection_resource = protection_resource  # type: str
         self.sm2access_only = sm2access_only  # type: bool
         self.sm2cert_id = sm2cert_id  # type: bool
         self.sm2enabled = sm2enabled  # type: bool
+        # The version of the Transport Layer Security (TLS) protocol. Valid values:
+        # 
+        # *   **tlsv1**\
+        # *   **tlsv1.1**\
+        # *   **tlsv1.2**\
         self.tlsversion = tlsversion  # type: str
+        # The method that WAF uses to obtain the actual IP address of a client. Valid values:
+        # 
+        # *   **0:** No Layer 7 proxies are deployed in front of WAF.
+        # *   **1:** WAF reads the first value of the X-Forwarded-For (XFF) header field as the actual IP address of the client.
+        # *   **2:** WAF reads the value of a custom header field as the actual IP address of the client.
         self.xff_header_mode = xff_header_mode  # type: long
+        # An array of custom header fields that are used to obtain the actual IP address of a client.
         self.xff_headers = xff_headers  # type: list[str]
 
     def validate(self):
@@ -3074,6 +3248,7 @@ class DescribeDomainDetailResponseBodyListen(TeaModel):
 
 class DescribeDomainDetailResponseBodyRedirectBackends(TeaModel):
     def __init__(self, backend=None):
+        # The back-to-origin IP address or domain name.
         self.backend = backend  # type: str
 
     def validate(self):
@@ -3098,7 +3273,9 @@ class DescribeDomainDetailResponseBodyRedirectBackends(TeaModel):
 
 class DescribeDomainDetailResponseBodyRedirectRequestHeaders(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the custom header field.
         self.key = key  # type: str
+        # The value of the custom header field.
         self.value = value  # type: str
 
     def validate(self):
@@ -3129,18 +3306,51 @@ class DescribeDomainDetailResponseBodyRedirect(TeaModel):
     def __init__(self, backends=None, connect_timeout=None, focus_http_backend=None, keepalive=None,
                  keepalive_requests=None, keepalive_timeout=None, loadbalance=None, read_timeout=None, request_headers=None,
                  retry=None, sni_enabled=None, sni_host=None, write_timeout=None):
+        # An array of addresses of origin servers.
         self.backends = backends  # type: list[DescribeDomainDetailResponseBodyRedirectBackends]
+        # The timeout period of the connection. Unit: seconds. Valid values: 5 to 120.
         self.connect_timeout = connect_timeout  # type: int
+        # Indicates whether HTTPS to HTTP redirection is enabled for back-to-origin requests of the domain name. Valid values:
+        # 
+        # *   **true:** HTTPS to HTTP redirection for back-to-origin requests of the domain name is enabled.
+        # *   **false:** HTTPS to HTTP redirection for back-to-origin requests of the domain name is disabled.
         self.focus_http_backend = focus_http_backend  # type: bool
+        # Indicates whether the persistent connection feature is enabled. Valid values:
+        # 
+        # *   **true:** The persistent connection feature is enabled. This is the default value.
+        # *   **false:** The persistent connection feature is disabled.
         self.keepalive = keepalive  # type: bool
+        # The number of reused persistent connections. Valid values: 60 to 1000.
+        # 
+        # >  This parameter specifies the number of reused persistent connections when you enable the persistent connection feature.
         self.keepalive_requests = keepalive_requests  # type: int
+        # The timeout period of persistent connections that are in the Idle state. Valid values: 1 to 60. Default value: 15. Unit: seconds.
+        # 
+        # >  This parameter specifies the period of time during which a reused persistent connection is allowed to remain in the Idle state before the persistent connection is released.
         self.keepalive_timeout = keepalive_timeout  # type: int
+        # The load balancing algorithm that is used when WAF forwards requests to the origin server. Valid values:
+        # 
+        # *   **ip_hash:** the IP hash algorithm.
+        # *   **roundRobin:** the round-robin algorithm.
+        # *   **leastTime:** the least response time algorithm.
         self.loadbalance = loadbalance  # type: str
+        # The read timeout period. Unit: seconds. Valid values: 5 to 1800.
         self.read_timeout = read_timeout  # type: int
+        # An array of key-value pairs that are used to mark the requests that pass through the WAF instance.
         self.request_headers = request_headers  # type: list[DescribeDomainDetailResponseBodyRedirectRequestHeaders]
+        # Indicates whether WAF retries to forward requests when requests fail to be forwarded to the origin server. Valid values:
+        # 
+        # *   **true:** WAF retries to forward requests. This is the default value.
+        # *   **false:** WAF does not retry to forward requests.
         self.retry = retry  # type: bool
+        # Indicates whether origin Server Name Indication (SNI) is enabled. Valid values:
+        # 
+        # *   **true:** Origin SNI is enabled.
+        # *   **false:** Origin SNI is disabled. This is the default value.
         self.sni_enabled = sni_enabled  # type: bool
+        # The value of the custom SNI field.
         self.sni_host = sni_host  # type: str
+        # The write timeout period. Unit: seconds. Valid values: 5 to 1800.
         self.write_timeout = write_timeout  # type: int
 
     def validate(self):
@@ -3280,14 +3490,28 @@ class DescribeDomainDetailResponseBodySM2CertDetail(TeaModel):
 class DescribeDomainDetailResponseBody(TeaModel):
     def __init__(self, cert_detail=None, cname=None, domain=None, listen=None, redirect=None, request_id=None,
                  resource_manager_resource_group_id=None, sm2cert_detail=None, status=None):
+        # The details of the SSL certificate.
         self.cert_detail = cert_detail  # type: DescribeDomainDetailResponseBodyCertDetail
+        # The CNAME that is assigned by WAF to the domain name.
         self.cname = cname  # type: str
+        # The domain name.
         self.domain = domain  # type: str
+        # The configurations of the listeners.
         self.listen = listen  # type: DescribeDomainDetailResponseBodyListen
+        # The configurations of the forwarding rule.
         self.redirect = redirect  # type: DescribeDomainDetailResponseBodyRedirect
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the resource group.
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
         self.sm2cert_detail = sm2cert_detail  # type: DescribeDomainDetailResponseBodySM2CertDetail
+        # The status of the domain name. Valid values:
+        # 
+        # *   **1:** The domain name is in a normal state.
+        # *   **2:** The domain name is being created.
+        # *   **3:** The domain name is being modified.
+        # *   **4:** The domain name is being released.
+        # *   **5:** WAF no longer forwards traffic of the domain name.
         self.status = status  # type: long
 
     def validate(self):
@@ -3394,9 +3618,9 @@ class DescribeDomainDetailResponse(TeaModel):
 
 class DescribeDomainsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # 标签键。
+        # The tag key.
         self.key = key  # type: str
-        # 标签值
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -3436,11 +3660,16 @@ class DescribeDomainsRequest(TeaModel):
         self.page_number = page_number  # type: long
         # Queries the list of a domain name that is added to Web Application Firewall (WAF).
         self.page_size = page_size  # type: long
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
-        # 请求源IP。无需填写，系统自动获取。
+        # The source IP address. The value of this parameter is specified by the system.
         self.source_ip = source_ip  # type: str
-        # 资源的标签，最多支持20个子项。
+        # The tag of the resource. You can specify up to 20 tags.
         self.tag = tag  # type: list[DescribeDomainsRequestTag]
 
     def validate(self):
@@ -3505,6 +3734,7 @@ class DescribeDomainsRequest(TeaModel):
 
 class DescribeDomainsResponseBodyDomainsBackedsHttp(TeaModel):
     def __init__(self, backend=None):
+        # The HTTP address of the origin server.
         self.backend = backend  # type: str
 
     def validate(self):
@@ -3529,6 +3759,7 @@ class DescribeDomainsResponseBodyDomainsBackedsHttp(TeaModel):
 
 class DescribeDomainsResponseBodyDomainsBackedsHttps(TeaModel):
     def __init__(self, backend=None):
+        # The HTTPS address of the origin server.
         self.backend = backend  # type: str
 
     def validate(self):
@@ -3553,7 +3784,9 @@ class DescribeDomainsResponseBodyDomainsBackedsHttps(TeaModel):
 
 class DescribeDomainsResponseBodyDomainsBackeds(TeaModel):
     def __init__(self, http=None, https=None):
+        # The HTTP addresses of the origin server.
         self.http = http  # type: list[DescribeDomainsResponseBodyDomainsBackedsHttp]
+        # The HTTPS addresses of the origin server.
         self.https = https  # type: list[DescribeDomainsResponseBodyDomainsBackedsHttps]
 
     def validate(self):
@@ -3599,7 +3832,9 @@ class DescribeDomainsResponseBodyDomainsBackeds(TeaModel):
 
 class DescribeDomainsResponseBodyDomainsListenPorts(TeaModel):
     def __init__(self, http=None, https=None):
+        # The HTTP listener ports.
         self.http = http  # type: list[long]
+        # The HTTPS listener ports.
         self.https = https  # type: list[long]
 
     def validate(self):
@@ -3629,12 +3864,23 @@ class DescribeDomainsResponseBodyDomainsListenPorts(TeaModel):
 class DescribeDomainsResponseBodyDomains(TeaModel):
     def __init__(self, backeds=None, cname=None, domain=None, listen_ports=None,
                  resource_manager_resource_group_id=None, status=None):
+        # The back-to-origin settings.
         self.backeds = backeds  # type: DescribeDomainsResponseBodyDomainsBackeds
+        # The CNAME assigned by WAF to the domain name.
         self.cname = cname  # type: str
+        # The domain name that is added to WAF in CNAME record mode.
         self.domain = domain  # type: str
+        # The configurations of the listeners.
         self.listen_ports = listen_ports  # type: DescribeDomainsResponseBodyDomainsListenPorts
-        # 阿里云资源组ID。
+        # The ID of the resource group.
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The status of the domain name. Valid values:
+        # 
+        # *   **1:** The domain name is in a normal state.
+        # *   **2:** The domain name is being created.
+        # *   **3:** The domain name is being modified.
+        # *   **4:** The domain name is being released.
+        # *   **5:** WAF no longer forwards traffic that is sent to the domain name.
         self.status = status  # type: int
 
     def validate(self):
@@ -3684,6 +3930,7 @@ class DescribeDomainsResponseBodyDomains(TeaModel):
 
 class DescribeDomainsResponseBody(TeaModel):
     def __init__(self, domains=None, request_id=None, total_count=None):
+        # The domain names that are added to WAF in CNAME record mode.
         self.domains = domains  # type: list[DescribeDomainsResponseBodyDomains]
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: long
@@ -3834,8 +4081,9 @@ class DescribeFlowChartResponseBodyFlowChart(TeaModel):
     def __init__(self, acl_custom_block_sum=None, acl_custom_reports_sum=None, anti_scan_block_sum=None,
                  antibot_block_sum=None, antibot_report_sum=None, antiscan_reports_sum=None, blacklist_block_sum=None,
                  blacklist_reports_sum=None, cc_custom_block_sum=None, cc_custom_reports_sum=None, cc_system_blocks_sum=None,
-                 cc_system_reports_sum=None, count=None, in_bytes=None, index=None, max_pv=None, out_bytes=None,
-                 region_block_blocks_sum=None, region_block_reports_sum=None, waf_block_sum=None, waf_report_sum=None):
+                 cc_system_reports_sum=None, count=None, in_bytes=None, index=None, max_pv=None, out_bytes=None, ratelimit_block_sum=None,
+                 ratelimit_report_sum=None, region_block_blocks_sum=None, region_block_reports_sum=None, robot_count=None,
+                 waf_block_sum=None, waf_report_sum=None):
         # The number of requests that are blocked by custom access control rules.
         self.acl_custom_block_sum = acl_custom_block_sum  # type: long
         # The number of requests that are monitored by custom access control rules.
@@ -3850,11 +4098,11 @@ class DescribeFlowChartResponseBodyFlowChart(TeaModel):
         self.antiscan_reports_sum = antiscan_reports_sum  # type: long
         # The number of requests that are blocked by IP address blacklist rules.
         self.blacklist_block_sum = blacklist_block_sum  # type: str
-        # The number of requests that are monitored by the IP address blacklist module.
+        # The number of requests that are monitored by IP address blacklist rules.
         self.blacklist_reports_sum = blacklist_reports_sum  # type: long
-        # The number of requests that are blocked by HTTP flood protection rules created by the user.
+        # The number of requests that are blocked by custom HTTP flood protection rules.
         self.cc_custom_block_sum = cc_custom_block_sum  # type: long
-        # The number of requests that are monitored by HTTP flood protection rules created by the user.
+        # The number of requests that are monitored by custom HTTP flood protection rules.
         self.cc_custom_reports_sum = cc_custom_reports_sum  # type: long
         # The number of requests that are blocked by HTTP flood protection rules generated by the system.
         self.cc_system_blocks_sum = cc_system_blocks_sum  # type: long
@@ -3870,13 +4118,16 @@ class DescribeFlowChartResponseBodyFlowChart(TeaModel):
         self.max_pv = max_pv  # type: long
         # The total number of requests that are sent from WAF.
         self.out_bytes = out_bytes  # type: long
+        self.ratelimit_block_sum = ratelimit_block_sum  # type: long
+        self.ratelimit_report_sum = ratelimit_report_sum  # type: long
         # The number of requests that are blocked by region blacklist rules.
         self.region_block_blocks_sum = region_block_blocks_sum  # type: long
         # The number of requests that are monitored by region blacklist rules.
         self.region_block_reports_sum = region_block_reports_sum  # type: long
+        self.robot_count = robot_count  # type: long
         # The number of requests that are blocked by basic protection rules.
         self.waf_block_sum = waf_block_sum  # type: long
-        # The number of request that are monitored by basic protection rules.
+        # The number of requests that are monitored by basic protection rules.
         self.waf_report_sum = waf_report_sum  # type: str
 
     def validate(self):
@@ -3922,10 +4173,16 @@ class DescribeFlowChartResponseBodyFlowChart(TeaModel):
             result['MaxPv'] = self.max_pv
         if self.out_bytes is not None:
             result['OutBytes'] = self.out_bytes
+        if self.ratelimit_block_sum is not None:
+            result['RatelimitBlockSum'] = self.ratelimit_block_sum
+        if self.ratelimit_report_sum is not None:
+            result['RatelimitReportSum'] = self.ratelimit_report_sum
         if self.region_block_blocks_sum is not None:
             result['RegionBlockBlocksSum'] = self.region_block_blocks_sum
         if self.region_block_reports_sum is not None:
             result['RegionBlockReportsSum'] = self.region_block_reports_sum
+        if self.robot_count is not None:
+            result['RobotCount'] = self.robot_count
         if self.waf_block_sum is not None:
             result['WafBlockSum'] = self.waf_block_sum
         if self.waf_report_sum is not None:
@@ -3968,10 +4225,16 @@ class DescribeFlowChartResponseBodyFlowChart(TeaModel):
             self.max_pv = m.get('MaxPv')
         if m.get('OutBytes') is not None:
             self.out_bytes = m.get('OutBytes')
+        if m.get('RatelimitBlockSum') is not None:
+            self.ratelimit_block_sum = m.get('RatelimitBlockSum')
+        if m.get('RatelimitReportSum') is not None:
+            self.ratelimit_report_sum = m.get('RatelimitReportSum')
         if m.get('RegionBlockBlocksSum') is not None:
             self.region_block_blocks_sum = m.get('RegionBlockBlocksSum')
         if m.get('RegionBlockReportsSum') is not None:
             self.region_block_reports_sum = m.get('RegionBlockReportsSum')
+        if m.get('RobotCount') is not None:
+            self.robot_count = m.get('RobotCount')
         if m.get('WafBlockSum') is not None:
             self.waf_block_sum = m.get('WafBlockSum')
         if m.get('WafReportSum') is not None:
@@ -3981,7 +4244,7 @@ class DescribeFlowChartResponseBodyFlowChart(TeaModel):
 
 class DescribeFlowChartResponseBody(TeaModel):
     def __init__(self, flow_chart=None, request_id=None):
-        # The array of the traffic statistics.
+        # The traffic statistics.
         self.flow_chart = flow_chart  # type: list[DescribeFlowChartResponseBodyFlowChart]
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -4394,14 +4657,36 @@ class DescribeFlowTopUrlResponse(TeaModel):
 class DescribeHybridCloudGroupsRequest(TeaModel):
     def __init__(self, cluster_id=None, cluster_proxy_type=None, group_name=None, group_type=None, instance_id=None,
                  page_number=None, page_size=None, region_id=None, resource_manager_resource_group_id=None):
+        # The ID of the hybrid cloud cluster.
         self.cluster_id = cluster_id  # type: long
+        # The type of proxy cluster that is used. Valid values:
+        # 
+        # *   **service**: service-based traffic mirroring.
+        # *   **cname**: reverse proxy.
         self.cluster_proxy_type = cluster_proxy_type  # type: str
+        # The name of the hybrid cloud node group that you want to query.
         self.group_name = group_name  # type: int
+        # The type of the node group. Valid values:
+        # 
+        # *   **protect**\
+        # *   **control**\
+        # *   **storage**\
+        # *   **controlStorage**\
         self.group_type = group_type  # type: str
+        # The ID of the WAF instance.
+        # 
+        # > You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The page number. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Default value: **10**.
         self.page_size = page_size  # type: int
+        # The region ID of the WAF instance. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
 
     def validate(self):
@@ -4462,14 +4747,26 @@ class DescribeHybridCloudGroupsResponseBodyGroups(TeaModel):
                  region_code_value=None, remark=None):
         self.back_source_mark = back_source_mark  # type: str
         self.continents_value = continents_value  # type: int
+        # The ID of the hybrid cloud node group.
         self.group_id = group_id  # type: int
+        # The name of the hybrid cloud node group.
         self.group_name = group_name  # type: str
+        # The type of the hybrid cloud node group. Valid values:
+        # 
+        # *   **protect**\
+        # *   **control**\
+        # *   **storage**\
+        # *   **controlStorage**\
         self.group_type = group_type  # type: str
+        # The IP address of the server for load balancing.
         self.load_balance_ip = load_balance_ip  # type: str
+        # The ID of the protection node.
         self.location_id = location_id  # type: long
         self.operator_value = operator_value  # type: int
+        # The port that is used by the hybrid cloud cluster. The value of this parameter is a string. If multiple ports are returned, the value is in the **port1,port2,port3** format.
         self.ports = ports  # type: str
         self.region_code_value = region_code_value  # type: int
+        # The description of the hybrid cloud node group.
         self.remark = remark  # type: str
 
     def validate(self):
@@ -4534,8 +4831,11 @@ class DescribeHybridCloudGroupsResponseBodyGroups(TeaModel):
 
 class DescribeHybridCloudGroupsResponseBody(TeaModel):
     def __init__(self, groups=None, request_id=None, total_count=None):
+        # The hybrid cloud node groups.
         self.groups = groups  # type: list[DescribeHybridCloudGroupsResponseBodyGroups]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -4616,14 +4916,31 @@ class DescribeHybridCloudGroupsResponse(TeaModel):
 class DescribeHybridCloudResourcesRequest(TeaModel):
     def __init__(self, backend=None, cname_enabled=None, domain=None, instance_id=None, page_number=None,
                  page_size=None, region_id=None, resource_manager_resource_group_id=None, source_ip=None):
+        # The back-to-origin IP address or domain name.
         self.backend = backend  # type: str
+        # Specifies whether the public cloud disaster recovery feature is enabled for the domain name. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.cname_enabled = cname_enabled  # type: bool
+        # The domain name that you want to query.
         self.domain = domain  # type: str
+        # The ID of the WAF instance.
+        # 
+        # > You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The page number. Default value: **1**.
         self.page_number = page_number  # type: long
+        # The number of entries per page. Default value: **10**.
         self.page_size = page_size  # type: long
+        # The region ID of the WAF instance. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The source IP address of the request. The system specifies this parameter.
         self.source_ip = source_ip  # type: str
 
     def validate(self):
@@ -4682,19 +4999,67 @@ class DescribeHybridCloudResourcesResponseBodyDomainsListen(TeaModel):
     def __init__(self, cert_id=None, cipher_suite=None, custom_ciphers=None, enable_tlsv_3=None, exclusive_ip=None,
                  focus_https=None, http_2enabled=None, http_ports=None, https_ports=None, ipv_6enabled=None,
                  protection_resource=None, tlsversion=None, xff_header_mode=None, xff_headers=None):
+        # The ID of the certificate.
         self.cert_id = cert_id  # type: str
+        # The types of cipher suites that are added. Valid values:
+        # 
+        # *   **1:** all cipher suites.
+        # *   **2:** strong cipher suites.
+        # *   **99:** custom cipher suites.
         self.cipher_suite = cipher_suite  # type: int
+        # The custom cipher suites.
+        # 
+        # > This parameter is returned only if the value of **CipherSuite** is **99**.
         self.custom_ciphers = custom_ciphers  # type: list[str]
+        # Indicates whether TLS 1.3 is supported. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.enable_tlsv_3 = enable_tlsv_3  # type: bool
+        # Indicates whether exclusive IP addresses are supported. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.exclusive_ip = exclusive_ip  # type: bool
+        # Indicates whether the HTTP to HTTPS redirection feature is enabled for the domain name. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.focus_https = focus_https  # type: bool
+        # Indicates whether HTTP/2 is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.http_2enabled = http_2enabled  # type: bool
+        # The HTTP listener ports.
         self.http_ports = http_ports  # type: list[long]
+        # The HTTPS listener ports.
         self.https_ports = https_ports  # type: list[long]
+        # Indicates whether IPv6 is supported. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.ipv_6enabled = ipv_6enabled  # type: bool
+        # The type of the protection resource. Valid values:
+        # 
+        # *   **share:** shared cluster.
+        # *   **gslb:** shared cluster-based intelligent load balancing.
         self.protection_resource = protection_resource  # type: str
+        # The version of the Transport Layer Security (TLS) protocol. Valid values:
+        # 
+        # *   **tlsv1**\
+        # *   **tlsv1.1**\
+        # *   **tlsv1.2**\
         self.tlsversion = tlsversion  # type: str
+        # The method that is used to obtain the actual IP address of a client. Valid values:
+        # 
+        # *   **0:** No Layer 7 proxies are deployed in front of WAF.
+        # *   **1:** WAF reads the first value of the X-Forwarded-For (XFF) header field as the actual IP address of the client.
+        # *   **2:** WAF reads the value of a custom header field as the actual IP address of the client.
         self.xff_header_mode = xff_header_mode  # type: int
+        # The custom header fields that are used to obtain the actual IP address of a client. The value is in the \["header1","header2",...] format.
+        # 
+        # > This parameter is returned only if the value of **XffHeaderMode** is 2.
         self.xff_headers = xff_headers  # type: list[str]
 
     def validate(self):
@@ -4771,7 +5136,9 @@ class DescribeHybridCloudResourcesResponseBodyDomainsListen(TeaModel):
 
 class DescribeHybridCloudResourcesResponseBodyDomainsRedirectRequestHeaders(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the custom header field.
         self.key = key  # type: str
+        # The value of the custom header field.
         self.value = value  # type: str
 
     def validate(self):
@@ -4802,20 +5169,64 @@ class DescribeHybridCloudResourcesResponseBodyDomainsRedirect(TeaModel):
     def __init__(self, backends=None, cname_enabled=None, connect_timeout=None, focus_http_backend=None,
                  keepalive=None, keepalive_requests=None, keepalive_timeout=None, loadbalance=None, read_timeout=None,
                  request_headers=None, retry=None, routing_rules=None, sni_enabled=None, sni_host=None, write_timeout=None):
+        # The back-to-origin IP addresses or domain names.
         self.backends = backends  # type: list[str]
+        # Indicates whether the public cloud disaster recovery feature is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.cname_enabled = cname_enabled  # type: bool
+        # The connection timeout period. Unit: seconds. Valid values: 5 to 120.
         self.connect_timeout = connect_timeout  # type: long
+        # Indicates whether the HTTPS to HTTP redirection feature is enabled for back-to-origin requests. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.focus_http_backend = focus_http_backend  # type: bool
+        # Indicates whether the persistent connection feature is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.keepalive = keepalive  # type: bool
+        # The number of reused persistent connections. Valid values: 60 to 1000.
+        # 
+        # > This parameter indicates the number of reused persistent connections after you enable the persistent connection feature.
         self.keepalive_requests = keepalive_requests  # type: long
+        # The timeout period of persistent connections that are in the Idle state. Unit: seconds. Valid values: 1 to 60. Default value: 15.
+        # 
+        # > This parameter indicates the period of time during which a reused persistent connection is allowed to remain in the Idle state before the persistent connection is released.
         self.keepalive_timeout = keepalive_timeout  # type: long
+        # The load balancing algorithm that WAF uses to forward requests to the origin server. Valid values:
+        # 
+        # *   **ip_hash**\
+        # *   **roundRobin**\
+        # *   **leastTime**\
         self.loadbalance = loadbalance  # type: str
+        # The read timeout period. Unit: seconds. Valid values: 5 to 1800.
         self.read_timeout = read_timeout  # type: long
+        # The key-value pair that is used to mark the requests that pass through the WAF instance.
         self.request_headers = request_headers  # type: list[DescribeHybridCloudResourcesResponseBodyDomainsRedirectRequestHeaders]
+        # Indicates whether WAF retries to forward requests when requests fail to be forwarded to the origin server. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.retry = retry  # type: bool
+        # The forwarding rules that you configured for the domain name that you added to WAF in hybrid cloud mode. The value is a string that consists of JSON arrays. Each element in a JSON array is a JSON struct that contains the following fields:
+        # 
+        # *   **rs:** The back-to-origin IP addresses or CNAMEs. The value is of the ARRAY type.
+        # *   **location:** The name of the protection node. The value is of the STRING type.
+        # *   **locationId:** The ID of the protection node. The value is of the LONG type.
         self.routing_rules = routing_rules  # type: str
+        # Indicates whether the origin Server Name Indication (SNI) feature is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.sni_enabled = sni_enabled  # type: bool
+        # The value of the custom Server Name Indication (SNI) field. If the parameter is left empty, the value of the **Host** field in the request header is automatically used as the value of the SNI field.
+        # 
+        # > This parameter is returned only if the value of **SniEnabled** is **true**.
         self.sni_host = sni_host  # type: str
+        # The write timeout period. Unit: seconds. Valid values: 5 to 1800.
         self.write_timeout = write_timeout  # type: long
 
     def validate(self):
@@ -4905,13 +5316,29 @@ class DescribeHybridCloudResourcesResponseBodyDomainsRedirect(TeaModel):
 class DescribeHybridCloudResourcesResponseBodyDomains(TeaModel):
     def __init__(self, cname=None, domain=None, id=None, listen=None, redirect=None,
                  resource_manager_resource_group_id=None, status=None, uid=None):
+        # The CNAME that is assigned by WAF to the domain name.
+        # 
+        # > This parameter is returned only if you set **CnameEnabled** to true.
         self.cname = cname  # type: str
+        # The domain name.
         self.domain = domain  # type: str
+        # The access ID.
         self.id = id  # type: long
+        # The configurations of the listeners.
         self.listen = listen  # type: DescribeHybridCloudResourcesResponseBodyDomainsListen
+        # The configurations of the forwarding rule.
         self.redirect = redirect  # type: DescribeHybridCloudResourcesResponseBodyDomainsRedirect
+        # The ID of the resource group.
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The status of the domain name. Valid values:
+        # 
+        # *   **1:** The domain name is normal.
+        # *   **2:** The domain name is being created.
+        # *   **3:** The domain name is being modified.
+        # *   **4:** The domain name is being released.
+        # *   **5:** WAF no longer forwards traffic of the domain name.
         self.status = status  # type: int
+        # The user ID.
         self.uid = uid  # type: str
 
     def validate(self):
@@ -4969,8 +5396,11 @@ class DescribeHybridCloudResourcesResponseBodyDomains(TeaModel):
 
 class DescribeHybridCloudResourcesResponseBody(TeaModel):
     def __init__(self, domains=None, request_id=None, total_count=None):
+        # The domain names.
         self.domains = domains  # type: list[DescribeHybridCloudResourcesResponseBodyDomains]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries that are returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -5050,8 +5480,16 @@ class DescribeHybridCloudResourcesResponse(TeaModel):
 
 class DescribeHybridCloudUserRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, resource_manager_resource_group_id=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # > You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
 
     def validate(self):
@@ -5084,7 +5522,9 @@ class DescribeHybridCloudUserRequest(TeaModel):
 
 class DescribeHybridCloudUserResponseBodyUserInfo(TeaModel):
     def __init__(self, http_ports=None, https_ports=None):
+        # The HTTP ports. The value is a string. If multiple ports are returned, the value is in the **port1,port2,port3** format.
         self.http_ports = http_ports  # type: str
+        # The HTTPS ports. The value is a string. If multiple ports are returned, the value is in the **port1,port2,port3** format.
         self.https_ports = https_ports  # type: str
 
     def validate(self):
@@ -5113,7 +5553,9 @@ class DescribeHybridCloudUserResponseBodyUserInfo(TeaModel):
 
 class DescribeHybridCloudUserResponseBody(TeaModel):
     def __init__(self, request_id=None, user_info=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The information about the ports that can be used by a hybrid cloud cluster.
         self.user_info = user_info  # type: DescribeHybridCloudUserResponseBodyUserInfo
 
     def validate(self):
@@ -7412,18 +7854,20 @@ class DescribeRuleHitsTopRuleIdResponse(TeaModel):
 
 class DescribeRuleHitsTopTuleTypeRequest(TeaModel):
     def __init__(self, end_timestamp=None, instance_id=None, region_id=None, resource=None, start_timestamp=None):
-        # cn-hangzhou
+        # The end point of the time period for which to query. Unit: seconds. If you do not specify this parameter, the current time is used.
         self.end_timestamp = end_timestamp  # type: str
-        # The ID of the request.
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to query the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
-        # The array of the top 10 protection modules that are matched.
-        self.region_id = region_id  # type: str
-        # The result of the request.
-        self.resource = resource  # type: str
         # The ID of the region where the WAF instance resides. Valid values:
         # 
         # *   **cn-hangzhou**: the Chinese mainland.
         # *   **ap-southeast-1**: outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The protected object.
+        self.resource = resource  # type: str
+        # The start point of the time period for which to query. Unit: seconds.
         self.start_timestamp = start_timestamp  # type: str
 
     def validate(self):
@@ -7464,7 +7908,18 @@ class DescribeRuleHitsTopTuleTypeRequest(TeaModel):
 
 class DescribeRuleHitsTopTuleTypeResponseBodyRuleHitsTopTuleType(TeaModel):
     def __init__(self, count=None, rule_type=None):
+        # The number of requests that match protection rules.
         self.count = count  # type: long
+        # The type of rule that is matched. By default, this parameter is not returned. This indicates that all types of rules that are matched are returned.
+        # 
+        # *   **waf:** basic protection rules.
+        # *   **blacklist:** IP address blacklist rules.
+        # *   **custom:** custom rules.
+        # *   **antiscan:** scan protection rules.
+        # *   **cc_system:** HTTP flood protection rules.
+        # *   **region_block:** region blacklist rules.
+        # *   **scene:** bot management rules.
+        # *   **dlp:** data leakage prevention rules.
         self.rule_type = rule_type  # type: str
 
     def validate(self):
@@ -7493,9 +7948,9 @@ class DescribeRuleHitsTopTuleTypeResponseBodyRuleHitsTopTuleType(TeaModel):
 
 class DescribeRuleHitsTopTuleTypeResponseBody(TeaModel):
     def __init__(self, request_id=None, rule_hits_top_tule_type=None):
-        # The number of requests that match the rules of the protection module.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The type of rules. For details, see the description of **RuleType** in [DescribeRuleHitsTopRuleId](~~DescribeRuleHitsTopRuleId~~).
+        # The top 10 protection modules that are matched.
         self.rule_hits_top_tule_type = rule_hits_top_tule_type  # type: list[DescribeRuleHitsTopTuleTypeResponseBodyRuleHitsTopTuleType]
 
     def validate(self):
@@ -8233,10 +8688,16 @@ class DescribeVisitTopIpResponse(TeaModel):
 
 class DescribeVisitUasRequest(TeaModel):
     def __init__(self, end_timestamp=None, instance_id=None, region_id=None, resource=None, start_timestamp=None):
+        # The end of the time range to query. Unit: seconds. If you do not specify this parameter, the current time is used.
         self.end_timestamp = end_timestamp  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
         self.region_id = region_id  # type: str
+        # The protected object.
         self.resource = resource  # type: str
+        # The beginning of the time range to query. Unit: seconds.
         self.start_timestamp = start_timestamp  # type: str
 
     def validate(self):
@@ -8277,7 +8738,9 @@ class DescribeVisitUasRequest(TeaModel):
 
 class DescribeVisitUasResponseBodyUas(TeaModel):
     def __init__(self, count=None, ua=None):
+        # The number of requests that use the user agent.
         self.count = count  # type: long
+        # The user agent.
         self.ua = ua  # type: str
 
     def validate(self):
@@ -8306,7 +8769,9 @@ class DescribeVisitUasResponseBodyUas(TeaModel):
 
 class DescribeVisitUasResponseBody(TeaModel):
     def __init__(self, request_id=None, uas=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The array of the top 10 user agents that are used to initiate requests.
         self.uas = uas  # type: list[DescribeVisitUasResponseBodyUas]
 
     def validate(self):
@@ -8659,25 +9124,11 @@ class ModifyDefenseResourceGroupResponse(TeaModel):
 class ModifyDefenseRuleRequest(TeaModel):
     def __init__(self, defense_scene=None, instance_id=None, region_id=None,
                  resource_manager_resource_group_id=None, rules=None, template_id=None):
-        # The scenario in which you want to use the protection rule. For more information, see the description of the **DefenseScene** parameter in the [CreateDefenseRule](~~CreateDefenseRule~~) topic.
         self.defense_scene = defense_scene  # type: str
-        # The ID of the Web Application Firewall (WAF) instance.
-        # 
-        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
-        # The region where the WAF instance resides. Valid values:
-        # 
-        # *   **cn-hangzhou:** the Chinese mainland.
-        # *   **ap-southeast-1:** outside the Chinese mainland.
         self.region_id = region_id  # type: str
-        # The ID of the Alibaba Cloud resource group.
         self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
-        # The details of the protection rule. Specify a string that contains multiple parameters in the JSON format. You must specify the ID and the new configurations of the protection rule.
-        # 
-        # *   **id:** The ID of the protection rule. Data type: long. You must specify this parameter.
-        # *   The protection rule configurations: The role of this parameter is the same as that of the **Rules** parameter in the **CreateDefenseRule** topic. For more information, see the "**Protection rule parameters**" section in the [CreateDefenseRule](~~CreateDefenseRule~~) topic.
         self.rules = rules  # type: str
-        # The ID of the protection rule template to which the protection rule whose configurations you want to modify belongs.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -8722,7 +9173,6 @@ class ModifyDefenseRuleRequest(TeaModel):
 
 class ModifyDefenseRuleResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9208,8 +9658,15 @@ class ModifyDomainRequestListen(TeaModel):
         # *   **share:** shared cluster. This is the default value.
         # *   **gslb:** shared cluster-based intelligent load balancing.
         self.protection_resource = protection_resource  # type: str
+        # 是否仅客端访问。仅SM2Enable取值为true时，使用该参数。
+        # 
+        # - true：仅国密客户端才可以访问。
+        # 
+        # - false：国密和非国密均可以访问。
         self.sm2access_only = sm2access_only  # type: bool
+        # 要添加的国密证书的ID。仅SM2Enable取值为true时，使用该参数。
         self.sm2cert_id = sm2cert_id  # type: str
+        # 是否开启国密证书
         self.sm2enabled = sm2enabled  # type: bool
         # The version of the Transport Layer Security (TLS) protocol. This parameter is available only when you specify the **HttpsPorts** parameter. Valid values:
         # 
@@ -9347,69 +9804,67 @@ class ModifyDomainRequestRedirect(TeaModel):
     def __init__(self, backends=None, cname_enabled=None, connect_timeout=None, focus_http_backend=None,
                  keepalive=None, keepalive_requests=None, keepalive_timeout=None, loadbalance=None, read_timeout=None,
                  request_headers=None, retry=None, routing_rules=None, sni_enabled=None, sni_host=None, write_timeout=None):
-        # An array of the IP addresses or domain names of the origin servers. You can specify only one type of address. If you use the domain name type, only IPv4 is supported.
+        # The back-to-origin IP addresses or domain names. You can specify only one type of address. If you use the domain name type, only IPv4 is supported.
         # 
-        # *   If you use the IP address type, specify the value of this parameter in the \["ip1","ip2",...] format. You can add up to 20 IP addresses.
-        # *   If you use the domain name type, specify the value of this parameter in the \["domain"] format. You can add up to 20 domain names.
+        # *   If you use the IP address type, specify the value of this parameter in the \["ip1","ip2",...] format. You can specify up to 20 IP addresses.
+        # *   If you use the domain name type, specify the value of this parameter in the \["domain"] format. You can specify up to 20 domain names.
         self.backends = backends  # type: list[str]
-        # 是否开启公共云容灾。取值：
+        # Specifies whether to enable the public cloud disaster recovery feature. Valid values:
         # 
-        # - **true**：表示开启公共云容灾。
-        # 
-        # - **false**（默认）：表示不开启公共云容灾。
+        # *   **true**\
+        # *   **false** (default)
         self.cname_enabled = cname_enabled  # type: bool
         # The connection timeout period. Unit: seconds. Valid values: 1 to 3600.
         self.connect_timeout = connect_timeout  # type: int
-        # Specifies whether to enable HTTPS to HTTP redirection for back-to-origin requests of the domain name. This parameter is available only when you specify the **HttpsPorts** parameter. Valid values:
+        # Specifies whether to enable HTTPS to HTTP redirection for back-to-origin requests. This parameter is available only if you specify **HttpsPorts**. Valid values:
         # 
-        # *   **true:** enables HTTPS to HTTP redirection for back-to-origin requests of the domain name.
-        # *   **false:** disables HTTPS to HTTP redirection for back-to-origin requests of the domain name.
+        # *   **true**\
+        # *   **false**\
         self.focus_http_backend = focus_http_backend  # type: bool
         # Specifies whether to enable the persistent connection feature. Valid values:
         # 
-        # *   **true:** enables the persistent connection feature. This is the default value.
-        # *   **false:** disables the persistent connection feature.
+        # *   **true** (default)
+        # *   **false**\
         self.keepalive = keepalive  # type: bool
         # The number of reused persistent connections. Valid values: 60 to 1000.
         # 
-        # >  This parameter specifies the number of reused persistent connections when you enable the persistent connection feature.
+        # > This parameter specifies the number of reused persistent connections after you enable the persistent connection feature.
         self.keepalive_requests = keepalive_requests  # type: int
-        # The timeout period of persistent connections that are in the Idle state. Unit: seconds. Valid values: 1 to 60. Default value: 15.
+        # The timeout period of persistent connections that are in the Idle state. Valid values: 1 to 60. Default value: 15. Unit: seconds.
         # 
-        # >  This parameter specifies the period of time during which a reused persistent connection is allowed to remain in the Idle state before the persistent connection is released.
+        # > This parameter specifies the period of time during which a reused persistent connection remains in the Idle state before the persistent connection is released.
         self.keepalive_timeout = keepalive_timeout  # type: int
-        # The load balancing algorithm that you want to use when WAF forwards requests to the origin server. Valid values:
+        # The load balancing algorithm that you want WAF to use to forward requests to the origin server. Valid values:
         # 
-        # *   **ip_hash:** the IP hash algorithm.
-        # *   **roundRobin:** the round-robin algorithm.
-        # *   **leastTime:** the least response time algorithm. You can select this value only when you set the **ProtectionResource** parameter to **gslb**.
+        # *   **ip_hash**\
+        # *   **roundRobin**\
+        # *   **leastTime**. You can select this value only if you set **ProtectionResource** to **gslb**.
         self.loadbalance = loadbalance  # type: str
         # The read timeout period. Unit: seconds. Valid values: 1 to 3600.
         self.read_timeout = read_timeout  # type: int
-        # The key-value pairs that you want to use to mark the requests that pass through the WAF instance.
+        # The key-value pairs that you want to use to mark the requests that are processed by WAF.
         # 
-        # WAF automatically adds the key-value pairs to the request headers to identify the requests that pass through WAF.
+        # WAF automatically adds the key-value pairs to the request headers. This way, the backend service can identify the requests that are processed by WAF.
         self.request_headers = request_headers  # type: list[ModifyDomainRequestRedirectRequestHeaders]
         # Specifies whether WAF retries to forward requests when requests fail to be forwarded to the origin server. Valid values:
         # 
-        # *   **true:** WAF retries to forward requests. This is the default value.
-        # *   **false:** WAF does not retry to forward requests.
+        # *   **true** (default)
+        # *   **false**\
         self.retry = retry  # type: bool
-        # 混合云转发规则。使用JSON数组转化的字符串格式表示。JSON数组中的每个元素是一个结构体，包含以下字段：
-        # - **rs**：Array类型 | 表示回源IP地址或者回源CNAME列表
+        # The forwarding rules that you want to configure for the domain name that you want to add to WAF in hybrid cloud mode. Set the value to a string that consists of JSON arrays. Each element in a JSON array must be a JSON struct that contains the following fields:
         # 
-        # - **location**：String类型 | 表示防护节点名称
-        # 
-        # - **locationId**：Long类型 | 表示防护节点ID
+        # *   **rs:** The back-to-origin IP addresses or CNAMEs. The value must be of the ARRAY type.
+        # *   **location:** The name of the protection node. The value must be of the STRING type.
+        # *   **locationId:** The ID of the protection node. The value must be of the LONG type.
         self.routing_rules = routing_rules  # type: str
-        # Specifies whether to enable origin Server Name Indication (SNI). This parameter is available only when you specify the **HttpsPorts** parameter. Valid values:
+        # Specifies whether to enable origin Server Name Indication (SNI). This parameter is available only if you specify **HttpsPorts**. Valid values:
         # 
-        # *   **true:** enables origin SNI.
-        # *   **false:** disables origin SNI. This is the default value.
+        # *   **true**\
+        # *   **false** (default)
         self.sni_enabled = sni_enabled  # type: bool
         # The value of the custom SNI field. If you do not specify this parameter, the value of the **Host** field in the request header is automatically used. If you want WAF to use an SNI field value that is different from the value of the Host field in back-to-origin requests, you can specify a custom value for the SNI field.
         # 
-        # >  If you set the **SniEnabled** parameter to true, this parameter is required.
+        # > This parameter is required only if you set **SniEnabled** to true.
         self.sni_host = sni_host  # type: str
         # The write timeout period. Unit: seconds. Valid values: 1 to 3600.
         self.write_timeout = write_timeout  # type: int
@@ -9501,9 +9956,10 @@ class ModifyDomainRequestRedirect(TeaModel):
 class ModifyDomainRequest(TeaModel):
     def __init__(self, access_type=None, domain=None, instance_id=None, listen=None, redirect=None, region_id=None,
                  source_ip=None):
-        # The mode in which you want to add the domain name to WAF. Set the value to share.
+        # The mode in which you want to add the domain name to WAF. Valid values:
         # 
         # *   **share:** adds the domain name to WAF in CNAME record mode. This is the default value.
+        # *   **hybrid_cloud_cname:** adds the domain name to WAF in hybrid cloud reverse proxy mode.
         self.access_type = access_type  # type: str
         # The domain name whose access configurations you want to modify.
         self.domain = domain  # type: str
@@ -9575,9 +10031,10 @@ class ModifyDomainRequest(TeaModel):
 class ModifyDomainShrinkRequest(TeaModel):
     def __init__(self, access_type=None, domain=None, instance_id=None, listen_shrink=None, redirect_shrink=None,
                  region_id=None, source_ip=None):
-        # The mode in which you want to add the domain name to WAF. Set the value to share.
+        # The mode in which you want to add the domain name to WAF. Valid values:
         # 
         # *   **share:** adds the domain name to WAF in CNAME record mode. This is the default value.
+        # *   **hybrid_cloud_cname:** adds the domain name to WAF in hybrid cloud reverse proxy mode.
         self.access_type = access_type  # type: str
         # The domain name whose access configurations you want to modify.
         self.domain = domain  # type: str
@@ -9746,6 +10203,114 @@ class ModifyDomainResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyDomainResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyHybridCloudClusterBypassStatusRequest(TeaModel):
+    def __init__(self, cluster_resource_id=None, instance_id=None, rule_status=None):
+        # The ID of the hybrid cloud cluster.
+        self.cluster_resource_id = cluster_resource_id  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # **\
+        # 
+        # **You can call the **DescribeInstanceInfo[ operation to obtain the ID of the WAF instance.](~~140857~~)
+        self.instance_id = instance_id  # type: str
+        # The status of manual bypass. Valid values:
+        # 
+        # *   **on**: enabled.
+        # *   **off**: disabled. This is the default value.
+        self.rule_status = rule_status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyHybridCloudClusterBypassStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_resource_id is not None:
+            result['ClusterResourceId'] = self.cluster_resource_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.rule_status is not None:
+            result['RuleStatus'] = self.rule_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterResourceId') is not None:
+            self.cluster_resource_id = m.get('ClusterResourceId')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RuleStatus') is not None:
+            self.rule_status = m.get('RuleStatus')
+        return self
+
+
+class ModifyHybridCloudClusterBypassStatusResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyHybridCloudClusterBypassStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyHybridCloudClusterBypassStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyHybridCloudClusterBypassStatusResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyHybridCloudClusterBypassStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyHybridCloudClusterBypassStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -9953,8 +10518,8 @@ class ModifyResourceLogStatusResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # Indicates whether the log collection feature is enabled for the protected object. Valid values:
         # 
-        # *   **true:** The log collection feature is enabled.
-        # *   **false:** The log collection feature is disabled.
+        # *   **true**\
+        # *   **false**\
         self.status = status  # type: bool
 
     def validate(self):
