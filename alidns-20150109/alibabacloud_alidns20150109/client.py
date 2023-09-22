@@ -1964,7 +1964,7 @@ class Client(OpenApiClient):
 
     def describe_dns_product_instances_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *DescribeDnsProductInstances**.
+        The number of the page to return. Pages start from page *1**. Default value: **1**.
         
 
         @param request: DescribeDnsProductInstancesRequest
@@ -2012,7 +2012,7 @@ class Client(OpenApiClient):
 
     def describe_dns_product_instances(self, request):
         """
-        The operation that you want to perform. Set the value to *DescribeDnsProductInstances**.
+        The number of the page to return. Pages start from page *1**. Default value: **1**.
         
 
         @param request: DescribeDnsProductInstancesRequest
@@ -2389,6 +2389,16 @@ class Client(OpenApiClient):
         return self.describe_domain_logs_with_options(request, runtime)
 
     def describe_domain_ns_with_options(self, request, runtime):
+        """
+        > This operation queries the authoritative servers of a domain name registry to obtain the name servers for a domain name. If the domain name is in an invalid state, such as serverHold or clientHold, an error may be returned.
+        
+
+        @param request: DescribeDomainNsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDomainNsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -2415,6 +2425,14 @@ class Client(OpenApiClient):
         )
 
     def describe_domain_ns(self, request):
+        """
+        > This operation queries the authoritative servers of a domain name registry to obtain the name servers for a domain name. If the domain name is in an invalid state, such as serverHold or clientHold, an error may be returned.
+        
+
+        @param request: DescribeDomainNsRequest
+
+        @return: DescribeDomainNsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_domain_ns_with_options(request, runtime)
 
