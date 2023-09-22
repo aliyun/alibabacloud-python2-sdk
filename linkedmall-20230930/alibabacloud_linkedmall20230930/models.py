@@ -83,9 +83,9 @@ class ApplyReason(TeaModel):
 
 
 class Category(TeaModel):
-    def __init__(self, category_id=None, leaf=None, level=None, name=None, parent_id=None):
+    def __init__(self, category_id=None, is_leaf=None, level=None, name=None, parent_id=None):
         self.category_id = category_id  # type: long
-        self.leaf = leaf  # type: bool
+        self.is_leaf = is_leaf  # type: bool
         self.level = level  # type: int
         self.name = name  # type: str
         self.parent_id = parent_id  # type: long
@@ -101,8 +101,8 @@ class Category(TeaModel):
         result = dict()
         if self.category_id is not None:
             result['categoryId'] = self.category_id
-        if self.leaf is not None:
-            result['leaf'] = self.leaf
+        if self.is_leaf is not None:
+            result['isLeaf'] = self.is_leaf
         if self.level is not None:
             result['level'] = self.level
         if self.name is not None:
@@ -115,14 +115,80 @@ class Category(TeaModel):
         m = m or dict()
         if m.get('categoryId') is not None:
             self.category_id = m.get('categoryId')
-        if m.get('leaf') is not None:
-            self.leaf = m.get('leaf')
+        if m.get('isLeaf') is not None:
+            self.is_leaf = m.get('isLeaf')
         if m.get('level') is not None:
             self.level = m.get('level')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('parentId') is not None:
             self.parent_id = m.get('parentId')
+        return self
+
+
+class CategoryListQuery(TeaModel):
+    def __init__(self, category_ids=None, parent_category_id=None):
+        self.category_ids = category_ids  # type: list[long]
+        self.parent_category_id = parent_category_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CategoryListQuery, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category_ids is not None:
+            result['categoryIds'] = self.category_ids
+        if self.parent_category_id is not None:
+            result['parentCategoryId'] = self.parent_category_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('categoryIds') is not None:
+            self.category_ids = m.get('categoryIds')
+        if m.get('parentCategoryId') is not None:
+            self.parent_category_id = m.get('parentCategoryId')
+        return self
+
+
+class CategoryListResult(TeaModel):
+    def __init__(self, categories=None, request_id=None):
+        self.categories = categories  # type: list[Category]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.categories:
+            for k in self.categories:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CategoryListResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['categories'] = []
+        if self.categories is not None:
+            for k in self.categories:
+                result['categories'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.categories = []
+        if m.get('categories') is not None:
+            for k in m.get('categories'):
+                temp_model = Category()
+                self.categories.append(temp_model.from_map(k))
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
         return self
 
 
@@ -622,7 +688,7 @@ class Good(TeaModel):
 class GoodsShippingNoticeCreateCmd(TeaModel):
     def __init__(self, cp_code=None, dispute_id=None, logistics_no=None):
         self.cp_code = cp_code  # type: str
-        self.dispute_id = dispute_id  # type: long
+        self.dispute_id = dispute_id  # type: str
         self.logistics_no = logistics_no  # type: str
 
     def validate(self):
@@ -2460,8 +2526,8 @@ class RefundResult(TeaModel):
     def __init__(self, apply_dispute_desc=None, apply_reason=None, biz_claim_type=None, dispute_create_time=None,
                  dispute_desc=None, dispute_end_time=None, dispute_id=None, dispute_status=None, order_id=None,
                  order_line_id=None, order_logistics_status=None, refund_fee=None, refund_fee_data=None, refunder_address=None,
-                 refunder_name=None, refunder_tel=None, refunder_zip_code=None, return_good_logistics_status=None,
-                 seller_agree_msg=None, seller_refuse_agreement_message=None, seller_refuse_reason=None):
+                 refunder_name=None, refunder_tel=None, refunder_zip_code=None, request_id=None,
+                 return_good_logistics_status=None, seller_agree_msg=None, seller_refuse_agreement_message=None, seller_refuse_reason=None):
         self.apply_dispute_desc = apply_dispute_desc  # type: str
         self.apply_reason = apply_reason  # type: ApplyReason
         self.biz_claim_type = biz_claim_type  # type: int
@@ -2479,6 +2545,7 @@ class RefundResult(TeaModel):
         self.refunder_name = refunder_name  # type: str
         self.refunder_tel = refunder_tel  # type: str
         self.refunder_zip_code = refunder_zip_code  # type: str
+        self.request_id = request_id  # type: str
         self.return_good_logistics_status = return_good_logistics_status  # type: int
         self.seller_agree_msg = seller_agree_msg  # type: str
         self.seller_refuse_agreement_message = seller_refuse_agreement_message  # type: str
@@ -2530,6 +2597,8 @@ class RefundResult(TeaModel):
             result['refunderTel'] = self.refunder_tel
         if self.refunder_zip_code is not None:
             result['refunderZipCode'] = self.refunder_zip_code
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
         if self.return_good_logistics_status is not None:
             result['returnGoodLogisticsStatus'] = self.return_good_logistics_status
         if self.seller_agree_msg is not None:
@@ -2578,6 +2647,8 @@ class RefundResult(TeaModel):
             self.refunder_tel = m.get('refunderTel')
         if m.get('refunderZipCode') is not None:
             self.refunder_zip_code = m.get('refunderZipCode')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
         if m.get('returnGoodLogisticsStatus') is not None:
             self.return_good_logistics_status = m.get('returnGoodLogisticsStatus')
         if m.get('sellerAgreeMsg') is not None:
@@ -3690,6 +3761,71 @@ class GetSelectionProductSaleInfoResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ProductSaleInfo()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListCategoriesRequest(TeaModel):
+    def __init__(self, body=None):
+        self.body = body  # type: CategoryListQuery
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListCategoriesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('body') is not None:
+            temp_model = CategoryListQuery()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListCategoriesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CategoryListResult
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListCategoriesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CategoryListResult()
             self.body = temp_model.from_map(m['body'])
         return self
 
