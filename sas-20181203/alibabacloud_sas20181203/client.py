@@ -328,6 +328,8 @@ class Client(OpenApiClient):
             query['NetType'] = request.net_type
         if not UtilClient.is_unset(request.password):
             query['Password'] = request.password
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
         if not UtilClient.is_unset(request.protocol_type):
             query['ProtocolType'] = request.protocol_type
         if not UtilClient.is_unset(request.registry_host_ip):
@@ -727,6 +729,64 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.change_check_custom_config_with_options(request, runtime)
 
+    def change_security_score_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.reset_security_score_rule):
+            query['ResetSecurityScoreRule'] = request.reset_security_score_rule
+        if not UtilClient.is_unset(request.security_score_rule_list):
+            query['SecurityScoreRuleList'] = request.security_score_rule_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ChangeSecurityScoreRule',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ChangeSecurityScoreRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def change_security_score_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.change_security_score_rule_with_options(request, runtime)
+
+    def change_user_lang_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_lang):
+            query['UserLang'] = request.user_lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ChangeUserLang',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ChangeUserLangResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def change_user_lang(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.change_user_lang_with_options(request, runtime)
+
     def check_quara_file_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1027,6 +1087,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_container_scan_task_with_options(request, runtime)
 
+    def create_container_scan_task_by_app_name_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_names):
+            query['AppNames'] = request.app_names
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateContainerScanTaskByAppName',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.CreateContainerScanTaskByAppNameResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_container_scan_task_by_app_name(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_container_scan_task_by_app_name_with_options(request, runtime)
+
     def create_custom_block_record_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1225,6 +1317,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_file_detect_upload_url_with_options(request, runtime)
 
+    def create_file_protect_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alert_level):
+            query['AlertLevel'] = request.alert_level
+        if not UtilClient.is_unset(request.file_ops):
+            query['FileOps'] = request.file_ops
+        if not UtilClient.is_unset(request.file_paths):
+            query['FilePaths'] = request.file_paths
+        if not UtilClient.is_unset(request.proc_paths):
+            query['ProcPaths'] = request.proc_paths
+        if not UtilClient.is_unset(request.rule_action):
+            query['RuleAction'] = request.rule_action
+        if not UtilClient.is_unset(request.rule_name):
+            query['RuleName'] = request.rule_name
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.switch_id):
+            query['SwitchId'] = request.switch_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateFileProtectRule',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.CreateFileProtectRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_file_protect_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_file_protect_rule_with_options(request, runtime)
+
     def create_honeypot_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1379,6 +1513,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_honeypot_probe_with_options(request, runtime)
 
+    def create_honeypot_probe_bind_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.bind_port_list):
+            query['BindPortList'] = request.bind_port_list
+        if not UtilClient.is_unset(request.honeypot_id):
+            query['HoneypotId'] = request.honeypot_id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.probe_id):
+            query['ProbeId'] = request.probe_id
+        if not UtilClient.is_unset(request.service_ip_list):
+            query['ServiceIpList'] = request.service_ip_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateHoneypotProbeBind',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.CreateHoneypotProbeBindResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_honeypot_probe_bind(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_honeypot_probe_bind_with_options(request, runtime)
+
     def create_interception_rule_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = sas_20181203_models.CreateInterceptionRuleShrinkRequest()
@@ -1530,6 +1700,64 @@ class Client(OpenApiClient):
     def create_jenkins_image_registry(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_jenkins_image_registry_with_options(request, runtime)
+
+    def create_malicious_note_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.event_id):
+            query['EventId'] = request.event_id
+        if not UtilClient.is_unset(request.note):
+            query['Note'] = request.note
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateMaliciousNote',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.CreateMaliciousNoteResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_malicious_note(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_malicious_note_with_options(request, runtime)
+
+    def create_opa_cluster_plugin_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_ids):
+            query['ClusterIds'] = request.cluster_ids
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateOpaClusterPlugin',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.CreateOpaClusterPluginResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_opa_cluster_plugin(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_opa_cluster_plugin_with_options(request, runtime)
 
     def create_or_update_asset_group_with_options(self, request, runtime):
         """
@@ -2139,6 +2367,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_cycle_task_with_options(request, runtime)
 
+    def delete_file_protect_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteFileProtectRule',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DeleteFileProtectRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_file_protect_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_file_protect_rule_with_options(request, runtime)
+
     def delete_group_with_options(self, request, runtime):
         """
         The *Default** server group that is provided by Security Center cannot be deleted. After you delete a group, the assets in this group are moved to the **Default** group.
@@ -2307,6 +2563,68 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_honeypot_probe_with_options(request, runtime)
 
+    def delete_honeypot_probe_bind_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.bind_id):
+            query['BindId'] = request.bind_id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.probe_id):
+            query['ProbeId'] = request.probe_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteHoneypotProbeBind',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DeleteHoneypotProbeBindResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_honeypot_probe_bind(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_honeypot_probe_bind_with_options(request, runtime)
+
+    def delete_image_vul_whitelist_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ids):
+            query['Ids'] = request.ids
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteImageVulWhitelist',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DeleteImageVulWhitelistResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_image_vul_whitelist(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_image_vul_whitelist_with_options(request, runtime)
+
     def delete_install_code_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2424,6 +2742,34 @@ class Client(OpenApiClient):
     def delete_login_base_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_login_base_config_with_options(request, runtime)
+
+    def delete_malicious_note_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.note_id):
+            query['NoteId'] = request.note_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteMaliciousNote',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DeleteMaliciousNoteResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_malicious_note(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_malicious_note_with_options(request, runtime)
 
     def delete_private_registry_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3643,6 +3989,86 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_brute_force_summary_with_options(request, runtime)
 
+    def describe_can_fix_vul_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alias_name):
+            query['AliasName'] = request.alias_name
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.cluster_name):
+            query['ClusterName'] = request.cluster_name
+        if not UtilClient.is_unset(request.container_id):
+            query['ContainerId'] = request.container_id
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.dealed):
+            query['Dealed'] = request.dealed
+        if not UtilClient.is_unset(request.digest):
+            query['Digest'] = request.digest
+        if not UtilClient.is_unset(request.image):
+            query['Image'] = request.image
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.necessity):
+            query['Necessity'] = request.necessity
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.pod):
+            query['Pod'] = request.pod
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.repo_id):
+            query['RepoId'] = request.repo_id
+        if not UtilClient.is_unset(request.repo_id):
+            query['RepoId'] = request.repo_id
+        if not UtilClient.is_unset(request.repo_instance_id):
+            query['RepoInstanceId'] = request.repo_instance_id
+        if not UtilClient.is_unset(request.repo_name):
+            query['RepoName'] = request.repo_name
+        if not UtilClient.is_unset(request.repo_name):
+            query['RepoName'] = request.repo_name
+        if not UtilClient.is_unset(request.repo_namespace):
+            query['RepoNamespace'] = request.repo_namespace
+        if not UtilClient.is_unset(request.repo_region_id):
+            query['RepoRegionId'] = request.repo_region_id
+        if not UtilClient.is_unset(request.scan_range):
+            query['ScanRange'] = request.scan_range
+        if not UtilClient.is_unset(request.status_list):
+            query['StatusList'] = request.status_list
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        if not UtilClient.is_unset(request.uuids):
+            query['Uuids'] = request.uuids
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCanFixVulList',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeCanFixVulListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_can_fix_vul_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_can_fix_vul_list_with_options(request, runtime)
+
     def describe_check_ecs_warnings_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3844,8 +4270,6 @@ class Client(OpenApiClient):
             query['RiskId'] = request.risk_id
         if not UtilClient.is_unset(request.risk_status):
             query['RiskStatus'] = request.risk_status
-        if not UtilClient.is_unset(request.source):
-            query['Source'] = request.source
         if not UtilClient.is_unset(request.source_ip):
             query['SourceIp'] = request.source_ip
         if not UtilClient.is_unset(request.uuid):
@@ -4356,6 +4780,34 @@ class Client(OpenApiClient):
     def describe_container_instances(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_container_instances_with_options(request, runtime)
+
+    def describe_container_scan_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeContainerScanConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeContainerScanConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_container_scan_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_container_scan_config_with_options(request, runtime)
 
     def describe_container_statistics_with_options(self, request, runtime):
         """
@@ -5756,6 +6208,28 @@ class Client(OpenApiClient):
     def describe_image_criteria(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_image_criteria_with_options(request, runtime)
+
+    def describe_image_fix_cycle_config_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='DescribeImageFixCycleConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeImageFixCycleConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_image_fix_cycle_config(self):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_image_fix_cycle_config_with_options(runtime)
 
     def describe_image_fix_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -10004,14 +10478,20 @@ class Client(OpenApiClient):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.necessity):
             query['Necessity'] = request.necessity
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.remark):
             query['Remark'] = request.remark
         if not UtilClient.is_unset(request.resource_directory_account_id):
             query['ResourceDirectoryAccountId'] = request.resource_directory_account_id
+        if not UtilClient.is_unset(request.status_list):
+            query['StatusList'] = request.status_list
         if not UtilClient.is_unset(request.type):
             query['Type'] = request.type
+        if not UtilClient.is_unset(request.use_next_token):
+            query['UseNextToken'] = request.use_next_token
         if not UtilClient.is_unset(request.uuids):
             query['Uuids'] = request.uuids
         if not UtilClient.is_unset(request.vpc_instance_ids):
@@ -11377,6 +11857,28 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_assets_property_item_with_options(request, runtime)
 
+    def get_auth_version_statistic_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetAuthVersionStatistic',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetAuthVersionStatisticResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_auth_version_statistic(self):
+        runtime = util_models.RuntimeOptions()
+        return self.get_auth_version_statistic_with_options(runtime)
+
     def get_backup_storage_count_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
@@ -11827,6 +12329,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_cluster_susp_event_statistics_with_options(request, runtime)
 
+    def get_common_switch_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCommonSwitchConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetCommonSwitchConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_common_switch_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_common_switch_config_with_options(request, runtime)
+
     def get_file_detect_api_invoke_info_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
@@ -11898,6 +12428,190 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.get_file_detect_result_with_options(request, runtime)
+
+    def get_file_protect_dashboard_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetFileProtectDashboard',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetFileProtectDashboardResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_file_protect_dashboard(self):
+        runtime = util_models.RuntimeOptions()
+        return self.get_file_protect_dashboard_with_options(runtime)
+
+    def get_file_protect_event_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetFileProtectEvent',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetFileProtectEventResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_file_protect_event(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_file_protect_event_with_options(request, runtime)
+
+    def get_file_protect_event_count_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetFileProtectEventCount',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetFileProtectEventCountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_file_protect_event_count(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_file_protect_event_count_with_options(request, runtime)
+
+    def get_file_protect_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetFileProtectRule',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetFileProtectRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_file_protect_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_file_protect_rule_with_options(request, runtime)
+
+    def get_honeypot_attack_statistics_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.end_time_stamp):
+            query['EndTimeStamp'] = request.end_time_stamp
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.risk_level_list):
+            query['RiskLevelList'] = request.risk_level_list
+        if not UtilClient.is_unset(request.src_ip):
+            query['SrcIp'] = request.src_ip
+        if not UtilClient.is_unset(request.start_time_stamp):
+            query['StartTimeStamp'] = request.start_time_stamp
+        if not UtilClient.is_unset(request.statistics_type):
+            query['StatisticsType'] = request.statistics_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetHoneypotAttackStatistics',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetHoneypotAttackStatisticsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_honeypot_attack_statistics(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_honeypot_attack_statistics_with_options(request, runtime)
+
+    def get_honeypot_event_trend_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time_stamp):
+            query['EndTimeStamp'] = request.end_time_stamp
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.risk_level_list):
+            query['RiskLevelList'] = request.risk_level_list
+        if not UtilClient.is_unset(request.src_ip):
+            query['SrcIp'] = request.src_ip
+        if not UtilClient.is_unset(request.start_time_stamp):
+            query['StartTimeStamp'] = request.start_time_stamp
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetHoneypotEventTrend',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetHoneypotEventTrendResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_honeypot_event_trend(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_honeypot_event_trend_with_options(request, runtime)
 
     def get_honeypot_node_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -11988,6 +12702,34 @@ class Client(OpenApiClient):
     def get_honeypot_probe(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_honeypot_probe_with_options(request, runtime)
+
+    def get_honeypot_statistics_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetHoneypotStatistics',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetHoneypotStatisticsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_honeypot_statistics(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_honeypot_statistics_with_options(request, runtime)
 
     def get_image_scan_num_in_period_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -12197,6 +12939,180 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_once_task_result_info_with_options(request, runtime)
 
+    def get_opa_cluster_base_line_list_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetOpaClusterBaseLineList',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetOpaClusterBaseLineListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_opa_cluster_base_line_list(self):
+        runtime = util_models.RuntimeOptions()
+        return self.get_opa_cluster_base_line_list_with_options(runtime)
+
+    def get_opa_cluster_image_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.image_name):
+            query['ImageName'] = request.image_name
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetOpaClusterImageList',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetOpaClusterImageListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_opa_cluster_image_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_opa_cluster_image_list_with_options(request, runtime)
+
+    def get_opa_cluster_label_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.tag_name):
+            query['TagName'] = request.tag_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetOpaClusterLabelList',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetOpaClusterLabelListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_opa_cluster_label_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_opa_cluster_label_list_with_options(request, runtime)
+
+    def get_opa_cluster_namespace_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.name_space_name):
+            query['NameSpaceName'] = request.name_space_name
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetOpaClusterNamespaceList',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetOpaClusterNamespaceListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_opa_cluster_namespace_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_opa_cluster_namespace_list_with_options(request, runtime)
+
+    def get_opa_plugin_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_ids):
+            query['ClusterIds'] = request.cluster_ids
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetOpaPluginStatus',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetOpaPluginStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_opa_plugin_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_opa_plugin_status_with_options(request, runtime)
+
+    def get_opa_strategy_template_summary_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetOpaStrategyTemplateSummary',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetOpaStrategyTemplateSummaryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_opa_strategy_template_summary(self):
+        runtime = util_models.RuntimeOptions()
+        return self.get_opa_strategy_template_summary_with_options(runtime)
+
     def get_property_schedule_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -12249,6 +13165,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_rules_count_with_options(runtime)
 
+    def get_security_score_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetSecurityScoreRule',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetSecurityScoreRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_security_score_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_security_score_rule_with_options(request, runtime)
+
     def get_service_trail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -12276,6 +13220,34 @@ class Client(OpenApiClient):
     def get_service_trail(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_service_trail_with_options(request, runtime)
+
+    def get_strategy_template_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.strategy_id):
+            query['StrategyId'] = request.strategy_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetStrategyTemplateDetail',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetStrategyTemplateDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_strategy_template_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_strategy_template_detail_with_options(request, runtime)
 
     def get_suspicious_statistics_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -12306,6 +13278,56 @@ class Client(OpenApiClient):
     def get_suspicious_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_suspicious_statistics_with_options(request, runtime)
+
+    def get_switch_region_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetSwitchRegionDetail',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetSwitchRegionDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_switch_region_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_switch_region_detail_with_options(request, runtime)
+
+    def get_user_lang_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetUserLang',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetUserLangResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_user_lang(self):
+        runtime = util_models.RuntimeOptions()
+        return self.get_user_lang_with_options(runtime)
 
     def get_vul_statistics_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -12733,6 +13755,54 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.join_web_lock_process_white_list_with_options(request, runtime)
 
+    def list_agentless_malicious_files_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.dealed):
+            query['Dealed'] = request.dealed
+        if not UtilClient.is_unset(request.event_id):
+            query['EventId'] = request.event_id
+        if not UtilClient.is_unset(request.fuzzy_malicious_name):
+            query['FuzzyMaliciousName'] = request.fuzzy_malicious_name
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.levels):
+            query['Levels'] = request.levels
+        if not UtilClient.is_unset(request.malicious_md_5):
+            query['MaliciousMd5'] = request.malicious_md_5
+        if not UtilClient.is_unset(request.malicious_type):
+            query['MaliciousType'] = request.malicious_type
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.remark):
+            query['Remark'] = request.remark
+        if not UtilClient.is_unset(request.uuid):
+            query['Uuid'] = request.uuid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAgentlessMaliciousFiles',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListAgentlessMaliciousFilesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_agentless_malicious_files(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_agentless_malicious_files_with_options(request, runtime)
+
     def list_agentless_region_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
@@ -12908,8 +13978,12 @@ class Client(OpenApiClient):
     def list_asset_refresh_task_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.refresh_config_type):
+            query['RefreshConfigType'] = request.refresh_config_type
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.target_id):
+            query['TargetId'] = request.target_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -13291,6 +14365,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_check_standard_with_options(request, runtime)
 
+    def list_client_alert_mode_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListClientAlertMode',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListClientAlertModeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_client_alert_mode(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_client_alert_mode_with_options(request, runtime)
+
     def list_client_user_define_rule_types_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
@@ -13479,6 +14579,146 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_cluster_interception_config_with_options(request, runtime)
 
+    def list_criteria_strategy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.image_name):
+            query['ImageName'] = request.image_name
+        if not UtilClient.is_unset(request.label):
+            query['Label'] = request.label
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.strategy_name):
+            query['StrategyName'] = request.strategy_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCriteriaStrategy',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListCriteriaStrategyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_criteria_strategy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_criteria_strategy_with_options(request, runtime)
+
+    def list_file_protect_event_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alert_levels):
+            query['AlertLevels'] = request.alert_levels
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.rule_name):
+            query['RuleName'] = request.rule_name
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListFileProtectEvent',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListFileProtectEventResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_file_protect_event(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_file_protect_event_with_options(request, runtime)
+
+    def list_file_protect_plugin_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.switch_id):
+            query['SwitchId'] = request.switch_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListFileProtectPluginStatus',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListFileProtectPluginStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_file_protect_plugin_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_file_protect_plugin_status_with_options(request, runtime)
+
+    def list_file_protect_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alert_level):
+            query['AlertLevel'] = request.alert_level
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.rule_action):
+            query['RuleAction'] = request.rule_action
+        if not UtilClient.is_unset(request.rule_name):
+            query['RuleName'] = request.rule_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListFileProtectRule',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListFileProtectRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_file_protect_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_file_protect_rule_with_options(request, runtime)
+
     def list_honeypot_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -13542,6 +14782,110 @@ class Client(OpenApiClient):
     def list_honeypot_alarm_events(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_honeypot_alarm_events_with_options(request, runtime)
+
+    def list_honeypot_attacker_portrait_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.end_time_stamp):
+            query['EndTimeStamp'] = request.end_time_stamp
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.src_ip):
+            query['SrcIp'] = request.src_ip
+        if not UtilClient.is_unset(request.start_time_stamp):
+            query['StartTimeStamp'] = request.start_time_stamp
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListHoneypotAttackerPortrait',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListHoneypotAttackerPortraitResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_honeypot_attacker_portrait(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_honeypot_attacker_portrait_with_options(request, runtime)
+
+    def list_honeypot_attacker_source_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.end_time_stamp):
+            query['EndTimeStamp'] = request.end_time_stamp
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.risk_level_list):
+            query['RiskLevelList'] = request.risk_level_list
+        if not UtilClient.is_unset(request.src_ip):
+            query['SrcIp'] = request.src_ip
+        if not UtilClient.is_unset(request.start_time_stamp):
+            query['StartTimeStamp'] = request.start_time_stamp
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListHoneypotAttackerSource',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListHoneypotAttackerSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_honeypot_attacker_source(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_honeypot_attacker_source_with_options(request, runtime)
+
+    def list_honeypot_events_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListHoneypotEvents',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListHoneypotEventsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_honeypot_events(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_honeypot_events_with_options(request, runtime)
 
     def list_honeypot_node_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -13654,6 +14998,38 @@ class Client(OpenApiClient):
     def list_honeypot_probe(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_honeypot_probe_with_options(request, runtime)
+
+    def list_honeypot_probe_uuid_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.control_node_id):
+            query['ControlNodeId'] = request.control_node_id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.probe_type):
+            query['ProbeType'] = request.probe_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListHoneypotProbeUuid',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListHoneypotProbeUuidResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_honeypot_probe_uuid(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_honeypot_probe_uuid_with_options(request, runtime)
 
     def list_image_registry_region_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
@@ -14823,6 +16199,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_concern_necessity_with_options(request, runtime)
 
+    def modify_container_scan_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_names):
+            query['AppNames'] = request.app_names
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyContainerScanConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ModifyContainerScanConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_container_scan_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_container_scan_config_with_options(request, runtime)
+
     def modify_create_vul_whitelist_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -14996,6 +16404,40 @@ class Client(OpenApiClient):
     def modify_group_property(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_group_property_with_options(request, runtime)
+
+    def modify_image_fix_cycle_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.image_fix_cycle):
+            body['ImageFixCycle'] = request.image_fix_cycle
+        if not UtilClient.is_unset(request.image_fix_switch):
+            body['ImageFixSwitch'] = request.image_fix_switch
+        if not UtilClient.is_unset(request.image_fix_target):
+            body['ImageFixTarget'] = request.image_fix_target
+        if not UtilClient.is_unset(request.image_time_range):
+            body['ImageTimeRange'] = request.image_time_range
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyImageFixCycleConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ModifyImageFixCycleConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_image_fix_cycle_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_image_fix_cycle_config_with_options(request, runtime)
 
     def modify_instance_anti_brute_force_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -15283,7 +16725,7 @@ class Client(OpenApiClient):
 
     def modify_open_log_shipper_with_options(self, request, runtime):
         """
-        *Prerequisites** A service-linked role is created, and Security Center is authorized to access cloud resources. You can call the [CreateServiceLinkedRole](~~CreateServiceLinkedRole~~) operation to create service-linked roles and authorize Security Center to access cloud resources. **Scenarios** Before you use the log analysis feature of Security Center, you must call the ModifyOpenLogShipper operation to activate Log Service.
+        *Prerequisites** [Simple Log Service](https://www.alibabacloud.com/help/en/log-service/latest/billable-items) is activated. A service-linked role for Security Center is created, and Security Center is authorized to access cloud resources. You can call the [CreateServiceLinkedRole](~~CreateServiceLinkedRole~~) operation to create a service-linked role for Security Center and authorize Security Center to access cloud resources. **Scenarios** Before you use the log analysis feature of Security Center, you must call the [ModifyOpenLogShipper](~~ModifyOpenLogShipper~~) operation to activate Simple Log Service.
         
 
         @param request: ModifyOpenLogShipperRequest
@@ -15317,7 +16759,7 @@ class Client(OpenApiClient):
 
     def modify_open_log_shipper(self, request):
         """
-        *Prerequisites** A service-linked role is created, and Security Center is authorized to access cloud resources. You can call the [CreateServiceLinkedRole](~~CreateServiceLinkedRole~~) operation to create service-linked roles and authorize Security Center to access cloud resources. **Scenarios** Before you use the log analysis feature of Security Center, you must call the ModifyOpenLogShipper operation to activate Log Service.
+        *Prerequisites** [Simple Log Service](https://www.alibabacloud.com/help/en/log-service/latest/billable-items) is activated. A service-linked role for Security Center is created, and Security Center is authorized to access cloud resources. You can call the [CreateServiceLinkedRole](~~CreateServiceLinkedRole~~) operation to create a service-linked role for Security Center and authorize Security Center to access cloud resources. **Scenarios** Before you use the log analysis feature of Security Center, you must call the [ModifyOpenLogShipper](~~ModifyOpenLogShipper~~) operation to activate Simple Log Service.
         
 
         @param request: ModifyOpenLogShipperRequest
@@ -15330,6 +16772,8 @@ class Client(OpenApiClient):
     def modify_operate_vul_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.from_):
+            query['From'] = request.from_
         if not UtilClient.is_unset(request.info):
             query['Info'] = request.info
         if not UtilClient.is_unset(request.operate_type):
@@ -17260,6 +18704,8 @@ class Client(OpenApiClient):
             query['CloudAssetSubType'] = request.cloud_asset_sub_type
         if not UtilClient.is_unset(request.cloud_asset_type):
             query['CloudAssetType'] = request.cloud_asset_type
+        if not UtilClient.is_unset(request.vendor):
+            query['Vendor'] = request.vendor
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -17372,6 +18818,62 @@ class Client(OpenApiClient):
     def remove_check_result_white_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.remove_check_result_white_list_with_options(request, runtime)
+
+    def retry_agentless_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RetryAgentlessTask',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.RetryAgentlessTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def retry_agentless_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.retry_agentless_task_with_options(request, runtime)
+
+    def retry_install_probe_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.probe_id):
+            query['ProbeId'] = request.probe_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RetryInstallProbe',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.RetryInstallProbeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def retry_install_probe(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.retry_install_probe_with_options(request, runtime)
 
     def rollback_susp_event_quara_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -17697,6 +19199,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.start_virus_scan_task_with_options(request, runtime)
 
+    def stop_honeypot_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.honeypot_id):
+            query['HoneypotId'] = request.honeypot_id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopHoneypot',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.StopHoneypotResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_honeypot(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.stop_honeypot_with_options(request, runtime)
+
     def submit_check_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -17869,6 +19401,200 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.uninstall_uni_backup_agent_with_options(request, runtime)
 
+    def update_alarm_event_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.alarm_event_id_list):
+            body['AlarmEventIdList'] = request.alarm_event_id_list
+        if not UtilClient.is_unset(request.lang):
+            body['Lang'] = request.lang
+        if not UtilClient.is_unset(request.operation_code):
+            body['OperationCode'] = request.operation_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateAlarmEvent',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.UpdateAlarmEventResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_alarm_event(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_alarm_event_with_options(request, runtime)
+
+    def update_client_alert_mode_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.mode):
+            query['Mode'] = request.mode
+        if not UtilClient.is_unset(request.uuids):
+            query['Uuids'] = request.uuids
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateClientAlertMode',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.UpdateClientAlertModeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_client_alert_mode(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_client_alert_mode_with_options(request, runtime)
+
+    def update_common_switch_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.target_default):
+            query['TargetDefault'] = request.target_default
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateCommonSwitchConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.UpdateCommonSwitchConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_common_switch_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_common_switch_config_with_options(request, runtime)
+
+    def update_file_protect_event_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateFileProtectEventStatus',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.UpdateFileProtectEventStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_file_protect_event_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_file_protect_event_status_with_options(request, runtime)
+
+    def update_file_protect_remark_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.remark):
+            query['Remark'] = request.remark
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateFileProtectRemark',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.UpdateFileProtectRemarkResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_file_protect_remark(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_file_protect_remark_with_options(request, runtime)
+
+    def update_file_protect_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alert_level):
+            query['AlertLevel'] = request.alert_level
+        if not UtilClient.is_unset(request.file_ops):
+            query['FileOps'] = request.file_ops
+        if not UtilClient.is_unset(request.file_paths):
+            query['FilePaths'] = request.file_paths
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.proc_paths):
+            query['ProcPaths'] = request.proc_paths
+        if not UtilClient.is_unset(request.rule_action):
+            query['RuleAction'] = request.rule_action
+        if not UtilClient.is_unset(request.rule_name):
+            query['RuleName'] = request.rule_name
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateFileProtectRule',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.UpdateFileProtectRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_file_protect_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_file_protect_rule_with_options(request, runtime)
+
     def update_honeypot_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -18010,6 +19736,92 @@ class Client(OpenApiClient):
     def update_honeypot_probe(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_honeypot_probe_with_options(request, runtime)
+
+    def update_honeypot_probe_bind_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.bind_id):
+            query['BindId'] = request.bind_id
+        if not UtilClient.is_unset(request.bind_port_list):
+            query['BindPortList'] = request.bind_port_list
+        if not UtilClient.is_unset(request.bind_type):
+            query['BindType'] = request.bind_type
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.honeypot_id):
+            query['HoneypotId'] = request.honeypot_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.ports):
+            query['Ports'] = request.ports
+        if not UtilClient.is_unset(request.probe_id):
+            query['ProbeId'] = request.probe_id
+        if not UtilClient.is_unset(request.service_ip_list):
+            query['ServiceIpList'] = request.service_ip_list
+        if not UtilClient.is_unset(request.set_status):
+            query['SetStatus'] = request.set_status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateHoneypotProbeBind',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.UpdateHoneypotProbeBindResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_honeypot_probe_bind(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_honeypot_probe_bind_with_options(request, runtime)
+
+    def update_image_vul_whitelist_target_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.reason):
+            query['Reason'] = request.reason
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        if not UtilClient.is_unset(request.target):
+            query['Target'] = request.target
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateImageVulWhitelistTarget',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.UpdateImageVulWhitelistTargetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_image_vul_whitelist_target(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_image_vul_whitelist_target_with_options(request, runtime)
 
     def update_jenkins_image_registry_name_with_options(self, request, runtime):
         UtilClient.validate_model(request)
