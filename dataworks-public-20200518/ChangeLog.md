@@ -1,3 +1,6 @@
+2023-09-25 Version: 1.5.0
+- Support DIJob and DIAlarmRule related APIs.
+
 2023-09-19 Version: 1.4.0
 - Generated python2 2020-05-18 for dataworks-public.
 
