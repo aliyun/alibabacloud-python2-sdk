@@ -288,6 +288,8 @@ class Client(OpenApiClient):
             body['EndUserIds'] = request.end_user_ids
         if not UtilClient.is_unset(request.exclude_end_user_ids):
             body['ExcludeEndUserIds'] = request.exclude_end_user_ids
+        if not UtilClient.is_unset(request.group_id):
+            body['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.org_id):
             body['OrgId'] = request.org_id
         req = open_api_models.OpenApiRequest(
@@ -365,6 +367,34 @@ class Client(OpenApiClient):
     def filter_users(self, request):
         runtime = util_models.RuntimeOptions()
         return self.filter_users_with_options(request, runtime)
+
+    def get_manager_info_by_auth_code_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auth_code):
+            query['AuthCode'] = request.auth_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetManagerInfoByAuthCode',
+            version='2021-03-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eds_user_20210308_models.GetManagerInfoByAuthCodeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_manager_info_by_auth_code(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_manager_info_by_auth_code_with_options(request, runtime)
 
     def list_property_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
