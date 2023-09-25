@@ -2560,8 +2560,11 @@ class CreateDBClusterResponse(TeaModel):
 
 
 class CreateDBResourceGroupRequest(TeaModel):
-    def __init__(self, dbcluster_id=None, group_name=None, group_type=None, max_compute_resource=None,
+    def __init__(self, cluster_mode=None, cluster_size_resource=None, dbcluster_id=None, group_name=None,
+                 group_type=None, max_cluster_count=None, max_compute_resource=None, min_cluster_count=None,
                  min_compute_resource=None):
+        self.cluster_mode = cluster_mode  # type: str
+        self.cluster_size_resource = cluster_size_resource  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
         # The name of the resource group.
@@ -2577,11 +2580,13 @@ class CreateDBResourceGroupRequest(TeaModel):
         # 
         # > For information about resource groups of Data Lakehouse Edition, see [Resource groups](~~428610~~).
         self.group_type = group_type  # type: str
+        self.max_cluster_count = max_cluster_count  # type: int
         # The maximum reserved computing resources. Unit: ACU.
         # 
         # *   If GroupType is set to Interactive, the maximum amount of reserved computing resources refers to the amount of resources that are not allocated in the cluster. Set this parameter to a value in increments of 16 ACUs.
         # *   If GroupType is set to Job, the maximum amount of reserved computing resources refers to the amount of resources that are not allocated in the cluster. Set this parameter to a value in increments of 8 ACUs.
         self.max_compute_resource = max_compute_resource  # type: str
+        self.min_cluster_count = min_cluster_count  # type: int
         # The minimum reserved computing resources. Unit: AnalyticDB Compute Unit (ACU).
         # 
         # *   If GroupType is set to Interactive, set the value to 16ACU.
@@ -2597,28 +2602,44 @@ class CreateDBResourceGroupRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.cluster_mode is not None:
+            result['ClusterMode'] = self.cluster_mode
+        if self.cluster_size_resource is not None:
+            result['ClusterSizeResource'] = self.cluster_size_resource
         if self.dbcluster_id is not None:
             result['DBClusterId'] = self.dbcluster_id
         if self.group_name is not None:
             result['GroupName'] = self.group_name
         if self.group_type is not None:
             result['GroupType'] = self.group_type
+        if self.max_cluster_count is not None:
+            result['MaxClusterCount'] = self.max_cluster_count
         if self.max_compute_resource is not None:
             result['MaxComputeResource'] = self.max_compute_resource
+        if self.min_cluster_count is not None:
+            result['MinClusterCount'] = self.min_cluster_count
         if self.min_compute_resource is not None:
             result['MinComputeResource'] = self.min_compute_resource
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ClusterMode') is not None:
+            self.cluster_mode = m.get('ClusterMode')
+        if m.get('ClusterSizeResource') is not None:
+            self.cluster_size_resource = m.get('ClusterSizeResource')
         if m.get('DBClusterId') is not None:
             self.dbcluster_id = m.get('DBClusterId')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
         if m.get('GroupType') is not None:
             self.group_type = m.get('GroupType')
+        if m.get('MaxClusterCount') is not None:
+            self.max_cluster_count = m.get('MaxClusterCount')
         if m.get('MaxComputeResource') is not None:
             self.max_compute_resource = m.get('MaxComputeResource')
+        if m.get('MinClusterCount') is not None:
+            self.min_cluster_count = m.get('MinClusterCount')
         if m.get('MinComputeResource') is not None:
             self.min_compute_resource = m.get('MinComputeResource')
         return self
@@ -3568,9 +3589,15 @@ class DeleteElasticPlanResponse(TeaModel):
 
 class DeleteProcessInstanceRequest(TeaModel):
     def __init__(self, dbcluster_id=None, process_instance_id=None, project_code=None, region_id=None):
+        # The ID of the Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # > You can call the [DescribeDBClusters](~~612397~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The ID of the workflow instance.
         self.process_instance_id = process_instance_id  # type: long
+        # The project ID, which is the unique identifier of the project.
         self.project_code = project_code  # type: long
+        # The region ID of the cluster.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -3607,9 +3634,22 @@ class DeleteProcessInstanceRequest(TeaModel):
 
 class DeleteProcessInstanceResponseBody(TeaModel):
     def __init__(self, data=None, message=None, request_id=None, success=None):
+        # Indicates whether the workflow instance is deleted. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.data = data  # type: bool
+        # The returned message. Valid values:
+        # 
+        # *   If the request was successful, **Success** is returned.
+        # *   If the request failed, an error message is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -5313,9 +5353,13 @@ class DescribeAdbMySqlTablesResponse(TeaModel):
 
 class DescribeAllDataSourceRequest(TeaModel):
     def __init__(self, dbcluster_id=None, region_id=None, schema_name=None, table_name=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The name of the database.
         self.schema_name = schema_name  # type: str
+        # The name of the table.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -5353,12 +5397,25 @@ class DescribeAllDataSourceRequest(TeaModel):
 class DescribeAllDataSourceResponseBodyColumnsColumn(TeaModel):
     def __init__(self, auto_increment_column=None, column_name=None, dbcluster_id=None, primary_key=None,
                  schema_name=None, table_name=None, type=None):
+        # Indicates whether the column is an auto-increment column. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.auto_increment_column = auto_increment_column  # type: bool
+        # The name of the column.
         self.column_name = column_name  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # Indicates whether the column is the primary key of the table. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.primary_key = primary_key  # type: bool
+        # The logical name of the database.
         self.schema_name = schema_name  # type: str
+        # The logical name of the table.
         self.table_name = table_name  # type: str
+        # The data type of the column.
         self.type = type  # type: str
 
     def validate(self):
@@ -5439,7 +5496,9 @@ class DescribeAllDataSourceResponseBodyColumns(TeaModel):
 
 class DescribeAllDataSourceResponseBodySchemasSchema(TeaModel):
     def __init__(self, dbcluster_id=None, schema_name=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The logical name of the database.
         self.schema_name = schema_name  # type: str
 
     def validate(self):
@@ -5500,8 +5559,11 @@ class DescribeAllDataSourceResponseBodySchemas(TeaModel):
 
 class DescribeAllDataSourceResponseBodyTablesTable(TeaModel):
     def __init__(self, dbcluster_id=None, schema_name=None, table_name=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The name of the database.
         self.schema_name = schema_name  # type: str
+        # The logical name of the table.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -5566,9 +5628,13 @@ class DescribeAllDataSourceResponseBodyTables(TeaModel):
 
 class DescribeAllDataSourceResponseBody(TeaModel):
     def __init__(self, columns=None, request_id=None, schemas=None, tables=None):
+        # The queried columns.
         self.columns = columns  # type: DescribeAllDataSourceResponseBodyColumns
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The queried databases.
         self.schemas = schemas  # type: DescribeAllDataSourceResponseBodySchemas
+        # The queried tables.
         self.tables = tables  # type: DescribeAllDataSourceResponseBodyTables
 
     def validate(self):
@@ -6896,9 +6962,13 @@ class DescribeClusterNetInfoResponse(TeaModel):
 
 class DescribeColumnsRequest(TeaModel):
     def __init__(self, dbcluster_id=None, region_id=None, schema_name=None, table_name=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The name of the database.
         self.schema_name = schema_name  # type: str
+        # The name of the table.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -6936,12 +7006,25 @@ class DescribeColumnsRequest(TeaModel):
 class DescribeColumnsResponseBodyItemsColumn(TeaModel):
     def __init__(self, auto_increment_column=None, column_name=None, dbcluster_id=None, primary_key=None,
                  schema_name=None, table_name=None, type=None):
+        # Indicates whether the column is an auto-increment column. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.auto_increment_column = auto_increment_column  # type: bool
+        # The name of the column.
         self.column_name = column_name  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # Indicates whether the column is the primary key of the table. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.primary_key = primary_key  # type: bool
+        # The name of the database.
         self.schema_name = schema_name  # type: str
+        # The name of the table.
         self.table_name = table_name  # type: str
+        # The data type of the column.
         self.type = type  # type: str
 
     def validate(self):
@@ -7022,7 +7105,9 @@ class DescribeColumnsResponseBodyItems(TeaModel):
 
 class DescribeColumnsResponseBody(TeaModel):
     def __init__(self, items=None, request_id=None):
+        # The queried columns.
         self.items = items  # type: DescribeColumnsResponseBodyItems
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8664,8 +8749,12 @@ class DescribeDBResourceGroupRequest(TeaModel):
 
 
 class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
-    def __init__(self, create_time=None, elastic_min_compute_resource=None, group_name=None, group_type=None,
-                 group_users=None, max_compute_resource=None, min_compute_resource=None, status=None, update_time=None):
+    def __init__(self, cluster_mode=None, cluster_size_resource=None, create_time=None,
+                 elastic_min_compute_resource=None, group_name=None, group_type=None, group_users=None, max_cluster_count=None,
+                 max_compute_resource=None, min_cluster_count=None, min_compute_resource=None, running_cluster_count=None, status=None,
+                 update_time=None):
+        self.cluster_mode = cluster_mode  # type: str
+        self.cluster_size_resource = cluster_size_resource  # type: str
         # The time when the resource group was created. The time follows the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time is displayed in UTC.
         self.create_time = create_time  # type: str
         # The amount of minimum elastic computing resources. Unit: ACU.
@@ -8681,10 +8770,13 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
         self.group_type = group_type  # type: str
         # The Resource Access Management (RAM) user with which the resource group is associated.
         self.group_users = group_users  # type: str
+        self.max_cluster_count = max_cluster_count  # type: int
         # The maximum amount of reserved computing resources. Unit: ACU.
         self.max_compute_resource = max_compute_resource  # type: str
+        self.min_cluster_count = min_cluster_count  # type: int
         # The minimum amount of reserved computing resources. Unit: AnalyticDB compute unit (ACU).
         self.min_compute_resource = min_compute_resource  # type: str
+        self.running_cluster_count = running_cluster_count  # type: int
         # The state of the resource group. Valid values:
         # 
         # *   **creating**\
@@ -8703,6 +8795,10 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
             return _map
 
         result = dict()
+        if self.cluster_mode is not None:
+            result['ClusterMode'] = self.cluster_mode
+        if self.cluster_size_resource is not None:
+            result['ClusterSizeResource'] = self.cluster_size_resource
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
         if self.elastic_min_compute_resource is not None:
@@ -8713,10 +8809,16 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
             result['GroupType'] = self.group_type
         if self.group_users is not None:
             result['GroupUsers'] = self.group_users
+        if self.max_cluster_count is not None:
+            result['MaxClusterCount'] = self.max_cluster_count
         if self.max_compute_resource is not None:
             result['MaxComputeResource'] = self.max_compute_resource
+        if self.min_cluster_count is not None:
+            result['MinClusterCount'] = self.min_cluster_count
         if self.min_compute_resource is not None:
             result['MinComputeResource'] = self.min_compute_resource
+        if self.running_cluster_count is not None:
+            result['RunningClusterCount'] = self.running_cluster_count
         if self.status is not None:
             result['Status'] = self.status
         if self.update_time is not None:
@@ -8725,6 +8827,10 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ClusterMode') is not None:
+            self.cluster_mode = m.get('ClusterMode')
+        if m.get('ClusterSizeResource') is not None:
+            self.cluster_size_resource = m.get('ClusterSizeResource')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
         if m.get('ElasticMinComputeResource') is not None:
@@ -8735,10 +8841,16 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
             self.group_type = m.get('GroupType')
         if m.get('GroupUsers') is not None:
             self.group_users = m.get('GroupUsers')
+        if m.get('MaxClusterCount') is not None:
+            self.max_cluster_count = m.get('MaxClusterCount')
         if m.get('MaxComputeResource') is not None:
             self.max_compute_resource = m.get('MaxComputeResource')
+        if m.get('MinClusterCount') is not None:
+            self.min_cluster_count = m.get('MinClusterCount')
         if m.get('MinComputeResource') is not None:
             self.min_compute_resource = m.get('MinComputeResource')
+        if m.get('RunningClusterCount') is not None:
+            self.running_cluster_count = m.get('RunningClusterCount')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('UpdateTime') is not None:
@@ -11546,7 +11658,9 @@ class DescribeSQLPatternsResponse(TeaModel):
 
 class DescribeSchemasRequest(TeaModel):
     def __init__(self, dbcluster_id=None, region_id=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -11575,7 +11689,9 @@ class DescribeSchemasRequest(TeaModel):
 
 class DescribeSchemasResponseBodyItemsSchema(TeaModel):
     def __init__(self, dbcluster_id=None, schema_name=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The name of the database.
         self.schema_name = schema_name  # type: str
 
     def validate(self):
@@ -11636,7 +11752,9 @@ class DescribeSchemasResponseBodyItems(TeaModel):
 
 class DescribeSchemasResponseBody(TeaModel):
     def __init__(self, items=None, request_id=None):
+        # The queried databases.
         self.items = items  # type: DescribeSchemasResponseBodyItems
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12543,8 +12661,11 @@ class DescribeTableAccessCountResponse(TeaModel):
 
 class DescribeTablesRequest(TeaModel):
     def __init__(self, dbcluster_id=None, region_id=None, schema_name=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The name of the database.
         self.schema_name = schema_name  # type: str
 
     def validate(self):
@@ -12577,8 +12698,11 @@ class DescribeTablesRequest(TeaModel):
 
 class DescribeTablesResponseBodyItemsTable(TeaModel):
     def __init__(self, dbcluster_id=None, schema_name=None, table_name=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The name of the database.
         self.schema_name = schema_name  # type: str
+        # The name of the table.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -12643,7 +12767,9 @@ class DescribeTablesResponseBodyItems(TeaModel):
 
 class DescribeTablesResponseBody(TeaModel):
     def __init__(self, items=None, request_id=None):
+        # The queried tables.
         self.items = items  # type: DescribeTablesResponseBodyItems
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -18518,8 +18644,11 @@ class ModifyDBClusterMaintainTimeResponse(TeaModel):
 
 
 class ModifyDBResourceGroupRequest(TeaModel):
-    def __init__(self, dbcluster_id=None, group_name=None, group_type=None, max_compute_resource=None,
+    def __init__(self, cluster_mode=None, cluster_size_resource=None, dbcluster_id=None, group_name=None,
+                 group_type=None, max_cluster_count=None, max_compute_resource=None, min_cluster_count=None,
                  min_compute_resource=None):
+        self.cluster_mode = cluster_mode  # type: str
+        self.cluster_size_resource = cluster_size_resource  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
         # The name of the resource group.
@@ -18533,11 +18662,13 @@ class ModifyDBResourceGroupRequest(TeaModel):
         # 
         # > For information about resource groups of Data Lakehouse Edition, see [Resource groups](~~428610~~).
         self.group_type = group_type  # type: str
+        self.max_cluster_count = max_cluster_count  # type: int
         # The maximum amount of reserved computing resources. Unit: ACU.
         # 
         # *   If GroupType is set to Interactive, the maximum amount of reserved computing resources refers to the amount of resources that are not allocated in the cluster. Set this parameter to a value in increments of 16 ACUs.
         # *   If GroupType is set to Job, the maximum amount of reserved computing resources refers to the amount of resources that are not allocated in the cluster. Set this parameter to a value in increments of 8 ACUs.
         self.max_compute_resource = max_compute_resource  # type: str
+        self.min_cluster_count = min_cluster_count  # type: int
         # The minimum amount of reserved computing resources. Unit: AnalyticDB compute unit (ACU).
         # 
         # *   If GroupType is set to Interactive, set the value to 16ACU.
@@ -18553,28 +18684,44 @@ class ModifyDBResourceGroupRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.cluster_mode is not None:
+            result['ClusterMode'] = self.cluster_mode
+        if self.cluster_size_resource is not None:
+            result['ClusterSizeResource'] = self.cluster_size_resource
         if self.dbcluster_id is not None:
             result['DBClusterId'] = self.dbcluster_id
         if self.group_name is not None:
             result['GroupName'] = self.group_name
         if self.group_type is not None:
             result['GroupType'] = self.group_type
+        if self.max_cluster_count is not None:
+            result['MaxClusterCount'] = self.max_cluster_count
         if self.max_compute_resource is not None:
             result['MaxComputeResource'] = self.max_compute_resource
+        if self.min_cluster_count is not None:
+            result['MinClusterCount'] = self.min_cluster_count
         if self.min_compute_resource is not None:
             result['MinComputeResource'] = self.min_compute_resource
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ClusterMode') is not None:
+            self.cluster_mode = m.get('ClusterMode')
+        if m.get('ClusterSizeResource') is not None:
+            self.cluster_size_resource = m.get('ClusterSizeResource')
         if m.get('DBClusterId') is not None:
             self.dbcluster_id = m.get('DBClusterId')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
         if m.get('GroupType') is not None:
             self.group_type = m.get('GroupType')
+        if m.get('MaxClusterCount') is not None:
+            self.max_cluster_count = m.get('MaxClusterCount')
         if m.get('MaxComputeResource') is not None:
             self.max_compute_resource = m.get('MaxComputeResource')
+        if m.get('MinClusterCount') is not None:
+            self.min_cluster_count = m.get('MinClusterCount')
         if m.get('MinComputeResource') is not None:
             self.min_compute_resource = m.get('MinComputeResource')
         return self

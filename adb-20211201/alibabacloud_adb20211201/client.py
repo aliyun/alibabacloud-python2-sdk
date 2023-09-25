@@ -359,14 +359,22 @@ class Client(OpenApiClient):
     def create_dbresource_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cluster_mode):
+            query['ClusterMode'] = request.cluster_mode
+        if not UtilClient.is_unset(request.cluster_size_resource):
+            query['ClusterSizeResource'] = request.cluster_size_resource
         if not UtilClient.is_unset(request.dbcluster_id):
             query['DBClusterId'] = request.dbcluster_id
         if not UtilClient.is_unset(request.group_name):
             query['GroupName'] = request.group_name
         if not UtilClient.is_unset(request.group_type):
             query['GroupType'] = request.group_type
+        if not UtilClient.is_unset(request.max_cluster_count):
+            query['MaxClusterCount'] = request.max_cluster_count
         if not UtilClient.is_unset(request.max_compute_resource):
             query['MaxComputeResource'] = request.max_compute_resource
+        if not UtilClient.is_unset(request.min_cluster_count):
+            query['MinClusterCount'] = request.min_cluster_count
         if not UtilClient.is_unset(request.min_compute_resource):
             query['MinComputeResource'] = request.min_compute_resource
         req = open_api_models.OpenApiRequest(
@@ -3523,14 +3531,22 @@ class Client(OpenApiClient):
     def modify_dbresource_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cluster_mode):
+            query['ClusterMode'] = request.cluster_mode
+        if not UtilClient.is_unset(request.cluster_size_resource):
+            query['ClusterSizeResource'] = request.cluster_size_resource
         if not UtilClient.is_unset(request.dbcluster_id):
             query['DBClusterId'] = request.dbcluster_id
         if not UtilClient.is_unset(request.group_name):
             query['GroupName'] = request.group_name
         if not UtilClient.is_unset(request.group_type):
             query['GroupType'] = request.group_type
+        if not UtilClient.is_unset(request.max_cluster_count):
+            query['MaxClusterCount'] = request.max_cluster_count
         if not UtilClient.is_unset(request.max_compute_resource):
             query['MaxComputeResource'] = request.max_compute_resource
+        if not UtilClient.is_unset(request.min_cluster_count):
+            query['MinClusterCount'] = request.min_cluster_count
         if not UtilClient.is_unset(request.min_compute_resource):
             query['MinComputeResource'] = request.min_compute_resource
         req = open_api_models.OpenApiRequest(
