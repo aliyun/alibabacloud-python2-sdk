@@ -30,6 +30,126 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def company_four_elements_verification_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auth_code):
+            query['AuthCode'] = request.auth_code
+        if not UtilClient.is_unset(request.ep_cert_name):
+            query['EpCertName'] = request.ep_cert_name
+        if not UtilClient.is_unset(request.ep_cert_no):
+            query['EpCertNo'] = request.ep_cert_no
+        if not UtilClient.is_unset(request.legal_person_cert_name):
+            query['LegalPersonCertName'] = request.legal_person_cert_name
+        if not UtilClient.is_unset(request.legal_person_cert_no):
+            query['LegalPersonCertNo'] = request.legal_person_cert_no
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CompanyFourElementsVerification',
+            version='2020-02-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dytnsapi_20200217_models.CompanyFourElementsVerificationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def company_four_elements_verification(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.company_four_elements_verification_with_options(request, runtime)
+
+    def company_three_elements_verification_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auth_code):
+            query['AuthCode'] = request.auth_code
+        if not UtilClient.is_unset(request.ep_cert_name):
+            query['EpCertName'] = request.ep_cert_name
+        if not UtilClient.is_unset(request.ep_cert_no):
+            query['EpCertNo'] = request.ep_cert_no
+        if not UtilClient.is_unset(request.legal_person_cert_name):
+            query['LegalPersonCertName'] = request.legal_person_cert_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CompanyThreeElementsVerification',
+            version='2020-02-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dytnsapi_20200217_models.CompanyThreeElementsVerificationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def company_three_elements_verification(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.company_three_elements_verification_with_options(request, runtime)
+
+    def company_two_elements_verification_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auth_code):
+            query['AuthCode'] = request.auth_code
+        if not UtilClient.is_unset(request.ep_cert_name):
+            query['EpCertName'] = request.ep_cert_name
+        if not UtilClient.is_unset(request.ep_cert_no):
+            query['EpCertNo'] = request.ep_cert_no
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CompanyTwoElementsVerification',
+            version='2020-02-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dytnsapi_20200217_models.CompanyTwoElementsVerificationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def company_two_elements_verification(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.company_two_elements_verification_with_options(request, runtime)
+
     def describe_empty_number_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -340,6 +460,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.invalid_phone_number_filter_with_options(request, runtime)
 
+    def phone_number_convert_service_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auth_code):
+            query['AuthCode'] = request.auth_code
+        if not UtilClient.is_unset(request.input_number):
+            query['InputNumber'] = request.input_number
+        if not UtilClient.is_unset(request.mask):
+            query['Mask'] = request.mask
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PhoneNumberConvertService',
+            version='2020-02-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dytnsapi_20200217_models.PhoneNumberConvertServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def phone_number_convert_service(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.phone_number_convert_service_with_options(request, runtime)
+
     def phone_number_encrypt_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -605,6 +763,190 @@ class Client(OpenApiClient):
     def phone_number_status_for_voice(self, request):
         runtime = util_models.RuntimeOptions()
         return self.phone_number_status_for_voice_with_options(request, runtime)
+
+    def query_available_auth_code_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag_id):
+            query['TagId'] = request.tag_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryAvailableAuthCode',
+            version='2020-02-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dytnsapi_20200217_models.QueryAvailableAuthCodeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_available_auth_code(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_available_auth_code_with_options(request, runtime)
+
+    def query_tag_apply_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag_id):
+            query['TagId'] = request.tag_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryTagApplyRule',
+            version='2020-02-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dytnsapi_20200217_models.QueryTagApplyRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_tag_apply_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_tag_apply_rule_with_options(request, runtime)
+
+    def query_tag_info_by_selection_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.industry_id):
+            query['IndustryId'] = request.industry_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.scene_id):
+            query['SceneId'] = request.scene_id
+        if not UtilClient.is_unset(request.tag_id):
+            query['TagId'] = request.tag_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryTagInfoBySelection',
+            version='2020-02-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dytnsapi_20200217_models.QueryTagInfoBySelectionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_tag_info_by_selection(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_tag_info_by_selection_with_options(request, runtime)
+
+    def query_tag_list_page_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryTagListPage',
+            version='2020-02-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dytnsapi_20200217_models.QueryTagListPageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_tag_list_page(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_tag_list_page_with_options(request, runtime)
+
+    def query_usage_statistics_by_tag_id_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.begin_time):
+            query['BeginTime'] = request.begin_time
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag_id):
+            query['TagId'] = request.tag_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryUsageStatisticsByTagId',
+            version='2020-02-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dytnsapi_20200217_models.QueryUsageStatisticsByTagIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_usage_statistics_by_tag_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_usage_statistics_by_tag_id_with_options(request, runtime)
 
     def three_elements_verification_with_options(self, request, runtime):
         UtilClient.validate_model(request)
