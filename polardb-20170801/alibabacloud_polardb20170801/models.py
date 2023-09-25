@@ -10871,8 +10871,9 @@ class DescribeDBClusterServerlessConfRequest(TeaModel):
 
 
 class DescribeDBClusterServerlessConfResponseBody(TeaModel):
-    def __init__(self, allow_shut_down=None, dbcluster_id=None, request_id=None, scale_max=None, scale_min=None,
-                 scale_ro_num_max=None, scale_ro_num_min=None, seconds_until_auto_pause=None):
+    def __init__(self, allow_shut_down=None, dbcluster_id=None, request_id=None, scale_ap_ro_num_max=None,
+                 scale_ap_ro_num_min=None, scale_max=None, scale_min=None, scale_ro_num_max=None, scale_ro_num_min=None,
+                 seconds_until_auto_pause=None, switchs=None):
         # Indicates whether the no-activity suspension feature is enabled. Default value: false. Valid values:
         # 
         # *   **true**\
@@ -10882,6 +10883,8 @@ class DescribeDBClusterServerlessConfResponseBody(TeaModel):
         self.dbcluster_id = dbcluster_id  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
+        self.scale_ap_ro_num_max = scale_ap_ro_num_max  # type: str
+        self.scale_ap_ro_num_min = scale_ap_ro_num_min  # type: str
         # The maximum number of PCUs per node for scaling. Valid values: 1 PCU to 32 PCUs.
         self.scale_max = scale_max  # type: str
         # The minimum number of PCUs per node for scaling. Valid values: 1 PCU to 31 PCUs.
@@ -10892,6 +10895,7 @@ class DescribeDBClusterServerlessConfResponseBody(TeaModel):
         self.scale_ro_num_min = scale_ro_num_min  # type: str
         # The detection period for no-activity suspension. Valid values: 300 to 86400. Unit: seconds. The value must be a multiple of 300.
         self.seconds_until_auto_pause = seconds_until_auto_pause  # type: str
+        self.switchs = switchs  # type: str
 
     def validate(self):
         pass
@@ -10908,6 +10912,10 @@ class DescribeDBClusterServerlessConfResponseBody(TeaModel):
             result['DBClusterId'] = self.dbcluster_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.scale_ap_ro_num_max is not None:
+            result['ScaleApRoNumMax'] = self.scale_ap_ro_num_max
+        if self.scale_ap_ro_num_min is not None:
+            result['ScaleApRoNumMin'] = self.scale_ap_ro_num_min
         if self.scale_max is not None:
             result['ScaleMax'] = self.scale_max
         if self.scale_min is not None:
@@ -10918,6 +10926,8 @@ class DescribeDBClusterServerlessConfResponseBody(TeaModel):
             result['ScaleRoNumMin'] = self.scale_ro_num_min
         if self.seconds_until_auto_pause is not None:
             result['SecondsUntilAutoPause'] = self.seconds_until_auto_pause
+        if self.switchs is not None:
+            result['Switchs'] = self.switchs
         return result
 
     def from_map(self, m=None):
@@ -10928,6 +10938,10 @@ class DescribeDBClusterServerlessConfResponseBody(TeaModel):
             self.dbcluster_id = m.get('DBClusterId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('ScaleApRoNumMax') is not None:
+            self.scale_ap_ro_num_max = m.get('ScaleApRoNumMax')
+        if m.get('ScaleApRoNumMin') is not None:
+            self.scale_ap_ro_num_min = m.get('ScaleApRoNumMin')
         if m.get('ScaleMax') is not None:
             self.scale_max = m.get('ScaleMax')
         if m.get('ScaleMin') is not None:
@@ -10938,6 +10952,8 @@ class DescribeDBClusterServerlessConfResponseBody(TeaModel):
             self.scale_ro_num_min = m.get('ScaleRoNumMin')
         if m.get('SecondsUntilAutoPause') is not None:
             self.seconds_until_auto_pause = m.get('SecondsUntilAutoPause')
+        if m.get('Switchs') is not None:
+            self.switchs = m.get('Switchs')
         return self
 
 
@@ -19710,6 +19726,119 @@ class DescribeVSwitchesResponse(TeaModel):
         return self
 
 
+class DisableDBClusterServerlessRequest(TeaModel):
+    def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableDBClusterServerlessRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class DisableDBClusterServerlessResponseBody(TeaModel):
+    def __init__(self, dbcluster_id=None, request_id=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableDBClusterServerlessResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DisableDBClusterServerlessResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DisableDBClusterServerlessResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DisableDBClusterServerlessResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DisableDBClusterServerlessResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class EnableFirewallRulesRequest(TeaModel):
     def __init__(self, dbcluster_id=None, enable=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, rule_name_list=None):
@@ -23485,8 +23614,8 @@ class ModifyDBClusterSSLResponse(TeaModel):
 class ModifyDBClusterServerlessConfRequest(TeaModel):
     def __init__(self, allow_shut_down=None, dbcluster_id=None, from_time_service=None, owner_account=None,
                  owner_id=None, planned_end_time=None, planned_start_time=None, resource_owner_account=None,
-                 resource_owner_id=None, scale_max=None, scale_min=None, scale_ro_num_max=None, scale_ro_num_min=None,
-                 seconds_until_auto_pause=None):
+                 resource_owner_id=None, scale_ap_ro_num_max=None, scale_ap_ro_num_min=None, scale_max=None, scale_min=None,
+                 scale_ro_num_max=None, scale_ro_num_min=None, seconds_until_auto_pause=None):
         # Specifies whether to enable No-activity Suspension. Default value: false. Valid values:
         # 
         # *   **true**\
@@ -23501,6 +23630,8 @@ class ModifyDBClusterServerlessConfRequest(TeaModel):
         self.planned_start_time = planned_start_time  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.scale_ap_ro_num_max = scale_ap_ro_num_max  # type: str
+        self.scale_ap_ro_num_min = scale_ap_ro_num_min  # type: str
         # The maximum number of PCUs per node for scaling. Valid values: 1 PCU to 32 PCUs.
         self.scale_max = scale_max  # type: str
         # The minimum number of PCUs per node for scaling. Valid values: 1 PCU to 31 PCUs.
@@ -23539,6 +23670,10 @@ class ModifyDBClusterServerlessConfRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.scale_ap_ro_num_max is not None:
+            result['ScaleApRoNumMax'] = self.scale_ap_ro_num_max
+        if self.scale_ap_ro_num_min is not None:
+            result['ScaleApRoNumMin'] = self.scale_ap_ro_num_min
         if self.scale_max is not None:
             result['ScaleMax'] = self.scale_max
         if self.scale_min is not None:
@@ -23571,6 +23706,10 @@ class ModifyDBClusterServerlessConfRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('ScaleApRoNumMax') is not None:
+            self.scale_ap_ro_num_max = m.get('ScaleApRoNumMax')
+        if m.get('ScaleApRoNumMin') is not None:
+            self.scale_ap_ro_num_min = m.get('ScaleApRoNumMin')
         if m.get('ScaleMax') is not None:
             self.scale_max = m.get('ScaleMax')
         if m.get('ScaleMin') is not None:

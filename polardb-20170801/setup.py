@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_polardb20170801_py2.
 
-Created on 22/09/2023
+Created on 25/09/2023
 
 @author: Alibaba Cloud SDK
 """

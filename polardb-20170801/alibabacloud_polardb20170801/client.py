@@ -4186,6 +4186,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_vswitches_with_options(request, runtime)
 
+    def disable_dbcluster_serverless_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DisableDBClusterServerless',
+            version='2017-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardb_20170801_models.DisableDBClusterServerlessResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def disable_dbcluster_serverless(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.disable_dbcluster_serverless_with_options(request, runtime)
+
     def enable_firewall_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5401,6 +5437,10 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.scale_ap_ro_num_max):
+            query['ScaleApRoNumMax'] = request.scale_ap_ro_num_max
+        if not UtilClient.is_unset(request.scale_ap_ro_num_min):
+            query['ScaleApRoNumMin'] = request.scale_ap_ro_num_min
         if not UtilClient.is_unset(request.scale_max):
             query['ScaleMax'] = request.scale_max
         if not UtilClient.is_unset(request.scale_min):
