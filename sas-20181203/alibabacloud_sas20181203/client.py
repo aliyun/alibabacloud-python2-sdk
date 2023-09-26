@@ -4359,7 +4359,7 @@ class Client(OpenApiClient):
 
     def describe_cloud_center_instances_with_options(self, request, runtime):
         """
-        You can search for assets by using search conditions, such as the instance ID, instance name, virtual private cloud (VPC) ID, region, and public IP address. You can also configure a logical relationship between multiple search conditions to search for the assets that meet the search conditions.
+        You can search for an asset by using search conditions, such as the instance ID, instance name, virtual private cloud (VPC) ID, region, and public IP address. You can also configure a logical relationship between multiple search conditions to search for the assets that meet the search conditions.
         
 
         @param request: DescribeCloudCenterInstancesRequest
@@ -4415,7 +4415,7 @@ class Client(OpenApiClient):
 
     def describe_cloud_center_instances(self, request):
         """
-        You can search for assets by using search conditions, such as the instance ID, instance name, virtual private cloud (VPC) ID, region, and public IP address. You can also configure a logical relationship between multiple search conditions to search for the assets that meet the search conditions.
+        You can search for an asset by using search conditions, such as the instance ID, instance name, virtual private cloud (VPC) ID, region, and public IP address. You can also configure a logical relationship between multiple search conditions to search for the assets that meet the search conditions.
         
 
         @param request: DescribeCloudCenterInstancesRequest
@@ -7009,9 +7009,9 @@ class Client(OpenApiClient):
 
     def describe_install_codes_with_options(self, runtime):
         """
-        You can call the DescribeInstallCodes operation to query the commands that are used to manually install the Security Center agent. The returned results contain the installation verification code and the server information. If you want to manually install the Security Center agent on your server, you can call this operation to query installation commands.
-        # Limits
-        You can call this API operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        You can call this operation to query the commands that are used to manually install the Security Center agent on the server. The return result contains the installation verification code and the server information. If you want to manually install the Security Center agent on your server, you can call this operation to query installation commands.
+        ### QPS limit
+        You can call this operation up to 10 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation.
         
 
         @param request: DescribeInstallCodesRequest
@@ -7039,9 +7039,9 @@ class Client(OpenApiClient):
 
     def describe_install_codes(self):
         """
-        You can call the DescribeInstallCodes operation to query the commands that are used to manually install the Security Center agent. The returned results contain the installation verification code and the server information. If you want to manually install the Security Center agent on your server, you can call this operation to query installation commands.
-        # Limits
-        You can call this API operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        You can call this operation to query the commands that are used to manually install the Security Center agent on the server. The return result contains the installation verification code and the server information. If you want to manually install the Security Center agent on your server, you can call this operation to query installation commands.
+        ### QPS limit
+        You can call this operation up to 10 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation.
         
 
         @return: DescribeInstallCodesResponse
@@ -11417,6 +11417,8 @@ class Client(OpenApiClient):
             query['AliasName'] = request.alias_name
         if not UtilClient.is_unset(request.attach_types):
             query['AttachTypes'] = request.attach_types
+        if not UtilClient.is_unset(request.cve_id):
+            query['CveId'] = request.cve_id
         if not UtilClient.is_unset(request.dealed):
             query['Dealed'] = request.dealed
         if not UtilClient.is_unset(request.group_id):
@@ -15658,6 +15660,34 @@ class Client(OpenApiClient):
     def list_vul_auto_repair_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_vul_auto_repair_config_with_options(request, runtime)
+
+    def list_vul_global_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_key):
+            query['ConfigKey'] = request.config_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListVulGlobalConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListVulGlobalConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_vul_global_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_vul_global_config_with_options(request, runtime)
 
     def modify_access_key_leak_deal_with_options(self, request, runtime):
         UtilClient.validate_model(request)
