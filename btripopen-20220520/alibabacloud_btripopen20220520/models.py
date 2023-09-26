@@ -9472,14 +9472,14 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  book_time=None, booker_id=None, booker_job_no=None, booker_name=None, business_category=None,
                  capital_direction=None, car_level=None, cascade_department=None, cost_center=None, cost_center_number=None,
                  coupon=None, coupon_price=None, dep_city_code=None, department=None, department_id=None, dept_city=None,
-                 dept_date=None, dept_location=None, dept_time=None, estimate_drive_distance=None, estimate_price=None,
-                 fee_type=None, index=None, invoice_title=None, memo=None, order_id=None, order_price=None,
-                 over_apply_id=None, person_settle_fee=None, primary_id=None, project_code=None, project_name=None,
-                 provider_name=None, real_drive_distance=None, real_from_addr=None, real_to_addr=None, remark=None,
-                 service_fee=None, settlement_fee=None, settlement_grant_fee=None, settlement_time=None, settlement_type=None,
-                 special_order=None, special_reason=None, status=None, sub_order_id=None, tax_rate=None, third_itinerary_id=None,
-                 time_type=None, traveler_id=None, traveler_job_no=None, traveler_name=None, user_confirm_desc=None,
-                 voucher_type=None):
+                 dept_date=None, dept_location=None, dept_time=None, driver_add_detail=None, driver_add_fee=None,
+                 estimate_drive_distance=None, estimate_price=None, fee_type=None, index=None, invoice_title=None, level_name=None,
+                 memo=None, order_id=None, order_price=None, over_apply_id=None, person_settle_fee=None, primary_id=None,
+                 project_code=None, project_name=None, provider_name=None, real_drive_distance=None, real_from_addr=None,
+                 real_to_addr=None, remark=None, service_fee=None, settlement_fee=None, settlement_grant_fee=None,
+                 settlement_time=None, settlement_type=None, special_order=None, special_reason=None, status=None,
+                 sub_order_id=None, supplement_apply_id=None, tax_rate=None, third_itinerary_id=None, time_type=None,
+                 traveler_id=None, traveler_job_no=None, traveler_name=None, user_confirm_desc=None, voucher_type=None):
         self.alipay_trade_no = alipay_trade_no  # type: str
         self.apply_arr_city_code = apply_arr_city_code  # type: str
         self.apply_arr_city_name = apply_arr_city_name  # type: str
@@ -9514,11 +9514,14 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.dept_date = dept_date  # type: str
         self.dept_location = dept_location  # type: str
         self.dept_time = dept_time  # type: str
+        self.driver_add_detail = driver_add_detail  # type: str
+        self.driver_add_fee = driver_add_fee  # type: float
         self.estimate_drive_distance = estimate_drive_distance  # type: str
         self.estimate_price = estimate_price  # type: float
         self.fee_type = fee_type  # type: str
         self.index = index  # type: str
         self.invoice_title = invoice_title  # type: str
+        self.level_name = level_name  # type: str
         self.memo = memo  # type: str
         self.order_id = order_id  # type: str
         self.order_price = order_price  # type: float
@@ -9541,6 +9544,7 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.special_reason = special_reason  # type: str
         self.status = status  # type: int
         self.sub_order_id = sub_order_id  # type: str
+        self.supplement_apply_id = supplement_apply_id  # type: str
         # 税率
         self.tax_rate = tax_rate  # type: str
         self.third_itinerary_id = third_itinerary_id  # type: str
@@ -9626,6 +9630,10 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['dept_location'] = self.dept_location
         if self.dept_time is not None:
             result['dept_time'] = self.dept_time
+        if self.driver_add_detail is not None:
+            result['driver_add_detail'] = self.driver_add_detail
+        if self.driver_add_fee is not None:
+            result['driver_add_fee'] = self.driver_add_fee
         if self.estimate_drive_distance is not None:
             result['estimate_drive_distance'] = self.estimate_drive_distance
         if self.estimate_price is not None:
@@ -9636,6 +9644,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['index'] = self.index
         if self.invoice_title is not None:
             result['invoice_title'] = self.invoice_title
+        if self.level_name is not None:
+            result['level_name'] = self.level_name
         if self.memo is not None:
             result['memo'] = self.memo
         if self.order_id is not None:
@@ -9680,6 +9690,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['status'] = self.status
         if self.sub_order_id is not None:
             result['sub_order_id'] = self.sub_order_id
+        if self.supplement_apply_id is not None:
+            result['supplement_apply_id'] = self.supplement_apply_id
         if self.tax_rate is not None:
             result['tax_rate'] = self.tax_rate
         if self.third_itinerary_id is not None:
@@ -9766,6 +9778,10 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.dept_location = m.get('dept_location')
         if m.get('dept_time') is not None:
             self.dept_time = m.get('dept_time')
+        if m.get('driver_add_detail') is not None:
+            self.driver_add_detail = m.get('driver_add_detail')
+        if m.get('driver_add_fee') is not None:
+            self.driver_add_fee = m.get('driver_add_fee')
         if m.get('estimate_drive_distance') is not None:
             self.estimate_drive_distance = m.get('estimate_drive_distance')
         if m.get('estimate_price') is not None:
@@ -9776,6 +9792,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.index = m.get('index')
         if m.get('invoice_title') is not None:
             self.invoice_title = m.get('invoice_title')
+        if m.get('level_name') is not None:
+            self.level_name = m.get('level_name')
         if m.get('memo') is not None:
             self.memo = m.get('memo')
         if m.get('order_id') is not None:
@@ -9820,6 +9838,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.status = m.get('status')
         if m.get('sub_order_id') is not None:
             self.sub_order_id = m.get('sub_order_id')
+        if m.get('supplement_apply_id') is not None:
+            self.supplement_apply_id = m.get('supplement_apply_id')
         if m.get('tax_rate') is not None:
             self.tax_rate = m.get('tax_rate')
         if m.get('third_itinerary_id') is not None:
@@ -15393,17 +15413,19 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  apply_arr_city_code=None, apply_arr_city_name=None, apply_dep_city_code=None, apply_dep_city_name=None,
                  apply_extend_field=None, apply_id=None, arr_airport_code=None, arr_city=None, arr_city_code=None, arr_date=None,
                  arr_station=None, arr_time=None, bill_record_time=None, book_time=None, booker_id=None, booker_job_no=None,
-                 booker_name=None, btrip_coupon_fee=None, build_fee=None, cabin=None, cabin_class=None, capital_direction=None,
-                 cascade_department=None, change_fee=None, corp_pay_order_fee=None, cost_center=None, cost_center_number=None,
-                 coupon=None, dep_airport_code=None, dep_city_code=None, department=None, department_id=None,
-                 dept_city=None, dept_date=None, dept_station=None, dept_time=None, discount=None, fee_type=None,
-                 flight_no=None, index=None, insurance_fee=None, invoice_title=None, itinerary_num=None, itinerary_price=None,
-                 most_difference_dept_time=None, most_difference_discount=None, most_difference_flight_no=None, most_difference_price=None,
-                 most_difference_reason=None, most_price=None, negotiation_coupon_fee=None, oil_fee=None, order_id=None,
-                 over_apply_id=None, primary_id=None, project_code=None, project_name=None, refund_fee=None, refund_result=None,
+                 booker_name=None, btrip_coupon_fee=None, build_fee=None, business_trip_result=None, cabin=None,
+                 cabin_class=None, capital_direction=None, cascade_department=None, change_fee=None, change_result=None,
+                 corp_pay_order_fee=None, corp_settle_price=None, cost_center=None, cost_center_number=None, coupon=None,
+                 dep_airport_code=None, dep_city_code=None, department=None, department_id=None, dept_city=None, dept_date=None,
+                 dept_station=None, dept_time=None, discount=None, exceed_reason=None, fee_type=None, flight_no=None, index=None,
+                 ins_order_id=None, insurance_fee=None, insurance_number=None, invoice_title=None, itinerary_num=None,
+                 itinerary_price=None, mileage=None, most_difference_dept_time=None, most_difference_discount=None,
+                 most_difference_flight_no=None, most_difference_price=None, most_difference_reason=None, most_price=None,
+                 negotiation_coupon_fee=None, oil_fee=None, order_id=None, over_apply_id=None, person_settle_price=None, pre_book_tip=None,
+                 primary_id=None, project_code=None, project_name=None, refund_fee=None, refund_result=None,
                  refund_upgrade_cost=None, remark=None, repeat_refund=None, seal_price=None, service_fee=None, settlement_fee=None,
                  settlement_grant_fee=None, settlement_time=None, settlement_type=None, status=None, tax_rate=None,
-                 third_itinerary_id=None, ticket_id=None, traveler_id=None, traveler_job_no=None, traveler_name=None,
+                 third_itinerary_id=None, ticket_id=None, trade=None, traveler_id=None, traveler_job_no=None, traveler_name=None,
                  upgrade_cost=None, voucher_type=None):
         self.advance_day = advance_day  # type: int
         self.airline_corp_code = airline_corp_code  # type: str
@@ -15429,12 +15451,15 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.booker_name = booker_name  # type: str
         self.btrip_coupon_fee = btrip_coupon_fee  # type: float
         self.build_fee = build_fee  # type: float
+        self.business_trip_result = business_trip_result  # type: str
         self.cabin = cabin  # type: str
         self.cabin_class = cabin_class  # type: str
         self.capital_direction = capital_direction  # type: str
         self.cascade_department = cascade_department  # type: str
         self.change_fee = change_fee  # type: float
+        self.change_result = change_result  # type: str
         self.corp_pay_order_fee = corp_pay_order_fee  # type: float
+        self.corp_settle_price = corp_settle_price  # type: float
         self.cost_center = cost_center  # type: str
         self.cost_center_number = cost_center_number  # type: str
         self.coupon = coupon  # type: float
@@ -15447,13 +15472,17 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.dept_station = dept_station  # type: str
         self.dept_time = dept_time  # type: str
         self.discount = discount  # type: str
+        self.exceed_reason = exceed_reason  # type: str
         self.fee_type = fee_type  # type: str
         self.flight_no = flight_no  # type: str
         self.index = index  # type: str
+        self.ins_order_id = ins_order_id  # type: str
         self.insurance_fee = insurance_fee  # type: float
+        self.insurance_number = insurance_number  # type: str
         self.invoice_title = invoice_title  # type: str
         self.itinerary_num = itinerary_num  # type: str
         self.itinerary_price = itinerary_price  # type: float
+        self.mileage = mileage  # type: str
         self.most_difference_dept_time = most_difference_dept_time  # type: str
         self.most_difference_discount = most_difference_discount  # type: str
         self.most_difference_flight_no = most_difference_flight_no  # type: str
@@ -15464,6 +15493,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.oil_fee = oil_fee  # type: float
         self.order_id = order_id  # type: str
         self.over_apply_id = over_apply_id  # type: str
+        self.person_settle_price = person_settle_price  # type: float
+        self.pre_book_tip = pre_book_tip  # type: str
         self.primary_id = primary_id  # type: long
         self.project_code = project_code  # type: str
         self.project_name = project_name  # type: str
@@ -15483,6 +15514,7 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.tax_rate = tax_rate  # type: str
         self.third_itinerary_id = third_itinerary_id  # type: str
         self.ticket_id = ticket_id  # type: str
+        self.trade = trade  # type: str
         self.traveler_id = traveler_id  # type: str
         self.traveler_job_no = traveler_job_no  # type: str
         self.traveler_name = traveler_name  # type: str
@@ -15544,6 +15576,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['btrip_coupon_fee'] = self.btrip_coupon_fee
         if self.build_fee is not None:
             result['build_fee'] = self.build_fee
+        if self.business_trip_result is not None:
+            result['business_trip_result'] = self.business_trip_result
         if self.cabin is not None:
             result['cabin'] = self.cabin
         if self.cabin_class is not None:
@@ -15554,8 +15588,12 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['cascade_department'] = self.cascade_department
         if self.change_fee is not None:
             result['change_fee'] = self.change_fee
+        if self.change_result is not None:
+            result['change_result'] = self.change_result
         if self.corp_pay_order_fee is not None:
             result['corp_pay_order_fee'] = self.corp_pay_order_fee
+        if self.corp_settle_price is not None:
+            result['corp_settle_price'] = self.corp_settle_price
         if self.cost_center is not None:
             result['cost_center'] = self.cost_center
         if self.cost_center_number is not None:
@@ -15580,20 +15618,28 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['dept_time'] = self.dept_time
         if self.discount is not None:
             result['discount'] = self.discount
+        if self.exceed_reason is not None:
+            result['exceed_reason'] = self.exceed_reason
         if self.fee_type is not None:
             result['fee_type'] = self.fee_type
         if self.flight_no is not None:
             result['flight_no'] = self.flight_no
         if self.index is not None:
             result['index'] = self.index
+        if self.ins_order_id is not None:
+            result['ins_order_id'] = self.ins_order_id
         if self.insurance_fee is not None:
             result['insurance_fee'] = self.insurance_fee
+        if self.insurance_number is not None:
+            result['insurance_number'] = self.insurance_number
         if self.invoice_title is not None:
             result['invoice_title'] = self.invoice_title
         if self.itinerary_num is not None:
             result['itinerary_num'] = self.itinerary_num
         if self.itinerary_price is not None:
             result['itinerary_price'] = self.itinerary_price
+        if self.mileage is not None:
+            result['mileage'] = self.mileage
         if self.most_difference_dept_time is not None:
             result['most_difference_dept_time'] = self.most_difference_dept_time
         if self.most_difference_discount is not None:
@@ -15614,6 +15660,10 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['order_id'] = self.order_id
         if self.over_apply_id is not None:
             result['over_apply_id'] = self.over_apply_id
+        if self.person_settle_price is not None:
+            result['person_settle_price'] = self.person_settle_price
+        if self.pre_book_tip is not None:
+            result['pre_book_tip'] = self.pre_book_tip
         if self.primary_id is not None:
             result['primary_id'] = self.primary_id
         if self.project_code is not None:
@@ -15650,6 +15700,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['third_itinerary_id'] = self.third_itinerary_id
         if self.ticket_id is not None:
             result['ticket_id'] = self.ticket_id
+        if self.trade is not None:
+            result['trade'] = self.trade
         if self.traveler_id is not None:
             result['traveler_id'] = self.traveler_id
         if self.traveler_job_no is not None:
@@ -15710,6 +15762,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.btrip_coupon_fee = m.get('btrip_coupon_fee')
         if m.get('build_fee') is not None:
             self.build_fee = m.get('build_fee')
+        if m.get('business_trip_result') is not None:
+            self.business_trip_result = m.get('business_trip_result')
         if m.get('cabin') is not None:
             self.cabin = m.get('cabin')
         if m.get('cabin_class') is not None:
@@ -15720,8 +15774,12 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.cascade_department = m.get('cascade_department')
         if m.get('change_fee') is not None:
             self.change_fee = m.get('change_fee')
+        if m.get('change_result') is not None:
+            self.change_result = m.get('change_result')
         if m.get('corp_pay_order_fee') is not None:
             self.corp_pay_order_fee = m.get('corp_pay_order_fee')
+        if m.get('corp_settle_price') is not None:
+            self.corp_settle_price = m.get('corp_settle_price')
         if m.get('cost_center') is not None:
             self.cost_center = m.get('cost_center')
         if m.get('cost_center_number') is not None:
@@ -15746,20 +15804,28 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.dept_time = m.get('dept_time')
         if m.get('discount') is not None:
             self.discount = m.get('discount')
+        if m.get('exceed_reason') is not None:
+            self.exceed_reason = m.get('exceed_reason')
         if m.get('fee_type') is not None:
             self.fee_type = m.get('fee_type')
         if m.get('flight_no') is not None:
             self.flight_no = m.get('flight_no')
         if m.get('index') is not None:
             self.index = m.get('index')
+        if m.get('ins_order_id') is not None:
+            self.ins_order_id = m.get('ins_order_id')
         if m.get('insurance_fee') is not None:
             self.insurance_fee = m.get('insurance_fee')
+        if m.get('insurance_number') is not None:
+            self.insurance_number = m.get('insurance_number')
         if m.get('invoice_title') is not None:
             self.invoice_title = m.get('invoice_title')
         if m.get('itinerary_num') is not None:
             self.itinerary_num = m.get('itinerary_num')
         if m.get('itinerary_price') is not None:
             self.itinerary_price = m.get('itinerary_price')
+        if m.get('mileage') is not None:
+            self.mileage = m.get('mileage')
         if m.get('most_difference_dept_time') is not None:
             self.most_difference_dept_time = m.get('most_difference_dept_time')
         if m.get('most_difference_discount') is not None:
@@ -15780,6 +15846,10 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.order_id = m.get('order_id')
         if m.get('over_apply_id') is not None:
             self.over_apply_id = m.get('over_apply_id')
+        if m.get('person_settle_price') is not None:
+            self.person_settle_price = m.get('person_settle_price')
+        if m.get('pre_book_tip') is not None:
+            self.pre_book_tip = m.get('pre_book_tip')
         if m.get('primary_id') is not None:
             self.primary_id = m.get('primary_id')
         if m.get('project_code') is not None:
@@ -15816,6 +15886,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.third_itinerary_id = m.get('third_itinerary_id')
         if m.get('ticket_id') is not None:
             self.ticket_id = m.get('ticket_id')
+        if m.get('trade') is not None:
+            self.trade = m.get('trade')
         if m.get('traveler_id') is not None:
             self.traveler_id = m.get('traveler_id')
         if m.get('traveler_job_no') is not None:
@@ -22485,14 +22557,16 @@ class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListPriceInfoDTO(
 
 class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightList(TeaModel):
     def __init__(self, airline_info=None, arr_airport_info=None, arr_city_code=None, arr_time=None,
-                 dep_airport_info=None, dep_city_code=None, dep_time=None, duration=None, flight_no=None, flight_share_info=None,
-                 flight_size=None, flight_stop_info=None, flight_transfer_info=None, flight_type=None, journey_seq=None,
-                 left_num=None, manufacturer=None, meal_desc=None, price_info_dto=None, segment_seq=None, share=None,
-                 short_flight_size=None, span_day=None, stop=None, transfer=None):
+                 cabin_class=None, cabin_class_name=None, dep_airport_info=None, dep_city_code=None, dep_time=None,
+                 duration=None, flight_no=None, flight_share_info=None, flight_size=None, flight_stop_info=None,
+                 flight_transfer_info=None, flight_type=None, journey_seq=None, left_num=None, manufacturer=None, meal_desc=None,
+                 price_info_dto=None, segment_seq=None, share=None, short_flight_size=None, span_day=None, stop=None, transfer=None):
         self.airline_info = airline_info  # type: FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListAirlineInfo
         self.arr_airport_info = arr_airport_info  # type: FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListArrAirportInfo
         self.arr_city_code = arr_city_code  # type: str
         self.arr_time = arr_time  # type: str
+        self.cabin_class = cabin_class  # type: str
+        self.cabin_class_name = cabin_class_name  # type: str
         self.dep_airport_info = dep_airport_info  # type: FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListDepAirportInfo
         self.dep_city_code = dep_city_code  # type: str
         self.dep_time = dep_time  # type: str
@@ -22545,6 +22619,10 @@ class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightList(TeaModel):
             result['arr_city_code'] = self.arr_city_code
         if self.arr_time is not None:
             result['arr_time'] = self.arr_time
+        if self.cabin_class is not None:
+            result['cabinClass'] = self.cabin_class
+        if self.cabin_class_name is not None:
+            result['cabinClassName'] = self.cabin_class_name
         if self.dep_airport_info is not None:
             result['dep_airport_info'] = self.dep_airport_info.to_map()
         if self.dep_city_code is not None:
@@ -22601,6 +22679,10 @@ class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightList(TeaModel):
             self.arr_city_code = m.get('arr_city_code')
         if m.get('arr_time') is not None:
             self.arr_time = m.get('arr_time')
+        if m.get('cabinClass') is not None:
+            self.cabin_class = m.get('cabinClass')
+        if m.get('cabinClassName') is not None:
+            self.cabin_class_name = m.get('cabinClassName')
         if m.get('dep_airport_info') is not None:
             temp_model = FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListDepAirportInfo()
             self.dep_airport_info = temp_model.from_map(m['dep_airport_info'])
@@ -23169,14 +23251,16 @@ class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListPriceInfoDT
 
 class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightList(TeaModel):
     def __init__(self, airline_info=None, arr_airport_info=None, arr_city_code=None, arr_time=None,
-                 dep_airport_info=None, dep_city_code=None, dep_time=None, duration=None, flight_no=None, flight_share_info=None,
-                 flight_size=None, flight_stop_info=None, flight_transfer_info=None, flight_type=None, journey_seq=None,
-                 left_num=None, manufacturer=None, meal_desc=None, price_info_dto=None, segment_seq=None, share=None,
-                 short_flight_size=None, span_day=None, stop=None, transfer=None):
+                 cabin_class=None, cabin_class_name=None, dep_airport_info=None, dep_city_code=None, dep_time=None,
+                 duration=None, flight_no=None, flight_share_info=None, flight_size=None, flight_stop_info=None,
+                 flight_transfer_info=None, flight_type=None, journey_seq=None, left_num=None, manufacturer=None, meal_desc=None,
+                 price_info_dto=None, segment_seq=None, share=None, short_flight_size=None, span_day=None, stop=None, transfer=None):
         self.airline_info = airline_info  # type: FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListAirlineInfo
         self.arr_airport_info = arr_airport_info  # type: FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListArrAirportInfo
         self.arr_city_code = arr_city_code  # type: str
         self.arr_time = arr_time  # type: str
+        self.cabin_class = cabin_class  # type: str
+        self.cabin_class_name = cabin_class_name  # type: str
         self.dep_airport_info = dep_airport_info  # type: FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListDepAirportInfo
         self.dep_city_code = dep_city_code  # type: str
         self.dep_time = dep_time  # type: str
@@ -23229,6 +23313,10 @@ class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightList(TeaModel):
             result['arr_city_code'] = self.arr_city_code
         if self.arr_time is not None:
             result['arr_time'] = self.arr_time
+        if self.cabin_class is not None:
+            result['cabinClass'] = self.cabin_class
+        if self.cabin_class_name is not None:
+            result['cabinClassName'] = self.cabin_class_name
         if self.dep_airport_info is not None:
             result['dep_airport_info'] = self.dep_airport_info.to_map()
         if self.dep_city_code is not None:
@@ -23285,6 +23373,10 @@ class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightList(TeaModel):
             self.arr_city_code = m.get('arr_city_code')
         if m.get('arr_time') is not None:
             self.arr_time = m.get('arr_time')
+        if m.get('cabinClass') is not None:
+            self.cabin_class = m.get('cabinClass')
+        if m.get('cabinClassName') is not None:
+            self.cabin_class_name = m.get('cabinClassName')
         if m.get('dep_airport_info') is not None:
             temp_model = FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListDepAirportInfo()
             self.dep_airport_info = temp_model.from_map(m['dep_airport_info'])
@@ -42165,17 +42257,18 @@ class HotelBillSettlementQueryRequest(TeaModel):
 class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
     def __init__(self, alipay_trade_no=None, apply_arr_city_code=None, apply_arr_city_name=None,
                  apply_dep_city_code=None, apply_dep_city_name=None, apply_extend_field=None, apply_id=None, average_nights=None,
-                 bill_record_time=None, book_time=None, booker_id=None, booker_job_no=None, booker_name=None, capital_direction=None,
-                 cascade_department=None, check_in_date=None, checkout_date=None, city=None, city_code=None, corp_refund_fee=None,
-                 corp_total_fee=None, cost_center=None, cost_center_number=None, department=None, department_id=None,
-                 fee_type=None, fees=None, fines=None, fu_point_fee=None, hotel_name=None, index=None, invoice_title=None,
-                 is_early_departure=None, is_negotiation=None, is_share_str=None, nights=None, order_id=None, order_price=None,
-                 order_type=None, over_apply_id=None, person_refund_fee=None, person_settle_price=None, primary_id=None,
-                 project_code=None, project_name=None, promotion_fee=None, remark=None, reserve_rule=None, room_no=None,
-                 room_number=None, room_price=None, room_type=None, service_fee=None, settlement_fee=None,
-                 settlement_grant_fee=None, settlement_time=None, settlement_type=None, status=None, tax_rate=None,
-                 third_itinerary_id=None, total_nights=None, traveler_id=None, traveler_job_no=None, traveler_name=None,
-                 voucher_type=None):
+                 bill_record_time=None, book_reason=None, book_time=None, booker_id=None, booker_job_no=None, booker_name=None,
+                 brand_group=None, brand_name=None, business_trip_result=None, capital_direction=None, cascade_department=None,
+                 check_in_date=None, checkout_date=None, city=None, city_code=None, city_county=None, city_county_code=None,
+                 corp_refund_fee=None, corp_total_fee=None, cost_center=None, cost_center_number=None, department=None,
+                 department_id=None, exceed_reason=None, fee_type=None, fees=None, fines=None, fu_point_fee=None, hotel_name=None,
+                 index=None, invoice_title=None, is_early_departure=None, is_negotiation=None, is_share_str=None,
+                 nights=None, order_id=None, order_price=None, order_type=None, over_apply_id=None, person_refund_fee=None,
+                 person_settle_price=None, primary_id=None, project_code=None, project_name=None, promotion_fee=None, remark=None,
+                 reserve_rule=None, room_no=None, room_number=None, room_price=None, room_type=None, service_fee=None,
+                 settlement_fee=None, settlement_grant_fee=None, settlement_time=None, settlement_type=None, status=None,
+                 tax_rate=None, third_itinerary_id=None, total_nights=None, traveler_id=None, traveler_job_no=None,
+                 traveler_name=None, voucher_type=None):
         self.alipay_trade_no = alipay_trade_no  # type: str
         self.apply_arr_city_code = apply_arr_city_code  # type: str
         self.apply_arr_city_name = apply_arr_city_name  # type: str
@@ -42186,22 +42279,29 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.apply_id = apply_id  # type: str
         self.average_nights = average_nights  # type: str
         self.bill_record_time = bill_record_time  # type: str
+        self.book_reason = book_reason  # type: str
         self.book_time = book_time  # type: str
         self.booker_id = booker_id  # type: str
         self.booker_job_no = booker_job_no  # type: str
         self.booker_name = booker_name  # type: str
+        self.brand_group = brand_group  # type: str
+        self.brand_name = brand_name  # type: str
+        self.business_trip_result = business_trip_result  # type: str
         self.capital_direction = capital_direction  # type: str
         self.cascade_department = cascade_department  # type: str
         self.check_in_date = check_in_date  # type: str
         self.checkout_date = checkout_date  # type: str
         self.city = city  # type: str
         self.city_code = city_code  # type: str
+        self.city_county = city_county  # type: str
+        self.city_county_code = city_county_code  # type: str
         self.corp_refund_fee = corp_refund_fee  # type: float
         self.corp_total_fee = corp_total_fee  # type: float
         self.cost_center = cost_center  # type: str
         self.cost_center_number = cost_center_number  # type: str
         self.department = department  # type: str
         self.department_id = department_id  # type: str
+        self.exceed_reason = exceed_reason  # type: str
         self.fee_type = fee_type  # type: str
         self.fees = fees  # type: float
         self.fines = fines  # type: float
@@ -42271,6 +42371,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['average_nights'] = self.average_nights
         if self.bill_record_time is not None:
             result['bill_record_time'] = self.bill_record_time
+        if self.book_reason is not None:
+            result['book_reason'] = self.book_reason
         if self.book_time is not None:
             result['book_time'] = self.book_time
         if self.booker_id is not None:
@@ -42279,6 +42381,12 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['booker_job_no'] = self.booker_job_no
         if self.booker_name is not None:
             result['booker_name'] = self.booker_name
+        if self.brand_group is not None:
+            result['brand_group'] = self.brand_group
+        if self.brand_name is not None:
+            result['brand_name'] = self.brand_name
+        if self.business_trip_result is not None:
+            result['business_trip_result'] = self.business_trip_result
         if self.capital_direction is not None:
             result['capital_direction'] = self.capital_direction
         if self.cascade_department is not None:
@@ -42291,6 +42399,10 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['city'] = self.city
         if self.city_code is not None:
             result['city_code'] = self.city_code
+        if self.city_county is not None:
+            result['city_county'] = self.city_county
+        if self.city_county_code is not None:
+            result['city_county_code'] = self.city_county_code
         if self.corp_refund_fee is not None:
             result['corp_refund_fee'] = self.corp_refund_fee
         if self.corp_total_fee is not None:
@@ -42303,6 +42415,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['department'] = self.department
         if self.department_id is not None:
             result['department_id'] = self.department_id
+        if self.exceed_reason is not None:
+            result['exceed_reason'] = self.exceed_reason
         if self.fee_type is not None:
             result['fee_type'] = self.fee_type
         if self.fees is not None:
@@ -42405,6 +42519,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.average_nights = m.get('average_nights')
         if m.get('bill_record_time') is not None:
             self.bill_record_time = m.get('bill_record_time')
+        if m.get('book_reason') is not None:
+            self.book_reason = m.get('book_reason')
         if m.get('book_time') is not None:
             self.book_time = m.get('book_time')
         if m.get('booker_id') is not None:
@@ -42413,6 +42529,12 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.booker_job_no = m.get('booker_job_no')
         if m.get('booker_name') is not None:
             self.booker_name = m.get('booker_name')
+        if m.get('brand_group') is not None:
+            self.brand_group = m.get('brand_group')
+        if m.get('brand_name') is not None:
+            self.brand_name = m.get('brand_name')
+        if m.get('business_trip_result') is not None:
+            self.business_trip_result = m.get('business_trip_result')
         if m.get('capital_direction') is not None:
             self.capital_direction = m.get('capital_direction')
         if m.get('cascade_department') is not None:
@@ -42425,6 +42547,10 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.city = m.get('city')
         if m.get('city_code') is not None:
             self.city_code = m.get('city_code')
+        if m.get('city_county') is not None:
+            self.city_county = m.get('city_county')
+        if m.get('city_county_code') is not None:
+            self.city_county_code = m.get('city_county_code')
         if m.get('corp_refund_fee') is not None:
             self.corp_refund_fee = m.get('corp_refund_fee')
         if m.get('corp_total_fee') is not None:
@@ -42437,6 +42563,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.department = m.get('department')
         if m.get('department_id') is not None:
             self.department_id = m.get('department_id')
+        if m.get('exceed_reason') is not None:
+            self.exceed_reason = m.get('exceed_reason')
         if m.get('fee_type') is not None:
             self.fee_type = m.get('fee_type')
         if m.get('fees') is not None:
@@ -50091,14 +50219,15 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  apply_arr_city_code=None, apply_arr_city_name=None, apply_dep_city_code=None, apply_dep_city_name=None,
                  apply_extend_field=None, apply_id=None, arr_airport_code=None, arr_city=None, arr_city_code=None, arr_date=None,
                  arr_station=None, arr_time=None, bill_record_time=None, book_mode=None, book_time=None, booker_id=None,
-                 booker_job_no=None, booker_name=None, btrip_coupon_fee=None, cabin=None, cabin_class=None,
-                 capital_direction=None, cascade_department=None, change_fee=None, corp_pay_order_fee=None, cost_center=None,
-                 cost_center_number=None, coupon=None, dep_airport_code=None, dep_city_code=None, department=None, department_id=None,
-                 dept_city=None, dept_date=None, dept_station=None, dept_time=None, discount=None, fee_type=None,
-                 flight_no=None, index=None, insurance_fee=None, insurance_number=None, invoice_title=None,
-                 most_difference_dept_time=None, most_difference_discount=None, most_difference_flight_no=None, most_difference_price=None,
-                 most_difference_reason=None, most_price=None, negotiation_coupon_fee=None, order_id=None, order_status_desc=None,
-                 over_apply_id=None, primary_id=None, project_code=None, project_name=None, refund_fee=None, remark=None,
+                 booker_job_no=None, booker_name=None, btrip_coupon_fee=None, business_trip_result=None, cabin=None,
+                 cabin_class=None, capital_direction=None, cascade_department=None, change_fee=None, change_result=None,
+                 corp_pay_order_fee=None, cost_center=None, cost_center_number=None, coupon=None, dep_airport_code=None,
+                 dep_city_code=None, department=None, department_id=None, dept_city=None, dept_date=None, dept_station=None,
+                 dept_time=None, discount=None, exceed_reason=None, fee_type=None, flight_no=None, index=None,
+                 insurance_fee=None, insurance_number=None, invoice_title=None, most_difference_dept_time=None,
+                 most_difference_discount=None, most_difference_flight_no=None, most_difference_price=None, most_difference_reason=None,
+                 most_price=None, negotiation_coupon_fee=None, order_id=None, order_status_desc=None, over_apply_id=None,
+                 primary_id=None, project_code=None, project_name=None, refund_fee=None, refund_result=None, remark=None,
                  repeat_refund=None, seal_price=None, segment_type=None, service_fee=None, settlement_fee=None,
                  settlement_grant_fee=None, settlement_time=None, settlement_type=None, status=None, sub_order_id=None, tax_fee=None,
                  tax_rate=None, third_itinerary_id=None, ticket_id=None, trade=None, traveler_id=None, traveler_job_no=None,
@@ -50127,11 +50256,13 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.booker_job_no = booker_job_no  # type: str
         self.booker_name = booker_name  # type: str
         self.btrip_coupon_fee = btrip_coupon_fee  # type: float
+        self.business_trip_result = business_trip_result  # type: str
         self.cabin = cabin  # type: str
         self.cabin_class = cabin_class  # type: str
         self.capital_direction = capital_direction  # type: str
         self.cascade_department = cascade_department  # type: str
         self.change_fee = change_fee  # type: float
+        self.change_result = change_result  # type: str
         self.corp_pay_order_fee = corp_pay_order_fee  # type: float
         self.cost_center = cost_center  # type: str
         self.cost_center_number = cost_center_number  # type: str
@@ -50145,6 +50276,7 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.dept_station = dept_station  # type: str
         self.dept_time = dept_time  # type: str
         self.discount = discount  # type: str
+        self.exceed_reason = exceed_reason  # type: str
         self.fee_type = fee_type  # type: str
         self.flight_no = flight_no  # type: str
         self.index = index  # type: str
@@ -50165,6 +50297,7 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.project_code = project_code  # type: str
         self.project_name = project_name  # type: str
         self.refund_fee = refund_fee  # type: float
+        self.refund_result = refund_result  # type: str
         self.remark = remark  # type: str
         self.repeat_refund = repeat_refund  # type: str
         self.seal_price = seal_price  # type: float
@@ -50242,6 +50375,8 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['booker_name'] = self.booker_name
         if self.btrip_coupon_fee is not None:
             result['btrip_coupon_fee'] = self.btrip_coupon_fee
+        if self.business_trip_result is not None:
+            result['business_trip_result'] = self.business_trip_result
         if self.cabin is not None:
             result['cabin'] = self.cabin
         if self.cabin_class is not None:
@@ -50252,6 +50387,8 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['cascade_department'] = self.cascade_department
         if self.change_fee is not None:
             result['change_fee'] = self.change_fee
+        if self.change_result is not None:
+            result['change_result'] = self.change_result
         if self.corp_pay_order_fee is not None:
             result['corp_pay_order_fee'] = self.corp_pay_order_fee
         if self.cost_center is not None:
@@ -50278,6 +50415,8 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['dept_time'] = self.dept_time
         if self.discount is not None:
             result['discount'] = self.discount
+        if self.exceed_reason is not None:
+            result['exceed_reason'] = self.exceed_reason
         if self.fee_type is not None:
             result['fee_type'] = self.fee_type
         if self.flight_no is not None:
@@ -50318,6 +50457,8 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['project_name'] = self.project_name
         if self.refund_fee is not None:
             result['refund_fee'] = self.refund_fee
+        if self.refund_result is not None:
+            result['refund_result'] = self.refund_result
         if self.remark is not None:
             result['remark'] = self.remark
         if self.repeat_refund is not None:
@@ -50408,6 +50549,8 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.booker_name = m.get('booker_name')
         if m.get('btrip_coupon_fee') is not None:
             self.btrip_coupon_fee = m.get('btrip_coupon_fee')
+        if m.get('business_trip_result') is not None:
+            self.business_trip_result = m.get('business_trip_result')
         if m.get('cabin') is not None:
             self.cabin = m.get('cabin')
         if m.get('cabin_class') is not None:
@@ -50418,6 +50561,8 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.cascade_department = m.get('cascade_department')
         if m.get('change_fee') is not None:
             self.change_fee = m.get('change_fee')
+        if m.get('change_result') is not None:
+            self.change_result = m.get('change_result')
         if m.get('corp_pay_order_fee') is not None:
             self.corp_pay_order_fee = m.get('corp_pay_order_fee')
         if m.get('cost_center') is not None:
@@ -50444,6 +50589,8 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.dept_time = m.get('dept_time')
         if m.get('discount') is not None:
             self.discount = m.get('discount')
+        if m.get('exceed_reason') is not None:
+            self.exceed_reason = m.get('exceed_reason')
         if m.get('fee_type') is not None:
             self.fee_type = m.get('fee_type')
         if m.get('flight_no') is not None:
@@ -50484,6 +50631,8 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.project_name = m.get('project_name')
         if m.get('refund_fee') is not None:
             self.refund_fee = m.get('refund_fee')
+        if m.get('refund_result') is not None:
+            self.refund_result = m.get('refund_result')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
         if m.get('repeat_refund') is not None:
@@ -58909,15 +59058,18 @@ class TrainBillSettlementQueryRequest(TeaModel):
 class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
     def __init__(self, alipay_trade_no=None, apply_arr_city_code=None, apply_arr_city_name=None,
                  apply_dep_city_code=None, apply_dep_city_name=None, apply_extend_field=None, apply_id=None, arr_city_code=None,
-                 arr_date=None, arr_station=None, arr_time=None, bill_record_time=None, book_time=None, booker_id=None,
-                 booker_job_no=None, booker_name=None, capital_direction=None, cascade_department=None, change_fee=None,
-                 coach_no=None, cost_center=None, cost_center_number=None, coupon=None, dep_city_code=None, department=None,
-                 department_id=None, dept_date=None, dept_station=None, dept_time=None, fee_type=None, index=None,
-                 invoice_title=None, order_id=None, order_price=None, over_apply_id=None, primary_id=None, project_code=None,
-                 project_name=None, refund_fee=None, remark=None, run_time=None, seat_no=None, seat_type=None, service_fee=None,
-                 settlement_fee=None, settlement_grant_fee=None, settlement_time=None, settlement_type=None, short_ticket_no=None,
-                 status=None, tax_rate=None, third_itinerary_id=None, ticket_no=None, ticket_price=None, train_no=None,
-                 train_type=None, traveler_id=None, traveler_job_no=None, traveler_name=None, voucher_type=None):
+                 arr_city_name=None, arr_date=None, arr_station=None, arr_time=None, bill_record_time=None, book_time=None,
+                 booker_id=None, booker_job_no=None, booker_name=None, business_trip_result=None, capital_direction=None,
+                 cascade_department=None, change_fee=None, change_result=None, coach_no=None, cost_center=None,
+                 cost_center_number=None, coupon=None, dep_city_code=None, dep_city_name=None, department=None, department_id=None,
+                 dept_date=None, dept_station=None, dept_time=None, exceed_reason=None, fee_type=None, index=None,
+                 invoice_title=None, is_transfer_order=None, order_id=None, order_price=None, over_apply_id=None, primary_id=None,
+                 project_code=None, project_name=None, refund_fee=None, refund_reason=None, remark=None, reserve_mode=None,
+                 run_time=None, seat_no=None, seat_type=None, service_fee=None, settlement_fee=None,
+                 settlement_grant_fee=None, settlement_time=None, settlement_type=None, short_ticket_no=None, status=None, tax_rate=None,
+                 third_itinerary_id=None, ticket_corp_pay_price=None, ticket_no=None, ticket_person_pay_price=None, ticket_price=None,
+                 train_no=None, train_type=None, traveler_id=None, traveler_job_no=None, traveler_name=None,
+                 voucher_type=None):
         self.alipay_trade_no = alipay_trade_no  # type: str
         self.apply_arr_city_code = apply_arr_city_code  # type: str
         self.apply_arr_city_name = apply_arr_city_name  # type: str
@@ -58927,6 +59079,7 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.apply_extend_field = apply_extend_field  # type: str
         self.apply_id = apply_id  # type: str
         self.arr_city_code = arr_city_code  # type: str
+        self.arr_city_name = arr_city_name  # type: str
         self.arr_date = arr_date  # type: str
         self.arr_station = arr_station  # type: str
         self.arr_time = arr_time  # type: str
@@ -58935,22 +59088,27 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.booker_id = booker_id  # type: str
         self.booker_job_no = booker_job_no  # type: str
         self.booker_name = booker_name  # type: str
+        self.business_trip_result = business_trip_result  # type: str
         self.capital_direction = capital_direction  # type: str
         self.cascade_department = cascade_department  # type: str
         self.change_fee = change_fee  # type: float
+        self.change_result = change_result  # type: str
         self.coach_no = coach_no  # type: str
         self.cost_center = cost_center  # type: str
         self.cost_center_number = cost_center_number  # type: str
         self.coupon = coupon  # type: float
         self.dep_city_code = dep_city_code  # type: str
+        self.dep_city_name = dep_city_name  # type: str
         self.department = department  # type: str
         self.department_id = department_id  # type: str
         self.dept_date = dept_date  # type: str
         self.dept_station = dept_station  # type: str
         self.dept_time = dept_time  # type: str
+        self.exceed_reason = exceed_reason  # type: str
         self.fee_type = fee_type  # type: str
         self.index = index  # type: str
         self.invoice_title = invoice_title  # type: str
+        self.is_transfer_order = is_transfer_order  # type: str
         self.order_id = order_id  # type: str
         self.order_price = order_price  # type: float
         self.over_apply_id = over_apply_id  # type: str
@@ -58958,7 +59116,9 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.project_code = project_code  # type: str
         self.project_name = project_name  # type: str
         self.refund_fee = refund_fee  # type: float
+        self.refund_reason = refund_reason  # type: str
         self.remark = remark  # type: str
+        self.reserve_mode = reserve_mode  # type: str
         self.run_time = run_time  # type: str
         self.seat_no = seat_no  # type: str
         self.seat_type = seat_type  # type: str
@@ -58972,7 +59132,9 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         # 税率
         self.tax_rate = tax_rate  # type: str
         self.third_itinerary_id = third_itinerary_id  # type: str
+        self.ticket_corp_pay_price = ticket_corp_pay_price  # type: str
         self.ticket_no = ticket_no  # type: str
+        self.ticket_person_pay_price = ticket_person_pay_price  # type: str
         self.ticket_price = ticket_price  # type: float
         self.train_no = train_no  # type: str
         self.train_type = train_type  # type: str
@@ -59006,6 +59168,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['apply_id'] = self.apply_id
         if self.arr_city_code is not None:
             result['arr_city_code'] = self.arr_city_code
+        if self.arr_city_name is not None:
+            result['arr_city_name'] = self.arr_city_name
         if self.arr_date is not None:
             result['arr_date'] = self.arr_date
         if self.arr_station is not None:
@@ -59022,12 +59186,16 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['booker_job_no'] = self.booker_job_no
         if self.booker_name is not None:
             result['booker_name'] = self.booker_name
+        if self.business_trip_result is not None:
+            result['business_trip_result'] = self.business_trip_result
         if self.capital_direction is not None:
             result['capital_direction'] = self.capital_direction
         if self.cascade_department is not None:
             result['cascade_department'] = self.cascade_department
         if self.change_fee is not None:
             result['change_fee'] = self.change_fee
+        if self.change_result is not None:
+            result['change_result'] = self.change_result
         if self.coach_no is not None:
             result['coach_no'] = self.coach_no
         if self.cost_center is not None:
@@ -59038,6 +59206,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['coupon'] = self.coupon
         if self.dep_city_code is not None:
             result['dep_city_code'] = self.dep_city_code
+        if self.dep_city_name is not None:
+            result['dep_city_name'] = self.dep_city_name
         if self.department is not None:
             result['department'] = self.department
         if self.department_id is not None:
@@ -59048,12 +59218,16 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['dept_station'] = self.dept_station
         if self.dept_time is not None:
             result['dept_time'] = self.dept_time
+        if self.exceed_reason is not None:
+            result['exceed_reason'] = self.exceed_reason
         if self.fee_type is not None:
             result['fee_type'] = self.fee_type
         if self.index is not None:
             result['index'] = self.index
         if self.invoice_title is not None:
             result['invoice_title'] = self.invoice_title
+        if self.is_transfer_order is not None:
+            result['is_transfer_order'] = self.is_transfer_order
         if self.order_id is not None:
             result['order_id'] = self.order_id
         if self.order_price is not None:
@@ -59068,8 +59242,12 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['project_name'] = self.project_name
         if self.refund_fee is not None:
             result['refund_fee'] = self.refund_fee
+        if self.refund_reason is not None:
+            result['refund_reason'] = self.refund_reason
         if self.remark is not None:
             result['remark'] = self.remark
+        if self.reserve_mode is not None:
+            result['reserve_mode'] = self.reserve_mode
         if self.run_time is not None:
             result['run_time'] = self.run_time
         if self.seat_no is not None:
@@ -59094,8 +59272,12 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['tax_rate'] = self.tax_rate
         if self.third_itinerary_id is not None:
             result['third_itinerary_id'] = self.third_itinerary_id
+        if self.ticket_corp_pay_price is not None:
+            result['ticket_corp_pay_price'] = self.ticket_corp_pay_price
         if self.ticket_no is not None:
             result['ticket_no'] = self.ticket_no
+        if self.ticket_person_pay_price is not None:
+            result['ticket_person_pay_price'] = self.ticket_person_pay_price
         if self.ticket_price is not None:
             result['ticket_price'] = self.ticket_price
         if self.train_no is not None:
@@ -59130,6 +59312,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.apply_id = m.get('apply_id')
         if m.get('arr_city_code') is not None:
             self.arr_city_code = m.get('arr_city_code')
+        if m.get('arr_city_name') is not None:
+            self.arr_city_name = m.get('arr_city_name')
         if m.get('arr_date') is not None:
             self.arr_date = m.get('arr_date')
         if m.get('arr_station') is not None:
@@ -59146,12 +59330,16 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.booker_job_no = m.get('booker_job_no')
         if m.get('booker_name') is not None:
             self.booker_name = m.get('booker_name')
+        if m.get('business_trip_result') is not None:
+            self.business_trip_result = m.get('business_trip_result')
         if m.get('capital_direction') is not None:
             self.capital_direction = m.get('capital_direction')
         if m.get('cascade_department') is not None:
             self.cascade_department = m.get('cascade_department')
         if m.get('change_fee') is not None:
             self.change_fee = m.get('change_fee')
+        if m.get('change_result') is not None:
+            self.change_result = m.get('change_result')
         if m.get('coach_no') is not None:
             self.coach_no = m.get('coach_no')
         if m.get('cost_center') is not None:
@@ -59162,6 +59350,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.coupon = m.get('coupon')
         if m.get('dep_city_code') is not None:
             self.dep_city_code = m.get('dep_city_code')
+        if m.get('dep_city_name') is not None:
+            self.dep_city_name = m.get('dep_city_name')
         if m.get('department') is not None:
             self.department = m.get('department')
         if m.get('department_id') is not None:
@@ -59172,12 +59362,16 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.dept_station = m.get('dept_station')
         if m.get('dept_time') is not None:
             self.dept_time = m.get('dept_time')
+        if m.get('exceed_reason') is not None:
+            self.exceed_reason = m.get('exceed_reason')
         if m.get('fee_type') is not None:
             self.fee_type = m.get('fee_type')
         if m.get('index') is not None:
             self.index = m.get('index')
         if m.get('invoice_title') is not None:
             self.invoice_title = m.get('invoice_title')
+        if m.get('is_transfer_order') is not None:
+            self.is_transfer_order = m.get('is_transfer_order')
         if m.get('order_id') is not None:
             self.order_id = m.get('order_id')
         if m.get('order_price') is not None:
@@ -59192,8 +59386,12 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.project_name = m.get('project_name')
         if m.get('refund_fee') is not None:
             self.refund_fee = m.get('refund_fee')
+        if m.get('refund_reason') is not None:
+            self.refund_reason = m.get('refund_reason')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
+        if m.get('reserve_mode') is not None:
+            self.reserve_mode = m.get('reserve_mode')
         if m.get('run_time') is not None:
             self.run_time = m.get('run_time')
         if m.get('seat_no') is not None:
@@ -59218,8 +59416,12 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.tax_rate = m.get('tax_rate')
         if m.get('third_itinerary_id') is not None:
             self.third_itinerary_id = m.get('third_itinerary_id')
+        if m.get('ticket_corp_pay_price') is not None:
+            self.ticket_corp_pay_price = m.get('ticket_corp_pay_price')
         if m.get('ticket_no') is not None:
             self.ticket_no = m.get('ticket_no')
+        if m.get('ticket_person_pay_price') is not None:
+            self.ticket_person_pay_price = m.get('ticket_person_pay_price')
         if m.get('ticket_price') is not None:
             self.ticket_price = m.get('ticket_price')
         if m.get('train_no') is not None:
