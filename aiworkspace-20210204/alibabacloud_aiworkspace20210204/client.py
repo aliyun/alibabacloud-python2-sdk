@@ -950,6 +950,8 @@ class Client(OpenApiClient):
     def get_member_with_options(self, workspace_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.member_id):
+            query['MemberId'] = request.member_id
         if not UtilClient.is_unset(request.user_id):
             query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
