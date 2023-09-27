@@ -441,6 +441,118 @@ class CreateArtifactBuildRuleResponse(TeaModel):
         return self
 
 
+class CreateBuildRecordByRecordRequest(TeaModel):
+    def __init__(self, build_record_id=None, instance_id=None, repo_id=None):
+        self.build_record_id = build_record_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.repo_id = repo_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateBuildRecordByRecordRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.build_record_id is not None:
+            result['BuildRecordId'] = self.build_record_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.repo_id is not None:
+            result['RepoId'] = self.repo_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BuildRecordId') is not None:
+            self.build_record_id = m.get('BuildRecordId')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RepoId') is not None:
+            self.repo_id = m.get('RepoId')
+        return self
+
+
+class CreateBuildRecordByRecordResponseBody(TeaModel):
+    def __init__(self, build_record_id=None, code=None, is_success=None, request_id=None):
+        self.build_record_id = build_record_id  # type: str
+        self.code = code  # type: str
+        self.is_success = is_success  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateBuildRecordByRecordResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.build_record_id is not None:
+            result['BuildRecordId'] = self.build_record_id
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.is_success is not None:
+            result['IsSuccess'] = self.is_success
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BuildRecordId') is not None:
+            self.build_record_id = m.get('BuildRecordId')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('IsSuccess') is not None:
+            self.is_success = m.get('IsSuccess')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateBuildRecordByRecordResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateBuildRecordByRecordResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateBuildRecordByRecordResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateBuildRecordByRecordResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateBuildRecordByRuleRequest(TeaModel):
     def __init__(self, build_rule_id=None, instance_id=None, repo_id=None):
         # The ID of the image building rule.
@@ -4137,6 +4249,144 @@ class DeleteRepositoryResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteRepositoryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetArtifactBuildRuleRequest(TeaModel):
+    def __init__(self, artifact_type=None, build_rule_id=None, instance_id=None, scope_id=None, scope_type=None):
+        self.artifact_type = artifact_type  # type: str
+        self.build_rule_id = build_rule_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.scope_id = scope_id  # type: str
+        self.scope_type = scope_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetArtifactBuildRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.artifact_type is not None:
+            result['ArtifactType'] = self.artifact_type
+        if self.build_rule_id is not None:
+            result['BuildRuleId'] = self.build_rule_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.scope_id is not None:
+            result['ScopeId'] = self.scope_id
+        if self.scope_type is not None:
+            result['ScopeType'] = self.scope_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ArtifactType') is not None:
+            self.artifact_type = m.get('ArtifactType')
+        if m.get('BuildRuleId') is not None:
+            self.build_rule_id = m.get('BuildRuleId')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('ScopeId') is not None:
+            self.scope_id = m.get('ScopeId')
+        if m.get('ScopeType') is not None:
+            self.scope_type = m.get('ScopeType')
+        return self
+
+
+class GetArtifactBuildRuleResponseBody(TeaModel):
+    def __init__(self, artifact_type=None, build_rule_id=None, code=None, is_success=None, request_id=None,
+                 scope_id=None, scope_type=None):
+        self.artifact_type = artifact_type  # type: str
+        self.build_rule_id = build_rule_id  # type: str
+        self.code = code  # type: str
+        self.is_success = is_success  # type: bool
+        self.request_id = request_id  # type: str
+        self.scope_id = scope_id  # type: str
+        self.scope_type = scope_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetArtifactBuildRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.artifact_type is not None:
+            result['ArtifactType'] = self.artifact_type
+        if self.build_rule_id is not None:
+            result['BuildRuleId'] = self.build_rule_id
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.is_success is not None:
+            result['IsSuccess'] = self.is_success
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.scope_id is not None:
+            result['ScopeId'] = self.scope_id
+        if self.scope_type is not None:
+            result['ScopeType'] = self.scope_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ArtifactType') is not None:
+            self.artifact_type = m.get('ArtifactType')
+        if m.get('BuildRuleId') is not None:
+            self.build_rule_id = m.get('BuildRuleId')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('IsSuccess') is not None:
+            self.is_success = m.get('IsSuccess')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ScopeId') is not None:
+            self.scope_id = m.get('ScopeId')
+        if m.get('ScopeType') is not None:
+            self.scope_type = m.get('ScopeType')
+        return self
+
+
+class GetArtifactBuildRuleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetArtifactBuildRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetArtifactBuildRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetArtifactBuildRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
