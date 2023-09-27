@@ -330,38 +330,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.check_product_open_with_options(runtime)
 
-    def check_resource_support_operate_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.resource_id):
-            query['ResourceId'] = request.resource_id
-        if not UtilClient.is_unset(request.resource_type):
-            query['ResourceType'] = request.resource_type
-        if not UtilClient.is_unset(request.zone_id):
-            query['ZoneId'] = request.zone_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='CheckResourceSupportOperate',
-            version='2020-04-15',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            privatelink_20200415_models.CheckResourceSupportOperateResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def check_resource_support_operate(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.check_resource_support_operate_with_options(request, runtime)
-
     def create_vpc_endpoint_with_options(self, request, runtime):
         """
         *CreateIpv6Gateway** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [GetVpcEndpointAttribute](~~183568~~) operation to check whether the endpoint is created.
@@ -387,8 +355,6 @@ class Client(OpenApiClient):
             query['EndpointName'] = request.endpoint_name
         if not UtilClient.is_unset(request.endpoint_type):
             query['EndpointType'] = request.endpoint_type
-        if not UtilClient.is_unset(request.policy_document):
-            query['PolicyDocument'] = request.policy_document
         if not UtilClient.is_unset(request.protected_enabled):
             query['ProtectedEnabled'] = request.protected_enabled
         if not UtilClient.is_unset(request.region_id):
@@ -446,7 +412,9 @@ class Client(OpenApiClient):
 
     def create_vpc_endpoint_service_with_options(self, request, runtime):
         """
-        The resource group ID.
+        *CreateVpcEndpointService** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [GetVpcEndpointServiceAttribute](~~183542~~) operation to query the state of the endpoint service.
+        *   If the endpoint service is in the **Creating** state, the endpoint service is being created.
+        *   If the endpoint service is in the **Active** state, the endpoint service is created.
         
 
         @param request: CreateVpcEndpointServiceRequest
@@ -504,7 +472,9 @@ class Client(OpenApiClient):
 
     def create_vpc_endpoint_service(self, request):
         """
-        The resource group ID.
+        *CreateVpcEndpointService** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [GetVpcEndpointServiceAttribute](~~183542~~) operation to query the state of the endpoint service.
+        *   If the endpoint service is in the **Creating** state, the endpoint service is being created.
+        *   If the endpoint service is in the **Active** state, the endpoint service is created.
         
 
         @param request: CreateVpcEndpointServiceRequest
@@ -1115,8 +1085,6 @@ class Client(OpenApiClient):
     def list_vpc_endpoint_connections_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.connection_id):
-            query['ConnectionId'] = request.connection_id
         if not UtilClient.is_unset(request.connection_status):
             query['ConnectionStatus'] = request.connection_status
         if not UtilClient.is_unset(request.endpoint_id):
@@ -1427,8 +1395,6 @@ class Client(OpenApiClient):
             query['MaxResults'] = request.max_results
         if not UtilClient.is_unset(request.next_token):
             query['NextToken'] = request.next_token
-        if not UtilClient.is_unset(request.private_dns_name):
-            query['PrivateDnsName'] = request.private_dns_name
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.region_id):
@@ -1463,58 +1429,6 @@ class Client(OpenApiClient):
     def list_vpc_endpoints(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_vpc_endpoints_with_options(request, runtime)
-
-    def notify_resource_address_family_with_options(self, request, runtime):
-        """
-        The ID of the request.
-        
-
-        @param request: NotifyResourceAddressFamilyRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: NotifyResourceAddressFamilyResponse
-        """
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.address_family):
-            query['AddressFamily'] = request.address_family
-        if not UtilClient.is_unset(request.ipv_6address):
-            query['Ipv6Address'] = request.ipv_6address
-        if not UtilClient.is_unset(request.resource_id):
-            query['ResourceId'] = request.resource_id
-        if not UtilClient.is_unset(request.resource_type):
-            query['ResourceType'] = request.resource_type
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='NotifyResourceAddressFamily',
-            version='2020-04-15',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            privatelink_20200415_models.NotifyResourceAddressFamilyResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def notify_resource_address_family(self, request):
-        """
-        The ID of the request.
-        
-
-        @param request: NotifyResourceAddressFamilyRequest
-
-        @return: NotifyResourceAddressFamilyResponse
-        """
-        runtime = util_models.RuntimeOptions()
-        return self.notify_resource_address_family_with_options(request, runtime)
 
     def open_private_link_service_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1746,8 +1660,6 @@ class Client(OpenApiClient):
             query['EndpointId'] = request.endpoint_id
         if not UtilClient.is_unset(request.endpoint_name):
             query['EndpointName'] = request.endpoint_name
-        if not UtilClient.is_unset(request.policy_document):
-            query['PolicyDocument'] = request.policy_document
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.region_id):

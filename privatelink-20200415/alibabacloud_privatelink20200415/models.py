@@ -682,131 +682,6 @@ class CheckProductOpenResponse(TeaModel):
         return self
 
 
-class CheckResourceSupportOperateRequest(TeaModel):
-    def __init__(self, resource_id=None, resource_type=None, zone_id=None):
-        # The resource ID.
-        self.resource_id = resource_id  # type: str
-        # The type of the service resource. Valid values:
-        # 
-        # *   **NLB**: a Network Load Balancer (NLB) instance
-        # *   **CLB**: a Classic Load Balancer (CLB) instance
-        # *   **ALB**: an Application Load Balancer (ALB) instance
-        self.resource_type = resource_type  # type: str
-        # The ID of the zone where the service resource is deployed.
-        # 
-        # You can call the [DescribeZones](~~120502~~) operation to obtain the zone ID.
-        self.zone_id = zone_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CheckResourceSupportOperateRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.resource_id is not None:
-            result['ResourceId'] = self.resource_id
-        if self.resource_type is not None:
-            result['ResourceType'] = self.resource_type
-        if self.zone_id is not None:
-            result['ZoneId'] = self.zone_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ResourceId') is not None:
-            self.resource_id = m.get('ResourceId')
-        if m.get('ResourceType') is not None:
-            self.resource_type = m.get('ResourceType')
-        if m.get('ZoneId') is not None:
-            self.zone_id = m.get('ZoneId')
-        return self
-
-
-class CheckResourceSupportOperateResponseBody(TeaModel):
-    def __init__(self, request_id=None, resource_can_be_downgraded=None, resource_zone_can_be_deleted=None):
-        # The request ID.
-        self.request_id = request_id  # type: str
-        # Indicates whether the service resource can be downgraded. Valid values:
-        # 
-        # *   **true**\
-        # *   **false**\
-        self.resource_can_be_downgraded = resource_can_be_downgraded  # type: bool
-        # Indicates whether the zone where the service resource is deployed can be deleted. Valid values:
-        # 
-        # *   **true**\
-        # *   **false**\
-        self.resource_zone_can_be_deleted = resource_zone_can_be_deleted  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CheckResourceSupportOperateResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.resource_can_be_downgraded is not None:
-            result['ResourceCanBeDowngraded'] = self.resource_can_be_downgraded
-        if self.resource_zone_can_be_deleted is not None:
-            result['ResourceZoneCanBeDeleted'] = self.resource_zone_can_be_deleted
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('ResourceCanBeDowngraded') is not None:
-            self.resource_can_be_downgraded = m.get('ResourceCanBeDowngraded')
-        if m.get('ResourceZoneCanBeDeleted') is not None:
-            self.resource_zone_can_be_deleted = m.get('ResourceZoneCanBeDeleted')
-        return self
-
-
-class CheckResourceSupportOperateResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: CheckResourceSupportOperateResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(CheckResourceSupportOperateResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = CheckResourceSupportOperateResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class CreateVpcEndpointRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         # The key of the tag.
@@ -881,9 +756,8 @@ class CreateVpcEndpointRequestZone(TeaModel):
 
 class CreateVpcEndpointRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, endpoint_description=None, endpoint_name=None,
-                 endpoint_type=None, policy_document=None, protected_enabled=None, region_id=None, resource_group_id=None,
-                 security_group_id=None, service_id=None, service_name=None, tag=None, vpc_id=None, zone=None,
-                 zone_private_ip_address_count=None):
+                 endpoint_type=None, protected_enabled=None, region_id=None, resource_group_id=None, security_group_id=None,
+                 service_id=None, service_name=None, tag=None, vpc_id=None, zone=None, zone_private_ip_address_count=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
@@ -905,7 +779,6 @@ class CreateVpcEndpointRequest(TeaModel):
         # 
         # Set the value to **Interface**. Then, you can specify Application Load Balancer (ALB) and Classic Load Balancer (CLB) instances as service resources for the endpoint service.
         self.endpoint_type = endpoint_type  # type: str
-        self.policy_document = policy_document  # type: str
         # Specifies whether to enable user authentication. This parameter is available in Security Token Service (STS) mode. Valid values:
         # 
         # *   **true**: enables user authentication. After user authentication is enabled, only the user who creates the endpoint can modify or delete the endpoint in STS mode.
@@ -960,8 +833,6 @@ class CreateVpcEndpointRequest(TeaModel):
             result['EndpointName'] = self.endpoint_name
         if self.endpoint_type is not None:
             result['EndpointType'] = self.endpoint_type
-        if self.policy_document is not None:
-            result['PolicyDocument'] = self.policy_document
         if self.protected_enabled is not None:
             result['ProtectedEnabled'] = self.protected_enabled
         if self.region_id is not None:
@@ -1000,8 +871,6 @@ class CreateVpcEndpointRequest(TeaModel):
             self.endpoint_name = m.get('EndpointName')
         if m.get('EndpointType') is not None:
             self.endpoint_type = m.get('EndpointType')
-        if m.get('PolicyDocument') is not None:
-            self.policy_document = m.get('PolicyDocument')
         if m.get('ProtectedEnabled') is not None:
             self.protected_enabled = m.get('ProtectedEnabled')
         if m.get('RegionId') is not None:
@@ -1186,8 +1055,17 @@ class CreateVpcEndpointResponse(TeaModel):
 
 class CreateVpcEndpointServiceRequestResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, zone_id=None):
+        # The ID of the service resource that is added to the endpoint service. You can specify up to 20 service resource IDs.
         self.resource_id = resource_id  # type: str
+        # The type of the service resource that is added to the endpoint service. You can add up to 20 service resources to the endpoint service. Valid values:
+        # 
+        # *   **slb**: a CLB instance
+        # *   **alb**: an ALB instance
+        # *   **nlb**: a NLB instance
+        # 
+        # >  In regions where PrivateLink is supported, CLB instances deployed in virtual private clouds (VPCs) can serve as service resources of the endpoint service.
         self.resource_type = resource_type  # type: str
+        # The zone ID.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -1220,7 +1098,13 @@ class CreateVpcEndpointServiceRequestResource(TeaModel):
 
 class CreateVpcEndpointServiceRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # 
+        # The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
         self.key = key  # type: str
+        # The value of the tag. You can specify up to 20 tag values. The tag value can be an empty string.
+        # 
+        # The tag value must be 1 to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -1251,17 +1135,54 @@ class CreateVpcEndpointServiceRequest(TeaModel):
     def __init__(self, auto_accept_enabled=None, client_token=None, dry_run=None, payer=None, region_id=None,
                  resource=None, resource_group_id=None, service_description=None, service_resource_type=None,
                  service_support_ipv_6=None, tag=None, zone_affinity_enabled=None):
+        # Specifies whether to automatically accept endpoint connection requests. Valid values:
+        # 
+        # *   **true**\
+        # *   **false** (default)
         self.auto_accept_enabled = auto_accept_enabled  # type: bool
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         self.client_token = client_token  # type: str
+        # Specifies whether to perform only a dry run, without performing the actual request.
+        # 
+        # *   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
         self.dry_run = dry_run  # type: bool
+        # The payer of the endpoint service. Valid values:
+        # 
+        # *   **Endpoint**: the service consumer
+        # *   **EndpointService**: the service provider
+        # 
+        # > By default, the feature of allowing the service provider to pay is unavailable. To use this feature, log on to the [Quota Center console](https://quotas.console.aliyun.com/white-list-products/privatelink/quotas) and click Privileges in the left-side navigation pane. On the **Privileges** page, enter the quota ID `privatelink_whitelist/epsvc_payer_mode`, and click Apply in the Actions column.
         self.payer = payer  # type: str
+        # The region ID of the endpoint service.
+        # 
+        # You can call the [DescribeRegions](~~120468~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The service resources of the endpoint service.
         self.resource = resource  # type: list[CreateVpcEndpointServiceRequestResource]
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The description of the endpoint service.
         self.service_description = service_description  # type: str
+        # The type of the service resource. Valid values:
+        # 
+        # *   **slb**: a Classic Load Balancer (CLB) instance
+        # *   **alb**: an Application Load Balancer (ALB) instance
+        # *   **nlb**: a Network Load Balancer (NLB) instance
         self.service_resource_type = service_resource_type  # type: str
+        # Specifies whether to enable IPv6 for the endpoint service. Valid values:
+        # 
+        # *   **true**\
+        # *   **false** (default)
         self.service_support_ipv_6 = service_support_ipv_6  # type: bool
+        # The list of tags.
         self.tag = tag  # type: list[CreateVpcEndpointServiceRequestTag]
+        # Specifies whether to first resolve the domain name of the nearest endpoint that is associated with the endpoint service. Valid values:
+        # 
+        # *   **true**\
+        # *   **false** (default)
         self.zone_affinity_enabled = zone_affinity_enabled  # type: bool
 
     def validate(self):
@@ -1349,17 +1270,47 @@ class CreateVpcEndpointServiceResponseBody(TeaModel):
     def __init__(self, auto_accept_enabled=None, create_time=None, request_id=None, resource_group_id=None,
                  service_business_status=None, service_description=None, service_domain=None, service_id=None, service_name=None,
                  service_status=None, service_support_ipv_6=None, zone_affinity_enabled=None):
+        # Indicates whether the endpoint service automatically accepts endpoint connection requests. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.auto_accept_enabled = auto_accept_enabled  # type: bool
+        # The time when the endpoint service was created.
         self.create_time = create_time  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The service state of the endpoint service. Valid values:
+        # 
+        # *   **Normal**: The endpoint service runs as expected.
+        # *   **FinacialLocked**: The endpoint service is locked due to overdue payments.
         self.service_business_status = service_business_status  # type: str
+        # The description of the endpoint service.
         self.service_description = service_description  # type: str
+        # The domain name of the endpoint service.
         self.service_domain = service_domain  # type: str
+        # The endpoint service ID.
         self.service_id = service_id  # type: str
+        # The name of the endpoint service.
         self.service_name = service_name  # type: str
+        # The state of the endpoint service. Valid values:
+        # 
+        # *   **Creating**: The endpoint service is being created.
+        # *   **Pending**: The endpoint service is being modified.
+        # *   **Active**: The endpoint service is available.
+        # *   **Deleting**: The endpoint service is being deleted.
+        # *   **Inactive**: The endpoint service is unavailable.
         self.service_status = service_status  # type: str
+        # Indicates whether IPv6 was enabled for the endpoint service. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.service_support_ipv_6 = service_support_ipv_6  # type: bool
+        # Indicates whether the domain name of the nearest endpoint that is associated with the endpoint service is resolved first. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.zone_affinity_enabled = zone_affinity_enabled  # type: bool
 
     def validate(self):
@@ -2815,8 +2766,8 @@ class GetVpcEndpointAttributeRequest(TeaModel):
 class GetVpcEndpointAttributeResponseBody(TeaModel):
     def __init__(self, bandwidth=None, connection_status=None, create_time=None, endpoint_business_status=None,
                  endpoint_description=None, endpoint_domain=None, endpoint_id=None, endpoint_name=None, endpoint_status=None,
-                 endpoint_type=None, payer=None, policy_document=None, region_id=None, request_id=None, resource_group_id=None,
-                 resource_owner=None, service_id=None, service_name=None, vpc_id=None, zone_affinity_enabled=None,
+                 endpoint_type=None, payer=None, region_id=None, request_id=None, resource_group_id=None, resource_owner=None,
+                 service_id=None, service_name=None, vpc_id=None, zone_affinity_enabled=None,
                  zone_private_ip_address_count=None):
         # The bandwidth of the endpoint connection. Unit: Mbit/s.
         self.bandwidth = bandwidth  # type: int
@@ -2860,7 +2811,6 @@ class GetVpcEndpointAttributeResponseBody(TeaModel):
         # *   **Endpoint**: the service consumer.
         # *   **EndpointService**: the service provider.
         self.payer = payer  # type: str
-        self.policy_document = policy_document  # type: str
         # The region ID of the endpoint.
         self.region_id = region_id  # type: str
         # The request ID.
@@ -2917,8 +2867,6 @@ class GetVpcEndpointAttributeResponseBody(TeaModel):
             result['EndpointType'] = self.endpoint_type
         if self.payer is not None:
             result['Payer'] = self.payer
-        if self.policy_document is not None:
-            result['PolicyDocument'] = self.policy_document
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.request_id is not None:
@@ -2963,8 +2911,6 @@ class GetVpcEndpointAttributeResponseBody(TeaModel):
             self.endpoint_type = m.get('EndpointType')
         if m.get('Payer') is not None:
             self.payer = m.get('Payer')
-        if m.get('PolicyDocument') is not None:
-            self.policy_document = m.get('PolicyDocument')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('RequestId') is not None:
@@ -3060,10 +3006,10 @@ class GetVpcEndpointServiceAttributeRequest(TeaModel):
 
 class GetVpcEndpointServiceAttributeResponseBody(TeaModel):
     def __init__(self, auto_accept_enabled=None, connect_bandwidth=None, create_time=None, max_bandwidth=None,
-                 min_bandwidth=None, payer=None, policy_document_enabled=None, region_id=None, request_id=None,
-                 resource_group_id=None, service_business_status=None, service_description=None, service_domain=None,
-                 service_id=None, service_name=None, service_provider=None, service_resource_type=None, service_status=None,
-                 service_support_ipv_6=None, service_type=None, zone_affinity_enabled=None, zones=None):
+                 min_bandwidth=None, payer=None, region_id=None, request_id=None, resource_group_id=None,
+                 service_business_status=None, service_description=None, service_domain=None, service_id=None, service_name=None,
+                 service_resource_type=None, service_status=None, service_support_ipv_6=None, service_type=None,
+                 zone_affinity_enabled=None, zones=None):
         # Indicates whether endpoint connection requests are automatically accepted. Valid values:
         # 
         # *   **true**\
@@ -3082,7 +3028,6 @@ class GetVpcEndpointServiceAttributeResponseBody(TeaModel):
         # *   **Endpoint**: the service consumer.
         # *   **EndpointService**: the service provider.
         self.payer = payer  # type: str
-        self.policy_document_enabled = policy_document_enabled  # type: bool
         # The region ID of the endpoint service.
         self.region_id = region_id  # type: str
         # The request ID.
@@ -3102,7 +3047,6 @@ class GetVpcEndpointServiceAttributeResponseBody(TeaModel):
         self.service_id = service_id  # type: str
         # The name of the endpoint service.
         self.service_name = service_name  # type: str
-        self.service_provider = service_provider  # type: str
         # The type of the service resource. Valid values:
         # 
         # *   **slb**: a CLB instance.
@@ -3154,8 +3098,6 @@ class GetVpcEndpointServiceAttributeResponseBody(TeaModel):
             result['MinBandwidth'] = self.min_bandwidth
         if self.payer is not None:
             result['Payer'] = self.payer
-        if self.policy_document_enabled is not None:
-            result['PolicyDocumentEnabled'] = self.policy_document_enabled
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.request_id is not None:
@@ -3172,8 +3114,6 @@ class GetVpcEndpointServiceAttributeResponseBody(TeaModel):
             result['ServiceId'] = self.service_id
         if self.service_name is not None:
             result['ServiceName'] = self.service_name
-        if self.service_provider is not None:
-            result['ServiceProvider'] = self.service_provider
         if self.service_resource_type is not None:
             result['ServiceResourceType'] = self.service_resource_type
         if self.service_status is not None:
@@ -3202,8 +3142,6 @@ class GetVpcEndpointServiceAttributeResponseBody(TeaModel):
             self.min_bandwidth = m.get('MinBandwidth')
         if m.get('Payer') is not None:
             self.payer = m.get('Payer')
-        if m.get('PolicyDocumentEnabled') is not None:
-            self.policy_document_enabled = m.get('PolicyDocumentEnabled')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('RequestId') is not None:
@@ -3220,8 +3158,6 @@ class GetVpcEndpointServiceAttributeResponseBody(TeaModel):
             self.service_id = m.get('ServiceId')
         if m.get('ServiceName') is not None:
             self.service_name = m.get('ServiceName')
-        if m.get('ServiceProvider') is not None:
-            self.service_provider = m.get('ServiceProvider')
         if m.get('ServiceResourceType') is not None:
             self.service_resource_type = m.get('ServiceResourceType')
         if m.get('ServiceStatus') is not None:
@@ -3277,13 +3213,9 @@ class GetVpcEndpointServiceAttributeResponse(TeaModel):
 
 
 class ListVpcEndpointConnectionsRequest(TeaModel):
-    def __init__(self, connection_id=None, connection_status=None, endpoint_id=None, endpoint_owner_id=None,
-                 eni_id=None, max_results=None, next_token=None, region_id=None, replaced_resource_id=None,
-                 resource_group_id=None, resource_id=None, service_id=None):
-        # The ID of the endpoint connection.
-        # 
-        # > This parameter is required only when a gateway is used for load balancing.
-        self.connection_id = connection_id  # type: long
+    def __init__(self, connection_status=None, endpoint_id=None, endpoint_owner_id=None, eni_id=None,
+                 max_results=None, next_token=None, region_id=None, replaced_resource_id=None, resource_group_id=None,
+                 resource_id=None, service_id=None):
         # The state of the endpoint connection. Valid values:
         # 
         # *   **Pending**: The endpoint connection is being modified.
@@ -3329,8 +3261,6 @@ class ListVpcEndpointConnectionsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.connection_id is not None:
-            result['ConnectionId'] = self.connection_id
         if self.connection_status is not None:
             result['ConnectionStatus'] = self.connection_status
         if self.endpoint_id is not None:
@@ -3357,8 +3287,6 @@ class ListVpcEndpointConnectionsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ConnectionId') is not None:
-            self.connection_id = m.get('ConnectionId')
         if m.get('ConnectionStatus') is not None:
             self.connection_status = m.get('ConnectionStatus')
         if m.get('EndpointId') is not None:
@@ -3385,16 +3313,8 @@ class ListVpcEndpointConnectionsRequest(TeaModel):
 
 
 class ListVpcEndpointConnectionsResponseBodyConnectionsZones(TeaModel):
-    def __init__(self, connection_id=None, connection_string_id=None, eni_id=None, replaced_eni_id=None,
-                 replaced_resource_id=None, resource_id=None, v_switch_id=None, zone_domain=None, zone_id=None, zone_status=None):
-        # The endpoint connection ID.
-        # 
-        # > This parameter is returned only when a gateway is used for load balancing.
-        self.connection_id = connection_id  # type: long
-        # The endpoint connection ID.
-        # 
-        # > This parameter is returned only when a gateway is used for load balancing. The value of this parameter is the value of the **ConnectionId** parameter in **string** format.
-        self.connection_string_id = connection_string_id  # type: str
+    def __init__(self, eni_id=None, replaced_eni_id=None, replaced_resource_id=None, resource_id=None,
+                 v_switch_id=None, zone_domain=None, zone_id=None, zone_status=None):
         # The endpoint ENI ID.
         self.eni_id = eni_id  # type: str
         # The ID of the replaced endpoint ENI in smooth migration scenarios.
@@ -3431,10 +3351,6 @@ class ListVpcEndpointConnectionsResponseBodyConnectionsZones(TeaModel):
             return _map
 
         result = dict()
-        if self.connection_id is not None:
-            result['ConnectionId'] = self.connection_id
-        if self.connection_string_id is not None:
-            result['ConnectionStringId'] = self.connection_string_id
         if self.eni_id is not None:
             result['EniId'] = self.eni_id
         if self.replaced_eni_id is not None:
@@ -3455,10 +3371,6 @@ class ListVpcEndpointConnectionsResponseBodyConnectionsZones(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ConnectionId') is not None:
-            self.connection_id = m.get('ConnectionId')
-        if m.get('ConnectionStringId') is not None:
-            self.connection_string_id = m.get('ConnectionStringId')
         if m.get('EniId') is not None:
             self.eni_id = m.get('EniId')
         if m.get('ReplacedEniId') is not None:
@@ -4456,17 +4368,15 @@ class ListVpcEndpointServicesResponseBodyServicesTags(TeaModel):
 
 class ListVpcEndpointServicesResponseBodyServices(TeaModel):
     def __init__(self, auto_accept_enabled=None, connect_bandwidth=None, create_time=None, max_bandwidth=None,
-                 min_bandwidth=None, payer=None, policy_document_enabled=None, region_id=None, resource_group_id=None,
-                 service_business_status=None, service_description=None, service_domain=None, service_id=None, service_name=None,
-                 service_provider=None, service_resource_type=None, service_status=None, service_support_ipv_6=None,
-                 service_type=None, tags=None, zone_affinity_enabled=None):
+                 min_bandwidth=None, payer=None, region_id=None, resource_group_id=None, service_business_status=None,
+                 service_description=None, service_domain=None, service_id=None, service_name=None, service_resource_type=None,
+                 service_status=None, service_support_ipv_6=None, service_type=None, tags=None, zone_affinity_enabled=None):
         self.auto_accept_enabled = auto_accept_enabled  # type: bool
         self.connect_bandwidth = connect_bandwidth  # type: int
         self.create_time = create_time  # type: str
         self.max_bandwidth = max_bandwidth  # type: int
         self.min_bandwidth = min_bandwidth  # type: int
         self.payer = payer  # type: str
-        self.policy_document_enabled = policy_document_enabled  # type: bool
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.service_business_status = service_business_status  # type: str
@@ -4474,7 +4384,6 @@ class ListVpcEndpointServicesResponseBodyServices(TeaModel):
         self.service_domain = service_domain  # type: str
         self.service_id = service_id  # type: str
         self.service_name = service_name  # type: str
-        self.service_provider = service_provider  # type: str
         self.service_resource_type = service_resource_type  # type: str
         self.service_status = service_status  # type: str
         self.service_support_ipv_6 = service_support_ipv_6  # type: bool
@@ -4506,8 +4415,6 @@ class ListVpcEndpointServicesResponseBodyServices(TeaModel):
             result['MinBandwidth'] = self.min_bandwidth
         if self.payer is not None:
             result['Payer'] = self.payer
-        if self.policy_document_enabled is not None:
-            result['PolicyDocumentEnabled'] = self.policy_document_enabled
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
@@ -4522,8 +4429,6 @@ class ListVpcEndpointServicesResponseBodyServices(TeaModel):
             result['ServiceId'] = self.service_id
         if self.service_name is not None:
             result['ServiceName'] = self.service_name
-        if self.service_provider is not None:
-            result['ServiceProvider'] = self.service_provider
         if self.service_resource_type is not None:
             result['ServiceResourceType'] = self.service_resource_type
         if self.service_status is not None:
@@ -4554,8 +4459,6 @@ class ListVpcEndpointServicesResponseBodyServices(TeaModel):
             self.min_bandwidth = m.get('MinBandwidth')
         if m.get('Payer') is not None:
             self.payer = m.get('Payer')
-        if m.get('PolicyDocumentEnabled') is not None:
-            self.policy_document_enabled = m.get('PolicyDocumentEnabled')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
@@ -4570,8 +4473,6 @@ class ListVpcEndpointServicesResponseBodyServices(TeaModel):
             self.service_id = m.get('ServiceId')
         if m.get('ServiceName') is not None:
             self.service_name = m.get('ServiceName')
-        if m.get('ServiceProvider') is not None:
-            self.service_provider = m.get('ServiceProvider')
         if m.get('ServiceResourceType') is not None:
             self.service_resource_type = m.get('ServiceResourceType')
         if m.get('ServiceStatus') is not None:
@@ -4808,16 +4709,13 @@ class ListVpcEndpointServicesByEndUserResponseBodyServicesTags(TeaModel):
 
 
 class ListVpcEndpointServicesByEndUserResponseBodyServices(TeaModel):
-    def __init__(self, payer=None, policy_document_enabled=None, resource_group_id=None, service_domain=None,
-                 service_id=None, service_name=None, service_provider=None, service_resource_type=None,
-                 service_support_ipv_6=None, service_type=None, tags=None, zones=None):
+    def __init__(self, payer=None, resource_group_id=None, service_domain=None, service_id=None, service_name=None,
+                 service_resource_type=None, service_support_ipv_6=None, service_type=None, tags=None, zones=None):
         self.payer = payer  # type: str
-        self.policy_document_enabled = policy_document_enabled  # type: bool
         self.resource_group_id = resource_group_id  # type: str
         self.service_domain = service_domain  # type: str
         self.service_id = service_id  # type: str
         self.service_name = service_name  # type: str
-        self.service_provider = service_provider  # type: str
         self.service_resource_type = service_resource_type  # type: str
         self.service_support_ipv_6 = service_support_ipv_6  # type: bool
         self.service_type = service_type  # type: str
@@ -4838,8 +4736,6 @@ class ListVpcEndpointServicesByEndUserResponseBodyServices(TeaModel):
         result = dict()
         if self.payer is not None:
             result['Payer'] = self.payer
-        if self.policy_document_enabled is not None:
-            result['PolicyDocumentEnabled'] = self.policy_document_enabled
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.service_domain is not None:
@@ -4848,8 +4744,6 @@ class ListVpcEndpointServicesByEndUserResponseBodyServices(TeaModel):
             result['ServiceId'] = self.service_id
         if self.service_name is not None:
             result['ServiceName'] = self.service_name
-        if self.service_provider is not None:
-            result['ServiceProvider'] = self.service_provider
         if self.service_resource_type is not None:
             result['ServiceResourceType'] = self.service_resource_type
         if self.service_support_ipv_6 is not None:
@@ -4868,8 +4762,6 @@ class ListVpcEndpointServicesByEndUserResponseBodyServices(TeaModel):
         m = m or dict()
         if m.get('Payer') is not None:
             self.payer = m.get('Payer')
-        if m.get('PolicyDocumentEnabled') is not None:
-            self.policy_document_enabled = m.get('PolicyDocumentEnabled')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ServiceDomain') is not None:
@@ -4878,8 +4770,6 @@ class ListVpcEndpointServicesByEndUserResponseBodyServices(TeaModel):
             self.service_id = m.get('ServiceId')
         if m.get('ServiceName') is not None:
             self.service_name = m.get('ServiceName')
-        if m.get('ServiceProvider') is not None:
-            self.service_provider = m.get('ServiceProvider')
         if m.get('ServiceResourceType') is not None:
             self.service_resource_type = m.get('ServiceResourceType')
         if m.get('ServiceSupportIPv6') is not None:
@@ -5242,8 +5132,8 @@ class ListVpcEndpointsRequestTag(TeaModel):
 
 class ListVpcEndpointsRequest(TeaModel):
     def __init__(self, connection_status=None, endpoint_id=None, endpoint_name=None, endpoint_status=None,
-                 endpoint_type=None, max_results=None, next_token=None, private_dns_name=None, region_id=None,
-                 resource_group_id=None, service_name=None, tag=None, vpc_id=None):
+                 endpoint_type=None, max_results=None, next_token=None, region_id=None, resource_group_id=None, service_name=None,
+                 tag=None, vpc_id=None):
         self.connection_status = connection_status  # type: str
         self.endpoint_id = endpoint_id  # type: str
         self.endpoint_name = endpoint_name  # type: str
@@ -5251,7 +5141,6 @@ class ListVpcEndpointsRequest(TeaModel):
         self.endpoint_type = endpoint_type  # type: str
         self.max_results = max_results  # type: int
         self.next_token = next_token  # type: str
-        self.private_dns_name = private_dns_name  # type: str
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.service_name = service_name  # type: str
@@ -5284,8 +5173,6 @@ class ListVpcEndpointsRequest(TeaModel):
             result['MaxResults'] = self.max_results
         if self.next_token is not None:
             result['NextToken'] = self.next_token
-        if self.private_dns_name is not None:
-            result['PrivateDnsName'] = self.private_dns_name
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
@@ -5316,8 +5203,6 @@ class ListVpcEndpointsRequest(TeaModel):
             self.max_results = m.get('MaxResults')
         if m.get('NextToken') is not None:
             self.next_token = m.get('NextToken')
-        if m.get('PrivateDnsName') is not None:
-            self.private_dns_name = m.get('PrivateDnsName')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
@@ -5366,8 +5251,8 @@ class ListVpcEndpointsResponseBodyEndpointsTags(TeaModel):
 class ListVpcEndpointsResponseBodyEndpoints(TeaModel):
     def __init__(self, bandwidth=None, connection_status=None, create_time=None, endpoint_business_status=None,
                  endpoint_description=None, endpoint_domain=None, endpoint_id=None, endpoint_name=None, endpoint_status=None,
-                 endpoint_type=None, policy_document=None, region_id=None, resource_group_id=None, resource_owner=None,
-                 service_id=None, service_name=None, tags=None, vpc_id=None, zone_affinity_enabled=None):
+                 endpoint_type=None, region_id=None, resource_group_id=None, resource_owner=None, service_id=None,
+                 service_name=None, tags=None, vpc_id=None, zone_affinity_enabled=None):
         self.bandwidth = bandwidth  # type: long
         self.connection_status = connection_status  # type: str
         self.create_time = create_time  # type: str
@@ -5378,7 +5263,6 @@ class ListVpcEndpointsResponseBodyEndpoints(TeaModel):
         self.endpoint_name = endpoint_name  # type: str
         self.endpoint_status = endpoint_status  # type: str
         self.endpoint_type = endpoint_type  # type: str
-        self.policy_document = policy_document  # type: str
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner = resource_owner  # type: bool
@@ -5420,8 +5304,6 @@ class ListVpcEndpointsResponseBodyEndpoints(TeaModel):
             result['EndpointStatus'] = self.endpoint_status
         if self.endpoint_type is not None:
             result['EndpointType'] = self.endpoint_type
-        if self.policy_document is not None:
-            result['PolicyDocument'] = self.policy_document
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
@@ -5464,8 +5346,6 @@ class ListVpcEndpointsResponseBodyEndpoints(TeaModel):
             self.endpoint_status = m.get('EndpointStatus')
         if m.get('EndpointType') is not None:
             self.endpoint_type = m.get('EndpointType')
-        if m.get('PolicyDocument') is not None:
-            self.policy_document = m.get('PolicyDocument')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
@@ -5575,108 +5455,6 @@ class ListVpcEndpointsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListVpcEndpointsResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class NotifyResourceAddressFamilyRequest(TeaModel):
-    def __init__(self, address_family=None, ipv_6address=None, resource_id=None, resource_type=None):
-        self.address_family = address_family  # type: str
-        self.ipv_6address = ipv_6address  # type: str
-        self.resource_id = resource_id  # type: str
-        self.resource_type = resource_type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(NotifyResourceAddressFamilyRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.address_family is not None:
-            result['AddressFamily'] = self.address_family
-        if self.ipv_6address is not None:
-            result['Ipv6Address'] = self.ipv_6address
-        if self.resource_id is not None:
-            result['ResourceId'] = self.resource_id
-        if self.resource_type is not None:
-            result['ResourceType'] = self.resource_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AddressFamily') is not None:
-            self.address_family = m.get('AddressFamily')
-        if m.get('Ipv6Address') is not None:
-            self.ipv_6address = m.get('Ipv6Address')
-        if m.get('ResourceId') is not None:
-            self.resource_id = m.get('ResourceId')
-        if m.get('ResourceType') is not None:
-            self.resource_type = m.get('ResourceType')
-        return self
-
-
-class NotifyResourceAddressFamilyResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(NotifyResourceAddressFamilyResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class NotifyResourceAddressFamilyResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: NotifyResourceAddressFamilyResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(NotifyResourceAddressFamilyResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = NotifyResourceAddressFamilyResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -6189,7 +5967,7 @@ class TagResourcesResponse(TeaModel):
 
 class UpdateVpcEndpointAttributeRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, endpoint_description=None, endpoint_id=None,
-                 endpoint_name=None, policy_document=None, region_id=None):
+                 endpoint_name=None, region_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
@@ -6209,7 +5987,6 @@ class UpdateVpcEndpointAttributeRequest(TeaModel):
         # 
         # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
         self.endpoint_name = endpoint_name  # type: str
-        self.policy_document = policy_document  # type: str
         # The region ID of the endpoint whose attributes you want to modify. You can call the [DescribeRegions](~~120468~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
 
@@ -6232,8 +6009,6 @@ class UpdateVpcEndpointAttributeRequest(TeaModel):
             result['EndpointId'] = self.endpoint_id
         if self.endpoint_name is not None:
             result['EndpointName'] = self.endpoint_name
-        if self.policy_document is not None:
-            result['PolicyDocument'] = self.policy_document
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         return result
@@ -6250,8 +6025,6 @@ class UpdateVpcEndpointAttributeRequest(TeaModel):
             self.endpoint_id = m.get('EndpointId')
         if m.get('EndpointName') is not None:
             self.endpoint_name = m.get('EndpointName')
-        if m.get('PolicyDocument') is not None:
-            self.policy_document = m.get('PolicyDocument')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         return self
