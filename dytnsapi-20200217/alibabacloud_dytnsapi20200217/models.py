@@ -63,14 +63,45 @@ class CompanyFourElementsVerificationRequest(TeaModel):
         return self
 
 
+class CompanyFourElementsVerificationResponseBodyDataDetailInfo(TeaModel):
+    def __init__(self, enterprise_status=None, open_time=None):
+        self.enterprise_status = enterprise_status  # type: str
+        self.open_time = open_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CompanyFourElementsVerificationResponseBodyDataDetailInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enterprise_status is not None:
+            result['EnterpriseStatus'] = self.enterprise_status
+        if self.open_time is not None:
+            result['OpenTime'] = self.open_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnterpriseStatus') is not None:
+            self.enterprise_status = m.get('EnterpriseStatus')
+        if m.get('OpenTime') is not None:
+            self.open_time = m.get('OpenTime')
+        return self
+
+
 class CompanyFourElementsVerificationResponseBodyData(TeaModel):
-    def __init__(self, detail_info=None, reason_code=None, verify_result=None):
-        self.detail_info = detail_info  # type: dict[str, any]
+    def __init__(self, detail_info=None, inconsistent_data=None, reason_code=None, verify_result=None):
+        self.detail_info = detail_info  # type: CompanyFourElementsVerificationResponseBodyDataDetailInfo
+        self.inconsistent_data = inconsistent_data  # type: list[str]
         self.reason_code = reason_code  # type: long
         self.verify_result = verify_result  # type: str
 
     def validate(self):
-        pass
+        if self.detail_info:
+            self.detail_info.validate()
 
     def to_map(self):
         _map = super(CompanyFourElementsVerificationResponseBodyData, self).to_map()
@@ -79,7 +110,9 @@ class CompanyFourElementsVerificationResponseBodyData(TeaModel):
 
         result = dict()
         if self.detail_info is not None:
-            result['DetailInfo'] = self.detail_info
+            result['DetailInfo'] = self.detail_info.to_map()
+        if self.inconsistent_data is not None:
+            result['InconsistentData'] = self.inconsistent_data
         if self.reason_code is not None:
             result['ReasonCode'] = self.reason_code
         if self.verify_result is not None:
@@ -89,7 +122,10 @@ class CompanyFourElementsVerificationResponseBodyData(TeaModel):
     def from_map(self, m=None):
         m = m or dict()
         if m.get('DetailInfo') is not None:
-            self.detail_info = m.get('DetailInfo')
+            temp_model = CompanyFourElementsVerificationResponseBodyDataDetailInfo()
+            self.detail_info = temp_model.from_map(m['DetailInfo'])
+        if m.get('InconsistentData') is not None:
+            self.inconsistent_data = m.get('InconsistentData')
         if m.get('ReasonCode') is not None:
             self.reason_code = m.get('ReasonCode')
         if m.get('VerifyResult') is not None:
@@ -237,14 +273,45 @@ class CompanyThreeElementsVerificationRequest(TeaModel):
         return self
 
 
+class CompanyThreeElementsVerificationResponseBodyDataDetailInfo(TeaModel):
+    def __init__(self, enterprise_status=None, open_time=None):
+        self.enterprise_status = enterprise_status  # type: str
+        self.open_time = open_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CompanyThreeElementsVerificationResponseBodyDataDetailInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enterprise_status is not None:
+            result['EnterpriseStatus'] = self.enterprise_status
+        if self.open_time is not None:
+            result['OpenTime'] = self.open_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnterpriseStatus') is not None:
+            self.enterprise_status = m.get('EnterpriseStatus')
+        if m.get('OpenTime') is not None:
+            self.open_time = m.get('OpenTime')
+        return self
+
+
 class CompanyThreeElementsVerificationResponseBodyData(TeaModel):
-    def __init__(self, detail_info=None, reason_code=None, verify_result=None):
-        self.detail_info = detail_info  # type: dict[str, any]
+    def __init__(self, detail_info=None, inconsistent_data=None, reason_code=None, verify_result=None):
+        self.detail_info = detail_info  # type: CompanyThreeElementsVerificationResponseBodyDataDetailInfo
+        self.inconsistent_data = inconsistent_data  # type: list[str]
         self.reason_code = reason_code  # type: long
         self.verify_result = verify_result  # type: str
 
     def validate(self):
-        pass
+        if self.detail_info:
+            self.detail_info.validate()
 
     def to_map(self):
         _map = super(CompanyThreeElementsVerificationResponseBodyData, self).to_map()
@@ -253,7 +320,9 @@ class CompanyThreeElementsVerificationResponseBodyData(TeaModel):
 
         result = dict()
         if self.detail_info is not None:
-            result['DetailInfo'] = self.detail_info
+            result['DetailInfo'] = self.detail_info.to_map()
+        if self.inconsistent_data is not None:
+            result['InconsistentData'] = self.inconsistent_data
         if self.reason_code is not None:
             result['ReasonCode'] = self.reason_code
         if self.verify_result is not None:
@@ -263,7 +332,10 @@ class CompanyThreeElementsVerificationResponseBodyData(TeaModel):
     def from_map(self, m=None):
         m = m or dict()
         if m.get('DetailInfo') is not None:
-            self.detail_info = m.get('DetailInfo')
+            temp_model = CompanyThreeElementsVerificationResponseBodyDataDetailInfo()
+            self.detail_info = temp_model.from_map(m['DetailInfo'])
+        if m.get('InconsistentData') is not None:
+            self.inconsistent_data = m.get('InconsistentData')
         if m.get('ReasonCode') is not None:
             self.reason_code = m.get('ReasonCode')
         if m.get('VerifyResult') is not None:
@@ -406,14 +478,45 @@ class CompanyTwoElementsVerificationRequest(TeaModel):
         return self
 
 
+class CompanyTwoElementsVerificationResponseBodyDataDetailInfo(TeaModel):
+    def __init__(self, enterprise_status=None, open_time=None):
+        self.enterprise_status = enterprise_status  # type: str
+        self.open_time = open_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CompanyTwoElementsVerificationResponseBodyDataDetailInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enterprise_status is not None:
+            result['EnterpriseStatus'] = self.enterprise_status
+        if self.open_time is not None:
+            result['OpenTime'] = self.open_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnterpriseStatus') is not None:
+            self.enterprise_status = m.get('EnterpriseStatus')
+        if m.get('OpenTime') is not None:
+            self.open_time = m.get('OpenTime')
+        return self
+
+
 class CompanyTwoElementsVerificationResponseBodyData(TeaModel):
-    def __init__(self, detail_info=None, reason_code=None, verify_result=None):
-        self.detail_info = detail_info  # type: dict[str, any]
+    def __init__(self, detail_info=None, inconsistent_data=None, reason_code=None, verify_result=None):
+        self.detail_info = detail_info  # type: CompanyTwoElementsVerificationResponseBodyDataDetailInfo
+        self.inconsistent_data = inconsistent_data  # type: list[str]
         self.reason_code = reason_code  # type: str
         self.verify_result = verify_result  # type: str
 
     def validate(self):
-        pass
+        if self.detail_info:
+            self.detail_info.validate()
 
     def to_map(self):
         _map = super(CompanyTwoElementsVerificationResponseBodyData, self).to_map()
@@ -422,7 +525,9 @@ class CompanyTwoElementsVerificationResponseBodyData(TeaModel):
 
         result = dict()
         if self.detail_info is not None:
-            result['DetailInfo'] = self.detail_info
+            result['DetailInfo'] = self.detail_info.to_map()
+        if self.inconsistent_data is not None:
+            result['InconsistentData'] = self.inconsistent_data
         if self.reason_code is not None:
             result['ReasonCode'] = self.reason_code
         if self.verify_result is not None:
@@ -432,7 +537,10 @@ class CompanyTwoElementsVerificationResponseBodyData(TeaModel):
     def from_map(self, m=None):
         m = m or dict()
         if m.get('DetailInfo') is not None:
-            self.detail_info = m.get('DetailInfo')
+            temp_model = CompanyTwoElementsVerificationResponseBodyDataDetailInfo()
+            self.detail_info = temp_model.from_map(m['DetailInfo'])
+        if m.get('InconsistentData') is not None:
+            self.inconsistent_data = m.get('InconsistentData')
         if m.get('ReasonCode') is not None:
             self.reason_code = m.get('ReasonCode')
         if m.get('VerifyResult') is not None:
