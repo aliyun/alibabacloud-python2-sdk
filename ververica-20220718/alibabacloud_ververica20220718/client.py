@@ -487,6 +487,10 @@ class Client(OpenApiClient):
     def list_deployments_with_options(self, namespace, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.execution_mode):
+            query['executionMode'] = request.execution_mode
+        if not UtilClient.is_unset(request.name):
+            query['name'] = request.name
         if not UtilClient.is_unset(request.page_index):
             query['pageIndex'] = request.page_index
         if not UtilClient.is_unset(request.page_size):
@@ -669,6 +673,19 @@ class Client(OpenApiClient):
         return self.list_variables_with_options(namespace, request, headers, runtime)
 
     def start_job_with_options(self, namespace, request, headers, runtime):
+        """
+        @deprecated
+        
+
+        @param request: StartJobRequest
+
+        @param headers: StartJobHeaders
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StartJobResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
@@ -696,9 +713,50 @@ class Client(OpenApiClient):
         )
 
     def start_job(self, namespace, request):
+        """
+        @deprecated
+        
+
+        @param request: StartJobRequest
+
+        @return: StartJobResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         headers = ververica_20220718_models.StartJobHeaders()
         return self.start_job_with_options(namespace, request, headers, runtime)
+
+    def start_job_with_params_with_options(self, namespace, request, headers, runtime):
+        UtilClient.validate_model(request)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.workspace):
+            real_headers['workspace'] = UtilClient.to_jsonstring(headers.workspace)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
+        )
+        params = open_api_models.Params(
+            action='StartJobWithParams',
+            version='2022-07-18',
+            protocol='HTTPS',
+            pathname='/api/v2/namespaces/%s/jobs%%3Astart' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(namespace)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ververica_20220718_models.StartJobWithParamsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def start_job_with_params(self, namespace, request):
+        runtime = util_models.RuntimeOptions()
+        headers = ververica_20220718_models.StartJobWithParamsHeaders()
+        return self.start_job_with_params_with_options(namespace, request, headers, runtime)
 
     def stop_job_with_options(self, namespace, job_id, request, headers, runtime):
         UtilClient.validate_model(request)

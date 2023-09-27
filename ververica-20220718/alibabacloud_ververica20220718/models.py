@@ -253,10 +253,12 @@ class BriefResourceSetting(TeaModel):
 
 
 class Deployment(TeaModel):
-    def __init__(self, artifact=None, creator=None, creator_name=None, deployment_has_changed=None,
-                 deployment_id=None, deployment_target=None, description=None, engine_version=None, execution_mode=None,
-                 flink_conf=None, job_summary=None, logging=None, modifier=None, modifier_name=None, name=None, namespace=None):
+    def __init__(self, artifact=None, batch_resource_setting=None, creator=None, creator_name=None,
+                 deployment_has_changed=None, deployment_id=None, deployment_target=None, description=None, engine_version=None,
+                 execution_mode=None, flink_conf=None, job_summary=None, logging=None, modifier=None, modifier_name=None, name=None,
+                 namespace=None, streaming_resource_setting=None):
         self.artifact = artifact  # type: Artifact
+        self.batch_resource_setting = batch_resource_setting  # type: BatchResourceSetting
         self.creator = creator  # type: str
         self.creator_name = creator_name  # type: str
         self.deployment_has_changed = deployment_has_changed  # type: bool
@@ -272,16 +274,21 @@ class Deployment(TeaModel):
         self.modifier_name = modifier_name  # type: str
         self.name = name  # type: str
         self.namespace = namespace  # type: str
+        self.streaming_resource_setting = streaming_resource_setting  # type: StreamingResourceSetting
 
     def validate(self):
         if self.artifact:
             self.artifact.validate()
+        if self.batch_resource_setting:
+            self.batch_resource_setting.validate()
         if self.deployment_target:
             self.deployment_target.validate()
         if self.job_summary:
             self.job_summary.validate()
         if self.logging:
             self.logging.validate()
+        if self.streaming_resource_setting:
+            self.streaming_resource_setting.validate()
 
     def to_map(self):
         _map = super(Deployment, self).to_map()
@@ -291,6 +298,8 @@ class Deployment(TeaModel):
         result = dict()
         if self.artifact is not None:
             result['artifact'] = self.artifact.to_map()
+        if self.batch_resource_setting is not None:
+            result['batchResourceSetting'] = self.batch_resource_setting.to_map()
         if self.creator is not None:
             result['creator'] = self.creator
         if self.creator_name is not None:
@@ -321,6 +330,8 @@ class Deployment(TeaModel):
             result['name'] = self.name
         if self.namespace is not None:
             result['namespace'] = self.namespace
+        if self.streaming_resource_setting is not None:
+            result['streamingResourceSetting'] = self.streaming_resource_setting.to_map()
         return result
 
     def from_map(self, m=None):
@@ -328,6 +339,9 @@ class Deployment(TeaModel):
         if m.get('artifact') is not None:
             temp_model = Artifact()
             self.artifact = temp_model.from_map(m['artifact'])
+        if m.get('batchResourceSetting') is not None:
+            temp_model = BatchResourceSetting()
+            self.batch_resource_setting = temp_model.from_map(m['batchResourceSetting'])
         if m.get('creator') is not None:
             self.creator = m.get('creator')
         if m.get('creatorName') is not None:
@@ -361,6 +375,9 @@ class Deployment(TeaModel):
             self.name = m.get('name')
         if m.get('namespace') is not None:
             self.namespace = m.get('namespace')
+        if m.get('streamingResourceSetting') is not None:
+            temp_model = StreamingResourceSetting()
+            self.streaming_resource_setting = temp_model.from_map(m['streamingResourceSetting'])
         return self
 
 
@@ -608,7 +625,8 @@ class Job(TeaModel):
     def __init__(self, artifact=None, batch_resource_setting=None, creator=None, creator_name=None,
                  deployment_id=None, deployment_name=None, end_time=None, engine_version=None, execution_mode=None,
                  flink_conf=None, job_id=None, logging=None, metric=None, modifier=None, modifier_name=None, namespace=None,
-                 restore_strategy=None, session_cluster_name=None, start_time=None, status=None, streaming_resource_setting=None):
+                 restore_strategy=None, session_cluster_name=None, start_time=None, status=None, streaming_resource_setting=None,
+                 user_flink_conf=None):
         self.artifact = artifact  # type: Artifact
         self.batch_resource_setting = batch_resource_setting  # type: BatchResourceSetting
         self.creator = creator  # type: str
@@ -630,6 +648,7 @@ class Job(TeaModel):
         self.start_time = start_time  # type: long
         self.status = status  # type: JobStatus
         self.streaming_resource_setting = streaming_resource_setting  # type: StreamingResourceSetting
+        self.user_flink_conf = user_flink_conf  # type: dict[str, any]
 
     def validate(self):
         if self.artifact:
@@ -695,6 +714,8 @@ class Job(TeaModel):
             result['status'] = self.status.to_map()
         if self.streaming_resource_setting is not None:
             result['streamingResourceSetting'] = self.streaming_resource_setting.to_map()
+        if self.user_flink_conf is not None:
+            result['userFlinkConf'] = self.user_flink_conf
         return result
 
     def from_map(self, m=None):
@@ -748,6 +769,8 @@ class Job(TeaModel):
         if m.get('streamingResourceSetting') is not None:
             temp_model = StreamingResourceSetting()
             self.streaming_resource_setting = temp_model.from_map(m['streamingResourceSetting'])
+        if m.get('userFlinkConf') is not None:
+            self.user_flink_conf = m.get('userFlinkConf')
         return self
 
 
@@ -811,6 +834,37 @@ class JobMetric(TeaModel):
             self.total_cpu = m.get('totalCpu')
         if m.get('totalMemoryByte') is not None:
             self.total_memory_byte = m.get('totalMemoryByte')
+        return self
+
+
+class JobStartParameters(TeaModel):
+    def __init__(self, deployment_id=None, restore_strategy=None):
+        self.deployment_id = deployment_id  # type: str
+        self.restore_strategy = restore_strategy  # type: DeploymentRestoreStrategy
+
+    def validate(self):
+        if self.restore_strategy:
+            self.restore_strategy.validate()
+
+    def to_map(self):
+        _map = super(JobStartParameters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deployment_id is not None:
+            result['deploymentId'] = self.deployment_id
+        if self.restore_strategy is not None:
+            result['restoreStrategy'] = self.restore_strategy.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('deploymentId') is not None:
+            self.deployment_id = m.get('deploymentId')
+        if m.get('restoreStrategy') is not None:
+            temp_model = DeploymentRestoreStrategy()
+            self.restore_strategy = temp_model.from_map(m['restoreStrategy'])
         return self
 
 
@@ -3298,7 +3352,9 @@ class ListDeploymentsHeaders(TeaModel):
 
 
 class ListDeploymentsRequest(TeaModel):
-    def __init__(self, page_index=None, page_size=None):
+    def __init__(self, execution_mode=None, name=None, page_index=None, page_size=None):
+        self.execution_mode = execution_mode  # type: str
+        self.name = name  # type: str
         self.page_index = page_index  # type: int
         self.page_size = page_size  # type: int
 
@@ -3311,6 +3367,10 @@ class ListDeploymentsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.execution_mode is not None:
+            result['executionMode'] = self.execution_mode
+        if self.name is not None:
+            result['name'] = self.name
         if self.page_index is not None:
             result['pageIndex'] = self.page_index
         if self.page_size is not None:
@@ -3319,6 +3379,10 @@ class ListDeploymentsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('executionMode') is not None:
+            self.execution_mode = m.get('executionMode')
+        if m.get('name') is not None:
+            self.name = m.get('name')
         if m.get('pageIndex') is not None:
             self.page_index = m.get('pageIndex')
         if m.get('pageSize') is not None:
@@ -4223,6 +4287,151 @@ class StartJobResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StartJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StartJobWithParamsHeaders(TeaModel):
+    def __init__(self, common_headers=None, workspace=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.workspace = workspace  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartJobWithParamsHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.workspace is not None:
+            result['workspace'] = self.workspace
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('workspace') is not None:
+            self.workspace = m.get('workspace')
+        return self
+
+
+class StartJobWithParamsRequest(TeaModel):
+    def __init__(self, body=None):
+        self.body = body  # type: JobStartParameters
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StartJobWithParamsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('body') is not None:
+            temp_model = JobStartParameters()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StartJobWithParamsResponseBody(TeaModel):
+    def __init__(self, data=None, error_code=None, error_message=None, http_code=None, request_id=None, success=None):
+        self.data = data  # type: Job
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.http_code = http_code  # type: int
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(StartJobWithParamsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.http_code is not None:
+            result['httpCode'] = self.http_code
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('data') is not None:
+            temp_model = Job()
+            self.data = temp_model.from_map(m['data'])
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('httpCode') is not None:
+            self.http_code = m.get('httpCode')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class StartJobWithParamsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: StartJobWithParamsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StartJobWithParamsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = StartJobWithParamsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
