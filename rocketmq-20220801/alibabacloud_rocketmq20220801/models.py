@@ -5,9 +5,17 @@ from Tea.model import TeaModel
 
 class ChangeResourceGroupRequest(TeaModel):
     def __init__(self, region_id=None, resource_group_id=None, resource_id=None, resource_type=None):
+        # The ID of the region in which the instance resides.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the instance is changed.
+        # 
+        # You can call the [ListResourceGroups](https://www.alibabacloud.com/help/resource-management/latest/listresourcegroups) operation to query existing resource groups.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the resource. Set this parameter to the ID of the ApsaraMQ for RocketMQ instance whose resource group you want to change.
         self.resource_id = resource_id  # type: str
+        # The type of resource.
+        # 
+        # Set this parameter to **instance**. The value of this parameter cannot be changed.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -45,13 +53,21 @@ class ChangeResourceGroupRequest(TeaModel):
 class ChangeResourceGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code returned if the call failed.
         self.code = code  # type: str
+        # The returned result.
         self.data = data  # type: bool
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. Each request has a unique ID. You can use this ID to troubleshoot issues.
         self.request_id = request_id  # type: str
+        # Indicates whether the call was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -143,8 +159,18 @@ class ChangeResourceGroupResponse(TeaModel):
 
 class CreateConsumerGroupRequestConsumeRetryPolicy(TeaModel):
     def __init__(self, dead_letter_target_topic=None, max_retry_times=None, retry_policy=None):
+        # The dead-letter topic.
+        # 
+        # If a consumer still fails to consume a message after the message is retried for a specified number of times, the message is delivered to a dead-letter topic for subsequent business recovery or troubleshooting. For more information, see [Consumption retry and dead-letter messages](~~440356~~).
         self.dead_letter_target_topic = dead_letter_target_topic  # type: str
+        # The maximum number of retries.
         self.max_retry_times = max_retry_times  # type: int
+        # The retry policy. For more information, see [Message retry](~~440356~~).
+        # 
+        # Valid values:
+        # 
+        # *   FixedRetryPolicy: Failed messages are retried at a fixed interval.
+        # *   DefaultRetryPolicy: Failed messages are retried at incremental intervals as the number of retries increases.
         self.retry_policy = retry_policy  # type: str
 
     def validate(self):
@@ -177,8 +203,16 @@ class CreateConsumerGroupRequestConsumeRetryPolicy(TeaModel):
 
 class CreateConsumerGroupRequest(TeaModel):
     def __init__(self, consume_retry_policy=None, delivery_order_type=None, remark=None):
+        # The consumption retry policy that you want to configure for the consumer group. For more information, see [Consumption retry](~~440356~~).
         self.consume_retry_policy = consume_retry_policy  # type: CreateConsumerGroupRequestConsumeRetryPolicy
+        # The message delivery order of the consumer group.
+        # 
+        # Valid values:
+        # 
+        # *   Concurrently: concurrent delivery
+        # *   Orderly: ordered delivery
         self.delivery_order_type = delivery_order_type  # type: str
+        # The remarks on the consumer group.
         self.remark = remark  # type: str
 
     def validate(self):
@@ -214,13 +248,21 @@ class CreateConsumerGroupRequest(TeaModel):
 class CreateConsumerGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code.
         self.code = code  # type: str
+        # The result data that is returned.
         self.data = data  # type: bool
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. The system generates a unique ID for each request. You can troubleshoot issues based on the request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the call is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -312,9 +354,32 @@ class CreateConsumerGroupResponse(TeaModel):
 
 class CreateInstanceRequestNetworkInfoInternetInfo(TeaModel):
     def __init__(self, flow_out_bandwidth=None, flow_out_type=None, internet_spec=None, ip_whitelist=None):
+        # The Internet bandwidth. Unit: MB/s.
+        # 
+        # This parameter is required only when the flowOutType parameter is set to payByBandwidth.
+        # 
+        # Valid values: 1 to 1000.
         self.flow_out_bandwidth = flow_out_bandwidth  # type: int
+        # The metering method for Internet usage.
+        # 
+        # Valid values:
+        # 
+        # *   payByBandwidth: pay-by-bandwidth. If the Internet access feature is enabled, specify this value for the parameter.
+        # *   uninvolved: N/A. If the Internet access feature is disabled, specify this value for the parameter.
         self.flow_out_type = flow_out_type  # type: str
+        # Specifies whether to enable the Internet access feature.
+        # 
+        # Valid values:
+        # 
+        # *   enable
+        # *   disable
+        # 
+        # By default, ApsaraMQ for RocketMQ instances are accessed in VPCs. If you enable the Internet access feature, you are charged for Internet outbound bandwidth. For more information, see [Internet access fee](~~427240~~).
         self.internet_spec = internet_spec  # type: str
+        # The whitelist that includes the IP addresses that are allowed to access the ApsaraMQ for RocketMQ broker over the Internet. This parameter can be configured only when you use a public endpoint to access the ApsaraMQ for RocketMQ broker.
+        # 
+        # *   If this parameter is not configured, all IP addresses are allowed to access the ApsaraMQ for RocketMQ broker over the Internet.
+        # *   If this parameter is configured, only the IP addresses that are included in the whitelist can access the ApsaraMQ for RocketMQ broker over the Internet.
         self.ip_whitelist = ip_whitelist  # type: list[str]
 
     def validate(self):
@@ -351,7 +416,13 @@ class CreateInstanceRequestNetworkInfoInternetInfo(TeaModel):
 
 class CreateInstanceRequestNetworkInfoVpcInfo(TeaModel):
     def __init__(self, v_switch_id=None, vpc_id=None):
+        # The ID of the vSwitch with which the instance is associated.
+        # 
+        # > After you create a ApsaraMQ for RocketMQ instance, you cannot change the vSwitch to which the instance is connected. If you want to change the vSwitch with which a ApsaraMQ for RocketMQ is associated, you must release the instance and purchase a new instance.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the VPC with which the instance that you want to create is associated.
+        # 
+        # > After you create a ApsaraMQ for RocketMQ instance, you cannot change the VPC in which the instance is created. If you want to change the VPC with which a ApsaraMQ for RocketMQ is associated, you must release the instance and purchase a new instance.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -380,7 +451,9 @@ class CreateInstanceRequestNetworkInfoVpcInfo(TeaModel):
 
 class CreateInstanceRequestNetworkInfo(TeaModel):
     def __init__(self, internet_info=None, vpc_info=None):
+        # The Internet-related configurations.
         self.internet_info = internet_info  # type: CreateInstanceRequestNetworkInfoInternetInfo
+        # The virtual private cloud (VPC)-related configurations.
         self.vpc_info = vpc_info  # type: CreateInstanceRequestNetworkInfoVpcInfo
 
     def validate(self):
@@ -415,9 +488,28 @@ class CreateInstanceRequestNetworkInfo(TeaModel):
 class CreateInstanceRequestProductInfo(TeaModel):
     def __init__(self, auto_scaling=None, message_retention_time=None, msg_process_spec=None,
                  send_receive_ratio=None):
+        # Specifies whether to enable the elastic TPS feature for the instance.
+        # 
+        # Valid values:
+        # 
+        # *   true: enable
+        # *   false: disable
+        # 
+        # After you enable the elastic TPS feature for a ApsaraMQ for RocketMQ instance, you can use a specific amount of TPS that exceeds the specification limit. You are charged for the elastic TPS feature. For more information, see [Computing fee](~~427237~~).
+        # 
+        # > The elastic TPS feature is supported by only specific instance editions. For more information, see [Instance specifications](~~444715~~).
         self.auto_scaling = auto_scaling  # type: bool
+        # The retention period of messages. Unit: hours.
+        # 
+        # For information about the valid values of this parameter, see the "Limits on resource quotas" section in [Usage limits](~~440347~~).
+        # 
+        # The storage of messages in ApsaraMQ for RocketMQ is serverless and scalable. You are charged for message storage based on your actual usage. You can change the retention period of messages to adjust storage capacity. For more information, see [Storage fee](~~427238~~).
         self.message_retention_time = message_retention_time  # type: int
+        # The computing specification that is used to send and receive messages. For information about the upper limit of TPS, see [Instance specifications](~~444715~~).
         self.msg_process_spec = msg_process_spec  # type: str
+        # The ratio between sent messages and received messages in the instance.
+        # 
+        # Value values: 0.2 to 0.5.
         self.send_receive_ratio = send_receive_ratio  # type: float
 
     def validate(self):
@@ -456,19 +548,76 @@ class CreateInstanceRequest(TeaModel):
     def __init__(self, auto_renew=None, auto_renew_period=None, instance_name=None, network_info=None,
                  payment_type=None, period=None, period_unit=None, product_info=None, remark=None, resource_group_id=None,
                  series_code=None, service_code=None, sub_series_code=None, client_token=None):
+        # Specifies whether to enable auto-renewal. This parameter takes effect only when the PaymentType parameter is set to Subscription.
+        # 
+        # *   true: enable
+        # *   false: disable
         self.auto_renew = auto_renew  # type: bool
+        # The auto-renewal cycle of the instance. This parameter takes effect only when the autoRenew parameter is set to true. Unit: months.
+        # 
+        # Valid values:
+        # 
+        # *   Monthly renewal: 1, 2, 3, 6, and 12
         self.auto_renew_period = auto_renew_period  # type: int
+        # The name of the instance that you want to create.
+        # 
+        # If you do not configure this parameter, the instance ID is used as the instance name.
         self.instance_name = instance_name  # type: str
+        # The information about the network.
         self.network_info = network_info  # type: CreateInstanceRequestNetworkInfo
+        # The billing method of the instance. ApsaraMQ for RocketMQ supports the subscription and pay-as-you-go billing methods.
+        # 
+        # Valid values:
+        # 
+        # *   PayAsYouGo: pay-as-you go. This billing method allows you to use resources before you pay for the resources.
+        # *   Subscription: This billing method allows you to use resources after you pay for the resources.
+        # 
+        # For more information, see [Billing methods](~~427234~~).
         self.payment_type = payment_type  # type: str
+        # The subscription duration of the instance. This parameter takes effect only when the PaymentType parameter is set to Subscription.
+        # 
+        # Valid values:
+        # 
+        # *   Monthly subscription: 1, 2, 3, 4, 5, and 6
+        # *   Yearly subscription: 1, 2, and 3
         self.period = period  # type: int
+        # The unit of the subscription duration.
+        # 
+        # Valid values:
+        # 
+        # *   Month
+        # *   Year
         self.period_unit = period_unit  # type: str
+        # The information about the instance specification.
         self.product_info = product_info  # type: CreateInstanceRequestProductInfo
+        # The description of the instance.
         self.remark = remark  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The primary edition of the instance. For information about the differences between primary edition instances, see [Instance selection](~~444722~~).
+        # 
+        # Valid values:
+        # 
+        # *   standard: Standard Edition
+        # *   ultimate: Enterprise Platinum Edition
+        # *   professional: Professional Edition
+        # 
+        # > After you create a ApsaraMQ for RocketMQ instance, you can only upgrade the primary edition of the instance. The following editions are sorted in ascending order: Standard Edition, Professional Edition, and Platinum Edition. For example, an instance of Standard Edition can be upgraded to Professional Edition. However, an instance of Professional Edition cannot be downgraded to Standard Edition.
         self.series_code = series_code  # type: str
+        # The code of the service to which the instance belongs. The service code of ApsaraMQ for RocketMQ is rmq.
         self.service_code = service_code  # type: str
+        # The sub-category edition of the instance. For information about the differences between sub-category edition instances, see [Instance selection](~~444722~~).
+        # 
+        # Valid values:
+        # 
+        # *   cluster_ha: Cluster High-availability Edition
+        # *   single_node: Standalone Edition
+        # 
+        # If you set the seriesCode parameter to ultimate, you can set this parameter to only cluster_ha.
+        # 
+        # > After you create a ApsaraMQ for RocketMQ instance, you cannot change the sub-category edition of the instance.
         self.sub_series_code = sub_series_code  # type: str
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value of this parameter, but you must ensure that the value is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
 
     def validate(self):
@@ -551,13 +700,21 @@ class CreateInstanceRequest(TeaModel):
 class CreateInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code returned if the call failed.
         self.code = code  # type: str
+        # The ID of the created instance.
         self.data = data  # type: str
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. Each request has a unique ID. You can use this ID to troubleshoot issues.
         self.request_id = request_id  # type: str
+        # Indicates whether the call was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -649,7 +806,18 @@ class CreateInstanceResponse(TeaModel):
 
 class CreateTopicRequest(TeaModel):
     def __init__(self, message_type=None, remark=None):
+        # The type of messages in the topic that you want to create.
+        # 
+        # Valid values:
+        # 
+        # *   TRANSACTION: transactional messages
+        # *   FIFO: ordered messages
+        # *   DELAY: scheduled messages or delayed Message
+        # *   NORMAL: normal messages
+        # 
+        # > The type of messages in the topic must be the same as the type of messages that you want to send. For example, if you create a topic whose message type is ordered messages, the topic can be used to send and receive only ordered messages.
         self.message_type = message_type  # type: str
+        # The description of the topic that you want to create.
         self.remark = remark  # type: str
 
     def validate(self):
@@ -679,13 +847,21 @@ class CreateTopicRequest(TeaModel):
 class CreateTopicResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code returned if the call failed.
         self.code = code  # type: str
+        # The returned result.
         self.data = data  # type: bool
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. Each request has a unique ID. You can use this ID to troubleshoot issues.
         self.request_id = request_id  # type: str
+        # Indicates whether the call was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -778,13 +954,21 @@ class CreateTopicResponse(TeaModel):
 class DeleteConsumerGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code.
         self.code = code  # type: str
+        # The result data that is returned.
         self.data = data  # type: bool
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. The system generates a unique ID for each request. You can troubleshoot issues based on the request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the call is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -877,13 +1061,21 @@ class DeleteConsumerGroupResponse(TeaModel):
 class DeleteInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code returned if the call failed.
         self.code = code  # type: str
+        # The returned result.
         self.data = data  # type: bool
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. Each request has a unique ID. You can use this ID to troubleshoot issues.
         self.request_id = request_id  # type: str
+        # Indicates whether the call was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -976,13 +1168,21 @@ class DeleteInstanceResponse(TeaModel):
 class DeleteTopicResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code.
         self.code = code  # type: str
+        # The result data that is returned.
         self.data = data  # type: bool
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. The system generates a unique ID for each request. You can troubleshoot issues based on the request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the call is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1074,8 +1274,43 @@ class DeleteTopicResponse(TeaModel):
 
 class GetConsumerGroupResponseBodyDataConsumeRetryPolicy(TeaModel):
     def __init__(self, dead_letter_target_topic=None, max_retry_times=None, retry_policy=None):
+        # The dead-letter topic.
+        # 
+        # If a consumer still fails to consume a message after the message is retried for a specified number of times, the message is delivered to a dead-letter topic for subsequent business recovery or troubleshooting. For more information, see [Consumption retry and dead-letter messages](~~440356~~).
         self.dead_letter_target_topic = dead_letter_target_topic  # type: str
+        # The maximum number of retries.
         self.max_retry_times = max_retry_times  # type: int
+        # The retry policy.
+        # 
+        # Valid values:
+        # 
+        # *   FixedRetryPolicy
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     Failed messages are retried at a fixed interval
+        # 
+        #     <!-- -->
+        # 
+        #     .
+        # 
+        # *   DefaultRetryPolicy
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     Failed messages are retried at incremental intervals as the number of retries increases
+        # 
+        #     <!-- -->
+        # 
+        #     .
         self.retry_policy = retry_policy  # type: str
 
     def validate(self):
@@ -1109,14 +1344,79 @@ class GetConsumerGroupResponseBodyDataConsumeRetryPolicy(TeaModel):
 class GetConsumerGroupResponseBodyData(TeaModel):
     def __init__(self, consume_retry_policy=None, consumer_group_id=None, create_time=None,
                  delivery_order_type=None, instance_id=None, region_id=None, remark=None, status=None, update_time=None):
+        # The consumption retry policy that you want to configure for the consumer group. For more information, see [Consumption retry](~~440356~~).
         self.consume_retry_policy = consume_retry_policy  # type: GetConsumerGroupResponseBodyDataConsumeRetryPolicy
+        # The ID of the consumer group.
         self.consumer_group_id = consumer_group_id  # type: str
+        # The time when the consumer group was created.
         self.create_time = create_time  # type: str
+        # The message delivery order of the consumer group.
+        # 
+        # Valid values:
+        # 
+        # *   Concurrently
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     concurrent delivery
+        # 
+        #     <!-- -->
+        # 
+        # *   Orderly
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     ordered delivery
+        # 
+        #     <!-- -->
         self.delivery_order_type = delivery_order_type  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the region in which the instance resides.
         self.region_id = region_id  # type: str
+        # The remarks on the consumer group.
         self.remark = remark  # type: str
+        # The state of the consumer group.
+        # 
+        # Valid values:
+        # 
+        # *   RUNNING
+        # 
+        #     <!-- -->
+        # 
+        #     : The consumer group is
+        # 
+        #     <!-- -->
+        # 
+        #     running
+        # 
+        #     <!-- -->
+        # 
+        #     .
+        # 
+        # *   CREATING
+        # 
+        #     <!-- -->
+        # 
+        #     : The consumer group is
+        # 
+        #     <!-- -->
+        # 
+        #     being created
+        # 
+        #     <!-- -->
+        # 
+        #     .
         self.status = status  # type: str
+        # The time when the consumer group was last updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -1176,13 +1476,21 @@ class GetConsumerGroupResponseBodyData(TeaModel):
 class GetConsumerGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code.
         self.code = code  # type: str
+        # The result data that is returned.
         self.data = data  # type: GetConsumerGroupResponseBodyData
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. The system generates a unique ID for each request. You can troubleshoot issues based on the request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the call is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1276,6 +1584,7 @@ class GetConsumerGroupResponse(TeaModel):
 
 class GetInstanceResponseBodyDataAccountInfo(TeaModel):
     def __init__(self, username=None):
+        # The username of the instance. If you access a ApsaraMQ for RocketMQ instance over the Internet, you must configure the username and password of the instance in the SDK code for authentication.
         self.username = username  # type: str
 
     def validate(self):
@@ -1300,6 +1609,11 @@ class GetInstanceResponseBodyDataAccountInfo(TeaModel):
 
 class GetInstanceResponseBodyDataAclInfo(TeaModel):
     def __init__(self, acl_type=None):
+        # The authentication type of the instance.
+        # 
+        # Valid values:
+        # 
+        # *   default: intelligent authentication
         self.acl_type = acl_type  # type: str
 
     def validate(self):
@@ -1326,14 +1640,60 @@ class GetInstanceResponseBodyDataExtConfig(TeaModel):
     def __init__(self, acl_type=None, auto_scaling=None, flow_out_bandwidth=None, flow_out_type=None,
                  internet_spec=None, message_retention_time=None, msg_process_spec=None, send_receive_ratio=None,
                  support_auto_scaling=None):
+        # The authentication type of the instance.
+        # 
+        # Valid values:
+        # 
+        # *   default: intelligent authentication
         self.acl_type = acl_type  # type: str
+        # Specifies whether to enable the elastic TPS feature for the instance.
+        # 
+        # Valid values:
+        # 
+        # *   true: enable
+        # *   false: disable
+        # 
+        # This parameter is valid only when the supportAutoScaling parameter is set to enable.
         self.auto_scaling = auto_scaling  # type: bool
+        # The Internet bandwidth. Unit: MB/s.
         self.flow_out_bandwidth = flow_out_bandwidth  # type: int
+        # The metering method for Internet usage.
+        # 
+        # Valid values:
+        # 
+        # *   PayByTraffic: pay-by-traffic
+        # *   paybybandwidth: pay-by-bandwidth
+        # *   uninvolved: N/A
         self.flow_out_type = flow_out_type  # type: str
+        # Specifies whether to enable the Internet access feature.
+        # 
+        # Valid values:
+        # 
+        # *   enable
+        # *   disable
+        # 
+        # By default, ApsaraMQ for RocketMQ instances are accessed in virtual private clouds (VPCs). If you enable the Internet access feature, you are charged for Internet outbound bandwidth. For more information, see [Internet access fee](~~427240~~).
         self.internet_spec = internet_spec  # type: str
+        # The retention period of messages. Unit: hours.
+        # 
+        # For information about the valid values of this parameter, see the "Limits on resource quotas" section in [Usage limits](~~440347~~).
+        # 
+        # The storage of messages in ApsaraMQ for RocketMQ is serverless and scalable. You are charged for message storage based on your actual usage. You can change the retention period of messages to adjust storage capacity. For more information, see [Storage fee](~~427238~~).
         self.message_retention_time = message_retention_time  # type: int
+        # The computing specification that is used to send and receive messages. For information about the upper limit of TPS, see [Instance specifications](~~444715~~).
         self.msg_process_spec = msg_process_spec  # type: str
+        # The ratio between sent messages and received messages in the instance.
         self.send_receive_ratio = send_receive_ratio  # type: float
+        # Specifies whether the elastic TPS feature is supported by the instance.
+        # 
+        # Valid values:
+        # 
+        # *   true: enable
+        # *   false: disable
+        # 
+        # After you enable the elastic TPS feature for a ApsaraMQ for RocketMQ instance, you can use a specific amount of TPS that exceeds the specification limit. You are charged for the elastic TPS feature. For more information, see [Computing fee](~~427237~~).
+        # 
+        # > The elastic TPS feature is supported only by specific instance editions. For more information, see [Instance specifications](~~444715~~).
         self.support_auto_scaling = support_auto_scaling  # type: bool
 
     def validate(self):
@@ -1390,9 +1750,17 @@ class GetInstanceResponseBodyDataExtConfig(TeaModel):
 
 class GetInstanceResponseBodyDataInstanceQuotas(TeaModel):
     def __init__(self, free_count=None, quota_name=None, total_count=None, used_count=None):
+        # The number of free topics in the instance.
         self.free_count = free_count  # type: float
+        # The name of the quota.
+        # 
+        # Valid values:
+        # 
+        # *   TOPIC_COUNT: the number of topics that you can create in the instance
         self.quota_name = quota_name  # type: str
+        # The total number of topics in the instance.
         self.total_count = total_count  # type: float
+        # The number of used topics in the instance.
         self.used_count = used_count  # type: float
 
     def validate(self):
@@ -1429,8 +1797,21 @@ class GetInstanceResponseBodyDataInstanceQuotas(TeaModel):
 
 class GetInstanceResponseBodyDataNetworkInfoEndpoints(TeaModel):
     def __init__(self, endpoint_type=None, endpoint_url=None, ip_whitelist=None):
+        # The type of the endpoint that is used to access the instance.
+        # 
+        # Valid values:
+        # 
+        # *   TCP_VPC: VPC endpoint
+        # *   TCP_INTERNET: public endpoint
         self.endpoint_type = endpoint_type  # type: str
+        # The endpoint that is used to access the instance.
         self.endpoint_url = endpoint_url  # type: str
+        # The whitelist that includes the IP addresses that are allowed to access the ApsaraMQ for RocketMQ broker over the Internet. This parameter can be configured only when you use a public endpoint to access the ApsaraMQ for RocketMQ broker.
+        # 
+        # *   If this parameter is not configured, all IP addresses are allowed to access the ApsaraMQ for RocketMQ broker over the Internet.
+        # *   If this parameter is configured, only the IP addresses that are included in the whitelist can access the ApsaraMQ for RocketMQ broker over the Internet.
+        # 
+        # We recommend that you configure the internetInfo.ipWhitelist parameter instead of this parameter.
         self.ip_whitelist = ip_whitelist  # type: list[str]
 
     def validate(self):
@@ -1463,9 +1844,28 @@ class GetInstanceResponseBodyDataNetworkInfoEndpoints(TeaModel):
 
 class GetInstanceResponseBodyDataNetworkInfoInternetInfo(TeaModel):
     def __init__(self, flow_out_bandwidth=None, flow_out_type=None, internet_spec=None, ip_whitelist=None):
+        # The Internet bandwidth. Unit: MB/s.
         self.flow_out_bandwidth = flow_out_bandwidth  # type: int
+        # The metering method for Internet usage.
+        # 
+        # Valid values:
+        # 
+        # *   PayByBandwidth: pay-by-bandwidth. If the Internet access feature is enabled, specify this value for the parameter.
+        # *   uninvolved: N/A. If the Internet access feature is not enabled, specify this value for the parameter.
         self.flow_out_type = flow_out_type  # type: str
+        # Specifies whether to enable the Internet access feature.
+        # 
+        # Valid values:
+        # 
+        # *   enable
+        # *   disable
+        # 
+        # By default, ApsaraMQ for RocketMQ instances are accessed in virtual private clouds (VPCs). If you enable the Internet access feature, you are charged for Internet outbound bandwidth. For more information, see [Internet access fee](~~427240~~).
         self.internet_spec = internet_spec  # type: str
+        # The whitelist that includes the IP addresses that are allowed to access the ApsaraMQ for RocketMQ broker.
+        # 
+        # *   If this parameter is not configured, all IP addresses are allowed to access the ApsaraMQ for RocketMQ broker over the Internet.
+        # *   If this parameter is configured, only the IP addresses that are included in the whitelist can access the ApsaraMQ for RocketMQ broker over the Internet.
         self.ip_whitelist = ip_whitelist  # type: list[str]
 
     def validate(self):
@@ -1502,7 +1902,9 @@ class GetInstanceResponseBodyDataNetworkInfoInternetInfo(TeaModel):
 
 class GetInstanceResponseBodyDataNetworkInfoVpcInfo(TeaModel):
     def __init__(self, v_switch_id=None, vpc_id=None):
+        # The ID of the vSwitch with which the instance is associated.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the VPC with which the instance is associated.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -1531,8 +1933,11 @@ class GetInstanceResponseBodyDataNetworkInfoVpcInfo(TeaModel):
 
 class GetInstanceResponseBodyDataNetworkInfo(TeaModel):
     def __init__(self, endpoints=None, internet_info=None, vpc_info=None):
+        # The information about endpoints.
         self.endpoints = endpoints  # type: list[GetInstanceResponseBodyDataNetworkInfoEndpoints]
+        # The information about the Internet.
         self.internet_info = internet_info  # type: GetInstanceResponseBodyDataNetworkInfoInternetInfo
+        # The information about the VPC.
         self.vpc_info = vpc_info  # type: GetInstanceResponseBodyDataNetworkInfoVpcInfo
 
     def validate(self):
@@ -1580,10 +1985,35 @@ class GetInstanceResponseBodyDataNetworkInfo(TeaModel):
 class GetInstanceResponseBodyDataProductInfo(TeaModel):
     def __init__(self, auto_scaling=None, message_retention_time=None, msg_process_spec=None,
                  send_receive_ratio=None, support_auto_scaling=None):
+        # Specifies whether to enable the elastic TPS feature for the instance.
+        # 
+        # Valid values:
+        # 
+        # *   true: enable
+        # *   false: disable
+        # 
+        # This parameter is valid only when the supportAutoScaling parameter is set to enable.
         self.auto_scaling = auto_scaling  # type: bool
+        # The retention period of messages. Unit: hours.
+        # 
+        # For information about the valid values of this parameter, see the "Limits on resource quotas" section in [Usage limits](~~440347~~).
+        # 
+        # The storage of messages in ApsaraMQ for RocketMQ is serverless and scalable. You are charged for message storage based on your actual usage. You can change the retention period of messages to adjust storage capacity. For more information, see [Storage fee](~~427238~~).
         self.message_retention_time = message_retention_time  # type: int
+        # The computing specification that is used to send and receive messages. For information about the upper limit of TPS, see [Instance specifications](~~444715~~).
         self.msg_process_spec = msg_process_spec  # type: str
+        # The ratio between sent messages and received messages in the instance.
         self.send_receive_ratio = send_receive_ratio  # type: float
+        # Specifies whether to enable the elastic TPS feature for the instance.
+        # 
+        # Valid values:
+        # 
+        # *   true: enable
+        # *   false: disable
+        # 
+        # After you enable the elastic TPS feature for a ApsaraMQ for RocketMQ instance, you can use a specific amount of TPS that exceeds the specification limit. You are charged for the elastic TPS feature. For more information, see [Computing fee](~~427237~~).
+        # 
+        # > The elastic TPS feature is supported by only specific instance editions. For more information, see [Instance specifications](~~444715~~).
         self.support_auto_scaling = support_auto_scaling  # type: bool
 
     def validate(self):
@@ -1656,39 +2086,116 @@ class GetInstanceResponseBodyDataSoftware(TeaModel):
         return self
 
 
+class GetInstanceResponseBodyDataTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInstanceResponseBodyDataTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
 class GetInstanceResponseBodyData(TeaModel):
     def __init__(self, account_info=None, acl_info=None, bid=None, commodity_code=None, create_time=None,
                  expire_time=None, ext_config=None, group_count=None, instance_id=None, instance_name=None,
                  instance_quotas=None, network_info=None, payment_type=None, product_info=None, region_id=None, release_time=None,
                  remark=None, resource_group_id=None, series_code=None, service_code=None, software=None, start_time=None,
-                 status=None, sub_series_code=None, topic_count=None, update_time=None, user_id=None):
+                 status=None, sub_series_code=None, tags=None, topic_count=None, update_time=None, user_id=None):
+        # The account information.
         self.account_info = account_info  # type: GetInstanceResponseBodyDataAccountInfo
+        # The information about access control.
         self.acl_info = acl_info  # type: GetInstanceResponseBodyDataAclInfo
-        # BID
+        # The business ID (BID) of the commodity.
         self.bid = bid  # type: str
+        # The commodity code of the instance. The commodity code of a ApsaraMQ for RocketMQ 5.0 instance has a similar format as ons_rmqsub_public_cn.
         self.commodity_code = commodity_code  # type: str
+        # The time when the instance was created.
         self.create_time = create_time  # type: str
+        # The time when the instance expires.
         self.expire_time = expire_time  # type: str
+        # The extended configurations. We recommend you configure the productInfo, internetInfo, or aclInfo parameter instead of this parameter.
         self.ext_config = ext_config  # type: GetInstanceResponseBodyDataExtConfig
         self.group_count = group_count  # type: long
+        # The ID of the instance
         self.instance_id = instance_id  # type: str
+        # The name of the instance.
         self.instance_name = instance_name  # type: str
+        # The quotas in the instance.
         self.instance_quotas = instance_quotas  # type: list[GetInstanceResponseBodyDataInstanceQuotas]
+        # The network information.
         self.network_info = network_info  # type: GetInstanceResponseBodyDataNetworkInfo
+        # The billing method of the instance.
+        # 
+        # Valid values:
+        # 
+        # *   PayAsYouGo: pay-as-you-go
+        # *   Subscription
         self.payment_type = payment_type  # type: str
+        # The extended configurations of the instance.
         self.product_info = product_info  # type: GetInstanceResponseBodyDataProductInfo
+        # The ID of the region in which the instance resides.
         self.region_id = region_id  # type: str
+        # The time when the instance was released.
         self.release_time = release_time  # type: str
+        # The description of the instance.
         self.remark = remark  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The primary edition of the instance. For information about the differences between primary edition instances, see [Instance selection](~~444722~~).
+        # 
+        # Valid values:
+        # 
+        # *   standard: Standard Edition
+        # *   ultimate: Enterprise Platinum Edition
+        # *   professional: Professional Edition
         self.series_code = series_code  # type: str
+        # The code of the service to which the instance belongs. The service code of ApsaraMQ for RocketMQ is rmq.
         self.service_code = service_code  # type: str
         self.software = software  # type: GetInstanceResponseBodyDataSoftware
+        # The time when the instance was started.
         self.start_time = start_time  # type: str
+        # The status of the instance.
+        # 
+        # Valid values:
+        # 
+        # *   RELEASED
+        # *   RUNNING
+        # *   STOPPED
+        # *   CHANGING
+        # *   CREATING
         self.status = status  # type: str
+        # The sub-category edition of the instance. For information about the differences between sub-category edition instances, see [Instance selection](~~444722~~).
+        # 
+        # Valid values:
+        # 
+        # *   cluster_ha: Cluster High-availability Edition
+        # *   single_node: Standalone Edition
         self.sub_series_code = sub_series_code  # type: str
+        self.tags = tags  # type: list[GetInstanceResponseBodyDataTags]
         self.topic_count = topic_count  # type: long
+        # The time when the instance was last modified.
         self.update_time = update_time  # type: str
+        # The ID of the user who owns the instance.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -1708,6 +2215,10 @@ class GetInstanceResponseBodyData(TeaModel):
             self.product_info.validate()
         if self.software:
             self.software.validate()
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(GetInstanceResponseBodyData, self).to_map()
@@ -1765,6 +2276,10 @@ class GetInstanceResponseBodyData(TeaModel):
             result['status'] = self.status
         if self.sub_series_code is not None:
             result['subSeriesCode'] = self.sub_series_code
+        result['tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['tags'].append(k.to_map() if k else None)
         if self.topic_count is not None:
             result['topicCount'] = self.topic_count
         if self.update_time is not None:
@@ -1832,6 +2347,11 @@ class GetInstanceResponseBodyData(TeaModel):
             self.status = m.get('status')
         if m.get('subSeriesCode') is not None:
             self.sub_series_code = m.get('subSeriesCode')
+        self.tags = []
+        if m.get('tags') is not None:
+            for k in m.get('tags'):
+                temp_model = GetInstanceResponseBodyDataTags()
+                self.tags.append(temp_model.from_map(k))
         if m.get('topicCount') is not None:
             self.topic_count = m.get('topicCount')
         if m.get('updateTime') is not None:
@@ -1844,13 +2364,21 @@ class GetInstanceResponseBodyData(TeaModel):
 class GetInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code returned if the call failed.
         self.code = code  # type: str
+        # The returned result.
         self.data = data  # type: GetInstanceResponseBodyData
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. Each request has a unique ID. You can use this ID to troubleshoot issues.
         self.request_id = request_id  # type: str
+        # Indicates whether the call was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1945,13 +2473,33 @@ class GetInstanceResponse(TeaModel):
 class GetTopicResponseBodyData(TeaModel):
     def __init__(self, create_time=None, instance_id=None, message_type=None, region_id=None, remark=None,
                  status=None, topic_name=None, update_time=None):
+        # The time when the topic was created.
         self.create_time = create_time  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The message type of the topic.
+        # 
+        # Valid values:
+        # 
+        # *   TRANSACTION: transactional message
+        # *   FIFO: ordered message
+        # *   DELAY: scheduled or delayed message
+        # *   NORMAL: normal message
         self.message_type = message_type  # type: str
+        # The ID of the region in which the instance resides.
         self.region_id = region_id  # type: str
+        # The remarks on the topic.
         self.remark = remark  # type: str
+        # The state of the topic.
+        # 
+        # Valid values:
+        # 
+        # *   RUNNING: The topic is running.
+        # *   CREATING: The topic is being created.
         self.status = status  # type: str
+        # The name of the topic.
         self.topic_name = topic_name  # type: str
+        # The time when the topic was last updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -2005,13 +2553,21 @@ class GetTopicResponseBodyData(TeaModel):
 class GetTopicResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code.
         self.code = code  # type: str
+        # The result data that is returned.
         self.data = data  # type: GetTopicResponseBodyData
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. The system generates a unique ID for each request. You can troubleshoot issues based on the request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the call is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2103,10 +2659,175 @@ class GetTopicResponse(TeaModel):
         return self
 
 
+class ListConsumerGroupSubscriptionsResponseBodyData(TeaModel):
+    def __init__(self, consumer_group_id=None, filter_expression=None, filter_expression_type=None,
+                 message_model=None, subscription_status=None, topic_created=None, topic_name=None):
+        self.consumer_group_id = consumer_group_id  # type: str
+        self.filter_expression = filter_expression  # type: str
+        self.filter_expression_type = filter_expression_type  # type: str
+        self.message_model = message_model  # type: str
+        self.subscription_status = subscription_status  # type: str
+        self.topic_created = topic_created  # type: bool
+        self.topic_name = topic_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListConsumerGroupSubscriptionsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.consumer_group_id is not None:
+            result['consumerGroupId'] = self.consumer_group_id
+        if self.filter_expression is not None:
+            result['filterExpression'] = self.filter_expression
+        if self.filter_expression_type is not None:
+            result['filterExpressionType'] = self.filter_expression_type
+        if self.message_model is not None:
+            result['messageModel'] = self.message_model
+        if self.subscription_status is not None:
+            result['subscriptionStatus'] = self.subscription_status
+        if self.topic_created is not None:
+            result['topicCreated'] = self.topic_created
+        if self.topic_name is not None:
+            result['topicName'] = self.topic_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('consumerGroupId') is not None:
+            self.consumer_group_id = m.get('consumerGroupId')
+        if m.get('filterExpression') is not None:
+            self.filter_expression = m.get('filterExpression')
+        if m.get('filterExpressionType') is not None:
+            self.filter_expression_type = m.get('filterExpressionType')
+        if m.get('messageModel') is not None:
+            self.message_model = m.get('messageModel')
+        if m.get('subscriptionStatus') is not None:
+            self.subscription_status = m.get('subscriptionStatus')
+        if m.get('topicCreated') is not None:
+            self.topic_created = m.get('topicCreated')
+        if m.get('topicName') is not None:
+            self.topic_name = m.get('topicName')
+        return self
+
+
+class ListConsumerGroupSubscriptionsResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
+                 message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[ListConsumerGroupSubscriptionsResponseBodyData]
+        self.dynamic_code = dynamic_code  # type: str
+        self.dynamic_message = dynamic_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListConsumerGroupSubscriptionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        if self.dynamic_code is not None:
+            result['dynamicCode'] = self.dynamic_code
+        if self.dynamic_message is not None:
+            result['dynamicMessage'] = self.dynamic_message
+        if self.http_status_code is not None:
+            result['httpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = ListConsumerGroupSubscriptionsResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('dynamicCode') is not None:
+            self.dynamic_code = m.get('dynamicCode')
+        if m.get('dynamicMessage') is not None:
+            self.dynamic_message = m.get('dynamicMessage')
+        if m.get('httpStatusCode') is not None:
+            self.http_status_code = m.get('httpStatusCode')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class ListConsumerGroupSubscriptionsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListConsumerGroupSubscriptionsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListConsumerGroupSubscriptionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListConsumerGroupSubscriptionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListConsumerGroupsRequest(TeaModel):
     def __init__(self, filter=None, page_number=None, page_size=None):
+        # The condition that you want to use to filter consumer groups in the instance. If you leave this parameter empty, all consumer groups in the instance are queried.
         self.filter = filter  # type: str
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -2140,12 +2861,49 @@ class ListConsumerGroupsRequest(TeaModel):
 class ListConsumerGroupsResponseBodyDataList(TeaModel):
     def __init__(self, consumer_group_id=None, create_time=None, instance_id=None, region_id=None, remark=None,
                  status=None, update_time=None):
+        # The ID of the consumer group.
         self.consumer_group_id = consumer_group_id  # type: str
+        # The time when the consumer group was created.
         self.create_time = create_time  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the region in which the instance resides.
         self.region_id = region_id  # type: str
+        # The remarks on the consumer group.
         self.remark = remark  # type: str
+        # The state of the consumer group.
+        # 
+        # Valid values:
+        # 
+        # *   RUNNING
+        # 
+        #     <!-- -->
+        # 
+        #     : The consumer group is
+        # 
+        #     <!-- -->
+        # 
+        #     running
+        # 
+        #     <!-- -->
+        # 
+        #     .
+        # 
+        # *   CREATING
+        # 
+        #     <!-- -->
+        # 
+        #     : The consumer group is
+        # 
+        #     <!-- -->
+        # 
+        #     being created
+        # 
+        #     <!-- -->
+        # 
+        #     .
         self.status = status  # type: str
+        # The time when the consumer group was last updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -2194,9 +2952,13 @@ class ListConsumerGroupsResponseBodyDataList(TeaModel):
 
 class ListConsumerGroupsResponseBodyData(TeaModel):
     def __init__(self, list=None, page_number=None, page_size=None, total_count=None):
+        # The paginated data.
         self.list = list  # type: list[ListConsumerGroupsResponseBodyDataList]
+        # The page number of the returned page.
         self.page_number = page_number  # type: long
+        # The number of entries returned per page.
         self.page_size = page_size  # type: long
+        # The total number of returned entries.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -2242,13 +3004,21 @@ class ListConsumerGroupsResponseBodyData(TeaModel):
 class ListConsumerGroupsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code.
         self.code = code  # type: str
+        # The result data that is returned.
         self.data = data  # type: ListConsumerGroupsResponseBodyData
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. The system generates a unique ID for each request. You can troubleshoot issues based on the request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the call is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2341,11 +3111,24 @@ class ListConsumerGroupsResponse(TeaModel):
 
 
 class ListInstancesRequest(TeaModel):
-    def __init__(self, filter=None, page_number=None, page_size=None, resource_group_id=None):
+    def __init__(self, filter=None, page_number=None, page_size=None, resource_group_id=None, tags=None):
+        # The filter condition that is used to query instances. If you do not configure this parameter, all instances are queried.
         self.filter = filter  # type: str
+        # The number of the page to return.
+        # 
+        # Valid values: 1 to 100000000.
+        # 
+        # If the value that you specify for this parameter is less than 1, the system uses 1 as the value. If the value that you specify for this parameter is greater than 100000000, the system uses 100000000 as the value.
         self.page_number = page_number  # type: int
+        # The number of entries returned on each page.
+        # 
+        # Value values: 10 to 200.
+        # 
+        # If the value that you specify for this parameter is less than 10, the system uses 10 as the value. If the value that you specify for this parameter is greater than 200, the system uses 200 as the value.
         self.page_size = page_size  # type: int
+        # The ID of the resource group to which the instance belongs.
         self.resource_group_id = resource_group_id  # type: str
+        self.tags = tags  # type: str
 
     def validate(self):
         pass
@@ -2364,6 +3147,8 @@ class ListInstancesRequest(TeaModel):
             result['pageSize'] = self.page_size
         if self.resource_group_id is not None:
             result['resourceGroupId'] = self.resource_group_id
+        if self.tags is not None:
+            result['tags'] = self.tags
         return result
 
     def from_map(self, m=None):
@@ -2376,36 +3161,114 @@ class ListInstancesRequest(TeaModel):
             self.page_size = m.get('pageSize')
         if m.get('resourceGroupId') is not None:
             self.resource_group_id = m.get('resourceGroupId')
+        if m.get('tags') is not None:
+            self.tags = m.get('tags')
+        return self
+
+
+class ListInstancesResponseBodyDataListTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstancesResponseBodyDataListTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
         return self
 
 
 class ListInstancesResponseBodyDataList(TeaModel):
     def __init__(self, commodity_code=None, create_time=None, expire_time=None, group_count=None, instance_id=None,
                  instance_name=None, payment_type=None, region_id=None, release_time=None, remark=None, resource_group_id=None,
-                 series_code=None, service_code=None, start_time=None, status=None, sub_series_code=None, topic_count=None,
-                 update_time=None, user_id=None):
+                 series_code=None, service_code=None, start_time=None, status=None, sub_series_code=None, tags=None,
+                 topic_count=None, update_time=None, user_id=None):
+        # The commodity code of the instance. The commodity code of a ApsaraMQ for RocketMQ 5.0 instance has a similar format as ons_rmqsub_public_cn.
         self.commodity_code = commodity_code  # type: str
+        # The time when the instance was created.
         self.create_time = create_time  # type: str
+        # The time when the instance expires.
         self.expire_time = expire_time  # type: str
+        # The number of consumer groups created in the instance.
         self.group_count = group_count  # type: long
+        # The ID of the instance
         self.instance_id = instance_id  # type: str
+        # The name of the instance.
         self.instance_name = instance_name  # type: str
+        # The billing method of the instance.
+        # 
+        # Valid values:
+        # 
+        # *   PayAsYouGo: pay-as-you-go
+        # *   Subscription
         self.payment_type = payment_type  # type: str
+        # The ID of the region in which the instance resides.
         self.region_id = region_id  # type: str
+        # The time when the instance was released.
         self.release_time = release_time  # type: str
+        # The description of the instance.
         self.remark = remark  # type: str
+        # The ID of the resource group to which the instance belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # The primary edition of the instance.
+        # 
+        # Valid values:
+        # 
+        # *   standard: Standard Edition
+        # *   ultimate: Enterprise Platinum Edition
+        # *   professional: Professional Edition
         self.series_code = series_code  # type: str
+        # The code of the service to which the instance belongs. The service code of ApsaraMQ for RocketMQ is rmq.
         self.service_code = service_code  # type: str
+        # The time when the instance was started.
         self.start_time = start_time  # type: str
+        # The status of the instance.
+        # 
+        # Valid values:
+        # 
+        # *   RELEASED
+        # *   RUNNING
+        # *   STOPPED
+        # *   CHANGING
+        # *   CREATING
         self.status = status  # type: str
+        # The sub-category edition of the instance.
+        # 
+        # Valid values:
+        # 
+        # *   cluster_ha: Cluster High-availability Edition
+        # *   single_node: Standalone Edition
         self.sub_series_code = sub_series_code  # type: str
+        self.tags = tags  # type: list[ListInstancesResponseBodyDataListTags]
+        # The number of topics created in the instance.
         self.topic_count = topic_count  # type: long
+        # The time when the instance was last modified.
         self.update_time = update_time  # type: str
+        # The ID of the user who owns the instance.
         self.user_id = user_id  # type: str
 
     def validate(self):
-        pass
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ListInstancesResponseBodyDataList, self).to_map()
@@ -2445,6 +3308,10 @@ class ListInstancesResponseBodyDataList(TeaModel):
             result['status'] = self.status
         if self.sub_series_code is not None:
             result['subSeriesCode'] = self.sub_series_code
+        result['tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['tags'].append(k.to_map() if k else None)
         if self.topic_count is not None:
             result['topicCount'] = self.topic_count
         if self.update_time is not None:
@@ -2487,6 +3354,11 @@ class ListInstancesResponseBodyDataList(TeaModel):
             self.status = m.get('status')
         if m.get('subSeriesCode') is not None:
             self.sub_series_code = m.get('subSeriesCode')
+        self.tags = []
+        if m.get('tags') is not None:
+            for k in m.get('tags'):
+                temp_model = ListInstancesResponseBodyDataListTags()
+                self.tags.append(temp_model.from_map(k))
         if m.get('topicCount') is not None:
             self.topic_count = m.get('topicCount')
         if m.get('updateTime') is not None:
@@ -2498,9 +3370,13 @@ class ListInstancesResponseBodyDataList(TeaModel):
 
 class ListInstancesResponseBodyData(TeaModel):
     def __init__(self, list=None, page_number=None, page_size=None, total_count=None):
+        # The page number of the returned page.
         self.list = list  # type: list[ListInstancesResponseBodyDataList]
+        # The page number of the returned page.
         self.page_number = page_number  # type: long
+        # The number of entries returned on each page.
         self.page_size = page_size  # type: long
+        # The total number of returned entries.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -2546,13 +3422,21 @@ class ListInstancesResponseBodyData(TeaModel):
 class ListInstancesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code returned if the call failed.
         self.code = code  # type: str
+        # The returned result.
         self.data = data  # type: ListInstancesResponseBodyData
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. Each request has a unique ID. You can use this ID to troubleshoot issues.
         self.request_id = request_id  # type: str
+        # Indicates whether the call was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2646,9 +3530,13 @@ class ListInstancesResponse(TeaModel):
 
 class ListTopicsRequest(TeaModel):
     def __init__(self, filter=None, message_types=None, page_number=None, page_size=None):
+        # The condition that you want to use to filter topics in the instance. If you leave this parameter empty, all topics in the instance are queried.
         self.filter = filter  # type: str
+        # The message types of the topics.
         self.message_types = message_types  # type: list[str]
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -2685,9 +3573,13 @@ class ListTopicsRequest(TeaModel):
 
 class ListTopicsShrinkRequest(TeaModel):
     def __init__(self, filter=None, message_types_shrink=None, page_number=None, page_size=None):
+        # The condition that you want to use to filter topics in the instance. If you leave this parameter empty, all topics in the instance are queried.
         self.filter = filter  # type: str
+        # The message types of the topics.
         self.message_types_shrink = message_types_shrink  # type: str
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -2725,13 +3617,101 @@ class ListTopicsShrinkRequest(TeaModel):
 class ListTopicsResponseBodyDataList(TeaModel):
     def __init__(self, create_time=None, instance_id=None, message_type=None, region_id=None, remark=None,
                  status=None, topic_name=None, update_time=None):
+        # The time when the topic was created.
         self.create_time = create_time  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The message type of the topic.
+        # 
+        # Valid values:
+        # 
+        # *   TRANSACTION
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     transactional message
+        # 
+        #     <!-- -->
+        # 
+        # *   FIFO
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     ordered message
+        # 
+        #     <!-- -->
+        # 
+        # *   DELAY
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     scheduled or delayed message
+        # 
+        #     <!-- -->
+        # 
+        # *   NORMAL
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     normal message
+        # 
+        #     <!-- -->
         self.message_type = message_type  # type: str
+        # The ID of the region in which the instance resides.
         self.region_id = region_id  # type: str
+        # The remarks on the topic.
         self.remark = remark  # type: str
+        # The state of the topic.
+        # 
+        # Valid values:
+        # 
+        # *   RUNNING
+        # 
+        #     <!-- -->
+        # 
+        #     : The topic is
+        # 
+        #     <!-- -->
+        # 
+        #     running
+        # 
+        #     <!-- -->
+        # 
+        #     .
+        # 
+        # *   CREATING
+        # 
+        #     <!-- -->
+        # 
+        #     : The topic is
+        # 
+        #     <!-- -->
+        # 
+        #     being created
+        # 
+        #     <!-- -->
+        # 
+        #     .
         self.status = status  # type: str
+        # The name of the topic.
         self.topic_name = topic_name  # type: str
+        # The time when the topic was last updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -2784,9 +3764,13 @@ class ListTopicsResponseBodyDataList(TeaModel):
 
 class ListTopicsResponseBodyData(TeaModel):
     def __init__(self, list=None, page_number=None, page_size=None, total_count=None):
+        # The paginated data.
         self.list = list  # type: list[ListTopicsResponseBodyDataList]
+        # The page number of the returned page.
         self.page_number = page_number  # type: long
+        # The number of entries returned per page.
         self.page_size = page_size  # type: long
+        # The total number of returned entries.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -2832,13 +3816,21 @@ class ListTopicsResponseBodyData(TeaModel):
 class ListTopicsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code.
         self.code = code  # type: str
+        # The result data that is returned.
         self.data = data  # type: ListTopicsResponseBodyData
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. The system generates a unique ID for each request. You can troubleshoot issues based on the request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the call is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2930,10 +3922,143 @@ class ListTopicsResponse(TeaModel):
         return self
 
 
+class ResetConsumeOffsetRequest(TeaModel):
+    def __init__(self, reset_time=None, reset_type=None):
+        self.reset_time = reset_time  # type: str
+        self.reset_type = reset_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResetConsumeOffsetRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.reset_time is not None:
+            result['resetTime'] = self.reset_time
+        if self.reset_type is not None:
+            result['resetType'] = self.reset_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('resetTime') is not None:
+            self.reset_time = m.get('resetTime')
+        if m.get('resetType') is not None:
+            self.reset_type = m.get('resetType')
+        return self
+
+
+class ResetConsumeOffsetResponseBody(TeaModel):
+    def __init__(self, code=None, dynamic_code=None, dynamic_message=None, http_status_code=None, message=None,
+                 request_id=None, success=None):
+        self.code = code  # type: str
+        self.dynamic_code = dynamic_code  # type: str
+        self.dynamic_message = dynamic_message  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResetConsumeOffsetResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.dynamic_code is not None:
+            result['dynamicCode'] = self.dynamic_code
+        if self.dynamic_message is not None:
+            result['dynamicMessage'] = self.dynamic_message
+        if self.http_status_code is not None:
+            result['httpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('dynamicCode') is not None:
+            self.dynamic_code = m.get('dynamicCode')
+        if m.get('dynamicMessage') is not None:
+            self.dynamic_message = m.get('dynamicMessage')
+        if m.get('httpStatusCode') is not None:
+            self.http_status_code = m.get('httpStatusCode')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class ResetConsumeOffsetResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ResetConsumeOffsetResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ResetConsumeOffsetResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ResetConsumeOffsetResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateConsumerGroupRequestConsumeRetryPolicy(TeaModel):
     def __init__(self, dead_letter_target_topic=None, max_retry_times=None, retry_policy=None):
+        # The dead-letter topic.
+        # 
+        # If a consumer still fails to consume a message after the message is retried for a specified number of times, the message is delivered to a dead-letter topic for subsequent business recovery or troubleshooting. For more information, see [Consumption retry and dead-letter messages](~~440356~~).
         self.dead_letter_target_topic = dead_letter_target_topic  # type: str
+        # The maximum number of retries.
         self.max_retry_times = max_retry_times  # type: int
+        # The retry policy. For more information, see [Message retry](~~440356~~).
+        # 
+        # Valid values:
+        # 
+        # *   FixedRetryPolicy: Failed messages are retried at a fixed interval.
+        # *   DefaultRetryPolicy: Failed messages are retried at incremental intervals as the number of retries increases.
         self.retry_policy = retry_policy  # type: str
 
     def validate(self):
@@ -2966,8 +4091,16 @@ class UpdateConsumerGroupRequestConsumeRetryPolicy(TeaModel):
 
 class UpdateConsumerGroupRequest(TeaModel):
     def __init__(self, consume_retry_policy=None, delivery_order_type=None, remark=None):
+        # The new consumption retry policy that you want to configure for the consumer group. For more information, see [Consumption retry](~~440356~~).
         self.consume_retry_policy = consume_retry_policy  # type: UpdateConsumerGroupRequestConsumeRetryPolicy
+        # The new message delivery order of the consumer group.
+        # 
+        # Valid values:
+        # 
+        # *   Concurrently: concurrent delivery
+        # *   Orderly: ordered delivery
         self.delivery_order_type = delivery_order_type  # type: str
+        # The new remarks on the consumer group.
         self.remark = remark  # type: str
 
     def validate(self):
@@ -3003,13 +4136,21 @@ class UpdateConsumerGroupRequest(TeaModel):
 class UpdateConsumerGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code.
         self.code = code  # type: str
+        # The result data that is returned.
         self.data = data  # type: bool
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. The system generates a unique ID for each request. You can troubleshoot issues based on the request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the call is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3101,6 +4242,10 @@ class UpdateConsumerGroupResponse(TeaModel):
 
 class UpdateInstanceRequestNetworkInfoInternetInfo(TeaModel):
     def __init__(self, ip_whitelist=None):
+        # The IP address whitelist that allows access to the instance over the Internet.
+        # 
+        # *   If you do not configure an IP address whitelist, all IP addresses are allowed to access the ApsaraMQ for RocketMQ broker over the Internet.
+        # *   If you configure an IP address whitelist, only IP addresses in the whitelist are allowed to access the ApsaraMQ for RocketMQ broker over the Internet.
         self.ip_whitelist = ip_whitelist  # type: list[str]
 
     def validate(self):
@@ -3125,6 +4270,7 @@ class UpdateInstanceRequestNetworkInfoInternetInfo(TeaModel):
 
 class UpdateInstanceRequestNetworkInfo(TeaModel):
     def __init__(self, internet_info=None):
+        # The Internet information about the instance. This parameter takes effect only when the Internet access feature is enabled for the instance.
         self.internet_info = internet_info  # type: UpdateInstanceRequestNetworkInfoInternetInfo
 
     def validate(self):
@@ -3151,8 +4297,26 @@ class UpdateInstanceRequestNetworkInfo(TeaModel):
 
 class UpdateInstanceRequestProductInfo(TeaModel):
     def __init__(self, auto_scaling=None, message_retention_time=None, send_receive_ratio=None):
+        # Specifies whether to enable burst scaling for the instance.
+        # 
+        # Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # After you enable burst scaling, the system allows the actual messaging transactions per second (TPS) of the ApsaraMQ for RocketMQ instance to exceed the upper limit of the basic computing specification. You are charged for the extra TPS. For more information, see [Computing fee](~~427237~~).
+        # 
+        # > Only specific types of instances support burst scaling. For more information, see [Instance specifications](~~444715~~).
         self.auto_scaling = auto_scaling  # type: bool
+        # The retention period of messages. Unit: hours.
+        # 
+        # For more information about the valid values, see the "Limits on resource quotas" section of the [Usage limits](~~440347~~) topic.
+        # 
+        # The storage of ApsaraMQ for RocketMQ messages is in serverless scaling mode. You are charged based on the actual used storage. You can adjust the storage retention period to reduce storage usage and costs. For more information, see [Storage fees](~~427238~~).
         self.message_retention_time = message_retention_time  # type: int
+        # The ratio of the number of messages that you can send to the number of messages that you can receive in the instance.
+        # 
+        # Value values: 0.25 to 1.
         self.send_receive_ratio = send_receive_ratio  # type: float
 
     def validate(self):
@@ -3185,9 +4349,13 @@ class UpdateInstanceRequestProductInfo(TeaModel):
 
 class UpdateInstanceRequest(TeaModel):
     def __init__(self, instance_name=None, network_info=None, product_info=None, remark=None):
+        # The new name of the instance.
         self.instance_name = instance_name  # type: str
+        # The new network information about the instance.
         self.network_info = network_info  # type: UpdateInstanceRequestNetworkInfo
+        # The extended configurations of the instance.
         self.product_info = product_info  # type: UpdateInstanceRequestProductInfo
+        # The new remarks on the instance.
         self.remark = remark  # type: str
 
     def validate(self):
@@ -3230,13 +4398,21 @@ class UpdateInstanceRequest(TeaModel):
 class UpdateInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code.
         self.code = code  # type: str
+        # The result data that is returned.
         self.data = data  # type: bool
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. The system generates a unique ID for each request. You can troubleshoot issues based on the request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the call is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3328,6 +4504,7 @@ class UpdateInstanceResponse(TeaModel):
 
 class UpdateTopicRequest(TeaModel):
     def __init__(self, remark=None):
+        # The new remarks on the topic.
         self.remark = remark  # type: str
 
     def validate(self):
@@ -3353,13 +4530,21 @@ class UpdateTopicRequest(TeaModel):
 class UpdateTopicResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
                  message=None, request_id=None, success=None):
+        # The error code.
         self.code = code  # type: str
+        # The result data that is returned.
         self.data = data  # type: bool
+        # The dynamic error code.
         self.dynamic_code = dynamic_code  # type: str
+        # The dynamic error message.
         self.dynamic_message = dynamic_message  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The error message.
         self.message = message  # type: str
+        # The ID of the request. The system generates a unique ID for each request. You can troubleshoot issues based on the request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the call is successful.
         self.success = success  # type: bool
 
     def validate(self):
