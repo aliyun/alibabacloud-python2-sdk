@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_aiworkspace20210204_py2.
 
-Created on 26/09/2023
+Created on 07/10/2023
 
 @author: Alibaba Cloud SDK
 """

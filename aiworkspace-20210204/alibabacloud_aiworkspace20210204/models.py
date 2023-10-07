@@ -2830,7 +2830,9 @@ class DeleteMembersRequest(TeaModel):
 
 
 class DeleteMembersResponseBody(TeaModel):
-    def __init__(self, request_id=None):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2842,12 +2844,20 @@ class DeleteMembersResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
