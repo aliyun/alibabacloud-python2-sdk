@@ -223,6 +223,7 @@ class AddServersToServerGroupResponse(TeaModel):
 class AssociateAdditionalCertificatesWithListenerRequest(TeaModel):
     def __init__(self, additional_certificate_ids=None, client_token=None, dry_run=None, listener_id=None,
                  region_id=None):
+        # The additional certificates. You can associate up to 15 additional certificates with a listener in each request.
         self.additional_certificate_ids = additional_certificate_ids  # type: list[str]
         # The client token that is used to ensure the idempotence of the request.
         # 
@@ -233,11 +234,11 @@ class AssociateAdditionalCertificatesWithListenerRequest(TeaModel):
         # Specifies whether to perform a dry run, without performing the actual request. Valid values:
         # 
         # *   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
-        # *   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
+        # *   **false**(default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
         self.dry_run = dry_run  # type: bool
-        # The listener ID.
+        # The listener ID. You must specify the ID of a listener that uses SSL over TCP.
         self.listener_id = listener_id  # type: str
-        # The ID of the region where the NLB instance is deployed.
+        # The region ID of the Network Load Balancer (NLB) instance.
         # 
         # You can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
@@ -282,7 +283,7 @@ class AssociateAdditionalCertificatesWithListenerResponseBody(TeaModel):
     def __init__(self, job_id=None, request_id=None):
         # The ID of the asynchronous task.
         self.job_id = job_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -646,7 +647,13 @@ class CancelShiftLoadBalancerZonesResponse(TeaModel):
 
 class CreateListenerRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # 
+        # The tag key can be up to 64 characters in length and cannot contain `http://` or `https://`. It cannot start with `aliyun` or `acs:`.
         self.key = key  # type: str
+        # The tag value. The tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        # 
+        # You can add up to 20 tags in each call.
         self.value = value  # type: str
 
     def validate(self):
@@ -767,6 +774,7 @@ class CreateListenerRequest(TeaModel):
         # 
         # > This parameter is required when **ListenerPort** is set to **0**.
         self.start_port = start_port  # type: int
+        # The tags.
         self.tag = tag  # type: list[CreateListenerRequestTag]
 
     def validate(self):
@@ -1765,7 +1773,7 @@ class CreateServerGroupRequestTag(TeaModel):
 class CreateServerGroupRequest(TeaModel):
     def __init__(self, address_ipversion=None, any_port_enabled=None, client_token=None,
                  connection_drain_enabled=None, connection_drain_timeout=None, dry_run=None, health_check_config=None,
-                 preserve_client_ip_enabled=None, protocol=None, quic_version=None, region_id=None, resource_group_id=None, scheduler=None,
+                 preserve_client_ip_enabled=None, protocol=None, region_id=None, resource_group_id=None, scheduler=None,
                  server_group_name=None, server_group_type=None, tag=None, vpc_id=None):
         # The protocol version. Valid values:
         # 
@@ -1808,7 +1816,6 @@ class CreateServerGroupRequest(TeaModel):
         # *   **UDP**\
         # *   **TCPSSL**\
         self.protocol = protocol  # type: str
-        self.quic_version = quic_version  # type: str
         # The region ID of the NLB instance.
         # 
         # You can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.
@@ -1871,8 +1878,6 @@ class CreateServerGroupRequest(TeaModel):
             result['PreserveClientIpEnabled'] = self.preserve_client_ip_enabled
         if self.protocol is not None:
             result['Protocol'] = self.protocol
-        if self.quic_version is not None:
-            result['QuicVersion'] = self.quic_version
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
@@ -1912,8 +1917,6 @@ class CreateServerGroupRequest(TeaModel):
             self.preserve_client_ip_enabled = m.get('PreserveClientIpEnabled')
         if m.get('Protocol') is not None:
             self.protocol = m.get('Protocol')
-        if m.get('QuicVersion') is not None:
-            self.quic_version = m.get('QuicVersion')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
@@ -3060,6 +3063,7 @@ class DisableLoadBalancerIpv6InternetResponse(TeaModel):
 class DisassociateAdditionalCertificatesWithListenerRequest(TeaModel):
     def __init__(self, additional_certificate_ids=None, client_token=None, dry_run=None, listener_id=None,
                  region_id=None):
+        # The additional certificates. You can disassociate up to 15 additional certificates from a listener in each request.
         self.additional_certificate_ids = additional_certificate_ids  # type: list[str]
         # The client token that is used to ensure the idempotence of the request.
         # 
@@ -3067,14 +3071,14 @@ class DisassociateAdditionalCertificatesWithListenerRequest(TeaModel):
         # 
         # > If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
         self.client_token = client_token  # type: str
-        # Specifies whether to only precheck this request. Valid values:
+        # Specifies whether to perform a dry run, without performing the actual request. Valid values:
         # 
-        # *   **true**: prechecks the request without creating the resource. The system prechecks the required parameters, request syntax, and limits. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
-        # *   **false** (default): sends the request. If the request passes the precheck, a 2xx HTTP status code is returned and the operation is performed.
+        # *   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false**(default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
         self.dry_run = dry_run  # type: bool
-        # The listener ID.
+        # The listener ID. You must specify the ID of a listener that uses SSL over TCP.
         self.listener_id = listener_id  # type: str
-        # The ID of the region where the NLB instance is deployed.
+        # The region ID of the Network Load Balancer (NLB) instance.
         # 
         # You can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
@@ -3119,7 +3123,7 @@ class DisassociateAdditionalCertificatesWithListenerResponseBody(TeaModel):
     def __init__(self, job_id=None, request_id=None):
         # The ID of the asynchronous task.
         self.job_id = job_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4075,9 +4079,22 @@ class GetListenerHealthStatusResponse(TeaModel):
 
 class GetLoadBalancerAttributeRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, load_balancer_id=None, region_id=None):
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must ensure that it is unique among all requests. ClientToken can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
         self.client_token = client_token  # type: str
+        # Specifies whether only to precheck the request. Valid values:
+        # 
+        # *   **true**: checks the request but does not query the listener details. The system prechecks the required parameters, request syntax, and limits. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
+        # *   **false** (default): sends the request. If the request passes the precheck, an HTTP 2xx status code is returned and the operation is performed.
         self.dry_run = dry_run  # type: bool
+        # The ID of the NLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The ID of the region where the NLB instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -4114,8 +4131,14 @@ class GetLoadBalancerAttributeRequest(TeaModel):
 
 class GetLoadBalancerAttributeResponseBodyDeletionProtectionConfig(TeaModel):
     def __init__(self, enabled=None, enabled_time=None, reason=None):
+        # Specifies whether to enable deletion protection. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false** (default): no
         self.enabled = enabled  # type: bool
+        # The time when the deletion protection feature was enabled. The time follows the ISO 8601 standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time is displayed in UTC.
         self.enabled_time = enabled_time  # type: str
+        # The reason why the deletion protection feature is enabled or disabled. The value must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The value must start with a letter.
         self.reason = reason  # type: str
 
     def validate(self):
@@ -4173,8 +4196,18 @@ class GetLoadBalancerAttributeResponseBodyLoadBalancerBillingConfig(TeaModel):
 
 class GetLoadBalancerAttributeResponseBodyModificationProtectionConfig(TeaModel):
     def __init__(self, enabled_time=None, reason=None, status=None):
+        # The time when the modification protection feature was enabled. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.enabled_time = enabled_time  # type: str
+        # The reason why the configuration read-only mode is enabled. The value must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The value must start with a letter.
+        # 
+        # >  This parameter takes effect only if the **Status** parameter is set to **ConsoleProtection**.
         self.reason = reason  # type: str
+        # Specifies whether to enable the configuration read-only mode. Valid values:
+        # 
+        # *   **NonProtection**: does not enable the configuration read-only mode. You cannot set the **Reason** parameter. If the **Reason** parameter is set, the value is cleared.
+        # *   **ConsoleProtection**: enables the configuration read-only mode. You can set the **Reason** parameter.
+        # 
+        # >  If you set this parameter to **ConsoleProtection**, you cannot use the NLB console to modify instance configurations. However, you can call API operations to modify instance configurations.
         self.status = status  # type: str
 
     def validate(self):
@@ -4408,24 +4441,34 @@ class GetLoadBalancerAttributeResponseBody(TeaModel):
                  load_balancer_id=None, load_balancer_name=None, load_balancer_status=None, load_balancer_type=None,
                  modification_protection_config=None, operation_locks=None, region_id=None, request_id=None, resource_group_id=None,
                  security_group_ids=None, tags=None, vpc_id=None, zone_mappings=None):
+        # The protocol version. Valid values:
+        # 
+        # *   **ipv4**: IPv4
+        # *   **DualStack**: dual stack
         self.address_ip_version = address_ip_version  # type: str
         # The IPv4 network type of the NLB instance. Valid values:
         # 
         # *   **Internet** The domain name of the NLB instance is resolved to the public IP address. Therefore, the NLB instance can be accessed over the Internet.
         # *   **Intranet** The domain name of the NLB instance is resolved to the private IP address. Therefore, the NLB instance can be accessed over the VPC in which the NLB instance is deployed.
         self.address_type = address_type  # type: str
+        # The ID of the EIP bandwidth plan.
         self.bandwidth_package_id = bandwidth_package_id  # type: str
         # The maximum number of connections per second that can be created on the NLB instance. Valid values: **0** to **1000000**.
         # 
         # **0** indicates that the number of connections is unlimited.
         self.cps = cps  # type: int
+        # The time when the NLB instance was created. This value is a UNIX timestamp.
+        # 
+        # Unit: milliseconds.
         self.create_time = create_time  # type: str
         # Indicates whether the NLB instance is accessible across zones. Valid values:
         # 
         # *   **true**\
         # *   **false**\
         self.cross_zone_enabled = cross_zone_enabled  # type: bool
+        # The domain name of the NLB instance.
         self.dnsname = dnsname  # type: str
+        # The configuration of the deletion protection feature.
         self.deletion_protection_config = deletion_protection_config  # type: GetLoadBalancerAttributeResponseBodyDeletionProtectionConfig
         # The IPv6 network type of the NLB instance. Valid values:
         # 
@@ -4453,13 +4496,17 @@ class GetLoadBalancerAttributeResponseBody(TeaModel):
         # *   **Configuring**: The NLB instance is being modified.
         # *   **CreateFailed**: The system failed to create the NLB instance. In this case, you are not charged for the NLB instance. You can only delete the NLB instance.
         self.load_balancer_status = load_balancer_status  # type: str
+        # The type of the Server Load Balancer (SLB) instance. Set the value to **network**, which specifies NLB.
         self.load_balancer_type = load_balancer_type  # type: str
+        # The configuration of the configuration read-only mode.
         self.modification_protection_config = modification_protection_config  # type: GetLoadBalancerAttributeResponseBodyModificationProtectionConfig
         # The information about the locked NLB instance. This parameter is returned only when `LoadBalancerBussinessStatus` is **Abnormal**.
         self.operation_locks = operation_locks  # type: list[GetLoadBalancerAttributeResponseBodyOperationLocks]
         # The region ID of the NLB instance.
         self.region_id = region_id  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The ID of the security group associated with the NLB instance.
         self.security_group_ids = security_group_ids  # type: list[str]
@@ -5685,7 +5732,9 @@ class ListLoadBalancersResponseBodyLoadBalancersZoneMappingsLoadBalancerAddresse
         self.ipv_6address = ipv_6address  # type: str
         # The private IPv4 address of the NLB instance.
         self.private_ipv_4address = private_ipv_4address  # type: str
+        # The health check status of the private IPv4 address.
         self.private_ipv_4hc_status = private_ipv_4hc_status  # type: str
+        # The health check status of the private IPv6 address.
         self.private_ipv_6hc_status = private_ipv_6hc_status  # type: str
         # The public IPv4 address of the NLB instance.
         self.public_ipv_4address = public_ipv_4address  # type: str
@@ -5738,6 +5787,10 @@ class ListLoadBalancersResponseBodyLoadBalancersZoneMappings(TeaModel):
     def __init__(self, load_balancer_addresses=None, status=None, v_switch_id=None, zone_id=None):
         # The IP addresses that are used by the NLB instance.
         self.load_balancer_addresses = load_balancer_addresses  # type: list[ListLoadBalancersResponseBodyLoadBalancersZoneMappingsLoadBalancerAddresses]
+        # The state of the task. Valid values:
+        # 
+        # *   **Succeeded**: The task is successful.
+        # *   **processing**: The ticket is being executed.
         self.status = status  # type: str
         # The ID of the vSwitch in the zone. By default, each zone contains one vSwitch and one subnet.
         self.v_switch_id = v_switch_id  # type: str
@@ -6526,6 +6579,9 @@ class ListServerGroupServersRequest(TeaModel):
         # *   If this is your first query or no next query is to be sent, ignore this parameter.
         # *   If a next query is to be sent, set the parameter to the value of NextToken that is returned from the last call.
         self.next_token = next_token  # type: str
+        # The region ID of the NLB instance.
+        # 
+        # You can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         # The ID of the server group.
         self.server_group_id = server_group_id  # type: str
@@ -7031,10 +7087,9 @@ class ListServerGroupsResponseBodyServerGroupsTags(TeaModel):
 
 class ListServerGroupsResponseBodyServerGroups(TeaModel):
     def __init__(self, address_ipversion=None, ali_uid=None, any_port_enabled=None, connection_drain_enabled=None,
-                 connection_drain_timeout=None, health_check=None, preserve_client_ip_enabled=None, protocol=None, quic_version=None,
-                 region_id=None, related_load_balancer_ids=None, resource_group_id=None, scheduler=None, server_count=None,
-                 server_group_id=None, server_group_name=None, server_group_status=None, server_group_type=None, tags=None,
-                 vpc_id=None):
+                 connection_drain_timeout=None, health_check=None, preserve_client_ip_enabled=None, protocol=None, region_id=None,
+                 related_load_balancer_ids=None, resource_group_id=None, scheduler=None, server_count=None, server_group_id=None,
+                 server_group_name=None, server_group_status=None, server_group_type=None, tags=None, vpc_id=None):
         # The IP version. Valid values:
         # 
         # *   **ipv4**\
@@ -7065,7 +7120,6 @@ class ListServerGroupsResponseBodyServerGroups(TeaModel):
         self.preserve_client_ip_enabled = preserve_client_ip_enabled  # type: bool
         # The protocol used to forward requests to the backend servers. Valid values: **TCP**, **UDP**, and **TCPSSL**.
         self.protocol = protocol  # type: str
-        self.quic_version = quic_version  # type: str
         # The region ID of the NLB instance.
         self.region_id = region_id  # type: str
         # The NLB instances.
@@ -7132,8 +7186,6 @@ class ListServerGroupsResponseBodyServerGroups(TeaModel):
             result['PreserveClientIpEnabled'] = self.preserve_client_ip_enabled
         if self.protocol is not None:
             result['Protocol'] = self.protocol
-        if self.quic_version is not None:
-            result['QuicVersion'] = self.quic_version
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.related_load_balancer_ids is not None:
@@ -7179,8 +7231,6 @@ class ListServerGroupsResponseBodyServerGroups(TeaModel):
             self.preserve_client_ip_enabled = m.get('PreserveClientIpEnabled')
         if m.get('Protocol') is not None:
             self.protocol = m.get('Protocol')
-        if m.get('QuicVersion') is not None:
-            self.quic_version = m.get('QuicVersion')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('RelatedLoadBalancerIds') is not None:
@@ -9101,20 +9151,31 @@ class UpdateListenerAttributeRequest(TeaModel):
         # *   **true**: yes
         # *   **false**: no
         self.alpn_enabled = alpn_enabled  # type: bool
-        # The ALPN policy.
+        # The ALPN policy. Valid values:
+        # 
+        # *   **HTTP1Only**: uses only HTTP 1.x. The priority of HTTP 1.1 is higher than the priority of HTTP 1.0.
+        # *   **HTTP2Only**: uses only HTTP 2.0.
+        # *   **HTTP2Optional**: preferentially uses HTTP 1.x over HTTP 2.0. The priority of HTTP 1.1 is higher than the priority of HTTP 1.0, and the priority of HTTP 1.0 is higher than the priority of HTTP 2.0.
+        # *   **HTTP2Preferred**: preferentially uses HTTP 2.0 over HTTP 1.x. The priority of HTTP 2.0 is higher than the priority of HTTP 1.1, and the priority of HTTP 1.1 is higher than the priority of HTTP 1.0.
+        # 
+        # > This parameter is required if AlpnEnabled is set to true.
         self.alpn_policy = alpn_policy  # type: str
+        # The CA certificates. Only one CA certificate is supported.
+        # 
+        # >  This parameter takes effect only for listeners that use SSL over TCP.
         self.ca_certificate_ids = ca_certificate_ids  # type: list[str]
         # Specifies whether to enable mutual authentication. Valid values:
         # 
         # *   **true**: yes
         # *   **false** (default): no
         self.ca_enabled = ca_enabled  # type: bool
+        # The server certificates.
         self.certificate_ids = certificate_ids  # type: list[str]
         # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can use the client to generate the value, but you must ensure that it is unique among all requests. ClientToken can contain only ASCII characters.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         # 
-        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** of each API request may be different.
+        # > If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
         self.client_token = client_token  # type: str
         # The maximum number of connections that can be created per second on the NLB instance. Valid values: **0** to **1000000**. **0** specifies that the number of connections is unlimited.
         self.cps = cps  # type: int
@@ -10291,8 +10352,8 @@ class UpdateServerGroupAttributeRequestHealthCheckConfig(TeaModel):
 
 class UpdateServerGroupAttributeRequest(TeaModel):
     def __init__(self, client_token=None, connection_drain_enabled=None, connection_drain_timeout=None,
-                 dry_run=None, health_check_config=None, preserve_client_ip_enabled=None, quic_version=None,
-                 region_id=None, scheduler=None, server_group_id=None, server_group_name=None):
+                 dry_run=None, health_check_config=None, preserve_client_ip_enabled=None, region_id=None, scheduler=None,
+                 server_group_id=None, server_group_name=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
@@ -10318,7 +10379,6 @@ class UpdateServerGroupAttributeRequest(TeaModel):
         # *   **true**\
         # *   **false**\
         self.preserve_client_ip_enabled = preserve_client_ip_enabled  # type: bool
-        self.quic_version = quic_version  # type: str
         # The region ID of the NLB instance.
         # 
         # You can call the [DescribeRegions](~~443657~~) operation to obtain the region ID.
@@ -10360,8 +10420,6 @@ class UpdateServerGroupAttributeRequest(TeaModel):
             result['HealthCheckConfig'] = self.health_check_config.to_map()
         if self.preserve_client_ip_enabled is not None:
             result['PreserveClientIpEnabled'] = self.preserve_client_ip_enabled
-        if self.quic_version is not None:
-            result['QuicVersion'] = self.quic_version
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.scheduler is not None:
@@ -10387,8 +10445,6 @@ class UpdateServerGroupAttributeRequest(TeaModel):
             self.health_check_config = temp_model.from_map(m['HealthCheckConfig'])
         if m.get('PreserveClientIpEnabled') is not None:
             self.preserve_client_ip_enabled = m.get('PreserveClientIpEnabled')
-        if m.get('QuicVersion') is not None:
-            self.quic_version = m.get('QuicVersion')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('Scheduler') is not None:
