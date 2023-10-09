@@ -415,7 +415,8 @@ class CreateInstanceRequestNetworkInfoInternetInfo(TeaModel):
 
 
 class CreateInstanceRequestNetworkInfoVpcInfo(TeaModel):
-    def __init__(self, v_switch_id=None, vpc_id=None):
+    def __init__(self, security_group_ids=None, v_switch_id=None, vpc_id=None):
+        self.security_group_ids = security_group_ids  # type: str
         # The ID of the vSwitch with which the instance is associated.
         # 
         # > After you create a ApsaraMQ for RocketMQ instance, you cannot change the vSwitch to which the instance is connected. If you want to change the vSwitch with which a ApsaraMQ for RocketMQ is associated, you must release the instance and purchase a new instance.
@@ -434,6 +435,8 @@ class CreateInstanceRequestNetworkInfoVpcInfo(TeaModel):
             return _map
 
         result = dict()
+        if self.security_group_ids is not None:
+            result['securityGroupIds'] = self.security_group_ids
         if self.v_switch_id is not None:
             result['vSwitchId'] = self.v_switch_id
         if self.vpc_id is not None:
@@ -442,6 +445,8 @@ class CreateInstanceRequestNetworkInfoVpcInfo(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('securityGroupIds') is not None:
+            self.security_group_ids = m.get('securityGroupIds')
         if m.get('vSwitchId') is not None:
             self.v_switch_id = m.get('vSwitchId')
         if m.get('vpcId') is not None:
@@ -486,8 +491,8 @@ class CreateInstanceRequestNetworkInfo(TeaModel):
 
 
 class CreateInstanceRequestProductInfo(TeaModel):
-    def __init__(self, auto_scaling=None, message_retention_time=None, msg_process_spec=None,
-                 send_receive_ratio=None):
+    def __init__(self, auto_scaling=None, charge_type=None, intranet_spec=None, message_retention_time=None,
+                 msg_process_spec=None, send_receive_ratio=None):
         # Specifies whether to enable the elastic TPS feature for the instance.
         # 
         # Valid values:
@@ -499,6 +504,8 @@ class CreateInstanceRequestProductInfo(TeaModel):
         # 
         # > The elastic TPS feature is supported by only specific instance editions. For more information, see [Instance specifications](~~444715~~).
         self.auto_scaling = auto_scaling  # type: bool
+        self.charge_type = charge_type  # type: str
+        self.intranet_spec = intranet_spec  # type: str
         # The retention period of messages. Unit: hours.
         # 
         # For information about the valid values of this parameter, see the "Limits on resource quotas" section in [Usage limits](~~440347~~).
@@ -523,6 +530,10 @@ class CreateInstanceRequestProductInfo(TeaModel):
         result = dict()
         if self.auto_scaling is not None:
             result['autoScaling'] = self.auto_scaling
+        if self.charge_type is not None:
+            result['chargeType'] = self.charge_type
+        if self.intranet_spec is not None:
+            result['intranetSpec'] = self.intranet_spec
         if self.message_retention_time is not None:
             result['messageRetentionTime'] = self.message_retention_time
         if self.msg_process_spec is not None:
@@ -535,6 +546,10 @@ class CreateInstanceRequestProductInfo(TeaModel):
         m = m or dict()
         if m.get('autoScaling') is not None:
             self.auto_scaling = m.get('autoScaling')
+        if m.get('chargeType') is not None:
+            self.charge_type = m.get('chargeType')
+        if m.get('intranetSpec') is not None:
+            self.intranet_spec = m.get('intranetSpec')
         if m.get('messageRetentionTime') is not None:
             self.message_retention_time = m.get('messageRetentionTime')
         if m.get('msgProcessSpec') is not None:
@@ -545,9 +560,9 @@ class CreateInstanceRequestProductInfo(TeaModel):
 
 
 class CreateInstanceRequest(TeaModel):
-    def __init__(self, auto_renew=None, auto_renew_period=None, instance_name=None, network_info=None,
-                 payment_type=None, period=None, period_unit=None, product_info=None, remark=None, resource_group_id=None,
-                 series_code=None, service_code=None, sub_series_code=None, client_token=None):
+    def __init__(self, auto_renew=None, auto_renew_period=None, commodity_code=None, instance_name=None,
+                 network_info=None, payment_type=None, period=None, period_unit=None, product_info=None, remark=None,
+                 resource_group_id=None, series_code=None, service_code=None, sub_series_code=None, client_token=None):
         # Specifies whether to enable auto-renewal. This parameter takes effect only when the PaymentType parameter is set to Subscription.
         # 
         # *   true: enable
@@ -559,6 +574,7 @@ class CreateInstanceRequest(TeaModel):
         # 
         # *   Monthly renewal: 1, 2, 3, 6, and 12
         self.auto_renew_period = auto_renew_period  # type: int
+        self.commodity_code = commodity_code  # type: str
         # The name of the instance that you want to create.
         # 
         # If you do not configure this parameter, the instance ID is used as the instance name.
@@ -636,6 +652,8 @@ class CreateInstanceRequest(TeaModel):
             result['autoRenew'] = self.auto_renew
         if self.auto_renew_period is not None:
             result['autoRenewPeriod'] = self.auto_renew_period
+        if self.commodity_code is not None:
+            result['commodityCode'] = self.commodity_code
         if self.instance_name is not None:
             result['instanceName'] = self.instance_name
         if self.network_info is not None:
@@ -668,6 +686,8 @@ class CreateInstanceRequest(TeaModel):
             self.auto_renew = m.get('autoRenew')
         if m.get('autoRenewPeriod') is not None:
             self.auto_renew_period = m.get('autoRenewPeriod')
+        if m.get('commodityCode') is not None:
+            self.commodity_code = m.get('commodityCode')
         if m.get('instanceName') is not None:
             self.instance_name = m.get('instanceName')
         if m.get('networkInfo') is not None:
@@ -1922,7 +1942,8 @@ class GetInstanceResponseBodyDataNetworkInfoInternetInfo(TeaModel):
 
 
 class GetInstanceResponseBodyDataNetworkInfoVpcInfo(TeaModel):
-    def __init__(self, v_switch_id=None, vpc_id=None):
+    def __init__(self, security_group_ids=None, v_switch_id=None, vpc_id=None):
+        self.security_group_ids = security_group_ids  # type: str
         # The ID of the vSwitch with which the instance is associated.
         self.v_switch_id = v_switch_id  # type: str
         # The ID of the VPC with which the instance is associated.
@@ -1937,6 +1958,8 @@ class GetInstanceResponseBodyDataNetworkInfoVpcInfo(TeaModel):
             return _map
 
         result = dict()
+        if self.security_group_ids is not None:
+            result['securityGroupIds'] = self.security_group_ids
         if self.v_switch_id is not None:
             result['vSwitchId'] = self.v_switch_id
         if self.vpc_id is not None:
@@ -1945,6 +1968,8 @@ class GetInstanceResponseBodyDataNetworkInfoVpcInfo(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('securityGroupIds') is not None:
+            self.security_group_ids = m.get('securityGroupIds')
         if m.get('vSwitchId') is not None:
             self.v_switch_id = m.get('vSwitchId')
         if m.get('vpcId') is not None:
@@ -2005,7 +2030,7 @@ class GetInstanceResponseBodyDataNetworkInfo(TeaModel):
 
 class GetInstanceResponseBodyDataProductInfo(TeaModel):
     def __init__(self, auto_scaling=None, message_retention_time=None, msg_process_spec=None,
-                 send_receive_ratio=None, support_auto_scaling=None):
+                 send_receive_ratio=None, support_auto_scaling=None, trace_on=None):
         # Specifies whether to enable the elastic TPS feature for the instance.
         # 
         # Valid values:
@@ -2036,6 +2061,7 @@ class GetInstanceResponseBodyDataProductInfo(TeaModel):
         # 
         # > The elastic TPS feature is supported by only specific instance editions. For more information, see [Instance specifications](~~444715~~).
         self.support_auto_scaling = support_auto_scaling  # type: bool
+        self.trace_on = trace_on  # type: bool
 
     def validate(self):
         pass
@@ -2056,6 +2082,8 @@ class GetInstanceResponseBodyDataProductInfo(TeaModel):
             result['sendReceiveRatio'] = self.send_receive_ratio
         if self.support_auto_scaling is not None:
             result['supportAutoScaling'] = self.support_auto_scaling
+        if self.trace_on is not None:
+            result['traceOn'] = self.trace_on
         return result
 
     def from_map(self, m=None):
@@ -2070,6 +2098,8 @@ class GetInstanceResponseBodyDataProductInfo(TeaModel):
             self.send_receive_ratio = m.get('sendReceiveRatio')
         if m.get('supportAutoScaling') is not None:
             self.support_auto_scaling = m.get('supportAutoScaling')
+        if m.get('traceOn') is not None:
+            self.trace_on = m.get('traceOn')
         return self
 
 
@@ -3218,6 +3248,30 @@ class ListInstancesRequest(TeaModel):
         return self
 
 
+class ListInstancesResponseBodyDataListProductInfo(TeaModel):
+    def __init__(self, trace_on=None):
+        self.trace_on = trace_on  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstancesResponseBodyDataListProductInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.trace_on is not None:
+            result['traceOn'] = self.trace_on
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('traceOn') is not None:
+            self.trace_on = m.get('traceOn')
+        return self
+
+
 class ListInstancesResponseBodyDataListTags(TeaModel):
     def __init__(self, key=None, value=None):
         # The tag key of the resource.
@@ -3251,9 +3305,9 @@ class ListInstancesResponseBodyDataListTags(TeaModel):
 
 class ListInstancesResponseBodyDataList(TeaModel):
     def __init__(self, commodity_code=None, create_time=None, expire_time=None, group_count=None, instance_id=None,
-                 instance_name=None, payment_type=None, region_id=None, release_time=None, remark=None, resource_group_id=None,
-                 series_code=None, service_code=None, start_time=None, status=None, sub_series_code=None, tags=None,
-                 topic_count=None, update_time=None, user_id=None):
+                 instance_name=None, payment_type=None, product_info=None, region_id=None, release_time=None, remark=None,
+                 resource_group_id=None, series_code=None, service_code=None, start_time=None, status=None, sub_series_code=None,
+                 tags=None, topic_count=None, update_time=None, user_id=None):
         # The commodity code of the instance. The commodity code of ApsaraMQ for RocketMQ 5.0 instances has a similar format to ons_rmqsub_public_cn.
         self.commodity_code = commodity_code  # type: str
         # The time when the instance was created.
@@ -3273,6 +3327,7 @@ class ListInstancesResponseBodyDataList(TeaModel):
         # *   PayAsYouGo
         # *   Subscription
         self.payment_type = payment_type  # type: str
+        self.product_info = product_info  # type: ListInstancesResponseBodyDataListProductInfo
         # The ID of the region in which the instance resides.
         self.region_id = region_id  # type: str
         # The time when the instance was released.
@@ -3320,6 +3375,8 @@ class ListInstancesResponseBodyDataList(TeaModel):
         self.user_id = user_id  # type: str
 
     def validate(self):
+        if self.product_info:
+            self.product_info.validate()
         if self.tags:
             for k in self.tags:
                 if k:
@@ -3345,6 +3402,8 @@ class ListInstancesResponseBodyDataList(TeaModel):
             result['instanceName'] = self.instance_name
         if self.payment_type is not None:
             result['paymentType'] = self.payment_type
+        if self.product_info is not None:
+            result['productInfo'] = self.product_info.to_map()
         if self.region_id is not None:
             result['regionId'] = self.region_id
         if self.release_time is not None:
@@ -3391,6 +3450,9 @@ class ListInstancesResponseBodyDataList(TeaModel):
             self.instance_name = m.get('instanceName')
         if m.get('paymentType') is not None:
             self.payment_type = m.get('paymentType')
+        if m.get('productInfo') is not None:
+            temp_model = ListInstancesResponseBodyDataListProductInfo()
+            self.product_info = temp_model.from_map(m['productInfo'])
         if m.get('regionId') is not None:
             self.region_id = m.get('regionId')
         if m.get('releaseTime') is not None:
@@ -4360,7 +4422,7 @@ class UpdateInstanceRequestNetworkInfo(TeaModel):
 
 
 class UpdateInstanceRequestProductInfo(TeaModel):
-    def __init__(self, auto_scaling=None, message_retention_time=None, send_receive_ratio=None):
+    def __init__(self, auto_scaling=None, message_retention_time=None, send_receive_ratio=None, trace_on=None):
         # Specifies whether to enable burst scaling for the instance.
         # 
         # Valid values:
@@ -4382,6 +4444,7 @@ class UpdateInstanceRequestProductInfo(TeaModel):
         # 
         # Value values: 0.25 to 1.
         self.send_receive_ratio = send_receive_ratio  # type: float
+        self.trace_on = trace_on  # type: bool
 
     def validate(self):
         pass
@@ -4398,6 +4461,8 @@ class UpdateInstanceRequestProductInfo(TeaModel):
             result['messageRetentionTime'] = self.message_retention_time
         if self.send_receive_ratio is not None:
             result['sendReceiveRatio'] = self.send_receive_ratio
+        if self.trace_on is not None:
+            result['traceOn'] = self.trace_on
         return result
 
     def from_map(self, m=None):
@@ -4408,6 +4473,8 @@ class UpdateInstanceRequestProductInfo(TeaModel):
             self.message_retention_time = m.get('messageRetentionTime')
         if m.get('sendReceiveRatio') is not None:
             self.send_receive_ratio = m.get('sendReceiveRatio')
+        if m.get('traceOn') is not None:
+            self.trace_on = m.get('traceOn')
         return self
 
 
