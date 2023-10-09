@@ -4188,6 +4188,8 @@ class Client(OpenApiClient):
             query['BusinessType'] = request.business_type
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.delete_on_release):
+            query['DeleteOnRelease'] = request.delete_on_release
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
         if not UtilClient.is_unset(request.instance_type):
@@ -18814,6 +18816,8 @@ class Client(OpenApiClient):
     def modify_network_interface_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.delete_on_release):
+            query['DeleteOnRelease'] = request.delete_on_release
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
         if not UtilClient.is_unset(request.network_interface_id):
