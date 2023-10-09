@@ -171,6 +171,16 @@ class Client(OpenApiClient):
         return self.create_consumer_group_with_options(request, runtime)
 
     def create_post_pay_order_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that you understand the billing method and pricing of pay-as-you-go Message Queue for Apache Kafka instances. For more information, see [Billing](~~84737~~).
+        
+
+        @param request: CreatePostPayOrderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreatePostPayOrderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.deploy_type):
@@ -217,14 +227,21 @@ class Client(OpenApiClient):
         )
 
     def create_post_pay_order(self, request):
+        """
+        Before you call this operation, make sure that you understand the billing method and pricing of pay-as-you-go Message Queue for Apache Kafka instances. For more information, see [Billing](~~84737~~).
+        
+
+        @param request: CreatePostPayOrderRequest
+
+        @return: CreatePostPayOrderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_post_pay_order_with_options(request, runtime)
 
     def create_pre_pay_order_with_options(self, request, runtime):
         """
-        The maximum traffic for the instance. We recommend that you do not configure this parameter.
-        *   You must configure at least one of the **IoMax** and **IoMaxSpec** parameters. If both parameters are configured, the value of the **IoMaxSpec** parameter takes effect. We recommend that you configure only the **IoMaxSpec** parameter.
-        *   For more information about the valid values, see [Billing](~~84737~~).
+        Before you call this operation, make sure that you understand the billing methods and pricing of subscription ApsaraMQ for Kafka instances. For more information, see [Billing](~~84737~~).
+        *   If you create an ApsaraMQ for Kafka instance by calling this operation, the subscription duration is one month and the auto-renewal feature is enabled by default. The auto-renewal cycle is also one month. If you want to change the auto-renewal cycle or disable the auto-renewal feature, you can go to the [Renewal](https://renew.console.aliyun.com/#/ecs) page in the Alibaba Cloud Management Console.
         
 
         @param request: CreatePrePayOrderRequest
@@ -280,9 +297,8 @@ class Client(OpenApiClient):
 
     def create_pre_pay_order(self, request):
         """
-        The maximum traffic for the instance. We recommend that you do not configure this parameter.
-        *   You must configure at least one of the **IoMax** and **IoMaxSpec** parameters. If both parameters are configured, the value of the **IoMaxSpec** parameter takes effect. We recommend that you configure only the **IoMaxSpec** parameter.
-        *   For more information about the valid values, see [Billing](~~84737~~).
+        Before you call this operation, make sure that you understand the billing methods and pricing of subscription ApsaraMQ for Kafka instances. For more information, see [Billing](~~84737~~).
+        *   If you create an ApsaraMQ for Kafka instance by calling this operation, the subscription duration is one month and the auto-renewal feature is enabled by default. The auto-renewal cycle is also one month. If you want to change the auto-renewal cycle or disable the auto-renewal feature, you can go to the [Renewal](https://renew.console.aliyun.com/#/ecs) page in the Alibaba Cloud Management Console.
         
 
         @param request: CreatePrePayOrderRequest
@@ -330,9 +346,8 @@ class Client(OpenApiClient):
 
     def create_topic_with_options(self, request, runtime):
         """
-        The description of the topic.
-        *   The description can contain only letters, digits, hyphens (-), and underscores (\\_).
-        *   The description must be 3 to 64 characters in length.
+        Each Alibaba Cloud account can call this operation up to once per second.
+        *   The maximum number of topics that you can create in an instance is determined by the specification of the instance.
         
 
         @param request: CreateTopicRequest
@@ -386,9 +401,8 @@ class Client(OpenApiClient):
 
     def create_topic(self, request):
         """
-        The description of the topic.
-        *   The description can contain only letters, digits, hyphens (-), and underscores (\\_).
-        *   The description must be 3 to 64 characters in length.
+        Each Alibaba Cloud account can call this operation up to once per second.
+        *   The maximum number of topics that you can create in an instance is determined by the specification of the instance.
         
 
         @param request: CreateTopicRequest
@@ -1028,7 +1042,7 @@ class Client(OpenApiClient):
 
     def release_instance_with_options(self, request, runtime):
         """
-        The region ID of the instance.
+        You cannot call this operation to release a subscription Message Queue for Apache Kafka instance.
         
 
         @param request: ReleaseInstanceRequest
@@ -1066,7 +1080,7 @@ class Client(OpenApiClient):
 
     def release_instance(self, request):
         """
-        The region ID of the instance.
+        You cannot call this operation to release a subscription Message Queue for Apache Kafka instance.
         
 
         @param request: ReleaseInstanceRequest
@@ -1077,10 +1091,22 @@ class Client(OpenApiClient):
         return self.release_instance_with_options(request, runtime)
 
     def start_instance_with_options(self, request, runtime):
+        """
+        >  You can call this operation up to twice per second.
+        
+
+        @param request: StartInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StartInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.config):
             query['Config'] = request.config
+        if not UtilClient.is_unset(request.cross_zone):
+            query['CrossZone'] = request.cross_zone
         if not UtilClient.is_unset(request.deploy_module):
             query['DeployModule'] = request.deploy_module
         if not UtilClient.is_unset(request.instance_id):
@@ -1137,6 +1163,14 @@ class Client(OpenApiClient):
         )
 
     def start_instance(self, request):
+        """
+        >  You can call this operation up to twice per second.
+        
+
+        @param request: StartInstanceRequest
+
+        @return: StartInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.start_instance_with_options(request, runtime)
 
@@ -1253,6 +1287,19 @@ class Client(OpenApiClient):
         return self.update_allowed_ip_with_options(request, runtime)
 
     def update_consumer_offset_with_options(self, tmp_req, runtime):
+        """
+        You can call this operation to reset the consumer offsets of the subscribed topics of a consumer group. You can specify a timestamp or an offset to reset a consumer offset. You can implement the following features by configuring a combination of different parameters:
+        *   Reset the consumer offsets of one or all subscribed topics of a consumer group to the latest offset. This way, you can consume messages in the topics from the latest offset.
+        *   Reset the consumer offsets of one or all subscribed topics of a consumer group to a specific point in time. This way, you can consume messages in the topics from the specified point in time.
+        *   Reset the consumer offset of one subscribed topic of a consumer group to a specific offset in a specific partition. This way, you can consume messages from the specified offset in the specified partition.
+        
+
+        @param tmp_req: UpdateConsumerOffsetRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateConsumerOffsetResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = alikafka_20190916_models.UpdateConsumerOffsetShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -1293,12 +1340,27 @@ class Client(OpenApiClient):
         )
 
     def update_consumer_offset(self, request):
+        """
+        You can call this operation to reset the consumer offsets of the subscribed topics of a consumer group. You can specify a timestamp or an offset to reset a consumer offset. You can implement the following features by configuring a combination of different parameters:
+        *   Reset the consumer offsets of one or all subscribed topics of a consumer group to the latest offset. This way, you can consume messages in the topics from the latest offset.
+        *   Reset the consumer offsets of one or all subscribed topics of a consumer group to a specific point in time. This way, you can consume messages in the topics from the specified point in time.
+        *   Reset the consumer offset of one subscribed topic of a consumer group to a specific offset in a specific partition. This way, you can consume messages from the specified offset in the specified partition.
+        
+
+        @param request: UpdateConsumerOffsetRequest
+
+        @return: UpdateConsumerOffsetResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_consumer_offset_with_options(request, runtime)
 
     def update_instance_config_with_options(self, request, runtime):
         """
-        The region ID of the instance.
+        ## *Permissions**\
+        If a RAM user wants to call the **UpdateInstanceConfig** operation, the RAM user must be granted the required permissions. For more information about how to grant permissions, see [RAM policies](~~185815~~).
+        |API|Action|Resource|
+        |---|---|---|
+        |UpdateInstanceConfig|alikafka: UpdateInstance|acs:alikafka:*:*:{instanceId}|
         
 
         @param request: UpdateInstanceConfigRequest
@@ -1336,7 +1398,11 @@ class Client(OpenApiClient):
 
     def update_instance_config(self, request):
         """
-        The region ID of the instance.
+        ## *Permissions**\
+        If a RAM user wants to call the **UpdateInstanceConfig** operation, the RAM user must be granted the required permissions. For more information about how to grant permissions, see [RAM policies](~~185815~~).
+        |API|Action|Resource|
+        |---|---|---|
+        |UpdateInstanceConfig|alikafka: UpdateInstance|acs:alikafka:*:*:{instanceId}|
         
 
         @param request: UpdateInstanceConfigRequest
@@ -1474,9 +1540,7 @@ class Client(OpenApiClient):
 
     def upgrade_pre_pay_order_with_options(self, request, runtime):
         """
-        The size of the disk.
-        *   The disk size that you specify must be greater than or equal to the current disk size of the instance.
-        *   For more information about the valid values, see [Billing overview](~~84737~~).
+        Before you call this operation, make sure that you understand the billing method and pricing of subscription Message Queue for Apache Kafka instances. For more information, see [Billing overview](~~84737~~).
         
 
         @param request: UpgradePrePayOrderRequest
@@ -1528,9 +1592,7 @@ class Client(OpenApiClient):
 
     def upgrade_pre_pay_order(self, request):
         """
-        The size of the disk.
-        *   The disk size that you specify must be greater than or equal to the current disk size of the instance.
-        *   For more information about the valid values, see [Billing overview](~~84737~~).
+        Before you call this operation, make sure that you understand the billing method and pricing of subscription Message Queue for Apache Kafka instances. For more information, see [Billing overview](~~84737~~).
         
 
         @param request: UpgradePrePayOrderRequest

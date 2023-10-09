@@ -5,8 +5,15 @@ from Tea.model import TeaModel
 
 class ChangeResourceGroupRequest(TeaModel):
     def __init__(self, new_resource_group_id=None, region_id=None, resource_id=None):
+        # The ID of the resource group to which you want to transfer the cloud resource.
+        # 
+        # >  You can use resource groups to manage resources owned by your Alibaba Cloud account. Resource groups simplify the resource and permission management of your Alibaba Cloud account. For more information, see [What is resource management?](~~94475~~)
         self.new_resource_group_id = new_resource_group_id  # type: str
+        # The region ID of the resource.
         self.region_id = region_id  # type: str
+        # The ID of the resource to which you want to attach a tag. Only the ID of a Message Queue for Apache Kafka instance is supported.
+        # 
+        # For example, if the ID of the instance is alikafka_post-cn-v0h1fgs2xxxx, the resource ID is alikafka_post-cn-v0h1fgs2xxxx.
         self.resource_id = resource_id  # type: str
 
     def validate(self):
@@ -39,10 +46,15 @@ class ChangeResourceGroupRequest(TeaModel):
 
 class ChangeResourceGroupResponseBody(TeaModel):
     def __init__(self, code=None, message=None, new_resource_group_id=None, request_id=None, success=None):
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the new resource group. You can view the available resource groups in the Resource Management console.
         self.new_resource_group_id = new_resource_group_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: long
 
     def validate(self):
@@ -122,8 +134,15 @@ class ChangeResourceGroupResponse(TeaModel):
 
 class ConvertPostPayOrderRequest(TeaModel):
     def __init__(self, duration=None, instance_id=None, region_id=None):
+        # The subscription duration. Unit: months. Valid values:
+        # 
+        # *   **1~12**\
+        # *   **24**\
+        # *   **36**\
         self.duration = duration  # type: int
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -156,10 +175,15 @@ class ConvertPostPayOrderRequest(TeaModel):
 
 class ConvertPostPayOrderResponseBody(TeaModel):
     def __init__(self, code=None, message=None, order_id=None, request_id=None, success=None):
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The error message returned.
         self.message = message  # type: str
+        # The ID of the order.
         self.order_id = order_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -244,25 +268,25 @@ class CreateAclRequest(TeaModel):
         # 
         # *   **Write**: data writes.
         # *   **Read**: data reads.
-        # *   **Describe**: reads of transaction IDs.****\
-        # *   **IdempotentWrite**: idempotent data writes to clusters.
+        # *   **Describe**: reads of **transaction IDs**.
+        # *   **IdempotentWrite**: idempotent data writes to **clusters**.
         self.acl_operation_type = acl_operation_type  # type: str
         # The name or ID of the resource.
         # 
         # *   The value can be the name of a topic, consumer group, or cluster, or the ID of a transaction.
         # *   You can use an asterisk (\*) to represent the names or IDs of all relevant resources.
         self.acl_resource_name = acl_resource_name  # type: str
-        # The mode that is used to match resources. Valid values:
+        # The matching mode. Valid values:
         # 
         # *   **LITERAL**: exact match
         # *   **PREFIXED**: prefix match
         self.acl_resource_pattern_type = acl_resource_pattern_type  # type: str
         # The resource type. Valid values:
         # 
-        # *   **Topic**: specifies topics.
-        # *   **Group**: specifies consumer groups.
-        # *   **Cluster**: specifies instances.
-        # *   **TransactionalId**: specifies transactions.
+        # *   **Topic**: topic
+        # *   **Group**: consumer group
+        # *   **Cluster**: cluster
+        # *   **TransactionalId**: transaction
         self.acl_resource_type = acl_resource_type  # type: str
         # The instance ID.
         self.instance_id = instance_id  # type: str
@@ -401,7 +425,17 @@ class CreateAclResponse(TeaModel):
 
 class CreateConsumerGroupRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of tag N.
+        # 
+        # *   Valid values of N: 1 to 20.
+        # *   You must specify this parameter.
+        # *   The tag key can be up to 128 characters in length and cannot contain [http:// or https://](http://https://。). The tag key cannot start with acs: or aliyun.
         self.key = key  # type: str
+        # The value of tag N.
+        # 
+        # *   Valid values of N: 1 to 20.
+        # *   You can leave this parameter empty.
+        # *   The tag value can be 1 to 128 characters in length and cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
         self.value = value  # type: str
 
     def validate(self):
@@ -430,10 +464,19 @@ class CreateConsumerGroupRequestTag(TeaModel):
 
 class CreateConsumerGroupRequest(TeaModel):
     def __init__(self, consumer_id=None, instance_id=None, region_id=None, remark=None, tag=None):
+        # The name of the consumer group.
+        # 
+        # *   The value can contain only letters, digits, hyphens (-), and underscores (\_), and the value must contain at least one letter or digit.
+        # *   The value must be 3 to 128 characters in length. If the value that you specify contains more than 128 characters, the system automatically truncates the value to 128 characters.
+        # *   After a consumer group is created, you cannot change the name of the consumer group.
         self.consumer_id = consumer_id  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
+        # The description of the consumer group.
         self.remark = remark  # type: str
+        # The tags.
         self.tag = tag  # type: list[CreateConsumerGroupRequestTag]
 
     def validate(self):
@@ -482,9 +525,13 @@ class CreateConsumerGroupRequest(TeaModel):
 
 class CreateConsumerGroupResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -560,7 +607,17 @@ class CreateConsumerGroupResponse(TeaModel):
 
 class CreatePostPayOrderRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of tag N.
+        # 
+        # *   Valid values of N: 1 to 20.
+        # *   If this parameter is left empty, the keys of all tags are matched.
+        # *   The tag key must be up to 128 characters in length. It cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
         self.key = key  # type: str
+        # The value of tag N.
+        # 
+        # *   Valid values of N: 1 to 20.
+        # *   If you do not specify a tag key, you cannot specify a tag value. If this parameter is not configured, all tag values are matched.
+        # *   The tag value must be 1 to 128 characters in length. It cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
         self.value = value  # type: str
 
     def validate(self):
@@ -590,17 +647,63 @@ class CreatePostPayOrderRequestTag(TeaModel):
 class CreatePostPayOrderRequest(TeaModel):
     def __init__(self, deploy_type=None, disk_size=None, disk_type=None, eip_max=None, io_max=None, io_max_spec=None,
                  partition_num=None, region_id=None, resource_group_id=None, spec_type=None, tag=None, topic_quota=None):
+        # The deployment mode of the instance. Valid values:
+        # 
+        # *   **4**: deploys the instance that allows access from the Internet and a VPC.
+        # *   **5**: deploys the instance that allows access only from a VPC.
         self.deploy_type = deploy_type  # type: int
+        # The disk size.
+        # 
+        # For more information about the valid values, see [Billing](~~84737~~).
         self.disk_size = disk_size  # type: int
+        # The disk type. Valid values:
+        # 
+        # *   **0**: ultra disk
+        # *   **1**: standard SSD
         self.disk_type = disk_type  # type: str
+        # The Internet traffic for the instance.
+        # 
+        # *   This parameter is required if the **DeployType** parameter is set to **4**.
+        # *   For more information about the valid values, see [Billing](~~84737~~).
         self.eip_max = eip_max  # type: int
+        # The maximum traffic for the instance. We recommend that you do not configure this parameter.
+        # 
+        # *   You must specify at least one of the IoMax and IoMaxSpec parameters. If you configure both parameters, the value of the IoMaxSpec parameter takes effect. We recommend that you specify only the IoMaxSpec parameter.
+        # *   For more information about the valid values, see [Billing](~~84737~~).
         self.io_max = io_max  # type: int
+        # The traffic specification of the instance. We recommend that you configure this parameter.
+        # 
+        # *   You must specify at least one of the IoMax and IoMaxSpec parameters. If you configure both parameters, the value of the IoMaxSpec parameter takes effect. We recommend that you specify only the IoMaxSpec parameter.
+        # *   For more information about the valid values, see [Billing](~~84737~~).
         self.io_max_spec = io_max_spec  # type: str
+        # The number of partitions. We recommend that you configure this parameter.
+        # 
+        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
+        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
+        # *   For more information about the valid values, see [Billing](~~84737~~).
         self.partition_num = partition_num  # type: int
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        # 
+        # If this parameter is left empty, the default resource group is used. You can view the resource group ID on the Resource Group page in the Resource Management console.
         self.resource_group_id = resource_group_id  # type: str
+        # The edition of the instance. Valid values:
+        # 
+        # *   **normal**: Standard Edition (High Write)
+        # *   **professional**: Professional Edition (High Write)
+        # *   **professionalForHighRead**: Professional Edition (High Read)
+        # 
+        # For more information about these instance editions, see [Billing](~~84737~~).
         self.spec_type = spec_type  # type: str
+        # The tags.
         self.tag = tag  # type: list[CreatePostPayOrderRequestTag]
+        # The number of topics. We recommend that you do not configure this parameter.
+        # 
+        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
+        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
+        # *   The default value of the TopicQuota parameter varies based on the value of the IoMaxSpec parameter. If the number of topics that you consume exceeds the default value, you are charged additional fees.
+        # *   For more information about the valid values, see [Billing](~~84737~~).
         self.topic_quota = topic_quota  # type: int
 
     def validate(self):
@@ -677,10 +780,15 @@ class CreatePostPayOrderRequest(TeaModel):
 
 class CreatePostPayOrderResponseBody(TeaModel):
     def __init__(self, code=None, message=None, order_id=None, request_id=None, success=None):
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the order.
         self.order_id = order_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -760,13 +868,17 @@ class CreatePostPayOrderResponse(TeaModel):
 
 class CreatePrePayOrderRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The region ID of the instance.
-        self.key = key  # type: str
-        # The tag value.
+        # The key of tag N.
         # 
         # *   Valid values of N: 1 to 20.
-        # *   This parameter is optional.
-        # *   The tag value can be 1 to 128 characters in length. The tag value cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
+        # *   If this parameter is left empty, the keys of all tags are matched.
+        # *   The tag key can be up to 128 characters in length and cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
+        self.key = key  # type: str
+        # The value of tag N.
+        # 
+        # *   Valid values of N: 1 to 20.
+        # *   This parameter can be left empty.
+        # *   The tag value can be 1 to 128 characters in length and cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
         self.value = value  # type: str
 
     def validate(self):
@@ -796,7 +908,10 @@ class CreatePrePayOrderRequestTag(TeaModel):
 class CreatePrePayOrderRequest(TeaModel):
     def __init__(self, deploy_type=None, disk_size=None, disk_type=None, eip_max=None, io_max=None, io_max_spec=None,
                  partition_num=None, region_id=None, resource_group_id=None, spec_type=None, tag=None, topic_quota=None):
-        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
+        # The deployment mode of the instance. Valid values:
+        # 
+        # *   **4**: deploys the instance that allows access from the Internet and a VPC.
+        # *   **5**: deploys the instance that allows access only from a VPC.
         self.deploy_type = deploy_type  # type: int
         # The disk size. Unit: GB.
         # 
@@ -807,25 +922,33 @@ class CreatePrePayOrderRequest(TeaModel):
         # *   **0**: ultra disk
         # *   **1**: standard SSD
         self.disk_type = disk_type  # type: str
-        # The number of topics. We recommend that you do not configure this parameter.
-        # 
-        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
-        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
-        # *   The default value of the TopicQuota parameter varies based on the value of the IoMaxSpec parameter. If the number of topics that you consume exceeds the default value, you are charged additional fees.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
-        self.eip_max = eip_max  # type: int
-        # The deployment mode of the instance. Valid values:
-        # 
-        # *   **4**: deploys the instance that allows access from the Internet and a VPC.
-        # *   **5**: deploys the instance that allows access only from a VPC.
-        self.io_max = io_max  # type: int
-        # The message returned.
-        self.io_max_spec = io_max_spec  # type: str
         # The Internet traffic for the instance.
         # 
         # *   This parameter is required if the **DeployType** parameter is set to **4**.
         # *   For more information about the valid values, see [Pay-as-you-go](~~72142~~).
+        self.eip_max = eip_max  # type: int
+        # The maximum traffic for the instance. We recommend that you do not configure this parameter.
+        # 
+        # *   You must configure at least one of the **IoMax** and **IoMaxSpec** parameters. If both parameters are configured, the value of the **IoMaxSpec** parameter takes effect. We recommend that you configure only the **IoMaxSpec** parameter.
+        # *   For more information about the valid values, see [Billing](~~84737~~).
+        self.io_max = io_max  # type: int
+        # The traffic specification of the instance. We recommend that you configure this parameter.
+        # 
+        # *   You must configure at least one of the **IoMax** and **IoMaxSpec** parameters. If both parameters are configured, the value of the **IoMaxSpec** parameter takes effect. We recommend that you configure only the **IoMaxSpec** parameter.
+        # *   For more information about the valid values, see [Billing](~~84737~~).
+        self.io_max_spec = io_max_spec  # type: str
+        # The number of partitions. We recommend that you configure this parameter.
+        # 
+        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
+        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
+        # *   For more information about the valid values, see [Billing](~~84737~~).
         self.partition_num = partition_num  # type: int
+        # The region ID of the instance.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        # 
+        # If this parameter is left empty, the default resource group is used. You can view the resource group ID on the Resource Group page in the Resource Management console.
+        self.resource_group_id = resource_group_id  # type: str
         # The edition of the instance. Valid values:
         # 
         # *   **normal**: Standard Edition (High Write)
@@ -833,22 +956,15 @@ class CreatePrePayOrderRequest(TeaModel):
         # *   **professionalForHighRead**: Professional Edition (High Read)
         # 
         # For more information, see [Billing](~~84737~~).
-        self.region_id = region_id  # type: str
-        # The traffic specification of the instance. We recommend that you configure this parameter.
-        # 
-        # *   You must configure at least one of the **IoMax** and **IoMaxSpec** parameters. If both parameters are configured, the value of the **IoMaxSpec** parameter takes effect. We recommend that you configure only the **IoMaxSpec** parameter.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
-        self.resource_group_id = resource_group_id  # type: str
-        # The ID of the resource group.
-        # 
-        # If this parameter is left empty, the default resource group is used. You can view the resource group ID on the Resource Group page in the Resource Management console.
         self.spec_type = spec_type  # type: str
+        # The tags.
         self.tag = tag  # type: list[CreatePrePayOrderRequestTag]
-        # The tag key.
+        # The number of topics. We recommend that you do not configure this parameter.
         # 
-        # *   Valid values of N: 1 to 20.
-        # *   If this parameter is not configured, all tag keys are matched.
-        # *   The tag key can be up to 128 characters in length. The tag key cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
+        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
+        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
+        # *   The default value of the TopicQuota parameter varies based on the value of the IoMaxSpec parameter. If the number of topics that you consume exceeds the default value, you are charged additional fees.
+        # *   For more information about the valid values, see [Billing](~~84737~~).
         self.topic_quota = topic_quota  # type: int
 
     def validate(self):
@@ -925,17 +1041,15 @@ class CreatePrePayOrderRequest(TeaModel):
 
 class CreatePrePayOrderResponseBody(TeaModel):
     def __init__(self, code=None, message=None, order_id=None, request_id=None, success=None):
-        # The number of partitions. We recommend that you configure this parameter.
-        # 
-        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
-        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
-        # *   For more information about the valid values, see [Billing](~~84737~~).
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
-        # The ID of the request.
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the order.
         self.order_id = order_id  # type: str
-        # Creates a subscription Message Queue for Apache Kafka instance.
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1015,10 +1129,20 @@ class CreatePrePayOrderResponse(TeaModel):
 
 class CreateSaslUserRequest(TeaModel):
     def __init__(self, instance_id=None, password=None, region_id=None, type=None, username=None):
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The password of the SASL user.
         self.password = password  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The SASL mechanism. Valid values:
+        # 
+        # *   **plain**: a simple mechanism that uses usernames and passwords to verify user identities. Message Queue for Apache Kafka provides an optimized PLAIN mechanism that allows you to dynamically create SASL users for an instance without the need to restart the instance.
+        # *   **scram**: a mechanism that uses usernames and passwords to verify user identities. This mechanism provides better security protection than the PLAIN mechanism. Message Queue for Apache Kafka uses SCRAM-SHA-256.
+        # 
+        # Default value: **plain**.
         self.type = type  # type: str
+        # The name of the SASL user.
         self.username = username  # type: str
 
     def validate(self):
@@ -1059,9 +1183,13 @@ class CreateSaslUserRequest(TeaModel):
 
 class CreateSaslUserResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1137,7 +1265,17 @@ class CreateSaslUserResponse(TeaModel):
 
 class CreateTopicRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of tag N.
+        # 
+        # *   Valid values of N: 1 to 20.
+        # *   If this parameter is left empty, the keys of all tags are matched.
+        # *   The tag key can be up to 128 characters in length. It cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
         self.key = key  # type: str
+        # The value of tag N.
+        # 
+        # *   Valid values of N: 1 to 20.
+        # *   This parameter can be left empty.
+        # *   The tag value can be up to 128 characters in length. It cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
         self.value = value  # type: str
 
     def validate(self):
@@ -1168,58 +1306,58 @@ class CreateTopicRequest(TeaModel):
     def __init__(self, compact_topic=None, config=None, instance_id=None, local_topic=None,
                  min_insync_replicas=None, partition_num=None, region_id=None, remark=None, replication_factor=None, tag=None,
                  topic=None):
-        # The number of replicas for the topic.
+        # The log cleanup policy that is used for the topic. This parameter is available only when LocalTopic is set to true. Valid values:
         # 
-        # *   This parameter is available only when the **LocalTopic** parameter is set to **true**\<props="local_disk">, or the **edition of the instance** is **Open Source Edition (Local Disk)**.
-        # *   Valid values: 1 to 3.
-        # 
-        # > If you set this parameter to **1**, the risk of data loss increases. Exercise caution when you configure this parameter.
+        # *   false: The topic uses the default log cleanup policy.
+        # *   true: The topic uses the log compaction policy.
         self.compact_topic = compact_topic  # type: bool
-        # The status code returned. The status code 200 indicates that the request is successful.
-        self.config = config  # type: str
-        # The region ID of the instance in which you want to create a topic.
-        self.instance_id = instance_id  # type: str
-        # Additional configurations.
+        # The additional configurations.
         # 
         # *   The value of this parameter must be in JSON format.
-        # *   The key must be **replications**. The value specifies the number of replicas for the topic. The value must be an integer that ranges from 1 to 3.
-        # *   This parameter is available only when the **LocalTopic** parameter is set to **true**\<props="local_disk">, or the **edition of the instance** is **Open Source Edition (Local Disk)**.
+        # *   The key must be **replications**. The value indicates the number of replicas for the topic. The value must be an integer that ranges from 1 to 3.
+        # *   This parameter is available only when **LocalTopic** is set to **true**, or the instance is of the **Open Source Edition (Local Disk)**.****\
         # 
-        # > If you configure this parameter, the **ReplicationFactor** parameter does not take effect.
-        self.local_topic = local_topic  # type: bool
-        # The value of tag N to add to the resource.
-        # 
-        # *   Valid values of N: 1 to 20.
-        # *   This parameter can be left empty.
-        # *   A tag value can be 1 to 128 characters in length and cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
-        self.min_insync_replicas = min_insync_replicas  # type: long
-        # The minimum number of in-sync replicas (ISRs).
-        # 
-        # *   This parameter is available only when the **LocalTopic** parameter is set to **true**\<props="local_disk">, or the **edition of the instance** is **Open Source Edition (Local Disk)**.
-        # *   The value of this parameter must be smaller than the value of the ReplicationFactor parameter.
-        # *   Valid values: 1 to 3.
-        self.partition_num = partition_num  # type: str
-        # Specifies whether the topic uses local storage. Valid values:
+        # > If you specify this parameter, **ReplicationFactor** does not take effect.
+        self.config = config  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The type of storage that the topic uses. Valid values:
         # 
         # *   false: The topic uses cloud storage.
         # *   true: The topic uses local storage.
-        self.region_id = region_id  # type: str
+        self.local_topic = local_topic  # type: bool
+        # The minimum number of in-sync replicas (ISRs).
+        # 
+        # *   This parameter is available only when **LocalTopic** is set to **true**, or the instance is of the **Open Source Edition (Local Disk)**.****\
+        # *   The value of this parameter must be smaller than the value of ReplicationFactor.
+        # *   Valid values: 1 to 3.
+        self.min_insync_replicas = min_insync_replicas  # type: long
         # The number of partitions in the topic.
         # 
         # *   Valid values: 1 to 360.
-        # *   In the Message Queue for Apache Kafka console, you can view the number of partitions that the system recommends based on the specification of the instance. We recommend that you specify the number that is recommended by the system as the value of this parameter to reduce the risk of data skew.
+        # *   The system recommends the number of partitions based on the specification of the instance. You can view the recommended number in the Message Queue for Apache Kafka console. We recommend that you specify the number that is recommended by the system as the value of this parameter to reduce the risk of data skew.
+        self.partition_num = partition_num  # type: str
+        # The region ID of the instance in which you want to create a topic.
+        self.region_id = region_id  # type: str
+        # The description of the topic.
+        # 
+        # *   The description can contain only letters, digits, hyphens (-), and underscores (\_).
+        # *   The description must be 3 to 64 characters in length.
         self.remark = remark  # type: str
-        # The key of tag N to add to the resource.
+        # The number of replicas for the topic.
         # 
-        # *   Valid values of N: 1 to 20.
-        # *   If this parameter is left empty, the keys of all tags are matched.
-        # *   A tag key can be up to 128 characters in length and cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
+        # *   This parameter is available only when **LocalTopic** is set to **true**, or the instance is of the **Open Source Edition (Local Disk)**.****\
+        # *   Valid values: 1 to 3.
+        # 
+        # > If you set this parameter to **1**, data loss may occur. Exercise caution when you configure this parameter.
         self.replication_factor = replication_factor  # type: long
+        # The tags.
         self.tag = tag  # type: list[CreateTopicRequestTag]
-        # The log cleanup policy that is used for the topic. This parameter is available only when the LocalTopic parameter is set to true. Valid values:
+        # The topic name.
         # 
-        # *   false: The topic uses the delete policy.
-        # *   true: The topic uses the compact policy.
+        # *   The name can contain only letters, digits, hyphens (-), and underscores (\_).
+        # *   The name must be 3 to 64 characters in length. If the name that you specify contains more than 64 characters, the system automatically truncates the name.
+        # *   After a topic is created, you cannot change the name of the topic.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -1292,14 +1430,13 @@ class CreateTopicRequest(TeaModel):
 
 class CreateTopicResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The message returned.
+        # The HTTP status code returned. The HTTP status code 200 indicates that the call is successful.
         self.code = code  # type: int
-        # The ID of the request.
+        # The message returned.
         self.message = message  # type: str
-        # Indicates whether the request is successful.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # *   Each Alibaba Cloud account can call this operation up to once per second.
-        # *   The maximum number of topics that you can create in an instance is determined by the specification of the instance.
+        # Indicates whether the call was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1650,9 +1787,9 @@ class DeleteConsumerGroupResponse(TeaModel):
 
 class DeleteInstanceRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None):
-        # The region ID of the instance.
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1681,13 +1818,13 @@ class DeleteInstanceRequest(TeaModel):
 
 class DeleteInstanceResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The returned message.
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
-        # The ID of the request.
+        # The returned message.
         self.message = message  # type: str
-        # Indicates whether the request is successful.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # Deletes a Message Queue for Apache Kafka instance.
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1763,18 +1900,18 @@ class DeleteInstanceResponse(TeaModel):
 
 class DeleteSaslUserRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, type=None, username=None):
-        # The name of the user.
-        self.instance_id = instance_id  # type: str
         # The ID of the instance.
+        self.instance_id = instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
-        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
-        self.type = type  # type: str
         # The SASL mechanism. Valid values:
         # 
         # *   **plain**: a simple mechanism that uses usernames and passwords to verify user identities. Message Queue for Apache Kafka provides an optimized PLAIN mechanism that allows you to dynamically create SASL users for an instance without the need to restart the instance.
         # *   **scram**: a mechanism that uses usernames and passwords to verify user identities. This mechanism provides better security protection than the PLAIN mechanism. Message Queue for Apache Kafka uses SCRAM-SHA-256.
         # 
         # Default value: **plain**.
+        self.type = type  # type: str
+        # The name of the user.
         self.username = username  # type: str
 
     def validate(self):
@@ -1811,13 +1948,13 @@ class DeleteSaslUserRequest(TeaModel):
 
 class DeleteSaslUserResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The returned message.
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
-        # The ID of the request.
+        # The returned message.
         self.message = message  # type: str
-        # Indicates whether the request is successful.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # Deletes a Simple Authentication and Security Layer (SASL) user.
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1893,11 +2030,11 @@ class DeleteSaslUserResponse(TeaModel):
 
 class DeleteTopicRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, topic=None):
-        # The name of the topic.
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
-        self.region_id = region_id  # type: str
         # The region ID of the instance.
+        self.region_id = region_id  # type: str
+        # The name of the topic.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -1930,13 +2067,13 @@ class DeleteTopicRequest(TeaModel):
 
 class DeleteTopicResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The returned message.
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
-        # The ID of the request.
+        # The returned message.
         self.message = message  # type: str
-        # Indicates whether the request is successful.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # Deletes a topic.
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2013,11 +2150,26 @@ class DeleteTopicResponse(TeaModel):
 class DescribeAclsRequest(TeaModel):
     def __init__(self, acl_resource_name=None, acl_resource_pattern_type=None, acl_resource_type=None,
                  instance_id=None, region_id=None, username=None):
+        # The name or ID of the resource.
+        # 
+        # *   The value can be the name of a topic or a consumer group.
+        # *   You can use an asterisk (\*) to represent the names of all topics or consumer groups.
         self.acl_resource_name = acl_resource_name  # type: str
+        # The match mode. Valid values:
+        # 
+        # *   LITERAL: full-name match
+        # *   PREFIXED: prefix match
         self.acl_resource_pattern_type = acl_resource_pattern_type  # type: str
+        # The resource type. Valid values:
+        # 
+        # *   **Topic**\
+        # *   **Group**\
         self.acl_resource_type = acl_resource_type  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The name of the user.
         self.username = username  # type: str
 
     def validate(self):
@@ -2063,11 +2215,29 @@ class DescribeAclsRequest(TeaModel):
 class DescribeAclsResponseBodyKafkaAclListKafkaAclVO(TeaModel):
     def __init__(self, acl_operation_type=None, acl_resource_name=None, acl_resource_pattern_type=None,
                  acl_resource_type=None, host=None, username=None):
+        # The type of the operation. Valid values:
+        # 
+        # *   **Write**\
+        # *   **Read**\
         self.acl_operation_type = acl_operation_type  # type: str
+        # The name of the resource.
+        # 
+        # *   The value can be the name of a topic or a consumer group.
+        # *   An asterisk (\*) represents the names of all topics or consumer groups.
         self.acl_resource_name = acl_resource_name  # type: str
+        # The match mode. Valid values:
+        # 
+        # *   **LITERAL**: full-name match
+        # *   **PREFIXED**: prefix match
         self.acl_resource_pattern_type = acl_resource_pattern_type  # type: str
+        # The type of the resources to which you want to attach tags. Valid values:
+        # 
+        # *   **Topic**\
+        # *   **Group**\
         self.acl_resource_type = acl_resource_type  # type: str
+        # The host.
         self.host = host  # type: str
+        # The name of the user.
         self.username = username  # type: str
 
     def validate(self):
@@ -2144,10 +2314,15 @@ class DescribeAclsResponseBodyKafkaAclList(TeaModel):
 
 class DescribeAclsResponseBody(TeaModel):
     def __init__(self, code=None, kafka_acl_list=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The ACLs.
         self.kafka_acl_list = kafka_acl_list  # type: DescribeAclsResponseBodyKafkaAclList
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2229,7 +2404,9 @@ class DescribeAclsResponse(TeaModel):
 
 class DescribeSaslUsersRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None):
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2258,8 +2435,16 @@ class DescribeSaslUsersRequest(TeaModel):
 
 class DescribeSaslUsersResponseBodySaslUserListSaslUserVO(TeaModel):
     def __init__(self, password=None, type=None, username=None):
+        # The password that is used to access the Elasticsearch cluster.
         self.password = password  # type: str
+        # The request type. Valid values:
+        # 
+        # *   **plain**: a simple mechanism that uses usernames and passwords to verify user identities. Message Queue for Apache Kafka provides an optimized PLAIN mechanism that allows you to dynamically create SASL users for an instance without the need to restart the instance.
+        # *   **scram**: a mechanism that uses usernames and passwords to verify user identities. This mechanism provides better security protection than the PLAIN mechanism. Message Queue for Apache Kafka uses SCRAM-SHA-256.
+        # 
+        # Default value: **plain**.
         self.type = type  # type: str
+        # The name of the user.
         self.username = username  # type: str
 
     def validate(self):
@@ -2324,10 +2509,15 @@ class DescribeSaslUsersResponseBodySaslUserList(TeaModel):
 
 class DescribeSaslUsersResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, sasl_user_list=None, success=None):
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The SASL users.
         self.sasl_user_list = sasl_user_list  # type: DescribeSaslUsersResponseBodySaslUserList
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2409,6 +2599,7 @@ class DescribeSaslUsersResponse(TeaModel):
 
 class GetAllInstanceIdListRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region ID of the instance. This parameter is reserved.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2433,10 +2624,15 @@ class GetAllInstanceIdListRequest(TeaModel):
 
 class GetAllInstanceIdListResponseBody(TeaModel):
     def __init__(self, code=None, instance_ids=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The IDs of instances that are managed by the Alibaba Cloud account in all the regions.
         self.instance_ids = instance_ids  # type: dict[str, any]
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2547,10 +2743,11 @@ class GetAllowedIpListRequest(TeaModel):
 
 class GetAllowedIpListResponseBodyAllowedListInternetList(TeaModel):
     def __init__(self, allowed_ip_group=None, allowed_ip_list=None, port_range=None):
-        # The IP address whitelist group.
+        # The group to which the IP address whitelist belongs.
         self.allowed_ip_group = allowed_ip_group  # type: dict[str, str]
+        # The information about the IP address whitelist.
         self.allowed_ip_list = allowed_ip_list  # type: list[str]
-        # The port range. Valid values:
+        # The port range. Valid value:
         # 
         # **9093/9093**.
         self.port_range = port_range  # type: str
@@ -2585,9 +2782,11 @@ class GetAllowedIpListResponseBodyAllowedListInternetList(TeaModel):
 
 class GetAllowedIpListResponseBodyAllowedListVpcList(TeaModel):
     def __init__(self, allowed_ip_group=None, allowed_ip_list=None, port_range=None):
+        # The group to which the IP address whitelist belongs.
         self.allowed_ip_group = allowed_ip_group  # type: dict[str, str]
+        # The information about the IP address whitelist.
         self.allowed_ip_list = allowed_ip_list  # type: list[str]
-        # The port range. Valid values:
+        # The port range. Valid value:
         # 
         # **9092/9092**.
         self.port_range = port_range  # type: str
@@ -2631,7 +2830,7 @@ class GetAllowedIpListResponseBodyAllowedList(TeaModel):
         self.deploy_type = deploy_type  # type: int
         # The whitelist for access from the Internet.
         self.internet_list = internet_list  # type: list[GetAllowedIpListResponseBodyAllowedListInternetList]
-        # The whitelist for access from a VPC.
+        # The whitelist for access from a virtual private cloud (VPC).
         self.vpc_list = vpc_list  # type: list[GetAllowedIpListResponseBodyAllowedListVpcList]
 
     def validate(self):
@@ -2681,7 +2880,7 @@ class GetAllowedIpListResponseBodyAllowedList(TeaModel):
 
 class GetAllowedIpListResponseBody(TeaModel):
     def __init__(self, allowed_list=None, code=None, message=None, request_id=None, success=None):
-        # The IP address whitelist of the instance.
+        # The IP address whitelist.
         self.allowed_list = allowed_list  # type: GetAllowedIpListResponseBodyAllowedList
         # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
@@ -2771,11 +2970,11 @@ class GetAllowedIpListResponse(TeaModel):
 
 class GetConsumerListRequest(TeaModel):
     def __init__(self, consumer_id=None, instance_id=None, region_id=None):
-        # The ID of the instance.
+        # The name of the consumer group. If you do not configure this parameter, all consumer groups are queried.
         self.consumer_id = consumer_id  # type: str
-        # The tags of the topic.
+        # The ID of the instance to which the consumer group belongs.
         self.instance_id = instance_id  # type: str
-        # The ID of the consumer group. If you do not configure this parameter, all consumer groups are queried.
+        # The region ID of the instance to which the consumer group belongs.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2808,7 +3007,9 @@ class GetConsumerListRequest(TeaModel):
 
 class GetConsumerListResponseBodyConsumerListConsumerVOTagsTagVO(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -2870,17 +3071,17 @@ class GetConsumerListResponseBodyConsumerListConsumerVOTags(TeaModel):
 class GetConsumerListResponseBodyConsumerListConsumerVO(TeaModel):
     def __init__(self, automatically_created_group=None, consumer_id=None, instance_id=None, region_id=None,
                  remark=None, tags=None):
-        # 自动创建的Group
+        # The consumer group that is automatically created by the system.
         self.automatically_created_group = automatically_created_group  # type: bool
-        # The ID of the instance to which the consumer group belongs.
+        # The ID of the consumer group.
         self.consumer_id = consumer_id  # type: str
-        # The value of the tag.
+        # The instance ID.
         self.instance_id = instance_id  # type: str
-        # The description of the consumer group.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The ID of the request.
+        # The description of the consumer group.
         self.remark = remark  # type: str
-        # Queries one or more consumer groups in a specified Message Queue for Apache Kafka instance.
+        # The tags.
         self.tags = tags  # type: GetConsumerListResponseBodyConsumerListConsumerVOTags
 
     def validate(self):
@@ -2959,15 +3160,15 @@ class GetConsumerListResponseBodyConsumerList(TeaModel):
 
 class GetConsumerListResponseBody(TeaModel):
     def __init__(self, code=None, consumer_list=None, message=None, request_id=None, success=None):
-        # The name of the consumer group.
-        self.code = code  # type: int
-        # The returned message.
-        self.consumer_list = consumer_list  # type: GetConsumerListResponseBodyConsumerList
         # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
+        self.code = code  # type: int
+        # The consumer groups.
+        self.consumer_list = consumer_list  # type: GetConsumerListResponseBodyConsumerList
+        # The returned message.
         self.message = message  # type: str
-        # The key of the tag.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The information about the consumer groups.
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3049,11 +3250,11 @@ class GetConsumerListResponse(TeaModel):
 
 class GetConsumerProgressRequest(TeaModel):
     def __init__(self, consumer_id=None, instance_id=None, region_id=None):
-        # The region ID of the instance.
-        self.consumer_id = consumer_id  # type: str
         # The name of the consumer group.
+        self.consumer_id = consumer_id  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -3086,13 +3287,13 @@ class GetConsumerProgressRequest(TeaModel):
 
 class GetConsumerProgressResponseBodyConsumerProgressTopicListTopicListOffsetListOffsetList(TeaModel):
     def __init__(self, broker_offset=None, consumer_offset=None, last_timestamp=None, partition=None):
-        # The consumer offset in the partition of the topic.
-        self.broker_offset = broker_offset  # type: long
-        # The time when the last consumed message in the partition was generated.
-        self.consumer_offset = consumer_offset  # type: long
-        # Queries the consumption status of a specified consumer group.
-        self.last_timestamp = last_timestamp  # type: long
         # The latest offset in the partition of the topic.
+        self.broker_offset = broker_offset  # type: long
+        # The consumer offset in the partition of the topic.
+        self.consumer_offset = consumer_offset  # type: long
+        # The time when the last consumed message in the partition was generated.
+        self.last_timestamp = last_timestamp  # type: long
+        # The ID of the partition.
         self.partition = partition  # type: int
 
     def validate(self):
@@ -3161,13 +3362,13 @@ class GetConsumerProgressResponseBodyConsumerProgressTopicListTopicListOffsetLis
 
 class GetConsumerProgressResponseBodyConsumerProgressTopicListTopicList(TeaModel):
     def __init__(self, last_timestamp=None, offset_list=None, topic=None, total_diff=None):
-        # The name of the topic.
-        self.last_timestamp = last_timestamp  # type: long
-        # The ID of the partition.
-        self.offset_list = offset_list  # type: GetConsumerProgressResponseBodyConsumerProgressTopicListTopicListOffsetList
-        # The information about offsets in the topic.
-        self.topic = topic  # type: str
         # The time when the last consumed message in the topic was generated.
+        self.last_timestamp = last_timestamp  # type: long
+        # The information about offsets in the topic.
+        self.offset_list = offset_list  # type: GetConsumerProgressResponseBodyConsumerProgressTopicListTopicListOffsetList
+        # The name of the topic.
+        self.topic = topic  # type: str
+        # The number of messages that were not consumed in the topic. This is also known as the number of accumulated messages in the topic.
         self.total_diff = total_diff  # type: long
 
     def validate(self):
@@ -3238,11 +3439,11 @@ class GetConsumerProgressResponseBodyConsumerProgressTopicList(TeaModel):
 
 class GetConsumerProgressResponseBodyConsumerProgress(TeaModel):
     def __init__(self, last_timestamp=None, topic_list=None, total_diff=None):
-        # The number of messages that were not consumed in all topics. This is also known as the number of accumulated messages in all topics.
+        # The time when the last message consumed by the consumer group was generated.
         self.last_timestamp = last_timestamp  # type: long
-        # The number of messages that were not consumed in the topic. This is also known as the number of accumulated messages in the topic.
-        self.topic_list = topic_list  # type: GetConsumerProgressResponseBodyConsumerProgressTopicList
         # The consumption progress of each topic to which the consumer group is subscribed.
+        self.topic_list = topic_list  # type: GetConsumerProgressResponseBodyConsumerProgressTopicList
+        # The number of messages that were not consumed in all topics. This is also known as the number of accumulated messages in all topics.
         self.total_diff = total_diff  # type: long
 
     def validate(self):
@@ -3277,15 +3478,15 @@ class GetConsumerProgressResponseBodyConsumerProgress(TeaModel):
 
 class GetConsumerProgressResponseBody(TeaModel):
     def __init__(self, code=None, consumer_progress=None, message=None, request_id=None, success=None):
-        # The returned message.
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
-        # The time when the last message consumed by the consumer group was generated.
-        self.consumer_progress = consumer_progress  # type: GetConsumerProgressResponseBodyConsumerProgress
-        # The ID of the request.
-        self.message = message  # type: str
-        # Indicates whether the request is successful.
-        self.request_id = request_id  # type: str
         # The consumption status of the consumer group.
+        self.consumer_progress = consumer_progress  # type: GetConsumerProgressResponseBodyConsumerProgress
+        # The returned message.
+        self.message = message  # type: str
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3367,15 +3568,15 @@ class GetConsumerProgressResponse(TeaModel):
 
 class GetInstanceListRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of the tag that is attached to the resource.
+        # The key of the resource tag.
         # 
         # *   If this parameter is left empty, all tag keys are matched.
-        # *   A tag key can be up to 128 characters in length and cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
+        # *   The tag key can be up to 128 characters in length and cannot start with acs: or aliyun. It cannot contain `http://` or `https://`.
         self.key = key  # type: str
-        # The value of the tag that is attached to the resource.
+        # The value of the resource tag.
         # 
-        # *   If the Key parameter is left empty, this parameter must be left empty. If this parameter is left empty, all tag values are matched.
-        # *   A tag key can be up to 128 characters in length and cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
+        # *   This parameter must be left empty if the Key parameter is left empty. If this parameter is left empty, the values of all tags are matched.
+        # *   The tag value can be up to 128 characters in length and cannot start with acs: or aliyun. It cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -3461,9 +3662,9 @@ class GetInstanceListRequest(TeaModel):
 
 class GetInstanceListResponseBodyInstanceListInstanceVOTagsTagVO(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of the tag.
+        # The tag key.
         self.key = key  # type: str
-        # The value of the tag.
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -3555,46 +3756,47 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
                  ssl_domain_endpoint=None, ssl_end_point=None, standard_zone_id=None, tags=None, topic_num_limit=None,
                  upgrade_service_detail_info=None, used_group_count=None, used_partition_count=None, used_topic_count=None, v_switch_id=None,
                  vpc_id=None, zone_id=None):
-        # The configurations of the instance.
+        # The configurations of the deployed ApsaraMQ for Kafka instance.
         self.all_config = all_config  # type: str
         # The time when the instance was created. Unit: milliseconds.
         self.create_time = create_time  # type: long
         # The type of the network in which the instance is deployed. Valid values:
         # 
-        # *   **4**: the Internet and virtual private clouds (VPCs).
-        # *   **5**: VPCs.
+        # *   **4**: the Internet and VPCs
+        # *   **5**: VPCs
         self.deploy_type = deploy_type  # type: int
-        # The size of the disk.
+        # The disk size of the instance.
         self.disk_size = disk_size  # type: int
-        # The type of the disk. Unit: GB. Valid values:
+        # The disk type of the instance. Unit: GB Valid values:
         # 
         # *   **0**: ultra disk
         # *   **1**: standard SSD
         self.disk_type = disk_type  # type: int
-        # The default endpoint of the instance in domain name mode. The default endpoint of an instance can be in domain name mode or IP address mode.
+        # The default endpoint of the instance in domain name mode. ApsaraMQ for Kafka instances support endpoints in domain name mode and IP address mode.
         # 
-        # *   Domain name mode: A default endpoint in this mode consists of a domain name of the instance and a port number. The format of a default endpoint in this mode is `{Instance domain name}:{Port number}`.
-        # *   IP address mode: A default endpoint in this mode consists of the IP address of a broker and a port number. The format of a default endpoint in this mode is `{Broker IP address}:{Port number}`.
+        # *   Endpoints in domain name mode: An endpoint in this mode consists of the domain name of the instance and a port number. The format of an endpoint in this mode is `{Instance domain name}:{Port number}`.
+        # *   Endpoints in IP address mode: An endpoint in this mode consists of the IP address of the broker and a port number. The format of an endpoint in this mode is `{Broker IP address}:{Port number}`.
         self.domain_endpoint = domain_endpoint  # type: str
-        # The peak public traffic allowed for the instance.
+        # The peak Internet traffic allowed for the instance.
         self.eip_max = eip_max  # type: int
-        # The default endpoint of the instance in IP address mode. The default endpoint of an instance can be in domain name mode or IP address mode.
+        # The default endpoint of the instance in IP address mode. ApsaraMQ for Kafka instances support endpoints in domain name mode and IP address mode.
         # 
-        # *   Domain name mode: A default endpoint in this mode consists of a domain name of the instance and a port number. The format of a default endpoint in this mode is `{Instance domain name}:{Port number}`.
-        # *   IP address mode: A default endpoint in this mode consists of the IP address of a broker and a port number. The format of a default endpoint in this mode is `{Broker IP address}:{Port number}`.
+        # *   Endpoints in domain name mode: An endpoint in this mode consists of the domain name of the instance and a port number. The format of an endpoint in this mode is `{Instance domain name}:{Port number}`.
+        # *   Endpoints in IP address mode: An endpoint in this mode consists of the IP address of the broker and a port number. The format of an endpoint in this mode is `{Broker IP address}:{Port number}`.
         self.end_point = end_point  # type: str
         # The expiration time. Unit: milliseconds.
         self.expired_time = expired_time  # type: long
-        # The ID of the instance.
+        # The instance ID.
         self.instance_id = instance_id  # type: str
         # The peak traffic allowed for the instance.
         self.io_max = io_max  # type: int
+        # The traffic specification.
         self.io_max_spec = io_max_spec  # type: str
         # The ID of the key that is used for disk encryption in the region where the instance resides.
         self.kms_key_id = kms_key_id  # type: str
         # The retention period of messages on the instance. Unit: hours.
         self.msg_retain = msg_retain  # type: int
-        # The name of the instance.
+        # The instance name.
         self.name = name  # type: str
         # The billing method of the instance. Valid values:
         # 
@@ -3603,60 +3805,68 @@ class GetInstanceListResponseBodyInstanceListInstanceVO(TeaModel):
         self.paid_type = paid_type  # type: int
         # The ID of the region where the instance resides.
         self.region_id = region_id  # type: str
-        # The ID of the resource group.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The Simple Authentication and Security Layer (SASL) endpoint of the instance in domain name mode. The SASL endpoint of an instance can be in domain name mode or IP address mode.
+        # The Simple Authentication and Security Layer (SASL) endpoint of the instance in domain name mode. ApsaraMQ for Kafka instances support endpoints in domain name mode and IP address mode.
         # 
-        # *   Domain name mode: An SASL endpoint in this mode consists of a domain name of the instance and a port number. The format of an SASL endpoint in this mode is `{Instance domain name}:{Port number}`.
-        # *   IP address mode: An SASL endpoint in this mode consists of the IP address of the broker and a port number. The format of an SASL endpoint in this mode is `{Broker IP address}:{Port number}`.
+        # *   Endpoints in domain name mode: An endpoint in this mode consists of the domain name of the instance and a port number. The format of an endpoint in this mode is `{Instance domain name}:{Port number}`.
+        # *   Endpoints in IP address mode: An endpoint in this mode consists of the IP address of the broker and a port number. The format of an endpoint in this mode is `{Broker IP address}:{Port number}`.
         self.sasl_domain_endpoint = sasl_domain_endpoint  # type: str
-        # The security group of the instance.
+        # The security group to which the instance belongs.
         # 
-        # *   If the instance is deployed in the Message Queue for Apache Kafka console or by calling the [StartInstance](~~157786~~) operation without configuring a security group, no value is returned for this parameter.
-        # *   If the instance is deployed by calling the [StartInstance](~~157786~~) operation and a security group is configured, the return value is the configured security group.
+        # *   If the instance is deployed by using the ApsaraMQ for Kafka console or calling the [StartInstance](~~157786~~) operation without a security group configured, the returned value is empty.
+        # *   If the instance is deployed by calling the [StartInstance](~~157786~~) operation with a security group configured, the return value is the configured security group.
         self.security_group = security_group  # type: str
         # The status of the instance. Valid values:
         # 
         # *   **0**: pending
-        # *   **1**: deploying
+        # *   **1**: preparing hardware resources
+        # *   **2**: initializing
+        # *   **3**: starting
         # *   **5**: running
+        # *   **6**: migrating
+        # *   **7**: ready for upgrade
+        # *   **8**: upgrading
+        # *   **9**: ready for changes
+        # *   **10**: released
+        # *   **11**: changing
         # *   **15**: expired
         self.service_status = service_status  # type: int
-        # The edition of the instance. Valid values:
+        # The instance edition. Valid values:
         # 
         # *   **professional**: Professional Edition (High Write)
         # *   **professionalForHighRead**: Professional Edition (High Read)
         # *   **normal**: Standard Edition
         self.spec_type = spec_type  # type: str
-        # The SSL endpoint of the instance in domain name mode. The SSL endpoint of an instance can be in domain name mode or IP address mode.
+        # The SSL endpoint of the instance in domain name mode. ApsaraMQ for Kafka instances support endpoints in domain name mode and IP address mode.
         # 
-        # *   Domain name mode: An SSL endpoint in this mode consists of a domain name of the instance and a port number. The format of an SSL endpoint in this mode is `{Instance domain name}:{Port number}`.
-        # *   IP address mode: An SSL endpoint in this mode consists of the IP address of the broker and a port number. The format of an SSL endpoint in this mode is `{Broker IP address}:{Port number}`.
+        # *   Endpoints in domain name mode: An endpoint in this mode consists of the domain name of the instance and a port number. The format of an endpoint in this mode is `{Instance domain name}:{Port number}`.
+        # *   Endpoints in IP address mode: An endpoint in this mode consists of the IP address of the broker and a port number. The format of an endpoint in this mode is `{Broker IP address}:{Port number}`.
         self.ssl_domain_endpoint = ssl_domain_endpoint  # type: str
-        # The Secure Sockets Layer (SSL) endpoint of the instance in IP address mode. The SSL endpoint of an instance can be in domain name mode or IP address mode.
+        # The Secure Sockets Layer (SSL) endpoint of the instance in IP address mode. ApsaraMQ for Kafka instances support endpoints in domain name mode and IP address mode.
         # 
-        # *   Domain name mode: An SSL endpoint in this mode consists of a domain name of the instance and a port number. The format of an SSL endpoint in this mode is `{Instance domain name}:{Port number}`.
-        # *   IP address mode: An SSL endpoint in this mode consists of the IP address of the broker and a port number. The format of an SSL endpoint in this mode is `{Broker IP address}:{Port number}`.
+        # *   Endpoints in domain name mode: An endpoint in this mode consists of the domain name of the instance and a port number. The format of an endpoint in this mode is `{Instance domain name}:{Port number}`.
+        # *   Endpoints in IP address mode: An endpoint in this mode consists of the IP address of the broker and a port number. The format of an endpoint in this mode is `{Broker IP address}:{Port number}`.
         self.ssl_end_point = ssl_end_point  # type: str
-        # The ID of the zone.
+        # The zone ID.
         self.standard_zone_id = standard_zone_id  # type: str
-        # The tags that are attached to the instance.
+        # The tags.
         self.tags = tags  # type: GetInstanceListResponseBodyInstanceListInstanceVOTags
         # The maximum number of topics that can be created on the instance.
         self.topic_num_limit = topic_num_limit  # type: int
-        # The upgrade information about the instance.
+        # The upgrade information of the instance.
         self.upgrade_service_detail_info = upgrade_service_detail_info  # type: GetInstanceListResponseBodyInstanceListInstanceVOUpgradeServiceDetailInfo
-        # The number of used groups.
+        # The number of used consumer groups.
         self.used_group_count = used_group_count  # type: int
         # The number of used partitions.
         self.used_partition_count = used_partition_count  # type: int
         # The number of used topics.
         self.used_topic_count = used_topic_count  # type: int
-        # The ID of the vSwitch.
+        # The vSwitch ID of the instance.
         self.v_switch_id = v_switch_id  # type: str
-        # The ID of the VPC.
+        # The ID of the virtual private cloud (VPC) to which the instance belongs.
         self.vpc_id = vpc_id  # type: str
-        # The ID of the zone.
+        # The zone ID of the instance.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -3852,7 +4062,7 @@ class GetInstanceListResponseBody(TeaModel):
     def __init__(self, code=None, instance_list=None, message=None, request_id=None, success=None):
         # The HTTP status code returned. The HTTP status code 200 indicates that the call is successful.
         self.code = code  # type: int
-        # The details of the instances.
+        # The information about the instance.
         self.instance_list = instance_list  # type: GetInstanceListResponseBodyInstanceList
         # The message returned.
         self.message = message  # type: str
@@ -4151,15 +4361,15 @@ class GetQuotaTipResponse(TeaModel):
 
 class GetTopicListRequest(TeaModel):
     def __init__(self, current_page=None, instance_id=None, page_size=None, region_id=None, topic=None):
-        # The name of the topic that you want to query.
+        # The page number of the page to return. Default value: 1.
         self.current_page = current_page  # type: str
-        # The region ID of the instance whose topics you want to query.
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The number of the returned page.
+        # The number of entries to return on each page. Default value: 10
         self.page_size = page_size  # type: str
-        # The ID of the request.
+        # The region ID of the instance to which the topics that you want to query belong.
         self.region_id = region_id  # type: str
-        # Indicates whether the call was successful.
+        # The name of the topic that you want to query.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -4200,7 +4410,9 @@ class GetTopicListRequest(TeaModel):
 
 class GetTopicListResponseBodyTopicListTopicVOTagsTagVO(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -4263,37 +4475,47 @@ class GetTopicListResponseBodyTopicListTopicVO(TeaModel):
     def __init__(self, auto_create=None, compact_topic=None, create_time=None, instance_id=None, local_topic=None,
                  partition_num=None, region_id=None, remark=None, status=None, status_name=None, tags=None, topic=None):
         self.auto_create = auto_create  # type: bool
-        # The region ID of the instance whose topics were queried.
-        self.compact_topic = compact_topic  # type: bool
-        # Running
-        self.create_time = create_time  # type: long
-        # The tags.
-        self.instance_id = instance_id  # type: str
-        # The key of the tag.
-        self.local_topic = local_topic  # type: bool
-        # The name of the topic. Valid values:
+        # The log cleanup policy that is used for the topic. This parameter is returned when the **LocalTopic** parameter is set to **true**. Valid values:
         # 
-        # *   The name contains only letters, digits, hyphens (-), and underscores (\_).
-        # *   The name is 3 to 64 characters in length. If the name that you specified contains more than 64 characters, the returned name is automatically truncated.
+        # *   false: The topic uses the default log cleanup policy.
+        # *   true: The topic uses the log compaction policy.
+        self.compact_topic = compact_topic  # type: bool
+        # The timestamp that indicates when the topic was created. Unit: milliseconds.
+        self.create_time = create_time  # type: long
+        # The ID of the instance
+        self.instance_id = instance_id  # type: str
+        # The type of storage used by the topic. Valid values:
+        # 
+        # *   false: The topic uses cloud storage.
+        # *   true: The topic uses local storage.
+        self.local_topic = local_topic  # type: bool
+        # The number of partitions in the topic.
         self.partition_num = partition_num  # type: int
-        # The value of the tag.
+        # The region ID of the instance to which the topics that you want to query belong.
         self.region_id = region_id  # type: str
+        # The description of the topic. Valid values:
+        # 
+        # *   The description contains only letters, digits, hyphens (-), and underscores (\_).
+        # *   The description is 3 to 64 characters in length.
+        self.remark = remark  # type: str
+        # The status of the topic. Valid values:
+        # 
+        # **0:** indicates that the topic is running.
+        # 
+        # If the topic is deleted, this parameter is not returned.
+        self.status = status  # type: int
         # The status of the topic. Valid values:
         # 
         # **Running**\
         # 
         # If the topic is deleted, this parameter is not returned.
-        self.remark = remark  # type: str
-        # The timestamp that indicates when the topic was created. Unit: milliseconds.
-        self.status = status  # type: int
-        # The ID of the instance
         self.status_name = status_name  # type: str
-        # Indicates whether the topic was automatically created.
+        # The tags.
         self.tags = tags  # type: GetTopicListResponseBodyTopicListTopicVOTags
-        # The log cleanup policy that is used for the topic. This parameter is returned when the **LocalTopic** parameter is set to **true**. Valid values:
+        # The name of the topic. Valid values:
         # 
-        # *   false: The topic uses the delete policy.
-        # *   true: The topic uses the compact policy.
+        # *   The name contains only letters, digits, hyphens (-), and underscores (\_).
+        # *   The name is 3 to 64 characters in length. If the name that you specified contains more than 64 characters, the returned name is automatically truncated.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -4397,28 +4619,21 @@ class GetTopicListResponseBodyTopicList(TeaModel):
 class GetTopicListResponseBody(TeaModel):
     def __init__(self, code=None, current_page=None, message=None, page_size=None, request_id=None, success=None,
                  topic_list=None, total=None):
-        # The number of topics.
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
-        # The HTTP status code returned. The HTTP status code 200 indicates that the call is successful.
+        # The page number of the returned page.
         self.current_page = current_page  # type: int
-        # The information about the topic.
-        self.message = message  # type: str
-        # The status of the topic. Valid values:
-        # 
-        # **0:** indicates that the topic is running.
-        # 
-        # If the topic is deleted, this parameter is not returned.
-        self.page_size = page_size  # type: int
         # The message returned.
-        self.request_id = request_id  # type: str
+        self.message = message  # type: str
         # The number of entries returned on each page.
+        self.page_size = page_size  # type: int
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
-        # The description. Valid values:
-        # 
-        # *   The description contains only letters, digits, hyphens (-), and underscores (\_).
-        # *   The description is 3 to 64 characters in length.
+        # The information about the topic.
         self.topic_list = topic_list  # type: GetTopicListResponseBodyTopicList
-        # The number of partitions in the topic.
+        # The number of topics.
         self.total = total  # type: int
 
     def validate(self):
@@ -4512,8 +4727,11 @@ class GetTopicListResponse(TeaModel):
 
 class GetTopicStatusRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, topic=None):
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
+        # The name of the topic.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -4546,10 +4764,15 @@ class GetTopicStatusRequest(TeaModel):
 
 class GetTopicStatusResponseBodyTopicStatusOffsetTableOffsetTable(TeaModel):
     def __init__(self, last_update_timestamp=None, max_offset=None, min_offset=None, partition=None, topic=None):
+        # The last time when the partition was modified.
         self.last_update_timestamp = last_update_timestamp  # type: long
+        # The latest offset in the partition of the topic.
         self.max_offset = max_offset  # type: long
+        # The earliest offset in the partition of the topic.
         self.min_offset = min_offset  # type: long
+        # The ID of the partition.
         self.partition = partition  # type: int
+        # The name of the topic.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -4622,8 +4845,11 @@ class GetTopicStatusResponseBodyTopicStatusOffsetTable(TeaModel):
 
 class GetTopicStatusResponseBodyTopicStatus(TeaModel):
     def __init__(self, last_time_stamp=None, offset_table=None, total_count=None):
+        # The time when the last consumed message was generated.
         self.last_time_stamp = last_time_stamp  # type: long
+        # The information about offsets in the topic.
         self.offset_table = offset_table  # type: GetTopicStatusResponseBodyTopicStatusOffsetTable
+        # The number of messages in the topic.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -4658,10 +4884,15 @@ class GetTopicStatusResponseBodyTopicStatus(TeaModel):
 
 class GetTopicStatusResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None, topic_status=None):
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # The status information about messages in the topic.
         self.topic_status = topic_status  # type: GetTopicStatusResponseBodyTopicStatus
 
     def validate(self):
@@ -4743,7 +4974,17 @@ class GetTopicStatusResponse(TeaModel):
 
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
+        # 
+        # *   Valid values of N: 1 to 20.
+        # *   If this parameter is not configured, all tag keys are matched.
+        # *   The tag key can be up to 128 characters in length. The tag value cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
         self.key = key  # type: str
+        # The tag value.
+        # 
+        # *   Valid values of N: 1 to 20.
+        # *   If the Key parameter is not configured, you cannot configure this parameter. If this parameter is not configured, all tag values are matched.
+        # *   The tag value can be 1 to 128 characters in length. The tag value cannot start with acs: or aliyun or contain [http:// or https://.](http://https://。)
         self.value = value  # type: str
 
     def validate(self):
@@ -4772,10 +5013,27 @@ class ListTagResourcesRequestTag(TeaModel):
 
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, next_token=None, region_id=None, resource_id=None, resource_type=None, tag=None):
+        # The token that determines the start point of the next query.
         self.next_token = next_token  # type: str
+        # The ID of the region in which the resource is deployed.
         self.region_id = region_id  # type: str
+        # The ID of the resource. A resource ID complies with the following rules:
+        # 
+        # *   The resource ID of an instance is the value of the instanceId parameter.
+        # *   The resource ID of a topic is the value of the Kafka_alikafka_instanceId_topic parameter.
+        # *   The resource ID of a group is the value of the Kafka_alikafka_instanceId_consumerGroup parameter.
+        # 
+        # For example, the resources whose tags you want to query include the alikafka_post-cn-v0h1fgs2xxxx instance, the test-topic topic, and the test-consumer-group group. In this case, their resource IDs are alikafka_post-cn-v0h1fgs2xxxx, Kafka_alikafka_post-cn-v0h1fgs2xxxx_test-topic, and Kafka_alikafka_post-cn-v0h1fgs2xxxx_test-consumer-group.
+        # 
+        # >  You must set at least one of the **ResourceId** and **Tag** parameters to query the tags of a specified resource. Otherwise, the request fails.
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource whose tags you want to query. The value is an enumerated value. Valid values:
+        # 
+        # *   **INSTANCE**\
+        # *   **TOPIC**\
+        # *   **CONSUMERGROUP**\
         self.resource_type = resource_type  # type: str
+        # The tag list.
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
     def validate(self):
@@ -4824,9 +5082,23 @@ class ListTagResourcesRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        # The ID of the resource. A resource ID complies with the following rules:
+        # 
+        # *   The resource ID of an instance is the value of the instanceId parameter.
+        # *   The resource ID of a topic is the value of the Kafka_alikafka_instanceId_topic parameter.
+        # *   The resource ID of a consumer group is the value of the Kafka_alikafka_instanceId_consumerGroup parameter.
+        # 
+        # For example, the resources whose tags you want to query include the alikafka_post-cn-v0h1fgs2xxxx instance, the test-topic topic, and the test-consumer-group consumer group. In this case, their resource IDs are alikafka_post-cn-v0h1fgs2xxxx, Kafka_alikafka_post-cn-v0h1fgs2xxxx_test-topic, and Kafka_alikafka_post-cn-v0h1fgs2xxxx_test-consumer-group.
         self.resource_id = resource_id  # type: str
+        # The type of the resource. The value is an enumerated value. Valid values:
+        # 
+        # *   **Instance**\
+        # *   **Topic**\
+        # *   **Consumergroup**\
         self.resource_type = resource_type  # type: str
+        # The key of the tag.
         self.tag_key = tag_key  # type: str
+        # The value of the tag.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -4895,8 +5167,11 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, tag_resources=None):
+        # The token that determines the start point of the next query.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Details of the resource and tags, such as the resource ID, the resource type, tag keys, and tag values.
         self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
 
     def validate(self):
@@ -4970,14 +5245,14 @@ class ListTagResourcesResponse(TeaModel):
 
 class ModifyInstanceNameRequest(TeaModel):
     def __init__(self, instance_id=None, instance_name=None, region_id=None):
-        # The region ID of the instance.
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
-        self.instance_name = instance_name  # type: str
         # The name of the instance. Valid values:
         # 
         # *   The name can contain only letters, digits, hyphens (-), and underscores (\_).
         # *   The name must be 3 to 64 characters in length. If the name that you specify contains more than 64 characters, the system automatically truncates the name to 64 characters.
+        self.instance_name = instance_name  # type: str
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5010,13 +5285,13 @@ class ModifyInstanceNameRequest(TeaModel):
 
 class ModifyInstanceNameResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The returned message.
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
-        # The ID of the request.
+        # The returned message.
         self.message = message  # type: str
-        # Indicates whether the request is successful.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # Changes the name of a Message Queue for Apache Kafka instance.
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5092,9 +5367,17 @@ class ModifyInstanceNameResponse(TeaModel):
 
 class ModifyPartitionNumRequest(TeaModel):
     def __init__(self, add_partition_num=None, instance_id=None, region_id=None, topic=None):
+        # The number of partitions that you want to add to the topic.
+        # 
+        # *   The value must be an integer that is greater than 0.
+        # *   To reduce the risk of data skew, we recommend that you set the value to a multiple of 6.
+        # *   The number of total partitions ranges from 1 to 360.
         self.add_partition_num = add_partition_num  # type: int
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
+        # The topic name.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -5131,9 +5414,13 @@ class ModifyPartitionNumRequest(TeaModel):
 
 class ModifyPartitionNumResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5334,14 +5621,14 @@ class ModifyTopicRemarkResponse(TeaModel):
 
 class ReleaseInstanceRequest(TeaModel):
     def __init__(self, force_delete_instance=None, instance_id=None, region_id=None):
-        # The returned message.
-        self.force_delete_instance = force_delete_instance  # type: bool
         # Specifies whether to immediately release the physical resources of the instance. Valid values:
         # 
         # *   **true**: The physical resources of the instance are immediately released.
         # *   **false**: The physical resources of the instance are retained for a period of time before they are released.
+        self.force_delete_instance = force_delete_instance  # type: bool
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5374,13 +5661,13 @@ class ReleaseInstanceRequest(TeaModel):
 
 class ReleaseInstanceResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The ID of the request.
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
-        # Indicates whether the request is successful.
+        # The returned message.
         self.message = message  # type: str
-        # You cannot call this operation to release a subscription Message Queue for Apache Kafka instance.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # Releases a pay-as-you-go Message Queue for Apache Kafka instance.
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5455,28 +5742,94 @@ class ReleaseInstanceResponse(TeaModel):
 
 
 class StartInstanceRequest(TeaModel):
-    def __init__(self, config=None, deploy_module=None, instance_id=None, is_eip_inner=None,
+    def __init__(self, config=None, cross_zone=None, deploy_module=None, instance_id=None, is_eip_inner=None,
                  is_force_selected_zones=None, is_set_user_and_password=None, kmskey_id=None, name=None, notifier=None, password=None,
                  region_id=None, security_group=None, selected_zones=None, service_version=None, user_phone_num=None,
                  username=None, v_switch_id=None, vpc_id=None, zone_id=None):
+        # The initial configuration of the instance. The value must be a valid JSON string.
+        # 
+        # If you do not specify a value for this parameter, the value is left empty by default.
+        # 
+        # The following parameters can be configured for **Config**:
+        # 
+        # *   **enable.vpc_sasl_ssl**: specifies whether to enable VPC transmission encryption. Valid values:
+        # 
+        #     *   **true**: enables VPC transmission encryption. If VPC transmission encryption is enabled, you must also enable the access control list (ACL) feature.
+        #     *   **false**: disables VPC transmission encryption. This is the default value.
+        # 
+        # *   **enable.acl**: specifies whether to enable ACL. Valid values:
+        # 
+        #     *   **true**: enables the ACL feature.
+        #     *   **false**: disables the ACL feature. This is the default value.
+        # 
+        # *   **kafka.log.retention.hours**: the maximum period for which messages can be retained when the remaining disk space is sufficient. Unit: hours. Valid values: 24 to 480. Default value: **72**. When the disk usage reaches 85%, the system deletes messages in the order in which they are stored, starting from the earliest stored message. This ensures that the performance of the service is not degraded.
+        # 
+        # *   **kafka.message.max.bytes**: the maximum size of messages that Message Queue for Apache Kafka can send and receive. Unit: bytes. Valid values: 1048576 to 10485760. Default value: **1048576**. Before you change the maximum message size to a new value, make sure that the new value matches the configuration on the producers and consumers in the instance.
         self.config = config  # type: str
+        self.cross_zone = cross_zone  # type: bool
+        # The deployment mode of the instance. Valid values:
+        # 
+        # *   **vpc**: deploys the instance that allows access only from a VPC.
+        # *   **eip**: deploys the instance that allows access from the Internet and a VPC.
+        # 
+        # The deployment mode of the instance must match the type of the instance. If the instance allows access only from a VPC, set the value to **vpc**. If the instance allows access from the Internet and a VPC, set the value to **eip**.
         self.deploy_module = deploy_module  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # Specifies whether the instance supports elastic IP addresses (EIPs). Valid values:
+        # 
+        # *   **true**: supports EIPs and allows access from the Internet and a VPC.
+        # *   **false**: does not support EIPs and allows access only from a VPC.
+        # 
+        # The value of this parameter must match the type of the instance. For example, if the instance allows access only from a VPC, set this parameter to **false**.
         self.is_eip_inner = is_eip_inner  # type: bool
+        # Specifies whether to forcibly deploy the instance in the selected zones.
         self.is_force_selected_zones = is_force_selected_zones  # type: bool
+        # Specifies whether to set a new username and password. Valid values:
+        # 
+        # *   **true**: sets a new username and password.
+        # *   **false**: does not set a new username or password.
+        # 
+        # This parameter is available only if you deploy an instance that allows access from the Internet and a VPC.
         self.is_set_user_and_password = is_set_user_and_password  # type: bool
+        # The ID of the key that is used for disk encryption in the region where the instance is deployed. You can obtain the ID of the key in the [Key Management Service (KMS) console](https://kms.console.aliyun.com/?spm=a2c4g.11186623.2.5.336745b8hfiU21) or create a key. For more information, see [Manage CMKs](~~181610~~).
+        # 
+        # If this parameter is configured, disk encryption is enabled for the instance. You cannot disable disk encryption after disk encryption is enabled. When you call this operation, the system checks whether the AliyunServiceRoleForAlikafkaInstanceEncryption service-linked role is created. If the role is not created, the system automatically creates the role. For more information, see [Service-linked roles](~~190460~~).
         self.kmskey_id = kmskey_id  # type: str
+        # The name of the instance.
+        # 
+        # >  If you specify a value for this parameter, make sure that the specified value is unique in the region of the instance.
         self.name = name  # type: str
+        # The alert contact.
         self.notifier = notifier  # type: str
+        # The password that corresponds to the username.
+        # 
+        # This parameter is available only if you deploy an instance that allows access from the Internet and a VPC.
         self.password = password  # type: str
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
+        # The security group of the instance.
+        # 
+        # If you do not configure this parameter, Message Queue for Apache Kafka automatically configures a security group for the instance. If you want to configure this parameter, you must create a security group for the instance in advance. For more information, see [Create a security group](~~25468~~).
         self.security_group = security_group  # type: str
+        # The zones among which you want to deploy the instance.
         self.selected_zones = selected_zones  # type: str
+        # The version number of the instance. Valid values: 0.10.2 and 2.2.0.
         self.service_version = service_version  # type: str
+        # The mobile phone number of the alert contact.
         self.user_phone_num = user_phone_num  # type: str
+        # The username that is used to access the instance.
+        # 
+        # This parameter is available only if you deploy an instance that allows access from the Internet and a VPC.
         self.username = username  # type: str
+        # The ID of the vSwitch to which you want to connect the instance.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the virtual private cloud (VPC) in which you want to deploy the instance.
         self.vpc_id = vpc_id  # type: str
+        # The ID of the zone in which you want to deploy the instance.
+        # 
+        # *   The zone ID of the instance must be the same as that of the vSwitch.
+        # *   The value must be in the format of zoneX or Region ID-X. For example, you can set this parameter to zonea or cn-hangzhou-k.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -5490,6 +5843,8 @@ class StartInstanceRequest(TeaModel):
         result = dict()
         if self.config is not None:
             result['Config'] = self.config
+        if self.cross_zone is not None:
+            result['CrossZone'] = self.cross_zone
         if self.deploy_module is not None:
             result['DeployModule'] = self.deploy_module
         if self.instance_id is not None:
@@ -5532,6 +5887,8 @@ class StartInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('Config') is not None:
             self.config = m.get('Config')
+        if m.get('CrossZone') is not None:
+            self.cross_zone = m.get('CrossZone')
         if m.get('DeployModule') is not None:
             self.deploy_module = m.get('DeployModule')
         if m.get('InstanceId') is not None:
@@ -5573,9 +5930,13 @@ class StartInstanceRequest(TeaModel):
 
 class StartInstanceResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5680,27 +6041,21 @@ class TagResourcesRequestTag(TeaModel):
 
 class TagResourcesRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, resource_id=None, resource_type=None, tag=None):
-        # The ID of the request.
+        # The ID of the Message Queue for Apache RocketMQ instance which contains the resource to which you want to attach tags.
         self.instance_id = instance_id  # type: str
         # The ID of the region in which the resource is deployed.
         self.region_id = region_id  # type: str
-        # The type of the resources to which you want to attach tags. Valid values:
+        # The list of resource IDs.
+        self.resource_id = resource_id  # type: list[str]
+        # The type of the resources. The value is an enumerated value. Valid values:
         # 
         # *   **INSTANCE**\
         # *   **TOPIC**\
         # *   **CONSUMERGROUP**\
         # 
         # >  The value of this parameter is not case-sensitive.
-        self.resource_id = resource_id  # type: list[str]
-        # The ID of the resource to which you want to attach tags. Take note of the following rules when you specify a resource ID:
-        # 
-        # *   The resource ID of an instance is the value of the instanceId parameter.
-        # *   The resource ID of a topic is the value of the Kafka_alikafka_instanceId_topic parameter.
-        # *   The resource ID of a group is the value of the Kafka_alikafka_instanceId_consumerGroup parameter.
-        # 
-        # For example, the resources to which you want to attach tags include the alikafka_post-cn-v0h1fgs2xxxx instance, the test-topic topic, and the test-consumer-group group. In this case, their resource IDs are alikafka_post-cn-v0h1fgs2xxxx, Kafka_alikafka_post-cn-v0h1fgs2xxxx_test-topic, and Kafka_alikafka_post-cn-v0h1fgs2xxxx_test-consumer-group.
         self.resource_type = resource_type  # type: str
-        # The tags.
+        # The list of tags that you want to associate with the instances.
         self.tag = tag  # type: list[TagResourcesRequestTag]
 
     def validate(self):
@@ -5749,11 +6104,7 @@ class TagResourcesRequest(TeaModel):
 
 class TagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The key of the tag that is attached to the resource.
-        # 
-        # *   If you want to configure this parameter, specify at least one tag key and at most 20 tag keys.
-        # *   This parameter is required.
-        # *   The tag key can be up to 128 characters in length. The tag key cannot start with acs: or aliyun or contain [http:// or https://.](http://或者https://。)
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5817,23 +6168,21 @@ class TagResourcesResponse(TeaModel):
 
 class UntagResourcesRequest(TeaModel):
     def __init__(self, all=None, region_id=None, resource_id=None, resource_type=None, tag_key=None):
-        # *   If you want to configure this parameter, specify at least one tag key and at most 20 tag keys.
-        # *   If this parameter is not configured and the All parameter is set to true, all tag keys are matched.
-        # *   The tag key can be up to 128 characters in length. The tag key cannot start with acs: or aliyun or contain [http:// or https://.](http://或者https://。)
+        # Specifies whether to detach all tags from the resource. This parameter only takes effect when the TagKey.N parameter is not configured. Default value: **false**.
         self.all = all  # type: bool
-        # The IDs of the resources from which you want to detach tags.
+        # The ID of the region in which the resource is deployed.
         self.region_id = region_id  # type: str
-        # The ID of the request.
+        # The IDs of the resources from which you want to detach tags.
         self.resource_id = resource_id  # type: list[str]
-        # Take note of the following rules when you specify a resource ID:
+        # The type of the resources. Valid values:
         # 
-        # *   The resource ID of an instance is the value of the instanceId parameter.
-        # *   The resource ID of a topic is the value of the Kafka_instanceId_topic parameter.
-        # *   The resource ID of a group is the value of the Kafka_instanceId_consumerGroup parameter.
+        # *   **INSTANCE**\
+        # *   **TOPIC**\
+        # *   **CONSUMERGROUP**\
         # 
-        # For example, the resources from which you want to detach tags include the alikafka_post-cn-v0h1fgs2xxxx instance, the test-topic topic, and the test-consumer-group consumer group. In this case, their resource IDs are alikafka_post-cn-v0h1fgs2xxxx, Kafka_alikafka_post-cn-v0h1fgs2xxxx_test-topic, and Kafka_alikafka_post-cn-v0h1fgs2xxxx_test-consumer-group.
+        # >  The value of this parameter is not case-sensitive.
         self.resource_type = resource_type  # type: str
-        # Detaches tags from a specified resource.
+        # The key of the tag that you want to attach to the specified resource.
         self.tag_key = tag_key  # type: list[str]
 
     def validate(self):
@@ -5874,6 +6223,7 @@ class UntagResourcesRequest(TeaModel):
 
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5938,12 +6288,34 @@ class UntagResourcesResponse(TeaModel):
 class UpdateAllowedIpRequest(TeaModel):
     def __init__(self, allowed_list_ip=None, allowed_list_type=None, description=None, instance_id=None,
                  port_range=None, region_id=None, update_type=None):
+        # The IP addresses that you want to manage. You can specify a CIDR block. Example: **192.168.0.0/16**.
+        # 
+        # *   If the **UpdateType** parameter is set to **add**, specify one or more IP addresses for this parameter. Separate multiple IP addresses with commas (,).
+        # *   If the **UpdateType** parameter is set to **delete**, specify only one IP address.
+        # *   Exercise caution when you delete IP addresses.
         self.allowed_list_ip = allowed_list_ip  # type: str
+        # The type of the whitelist. Valid values:
+        # 
+        # *   **vpc**: a whitelist for access from a VPC.
+        # *   **internet**: a whitelist for access from the Internet.
         self.allowed_list_type = allowed_list_type  # type: str
+        # The description of the whitelist.
         self.description = description  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The port range. Valid values:
+        # 
+        # *   **9092/9092**: the port range for access from a virtual private cloud (VPC).
+        # *   **9093/9093**: the port range for access from the Internet.
+        # 
+        # The value of this parameter must match the value of the **AllowdedListType** parameter.
         self.port_range = port_range  # type: str
+        # The ID of the region where the instance resides.
         self.region_id = region_id  # type: str
+        # The type of configuration change. Valid values:
+        # 
+        # *   **add**\
+        # *   **delete**\
         self.update_type = update_type  # type: str
 
     def validate(self):
@@ -5992,9 +6364,13 @@ class UpdateAllowedIpRequest(TeaModel):
 
 class UpdateAllowedIpResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code that is returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -6070,7 +6446,9 @@ class UpdateAllowedIpResponse(TeaModel):
 
 class UpdateConsumerOffsetRequestOffsets(TeaModel):
     def __init__(self, offset=None, partition=None):
+        # The consumer offset of the partition.
         self.offset = offset  # type: long
+        # The partition ID.
         self.partition = partition  # type: int
 
     def validate(self):
@@ -6100,12 +6478,34 @@ class UpdateConsumerOffsetRequestOffsets(TeaModel):
 class UpdateConsumerOffsetRequest(TeaModel):
     def __init__(self, consumer_id=None, instance_id=None, offsets=None, region_id=None, reset_type=None, time=None,
                  topic=None):
+        # The name of the consumer group.
+        # 
+        # *   The name can contain letters, digits, hyphens (-), and underscores (\_).
+        # *   The name must be **3 to 64** characters in length. If a name contains more than **64** characters, the name is automatically truncated.
+        # *   The name of a consumer group cannot be changed after the consumer group is created.
         self.consumer_id = consumer_id  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # If you set resetType to offset, you can use this parameter to reset the consumer offset of each partition of a specific topic in the consumer group.
         self.offsets = offsets  # type: list[UpdateConsumerOffsetRequestOffsets]
+        # The region ID of the instance to which the consumer group belongs.
         self.region_id = region_id  # type: str
+        # The method that is used to reset the consumer offsets of the subscribed topics of a consumer group. Valid values:
+        # 
+        # *   **timestamp** (default)
+        # *   **offset**\
         self.reset_type = reset_type  # type: str
+        # The point in time when message consumption starts. The value of this parameter is a UNIX timestamp. Unit: milliseconds. The value of this parameter must be **less than 0** or **within the retention period of the consumer offset**. This parameter takes effect only if you set resetType to timestamp.
+        # 
+        # **If you want to reset the consumer offset to the latest offset, specify a value that is less than 0. Recommended value: -1.
         self.time = time  # type: str
+        # The topic name.
+        # 
+        # *   The name can contain letters, digits, underscores (\_), and hyphens (-).
+        # *   The name must be **3 to 64** characters in length. If a name contains more than **64** characters, the name is automatically truncated.
+        # *   The name of a topic cannot be changed after the topic is created.
+        # 
+        # **If you want to reset the consumer offsets of all topics to which the consumer subscribes, specify an empty string.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -6163,12 +6563,34 @@ class UpdateConsumerOffsetRequest(TeaModel):
 class UpdateConsumerOffsetShrinkRequest(TeaModel):
     def __init__(self, consumer_id=None, instance_id=None, offsets_shrink=None, region_id=None, reset_type=None,
                  time=None, topic=None):
+        # The name of the consumer group.
+        # 
+        # *   The name can contain letters, digits, hyphens (-), and underscores (\_).
+        # *   The name must be **3 to 64** characters in length. If a name contains more than **64** characters, the name is automatically truncated.
+        # *   The name of a consumer group cannot be changed after the consumer group is created.
         self.consumer_id = consumer_id  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # If you set resetType to offset, you can use this parameter to reset the consumer offset of each partition of a specific topic in the consumer group.
         self.offsets_shrink = offsets_shrink  # type: str
+        # The region ID of the instance to which the consumer group belongs.
         self.region_id = region_id  # type: str
+        # The method that is used to reset the consumer offsets of the subscribed topics of a consumer group. Valid values:
+        # 
+        # *   **timestamp** (default)
+        # *   **offset**\
         self.reset_type = reset_type  # type: str
+        # The point in time when message consumption starts. The value of this parameter is a UNIX timestamp. Unit: milliseconds. The value of this parameter must be **less than 0** or **within the retention period of the consumer offset**. This parameter takes effect only if you set resetType to timestamp.
+        # 
+        # **If you want to reset the consumer offset to the latest offset, specify a value that is less than 0. Recommended value: -1.
         self.time = time  # type: str
+        # The topic name.
+        # 
+        # *   The name can contain letters, digits, underscores (\_), and hyphens (-).
+        # *   The name must be **3 to 64** characters in length. If a name contains more than **64** characters, the name is automatically truncated.
+        # *   The name of a topic cannot be changed after the topic is created.
+        # 
+        # **If you want to reset the consumer offsets of all topics to which the consumer subscribes, specify an empty string.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -6217,9 +6639,13 @@ class UpdateConsumerOffsetShrinkRequest(TeaModel):
 
 class UpdateConsumerOffsetResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code that is returned. The status code **200** indicates that the request is successful.
         self.code = code  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the call was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -6295,11 +6721,11 @@ class UpdateConsumerOffsetResponse(TeaModel):
 
 class UpdateInstanceConfigRequest(TeaModel):
     def __init__(self, config=None, instance_id=None, region_id=None):
-        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
+        # The configuration of the instance that you want to update. The value must be a valid JSON string.
         self.config = config  # type: str
-        # The ID of the request.
+        # The instance ID.
         self.instance_id = instance_id  # type: str
-        # The message returned.
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -6332,26 +6758,13 @@ class UpdateInstanceConfigRequest(TeaModel):
 
 class UpdateInstanceConfigResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # Indicates whether the request is successful.
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
-        # ## **Permissions**\
-        # 
-        # If a RAM user wants to call the **UpdateInstanceConfig** operation, the RAM user must be granted the required permissions. For more information about how to grant permissions, see [RAM policies](~~185815~~).
-        # 
-        # |API|Action|Resource|
-        # |---|---|---|
-        # |UpdateInstanceConfig|alikafka: UpdateInstance|acs:alikafka:*:*:{instanceId}|
+        # The message returned.
         self.message = message  # type: str
-        # ### Config parameters
-        # 
-        # |Parameter|Type|Valid values|Default value|Description|
-        # |---|---|---|---|---|
-        # |enable.vpc\_sasl\_ssl|Boolean|true/false|false|Specifies whether to enable virtual private cloud (VPC) transmission encryption. If VPC transmission encryption is enabled, you must also enable the access control list (ACL) feature.|
-        # |enable.acl|Boolean|true/false|false|Specifies whether to enable the ACL feature.|
-        # |kafka.log.retention.hours|Integer|24~480|72|The retention period of messages. Unit: hours.|
-        # |kafka.message.max.bytes|Integer|1048576~10485760|1048576|The maximum size of a message. Unit: bytes.|
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # Modifies the configuration of a Message Queue for Apache Kafka instance.
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -6748,32 +7161,36 @@ class UpgradePostPayOrderResponse(TeaModel):
 class UpgradePrePayOrderRequest(TeaModel):
     def __init__(self, disk_size=None, eip_max=None, eip_model=None, instance_id=None, io_max=None, io_max_spec=None,
                  partition_num=None, region_id=None, spec_type=None, topic_quota=None):
-        # The number of topics. We recommend that you do not configure this parameter.
+        # The size of the disk.
         # 
-        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
-        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
-        # *   The default value of the TopicQuota parameter varies based on the value of the IoMaxSpec parameter. If the number of topics that you consume exceeds the default value, you are charged additional fees.
+        # *   The disk size that you specify must be greater than or equal to the current disk size of the instance.
         # *   For more information about the valid values, see [Billing overview](~~84737~~).
         self.disk_size = disk_size  # type: int
+        # The Internet traffic for the instance.
+        # 
+        # *   The Internet traffic volume that you specify must be greater than or equal to the current Internet traffic volume of the instance.
+        # *   For more information about the valid values, see [Billing overview](~~84737~~).
+        # > - If the **EipModel** parameter is set to **true**, set the **EipMax** parameter to a value that is greater than 0.
+        # > - If the **EipModel** parameter is set to **false**, set the **EipMax** parameter to **0**.
+        self.eip_max = eip_max  # type: int
+        # Specifies whether to enable Internet access for the instance. Valid values:
+        # 
+        # *   true: enables Internet access.
+        # *   false: disables Internet access.
+        self.eip_model = eip_model  # type: bool
+        # The ID of the instance.
+        self.instance_id = instance_id  # type: str
         # The maximum traffic for the instance. We recommend that you do not configure this parameter.
         # 
         # *   The maximum traffic volume that you specify must be greater than or equal to the current maximum traffic volume of the instance.
         # *   You must configure at least one of the IoMax and IoMaxSpec parameters. If you configure both parameters, the value of the IoMaxSpec parameter takes effect. We recommend that you configure only the IoMaxSpec parameter.
         # *   For more information about the valid values, see [Billing overview](~~84737~~).
-        self.eip_max = eip_max  # type: int
-        # The ID of the instance.
-        self.eip_model = eip_model  # type: bool
-        # The region ID of the instance.
-        self.instance_id = instance_id  # type: str
-        # The edition of the instance. Valid values:
-        # 
-        # *   **normal**: Standard Edition (High Write)
-        # *   **professional**: Professional Edition (High Write)
-        # *   **professionalForHighRead**: Professional Edition (High Read)
-        # 
-        # You cannot downgrade an instance from the Professional Edition to the Standard Edition. For more information about these instance editions, see [Billing overview](~~84737~~).
         self.io_max = io_max  # type: int
-        # The ID of the request.
+        # The traffic specification of the instance. We recommend that you configure this parameter.
+        # 
+        # *   The traffic specification that you specify must be greater than or equal to the current traffic specification of the instance.
+        # *   You must configure at least one of the IoMax and IoMaxSpec parameters. If you configure both parameters, the value of the IoMaxSpec parameter takes effect. We recommend that you configure only the IoMaxSpec parameter.
+        # *   For more information about the valid values, see [Billing overview](~~84737~~).
         self.io_max_spec = io_max_spec  # type: str
         # The number of partitions. We recommend that you configure this parameter.
         # 
@@ -6781,20 +7198,22 @@ class UpgradePrePayOrderRequest(TeaModel):
         # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
         # *   For more information about the valid values, see [Billing overview](~~84737~~).
         self.partition_num = partition_num  # type: int
-        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
-        # The error message returned.
+        # The edition of the instance. Valid values:
+        # 
+        # *   **normal**: Standard Edition (High Write)
+        # *   **professional**: Professional Edition (High Write)
+        # *   **professionalForHighRead**: Professional Edition (High Read)
+        # 
+        # You cannot downgrade an instance from the Professional Edition to the Standard Edition. For more information about these instance editions, see [Billing overview](~~84737~~).
         self.spec_type = spec_type  # type: str
-        # The Internet traffic for the instance.
+        # The number of topics. We recommend that you do not configure this parameter.
         # 
-        # *   The Internet traffic volume that you specify must be greater than or equal to the current Internet traffic volume of the instance.
+        # *   You must specify at least one of the PartitionNum and TopicQuota parameters. We recommend that you configure only the PartitionNum parameter.
+        # *   If you specify both parameters, the topic-based sales model is used to check whether the PartitionNum value and the TopicQuota value are the same. If they are not the same, a failure response is returned. If they are the same, the order is placed based on the PartitionNum value.
+        # *   The default value of the TopicQuota parameter varies based on the value of the IoMaxSpec parameter. If the number of topics that you consume exceeds the default value, you are charged additional fees.
         # *   For more information about the valid values, see [Billing overview](~~84737~~).
-        # 
-        # > 
-        # 
-        # *   If the **EipModel** parameter is set to **true**, set the **EipMax** parameter to a value that is greater than 0.
-        # 
-        # *   If the **EipModel** parameter is set to **false**, set the **EipMax** parameter to **0**.
         self.topic_quota = topic_quota  # type: int
 
     def validate(self):
@@ -6855,11 +7274,13 @@ class UpgradePrePayOrderRequest(TeaModel):
 
 class UpgradePrePayOrderResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # Upgrades a Message Queue for Apache Kafka instance that uses the subscription billing method.
+        # The HTTP status code returned. The HTTP status code 200 indicates that the request is successful.
         self.code = code  # type: int
-        # 261860
+        # The error message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
