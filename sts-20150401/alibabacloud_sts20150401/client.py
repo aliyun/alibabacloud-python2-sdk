@@ -143,9 +143,9 @@ class Client(OpenApiClient):
     def assume_role_with_oidcwith_options(self, request, runtime):
         """
         ### Prerequisites
-        - An OIDC token is obtained from an external identity provider (IdP).
-        - An OIDC IdP is created in the RAM console. For more information, see [Create an OIDC IdP](~~327123~~) or [CreateOIDCProvider](~~327135~~).
-        - A RAM role whose trusted entity is an OIDC IdP is created in the RAM console. For more information, see [Create a RAM role for a trusted IdP](~~116805~~) or [CreateRole](~~28710~~).
+        *   An OIDC token is obtained from an external identity provider (IdP).
+        *   An OIDC IdP is created in the RAM console. For more information, see [Create an OIDC IdP](~~327123~~) or [CreateOIDCProvider](~~327135~~).
+        *   A RAM role whose trusted entity is an OIDC IdP is created in the RAM console. For more information, see [Create a RAM role for a trusted IdP](~~116805~~) or [CreateRole](~~28710~~).
         
 
         @param request: AssumeRoleWithOIDCRequest
@@ -190,9 +190,9 @@ class Client(OpenApiClient):
     def assume_role_with_oidc(self, request):
         """
         ### Prerequisites
-        - An OIDC token is obtained from an external identity provider (IdP).
-        - An OIDC IdP is created in the RAM console. For more information, see [Create an OIDC IdP](~~327123~~) or [CreateOIDCProvider](~~327135~~).
-        - A RAM role whose trusted entity is an OIDC IdP is created in the RAM console. For more information, see [Create a RAM role for a trusted IdP](~~116805~~) or [CreateRole](~~28710~~).
+        *   An OIDC token is obtained from an external identity provider (IdP).
+        *   An OIDC IdP is created in the RAM console. For more information, see [Create an OIDC IdP](~~327123~~) or [CreateOIDCProvider](~~327135~~).
+        *   A RAM role whose trusted entity is an OIDC IdP is created in the RAM console. For more information, see [Create a RAM role for a trusted IdP](~~116805~~) or [CreateRole](~~28710~~).
         
 
         @param request: AssumeRoleWithOIDCRequest
@@ -204,10 +204,10 @@ class Client(OpenApiClient):
 
     def assume_role_with_samlwith_options(self, request, runtime):
         """
-        ### Prerequisites
-        - A SAML response is obtained from an external identity provider (IdP).
-        - A SAML IdP is created in the RAM console. For more information, see [Create a SAML IdP](~~116083~~) or [CreateSAMLProvider](~~186846~~).
-        - A RAM role whose trusted entity is a SAML IdP is created in the RAM console. For more information, see [Create a RAM role for a trusted IdP](~~116805~~) or [CreateRole](~~28710~~).
+        ###
+        *   A SAML response is obtained from an external identity provider (IdP).
+        *   A SAML IdP is created in the RAM console. For more information, see [Create a SAML IdP](~~116083~~) or [CreateSAMLProvider](~~186846~~).
+        *   A RAM role whose trusted entity is a SAML IdP is created in the RAM console. For more information, see [Create a RAM role for a trusted IdP](~~116805~~) or [CreateRole](~~28710~~).
         
 
         @param request: AssumeRoleWithSAMLRequest
@@ -249,10 +249,10 @@ class Client(OpenApiClient):
 
     def assume_role_with_saml(self, request):
         """
-        ### Prerequisites
-        - A SAML response is obtained from an external identity provider (IdP).
-        - A SAML IdP is created in the RAM console. For more information, see [Create a SAML IdP](~~116083~~) or [CreateSAMLProvider](~~186846~~).
-        - A RAM role whose trusted entity is a SAML IdP is created in the RAM console. For more information, see [Create a RAM role for a trusted IdP](~~116805~~) or [CreateRole](~~28710~~).
+        ###
+        *   A SAML response is obtained from an external identity provider (IdP).
+        *   A SAML IdP is created in the RAM console. For more information, see [Create a SAML IdP](~~116083~~) or [CreateSAMLProvider](~~186846~~).
+        *   A RAM role whose trusted entity is a SAML IdP is created in the RAM console. For more information, see [Create a RAM role for a trusted IdP](~~116805~~) or [CreateRole](~~28710~~).
         
 
         @param request: AssumeRoleWithSAMLRequest
