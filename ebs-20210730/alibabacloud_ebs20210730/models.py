@@ -354,6 +354,200 @@ class ChangeResourceGroupResponse(TeaModel):
         return self
 
 
+class ClearPairDrillRequest(TeaModel):
+    def __init__(self, drill_id=None, pair_id=None, region_id=None):
+        self.drill_id = drill_id  # type: str
+        self.pair_id = pair_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ClearPairDrillRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.drill_id is not None:
+            result['DrillId'] = self.drill_id
+        if self.pair_id is not None:
+            result['PairId'] = self.pair_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DrillId') is not None:
+            self.drill_id = m.get('DrillId')
+        if m.get('PairId') is not None:
+            self.pair_id = m.get('PairId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ClearPairDrillResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ClearPairDrillResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ClearPairDrillResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ClearPairDrillResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ClearPairDrillResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ClearPairDrillResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ClearReplicaGroupDrillRequest(TeaModel):
+    def __init__(self, drill_id=None, group_id=None, region_id=None):
+        self.drill_id = drill_id  # type: str
+        self.group_id = group_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ClearReplicaGroupDrillRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.drill_id is not None:
+            result['DrillId'] = self.drill_id
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DrillId') is not None:
+            self.drill_id = m.get('DrillId')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ClearReplicaGroupDrillResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ClearReplicaGroupDrillResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ClearReplicaGroupDrillResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ClearReplicaGroupDrillResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ClearReplicaGroupDrillResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ClearReplicaGroupDrillResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateDedicatedBlockStorageClusterRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         self.key = key  # type: str
@@ -3914,6 +4108,213 @@ class DescribeLensServiceStatusResponse(TeaModel):
         return self
 
 
+class DescribePairDrillsRequest(TeaModel):
+    def __init__(self, drill_id=None, max_results=None, next_token=None, page_number=None, page_size=None,
+                 pair_id=None, region_id=None):
+        self.drill_id = drill_id  # type: str
+        self.max_results = max_results  # type: long
+        self.next_token = next_token  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.pair_id = pair_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePairDrillsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.drill_id is not None:
+            result['DrillId'] = self.drill_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.pair_id is not None:
+            result['PairId'] = self.pair_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DrillId') is not None:
+            self.drill_id = m.get('DrillId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('PairId') is not None:
+            self.pair_id = m.get('PairId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribePairDrillsResponseBodyDrills(TeaModel):
+    def __init__(self, drill_disk_id=None, drill_disk_status=None, drill_id=None, recover_point=None, start_at=None,
+                 status=None, status_message=None):
+        self.drill_disk_id = drill_disk_id  # type: str
+        self.drill_disk_status = drill_disk_status  # type: str
+        self.drill_id = drill_id  # type: str
+        self.recover_point = recover_point  # type: long
+        self.start_at = start_at  # type: long
+        self.status = status  # type: str
+        self.status_message = status_message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePairDrillsResponseBodyDrills, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.drill_disk_id is not None:
+            result['DrillDiskId'] = self.drill_disk_id
+        if self.drill_disk_status is not None:
+            result['DrillDiskStatus'] = self.drill_disk_status
+        if self.drill_id is not None:
+            result['DrillId'] = self.drill_id
+        if self.recover_point is not None:
+            result['RecoverPoint'] = self.recover_point
+        if self.start_at is not None:
+            result['StartAt'] = self.start_at
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.status_message is not None:
+            result['StatusMessage'] = self.status_message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DrillDiskId') is not None:
+            self.drill_disk_id = m.get('DrillDiskId')
+        if m.get('DrillDiskStatus') is not None:
+            self.drill_disk_status = m.get('DrillDiskStatus')
+        if m.get('DrillId') is not None:
+            self.drill_id = m.get('DrillId')
+        if m.get('RecoverPoint') is not None:
+            self.recover_point = m.get('RecoverPoint')
+        if m.get('StartAt') is not None:
+            self.start_at = m.get('StartAt')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('StatusMessage') is not None:
+            self.status_message = m.get('StatusMessage')
+        return self
+
+
+class DescribePairDrillsResponseBody(TeaModel):
+    def __init__(self, drills=None, next_token=None, page_number=None, page_size=None, request_id=None,
+                 total_count=None):
+        self.drills = drills  # type: list[DescribePairDrillsResponseBodyDrills]
+        self.next_token = next_token  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.drills:
+            for k in self.drills:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribePairDrillsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Drills'] = []
+        if self.drills is not None:
+            for k in self.drills:
+                result['Drills'].append(k.to_map() if k else None)
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.drills = []
+        if m.get('Drills') is not None:
+            for k in m.get('Drills'):
+                temp_model = DescribePairDrillsResponseBodyDrills()
+                self.drills.append(temp_model.from_map(k))
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribePairDrillsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribePairDrillsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribePairDrillsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribePairDrillsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeRegionsRequest(TeaModel):
     def __init__(self, accept_language=None, region_id=None, resource_type=None):
         # The language in which the regions and zones are named. This parameter corresponds to the `LocalName` response parameter. Valid values:
@@ -4125,6 +4526,255 @@ class DescribeRegionsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRegionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeReplicaGroupDrillsRequest(TeaModel):
+    def __init__(self, drill_id=None, group_id=None, max_results=None, next_token=None, page_number=None,
+                 page_size=None, region_id=None):
+        self.drill_id = drill_id  # type: str
+        self.group_id = group_id  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeReplicaGroupDrillsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.drill_id is not None:
+            result['DrillId'] = self.drill_id
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DrillId') is not None:
+            self.drill_id = m.get('DrillId')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeReplicaGroupDrillsResponseBodyDrillsPairsInfo(TeaModel):
+    def __init__(self, drill_disk_id=None, drill_disk_status=None, pair_id=None):
+        self.drill_disk_id = drill_disk_id  # type: str
+        self.drill_disk_status = drill_disk_status  # type: str
+        self.pair_id = pair_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeReplicaGroupDrillsResponseBodyDrillsPairsInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.drill_disk_id is not None:
+            result['DrillDiskId'] = self.drill_disk_id
+        if self.drill_disk_status is not None:
+            result['DrillDiskStatus'] = self.drill_disk_status
+        if self.pair_id is not None:
+            result['PairId'] = self.pair_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DrillDiskId') is not None:
+            self.drill_disk_id = m.get('DrillDiskId')
+        if m.get('DrillDiskStatus') is not None:
+            self.drill_disk_status = m.get('DrillDiskStatus')
+        if m.get('PairId') is not None:
+            self.pair_id = m.get('PairId')
+        return self
+
+
+class DescribeReplicaGroupDrillsResponseBodyDrills(TeaModel):
+    def __init__(self, drill_id=None, group_id=None, pairs_info=None, recover_point=None, start_at=None, status=None,
+                 status_message=None):
+        self.drill_id = drill_id  # type: str
+        self.group_id = group_id  # type: str
+        self.pairs_info = pairs_info  # type: list[DescribeReplicaGroupDrillsResponseBodyDrillsPairsInfo]
+        self.recover_point = recover_point  # type: long
+        self.start_at = start_at  # type: long
+        self.status = status  # type: str
+        self.status_message = status_message  # type: str
+
+    def validate(self):
+        if self.pairs_info:
+            for k in self.pairs_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeReplicaGroupDrillsResponseBodyDrills, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.drill_id is not None:
+            result['DrillId'] = self.drill_id
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        result['PairsInfo'] = []
+        if self.pairs_info is not None:
+            for k in self.pairs_info:
+                result['PairsInfo'].append(k.to_map() if k else None)
+        if self.recover_point is not None:
+            result['RecoverPoint'] = self.recover_point
+        if self.start_at is not None:
+            result['StartAt'] = self.start_at
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.status_message is not None:
+            result['StatusMessage'] = self.status_message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DrillId') is not None:
+            self.drill_id = m.get('DrillId')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        self.pairs_info = []
+        if m.get('PairsInfo') is not None:
+            for k in m.get('PairsInfo'):
+                temp_model = DescribeReplicaGroupDrillsResponseBodyDrillsPairsInfo()
+                self.pairs_info.append(temp_model.from_map(k))
+        if m.get('RecoverPoint') is not None:
+            self.recover_point = m.get('RecoverPoint')
+        if m.get('StartAt') is not None:
+            self.start_at = m.get('StartAt')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('StatusMessage') is not None:
+            self.status_message = m.get('StatusMessage')
+        return self
+
+
+class DescribeReplicaGroupDrillsResponseBody(TeaModel):
+    def __init__(self, drills=None, next_token=None, page_number=None, page_size=None, request_id=None,
+                 total_count=None):
+        self.drills = drills  # type: list[DescribeReplicaGroupDrillsResponseBodyDrills]
+        self.next_token = next_token  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.drills:
+            for k in self.drills:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeReplicaGroupDrillsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Drills'] = []
+        if self.drills is not None:
+            for k in self.drills:
+                result['Drills'].append(k.to_map() if k else None)
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.drills = []
+        if m.get('Drills') is not None:
+            for k in m.get('Drills'):
+                temp_model = DescribeReplicaGroupDrillsResponseBodyDrills()
+                self.drills.append(temp_model.from_map(k))
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeReplicaGroupDrillsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeReplicaGroupDrillsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeReplicaGroupDrillsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeReplicaGroupDrillsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5044,13 +5694,14 @@ class RemoveDiskReplicaPairResponse(TeaModel):
 
 
 class ReprotectDiskReplicaGroupRequest(TeaModel):
-    def __init__(self, client_token=None, region_id=None, replica_group_id=None):
+    def __init__(self, client_token=None, region_id=None, replica_group_id=None, reverse_replicate=None):
         # The ID of the request.
         self.client_token = client_token  # type: str
         # The ID of the replication pair-consistent group. You can call the [DescribeDiskReplicaGroups](~~426614~~) operation to query the IDs of replication pair-consistent groups.
         self.region_id = region_id  # type: str
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.replica_group_id = replica_group_id  # type: str
+        self.reverse_replicate = reverse_replicate  # type: bool
 
     def validate(self):
         pass
@@ -5067,6 +5718,8 @@ class ReprotectDiskReplicaGroupRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.replica_group_id is not None:
             result['ReplicaGroupId'] = self.replica_group_id
+        if self.reverse_replicate is not None:
+            result['ReverseReplicate'] = self.reverse_replicate
         return result
 
     def from_map(self, m=None):
@@ -5077,6 +5730,8 @@ class ReprotectDiskReplicaGroupRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ReplicaGroupId') is not None:
             self.replica_group_id = m.get('ReplicaGroupId')
+        if m.get('ReverseReplicate') is not None:
+            self.reverse_replicate = m.get('ReverseReplicate')
         return self
 
 
@@ -5144,10 +5799,12 @@ class ReprotectDiskReplicaGroupResponse(TeaModel):
 
 
 class ReprotectDiskReplicaPairRequest(TeaModel):
-    def __init__(self, client_token=None, region_id=None, replica_pair_id=None):
+    def __init__(self, client_token=None, region_id=None, replica_pair_id=None, reverse_replicate=None):
         self.client_token = client_token  # type: str
         self.region_id = region_id  # type: str
         self.replica_pair_id = replica_pair_id  # type: str
+        # 反向复制开关：false代表恢复原方向，true代表反向复制。默认值是true。
+        self.reverse_replicate = reverse_replicate  # type: bool
 
     def validate(self):
         pass
@@ -5164,6 +5821,8 @@ class ReprotectDiskReplicaPairRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.replica_pair_id is not None:
             result['ReplicaPairId'] = self.replica_pair_id
+        if self.reverse_replicate is not None:
+            result['ReverseReplicate'] = self.reverse_replicate
         return result
 
     def from_map(self, m=None):
@@ -5174,6 +5833,8 @@ class ReprotectDiskReplicaPairRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ReplicaPairId') is not None:
             self.replica_pair_id = m.get('ReplicaPairId')
+        if m.get('ReverseReplicate') is not None:
+            self.reverse_replicate = m.get('ReverseReplicate')
         return self
 
 
@@ -5576,6 +6237,210 @@ class StartDiskReplicaPairResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StartDiskReplicaPairResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StartPairDrillRequest(TeaModel):
+    def __init__(self, client_token=None, pair_id=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.pair_id = pair_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartPairDrillRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.pair_id is not None:
+            result['PairId'] = self.pair_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('PairId') is not None:
+            self.pair_id = m.get('PairId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class StartPairDrillResponseBody(TeaModel):
+    def __init__(self, drill_id=None, request_id=None):
+        self.drill_id = drill_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartPairDrillResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.drill_id is not None:
+            result['DrillId'] = self.drill_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DrillId') is not None:
+            self.drill_id = m.get('DrillId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class StartPairDrillResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: StartPairDrillResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StartPairDrillResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = StartPairDrillResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StartReplicaGroupDrillRequest(TeaModel):
+    def __init__(self, client_token=None, group_id=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.group_id = group_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartReplicaGroupDrillRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class StartReplicaGroupDrillResponseBody(TeaModel):
+    def __init__(self, drill_id=None, request_id=None):
+        self.drill_id = drill_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartReplicaGroupDrillResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.drill_id is not None:
+            result['DrillId'] = self.drill_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DrillId') is not None:
+            self.drill_id = m.get('DrillId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class StartReplicaGroupDrillResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: StartReplicaGroupDrillResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StartReplicaGroupDrillResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = StartReplicaGroupDrillResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
