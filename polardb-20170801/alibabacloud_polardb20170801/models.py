@@ -1196,6 +1196,134 @@ class CreateBackupResponse(TeaModel):
         return self
 
 
+class CreateColdStorageInstanceRequest(TeaModel):
+    def __init__(self, client_token=None, cold_storage_instance_description=None, dbcluster_id=None,
+                 owner_account=None, owner_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
+        self.client_token = client_token  # type: str
+        self.cold_storage_instance_description = cold_storage_instance_description  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateColdStorageInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.cold_storage_instance_description is not None:
+            result['ColdStorageInstanceDescription'] = self.cold_storage_instance_description
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('ColdStorageInstanceDescription') is not None:
+            self.cold_storage_instance_description = m.get('ColdStorageInstanceDescription')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class CreateColdStorageInstanceResponseBody(TeaModel):
+    def __init__(self, cold_storage_instance_id=None, request_id=None):
+        self.cold_storage_instance_id = cold_storage_instance_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateColdStorageInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cold_storage_instance_id is not None:
+            result['ColdStorageInstanceId'] = self.cold_storage_instance_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ColdStorageInstanceId') is not None:
+            self.cold_storage_instance_id = m.get('ColdStorageInstanceId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateColdStorageInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateColdStorageInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateColdStorageInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateColdStorageInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateDBClusterRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         # The key of the tag that you want to create for the cluster. To create multiple tags for a cluster at a time, click the **+** icon.
@@ -7980,11 +8108,11 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
                  data_level_1backup_chain_size=None, data_sync_mode=None, deletion_lock=None, deploy_unit=None, engine=None, expire_time=None,
                  expired=None, has_complete_standby_res=None, hot_standby_cluster=None, inode_total=None, inode_used=None,
                  is_latest_version=None, is_proxy_latest_version=None, lock_mode=None, maintain_time=None, pay_type=None,
-                 proxy_cpu_cores=None, proxy_serverless_type=None, proxy_standard_cpu_cores=None, proxy_status=None,
-                 proxy_type=None, region_id=None, request_id=None, resource_group_id=None, sqlsize=None, serverless_type=None,
-                 standby_hamode=None, storage_max=None, storage_pay_type=None, storage_space=None, storage_type=None,
-                 storage_used=None, strict_consistency=None, sub_category=None, tags=None, vpcid=None, v_switch_id=None,
-                 zone_ids=None):
+                 provisioned_iops=None, proxy_cpu_cores=None, proxy_serverless_type=None, proxy_standard_cpu_cores=None,
+                 proxy_status=None, proxy_type=None, region_id=None, request_id=None, resource_group_id=None, sqlsize=None,
+                 serverless_type=None, standby_hamode=None, storage_max=None, storage_pay_type=None, storage_space=None,
+                 storage_type=None, storage_used=None, strict_consistency=None, sub_category=None, tags=None, vpcid=None,
+                 v_switch_id=None, zone_ids=None):
         # The information status of the AI node. Valid values:
         # 
         # *   SearchNode: search node.
@@ -8083,6 +8211,7 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
         # *   **Postpaid**: pay-as-you-go.
         # *   **Prepaid**: subscription
         self.pay_type = pay_type  # type: str
+        self.provisioned_iops = provisioned_iops  # type: str
         # The number of CPU cores for PolarProxy.
         self.proxy_cpu_cores = proxy_cpu_cores  # type: str
         # The type of the serverless PolarProxy. Valid value: AgileServerless.
@@ -8234,6 +8363,8 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
             result['MaintainTime'] = self.maintain_time
         if self.pay_type is not None:
             result['PayType'] = self.pay_type
+        if self.provisioned_iops is not None:
+            result['ProvisionedIops'] = self.provisioned_iops
         if self.proxy_cpu_cores is not None:
             result['ProxyCpuCores'] = self.proxy_cpu_cores
         if self.proxy_serverless_type is not None:
@@ -8349,6 +8480,8 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
             self.maintain_time = m.get('MaintainTime')
         if m.get('PayType') is not None:
             self.pay_type = m.get('PayType')
+        if m.get('ProvisionedIops') is not None:
+            self.provisioned_iops = m.get('ProvisionedIops')
         if m.get('ProxyCpuCores') is not None:
             self.proxy_cpu_cores = m.get('ProxyCpuCores')
         if m.get('ProxyServerlessType') is not None:
@@ -15819,19 +15952,27 @@ class DescribeLogBackupPolicyRequest(TeaModel):
 class DescribeLogBackupPolicyResponseBody(TeaModel):
     def __init__(self, enable_backup_log=None, log_backup_another_region_region=None,
                  log_backup_another_region_retention_period=None, log_backup_retention_period=None, request_id=None):
-        # Indicates whether the log backup feature was enabled. Valid values:
+        # Indicates whether the log backup feature is enabled. Valid values:
         # 
-        # *   0: disabled.
-        # *   1: enabled. By default, the log backup feature is enabled and cannot be disabled.
+        # *   0: The log backup feature is disabled.
+        # *   1: The log backup feature is enabled. By default, the log backup feature is enabled and cannot be disabled.
         self.enable_backup_log = enable_backup_log  # type: int
+        # The region in which you want to store cross-region log backups. For more information about regions that support the cross-region backup feature, see [Overview](~~72672~~).
         self.log_backup_another_region_region = log_backup_another_region_region  # type: str
-        self.log_backup_another_region_retention_period = log_backup_another_region_retention_period  # type: str
-        # The retention period of the logs. Valid values:
+        # The retention period of cross-region log backups. Valid values:
         # 
-        # *   7 to 7300: The logs are retained for 7 to 7,300 days.
-        # *   \-1: The logs are permanently retained.
+        # *   **0**: The cross-region backup feature is disabled.
+        # *   **30 to 7300**: Cross-region log backups are retained for 30 to 7,300 days.
+        # *   **-1**: The log backups are permanently retained.
+        # 
+        # >  When you create a cluster, the default value of this parameter is **0**.
+        self.log_backup_another_region_retention_period = log_backup_another_region_retention_period  # type: str
+        # The retention period of the log backups. Valid values:
+        # 
+        # *   3 to 7300: The log backups are retained for 3 to 7,300 days.
+        # *   \-1: The log backups are permanently retained.
         self.log_backup_retention_period = log_backup_retention_period  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19835,6 +19976,150 @@ class DisableDBClusterServerlessResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DisableDBClusterServerlessResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class EnableDBClusterServerlessRequest(TeaModel):
+    def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None, scale_ap_ro_num_max=None, scale_ap_ro_num_min=None, scale_max=None, scale_min=None,
+                 scale_ro_num_max=None, scale_ro_num_min=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.scale_ap_ro_num_max = scale_ap_ro_num_max  # type: str
+        self.scale_ap_ro_num_min = scale_ap_ro_num_min  # type: str
+        self.scale_max = scale_max  # type: str
+        self.scale_min = scale_min  # type: str
+        self.scale_ro_num_max = scale_ro_num_max  # type: str
+        self.scale_ro_num_min = scale_ro_num_min  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableDBClusterServerlessRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.scale_ap_ro_num_max is not None:
+            result['ScaleApRoNumMax'] = self.scale_ap_ro_num_max
+        if self.scale_ap_ro_num_min is not None:
+            result['ScaleApRoNumMin'] = self.scale_ap_ro_num_min
+        if self.scale_max is not None:
+            result['ScaleMax'] = self.scale_max
+        if self.scale_min is not None:
+            result['ScaleMin'] = self.scale_min
+        if self.scale_ro_num_max is not None:
+            result['ScaleRoNumMax'] = self.scale_ro_num_max
+        if self.scale_ro_num_min is not None:
+            result['ScaleRoNumMin'] = self.scale_ro_num_min
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('ScaleApRoNumMax') is not None:
+            self.scale_ap_ro_num_max = m.get('ScaleApRoNumMax')
+        if m.get('ScaleApRoNumMin') is not None:
+            self.scale_ap_ro_num_min = m.get('ScaleApRoNumMin')
+        if m.get('ScaleMax') is not None:
+            self.scale_max = m.get('ScaleMax')
+        if m.get('ScaleMin') is not None:
+            self.scale_min = m.get('ScaleMin')
+        if m.get('ScaleRoNumMax') is not None:
+            self.scale_ro_num_max = m.get('ScaleRoNumMax')
+        if m.get('ScaleRoNumMin') is not None:
+            self.scale_ro_num_min = m.get('ScaleRoNumMin')
+        return self
+
+
+class EnableDBClusterServerlessResponseBody(TeaModel):
+    def __init__(self, dbcluster_id=None, request_id=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableDBClusterServerlessResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class EnableDBClusterServerlessResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: EnableDBClusterServerlessResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(EnableDBClusterServerlessResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = EnableDBClusterServerlessResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
