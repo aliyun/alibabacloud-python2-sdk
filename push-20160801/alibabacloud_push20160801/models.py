@@ -1306,20 +1306,20 @@ class ListTagsResponse(TeaModel):
 
 class MassPushRequestPushTask(TeaModel):
     def __init__(self, android_activity=None, android_big_body=None, android_big_picture_url=None,
-                 android_big_title=None, android_ext_parameters=None, android_huawei_receipt_id=None,
-                 android_huawei_target_user_type=None, android_image_url=None, android_inbox_body=None, android_message_huawei_category=None,
-                 android_message_huawei_urgency=None, android_message_vivo_category=None, android_music=None,
-                 android_notification_bar_priority=None, android_notification_bar_type=None, android_notification_channel=None,
-                 android_notification_group=None, android_notification_honor_channel=None, android_notification_huawei_channel=None,
-                 android_notification_notify_id=None, android_notification_vivo_channel=None, android_notification_xiaomi_channel=None,
-                 android_notify_type=None, android_open_type=None, android_open_url=None, android_popup_activity=None,
-                 android_popup_body=None, android_popup_title=None, android_remind=None, android_render_style=None,
-                 android_vivo_push_mode=None, android_xiao_mi_activity=None, android_xiao_mi_notify_body=None,
-                 android_xiao_mi_notify_title=None, android_xiaomi_big_picture_url=None, android_xiaomi_image_url=None, body=None,
-                 device_type=None, expire_time=None, job_key=None, push_time=None, push_type=None, send_channels=None,
-                 send_speed=None, store_offline=None, target=None, target_value=None, title=None, trim=None, i_osapns_env=None,
-                 i_osbadge=None, i_osbadge_auto_increment=None, i_osext_parameters=None, i_osinterruption_level=None,
-                 i_osmusic=None, i_osmutable_content=None, i_osnotification_category=None,
+                 android_big_title=None, android_ext_parameters=None, android_honor_target_user_type=None,
+                 android_huawei_receipt_id=None, android_huawei_target_user_type=None, android_image_url=None, android_inbox_body=None,
+                 android_message_huawei_category=None, android_message_huawei_urgency=None, android_message_vivo_category=None,
+                 android_music=None, android_notification_bar_priority=None, android_notification_bar_type=None,
+                 android_notification_channel=None, android_notification_group=None, android_notification_honor_channel=None,
+                 android_notification_huawei_channel=None, android_notification_notify_id=None, android_notification_vivo_channel=None,
+                 android_notification_xiaomi_channel=None, android_notify_type=None, android_open_type=None, android_open_url=None,
+                 android_popup_activity=None, android_popup_body=None, android_popup_title=None, android_remind=None,
+                 android_render_style=None, android_target_user_type=None, android_vivo_push_mode=None, android_xiao_mi_activity=None,
+                 android_xiao_mi_notify_body=None, android_xiao_mi_notify_title=None, android_xiaomi_big_picture_url=None,
+                 android_xiaomi_image_url=None, body=None, device_type=None, expire_time=None, job_key=None, push_time=None, push_type=None,
+                 send_channels=None, send_speed=None, store_offline=None, target=None, target_value=None, title=None, trim=None,
+                 i_osapns_env=None, i_osbadge=None, i_osbadge_auto_increment=None, i_osext_parameters=None,
+                 i_osinterruption_level=None, i_osmusic=None, i_osmutable_content=None, i_osnotification_category=None,
                  i_osnotification_collapse_id=None, i_osnotification_thread_id=None, i_osrelevance_score=None, i_osremind=None,
                  i_osremind_body=None, i_ossilent_notification=None, i_ossubtitle=None):
         self.android_activity = android_activity  # type: str
@@ -1327,6 +1327,7 @@ class MassPushRequestPushTask(TeaModel):
         self.android_big_picture_url = android_big_picture_url  # type: str
         self.android_big_title = android_big_title  # type: str
         self.android_ext_parameters = android_ext_parameters  # type: str
+        self.android_honor_target_user_type = android_honor_target_user_type  # type: int
         self.android_huawei_receipt_id = android_huawei_receipt_id  # type: str
         self.android_huawei_target_user_type = android_huawei_target_user_type  # type: int
         self.android_image_url = android_image_url  # type: str
@@ -1352,6 +1353,7 @@ class MassPushRequestPushTask(TeaModel):
         self.android_popup_title = android_popup_title  # type: str
         self.android_remind = android_remind  # type: bool
         self.android_render_style = android_render_style  # type: str
+        self.android_target_user_type = android_target_user_type  # type: int
         self.android_vivo_push_mode = android_vivo_push_mode  # type: int
         self.android_xiao_mi_activity = android_xiao_mi_activity  # type: str
         self.android_xiao_mi_notify_body = android_xiao_mi_notify_body  # type: str
@@ -1406,6 +1408,8 @@ class MassPushRequestPushTask(TeaModel):
             result['AndroidBigTitle'] = self.android_big_title
         if self.android_ext_parameters is not None:
             result['AndroidExtParameters'] = self.android_ext_parameters
+        if self.android_honor_target_user_type is not None:
+            result['AndroidHonorTargetUserType'] = self.android_honor_target_user_type
         if self.android_huawei_receipt_id is not None:
             result['AndroidHuaweiReceiptId'] = self.android_huawei_receipt_id
         if self.android_huawei_target_user_type is not None:
@@ -1456,6 +1460,8 @@ class MassPushRequestPushTask(TeaModel):
             result['AndroidRemind'] = self.android_remind
         if self.android_render_style is not None:
             result['AndroidRenderStyle'] = self.android_render_style
+        if self.android_target_user_type is not None:
+            result['AndroidTargetUserType'] = self.android_target_user_type
         if self.android_vivo_push_mode is not None:
             result['AndroidVivoPushMode'] = self.android_vivo_push_mode
         if self.android_xiao_mi_activity is not None:
@@ -1538,6 +1544,8 @@ class MassPushRequestPushTask(TeaModel):
             self.android_big_title = m.get('AndroidBigTitle')
         if m.get('AndroidExtParameters') is not None:
             self.android_ext_parameters = m.get('AndroidExtParameters')
+        if m.get('AndroidHonorTargetUserType') is not None:
+            self.android_honor_target_user_type = m.get('AndroidHonorTargetUserType')
         if m.get('AndroidHuaweiReceiptId') is not None:
             self.android_huawei_receipt_id = m.get('AndroidHuaweiReceiptId')
         if m.get('AndroidHuaweiTargetUserType') is not None:
@@ -1588,6 +1596,8 @@ class MassPushRequestPushTask(TeaModel):
             self.android_remind = m.get('AndroidRemind')
         if m.get('AndroidRenderStyle') is not None:
             self.android_render_style = m.get('AndroidRenderStyle')
+        if m.get('AndroidTargetUserType') is not None:
+            self.android_target_user_type = m.get('AndroidTargetUserType')
         if m.get('AndroidVivoPushMode') is not None:
             self.android_vivo_push_mode = m.get('AndroidVivoPushMode')
         if m.get('AndroidXiaoMiActivity') is not None:
@@ -1792,28 +1802,29 @@ class MassPushResponse(TeaModel):
 
 class PushRequest(TeaModel):
     def __init__(self, android_activity=None, android_big_body=None, android_big_picture_url=None,
-                 android_big_title=None, android_ext_parameters=None, android_huawei_receipt_id=None,
-                 android_huawei_target_user_type=None, android_image_url=None, android_inbox_body=None, android_message_huawei_category=None,
-                 android_message_huawei_urgency=None, android_message_vivo_category=None, android_music=None,
-                 android_notification_bar_priority=None, android_notification_bar_type=None, android_notification_channel=None,
-                 android_notification_group=None, android_notification_honor_channel=None, android_notification_huawei_channel=None,
-                 android_notification_notify_id=None, android_notification_vivo_channel=None, android_notification_xiaomi_channel=None,
-                 android_notify_type=None, android_open_type=None, android_open_url=None, android_popup_activity=None,
-                 android_popup_body=None, android_popup_title=None, android_remind=None, android_render_style=None,
-                 android_vivo_push_mode=None, android_xiao_mi_activity=None, android_xiao_mi_notify_body=None,
-                 android_xiao_mi_notify_title=None, android_xiaomi_big_picture_url=None, android_xiaomi_image_url=None, app_key=None, body=None,
-                 device_type=None, expire_time=None, job_key=None, push_time=None, push_type=None, send_channels=None,
-                 send_speed=None, sms_delay_secs=None, sms_params=None, sms_send_policy=None, sms_sign_name=None,
-                 sms_template_name=None, store_offline=None, target=None, target_value=None, title=None, trim=None, i_osapns_env=None,
-                 i_osbadge=None, i_osbadge_auto_increment=None, i_osext_parameters=None, i_osinterruption_level=None,
-                 i_osmusic=None, i_osmutable_content=None, i_osnotification_category=None,
-                 i_osnotification_collapse_id=None, i_osnotification_thread_id=None, i_osrelevance_score=None, i_osremind=None,
-                 i_osremind_body=None, i_ossilent_notification=None, i_ossubtitle=None):
+                 android_big_title=None, android_ext_parameters=None, android_honor_target_user_type=None,
+                 android_huawei_receipt_id=None, android_huawei_target_user_type=None, android_image_url=None, android_inbox_body=None,
+                 android_message_huawei_category=None, android_message_huawei_urgency=None, android_message_vivo_category=None,
+                 android_music=None, android_notification_bar_priority=None, android_notification_bar_type=None,
+                 android_notification_channel=None, android_notification_group=None, android_notification_honor_channel=None,
+                 android_notification_huawei_channel=None, android_notification_notify_id=None, android_notification_vivo_channel=None,
+                 android_notification_xiaomi_channel=None, android_notify_type=None, android_open_type=None, android_open_url=None,
+                 android_popup_activity=None, android_popup_body=None, android_popup_title=None, android_remind=None,
+                 android_render_style=None, android_target_user_type=None, android_vivo_push_mode=None, android_xiao_mi_activity=None,
+                 android_xiao_mi_notify_body=None, android_xiao_mi_notify_title=None, android_xiaomi_big_picture_url=None,
+                 android_xiaomi_image_url=None, app_key=None, body=None, device_type=None, expire_time=None, job_key=None, push_time=None,
+                 push_type=None, send_channels=None, send_speed=None, sms_delay_secs=None, sms_params=None,
+                 sms_send_policy=None, sms_sign_name=None, sms_template_name=None, store_offline=None, target=None,
+                 target_value=None, title=None, trim=None, i_osapns_env=None, i_osbadge=None, i_osbadge_auto_increment=None,
+                 i_osext_parameters=None, i_osinterruption_level=None, i_osmusic=None, i_osmutable_content=None,
+                 i_osnotification_category=None, i_osnotification_collapse_id=None, i_osnotification_thread_id=None,
+                 i_osrelevance_score=None, i_osremind=None, i_osremind_body=None, i_ossilent_notification=None, i_ossubtitle=None):
         self.android_activity = android_activity  # type: str
         self.android_big_body = android_big_body  # type: str
         self.android_big_picture_url = android_big_picture_url  # type: str
         self.android_big_title = android_big_title  # type: str
         self.android_ext_parameters = android_ext_parameters  # type: str
+        self.android_honor_target_user_type = android_honor_target_user_type  # type: int
         self.android_huawei_receipt_id = android_huawei_receipt_id  # type: str
         self.android_huawei_target_user_type = android_huawei_target_user_type  # type: int
         self.android_image_url = android_image_url  # type: str
@@ -1839,6 +1850,7 @@ class PushRequest(TeaModel):
         self.android_popup_title = android_popup_title  # type: str
         self.android_remind = android_remind  # type: bool
         self.android_render_style = android_render_style  # type: int
+        self.android_target_user_type = android_target_user_type  # type: int
         self.android_vivo_push_mode = android_vivo_push_mode  # type: int
         self.android_xiao_mi_activity = android_xiao_mi_activity  # type: str
         self.android_xiao_mi_notify_body = android_xiao_mi_notify_body  # type: str
@@ -1899,6 +1911,8 @@ class PushRequest(TeaModel):
             result['AndroidBigTitle'] = self.android_big_title
         if self.android_ext_parameters is not None:
             result['AndroidExtParameters'] = self.android_ext_parameters
+        if self.android_honor_target_user_type is not None:
+            result['AndroidHonorTargetUserType'] = self.android_honor_target_user_type
         if self.android_huawei_receipt_id is not None:
             result['AndroidHuaweiReceiptId'] = self.android_huawei_receipt_id
         if self.android_huawei_target_user_type is not None:
@@ -1949,6 +1963,8 @@ class PushRequest(TeaModel):
             result['AndroidRemind'] = self.android_remind
         if self.android_render_style is not None:
             result['AndroidRenderStyle'] = self.android_render_style
+        if self.android_target_user_type is not None:
+            result['AndroidTargetUserType'] = self.android_target_user_type
         if self.android_vivo_push_mode is not None:
             result['AndroidVivoPushMode'] = self.android_vivo_push_mode
         if self.android_xiao_mi_activity is not None:
@@ -2043,6 +2059,8 @@ class PushRequest(TeaModel):
             self.android_big_title = m.get('AndroidBigTitle')
         if m.get('AndroidExtParameters') is not None:
             self.android_ext_parameters = m.get('AndroidExtParameters')
+        if m.get('AndroidHonorTargetUserType') is not None:
+            self.android_honor_target_user_type = m.get('AndroidHonorTargetUserType')
         if m.get('AndroidHuaweiReceiptId') is not None:
             self.android_huawei_receipt_id = m.get('AndroidHuaweiReceiptId')
         if m.get('AndroidHuaweiTargetUserType') is not None:
@@ -2093,6 +2111,8 @@ class PushRequest(TeaModel):
             self.android_remind = m.get('AndroidRemind')
         if m.get('AndroidRenderStyle') is not None:
             self.android_render_style = m.get('AndroidRenderStyle')
+        if m.get('AndroidTargetUserType') is not None:
+            self.android_target_user_type = m.get('AndroidTargetUserType')
         if m.get('AndroidVivoPushMode') is not None:
             self.android_vivo_push_mode = m.get('AndroidVivoPushMode')
         if m.get('AndroidXiaoMiActivity') is not None:
@@ -2245,10 +2265,12 @@ class PushResponse(TeaModel):
 
 
 class PushMessageToAndroidRequest(TeaModel):
-    def __init__(self, app_key=None, body=None, job_key=None, target=None, target_value=None, title=None):
+    def __init__(self, app_key=None, body=None, job_key=None, store_offline=None, target=None, target_value=None,
+                 title=None):
         self.app_key = app_key  # type: long
         self.body = body  # type: str
         self.job_key = job_key  # type: str
+        self.store_offline = store_offline  # type: bool
         self.target = target  # type: str
         self.target_value = target_value  # type: str
         self.title = title  # type: str
@@ -2268,6 +2290,8 @@ class PushMessageToAndroidRequest(TeaModel):
             result['Body'] = self.body
         if self.job_key is not None:
             result['JobKey'] = self.job_key
+        if self.store_offline is not None:
+            result['StoreOffline'] = self.store_offline
         if self.target is not None:
             result['Target'] = self.target
         if self.target_value is not None:
@@ -2284,6 +2308,8 @@ class PushMessageToAndroidRequest(TeaModel):
             self.body = m.get('Body')
         if m.get('JobKey') is not None:
             self.job_key = m.get('JobKey')
+        if m.get('StoreOffline') is not None:
+            self.store_offline = m.get('StoreOffline')
         if m.get('Target') is not None:
             self.target = m.get('Target')
         if m.get('TargetValue') is not None:
@@ -2362,10 +2388,12 @@ class PushMessageToAndroidResponse(TeaModel):
 
 
 class PushMessageToiOSRequest(TeaModel):
-    def __init__(self, app_key=None, body=None, job_key=None, target=None, target_value=None, title=None):
+    def __init__(self, app_key=None, body=None, job_key=None, store_offline=None, target=None, target_value=None,
+                 title=None):
         self.app_key = app_key  # type: long
         self.body = body  # type: str
         self.job_key = job_key  # type: str
+        self.store_offline = store_offline  # type: bool
         self.target = target  # type: str
         self.target_value = target_value  # type: str
         self.title = title  # type: str
@@ -2385,6 +2413,8 @@ class PushMessageToiOSRequest(TeaModel):
             result['Body'] = self.body
         if self.job_key is not None:
             result['JobKey'] = self.job_key
+        if self.store_offline is not None:
+            result['StoreOffline'] = self.store_offline
         if self.target is not None:
             result['Target'] = self.target
         if self.target_value is not None:
@@ -2401,6 +2431,8 @@ class PushMessageToiOSRequest(TeaModel):
             self.body = m.get('Body')
         if m.get('JobKey') is not None:
             self.job_key = m.get('JobKey')
+        if m.get('StoreOffline') is not None:
+            self.store_offline = m.get('StoreOffline')
         if m.get('Target') is not None:
             self.target = m.get('Target')
         if m.get('TargetValue') is not None:
@@ -2479,12 +2511,13 @@ class PushMessageToiOSResponse(TeaModel):
 
 
 class PushNoticeToAndroidRequest(TeaModel):
-    def __init__(self, app_key=None, body=None, ext_parameters=None, job_key=None, target=None, target_value=None,
-                 title=None):
+    def __init__(self, app_key=None, body=None, ext_parameters=None, job_key=None, store_offline=None, target=None,
+                 target_value=None, title=None):
         self.app_key = app_key  # type: long
         self.body = body  # type: str
         self.ext_parameters = ext_parameters  # type: str
         self.job_key = job_key  # type: str
+        self.store_offline = store_offline  # type: bool
         self.target = target  # type: str
         self.target_value = target_value  # type: str
         self.title = title  # type: str
@@ -2506,6 +2539,8 @@ class PushNoticeToAndroidRequest(TeaModel):
             result['ExtParameters'] = self.ext_parameters
         if self.job_key is not None:
             result['JobKey'] = self.job_key
+        if self.store_offline is not None:
+            result['StoreOffline'] = self.store_offline
         if self.target is not None:
             result['Target'] = self.target
         if self.target_value is not None:
@@ -2524,6 +2559,8 @@ class PushNoticeToAndroidRequest(TeaModel):
             self.ext_parameters = m.get('ExtParameters')
         if m.get('JobKey') is not None:
             self.job_key = m.get('JobKey')
+        if m.get('StoreOffline') is not None:
+            self.store_offline = m.get('StoreOffline')
         if m.get('Target') is not None:
             self.target = m.get('Target')
         if m.get('TargetValue') is not None:
@@ -2914,14 +2951,16 @@ class QueryDeviceInfoRequest(TeaModel):
 
 
 class QueryDeviceInfoResponseBodyDeviceInfo(TeaModel):
-    def __init__(self, account=None, alias=None, device_id=None, device_token=None, device_type=None,
-                 last_online_time=None, online=None, phone_number=None, push_enabled=None, tags=None):
+    def __init__(self, account=None, alias=None, brand=None, device_id=None, device_token=None, device_type=None,
+                 last_online_time=None, model=None, online=None, phone_number=None, push_enabled=None, tags=None):
         self.account = account  # type: str
         self.alias = alias  # type: str
+        self.brand = brand  # type: str
         self.device_id = device_id  # type: str
         self.device_token = device_token  # type: str
         self.device_type = device_type  # type: str
         self.last_online_time = last_online_time  # type: str
+        self.model = model  # type: str
         self.online = online  # type: bool
         self.phone_number = phone_number  # type: str
         self.push_enabled = push_enabled  # type: bool
@@ -2940,6 +2979,8 @@ class QueryDeviceInfoResponseBodyDeviceInfo(TeaModel):
             result['Account'] = self.account
         if self.alias is not None:
             result['Alias'] = self.alias
+        if self.brand is not None:
+            result['Brand'] = self.brand
         if self.device_id is not None:
             result['DeviceId'] = self.device_id
         if self.device_token is not None:
@@ -2948,6 +2989,8 @@ class QueryDeviceInfoResponseBodyDeviceInfo(TeaModel):
             result['DeviceType'] = self.device_type
         if self.last_online_time is not None:
             result['LastOnlineTime'] = self.last_online_time
+        if self.model is not None:
+            result['Model'] = self.model
         if self.online is not None:
             result['Online'] = self.online
         if self.phone_number is not None:
@@ -2964,6 +3007,8 @@ class QueryDeviceInfoResponseBodyDeviceInfo(TeaModel):
             self.account = m.get('Account')
         if m.get('Alias') is not None:
             self.alias = m.get('Alias')
+        if m.get('Brand') is not None:
+            self.brand = m.get('Brand')
         if m.get('DeviceId') is not None:
             self.device_id = m.get('DeviceId')
         if m.get('DeviceToken') is not None:
@@ -2972,6 +3017,8 @@ class QueryDeviceInfoResponseBodyDeviceInfo(TeaModel):
             self.device_type = m.get('DeviceType')
         if m.get('LastOnlineTime') is not None:
             self.last_online_time = m.get('LastOnlineTime')
+        if m.get('Model') is not None:
+            self.model = m.get('Model')
         if m.get('Online') is not None:
             self.online = m.get('Online')
         if m.get('PhoneNumber') is not None:
