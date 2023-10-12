@@ -4445,10 +4445,23 @@ class GrantUserPermissionResponse(TeaModel):
 
 class GrantUserPermissionsRequestPermissions(TeaModel):
     def __init__(self, cluster_id=None, is_ram_role=None, namespace=None, role_name=None, role_type=None):
+        # The master instance ID.
+        # 
+        # *   When the role_type parameter is set to all-clusters, set the parameter to an empty string.
         self.cluster_id = cluster_id  # type: str
         self.is_ram_role = is_ram_role  # type: bool
+        # The namespace to which the permissions are scoped. By default, this parameter is empty when you set RoleType to cluster.
         self.namespace = namespace  # type: str
+        # The predefined role that you want to assign. Valid values:
+        # 
+        # *   admin: the administrator role.
+        # *   dev: the developer role.
         self.role_name = role_name  # type: str
+        # The authorization type. Valid values:
+        # 
+        # *   cluster: specifies that the permissions are scoped to a master instance.
+        # *   namespace: specifies that the permissions are scoped to a namespace of a cluster.
+        # *   all-clusters: specifies that the permissions are scoped to all master instances.
         self.role_type = role_type  # type: str
 
     def validate(self):
@@ -4489,7 +4502,9 @@ class GrantUserPermissionsRequestPermissions(TeaModel):
 
 class GrantUserPermissionsRequest(TeaModel):
     def __init__(self, permissions=None, user_id=None):
+        # The list of permissions that you want to grant to the RAM user.
         self.permissions = permissions  # type: list[GrantUserPermissionsRequestPermissions]
+        # The ID of the RAM user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -4526,7 +4541,9 @@ class GrantUserPermissionsRequest(TeaModel):
 
 class GrantUserPermissionsShrinkRequest(TeaModel):
     def __init__(self, permissions_shrink=None, user_id=None):
+        # The list of permissions that you want to grant to the RAM user.
         self.permissions_shrink = permissions_shrink  # type: str
+        # The ID of the RAM user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -4555,6 +4572,7 @@ class GrantUserPermissionsShrinkRequest(TeaModel):
 
 class GrantUserPermissionsResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4619,43 +4637,77 @@ class GrantUserPermissionsResponse(TeaModel):
 class UpdateHubClusterFeatureRequest(TeaModel):
     def __init__(self, access_control_list=None, api_server_eip_id=None, argo_cdenabled=None,
                  argo_cdhaenabled=None, argo_events_enabled=None, argo_server_enabled=None, audit_log_enabled=None, cluster_id=None,
-                 deletion_protection=None, enable_mesh=None, monitor_enabled=None, name=None, price_limit=None,
+                 deletion_protection=None, enable_mesh=None, mseenabled=None, monitor_enabled=None, name=None, price_limit=None,
                  public_access_enabled=None, public_api_server_enabled=None, v_switches=None, workflow_schedule_mode=None):
+        # The Internet access control list (ACL). This parameter takes effect only if PublicAccessEnabled is set to true.
         self.access_control_list = access_control_list  # type: list[str]
         # The ID of the EIP.
         self.api_server_eip_id = api_server_eip_id  # type: str
+        # Specifies whether to enable Argo CD. This parameter takes effect only if Profile is set to XFlow. Valid values:
+        # 
+        # *   true
+        # *   false
         self.argo_cdenabled = argo_cdenabled  # type: bool
+        # Specifies whether to enable high availability for Argo CD. Valid values:
+        # 
+        # *   true
+        # *   false
         self.argo_cdhaenabled = argo_cdhaenabled  # type: bool
+        # Specifies whether to enable ArgoEvents. Valid values:
+        # 
+        # - true
+        # - false
         self.argo_events_enabled = argo_events_enabled  # type: bool
+        # Specifies whether to enable the workflow instance UI. This parameter takes effect only if Profile is set to XFlow. Valid values:
+        # 
+        # *   true
+        # *   false
         self.argo_server_enabled = argo_server_enabled  # type: bool
         # Specifies whether to enable the audit logging feature. Valid values:
         # 
         # *   true: enables the audit logging feature.
         # *   false: disables the audit logging feature.
         self.audit_log_enabled = audit_log_enabled  # type: bool
-        # The ID of the cluster.
+        # The cluster ID.
         self.cluster_id = cluster_id  # type: str
-        # Specifies whether to enable deletion protection for the cluster. After you enable deletion protection, you cannot delete the master instance in the console or by calling the DeleteHubCluster operation. Valid values:
+        # Specifies whether to enable the deletion protection feature for the cluster. After you enable the deletion protection feature for the cluster, you cannot delete the cluster in the console or by calling the DeleteHubCluster operation. Valid values:
         # 
-        # *   true: enables deletion protection for the cluster.
-        # *   false: disables deletion protection for the cluster. This is the default value.
+        # *   true
+        # *   false
+        # 
+        # Default value: false.
         self.deletion_protection = deletion_protection  # type: bool
-        # Specifies whether to enable Alibaba Cloud Service Mesh (ASM). Valid values:
+        # Specifies whether to enable Service Mesh (ASM). Valid values:
         # 
-        # true: enables ASM. false: disables ASM.
+        # *   true
+        # *   false
         self.enable_mesh = enable_mesh  # type: bool
+        self.mseenabled = mseenabled  # type: bool
+        # Specifies whether to enable the monitoring dashboard feature for the workflow instance. This parameter takes effect only if Profile is set to XFlow. Valid values:
+        # 
+        # *   true
+        # *   false
         self.monitor_enabled = monitor_enabled  # type: bool
-        # The name of the cluster. The name must be 1 to 63 characters in length. It must start with a letter, and can contain letters, digits, underscores (\_), and hyphens (-).
+        # The name of the master instance. The name must be 1 to 63 characters in length. It must start with a letter, and can contain letters, digits, underscores (\_), and hyphens (-).
         self.name = name  # type: str
         # The limit on the prices of containers in the workflow. This parameter takes effect only if the WorkflowScheduleMode parameter is set to cost-optimized.
         self.price_limit = price_limit  # type: str
+        # Specifies whether to enable public domain name resolution in the Argo CD or Argo Workflow console. Valid values:
+        # 
+        # *   true
+        # *   false
         self.public_access_enabled = public_access_enabled  # type: bool
         # Specifies whether to associate an elastic IP address (EIP) with the API server. Valid values:
         # 
-        # *   true: associates an EIP with the API server. You can specify the ApiServerEipId parameter. If you do not specify the ApiServerEipId parameter, the system automatically creates an EIP.
+        # *   true: associates an EIP with the API server. You can specify ApiServerEipId. If you do not specify ApiServerEipId, the system automatically creates an EIP.
         # *   false: disassociates an EIP from the API server.
         self.public_api_server_enabled = public_api_server_enabled  # type: bool
+        # The vSwitches.
         self.v_switches = v_switches  # type: list[str]
+        # The scheduling mode of the workflow. This parameter takes effect only if Profile is set to XFlow. Valid values:
+        # 
+        # *   cost-optimized: cost-prioritized scheduling mode.
+        # *   stock-optimized: inventory-prioritized scheduling mode.
         self.workflow_schedule_mode = workflow_schedule_mode  # type: str
 
     def validate(self):
@@ -4687,6 +4739,8 @@ class UpdateHubClusterFeatureRequest(TeaModel):
             result['DeletionProtection'] = self.deletion_protection
         if self.enable_mesh is not None:
             result['EnableMesh'] = self.enable_mesh
+        if self.mseenabled is not None:
+            result['MSEEnabled'] = self.mseenabled
         if self.monitor_enabled is not None:
             result['MonitorEnabled'] = self.monitor_enabled
         if self.name is not None:
@@ -4725,6 +4779,8 @@ class UpdateHubClusterFeatureRequest(TeaModel):
             self.deletion_protection = m.get('DeletionProtection')
         if m.get('EnableMesh') is not None:
             self.enable_mesh = m.get('EnableMesh')
+        if m.get('MSEEnabled') is not None:
+            self.mseenabled = m.get('MSEEnabled')
         if m.get('MonitorEnabled') is not None:
             self.monitor_enabled = m.get('MonitorEnabled')
         if m.get('Name') is not None:
@@ -4745,43 +4801,77 @@ class UpdateHubClusterFeatureRequest(TeaModel):
 class UpdateHubClusterFeatureShrinkRequest(TeaModel):
     def __init__(self, access_control_list_shrink=None, api_server_eip_id=None, argo_cdenabled=None,
                  argo_cdhaenabled=None, argo_events_enabled=None, argo_server_enabled=None, audit_log_enabled=None, cluster_id=None,
-                 deletion_protection=None, enable_mesh=None, monitor_enabled=None, name=None, price_limit=None,
+                 deletion_protection=None, enable_mesh=None, mseenabled=None, monitor_enabled=None, name=None, price_limit=None,
                  public_access_enabled=None, public_api_server_enabled=None, v_switches_shrink=None, workflow_schedule_mode=None):
+        # The Internet access control list (ACL). This parameter takes effect only if PublicAccessEnabled is set to true.
         self.access_control_list_shrink = access_control_list_shrink  # type: str
         # The ID of the EIP.
         self.api_server_eip_id = api_server_eip_id  # type: str
+        # Specifies whether to enable Argo CD. This parameter takes effect only if Profile is set to XFlow. Valid values:
+        # 
+        # *   true
+        # *   false
         self.argo_cdenabled = argo_cdenabled  # type: bool
+        # Specifies whether to enable high availability for Argo CD. Valid values:
+        # 
+        # *   true
+        # *   false
         self.argo_cdhaenabled = argo_cdhaenabled  # type: bool
+        # Specifies whether to enable ArgoEvents. Valid values:
+        # 
+        # - true
+        # - false
         self.argo_events_enabled = argo_events_enabled  # type: bool
+        # Specifies whether to enable the workflow instance UI. This parameter takes effect only if Profile is set to XFlow. Valid values:
+        # 
+        # *   true
+        # *   false
         self.argo_server_enabled = argo_server_enabled  # type: bool
         # Specifies whether to enable the audit logging feature. Valid values:
         # 
         # *   true: enables the audit logging feature.
         # *   false: disables the audit logging feature.
         self.audit_log_enabled = audit_log_enabled  # type: bool
-        # The ID of the cluster.
+        # The cluster ID.
         self.cluster_id = cluster_id  # type: str
-        # Specifies whether to enable deletion protection for the cluster. After you enable deletion protection, you cannot delete the master instance in the console or by calling the DeleteHubCluster operation. Valid values:
+        # Specifies whether to enable the deletion protection feature for the cluster. After you enable the deletion protection feature for the cluster, you cannot delete the cluster in the console or by calling the DeleteHubCluster operation. Valid values:
         # 
-        # *   true: enables deletion protection for the cluster.
-        # *   false: disables deletion protection for the cluster. This is the default value.
+        # *   true
+        # *   false
+        # 
+        # Default value: false.
         self.deletion_protection = deletion_protection  # type: bool
-        # Specifies whether to enable Alibaba Cloud Service Mesh (ASM). Valid values:
+        # Specifies whether to enable Service Mesh (ASM). Valid values:
         # 
-        # true: enables ASM. false: disables ASM.
+        # *   true
+        # *   false
         self.enable_mesh = enable_mesh  # type: bool
+        self.mseenabled = mseenabled  # type: bool
+        # Specifies whether to enable the monitoring dashboard feature for the workflow instance. This parameter takes effect only if Profile is set to XFlow. Valid values:
+        # 
+        # *   true
+        # *   false
         self.monitor_enabled = monitor_enabled  # type: bool
-        # The name of the cluster. The name must be 1 to 63 characters in length. It must start with a letter, and can contain letters, digits, underscores (\_), and hyphens (-).
+        # The name of the master instance. The name must be 1 to 63 characters in length. It must start with a letter, and can contain letters, digits, underscores (\_), and hyphens (-).
         self.name = name  # type: str
         # The limit on the prices of containers in the workflow. This parameter takes effect only if the WorkflowScheduleMode parameter is set to cost-optimized.
         self.price_limit = price_limit  # type: str
+        # Specifies whether to enable public domain name resolution in the Argo CD or Argo Workflow console. Valid values:
+        # 
+        # *   true
+        # *   false
         self.public_access_enabled = public_access_enabled  # type: bool
         # Specifies whether to associate an elastic IP address (EIP) with the API server. Valid values:
         # 
-        # *   true: associates an EIP with the API server. You can specify the ApiServerEipId parameter. If you do not specify the ApiServerEipId parameter, the system automatically creates an EIP.
+        # *   true: associates an EIP with the API server. You can specify ApiServerEipId. If you do not specify ApiServerEipId, the system automatically creates an EIP.
         # *   false: disassociates an EIP from the API server.
         self.public_api_server_enabled = public_api_server_enabled  # type: bool
+        # The vSwitches.
         self.v_switches_shrink = v_switches_shrink  # type: str
+        # The scheduling mode of the workflow. This parameter takes effect only if Profile is set to XFlow. Valid values:
+        # 
+        # *   cost-optimized: cost-prioritized scheduling mode.
+        # *   stock-optimized: inventory-prioritized scheduling mode.
         self.workflow_schedule_mode = workflow_schedule_mode  # type: str
 
     def validate(self):
@@ -4813,6 +4903,8 @@ class UpdateHubClusterFeatureShrinkRequest(TeaModel):
             result['DeletionProtection'] = self.deletion_protection
         if self.enable_mesh is not None:
             result['EnableMesh'] = self.enable_mesh
+        if self.mseenabled is not None:
+            result['MSEEnabled'] = self.mseenabled
         if self.monitor_enabled is not None:
             result['MonitorEnabled'] = self.monitor_enabled
         if self.name is not None:
@@ -4851,6 +4943,8 @@ class UpdateHubClusterFeatureShrinkRequest(TeaModel):
             self.deletion_protection = m.get('DeletionProtection')
         if m.get('EnableMesh') is not None:
             self.enable_mesh = m.get('EnableMesh')
+        if m.get('MSEEnabled') is not None:
+            self.mseenabled = m.get('MSEEnabled')
         if m.get('MonitorEnabled') is not None:
             self.monitor_enabled = m.get('MonitorEnabled')
         if m.get('Name') is not None:
@@ -4870,7 +4964,7 @@ class UpdateHubClusterFeatureShrinkRequest(TeaModel):
 
 class UpdateHubClusterFeatureResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
