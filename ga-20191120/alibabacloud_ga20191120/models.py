@@ -2770,15 +2770,15 @@ class CreateBasicAccelerateIpEndpointRelationsResponse(TeaModel):
 
 class CreateBasicAcceleratorRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The tag key of the basic GA instance. The tag key cannot be an empty string.
+        # The tag key. The tag key cannot be an empty string.
         # 
-        # The tag key can be up to 64 characters in length and cannot contain `http://` or `https://`. It cannot start with `aliyun` or `acs:`.
+        # The tag key can be up to 64 characters in length and cannot contain `http://` or `https://`. The tag key cannot start with `aliyun` or `acs:`.
         # 
         # You can specify up to 20 tag keys.
         self.key = key  # type: str
-        # The tag value of the basic GA instance. The tag value cannot be an empty string.
+        # The tag value. The tag value cannot be an empty string.
         # 
-        # The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`. It cannot start with `aliyun` or `acs:`.
+        # The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`. It cannot start with `acs:` or `aliyun`.
         # 
         # You can specify up to 20 tag values.
         self.value = value  # type: str
@@ -2840,9 +2840,10 @@ class CreateBasicAcceleratorRequest(TeaModel):
         # *   **CDT:** billed based on data transfer. The bills are managed by using Cloud Data Transfer (CDT).
         # *   **CDT95:** billed based on the 95th percentile bandwidth. The bills are managed by using Cloud Data Transfer (CDT). This bandwidth billing method is not available by default. Contact your Alibaba Cloud account manager for more information.
         self.bandwidth_billing_type = bandwidth_billing_type  # type: str
-        # The billing method of the basic GA instance. Valid values:
-        # - **PREPAY**: subscription. This is the default value.
-        # - **POSTPAY**: pay-as-you-go.
+        # The billing method. Valid values:
+        # 
+        # *   **PREPAY** (default)
+        # *   **POSTPAY**\
         self.charge_type = charge_type  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
@@ -2857,13 +2858,13 @@ class CreateBasicAcceleratorRequest(TeaModel):
         self.dry_run = dry_run  # type: bool
         # The subscription duration of the GA instance.
         # 
-        # *   If you set the **PricingCycle** parameter to **Month**, the valid values for the **Duration** parameter are **1** to **9**.
-        # *   If you set the **PricingCycle** parameter to **Year**, the valid values for the **Duration** parameter are **1** to **3**.
+        # *   If you set **PricingCycle** to **Month**, the valid values for **Duration** are **1** to **9**.
+        # *   If you set **PricingCycle** to **Year**, the valid values for **Duration** are **1** to **3**.
         self.duration = duration  # type: int
-        # The billing cycle of the basic GA instance. Valid values:
+        # The billing cycle. Valid values:
         # 
-        # *   **Month:** billed on a monthly basis.
-        # *   **Year:** billed on an annual basis.
+        # *   **Month**\
+        # *   **Year**\
         self.pricing_cycle = pricing_cycle  # type: str
         # The code of the coupon.
         # 
@@ -5031,16 +5032,20 @@ class CreateEndpointGroupRequestEndpointConfigurations(TeaModel):
         self.enable_proxy_protocol = enable_proxy_protocol  # type: bool
         # Enter the IP address, domain name, or instance ID based on the value of the Type parameter.
         self.endpoint = endpoint  # type: str
+        # The private IP address of the ENI.
+        # > - When the Endpoint type is **ENI**, this parameter can be configured. If not configured, it defaults to the primary private IP address of ENI.
         self.sub_address = sub_address  # type: str
         # The type of the endpoint. Valid values:
         # 
         # *   **Domain:** a custom domain name.
         # *   **Ip:** a custom IP address.
         # *   **PublicIp:** a public IP address provided by Alibaba Cloud.
-        # *   **ECS:** an Elastic Compute Service (ECS) instance.
-        # *   **SLB:** a Server Load Balancer (SLB) instance.
-        # *   **ALB:** an Application Load Balancer (ALB) instance.
-        # *   **OSS:** an Object Storage Service (OSS) bucket.
+        # *   **ECS:** Elastic Compute Service (ECS) instance.
+        # *   **SLB:** Server Load Balancer (SLB) instance.
+        # *   **ALB:** Application Load Balancer (ALB) instance.
+        # *   **OSS:** Object Storage Service (OSS) bucket.
+        # *   **ENI:** Elastic Network interface (ENI).
+        # *   **NLB:** Network Load Balancer (NLB) instance.
         # 
         # > *   If you set this parameter to **ECS** or **SLB** and the service-linked role AliyunServiceRoleForGaVpcEndpoint does not exist, the system automatically creates the service-linked role.
         # >*   If you set this parameter to **ALB** and the service-linked role AliyunServiceRoleForGaAlb does not exist, the system automatically creates the service-linked role.
@@ -5439,27 +5444,27 @@ class CreateEndpointGroupsRequestEndpointGroupConfigurationsEndpointConfiguratio
         # 
         # >  This parameter is required.
         self.endpoint = endpoint  # type: str
+        # The private IP address of the ENI.
+        # 
+        # > - When the Endpoint type is ENI, this parameter can be configured. If not configured, it defaults to the primary private IP address of ENI.
         self.sub_address = sub_address  # type: str
         # The type of the endpoint. Valid values:
         # 
-        # *   **Domain**: a custom domain name
-        # *   **Ip**: a custom IP address
-        # *   **PublicIp**: a public IP address provided by Alibaba Cloud
-        # *   **ECS**: an Elastic Compute Service (ECS) instance
-        # *   **SLB**: a Server Load Balancer (SLB) instance
-        # *   **ALB**: an Application Load Balancer (ALB) instance
-        # *   **OSS**: an Object Storage Service (OSS) bucket
+        # *   **Domain:** a custom domain name.
+        # *   **Ip:** a custom IP address.
+        # *   **PublicIp:** a public IP address provided by Alibaba Cloud.
+        # *   **ECS:** Elastic Compute Service (ECS) instance.
+        # *   **SLB:** Server Load Balancer (SLB) instance.
+        # *   **ALB:** Application Load Balancer (ALB) instance.
+        # *   **OSS:** Object Storage Service (OSS) bucket.
+        # *   **ENI:** Elastic Network interface (ENI).
+        # *   **NLB:** Network Load Balancer (NLB) instance.
         # 
-        # You can specify up to 100 endpoint types for an endpoint group.
+        # > *   If you set this parameter to **ECS** or **SLB** and the service-linked role AliyunServiceRoleForGaVpcEndpoint does not exist, the system automatically creates the service-linked role.
+        # >*   If you set this parameter to **ALB** and the service-linked role AliyunServiceRoleForGaAlb does not exist, the system automatically creates the service-linked role.
+        # >*   If you set this parameter to **OSS** and the service-linked role AliyunServiceRoleForGaOss does not exist, the system automatically creates the service-linked role.
         # 
-        # > 
-        # 
-        # *   This parameter is required.
-        # *   If you set this parameter to **ECS** or **SLB** and the service-linked role AliyunServiceRoleForGaVpcEndpoint does not exist, the system creates the service-linked role.
-        # *   If you set this parameter to **ALB** and the service-linked role AliyunServiceRoleForGaAlb does not exist, the system creates the service-linked role.
-        # *   If you set this parameter to **OSS** and the service-linked role AliyunServiceRoleForGaOss does not exist, the system creates the service-linked role.
-        # 
-        # For more information, see [Service-linked roles](~~178360~~).
+        # For more information, see [Service linked roles](~~178360~~).
         self.type = type  # type: str
         # The weight of the endpoint.
         # 
@@ -11293,7 +11298,7 @@ class DescribeApplicationMonitorResponseBodyIspCityList(TeaModel):
 class DescribeApplicationMonitorResponseBody(TeaModel):
     def __init__(self, accelerator_id=None, address=None, detect_enable=None, detect_threshold=None,
                  detect_times=None, isp_city_list=None, listener_id=None, options_json=None, region_id=None, request_id=None,
-                 silence_time=None, task_id=None, task_name=None):
+                 silence_time=None, state=None, task_id=None, task_name=None):
         # The ID of the GA instance on which the origin probing task ran.
         self.accelerator_id = accelerator_id  # type: str
         # The URL or IP address that was probed.
@@ -11325,6 +11330,18 @@ class DescribeApplicationMonitorResponseBody(TeaModel):
         # 
         # Unit: seconds.
         self.silence_time = silence_time  # type: int
+        # The state of the application monitor task. Valid values:
+        # 
+        # - **init**\
+        # 
+        # - **active**\
+        # 
+        # - **updating**\
+        # 
+        # - **inactive**\
+        # 
+        # - **deleting**\
+        self.state = state  # type: str
         # The ID of the origin probing task.
         self.task_id = task_id  # type: str
         # The name of the origin probing task.
@@ -11366,6 +11383,8 @@ class DescribeApplicationMonitorResponseBody(TeaModel):
             result['RequestId'] = self.request_id
         if self.silence_time is not None:
             result['SilenceTime'] = self.silence_time
+        if self.state is not None:
+            result['State'] = self.state
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         if self.task_name is not None:
@@ -11399,6 +11418,8 @@ class DescribeApplicationMonitorResponseBody(TeaModel):
             self.request_id = m.get('RequestId')
         if m.get('SilenceTime') is not None:
             self.silence_time = m.get('SilenceTime')
+        if m.get('State') is not None:
+            self.state = m.get('State')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         if m.get('TaskName') is not None:
@@ -13925,16 +13946,19 @@ class DescribeEndpointGroupResponseBodyEndpointConfigurations(TeaModel):
         # *   **tcp:** TCP.
         # *   **icmp:** ICMP.
         self.probe_protocol = probe_protocol  # type: str
+        # The private IP address of the ENI.
         self.sub_address = sub_address  # type: str
         # The type of the endpoint. Valid values:
         # 
         # *   **Domain:** a custom domain name.
         # *   **Ip:** a custom IP address.
         # *   **PublicIp:** a public IP address provided by Alibaba Cloud.
-        # *   **ECS:** an Elastic Compute Service (ECS) instance.
-        # *   **SLB:** a Server Load Balancer (SLB) instance.
-        # *   **ALB:** an Application Load Balancer (ALB) instance.
-        # *   **OSS:** an Object Storage Service (OSS) bucket.
+        # *   **ECS:** Elastic Compute Service (ECS) instance.
+        # *   **SLB:** Server Load Balancer (SLB) instance.
+        # *   **ALB:** Application Load Balancer (ALB) instance.
+        # *   **OSS:** Object Storage Service (OSS) bucket.
+        # *   **ENI:** Elastic Network interface (ENI).
+        # *   **NLB:** Network Load Balancer (NLB) instance.
         self.type = type  # type: str
         # The weight of the endpoint.
         self.weight = weight  # type: int
@@ -21052,9 +21076,9 @@ class ListBandwidthPackagesResponse(TeaModel):
 
 class ListBandwidthackagesRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None, region_id=None):
-        # The number of the page to return. Default value: **1**.
+        # The page number. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page. Maximum value: **100**. Default value: **10**.
+        # The number of entries per page. Maximum value: **100**. Default value: **10**.
         self.page_size = page_size  # type: int
         # The ID of the region where the Global Accelerator (GA) instance is deployed. Set the value to **cn-hangzhou**.
         self.region_id = region_id  # type: str
@@ -24004,35 +24028,31 @@ class ListCustomRoutingEndpointsRequest(TeaModel):
 
 class ListCustomRoutingEndpointsResponseBodyEndpointsServiceManagedInfos(TeaModel):
     def __init__(self, action=None, child_type=None, is_managed=None):
-        # 托管策略动作名称，取值：
-        # - **Create**：创建实例。
-        # - **Update**：更新当前实例。
-        # - **Delete**：删除当前实例。
-        # - **Associate**：引用/被引用当前实例。
-        # - **UserUnmanaged**：用户解托管实例。
-        # - **CreateChild**：在当前实例下创建子资源。
+        # The name of the action performed on the managed instance. Valid values:
+        # 
+        # *   **Create**\
+        # *   **Update**\
+        # *   **Delete**\
+        # *   **Associate**\
+        # *   **UserUnmanaged**\
+        # *   **CreateChild**\
         self.action = action  # type: str
-        # 子资源类型，取值：
+        # The type of the child resource. Valid values:
         # 
-        # - **Listener**：监听资源。
+        # *   **Listener**: listener
+        # *   **IpSet**: acceleration region
+        # *   **EndpointGroup**: endpoint group
+        # *   **ForwardingRule**: forwarding rule
+        # *   **Endpoint**: endpoint
+        # *   **EndpointGroupDestination**: protocol mapping of an endpoint group associated with a custom routing listener
+        # *   **EndpointPolicy**: traffic policy of an endpoint associated with a custom routing listener
         # 
-        # - **IpSet**：加速地域资源。
-        # 
-        # - **EndpointGroup**：终端节点组资源。
-        # 
-        # - **ForwardingRule**：转发策略资源。
-        # 
-        # - **Endpoint**：终端节点资源。
-        # 
-        # - **EndpointGroupDestination**：自定义路由监听下的终端节点组协议映射资源。
-        # 
-        # - **EndpointPolicy**：自定义路由监听下的终端节点通行策略资源。
-        # 
-        # > 仅在**Action**参数为**CreateChild**时有效。
+        # >  This parameter is valid only if **Action** is set to **CreateChild**.
         self.child_type = child_type  # type: str
-        # 托管策略动作是否被托管，取值：
-        # - **true**：托管策略动作被托管，用户无权在托管实例下执行Action指定的操作。
-        # - **false**：托管策略动作未被托管，用户可在托管实例下执行Action指定的操作。
+        # Indicates whether the specified actions are managed. Valid values:
+        # 
+        # *   **true**: The specified actions are managed, and users cannot perform the specified actions on the managed resource.
+        # *   **false**: The specified actions are not managed, and users can perform the specified actions on the managed resource.
         self.is_managed = is_managed  # type: bool
 
     def validate(self):
@@ -24077,30 +24097,30 @@ class ListCustomRoutingEndpointsResponseBodyEndpoints(TeaModel):
         self.endpoint_id = endpoint_id  # type: str
         # The ID of the listener to which the endpoint belongs.
         self.listener_id = listener_id  # type: str
-        # 托管实例所属的服务方ID。
+        # The ID of the service that manages the GA instance.
         # 
-        # > 仅在**ServiceManaged**参数为**True**时有效。
+        # >  This parameter is valid only if **ServiceManaged** is set to **True**.
         self.service_id = service_id  # type: str
-        # 是否为托管实例。取值：
+        # Indicates whether the GA instance is managed. Valid values:
         # 
-        # - **true**：是托管资实例。
-        # 
-        # - **false**：不是托管实例。
+        # *   **true**\
+        # *   **false**\
         self.service_managed = service_managed  # type: bool
-        # 用户在此托管实例下可执行的动作策略列表。
+        # The actions that users can perform on the managed instance.
         # 
-        # > 仅在**ServiceManaged**参数为**True**时有效。
-        # > - 当实例处于托管状态时，用户对实例的操作会受到限制，某些操作行为会被禁止。
+        # >  This parameter is valid only if **ServiceManaged** is set to **True**.
+        # 
+        # *   Users can perform only specific actions on a managed instance.
         self.service_managed_infos = service_managed_infos  # type: list[ListCustomRoutingEndpointsResponseBodyEndpointsServiceManagedInfos]
-        # The access policy of traffic that is destinated for the endpoint. Valid values:
+        # The access policy of traffic that is destined for the endpoint. Valid values:
         # 
-        # *   **AllowAll:** allows all traffic to the endpoint.
-        # *   **DenyAll:** denies all traffic to the endpoint.
-        # *   **AllowCustom:** allows traffic only to specified destinations.
+        # *   **AllowAll**: allows all traffic to the endpoint.
+        # *   **DenyAll**: denies all traffic to the endpoint.
+        # *   **AllowCustom**: allows traffic only to specified destinations.
         self.traffic_to_endpoint_policy = traffic_to_endpoint_policy  # type: str
         # The backend service type of the endpoint.
         # 
-        # **PrivateSubNet** is returned, which indicates a private CIDR block.
+        # Only **PrivateSubNet** may be returned, which indicates a private CIDR block.
         self.type = type  # type: str
 
     def validate(self):
@@ -24169,7 +24189,7 @@ class ListCustomRoutingEndpointsResponseBodyEndpoints(TeaModel):
 
 class ListCustomRoutingEndpointsResponseBody(TeaModel):
     def __init__(self, endpoints=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # Information about the endpoints.
+        # The information about the endpoints.
         self.endpoints = endpoints  # type: list[ListCustomRoutingEndpointsResponseBodyEndpoints]
         # The page number.
         self.page_number = page_number  # type: int
@@ -25387,20 +25407,21 @@ class ListEndpointGroupsResponseBodyEndpointGroupsEndpointConfigurations(TeaMode
                  probe_protocol=None, sub_address=None, type=None, weight=None):
         # Indicates whether the client IP address preservation feature is enabled. Valid values:
         # 
-        # *   **true**: The client IP address preservation feature is enabled.
-        # *   **false**: The client IP address preservation feature is disabled.
+        # *   **true**\
+        # *   **false**\
         self.enable_client_ippreservation = enable_client_ippreservation  # type: bool
         # The IP address or domain name of the endpoint.
         self.endpoint = endpoint  # type: str
-        # The ID of the endpoint.
+        # The endpoint ID.
         self.endpoint_id = endpoint_id  # type: str
         # The port that is used to monitor latency.
         self.probe_port = probe_port  # type: int
         # The protocol that is used to monitor latency. Valid values:
         # 
-        # *   **icmp**: ICMP
-        # *   **tcp**: TCP
+        # *   **icmp**\
+        # *   **tcp**\
         self.probe_protocol = probe_protocol  # type: str
+        # 弹性网卡的私网IP地址。
         self.sub_address = sub_address  # type: str
         # The type of the endpoint. Valid values:
         # 
@@ -25496,30 +25517,31 @@ class ListEndpointGroupsResponseBodyEndpointGroupsPortOverrides(TeaModel):
 
 class ListEndpointGroupsResponseBodyEndpointGroupsServiceManagedInfos(TeaModel):
     def __init__(self, action=None, child_type=None, is_managed=None):
-        # Managed policy action name, Valid values:
-        # - Create
-        # - Update
-        # - Delete
-        # - Associate
-        # - UserUnmanaged
-        # - CreateChild
+        # The name of the action on the managed instance. Valid values:
+        # 
+        # *   **Create**\
+        # *   **Update**\
+        # *   **Delete**\
+        # *   **Associate**\
+        # *   **UserUnmanaged**\
+        # *   **CreateChild**\
         self.action = action  # type: str
-        # Sub resource type, Valid values:
+        # The type of the child resource. Valid values:
         # 
-        # - Listener
-        # - IpSet
-        # - EndpointGroup
-        # - ForwardingRule
-        # - Endpoint
-        # - EndpointGroupDestination
-        # - EndpointPolicy
-        # >Only valid when the Action parameter is CreateChild.
+        # *   **Listener**: listener
+        # *   **IpSet**: acceleration region
+        # *   **EndpointGroup**: endpoint group
+        # *   **ForwardingRule**: forwarding rule
+        # *   **Endpoint**: endpoint
+        # *   **EndpointGroupDestination**: protocol mapping of an endpoint group associated with a custom routing listener
+        # *   **EndpointPolicy**: traffic policy of an endpoint associated with a custom routing listener
+        # 
+        # >  This parameter is valid only if **Action** is set to **CreateChild**.
         self.child_type = child_type  # type: str
-        # Is the managed policy action managed, Valid values:
+        # Indicates whether the specified actions are managed. Valid values:
         # 
-        # - true: The managed policy action is managed, and users do not have permission to perform the operation specified in the Action on the managed instance.
-        # 
-        # - false: The managed policy action is not managed, and users have permission to perform the operation specified in the Action on the managed instance.
+        # *   **true**: The specified actions are managed, and users cannot perform the specified actions on the managed instance.
+        # *   **false**: The specified actions are not managed, and users can perform the specified actions on the managed instance.
         self.is_managed = is_managed  # type: bool
 
     def validate(self):
@@ -25588,74 +25610,78 @@ class ListEndpointGroupsResponseBodyEndpointGroups(TeaModel):
                  health_check_interval_seconds=None, health_check_path=None, health_check_port=None, health_check_protocol=None,
                  listener_id=None, name=None, port_overrides=None, service_id=None, service_managed=None,
                  service_managed_infos=None, state=None, tags=None, threshold_count=None, traffic_percentage=None):
-        # The ID of the GA instance.
+        # The GA instance ID.
         self.accelerator_id = accelerator_id  # type: str
         # The description of the endpoint group.
         self.description = description  # type: str
-        # The configurations of the endpoint.
+        # The configurations of the endpoints in the endpoint group.
         self.endpoint_configurations = endpoint_configurations  # type: list[ListEndpointGroupsResponseBodyEndpointGroupsEndpointConfigurations]
-        # The ID of an endpoint group.
+        # The endpoint group ID.
         self.endpoint_group_id = endpoint_group_id  # type: str
-        # The list of endpoint group IP addresses.
+        # The endpoint group IP addresses.
         self.endpoint_group_ip_list = endpoint_group_ip_list  # type: list[str]
-        # The ID of the region where the endpoint group is deployed.
+        # The region ID of the endpoint group.
         self.endpoint_group_region = endpoint_group_region  # type: str
         # The type of the endpoint group. Valid values:
         # 
-        # *   **default**: a default endpoint group
-        # *   **virtual**: a virtual endpoint group
+        # *   **default**\
+        # *   **virtual**\
         self.endpoint_group_type = endpoint_group_type  # type: str
-        # The endpoint group IP addresses to be confirmed after the GA instance is upgraded.
+        # The endpoint group IP addresses to be confirmed. After the GA instance is upgraded, the IP addresses that are added to the endpoint group need to be confirmed.
         self.endpoint_group_unconfirmed_ip_list = endpoint_group_unconfirmed_ip_list  # type: list[str]
         # The protocol that is used by the backend service. Valid values:
         # 
-        # *   **HTTP**: HTTP
-        # *   **HTTPS**: HTTPS
+        # *   **HTTP**\
+        # *   **HTTPS**\
         self.endpoint_request_protocol = endpoint_request_protocol  # type: str
-        # The ID of the forwarding rule that is associated with the endpoint group.
+        # The IDs of the forwarding rules that are associated with the endpoint group.
         self.forwarding_rule_ids = forwarding_rule_ids  # type: list[str]
         # Indicates whether the health check feature is enabled. Valid values:
         # 
-        # *   **true**: The health check feature is enabled.
-        # *   **false**: The health check feature is disabled.
+        # *   **true**\
+        # *   **false**\
         self.health_check_enabled = health_check_enabled  # type: bool
         # The interval at which health checks are performed. Unit: seconds.
         self.health_check_interval_seconds = health_check_interval_seconds  # type: int
-        # The path to which health check requests are sent.
+        # The path based on which the system performs health checks.
         self.health_check_path = health_check_path  # type: str
         # The port that is used for health checks.
         self.health_check_port = health_check_port  # type: int
         # The protocol over which health check requests are sent. Valid values:
         # 
-        # *   **tcp**: TCP
-        # *   **http**: HTTP
-        # *   **https**: HTTPS
+        # *   **tcp**\
+        # *   **http**\
+        # *   **https**\
         self.health_check_protocol = health_check_protocol  # type: str
-        # The ID of the listener.
+        # The listener ID.
         self.listener_id = listener_id  # type: str
         # The name of the endpoint group.
         self.name = name  # type: str
-        # The mappings between ports.
+        # The port mapping.
         self.port_overrides = port_overrides  # type: list[ListEndpointGroupsResponseBodyEndpointGroupsPortOverrides]
-        # The service ID to which the managed instance belongs.
+        # The service that manages the instance.
         # 
-        # >  Valid only when the ServiceManaged parameter is True.
+        # >  This parameter is valid only if **ServiceManaged** is set to **True**.
         self.service_id = service_id  # type: str
-        # Is it a managed instance. Valid values:
+        # Indicates whether the GA instance is managed. Valid values:
         # 
-        # - true
-        # - false
+        # *   **true**\
+        # *   **false**\
         self.service_managed = service_managed  # type: bool
-        # A list of action policies that users can execute on this managed instance.
-        self.service_managed_infos = service_managed_infos  # type: list[ListEndpointGroupsResponseBodyEndpointGroupsServiceManagedInfos]
-        # The state of the endpoint group. Valid values:
+        # The actions that users can perform on the managed instance.
         # 
-        # *   **init**: The endpoint group is being initialized.
-        # *   **active**: The endpoint group is running normally.
-        # *   **updating**:The endpoint group is being updated.
-        # *   **deleteing**: The endpoint group is being deleted.
+        # >  This parameter is valid only if **ServiceManaged** is set to **True**.
+        # 
+        # *   Users can perform only specific actions on a managed instance.
+        self.service_managed_infos = service_managed_infos  # type: list[ListEndpointGroupsResponseBodyEndpointGroupsServiceManagedInfos]
+        # The status of the endpoint group. Valid values:
+        # 
+        # *   **init**\
+        # *   **active**\
+        # *   **updating**\
+        # *   **deleteing**\
         self.state = state  # type: str
-        # The tags of the endpoint groups.
+        # The tags.
         self.tags = tags  # type: list[ListEndpointGroupsResponseBodyEndpointGroupsTags]
         # The number of consecutive failed health checks that must occur before an endpoint is considered unhealthy.
         self.threshold_count = threshold_count  # type: int
@@ -25815,7 +25841,7 @@ class ListEndpointGroupsResponseBodyEndpointGroups(TeaModel):
 
 class ListEndpointGroupsResponseBody(TeaModel):
     def __init__(self, endpoint_groups=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The configurations of the endpoint group.
+        # The configurations of the endpoint groups.
         self.endpoint_groups = endpoint_groups  # type: list[ListEndpointGroupsResponseBodyEndpointGroups]
         # The page number of the returned page.
         self.page_number = page_number  # type: int
@@ -25980,9 +26006,9 @@ class ListForwardingRulesRequest(TeaModel):
 
 class ListForwardingRulesResponseBodyForwardingRulesRuleActionsForwardGroupConfigServerGroupTuples(TeaModel):
     def __init__(self, endpoint_group_id=None):
-        # The ID of the endpoint group.
+        # The endpoint group ID.
         # 
-        # >  For GA instances created after July 12, 2022, all forwarding condition types and forwarding action types are supported. We recommend that you call **RuleActionType** and **RuleActionValue** to query forwarding actions.
+        # >  GA instances created after July 12, 2022 support all forwarding condition types and action types. We recommend that you query forwarding conditions and actions by calling the **RuleActionType** and **RuleActionValue** operations.
         self.endpoint_group_id = endpoint_group_id  # type: str
 
     def validate(self):
@@ -26007,9 +26033,9 @@ class ListForwardingRulesResponseBodyForwardingRulesRuleActionsForwardGroupConfi
 
 class ListForwardingRulesResponseBodyForwardingRulesRuleActionsForwardGroupConfig(TeaModel):
     def __init__(self, server_group_tuples=None):
-        # The information about the endpoint group.
+        # The information about the endpoint groups.
         # 
-        # >  For GA instances created after July 12, 2022, all forwarding condition types and forwarding action types are supported. We recommend that you call **RuleActionType** and **RuleActionValue** to query forwarding actions.
+        # >  GA instances created after July 12, 2022 support all forwarding condition types and action types. We recommend that you query forwarding conditions and actions by calling the **RuleActionType** and **RuleActionValue** operations.
         self.server_group_tuples = server_group_tuples  # type: list[ListForwardingRulesResponseBodyForwardingRulesRuleActionsForwardGroupConfigServerGroupTuples]
 
     def validate(self):
@@ -26042,62 +26068,60 @@ class ListForwardingRulesResponseBodyForwardingRulesRuleActionsForwardGroupConfi
 
 class ListForwardingRulesResponseBodyForwardingRulesRuleActions(TeaModel):
     def __init__(self, forward_group_config=None, order=None, rule_action_type=None, rule_action_value=None):
-        # The forwarding configurations.
+        # The forwarding action configuration.
         # 
-        # >  We recommend that you do not use this parameter. We recommend that you use the **RuleActionType** and **RuleActionValue** parameters to configure forwarding actions.
+        # >  GA instances created after July 12, 2022 support all forwarding condition types and action types. We recommend that you query forwarding conditions and actions by calling the **RuleActionType** and **RuleActionValue** operations.
         self.forward_group_config = forward_group_config  # type: ListForwardingRulesResponseBodyForwardingRulesRuleActionsForwardGroupConfig
         # The forwarding priority.
         # 
-        # >  This parameter does not take effect. Ignore this parameter.
+        # >  This parameter does not take effect.
         self.order = order  # type: int
         # The type of the forwarding action. Valid values:
         # 
-        # *   **ForwardGroup**: forwards a request.
-        # *   **Redirect**: redirects a request.
-        # *   **FixResponse**: returns a fixed response.
-        # *   **Rewrite**: rewrites a request.
-        # *   **AddHeader**: adds a header to a request.
-        # *   **RemoveHeader**: deletes the header of a request.
+        # *   **ForwardGroup:** forwards a request.
+        # *   **Redirect:** redirects a request.
+        # *   **FixResponse:** returns a fixed response.
+        # *   **Rewrite:** rewrites a request.
+        # *   **AddHeader:** adds a header to a request.
+        # *   **RemoveHeaderConfig:** deletes the header of a request.
         self.rule_action_type = rule_action_type  # type: str
         # The value of the forwarding action type.
         # 
-        # You must specify different JSON strings based on the **RuleActionType** parameter.
+        # Different JSON strings are returned based on the value of the **RuleActionType** parameter.
         # 
-        # A forwarding rule can contain only one forwarding action whose type is **ForwardGroup**, **Redirect**, or **FixResponse**. You must specify a forwarding action whose type is **Rewrite**, **AddHeader**, or **RemoveHeader** before a forwarding action whose type is **ForwardGroup**.
+        # *   If you set **RuleActionType** to **ForwardGroup**, the information about a virtual endpoint group is returned. Parameter configuration:
         # 
-        # *   If **RuleActionType** is set to **ForwardGroup**, this parameter specifies the information of a virtual endpoint group. You can forward requests to only one virtual endpoint group. Example: `{"type":"endpointgroup", "value":"epg-bp1enpdcrqhl78g6r****"}`.
+        #     *   `type:` the type of the resource that is returned. The value is `endpointgroup`.
+        #     *   `value:` the ID of the virtual endpoint group that is returned.
         # 
-        #     *   `type`: set this parameter to `endpointgroup`.
-        #     *   `value`: set this parameter to the ID of a virtual endpoint group.
+        # *   If you set **RuleActionType** to **Redirect**, the redirecting configuration is returned. Parameter configuration:
         # 
-        # *   If **RuleActionType** is set to **Redirect**, this parameter specifies redirecting configurations. You cannot leave all of the following parameters empty or configure all of these parameters to use the default values for a forwarding action whose type is **Redirect**: `protocol`, `domain`, `port`, `path`, and `query`. Example: `{"protocol":"HTTP", "domain":"www.example.com", "port":"80", "path":"/a","query":"value1", "code":"301" }`.
+        #     *   `protocol:` the protocol of requests after the requests are redirected.
+        #     *   `domain:` the domain name to which requests are redirected.
+        #     *   `port:` the port to which requests are redirected.
+        #     *   `path:` the path to which requests are redirected.
+        #     *   `query:` the query string of the requests that are redirected.
+        #     *   `code:` the redirecting code.
         # 
-        #     *   `protocol`: the protocol of requests after the requests are redirected. Valid values: `${protocol}` (default), `HTTP`, and `HTTPS`.
-        #     *   `domain`: the domain name to which requests are redirected. Default value: `${host}`. You can also enter a domain name. The domain name must be 3 to 128 characters in length, and can contain only letters, digits, and the following special characters: `. - ? = ~ _ - + / ^ * ! $ &  ( ) [ ]`.
-        #     *   `port`: the port to which requests are redirected. Default value: `${port}`. You can enter a port number that ranges from 1 to 63335.
-        #     *   `path`: the path to which requests are redirected. Default value: `${path}`. The path must be 1 to 128 characters in length. To use a regular expression, the path can contain letters, digits, and the following special characters: `. - _ / = ? ~ ^ * $ : ( ) [ ] + `. The path must start with a tilde (~). If you do not want to use a regular expression, the path can contain letters, digits, and the following special characters: `. - _ / = ? :`. The path must start with a forward slash (/).
-        #     *   `query`: the query string of the requests to be redirected. Default value: `${query}`. You can also specify a query string. The query string must be 1 to 128 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and smaller than 127`. The query string cannot contain uppercase letters, space characters, or the following special characters: `[ ] { } < > #  &`.
-        #     *   `code`: the redirecting code. Valid values: `301`, `302`, `303`, `307`, and `308`.
+        # *   If you set **RuleActionType** to **FixResponse**, the information about the fixed response that you configured is returned. Parameter configuration:
         # 
-        # *   If **RuleActionType** is set to **FixResponse**, this parameter specifies a fixed response. Example: `{"code":"200", "type":"text/plain", "content":"dssacav" }`.
+        #     *   `code:` the HTTP status code that is returned.
+        #     *   `type:` the type of the response content that is returned.
+        #     *   `content:` the response content that is returned.
         # 
-        #     *   `code`: the HTTP status code to return. The response status code must be one of the following numeric strings: `2xx`, `4xx`, and `5xx`. The letter `x` indicates a number from 0 to 9.
-        #     *   `type`: the type of the response content. Valid values: **text/plain**, **text/css**, **text/html**, **application/javascript**, and **application/json**.
-        #     *   `content`: the response content. The response content cannot exceed 1,000 characters in length and does not support Chinese characters.
+        # *   If **RuleActionType** is set to **AddHeader**, the information about the HTTP header that is added is returned. Parameter configuration:
         # 
-        # *   If **RuleActionType** is set to **AddHeader**, this parameter specifies an HTTP header to be added. If a forwarding rule contains a forwarding action whose type is **AddHeader**, you must specify another forwarding action whose type is **ForwardGroup**. Example: `[{"name":"header1","type":"userdefined", "value":"value"}]`.
+        #     *   `name:` the name of the HTTP header that is returned.
+        #     *   `type:` the content type of the HTTP header that is returned.
+        #     *   `value:` the content of the HTTP header that is returned.
         # 
-        #     *   `name`: the name of the HTTP header. The name must be 1 to 40 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_). The name of the HTTP header specified by **AddHeader** must be unique and cannot be the same as the name of the HTTP header specified by **RemoveHeader**.
-        #     *   `type`: the content type of the HTTP header. Valid values: `user-defined`, `ref`, and `system-defined`.
-        #     *   `value`: the content of the HTTP header. You cannot leave this parameter empty. If you set `type` to `user-defined`, the content must be 1 to 128 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and smaller than 127`. The content can contain letters, digits, hyphens (-), and underscores (\_). The content cannot start or end with a space character. If you set `type` to `ref`, the content must be 1 to 128 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_). The content cannot start or end with a space character. If you set `type` to `system-defined`, only `ClientSrcIp` is supported.
+        # *   If you set **RuleActionType** to **RemoveHeader**, the information about the HTTP header that is deleted is returned.
         # 
-        # *   If **RuleActionType** is set to **RemoveHeader**, this parameter specifies an HTTP header to be removed. If a forwarding rule contains a forwarding action whose type is **RemoveHeader**, you must specify another forwarding action whose type is **ForwardGroup**. The header must be 1 to 40 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_). Example: `["header1"]`.
+        # *   If you set **RuleActionType** to **Rewrite**, the rewriting configuration is returned. Parameter configuration:
         # 
-        # *   If **RuleActionType** is set to **Rewrite**, this parameter specifies the rewriting configuration. If a forwarding rule contains a forwarding action whose type is **Rewrite**, you must specify another forwarding action whose type is **ForwardGroup**. Example: `{"domain":"value1", "path":"value2", "query":"value3"}`.
-        # 
-        #     *   `domain`: the domain name to which requests are redirected. Default value: `${host}`. You can also enter a domain name. The domain name must be 3 to 128 characters in length, and can contain only lowercase letters, digits, and the following special characters: `. - ? = ~ _ - + / ^ * ! $ &  ( ) [ ]`.
-        #     *   `path`: the path to which requests are redirected. Default value: `${path}`. The path must be 1 to 128 characters in length. To use a regular expression, the path can contain letters, digits, and the following special characters: `. - _ / = ? ~ ^ * $ : ( ) [ ] + `. The path must start with a tilde (~). If you do not want to use a regular expression, the path can contain letters, digits, and the following special characters: `. - _ / = ? :`. The path must start with a forward slash (/).
-        #     *   `query`: the query string of the requests to be redirected. Default value: `${query}`. You can also specify a query string. The query string must be 1 to 128 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and smaller than 127`. The query string cannot contain uppercase letters, space characters, or the following special characters: `[ ] { } < > #  &`.
+        #     *   `domain:` the domain name to which requests are redirected.
+        #     *   `path:` the path to which requests are redirected.
+        #     *   `query:` the query string of the requests that are redirected.
         self.rule_action_value = rule_action_value  # type: str
 
     def validate(self):
@@ -26136,11 +26160,9 @@ class ListForwardingRulesResponseBodyForwardingRulesRuleActions(TeaModel):
 
 class ListForwardingRulesResponseBodyForwardingRulesRuleConditionsHostConfig(TeaModel):
     def __init__(self, values=None):
-        # The domain name.
+        # The domain name configuration.
         # 
-        # The domain name must be 3 to 128 characters in length, and can contain letters, digits, hyphens (-), and periods (.). Supported wildcard characters are asterisks (\*) and question marks (?).
-        # 
-        # >  GA instances created after July 12, 2022 support all forwarding condition types and action types. We recommend that you query forwarding conditions by calling the **RuleConditionType** and **RuleConditionValue** operations.
+        # >  GA instances created after July 12, 2022 support all forwarding condition types and action types. We recommend that you query forwarding conditions and actions by calling the **RuleActionType** and **RuleActionValue** operations.
         self.values = values  # type: list[str]
 
     def validate(self):
@@ -26165,11 +26187,9 @@ class ListForwardingRulesResponseBodyForwardingRulesRuleConditionsHostConfig(Tea
 
 class ListForwardingRulesResponseBodyForwardingRulesRuleConditionsPathConfig(TeaModel):
     def __init__(self, values=None):
-        # The path.
+        # The path configuration.
         # 
-        # The path must be 1 to 128 characters in length and must start with a forward slash (/). The path can contain only letters, digits, and the following special characters: $ - \_ . + / & ~ @ : \". Supported wildcard characters are asterisks (\*) and question marks (?).
-        # 
-        # >  GA instances created after July 12, 2022 support all forwarding condition types and action types. We recommend that you query forwarding conditions by calling the **RuleConditionType** and **RuleConditionValue** operations.
+        # >  GA instances created after July 12, 2022 support all forwarding condition types and action types. We recommend that you query forwarding conditions and actions by calling the **RuleActionType** and **RuleActionValue** operations.
         self.values = values  # type: list[str]
 
     def validate(self):
@@ -26194,35 +26214,35 @@ class ListForwardingRulesResponseBodyForwardingRulesRuleConditionsPathConfig(Tea
 
 class ListForwardingRulesResponseBodyForwardingRulesRuleConditions(TeaModel):
     def __init__(self, host_config=None, path_config=None, rule_condition_type=None, rule_condition_value=None):
-        # The configuration of the domain name.
+        # The domain name configuration.
         # 
-        # >  GA instances created after July 12, 2022 support all forwarding condition types and action types. We recommend that you query forwarding conditions by calling the **RuleConditionType** and **RuleConditionValue** operations.
+        # >  GA instances created after July 12, 2022 support all forwarding condition types and action types. We recommend that you query forwarding conditions and actions by calling the **RuleActionType** and **RuleActionValue** operations.
         self.host_config = host_config  # type: ListForwardingRulesResponseBodyForwardingRulesRuleConditionsHostConfig
-        # The configuration of the path.
+        # The path configuration.
         # 
-        # >  GA instances created after July 12, 2022 support all forwarding condition types and action types. We recommend that you query forwarding conditions by calling the **RuleConditionType** and **RuleConditionValue** operations.
+        # >  GA instances created after July 12, 2022 support all forwarding condition types and action types. We recommend that you query forwarding conditions and actions by calling the **RuleActionType** and **RuleActionValue** operations.
         self.path_config = path_config  # type: ListForwardingRulesResponseBodyForwardingRulesRuleConditionsPathConfig
-        # The type of the forwarding condition.
+        # The type of the forwarding condition. Valid values:
         # 
-        # *   **Host**: domain name
-        # *   **Path**: path
-        # *   **RequestHeader**: HTTP header
-        # *   **Query**: query string
-        # *   **Method**: HTTP method
-        # *   **Cookie**: cookie
-        # *   **SourceIP**: source IP address
+        # *   **Host:** domain name.
+        # *   **Path:** path.
+        # *   **RequestHeader:** HTTP header.
+        # *   **Query:** query string.
+        # *   **Method:** HTTP method.
+        # *   **Cookie:** cookie.
+        # *   **SourceIP:** source IP address.
         self.rule_condition_type = rule_condition_type  # type: str
         # The value of the forwarding condition type.
         # 
-        # Different JSON strings are returned based on the **RuleConditionType** parameter.
+        # Different JSON strings are returned based on the value of the **RuleConditionType** parameter.
         # 
-        # *   If **RuleConditionType** is set to **Host**, a domain name condition is returned. If multiple domain names are returned in a forwarding condition, the relationship between the domain names is OR.
-        # *   If **RuleConditionType** is set to **Path**, a path condition is returned. If multiple forwarding conditions whose types are path are returned in a forwarding rule, the relationship between the forwarding conditions is OR. If multiple paths are returned in a forwarding condition, the relationship between the paths is OR.
-        # *   If **RuleConditionType** is set to **RequestHeader**, an HTTP header condition that consists of key-value pairs is returned.
-        # *   If **RuleConditionType** is set to **Query**, a query string condition that consists of key-value pairs is returned.
-        # *   If **RuleConditionType** is set to **Method**, an HTTP method condition is returned.
-        # *   If **RuleConditionType** is set to **Cookie**, a cookie condition that consists of key-value pairs is returned.
-        # *   If **RuleConditionType** is set to **SourceIP**, a source IP address condition is returned. If multiple source IP addresses are returned in a forwarding condition, the relationship between the source IP addresses is OR.
+        # *   If you set **RuleConditionType** to **Host**, a domain name condition is returned. If multiple domain names are returned in a forwarding condition, the relationship between the domain names is OR.
+        # *   If you set **RuleConditionType** to **Path**, a path condition is returned. If multiple forwarding conditions of the path type are returned in a forwarding rule, the relationship between the forwarding conditions is OR. If multiple paths are returned in a forwarding condition, the relationship between the paths is OR.
+        # *   If you set **RuleConditionType** to **RequestHeader**, an HTTP header condition that consists of key-value pairs is returned.
+        # *   If you set **RuleConditionType** to **Query**, a query string condition that consists of key-value pairs is returned.
+        # *   If you set **RuleConditionType** to **Method**, an HTTP method condition is returned.
+        # *   If you set **RuleConditionType** to **Cookie**, a cookie condition that consists of key-value pairs is returned.
+        # *   If you set **RuleConditionType** to **SourceIP**, a source IP address condition is returned. If multiple source IP addresses are returned in a forwarding condition, the relationship between the source IP addresses is OR.
         self.rule_condition_value = rule_condition_value  # type: str
 
     def validate(self):
@@ -26327,25 +26347,25 @@ class ListForwardingRulesResponseBodyForwardingRules(TeaModel):
         # 
         # By default, **request** is returned, which indicates that the forwarding rule takes effect on requests.
         self.forwarding_rule_direction = forwarding_rule_direction  # type: str
-        # The ID of the forwarding rule.
+        # The forwarding rule ID.
         self.forwarding_rule_id = forwarding_rule_id  # type: str
-        # The name of the forwarding rule.
+        # The forwarding rule name.
         self.forwarding_rule_name = forwarding_rule_name  # type: str
-        # The status of the forwarding rule.
+        # The state of the forwarding rule. Valid values:
         # 
-        # *   **active**: The forwarding rule is normal.
-        # *   **configuring**: The forwarding rule is being modified.
-        # *   **deleting**: The forwarding rule is being deleted.
+        # *   **active:** The forwarding rule is normal.
+        # *   **configuring:** The forwarding rule is being modified.
+        # *   **deleting:** The forwarding rule is being deleted.
         self.forwarding_rule_status = forwarding_rule_status  # type: str
-        # The ID of the listener.
+        # The listener ID.
         self.listener_id = listener_id  # type: str
         # The priority of the forwarding rule.
         # 
-        # Valid values: **1** to **10000**. A lower value indicates a higher priority.
+        # A value between **1** and **10000** is returned. A smaller value indicates a higher priority.
         self.priority = priority  # type: int
-        # The forwarding action.
+        # The forwarding actions.
         self.rule_actions = rule_actions  # type: list[ListForwardingRulesResponseBodyForwardingRulesRuleActions]
-        # The forwarding conditions.
+        # The conditions that trigger the forwarding rule.
         self.rule_conditions = rule_conditions  # type: list[ListForwardingRulesResponseBodyForwardingRulesRuleConditions]
         # The service ID to which the managed instance belongs.
         # 
@@ -26447,7 +26467,7 @@ class ListForwardingRulesResponseBodyForwardingRules(TeaModel):
 
 class ListForwardingRulesResponseBody(TeaModel):
     def __init__(self, forwarding_rules=None, max_results=None, next_token=None, request_id=None, total_count=None):
-        # The information about the forwarding rules.
+        # The forwarding rules.
         self.forwarding_rules = forwarding_rules  # type: list[ListForwardingRulesResponseBodyForwardingRules]
         # The number of entries returned per page.
         self.max_results = max_results  # type: int
@@ -28931,7 +28951,7 @@ class TagResourcesRequestTag(TeaModel):
         self.key = key  # type: str
         # The tag value of the GA resource. The tag value can be an empty string.
         # 
-        # The tag value can be up to 128 characters in length and and cannot contain `http://` or `https://`. It cannot start with `aliyun` or `acs:`.
+        # The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`. It cannot start with `aliyun` or `acs:`.
         # 
         # You can specify up to 20 tag values.
         self.value = value  # type: str
@@ -31158,21 +31178,21 @@ class UpdateCustomRoutingEndpointGroupAttributeRequest(TeaModel):
     def __init__(self, client_token=None, description=None, endpoint_group_id=None, name=None, region_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can use the client to generate the value, but you must ensure that it is unique among all requests. ClientToken can contain only ASCII characters.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         # 
-        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** may be different for each API request.
+        # >  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
         self.client_token = client_token  # type: str
-        # The description of the endpoint group.
+        # The endpoint group description.
         # 
-        # The description cannot exceed 256 characters in length and cannot contain `http://` or `https://`.
+        # The description can be up to 256 characters in length and cannot contain `http://` or `https://`.
         self.description = description  # type: str
-        # The ID of the endpoint group.
+        # The endpoint group ID.
         self.endpoint_group_id = endpoint_group_id  # type: str
-        # The name of the endpoint group.
+        # The endpoint group name.
         # 
         # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
         self.name = name  # type: str
-        # The ID of the region where the Global Accelerator (GA) instance is deployed. Set the value to **cn-hangzhou**.
+        # The region ID of the Global Accelerator (GA) instance. Set the value to **cn-hangzhou**.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -31213,7 +31233,7 @@ class UpdateCustomRoutingEndpointGroupAttributeRequest(TeaModel):
 
 class UpdateCustomRoutingEndpointGroupAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -32190,16 +32210,21 @@ class UpdateEndpointGroupRequestEndpointConfigurations(TeaModel):
         self.enable_proxy_protocol = enable_proxy_protocol  # type: bool
         # The IP address or domain name of the endpoint.
         self.endpoint = endpoint  # type: str
+        # The private IP address of the ENI.
+        # 
+        # > - When the Endpoint type is ENI, this parameter can be configured. If not configured, it defaults to the primary private IP address of ENI.
         self.sub_address = sub_address  # type: str
         # The type of the endpoint. Valid values:
         # 
-        # *   **Domain**: a custom domain name
-        # *   **Ip**: a custom IP address
-        # *   **PublicIp**: a public IP address provided by Alibaba Cloud
-        # *   **ECS**: an Elastic Compute Service (ECS) instance
-        # *   **SLB**: a Server Load Balancer (SLB) instance
-        # *   **ALB**: an Application Load Balancer (ALB) instance
-        # *   **OSS**: an Object Storage Service (OSS) bucket
+        # *   **Domain:** a custom domain name.
+        # *   **Ip:** a custom IP address.
+        # *   **PublicIp:** a public IP address provided by Alibaba Cloud.
+        # *   **ECS:** Elastic Compute Service (ECS) instance.
+        # *   **SLB:** Server Load Balancer (SLB) instance.
+        # *   **ALB:** Application Load Balancer (ALB) instance.
+        # *   **OSS:** Object Storage Service (OSS) bucket.
+        # *   **ENI:** Elastic Network interface (ENI).
+        # *   **NLB:** Network Load Balancer (NLB) instance.
         # 
         # > *   If you set this parameter to **ECS** or **SLB** and the service-linked role AliyunServiceRoleForGaVpcEndpoint does not exist, the system automatically creates the service-linked role.
         # > *   If you set this parameter to **ALB** and the service-linked role AliyunServiceRoleForGaAlb does not exist, the system automatically creates the service-linked role.
@@ -32633,16 +32658,21 @@ class UpdateEndpointGroupsRequestEndpointGroupConfigurationsEndpointConfiguratio
     def __init__(self, endpoint=None, sub_address=None, type=None, weight=None):
         # The IP address or domain name of the endpoint.
         self.endpoint = endpoint  # type: str
+        # The private IP address of the ENI.
+        # 
+        # > - When the Endpoint type is ENI, this parameter can be configured. If not configured, it defaults to the primary private IP address of ENI.
         self.sub_address = sub_address  # type: str
-        # The type of the endpoint.
+        # The type of the endpoint. Valid values:
         # 
         # *   **Domain:** a custom domain name.
         # *   **Ip:** a custom IP address.
         # *   **PublicIp:** a public IP address provided by Alibaba Cloud.
-        # *   **ECS:** an Elastic Compute Service (ECS) instance.
-        # *   **SLB:** a Server Load Balancer (SLB) instance.
-        # *   **ALB:** an Application Load Balancer (ALB) instance.
-        # *   **OSS:** an Object Storage Service (OSS) bucket.
+        # *   **ECS:** Elastic Compute Service (ECS) instance.
+        # *   **SLB:** Server Load Balancer (SLB) instance.
+        # *   **ALB:** Application Load Balancer (ALB) instance.
+        # *   **OSS:** Object Storage Service (OSS) bucket.
+        # *   **ENI:** Elastic Network interface (ENI).
+        # *   **NLB:** Network Load Balancer (NLB) instance.
         # 
         # > 
         # 
@@ -33032,9 +33062,9 @@ class UpdateEndpointGroupsResponse(TeaModel):
 
 class UpdateForwardingRulesRequestForwardingRulesRuleActionsForwardGroupConfigServerGroupTuples(TeaModel):
     def __init__(self, endpoint_group_id=None):
-        # The ID of the endpoint group.
+        # The ID of an endpoint group.
         # 
-        # >  For GA instances created after July 12, 2022, all forwarding condition types and forwarding action types are supported. We recommend that you call **RuleActionType** and **RuleActionValue** to query forwarding actions.
+        # >  We recommend that you use **RuleActionType** and **RuleActionValue** rather than this parameter to configure forwarding actions.
         self.endpoint_group_id = endpoint_group_id  # type: str
 
     def validate(self):
@@ -33059,9 +33089,9 @@ class UpdateForwardingRulesRequestForwardingRulesRuleActionsForwardGroupConfigSe
 
 class UpdateForwardingRulesRequestForwardingRulesRuleActionsForwardGroupConfig(TeaModel):
     def __init__(self, server_group_tuples=None):
-        # The information about the endpoint group.
+        # The configurations of an endpoint group.
         # 
-        # >  For GA instances created after July 12, 2022, all forwarding condition types and forwarding action types are supported. We recommend that you call **RuleActionType** and **RuleActionValue** to query forwarding actions.
+        # >  We recommend that you use **RuleActionType** and **RuleActionValue** rather than this parameter to configure forwarding actions.
         self.server_group_tuples = server_group_tuples  # type: list[UpdateForwardingRulesRequestForwardingRulesRuleActionsForwardGroupConfigServerGroupTuples]
 
     def validate(self):
@@ -33096,7 +33126,7 @@ class UpdateForwardingRulesRequestForwardingRulesRuleActions(TeaModel):
     def __init__(self, forward_group_config=None, order=None, rule_action_type=None, rule_action_value=None):
         # The forwarding configurations.
         # 
-        # >  We recommend that you do not use this parameter. We recommend that you use the **RuleActionType** and **RuleActionValue** parameters to configure forwarding actions.
+        # >  We recommend that you use **RuleActionType** and **RuleActionValue** rather than this parameter to configure forwarding actions.
         self.forward_group_config = forward_group_config  # type: UpdateForwardingRulesRequestForwardingRulesRuleActionsForwardGroupConfig
         # The forwarding priority.
         # 
@@ -33104,52 +33134,52 @@ class UpdateForwardingRulesRequestForwardingRulesRuleActions(TeaModel):
         self.order = order  # type: int
         # The type of the forwarding action. Valid values:
         # 
-        # *   **ForwardGroup**: forwards a request.
-        # *   **Redirect**: redirects a request.
-        # *   **FixResponse**: returns a fixed response.
-        # *   **Rewrite**: rewrites a request.
-        # *   **AddHeader**: adds a header to a request.
-        # *   **RemoveHeader**: deletes the header of a request.
+        # *   **ForwardGroup:** forwards a request.
+        # *   **Redirect:** redirects a request.
+        # *   **FixResponse:** returns a fixed response.
+        # *   **Rewrite:** rewrites a request.
+        # *   **AddHeader:** adds a header to a request.
+        # *   **RemoveHeaderConfig:** deletes the header of a request.
         self.rule_action_type = rule_action_type  # type: str
         # The value of the forwarding action type.
         # 
-        # You must specify different JSON strings based on the **RuleActionType** parameter.
+        # You must specify different JSON strings based on the value of the **RuleActionType** parameter.
         # 
         # A forwarding rule can contain only one forwarding action whose type is **ForwardGroup**, **Redirect**, or **FixResponse**. You must specify a forwarding action whose type is **Rewrite**, **AddHeader**, or **RemoveHeader** before a forwarding action whose type is **ForwardGroup**.
         # 
-        # *   If **RuleActionType** is set to **ForwardGroup**, this parameter specifies the information of a virtual endpoint group. You can forward requests to only one virtual endpoint group. Example: `{"type":"endpointgroup", "value":"epg-bp1enpdcrqhl78g6r****"}`.
+        # *   If you set **RuleActionType** to **ForwardGroup**, this parameter specifies the information of a virtual endpoint group. You can forward requests to only one virtual endpoint group. Example: `{"type":"endpointgroup", "value":"epg-bp1enpdcrqhl78g6r****"}`.
         # 
-        #     *   `type`: set this parameter to `endpointgroup`.
-        #     *   `value`: set this parameter to the ID of a virtual endpoint group.
+        #     *   `type:` set this parameter to `endpointgroup`.
+        #     *   `value:` set this parameter to the ID of a virtual endpoint group.
         # 
-        # *   If **RuleActionType** is set to **Redirect**, this parameter specifies redirecting configurations. You cannot leave all of the following parameters empty or configure all of these parameters to use the default values for a forwarding action whose type is **Redirect**: `protocol`, `domain`, `port`, `path`, and `query`. Example: `{"protocol":"HTTP", "domain":"www.example.com", "port":"80", "path":"/a","query":"value1", "code":"301" }`.
+        # *   If you set **RuleActionType** to **Redirect**, this parameter specifies redirecting configurations. You cannot leave all of the following parameters empty or configure all of these parameters to use the default values for a forwarding action whose type is **Redirect**: `protocol`, `domain`, `port`, `path`, and `query`. Example: `{"protocol":"HTTP", "domain":"www.example.com", "port":"80", "path":"/a","query":"value1", "code":"301" }`.
         # 
-        #     *   `protocol`: the protocol of requests after the requests are redirected. Valid values: `${protocol}` (default), `HTTP`, and `HTTPS`.
-        #     *   `domain`: the domain name to which requests are redirected. Default value: `${host}`. You can also enter a domain name. The domain name must be 3 to 128 characters in length, and can contain only letters, digits, and the following special characters: `. - ? = ~ _ - + / ^ * ! $ & | ( ) [ ]`.
-        #     *   `port`: the port to which requests are redirected. Default value: `${port}`. You can enter a port number that ranges from 1 to 63335.
-        #     *   `path`: the path to which requests are redirected. Default value: `${path}`. The path must be 1 to 128 characters in length. To use a regular expression, the path can contain letters, digits, and the following special characters: `. - _ / = ? ~ ^ * $ : ( ) [ ] + |`. The path must start with a tilde (~). If you do not want to use a regular expression, the path can contain letters, digits, and the following special characters: `. - _ / = ? :`. The path must start with a forward slash (/).
-        #     *   `query`: the query string of the requests to be redirected. Default value: `${query}`. You can also specify a query string. The query string must be 1 to 128 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and smaller than 127`. The query string cannot contain uppercase letters, space characters, or the following special characters: `[ ] { } < > # | &`.
-        #     *   `code`: the redirecting code. Valid values: `301`, `302`, `303`, `307`, and `308`.
+        #     *   `protocol:` the protocol of requests after the requests are redirected. Valid values: `${protocol}` (default), `HTTP`, and `HTTPS`.
+        #     *   `domain:` the domain name to which requests are redirected. Default value: `${host}`. You can also enter a domain name. The domain name must be 3 to 128 characters in length, and can contain only letters, digits, and the following special characters: `. - ? = ~ _ - + / ^ * ! $ & | ( ) [ ]`.
+        #     *   `port:` the port to which requests are redirected. Default value: `${port}`. You can enter a port number that ranges from 1 to 63335.
+        #     *   `path:` the path to which requests are redirected. Default value: `${path}`. The path must be 1 to 128 characters in length. To use a regular expression, the path can contain letters, digits, and the following special characters: `. - _ / = ? ~ ^ * $ : ( ) [ ] + |`. The path must start with a tilde (~). If you do not want to use a regular expression, the path can contain letters, digits, and the following special characters: `. - _ / = ? :`. The path must start with a forward slash (/).
+        #     *   `query:` the query string of the requests to be redirected. Default value: `${query}`. You can also specify a query string. The query string must be 1 to 128 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and smaller than 127`. The query string cannot contain uppercase letters, space characters, or the following special characters: `[ ] { } < > # | &`.
+        #     *   `code:` the redirecting code. Valid values: `301`, `302`, `303`, `307`, and `308`.
         # 
-        # *   If **RuleActionType** is set to **FixResponse**, this parameter specifies a fixed response. Example: `{"code":"200", "type":"text/plain", "content":"dssacav" }`.
+        # *   If you set **RuleActionType** to **FixResponse**, this parameter specifies a fixed response. Example: `{"code":"200", "type":"text/plain", "content":"dssacav" }`.
         # 
-        #     *   `code`: the HTTP response status code. The response status code must be one of the following numeric strings: `2xx`, `4xx`, and `5xx`. The letter `x` indicates a number from 0 to 9.
-        #     *   `type`: the type of the response content. Valid values: **text/plain**, **text/css**, **text/html**, **application/javascript**, and **application/json**.
-        #     *   `content`: the response content. The response content cannot exceed 1,000 characters in length and does not support Chinese characters.
+        #     *   `code:` the HTTP response status code. The response status code must be one of the following numeric strings: `2xx`, `4xx`, and `5xx`. The letter `x` indicates a number from 0 to 9.
+        #     *   `type:` the type of the response content. Valid values: **text/plain**, **text/css**, **text/html**, **application/javascript**, and **application/json**.
+        #     *   `content:` the response content. The response content cannot exceed 1,000 characters in length and does not support Chinese characters.
         # 
-        # *   If **RuleActionType** is set to **AddHeader**, this parameter specifies an HTTP header to be added. If a forwarding rule contains a forwarding action whose type is **AddHeader**, you must specify another forwarding action whose type is **ForwardGroup**. Example: `[{"name":"header1","type":"userdefined", "value":"value"}]`.
+        # *   If you set **RuleActionType** to **AddHeader**, this parameter specifies an HTTP header to be added. If a forwarding rule contains a forwarding action whose type is **AddHeader**, you must specify another forwarding action whose type is **ForwardGroup**. Example: `[{"name":"header1","type":"userdefined", "value":"value"}]`.
         # 
-        #     *   `name`: the name of the HTTP header. The name must be 1 to 40 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_). The name of the HTTP header specified by **AddHeader** must be unique and cannot be the same as the name of the HTTP header specified by **RemoveHeader**.
-        #     *   `type`: the content type of the HTTP header. Valid values: `user-defined`, `ref`, and `system-defined`.
-        #     *   `value`: the content of the HTTP header. You cannot leave this parameter empty. If you set `type` to `user-defined`, the content must be 1 to 128 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and smaller than 127`. The content can contain letters, digits, hyphens (-), and underscores (\_). The content cannot start or end with a space character. If you set `type` to `ref`, the content must be 1 to 128 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_). The content cannot start or end with a space character. If you set `type` to `system-defined`, only `ClientSrcIp` is supported.
+        #     *   `name:` the name of the HTTP header. The name must be 1 to 40 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_). The name of the HTTP header specified by **AddHeader** must be unique and cannot be the same as the name of the HTTP header specified by **RemoveHeader**.
+        #     *   `type:` the content type of the HTTP header. Valid values: `user-defined`, `ref`, and `system-defined`.
+        #     *   `value:` the content of the HTTP header. You cannot leave this parameter empty. If you set `type` to `user-defined`, the content must be 1 to 128 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and smaller than 127`. The content can contain letters, digits, hyphens (-), and underscores (\_). The content cannot start or end with a space character. If you set `type` to `ref`, the content must be 1 to 128 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_). The content cannot start or end with a space character. If you set `type` to `system-defined`, only `ClientSrcIp` is supported.**\
         # 
-        # *   If **RuleActionType** is set to **RemoveHeader**, this parameter specifies an HTTP header to be removed. If a forwarding rule contains a forwarding action whose type is **RemoveHeader**, you must specify another forwarding action whose type is **ForwardGroup**. The header must be 1 to 40 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_). Example: `["header1"]`.
+        # *   If you set **RuleActionType** to **RemoveHeader**, this parameter specifies an HTTP header to be removed. If a forwarding rule contains a forwarding action whose type is **RemoveHeader**, you must specify another forwarding action whose type is **ForwardGroup**. The header must be 1 to 40 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_). Example: `["header1"]`.
         # 
-        # *   If **RuleActionType** is set to **Rewrite**, this parameter specifies the rewriting configuration. If a forwarding rule contains a forwarding action whose type is **Rewrite**, you must specify another forwarding action whose type is **ForwardGroup**. Example: `{"domain":"value1", "path":"value2", "query":"value3"}`.
+        # *   If you set **RuleActionType** to **Rewrite**, this parameter specifies the rewriting configuration. If a forwarding rule contains a forwarding action whose type is **Rewrite**, you must specify another forwarding action whose type is **ForwardGroup**. Example: `{"domain":"value1", "path":"value2", "query":"value3"}`.
         # 
-        #     *   `domain`: the domain name to which requests are redirected. Default value: `${host}`. You can also enter a domain name. The domain name must be 3 to 128 characters in length, and can contain only lowercase letters, digits, and the following special characters: `. - ? = ~ _ - + / ^ * ! $ & | ( ) [ ]`.
-        #     *   `path`: the path to which requests are redirected. Default value: `${path}`. The path must be 1 to 128 characters in length. To use a regular expression, the path can contain letters, digits, and the following special characters: `. - _ / = ? ~ ^ * $ : ( ) [ ] + |`. The path must start with a tilde (~). If you do not want to use a regular expression, the path can contain letters, digits, and the following special characters: `. - _ / = ? :`. The path must start with a forward slash (/).
-        #     *   `query`: the query string of the requests to be redirected. Default value: `${query}`. You can also specify a query string. The query string must be 1 to 128 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and smaller than 127`. The query string cannot contain uppercase letters, space characters, or the following special characters: `[ ] { } < > # | &`.
+        #     *   `domain:` the domain name to which requests are redirected. Default value: `${host}`. You can also enter a domain name. The domain name must be 3 to 128 characters in length, and can contain only lowercase letters, digits, and the following special characters: `. - ? = ~ _ - + / ^ * ! $ & | ( ) [ ]`.
+        #     *   `path:` the path to which requests are redirected. Default value: `${path}`. The path must be 1 to 128 characters in length. To use a regular expression, the path can contain letters, digits, and the following special characters: `. - _ / = ? ~ ^ * $ : ( ) [ ] + |`. The path must start with a tilde (~). If you do not want to use a regular expression, the path can contain letters, digits, and the following special characters: `. - _ / = ? :`. The path must start with a forward slash (/).
+        #     *   `query:` the query string of the requests to be redirected. Default value: `${query}`. You can also specify a query string. The query string must be 1 to 128 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and smaller than 127`. The query string cannot contain uppercase letters, space characters, or the following special characters: `[ ] { } < > # | &`.
         self.rule_action_value = rule_action_value  # type: str
 
     def validate(self):
@@ -33188,11 +33218,9 @@ class UpdateForwardingRulesRequestForwardingRulesRuleActions(TeaModel):
 
 class UpdateForwardingRulesRequestForwardingRulesRuleConditionsHostConfig(TeaModel):
     def __init__(self, values=None):
-        # The domain name.
+        # The domain name configuration.
         # 
-        # The domain name must be 3 to 128 characters in length, and can contain letters, digits, hyphens (-), and periods (.). Supported wildcard characters are asterisks (\*) and question marks (?).
-        # 
-        # >  For GA instances created after July 12, 2022, all forwarding condition types and forwarding action types are supported. We recommend that you use **RuleConditionType** and **RuleConditionValue** to query forwarding conditions.
+        # >  We recommend that you use **RuleConditionType** and **RuleConditionValue** rather than this parameter to configure forwarding conditions.
         self.values = values  # type: list[str]
 
     def validate(self):
@@ -33217,11 +33245,9 @@ class UpdateForwardingRulesRequestForwardingRulesRuleConditionsHostConfig(TeaMod
 
 class UpdateForwardingRulesRequestForwardingRulesRuleConditionsPathConfig(TeaModel):
     def __init__(self, values=None):
-        # The path.
+        # The path configuration.
         # 
-        # The path must be 1 to 128 characters in length and must start with a forward slash (/). The path can contain only letters, digits, and the following special characters: $ - \_ . + / & ~ @ : \". Supported wildcard characters are asterisks (\*) and question marks (?).
-        # 
-        # >  For GA instances created after July 12, 2022, all forwarding condition types and forwarding action types are supported. We recommend that you use **RuleConditionType** and **RuleConditionValue** to query forwarding conditions.
+        # >  We recommend that you use **RuleConditionType** and **RuleConditionValue** rather than this parameter to configure forwarding conditions.
         self.values = values  # type: list[str]
 
     def validate(self):
@@ -33246,50 +33272,48 @@ class UpdateForwardingRulesRequestForwardingRulesRuleConditionsPathConfig(TeaMod
 
 class UpdateForwardingRulesRequestForwardingRulesRuleConditions(TeaModel):
     def __init__(self, host_config=None, path_config=None, rule_condition_type=None, rule_condition_value=None):
-        # The configuration of the domain name.
+        # The configurations of the domain name.
         # 
-        # >  We recommend that you do not use this parameter. We recommend that you use the **RuleConditionType** and **RuleConditionValue** parameters to configure forwarding conditions.
+        # >  We recommend that you use **RuleConditionType** and **RuleConditionValue** rather than this parameter to configure forwarding conditions.
         self.host_config = host_config  # type: UpdateForwardingRulesRequestForwardingRulesRuleConditionsHostConfig
-        # The configuration of the path.
+        # The configurations of the path.
         # 
-        # >  We recommend that you do not use this parameter. We recommend that you use the **RuleConditionType** and **RuleConditionValue** parameters to configure forwarding conditions.
+        # >  We recommend that you use **RuleConditionType** and **RuleConditionValue** rather than this parameter to configure forwarding conditions.
         self.path_config = path_config  # type: UpdateForwardingRulesRequestForwardingRulesRuleConditionsPathConfig
-        # The type of the forwarding conditions. Valid values:
+        # The type of the forwarding condition. Valid values:
         # 
-        # *   **Host**: domain name
-        # *   **Path**: path
-        # *   **RequestHeader**: HTTP header
-        # *   **Query**: query string
-        # *   **Method**: HTTP method
-        # *   **Cookie**: cookie
-        # *   **SourceIP**: source IP address
+        # *   **Host:** Requests are forwarded based on domain names.
+        # *   **Path:** Requests are forwarded based on paths.
+        # *   **RequestHeader:** Requests are forwarded based on HTTP headers.
+        # *   **Query:** Requests are forwarded based on query strings.
+        # *   **Method:** Requests are forwarded based on HTTP methods.
+        # *   **Cookie:** Requests are forwarded based on cookies.
+        # *   **SourceIP:** Requests are forwarded based on source IP address.
         self.rule_condition_type = rule_condition_type  # type: str
-        # The value of the forwarding condition type.
+        # The value of the forwarding condition type. You must specify different JSON strings based on the value of the **RuleConditionType** parameter.
         # 
-        # You must specify different JSON strings based on the **RuleConditionType** parameter.
+        # *   If you set **RuleConditionType** to **Host**, this parameter specifies a domain name condition. A forwarding rule can contain only one forwarding condition of the host type. You can specify multiple domain names in a forwarding condition. The relationship between multiple domain names is OR. The domain name must be 3 to 128 characters in length and can contain letters, digits, hyphens (-), and periods (.). Supported wildcard characters are asterisks (\*) and question marks (?). Example: `["www.example.com", "www.aliyun.com"]`.
         # 
-        # *   If **RuleConditionType** is set to **Host**, this parameter specifies a domain name condition. A forwarding rule can contain only one forwarding condition whose type is host. You can specify multiple domain names in a forwarding condition. The relationship between multiple domain names is OR. The domain name must be 3 to 128 characters in length, and can contain letters, digits, hyphens (-), and periods (.). Supported wildcard characters are asterisks (\*) and question marks (?). Example: `["www.example.com", "www.aliyun.com"]`.
+        # *   If **RuleConditionType** is set to **Path**, this parameter specifies a path condition. A forwarding rule can contain multiple forwarding conditions of the path type. The relationship between multiple path conditions is OR. You can specify multiple paths in a forwarding condition. The relationship between multiple paths is OR. The path must be 1 to 128 characters in length, and must start with a forward slash (/). The path can contain letters, digits, and the following special characters: $ - \_ . + / & ~ @ : \". Supported wildcard characters are asterisks (\*) and question marks (?). Example: `["/a", "/b/"]`.
         # 
-        # *   If **RuleConditionType** is set to **Path**, this parameter specifies a path condition. A forwarding rule can contain multiple forwarding conditions whose types are path. The relationship between multiple path conditions is OR. You can specify multiple paths in a forwarding condition. The relationship between multiple paths is OR. The path must be 1 to 128 characters in length, and must start with a forward slash (/). The path can contain letters, digits, and the following special characters: $ - \_ . + / & ~ @ : \". Supported wildcard characters are asterisks (\*) and question marks (?). Example: `["/a", "/b/"]`.
-        # 
-        # *   If **RuleConditionType** is set to **RequestHeader**, this parameter specifies an HTTP header condition that consists of key-value pairs. The header values in a forwarding condition must be unique. Example: `[{"header1":["value1","value2"]}]`.
+        # *   If you set **RuleConditionType** to **RequestHeader**, this parameter specifies an HTTP header condition that consists of key-value pairs. The header values in a forwarding condition must be unique. Example: `[{"header1":["value1","value2"]}]`.
         # 
         #     *   Key: The key of an HTTP header must be 1 to 40 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_).
         #     *   Value: The value of an HTTP header must be 1 to 128 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and smaller than 127`. The value cannot start or end with a space character.
         # 
-        # *   If **RuleConditionType** is set to **Query**, this parameter specifies a query string condition that consists of key-value pairs. Example: `[{"query1":["value1"]}, {"query2":["value2"]}]`.
+        # *   If you set **RuleConditionType** to **Query**, this parameter specifies a query string condition that consists of key-value pairs. Example: `[{"query1":["value1"]}, {"query2":["value2"]}]`.
         # 
         #     *   Key: The key of an HTTP header must be 1 to 100 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and smaller than 127`. The key cannot contain uppercase letters, space characters, or the following special characters: `[ ] { } < > \ ; / ? : @ & = + , $ % | " ^ ~`.
         #     *   Value: The value of an HTTP header must be 1 to 128 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and smaller than 127`. The value cannot contain uppercase letters, space characters, or the following special characters: `[ ] { } < > \ ; / ? : @ & = + , $ % | " ^ ~`.
         # 
-        # *   If **RuleConditionType** is set to **Method**, this parameter specifies an HTTP method condition. Valid values: **HEAD**, **GET**, **POST**, **OPTIONS**, **PUT**, **PATCH**, and **DELETE**. Example: `["GET", "OPTIONS", "POST"]`.
+        # *   If you set **RuleConditionType** to **Method**, this parameter specifies an HTTP method condition. Valid values: **HEAD**, **GET**, **POST**, **OPTIONS**, **PUT**, **PATCH**, and **DELETE**. Example: `["GET", "OPTIONS", "POST"]`.
         # 
-        # *   If **RuleConditionType** is set to **Cookie**, this parameter specifies a cookie condition that consists of key-value pairs. Example: `[{"cookie1":["value1"]}, {"cookie2":["value2"]}]`.
+        # *   If you set **RuleConditionType** to **Cookie**, this parameter specifies a cookie condition that consists of key-value pairs. Example: `[{"cookie1":["value1"]}, {"cookie2":["value2"]}]`.
         # 
         #     *   Key: The key of a cookie must be 1 to 100 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and smaller than 127`. The key cannot contain uppercase letters, space characters, or the following special characters: `# [ ] { } \ | < > &`.
         #     *   Value: The value of a cookie must be 1 to 128 characters in length, and can contain printable characters whose ASCII values are `greater than or equal to 32 and lower than 127`. The value cannot contain uppercase letters, space characters, or the following special characters: `# [ ] { } \ | < > &`.
         # 
-        # *   If **RuleConditionType** is set to **SourceIP**, this parameter specifies a source IP address condition. You can specify IP addresses, such as 1.1.XX.XX/32. You can also specify CIDR blocks, such as 2.2.XX.XX/24. A forwarding rule can contain only one forwarding condition whose type is source IP address. You can specify multiple source IP addresses in a forwarding condition. The relationship between multiple source IP addresses is OR. Example: `["1.1.XX.XX/32", "2.2.XX.XX/24"]`.
+        # *   If you set **RuleConditionType** to **SourceIP**, this parameter specifies a source IP address condition. You can specify IP addresses, such as 1.1.XX.XX/32. You can also specify CIDR blocks, such as 2.2.XX.XX/24. A forwarding rule can contain only one forwarding condition whose type is source IP address. You can specify multiple source IP addresses in a forwarding condition. The relationship between multiple source IP addresses is OR. Example: `["1.1.XX.XX/32", "2.2.XX.XX/24"]`.
         self.rule_condition_value = rule_condition_value  # type: str
 
     def validate(self):
@@ -33332,19 +33356,19 @@ class UpdateForwardingRulesRequestForwardingRulesRuleConditions(TeaModel):
 class UpdateForwardingRulesRequestForwardingRules(TeaModel):
     def __init__(self, forwarding_rule_id=None, forwarding_rule_name=None, priority=None, rule_actions=None,
                  rule_conditions=None, rule_direction=None):
-        # The ID of the forwarding rule.
+        # The forwarding rule ID.
         self.forwarding_rule_id = forwarding_rule_id  # type: str
-        # The name of the forwarding rule.
+        # The forwarding rule name.
         # 
         # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter.
         self.forwarding_rule_name = forwarding_rule_name  # type: str
-        # The priority of the forwarding rule. Valid values: **1** to **10000**. A lower value indicates a higher priority.
+        # The priority of the forwarding rule. Valid values: **1** to **10000**. A smaller value indicates a higher priority.
         self.priority = priority  # type: int
-        # The forwarding action.
+        # The configurations of the forwarding action.
         self.rule_actions = rule_actions  # type: list[UpdateForwardingRulesRequestForwardingRulesRuleActions]
-        # The forwarding conditions.
+        # The conditions that trigger the forwarding rule.
         self.rule_conditions = rule_conditions  # type: list[UpdateForwardingRulesRequestForwardingRulesRuleConditions]
-        # The direction in which the rule takes effect. You do not need to set this parameter.
+        # The direction in which the rule takes effect. You do not need to configure this parameter.
         # 
         # By default, this parameter is set to **request**, which indicates that the rule takes effect on requests.
         self.rule_direction = rule_direction  # type: str
@@ -33409,19 +33433,19 @@ class UpdateForwardingRulesRequestForwardingRules(TeaModel):
 class UpdateForwardingRulesRequest(TeaModel):
     def __init__(self, accelerator_id=None, client_token=None, forwarding_rules=None, listener_id=None,
                  region_id=None):
-        # The ID of the GA instance.
+        # The GA instance ID.
         self.accelerator_id = accelerator_id  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can use the client to generate the value, but you must make sure that it is unique among all requests. ClientToken can contain only ASCII characters.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         # 
-        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** may be different for each API request.
+        # >  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
         self.client_token = client_token  # type: str
-        # The information about the forwarding rules.
+        # The configurations of the forwarding rule.
         self.forwarding_rules = forwarding_rules  # type: list[UpdateForwardingRulesRequestForwardingRules]
-        # The ID of the listener.
+        # The listener ID.
         self.listener_id = listener_id  # type: str
-        # The ID of the region where the GA instance is deployed. Set the value to **cn-hangzhou**.
+        # The region ID of the GA instance. Set the value to **cn-hangzhou**.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -33470,7 +33494,7 @@ class UpdateForwardingRulesRequest(TeaModel):
 
 class UpdateForwardingRulesResponseBodyForwardingRules(TeaModel):
     def __init__(self, forwarding_rule_id=None):
-        # The ID of the forwarding rule.
+        # The forwarding rule ID.
         self.forwarding_rule_id = forwarding_rule_id  # type: str
 
     def validate(self):
@@ -33497,7 +33521,7 @@ class UpdateForwardingRulesResponseBody(TeaModel):
     def __init__(self, forwarding_rules=None, request_id=None):
         # Details about the forwarding rules.
         self.forwarding_rules = forwarding_rules  # type: list[UpdateForwardingRulesResponseBodyForwardingRules]
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
