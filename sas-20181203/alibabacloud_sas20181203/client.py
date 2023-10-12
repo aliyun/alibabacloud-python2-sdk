@@ -1359,6 +1359,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_file_protect_rule_with_options(request, runtime)
 
+    def create_file_upload_limit_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.limit):
+            query['Limit'] = request.limit
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateFileUploadLimit',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.CreateFileUploadLimitResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_file_upload_limit(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_file_upload_limit_with_options(request, runtime)
+
     def create_honeypot_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -11352,12 +11380,16 @@ class Client(OpenApiClient):
             query['Dealed'] = request.dealed
         if not UtilClient.is_unset(request.from_):
             query['From'] = request.from_
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
         if not UtilClient.is_unset(request.levels):
             query['Levels'] = request.levels
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
+        if not UtilClient.is_unset(request.operate_error_code_list):
+            query['OperateErrorCodeList'] = request.operate_error_code_list
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.parent_event_types):
@@ -11374,6 +11406,10 @@ class Client(OpenApiClient):
             query['TimeEnd'] = request.time_end
         if not UtilClient.is_unset(request.time_start):
             query['TimeStart'] = request.time_start
+        if not UtilClient.is_unset(request.unique_info):
+            query['UniqueInfo'] = request.unique_info
+        if not UtilClient.is_unset(request.uuid):
+            query['Uuid'] = request.uuid
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -11417,16 +11453,22 @@ class Client(OpenApiClient):
             query['AliasName'] = request.alias_name
         if not UtilClient.is_unset(request.attach_types):
             query['AttachTypes'] = request.attach_types
+        if not UtilClient.is_unset(request.container_name):
+            query['ContainerName'] = request.container_name
         if not UtilClient.is_unset(request.cve_id):
             query['CveId'] = request.cve_id
         if not UtilClient.is_unset(request.dealed):
             query['Dealed'] = request.dealed
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.image_name):
+            query['ImageName'] = request.image_name
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
         if not UtilClient.is_unset(request.necessity):
             query['Necessity'] = request.necessity
+        if not UtilClient.is_unset(request.path):
+            query['Path'] = request.path
         if not UtilClient.is_unset(request.search_tags):
             query['SearchTags'] = request.search_tags
         if not UtilClient.is_unset(request.type):
@@ -12537,6 +12579,28 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_file_protect_rule_with_options(request, runtime)
 
+    def get_file_upload_limit_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetFileUploadLimit',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetFileUploadLimitResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_file_upload_limit(self):
+        runtime = util_models.RuntimeOptions()
+        return self.get_file_upload_limit_with_options(runtime)
+
     def get_honeypot_attack_statistics_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -12878,6 +12942,34 @@ class Client(OpenApiClient):
     def get_last_once_task_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_last_once_task_info_with_options(request, runtime)
+
+    def get_log_meta_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.log_store):
+            query['LogStore'] = request.log_store
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetLogMeta',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetLogMetaResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_log_meta(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_log_meta_with_options(request, runtime)
 
     def get_module_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -19624,6 +19716,34 @@ class Client(OpenApiClient):
     def update_file_protect_rule(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_file_protect_rule_with_options(request, runtime)
+
+    def update_file_upload_limit_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.limit):
+            query['Limit'] = request.limit
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateFileUploadLimit',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.UpdateFileUploadLimitResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_file_upload_limit(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_file_upload_limit_with_options(request, runtime)
 
     def update_honeypot_with_options(self, request, runtime):
         UtilClient.validate_model(request)
