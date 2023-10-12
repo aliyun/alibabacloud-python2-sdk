@@ -9195,9 +9195,43 @@ class DescribeClusterNodesResponse(TeaModel):
         return self
 
 
+class DescribeClusterResourcesResponseBodyDependencies(TeaModel):
+    def __init__(self, cluster_id=None, resource_type=None, instance_id=None):
+        self.cluster_id = cluster_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterResourcesResponseBodyDependencies, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['cluster_id'] = self.cluster_id
+        if self.resource_type is not None:
+            result['resource_type'] = self.resource_type
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cluster_id') is not None:
+            self.cluster_id = m.get('cluster_id')
+        if m.get('resource_type') is not None:
+            self.resource_type = m.get('resource_type')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        return self
+
+
 class DescribeClusterResourcesResponseBody(TeaModel):
     def __init__(self, cluster_id=None, created=None, instance_id=None, resource_info=None, resource_type=None,
-                 state=None, auto_create=None):
+                 state=None, auto_create=None, dependencies=None):
         # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
         # The time when the resource was created.
@@ -9224,9 +9258,11 @@ class DescribeClusterResourcesResponseBody(TeaModel):
         # *   1: The resource is created by ACK.
         # *   0: The resource is an existing resource.
         self.auto_create = auto_create  # type: long
+        self.dependencies = dependencies  # type: DescribeClusterResourcesResponseBodyDependencies
 
     def validate(self):
-        pass
+        if self.dependencies:
+            self.dependencies.validate()
 
     def to_map(self):
         _map = super(DescribeClusterResourcesResponseBody, self).to_map()
@@ -9248,6 +9284,8 @@ class DescribeClusterResourcesResponseBody(TeaModel):
             result['state'] = self.state
         if self.auto_create is not None:
             result['auto_create'] = self.auto_create
+        if self.dependencies is not None:
+            result['dependencies'] = self.dependencies.to_map()
         return result
 
     def from_map(self, m=None):
@@ -9266,6 +9304,9 @@ class DescribeClusterResourcesResponseBody(TeaModel):
             self.state = m.get('state')
         if m.get('auto_create') is not None:
             self.auto_create = m.get('auto_create')
+        if m.get('dependencies') is not None:
+            temp_model = DescribeClusterResourcesResponseBodyDependencies()
+            self.dependencies = temp_model.from_map(m['dependencies'])
         return self
 
 
