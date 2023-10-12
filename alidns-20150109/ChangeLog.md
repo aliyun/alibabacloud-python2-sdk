@@ -1,3 +1,6 @@
+2023-10-12 Version: 1.0.9
+- Generated python2 2015-01-09 for Alidns.
+
 2023-09-22 Version: 1.0.8
 - Generated python2 2015-01-09 for Alidns.
 

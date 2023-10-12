@@ -10463,13 +10463,15 @@ class DescribeDnsProductInstanceResponseBodyDnsServers(TeaModel):
 
 
 class DescribeDnsProductInstanceResponseBody(TeaModel):
-    def __init__(self, bind_count=None, bind_domain_count=None, bind_domain_used_count=None, bind_used_count=None,
-                 ddos_defend_flow=None, ddos_defend_query=None, dns_slbcount=None, dns_security=None, dns_servers=None, domain=None,
-                 domain_type=None, end_time=None, end_timestamp=None, gslb=None, isplines=None, ispregion_lines=None,
-                 in_black_hole=None, in_clean=None, instance_id=None, monitor_frequency=None, monitor_node_count=None,
-                 monitor_task_count=None, oversea_ddos_defend_flow=None, oversea_line=None, payment_type=None, region_lines=None,
-                 request_id=None, search_engine_lines=None, start_time=None, start_timestamp=None, sub_domain_level=None,
-                 ttlmin_value=None, urlforward_count=None, version_code=None, version_name=None):
+    def __init__(self, auto_renewal=None, bind_count=None, bind_domain_count=None, bind_domain_used_count=None,
+                 bind_used_count=None, ddos_defend_flow=None, ddos_defend_query=None, dns_slbcount=None, dns_security=None,
+                 dns_servers=None, domain=None, domain_type=None, end_time=None, end_timestamp=None, gslb=None, isplines=None,
+                 ispregion_lines=None, in_black_hole=None, in_clean=None, instance_id=None, monitor_frequency=None,
+                 monitor_node_count=None, monitor_task_count=None, oversea_ddos_defend_flow=None, oversea_line=None,
+                 payment_type=None, region_lines=None, request_id=None, search_engine_lines=None, start_time=None,
+                 start_timestamp=None, sub_domain_level=None, ttlmin_value=None, urlforward_count=None, version_code=None,
+                 version_name=None):
+        self.auto_renewal = auto_renewal  # type: bool
         # The number of times that you can change the domain names that are bound to the paid Alibaba Cloud DNS instance. This parameter applies to Alibaba Cloud DNS instances of the custom edition.
         self.bind_count = bind_count  # type: long
         # The number of domain names that can be bound to the paid Alibaba Cloud DNS instance. This parameter applies to Alibaba Cloud DNS instances of Personal Edition, Enterprise Standard Edition, and Enterprise Ultimate Edition.
@@ -10560,6 +10562,8 @@ class DescribeDnsProductInstanceResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.auto_renewal is not None:
+            result['AutoRenewal'] = self.auto_renewal
         if self.bind_count is not None:
             result['BindCount'] = self.bind_count
         if self.bind_domain_count is not None:
@@ -10634,6 +10638,8 @@ class DescribeDnsProductInstanceResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AutoRenewal') is not None:
+            self.auto_renewal = m.get('AutoRenewal')
         if m.get('BindCount') is not None:
             self.bind_count = m.get('BindCount')
         if m.get('BindDomainCount') is not None:
