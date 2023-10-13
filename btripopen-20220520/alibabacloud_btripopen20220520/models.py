@@ -4491,11 +4491,35 @@ class ApplyAddRequestHotelShare(TeaModel):
         return self
 
 
+class ApplyAddRequestItineraryListItineraryTravelStandard(TeaModel):
+    def __init__(self, hotel_available_nights_per_day=None):
+        self.hotel_available_nights_per_day = hotel_available_nights_per_day  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyAddRequestItineraryListItineraryTravelStandard, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.hotel_available_nights_per_day is not None:
+            result['hotel_available_nights_per_day'] = self.hotel_available_nights_per_day
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('hotel_available_nights_per_day') is not None:
+            self.hotel_available_nights_per_day = m.get('hotel_available_nights_per_day')
+        return self
+
+
 class ApplyAddRequestItineraryList(TeaModel):
     def __init__(self, arr_city=None, arr_city_code=None, arr_date=None, cost_center_id=None, dep_city=None,
-                 dep_city_code=None, dep_date=None, invoice_id=None, itinerary_id=None, need_hotel=None, need_traffic=None,
-                 project_code=None, project_title=None, third_part_invoice_id=None, thirdpart_cost_center_id=None,
-                 traffic_type=None, trip_way=None):
+                 dep_city_code=None, dep_date=None, invoice_id=None, itinerary_id=None, itinerary_travel_standard=None,
+                 need_hotel=None, need_traffic=None, project_code=None, project_title=None, third_part_invoice_id=None,
+                 thirdpart_cost_center_id=None, traffic_type=None, trip_way=None):
         self.arr_city = arr_city  # type: str
         self.arr_city_code = arr_city_code  # type: str
         self.arr_date = arr_date  # type: str
@@ -4505,6 +4529,7 @@ class ApplyAddRequestItineraryList(TeaModel):
         self.dep_date = dep_date  # type: str
         self.invoice_id = invoice_id  # type: long
         self.itinerary_id = itinerary_id  # type: str
+        self.itinerary_travel_standard = itinerary_travel_standard  # type: ApplyAddRequestItineraryListItineraryTravelStandard
         self.need_hotel = need_hotel  # type: bool
         self.need_traffic = need_traffic  # type: bool
         self.project_code = project_code  # type: str
@@ -4515,7 +4540,8 @@ class ApplyAddRequestItineraryList(TeaModel):
         self.trip_way = trip_way  # type: int
 
     def validate(self):
-        pass
+        if self.itinerary_travel_standard:
+            self.itinerary_travel_standard.validate()
 
     def to_map(self):
         _map = super(ApplyAddRequestItineraryList, self).to_map()
@@ -4541,6 +4567,8 @@ class ApplyAddRequestItineraryList(TeaModel):
             result['invoice_id'] = self.invoice_id
         if self.itinerary_id is not None:
             result['itinerary_id'] = self.itinerary_id
+        if self.itinerary_travel_standard is not None:
+            result['itinerary_travel_standard'] = self.itinerary_travel_standard.to_map()
         if self.need_hotel is not None:
             result['need_hotel'] = self.need_hotel
         if self.need_traffic is not None:
@@ -4579,6 +4607,9 @@ class ApplyAddRequestItineraryList(TeaModel):
             self.invoice_id = m.get('invoice_id')
         if m.get('itinerary_id') is not None:
             self.itinerary_id = m.get('itinerary_id')
+        if m.get('itinerary_travel_standard') is not None:
+            temp_model = ApplyAddRequestItineraryListItineraryTravelStandard()
+            self.itinerary_travel_standard = temp_model.from_map(m['itinerary_travel_standard'])
         if m.get('need_hotel') is not None:
             self.need_hotel = m.get('need_hotel')
         if m.get('need_traffic') is not None:
@@ -4598,10 +4629,34 @@ class ApplyAddRequestItineraryList(TeaModel):
         return self
 
 
+class ApplyAddRequestItinerarySetListItineraryTravelStandard(TeaModel):
+    def __init__(self, hotel_available_nights_per_day=None):
+        self.hotel_available_nights_per_day = hotel_available_nights_per_day  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyAddRequestItinerarySetListItineraryTravelStandard, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.hotel_available_nights_per_day is not None:
+            result['hotel_available_nights_per_day'] = self.hotel_available_nights_per_day
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('hotel_available_nights_per_day') is not None:
+            self.hotel_available_nights_per_day = m.get('hotel_available_nights_per_day')
+        return self
+
+
 class ApplyAddRequestItinerarySetList(TeaModel):
     def __init__(self, arr_date=None, city_code_set=None, city_set=None, cost_center_id=None, dep_date=None,
-                 invoice_id=None, itinerary_id=None, project_code=None, project_title=None, third_part_invoice_id=None,
-                 thirdpart_cost_center_id=None, traffic_type=None):
+                 invoice_id=None, itinerary_id=None, itinerary_travel_standard=None, project_code=None, project_title=None,
+                 third_part_invoice_id=None, thirdpart_cost_center_id=None, traffic_type=None):
         self.arr_date = arr_date  # type: str
         self.city_code_set = city_code_set  # type: str
         self.city_set = city_set  # type: str
@@ -4609,6 +4664,7 @@ class ApplyAddRequestItinerarySetList(TeaModel):
         self.dep_date = dep_date  # type: str
         self.invoice_id = invoice_id  # type: long
         self.itinerary_id = itinerary_id  # type: str
+        self.itinerary_travel_standard = itinerary_travel_standard  # type: ApplyAddRequestItinerarySetListItineraryTravelStandard
         self.project_code = project_code  # type: str
         self.project_title = project_title  # type: str
         self.third_part_invoice_id = third_part_invoice_id  # type: str
@@ -4616,7 +4672,8 @@ class ApplyAddRequestItinerarySetList(TeaModel):
         self.traffic_type = traffic_type  # type: int
 
     def validate(self):
-        pass
+        if self.itinerary_travel_standard:
+            self.itinerary_travel_standard.validate()
 
     def to_map(self):
         _map = super(ApplyAddRequestItinerarySetList, self).to_map()
@@ -4638,6 +4695,8 @@ class ApplyAddRequestItinerarySetList(TeaModel):
             result['invoice_id'] = self.invoice_id
         if self.itinerary_id is not None:
             result['itinerary_id'] = self.itinerary_id
+        if self.itinerary_travel_standard is not None:
+            result['itinerary_travel_standard'] = self.itinerary_travel_standard.to_map()
         if self.project_code is not None:
             result['project_code'] = self.project_code
         if self.project_title is not None:
@@ -4666,6 +4725,9 @@ class ApplyAddRequestItinerarySetList(TeaModel):
             self.invoice_id = m.get('invoice_id')
         if m.get('itinerary_id') is not None:
             self.itinerary_id = m.get('itinerary_id')
+        if m.get('itinerary_travel_standard') is not None:
+            temp_model = ApplyAddRequestItinerarySetListItineraryTravelStandard()
+            self.itinerary_travel_standard = temp_model.from_map(m['itinerary_travel_standard'])
         if m.get('project_code') is not None:
             self.project_code = m.get('project_code')
         if m.get('project_title') is not None:
@@ -6035,7 +6097,8 @@ class ApplyListQueryResponseBodyModuleListExternalTravelerList(TeaModel):
 
 class ApplyListQueryResponseBodyModuleListItineraryList(TeaModel):
     def __init__(self, arr_city=None, arr_date=None, cost_center_name=None, dep_city=None, dep_date=None,
-                 invoice_name=None, itinerary_id=None, project_code=None, project_title=None, traffic_type=None, trip_way=None):
+                 invoice_name=None, itinerary_id=None, project_code=None, project_title=None, thirdpart_itinerary_id=None,
+                 traffic_type=None, trip_way=None):
         self.arr_city = arr_city  # type: str
         self.arr_date = arr_date  # type: str
         self.cost_center_name = cost_center_name  # type: str
@@ -6045,6 +6108,7 @@ class ApplyListQueryResponseBodyModuleListItineraryList(TeaModel):
         self.itinerary_id = itinerary_id  # type: str
         self.project_code = project_code  # type: str
         self.project_title = project_title  # type: str
+        self.thirdpart_itinerary_id = thirdpart_itinerary_id  # type: str
         self.traffic_type = traffic_type  # type: int
         self.trip_way = trip_way  # type: int
 
@@ -6075,6 +6139,8 @@ class ApplyListQueryResponseBodyModuleListItineraryList(TeaModel):
             result['project_code'] = self.project_code
         if self.project_title is not None:
             result['project_title'] = self.project_title
+        if self.thirdpart_itinerary_id is not None:
+            result['thirdpart_itinerary_id'] = self.thirdpart_itinerary_id
         if self.traffic_type is not None:
             result['traffic_type'] = self.traffic_type
         if self.trip_way is not None:
@@ -6101,6 +6167,8 @@ class ApplyListQueryResponseBodyModuleListItineraryList(TeaModel):
             self.project_code = m.get('project_code')
         if m.get('project_title') is not None:
             self.project_title = m.get('project_title')
+        if m.get('thirdpart_itinerary_id') is not None:
+            self.thirdpart_itinerary_id = m.get('thirdpart_itinerary_id')
         if m.get('traffic_type') is not None:
             self.traffic_type = m.get('traffic_type')
         if m.get('trip_way') is not None:
@@ -6110,7 +6178,8 @@ class ApplyListQueryResponseBodyModuleListItineraryList(TeaModel):
 
 class ApplyListQueryResponseBodyModuleListItinerarySetList(TeaModel):
     def __init__(self, arr_date=None, city_code_set=None, city_set=None, cost_center_name=None, dep_date=None,
-                 invoice_name=None, itinerary_id=None, project_code=None, project_title=None, traffic_type=None):
+                 invoice_name=None, itinerary_id=None, project_code=None, project_title=None, thirdpart_itinerary_id=None,
+                 traffic_type=None):
         self.arr_date = arr_date  # type: str
         self.city_code_set = city_code_set  # type: str
         self.city_set = city_set  # type: str
@@ -6120,6 +6189,7 @@ class ApplyListQueryResponseBodyModuleListItinerarySetList(TeaModel):
         self.itinerary_id = itinerary_id  # type: str
         self.project_code = project_code  # type: str
         self.project_title = project_title  # type: str
+        self.thirdpart_itinerary_id = thirdpart_itinerary_id  # type: str
         self.traffic_type = traffic_type  # type: int
 
     def validate(self):
@@ -6149,6 +6219,8 @@ class ApplyListQueryResponseBodyModuleListItinerarySetList(TeaModel):
             result['project_code'] = self.project_code
         if self.project_title is not None:
             result['project_title'] = self.project_title
+        if self.thirdpart_itinerary_id is not None:
+            result['thirdpart_itinerary_id'] = self.thirdpart_itinerary_id
         if self.traffic_type is not None:
             result['traffic_type'] = self.traffic_type
         return result
@@ -6173,6 +6245,8 @@ class ApplyListQueryResponseBodyModuleListItinerarySetList(TeaModel):
             self.project_code = m.get('project_code')
         if m.get('project_title') is not None:
             self.project_title = m.get('project_title')
+        if m.get('thirdpart_itinerary_id') is not None:
+            self.thirdpart_itinerary_id = m.get('thirdpart_itinerary_id')
         if m.get('traffic_type') is not None:
             self.traffic_type = m.get('traffic_type')
         return self
@@ -6695,11 +6769,35 @@ class ApplyModifyRequestHotelShare(TeaModel):
         return self
 
 
+class ApplyModifyRequestItineraryListItineraryTravelStandard(TeaModel):
+    def __init__(self, hotel_available_nights_per_day=None):
+        self.hotel_available_nights_per_day = hotel_available_nights_per_day  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyModifyRequestItineraryListItineraryTravelStandard, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.hotel_available_nights_per_day is not None:
+            result['hotel_available_nights_per_day'] = self.hotel_available_nights_per_day
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('hotel_available_nights_per_day') is not None:
+            self.hotel_available_nights_per_day = m.get('hotel_available_nights_per_day')
+        return self
+
+
 class ApplyModifyRequestItineraryList(TeaModel):
     def __init__(self, arr_city=None, arr_city_code=None, arr_date=None, cost_center_id=None, dep_city=None,
-                 dep_city_code=None, dep_date=None, invoice_id=None, itinerary_id=None, need_hotel=None, need_traffic=None,
-                 project_code=None, project_title=None, third_part_invoice_id=None, thirdpart_cost_center_id=None,
-                 traffic_type=None, trip_way=None):
+                 dep_city_code=None, dep_date=None, invoice_id=None, itinerary_id=None, itinerary_travel_standard=None,
+                 need_hotel=None, need_traffic=None, project_code=None, project_title=None, third_part_invoice_id=None,
+                 thirdpart_cost_center_id=None, traffic_type=None, trip_way=None):
         self.arr_city = arr_city  # type: str
         self.arr_city_code = arr_city_code  # type: str
         self.arr_date = arr_date  # type: str
@@ -6709,6 +6807,7 @@ class ApplyModifyRequestItineraryList(TeaModel):
         self.dep_date = dep_date  # type: str
         self.invoice_id = invoice_id  # type: long
         self.itinerary_id = itinerary_id  # type: str
+        self.itinerary_travel_standard = itinerary_travel_standard  # type: ApplyModifyRequestItineraryListItineraryTravelStandard
         self.need_hotel = need_hotel  # type: bool
         self.need_traffic = need_traffic  # type: bool
         self.project_code = project_code  # type: str
@@ -6719,7 +6818,8 @@ class ApplyModifyRequestItineraryList(TeaModel):
         self.trip_way = trip_way  # type: int
 
     def validate(self):
-        pass
+        if self.itinerary_travel_standard:
+            self.itinerary_travel_standard.validate()
 
     def to_map(self):
         _map = super(ApplyModifyRequestItineraryList, self).to_map()
@@ -6745,6 +6845,8 @@ class ApplyModifyRequestItineraryList(TeaModel):
             result['invoice_id'] = self.invoice_id
         if self.itinerary_id is not None:
             result['itinerary_id'] = self.itinerary_id
+        if self.itinerary_travel_standard is not None:
+            result['itinerary_travel_standard'] = self.itinerary_travel_standard.to_map()
         if self.need_hotel is not None:
             result['need_hotel'] = self.need_hotel
         if self.need_traffic is not None:
@@ -6783,6 +6885,9 @@ class ApplyModifyRequestItineraryList(TeaModel):
             self.invoice_id = m.get('invoice_id')
         if m.get('itinerary_id') is not None:
             self.itinerary_id = m.get('itinerary_id')
+        if m.get('itinerary_travel_standard') is not None:
+            temp_model = ApplyModifyRequestItineraryListItineraryTravelStandard()
+            self.itinerary_travel_standard = temp_model.from_map(m['itinerary_travel_standard'])
         if m.get('need_hotel') is not None:
             self.need_hotel = m.get('need_hotel')
         if m.get('need_traffic') is not None:
@@ -6802,10 +6907,34 @@ class ApplyModifyRequestItineraryList(TeaModel):
         return self
 
 
+class ApplyModifyRequestItinerarySetListItineraryTravelStandard(TeaModel):
+    def __init__(self, hotel_available_nights_per_day=None):
+        self.hotel_available_nights_per_day = hotel_available_nights_per_day  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyModifyRequestItinerarySetListItineraryTravelStandard, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.hotel_available_nights_per_day is not None:
+            result['hotel_available_nights_per_day'] = self.hotel_available_nights_per_day
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('hotel_available_nights_per_day') is not None:
+            self.hotel_available_nights_per_day = m.get('hotel_available_nights_per_day')
+        return self
+
+
 class ApplyModifyRequestItinerarySetList(TeaModel):
     def __init__(self, arr_date=None, city_code_set=None, city_set=None, cost_center_id=None, dep_date=None,
-                 invoice_id=None, itinerary_id=None, project_code=None, project_title=None, third_part_invoice_id=None,
-                 thirdpart_cost_center_id=None, traffic_type=None):
+                 invoice_id=None, itinerary_id=None, itinerary_travel_standard=None, project_code=None, project_title=None,
+                 third_part_invoice_id=None, thirdpart_cost_center_id=None, traffic_type=None):
         self.arr_date = arr_date  # type: str
         self.city_code_set = city_code_set  # type: str
         self.city_set = city_set  # type: str
@@ -6813,6 +6942,7 @@ class ApplyModifyRequestItinerarySetList(TeaModel):
         self.dep_date = dep_date  # type: str
         self.invoice_id = invoice_id  # type: long
         self.itinerary_id = itinerary_id  # type: str
+        self.itinerary_travel_standard = itinerary_travel_standard  # type: ApplyModifyRequestItinerarySetListItineraryTravelStandard
         self.project_code = project_code  # type: str
         self.project_title = project_title  # type: str
         self.third_part_invoice_id = third_part_invoice_id  # type: str
@@ -6820,7 +6950,8 @@ class ApplyModifyRequestItinerarySetList(TeaModel):
         self.traffic_type = traffic_type  # type: int
 
     def validate(self):
-        pass
+        if self.itinerary_travel_standard:
+            self.itinerary_travel_standard.validate()
 
     def to_map(self):
         _map = super(ApplyModifyRequestItinerarySetList, self).to_map()
@@ -6842,6 +6973,8 @@ class ApplyModifyRequestItinerarySetList(TeaModel):
             result['invoice_id'] = self.invoice_id
         if self.itinerary_id is not None:
             result['itinerary_id'] = self.itinerary_id
+        if self.itinerary_travel_standard is not None:
+            result['itinerary_travel_standard'] = self.itinerary_travel_standard.to_map()
         if self.project_code is not None:
             result['project_code'] = self.project_code
         if self.project_title is not None:
@@ -6870,6 +7003,9 @@ class ApplyModifyRequestItinerarySetList(TeaModel):
             self.invoice_id = m.get('invoice_id')
         if m.get('itinerary_id') is not None:
             self.itinerary_id = m.get('itinerary_id')
+        if m.get('itinerary_travel_standard') is not None:
+            temp_model = ApplyModifyRequestItinerarySetListItineraryTravelStandard()
+            self.itinerary_travel_standard = temp_model.from_map(m['itinerary_travel_standard'])
         if m.get('project_code') is not None:
             self.project_code = m.get('project_code')
         if m.get('project_title') is not None:
@@ -7823,10 +7959,34 @@ class ApplyQueryResponseBodyModuleHotelShare(TeaModel):
         return self
 
 
+class ApplyQueryResponseBodyModuleItineraryListItineraryTravelStandard(TeaModel):
+    def __init__(self, hotel_available_nights_per_day=None):
+        self.hotel_available_nights_per_day = hotel_available_nights_per_day  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyQueryResponseBodyModuleItineraryListItineraryTravelStandard, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.hotel_available_nights_per_day is not None:
+            result['hotel_available_nights_per_day'] = self.hotel_available_nights_per_day
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('hotel_available_nights_per_day') is not None:
+            self.hotel_available_nights_per_day = m.get('hotel_available_nights_per_day')
+        return self
+
+
 class ApplyQueryResponseBodyModuleItineraryList(TeaModel):
     def __init__(self, arr_city=None, arr_city_code=None, arr_date=None, cost_center_name=None, dep_city=None,
-                 dep_city_code=None, dep_date=None, invoice_name=None, itinerary_id=None, project_code=None, project_title=None,
-                 traffic_type=None, trip_way=None):
+                 dep_city_code=None, dep_date=None, invoice_name=None, itinerary_id=None, itinerary_travel_standard=None,
+                 project_code=None, project_title=None, thirdpart_itinerary_id=None, traffic_type=None, trip_way=None):
         self.arr_city = arr_city  # type: str
         self.arr_city_code = arr_city_code  # type: str
         self.arr_date = arr_date  # type: str
@@ -7836,13 +7996,16 @@ class ApplyQueryResponseBodyModuleItineraryList(TeaModel):
         self.dep_date = dep_date  # type: str
         self.invoice_name = invoice_name  # type: str
         self.itinerary_id = itinerary_id  # type: str
+        self.itinerary_travel_standard = itinerary_travel_standard  # type: ApplyQueryResponseBodyModuleItineraryListItineraryTravelStandard
         self.project_code = project_code  # type: str
         self.project_title = project_title  # type: str
+        self.thirdpart_itinerary_id = thirdpart_itinerary_id  # type: str
         self.traffic_type = traffic_type  # type: int
         self.trip_way = trip_way  # type: int
 
     def validate(self):
-        pass
+        if self.itinerary_travel_standard:
+            self.itinerary_travel_standard.validate()
 
     def to_map(self):
         _map = super(ApplyQueryResponseBodyModuleItineraryList, self).to_map()
@@ -7868,10 +8031,14 @@ class ApplyQueryResponseBodyModuleItineraryList(TeaModel):
             result['invoice_name'] = self.invoice_name
         if self.itinerary_id is not None:
             result['itinerary_id'] = self.itinerary_id
+        if self.itinerary_travel_standard is not None:
+            result['itinerary_travel_standard'] = self.itinerary_travel_standard.to_map()
         if self.project_code is not None:
             result['project_code'] = self.project_code
         if self.project_title is not None:
             result['project_title'] = self.project_title
+        if self.thirdpart_itinerary_id is not None:
+            result['thirdpart_itinerary_id'] = self.thirdpart_itinerary_id
         if self.traffic_type is not None:
             result['traffic_type'] = self.traffic_type
         if self.trip_way is not None:
@@ -7898,10 +8065,15 @@ class ApplyQueryResponseBodyModuleItineraryList(TeaModel):
             self.invoice_name = m.get('invoice_name')
         if m.get('itinerary_id') is not None:
             self.itinerary_id = m.get('itinerary_id')
+        if m.get('itinerary_travel_standard') is not None:
+            temp_model = ApplyQueryResponseBodyModuleItineraryListItineraryTravelStandard()
+            self.itinerary_travel_standard = temp_model.from_map(m['itinerary_travel_standard'])
         if m.get('project_code') is not None:
             self.project_code = m.get('project_code')
         if m.get('project_title') is not None:
             self.project_title = m.get('project_title')
+        if m.get('thirdpart_itinerary_id') is not None:
+            self.thirdpart_itinerary_id = m.get('thirdpart_itinerary_id')
         if m.get('traffic_type') is not None:
             self.traffic_type = m.get('traffic_type')
         if m.get('trip_way') is not None:
@@ -7909,9 +8081,34 @@ class ApplyQueryResponseBodyModuleItineraryList(TeaModel):
         return self
 
 
+class ApplyQueryResponseBodyModuleItinerarySetListItineraryTravelStandard(TeaModel):
+    def __init__(self, hotel_available_nights_per_day=None):
+        self.hotel_available_nights_per_day = hotel_available_nights_per_day  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyQueryResponseBodyModuleItinerarySetListItineraryTravelStandard, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.hotel_available_nights_per_day is not None:
+            result['hotel_available_nights_per_day'] = self.hotel_available_nights_per_day
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('hotel_available_nights_per_day') is not None:
+            self.hotel_available_nights_per_day = m.get('hotel_available_nights_per_day')
+        return self
+
+
 class ApplyQueryResponseBodyModuleItinerarySetList(TeaModel):
     def __init__(self, arr_date=None, city_code_set=None, city_set=None, cost_center_name=None, dep_date=None,
-                 invoice_name=None, itinerary_id=None, project_code=None, project_title=None, traffic_type=None):
+                 invoice_name=None, itinerary_id=None, itinerary_travel_standard=None, project_code=None, project_title=None,
+                 thirdpart_itinerary_id=None, traffic_type=None):
         self.arr_date = arr_date  # type: str
         self.city_code_set = city_code_set  # type: str
         self.city_set = city_set  # type: str
@@ -7919,12 +8116,15 @@ class ApplyQueryResponseBodyModuleItinerarySetList(TeaModel):
         self.dep_date = dep_date  # type: str
         self.invoice_name = invoice_name  # type: str
         self.itinerary_id = itinerary_id  # type: str
+        self.itinerary_travel_standard = itinerary_travel_standard  # type: ApplyQueryResponseBodyModuleItinerarySetListItineraryTravelStandard
         self.project_code = project_code  # type: str
         self.project_title = project_title  # type: str
+        self.thirdpart_itinerary_id = thirdpart_itinerary_id  # type: str
         self.traffic_type = traffic_type  # type: int
 
     def validate(self):
-        pass
+        if self.itinerary_travel_standard:
+            self.itinerary_travel_standard.validate()
 
     def to_map(self):
         _map = super(ApplyQueryResponseBodyModuleItinerarySetList, self).to_map()
@@ -7946,10 +8146,14 @@ class ApplyQueryResponseBodyModuleItinerarySetList(TeaModel):
             result['invoice_name'] = self.invoice_name
         if self.itinerary_id is not None:
             result['itinerary_id'] = self.itinerary_id
+        if self.itinerary_travel_standard is not None:
+            result['itinerary_travel_standard'] = self.itinerary_travel_standard.to_map()
         if self.project_code is not None:
             result['project_code'] = self.project_code
         if self.project_title is not None:
             result['project_title'] = self.project_title
+        if self.thirdpart_itinerary_id is not None:
+            result['thirdpart_itinerary_id'] = self.thirdpart_itinerary_id
         if self.traffic_type is not None:
             result['traffic_type'] = self.traffic_type
         return result
@@ -7970,10 +8174,15 @@ class ApplyQueryResponseBodyModuleItinerarySetList(TeaModel):
             self.invoice_name = m.get('invoice_name')
         if m.get('itinerary_id') is not None:
             self.itinerary_id = m.get('itinerary_id')
+        if m.get('itinerary_travel_standard') is not None:
+            temp_model = ApplyQueryResponseBodyModuleItinerarySetListItineraryTravelStandard()
+            self.itinerary_travel_standard = temp_model.from_map(m['itinerary_travel_standard'])
         if m.get('project_code') is not None:
             self.project_code = m.get('project_code')
         if m.get('project_title') is not None:
             self.project_title = m.get('project_title')
+        if m.get('thirdpart_itinerary_id') is not None:
+            self.thirdpart_itinerary_id = m.get('thirdpart_itinerary_id')
         if m.get('traffic_type') is not None:
             self.traffic_type = m.get('traffic_type')
         return self
@@ -54313,11 +54522,12 @@ class QueryReimbursementOrderRequest(TeaModel):
 
 
 class QueryReimbursementOrderResponseBodyModuleExpensesExpenseCompositions(TeaModel):
-    def __init__(self, bill_settlement_id=None, capital_direction=None, fee_type=None, remark=None,
+    def __init__(self, bill_settlement_id=None, capital_direction=None, fee_type=None, order_id=None, remark=None,
                  remind_tag_list=None, settlement_amount=None, settlement_time=None, voucher_type=None):
         self.bill_settlement_id = bill_settlement_id  # type: long
         self.capital_direction = capital_direction  # type: str
         self.fee_type = fee_type  # type: str
+        self.order_id = order_id  # type: str
         self.remark = remark  # type: str
         self.remind_tag_list = remind_tag_list  # type: list[str]
         self.settlement_amount = settlement_amount  # type: str
@@ -54339,6 +54549,8 @@ class QueryReimbursementOrderResponseBodyModuleExpensesExpenseCompositions(TeaMo
             result['capital_direction'] = self.capital_direction
         if self.fee_type is not None:
             result['fee_type'] = self.fee_type
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
         if self.remark is not None:
             result['remark'] = self.remark
         if self.remind_tag_list is not None:
@@ -54359,6 +54571,8 @@ class QueryReimbursementOrderResponseBodyModuleExpensesExpenseCompositions(TeaMo
             self.capital_direction = m.get('capital_direction')
         if m.get('fee_type') is not None:
             self.fee_type = m.get('fee_type')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
         if m.get('remind_tag_list') is not None:
@@ -54529,19 +54743,28 @@ class QueryReimbursementOrderResponseBodyModulePaymentInfos(TeaModel):
 
 
 class QueryReimbursementOrderResponseBodyModule(TeaModel):
-    def __init__(self, company_amount=None, company_pay_amount=None, corp_id=None, expenses=None, gmt_create=None,
-                 gmt_modified=None, is_deleted=None, itineraries=None, payment_infos=None, personal_amount=None, reason=None,
-                 reimbursement_no=None, remark=None, status=None, travel_third_apply_id=None, user_id=None, user_name=None):
+    def __init__(self, company_amount=None, company_pay_amount=None, corp_id=None, cost_center_code=None,
+                 cost_center_name=None, expenses=None, expenses_cover_dept_id=None, expenses_cover_dept_name=None,
+                 expenses_cover_invoice_title=None, gmt_create=None, gmt_modified=None, is_deleted=None, itineraries=None, payment_infos=None,
+                 personal_amount=None, project_code=None, project_name=None, reason=None, reimbursement_no=None, remark=None,
+                 status=None, travel_third_apply_id=None, user_id=None, user_name=None):
         self.company_amount = company_amount  # type: str
         self.company_pay_amount = company_pay_amount  # type: str
         self.corp_id = corp_id  # type: str
+        self.cost_center_code = cost_center_code  # type: str
+        self.cost_center_name = cost_center_name  # type: str
         self.expenses = expenses  # type: list[QueryReimbursementOrderResponseBodyModuleExpenses]
+        self.expenses_cover_dept_id = expenses_cover_dept_id  # type: str
+        self.expenses_cover_dept_name = expenses_cover_dept_name  # type: str
+        self.expenses_cover_invoice_title = expenses_cover_invoice_title  # type: str
         self.gmt_create = gmt_create  # type: str
         self.gmt_modified = gmt_modified  # type: str
         self.is_deleted = is_deleted  # type: str
         self.itineraries = itineraries  # type: list[QueryReimbursementOrderResponseBodyModuleItineraries]
         self.payment_infos = payment_infos  # type: list[QueryReimbursementOrderResponseBodyModulePaymentInfos]
         self.personal_amount = personal_amount  # type: str
+        self.project_code = project_code  # type: str
+        self.project_name = project_name  # type: str
         self.reason = reason  # type: str
         self.reimbursement_no = reimbursement_no  # type: str
         self.remark = remark  # type: str
@@ -54576,10 +54799,20 @@ class QueryReimbursementOrderResponseBodyModule(TeaModel):
             result['company_pay_amount'] = self.company_pay_amount
         if self.corp_id is not None:
             result['corp_id'] = self.corp_id
+        if self.cost_center_code is not None:
+            result['cost_center_code'] = self.cost_center_code
+        if self.cost_center_name is not None:
+            result['cost_center_name'] = self.cost_center_name
         result['expenses'] = []
         if self.expenses is not None:
             for k in self.expenses:
                 result['expenses'].append(k.to_map() if k else None)
+        if self.expenses_cover_dept_id is not None:
+            result['expenses_cover_dept_id'] = self.expenses_cover_dept_id
+        if self.expenses_cover_dept_name is not None:
+            result['expenses_cover_dept_name'] = self.expenses_cover_dept_name
+        if self.expenses_cover_invoice_title is not None:
+            result['expenses_cover_invoice_title'] = self.expenses_cover_invoice_title
         if self.gmt_create is not None:
             result['gmt_create'] = self.gmt_create
         if self.gmt_modified is not None:
@@ -54596,6 +54829,10 @@ class QueryReimbursementOrderResponseBodyModule(TeaModel):
                 result['payment_infos'].append(k.to_map() if k else None)
         if self.personal_amount is not None:
             result['personal_amount'] = self.personal_amount
+        if self.project_code is not None:
+            result['project_code'] = self.project_code
+        if self.project_name is not None:
+            result['project_name'] = self.project_name
         if self.reason is not None:
             result['reason'] = self.reason
         if self.reimbursement_no is not None:
@@ -54620,11 +54857,21 @@ class QueryReimbursementOrderResponseBodyModule(TeaModel):
             self.company_pay_amount = m.get('company_pay_amount')
         if m.get('corp_id') is not None:
             self.corp_id = m.get('corp_id')
+        if m.get('cost_center_code') is not None:
+            self.cost_center_code = m.get('cost_center_code')
+        if m.get('cost_center_name') is not None:
+            self.cost_center_name = m.get('cost_center_name')
         self.expenses = []
         if m.get('expenses') is not None:
             for k in m.get('expenses'):
                 temp_model = QueryReimbursementOrderResponseBodyModuleExpenses()
                 self.expenses.append(temp_model.from_map(k))
+        if m.get('expenses_cover_dept_id') is not None:
+            self.expenses_cover_dept_id = m.get('expenses_cover_dept_id')
+        if m.get('expenses_cover_dept_name') is not None:
+            self.expenses_cover_dept_name = m.get('expenses_cover_dept_name')
+        if m.get('expenses_cover_invoice_title') is not None:
+            self.expenses_cover_invoice_title = m.get('expenses_cover_invoice_title')
         if m.get('gmt_create') is not None:
             self.gmt_create = m.get('gmt_create')
         if m.get('gmt_modified') is not None:
@@ -54643,6 +54890,10 @@ class QueryReimbursementOrderResponseBodyModule(TeaModel):
                 self.payment_infos.append(temp_model.from_map(k))
         if m.get('personal_amount') is not None:
             self.personal_amount = m.get('personal_amount')
+        if m.get('project_code') is not None:
+            self.project_code = m.get('project_code')
+        if m.get('project_name') is not None:
+            self.project_name = m.get('project_name')
         if m.get('reason') is not None:
             self.reason = m.get('reason')
         if m.get('reimbursement_no') is not None:
