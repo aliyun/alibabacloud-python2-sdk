@@ -1333,7 +1333,8 @@ class GPUConfig(TeaModel):
 
 
 class GetResourceTagsOutput(TeaModel):
-    def __init__(self, resource_arn=None, tags=None):
+    def __init__(self, resouce_type=None, resource_arn=None, tags=None):
+        self.resouce_type = resouce_type  # type: str
         self.resource_arn = resource_arn  # type: str
         self.tags = tags  # type: dict[str, str]
 
@@ -1346,6 +1347,8 @@ class GetResourceTagsOutput(TeaModel):
             return _map
 
         result = dict()
+        if self.resouce_type is not None:
+            result['resouceType'] = self.resouce_type
         if self.resource_arn is not None:
             result['resourceArn'] = self.resource_arn
         if self.tags is not None:
@@ -1354,6 +1357,8 @@ class GetResourceTagsOutput(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('resouceType') is not None:
+            self.resouce_type = m.get('resouceType')
         if m.get('resourceArn') is not None:
             self.resource_arn = m.get('resourceArn')
         if m.get('tags') is not None:
@@ -2611,7 +2616,8 @@ class RegexRule(TeaModel):
 
 
 class Resource(TeaModel):
-    def __init__(self, resource_arn=None, tags=None):
+    def __init__(self, resouce_type=None, resource_arn=None, tags=None):
+        self.resouce_type = resouce_type  # type: str
         self.resource_arn = resource_arn  # type: str
         self.tags = tags  # type: dict[str, str]
 
@@ -2624,6 +2630,8 @@ class Resource(TeaModel):
             return _map
 
         result = dict()
+        if self.resouce_type is not None:
+            result['resouceType'] = self.resouce_type
         if self.resource_arn is not None:
             result['resourceArn'] = self.resource_arn
         if self.tags is not None:
@@ -2632,6 +2640,8 @@ class Resource(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('resouceType') is not None:
+            self.resouce_type = m.get('resouceType')
         if m.get('resourceArn') is not None:
             self.resource_arn = m.get('resourceArn')
         if m.get('tags') is not None:
@@ -5551,9 +5561,10 @@ class ListProvisionConfigsResponse(TeaModel):
 
 
 class ListTaggedResourcesRequest(TeaModel):
-    def __init__(self, limit=None, next_token=None):
+    def __init__(self, limit=None, next_token=None, resource_type=None):
         self.limit = limit  # type: int
         self.next_token = next_token  # type: str
+        self.resource_type = resource_type  # type: str
 
     def validate(self):
         pass
@@ -5568,6 +5579,8 @@ class ListTaggedResourcesRequest(TeaModel):
             result['limit'] = self.limit
         if self.next_token is not None:
             result['nextToken'] = self.next_token
+        if self.resource_type is not None:
+            result['resourceType'] = self.resource_type
         return result
 
     def from_map(self, m=None):
@@ -5576,6 +5589,8 @@ class ListTaggedResourcesRequest(TeaModel):
             self.limit = m.get('limit')
         if m.get('nextToken') is not None:
             self.next_token = m.get('nextToken')
+        if m.get('resourceType') is not None:
+            self.resource_type = m.get('resourceType')
         return self
 
 

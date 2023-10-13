@@ -33,7 +33,7 @@ class Client(OpenApiClient):
 
     def create_alias_with_options(self, function_name, request, headers, runtime):
         """
-        创建函数别名
+        创建函数别名。
         
 
         @param request: CreateAliasRequest
@@ -68,7 +68,7 @@ class Client(OpenApiClient):
 
     def create_alias(self, function_name, request):
         """
-        创建函数别名
+        创建函数别名。
         
 
         @param request: CreateAliasRequest
@@ -81,7 +81,7 @@ class Client(OpenApiClient):
 
     def create_custom_domain_with_options(self, request, headers, runtime):
         """
-        创建自定义域名
+        创建自定义域名。
         
 
         @param request: CreateCustomDomainRequest
@@ -116,7 +116,7 @@ class Client(OpenApiClient):
 
     def create_custom_domain(self, request):
         """
-        创建自定义域名
+        创建自定义域名。
         
 
         @param request: CreateCustomDomainRequest
@@ -129,7 +129,7 @@ class Client(OpenApiClient):
 
     def create_function_with_options(self, request, headers, runtime):
         """
-        创建函数
+        创建函数。
         
 
         @param request: CreateFunctionRequest
@@ -164,7 +164,7 @@ class Client(OpenApiClient):
 
     def create_function(self, request):
         """
-        创建函数
+        创建函数。
         
 
         @param request: CreateFunctionRequest
@@ -177,7 +177,7 @@ class Client(OpenApiClient):
 
     def create_layer_version_with_options(self, layer_name, request, headers, runtime):
         """
-        创建层版本
+        创建层版本。
         
 
         @param request: CreateLayerVersionRequest
@@ -212,7 +212,7 @@ class Client(OpenApiClient):
 
     def create_layer_version(self, layer_name, request):
         """
-        创建层版本
+        创建层版本。
         
 
         @param request: CreateLayerVersionRequest
@@ -225,7 +225,7 @@ class Client(OpenApiClient):
 
     def create_trigger_with_options(self, function_name, request, headers, runtime):
         """
-        创建函数触发器
+        创建函数触发器。
         
 
         @param request: CreateTriggerRequest
@@ -260,7 +260,7 @@ class Client(OpenApiClient):
 
     def create_trigger(self, function_name, request):
         """
-        创建函数触发器
+        创建函数触发器。
         
 
         @param request: CreateTriggerRequest
@@ -273,7 +273,7 @@ class Client(OpenApiClient):
 
     def create_vpc_binding_with_options(self, function_name, request, headers, runtime):
         """
-        创建VPC绑定
+        创建VPC绑定。
         
 
         @param request: CreateVpcBindingRequest
@@ -308,7 +308,7 @@ class Client(OpenApiClient):
 
     def create_vpc_binding(self, function_name, request):
         """
-        创建VPC绑定
+        创建VPC绑定。
         
 
         @param request: CreateVpcBindingRequest
@@ -321,7 +321,7 @@ class Client(OpenApiClient):
 
     def delete_alias_with_options(self, function_name, alias_name, headers, runtime):
         """
-        删除函数别名
+        删除函数别名。
         
 
         @type headers: dict
@@ -352,7 +352,7 @@ class Client(OpenApiClient):
 
     def delete_alias(self, function_name, alias_name):
         """
-        删除函数别名
+        删除函数别名。
         
 
         @return: DeleteAliasResponse
@@ -363,7 +363,7 @@ class Client(OpenApiClient):
 
     def delete_async_invoke_config_with_options(self, function_name, request, headers, runtime):
         """
-        删除函数异步调用配置
+        删除函数异步调用配置。
         
 
         @param request: DeleteAsyncInvokeConfigRequest
@@ -401,7 +401,7 @@ class Client(OpenApiClient):
 
     def delete_async_invoke_config(self, function_name, request):
         """
-        删除函数异步调用配置
+        删除函数异步调用配置。
         
 
         @param request: DeleteAsyncInvokeConfigRequest
@@ -414,7 +414,7 @@ class Client(OpenApiClient):
 
     def delete_concurrency_config_with_options(self, function_name, headers, runtime):
         """
-        删除函数并发度配置
+        删除函数并发度配置。
         
 
         @type headers: dict
@@ -445,7 +445,7 @@ class Client(OpenApiClient):
 
     def delete_concurrency_config(self, function_name):
         """
-        删除函数并发度配置
+        删除函数并发度配置。
         
 
         @return: DeleteConcurrencyConfigResponse
@@ -456,7 +456,7 @@ class Client(OpenApiClient):
 
     def delete_custom_domain_with_options(self, domain_name, headers, runtime):
         """
-        删除自定义域名
+        删除自定义域名。
         
 
         @type headers: dict
@@ -487,7 +487,7 @@ class Client(OpenApiClient):
 
     def delete_custom_domain(self, domain_name):
         """
-        删除自定义域名
+        删除自定义域名。
         
 
         @return: DeleteCustomDomainResponse
@@ -498,7 +498,7 @@ class Client(OpenApiClient):
 
     def delete_function_with_options(self, function_name, headers, runtime):
         """
-        删除函数
+        删除函数。
         
 
         @type headers: dict
@@ -529,7 +529,7 @@ class Client(OpenApiClient):
 
     def delete_function(self, function_name):
         """
-        删除函数
+        删除函数。
         
 
         @return: DeleteFunctionResponse
@@ -540,7 +540,7 @@ class Client(OpenApiClient):
 
     def delete_function_version_with_options(self, function_name, version_id, headers, runtime):
         """
-        删除函数版本
+        删除函数版本。
         
 
         @type headers: dict
@@ -571,7 +571,7 @@ class Client(OpenApiClient):
 
     def delete_function_version(self, function_name, version_id):
         """
-        删除函数版本
+        删除函数版本。
         
 
         @return: DeleteFunctionVersionResponse
@@ -582,7 +582,7 @@ class Client(OpenApiClient):
 
     def delete_layer_version_with_options(self, layer_name, version, headers, runtime):
         """
-        删除层版本
+        删除层版本。
         
 
         @type headers: dict
@@ -613,7 +613,7 @@ class Client(OpenApiClient):
 
     def delete_layer_version(self, layer_name, version):
         """
-        删除层版本
+        删除层版本。
         
 
         @return: DeleteLayerVersionResponse
@@ -624,7 +624,7 @@ class Client(OpenApiClient):
 
     def delete_provision_config_with_options(self, function_name, request, headers, runtime):
         """
-        删除函数预留配置
+        删除函数预留配置。
         
 
         @param request: DeleteProvisionConfigRequest
@@ -662,7 +662,7 @@ class Client(OpenApiClient):
 
     def delete_provision_config(self, function_name, request):
         """
-        删除函数预留配置
+        删除函数预留配置。
         
 
         @param request: DeleteProvisionConfigRequest
@@ -675,7 +675,7 @@ class Client(OpenApiClient):
 
     def delete_trigger_with_options(self, function_name, trigger_name, headers, runtime):
         """
-        删除函数触发器
+        删除函数触发器。
         
 
         @type headers: dict
@@ -706,7 +706,7 @@ class Client(OpenApiClient):
 
     def delete_trigger(self, function_name, trigger_name):
         """
-        删除函数触发器
+        删除函数触发器。
         
 
         @return: DeleteTriggerResponse
@@ -717,7 +717,7 @@ class Client(OpenApiClient):
 
     def delete_vpc_binding_with_options(self, function_name, vpc_id, headers, runtime):
         """
-        删除VPC绑定
+        删除VPC绑定。
         
 
         @type headers: dict
@@ -748,7 +748,7 @@ class Client(OpenApiClient):
 
     def delete_vpc_binding(self, function_name, vpc_id):
         """
-        删除VPC绑定
+        删除VPC绑定。
         
 
         @return: DeleteVpcBindingResponse
@@ -759,7 +759,7 @@ class Client(OpenApiClient):
 
     def get_alias_with_options(self, function_name, alias_name, headers, runtime):
         """
-        获取函数别名信息
+        获取函数别名信息。
         
 
         @type headers: dict
@@ -790,7 +790,7 @@ class Client(OpenApiClient):
 
     def get_alias(self, function_name, alias_name):
         """
-        获取函数别名信息
+        获取函数别名信息。
         
 
         @return: GetAliasResponse
@@ -801,7 +801,7 @@ class Client(OpenApiClient):
 
     def get_async_invoke_config_with_options(self, function_name, request, headers, runtime):
         """
-        获取函数异步调用配置
+        获取函数异步调用配置。
         
 
         @param request: GetAsyncInvokeConfigRequest
@@ -839,7 +839,7 @@ class Client(OpenApiClient):
 
     def get_async_invoke_config(self, function_name, request):
         """
-        获取函数异步调用配置
+        获取函数异步调用配置。
         
 
         @param request: GetAsyncInvokeConfigRequest
@@ -852,7 +852,7 @@ class Client(OpenApiClient):
 
     def get_concurrency_config_with_options(self, function_name, headers, runtime):
         """
-        获取函数并发度配置
+        获取函数并发度配置。
         
 
         @type headers: dict
@@ -883,7 +883,7 @@ class Client(OpenApiClient):
 
     def get_concurrency_config(self, function_name):
         """
-        获取函数并发度配置
+        获取函数并发度配置。
         
 
         @return: GetConcurrencyConfigResponse
@@ -894,7 +894,7 @@ class Client(OpenApiClient):
 
     def get_custom_domain_with_options(self, domain_name, headers, runtime):
         """
-        获取自定义域名
+        获取自定义域名。
         
 
         @type headers: dict
@@ -925,7 +925,7 @@ class Client(OpenApiClient):
 
     def get_custom_domain(self, domain_name):
         """
-        获取自定义域名
+        获取自定义域名。
         
 
         @return: GetCustomDomainResponse
@@ -936,7 +936,7 @@ class Client(OpenApiClient):
 
     def get_function_with_options(self, function_name, request, headers, runtime):
         """
-        获取函数信息
+        获取函数信息。
         
 
         @param request: GetFunctionRequest
@@ -974,7 +974,7 @@ class Client(OpenApiClient):
 
     def get_function(self, function_name, request):
         """
-        获取函数信息
+        获取函数信息。
         
 
         @param request: GetFunctionRequest
@@ -987,7 +987,7 @@ class Client(OpenApiClient):
 
     def get_function_code_with_options(self, function_name, request, headers, runtime):
         """
-        获取函数代码
+        获取函数代码。
         
 
         @param request: GetFunctionCodeRequest
@@ -1025,7 +1025,7 @@ class Client(OpenApiClient):
 
     def get_function_code(self, function_name, request):
         """
-        获取函数代码
+        获取函数代码。
         
 
         @param request: GetFunctionCodeRequest
@@ -1038,7 +1038,7 @@ class Client(OpenApiClient):
 
     def get_layer_version_with_options(self, layer_name, version, headers, runtime):
         """
-        获取层版本
+        获取层版本。
         
 
         @type headers: dict
@@ -1069,7 +1069,7 @@ class Client(OpenApiClient):
 
     def get_layer_version(self, layer_name, version):
         """
-        获取层版本
+        获取层版本。
         
 
         @return: GetLayerVersionResponse
@@ -1080,7 +1080,7 @@ class Client(OpenApiClient):
 
     def get_layer_version_by_arn_with_options(self, arn, headers, runtime):
         """
-        根据资源标识获取层版本
+        根据资源标识获取层版本。
         
 
         @type headers: dict
@@ -1111,7 +1111,7 @@ class Client(OpenApiClient):
 
     def get_layer_version_by_arn(self, arn):
         """
-        根据资源标识获取层版本
+        根据资源标识获取层版本。
         
 
         @return: GetLayerVersionByArnResponse
@@ -1122,7 +1122,7 @@ class Client(OpenApiClient):
 
     def get_provision_config_with_options(self, function_name, request, headers, runtime):
         """
-        获取函数预留配置
+        获取函数预留配置。
         
 
         @param request: GetProvisionConfigRequest
@@ -1160,7 +1160,7 @@ class Client(OpenApiClient):
 
     def get_provision_config(self, function_name, request):
         """
-        获取函数预留配置
+        获取函数预留配置。
         
 
         @param request: GetProvisionConfigRequest
@@ -1173,7 +1173,7 @@ class Client(OpenApiClient):
 
     def get_resource_tags_with_options(self, request, headers, runtime):
         """
-        获取资源标签
+        获取资源标签。
         
 
         @param request: GetResourceTagsRequest
@@ -1211,7 +1211,7 @@ class Client(OpenApiClient):
 
     def get_resource_tags(self, request):
         """
-        获取资源标签
+        获取资源标签。
         
 
         @param request: GetResourceTagsRequest
@@ -1224,7 +1224,7 @@ class Client(OpenApiClient):
 
     def get_trigger_with_options(self, function_name, trigger_name, headers, runtime):
         """
-        获取函数触发器
+        获取函数触发器。
         
 
         @type headers: dict
@@ -1255,7 +1255,7 @@ class Client(OpenApiClient):
 
     def get_trigger(self, function_name, trigger_name):
         """
-        获取函数触发器
+        获取函数触发器。
         
 
         @return: GetTriggerResponse
@@ -1266,7 +1266,7 @@ class Client(OpenApiClient):
 
     def invoke_function_with_options(self, function_name, request, headers, runtime):
         """
-        调用函数
+        调用函数。
         
 
         @param request: InvokeFunctionRequest
@@ -1320,7 +1320,7 @@ class Client(OpenApiClient):
 
     def invoke_function(self, function_name, request):
         """
-        调用函数
+        调用函数。
         
 
         @param request: InvokeFunctionRequest
@@ -1333,7 +1333,7 @@ class Client(OpenApiClient):
 
     def list_aliases_with_options(self, function_name, request, headers, runtime):
         """
-        列出函数别名
+        列出函数别名。
         
 
         @param request: ListAliasesRequest
@@ -1375,7 +1375,7 @@ class Client(OpenApiClient):
 
     def list_aliases(self, function_name, request):
         """
-        列出函数别名
+        列出函数别名。
         
 
         @param request: ListAliasesRequest
@@ -1388,7 +1388,7 @@ class Client(OpenApiClient):
 
     def list_async_invoke_configs_with_options(self, request, headers, runtime):
         """
-        列出函数异步调用配置
+        列出函数异步调用配置。
         
 
         @param request: ListAsyncInvokeConfigsRequest
@@ -1430,7 +1430,7 @@ class Client(OpenApiClient):
 
     def list_async_invoke_configs(self, request):
         """
-        列出函数异步调用配置
+        列出函数异步调用配置。
         
 
         @param request: ListAsyncInvokeConfigsRequest
@@ -1443,7 +1443,7 @@ class Client(OpenApiClient):
 
     def list_concurrency_configs_with_options(self, request, headers, runtime):
         """
-        列出函数并发度配置
+        列出函数并发度配置。
         
 
         @param request: ListConcurrencyConfigsRequest
@@ -1485,7 +1485,7 @@ class Client(OpenApiClient):
 
     def list_concurrency_configs(self, request):
         """
-        列出函数并发度配置
+        列出函数并发度配置。
         
 
         @param request: ListConcurrencyConfigsRequest
@@ -1498,7 +1498,7 @@ class Client(OpenApiClient):
 
     def list_custom_domains_with_options(self, request, headers, runtime):
         """
-        列出自定义域名
+        列出自定义域名。
         
 
         @param request: ListCustomDomainsRequest
@@ -1540,7 +1540,7 @@ class Client(OpenApiClient):
 
     def list_custom_domains(self, request):
         """
-        列出自定义域名
+        列出自定义域名。
         
 
         @param request: ListCustomDomainsRequest
@@ -1553,7 +1553,7 @@ class Client(OpenApiClient):
 
     def list_function_versions_with_options(self, function_name, request, headers, runtime):
         """
-        列出函数版本
+        列出函数版本。
         
 
         @param request: ListFunctionVersionsRequest
@@ -1595,7 +1595,7 @@ class Client(OpenApiClient):
 
     def list_function_versions(self, function_name, request):
         """
-        列出函数版本
+        列出函数版本。
         
 
         @param request: ListFunctionVersionsRequest
@@ -1608,7 +1608,7 @@ class Client(OpenApiClient):
 
     def list_functions_with_options(self, request, headers, runtime):
         """
-        列出函数
+        列出函数。
         
 
         @param request: ListFunctionsRequest
@@ -1650,7 +1650,7 @@ class Client(OpenApiClient):
 
     def list_functions(self, request):
         """
-        列出函数
+        列出函数。
         
 
         @param request: ListFunctionsRequest
@@ -1663,7 +1663,7 @@ class Client(OpenApiClient):
 
     def list_instances_with_options(self, function_name, request, headers, runtime):
         """
-        列出函数实例
+        列出函数实例。
         
 
         @param request: ListInstancesRequest
@@ -1703,7 +1703,7 @@ class Client(OpenApiClient):
 
     def list_instances(self, function_name, request):
         """
-        列出函数实例
+        列出函数实例。
         
 
         @param request: ListInstancesRequest
@@ -1716,7 +1716,7 @@ class Client(OpenApiClient):
 
     def list_layer_versions_with_options(self, layer_name, request, headers, runtime):
         """
-        列出层版本
+        列出层版本。
         
 
         @param request: ListLayerVersionsRequest
@@ -1756,7 +1756,7 @@ class Client(OpenApiClient):
 
     def list_layer_versions(self, layer_name, request):
         """
-        列出层版本
+        列出层版本。
         
 
         @param request: ListLayerVersionsRequest
@@ -1769,7 +1769,7 @@ class Client(OpenApiClient):
 
     def list_layers_with_options(self, request, headers, runtime):
         """
-        列出层
+        列出层。
         
 
         @param request: ListLayersRequest
@@ -1815,7 +1815,7 @@ class Client(OpenApiClient):
 
     def list_layers(self, request):
         """
-        列出层
+        列出层。
         
 
         @param request: ListLayersRequest
@@ -1828,7 +1828,7 @@ class Client(OpenApiClient):
 
     def list_provision_configs_with_options(self, request, headers, runtime):
         """
-        列出函数预留配置
+        列出函数预留配置。
         
 
         @param request: ListProvisionConfigsRequest
@@ -1870,7 +1870,7 @@ class Client(OpenApiClient):
 
     def list_provision_configs(self, request):
         """
-        列出函数预留配置
+        列出函数预留配置。
         
 
         @param request: ListProvisionConfigsRequest
@@ -1883,7 +1883,7 @@ class Client(OpenApiClient):
 
     def list_tagged_resources_with_options(self, request, headers, runtime):
         """
-        列出具有标签的资源
+        列出具有标签的资源。
         
 
         @param request: ListTaggedResourcesRequest
@@ -1901,6 +1901,8 @@ class Client(OpenApiClient):
             query['limit'] = request.limit
         if not UtilClient.is_unset(request.next_token):
             query['nextToken'] = request.next_token
+        if not UtilClient.is_unset(request.resource_type):
+            query['resourceType'] = request.resource_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1923,7 +1925,7 @@ class Client(OpenApiClient):
 
     def list_tagged_resources(self, request):
         """
-        列出具有标签的资源
+        列出具有标签的资源。
         
 
         @param request: ListTaggedResourcesRequest
@@ -1936,7 +1938,7 @@ class Client(OpenApiClient):
 
     def list_triggers_with_options(self, function_name, request, headers, runtime):
         """
-        列出函数触发器
+        列出函数触发器。
         
 
         @param request: ListTriggersRequest
@@ -1978,7 +1980,7 @@ class Client(OpenApiClient):
 
     def list_triggers(self, function_name, request):
         """
-        列出函数触发器
+        列出函数触发器。
         
 
         @param request: ListTriggersRequest
@@ -1991,7 +1993,7 @@ class Client(OpenApiClient):
 
     def list_vpc_bindings_with_options(self, function_name, headers, runtime):
         """
-        列出VPC绑定配置
+        列出VPC绑定配置。
         
 
         @type headers: dict
@@ -2022,7 +2024,7 @@ class Client(OpenApiClient):
 
     def list_vpc_bindings(self, function_name):
         """
-        列出VPC绑定配置
+        列出VPC绑定配置。
         
 
         @return: ListVpcBindingsResponse
@@ -2033,7 +2035,7 @@ class Client(OpenApiClient):
 
     def publish_function_version_with_options(self, function_name, request, headers, runtime):
         """
-        发布函数版本
+        发布函数版本。
         
 
         @param request: PublishFunctionVersionRequest
@@ -2068,7 +2070,7 @@ class Client(OpenApiClient):
 
     def publish_function_version(self, function_name, request):
         """
-        发布函数版本
+        发布函数版本。
         
 
         @param request: PublishFunctionVersionRequest
@@ -2081,7 +2083,7 @@ class Client(OpenApiClient):
 
     def put_async_invoke_config_with_options(self, function_name, request, headers, runtime):
         """
-        设置函数异步调用配置
+        设置函数异步调用配置。
         
 
         @param request: PutAsyncInvokeConfigRequest
@@ -2120,7 +2122,7 @@ class Client(OpenApiClient):
 
     def put_async_invoke_config(self, function_name, request):
         """
-        设置函数异步调用配置
+        设置函数异步调用配置。
         
 
         @param request: PutAsyncInvokeConfigRequest
@@ -2133,7 +2135,7 @@ class Client(OpenApiClient):
 
     def put_concurrency_config_with_options(self, function_name, request, headers, runtime):
         """
-        设置函数并发度配置
+        设置函数并发度配置。
         
 
         @param request: PutConcurrencyConfigRequest
@@ -2168,7 +2170,7 @@ class Client(OpenApiClient):
 
     def put_concurrency_config(self, function_name, request):
         """
-        设置函数并发度配置
+        设置函数并发度配置。
         
 
         @param request: PutConcurrencyConfigRequest
@@ -2181,7 +2183,7 @@ class Client(OpenApiClient):
 
     def put_layer_aclwith_options(self, layer_name, request, headers, runtime):
         """
-        设置层的访问权限
+        设置层的访问权限。
         
 
         @param request: PutLayerACLRequest
@@ -2219,7 +2221,7 @@ class Client(OpenApiClient):
 
     def put_layer_acl(self, layer_name, request):
         """
-        设置层的访问权限
+        设置层的访问权限。
         
 
         @param request: PutLayerACLRequest
@@ -2232,7 +2234,7 @@ class Client(OpenApiClient):
 
     def put_provision_config_with_options(self, function_name, request, headers, runtime):
         """
-        设置函数预留配置
+        设置函数预留配置。
         
 
         @param request: PutProvisionConfigRequest
@@ -2271,7 +2273,7 @@ class Client(OpenApiClient):
 
     def put_provision_config(self, function_name, request):
         """
-        设置函数预留配置
+        设置函数预留配置。
         
 
         @param request: PutProvisionConfigRequest
@@ -2284,7 +2286,7 @@ class Client(OpenApiClient):
 
     def tag_resource_with_options(self, request, headers, runtime):
         """
-        设置资源标签
+        设置资源标签。
         
 
         @param request: TagResourceRequest
@@ -2319,7 +2321,7 @@ class Client(OpenApiClient):
 
     def tag_resource(self, request):
         """
-        设置资源标签
+        设置资源标签。
         
 
         @param request: TagResourceRequest
@@ -2332,7 +2334,7 @@ class Client(OpenApiClient):
 
     def untag_resource_with_options(self, request, headers, runtime):
         """
-        删除资源标签
+        删除资源标签。
         
 
         @param request: UntagResourceRequest
@@ -2374,7 +2376,7 @@ class Client(OpenApiClient):
 
     def untag_resource(self, request):
         """
-        删除资源标签
+        删除资源标签。
         
 
         @param request: UntagResourceRequest
@@ -2387,7 +2389,7 @@ class Client(OpenApiClient):
 
     def update_alias_with_options(self, function_name, alias_name, request, headers, runtime):
         """
-        更新函数别名
+        更新函数别名。
         
 
         @param request: UpdateAliasRequest
@@ -2422,7 +2424,7 @@ class Client(OpenApiClient):
 
     def update_alias(self, function_name, alias_name, request):
         """
-        更新函数别名
+        更新函数别名。
         
 
         @param request: UpdateAliasRequest
@@ -2435,7 +2437,7 @@ class Client(OpenApiClient):
 
     def update_custom_domain_with_options(self, domain_name, request, headers, runtime):
         """
-        更新自定义域名
+        更新自定义域名。
         
 
         @param request: UpdateCustomDomainRequest
@@ -2470,7 +2472,7 @@ class Client(OpenApiClient):
 
     def update_custom_domain(self, domain_name, request):
         """
-        更新自定义域名
+        更新自定义域名。
         
 
         @param request: UpdateCustomDomainRequest
@@ -2483,7 +2485,7 @@ class Client(OpenApiClient):
 
     def update_function_with_options(self, function_name, request, headers, runtime):
         """
-        更新函数
+        更新函数。
         
 
         @param request: UpdateFunctionRequest
@@ -2518,7 +2520,7 @@ class Client(OpenApiClient):
 
     def update_function(self, function_name, request):
         """
-        更新函数
+        更新函数。
         
 
         @param request: UpdateFunctionRequest
@@ -2531,7 +2533,7 @@ class Client(OpenApiClient):
 
     def update_trigger_with_options(self, function_name, trigger_name, request, headers, runtime):
         """
-        更新函数触发器
+        更新函数触发器。
         
 
         @param request: UpdateTriggerRequest
@@ -2566,7 +2568,7 @@ class Client(OpenApiClient):
 
     def update_trigger(self, function_name, trigger_name, request):
         """
-        更新函数触发器
+        更新函数触发器。
         
 
         @param request: UpdateTriggerRequest
