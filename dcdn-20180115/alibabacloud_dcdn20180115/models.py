@@ -23686,8 +23686,8 @@ class DescribeDcdnUserDomainsResponse(TeaModel):
 
 
 class DescribeDcdnUserDomainsByFuncRequest(TeaModel):
-    def __init__(self, domain_name=None, func_filter=None, func_id=None, page_number=None, page_size=None,
-                 resource_group_id=None):
+    def __init__(self, domain_name=None, func_filter=None, func_id=None, match_type=None, page_number=None,
+                 page_size=None, resource_group_id=None):
         # The accelerated domain name whose ICP filing status you want to update.
         self.domain_name = domain_name  # type: str
         # Specifies whether the feature that is specified by the FuncId parameter is enabled.
@@ -23697,6 +23697,7 @@ class DescribeDcdnUserDomainsByFuncRequest(TeaModel):
         self.func_filter = func_filter  # type: str
         # The ID of the feature. For more information about how to query feature IDs, see [Parameters for configuring features for domain names](~~410622~~). For example, the ID of the origin host feature (set_req_host_header) is 18.
         self.func_id = func_id  # type: int
+        self.match_type = match_type  # type: str
         # The number of the page to return. Default value: **1**. Valid values: **1 to 100000**.
         self.page_number = page_number  # type: int
         # The number of entries to return on each page. Default value: **20**. Valid values: **1 to 500**.
@@ -23719,6 +23720,8 @@ class DescribeDcdnUserDomainsByFuncRequest(TeaModel):
             result['FuncFilter'] = self.func_filter
         if self.func_id is not None:
             result['FuncId'] = self.func_id
+        if self.match_type is not None:
+            result['MatchType'] = self.match_type
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -23735,6 +23738,8 @@ class DescribeDcdnUserDomainsByFuncRequest(TeaModel):
             self.func_filter = m.get('FuncFilter')
         if m.get('FuncId') is not None:
             self.func_id = m.get('FuncId')
+        if m.get('MatchType') is not None:
+            self.match_type = m.get('MatchType')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
