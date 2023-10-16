@@ -39,6 +39,10 @@ class Client(OpenApiClient):
             query['ChatbotName'] = request.chatbot_name
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.nlu_service_params_json):
+            query['NluServiceParamsJson'] = request.nlu_service_params_json
+        if not UtilClient.is_unset(request.union_source):
+            query['UnionSource'] = request.union_source
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -139,6 +143,8 @@ class Client(OpenApiClient):
     def collected_number_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.additional_context):
+            query['AdditionalContext'] = request.additional_context
         if not UtilClient.is_unset(request.conversation_id):
             query['ConversationId'] = request.conversation_id
         if not UtilClient.is_unset(request.instance_id):
@@ -205,6 +211,12 @@ class Client(OpenApiClient):
             query['Description'] = request.description
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
+        if not UtilClient.is_unset(request.nlu_service_params_json):
+            query['NluServiceParamsJson'] = request.nlu_service_params_json
+        if not UtilClient.is_unset(request.union_instance_id):
+            query['UnionInstanceId'] = request.union_instance_id
+        if not UtilClient.is_unset(request.union_source):
+            query['UnionSource'] = request.union_source
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -711,6 +723,8 @@ class Client(OpenApiClient):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.options):
             query['Options'] = request.options
+        if not UtilClient.is_unset(request.result):
+            query['Result'] = request.result
         if not UtilClient.is_unset(request.rounds_left_range):
             query['RoundsLeftRange'] = request.rounds_left_range
         if not UtilClient.is_unset(request.rounds_right_range):

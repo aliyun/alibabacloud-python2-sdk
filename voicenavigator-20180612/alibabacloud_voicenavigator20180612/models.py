@@ -4,10 +4,13 @@ from Tea.model import TeaModel
 
 
 class AssociateChatbotInstanceRequest(TeaModel):
-    def __init__(self, chatbot_instance_id=None, chatbot_name=None, instance_id=None):
+    def __init__(self, chatbot_instance_id=None, chatbot_name=None, instance_id=None, nlu_service_params_json=None,
+                 union_source=None):
         self.chatbot_instance_id = chatbot_instance_id  # type: str
         self.chatbot_name = chatbot_name  # type: str
         self.instance_id = instance_id  # type: str
+        self.nlu_service_params_json = nlu_service_params_json  # type: str
+        self.union_source = union_source  # type: str
 
     def validate(self):
         pass
@@ -24,6 +27,10 @@ class AssociateChatbotInstanceRequest(TeaModel):
             result['ChatbotName'] = self.chatbot_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.nlu_service_params_json is not None:
+            result['NluServiceParamsJson'] = self.nlu_service_params_json
+        if self.union_source is not None:
+            result['UnionSource'] = self.union_source
         return result
 
     def from_map(self, m=None):
@@ -34,6 +41,10 @@ class AssociateChatbotInstanceRequest(TeaModel):
             self.chatbot_name = m.get('ChatbotName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('NluServiceParamsJson') is not None:
+            self.nlu_service_params_json = m.get('NluServiceParamsJson')
+        if m.get('UnionSource') is not None:
+            self.union_source = m.get('UnionSource')
         return self
 
 
@@ -346,7 +357,9 @@ class BeginDialogueResponse(TeaModel):
 
 
 class CollectedNumberRequest(TeaModel):
-    def __init__(self, conversation_id=None, instance_id=None, instance_owner_id=None, number=None):
+    def __init__(self, additional_context=None, conversation_id=None, instance_id=None, instance_owner_id=None,
+                 number=None):
+        self.additional_context = additional_context  # type: str
         self.conversation_id = conversation_id  # type: str
         self.instance_id = instance_id  # type: str
         self.instance_owner_id = instance_owner_id  # type: long
@@ -361,6 +374,8 @@ class CollectedNumberRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.additional_context is not None:
+            result['AdditionalContext'] = self.additional_context
         if self.conversation_id is not None:
             result['ConversationId'] = self.conversation_id
         if self.instance_id is not None:
@@ -373,6 +388,8 @@ class CollectedNumberRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AdditionalContext') is not None:
+            self.additional_context = m.get('AdditionalContext')
         if m.get('ConversationId') is not None:
             self.conversation_id = m.get('ConversationId')
         if m.get('InstanceId') is not None:
@@ -586,10 +603,14 @@ class CreateDownloadUrlResponse(TeaModel):
 
 
 class CreateInstanceRequest(TeaModel):
-    def __init__(self, concurrency=None, description=None, name=None):
+    def __init__(self, concurrency=None, description=None, name=None, nlu_service_params_json=None,
+                 union_instance_id=None, union_source=None):
         self.concurrency = concurrency  # type: long
         self.description = description  # type: str
         self.name = name  # type: str
+        self.nlu_service_params_json = nlu_service_params_json  # type: str
+        self.union_instance_id = union_instance_id  # type: str
+        self.union_source = union_source  # type: str
 
     def validate(self):
         pass
@@ -606,6 +627,12 @@ class CreateInstanceRequest(TeaModel):
             result['Description'] = self.description
         if self.name is not None:
             result['Name'] = self.name
+        if self.nlu_service_params_json is not None:
+            result['NluServiceParamsJson'] = self.nlu_service_params_json
+        if self.union_instance_id is not None:
+            result['UnionInstanceId'] = self.union_instance_id
+        if self.union_source is not None:
+            result['UnionSource'] = self.union_source
         return result
 
     def from_map(self, m=None):
@@ -616,6 +643,12 @@ class CreateInstanceRequest(TeaModel):
             self.description = m.get('Description')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('NluServiceParamsJson') is not None:
+            self.nlu_service_params_json = m.get('NluServiceParamsJson')
+        if m.get('UnionInstanceId') is not None:
+            self.union_instance_id = m.get('UnionInstanceId')
+        if m.get('UnionSource') is not None:
+            self.union_source = m.get('UnionSource')
         return self
 
 
@@ -1498,8 +1531,10 @@ class DescribeInstanceRequest(TeaModel):
 
 
 class DescribeInstanceResponseBody(TeaModel):
-    def __init__(self, applicable_operations=None, concurrency=None, description=None, instance_id=None,
-                 modify_time=None, modify_user_name=None, name=None, request_id=None, status=None):
+    def __init__(self, ability_type=None, applicable_operations=None, concurrency=None, description=None,
+                 instance_id=None, modify_time=None, modify_user_name=None, name=None, nlu_service_params_json=None,
+                 request_id=None, status=None, union_instance_id=None, union_source=None):
+        self.ability_type = ability_type  # type: str
         self.applicable_operations = applicable_operations  # type: list[str]
         self.concurrency = concurrency  # type: long
         self.description = description  # type: str
@@ -1507,8 +1542,11 @@ class DescribeInstanceResponseBody(TeaModel):
         self.modify_time = modify_time  # type: long
         self.modify_user_name = modify_user_name  # type: str
         self.name = name  # type: str
+        self.nlu_service_params_json = nlu_service_params_json  # type: str
         self.request_id = request_id  # type: str
         self.status = status  # type: str
+        self.union_instance_id = union_instance_id  # type: str
+        self.union_source = union_source  # type: str
 
     def validate(self):
         pass
@@ -1519,6 +1557,8 @@ class DescribeInstanceResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.ability_type is not None:
+            result['AbilityType'] = self.ability_type
         if self.applicable_operations is not None:
             result['ApplicableOperations'] = self.applicable_operations
         if self.concurrency is not None:
@@ -1533,14 +1573,22 @@ class DescribeInstanceResponseBody(TeaModel):
             result['ModifyUserName'] = self.modify_user_name
         if self.name is not None:
             result['Name'] = self.name
+        if self.nlu_service_params_json is not None:
+            result['NluServiceParamsJson'] = self.nlu_service_params_json
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.status is not None:
             result['Status'] = self.status
+        if self.union_instance_id is not None:
+            result['UnionInstanceId'] = self.union_instance_id
+        if self.union_source is not None:
+            result['UnionSource'] = self.union_source
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AbilityType') is not None:
+            self.ability_type = m.get('AbilityType')
         if m.get('ApplicableOperations') is not None:
             self.applicable_operations = m.get('ApplicableOperations')
         if m.get('Concurrency') is not None:
@@ -1555,10 +1603,16 @@ class DescribeInstanceResponseBody(TeaModel):
             self.modify_user_name = m.get('ModifyUserName')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('NluServiceParamsJson') is not None:
+            self.nlu_service_params_json = m.get('NluServiceParamsJson')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('UnionInstanceId') is not None:
+            self.union_instance_id = m.get('UnionInstanceId')
+        if m.get('UnionSource') is not None:
+            self.union_source = m.get('UnionSource')
         return self
 
 
@@ -1665,6 +1719,7 @@ class DescribeNavigationConfigResponseBodySilenceTimeoutConfig(TeaModel):
         self.final_action = final_action  # type: str
         self.final_action_params = final_action_params  # type: str
         self.final_prompt = final_prompt  # type: str
+        # ""
         self.intent_trigger = intent_trigger  # type: str
         self.prompt = prompt  # type: str
         self.source_type = source_type  # type: str
@@ -2713,12 +2768,13 @@ class EndDialogueResponse(TeaModel):
 
 class ExportConversationDetailsRequest(TeaModel):
     def __init__(self, begin_time_left_range=None, begin_time_right_range=None, calling_number=None,
-                 instance_id=None, options=None, rounds_left_range=None, rounds_right_range=None):
+                 instance_id=None, options=None, result=None, rounds_left_range=None, rounds_right_range=None):
         self.begin_time_left_range = begin_time_left_range  # type: long
         self.begin_time_right_range = begin_time_right_range  # type: long
         self.calling_number = calling_number  # type: str
         self.instance_id = instance_id  # type: str
         self.options = options  # type: list[str]
+        self.result = result  # type: int
         self.rounds_left_range = rounds_left_range  # type: int
         self.rounds_right_range = rounds_right_range  # type: int
 
@@ -2741,6 +2797,8 @@ class ExportConversationDetailsRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.options is not None:
             result['Options'] = self.options
+        if self.result is not None:
+            result['Result'] = self.result
         if self.rounds_left_range is not None:
             result['RoundsLeftRange'] = self.rounds_left_range
         if self.rounds_right_range is not None:
@@ -2759,6 +2817,8 @@ class ExportConversationDetailsRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('Options') is not None:
             self.options = m.get('Options')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
         if m.get('RoundsLeftRange') is not None:
             self.rounds_left_range = m.get('RoundsLeftRange')
         if m.get('RoundsRightRange') is not None:
@@ -3502,10 +3562,14 @@ class GetRealTimeConcurrencyResponse(TeaModel):
 
 
 class ListChatbotInstancesRequest(TeaModel):
-    def __init__(self, instance_id=None, page_number=None, page_size=None):
+    def __init__(self, instance_id=None, nlu_service_params_json=None, nlu_service_type=None, page_number=None,
+                 page_size=None, union_source=None):
         self.instance_id = instance_id  # type: str
+        self.nlu_service_params_json = nlu_service_params_json  # type: str
+        self.nlu_service_type = nlu_service_type  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.union_source = union_source  # type: str
 
     def validate(self):
         pass
@@ -3518,20 +3582,32 @@ class ListChatbotInstancesRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.nlu_service_params_json is not None:
+            result['NluServiceParamsJson'] = self.nlu_service_params_json
+        if self.nlu_service_type is not None:
+            result['NluServiceType'] = self.nlu_service_type
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.union_source is not None:
+            result['UnionSource'] = self.union_source
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('NluServiceParamsJson') is not None:
+            self.nlu_service_params_json = m.get('NluServiceParamsJson')
+        if m.get('NluServiceType') is not None:
+            self.nlu_service_type = m.get('NluServiceType')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('UnionSource') is not None:
+            self.union_source = m.get('UnionSource')
         return self
 
 
@@ -4343,10 +4419,17 @@ class ListDownloadTasksResponse(TeaModel):
 
 
 class ListInstancesRequest(TeaModel):
-    def __init__(self, nlu_service_type_list_json_string=None, page_number=None, page_size=None):
+    def __init__(self, instance_id_list_json_string=None, name=None, nlu_service_type_list_json_string=None,
+                 number=None, page_number=None, page_size=None, status=None, union_instance_id=None, union_source=None):
+        self.instance_id_list_json_string = instance_id_list_json_string  # type: str
+        self.name = name  # type: str
         self.nlu_service_type_list_json_string = nlu_service_type_list_json_string  # type: str
+        self.number = number  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.status = status  # type: str
+        self.union_instance_id = union_instance_id  # type: str
+        self.union_source = union_source  # type: str
 
     def validate(self):
         pass
@@ -4357,36 +4440,66 @@ class ListInstancesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.instance_id_list_json_string is not None:
+            result['InstanceIdListJsonString'] = self.instance_id_list_json_string
+        if self.name is not None:
+            result['Name'] = self.name
         if self.nlu_service_type_list_json_string is not None:
             result['NluServiceTypeListJsonString'] = self.nlu_service_type_list_json_string
+        if self.number is not None:
+            result['Number'] = self.number
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.union_instance_id is not None:
+            result['UnionInstanceId'] = self.union_instance_id
+        if self.union_source is not None:
+            result['UnionSource'] = self.union_source
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('InstanceIdListJsonString') is not None:
+            self.instance_id_list_json_string = m.get('InstanceIdListJsonString')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         if m.get('NluServiceTypeListJsonString') is not None:
             self.nlu_service_type_list_json_string = m.get('NluServiceTypeListJsonString')
+        if m.get('Number') is not None:
+            self.number = m.get('Number')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UnionInstanceId') is not None:
+            self.union_instance_id = m.get('UnionInstanceId')
+        if m.get('UnionSource') is not None:
+            self.union_source = m.get('UnionSource')
         return self
 
 
 class ListInstancesResponseBodyInstances(TeaModel):
-    def __init__(self, applicable_operations=None, concurrency=None, description=None, instance_id=None,
-                 modify_time=None, modify_user_name=None, name=None, status=None):
+    def __init__(self, applicable_operations=None, concurrency=None, create_time=None, description=None,
+                 instance_id=None, modify_time=None, modify_user_name=None, name=None, nlu_service_params_json=None,
+                 numbers=None, status=None, union_instance_id=None, union_source=None):
         self.applicable_operations = applicable_operations  # type: list[str]
         self.concurrency = concurrency  # type: long
+        self.create_time = create_time  # type: long
         self.description = description  # type: str
         self.instance_id = instance_id  # type: str
         self.modify_time = modify_time  # type: long
         self.modify_user_name = modify_user_name  # type: str
         self.name = name  # type: str
+        self.nlu_service_params_json = nlu_service_params_json  # type: str
+        self.numbers = numbers  # type: list[str]
         self.status = status  # type: str
+        self.union_instance_id = union_instance_id  # type: str
+        self.union_source = union_source  # type: str
 
     def validate(self):
         pass
@@ -4401,6 +4514,8 @@ class ListInstancesResponseBodyInstances(TeaModel):
             result['ApplicableOperations'] = self.applicable_operations
         if self.concurrency is not None:
             result['Concurrency'] = self.concurrency
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.description is not None:
             result['Description'] = self.description
         if self.instance_id is not None:
@@ -4411,8 +4526,16 @@ class ListInstancesResponseBodyInstances(TeaModel):
             result['ModifyUserName'] = self.modify_user_name
         if self.name is not None:
             result['Name'] = self.name
+        if self.nlu_service_params_json is not None:
+            result['NluServiceParamsJson'] = self.nlu_service_params_json
+        if self.numbers is not None:
+            result['Numbers'] = self.numbers
         if self.status is not None:
             result['Status'] = self.status
+        if self.union_instance_id is not None:
+            result['UnionInstanceId'] = self.union_instance_id
+        if self.union_source is not None:
+            result['UnionSource'] = self.union_source
         return result
 
     def from_map(self, m=None):
@@ -4421,6 +4544,8 @@ class ListInstancesResponseBodyInstances(TeaModel):
             self.applicable_operations = m.get('ApplicableOperations')
         if m.get('Concurrency') is not None:
             self.concurrency = m.get('Concurrency')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('InstanceId') is not None:
@@ -4431,8 +4556,16 @@ class ListInstancesResponseBodyInstances(TeaModel):
             self.modify_user_name = m.get('ModifyUserName')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('NluServiceParamsJson') is not None:
+            self.nlu_service_params_json = m.get('NluServiceParamsJson')
+        if m.get('Numbers') is not None:
+            self.numbers = m.get('Numbers')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('UnionInstanceId') is not None:
+            self.union_instance_id = m.get('UnionInstanceId')
+        if m.get('UnionSource') is not None:
+            self.union_source = m.get('UnionSource')
         return self
 
 
