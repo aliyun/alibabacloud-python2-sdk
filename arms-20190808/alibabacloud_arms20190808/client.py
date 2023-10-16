@@ -486,6 +486,74 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.bind_prometheus_grafana_instance_with_options(request, runtime)
 
+    def block_alarm_notification_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alarm_id):
+            query['AlarmId'] = request.alarm_id
+        if not UtilClient.is_unset(request.handler_id):
+            query['HandlerId'] = request.handler_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.timeout):
+            query['Timeout'] = request.timeout
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BlockAlarmNotification',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.BlockAlarmNotificationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def block_alarm_notification(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.block_alarm_notification_with_options(request, runtime)
+
+    def change_alarm_severity_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alarm_id):
+            query['AlarmId'] = request.alarm_id
+        if not UtilClient.is_unset(request.handler_id):
+            query['HandlerId'] = request.handler_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.severity):
+            query['Severity'] = request.severity
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ChangeAlarmSeverity',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.ChangeAlarmSeverityResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def change_alarm_severity(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.change_alarm_severity_with_options(request, runtime)
+
     def change_resource_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -549,6 +617,72 @@ class Client(OpenApiClient):
     def check_service_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.check_service_status_with_options(request, runtime)
+
+    def claim_alarm_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alarm_id):
+            query['AlarmId'] = request.alarm_id
+        if not UtilClient.is_unset(request.handler_id):
+            query['HandlerId'] = request.handler_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ClaimAlarm',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.ClaimAlarmResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def claim_alarm(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.claim_alarm_with_options(request, runtime)
+
+    def close_alarm_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alarm_id):
+            query['AlarmId'] = request.alarm_id
+        if not UtilClient.is_unset(request.handler_id):
+            query['HandlerId'] = request.handler_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.solution):
+            query['Solution'] = request.solution
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CloseAlarm',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.CloseAlarmResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def close_alarm(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.close_alarm_with_options(request, runtime)
 
     def config_app_with_options(self, request, runtime):
         """
@@ -803,6 +937,8 @@ class Client(OpenApiClient):
             body['MetricsType'] = request.metrics_type
         if not UtilClient.is_unset(request.notice):
             body['Notice'] = request.notice
+        if not UtilClient.is_unset(request.notify_mode):
+            body['NotifyMode'] = request.notify_mode
         if not UtilClient.is_unset(request.notify_strategy):
             body['NotifyStrategy'] = request.notify_strategy
         if not UtilClient.is_unset(request.pids):

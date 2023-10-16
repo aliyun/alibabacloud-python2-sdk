@@ -3531,6 +3531,250 @@ class BindPrometheusGrafanaInstanceResponse(TeaModel):
         return self
 
 
+class BlockAlarmNotificationRequest(TeaModel):
+    def __init__(self, alarm_id=None, handler_id=None, region_id=None, timeout=None):
+        self.alarm_id = alarm_id  # type: long
+        self.handler_id = handler_id  # type: long
+        self.region_id = region_id  # type: str
+        self.timeout = timeout  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BlockAlarmNotificationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alarm_id is not None:
+            result['AlarmId'] = self.alarm_id
+        if self.handler_id is not None:
+            result['HandlerId'] = self.handler_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.timeout is not None:
+            result['Timeout'] = self.timeout
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlarmId') is not None:
+            self.alarm_id = m.get('AlarmId')
+        if m.get('HandlerId') is not None:
+            self.handler_id = m.get('HandlerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Timeout') is not None:
+            self.timeout = m.get('Timeout')
+        return self
+
+
+class BlockAlarmNotificationResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, result=None, success=None):
+        self.code = code  # type: long
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BlockAlarmNotificationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class BlockAlarmNotificationResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: BlockAlarmNotificationResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BlockAlarmNotificationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = BlockAlarmNotificationResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ChangeAlarmSeverityRequest(TeaModel):
+    def __init__(self, alarm_id=None, handler_id=None, region_id=None, severity=None):
+        self.alarm_id = alarm_id  # type: long
+        self.handler_id = handler_id  # type: long
+        self.region_id = region_id  # type: str
+        self.severity = severity  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeAlarmSeverityRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alarm_id is not None:
+            result['AlarmId'] = self.alarm_id
+        if self.handler_id is not None:
+            result['HandlerId'] = self.handler_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.severity is not None:
+            result['Severity'] = self.severity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlarmId') is not None:
+            self.alarm_id = m.get('AlarmId')
+        if m.get('HandlerId') is not None:
+            self.handler_id = m.get('HandlerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Severity') is not None:
+            self.severity = m.get('Severity')
+        return self
+
+
+class ChangeAlarmSeverityResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, result=None, success=None):
+        self.code = code  # type: long
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeAlarmSeverityResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ChangeAlarmSeverityResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChangeAlarmSeverityResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChangeAlarmSeverityResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChangeAlarmSeverityResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ChangeResourceGroupRequest(TeaModel):
     def __init__(self, new_resource_group_id=None, region_id=None, resource_id=None, resource_type=None):
         # The ID of the new resource group. You can view the available resource groups in the Resource Management console.
@@ -3789,6 +4033,245 @@ class CheckServiceStatusResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CheckServiceStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ClaimAlarmRequest(TeaModel):
+    def __init__(self, alarm_id=None, handler_id=None, region_id=None):
+        self.alarm_id = alarm_id  # type: long
+        self.handler_id = handler_id  # type: long
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ClaimAlarmRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alarm_id is not None:
+            result['AlarmId'] = self.alarm_id
+        if self.handler_id is not None:
+            result['HandlerId'] = self.handler_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlarmId') is not None:
+            self.alarm_id = m.get('AlarmId')
+        if m.get('HandlerId') is not None:
+            self.handler_id = m.get('HandlerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ClaimAlarmResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, result=None, success=None):
+        self.code = code  # type: long
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ClaimAlarmResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ClaimAlarmResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ClaimAlarmResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ClaimAlarmResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ClaimAlarmResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CloseAlarmRequest(TeaModel):
+    def __init__(self, alarm_id=None, handler_id=None, region_id=None, solution=None):
+        self.alarm_id = alarm_id  # type: long
+        self.handler_id = handler_id  # type: long
+        self.region_id = region_id  # type: str
+        self.solution = solution  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CloseAlarmRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alarm_id is not None:
+            result['AlarmId'] = self.alarm_id
+        if self.handler_id is not None:
+            result['HandlerId'] = self.handler_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.solution is not None:
+            result['Solution'] = self.solution
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlarmId') is not None:
+            self.alarm_id = m.get('AlarmId')
+        if m.get('HandlerId') is not None:
+            self.handler_id = m.get('HandlerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Solution') is not None:
+            self.solution = m.get('Solution')
+        return self
+
+
+class CloseAlarmResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, result=None, success=None):
+        self.code = code  # type: long
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CloseAlarmResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CloseAlarmResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CloseAlarmResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CloseAlarmResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CloseAlarmResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -4538,8 +5021,8 @@ class CreateOrUpdateAlertRuleRequest(TeaModel):
     def __init__(self, alert_check_type=None, alert_group=None, alert_id=None, alert_name=None, alert_piplines=None,
                  alert_rule_content=None, alert_status=None, alert_type=None, annotations=None, auto_add_new_application=None,
                  cluster_id=None, data_config=None, duration=None, filters=None, labels=None, level=None, mark_tags=None,
-                 message=None, metrics_key=None, metrics_type=None, notice=None, notify_strategy=None, pids=None,
-                 prom_ql=None, region_id=None, tags=None):
+                 message=None, metrics_key=None, metrics_type=None, notice=None, notify_mode=None, notify_strategy=None,
+                 pids=None, prom_ql=None, region_id=None, tags=None):
         # The alert check type of the Prometheus alert rule. Valid values:
         # 
         # *   STATIC: a static threshold value. If you set the parameter to STATIC, you must specify the **MetricsKey** parameter. For more information, see the **Correspondence between AlertGroup and MetricsKey for Prometheus Service** table.
@@ -4645,6 +5128,7 @@ class CreateOrUpdateAlertRuleRequest(TeaModel):
         # The metric type of the Application Monitoring or Browser Monitoring alert rule. For more information, see the following table.
         self.metrics_type = metrics_type  # type: str
         self.notice = notice  # type: str
+        self.notify_mode = notify_mode  # type: str
         # The notification policy.
         # 
         # *   If you set this parameter to null, no notification policy is specified. After you create an alert rule, you can create a notification policy and specify match rules and match conditions. For example, you can specify the name of the alert rule as the match condition. When the alert rule is triggered, an alert event is generated and an alert notification is sent to the contacts or contact groups that are specified in the notification policy.
@@ -4718,6 +5202,8 @@ class CreateOrUpdateAlertRuleRequest(TeaModel):
             result['MetricsType'] = self.metrics_type
         if self.notice is not None:
             result['Notice'] = self.notice
+        if self.notify_mode is not None:
+            result['NotifyMode'] = self.notify_mode
         if self.notify_strategy is not None:
             result['NotifyStrategy'] = self.notify_strategy
         if self.pids is not None:
@@ -4779,6 +5265,8 @@ class CreateOrUpdateAlertRuleRequest(TeaModel):
             self.metrics_type = m.get('MetricsType')
         if m.get('Notice') is not None:
             self.notice = m.get('Notice')
+        if m.get('NotifyMode') is not None:
+            self.notify_mode = m.get('NotifyMode')
         if m.get('NotifyStrategy') is not None:
             self.notify_strategy = m.get('NotifyStrategy')
         if m.get('Pids') is not None:
@@ -6285,6 +6773,7 @@ class CreateOrUpdateNotificationPolicyRequest(TeaModel):
     def __init__(self, directed_mode=None, escalation_policy_id=None, group_rule=None, id=None, integration_id=None,
                  matching_rules=None, name=None, notify_rule=None, notify_template=None, region_id=None, repeat=None,
                  repeat_interval=None, send_recover_message=None):
+        # Specifies whether to enable simple mode.
         self.directed_mode = directed_mode  # type: bool
         # The ID of the escalation policy.
         self.escalation_policy_id = escalation_policy_id  # type: long
@@ -6731,6 +7220,7 @@ class CreateOrUpdateNotificationPolicyResponseBodyNotificationPolicy(TeaModel):
     def __init__(self, directed_mode=None, escalation_policy_id=None, group_rule=None, id=None, integration_id=None,
                  matching_rules=None, name=None, notify_rule=None, notify_template=None, repeat=None, repeat_interval=None,
                  send_recover_message=None):
+        # 极简模式
         self.directed_mode = directed_mode  # type: bool
         # The ID of the escalation policy.
         self.escalation_policy_id = escalation_policy_id  # type: long
@@ -9804,7 +10294,7 @@ class CreateTimingSyntheticTaskRequestMonitorConfFileDownload(TeaModel):
                  ignore_certificate_auth_error=None, ignore_certificate_canceled_error=None, ignore_certificate_out_of_date_error=None,
                  ignore_certificate_status_error=None, ignore_certificate_untrustworthy_error=None, ignore_certificate_using_error=None,
                  ignore_invalid_host_error=None, monitor_timeout=None, quick_protocol=None, redirection=None, target_url=None,
-                 transmission_size=None):
+                 transmission_size=None, validate_keywords=None, verify_way=None, white_list=None):
         self.connection_timeout = connection_timeout  # type: long
         self.custom_header_content = custom_header_content  # type: dict[str, str]
         self.download_kernel = download_kernel  # type: int
@@ -9820,6 +10310,9 @@ class CreateTimingSyntheticTaskRequestMonitorConfFileDownload(TeaModel):
         self.redirection = redirection  # type: int
         self.target_url = target_url  # type: str
         self.transmission_size = transmission_size  # type: long
+        self.validate_keywords = validate_keywords  # type: str
+        self.verify_way = verify_way  # type: int
+        self.white_list = white_list  # type: str
 
     def validate(self):
         pass
@@ -9860,6 +10353,12 @@ class CreateTimingSyntheticTaskRequestMonitorConfFileDownload(TeaModel):
             result['TargetUrl'] = self.target_url
         if self.transmission_size is not None:
             result['TransmissionSize'] = self.transmission_size
+        if self.validate_keywords is not None:
+            result['ValidateKeywords'] = self.validate_keywords
+        if self.verify_way is not None:
+            result['VerifyWay'] = self.verify_way
+        if self.white_list is not None:
+            result['WhiteList'] = self.white_list
         return result
 
     def from_map(self, m=None):
@@ -9894,6 +10393,12 @@ class CreateTimingSyntheticTaskRequestMonitorConfFileDownload(TeaModel):
             self.target_url = m.get('TargetUrl')
         if m.get('TransmissionSize') is not None:
             self.transmission_size = m.get('TransmissionSize')
+        if m.get('ValidateKeywords') is not None:
+            self.validate_keywords = m.get('ValidateKeywords')
+        if m.get('VerifyWay') is not None:
+            self.verify_way = m.get('VerifyWay')
+        if m.get('WhiteList') is not None:
+            self.white_list = m.get('WhiteList')
         return self
 
 
@@ -10061,21 +10566,85 @@ class CreateTimingSyntheticTaskRequestMonitorConfNetTCP(TeaModel):
         return self
 
 
+class CreateTimingSyntheticTaskRequestMonitorConfStream(TeaModel):
+    def __init__(self, custom_header_content=None, player_type=None, stream_address_type=None,
+                 stream_monitor_timeout=None, stream_type=None, target_url=None, white_list=None):
+        self.custom_header_content = custom_header_content  # type: dict[str, str]
+        self.player_type = player_type  # type: int
+        self.stream_address_type = stream_address_type  # type: int
+        self.stream_monitor_timeout = stream_monitor_timeout  # type: int
+        self.stream_type = stream_type  # type: int
+        self.target_url = target_url  # type: str
+        self.white_list = white_list  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTimingSyntheticTaskRequestMonitorConfStream, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.custom_header_content is not None:
+            result['CustomHeaderContent'] = self.custom_header_content
+        if self.player_type is not None:
+            result['PlayerType'] = self.player_type
+        if self.stream_address_type is not None:
+            result['StreamAddressType'] = self.stream_address_type
+        if self.stream_monitor_timeout is not None:
+            result['StreamMonitorTimeout'] = self.stream_monitor_timeout
+        if self.stream_type is not None:
+            result['StreamType'] = self.stream_type
+        if self.target_url is not None:
+            result['TargetUrl'] = self.target_url
+        if self.white_list is not None:
+            result['WhiteList'] = self.white_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustomHeaderContent') is not None:
+            self.custom_header_content = m.get('CustomHeaderContent')
+        if m.get('PlayerType') is not None:
+            self.player_type = m.get('PlayerType')
+        if m.get('StreamAddressType') is not None:
+            self.stream_address_type = m.get('StreamAddressType')
+        if m.get('StreamMonitorTimeout') is not None:
+            self.stream_monitor_timeout = m.get('StreamMonitorTimeout')
+        if m.get('StreamType') is not None:
+            self.stream_type = m.get('StreamType')
+        if m.get('TargetUrl') is not None:
+            self.target_url = m.get('TargetUrl')
+        if m.get('WhiteList') is not None:
+            self.white_list = m.get('WhiteList')
+        return self
+
+
 class CreateTimingSyntheticTaskRequestMonitorConfWebsite(TeaModel):
     def __init__(self, automatic_scrolling=None, custom_header=None, custom_header_content=None,
-                 disable_cache=None, disable_compression=None, filter_invalid_ip=None, ignore_certificate_error=None,
-                 monitor_timeout=None, redirection=None, slow_element_threshold=None, target_url=None, wait_completion_time=None):
+                 dnshijack_whitelist=None, disable_cache=None, disable_compression=None, element_blacklist=None,
+                 filter_invalid_ip=None, flow_hijack_jump_times=None, flow_hijack_logo=None, ignore_certificate_error=None,
+                 monitor_timeout=None, page_tamper=None, redirection=None, slow_element_threshold=None, target_url=None,
+                 verify_string_blacklist=None, verify_string_whitelist=None, wait_completion_time=None):
         self.automatic_scrolling = automatic_scrolling  # type: int
         self.custom_header = custom_header  # type: int
         self.custom_header_content = custom_header_content  # type: dict[str, str]
+        self.dnshijack_whitelist = dnshijack_whitelist  # type: str
         self.disable_cache = disable_cache  # type: int
         self.disable_compression = disable_compression  # type: int
+        self.element_blacklist = element_blacklist  # type: str
         self.filter_invalid_ip = filter_invalid_ip  # type: int
+        self.flow_hijack_jump_times = flow_hijack_jump_times  # type: int
+        self.flow_hijack_logo = flow_hijack_logo  # type: str
         self.ignore_certificate_error = ignore_certificate_error  # type: int
         self.monitor_timeout = monitor_timeout  # type: long
+        self.page_tamper = page_tamper  # type: str
         self.redirection = redirection  # type: int
         self.slow_element_threshold = slow_element_threshold  # type: long
         self.target_url = target_url  # type: str
+        self.verify_string_blacklist = verify_string_blacklist  # type: str
+        self.verify_string_whitelist = verify_string_whitelist  # type: str
         self.wait_completion_time = wait_completion_time  # type: long
 
     def validate(self):
@@ -10093,22 +10662,36 @@ class CreateTimingSyntheticTaskRequestMonitorConfWebsite(TeaModel):
             result['CustomHeader'] = self.custom_header
         if self.custom_header_content is not None:
             result['CustomHeaderContent'] = self.custom_header_content
+        if self.dnshijack_whitelist is not None:
+            result['DNSHijackWhitelist'] = self.dnshijack_whitelist
         if self.disable_cache is not None:
             result['DisableCache'] = self.disable_cache
         if self.disable_compression is not None:
             result['DisableCompression'] = self.disable_compression
+        if self.element_blacklist is not None:
+            result['ElementBlacklist'] = self.element_blacklist
         if self.filter_invalid_ip is not None:
             result['FilterInvalidIP'] = self.filter_invalid_ip
+        if self.flow_hijack_jump_times is not None:
+            result['FlowHijackJumpTimes'] = self.flow_hijack_jump_times
+        if self.flow_hijack_logo is not None:
+            result['FlowHijackLogo'] = self.flow_hijack_logo
         if self.ignore_certificate_error is not None:
             result['IgnoreCertificateError'] = self.ignore_certificate_error
         if self.monitor_timeout is not None:
             result['MonitorTimeout'] = self.monitor_timeout
+        if self.page_tamper is not None:
+            result['PageTamper'] = self.page_tamper
         if self.redirection is not None:
             result['Redirection'] = self.redirection
         if self.slow_element_threshold is not None:
             result['SlowElementThreshold'] = self.slow_element_threshold
         if self.target_url is not None:
             result['TargetUrl'] = self.target_url
+        if self.verify_string_blacklist is not None:
+            result['VerifyStringBlacklist'] = self.verify_string_blacklist
+        if self.verify_string_whitelist is not None:
+            result['VerifyStringWhitelist'] = self.verify_string_whitelist
         if self.wait_completion_time is not None:
             result['WaitCompletionTime'] = self.wait_completion_time
         return result
@@ -10121,34 +10704,50 @@ class CreateTimingSyntheticTaskRequestMonitorConfWebsite(TeaModel):
             self.custom_header = m.get('CustomHeader')
         if m.get('CustomHeaderContent') is not None:
             self.custom_header_content = m.get('CustomHeaderContent')
+        if m.get('DNSHijackWhitelist') is not None:
+            self.dnshijack_whitelist = m.get('DNSHijackWhitelist')
         if m.get('DisableCache') is not None:
             self.disable_cache = m.get('DisableCache')
         if m.get('DisableCompression') is not None:
             self.disable_compression = m.get('DisableCompression')
+        if m.get('ElementBlacklist') is not None:
+            self.element_blacklist = m.get('ElementBlacklist')
         if m.get('FilterInvalidIP') is not None:
             self.filter_invalid_ip = m.get('FilterInvalidIP')
+        if m.get('FlowHijackJumpTimes') is not None:
+            self.flow_hijack_jump_times = m.get('FlowHijackJumpTimes')
+        if m.get('FlowHijackLogo') is not None:
+            self.flow_hijack_logo = m.get('FlowHijackLogo')
         if m.get('IgnoreCertificateError') is not None:
             self.ignore_certificate_error = m.get('IgnoreCertificateError')
         if m.get('MonitorTimeout') is not None:
             self.monitor_timeout = m.get('MonitorTimeout')
+        if m.get('PageTamper') is not None:
+            self.page_tamper = m.get('PageTamper')
         if m.get('Redirection') is not None:
             self.redirection = m.get('Redirection')
         if m.get('SlowElementThreshold') is not None:
             self.slow_element_threshold = m.get('SlowElementThreshold')
         if m.get('TargetUrl') is not None:
             self.target_url = m.get('TargetUrl')
+        if m.get('VerifyStringBlacklist') is not None:
+            self.verify_string_blacklist = m.get('VerifyStringBlacklist')
+        if m.get('VerifyStringWhitelist') is not None:
+            self.verify_string_whitelist = m.get('VerifyStringWhitelist')
         if m.get('WaitCompletionTime') is not None:
             self.wait_completion_time = m.get('WaitCompletionTime')
         return self
 
 
 class CreateTimingSyntheticTaskRequestMonitorConf(TeaModel):
-    def __init__(self, api_http=None, file_download=None, net_dns=None, net_icmp=None, net_tcp=None, website=None):
+    def __init__(self, api_http=None, file_download=None, net_dns=None, net_icmp=None, net_tcp=None, stream=None,
+                 website=None):
         self.api_http = api_http  # type: CreateTimingSyntheticTaskRequestMonitorConfApiHTTP
         self.file_download = file_download  # type: CreateTimingSyntheticTaskRequestMonitorConfFileDownload
         self.net_dns = net_dns  # type: CreateTimingSyntheticTaskRequestMonitorConfNetDNS
         self.net_icmp = net_icmp  # type: CreateTimingSyntheticTaskRequestMonitorConfNetICMP
         self.net_tcp = net_tcp  # type: CreateTimingSyntheticTaskRequestMonitorConfNetTCP
+        self.stream = stream  # type: CreateTimingSyntheticTaskRequestMonitorConfStream
         self.website = website  # type: CreateTimingSyntheticTaskRequestMonitorConfWebsite
 
     def validate(self):
@@ -10162,6 +10761,8 @@ class CreateTimingSyntheticTaskRequestMonitorConf(TeaModel):
             self.net_icmp.validate()
         if self.net_tcp:
             self.net_tcp.validate()
+        if self.stream:
+            self.stream.validate()
         if self.website:
             self.website.validate()
 
@@ -10181,6 +10782,8 @@ class CreateTimingSyntheticTaskRequestMonitorConf(TeaModel):
             result['NetICMP'] = self.net_icmp.to_map()
         if self.net_tcp is not None:
             result['NetTCP'] = self.net_tcp.to_map()
+        if self.stream is not None:
+            result['Stream'] = self.stream.to_map()
         if self.website is not None:
             result['Website'] = self.website.to_map()
         return result
@@ -10202,6 +10805,9 @@ class CreateTimingSyntheticTaskRequestMonitorConf(TeaModel):
         if m.get('NetTCP') is not None:
             temp_model = CreateTimingSyntheticTaskRequestMonitorConfNetTCP()
             self.net_tcp = temp_model.from_map(m['NetTCP'])
+        if m.get('Stream') is not None:
+            temp_model = CreateTimingSyntheticTaskRequestMonitorConfStream()
+            self.stream = temp_model.from_map(m['Stream'])
         if m.get('Website') is not None:
             temp_model = CreateTimingSyntheticTaskRequestMonitorConfWebsite()
             self.website = temp_model.from_map(m['Website'])
@@ -23243,7 +23849,7 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfFileDownload(TeaModel):
                  ignore_certificate_auth_error=None, ignore_certificate_canceled_error=None, ignore_certificate_out_of_date_error=None,
                  ignore_certificate_status_error=None, ignore_certificate_untrustworthy_error=None, ignore_certificate_using_error=None,
                  ignore_invalid_host_error=None, monitor_timeout=None, quick_protocol=None, redirection=None, target_url=None,
-                 transmission_size=None):
+                 transmission_size=None, validate_keywords=None, verify_way=None, white_list=None):
         self.connection_timeout = connection_timeout  # type: long
         self.custom_header_content = custom_header_content  # type: dict[str, str]
         self.download_kernel = download_kernel  # type: long
@@ -23259,6 +23865,9 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfFileDownload(TeaModel):
         self.redirection = redirection  # type: int
         self.target_url = target_url  # type: str
         self.transmission_size = transmission_size  # type: long
+        self.validate_keywords = validate_keywords  # type: str
+        self.verify_way = verify_way  # type: int
+        self.white_list = white_list  # type: str
 
     def validate(self):
         pass
@@ -23299,6 +23908,12 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfFileDownload(TeaModel):
             result['TargetUrl'] = self.target_url
         if self.transmission_size is not None:
             result['TransmissionSize'] = self.transmission_size
+        if self.validate_keywords is not None:
+            result['ValidateKeywords'] = self.validate_keywords
+        if self.verify_way is not None:
+            result['VerifyWay'] = self.verify_way
+        if self.white_list is not None:
+            result['WhiteList'] = self.white_list
         return result
 
     def from_map(self, m=None):
@@ -23333,6 +23948,12 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfFileDownload(TeaModel):
             self.target_url = m.get('TargetUrl')
         if m.get('TransmissionSize') is not None:
             self.transmission_size = m.get('TransmissionSize')
+        if m.get('ValidateKeywords') is not None:
+            self.validate_keywords = m.get('ValidateKeywords')
+        if m.get('VerifyWay') is not None:
+            self.verify_way = m.get('VerifyWay')
+        if m.get('WhiteList') is not None:
+            self.white_list = m.get('WhiteList')
         return self
 
 
@@ -23500,21 +24121,85 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfNetTCP(TeaModel):
         return self
 
 
+class GetTimingSyntheticTaskResponseBodyDataMonitorConfStream(TeaModel):
+    def __init__(self, custom_header_content=None, player_type=None, stream_address_type=None,
+                 stream_monitor_timeout=None, stream_type=None, target_url=None, white_list=None):
+        self.custom_header_content = custom_header_content  # type: dict[str, str]
+        self.player_type = player_type  # type: int
+        self.stream_address_type = stream_address_type  # type: int
+        self.stream_monitor_timeout = stream_monitor_timeout  # type: int
+        self.stream_type = stream_type  # type: int
+        self.target_url = target_url  # type: str
+        self.white_list = white_list  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTimingSyntheticTaskResponseBodyDataMonitorConfStream, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.custom_header_content is not None:
+            result['CustomHeaderContent'] = self.custom_header_content
+        if self.player_type is not None:
+            result['PlayerType'] = self.player_type
+        if self.stream_address_type is not None:
+            result['StreamAddressType'] = self.stream_address_type
+        if self.stream_monitor_timeout is not None:
+            result['StreamMonitorTimeout'] = self.stream_monitor_timeout
+        if self.stream_type is not None:
+            result['StreamType'] = self.stream_type
+        if self.target_url is not None:
+            result['TargetUrl'] = self.target_url
+        if self.white_list is not None:
+            result['WhiteList'] = self.white_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustomHeaderContent') is not None:
+            self.custom_header_content = m.get('CustomHeaderContent')
+        if m.get('PlayerType') is not None:
+            self.player_type = m.get('PlayerType')
+        if m.get('StreamAddressType') is not None:
+            self.stream_address_type = m.get('StreamAddressType')
+        if m.get('StreamMonitorTimeout') is not None:
+            self.stream_monitor_timeout = m.get('StreamMonitorTimeout')
+        if m.get('StreamType') is not None:
+            self.stream_type = m.get('StreamType')
+        if m.get('TargetUrl') is not None:
+            self.target_url = m.get('TargetUrl')
+        if m.get('WhiteList') is not None:
+            self.white_list = m.get('WhiteList')
+        return self
+
+
 class GetTimingSyntheticTaskResponseBodyDataMonitorConfWebsite(TeaModel):
     def __init__(self, automatic_scrolling=None, custom_header=None, custom_header_content=None,
-                 disable_cache=None, disable_compression=None, filter_invalid_ip=None, ignore_certificate_error=None,
-                 monitor_timeout=None, redirection=None, slow_element_threshold=None, target_url=None, wait_completion_time=None):
+                 dnshijack_whitelist=None, disable_cache=None, disable_compression=None, element_blacklist=None,
+                 filter_invalid_ip=None, flow_hijack_jump_times=None, flow_hijack_logo=None, ignore_certificate_error=None,
+                 monitor_timeout=None, page_tamper=None, redirection=None, slow_element_threshold=None, target_url=None,
+                 verify_string_blacklist=None, verify_string_whitelist=None, wait_completion_time=None):
         self.automatic_scrolling = automatic_scrolling  # type: int
         self.custom_header = custom_header  # type: int
         self.custom_header_content = custom_header_content  # type: dict[str, str]
+        self.dnshijack_whitelist = dnshijack_whitelist  # type: str
         self.disable_cache = disable_cache  # type: int
         self.disable_compression = disable_compression  # type: int
+        self.element_blacklist = element_blacklist  # type: str
         self.filter_invalid_ip = filter_invalid_ip  # type: int
+        self.flow_hijack_jump_times = flow_hijack_jump_times  # type: int
+        self.flow_hijack_logo = flow_hijack_logo  # type: str
         self.ignore_certificate_error = ignore_certificate_error  # type: int
         self.monitor_timeout = monitor_timeout  # type: int
+        self.page_tamper = page_tamper  # type: str
         self.redirection = redirection  # type: int
         self.slow_element_threshold = slow_element_threshold  # type: long
         self.target_url = target_url  # type: str
+        self.verify_string_blacklist = verify_string_blacklist  # type: str
+        self.verify_string_whitelist = verify_string_whitelist  # type: str
         self.wait_completion_time = wait_completion_time  # type: long
 
     def validate(self):
@@ -23532,22 +24217,36 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfWebsite(TeaModel):
             result['CustomHeader'] = self.custom_header
         if self.custom_header_content is not None:
             result['CustomHeaderContent'] = self.custom_header_content
+        if self.dnshijack_whitelist is not None:
+            result['DNSHijackWhitelist'] = self.dnshijack_whitelist
         if self.disable_cache is not None:
             result['DisableCache'] = self.disable_cache
         if self.disable_compression is not None:
             result['DisableCompression'] = self.disable_compression
+        if self.element_blacklist is not None:
+            result['ElementBlacklist'] = self.element_blacklist
         if self.filter_invalid_ip is not None:
             result['FilterInvalidIP'] = self.filter_invalid_ip
+        if self.flow_hijack_jump_times is not None:
+            result['FlowHijackJumpTimes'] = self.flow_hijack_jump_times
+        if self.flow_hijack_logo is not None:
+            result['FlowHijackLogo'] = self.flow_hijack_logo
         if self.ignore_certificate_error is not None:
             result['IgnoreCertificateError'] = self.ignore_certificate_error
         if self.monitor_timeout is not None:
             result['MonitorTimeout'] = self.monitor_timeout
+        if self.page_tamper is not None:
+            result['PageTamper'] = self.page_tamper
         if self.redirection is not None:
             result['Redirection'] = self.redirection
         if self.slow_element_threshold is not None:
             result['SlowElementThreshold'] = self.slow_element_threshold
         if self.target_url is not None:
             result['TargetUrl'] = self.target_url
+        if self.verify_string_blacklist is not None:
+            result['VerifyStringBlacklist'] = self.verify_string_blacklist
+        if self.verify_string_whitelist is not None:
+            result['VerifyStringWhitelist'] = self.verify_string_whitelist
         if self.wait_completion_time is not None:
             result['WaitCompletionTime'] = self.wait_completion_time
         return result
@@ -23560,34 +24259,50 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConfWebsite(TeaModel):
             self.custom_header = m.get('CustomHeader')
         if m.get('CustomHeaderContent') is not None:
             self.custom_header_content = m.get('CustomHeaderContent')
+        if m.get('DNSHijackWhitelist') is not None:
+            self.dnshijack_whitelist = m.get('DNSHijackWhitelist')
         if m.get('DisableCache') is not None:
             self.disable_cache = m.get('DisableCache')
         if m.get('DisableCompression') is not None:
             self.disable_compression = m.get('DisableCompression')
+        if m.get('ElementBlacklist') is not None:
+            self.element_blacklist = m.get('ElementBlacklist')
         if m.get('FilterInvalidIP') is not None:
             self.filter_invalid_ip = m.get('FilterInvalidIP')
+        if m.get('FlowHijackJumpTimes') is not None:
+            self.flow_hijack_jump_times = m.get('FlowHijackJumpTimes')
+        if m.get('FlowHijackLogo') is not None:
+            self.flow_hijack_logo = m.get('FlowHijackLogo')
         if m.get('IgnoreCertificateError') is not None:
             self.ignore_certificate_error = m.get('IgnoreCertificateError')
         if m.get('MonitorTimeout') is not None:
             self.monitor_timeout = m.get('MonitorTimeout')
+        if m.get('PageTamper') is not None:
+            self.page_tamper = m.get('PageTamper')
         if m.get('Redirection') is not None:
             self.redirection = m.get('Redirection')
         if m.get('SlowElementThreshold') is not None:
             self.slow_element_threshold = m.get('SlowElementThreshold')
         if m.get('TargetUrl') is not None:
             self.target_url = m.get('TargetUrl')
+        if m.get('VerifyStringBlacklist') is not None:
+            self.verify_string_blacklist = m.get('VerifyStringBlacklist')
+        if m.get('VerifyStringWhitelist') is not None:
+            self.verify_string_whitelist = m.get('VerifyStringWhitelist')
         if m.get('WaitCompletionTime') is not None:
             self.wait_completion_time = m.get('WaitCompletionTime')
         return self
 
 
 class GetTimingSyntheticTaskResponseBodyDataMonitorConf(TeaModel):
-    def __init__(self, api_http=None, file_download=None, net_dns=None, net_icmp=None, net_tcp=None, website=None):
+    def __init__(self, api_http=None, file_download=None, net_dns=None, net_icmp=None, net_tcp=None, stream=None,
+                 website=None):
         self.api_http = api_http  # type: GetTimingSyntheticTaskResponseBodyDataMonitorConfApiHTTP
         self.file_download = file_download  # type: GetTimingSyntheticTaskResponseBodyDataMonitorConfFileDownload
         self.net_dns = net_dns  # type: GetTimingSyntheticTaskResponseBodyDataMonitorConfNetDNS
         self.net_icmp = net_icmp  # type: GetTimingSyntheticTaskResponseBodyDataMonitorConfNetICMP
         self.net_tcp = net_tcp  # type: GetTimingSyntheticTaskResponseBodyDataMonitorConfNetTCP
+        self.stream = stream  # type: GetTimingSyntheticTaskResponseBodyDataMonitorConfStream
         self.website = website  # type: GetTimingSyntheticTaskResponseBodyDataMonitorConfWebsite
 
     def validate(self):
@@ -23601,6 +24316,8 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConf(TeaModel):
             self.net_icmp.validate()
         if self.net_tcp:
             self.net_tcp.validate()
+        if self.stream:
+            self.stream.validate()
         if self.website:
             self.website.validate()
 
@@ -23620,6 +24337,8 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConf(TeaModel):
             result['NetICMP'] = self.net_icmp.to_map()
         if self.net_tcp is not None:
             result['NetTCP'] = self.net_tcp.to_map()
+        if self.stream is not None:
+            result['Stream'] = self.stream.to_map()
         if self.website is not None:
             result['Website'] = self.website.to_map()
         return result
@@ -23641,6 +24360,9 @@ class GetTimingSyntheticTaskResponseBodyDataMonitorConf(TeaModel):
         if m.get('NetTCP') is not None:
             temp_model = GetTimingSyntheticTaskResponseBodyDataMonitorConfNetTCP()
             self.net_tcp = temp_model.from_map(m['NetTCP'])
+        if m.get('Stream') is not None:
+            temp_model = GetTimingSyntheticTaskResponseBodyDataMonitorConfStream()
+            self.stream = temp_model.from_map(m['Stream'])
         if m.get('Website') is not None:
             temp_model = GetTimingSyntheticTaskResponseBodyDataMonitorConfWebsite()
             self.website = temp_model.from_map(m['Website'])
@@ -28321,6 +29043,7 @@ class ListIntegrationResponse(TeaModel):
 
 class ListNotificationPoliciesRequest(TeaModel):
     def __init__(self, directed_mode=None, ids=None, is_detail=None, name=None, page=None, region_id=None, size=None):
+        # Specifies whether to enable simple mode.
         self.directed_mode = directed_mode  # type: bool
         # The ID of the notification policy.
         self.ids = ids  # type: str
@@ -28384,11 +29107,14 @@ class ListNotificationPoliciesRequest(TeaModel):
 
 class ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesGroupRule(TeaModel):
     def __init__(self, group_interval=None, group_wait=None, grouping_fields=None):
-        # The time interval for grouping. Unit: seconds. Default value: 30.
+        # The time interval of grouping. Unit: seconds. Default value: 30.
         self.group_interval = group_interval  # type: long
         # The waiting time for grouping. Unit: seconds. Default value: 5.
         self.group_wait = group_wait  # type: long
         # The fields that are used to group events.
+        # 
+        # *   If this parameter is not returned, all alert notifications are sent to the alert contacts that belong to the `alertname` group. By default, this parameter is not returned.
+        # *   If this parameter is returned, alerts with the same fields are sent to the alert contacts in one notification.
         self.grouping_fields = grouping_fields  # type: list[str]
 
     def validate(self):
@@ -28425,12 +29151,12 @@ class ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesMatchingRu
         self.key = key  # type: str
         # The logical operator of the matching condition. Valid values:
         # 
-        # *   `eq`: equal to.
-        # *   `neq`: not equal to.
-        # *   `in`: contains.
-        # *   `nin`: does not contain.
-        # *   `re`: regular expression match.
-        # *   `nre`: regular expression mismatch.
+        # *   `eq`: equal to
+        # *   `neq`: not equal to
+        # *   `in`: contains
+        # *   `nin`: does not contain
+        # *   `re`: regular expression match
+        # *   `nre`: regular expression mismatch
         self.operator = operator  # type: str
         # The value of the matching condition.
         self.value = value  # type: str
@@ -28465,7 +29191,7 @@ class ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesMatchingRu
 
 class ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesMatchingRules(TeaModel):
     def __init__(self, matching_conditions=None):
-        # The alert event matching conditions.
+        # The matching conditions.
         self.matching_conditions = matching_conditions  # type: list[ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesMatchingRulesMatchingConditions]
 
     def validate(self):
@@ -28499,18 +29225,18 @@ class ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesMatchingRu
 class ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesNotifyRuleNotifyObjects(TeaModel):
     def __init__(self, notify_channels=None, notify_object_id=None, notify_object_name=None,
                  notify_object_type=None):
-        # 通知对象为联系人时单独的联系方式
+        # The notification methods specified for a contact.
         self.notify_channels = notify_channels  # type: list[str]
-        # The ID of the contact.
+        # The ID of the notification object.
         self.notify_object_id = notify_object_id  # type: long
-        # The name of the contact.
+        # The name of the notification object.
         self.notify_object_name = notify_object_name  # type: str
-        # The type of the contact. Valid values: 
+        # The type of the notification object. Valid values:
         # 
-        # - CONTACT: an individual contact
-        # - CONTACT_GROUP: a contact group
-        # - DING_ROBOT: an instant messaging (IM) robot
-        # - CONTACT_SCHEDULE: a person on duty based on an established schedule
+        # *   CONTACT: an individual contact
+        # *   CONTACT_GROUP: a contact group
+        # *   DING_ROBOT: an instant messaging (IM) chatbot
+        # *   CONTACT_SCHEDULE: a person on duty based on an established schedule
         self.notify_object_type = notify_object_type  # type: str
 
     def validate(self):
@@ -28547,11 +29273,11 @@ class ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesNotifyRule
 
 class ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesNotifyRule(TeaModel):
     def __init__(self, notify_channels=None, notify_end_time=None, notify_objects=None, notify_start_time=None):
-        # The notification method.
+        # The notification methods.
         self.notify_channels = notify_channels  # type: list[str]
         # The end time of the notification window.
         self.notify_end_time = notify_end_time  # type: str
-        # The contacts.
+        # The notification objects.
         self.notify_objects = notify_objects  # type: list[ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesNotifyRuleNotifyObjects]
         # The start time of the notification window.
         self.notify_start_time = notify_start_time  # type: str
@@ -28607,7 +29333,7 @@ class ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesNotifyTemp
         self.email_recover_title = email_recover_title  # type: str
         # The title of the alert notification sent by email.
         self.email_title = email_title  # type: str
-        # The content of the alert notification sent by an IM robot.
+        # The content of the alert notification sent by an IM chatbot.
         self.robot_content = robot_content  # type: str
         # The content of the alert notification sent by text message.
         self.sms_content = sms_content  # type: str
@@ -28674,8 +29400,9 @@ class ListNotificationPoliciesResponseBodyPageBeanNotificationPolicies(TeaModel)
     def __init__(self, directed_mode=None, escalation_policy_id=None, group_rule=None, id=None, integration_id=None,
                  matching_rules=None, name=None, notify_rule=None, notify_template=None, repeat=None, repeat_interval=None,
                  send_recover_message=None):
+        # Indicates whether simple mode is enabled.
         self.directed_mode = directed_mode  # type: bool
-        # The ID of the escalation rule.
+        # The ID of the escalation policy.
         self.escalation_policy_id = escalation_policy_id  # type: long
         # The grouping rule for alert events.
         self.group_rule = group_rule  # type: ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesGroupRule
@@ -28683,7 +29410,7 @@ class ListNotificationPoliciesResponseBodyPageBeanNotificationPolicies(TeaModel)
         self.id = id  # type: long
         # The integration ID of the ticket system to which alerts are pushed.
         self.integration_id = integration_id  # type: long
-        # The alert event matching rules.
+        # The matching rules for alert events.
         self.matching_rules = matching_rules  # type: list[ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesMatchingRules]
         # The name of the notification policy.
         self.name = name  # type: str
@@ -28691,17 +29418,17 @@ class ListNotificationPoliciesResponseBodyPageBeanNotificationPolicies(TeaModel)
         self.notify_rule = notify_rule  # type: ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesNotifyRule
         # The notification templates.
         self.notify_template = notify_template  # type: ListNotificationPoliciesResponseBodyPageBeanNotificationPoliciesNotifyTemplate
-        # Indicates whether the system repeatedly sends notifications for a long-lasting unresolved alert. Default value: true. Valid values:  
+        # Indicates whether the system resends notifications for a long-lasting unresolved alert. Valid values:
         # 
-        # - `true`: The system repeatedly sends notifications for a long-lasting unresolved alert at a specified time interval.
-        # - `false`: The system sends a notification for a long-lasting unresolved alert based on an escalation policy.
+        # *   `true` (default): The system resends notifications for a long-lasting unresolved alert at a specified time interval.
+        # *   `false`: The system resends notifications for a long-lasting unresolved alert based on an escalation policy.
         self.repeat = repeat  # type: bool
-        # The time interval at which notifications are sent for a long-lasting unresolved alert. Unit: seconds.
+        # The time interval at which notifications are resent for a long-lasting unresolved alert. Unit: seconds.
         self.repeat_interval = repeat_interval  # type: long
-        # Specifies whether the status of an alert automatically changes to Resolved when all events related to the alert change to the Restored state. The system notifies contacts when the alert status changes to Resolved.  
+        # Indicates whether the status of an alert automatically changes to Resolved when all events related to the alert change to the Restored state. The system sends a notification to the alert contacts when the alert status changes to Resolved.
         # 
-        # - `true`: The system sends a notification. This is the default value.
-        # - `false`: The system does not send a notification.
+        # *   `true` (default): The system sends a notification.
+        # *   `false`: The system does not send a notification.
         self.send_recover_message = send_recover_message  # type: bool
 
     def validate(self):
@@ -28787,7 +29514,7 @@ class ListNotificationPoliciesResponseBodyPageBeanNotificationPolicies(TeaModel)
 
 class ListNotificationPoliciesResponseBodyPageBean(TeaModel):
     def __init__(self, notification_policies=None, page=None, size=None, total=None):
-        # The information about the notification policies.
+        # The queried notification policies.
         self.notification_policies = notification_policies  # type: list[ListNotificationPoliciesResponseBodyPageBeanNotificationPolicies]
         # The number of the page returned.
         self.page = page  # type: long
@@ -28838,7 +29565,7 @@ class ListNotificationPoliciesResponseBodyPageBean(TeaModel):
 
 class ListNotificationPoliciesResponseBody(TeaModel):
     def __init__(self, page_bean=None, request_id=None):
-        # The pages that are returned.
+        # The returned pages.
         self.page_bean = page_bean  # type: ListNotificationPoliciesResponseBodyPageBean
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -32200,8 +32927,8 @@ class ListTraceAppsResponseBodyTraceAppsTags(TeaModel):
 
 
 class ListTraceAppsResponseBodyTraceApps(TeaModel):
-    def __init__(self, app_id=None, app_name=None, cluster_id=None, create_time=None, labels=None, namespace=None,
-                 pid=None, region_id=None, resource_group_id=None, show=None, source=None, tags=None, type=None,
+    def __init__(self, app_id=None, app_name=None, cluster_id=None, create_time=None, labels=None, language=None,
+                 namespace=None, pid=None, region_id=None, resource_group_id=None, show=None, source=None, tags=None, type=None,
                  update_time=None, user_id=None, workload_kind=None, workload_name=None):
         # The application ID.
         self.app_id = app_id  # type: long
@@ -32212,6 +32939,7 @@ class ListTraceAppsResponseBodyTraceApps(TeaModel):
         self.create_time = create_time  # type: long
         # The labels of the application.
         self.labels = labels  # type: list[str]
+        self.language = language  # type: str
         self.namespace = namespace  # type: str
         # The process identifier (PID) of the application.
         self.pid = pid  # type: str
@@ -32262,6 +32990,8 @@ class ListTraceAppsResponseBodyTraceApps(TeaModel):
             result['CreateTime'] = self.create_time
         if self.labels is not None:
             result['Labels'] = self.labels
+        if self.language is not None:
+            result['Language'] = self.language
         if self.namespace is not None:
             result['Namespace'] = self.namespace
         if self.pid is not None:
@@ -32302,6 +33032,8 @@ class ListTraceAppsResponseBodyTraceApps(TeaModel):
             self.create_time = m.get('CreateTime')
         if m.get('Labels') is not None:
             self.labels = m.get('Labels')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
         if m.get('Pid') is not None:
@@ -37571,7 +38303,7 @@ class SearchTracesByPageRequestTags(TeaModel):
         # *   traceId: the ID of the trace.
         # *   serverApp: the name of the server application.
         # *   clientApp: the name of the client application.
-        # *   service: the name of the operation.
+        # *   service: the name of the API operation.
         # *   rpc: the type of the call.
         # *   msOfSpan: the duration exceeds a specific value.
         # *   clientIp: the IP address of the client.
@@ -37614,9 +38346,10 @@ class SearchTracesByPageRequest(TeaModel):
         self.end_time = end_time  # type: long
         # The filter conditions.
         self.exclusion_filters = exclusion_filters  # type: list[SearchTracesByPageRequestExclusionFilters]
-        # 是否过滤错误的调用链。
-        # - `true`：过滤
-        # - `false`（默认）：不过滤
+        # Specifies whether to include the traces of abnormal calls.
+        # 
+        # *   `true`: No
+        # *   `false` (default): Yes
         self.is_error = is_error  # type: bool
         # The minimum amount of time consumed by traces. Unit: milliseconds.
         self.min_duration = min_duration  # type: long
@@ -37641,7 +38374,7 @@ class SearchTracesByPageRequest(TeaModel):
         self.service_name = service_name  # type: str
         # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
-        # The list of tags.
+        # The tags.
         self.tags = tags  # type: list[SearchTracesByPageRequestTags]
 
     def validate(self):
@@ -41669,7 +42402,7 @@ class UpdateTimingSyntheticTaskRequestMonitorConfFileDownload(TeaModel):
                  ignore_certificate_auth_error=None, ignore_certificate_canceled_error=None, ignore_certificate_out_of_date_error=None,
                  ignore_certificate_status_error=None, ignore_certificate_untrustworthy_error=None, ignore_certificate_using_error=None,
                  ignore_invalid_host_error=None, monitor_timeout=None, quick_protocol=None, redirection=None, target_url=None,
-                 transmission_size=None):
+                 transmission_size=None, validate_keywords=None, verify_way=None, white_list=None):
         self.connection_timeout = connection_timeout  # type: long
         self.custom_header_content = custom_header_content  # type: dict[str, str]
         self.download_kernel = download_kernel  # type: int
@@ -41685,6 +42418,9 @@ class UpdateTimingSyntheticTaskRequestMonitorConfFileDownload(TeaModel):
         self.redirection = redirection  # type: int
         self.target_url = target_url  # type: str
         self.transmission_size = transmission_size  # type: long
+        self.validate_keywords = validate_keywords  # type: str
+        self.verify_way = verify_way  # type: int
+        self.white_list = white_list  # type: str
 
     def validate(self):
         pass
@@ -41725,6 +42461,12 @@ class UpdateTimingSyntheticTaskRequestMonitorConfFileDownload(TeaModel):
             result['TargetUrl'] = self.target_url
         if self.transmission_size is not None:
             result['TransmissionSize'] = self.transmission_size
+        if self.validate_keywords is not None:
+            result['ValidateKeywords'] = self.validate_keywords
+        if self.verify_way is not None:
+            result['VerifyWay'] = self.verify_way
+        if self.white_list is not None:
+            result['WhiteList'] = self.white_list
         return result
 
     def from_map(self, m=None):
@@ -41759,6 +42501,12 @@ class UpdateTimingSyntheticTaskRequestMonitorConfFileDownload(TeaModel):
             self.target_url = m.get('TargetUrl')
         if m.get('TransmissionSize') is not None:
             self.transmission_size = m.get('TransmissionSize')
+        if m.get('ValidateKeywords') is not None:
+            self.validate_keywords = m.get('ValidateKeywords')
+        if m.get('VerifyWay') is not None:
+            self.verify_way = m.get('VerifyWay')
+        if m.get('WhiteList') is not None:
+            self.white_list = m.get('WhiteList')
         return self
 
 
@@ -41934,19 +42682,28 @@ class UpdateTimingSyntheticTaskRequestMonitorConfNetTCP(TeaModel):
 
 class UpdateTimingSyntheticTaskRequestMonitorConfWebsite(TeaModel):
     def __init__(self, automatic_scrolling=None, custom_header=None, custom_header_content=None,
-                 disable_cache=None, disable_compression=None, filter_invalid_ip=None, ignore_certificate_error=None,
-                 monitor_timeout=None, redirection=None, slow_element_threshold=None, target_url=None, wait_completion_time=None):
+                 dnshijack_whitelist=None, disable_cache=None, disable_compression=None, element_blacklist=None,
+                 filter_invalid_ip=None, flow_hijack_jump_times=None, flow_hijack_logo=None, ignore_certificate_error=None,
+                 monitor_timeout=None, page_tamper=None, redirection=None, slow_element_threshold=None, target_url=None,
+                 verify_string_blacklist=None, verify_string_whitelist=None, wait_completion_time=None):
         self.automatic_scrolling = automatic_scrolling  # type: int
         self.custom_header = custom_header  # type: int
         self.custom_header_content = custom_header_content  # type: dict[str, str]
+        self.dnshijack_whitelist = dnshijack_whitelist  # type: str
         self.disable_cache = disable_cache  # type: int
         self.disable_compression = disable_compression  # type: int
+        self.element_blacklist = element_blacklist  # type: str
         self.filter_invalid_ip = filter_invalid_ip  # type: int
+        self.flow_hijack_jump_times = flow_hijack_jump_times  # type: int
+        self.flow_hijack_logo = flow_hijack_logo  # type: str
         self.ignore_certificate_error = ignore_certificate_error  # type: int
         self.monitor_timeout = monitor_timeout  # type: long
+        self.page_tamper = page_tamper  # type: str
         self.redirection = redirection  # type: int
         self.slow_element_threshold = slow_element_threshold  # type: long
         self.target_url = target_url  # type: str
+        self.verify_string_blacklist = verify_string_blacklist  # type: str
+        self.verify_string_whitelist = verify_string_whitelist  # type: str
         self.wait_completion_time = wait_completion_time  # type: long
 
     def validate(self):
@@ -41964,22 +42721,36 @@ class UpdateTimingSyntheticTaskRequestMonitorConfWebsite(TeaModel):
             result['CustomHeader'] = self.custom_header
         if self.custom_header_content is not None:
             result['CustomHeaderContent'] = self.custom_header_content
+        if self.dnshijack_whitelist is not None:
+            result['DNSHijackWhitelist'] = self.dnshijack_whitelist
         if self.disable_cache is not None:
             result['DisableCache'] = self.disable_cache
         if self.disable_compression is not None:
             result['DisableCompression'] = self.disable_compression
+        if self.element_blacklist is not None:
+            result['ElementBlacklist'] = self.element_blacklist
         if self.filter_invalid_ip is not None:
             result['FilterInvalidIP'] = self.filter_invalid_ip
+        if self.flow_hijack_jump_times is not None:
+            result['FlowHijackJumpTimes'] = self.flow_hijack_jump_times
+        if self.flow_hijack_logo is not None:
+            result['FlowHijackLogo'] = self.flow_hijack_logo
         if self.ignore_certificate_error is not None:
             result['IgnoreCertificateError'] = self.ignore_certificate_error
         if self.monitor_timeout is not None:
             result['MonitorTimeout'] = self.monitor_timeout
+        if self.page_tamper is not None:
+            result['PageTamper'] = self.page_tamper
         if self.redirection is not None:
             result['Redirection'] = self.redirection
         if self.slow_element_threshold is not None:
             result['SlowElementThreshold'] = self.slow_element_threshold
         if self.target_url is not None:
             result['TargetUrl'] = self.target_url
+        if self.verify_string_blacklist is not None:
+            result['VerifyStringBlacklist'] = self.verify_string_blacklist
+        if self.verify_string_whitelist is not None:
+            result['VerifyStringWhitelist'] = self.verify_string_whitelist
         if self.wait_completion_time is not None:
             result['WaitCompletionTime'] = self.wait_completion_time
         return result
@@ -41992,22 +42763,36 @@ class UpdateTimingSyntheticTaskRequestMonitorConfWebsite(TeaModel):
             self.custom_header = m.get('CustomHeader')
         if m.get('CustomHeaderContent') is not None:
             self.custom_header_content = m.get('CustomHeaderContent')
+        if m.get('DNSHijackWhitelist') is not None:
+            self.dnshijack_whitelist = m.get('DNSHijackWhitelist')
         if m.get('DisableCache') is not None:
             self.disable_cache = m.get('DisableCache')
         if m.get('DisableCompression') is not None:
             self.disable_compression = m.get('DisableCompression')
+        if m.get('ElementBlacklist') is not None:
+            self.element_blacklist = m.get('ElementBlacklist')
         if m.get('FilterInvalidIP') is not None:
             self.filter_invalid_ip = m.get('FilterInvalidIP')
+        if m.get('FlowHijackJumpTimes') is not None:
+            self.flow_hijack_jump_times = m.get('FlowHijackJumpTimes')
+        if m.get('FlowHijackLogo') is not None:
+            self.flow_hijack_logo = m.get('FlowHijackLogo')
         if m.get('IgnoreCertificateError') is not None:
             self.ignore_certificate_error = m.get('IgnoreCertificateError')
         if m.get('MonitorTimeout') is not None:
             self.monitor_timeout = m.get('MonitorTimeout')
+        if m.get('PageTamper') is not None:
+            self.page_tamper = m.get('PageTamper')
         if m.get('Redirection') is not None:
             self.redirection = m.get('Redirection')
         if m.get('SlowElementThreshold') is not None:
             self.slow_element_threshold = m.get('SlowElementThreshold')
         if m.get('TargetUrl') is not None:
             self.target_url = m.get('TargetUrl')
+        if m.get('VerifyStringBlacklist') is not None:
+            self.verify_string_blacklist = m.get('VerifyStringBlacklist')
+        if m.get('VerifyStringWhitelist') is not None:
+            self.verify_string_whitelist = m.get('VerifyStringWhitelist')
         if m.get('WaitCompletionTime') is not None:
             self.wait_completion_time = m.get('WaitCompletionTime')
         return self
