@@ -3196,6 +3196,8 @@ class Client(OpenApiClient):
             query['RepoRegionId'] = request.repo_region_id
         if not UtilClient.is_unset(request.scan_range):
             query['ScanRange'] = request.scan_range
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -6460,6 +6462,8 @@ class Client(OpenApiClient):
             query['ScanRange'] = request.scan_range_shrink
         if not UtilClient.is_unset(request.sensitive_file_key):
             query['SensitiveFileKey'] = request.sensitive_file_key
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
