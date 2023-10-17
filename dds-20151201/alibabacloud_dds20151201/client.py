@@ -288,6 +288,8 @@ class Client(OpenApiClient):
             query['SecurityToken'] = request.security_token
         if not UtilClient.is_unset(request.source_dbinstance):
             query['SourceDBInstance'] = request.source_dbinstance
+        if not UtilClient.is_unset(request.source_dbinstance):
+            query['SourceDBInstance'] = request.source_dbinstance
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1531,6 +1533,8 @@ class Client(OpenApiClient):
             query['RestoreTime'] = request.restore_time
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.source_dbinstance):
+            query['SourceDBInstance'] = request.source_dbinstance
         if not UtilClient.is_unset(request.source_dbinstance):
             query['SourceDBInstance'] = request.source_dbinstance
         req = open_api_models.OpenApiRequest(
@@ -3991,6 +3995,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
         if not UtilClient.is_unset(request.classic_expend_expired_days):
             query['ClassicExpendExpiredDays'] = request.classic_expend_expired_days
         if not UtilClient.is_unset(request.connection_string):
