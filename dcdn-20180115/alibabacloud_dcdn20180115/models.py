@@ -25086,6 +25086,134 @@ class DescribeDcdnUserTagsResponse(TeaModel):
         return self
 
 
+class DescribeDcdnUserVipsByDomainRequest(TeaModel):
+    def __init__(self, available=None, domain_name=None):
+        self.available = available  # type: str
+        self.domain_name = domain_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserVipsByDomainRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.available is not None:
+            result['Available'] = self.available
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Available') is not None:
+            self.available = m.get('Available')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        return self
+
+
+class DescribeDcdnUserVipsByDomainResponseBodyVips(TeaModel):
+    def __init__(self, vip=None):
+        self.vip = vip  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserVipsByDomainResponseBodyVips, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.vip is not None:
+            result['Vip'] = self.vip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Vip') is not None:
+            self.vip = m.get('Vip')
+        return self
+
+
+class DescribeDcdnUserVipsByDomainResponseBody(TeaModel):
+    def __init__(self, domain_name=None, request_id=None, vips=None):
+        self.domain_name = domain_name  # type: str
+        self.request_id = request_id  # type: str
+        self.vips = vips  # type: DescribeDcdnUserVipsByDomainResponseBodyVips
+
+    def validate(self):
+        if self.vips:
+            self.vips.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserVipsByDomainResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.vips is not None:
+            result['Vips'] = self.vips.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Vips') is not None:
+            temp_model = DescribeDcdnUserVipsByDomainResponseBodyVips()
+            self.vips = temp_model.from_map(m['Vips'])
+        return self
+
+
+class DescribeDcdnUserVipsByDomainResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDcdnUserVipsByDomainResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserVipsByDomainResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnUserVipsByDomainResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDcdnVerifyContentRequest(TeaModel):
     def __init__(self, domain_name=None):
         # The domain name for which you want to query the ownership verification content. You can specify only one domain name in one request.
@@ -33326,7 +33454,8 @@ class PutDcdnKvNamespaceResponse(TeaModel):
 
 
 class RefreshDcdnObjectCachesRequest(TeaModel):
-    def __init__(self, object_path=None, object_type=None, owner_id=None, security_token=None):
+    def __init__(self, force=None, object_path=None, object_type=None, owner_id=None, security_token=None):
+        self.force = force  # type: bool
         # The path of the objects that you want to refresh. Separate multiple URLs with line feed characters (\n) or a pair of carriage return and line feed characters (\r\n).
         self.object_path = object_path  # type: str
         # The refresh type. Valid values:
@@ -33346,6 +33475,8 @@ class RefreshDcdnObjectCachesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.force is not None:
+            result['Force'] = self.force
         if self.object_path is not None:
             result['ObjectPath'] = self.object_path
         if self.object_type is not None:
@@ -33358,6 +33489,8 @@ class RefreshDcdnObjectCachesRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Force') is not None:
+            self.force = m.get('Force')
         if m.get('ObjectPath') is not None:
             self.object_path = m.get('ObjectPath')
         if m.get('ObjectType') is not None:

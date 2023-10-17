@@ -7176,6 +7176,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_user_tags_with_options(runtime)
 
+    def describe_dcdn_user_vips_by_domain_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.available):
+            query['Available'] = request.available
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnUserVipsByDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnUserVipsByDomainResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_user_vips_by_domain(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_user_vips_by_domain_with_options(request, runtime)
+
     def describe_dcdn_verify_content_with_options(self, request, runtime):
         """
         > You can call this operation up to 100 times per second per account.
@@ -9565,6 +9595,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
         if not UtilClient.is_unset(request.object_path):
             query['ObjectPath'] = request.object_path
         if not UtilClient.is_unset(request.object_type):
