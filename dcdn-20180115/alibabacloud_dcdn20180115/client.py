@@ -8950,6 +8950,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_dcdn_kv_with_options(request, runtime)
 
+    def get_dcdn_kv_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.key):
+            query['Key'] = request.key
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDcdnKvStatus',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.GetDcdnKvStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_dcdn_kv_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_dcdn_kv_status_with_options(request, runtime)
+
     def list_dcdn_kv_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
