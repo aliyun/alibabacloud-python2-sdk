@@ -1102,7 +1102,8 @@ class CreateNatFirewallControlPolicyResponse(TeaModel):
 class CreateTrFirewallV2Request(TeaModel):
     def __init__(self, cen_id=None, firewall_description=None, firewall_name=None, firewall_subnet_cidr=None,
                  firewall_vpc_cidr=None, firewall_vpc_id=None, firewall_vswitch_id=None, lang=None, region_no=None, route_mode=None,
-                 tr_attachment_master_cidr=None, tr_attachment_slave_cidr=None, transit_router_id=None):
+                 tr_attachment_master_cidr=None, tr_attachment_master_zone=None, tr_attachment_slave_cidr=None,
+                 tr_attachment_slave_zone=None, transit_router_id=None):
         # The ID of the Cloud Enterprise Network (CEN) instance.
         self.cen_id = cen_id  # type: str
         # The description of the firewall.
@@ -1131,8 +1132,10 @@ class CreateTrFirewallV2Request(TeaModel):
         self.route_mode = route_mode  # type: str
         # The primary subnet CIDR block that the VPC uses to connect to the transit router in automatic mode.
         self.tr_attachment_master_cidr = tr_attachment_master_cidr  # type: str
+        self.tr_attachment_master_zone = tr_attachment_master_zone  # type: str
         # The secondary subnet CIDR block that the VPC uses to connect to the transit router in automatic mode.
         self.tr_attachment_slave_cidr = tr_attachment_slave_cidr  # type: str
+        self.tr_attachment_slave_zone = tr_attachment_slave_zone  # type: str
         # The ID of the transit router.
         self.transit_router_id = transit_router_id  # type: str
 
@@ -1167,8 +1170,12 @@ class CreateTrFirewallV2Request(TeaModel):
             result['RouteMode'] = self.route_mode
         if self.tr_attachment_master_cidr is not None:
             result['TrAttachmentMasterCidr'] = self.tr_attachment_master_cidr
+        if self.tr_attachment_master_zone is not None:
+            result['TrAttachmentMasterZone'] = self.tr_attachment_master_zone
         if self.tr_attachment_slave_cidr is not None:
             result['TrAttachmentSlaveCidr'] = self.tr_attachment_slave_cidr
+        if self.tr_attachment_slave_zone is not None:
+            result['TrAttachmentSlaveZone'] = self.tr_attachment_slave_zone
         if self.transit_router_id is not None:
             result['TransitRouterId'] = self.transit_router_id
         return result
@@ -1197,8 +1204,12 @@ class CreateTrFirewallV2Request(TeaModel):
             self.route_mode = m.get('RouteMode')
         if m.get('TrAttachmentMasterCidr') is not None:
             self.tr_attachment_master_cidr = m.get('TrAttachmentMasterCidr')
+        if m.get('TrAttachmentMasterZone') is not None:
+            self.tr_attachment_master_zone = m.get('TrAttachmentMasterZone')
         if m.get('TrAttachmentSlaveCidr') is not None:
             self.tr_attachment_slave_cidr = m.get('TrAttachmentSlaveCidr')
+        if m.get('TrAttachmentSlaveZone') is not None:
+            self.tr_attachment_slave_zone = m.get('TrAttachmentSlaveZone')
         if m.get('TransitRouterId') is not None:
             self.transit_router_id = m.get('TransitRouterId')
         return self
@@ -3092,6 +3103,176 @@ class DeleteVpcFirewallControlPolicyResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteVpcFirewallControlPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeACLProtectTrendRequest(TeaModel):
+    def __init__(self, end_time=None, lang=None, source_ip=None, start_time=None):
+        self.end_time = end_time  # type: str
+        self.lang = lang  # type: str
+        self.source_ip = source_ip  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeACLProtectTrendRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class DescribeACLProtectTrendResponseBodyTrendList(TeaModel):
+    def __init__(self, protect_cnt=None, time=None):
+        self.protect_cnt = protect_cnt  # type: int
+        self.time = time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeACLProtectTrendResponseBodyTrendList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.protect_cnt is not None:
+            result['ProtectCnt'] = self.protect_cnt
+        if self.time is not None:
+            result['Time'] = self.time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ProtectCnt') is not None:
+            self.protect_cnt = m.get('ProtectCnt')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        return self
+
+
+class DescribeACLProtectTrendResponseBody(TeaModel):
+    def __init__(self, in_protect_cnt=None, inter_vpcprotect_cnt=None, interval=None, out_protect_cnt=None,
+                 request_id=None, total_protect_cnt=None, trend_list=None):
+        self.in_protect_cnt = in_protect_cnt  # type: long
+        self.inter_vpcprotect_cnt = inter_vpcprotect_cnt  # type: long
+        self.interval = interval  # type: int
+        self.out_protect_cnt = out_protect_cnt  # type: long
+        self.request_id = request_id  # type: str
+        self.total_protect_cnt = total_protect_cnt  # type: long
+        self.trend_list = trend_list  # type: list[DescribeACLProtectTrendResponseBodyTrendList]
+
+    def validate(self):
+        if self.trend_list:
+            for k in self.trend_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeACLProtectTrendResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.in_protect_cnt is not None:
+            result['InProtectCnt'] = self.in_protect_cnt
+        if self.inter_vpcprotect_cnt is not None:
+            result['InterVPCProtectCnt'] = self.inter_vpcprotect_cnt
+        if self.interval is not None:
+            result['Interval'] = self.interval
+        if self.out_protect_cnt is not None:
+            result['OutProtectCnt'] = self.out_protect_cnt
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_protect_cnt is not None:
+            result['TotalProtectCnt'] = self.total_protect_cnt
+        result['TrendList'] = []
+        if self.trend_list is not None:
+            for k in self.trend_list:
+                result['TrendList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InProtectCnt') is not None:
+            self.in_protect_cnt = m.get('InProtectCnt')
+        if m.get('InterVPCProtectCnt') is not None:
+            self.inter_vpcprotect_cnt = m.get('InterVPCProtectCnt')
+        if m.get('Interval') is not None:
+            self.interval = m.get('Interval')
+        if m.get('OutProtectCnt') is not None:
+            self.out_protect_cnt = m.get('OutProtectCnt')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalProtectCnt') is not None:
+            self.total_protect_cnt = m.get('TotalProtectCnt')
+        self.trend_list = []
+        if m.get('TrendList') is not None:
+            for k in m.get('TrendList'):
+                temp_model = DescribeACLProtectTrendResponseBodyTrendList()
+                self.trend_list.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeACLProtectTrendResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeACLProtectTrendResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeACLProtectTrendResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeACLProtectTrendResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
