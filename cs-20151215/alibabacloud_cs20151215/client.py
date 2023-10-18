@@ -2766,6 +2766,8 @@ class Client(OpenApiClient):
             body['maintenance_window'] = request.maintenance_window
         if not UtilClient.is_unset(request.resource_group_id):
             body['resource_group_id'] = request.resource_group_id
+        if not UtilClient.is_unset(request.system_events_logging):
+            body['system_events_logging'] = request.system_events_logging
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -3167,6 +3169,11 @@ class Client(OpenApiClient):
     def remove_cluster_nodes_with_options(self, cluster_id, request, headers, runtime):
         """
         @deprecated
+        ****\
+        *   When you remove a node, the pods that run on the node are migrated to other nodes. This may cause service interruptions. We recommend that you remove nodes during off-peak hours.
+        *   Unknown errors may occur when you remove nodes. Before you remove nodes, back up the data on the nodes.
+        *   Nodes remain in the Unschedulable state when they are being removed.
+        *   You can remove only worker nodes. You cannot remove master nodes.
         
 
         @param request: RemoveClusterNodesRequest
@@ -3210,6 +3217,11 @@ class Client(OpenApiClient):
     def remove_cluster_nodes(self, cluster_id, request):
         """
         @deprecated
+        ****\
+        *   When you remove a node, the pods that run on the node are migrated to other nodes. This may cause service interruptions. We recommend that you remove nodes during off-peak hours.
+        *   Unknown errors may occur when you remove nodes. Before you remove nodes, back up the data on the nodes.
+        *   Nodes remain in the Unschedulable state when they are being removed.
+        *   You can remove only worker nodes. You cannot remove master nodes.
         
 
         @param request: RemoveClusterNodesRequest
