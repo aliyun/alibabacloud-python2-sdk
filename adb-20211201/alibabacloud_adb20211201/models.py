@@ -2285,7 +2285,13 @@ class CreateAccountResponse(TeaModel):
 
 class CreateDBClusterRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of tag N to add to the cluster. You can use tags to filter clusters. Valid values of N: 1 to 20. The values that you specify for N must be unique and consecutive integers that start from 1. Each value of `Tag.N.Key` is paired with a value of `Tag.N.Value`.
+        # 
+        # >  The tag key can be up to 64 characters in length and cannot start with `aliyun`, `acs:`, `http://`, or `https://`.
         self.key = key  # type: str
+        # The value of tag N to add to the cluster. You can use tags to filter clusters. Valid values of N: 1 to 20. The values that you specify for N must be unique and consecutive integers that start from 1. Each value of `Tag.N.Key` is paired with a value of `Tag.N.Value`.
+        # 
+        # >  The tag value can be up to 64 characters in length and cannot start with `aliyun`, `acs:`, `http://`, or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -2317,62 +2323,73 @@ class CreateDBClusterRequest(TeaModel):
                  dbcluster_network_type=None, dbcluster_version=None, enable_default_resource_pool=None, pay_type=None, period=None,
                  region_id=None, resource_group_id=None, restore_to_time=None, restore_type=None, source_db_cluster_id=None,
                  storage_resource=None, tag=None, used_time=None, vpcid=None, v_switch_id=None, zone_id=None):
-        self.backup_set_id = backup_set_id  # type: str
-        # The reserved computing resources. Unit: ACUs. Valid values: 0 to 4096. The value must be in increments of 16 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
+        # The ID of the backup set that you want to use to restore data.
         # 
-        # >  You must specify a value with the unit for this parameter.
+        # >  You can call the [DescribeBackups](~~612318~~) operation to query the backup sets of the cluster.
+        self.backup_set_id = backup_set_id  # type: str
+        # The amount of reserved computing resources. Unit: ACUs. Valid values: 0 to 4096. The value must be in increments of 16 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
+        # 
+        # >  This parameter must be specified with a unit.
         self.compute_resource = compute_resource  # type: str
         # The description of the cluster.
         # 
         # *   The description cannot start with `http://` or `https://`.
-        # *   The description must be 2 to 256 characters in length.
+        # *   The description must be 2 to 256 characters in length
         self.dbcluster_description = dbcluster_description  # type: str
         # The network type of the cluster. Only **VPC** is supported.
         self.dbcluster_network_type = dbcluster_network_type  # type: str
         # The version of the cluster. Set the value to **5.0**.
         self.dbcluster_version = dbcluster_version  # type: str
-        # Specifies whether to distribute all the reserved computing resources to the default resource group user_default. Default value: true. Valid values:
+        # Specifies whether to allocate all reserved computing resources to the user_default resource group. Valid values:
         # 
-        # *   **true**: distributes all the reserved computing resources to the default resource group.
-        # *   **false**: does not distribute all the reserved computing resources to the default resource group.
+        # *   **true** (default)
+        # *   **false**\
         self.enable_default_resource_pool = enable_default_resource_pool  # type: bool
         # The billing method of the cluster. Valid values:
         # 
-        # *   **Postpaid**: pay-as-you-go
-        # *   **Prepaid**: subscription
+        # *   **Postpaid**: pay-as-you-go.
+        # *   **Prepaid**: subscription.
         self.pay_type = pay_type  # type: str
         # The subscription type of the subscription cluster. Valid values:
         # 
-        # *   **Year**: subscription on a yearly basis
-        # *   **Month**: subscription on a monthly basis
+        # *   **Year**: subscription on a yearly basis.
+        # *   **Month**: subscription on a monthly basis.
         # 
-        # >  This parameter is required when PayType is set to Prepaid.
+        # >  This parameter must be specified when PayType is set to Prepaid.
         self.period = period  # type: str
-        # The ID of the region in which to create the cluster.
+        # The region ID.
         # 
         # >  You can call the [DescribeRegions](~~454314~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The point in time to which you want to restore data from the backup set.
         self.restore_to_time = restore_to_time  # type: str
+        # The method that you want to use to restore data. Valid values:
+        # 
+        # *   **backup**: restores data from a backup set. You must also specify the **BackupSetId** and **SourceDBClusterId** parameters.
+        # *   **timepoint**: restores data to a point in time. You must also specify the **RestoreToTime** and **SourceDBClusterId** parameters.
         self.restore_type = restore_type  # type: str
+        # The ID of the source AnalyticDB for MySQL Data Warehouse Edition cluster. If you want to restore a Data Lakehouse Edition cluster from a Data Warehouse Edition cluster, you must specify this parameter.
         self.source_db_cluster_id = source_db_cluster_id  # type: str
-        # The reserved storage resources. Unit: AnalyticDB Compute Units (ACUs). Valid values: 0 to 2064. The value must be in increments of 24 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
+        # The amount of reserved storage resources. Unit: AnalyticDB compute units (ACUs). Valid values: 0 to 2064. The value must be in increments of 24 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
         # 
-        # >  You must specify a value with the unit for this parameter.
+        # >  This parameter must be specified with a unit.
         self.storage_resource = storage_resource  # type: str
+        # The tags to add to the cluster.
         self.tag = tag  # type: list[CreateDBClusterRequestTag]
-        # The subscription duration of the subscription cluster. Valid values:
+        # The subscription duration of the subscription cluster.
         # 
-        # *   Valid values when **Period** is set to Year: 1 to 3 (integer)
-        # *   Valid values when **Period** is set to Month: 1 to 9 (integer)
+        # *   Valid values when **Period** is set to Year: 1 to 3 (integer).
+        # *   Valid values when **Period** is set to Month: 1 to 9 (integer).
         # 
-        # >  This parameter is required when PayType is set to **Prepaid**.
+        # >  This parameter must be specified when PayType is set to **Prepaid**.
         self.used_time = used_time  # type: str
         # The virtual private cloud (VPC) ID of the cluster.
         self.vpcid = vpcid  # type: str
         # The vSwitch ID of the cluster.
         self.v_switch_id = v_switch_id  # type: str
-        # The zone ID of the cluster.
+        # The zone ID.
         # 
         # >  You can call the [DescribeRegions](~~454314~~) operation to query the most recent zone list.
         self.zone_id = zone_id  # type: str
@@ -2481,11 +2498,11 @@ class CreateDBClusterResponseBody(TeaModel):
     def __init__(self, dbcluster_id=None, order_id=None, request_id=None, resource_group_id=None):
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The ID of the order.
+        # The order ID.
         self.order_id = order_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The ID of the default resource group.
+        # The default resource group ID.
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -7269,7 +7286,8 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
                  dbcluster_network_type=None, dbcluster_status=None, dbcluster_type=None, dbversion=None, engine=None, engine_version=None,
                  expire_time=None, expired=None, lock_mode=None, lock_reason=None, maintain_time=None, mode=None, pay_type=None,
                  port=None, region_id=None, reserved_acu=None, resource_group_id=None, storage_resource=None,
-                 storage_resource_total=None, tags=None, user_enistatus=None, vpcid=None, v_switch_id=None, zone_id=None):
+                 storage_resource_total=None, supported_features=None, tags=None, user_enistatus=None, vpcid=None, v_switch_id=None,
+                 zone_id=None):
         # The billing method of the cluster. Valid values:
         # 
         # *   **ads**: pay-as-you-go.
@@ -7358,6 +7376,7 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         self.storage_resource = storage_resource  # type: str
         # The total amount of storage resources in the cluster. Each ACU is equivalent to 1 core and 4 GB memory.
         self.storage_resource_total = storage_resource_total  # type: str
+        self.supported_features = supported_features  # type: dict[str, str]
         self.tags = tags  # type: DescribeDBClusterAttributeResponseBodyItemsDBClusterTags
         # Indicates whether Elastic Network Interface (ENI) is enabled. Valid values:
         # 
@@ -7433,6 +7452,8 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
             result['StorageResource'] = self.storage_resource
         if self.storage_resource_total is not None:
             result['StorageResourceTotal'] = self.storage_resource_total
+        if self.supported_features is not None:
+            result['SupportedFeatures'] = self.supported_features
         if self.tags is not None:
             result['Tags'] = self.tags.to_map()
         if self.user_enistatus is not None:
@@ -7499,6 +7520,8 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
             self.storage_resource = m.get('StorageResource')
         if m.get('StorageResourceTotal') is not None:
             self.storage_resource_total = m.get('StorageResourceTotal')
+        if m.get('SupportedFeatures') is not None:
+            self.supported_features = m.get('SupportedFeatures')
         if m.get('Tags') is not None:
             temp_model = DescribeDBClusterAttributeResponseBodyItemsDBClusterTags()
             self.tags = temp_model.from_map(m['Tags'])
@@ -11824,8 +11847,13 @@ class DescribeSchemasResponse(TeaModel):
 
 class DescribeSparkCodeLogRequest(TeaModel):
     def __init__(self, dbcluster_id=None, job_id=None, region_id=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # > You can call the [DescribeDBClusters](~~454250~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The ID of the Spark job.
         self.job_id = job_id  # type: long
+        # The region ID of the cluster.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -11858,9 +11886,19 @@ class DescribeSparkCodeLogRequest(TeaModel):
 
 class DescribeSparkCodeLogResponseBody(TeaModel):
     def __init__(self, log=None, message=None, request_id=None, success=None):
+        # The content of the log.
         self.log = log  # type: str
+        # The returned message.
+        # 
+        # *   If the request was successful, **Success** is returned.
+        # *   If the request failed, an error message is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -11936,8 +11974,13 @@ class DescribeSparkCodeLogResponse(TeaModel):
 
 class DescribeSparkCodeOutputRequest(TeaModel):
     def __init__(self, dbcluster_id=None, job_id=None, region_id=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # > You can call the [DescribeDBClusters](~~612397~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The ID of the Spark job.
         self.job_id = job_id  # type: long
+        # The region ID of the cluster.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -11970,9 +12013,19 @@ class DescribeSparkCodeOutputRequest(TeaModel):
 
 class DescribeSparkCodeOutputResponseBody(TeaModel):
     def __init__(self, message=None, output=None, request_id=None, success=None):
+        # The returned message.
+        # 
+        # *   If the request was successful, **Success** is returned.
+        # *   If the request failed, an error message is returned.
         self.message = message  # type: str
+        # The execution result, which is in the format of JSON objects.
         self.output = output  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -12048,8 +12101,13 @@ class DescribeSparkCodeOutputResponse(TeaModel):
 
 class DescribeSparkCodeWebUiRequest(TeaModel):
     def __init__(self, dbcluster_id=None, job_id=None, region_id=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # > You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The ID of the Spark job.
         self.job_id = job_id  # type: long
+        # The region ID of the cluster.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -12082,9 +12140,19 @@ class DescribeSparkCodeWebUiRequest(TeaModel):
 
 class DescribeSparkCodeWebUiResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None, success=None, url=None):
+        # The returned message.
+        # 
+        # *   If the request was successful, **SUCCESS** is returned.
+        # *   If the request failed, an error message is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
+        # The URL of the web UI for the Spark application.
         self.url = url  # type: str
 
     def validate(self):
