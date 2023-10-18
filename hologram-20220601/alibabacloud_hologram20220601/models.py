@@ -5,9 +5,9 @@ from Tea.model import TeaModel
 
 class CreateInstanceRequest(TeaModel):
     def __init__(self, auto_pay=None, auto_renew=None, charge_type=None, cold_storage_size=None, cpu=None,
-                 duration=None, gateway_count=None, instance_name=None, instance_type=None, leader_instance_id=None,
-                 pricing_cycle=None, region_id=None, resource_group_id=None, storage_size=None, v_switch_id=None, vpc_id=None,
-                 zone_id=None):
+                 duration=None, gateway_count=None, initial_databases=None, instance_name=None, instance_type=None,
+                 leader_instance_id=None, pricing_cycle=None, region_id=None, resource_group_id=None, storage_size=None,
+                 v_switch_id=None, vpc_id=None, zone_id=None):
         # Specifies whether to enable auto-payment. Default value: true. Valid values:
         # 
         # *   true
@@ -59,6 +59,7 @@ class CreateInstanceRequest(TeaModel):
         # 
         # > This parameter is required only for virtual warehouse instances.
         self.gateway_count = gateway_count  # type: long
+        self.initial_databases = initial_databases  # type: str
         # The name of the Hologres instance that you want to purchase. The name must be 2 to 64 characters in length.
         self.instance_name = instance_name  # type: str
         # The type of the instance. Valid values:
@@ -133,6 +134,8 @@ class CreateInstanceRequest(TeaModel):
             result['duration'] = self.duration
         if self.gateway_count is not None:
             result['gatewayCount'] = self.gateway_count
+        if self.initial_databases is not None:
+            result['initialDatabases'] = self.initial_databases
         if self.instance_name is not None:
             result['instanceName'] = self.instance_name
         if self.instance_type is not None:
@@ -171,6 +174,8 @@ class CreateInstanceRequest(TeaModel):
             self.duration = m.get('duration')
         if m.get('gatewayCount') is not None:
             self.gateway_count = m.get('gatewayCount')
+        if m.get('initialDatabases') is not None:
+            self.initial_databases = m.get('initialDatabases')
         if m.get('instanceName') is not None:
             self.instance_name = m.get('instanceName')
         if m.get('instanceType') is not None:
