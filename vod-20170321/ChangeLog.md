@@ -1,3 +1,6 @@
+2023-10-18 Version: 1.2.0
+- Generated python2 2017-03-21 for vod.
+
 2023-08-19 Version: 1.1.0
 - Generated python2 2017-03-21 for vod.
 
