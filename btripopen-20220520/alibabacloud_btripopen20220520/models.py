@@ -9688,7 +9688,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  real_to_addr=None, remark=None, service_fee=None, settlement_fee=None, settlement_grant_fee=None,
                  settlement_time=None, settlement_type=None, special_order=None, special_reason=None, status=None,
                  sub_order_id=None, supplement_apply_id=None, tax_rate=None, third_itinerary_id=None, time_type=None,
-                 traveler_id=None, traveler_job_no=None, traveler_name=None, user_confirm_desc=None, voucher_type=None):
+                 traveler_id=None, traveler_job_no=None, traveler_member_type_name=None, traveler_name=None,
+                 user_confirm_desc=None, voucher_type=None):
         self.alipay_trade_no = alipay_trade_no  # type: str
         self.apply_arr_city_code = apply_arr_city_code  # type: str
         self.apply_arr_city_name = apply_arr_city_name  # type: str
@@ -9760,6 +9761,7 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.time_type = time_type  # type: str
         self.traveler_id = traveler_id  # type: str
         self.traveler_job_no = traveler_job_no  # type: str
+        self.traveler_member_type_name = traveler_member_type_name  # type: str
         self.traveler_name = traveler_name  # type: str
         self.user_confirm_desc = user_confirm_desc  # type: str
         self.voucher_type = voucher_type  # type: int
@@ -9911,6 +9913,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['traveler_id'] = self.traveler_id
         if self.traveler_job_no is not None:
             result['traveler_job_no'] = self.traveler_job_no
+        if self.traveler_member_type_name is not None:
+            result['traveler_member_type_name'] = self.traveler_member_type_name
         if self.traveler_name is not None:
             result['traveler_name'] = self.traveler_name
         if self.user_confirm_desc is not None:
@@ -10059,6 +10063,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.traveler_id = m.get('traveler_id')
         if m.get('traveler_job_no') is not None:
             self.traveler_job_no = m.get('traveler_job_no')
+        if m.get('traveler_member_type_name') is not None:
+            self.traveler_member_type_name = m.get('traveler_member_type_name')
         if m.get('traveler_name') is not None:
             self.traveler_name = m.get('traveler_name')
         if m.get('user_confirm_desc') is not None:
@@ -13398,7 +13404,6 @@ class CostCenterSaveResponseBody(TeaModel):
         self.module = module  # type: CostCenterSaveResponseBodyModule
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
-        # traceId
         self.trace_id = trace_id  # type: str
 
     def validate(self):
@@ -15634,8 +15639,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  primary_id=None, project_code=None, project_name=None, refund_fee=None, refund_result=None,
                  refund_upgrade_cost=None, remark=None, repeat_refund=None, seal_price=None, service_fee=None, settlement_fee=None,
                  settlement_grant_fee=None, settlement_time=None, settlement_type=None, status=None, tax_rate=None,
-                 third_itinerary_id=None, ticket_id=None, trade=None, traveler_id=None, traveler_job_no=None, traveler_name=None,
-                 upgrade_cost=None, voucher_type=None):
+                 third_itinerary_id=None, ticket_id=None, trade=None, traveler_id=None, traveler_job_no=None,
+                 traveler_member_type_name=None, traveler_name=None, upgrade_cost=None, voucher_type=None):
         self.advance_day = advance_day  # type: int
         self.airline_corp_code = airline_corp_code  # type: str
         self.airline_corp_name = airline_corp_name  # type: str
@@ -15726,6 +15731,7 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.trade = trade  # type: str
         self.traveler_id = traveler_id  # type: str
         self.traveler_job_no = traveler_job_no  # type: str
+        self.traveler_member_type_name = traveler_member_type_name  # type: str
         self.traveler_name = traveler_name  # type: str
         self.upgrade_cost = upgrade_cost  # type: float
         self.voucher_type = voucher_type  # type: int
@@ -15915,6 +15921,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['traveler_id'] = self.traveler_id
         if self.traveler_job_no is not None:
             result['traveler_job_no'] = self.traveler_job_no
+        if self.traveler_member_type_name is not None:
+            result['traveler_member_type_name'] = self.traveler_member_type_name
         if self.traveler_name is not None:
             result['traveler_name'] = self.traveler_name
         if self.upgrade_cost is not None:
@@ -16101,6 +16109,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.traveler_id = m.get('traveler_id')
         if m.get('traveler_job_no') is not None:
             self.traveler_job_no = m.get('traveler_job_no')
+        if m.get('traveler_member_type_name') is not None:
+            self.traveler_member_type_name = m.get('traveler_member_type_name')
         if m.get('traveler_name') is not None:
             self.traveler_name = m.get('traveler_name')
         if m.get('upgrade_cost') is not None:
@@ -17557,12 +17567,9 @@ class FlightCreateOrderV2ResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
         self.code = code  # type: str
         self.message = message  # type: str
-        # module
         self.module = module  # type: FlightCreateOrderV2ResponseBodyModule
-        # requestId
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
-        # traceId
         self.trace_id = trace_id  # type: str
 
     def validate(self):
@@ -42475,9 +42482,9 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  nights=None, order_id=None, order_price=None, order_type=None, over_apply_id=None, person_refund_fee=None,
                  person_settle_price=None, primary_id=None, project_code=None, project_name=None, promotion_fee=None, remark=None,
                  reserve_rule=None, room_no=None, room_number=None, room_price=None, room_type=None, service_fee=None,
-                 settlement_fee=None, settlement_grant_fee=None, settlement_time=None, settlement_type=None, status=None,
-                 tax_rate=None, third_itinerary_id=None, total_nights=None, traveler_id=None, traveler_job_no=None,
-                 traveler_name=None, voucher_type=None):
+                 settlement_fee=None, settlement_grant_fee=None, settlement_time=None, settlement_type=None, star=None,
+                 status=None, tax_rate=None, third_itinerary_id=None, total_nights=None, traveler_id=None,
+                 traveler_job_no=None, traveler_member_type_name=None, traveler_name=None, voucher_type=None):
         self.alipay_trade_no = alipay_trade_no  # type: str
         self.apply_arr_city_code = apply_arr_city_code  # type: str
         self.apply_arr_city_name = apply_arr_city_name  # type: str
@@ -42543,6 +42550,7 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.settlement_grant_fee = settlement_grant_fee  # type: float
         self.settlement_time = settlement_time  # type: str
         self.settlement_type = settlement_type  # type: str
+        self.star = star  # type: str
         self.status = status  # type: int
         # 税率
         self.tax_rate = tax_rate  # type: str
@@ -42550,6 +42558,7 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.total_nights = total_nights  # type: int
         self.traveler_id = traveler_id  # type: str
         self.traveler_job_no = traveler_job_no  # type: str
+        self.traveler_member_type_name = traveler_member_type_name  # type: str
         self.traveler_name = traveler_name  # type: str
         self.voucher_type = voucher_type  # type: int
 
@@ -42690,6 +42699,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['settlement_time'] = self.settlement_time
         if self.settlement_type is not None:
             result['settlement_type'] = self.settlement_type
+        if self.star is not None:
+            result['star'] = self.star
         if self.status is not None:
             result['status'] = self.status
         if self.tax_rate is not None:
@@ -42702,6 +42713,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['traveler_id'] = self.traveler_id
         if self.traveler_job_no is not None:
             result['traveler_job_no'] = self.traveler_job_no
+        if self.traveler_member_type_name is not None:
+            result['traveler_member_type_name'] = self.traveler_member_type_name
         if self.traveler_name is not None:
             result['traveler_name'] = self.traveler_name
         if self.voucher_type is not None:
@@ -42838,6 +42851,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.settlement_time = m.get('settlement_time')
         if m.get('settlement_type') is not None:
             self.settlement_type = m.get('settlement_type')
+        if m.get('star') is not None:
+            self.star = m.get('star')
         if m.get('status') is not None:
             self.status = m.get('status')
         if m.get('tax_rate') is not None:
@@ -42850,6 +42865,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.traveler_id = m.get('traveler_id')
         if m.get('traveler_job_no') is not None:
             self.traveler_job_no = m.get('traveler_job_no')
+        if m.get('traveler_member_type_name') is not None:
+            self.traveler_member_type_name = m.get('traveler_member_type_name')
         if m.get('traveler_name') is not None:
             self.traveler_name = m.get('traveler_name')
         if m.get('voucher_type') is not None:
@@ -48672,6 +48689,662 @@ class HotelOrderQueryResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = HotelOrderQueryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class HotelPricePullHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(HotelPricePullHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class HotelPricePullRequest(TeaModel):
+    def __init__(self, btrip_user_id=None, check_in=None, check_out=None, city_code=None, hotel_ids=None,
+                 payment_type=None):
+        self.btrip_user_id = btrip_user_id  # type: str
+        self.check_in = check_in  # type: str
+        self.check_out = check_out  # type: str
+        self.city_code = city_code  # type: int
+        self.hotel_ids = hotel_ids  # type: list[str]
+        self.payment_type = payment_type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(HotelPricePullRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.btrip_user_id is not None:
+            result['btrip_user_id'] = self.btrip_user_id
+        if self.check_in is not None:
+            result['check_in'] = self.check_in
+        if self.check_out is not None:
+            result['check_out'] = self.check_out
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
+        if self.hotel_ids is not None:
+            result['hotel_ids'] = self.hotel_ids
+        if self.payment_type is not None:
+            result['payment_type'] = self.payment_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('btrip_user_id') is not None:
+            self.btrip_user_id = m.get('btrip_user_id')
+        if m.get('check_in') is not None:
+            self.check_in = m.get('check_in')
+        if m.get('check_out') is not None:
+            self.check_out = m.get('check_out')
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
+        if m.get('hotel_ids') is not None:
+            self.hotel_ids = m.get('hotel_ids')
+        if m.get('payment_type') is not None:
+            self.payment_type = m.get('payment_type')
+        return self
+
+
+class HotelPricePullShrinkRequest(TeaModel):
+    def __init__(self, btrip_user_id=None, check_in=None, check_out=None, city_code=None, hotel_ids_shrink=None,
+                 payment_type=None):
+        self.btrip_user_id = btrip_user_id  # type: str
+        self.check_in = check_in  # type: str
+        self.check_out = check_out  # type: str
+        self.city_code = city_code  # type: int
+        self.hotel_ids_shrink = hotel_ids_shrink  # type: str
+        self.payment_type = payment_type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(HotelPricePullShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.btrip_user_id is not None:
+            result['btrip_user_id'] = self.btrip_user_id
+        if self.check_in is not None:
+            result['check_in'] = self.check_in
+        if self.check_out is not None:
+            result['check_out'] = self.check_out
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
+        if self.hotel_ids_shrink is not None:
+            result['hotel_ids'] = self.hotel_ids_shrink
+        if self.payment_type is not None:
+            result['payment_type'] = self.payment_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('btrip_user_id') is not None:
+            self.btrip_user_id = m.get('btrip_user_id')
+        if m.get('check_in') is not None:
+            self.check_in = m.get('check_in')
+        if m.get('check_out') is not None:
+            self.check_out = m.get('check_out')
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
+        if m.get('hotel_ids') is not None:
+            self.hotel_ids_shrink = m.get('hotel_ids')
+        if m.get('payment_type') is not None:
+            self.payment_type = m.get('payment_type')
+        return self
+
+
+class HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRatesBtripHotelCancelPolicyBtripHotelCancelPolicyInfoDTOList(TeaModel):
+    def __init__(self, hour=None, value=None):
+        self.hour = hour  # type: long
+        self.value = value  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRatesBtripHotelCancelPolicyBtripHotelCancelPolicyInfoDTOList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.hour is not None:
+            result['hour'] = self.hour
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('hour') is not None:
+            self.hour = m.get('hour')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRatesBtripHotelCancelPolicy(TeaModel):
+    def __init__(self, btrip_hotel_cancel_policy_info_dtolist=None, cancel_policy_type=None):
+        self.btrip_hotel_cancel_policy_info_dtolist = btrip_hotel_cancel_policy_info_dtolist  # type: list[HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRatesBtripHotelCancelPolicyBtripHotelCancelPolicyInfoDTOList]
+        self.cancel_policy_type = cancel_policy_type  # type: int
+
+    def validate(self):
+        if self.btrip_hotel_cancel_policy_info_dtolist:
+            for k in self.btrip_hotel_cancel_policy_info_dtolist:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRatesBtripHotelCancelPolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['btrip_hotel_cancel_policy_info_d_t_o_list'] = []
+        if self.btrip_hotel_cancel_policy_info_dtolist is not None:
+            for k in self.btrip_hotel_cancel_policy_info_dtolist:
+                result['btrip_hotel_cancel_policy_info_d_t_o_list'].append(k.to_map() if k else None)
+        if self.cancel_policy_type is not None:
+            result['cancel_policy_type'] = self.cancel_policy_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.btrip_hotel_cancel_policy_info_dtolist = []
+        if m.get('btrip_hotel_cancel_policy_info_d_t_o_list') is not None:
+            for k in m.get('btrip_hotel_cancel_policy_info_d_t_o_list'):
+                temp_model = HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRatesBtripHotelCancelPolicyBtripHotelCancelPolicyInfoDTOList()
+                self.btrip_hotel_cancel_policy_info_dtolist.append(temp_model.from_map(k))
+        if m.get('cancel_policy_type') is not None:
+            self.cancel_policy_type = m.get('cancel_policy_type')
+        return self
+
+
+class HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRatesRateDailys(TeaModel):
+    def __init__(self, discount_price=None, last_discounts_price=None, price=None, start_date=None):
+        self.discount_price = discount_price  # type: long
+        self.last_discounts_price = last_discounts_price  # type: long
+        self.price = price  # type: long
+        self.start_date = start_date  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRatesRateDailys, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.discount_price is not None:
+            result['discount_price'] = self.discount_price
+        if self.last_discounts_price is not None:
+            result['last_discounts_price'] = self.last_discounts_price
+        if self.price is not None:
+            result['price'] = self.price
+        if self.start_date is not None:
+            result['start_date'] = self.start_date
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('discount_price') is not None:
+            self.discount_price = m.get('discount_price')
+        if m.get('last_discounts_price') is not None:
+            self.last_discounts_price = m.get('last_discounts_price')
+        if m.get('price') is not None:
+            self.price = m.get('price')
+        if m.get('start_date') is not None:
+            self.start_date = m.get('start_date')
+        return self
+
+
+class HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRates(TeaModel):
+    def __init__(self, breakfast=None, breakfast_count=None, btrip_hotel_cancel_policy=None,
+                 cancel_policy_desc=None, company_aassist=None, currency_code=None, instant_confirm=None, item_id=None,
+                 max_adv_hours=None, max_days=None, min_adv_hours=None, min_days=None, nod=None, nop=None, payment_type=None,
+                 price=None, promotion_info=None, quota=None, rate_dailys=None, rate_id=None, rate_plan_name=None,
+                 rp_id=None, seller_id=None, support_special_invoice=None):
+        self.breakfast = breakfast  # type: str
+        self.breakfast_count = breakfast_count  # type: int
+        self.btrip_hotel_cancel_policy = btrip_hotel_cancel_policy  # type: HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRatesBtripHotelCancelPolicy
+        self.cancel_policy_desc = cancel_policy_desc  # type: str
+        self.company_aassist = company_aassist  # type: str
+        self.currency_code = currency_code  # type: str
+        self.instant_confirm = instant_confirm  # type: bool
+        self.item_id = item_id  # type: str
+        self.max_adv_hours = max_adv_hours  # type: int
+        self.max_days = max_days  # type: int
+        self.min_adv_hours = min_adv_hours  # type: int
+        self.min_days = min_days  # type: int
+        self.nod = nod  # type: int
+        self.nop = nop  # type: int
+        self.payment_type = payment_type  # type: int
+        self.price = price  # type: long
+        self.promotion_info = promotion_info  # type: str
+        self.quota = quota  # type: int
+        self.rate_dailys = rate_dailys  # type: list[HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRatesRateDailys]
+        self.rate_id = rate_id  # type: str
+        self.rate_plan_name = rate_plan_name  # type: str
+        self.rp_id = rp_id  # type: str
+        self.seller_id = seller_id  # type: str
+        self.support_special_invoice = support_special_invoice  # type: bool
+
+    def validate(self):
+        if self.btrip_hotel_cancel_policy:
+            self.btrip_hotel_cancel_policy.validate()
+        if self.rate_dailys:
+            for k in self.rate_dailys:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRates, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.breakfast is not None:
+            result['breakfast'] = self.breakfast
+        if self.breakfast_count is not None:
+            result['breakfast_count'] = self.breakfast_count
+        if self.btrip_hotel_cancel_policy is not None:
+            result['btrip_hotel_cancel_policy'] = self.btrip_hotel_cancel_policy.to_map()
+        if self.cancel_policy_desc is not None:
+            result['cancel_policy_desc'] = self.cancel_policy_desc
+        if self.company_aassist is not None:
+            result['company_aassist'] = self.company_aassist
+        if self.currency_code is not None:
+            result['currency_code'] = self.currency_code
+        if self.instant_confirm is not None:
+            result['instant_confirm'] = self.instant_confirm
+        if self.item_id is not None:
+            result['item_id'] = self.item_id
+        if self.max_adv_hours is not None:
+            result['max_adv_hours'] = self.max_adv_hours
+        if self.max_days is not None:
+            result['max_days'] = self.max_days
+        if self.min_adv_hours is not None:
+            result['min_adv_hours'] = self.min_adv_hours
+        if self.min_days is not None:
+            result['min_days'] = self.min_days
+        if self.nod is not None:
+            result['nod'] = self.nod
+        if self.nop is not None:
+            result['nop'] = self.nop
+        if self.payment_type is not None:
+            result['payment_type'] = self.payment_type
+        if self.price is not None:
+            result['price'] = self.price
+        if self.promotion_info is not None:
+            result['promotion_info'] = self.promotion_info
+        if self.quota is not None:
+            result['quota'] = self.quota
+        result['rate_dailys'] = []
+        if self.rate_dailys is not None:
+            for k in self.rate_dailys:
+                result['rate_dailys'].append(k.to_map() if k else None)
+        if self.rate_id is not None:
+            result['rate_id'] = self.rate_id
+        if self.rate_plan_name is not None:
+            result['rate_plan_name'] = self.rate_plan_name
+        if self.rp_id is not None:
+            result['rp_id'] = self.rp_id
+        if self.seller_id is not None:
+            result['seller_id'] = self.seller_id
+        if self.support_special_invoice is not None:
+            result['support_special_invoice'] = self.support_special_invoice
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('breakfast') is not None:
+            self.breakfast = m.get('breakfast')
+        if m.get('breakfast_count') is not None:
+            self.breakfast_count = m.get('breakfast_count')
+        if m.get('btrip_hotel_cancel_policy') is not None:
+            temp_model = HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRatesBtripHotelCancelPolicy()
+            self.btrip_hotel_cancel_policy = temp_model.from_map(m['btrip_hotel_cancel_policy'])
+        if m.get('cancel_policy_desc') is not None:
+            self.cancel_policy_desc = m.get('cancel_policy_desc')
+        if m.get('company_aassist') is not None:
+            self.company_aassist = m.get('company_aassist')
+        if m.get('currency_code') is not None:
+            self.currency_code = m.get('currency_code')
+        if m.get('instant_confirm') is not None:
+            self.instant_confirm = m.get('instant_confirm')
+        if m.get('item_id') is not None:
+            self.item_id = m.get('item_id')
+        if m.get('max_adv_hours') is not None:
+            self.max_adv_hours = m.get('max_adv_hours')
+        if m.get('max_days') is not None:
+            self.max_days = m.get('max_days')
+        if m.get('min_adv_hours') is not None:
+            self.min_adv_hours = m.get('min_adv_hours')
+        if m.get('min_days') is not None:
+            self.min_days = m.get('min_days')
+        if m.get('nod') is not None:
+            self.nod = m.get('nod')
+        if m.get('nop') is not None:
+            self.nop = m.get('nop')
+        if m.get('payment_type') is not None:
+            self.payment_type = m.get('payment_type')
+        if m.get('price') is not None:
+            self.price = m.get('price')
+        if m.get('promotion_info') is not None:
+            self.promotion_info = m.get('promotion_info')
+        if m.get('quota') is not None:
+            self.quota = m.get('quota')
+        self.rate_dailys = []
+        if m.get('rate_dailys') is not None:
+            for k in m.get('rate_dailys'):
+                temp_model = HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRatesRateDailys()
+                self.rate_dailys.append(temp_model.from_map(k))
+        if m.get('rate_id') is not None:
+            self.rate_id = m.get('rate_id')
+        if m.get('rate_plan_name') is not None:
+            self.rate_plan_name = m.get('rate_plan_name')
+        if m.get('rp_id') is not None:
+            self.rp_id = m.get('rp_id')
+        if m.get('seller_id') is not None:
+            self.seller_id = m.get('seller_id')
+        if m.get('support_special_invoice') is not None:
+            self.support_special_invoice = m.get('support_special_invoice')
+        return self
+
+
+class HotelPricePullResponseBodyModuleHotelPriceInfosRooms(TeaModel):
+    def __init__(self, area=None, bed=None, bed_type_string=None, facility=None, floor=None, max_occupancy=None,
+                 network_service=None, pics=None, rates=None, room_id=None, room_name=None, status=None, window_type=None):
+        self.area = area  # type: str
+        self.bed = bed  # type: str
+        self.bed_type_string = bed_type_string  # type: str
+        self.facility = facility  # type: str
+        self.floor = floor  # type: str
+        self.max_occupancy = max_occupancy  # type: int
+        self.network_service = network_service  # type: str
+        self.pics = pics  # type: list[str]
+        self.rates = rates  # type: list[HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRates]
+        self.room_id = room_id  # type: str
+        self.room_name = room_name  # type: str
+        self.status = status  # type: int
+        self.window_type = window_type  # type: str
+
+    def validate(self):
+        if self.rates:
+            for k in self.rates:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(HotelPricePullResponseBodyModuleHotelPriceInfosRooms, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.area is not None:
+            result['area'] = self.area
+        if self.bed is not None:
+            result['bed'] = self.bed
+        if self.bed_type_string is not None:
+            result['bed_type_string'] = self.bed_type_string
+        if self.facility is not None:
+            result['facility'] = self.facility
+        if self.floor is not None:
+            result['floor'] = self.floor
+        if self.max_occupancy is not None:
+            result['max_occupancy'] = self.max_occupancy
+        if self.network_service is not None:
+            result['network_service'] = self.network_service
+        if self.pics is not None:
+            result['pics'] = self.pics
+        result['rates'] = []
+        if self.rates is not None:
+            for k in self.rates:
+                result['rates'].append(k.to_map() if k else None)
+        if self.room_id is not None:
+            result['room_id'] = self.room_id
+        if self.room_name is not None:
+            result['room_name'] = self.room_name
+        if self.status is not None:
+            result['status'] = self.status
+        if self.window_type is not None:
+            result['window_type'] = self.window_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('area') is not None:
+            self.area = m.get('area')
+        if m.get('bed') is not None:
+            self.bed = m.get('bed')
+        if m.get('bed_type_string') is not None:
+            self.bed_type_string = m.get('bed_type_string')
+        if m.get('facility') is not None:
+            self.facility = m.get('facility')
+        if m.get('floor') is not None:
+            self.floor = m.get('floor')
+        if m.get('max_occupancy') is not None:
+            self.max_occupancy = m.get('max_occupancy')
+        if m.get('network_service') is not None:
+            self.network_service = m.get('network_service')
+        if m.get('pics') is not None:
+            self.pics = m.get('pics')
+        self.rates = []
+        if m.get('rates') is not None:
+            for k in m.get('rates'):
+                temp_model = HotelPricePullResponseBodyModuleHotelPriceInfosRoomsRates()
+                self.rates.append(temp_model.from_map(k))
+        if m.get('room_id') is not None:
+            self.room_id = m.get('room_id')
+        if m.get('room_name') is not None:
+            self.room_name = m.get('room_name')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('window_type') is not None:
+            self.window_type = m.get('window_type')
+        return self
+
+
+class HotelPricePullResponseBodyModuleHotelPriceInfos(TeaModel):
+    def __init__(self, address=None, hotel_id=None, hotel_name=None, rooms=None, search_id=None):
+        self.address = address  # type: str
+        self.hotel_id = hotel_id  # type: str
+        self.hotel_name = hotel_name  # type: str
+        self.rooms = rooms  # type: list[HotelPricePullResponseBodyModuleHotelPriceInfosRooms]
+        self.search_id = search_id  # type: str
+
+    def validate(self):
+        if self.rooms:
+            for k in self.rooms:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(HotelPricePullResponseBodyModuleHotelPriceInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.address is not None:
+            result['address'] = self.address
+        if self.hotel_id is not None:
+            result['hotel_id'] = self.hotel_id
+        if self.hotel_name is not None:
+            result['hotel_name'] = self.hotel_name
+        result['rooms'] = []
+        if self.rooms is not None:
+            for k in self.rooms:
+                result['rooms'].append(k.to_map() if k else None)
+        if self.search_id is not None:
+            result['search_id'] = self.search_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('address') is not None:
+            self.address = m.get('address')
+        if m.get('hotel_id') is not None:
+            self.hotel_id = m.get('hotel_id')
+        if m.get('hotel_name') is not None:
+            self.hotel_name = m.get('hotel_name')
+        self.rooms = []
+        if m.get('rooms') is not None:
+            for k in m.get('rooms'):
+                temp_model = HotelPricePullResponseBodyModuleHotelPriceInfosRooms()
+                self.rooms.append(temp_model.from_map(k))
+        if m.get('search_id') is not None:
+            self.search_id = m.get('search_id')
+        return self
+
+
+class HotelPricePullResponseBodyModule(TeaModel):
+    def __init__(self, hotel_price_infos=None):
+        self.hotel_price_infos = hotel_price_infos  # type: list[HotelPricePullResponseBodyModuleHotelPriceInfos]
+
+    def validate(self):
+        if self.hotel_price_infos:
+            for k in self.hotel_price_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(HotelPricePullResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['hotel_price_infos'] = []
+        if self.hotel_price_infos is not None:
+            for k in self.hotel_price_infos:
+                result['hotel_price_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.hotel_price_infos = []
+        if m.get('hotel_price_infos') is not None:
+            for k in m.get('hotel_price_infos'):
+                temp_model = HotelPricePullResponseBodyModuleHotelPriceInfos()
+                self.hotel_price_infos.append(temp_model.from_map(k))
+        return self
+
+
+class HotelPricePullResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: HotelPricePullResponseBodyModule
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(HotelPricePullResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = HotelPricePullResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class HotelPricePullResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: HotelPricePullResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(HotelPricePullResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = HotelPricePullResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -59315,12 +59988,12 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  cost_center_number=None, coupon=None, dep_city_code=None, dep_city_name=None, department=None, department_id=None,
                  dept_date=None, dept_station=None, dept_time=None, exceed_reason=None, fee_type=None, index=None,
                  invoice_title=None, is_transfer_order=None, order_id=None, order_price=None, over_apply_id=None, primary_id=None,
-                 project_code=None, project_name=None, refund_fee=None, refund_reason=None, remark=None, reserve_mode=None,
-                 run_time=None, seat_no=None, seat_type=None, service_fee=None, settlement_fee=None,
+                 print_ticket_price=None, project_code=None, project_name=None, refund_fee=None, refund_reason=None, remark=None,
+                 reserve_mode=None, run_time=None, seat_no=None, seat_type=None, service_fee=None, settlement_fee=None,
                  settlement_grant_fee=None, settlement_time=None, settlement_type=None, short_ticket_no=None, status=None, tax_rate=None,
                  third_itinerary_id=None, ticket_corp_pay_price=None, ticket_no=None, ticket_person_pay_price=None, ticket_price=None,
-                 train_no=None, train_type=None, traveler_id=None, traveler_job_no=None, traveler_name=None,
-                 voucher_type=None):
+                 train_no=None, train_type=None, traveler_id=None, traveler_job_no=None, traveler_member_type_name=None,
+                 traveler_name=None, voucher_type=None):
         self.alipay_trade_no = alipay_trade_no  # type: str
         self.apply_arr_city_code = apply_arr_city_code  # type: str
         self.apply_arr_city_name = apply_arr_city_name  # type: str
@@ -59364,6 +60037,7 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.order_price = order_price  # type: float
         self.over_apply_id = over_apply_id  # type: str
         self.primary_id = primary_id  # type: long
+        self.print_ticket_price = print_ticket_price  # type: float
         self.project_code = project_code  # type: str
         self.project_name = project_name  # type: str
         self.refund_fee = refund_fee  # type: float
@@ -59391,6 +60065,7 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.train_type = train_type  # type: str
         self.traveler_id = traveler_id  # type: str
         self.traveler_job_no = traveler_job_no  # type: str
+        self.traveler_member_type_name = traveler_member_type_name  # type: str
         self.traveler_name = traveler_name  # type: str
         self.voucher_type = voucher_type  # type: int
 
@@ -59487,6 +60162,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['over_apply_id'] = self.over_apply_id
         if self.primary_id is not None:
             result['primary_id'] = self.primary_id
+        if self.print_ticket_price is not None:
+            result['print_ticket_price'] = self.print_ticket_price
         if self.project_code is not None:
             result['project_code'] = self.project_code
         if self.project_name is not None:
@@ -59539,6 +60216,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['traveler_id'] = self.traveler_id
         if self.traveler_job_no is not None:
             result['traveler_job_no'] = self.traveler_job_no
+        if self.traveler_member_type_name is not None:
+            result['traveler_member_type_name'] = self.traveler_member_type_name
         if self.traveler_name is not None:
             result['traveler_name'] = self.traveler_name
         if self.voucher_type is not None:
@@ -59631,6 +60310,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.over_apply_id = m.get('over_apply_id')
         if m.get('primary_id') is not None:
             self.primary_id = m.get('primary_id')
+        if m.get('print_ticket_price') is not None:
+            self.print_ticket_price = m.get('print_ticket_price')
         if m.get('project_code') is not None:
             self.project_code = m.get('project_code')
         if m.get('project_name') is not None:
@@ -59683,6 +60364,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.traveler_id = m.get('traveler_id')
         if m.get('traveler_job_no') is not None:
             self.traveler_job_no = m.get('traveler_job_no')
+        if m.get('traveler_member_type_name') is not None:
+            self.traveler_member_type_name = m.get('traveler_member_type_name')
         if m.get('traveler_name') is not None:
             self.traveler_name = m.get('traveler_name')
         if m.get('voucher_type') is not None:
