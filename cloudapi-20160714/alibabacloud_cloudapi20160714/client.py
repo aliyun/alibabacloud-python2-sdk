@@ -57,6 +57,18 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def abolish_api_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers and is the opposite of DeployApi.
+        *   An API can be unpublished from a specified runtime environment in under 5 seconds.
+        *   An unpublished API cannot be called in the specified runtime environment.
+        
+
+        @param request: AbolishApiRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AbolishApiResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.api_id):
@@ -87,6 +99,16 @@ class Client(OpenApiClient):
         )
 
     def abolish_api(self, request):
+        """
+        This operation is intended for API providers and is the opposite of DeployApi.
+        *   An API can be unpublished from a specified runtime environment in under 5 seconds.
+        *   An unpublished API cannot be called in the specified runtime environment.
+        
+
+        @param request: AbolishApiRequest
+
+        @return: AbolishApiResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.abolish_api_with_options(request, runtime)
 
@@ -124,12 +146,10 @@ class Client(OpenApiClient):
 
     def add_ip_control_policy_item_with_options(self, request, runtime):
         """
-        The restriction policy on app IDs for a specific policy. You can restrict app IDs only for whitelists. The IpControlType values of whitelists are ALLOW.
-        *   You can add only one app ID restriction policy at a time.
-        *   If this parameter is empty, no restriction is imposed on the app IDs.
-        *   If this parameter is not empty, there is restriction not only on IP addresses, but also on apps.
-        *   Please note that if this parameter is not empty and the security authentication method of the API is No Authentication, all API calls are restricted.
-        *   If this parameter is not empty for a blacklist, API Gateway automatically skips this parameter and sets only restriction on IP addresses. The IpControlType value of a blacklist is REFUSE.
+        When you call this operation, note that:
+        *   This operation is intended for API providers.
+        *   An added policy immediately takes effect on all APIs that are bound to the access control list (ACL).
+        *   A maximum of 100 policies can be added to an ACL.
         
 
         @param request: AddIpControlPolicyItemRequest
@@ -169,12 +189,10 @@ class Client(OpenApiClient):
 
     def add_ip_control_policy_item(self, request):
         """
-        The restriction policy on app IDs for a specific policy. You can restrict app IDs only for whitelists. The IpControlType values of whitelists are ALLOW.
-        *   You can add only one app ID restriction policy at a time.
-        *   If this parameter is empty, no restriction is imposed on the app IDs.
-        *   If this parameter is not empty, there is restriction not only on IP addresses, but also on apps.
-        *   Please note that if this parameter is not empty and the security authentication method of the API is No Authentication, all API calls are restricted.
-        *   If this parameter is not empty for a blacklist, API Gateway automatically skips this parameter and sets only restriction on IP addresses. The IpControlType value of a blacklist is REFUSE.
+        When you call this operation, note that:
+        *   This operation is intended for API providers.
+        *   An added policy immediately takes effect on all APIs that are bound to the access control list (ACL).
+        *   A maximum of 100 policies can be added to an ACL.
         
 
         @param request: AddIpControlPolicyItemRequest
@@ -186,9 +204,9 @@ class Client(OpenApiClient):
 
     def add_traffic_special_control_with_options(self, request, runtime):
         """
-        The type of the special throttling policy. Valid values:
-        *   **APP**\
-        *   **USER**\
+        This API is intended for API providers.
+        *   If the input SpecialKey already exists, the previous configuration is overwritten. Use caution when calling this operation.
+        *   Special throttling policies must be added to an existing throttling policy, and can take effect on all the APIs to which the throttling policy is bound.
         
 
         @param request: AddTrafficSpecialControlRequest
@@ -230,9 +248,9 @@ class Client(OpenApiClient):
 
     def add_traffic_special_control(self, request):
         """
-        The type of the special throttling policy. Valid values:
-        *   **APP**\
-        *   **USER**\
+        This API is intended for API providers.
+        *   If the input SpecialKey already exists, the previous configuration is overwritten. Use caution when calling this operation.
+        *   Special throttling policies must be added to an existing throttling policy, and can take effect on all the APIs to which the throttling policy is bound.
         
 
         @param request: AddTrafficSpecialControlRequest
@@ -242,7 +260,52 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_traffic_special_control_with_options(request, runtime)
 
+    def attach_api_product_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_product_id):
+            query['ApiProductId'] = request.api_product_id
+        if not UtilClient.is_unset(request.apis):
+            query['Apis'] = request.apis
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AttachApiProduct',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.AttachApiProductResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def attach_api_product(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.attach_api_product_with_options(request, runtime)
+
     def attach_plugin_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers.
+        *   You can only bind plug-ins to published APIs.
+        *   The plug-in takes effect immediately after it is bound to an API.
+        *   If you bind a different plug-in to an API, this plug-in takes effect immediately.
+        
+
+        @param request: AttachPluginRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AttachPluginResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.api_id):
@@ -277,6 +340,17 @@ class Client(OpenApiClient):
         )
 
     def attach_plugin(self, request):
+        """
+        This operation is intended for API providers.
+        *   You can only bind plug-ins to published APIs.
+        *   The plug-in takes effect immediately after it is bound to an API.
+        *   If you bind a different plug-in to an API, this plug-in takes effect immediately.
+        
+
+        @param request: AttachPluginRequest
+
+        @return: AttachPluginResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.attach_plugin_with_options(request, runtime)
 
@@ -521,6 +595,16 @@ class Client(OpenApiClient):
         return self.create_api_group_with_options(request, runtime)
 
     def create_api_stage_variable_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers.
+        
+
+        @param request: CreateApiStageVariableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateApiStageVariableResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.group_id):
@@ -557,10 +641,33 @@ class Client(OpenApiClient):
         )
 
     def create_api_stage_variable(self, request):
+        """
+        This operation is intended for API providers.
+        
+
+        @param request: CreateApiStageVariableRequest
+
+        @return: CreateApiStageVariableResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_api_stage_variable_with_options(request, runtime)
 
     def create_app_with_options(self, request, runtime):
+        """
+        This operation is intended for API callers.
+        *   Each application has a key-value pair which is used for identity verification when you call an API.
+        *   An application must be authorized to call an API.
+        *   Each application has only one key-value pair, which can be reset if the pair is leaked.
+        *   A maximum of 1,000 applications can be created for each Alibaba Cloud account.
+        *   You can call this operation up to 50 times per second per account.
+        
+
+        @param request: CreateAppRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateAppResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.app_code):
@@ -599,6 +706,19 @@ class Client(OpenApiClient):
         )
 
     def create_app(self, request):
+        """
+        This operation is intended for API callers.
+        *   Each application has a key-value pair which is used for identity verification when you call an API.
+        *   An application must be authorized to call an API.
+        *   Each application has only one key-value pair, which can be reset if the pair is leaked.
+        *   A maximum of 1,000 applications can be created for each Alibaba Cloud account.
+        *   You can call this operation up to 50 times per second per account.
+        
+
+        @param request: CreateAppRequest
+
+        @return: CreateAppResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_app_with_options(request, runtime)
 
@@ -829,6 +949,19 @@ class Client(OpenApiClient):
         return self.create_intranet_domain_with_options(request, runtime)
 
     def create_ip_control_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers.
+        *   An ACL must be bound to an API to take effect. After an ACL is bound to an API, the ACL takes effect on the API immediately.
+        *   You can add policies to an ACL when you create the ACL.
+        *   If an ACL does not have any policy, the ACL is ineffective.
+        
+
+        @param request: CreateIpControlRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateIpControlResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -861,6 +994,17 @@ class Client(OpenApiClient):
         )
 
     def create_ip_control(self, request):
+        """
+        This operation is intended for API providers.
+        *   An ACL must be bound to an API to take effect. After an ACL is bound to an API, the ACL takes effect on the API immediately.
+        *   You can add policies to an ACL when you create the ACL.
+        *   If an ACL does not have any policy, the ACL is ineffective.
+        
+
+        @param request: CreateIpControlRequest
+
+        @return: CreateIpControlResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_ip_control_with_options(request, runtime)
 
@@ -987,6 +1131,19 @@ class Client(OpenApiClient):
         return self.create_monitor_group_with_options(request, runtime)
 
     def create_plugin_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers.
+        *   The number of plug-ins of the same type that each user can create is limited. Different limits apply to different plug-in types.
+        *   The plug-in definitions for advanced features are restricted.
+        *   Plug-ins must be bound to APIs to take effect. After a plug-in is bound, it takes effect on that API immediately.
+        
+
+        @param request: CreatePluginRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreatePluginResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -1021,12 +1178,26 @@ class Client(OpenApiClient):
         )
 
     def create_plugin(self, request):
+        """
+        This operation is intended for API providers.
+        *   The number of plug-ins of the same type that each user can create is limited. Different limits apply to different plug-in types.
+        *   The plug-in definitions for advanced features are restricted.
+        *   Plug-ins must be bound to APIs to take effect. After a plug-in is bound, it takes effect on that API immediately.
+        
+
+        @param request: CreatePluginRequest
+
+        @return: CreatePluginResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_plugin_with_options(request, runtime)
 
     def create_signature_with_options(self, request, runtime):
         """
-        The Key value of the key. The value must be 6 to 20 characters in length and can contain letters, digits, and underscores (\\_). It must start with a letter.
+        This API is intended for API providers.
+        *   The API operation only creates a key policy. You must call the binding operation to bind the key to an API.
+        *   After the key is bound to the API, requests sent from API Gateway to the backend service contain signature strings. You can specify whether your backend service verifies these signature strings.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: CreateSignatureRequest
@@ -1066,7 +1237,10 @@ class Client(OpenApiClient):
 
     def create_signature(self, request):
         """
-        The Key value of the key. The value must be 6 to 20 characters in length and can contain letters, digits, and underscores (\\_). It must start with a letter.
+        This API is intended for API providers.
+        *   The API operation only creates a key policy. You must call the binding operation to bind the key to an API.
+        *   After the key is bound to the API, requests sent from API Gateway to the backend service contain signature strings. You can specify whether your backend service verifies these signature strings.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: CreateSignatureRequest
@@ -1078,7 +1252,9 @@ class Client(OpenApiClient):
 
     def create_traffic_control_with_options(self, request, runtime):
         """
-        ThrottlingTest
+        This API is intended for API providers.
+        *   Throttling policies must be bound to APIs to take effect. After a policy is bound to an API, it goes into effect on that API immediately.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: CreateTrafficControlRequest
@@ -1124,7 +1300,9 @@ class Client(OpenApiClient):
 
     def create_traffic_control(self, request):
         """
-        ThrottlingTest
+        This API is intended for API providers.
+        *   Throttling policies must be bound to APIs to take effect. After a policy is bound to an API, it goes into effect on that API immediately.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: CreateTrafficControlRequest
@@ -1166,7 +1344,7 @@ class Client(OpenApiClient):
 
     def delete_all_traffic_special_control_with_options(self, request, runtime):
         """
-        The ID of the request.
+        This API is intended for API providers.
         
 
         @param request: DeleteAllTrafficSpecialControlRequest
@@ -1202,7 +1380,7 @@ class Client(OpenApiClient):
 
     def delete_all_traffic_special_control(self, request):
         """
-        The ID of the request.
+        This API is intended for API providers.
         
 
         @param request: DeleteAllTrafficSpecialControlRequest
@@ -1213,6 +1391,18 @@ class Client(OpenApiClient):
         return self.delete_all_traffic_special_control_with_options(request, runtime)
 
     def delete_api_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers and cannot be undone after it is complete.
+        *   An API that is running in the runtime environment must be unpublished before you can delete the API.****\
+        *   The QPS limit on this operation is 50 per user.
+        
+
+        @param request: DeleteApiRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteApiResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.api_id):
@@ -1241,10 +1431,34 @@ class Client(OpenApiClient):
         )
 
     def delete_api(self, request):
+        """
+        This operation is intended for API providers and cannot be undone after it is complete.
+        *   An API that is running in the runtime environment must be unpublished before you can delete the API.****\
+        *   The QPS limit on this operation is 50 per user.
+        
+
+        @param request: DeleteApiRequest
+
+        @return: DeleteApiResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_api_with_options(request, runtime)
 
     def delete_api_group_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers.
+        *   An API group that contains APIs cannot be deleted. To delete the API group, you must first delete its APIs.
+        *   After an API group is deleted, the second-level domain name bound to the API group is automatically invalidated.
+        *   If the specified API group does not exist, a success response is returned.
+        *   The QPS limit on this operation is 50 per user.
+        
+
+        @param request: DeleteApiGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteApiGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.group_id):
@@ -1273,10 +1487,62 @@ class Client(OpenApiClient):
         )
 
     def delete_api_group(self, request):
+        """
+        This operation is intended for API providers.
+        *   An API group that contains APIs cannot be deleted. To delete the API group, you must first delete its APIs.
+        *   After an API group is deleted, the second-level domain name bound to the API group is automatically invalidated.
+        *   If the specified API group does not exist, a success response is returned.
+        *   The QPS limit on this operation is 50 per user.
+        
+
+        @param request: DeleteApiGroupRequest
+
+        @return: DeleteApiGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_api_group_with_options(request, runtime)
 
+    def delete_api_product_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_product_id):
+            query['ApiProductId'] = request.api_product_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteApiProduct',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DeleteApiProductResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_api_product(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_api_product_with_options(request, runtime)
+
     def delete_api_stage_variable_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers.
+        
+
+        @param request: DeleteApiStageVariableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteApiStageVariableResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.group_id):
@@ -1307,10 +1573,30 @@ class Client(OpenApiClient):
         )
 
     def delete_api_stage_variable(self, request):
+        """
+        This operation is intended for API providers.
+        
+
+        @param request: DeleteApiStageVariableRequest
+
+        @return: DeleteApiStageVariableResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_api_stage_variable_with_options(request, runtime)
 
     def delete_app_with_options(self, request, runtime):
+        """
+        This operation is intended for API callers.
+        *   After an application is deleted, the application and its API authorization cannot be restored.
+        *   You can call this operation up to 50 times per second per account.
+        
+
+        @param request: DeleteAppRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteAppResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.app_id):
@@ -1339,6 +1625,16 @@ class Client(OpenApiClient):
         )
 
     def delete_app(self, request):
+        """
+        This operation is intended for API callers.
+        *   After an application is deleted, the application and its API authorization cannot be restored.
+        *   You can call this operation up to 50 times per second per account.
+        
+
+        @param request: DeleteAppRequest
+
+        @return: DeleteAppResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_app_with_options(request, runtime)
 
@@ -1470,7 +1766,9 @@ class Client(OpenApiClient):
 
     def delete_domain_with_options(self, request, runtime):
         """
-        The custom domain name.
+        This operation is intended for API providers.
+        *   If the specified domain name does not exist, a successful response will still appear.
+        *   Unbinding a domain name from an API group will affect access to the APIs in the group. Exercise caution when using this operation.
         
 
         @param request: DeleteDomainRequest
@@ -1508,7 +1806,9 @@ class Client(OpenApiClient):
 
     def delete_domain(self, request):
         """
-        The custom domain name.
+        This operation is intended for API providers.
+        *   If the specified domain name does not exist, a successful response will still appear.
+        *   Unbinding a domain name from an API group will affect access to the APIs in the group. Exercise caution when using this operation.
         
 
         @param request: DeleteDomainRequest
@@ -1584,7 +1884,9 @@ class Client(OpenApiClient):
 
     def delete_ip_control_with_options(self, request, runtime):
         """
-        The ID of the request.
+        This operation is intended for API providers.
+        *   If the ACL is bound to an API, you must unbind the ACL from the API before you can delete the ACL. Otherwise, an error is returned.
+        *   If you call this operation on an ACL that does not exist, a success message is returned.
         
 
         @param request: DeleteIpControlRequest
@@ -1620,7 +1922,9 @@ class Client(OpenApiClient):
 
     def delete_ip_control(self, request):
         """
-        The ID of the request.
+        This operation is intended for API providers.
+        *   If the ACL is bound to an API, you must unbind the ACL from the API before you can delete the ACL. Otherwise, an error is returned.
+        *   If you call this operation on an ACL that does not exist, a success message is returned.
         
 
         @param request: DeleteIpControlRequest
@@ -1723,6 +2027,17 @@ class Client(OpenApiClient):
         return self.delete_monitor_group_with_options(request, runtime)
 
     def delete_plugin_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers.
+        *   You must first unbind the plug-in from the API. Otherwise, an error is reported when you delete the plug-in.
+        
+
+        @param request: DeletePluginRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeletePluginResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.plugin_id):
@@ -1751,12 +2066,24 @@ class Client(OpenApiClient):
         )
 
     def delete_plugin(self, request):
+        """
+        This operation is intended for API providers.
+        *   You must first unbind the plug-in from the API. Otherwise, an error is reported when you delete the plug-in.
+        
+
+        @param request: DeletePluginRequest
+
+        @return: DeletePluginResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_plugin_with_options(request, runtime)
 
     def delete_signature_with_options(self, request, runtime):
         """
-        The ID of the request.
+        This API is intended for API providers.
+        *   This API operation deletes an existing backend signature key.
+        *   You cannot delete a key that is bound to an API. To delete the key, you must unbind it first.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: DeleteSignatureRequest
@@ -1792,7 +2119,10 @@ class Client(OpenApiClient):
 
     def delete_signature(self, request):
         """
-        The ID of the request.
+        This API is intended for API providers.
+        *   This API operation deletes an existing backend signature key.
+        *   You cannot delete a key that is bound to an API. To delete the key, you must unbind it first.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: DeleteSignatureRequest
@@ -1803,6 +2133,18 @@ class Client(OpenApiClient):
         return self.delete_signature_with_options(request, runtime)
 
     def delete_traffic_control_with_options(self, request, runtime):
+        """
+        This API is intended for API providers.
+        *   If the throttling policy you want to delete is bound to APIs, you need to unbind the policy first. Otherwise, an error is reported when you delete the policy.
+        *   The QPS limit on this operation is 50 per user.
+        
+
+        @param request: DeleteTrafficControlRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTrafficControlResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.security_token):
@@ -1829,14 +2171,23 @@ class Client(OpenApiClient):
         )
 
     def delete_traffic_control(self, request):
+        """
+        This API is intended for API providers.
+        *   If the throttling policy you want to delete is bound to APIs, you need to unbind the policy first. Otherwise, an error is reported when you delete the policy.
+        *   The QPS limit on this operation is 50 per user.
+        
+
+        @param request: DeleteTrafficControlRequest
+
+        @return: DeleteTrafficControlResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_traffic_control_with_options(request, runtime)
 
     def delete_traffic_special_control_with_options(self, request, runtime):
         """
-        The type of the special throttling policy. Valid values:
-        *   **APP**\
-        *   **USER**\
+        This API is intended for API providers.
+        *   You can obtain the input parameters required in this operation by calling other APIs.
         
 
         @param request: DeleteTrafficSpecialControlRequest
@@ -1876,9 +2227,8 @@ class Client(OpenApiClient):
 
     def delete_traffic_special_control(self, request):
         """
-        The type of the special throttling policy. Valid values:
-        *   **APP**\
-        *   **USER**\
+        This API is intended for API providers.
+        *   You can obtain the input parameters required in this operation by calling other APIs.
         
 
         @param request: DeleteTrafficSpecialControlRequest
@@ -1890,7 +2240,9 @@ class Client(OpenApiClient):
 
     def deploy_api_with_options(self, request, runtime):
         """
-        The ID of the API.
+        This operation is intended for API providers. Only the API that you have defined and published to a runtime environment can be called.
+        *   An API is published to a cluster in under 5 seconds.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: DeployApiRequest
@@ -1932,7 +2284,9 @@ class Client(OpenApiClient):
 
     def deploy_api(self, request):
         """
-        The ID of the API.
+        This operation is intended for API providers. Only the API that you have defined and published to a runtime environment can be called.
+        *   An API is published to a cluster in under 5 seconds.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: DeployApiRequest
@@ -2089,6 +2443,19 @@ class Client(OpenApiClient):
         return self.describe_api_with_options(request, runtime)
 
     def describe_api_doc_with_options(self, request, runtime):
+        """
+        For API callers, the specified API must be a public or authorized private API that has been published to a runtime environment.****************\
+        *   When you call this operation as an API caller, the service information, parameter definitions, and other details of the API you specify are returned.
+        *   When you call this operation as an API provider, the definition of the specified API running in the specified runtime environment is returned. The returned definition takes effect in the runtime environment, and may be different from the definition of the API you modify.
+        *   Before you call this operation as an API provider, ensure that the API to be queried is a public one or that your application has been authorized to call the API, because authentication on API callers is required.
+        
+
+        @param request: DescribeApiDocRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeApiDocResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.api_id):
@@ -2119,6 +2486,17 @@ class Client(OpenApiClient):
         )
 
     def describe_api_doc(self, request):
+        """
+        For API callers, the specified API must be a public or authorized private API that has been published to a runtime environment.****************\
+        *   When you call this operation as an API caller, the service information, parameter definitions, and other details of the API you specify are returned.
+        *   When you call this operation as an API provider, the definition of the specified API running in the specified runtime environment is returned. The returned definition takes effect in the runtime environment, and may be different from the definition of the API you modify.
+        *   Before you call this operation as an API provider, ensure that the API to be queried is a public one or that your application has been authorized to call the API, because authentication on API callers is required.
+        
+
+        @param request: DescribeApiDocRequest
+
+        @return: DescribeApiDocResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_api_doc_with_options(request, runtime)
 
@@ -2203,6 +2581,16 @@ class Client(OpenApiClient):
         return self.describe_api_group_vpc_whitelist_with_options(request, runtime)
 
     def describe_api_groups_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers.
+        
+
+        @param request: DescribeApiGroupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeApiGroupsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.enable_tag_auth):
@@ -2243,14 +2631,21 @@ class Client(OpenApiClient):
         )
 
     def describe_api_groups(self, request):
+        """
+        This operation is intended for API providers.
+        
+
+        @param request: DescribeApiGroupsRequest
+
+        @return: DescribeApiGroupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_api_groups_with_options(request, runtime)
 
     def describe_api_histories_with_options(self, request, runtime):
         """
-        The name of the runtime environment. Valid values:
-        *   **RELEASE**\
-        *   **TEST: the test environment**\
+        This operation is intended for API providers. Only APIs that have been published have historical version records.
+        *   This operation allows you to obtain the historical versions of an API. This operation is always called by other operations.
         
 
         @param request: DescribeApiHistoriesRequest
@@ -2296,9 +2691,8 @@ class Client(OpenApiClient):
 
     def describe_api_histories(self, request):
         """
-        The name of the runtime environment. Valid values:
-        *   **RELEASE**\
-        *   **TEST: the test environment**\
+        This operation is intended for API providers. Only APIs that have been published have historical version records.
+        *   This operation allows you to obtain the historical versions of an API. This operation is always called by other operations.
         
 
         @param request: DescribeApiHistoriesRequest
@@ -2310,9 +2704,9 @@ class Client(OpenApiClient):
 
     def describe_api_history_with_options(self, request, runtime):
         """
-        You can call this operation to query the definition of a specified published version of an API.
-        *   This operation is intended for API providers.
-        *   Each time an API is published, API Gateway records the publishing details, such as the time and the API definition. You can use the version number obtained from other API operations to query the details of an API definition that is published on a specific occasion.
+        Queries the details of a specified historical version of a specified API definition.
+        *   This API is intended for API providers.
+        *   API Gateway records the time and definition of an API every time the API is published. You can use the version number obtained from other operations to query definition details at a certain publication.
         
 
         @param request: DescribeApiHistoryRequest
@@ -2354,9 +2748,9 @@ class Client(OpenApiClient):
 
     def describe_api_history(self, request):
         """
-        You can call this operation to query the definition of a specified published version of an API.
-        *   This operation is intended for API providers.
-        *   Each time an API is published, API Gateway records the publishing details, such as the time and the API definition. You can use the version number obtained from other API operations to query the details of an API definition that is published on a specific occasion.
+        Queries the details of a specified historical version of a specified API definition.
+        *   This API is intended for API providers.
+        *   API Gateway records the time and definition of an API every time the API is published. You can use the version number obtained from other operations to query definition details at a certain publication.
         
 
         @param request: DescribeApiHistoryRequest
@@ -2368,7 +2762,9 @@ class Client(OpenApiClient):
 
     def describe_api_ip_controls_with_options(self, request, runtime):
         """
-        The ID of the API group.
+        This operation is intended for API callers.
+        *   If an optional parameter is not specified, all results are returned on separate pages.
+        ·
         
 
         @param request: DescribeApiIpControlsRequest
@@ -2412,7 +2808,9 @@ class Client(OpenApiClient):
 
     def describe_api_ip_controls(self, request):
         """
-        The ID of the API group.
+        This operation is intended for API callers.
+        *   If an optional parameter is not specified, all results are returned on separate pages.
+        ·
         
 
         @param request: DescribeApiIpControlsRequest
@@ -2423,6 +2821,18 @@ class Client(OpenApiClient):
         return self.describe_api_ip_controls_with_options(request, runtime)
 
     def describe_api_latency_data_with_options(self, request, runtime):
+        """
+        You can call this operation to query the latency metrics in milliseconds for a specified API.
+        *   This API is intended for API providers.
+        *   Only statistics for API calls made in the release environment are collected by default.
+        
+
+        @param request: DescribeApiLatencyDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeApiLatencyDataResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.api_id):
@@ -2457,6 +2867,16 @@ class Client(OpenApiClient):
         )
 
     def describe_api_latency_data(self, request):
+        """
+        You can call this operation to query the latency metrics in milliseconds for a specified API.
+        *   This API is intended for API providers.
+        *   Only statistics for API calls made in the release environment are collected by default.
+        
+
+        @param request: DescribeApiLatencyDataRequest
+
+        @return: DescribeApiLatencyDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_api_latency_data_with_options(request, runtime)
 
@@ -2492,7 +2912,86 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_api_market_attributes_with_options(request, runtime)
 
+    def describe_api_product_apis_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_product_id):
+            query['ApiProductId'] = request.api_product_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeApiProductApis',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DescribeApiProductApisResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_api_product_apis(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_api_product_apis_with_options(request, runtime)
+
+    def describe_api_products_by_app_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeApiProductsByApp',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DescribeApiProductsByAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_api_products_by_app(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_api_products_by_app_with_options(request, runtime)
+
     def describe_api_qps_data_with_options(self, request, runtime):
+        """
+        This API is intended for API providers.
+        *   Only statistics for API calls made in the release environment are collected by default.
+        
+
+        @param request: DescribeApiQpsDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeApiQpsDataResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.api_id):
@@ -2527,14 +3026,22 @@ class Client(OpenApiClient):
         )
 
     def describe_api_qps_data(self, request):
+        """
+        This API is intended for API providers.
+        *   Only statistics for API calls made in the release environment are collected by default.
+        
+
+        @param request: DescribeApiQpsDataRequest
+
+        @return: DescribeApiQpsDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_api_qps_data_with_options(request, runtime)
 
     def describe_api_signatures_with_options(self, request, runtime):
         """
-        The runtime environment. Valid values:
-        *   **RELEASE**\
-        *   **TEST**\
+        This API is intended for API providers.
+        *   The ApiIds parameter is optional. If this parameter is not specified, all results in the specified environment of an API group are returned.
         
 
         @param request: DescribeApiSignaturesRequest
@@ -2578,9 +3085,8 @@ class Client(OpenApiClient):
 
     def describe_api_signatures(self, request):
         """
-        The runtime environment. Valid values:
-        *   **RELEASE**\
-        *   **TEST**\
+        This API is intended for API providers.
+        *   The ApiIds parameter is optional. If this parameter is not specified, all results in the specified environment of an API group are returned.
         
 
         @param request: DescribeApiSignaturesRequest
@@ -2592,9 +3098,8 @@ class Client(OpenApiClient):
 
     def describe_api_traffic_controls_with_options(self, request, runtime):
         """
-        The runtime environment of the API. Valid values:
-        *   **RELEASE**\
-        *   **TEST**: the test environment
+        This API is intended for API providers.
+        *   The ApiIds parameter is optional. If this parameter is not specified, all results in the specified environment of an API group are returned.
         
 
         @param request: DescribeApiTrafficControlsRequest
@@ -2638,9 +3143,8 @@ class Client(OpenApiClient):
 
     def describe_api_traffic_controls(self, request):
         """
-        The runtime environment of the API. Valid values:
-        *   **RELEASE**\
-        *   **TEST**: the test environment
+        This API is intended for API providers.
+        *   The ApiIds parameter is optional. If this parameter is not specified, all results in the specified environment of an API group are returned.
         
 
         @param request: DescribeApiTrafficControlsRequest
@@ -2651,6 +3155,17 @@ class Client(OpenApiClient):
         return self.describe_api_traffic_controls_with_options(request, runtime)
 
     def describe_api_traffic_data_with_options(self, request, runtime):
+        """
+        This API is intended for API providers.
+        *   Only statistics for API calls made in the release environment are collected by default.
+        
+
+        @param request: DescribeApiTrafficDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeApiTrafficDataResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.api_id):
@@ -2685,6 +3200,15 @@ class Client(OpenApiClient):
         )
 
     def describe_api_traffic_data(self, request):
+        """
+        This API is intended for API providers.
+        *   Only statistics for API calls made in the release environment are collected by default.
+        
+
+        @param request: DescribeApiTrafficDataRequest
+
+        @return: DescribeApiTrafficDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_api_traffic_data_with_options(request, runtime)
 
@@ -2846,7 +3370,8 @@ class Client(OpenApiClient):
 
     def describe_apis_by_ip_control_with_options(self, request, runtime):
         """
-        The number of entries to return on each page. Maximum value: 100. Default value: 10.
+        This operation is intended for API callers.
+        *   You can specify PageNumber to obtain the result on the specified page.
         
 
         @param request: DescribeApisByIpControlRequest
@@ -2886,7 +3411,8 @@ class Client(OpenApiClient):
 
     def describe_apis_by_ip_control(self, request):
         """
-        The number of entries to return on each page. Maximum value: 100. Default value: 10.
+        This operation is intended for API callers.
+        *   You can specify PageNumber to obtain the result on the specified page.
         
 
         @param request: DescribeApisByIpControlRequest
@@ -2898,7 +3424,8 @@ class Client(OpenApiClient):
 
     def describe_apis_by_signature_with_options(self, request, runtime):
         """
-        The ID of the signature key.
+        This API is intended for API providers.
+        *   The results are returned on separate pages. You can specify PageNumber to obtain the result on the specified page.
         
 
         @param request: DescribeApisBySignatureRequest
@@ -2938,7 +3465,8 @@ class Client(OpenApiClient):
 
     def describe_apis_by_signature(self, request):
         """
-        The ID of the signature key.
+        This API is intended for API providers.
+        *   The results are returned on separate pages. You can specify PageNumber to obtain the result on the specified page.
         
 
         @param request: DescribeApisBySignatureRequest
@@ -2950,7 +3478,8 @@ class Client(OpenApiClient):
 
     def describe_apis_by_traffic_control_with_options(self, request, runtime):
         """
-        The number of entries to return on each page. Maximum value: 100. Default value: 10.
+        This API is intended for API providers.
+        *   You can specify PageNumber to obtain the result on the specified page.
         
 
         @param request: DescribeApisByTrafficControlRequest
@@ -2990,7 +3519,8 @@ class Client(OpenApiClient):
 
     def describe_apis_by_traffic_control(self, request):
         """
-        The number of entries to return on each page. Maximum value: 100. Default value: 10.
+        This API is intended for API providers.
+        *   You can specify PageNumber to obtain the result on the specified page.
         
 
         @param request: DescribeApisByTrafficControlRequest
@@ -2999,6 +3529,50 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_apis_by_traffic_control_with_options(request, runtime)
+
+    def describe_apis_with_stage_name_integrated_by_app_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_name):
+            query['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.api_uid):
+            query['ApiUid'] = request.api_uid
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.method):
+            query['Method'] = request.method
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.path):
+            query['Path'] = request.path
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeApisWithStageNameIntegratedByApp',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DescribeApisWithStageNameIntegratedByAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_apis_with_stage_name_integrated_by_app(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_apis_with_stage_name_integrated_by_app_with_options(request, runtime)
 
     def describe_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3031,6 +3605,17 @@ class Client(OpenApiClient):
         return self.describe_app_with_options(request, runtime)
 
     def describe_app_attributes_with_options(self, request, runtime):
+        """
+        This operation is intended for API callers.
+        *   AppId is optional.
+        
+
+        @param request: DescribeAppAttributesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeAppAttributesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.app_code):
@@ -3075,6 +3660,15 @@ class Client(OpenApiClient):
         )
 
     def describe_app_attributes(self, request):
+        """
+        This operation is intended for API callers.
+        *   AppId is optional.
+        
+
+        @param request: DescribeAppAttributesRequest
+
+        @return: DescribeAppAttributesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_app_attributes_with_options(request, runtime)
 
@@ -3112,7 +3706,9 @@ class Client(OpenApiClient):
 
     def describe_apps_with_options(self, request, runtime):
         """
-        The ID of the app.
+        This API is intended for API providers.
+        *   API providers can use the app IDs or their Apsara Stack tenant accounts to query app information.
+        *   Each provider can call this operation for a maximum of 200 times every day in a region.
         
 
         @param request: DescribeAppsRequest
@@ -3154,7 +3750,9 @@ class Client(OpenApiClient):
 
     def describe_apps(self, request):
         """
-        The ID of the app.
+        This API is intended for API providers.
+        *   API providers can use the app IDs or their Apsara Stack tenant accounts to query app information.
+        *   Each provider can call this operation for a maximum of 200 times every day in a region.
         
 
         @param request: DescribeAppsRequest
@@ -3164,9 +3762,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_apps_with_options(request, runtime)
 
+    def describe_apps_by_api_product_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_product_id):
+            query['ApiProductId'] = request.api_product_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAppsByApiProduct',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DescribeAppsByApiProductResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_apps_by_api_product(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_apps_by_api_product_with_options(request, runtime)
+
     def describe_authorized_apis_with_options(self, request, runtime):
         """
-        The number of the page to return. Pages start from page 1. Default value: 1.
+        This operation is intended for API callers.
+        *   The specified application can call all APIs included in the responses.
         
 
         @param request: DescribeAuthorizedApisRequest
@@ -3206,7 +3841,8 @@ class Client(OpenApiClient):
 
     def describe_authorized_apis(self, request):
         """
-        The number of the page to return. Pages start from page 1. Default value: 1.
+        This operation is intended for API callers.
+        *   The specified application can call all APIs included in the responses.
         
 
         @param request: DescribeAuthorizedApisRequest
@@ -3217,6 +3853,17 @@ class Client(OpenApiClient):
         return self.describe_authorized_apis_with_options(request, runtime)
 
     def describe_authorized_apps_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers.
+        *   All applications included in the responses have access to the specified API.
+        
+
+        @param request: DescribeAuthorizedAppsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeAuthorizedAppsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.api_id):
@@ -3257,6 +3904,15 @@ class Client(OpenApiClient):
         )
 
     def describe_authorized_apps(self, request):
+        """
+        This operation is intended for API providers.
+        *   All applications included in the responses have access to the specified API.
+        
+
+        @param request: DescribeAuthorizedAppsRequest
+
+        @return: DescribeAuthorizedAppsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_authorized_apps_with_options(request, runtime)
 
@@ -3525,6 +4181,16 @@ class Client(OpenApiClient):
         return self.describe_deployed_api_with_options(request, runtime)
 
     def describe_deployed_apis_with_options(self, request, runtime):
+        """
+        This API is intended for API providers.
+        
+
+        @param request: DescribeDeployedApisRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDeployedApisResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.api_id):
@@ -3569,20 +4235,18 @@ class Client(OpenApiClient):
         )
 
     def describe_deployed_apis(self, request):
+        """
+        This API is intended for API providers.
+        
+
+        @param request: DescribeDeployedApisRequest
+
+        @return: DescribeDeployedApisResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_deployed_apis_with_options(request, runtime)
 
     def describe_domain_with_options(self, request, runtime):
-        """
-        The ID of the API group to which the domain name is bound. This ID is generated by the system and globally unique.
-        
-
-        @param request: DescribeDomainRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeDomainResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -3611,14 +4275,6 @@ class Client(OpenApiClient):
         )
 
     def describe_domain(self, request):
-        """
-        The ID of the API group to which the domain name is bound. This ID is generated by the system and globally unique.
-        
-
-        @param request: DescribeDomainRequest
-
-        @return: DescribeDomainResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_domain_with_options(request, runtime)
 
@@ -4089,6 +4745,17 @@ class Client(OpenApiClient):
         return self.describe_instances_with_options(request, runtime)
 
     def describe_ip_control_policy_items_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers.
+        *   You can filter the query results by policy ID.
+        
+
+        @param request: DescribeIpControlPolicyItemsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeIpControlPolicyItemsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ip_control_id):
@@ -4121,15 +4788,24 @@ class Client(OpenApiClient):
         )
 
     def describe_ip_control_policy_items(self, request):
+        """
+        This operation is intended for API providers.
+        *   You can filter the query results by policy ID.
+        
+
+        @param request: DescribeIpControlPolicyItemsRequest
+
+        @return: DescribeIpControlPolicyItemsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_ip_control_policy_items_with_options(request, runtime)
 
     def describe_ip_controls_with_options(self, request, runtime):
         """
         This operation is intended for API providers.
-        *   This operation is used to query the ACLs in a region. Region is a system parameter.
+        *   This operation is used to query the ACLs in a Region. Region is a system parameter.
         *   You can filter the query results by ACL ID, name, or type.
-        *   This operation cannot be used to query specific policies. If you want to query specific policies, call the [DescribeIpControlPolicyItems](~~65532~~) operation.
+        *   This operation cannot be used to query specific policies. If you want to query specific policies, use the DescribeIpControlPolicyItems operation.
         
 
         @param request: DescribeIpControlsRequest
@@ -4174,9 +4850,9 @@ class Client(OpenApiClient):
     def describe_ip_controls(self, request):
         """
         This operation is intended for API providers.
-        *   This operation is used to query the ACLs in a region. Region is a system parameter.
+        *   This operation is used to query the ACLs in a Region. Region is a system parameter.
         *   You can filter the query results by ACL ID, name, or type.
-        *   This operation cannot be used to query specific policies. If you want to query specific policies, call the [DescribeIpControlPolicyItems](~~65532~~) operation.
+        *   This operation cannot be used to query specific policies. If you want to query specific policies, use the DescribeIpControlPolicyItems operation.
         
 
         @param request: DescribeIpControlsRequest
@@ -4248,7 +4924,7 @@ class Client(OpenApiClient):
 
     def describe_models_with_options(self, request, runtime):
         """
-        The name of the model.
+        Fuzzy queries are supported.
         
 
         @param request: DescribeModelsRequest
@@ -4290,7 +4966,7 @@ class Client(OpenApiClient):
 
     def describe_models(self, request):
         """
-        The name of the model.
+        Fuzzy queries are supported.
         
 
         @param request: DescribeModelsRequest
@@ -4409,6 +5085,19 @@ class Client(OpenApiClient):
         return self.describe_plugin_templates_with_options(request, runtime)
 
     def describe_plugins_with_options(self, request, runtime):
+        """
+        This operation supports pagination.
+        *   This operation allows you to query plug-ins by business type.
+        *   This operation allows you to query plug-ins by ID.
+        *   This operation allows you to query plug-ins by name.
+        
+
+        @param request: DescribePluginsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribePluginsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page_number):
@@ -4445,6 +5134,17 @@ class Client(OpenApiClient):
         )
 
     def describe_plugins(self, request):
+        """
+        This operation supports pagination.
+        *   This operation allows you to query plug-ins by business type.
+        *   This operation allows you to query plug-ins by ID.
+        *   This operation allows you to query plug-ins by name.
+        
+
+        @param request: DescribePluginsRequest
+
+        @return: DescribePluginsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_plugins_with_options(request, runtime)
 
@@ -4611,6 +5311,17 @@ class Client(OpenApiClient):
         return self.describe_purchased_apis_with_options(request, runtime)
 
     def describe_regions_with_options(self, request, runtime):
+        """
+        This operation queries regions in which API Gateway is available.
+        *   This operation is intended for API providers and callers.
+        
+
+        @param request: DescribeRegionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeRegionsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.language):
@@ -4637,12 +5348,22 @@ class Client(OpenApiClient):
         )
 
     def describe_regions(self, request):
+        """
+        This operation queries regions in which API Gateway is available.
+        *   This operation is intended for API providers and callers.
+        
+
+        @param request: DescribeRegionsRequest
+
+        @return: DescribeRegionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_regions_with_options(request, runtime)
 
     def describe_signatures_with_options(self, request, runtime):
         """
-        The IDs of the keys to query.
+        This API is intended for API providers.
+        *   This operation is used to query the backend signature keys in a Region. Region is a system parameter.
         
 
         @param request: DescribeSignaturesRequest
@@ -4684,7 +5405,8 @@ class Client(OpenApiClient):
 
     def describe_signatures(self, request):
         """
-        The IDs of the keys to query.
+        This API is intended for API providers.
+        *   This operation is used to query the backend signature keys in a Region. Region is a system parameter.
         
 
         @param request: DescribeSignaturesRequest
@@ -4696,7 +5418,7 @@ class Client(OpenApiClient):
 
     def describe_signatures_by_api_with_options(self, request, runtime):
         """
-        The ID of the group to which the API belongs.
+        This API is intended for API providers.
         
 
         @param request: DescribeSignaturesByApiRequest
@@ -4736,7 +5458,7 @@ class Client(OpenApiClient):
 
     def describe_signatures_by_api(self, request):
         """
-        The ID of the group to which the API belongs.
+        This API is intended for API providers.
         
 
         @param request: DescribeSignaturesByApiRequest
@@ -4776,7 +5498,8 @@ class Client(OpenApiClient):
 
     def describe_system_parameters_with_options(self, request, runtime):
         """
-        The returned information about system parameters. It is an array that consists of SystemParam data.
+        This API is intended for API callers.
+        *   The response of this API contains the system parameters that are optional in API definitions.
         
 
         @param request: DescribeSystemParametersRequest
@@ -4810,7 +5533,8 @@ class Client(OpenApiClient):
 
     def describe_system_parameters(self, request):
         """
-        The returned information about system parameters. It is an array that consists of SystemParam data.
+        This API is intended for API callers.
+        *   The response of this API contains the system parameters that are optional in API definitions.
         
 
         @param request: DescribeSystemParametersRequest
@@ -4822,7 +5546,9 @@ class Client(OpenApiClient):
 
     def describe_traffic_controls_with_options(self, request, runtime):
         """
-        The specified group ID. This parameter must be specified together with ApiId and StageName.
+        This API is intended for API providers.
+        *   This API can be used to query all existing throttling policies (including special throttling policies) and their details.
+        *   You can specify query conditions. For example, you can query the throttling policies bound to a specified API or in a specified environment.
         
 
         @param request: DescribeTrafficControlsRequest
@@ -4870,7 +5596,9 @@ class Client(OpenApiClient):
 
     def describe_traffic_controls(self, request):
         """
-        The specified group ID. This parameter must be specified together with ApiId and StageName.
+        This API is intended for API providers.
+        *   This API can be used to query all existing throttling policies (including special throttling policies) and their details.
+        *   You can specify query conditions. For example, you can query the throttling policies bound to a specified API or in a specified environment.
         
 
         @param request: DescribeTrafficControlsRequest
@@ -4882,7 +5610,7 @@ class Client(OpenApiClient):
 
     def describe_traffic_controls_by_api_with_options(self, request, runtime):
         """
-        The ID of the API.
+        This API is intended for API providers.
         
 
         @param request: DescribeTrafficControlsByApiRequest
@@ -4922,7 +5650,7 @@ class Client(OpenApiClient):
 
     def describe_traffic_controls_by_api(self, request):
         """
-        The ID of the API.
+        This API is intended for API providers.
         
 
         @param request: DescribeTrafficControlsByApiRequest
@@ -5063,6 +5791,38 @@ class Client(OpenApiClient):
     def describe_zones(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_zones_with_options(request, runtime)
+
+    def detach_api_product_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_product_id):
+            query['ApiProductId'] = request.api_product_id
+        if not UtilClient.is_unset(request.apis):
+            query['Apis'] = request.apis
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DetachApiProduct',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DetachApiProductResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def detach_api_product(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.detach_api_product_with_options(request, runtime)
 
     def detach_plugin_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5264,7 +6024,8 @@ class Client(OpenApiClient):
 
     def import_swagger_with_options(self, tmp_req, runtime):
         """
-        0009db9c828549768a200320714b8930
+        Alibaba Cloud supports extensions based on Swagger 2.0.
+        *   Alibaba Cloud supports Swagger configuration files in JSON and YAML formats.
         
 
         @param tmp_req: ImportSwaggerRequest
@@ -5316,7 +6077,8 @@ class Client(OpenApiClient):
 
     def import_swagger(self, request):
         """
-        0009db9c828549768a200320714b8930
+        Alibaba Cloud supports extensions based on Swagger 2.0.
+        *   Alibaba Cloud supports Swagger configuration files in JSON and YAML formats.
         
 
         @param request: ImportSwaggerRequest
@@ -5327,6 +6089,24 @@ class Client(OpenApiClient):
         return self.import_swagger_with_options(request, runtime)
 
     def list_tag_resources_with_options(self, request, runtime):
+        """
+        The Tag.N.Key and Tag.N.Value parameters constitute a key-value pair.
+        *   ResourceId.N must meet all the key-value pairs that are entered. If you enter multiple key-value pairs, resources that contain the specified key-value pairs are returned.
+        *   This operation is used to query resource tags based on conditions. If no relationship matches the conditions, an empty list is returned.
+        *   You can query both user tags and visible system tags.
+        *   In addition to the required parameters, you can also specify ResourceId.N to query the visible resource tags of a specified resource in a region.
+        *   You can also specify Tag.N.Key to query the visible keys of a specified key in a region.
+        *   At least one of ResourceId.N, Tag.N.Key, and Tag.N.Value exists.
+        *   You can query tags of the same type or different types in a single operation.
+        *   You can query all your user tags and visible system tags.
+        
+
+        @param request: ListTagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.next_token):
@@ -5357,12 +6137,32 @@ class Client(OpenApiClient):
         )
 
     def list_tag_resources(self, request):
+        """
+        The Tag.N.Key and Tag.N.Value parameters constitute a key-value pair.
+        *   ResourceId.N must meet all the key-value pairs that are entered. If you enter multiple key-value pairs, resources that contain the specified key-value pairs are returned.
+        *   This operation is used to query resource tags based on conditions. If no relationship matches the conditions, an empty list is returned.
+        *   You can query both user tags and visible system tags.
+        *   In addition to the required parameters, you can also specify ResourceId.N to query the visible resource tags of a specified resource in a region.
+        *   You can also specify Tag.N.Key to query the visible keys of a specified key in a region.
+        *   At least one of ResourceId.N, Tag.N.Key, and Tag.N.Value exists.
+        *   You can query tags of the same type or different types in a single operation.
+        *   You can query all your user tags and visible system tags.
+        
+
+        @param request: ListTagResourcesRequest
+
+        @return: ListTagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_tag_resources_with_options(request, runtime)
 
     def modify_api_with_options(self, request, runtime):
         """
-        58928
+        *This operation is intended for API providers.**\
+        *   This API operation requires a full update. Updates of partial parameters are not supported.
+        *   When you modify an API name, make sure that the name of each API within the same group is unique.
+        *   When you modify the request path, make sure that each request path within the same group is unique.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: ModifyApiRequest
@@ -5450,7 +6250,11 @@ class Client(OpenApiClient):
 
     def modify_api(self, request):
         """
-        58928
+        *This operation is intended for API providers.**\
+        *   This API operation requires a full update. Updates of partial parameters are not supported.
+        *   When you modify an API name, make sure that the name of each API within the same group is unique.
+        *   When you modify the request path, make sure that each request path within the same group is unique.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: ModifyApiRequest
@@ -5559,6 +6363,17 @@ class Client(OpenApiClient):
         return self.modify_api_configuration_with_options(request, runtime)
 
     def modify_api_group_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers.
+        *   The QPS limit on this operation is 50 per user.
+        
+
+        @param request: ModifyApiGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyApiGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.base_path):
@@ -5609,6 +6424,15 @@ class Client(OpenApiClient):
         )
 
     def modify_api_group(self, request):
+        """
+        This operation is intended for API providers.
+        *   The QPS limit on this operation is 50 per user.
+        
+
+        @param request: ModifyApiGroupRequest
+
+        @return: ModifyApiGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_api_group_with_options(request, runtime)
 
@@ -5645,6 +6469,18 @@ class Client(OpenApiClient):
         return self.modify_api_group_vpc_whitelist_with_options(request, runtime)
 
     def modify_app_with_options(self, request, runtime):
+        """
+        This operation is intended for API callers.
+        *   **AppName** or **Description** can be modified. If these parameters are not specified, no modifications are made and the operation will directly return a success response.
+        *   You can call this operation up to 50 times per second per account.
+        
+
+        @param request: ModifyAppRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyAppResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.app_id):
@@ -5679,6 +6515,16 @@ class Client(OpenApiClient):
         )
 
     def modify_app(self, request):
+        """
+        This operation is intended for API callers.
+        *   **AppName** or **Description** can be modified. If these parameters are not specified, no modifications are made and the operation will directly return a success response.
+        *   You can call this operation up to 50 times per second per account.
+        
+
+        @param request: ModifyAppRequest
+
+        @return: ModifyAppResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_app_with_options(request, runtime)
 
@@ -5864,9 +6710,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_instance_spec_with_options(request, runtime)
 
+    def modify_intranet_domain_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.vpc_intranet_enable):
+            query['VpcIntranetEnable'] = request.vpc_intranet_enable
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyIntranetDomainPolicy',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.ModifyIntranetDomainPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_intranet_domain_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_intranet_domain_policy_with_options(request, runtime)
+
     def modify_ip_control_with_options(self, request, runtime):
         """
-        The name of the ACL. The name must be 4 to 50 characters in length, and can contain letters, digits, and underscores (\\_). The name cannot start with an underscore (\\_).
+        This operation is intended for API providers.
+        *   This operation allows you to modify only the name and description of an ACL. You cannot modify the type of the ACL.
         
 
         @param request: ModifyIpControlRequest
@@ -5906,7 +6785,8 @@ class Client(OpenApiClient):
 
     def modify_ip_control(self, request):
         """
-        The name of the ACL. The name must be 4 to 50 characters in length, and can contain letters, digits, and underscores (\\_). The name cannot start with an underscore (\\_).
+        This operation is intended for API providers.
+        *   This operation allows you to modify only the name and description of an ACL. You cannot modify the type of the ACL.
         
 
         @param request: ModifyIpControlRequest
@@ -5918,7 +6798,9 @@ class Client(OpenApiClient):
 
     def modify_ip_control_policy_item_with_options(self, request, runtime):
         """
-        The ID of the policy.
+        This operation is intended for API providers.
+        *   The modification immediately takes effect on all the APIs that are bound to the policy.
+        *   This operation causes a full modification of the content of a policy.
         
 
         @param request: ModifyIpControlPolicyItemRequest
@@ -5960,7 +6842,9 @@ class Client(OpenApiClient):
 
     def modify_ip_control_policy_item(self, request):
         """
-        The ID of the policy.
+        This operation is intended for API providers.
+        *   The modification immediately takes effect on all the APIs that are bound to the policy.
+        *   This operation causes a full modification of the content of a policy.
         
 
         @param request: ModifyIpControlPolicyItemRequest
@@ -6041,6 +6925,17 @@ class Client(OpenApiClient):
         return self.modify_model_with_options(request, runtime)
 
     def modify_plugin_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers.
+        *   The name of the plug-in must be unique.
+        
+
+        @param request: ModifyPluginRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyPluginResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -6075,12 +6970,24 @@ class Client(OpenApiClient):
         )
 
     def modify_plugin(self, request):
+        """
+        This operation is intended for API providers.
+        *   The name of the plug-in must be unique.
+        
+
+        @param request: ModifyPluginRequest
+
+        @return: ModifyPluginResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_plugin_with_options(request, runtime)
 
     def modify_signature_with_options(self, request, runtime):
         """
-        The new name of the key. The name must be 4 to 50 characters in length and can contain letters, digits, and underscores (\\_). It must start with a letter.
+        This API is intended for API providers.
+        *   This API operation modifies the name, Key value, and Secret value of an existing signature key.
+        *   Note that the modification takes effect immediately. If the key has been bound to an API, you must adjust the backend signature verification based on the new key accordingly.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: ModifySignatureRequest
@@ -6122,7 +7029,10 @@ class Client(OpenApiClient):
 
     def modify_signature(self, request):
         """
-        The new name of the key. The name must be 4 to 50 characters in length and can contain letters, digits, and underscores (\\_). It must start with a letter.
+        This API is intended for API providers.
+        *   This API operation modifies the name, Key value, and Secret value of an existing signature key.
+        *   Note that the modification takes effect immediately. If the key has been bound to an API, you must adjust the backend signature verification based on the new key accordingly.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: ModifySignatureRequest
@@ -6134,7 +7044,9 @@ class Client(OpenApiClient):
 
     def modify_traffic_control_with_options(self, request, runtime):
         """
-        The throttling policy name. The name must be 4 to 50 characters in length and can contain letters, digits, and underscores (\\_). It cannot start with an underscore.
+        This API is intended for API providers.
+        *   The modifications take effect on the bound APIs instantly.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: ModifyTrafficControlRequest
@@ -6182,7 +7094,9 @@ class Client(OpenApiClient):
 
     def modify_traffic_control(self, request):
         """
-        The throttling policy name. The name must be 4 to 50 characters in length and can contain letters, digits, and underscores (\\_). It cannot start with an underscore.
+        This API is intended for API providers.
+        *   The modifications take effect on the bound APIs instantly.
+        *   The QPS limit on this operation is 50 per user.
         
 
         @param request: ModifyTrafficControlRequest
@@ -6290,7 +7204,10 @@ class Client(OpenApiClient):
 
     def reactivate_domain_with_options(self, request, runtime):
         """
-        The ID of the API group to which the domain name is bound. This ID is generated by the system and globally unique.
+        This operation is intended for API providers.
+        *   You must solve the problem that is mentioned in the domain name exception prompt before you can reactivate the domain name.
+        *   A typical reason why a custom domain name becomes abnormal is that the domain name does not have an ICP filing or the domain name is included in a blacklist by the administration. When a custom domain name is abnormal, users cannot use it to access APIs.
+        *   You can call this operation to reactivate the domain name to resume normal access.
         
 
         @param request: ReactivateDomainRequest
@@ -6328,7 +7245,10 @@ class Client(OpenApiClient):
 
     def reactivate_domain(self, request):
         """
-        The ID of the API group to which the domain name is bound. This ID is generated by the system and globally unique.
+        This operation is intended for API providers.
+        *   You must solve the problem that is mentioned in the domain name exception prompt before you can reactivate the domain name.
+        *   A typical reason why a custom domain name becomes abnormal is that the domain name does not have an ICP filing or the domain name is included in a blacklist by the administration. When a custom domain name is abnormal, users cannot use it to access APIs.
+        *   You can call this operation to reactivate the domain name to resume normal access.
         
 
         @param request: ReactivateDomainRequest
@@ -6370,9 +7290,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.remove_access_control_list_entry_with_options(request, runtime)
 
+    def remove_api_products_authorities_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cloud_api20160714_models.RemoveApiProductsAuthoritiesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.api_product_ids):
+            request.api_product_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.api_product_ids, 'ApiProductIds', 'simple')
+        query = {}
+        if not UtilClient.is_unset(request.api_product_ids_shrink):
+            query['ApiProductIds'] = request.api_product_ids_shrink
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveApiProductsAuthorities',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.RemoveApiProductsAuthoritiesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def remove_api_products_authorities(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.remove_api_products_authorities_with_options(request, runtime)
+
     def remove_apis_authorities_with_options(self, request, runtime):
         """
-        The ID of the app. The ID is generated by the system and globally unique.
+        This operation is intended for API providers and callers.
+        *   Before you revoke access permissions, check by whom the permissions were granted. API providers can only revoke permissions granted by a Provider, and API callers can only revoke permissions granted by a Consumer.
         
 
         @param request: RemoveApisAuthoritiesRequest
@@ -6416,7 +7373,8 @@ class Client(OpenApiClient):
 
     def remove_apis_authorities(self, request):
         """
-        The ID of the app. The ID is generated by the system and globally unique.
+        This operation is intended for API providers and callers.
+        *   Before you revoke access permissions, check by whom the permissions were granted. API providers can only revoke permissions granted by a Provider, and API callers can only revoke permissions granted by a Consumer.
         
 
         @param request: RemoveApisAuthoritiesRequest
@@ -6428,7 +7386,8 @@ class Client(OpenApiClient):
 
     def remove_apps_authorities_with_options(self, request, runtime):
         """
-        The ID of the API. This ID is generated by the system and globally unique.
+        This operation is intended for API providers and callers.
+        *   Before you revoke access permissions, check by whom the permissions were granted. API providers can only revoke permissions granted by a Provider, and API callers can only revoke permissions granted by a Consumer.
         
 
         @param request: RemoveAppsAuthoritiesRequest
@@ -6470,7 +7429,8 @@ class Client(OpenApiClient):
 
     def remove_apps_authorities(self, request):
         """
-        The ID of the API. This ID is generated by the system and globally unique.
+        This operation is intended for API providers and callers.
+        *   Before you revoke access permissions, check by whom the permissions were granted. API providers can only revoke permissions granted by a Provider, and API callers can only revoke permissions granted by a Consumer.
         
 
         @param request: RemoveAppsAuthoritiesRequest
@@ -6482,7 +7442,8 @@ class Client(OpenApiClient):
 
     def remove_ip_control_apis_with_options(self, request, runtime):
         """
-        The ID of the API group containing the API to be managed.
+        This operation is intended for API callers.
+        *   The unbinding takes effect immediately. After the API is unbound from the ACL, the corresponding environment does not have any IP address access control in place for the API.
         
 
         @param request: RemoveIpControlApisRequest
@@ -6524,7 +7485,8 @@ class Client(OpenApiClient):
 
     def remove_ip_control_apis(self, request):
         """
-        The ID of the API group containing the API to be managed.
+        This operation is intended for API callers.
+        *   The unbinding takes effect immediately. After the API is unbound from the ACL, the corresponding environment does not have any IP address access control in place for the API.
         
 
         @param request: RemoveIpControlApisRequest
@@ -6536,7 +7498,7 @@ class Client(OpenApiClient):
 
     def remove_ip_control_policy_item_with_options(self, request, runtime):
         """
-        The ID of a policy. Separate multiple IDs with semicolons (;). A maximum of 100 IDs can be entered.
+        This operation is intended for API providers.
         
 
         @param request: RemoveIpControlPolicyItemRequest
@@ -6574,7 +7536,7 @@ class Client(OpenApiClient):
 
     def remove_ip_control_policy_item(self, request):
         """
-        The ID of a policy. Separate multiple IDs with semicolons (;). A maximum of 100 IDs can be entered.
+        This operation is intended for API providers.
         
 
         @param request: RemoveIpControlPolicyItemRequest
@@ -6586,7 +7548,8 @@ class Client(OpenApiClient):
 
     def remove_signature_apis_with_options(self, request, runtime):
         """
-        The ID of the signature key.
+        This API is intended for API providers.
+        *   The operation takes effect immediately. The request sent from API Gateway to the backend service does not contain the signature string. The corresponding verification step can be removed from the backend.
         
 
         @param request: RemoveSignatureApisRequest
@@ -6628,7 +7591,8 @@ class Client(OpenApiClient):
 
     def remove_signature_apis(self, request):
         """
-        The ID of the signature key.
+        This API is intended for API providers.
+        *   The operation takes effect immediately. The request sent from API Gateway to the backend service does not contain the signature string. The corresponding verification step can be removed from the backend.
         
 
         @param request: RemoveSignatureApisRequest
@@ -6640,7 +7604,8 @@ class Client(OpenApiClient):
 
     def remove_traffic_control_apis_with_options(self, request, runtime):
         """
-        The ID of the API group containing the APIs from which you want to unbind a specified throttling policy.
+        This API is intended for API providers.
+        *   This API allows you to unbind a specified throttling policy from up to 100 APIs at a time.
         
 
         @param request: RemoveTrafficControlApisRequest
@@ -6682,7 +7647,8 @@ class Client(OpenApiClient):
 
     def remove_traffic_control_apis(self, request):
         """
-        The ID of the API group containing the APIs from which you want to unbind a specified throttling policy.
+        This API is intended for API providers.
+        *   This API allows you to unbind a specified throttling policy from up to 100 APIs at a time.
         
 
         @param request: RemoveTrafficControlApisRequest
@@ -6693,6 +7659,18 @@ class Client(OpenApiClient):
         return self.remove_traffic_control_apis_with_options(request, runtime)
 
     def remove_vpc_access_with_options(self, request, runtime):
+        """
+        This API is intended for API providers.
+        *   Revokes the permissions of API Gateway to access your VPC instance.
+        >  Deleting an authorization affects the associated API. Before you delete the authorization, make sure that it is not used by the API.
+        
+
+        @param request: RemoveVpcAccessRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveVpcAccessResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -6725,6 +7703,16 @@ class Client(OpenApiClient):
         )
 
     def remove_vpc_access(self, request):
+        """
+        This API is intended for API providers.
+        *   Revokes the permissions of API Gateway to access your VPC instance.
+        >  Deleting an authorization affects the associated API. Before you delete the authorization, make sure that it is not used by the API.
+        
+
+        @param request: RemoveVpcAccessRequest
+
+        @return: RemoveVpcAccessResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.remove_vpc_access_with_options(request, runtime)
 
@@ -6765,16 +7753,6 @@ class Client(OpenApiClient):
         return self.remove_vpc_access_and_abolish_apis_with_options(request, runtime)
 
     def reset_app_code_with_options(self, request, runtime):
-        """
-        The new AppCode takes effect about 2 seconds after you call this operation.
-        
-
-        @param request: ResetAppCodeRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ResetAppCodeResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.app_code):
@@ -6803,14 +7781,6 @@ class Client(OpenApiClient):
         )
 
     def reset_app_code(self, request):
-        """
-        The new AppCode takes effect about 2 seconds after you call this operation.
-        
-
-        @param request: ResetAppCodeRequest
-
-        @return: ResetAppCodeResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.reset_app_code_with_options(request, runtime)
 
@@ -6998,9 +7968,49 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.set_access_control_list_attribute_with_options(request, runtime)
 
+    def set_api_products_authorities_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cloud_api20160714_models.SetApiProductsAuthoritiesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.api_product_ids):
+            request.api_product_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.api_product_ids, 'ApiProductIds', 'simple')
+        query = {}
+        if not UtilClient.is_unset(request.api_product_ids_shrink):
+            query['ApiProductIds'] = request.api_product_ids_shrink
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetApiProductsAuthorities',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.SetApiProductsAuthoritiesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_api_products_authorities(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_api_products_authorities_with_options(request, runtime)
+
     def set_apis_authorities_with_options(self, request, runtime):
         """
-        The ID of the app. This ID is generated by the system and globally unique.
+        This operation is intended for API providers and callers.
+        *   API providers can authorize any apps to call their APIs.
+        *   API callers can authorize their own apps to call the APIs that they have purchased.
         
 
         @param request: SetApisAuthoritiesRequest
@@ -7046,7 +8056,9 @@ class Client(OpenApiClient):
 
     def set_apis_authorities(self, request):
         """
-        The ID of the app. This ID is generated by the system and globally unique.
+        This operation is intended for API providers and callers.
+        *   API providers can authorize any apps to call their APIs.
+        *   API callers can authorize their own apps to call the APIs that they have purchased.
         
 
         @param request: SetApisAuthoritiesRequest
@@ -7058,7 +8070,9 @@ class Client(OpenApiClient):
 
     def set_apps_authorities_with_options(self, request, runtime):
         """
-        The ID of the API. This ID is generated by the system and globally unique.
+        This operation is intended for API providers and callers.
+        *   API providers can authorize any apps to call their APIs.
+        *   API callers can authorize their own apps to call the APIs that they have purchased.
         
 
         @param request: SetAppsAuthoritiesRequest
@@ -7104,7 +8118,9 @@ class Client(OpenApiClient):
 
     def set_apps_authorities(self, request):
         """
-        The ID of the API. This ID is generated by the system and globally unique.
+        This operation is intended for API providers and callers.
+        *   API providers can authorize any apps to call their APIs.
+        *   API callers can authorize their own apps to call the APIs that they have purchased.
         
 
         @param request: SetAppsAuthoritiesRequest
@@ -7154,7 +8170,9 @@ class Client(OpenApiClient):
 
     def set_domain_certificate_with_options(self, request, runtime):
         """
-        382271
+        This operation is intended for API providers.
+        *   The SSL certificate must match the custom domain name.
+        *   After the SSL certificate is bound, HTTPS-based API services become available.
         
 
         @param request: SetDomainCertificateRequest
@@ -7202,7 +8220,9 @@ class Client(OpenApiClient):
 
     def set_domain_certificate(self, request):
         """
-        382271
+        This operation is intended for API providers.
+        *   The SSL certificate must match the custom domain name.
+        *   After the SSL certificate is bound, HTTPS-based API services become available.
         
 
         @param request: SetDomainCertificateRequest
@@ -7282,7 +8302,8 @@ class Client(OpenApiClient):
 
     def set_ip_control_apis_with_options(self, request, runtime):
         """
-        The ID of the API group.
+        This operation is intended for API callers.
+        *   A maximum of 100 APIs can be bound at a time.
         
 
         @param request: SetIpControlApisRequest
@@ -7324,7 +8345,8 @@ class Client(OpenApiClient):
 
     def set_ip_control_apis(self, request):
         """
-        The ID of the API group.
+        This operation is intended for API callers.
+        *   A maximum of 100 APIs can be bound at a time.
         
 
         @param request: SetIpControlApisRequest
@@ -7336,7 +8358,8 @@ class Client(OpenApiClient):
 
     def set_signature_apis_with_options(self, request, runtime):
         """
-        The ID of the signature key.
+        This API is intended for API providers.
+        *   This operation allows you to bind a signature key to an API. You can bind signature keys for up to 100 APIs at a time.
         
 
         @param request: SetSignatureApisRequest
@@ -7378,7 +8401,8 @@ class Client(OpenApiClient):
 
     def set_signature_apis(self, request):
         """
-        The ID of the signature key.
+        This API is intended for API providers.
+        *   This operation allows you to bind a signature key to an API. You can bind signature keys for up to 100 APIs at a time.
         
 
         @param request: SetSignatureApisRequest
@@ -7390,7 +8414,8 @@ class Client(OpenApiClient):
 
     def set_traffic_control_apis_with_options(self, request, runtime):
         """
-        The ID of the API group containing the APIs to which you want to bind a specified throttling policy.
+        This API is intended for API providers.
+        *   This API allows you to bind a specific throttling policy to up to 100 APIs at a time.
         
 
         @param request: SetTrafficControlApisRequest
@@ -7432,7 +8457,8 @@ class Client(OpenApiClient):
 
     def set_traffic_control_apis(self, request):
         """
-        The ID of the API group containing the APIs to which you want to bind a specified throttling policy.
+        This API is intended for API providers.
+        *   This API allows you to bind a specific throttling policy to up to 100 APIs at a time.
         
 
         @param request: SetTrafficControlApisRequest
@@ -7518,7 +8544,11 @@ class Client(OpenApiClient):
 
     def switch_api_with_options(self, request, runtime):
         """
-        The ID of the API.
+        This API is intended for API providers.
+        *   The historical version can be obtained by calling the **DescribeHistoryApis** operation.
+        *   Only APIs that have been published more than once have historical versions.
+        *   This operation can only be performed on running APIs. Exercise caution when you perform this operation because the operation cannot be undone. The operation takes up to 5 seconds.
+        *   The switch operation is essentially a publish operation. A reason for this operation must be provided.
         
 
         @param request: SwitchApiRequest
@@ -7562,7 +8592,11 @@ class Client(OpenApiClient):
 
     def switch_api(self, request):
         """
-        The ID of the API.
+        This API is intended for API providers.
+        *   The historical version can be obtained by calling the **DescribeHistoryApis** operation.
+        *   Only APIs that have been published more than once have historical versions.
+        *   This operation can only be performed on running APIs. Exercise caution when you perform this operation because the operation cannot be undone. The operation takes up to 5 seconds.
+        *   The switch operation is essentially a publish operation. A reason for this operation must be provided.
         
 
         @param request: SwitchApiRequest
@@ -7574,8 +8608,11 @@ class Client(OpenApiClient):
 
     def tag_resources_with_options(self, request, runtime):
         """
-        The key of tag N.
-        Valid values of N: `1 to 20.`
+        All tags (key-value pairs) are applied to all resources of a specified ResourceId, with each resource specified as ResourceId.N.
+        *   Tag.N is a resource tag consisting of a key-value pair: Tag.N.Key and Tag.N.Value.
+        *   If you call this operation to tag multiple resources simultaneously, either all or none of the resources will be tagged.
+        *   If you specify Tag.1.Value in addition to required parameters, you must also specify Tag.1.Key. Otherwise, an InvalidParameter.TagKey error is reported. A tag that has a value must have the corresponding key, but the key can be an empty string.
+        *   If a tag with the same key has been bound to a resource, the new tag will overwrite the existing one.
         
 
         @param request: TagResourcesRequest
@@ -7615,8 +8652,11 @@ class Client(OpenApiClient):
 
     def tag_resources(self, request):
         """
-        The key of tag N.
-        Valid values of N: `1 to 20.`
+        All tags (key-value pairs) are applied to all resources of a specified ResourceId, with each resource specified as ResourceId.N.
+        *   Tag.N is a resource tag consisting of a key-value pair: Tag.N.Key and Tag.N.Value.
+        *   If you call this operation to tag multiple resources simultaneously, either all or none of the resources will be tagged.
+        *   If you specify Tag.1.Value in addition to required parameters, you must also specify Tag.1.Key. Otherwise, an InvalidParameter.TagKey error is reported. A tag that has a value must have the corresponding key, but the key can be an empty string.
+        *   If a tag with the same key has been bound to a resource, the new tag will overwrite the existing one.
         
 
         @param request: TagResourcesRequest
@@ -7628,9 +8668,11 @@ class Client(OpenApiClient):
 
     def untag_resources_with_options(self, request, runtime):
         """
-        Specifies whether to delete all tags. This parameter is valid only when the *TagKey.N**parameter is not specified. Default value: false. Valid values:
-        *   **true**\
-        *   **false**\
+        If you call this operation to untag multiple resources simultaneously, either all or none of the resources will be untagged.
+        *   If you specify resource IDs without specifying tag keys and set the All parameter to true, all tags bound to the specified resources will be deleted. If a resource does not have any tags, the request is not processed but a success is returned.
+        *   If you specify resource IDs without specifying tag keys and set the All parameter to false, the request is not processed but a success is returned.
+        *   When tag keys are specified, the All parameter is invalid.
+        *   When multiple resources and key-value pairs are specified, the specified tags bound to the resources are deleted.
         
 
         @param request: UntagResourcesRequest
@@ -7672,9 +8714,11 @@ class Client(OpenApiClient):
 
     def untag_resources(self, request):
         """
-        Specifies whether to delete all tags. This parameter is valid only when the *TagKey.N**parameter is not specified. Default value: false. Valid values:
-        *   **true**\
-        *   **false**\
+        If you call this operation to untag multiple resources simultaneously, either all or none of the resources will be untagged.
+        *   If you specify resource IDs without specifying tag keys and set the All parameter to true, all tags bound to the specified resources will be deleted. If a resource does not have any tags, the request is not processed but a success is returned.
+        *   If you specify resource IDs without specifying tag keys and set the All parameter to false, the request is not processed but a success is returned.
+        *   When tag keys are specified, the All parameter is invalid.
+        *   When multiple resources and key-value pairs are specified, the specified tags bound to the resources are deleted.
         
 
         @param request: UntagResourcesRequest
