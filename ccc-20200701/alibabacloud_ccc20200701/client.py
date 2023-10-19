@@ -1316,6 +1316,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.export_do_not_call_numbers_with_options(request, runtime)
 
+    def get_access_channel_of_staging_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAccessChannelOfStaging',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.GetAccessChannelOfStagingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_access_channel_of_staging(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_access_channel_of_staging_with_options(request, runtime)
+
     def get_audio_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4198,6 +4224,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_users_with_options(request, runtime)
 
+    def list_voicemails_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.caller):
+            query['Caller'] = request.caller
+        if not UtilClient.is_unset(request.contact_id):
+            query['ContactId'] = request.contact_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListVoicemails',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ListVoicemailsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_voicemails(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_voicemails_with_options(request, runtime)
+
     def make_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4681,6 +4749,36 @@ class Client(OpenApiClient):
     def poll_user_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.poll_user_status_with_options(request, runtime)
+
+    def process_ali_me_callback_of_staging_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data):
+            query['Data'] = request.data
+        if not UtilClient.is_unset(request.token):
+            query['Token'] = request.token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ProcessAliMeCallbackOfStaging',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ProcessAliMeCallbackOfStagingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def process_ali_me_callback_of_staging(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.process_ali_me_callback_of_staging_with_options(request, runtime)
 
     def publish_contact_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5915,6 +6013,48 @@ class Client(OpenApiClient):
     def unregister_device(self, request):
         runtime = util_models.RuntimeOptions()
         return self.unregister_device_with_options(request, runtime)
+
+    def update_campaign_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.callable_time):
+            query['CallableTime'] = request.callable_time
+        if not UtilClient.is_unset(request.campaign_id):
+            query['CampaignId'] = request.campaign_id
+        if not UtilClient.is_unset(request.contact_flow_id):
+            query['ContactFlowId'] = request.contact_flow_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.strategy_parameters):
+            query['StrategyParameters'] = request.strategy_parameters
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateCampaign',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.UpdateCampaignResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_campaign(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_campaign_with_options(request, runtime)
 
     def update_config_items_with_options(self, request, runtime):
         UtilClient.validate_model(request)
