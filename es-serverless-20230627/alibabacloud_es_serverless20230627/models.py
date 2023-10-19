@@ -145,9 +145,43 @@ class CreateAppRequestNetwork(TeaModel):
         return self
 
 
+class CreateAppRequestQuotaInfo(TeaModel):
+    def __init__(self, app_type=None, cu=None, storage=None):
+        self.app_type = app_type  # type: str
+        self.cu = cu  # type: int
+        self.storage = storage  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAppRequestQuotaInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_type is not None:
+            result['appType'] = self.app_type
+        if self.cu is not None:
+            result['cu'] = self.cu
+        if self.storage is not None:
+            result['storage'] = self.storage
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('appType') is not None:
+            self.app_type = m.get('appType')
+        if m.get('cu') is not None:
+            self.cu = m.get('cu')
+        if m.get('storage') is not None:
+            self.storage = m.get('storage')
+        return self
+
+
 class CreateAppRequest(TeaModel):
     def __init__(self, app_name=None, authentication=None, charge_type=None, description=None, network=None,
-                 region_id=None, version=None):
+                 quota_info=None, region_id=None, version=None, dry_run=None):
         # 应用名
         self.app_name = app_name  # type: str
         self.authentication = authentication  # type: CreateAppRequestAuthentication
@@ -155,8 +189,10 @@ class CreateAppRequest(TeaModel):
         # 应用备注
         self.description = description  # type: str
         self.network = network  # type: list[CreateAppRequestNetwork]
+        self.quota_info = quota_info  # type: CreateAppRequestQuotaInfo
         self.region_id = region_id  # type: str
         self.version = version  # type: str
+        self.dry_run = dry_run  # type: bool
 
     def validate(self):
         if self.authentication:
@@ -165,6 +201,8 @@ class CreateAppRequest(TeaModel):
             for k in self.network:
                 if k:
                     k.validate()
+        if self.quota_info:
+            self.quota_info.validate()
 
     def to_map(self):
         _map = super(CreateAppRequest, self).to_map()
@@ -184,10 +222,14 @@ class CreateAppRequest(TeaModel):
         if self.network is not None:
             for k in self.network:
                 result['network'].append(k.to_map() if k else None)
+        if self.quota_info is not None:
+            result['quotaInfo'] = self.quota_info.to_map()
         if self.region_id is not None:
             result['regionId'] = self.region_id
         if self.version is not None:
             result['version'] = self.version
+        if self.dry_run is not None:
+            result['dryRun'] = self.dry_run
         return result
 
     def from_map(self, m=None):
@@ -206,10 +248,15 @@ class CreateAppRequest(TeaModel):
             for k in m.get('network'):
                 temp_model = CreateAppRequestNetwork()
                 self.network.append(temp_model.from_map(k))
+        if m.get('quotaInfo') is not None:
+            temp_model = CreateAppRequestQuotaInfo()
+            self.quota_info = temp_model.from_map(m['quotaInfo'])
         if m.get('regionId') is not None:
             self.region_id = m.get('regionId')
         if m.get('version') is not None:
             self.version = m.get('version')
+        if m.get('dryRun') is not None:
+            self.dry_run = m.get('dryRun')
         return self
 
 
