@@ -1716,16 +1716,18 @@ class AddGatewayRequest(TeaModel):
         self.enterprise_security_group = enterprise_security_group  # type: bool
         # The ID of the secondary vSwitch.
         self.internet_slb_spec = internet_slb_spec  # type: str
-        # 网关产品类型：
-        # - mse_pro：传统实例
-        # - mse_serverless：Serverless
+        # The MSE instance type. Valid values:
+        # 
+        # *   mse_pro: ordinary instance.
+        # *   mse_serverless: serverless instance.
         self.mser_version = mser_version  # type: str
         # The ID of the region.
         self.name = name  # type: str
-        # 购买Serverless实例时指定NLB的网络类型：
-        # - pubnet：公网
-        # - privatenet：私网
-        # - privatepubnet：公网+私网
+        # The network type of the Network Load Balancer (NLB) instance when the serverless NLB instance is purchased. Valid values:
+        # 
+        # *   pubnet
+        # *   privatenet
+        # *   privatepubnet
         self.nlb_network_type = nlb_network_type  # type: str
         # The specifications of the internal-facing Server Load Balancer (SLB) instance. Valid values:
         # 
@@ -1736,14 +1738,7 @@ class AddGatewayRequest(TeaModel):
         # *   slb.s3.medium
         # *   slb.s3.large
         self.region = region  # type: str
-        # The specifications of the Internet-facing SLB instance. Valid values:
-        # 
-        # *   slb.s1.small
-        # *   slb.s2.small
-        # *   slb.s2.medium
-        # *   slb.s3.small
-        # *   slb.s3.medium
-        # *   slb.s3.large
+        # The number of nodes.
         self.replica = replica  # type: int
         # The extended field.
         self.request_pars = request_pars  # type: str
@@ -1761,7 +1756,12 @@ class AddGatewayRequest(TeaModel):
         # *   slb.s3.medium
         # *   slb.s3.large
         self.slb_spec = slb_spec  # type: str
-        # The number of nodes.
+        # The node specifications. Valid values:
+        # 
+        # *   MSE_GTW\_16\_32\_200\_c(16C32G)
+        # *   MSE_GTW\_2\_4\_200\_c(2C4G)
+        # *   MSE_GTW\_4\_8\_200\_c(4C8G)
+        # *   MSE_GTW\_8\_16\_200\_c(8C16G)
         self.spec = spec  # type: str
         # The tag object.
         self.tag = tag  # type: list[AddGatewayRequestTag]
@@ -1977,16 +1977,18 @@ class AddGatewayShrinkRequest(TeaModel):
         self.enterprise_security_group = enterprise_security_group  # type: bool
         # The ID of the secondary vSwitch.
         self.internet_slb_spec = internet_slb_spec  # type: str
-        # 网关产品类型：
-        # - mse_pro：传统实例
-        # - mse_serverless：Serverless
+        # The MSE instance type. Valid values:
+        # 
+        # *   mse_pro: ordinary instance.
+        # *   mse_serverless: serverless instance.
         self.mser_version = mser_version  # type: str
         # The ID of the region.
         self.name = name  # type: str
-        # 购买Serverless实例时指定NLB的网络类型：
-        # - pubnet：公网
-        # - privatenet：私网
-        # - privatepubnet：公网+私网
+        # The network type of the Network Load Balancer (NLB) instance when the serverless NLB instance is purchased. Valid values:
+        # 
+        # *   pubnet
+        # *   privatenet
+        # *   privatepubnet
         self.nlb_network_type = nlb_network_type  # type: str
         # The specifications of the internal-facing Server Load Balancer (SLB) instance. Valid values:
         # 
@@ -1997,14 +1999,7 @@ class AddGatewayShrinkRequest(TeaModel):
         # *   slb.s3.medium
         # *   slb.s3.large
         self.region = region  # type: str
-        # The specifications of the Internet-facing SLB instance. Valid values:
-        # 
-        # *   slb.s1.small
-        # *   slb.s2.small
-        # *   slb.s2.medium
-        # *   slb.s3.small
-        # *   slb.s3.medium
-        # *   slb.s3.large
+        # The number of nodes.
         self.replica = replica  # type: int
         # The extended field.
         self.request_pars = request_pars  # type: str
@@ -2022,7 +2017,12 @@ class AddGatewayShrinkRequest(TeaModel):
         # *   slb.s3.medium
         # *   slb.s3.large
         self.slb_spec = slb_spec  # type: str
-        # The number of nodes.
+        # The node specifications. Valid values:
+        # 
+        # *   MSE_GTW\_16\_32\_200\_c(16C32G)
+        # *   MSE_GTW\_2\_4\_200\_c(2C4G)
+        # *   MSE_GTW\_4\_8\_200\_c(4C8G)
+        # *   MSE_GTW\_8\_16\_200\_c(8C16G)
         self.spec = spec  # type: str
         # The tag object.
         self.tag = tag  # type: list[AddGatewayShrinkRequestTag]
@@ -25731,8 +25731,8 @@ class ListApplicationsWithTagRulesResponseBodyDataResultRouteRules(TeaModel):
                  tag=None):
         # Indicates whether the alert rule is enabled. Valid values:
         # 
-        # *   `true`: enabled
-        # *   `false`: disabled
+        # *   `true`
+        # *   `false`
         self.enable = enable  # type: bool
         # The rule ID.
         self.id = id  # type: long
@@ -25744,7 +25744,7 @@ class ListApplicationsWithTagRulesResponseBodyDataResultRouteRules(TeaModel):
         self.rate = rate  # type: int
         # The details of the routing rule.
         self.rules = rules  # type: ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRules
-        # The status of the application.
+        # The status.
         self.status = status  # type: int
         # The tag.
         self.tag = tag  # type: str
@@ -25807,7 +25807,7 @@ class ListApplicationsWithTagRulesResponseBodyDataResult(TeaModel):
         self.app_name = app_name  # type: str
         # The MSE namespace to which the application belongs.
         self.namespace = namespace  # type: str
-        # The details of the rule.
+        # The queried rules.
         self.route_rules = route_rules  # type: list[ListApplicationsWithTagRulesResponseBodyDataResultRouteRules]
         # The route state. Valid values:
         # 
@@ -25865,7 +25865,7 @@ class ListApplicationsWithTagRulesResponseBodyData(TeaModel):
         self.page_number = page_number  # type: int
         # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The data returned.
+        # The returned data.
         self.result = result  # type: list[ListApplicationsWithTagRulesResponseBodyDataResult]
         # The total number of entries returned.
         self.total_size = total_size  # type: int
@@ -25912,7 +25912,7 @@ class ListApplicationsWithTagRulesResponseBodyData(TeaModel):
 
 class ListApplicationsWithTagRulesResponseBody(TeaModel):
     def __init__(self, data=None, http_status_code=None, message=None, request_id=None, success=None):
-        # The details of the data.
+        # The response parameters.
         self.data = data  # type: ListApplicationsWithTagRulesResponseBodyData
         # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
@@ -27998,11 +27998,40 @@ class ListClustersRequest(TeaModel):
         return self
 
 
+class ListClustersResponseBodyDataMaintenancePeriod(TeaModel):
+    def __init__(self, end_time=None, start_time=None):
+        self.end_time = end_time  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListClustersResponseBodyDataMaintenancePeriod, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
 class ListClustersResponseBodyData(TeaModel):
     def __init__(self, app_version=None, can_update=None, charge_type=None, cluster_alias_name=None,
                  cluster_name=None, cluster_type=None, create_time=None, end_date=None, init_status=None, instance_count=None,
                  instance_id=None, internet_address=None, internet_domain=None, intranet_address=None, intranet_domain=None,
-                 mse_version=None, resource_group_id=None, tags=None, version_code=None, vpc_id=None):
+                 maintenance_period=None, mse_version=None, resource_group_id=None, tags=None, version_code=None, vpc_id=None):
         # The application version.
         self.app_version = app_version  # type: str
         # Indicates whether the instance can be upgraded.
@@ -28033,6 +28062,7 @@ class ListClustersResponseBodyData(TeaModel):
         self.intranet_address = intranet_address  # type: str
         # The internal endpoint.
         self.intranet_domain = intranet_domain  # type: str
+        self.maintenance_period = maintenance_period  # type: ListClustersResponseBodyDataMaintenancePeriod
         # The edition of the cluster.
         self.mse_version = mse_version  # type: str
         # The ID of the resource group to which the instance belongs.
@@ -28044,7 +28074,8 @@ class ListClustersResponseBodyData(TeaModel):
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
-        pass
+        if self.maintenance_period:
+            self.maintenance_period.validate()
 
     def to_map(self):
         _map = super(ListClustersResponseBodyData, self).to_map()
@@ -28082,6 +28113,8 @@ class ListClustersResponseBodyData(TeaModel):
             result['IntranetAddress'] = self.intranet_address
         if self.intranet_domain is not None:
             result['IntranetDomain'] = self.intranet_domain
+        if self.maintenance_period is not None:
+            result['MaintenancePeriod'] = self.maintenance_period.to_map()
         if self.mse_version is not None:
             result['MseVersion'] = self.mse_version
         if self.resource_group_id is not None:
@@ -28126,6 +28159,9 @@ class ListClustersResponseBodyData(TeaModel):
             self.intranet_address = m.get('IntranetAddress')
         if m.get('IntranetDomain') is not None:
             self.intranet_domain = m.get('IntranetDomain')
+        if m.get('MaintenancePeriod') is not None:
+            temp_model = ListClustersResponseBodyDataMaintenancePeriod()
+            self.maintenance_period = temp_model.from_map(m['MaintenancePeriod'])
         if m.get('MseVersion') is not None:
             self.mse_version = m.get('MseVersion')
         if m.get('ResourceGroupId') is not None:
@@ -30155,8 +30191,11 @@ class ListGatewayShrinkRequest(TeaModel):
 
 class ListGatewayResponseBodyDataResultElasticPolicyTimePolicyList(TeaModel):
     def __init__(self, desired_replica=None, end_time=None, start_time=None):
+        # The expected number of replicas for auto scale-out.
         self.desired_replica = desired_replica  # type: int
+        # The end time of auto scale-out.
         self.end_time = end_time  # type: str
+        # The start time of auto scale-out.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -30189,9 +30228,15 @@ class ListGatewayResponseBodyDataResultElasticPolicyTimePolicyList(TeaModel):
 
 class ListGatewayResponseBodyDataResultElasticPolicy(TeaModel):
     def __init__(self, elastic=None, elastic_type=None, max_replica=None, time_policy_list=None):
+        # Indicates whether auto scale-out is enabled.
         self.elastic = elastic  # type: bool
+        # The type of auto scale-out. Valid value:
+        # 
+        # *   CronHPA: scale-out by time
         self.elastic_type = elastic_type  # type: str
+        # The maximum number of instances that are automatically scaled out. This parameter is used for horizontal scale-out.
         self.max_replica = max_replica  # type: int
+        # The time policy list for auto scale-out.
         self.time_policy_list = time_policy_list  # type: list[ListGatewayResponseBodyDataResultElasticPolicyTimePolicyList]
 
     def validate(self):
@@ -30390,7 +30435,10 @@ class ListGatewayResponseBodyDataResultSlb(TeaModel):
         self.slb_spec = slb_spec  # type: str
         # The description of the state.
         self.status_desc = status_desc  # type: str
-        # Indicates whether the instance was deployed on the public network or internal network.
+        # The network type. Valid values:
+        # 
+        # *   PUB_NET
+        # *   PRIVATE_NET
         self.type = type  # type: str
 
     def validate(self):
@@ -30459,10 +30507,17 @@ class ListGatewayResponseBodyDataResult(TeaModel):
         self.charge_type = charge_type  # type: str
         # The current version of the gateway.
         self.current_version = current_version  # type: str
+        # Indicates whether auto scale-out is enabled.
         self.elastic = elastic  # type: bool
+        # The ID of the elastic gateway. This parameter is returned if auto scale-out is used.
         self.elastic_instance_id = elastic_instance_id  # type: str
+        # The auto scale-out policy.
         self.elastic_policy = elastic_policy  # type: ListGatewayResponseBodyDataResultElasticPolicy
+        # The number of replicas that are automatically scaled out.
         self.elastic_replica = elastic_replica  # type: int
+        # The type of auto scale-out. Valid value:
+        # 
+        # *   CronHPA: scale-out by time
         self.elastic_type = elastic_type  # type: str
         # The time when the instance expires.
         self.end_date = end_date  # type: str
@@ -30496,11 +30551,11 @@ class ListGatewayResponseBodyDataResult(TeaModel):
         self.name = name  # type: str
         # The user information.
         self.primary_user = primary_user  # type: str
-        # The region in which the gateway resides.
+        # The region ID.
         self.region = region  # type: str
         # The number of replicas.
         self.replica = replica  # type: int
-        # The ID of the resource group.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
         # Indicates whether rollbacks are allowed.
         self.roll_back = roll_back  # type: bool
@@ -30514,8 +30569,8 @@ class ListGatewayResponseBodyDataResult(TeaModel):
         # *   1: The gateway failed to be created.
         # *   2: The gateway is running.
         # *   3: The gateway is being changed.
-        # *   4: The gateway is scaling down.
-        # *   6: The gateway is scaling up.
+        # *   4: The gateway is scaling in.
+        # *   6: The gateway is scaling out.
         # *   8: The gateway is being deleted.
         # *   9: The gateway is suspended and is to be released.
         # *   10: The gateway is restarting.
@@ -30529,9 +30584,11 @@ class ListGatewayResponseBodyDataResult(TeaModel):
         self.support_wasm = support_wasm  # type: bool
         # The tag.
         self.tag = tag  # type: str
+        # The total number of replicas, including the number of replicas that are automatically scaled out.
         self.total_replica = total_replica  # type: int
         # Indicates whether the instance was upgraded.
         self.upgrade = upgrade  # type: bool
+        # The ID of the virtual private cloud (VPC) to which the gateway belongs.
         self.vpc_id = vpc_id  # type: str
         # The ID of the secondary vSwitch.
         self.vswitch_2 = vswitch_2  # type: str
@@ -41283,11 +41340,11 @@ class QueryConfigResponseBodyDataNacosRunningEnv(TeaModel):
 class QueryConfigResponseBodyData(TeaModel):
     def __init__(self, autopurge_purge_interval=None, autopurge_snap_retain_count=None, cluster_name=None,
                  config_auth_enabled=None, config_auth_supported=None, config_content_limit=None, config_secret_enabled=None,
-                 config_secret_supported=None, eureka_supported=None, extended_types_enable=None, init_limit=None, jute_maxbuffer=None,
-                 jvm_flags_custom=None, mcpenabled=None, mcpsupported=None, max_client_cnxns=None, max_session_timeout=None,
-                 min_session_timeout=None, nacos_running_env=None, naming_auth_enabled=None, naming_auth_supported=None,
-                 naming_create_service_supported=None, open_super_acl=None, pass_word=None, restart_flag=None, snapshot_count=None, sync_limit=None,
-                 tlsenabled=None, tick_time=None, user_name=None):
+                 config_secret_supported=None, console_uienabled=None, eureka_supported=None, extended_types_enable=None, init_limit=None,
+                 jute_maxbuffer=None, jvm_flags_custom=None, mcpenabled=None, mcpsupported=None, max_client_cnxns=None,
+                 max_session_timeout=None, min_session_timeout=None, nacos_running_env=None, naming_auth_enabled=None,
+                 naming_auth_supported=None, naming_create_service_supported=None, open_super_acl=None, pass_word=None,
+                 restart_flag=None, snapshot_count=None, sync_limit=None, tlsenabled=None, tick_time=None, user_name=None):
         # A reserved parameter.
         self.autopurge_purge_interval = autopurge_purge_interval  # type: str
         # A reserved parameter.
@@ -41316,6 +41373,7 @@ class QueryConfigResponseBodyData(TeaModel):
         # *   `true`: supported.
         # *   `false`: not supported.
         self.config_secret_supported = config_secret_supported  # type: bool
+        self.console_uienabled = console_uienabled  # type: bool
         # Indicates whether access port 8761 was enabled for Eureka. If this port is disabled, applications cannot use the Eureka protocol for service registration and discovery.
         self.eureka_supported = eureka_supported  # type: bool
         # Indicates whether the time to live (TTL) configuration is enabled. This parameter is valid for ZooKeeper instances.
@@ -41409,6 +41467,8 @@ class QueryConfigResponseBodyData(TeaModel):
             result['ConfigSecretEnabled'] = self.config_secret_enabled
         if self.config_secret_supported is not None:
             result['ConfigSecretSupported'] = self.config_secret_supported
+        if self.console_uienabled is not None:
+            result['ConsoleUIEnabled'] = self.console_uienabled
         if self.eureka_supported is not None:
             result['EurekaSupported'] = self.eureka_supported
         if self.extended_types_enable is not None:
@@ -41473,6 +41533,8 @@ class QueryConfigResponseBodyData(TeaModel):
             self.config_secret_enabled = m.get('ConfigSecretEnabled')
         if m.get('ConfigSecretSupported') is not None:
             self.config_secret_supported = m.get('ConfigSecretSupported')
+        if m.get('ConsoleUIEnabled') is not None:
+            self.console_uienabled = m.get('ConsoleUIEnabled')
         if m.get('EurekaSupported') is not None:
             self.eureka_supported = m.get('EurekaSupported')
         if m.get('ExtendedTypesEnable') is not None:
@@ -45674,8 +45736,8 @@ class UpdateClusterSpecResponse(TeaModel):
 class UpdateConfigRequest(TeaModel):
     def __init__(self, accept_language=None, autopurge_purge_interval=None, autopurge_snap_retain_count=None,
                  cluster_id=None, config_auth_enabled=None, config_secret_enabled=None, config_type=None,
-                 eureka_supported=None, extended_types_enable=None, init_limit=None, instance_id=None, jute_maxbuffer=None,
-                 mcpenabled=None, max_client_cnxns=None, max_session_timeout=None, min_session_timeout=None,
+                 console_uienabled=None, eureka_supported=None, extended_types_enable=None, init_limit=None, instance_id=None,
+                 jute_maxbuffer=None, mcpenabled=None, max_client_cnxns=None, max_session_timeout=None, min_session_timeout=None,
                  naming_auth_enabled=None, open_super_acl=None, pass_word=None, request_pars=None, snapshot_count=None, sync_limit=None,
                  tlsenabled=None, tick_time=None, user_name=None):
         # The language of the response. Valid values:
@@ -45705,6 +45767,7 @@ class UpdateConfigRequest(TeaModel):
         self.config_secret_enabled = config_secret_enabled  # type: bool
         # The format of the configuration. Supported formats include TEXT, JSON, XML, and HTML.
         self.config_type = config_type  # type: str
+        self.console_uienabled = console_uienabled  # type: bool
         self.eureka_supported = eureka_supported  # type: bool
         # Specifies whether to enable the time to live (TTL) configuration. This parameter is valid for ZooKeeper instances.
         self.extended_types_enable = extended_types_enable  # type: str
@@ -45781,6 +45844,8 @@ class UpdateConfigRequest(TeaModel):
             result['ConfigSecretEnabled'] = self.config_secret_enabled
         if self.config_type is not None:
             result['ConfigType'] = self.config_type
+        if self.console_uienabled is not None:
+            result['ConsoleUIEnabled'] = self.console_uienabled
         if self.eureka_supported is not None:
             result['EurekaSupported'] = self.eureka_supported
         if self.extended_types_enable is not None:
@@ -45835,6 +45900,8 @@ class UpdateConfigRequest(TeaModel):
             self.config_secret_enabled = m.get('ConfigSecretEnabled')
         if m.get('ConfigType') is not None:
             self.config_type = m.get('ConfigType')
+        if m.get('ConsoleUIEnabled') is not None:
+            self.console_uienabled = m.get('ConsoleUIEnabled')
         if m.get('EurekaSupported') is not None:
             self.eureka_supported = m.get('EurekaSupported')
         if m.get('ExtendedTypesEnable') is not None:
@@ -51092,17 +51159,32 @@ class UpdateGatewayServiceCheckRequest(TeaModel):
     def __init__(self, accept_language=None, check=None, expected_statuses=None, gateway_unique_id=None,
                  healthy_threshold=None, http_host=None, http_path=None, interval=None, protocol=None, service_id=None, timeout=None,
                  unhealthy_threshold=None):
+        # The language in which you want to display the results. Valid values: zh and en. zh indicates Chinese, which is the default value. en indicates English.
         self.accept_language = accept_language  # type: str
+        # Specifies whether to enable the health check.
         self.check = check  # type: bool
+        # The expected status code, which is required if the health check protocol is HTTP.
         self.expected_statuses = expected_statuses  # type: list[int]
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The healthy threshold of the health check.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The health check domain name, which is optional if the health check protocol is HTTP.
         self.http_host = http_host  # type: str
+        # The health check path, which is required if the health check protocol is HTTP.
         self.http_path = http_path  # type: str
+        # The interval at which the health check is performed.
         self.interval = interval  # type: int
+        # The health check protocol. Valid values:
+        # 
+        # *   HTTP
+        # *   TCP
         self.protocol = protocol  # type: str
+        # The ID of the service.
         self.service_id = service_id  # type: str
+        # The timeout period of responses to the health check. Unit: seconds.
         self.timeout = timeout  # type: int
+        # The unhealthy threshold of the health check.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -51173,17 +51255,32 @@ class UpdateGatewayServiceCheckShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, check=None, expected_statuses_shrink=None, gateway_unique_id=None,
                  healthy_threshold=None, http_host=None, http_path=None, interval=None, protocol=None, service_id=None, timeout=None,
                  unhealthy_threshold=None):
+        # The language in which you want to display the results. Valid values: zh and en. zh indicates Chinese, which is the default value. en indicates English.
         self.accept_language = accept_language  # type: str
+        # Specifies whether to enable the health check.
         self.check = check  # type: bool
+        # The expected status code, which is required if the health check protocol is HTTP.
         self.expected_statuses_shrink = expected_statuses_shrink  # type: str
+        # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
+        # The healthy threshold of the health check.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The health check domain name, which is optional if the health check protocol is HTTP.
         self.http_host = http_host  # type: str
+        # The health check path, which is required if the health check protocol is HTTP.
         self.http_path = http_path  # type: str
+        # The interval at which the health check is performed.
         self.interval = interval  # type: int
+        # The health check protocol. Valid values:
+        # 
+        # *   HTTP
+        # *   TCP
         self.protocol = protocol  # type: str
+        # The ID of the service.
         self.service_id = service_id  # type: str
+        # The timeout period of responses to the health check. Unit: seconds.
         self.timeout = timeout  # type: int
+        # The unhealthy threshold of the health check.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -51252,11 +51349,17 @@ class UpdateGatewayServiceCheckShrinkRequest(TeaModel):
 
 class UpdateGatewayServiceCheckResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The response code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
+        # The service ID of the operation.
         self.data = data  # type: long
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The message returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values: true and false.
         self.success = success  # type: bool
 
     def validate(self):
