@@ -5635,6 +5635,516 @@ class DescribeBackupsResponse(TeaModel):
         return self
 
 
+class DescribeClusterBackupsRequest(TeaModel):
+    def __init__(self, backup_id=None, dbinstance_id=None, end_time=None, is_only_get_cluster_back_up=None,
+                 owner_account=None, owner_id=None, page_no=None, page_size=None, resource_owner_account=None,
+                 resource_owner_id=None, security_token=None, start_time=None):
+        self.backup_id = backup_id  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.end_time = end_time  # type: str
+        self.is_only_get_cluster_back_up = is_only_get_cluster_back_up  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.security_token = security_token  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterBackupsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.backup_id is not None:
+            result['BackupId'] = self.backup_id
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.is_only_get_cluster_back_up is not None:
+            result['IsOnlyGetClusterBackUp'] = self.is_only_get_cluster_back_up
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BackupId') is not None:
+            self.backup_id = m.get('BackupId')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('IsOnlyGetClusterBackUp') is not None:
+            self.is_only_get_cluster_back_up = m.get('IsOnlyGetClusterBackUp')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class DescribeClusterBackupsResponseBodyClusterBackupsBackups(TeaModel):
+    def __init__(self, backup_download_url=None, backup_end_time=None, backup_id=None,
+                 backup_intranet_download_url=None, backup_name=None, backup_size=None, backup_start_time=None, backup_status=None,
+                 instance_name=None, is_avail=None):
+        self.backup_download_url = backup_download_url  # type: str
+        self.backup_end_time = backup_end_time  # type: str
+        self.backup_id = backup_id  # type: str
+        self.backup_intranet_download_url = backup_intranet_download_url  # type: str
+        self.backup_name = backup_name  # type: str
+        self.backup_size = backup_size  # type: str
+        self.backup_start_time = backup_start_time  # type: str
+        self.backup_status = backup_status  # type: str
+        self.instance_name = instance_name  # type: str
+        self.is_avail = is_avail  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterBackupsResponseBodyClusterBackupsBackups, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.backup_download_url is not None:
+            result['BackupDownloadURL'] = self.backup_download_url
+        if self.backup_end_time is not None:
+            result['BackupEndTime'] = self.backup_end_time
+        if self.backup_id is not None:
+            result['BackupId'] = self.backup_id
+        if self.backup_intranet_download_url is not None:
+            result['BackupIntranetDownloadURL'] = self.backup_intranet_download_url
+        if self.backup_name is not None:
+            result['BackupName'] = self.backup_name
+        if self.backup_size is not None:
+            result['BackupSize'] = self.backup_size
+        if self.backup_start_time is not None:
+            result['BackupStartTime'] = self.backup_start_time
+        if self.backup_status is not None:
+            result['BackupStatus'] = self.backup_status
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
+        if self.is_avail is not None:
+            result['IsAvail'] = self.is_avail
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BackupDownloadURL') is not None:
+            self.backup_download_url = m.get('BackupDownloadURL')
+        if m.get('BackupEndTime') is not None:
+            self.backup_end_time = m.get('BackupEndTime')
+        if m.get('BackupId') is not None:
+            self.backup_id = m.get('BackupId')
+        if m.get('BackupIntranetDownloadURL') is not None:
+            self.backup_intranet_download_url = m.get('BackupIntranetDownloadURL')
+        if m.get('BackupName') is not None:
+            self.backup_name = m.get('BackupName')
+        if m.get('BackupSize') is not None:
+            self.backup_size = m.get('BackupSize')
+        if m.get('BackupStartTime') is not None:
+            self.backup_start_time = m.get('BackupStartTime')
+        if m.get('BackupStatus') is not None:
+            self.backup_status = m.get('BackupStatus')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
+        if m.get('IsAvail') is not None:
+            self.is_avail = m.get('IsAvail')
+        return self
+
+
+class DescribeClusterBackupsResponseBodyClusterBackupsExtraInfo(TeaModel):
+    def __init__(self, registry_from_history=None):
+        self.registry_from_history = registry_from_history  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterBackupsResponseBodyClusterBackupsExtraInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.registry_from_history is not None:
+            result['RegistryFromHistory'] = self.registry_from_history
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegistryFromHistory') is not None:
+            self.registry_from_history = m.get('RegistryFromHistory')
+        return self
+
+
+class DescribeClusterBackupsResponseBodyClusterBackups(TeaModel):
+    def __init__(self, backups=None, cluster_backup_end_time=None, cluster_backup_id=None,
+                 cluster_backup_mode=None, cluster_backup_size=None, cluster_backup_start_time=None, cluster_backup_status=None,
+                 extra_info=None, is_avail=None, progress=None):
+        self.backups = backups  # type: list[DescribeClusterBackupsResponseBodyClusterBackupsBackups]
+        self.cluster_backup_end_time = cluster_backup_end_time  # type: str
+        self.cluster_backup_id = cluster_backup_id  # type: str
+        self.cluster_backup_mode = cluster_backup_mode  # type: str
+        self.cluster_backup_size = cluster_backup_size  # type: str
+        self.cluster_backup_start_time = cluster_backup_start_time  # type: str
+        self.cluster_backup_status = cluster_backup_status  # type: str
+        self.extra_info = extra_info  # type: DescribeClusterBackupsResponseBodyClusterBackupsExtraInfo
+        self.is_avail = is_avail  # type: int
+        self.progress = progress  # type: str
+
+    def validate(self):
+        if self.backups:
+            for k in self.backups:
+                if k:
+                    k.validate()
+        if self.extra_info:
+            self.extra_info.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterBackupsResponseBodyClusterBackups, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Backups'] = []
+        if self.backups is not None:
+            for k in self.backups:
+                result['Backups'].append(k.to_map() if k else None)
+        if self.cluster_backup_end_time is not None:
+            result['ClusterBackupEndTime'] = self.cluster_backup_end_time
+        if self.cluster_backup_id is not None:
+            result['ClusterBackupId'] = self.cluster_backup_id
+        if self.cluster_backup_mode is not None:
+            result['ClusterBackupMode'] = self.cluster_backup_mode
+        if self.cluster_backup_size is not None:
+            result['ClusterBackupSize'] = self.cluster_backup_size
+        if self.cluster_backup_start_time is not None:
+            result['ClusterBackupStartTime'] = self.cluster_backup_start_time
+        if self.cluster_backup_status is not None:
+            result['ClusterBackupStatus'] = self.cluster_backup_status
+        if self.extra_info is not None:
+            result['ExtraInfo'] = self.extra_info.to_map()
+        if self.is_avail is not None:
+            result['IsAvail'] = self.is_avail
+        if self.progress is not None:
+            result['Progress'] = self.progress
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.backups = []
+        if m.get('Backups') is not None:
+            for k in m.get('Backups'):
+                temp_model = DescribeClusterBackupsResponseBodyClusterBackupsBackups()
+                self.backups.append(temp_model.from_map(k))
+        if m.get('ClusterBackupEndTime') is not None:
+            self.cluster_backup_end_time = m.get('ClusterBackupEndTime')
+        if m.get('ClusterBackupId') is not None:
+            self.cluster_backup_id = m.get('ClusterBackupId')
+        if m.get('ClusterBackupMode') is not None:
+            self.cluster_backup_mode = m.get('ClusterBackupMode')
+        if m.get('ClusterBackupSize') is not None:
+            self.cluster_backup_size = m.get('ClusterBackupSize')
+        if m.get('ClusterBackupStartTime') is not None:
+            self.cluster_backup_start_time = m.get('ClusterBackupStartTime')
+        if m.get('ClusterBackupStatus') is not None:
+            self.cluster_backup_status = m.get('ClusterBackupStatus')
+        if m.get('ExtraInfo') is not None:
+            temp_model = DescribeClusterBackupsResponseBodyClusterBackupsExtraInfo()
+            self.extra_info = temp_model.from_map(m['ExtraInfo'])
+        if m.get('IsAvail') is not None:
+            self.is_avail = m.get('IsAvail')
+        if m.get('Progress') is not None:
+            self.progress = m.get('Progress')
+        return self
+
+
+class DescribeClusterBackupsResponseBody(TeaModel):
+    def __init__(self, cluster_backups=None, max_results=None, page_number=None, page_size=None, request_id=None):
+        self.cluster_backups = cluster_backups  # type: list[DescribeClusterBackupsResponseBodyClusterBackups]
+        self.max_results = max_results  # type: int
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.cluster_backups:
+            for k in self.cluster_backups:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterBackupsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ClusterBackups'] = []
+        if self.cluster_backups is not None:
+            for k in self.cluster_backups:
+                result['ClusterBackups'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.cluster_backups = []
+        if m.get('ClusterBackups') is not None:
+            for k in m.get('ClusterBackups'):
+                temp_model = DescribeClusterBackupsResponseBodyClusterBackups()
+                self.cluster_backups.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeClusterBackupsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeClusterBackupsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterBackupsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeClusterBackupsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeClusterRecoverTimeRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None, security_token=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterRecoverTimeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class DescribeClusterRecoverTimeResponseBodyRestoreRanges(TeaModel):
+    def __init__(self, restore_begin_time=None, restore_end_time=None, restore_type=None):
+        self.restore_begin_time = restore_begin_time  # type: str
+        self.restore_end_time = restore_end_time  # type: str
+        self.restore_type = restore_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterRecoverTimeResponseBodyRestoreRanges, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.restore_begin_time is not None:
+            result['RestoreBeginTime'] = self.restore_begin_time
+        if self.restore_end_time is not None:
+            result['RestoreEndTime'] = self.restore_end_time
+        if self.restore_type is not None:
+            result['RestoreType'] = self.restore_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RestoreBeginTime') is not None:
+            self.restore_begin_time = m.get('RestoreBeginTime')
+        if m.get('RestoreEndTime') is not None:
+            self.restore_end_time = m.get('RestoreEndTime')
+        if m.get('RestoreType') is not None:
+            self.restore_type = m.get('RestoreType')
+        return self
+
+
+class DescribeClusterRecoverTimeResponseBody(TeaModel):
+    def __init__(self, request_id=None, restore_ranges=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.restore_ranges = restore_ranges  # type: list[DescribeClusterRecoverTimeResponseBodyRestoreRanges]
+
+    def validate(self):
+        if self.restore_ranges:
+            for k in self.restore_ranges:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterRecoverTimeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['RestoreRanges'] = []
+        if self.restore_ranges is not None:
+            for k in self.restore_ranges:
+                result['RestoreRanges'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.restore_ranges = []
+        if m.get('RestoreRanges') is not None:
+            for k in m.get('RestoreRanges'):
+                temp_model = DescribeClusterRecoverTimeResponseBodyRestoreRanges()
+                self.restore_ranges.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeClusterRecoverTimeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeClusterRecoverTimeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterRecoverTimeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeClusterRecoverTimeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDBInstanceAttributeRequest(TeaModel):
     def __init__(self, dbinstance_id=None, engine=None, is_delete=None, owner_account=None, owner_id=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None, security_token=None):
@@ -20496,6 +21006,124 @@ class TagResourcesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = TagResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class TransferClusterBackupRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None, security_token=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TransferClusterBackupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class TransferClusterBackupResponseBody(TeaModel):
+    def __init__(self, already_done=None, request_id=None):
+        self.already_done = already_done  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TransferClusterBackupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.already_done is not None:
+            result['AlreadyDone'] = self.already_done
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlreadyDone') is not None:
+            self.already_done = m.get('AlreadyDone')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class TransferClusterBackupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: TransferClusterBackupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TransferClusterBackupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = TransferClusterBackupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
