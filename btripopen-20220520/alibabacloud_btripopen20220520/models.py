@@ -13404,6 +13404,7 @@ class CostCenterSaveResponseBody(TeaModel):
         self.module = module  # type: CostCenterSaveResponseBodyModule
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
+        # traceId
         self.trace_id = trace_id  # type: str
 
     def validate(self):
@@ -15632,15 +15633,15 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  corp_pay_order_fee=None, corp_settle_price=None, cost_center=None, cost_center_number=None, coupon=None,
                  dep_airport_code=None, dep_city_code=None, department=None, department_id=None, dept_city=None, dept_date=None,
                  dept_station=None, dept_time=None, discount=None, exceed_reason=None, fee_type=None, flight_no=None, index=None,
-                 ins_order_id=None, insurance_fee=None, insurance_number=None, invoice_title=None, itinerary_num=None,
-                 itinerary_price=None, mileage=None, most_difference_dept_time=None, most_difference_discount=None,
-                 most_difference_flight_no=None, most_difference_price=None, most_difference_reason=None, most_price=None,
-                 negotiation_coupon_fee=None, oil_fee=None, order_id=None, over_apply_id=None, person_settle_price=None, pre_book_tip=None,
-                 primary_id=None, project_code=None, project_name=None, refund_fee=None, refund_result=None,
-                 refund_upgrade_cost=None, remark=None, repeat_refund=None, seal_price=None, service_fee=None, settlement_fee=None,
-                 settlement_grant_fee=None, settlement_time=None, settlement_type=None, status=None, tax_rate=None,
-                 third_itinerary_id=None, ticket_id=None, trade=None, traveler_id=None, traveler_job_no=None,
-                 traveler_member_type_name=None, traveler_name=None, upgrade_cost=None, voucher_type=None):
+                 ins_order_id=None, insurance_fee=None, insurance_number=None, invoice_title=None, item_type=None,
+                 itinerary_num=None, itinerary_price=None, mileage=None, most_difference_dept_time=None,
+                 most_difference_discount=None, most_difference_flight_no=None, most_difference_price=None, most_difference_reason=None,
+                 most_price=None, negotiation_coupon_fee=None, oil_fee=None, order_id=None, over_apply_id=None,
+                 person_settle_price=None, pre_book_tip=None, primary_id=None, project_code=None, project_name=None, refund_fee=None,
+                 refund_result=None, refund_upgrade_cost=None, remark=None, repeat_refund=None, seal_price=None, service_fee=None,
+                 settlement_fee=None, settlement_grant_fee=None, settlement_time=None, settlement_type=None, status=None,
+                 tax_rate=None, third_itinerary_id=None, ticket_id=None, trade=None, traveler_id=None, traveler_job_no=None,
+                 traveler_member_type_name=None, traveler_name=None, upgrade_cost=None, voucher_type=None, voyage_name=None):
         self.advance_day = advance_day  # type: int
         self.airline_corp_code = airline_corp_code  # type: str
         self.airline_corp_name = airline_corp_name  # type: str
@@ -15694,6 +15695,7 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.insurance_fee = insurance_fee  # type: float
         self.insurance_number = insurance_number  # type: str
         self.invoice_title = invoice_title  # type: str
+        self.item_type = item_type  # type: str
         self.itinerary_num = itinerary_num  # type: str
         self.itinerary_price = itinerary_price  # type: float
         self.mileage = mileage  # type: str
@@ -15735,6 +15737,7 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.traveler_name = traveler_name  # type: str
         self.upgrade_cost = upgrade_cost  # type: float
         self.voucher_type = voucher_type  # type: int
+        self.voyage_name = voyage_name  # type: str
 
     def validate(self):
         pass
@@ -15849,6 +15852,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['insurance_number'] = self.insurance_number
         if self.invoice_title is not None:
             result['invoice_title'] = self.invoice_title
+        if self.item_type is not None:
+            result['item_type'] = self.item_type
         if self.itinerary_num is not None:
             result['itinerary_num'] = self.itinerary_num
         if self.itinerary_price is not None:
@@ -15929,6 +15934,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['upgrade_cost'] = self.upgrade_cost
         if self.voucher_type is not None:
             result['voucher_type'] = self.voucher_type
+        if self.voyage_name is not None:
+            result['voyage_name'] = self.voyage_name
         return result
 
     def from_map(self, m=None):
@@ -16037,6 +16044,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.insurance_number = m.get('insurance_number')
         if m.get('invoice_title') is not None:
             self.invoice_title = m.get('invoice_title')
+        if m.get('item_type') is not None:
+            self.item_type = m.get('item_type')
         if m.get('itinerary_num') is not None:
             self.itinerary_num = m.get('itinerary_num')
         if m.get('itinerary_price') is not None:
@@ -16117,6 +16126,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.upgrade_cost = m.get('upgrade_cost')
         if m.get('voucher_type') is not None:
             self.voucher_type = m.get('voucher_type')
+        if m.get('voyage_name') is not None:
+            self.voyage_name = m.get('voyage_name')
         return self
 
 
@@ -17567,9 +17578,12 @@ class FlightCreateOrderV2ResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
         self.code = code  # type: str
         self.message = message  # type: str
+        # module
         self.module = module  # type: FlightCreateOrderV2ResponseBodyModule
+        # requestId
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
+        # traceId
         self.trace_id = trace_id  # type: str
 
     def validate(self):
@@ -41800,9 +41814,10 @@ class GroupUserSaveHeaders(TeaModel):
 
 
 class GroupUserSaveRequestSubCorpIdList(TeaModel):
-    def __init__(self, depart_ids=None, leave_status=None, manager_user_id=None, position_level=None,
+    def __init__(self, depart_ids=None, email=None, leave_status=None, manager_user_id=None, position_level=None,
                  sub_corp_id=None):
         self.depart_ids = depart_ids  # type: list[str]
+        self.email = email  # type: str
         self.leave_status = leave_status  # type: int
         self.manager_user_id = manager_user_id  # type: str
         self.position_level = position_level  # type: str
@@ -41819,6 +41834,8 @@ class GroupUserSaveRequestSubCorpIdList(TeaModel):
         result = dict()
         if self.depart_ids is not None:
             result['depart_ids'] = self.depart_ids
+        if self.email is not None:
+            result['email'] = self.email
         if self.leave_status is not None:
             result['leave_status'] = self.leave_status
         if self.manager_user_id is not None:
@@ -41833,6 +41850,8 @@ class GroupUserSaveRequestSubCorpIdList(TeaModel):
         m = m or dict()
         if m.get('depart_ids') is not None:
             self.depart_ids = m.get('depart_ids')
+        if m.get('email') is not None:
+            self.email = m.get('email')
         if m.get('leave_status') is not None:
             self.leave_status = m.get('leave_status')
         if m.get('manager_user_id') is not None:
