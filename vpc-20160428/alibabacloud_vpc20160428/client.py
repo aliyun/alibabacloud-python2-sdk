@@ -78,7 +78,7 @@ class Client(OpenApiClient):
 
     def activate_router_interface_with_options(self, request, runtime):
         """
-        After you call this operation, the router interface enters the *Activating** state. After the router interface is activated, it enters the **Active** state.
+        、After you call this operation, the router interface enters the *Activating** state. After the router interface is activated, it enters the **Active** state.
         >  You cannot activate a router interface that has overdue payments.
         
 
@@ -121,7 +121,7 @@ class Client(OpenApiClient):
 
     def activate_router_interface(self, request):
         """
-        After you call this operation, the router interface enters the *Activating** state. After the router interface is activated, it enters the **Active** state.
+        、After you call this operation, the router interface enters the *Activating** state. After the router interface is activated, it enters the **Active** state.
         >  You cannot activate a router interface that has overdue payments.
         
 
@@ -1485,6 +1485,8 @@ class Client(OpenApiClient):
             query['DryRun'] = request.dry_run
         if not UtilClient.is_unset(request.gateway_id):
             query['GatewayId'] = request.gateway_id
+        if not UtilClient.is_unset(request.gateway_type):
+            query['GatewayType'] = request.gateway_type
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -2801,6 +2803,18 @@ class Client(OpenApiClient):
         return self.create_default_vpc_with_options(request, runtime)
 
     def create_dhcp_options_set_with_options(self, request, runtime):
+        """
+        **CreateDhcpOptionsSet** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call [GetDhcpOptionsSet](~~448820~~) to query the status of the task.
+        *   If the vSwitch is in the **Pending** state, the DHCP options set is being configured.
+        *   If the vSwitch is in the **Available** state, the DHCP options set is available.
+        
+
+        @param request: CreateDhcpOptionsSetRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDhcpOptionsSetResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2853,6 +2867,16 @@ class Client(OpenApiClient):
         )
 
     def create_dhcp_options_set(self, request):
+        """
+        **CreateDhcpOptionsSet** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call [GetDhcpOptionsSet](~~448820~~) to query the status of the task.
+        *   If the vSwitch is in the **Pending** state, the DHCP options set is being configured.
+        *   If the vSwitch is in the **Available** state, the DHCP options set is available.
+        
+
+        @param request: CreateDhcpOptionsSetRequest
+
+        @return: CreateDhcpOptionsSetResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_dhcp_options_set_with_options(request, runtime)
 
@@ -8044,11 +8068,11 @@ class Client(OpenApiClient):
     def delete_route_entries_with_options(self, request, runtime):
         """
         When you call this operation, take note of the following items:
-        *   You can delete only route entries that are in the **Available** state.
-        *   You cannot delete a route entry of a virtual private cloud (VPC) in which a vSwitch or another route entry is being created or deleted.
-        *   **DeleteRouteEntries** is an asynchronous operation. After you call this operation, the system returns a request ID and runs the task in the background. You can call the [DescribeRouteEntryList](~~138148~~) operation to query the status of a route entry.
-        *   If the route entry is in the **Deleting** state, the route entry is being deleted.
-        *   If you cannot query the route entry, the route entry is deleted.
+        *   You can delete only routes that are in the **Available** state.
+        *   You cannot delete a route of a virtual private cloud (VPC) in which a vSwitch or another route is being created or deleted.
+        *   **DeleteRouteEntries** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeRouteEntryList](~~138148~~) operation to query the status of the task.
+        *   If the route is in the **Deleting** state, the route is being deleted.
+        *   If you cannot query the route, the route is deleted.
         *   You cannot repeatedly call **DeleteRouteEntries** within a specific period of time.
         
 
@@ -8096,11 +8120,11 @@ class Client(OpenApiClient):
     def delete_route_entries(self, request):
         """
         When you call this operation, take note of the following items:
-        *   You can delete only route entries that are in the **Available** state.
-        *   You cannot delete a route entry of a virtual private cloud (VPC) in which a vSwitch or another route entry is being created or deleted.
-        *   **DeleteRouteEntries** is an asynchronous operation. After you call this operation, the system returns a request ID and runs the task in the background. You can call the [DescribeRouteEntryList](~~138148~~) operation to query the status of a route entry.
-        *   If the route entry is in the **Deleting** state, the route entry is being deleted.
-        *   If you cannot query the route entry, the route entry is deleted.
+        *   You can delete only routes that are in the **Available** state.
+        *   You cannot delete a route of a virtual private cloud (VPC) in which a vSwitch or another route is being created or deleted.
+        *   **DeleteRouteEntries** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeRouteEntryList](~~138148~~) operation to query the status of the task.
+        *   If the route is in the **Deleting** state, the route is being deleted.
+        *   If you cannot query the route, the route is deleted.
         *   You cannot repeatedly call **DeleteRouteEntries** within a specific period of time.
         
 
@@ -8715,7 +8739,7 @@ class Client(OpenApiClient):
         *   Before you delete a vSwitch, you must first release or remove all virtual private cloud (VPC) resources, including vSwitches, instances, router interfaces, and high-availability virtual IP addresses (HAVIPs).
         *   You can delete only vSwitches that are in the **Available** state.
         *   You cannot delete a vSwitch from a VPC where a vSwitch or a route is being created or deleted.
-        *   **DeleteVSwitch** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
+        *   **DeleteVSwitch** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of the task:
         *   If the vSwitch is in the **Pending** state, the vSwitch is being deleted.
         *   If you cannot query the vSwitch, the vSwitch is deleted.
         *   You cannot repeatedly call the **DeleteVSwitch** operation to delete a vSwitch within the specified period of time.
@@ -8766,7 +8790,7 @@ class Client(OpenApiClient):
         *   Before you delete a vSwitch, you must first release or remove all virtual private cloud (VPC) resources, including vSwitches, instances, router interfaces, and high-availability virtual IP addresses (HAVIPs).
         *   You can delete only vSwitches that are in the **Available** state.
         *   You cannot delete a vSwitch from a VPC where a vSwitch or a route is being created or deleted.
-        *   **DeleteVSwitch** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
+        *   **DeleteVSwitch** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of the task:
         *   If the vSwitch is in the **Pending** state, the vSwitch is being deleted.
         *   If you cannot query the vSwitch, the vSwitch is deleted.
         *   You cannot repeatedly call the **DeleteVSwitch** operation to delete a vSwitch within the specified period of time.
@@ -10774,10 +10798,14 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.v_switch_id):
             query['VSwitchId'] = request.v_switch_id
         if not UtilClient.is_unset(request.vpc_id):
@@ -13188,6 +13216,8 @@ class Client(OpenApiClient):
             query['DryRun'] = request.dry_run
         if not UtilClient.is_unset(request.gateway_id):
             query['GatewayId'] = request.gateway_id
+        if not UtilClient.is_unset(request.gateway_type):
+            query['GatewayType'] = request.gateway_type
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -20425,6 +20455,8 @@ class Client(OpenApiClient):
             query['DestinationCidrBlock'] = request.destination_cidr_block
         if not UtilClient.is_unset(request.dry_run):
             query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.gateway_route_table_id):
+            query['GatewayRouteTableId'] = request.gateway_route_table_id
         if not UtilClient.is_unset(request.ipv_4gateway_route_table_id):
             query['IPv4GatewayRouteTableId'] = request.ipv_4gateway_route_table_id
         if not UtilClient.is_unset(request.name):
