@@ -709,7 +709,7 @@ class AssociateTransitRouterAttachmentWithRouteTableRequest(TeaModel):
         # Specifies whether to perform a dry run to check information such as the permissions and the instance status. Default values:
         # 
         # *   **false** (default): performs a dry run and sends the request.
-        # *   **true**: performs a dry run. The system checks the required parameters and request syntax. If the request fails the dry run, an error message is returned. If the request passes the dry run, the system returns the ID of the request.
+        # *   **true**: performs a dry run. The system checks the required parameters and request syntax. If the request fails the dry run, an error message is returned. If the request passes the dry run, the DryRunOperation error code is returned.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -3318,13 +3318,12 @@ class CreateTransitRouteTableAggregationRequest(TeaModel):
         # The destination CIDR block of the aggregate route.
         # 
         # >  The following CIDR blocks are not supported:
-        # 
-        # *   CIDR blocks that start with 0 or 100.64.
-        # *   Multicast CIDR blocks, including 224.0.0.1 to 239.255.255.254.
+        # >*   CIDR blocks that start with 0 or 100.64.
+        # >*   Multicast CIDR blocks, including 224.0.0.1 to 239.255.255.254.
         self.transit_route_table_aggregation_cidr = transit_route_table_aggregation_cidr  # type: str
         # The description of the aggregate route.
         # 
-        # The description must be 2 to 256 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -. You can also leave the description empty.
+        # The description must be 0 to 256 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -.
         self.transit_route_table_aggregation_description = transit_route_table_aggregation_description  # type: str
         # The name of the aggregate route.
         # 
@@ -4666,7 +4665,7 @@ class CreateTransitRouterRouteEntryRequest(TeaModel):
         # Specifies whether to perform a precheck to check information such as the permissions and instance status. Valid values:
         # 
         # *   **false** (default): sends the request. If the request passes the precheck, the route entry is added.
-        # *   **true**: sends a precheck request but does not add the route. If you use this value, the system checks the required parameters and the request syntax. If the request fails to pass the precheck, an error message is returned. If the request passes the check, the system returns the ID of the request.
+        # *   **true**: sends a precheck request but does not add the route. If you use this value, the system checks the required parameters and the request syntax. If the request fails to pass the precheck, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -4674,7 +4673,7 @@ class CreateTransitRouterRouteEntryRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The description of the route.
         # 
-        # The description must be 2 to 256 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -. You can also leave the description empty.
+        # The description must be 0 to 256 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -.
         self.transit_router_route_entry_description = transit_router_route_entry_description  # type: str
         # The destination CIDR block of the route.
         self.transit_router_route_entry_destination_cidr_block = transit_router_route_entry_destination_cidr_block  # type: str
@@ -7587,23 +7586,30 @@ class DeleteTransitRouterResponse(TeaModel):
 class DeleteTransitRouterCidrRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, transit_router_cidr_id=None, transit_router_id=None):
-        # The ID of the transit router.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that the value is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, ClientToken is set to the value of RequestId. The value of RequestId for each API request may be different.
         self.client_token = client_token  # type: str
-        # The operation that you want to perform. Set the value to **DeleteTransitRouterCidr**.
+        # Specifies whether to perform a dry run. Valid values:
+        # 
+        # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and sends the request.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the request.
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
         # The ID of the region where the transit router is deployed.
         # 
         # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
-        self.transit_router_cidr_id = transit_router_cidr_id  # type: str
-        # The ID of the transit router CIDR block.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the CIDR block.
         # 
-        # You can call [ListTransitRouterCidr](~~462772~~) to query the ID of a transit router CIDR block.
+        # You can call the [ListTransitRouterCidr](~~462772~~) operation to query the ID of a CIDR block.
+        self.transit_router_cidr_id = transit_router_cidr_id  # type: str
+        # The ID of the transit router.
         self.transit_router_id = transit_router_id  # type: str
 
     def validate(self):
@@ -7660,6 +7666,7 @@ class DeleteTransitRouterCidrRequest(TeaModel):
 
 class DeleteTransitRouterCidrResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8316,7 +8323,7 @@ class DeleteTransitRouterRouteTableRequest(TeaModel):
         # Specifies whether to perform a dry run. Valid values:
         # 
         # *   **false** (default): performs a dry run and sends the request.
-        # *   **true**: performs a dry run. The system checks the required parameters and the request syntax. If the request fails the dry run, an error message is returned. If the request passes the dry run, the system returns the ID of the request.
+        # *   **true**: performs a dry run. The system checks the required parameters and the request syntax. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -9203,14 +9210,14 @@ class DescribeCenAttachedChildInstanceAttributeResponseBodyChildInstanceAttribut
     def __init__(self, ipv_6cidr_block=None, ipv_6isp=None):
         # The IPv6 CIDR block of the VPC.
         self.ipv_6cidr_block = ipv_6cidr_block  # type: str
-        # The type of the IPv6 CIDR block. Valid values:
+        # The type of the IPv6 CIDR block of the VPC. Valid values:
         # 
-        # * **BGP** (default): Alibaba Cloud Border Gateway Protocol (BGP) IPv6
-        # * **ChinaMobile:** China Mobile (single line)
-        # * **ChinaUnicom:** China Unicom (single line)
-        # * **ChinaTelecom:** China Telecom (single line)
+        # *   BGP (default): Alibaba Cloud Border Gateway Protocol (BGP) IPv6
+        # *   ChinaMobile: China Mobile (single line)
+        # *   ChinaUnicom: China Unicom (single line)
+        # *   ChinaTelecom: China Telecom (single line)
         # 
-        # > If your Alibaba Cloud account has the required permissions to activate single-ISP bandwidth, you can set Ipv6Isp to ChinaTelecom, ChinaUnicom, or ChinaMobile.
+        # >  If you are on the whitelist of single-line bandwidth, you can set this parameter to ChinaTelecom, ChinaUnicom, or ChinaMobile.
         self.ipv_6isp = ipv_6isp  # type: str
 
     def validate(self):
@@ -9299,9 +9306,9 @@ class DescribeCenAttachedChildInstanceAttributeResponseBodyChildInstanceAttribut
         self.cidr_block = cidr_block  # type: str
         # The IPv6 CIDR block of the VPC.
         self.ipv_6cidr_block = ipv_6cidr_block  # type: str
-        # The information about the IPv6 CIDR blocks of the VPC.
+        # The IPv6 CIDR blocks of the VPC.
         self.ipv_6cidr_blocks = ipv_6cidr_blocks  # type: DescribeCenAttachedChildInstanceAttributeResponseBodyChildInstanceAttributesIpv6CidrBlocks
-        # The secondary IPv4 CIDR block of the VPC.
+        # The information about the VPC secondary CIDR block.
         self.secondary_cidr_blocks = secondary_cidr_blocks  # type: DescribeCenAttachedChildInstanceAttributeResponseBodyChildInstanceAttributesSecondaryCidrBlocks
 
     def validate(self):
@@ -9712,13 +9719,20 @@ class DescribeCenAttachedChildInstancesResponse(TeaModel):
 
 class DescribeCenBandwidthPackagesRequestFilter(TeaModel):
     def __init__(self, key=None, value=None):
-        # The operation that you want to perform. Set the value to **DescribeCenBandwidthPackages**.
-        self.key = key  # type: str
-        # The status of the bandwidth plan. Valid values:
+        # The filter conditions. You can use filter conditions to filter the bandwidth plans that you want to query. The following filter conditions are supported:
         # 
-        # *   **Normal**: normal
-        # *   **FinancialLocked**: locked due to overdue payments
-        # *   **SecurityLocked**: locked due to security reasons
+        # *   **CenId**: CEN instance ID
+        # 
+        # *   **Status**: bandwidth plan status. Valid values:
+        # 
+        #     *   **Idle**: not associated with a CEN instance.
+        #     *   **InUse**: associated with a CEN instance.
+        # 
+        # *   **CenBandwidthPackageId**: bandwidth plan ID
+        # 
+        # *   **Name**: bandwidth plan name You can specify one or more filter conditions. The maximum value of **N** is **5**.
+        self.key = key  # type: str
+        # Specify a filter value based on the **Key** parameter. You can specify multiple filter values for each **Key**. The logical operator between filter values is **OR**. If one filter value is matched, the filter condition is matched.
         self.value = value  # type: list[str]
 
     def validate(self):
@@ -9747,7 +9761,17 @@ class DescribeCenBandwidthPackagesRequestFilter(TeaModel):
 
 class DescribeCenBandwidthPackagesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag keys.
+        # 
+        # The tag keys cannot be an empty string. The tag keys can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        # 
+        # You can specify at most 20 tag keys.
         self.key = key  # type: str
+        # The tag values.
+        # 
+        # The tag values can be 0 to 128 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        # 
+        # The tag value of each tag key must be unique. You can specify at most 20 tag values in each call.
         self.value = value  # type: str
 
     def validate(self):
@@ -9778,32 +9802,31 @@ class DescribeCenBandwidthPackagesRequest(TeaModel):
     def __init__(self, filter=None, include_reservation_data=None, is_or_key=None, owner_account=None,
                  owner_id=None, page_number=None, page_size=None, resource_group_id=None, resource_owner_account=None,
                  resource_owner_id=None, tag=None):
-        # The description of the bandwidth plan.
+        # The filter configurations.
         self.filter = filter  # type: list[DescribeCenBandwidthPackagesRequestFilter]
         # Specifies whether to include renewal data. Valid values:
         # 
-        # *   **true**: yes
-        # *   **false**: no
+        # *   **true**\
+        # *   **false**\
         self.include_reservation_data = include_reservation_data  # type: bool
-        # The ID of the other connected area of the bandwidth plan. Valid values:
+        # The logical operator between the filter conditions. Valid values:
         # 
-        # *   **china**: Chinese mainland.
-        # *   **asia-pacific**: Asia Pacific
-        # *   **europe**: Europe
-        # *   **australia**: Australia
-        # *   **north-america**: North America
+        # *   **false** (default): **AND** Bandwidth plans that meet all filter conditions are returned.
+        # *   **true**: **OR** Bandwidth plans that meet one of the filter conditions are returned.
         self.is_or_key = is_or_key  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # Specify a filter value based on the **Key** parameter.
-        # 
-        # You can specify multiple values for a **filter key**. The logical relation among multiple filter values is **OR**. If a bandwidth package matches one of the values that you specify, the bandwidth package matches the filter condition.
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The ID of the peer region.
+        # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
         self.page_size = page_size  # type: int
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The information about the tags.
+        # 
+        # You can specify at most 20 tags in each call.
         self.tag = tag  # type: list[DescribeCenBandwidthPackagesRequestTag]
 
     def validate(self):
@@ -9910,10 +9933,13 @@ class DescribeCenBandwidthPackagesResponseBodyCenBandwidthPackagesCenBandwidthPa
 class DescribeCenBandwidthPackagesResponseBodyCenBandwidthPackagesCenBandwidthPackageOrginInterRegionBandwidthLimitsOrginInterRegionBandwidthLimit(TeaModel):
     def __init__(self, bandwidth_limit=None, geographic_span_id=None, local_region_id=None,
                  opposite_region_id=None):
-        # WB01235021
+        # The maximum bandwidth value for the inter-region connection.
         self.bandwidth_limit = bandwidth_limit  # type: str
+        # The connected regions.
         self.geographic_span_id = geographic_span_id  # type: str
+        # The ID of the local region.
         self.local_region_id = local_region_id  # type: str
+        # The ID of the peer region.
         self.opposite_region_id = opposite_region_id  # type: str
 
     def validate(self):
@@ -9982,7 +10008,9 @@ class DescribeCenBandwidthPackagesResponseBodyCenBandwidthPackagesCenBandwidthPa
 
 class DescribeCenBandwidthPackagesResponseBodyCenBandwidthPackagesCenBandwidthPackageTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -10048,70 +10076,79 @@ class DescribeCenBandwidthPackagesResponseBodyCenBandwidthPackagesCenBandwidthPa
                  is_cross_border=None, name=None, orgin_inter_region_bandwidth_limits=None, reservation_active_time=None,
                  reservation_bandwidth=None, reservation_internet_charge_type=None, reservation_order_type=None, resource_group_id=None,
                  status=None, tags=None):
-        # The ID of the bandwidth plan.
-        self.bandwidth = bandwidth  # type: long
         # The maximum bandwidth of the bandwidth plan.
+        self.bandwidth = bandwidth  # type: long
+        # The billing method of the bandwidth plan.
         self.bandwidth_package_charge_type = bandwidth_package_charge_type  # type: str
-        # The ID of the request.
+        # The status of the bandwidth plan. Valid values:
+        # 
+        # *   **Normal**: running as expected.
+        # *   **FinancialLocked**: locked due to overdue payments.
+        # *   **SecurityLocked**: locked due to security reasons
         self.business_status = business_status  # type: str
-        # The ID of the connected area.
+        # The ID of the bandwidth plan.
         self.cen_bandwidth_package_id = cen_bandwidth_package_id  # type: str
+        # A list of CEN instances that are associated with the bandwidth plan.
         self.cen_ids = cen_ids  # type: DescribeCenBandwidthPackagesResponseBodyCenBandwidthPackagesCenBandwidthPackageCenIds
-        # The connected regions.
+        # The time when the bandwidth plan was created. The time is displayed in the ISO8601 standard in the YYYY-MM-DDThh:mmZ format.
         self.creation_time = creation_time  # type: str
-        # The timeout period of the bandwidth plan.
+        # The description of the bandwidth plan.
         self.description = description  # type: str
-        # The new billing method.
+        # The time when the bandwidth plan expires.
         self.expired_time = expired_time  # type: str
-        # The name of the bandwidth plan.
+        # The ID of the area that you want to query. Valid values:
+        # 
+        # *   **china**: Chinese mainland.
+        # *   **asia-pacific**: Asia Pacific
+        # *   **europe**: Europe
+        # *   **australia**: Australia
+        # *   **north-america**: North America
         self.geographic_region_aid = geographic_region_aid  # type: str
-        # The number of entries returned per page.
+        # The ID of the other area connected by the bandwidth plan. Valid values:
+        # 
+        # *   **china**: Chinese mainland.
+        # *   **asia-pacific**: Asia Pacific
+        # *   **europe**: Europe
+        # *   **australia**: Australia
+        # *   **north-america**: North America
         self.geographic_region_bid = geographic_region_bid  # type: str
-        # The page number of the returned page.
+        # The ID of the connected area.
         self.geographic_span_id = geographic_span_id  # type: str
-        # Queries details about Cloud Enterprise Network (CEN) bandwidth plans within the current Alibaba Cloud account.
+        # Indicates whether renewal data is included.
+        # 
+        # *   **true**\
+        # *   **false**\
+        # 
+        # >  This parameter returns **true** only when the **IncludeReservationData** parameter is set to **true** and a pending order exists.
         self.has_reservation_data = has_reservation_data  # type: str
-        # The filter condition.
+        # Indicates whether the bandwidth plan supports cross-border communication.
         # 
-        # You can use filter conditions to filter the bandwidth plans that you want to query. The following filter conditions are supported:
-        # 
-        # *   **CenId**: CEN instance ID
-        # 
-        # *   **Status**: bandwidth plan status. Valid values:
-        # 
-        #     *   **Idle**: not associated with a CEN instance.
-        #     *   **InUse**: associated with a CEN instance.
-        # 
-        # *   **CenBandwidthPackageId**: bandwidth plan ID
-        # 
-        # *   **Name**: bandwidth plan name
-        # 
-        #     You can specify one or more filter conditions. The maximum value of **N** is **5**.
+        # *   **false**\
+        # *   **true**\
         self.is_cross_border = is_cross_border  # type: bool
+        # The name of the bandwidth plan.
+        self.name = name  # type: str
+        # The details about the connected regions.
+        self.orgin_inter_region_bandwidth_limits = orgin_inter_region_bandwidth_limits  # type: DescribeCenBandwidthPackagesResponseBodyCenBandwidthPackagesCenBandwidthPackageOrginInterRegionBandwidthLimits
+        # The expiration time of the temporary upgrade.
+        self.reservation_active_time = reservation_active_time  # type: str
+        # The bandwidth value to which the bandwidth plan is restored when the temporary upgrade ends.
+        self.reservation_bandwidth = reservation_bandwidth  # type: str
+        # The new billing method.
+        self.reservation_internet_charge_type = reservation_internet_charge_type  # type: str
         # The renewal method.
         # 
         # *   **TEMP_UPGRADE**: temporary upgrade
         # *   **UPGRADE**: upgrade
-        self.name = name  # type: str
-        # DescribeCenBandwidthPackages
-        self.orgin_inter_region_bandwidth_limits = orgin_inter_region_bandwidth_limits  # type: DescribeCenBandwidthPackagesResponseBodyCenBandwidthPackagesCenBandwidthPackageOrginInterRegionBandwidthLimits
-        # The maximum bandwidth value for the inter-region connection.
-        self.reservation_active_time = reservation_active_time  # type: str
-        # The logical operator between the filter conditions. Valid values:
-        # 
-        # *   **false** (default): **AND** Bandwidth plans that meet all filter conditions are returned.
-        # *   **true**: **OR** Bandwidth plans that meet one of the filter conditions are returned.
-        self.reservation_bandwidth = reservation_bandwidth  # type: str
+        self.reservation_order_type = reservation_order_type  # type: str
+        # The ID of the resource group to which the ACL belongs.
+        self.resource_group_id = resource_group_id  # type: str
         # Indicates whether the bandwidth plan is associated with a CEN instance.
         # 
-        # *   **Idle**: no
-        # *   **InUse**: yes
-        self.reservation_internet_charge_type = reservation_internet_charge_type  # type: str
-        # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
-        self.reservation_order_type = reservation_order_type  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        # The number of the page to return. Default value: **1**.
+        # *   **Idle**\
+        # *   **InUse**\
         self.status = status  # type: str
+        # The tags of the bandwidth plan.
         self.tags = tags  # type: DescribeCenBandwidthPackagesResponseBodyCenBandwidthPackagesCenBandwidthPackageTags
 
     def validate(self):
@@ -10261,21 +10298,15 @@ class DescribeCenBandwidthPackagesResponseBodyCenBandwidthPackages(TeaModel):
 class DescribeCenBandwidthPackagesResponseBody(TeaModel):
     def __init__(self, cen_bandwidth_packages=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
-        # The expiration time of the temporary upgrade.
+        # The details about the bandwidth plan.
         self.cen_bandwidth_packages = cen_bandwidth_packages  # type: DescribeCenBandwidthPackagesResponseBodyCenBandwidthPackages
-        # A list of CEN instances that are associated with the bandwidth plan.
+        # The number of the returned page.
         self.page_number = page_number  # type: int
-        # The ID of the source region.
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the area that you want to query. Valid values:
-        # 
-        # *   **china**: Chinese mainland.
-        # *   **asia-pacific**: Asia Pacific
-        # *   **europe**: Europe
-        # *   **australia**: Australia
-        # *   **north-america**: North America
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The bandwidth value to which the bandwidth plan is rolled back when the temporary upgrade ends.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -10482,9 +10513,9 @@ class DescribeCenChildInstanceRouteEntriesResponseBodyCenRouteEntriesCenRouteEnt
 
 class DescribeCenChildInstanceRouteEntriesResponseBodyCenRouteEntriesCenRouteEntryCenRouteMapRecordsCenRouteMapRecord(TeaModel):
     def __init__(self, region_id=None, route_map_id=None):
-        # The ID of the region in which the routing policy is applied.
+        # The region ID of the routing policy.
         self.region_id = region_id  # type: str
-        # The ID of the routing policy.
+        # The routing policy ID.
         self.route_map_id = route_map_id  # type: str
 
     def validate(self):
@@ -10574,13 +10605,13 @@ class DescribeCenChildInstanceRouteEntriesResponseBodyCenRouteEntriesCenRouteEnt
         self.destination_cidr_block = destination_cidr_block  # type: str
         # The ID of the peer network instance on which the overlapping routes are found.
         self.instance_id = instance_id  # type: str
-        # The type of the peer network instance on which the overlapping routes are found. Valid values: Valid values:
+        # The type of the peer network instance on which the overlapping routes are found. Valid values:
         # 
-        # *   **VPC**: VPC
-        # *   **VBR**: VBR
-        # *   **CCN**: CCN instance
+        # *   **VPC**\
+        # *   **VBR**\
+        # *   **CCN**\
         self.instance_type = instance_type  # type: str
-        # The ID of the region where the peer network instance on which the overlapping routes are found is deployed.
+        # The region ID of the peer network instance on which the overlapping routes are found.
         self.region_id = region_id  # type: str
         # The cause of the route error. Valid values:
         # 
@@ -10660,11 +10691,11 @@ class DescribeCenChildInstanceRouteEntriesResponseBodyCenRouteEntriesCenRouteEnt
     def __init__(self, as_paths=None, cen_route_map_records=None, communities=None, conflicts=None,
                  destination_cidr_block=None, next_hop_instance_id=None, next_hop_region_id=None, next_hop_type=None,
                  operational_mode=None, publish_status=None, route_table_id=None, status=None, type=None):
-        # The autonomous system (AS) paths of the routes.
+        # The AS paths of the routes.
         self.as_paths = as_paths  # type: DescribeCenChildInstanceRouteEntriesResponseBodyCenRouteEntriesCenRouteEntryAsPaths
         # The routing policy that the routes match.
         self.cen_route_map_records = cen_route_map_records  # type: DescribeCenChildInstanceRouteEntriesResponseBodyCenRouteEntriesCenRouteEntryCenRouteMapRecords
-        # The community attributes of the route entry.
+        # The community attributes of the route entries.
         self.communities = communities  # type: DescribeCenChildInstanceRouteEntriesResponseBodyCenRouteEntriesCenRouteEntryCommunities
         # A list of overlapping routes.
         self.conflicts = conflicts  # type: DescribeCenChildInstanceRouteEntriesResponseBodyCenRouteEntriesCenRouteEntryConflicts
@@ -10672,54 +10703,55 @@ class DescribeCenChildInstanceRouteEntriesResponseBodyCenRouteEntriesCenRouteEnt
         self.destination_cidr_block = destination_cidr_block  # type: str
         # The ID of the instance specified as the next hop in the route.
         self.next_hop_instance_id = next_hop_instance_id  # type: str
-        # The ID of the region where the instance specified as the next hop in the route belongs.
+        # The region ID of the instance specified as the next hop in the route.
         self.next_hop_region_id = next_hop_region_id  # type: str
         # The type of the instance specified as the next hop in the route. Valid values:
         # 
-        # *   **Instance**: Elastic Compute Service (ECS) instance.
-        # *   **HaVip**: high-availability virtual IP address (HAVIP).
-        # *   **RouterInterface**: router interface.
-        # *   **NetworkInterface**: elastic network interface (ENI).
-        # *   **VpnGateway**: VPN gateway.
-        # *   **IPv6Gateway**: IPv6 gateway.
-        # *   **NatGateway**: NAT gateway.
-        # *   **Attachment**: network instance connection.
-        # *   **service**: cloud service.
-        # *   **VBR**: VBR.
-        # *   **CCN**: CCN instance.
-        # *   **VPC**: VPC.
-        # *   **local**: system route. No next hop is specified.
-        # *   **TR**: transit router.
-        # *   \*\*BlackHole\*\*: blackhole route. No next hop is specified.
-        # *   \*\*EcRouterInterface\*\*: router interface for Express Connect
-        # *   **HealthCheck**: health check.
-        # *   **AS**: access gateway for CCN.
-        # *   **classicLink**: classic network-type instance.
-        # *   **GatewayEndpoint**: gateway endpoint.
-        # *   **CPE**: data center connected to the VBR.
+        # *   **Instance**: an ECS instance
+        # *   **HaVip**: an HAVIP
+        # *   **RouterInterface**: a router interface
+        # *   **NetworkInterface**: an ENI
+        # *   **VpnGateway**: a VPN gateway
+        # *   **IPv6Gateway**: an IPv6 gateway
+        # *   **Ipv4Gateway**: an IPv4 gateway
+        # *   **NatGateway**: a NAT gateway
+        # *   **Attachment**: a network instance connection
+        # *   **service**: a cloud service
+        # *   **VBR**: a VBR
+        # *   **CCN**: a CCN instance
+        # *   **VPC**: a VPC
+        # *   **local**: a system route (no next hop is specified)
+        # *   **TR**: a transit router
+        # *   **BlackHole**: a blackhole route (no next hop is specified)
+        # *   **EcRouterInterface**: a router interface for Express Connect
+        # *   **HealthCheck**: a health check
+        # *   **AS**: an access gateway for CCN
+        # *   **classic**: a classic network-type instance
+        # *   **GatewayEndpoint**: a gateway endpoint
+        # *   **CPE**: a data center connected to a VBR
         self.next_hop_type = next_hop_type  # type: str
         # Indicates whether the route is allowed to be advertised to or withdrawn from the CEN instance. Valid values:
         # 
-        # *   **true**: The route is allowed to be advertised to or withdrawn from the CEN instance.
-        # *   **false**: The route is not allowed to be advertised to or withdrawn from the CEN instance.
+        # *   **true**\
+        # *   **false**\
         self.operational_mode = operational_mode  # type: bool
-        # Indicates whether the route is advertised to the CEN instance. Valid values: Valid values:
+        # Indicates whether the route is advertised to the CEN instance. Valid values:
         # 
-        # *   **Published**: The route is advertised to the CEN instance.
-        # *   **NonPublished**: The route is not advertised to the CEN instance.
+        # *   **Published**\
+        # *   **NonPublished**\
         self.publish_status = publish_status  # type: str
-        # The ID of the route table.
+        # The route table ID.
         self.route_table_id = route_table_id  # type: str
-        # The status of the route. Valid values:
+        # The route status. Valid values:
         # 
-        # *   **Active**: available
-        # *   **Candidate**: standby
-        # *   **Rejected**: rejected
-        # *   **Prohibited**: prohibited
+        # *   **Active**: available routes
+        # *   **Candidate**: standby routes
+        # *   **Rejected**: rejected routes
+        # *   **Prohibited**: prohibited routes
         self.status = status  # type: str
-        # The type of the route. Valid values: Valid values:
+        # The route type. Valid values:
         # 
-        # *   **CEN**: advertised by CEN
+        # *   **CEN**: route that is advertised through CEN
         # *   **System**: system route
         # *   **Custom**: custom route
         self.type = type  # type: str
@@ -10837,7 +10869,7 @@ class DescribeCenChildInstanceRouteEntriesResponseBodyCenRouteEntries(TeaModel):
 
 class DescribeCenChildInstanceRouteEntriesResponseBody(TeaModel):
     def __init__(self, cen_route_entries=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The information about the routes.
+        # The information about the route.
         self.cen_route_entries = cen_route_entries  # type: DescribeCenChildInstanceRouteEntriesResponseBodyCenRouteEntries
         # The page number of the returned page.
         self.page_number = page_number  # type: int
@@ -13115,21 +13147,23 @@ class DescribeCenVbrHealthCheckRequest(TeaModel):
     def __init__(self, cen_id=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
                  resource_owner_account=None, resource_owner_id=None, vbr_instance_id=None, vbr_instance_owner_id=None,
                  vbr_instance_region_id=None):
-        # The ID of the VBR.
+        # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of entries to return on each page. Valid values: **1** to **50**. Default value: **10**.
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The ID of the CEN instance.
+        # The number of entries to return on each page. Valid values: **1** to **50**. Default value: **10**.
         self.page_size = page_size  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The number of the page to return. Default value: **1**.
+        # The ID of the VBR.
         self.vbr_instance_id = vbr_instance_id  # type: str
-        # The ID of the region where the VBR is deployed.
+        # The ID of the Alibaba Cloud account that owns the VBR.
         self.vbr_instance_owner_id = vbr_instance_owner_id  # type: long
-        # The operation that you want to perform. Set the value to **DescribeCenVbrHealthCheck**.
+        # The ID of the region where the VBR is deployed.
+        # 
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.vbr_instance_region_id = vbr_instance_region_id  # type: str
 
     def validate(self):
@@ -13192,18 +13226,29 @@ class DescribeCenVbrHealthCheckResponseBodyVbrHealthChecksVbrHealthCheck(TeaMode
     def __init__(self, cen_id=None, health_check_interval=None, health_check_only=None,
                  health_check_source_ip=None, health_check_target_ip=None, healthy_threshold=None, vbr_instance_id=None,
                  vbr_instance_region_id=None):
-        # The number of probe packets that are sent during the health check.
+        # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
+        # The time interval at which probe packets are sent during the health check. Unit: seconds.
         self.health_check_interval = health_check_interval  # type: int
+        # Indicates whether probing is enabled. Valid values:
+        # 
+        # *   **true**: yes
+        # 
+        #     If probing is enabled, the system does not switch to another route when the detected route is not reachable.
+        # 
+        # *   **false**: no
+        # 
+        #     If probing is disabled and a redundant route is specified, the system switches to the redundant route when the detected route is not reachable.
         self.health_check_only = health_check_only  # type: bool
+        # The source IP address of the health check.
         self.health_check_source_ip = health_check_source_ip  # type: str
         # The destination IP address of the health check.
         self.health_check_target_ip = health_check_target_ip  # type: str
-        # The ID of the request.
+        # The number of probe packets that are sent during the health check.
         self.healthy_threshold = healthy_threshold  # type: int
-        # The source IP address of the health check.
+        # The ID of the VBR.
         self.vbr_instance_id = vbr_instance_id  # type: str
-        # The number of entries returned per page.
+        # The ID of the region where the VBR is deployed.
         self.vbr_instance_region_id = vbr_instance_region_id  # type: str
 
     def validate(self):
@@ -13288,25 +13333,15 @@ class DescribeCenVbrHealthCheckResponseBodyVbrHealthChecks(TeaModel):
 
 class DescribeCenVbrHealthCheckResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None, vbr_health_checks=None):
-        # The health check configuration of the VBR.
-        self.page_number = page_number  # type: int
-        # Indicates whether probing is enabled. Valid values:
-        # 
-        # *   **true**: yes
-        # 
-        #     If probing is enabled, the system does not switch to another route when the detected route is not reachable.
-        # 
-        # *   **false**: no
-        # 
-        #     If probing is disabled and a redundant route is specified, the system switches to the redundant route when the detected route is not reachable.
-        self.page_size = page_size  # type: int
-        # The ID of the CEN instance.
-        self.request_id = request_id  # type: str
-        # The ID of the Alibaba Cloud account that owns the VBR.
-        # 
-        # >  The parameter is required if the VBR and the CEN instance belong to different Alibaba Cloud accounts.
-        self.total_count = total_count  # type: int
         # The page number of the returned page.
+        self.page_number = page_number  # type: int
+        # The number of entries returned per page.
+        self.page_size = page_size  # type: int
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The total number of entries returned.
+        self.total_count = total_count  # type: int
+        # The health check configuration of the VBR.
         self.vbr_health_checks = vbr_health_checks  # type: DescribeCenVbrHealthCheckResponseBodyVbrHealthChecks
 
     def validate(self):
@@ -13388,11 +13423,20 @@ class DescribeCenVbrHealthCheckResponse(TeaModel):
 
 class DescribeCensRequestFilter(TeaModel):
     def __init__(self, key=None, value=None):
-        # The name of the CEN instance.
-        self.key = key  # type: str
-        # The time when the CEN instance was created.
+        # The key of the filter. Valid values:
         # 
-        # The time follows the ISO8601 standard in the `YYYY-MM-DDThh:mmZ` format. The time is displayed in UTC.
+        # *   **CenId**: the ID of a CEN instance.
+        # *   **Name**: the name of a CEN instance.
+        # 
+        # By default, the logical operator among filter conditions is **AND**. Information about a CEN instance is returned only if the CEN instance matches all filter conditions.
+        # 
+        # You can specify at most five filter conditions in each call.
+        self.key = key  # type: str
+        # The value of the filter condition.
+        # 
+        # Specify a filter value based on the **Key** parameter. You can specify multiple values for a filter **key**. The logical operator among multiple filter values is **OR**. If a CEN instance matches one or more of the values that you specify, the CEN instance matches the filter condition.
+        # 
+        # You can specify at most five values in each filter condition.
         self.value = value  # type: list[str]
 
     def validate(self):
@@ -13421,9 +13465,17 @@ class DescribeCensRequestFilter(TeaModel):
 
 class DescribeCensRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The list of the filter conditions.
+        # The tag keys.
+        # 
+        # The tag keys cannot be an empty string. The tag keys can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        # 
+        # You can specify at most 20 tag keys.
         self.key = key  # type: str
-        # The description of the CEN instance.
+        # The tag values.
+        # 
+        # The tag values can be 0 to 128 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        # 
+        # Each tag key must have a unique tag value. You can specify at most 20 tag values in each call.
         self.value = value  # type: str
 
     def validate(self):
@@ -13453,22 +13505,23 @@ class DescribeCensRequestTag(TeaModel):
 class DescribeCensRequest(TeaModel):
     def __init__(self, filter=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None):
-        # The key of the tag.
+        # The filter conditions.
+        # 
+        # You can specify at most five filter conditions in each call.
         self.filter = filter  # type: list[DescribeCensRequestFilter]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The value of the filter condition.
-        # 
-        # This parameter sets the value of a filter **key**. You can specify multiple values for a filter **key**. The logical operator among multiple filter values is **OR**. If a CEN instance matches one or more of the values that you specify, the CEN instance matches the filter condition.
-        # 
-        # You can specify at most five values in each filter condition.
+        # The number of entries to return on each page. Valid values: **1** to **50**. Default value: **10**.
         self.page_size = page_size  # type: int
+        # The ID of the resource group to which the CEN instance belongs.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The number of entries to return on each page. Valid values: **1** to **50**. Default value: **10**.
+        # The tags.
+        # 
+        # You can specify at most 20 tags in each call.
         self.tag = tag  # type: list[DescribeCensRequestTag]
 
     def validate(self):
@@ -13566,8 +13619,9 @@ class DescribeCensResponseBodyCensCenCenBandwidthPackageIds(TeaModel):
 
 class DescribeCensResponseBodyCensCenTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # Queries detailed information about Cloud Enterprise Network (CEN) instances within the current Alibaba Cloud account.
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -13629,38 +13683,36 @@ class DescribeCensResponseBodyCensCenTags(TeaModel):
 class DescribeCensResponseBodyCensCen(TeaModel):
     def __init__(self, cen_bandwidth_package_ids=None, cen_id=None, creation_time=None, description=None,
                  ipv_6level=None, name=None, protection_level=None, resource_group_id=None, status=None, tags=None):
+        # The IDs of the bandwidth plans that are associated with the CEN instance.
         self.cen_bandwidth_package_ids = cen_bandwidth_package_ids  # type: DescribeCensResponseBodyCensCenCenBandwidthPackageIds
-        # The filter condition. Valid values:
-        # 
-        # *   **CenId**: the ID of a CEN instance.
-        # *   **Name**: the name of a CEN instance.
-        # 
-        # By default, the logical operator among filter conditions is **AND**. Information about a CEN instance is returned only if the CEN instance matches all filter conditions.
-        # 
-        # You can specify at most five filter conditions in each call.
+        # The CEN instance ID.
         self.cen_id = cen_id  # type: str
-        # The tags.
+        # The time when the CEN instance was created.
+        # 
+        # The time follows the ISO8601 standard in the `YYYY-MM-DDThh:mmZ` format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
-        # The number of entries returned per page.
+        # The description of the CEN instance.
         self.description = description  # type: str
-        # The number of the page returned.
-        self.ipv_6level = ipv_6level  # type: str
-        # The ID of the CEN instance.
-        self.name = name  # type: str
-        # The ID of the request.
-        self.protection_level = protection_level  # type: str
-        # The values of the filter condition.
-        self.resource_group_id = resource_group_id  # type: str
         # Indicates whether IPv6 is enabled for the CEN instance.
         # 
-        # *   **ENABLE**: enabled
-        # *   **DISABLED**: disabled
+        # *   **ENABLE**\
+        # *   **DISABLED**\
+        self.ipv_6level = ipv_6level  # type: str
+        # The CEN instance name.
+        self.name = name  # type: str
+        # The level of CIDR block overlapping.
+        # 
+        # **REDUCED**: Overlapped CIDR blocks are allowed. This value specifies that CIDR blocks can overlap but CIDR blocks cannot be duplicates.
+        self.protection_level = protection_level  # type: str
+        # The ID of the resource group to which the CEN instance belongs.
+        self.resource_group_id = resource_group_id  # type: str
+        # The status of the CEN instance.
+        # 
+        # *   **Creating**\
+        # *   **Active**\
+        # *   **Deleting**\
         self.status = status  # type: str
-        # The tag keys of the resources.
-        # 
-        # The tag keys cannot be an empty string. The tag keys can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
-        # 
-        # You can specify at most 20 tag keys.
+        # The IDs of the tags that are added to the CEN instance.
         self.tags = tags  # type: DescribeCensResponseBodyCensCenTags
 
     def validate(self):
@@ -13758,21 +13810,15 @@ class DescribeCensResponseBodyCens(TeaModel):
 
 class DescribeCensResponseBody(TeaModel):
     def __init__(self, cens=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The value of the tag.
+        # The information about the CEN instance.
         self.cens = cens  # type: DescribeCensResponseBodyCens
-        # The level of CIDR block overlapping.
-        # 
-        # **REDUCED**: Overlapped CIDR blocks are allowed. This value specifies that CIDR blocks can overlap but CIDR blocks cannot be duplicates.
+        # The number of the page returned.
         self.page_number = page_number  # type: int
-        # The status of the CEN instance.
-        # 
-        # *   **Creating**: The CEN instance is being created.
-        # *   **Active**: The CEN instance is running.
-        # *   **Deleting**: The instance is being deleted.
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the resource group to which the CEN instance belongs.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The IDs of the bandwidth plans that are associated with the CEN instance.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -13855,6 +13901,7 @@ class DescribeCensResponse(TeaModel):
 class DescribeChildInstanceRegionsRequest(TeaModel):
     def __init__(self, accept_language=None, owner_account=None, owner_id=None, product_type=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The language of the response. Valid values: zh-CN (Chinese, which is the default language), en-US (English), and ja (Japanese).
         self.accept_language = accept_language  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -15615,15 +15662,27 @@ class DescribeRouteConflictRequest(TeaModel):
     def __init__(self, child_instance_id=None, child_instance_region_id=None, child_instance_route_table_id=None,
                  child_instance_type=None, destination_cidr_block=None, owner_account=None, owner_id=None, page_number=None,
                  page_size=None, resource_owner_account=None, resource_owner_id=None):
+        # The ID of the network instance that you want to query.
         self.child_instance_id = child_instance_id  # type: str
+        # The ID of the region where the network instance is deployed.
+        # 
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.child_instance_region_id = child_instance_region_id  # type: str
+        # The ID of the route table that is configured on the network instance.
         self.child_instance_route_table_id = child_instance_route_table_id  # type: str
+        # The type of the network instance. Valid values:
+        # 
+        # *   **VPC**: virtual private cloud (VPC)
+        # *   **VBR**: virtual border router (VBR)
+        # *   **CCN**: Cloud Connect Network (CCN) instance
         self.child_instance_type = child_instance_type  # type: str
+        # The destination CIDR block of the conflicting route.
         self.destination_cidr_block = destination_cidr_block  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # Queries conflicting routes on a network instance.
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: **10**. Valid values: **1** to **50**.
         self.page_size = page_size  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -15691,10 +15750,22 @@ class DescribeRouteConflictRequest(TeaModel):
 class DescribeRouteConflictResponseBodyRouteConflictsRouteConflict(TeaModel):
     def __init__(self, destination_cidr_block=None, instance_id=None, instance_type=None, region_id=None,
                  status=None):
+        # The destination CIDR block of the overlapping route.
         self.destination_cidr_block = destination_cidr_block  # type: str
+        # The ID of the peer network instance on which the overlapping routes are found.
         self.instance_id = instance_id  # type: str
+        # The type of the peer network instance on which the overlapping routes are found.
+        # 
+        # *   **VPC**: VPC
+        # *   **VBR**: VBR
+        # *   **CCN**: CCN instance
         self.instance_type = instance_type  # type: str
+        # The region ID of the peer network instance on which the overlapping routes are found is deployed.
         self.region_id = region_id  # type: str
+        # The cause of the route error. Valid values:
+        # 
+        # *   **conflict**: The routes have the same destination CIDR block.
+        # *   **overflow**: The number of routes in the route table configured on another network instance has reached the upper limit.
         self.status = status  # type: str
 
     def validate(self):
@@ -15767,10 +15838,15 @@ class DescribeRouteConflictResponseBodyRouteConflicts(TeaModel):
 
 class DescribeRouteConflictResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, route_conflicts=None, total_count=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # A list of overlapping routes.
         self.route_conflicts = route_conflicts  # type: DescribeRouteConflictResponseBodyRouteConflicts
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -16160,14 +16236,26 @@ class DescribeTransitRouteTableAggregationRequest(TeaModel):
     def __init__(self, client_token=None, max_results=None, next_token=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, transit_route_table_aggregation_cidr=None,
                  transit_route_table_id=None):
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can only contain ASCII characters.
+        # 
+        # >  If you do not set this parameter, ClientToken is set to the value of RequestId. The value of RequestId for each API request may be different.
         self.client_token = client_token  # type: str
+        # The number of entries to return on each page. Default value: **20**.
         self.max_results = max_results  # type: long
+        # The token that determines the start point of the query. Valid values:
+        # 
+        # *   If this is your first query or no subsequent query is to be sent, ignore this parameter.
+        # *   If a next query is to be sent, set the value to the value of **NextToken** that is returned from the last call.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The destination CIDR block of the aggregate route.
         self.transit_route_table_aggregation_cidr = transit_route_table_aggregation_cidr  # type: str
+        # The ID of the route table of the Enterprise Edition transit router.
         self.transit_route_table_id = transit_route_table_id  # type: str
 
     def validate(self):
@@ -16225,12 +16313,29 @@ class DescribeTransitRouteTableAggregationRequest(TeaModel):
 class DescribeTransitRouteTableAggregationResponseBodyData(TeaModel):
     def __init__(self, description=None, name=None, route_type=None, scope=None, status=None, tr_route_table_id=None,
                  transit_route_table_aggregation_cidr=None):
+        # The description of the aggregate route.
         self.description = description  # type: str
+        # The name of the aggregate route.
         self.name = name  # type: str
+        # The type of the aggregate route.
+        # 
+        # The valid value is **Static**, which indicates a static route. By default, aggregate routes advertised to a VPC are considered custom routes.
         self.route_type = route_type  # type: str
+        # The cope of networks to which the aggregate route is advertised.
+        # 
+        # The valid value is **VPC**, which indicates that the aggregate route is advertised to all virtual private clouds (VPCs) that are in associated forwarding correlation with the Enterprise Edition transit router and have route synchronization enabled.
         self.scope = scope  # type: str
+        # The status of the advertisement of the aggregate route. Valid values:
+        # 
+        # *   **AllConfigured**: The aggregate route is advertised to all VPCs.
+        # *   **Configuring**: The aggregate route is being advertised.
+        # *   **ConfigFailed**: The aggregate route failed to be advertised.
+        # *   **PartialConfigured**: Failed to advertise the aggregate route to some VPCs.
+        # *   **Deleting**: The aggregate route is being deleted.
         self.status = status  # type: str
+        # The ID of the route table of the Enterprise Edition transit router.
         self.tr_route_table_id = tr_route_table_id  # type: str
+        # The destination CIDR block of the aggregate route.
         self.transit_route_table_aggregation_cidr = transit_route_table_aggregation_cidr  # type: str
 
     def validate(self):
@@ -16279,10 +16384,18 @@ class DescribeTransitRouteTableAggregationResponseBodyData(TeaModel):
 
 class DescribeTransitRouteTableAggregationResponseBody(TeaModel):
     def __init__(self, count=None, data=None, next_token=None, request_id=None, total=None):
+        # The number of entries returned per page.
         self.count = count  # type: int
+        # A list of aggregate routes.
         self.data = data  # type: list[DescribeTransitRouteTableAggregationResponseBodyData]
+        # The token that determines the start point of the next query. Valid values:
+        # 
+        # *   If **NextToken** is not returned, it indicates that no additional results exist.
+        # *   If **NextToken** was returned in the previous query, specify the value to obtain the next set of results.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total = total  # type: int
 
     def validate(self):
@@ -16441,7 +16554,7 @@ class DescribeTransitRouteTableAggregationDetailResponseBodyData(TeaModel):
         # *   **Configured**: The aggregate route is advertised to the VPC.
         # *   **Configuring**: The aggregate route is being advertised.
         # *   **ConfigFailed**: The aggregate route failed to be advertised.
-        # *   **PartialConfigured**: Some content of the aggregate route failed to be advertised.
+        # *   **PartialConfigured**: Failed to advertise the aggregate route to some VPCs.
         # *   **Deleting**: The aggregate route is being deleted.
         self.status = status  # type: str
 
@@ -16840,23 +16953,24 @@ class DisableTransitRouterRouteTablePropagationRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, transit_router_attachment_id=None,
                  transit_router_route_table_id=None):
-        # The ID of the request.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that the value is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
         self.client_token = client_token  # type: str
+        # Specifies whether to perform a dry run. Default values:
+        # 
+        # *   **false** (default): performs a dry run and sends the request.
+        # *   **true**: performs a dry run. The system checks the required parameters and the request syntax. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The client token that is used to ensure the idempotence of the request.
-        # 
-        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
-        # 
-        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
+        # The ID of the network instance connection.
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
-        # Specifies whether to perform a dry run to check information such as the permissions and the instance status. Default values:
-        # 
-        # *   **false** (default): performs a dry run and sends the request.
-        # *   **true**: performs a dry run. The system checks the required parameters and the request syntax. If the request fails the dry run, an error message is returned. If the request passes the dry run, the system returns the ID of the request.
+        # The ID of the route table of the Enterprise Edition transit router.
         self.transit_router_route_table_id = transit_router_route_table_id  # type: str
 
     def validate(self):
@@ -16909,6 +17023,7 @@ class DisableTransitRouterRouteTablePropagationRequest(TeaModel):
 
 class DisableTransitRouterRouteTablePropagationResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17112,7 +17227,7 @@ class DissociateTransitRouterAttachmentFromRouteTableRequest(TeaModel):
         # Specifies whether to perform a dry run to check information such as the permissions and the instance status. Default values:
         # 
         # *   **false** (default): performs a dry run and sends the request.
-        # *   **true**: performs a dry run. The system checks the required parameters and request syntax. If the request fails the dry run, an error message is returned. If the request passes the dry run, the system returns the ID of the request.
+        # *   **true**: performs a dry run. The system checks the required parameters and request syntax. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -17427,7 +17542,7 @@ class EnableTransitRouterRouteTablePropagationRequest(TeaModel):
         # Specifies whether to perform a dry run to check information such as the permissions and the instance status. Valid values:
         # 
         # *   **false** (default): performs a dry run and sends the request.
-        # *   **true**: performs a dry run. The system checks the required parameters and request syntax. If the request fails the dry run, an error message is returned. If the request passes the dry run, the system returns the ID of the request.
+        # *   **true**: performs a dry run. The system checks the required parameters and request syntax. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -19626,11 +19741,19 @@ class ListTransitRouterAvailableResourceRequest(TeaModel):
                  resource_owner_id=None, support_multicast=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the zone.
+        # The region ID of the Enterprise Edition transit router.
+        # 
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # A list of zones.
+        # Specifies whether to query only the zones in which the multicast feature is supported. Valid values:
+        # 
+        # *   **true**\
+        # 
+        #     After you call **ListTransitRouterAvailableResource**, if no zone is returned, it indicates that the Enterprise Edition transit router does not support the multicast feature.
+        # 
+        # *   **false** (default)
         self.support_multicast = support_multicast  # type: bool
 
     def validate(self):
@@ -19676,14 +19799,15 @@ class ListTransitRouterAvailableResourceRequest(TeaModel):
 class ListTransitRouterAvailableResourceResponseBody(TeaModel):
     def __init__(self, available_zones=None, master_zones=None, request_id=None, slave_zones=None,
                  support_multicast=None):
+        # A list of zone IDs.
         self.available_zones = available_zones  # type: list[str]
-        # ListTransitRouterAvailableResource
+        # A list of primary zones.
         self.master_zones = master_zones  # type: list[str]
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The operation that you want to perform. Set the value to **ListTransitRouterAvailableResource**.
+        # A list of secondary zone IDs.
         self.slave_zones = slave_zones  # type: list[str]
-        # 是否为支持组播功能的可用区信息。
+        # Indicates whether the zone supports the multicast feature.
         self.support_multicast = support_multicast  # type: bool
 
     def validate(self):
@@ -20662,9 +20786,17 @@ class ListTransitRouterMulticastDomainVSwitchesResponse(TeaModel):
 
 class ListTransitRouterMulticastDomainsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # $.parameters[7].schema.description
+        # The tag keys.
+        # 
+        # The tag keys cannot be an empty string. The tag keys can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        # 
+        # You can specify at most 20 tag keys.
         self.key = key  # type: str
-        # $.parameters[7].schema.example
+        # The tag values.
+        # 
+        # The tag values can be 0 to 128 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        # 
+        # Each tag key must have a unique tag value. You can specify at most 20 tag values in each call.
         self.value = value  # type: str
 
     def validate(self):
@@ -20695,27 +20827,34 @@ class ListTransitRouterMulticastDomainsRequest(TeaModel):
     def __init__(self, cen_id=None, client_token=None, max_results=None, next_token=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, tag=None,
                  transit_router_id=None, transit_router_multicast_domain_id=None):
-        # The tags of the multicast domain.
+        # The ID of the Cloud Enterprise Network (CEN) instance.
         self.cen_id = cen_id  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can use the client to generate the value, but you must make sure that it is unique among different requests. ClientToken can contain only ASCII characters.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         self.client_token = client_token  # type: str
-        # The ID of the multicast domain.
+        # The number of entries to return on each page. Default value: **20**.
         self.max_results = max_results  # type: long
-        # The ID of the request.
+        # The pagination token that is used in the next request to retrieve a new page of results. Valid values:
+        # 
+        # *   You do not need to specify this parameter for the first request.
+        # *   If a value is returned for NextToken, specify the value in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the transit router.
+        # The region ID of the transit router.
+        # 
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The information about the multicast domain.
+        # The tags.
+        # 
+        # You can specify at most 20 tags in each call.
         self.tag = tag  # type: list[ListTransitRouterMulticastDomainsRequestTag]
-        # The description of the multicast domain.
+        # The transit router ID.
         self.transit_router_id = transit_router_id  # type: str
-        # The ID of the multicast domain.
+        # The multicast domain ID.
         self.transit_router_multicast_domain_id = transit_router_multicast_domain_id  # type: str
 
     def validate(self):
@@ -20792,7 +20931,9 @@ class ListTransitRouterMulticastDomainsRequest(TeaModel):
 
 class ListTransitRouterMulticastDomainsResponseBodyTransitRouterMulticastDomainsTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -20822,28 +20963,25 @@ class ListTransitRouterMulticastDomainsResponseBodyTransitRouterMulticastDomains
 class ListTransitRouterMulticastDomainsResponseBodyTransitRouterMulticastDomains(TeaModel):
     def __init__(self, cen_id=None, region_id=None, status=None, tags=None, transit_router_id=None,
                  transit_router_multicast_domain_description=None, transit_router_multicast_domain_id=None, transit_router_multicast_domain_name=None):
+        # The CEN instance ID.
         self.cen_id = cen_id  # type: str
+        # The region ID of the transit router.
+        # 
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # WB656982
+        # The status of the multicast domain.
+        # 
+        # The valid value is **Active**, which indicates that the multicast domain is available.
         self.status = status  # type: str
+        # The tags.
         self.tags = tags  # type: list[ListTransitRouterMulticastDomainsResponseBodyTransitRouterMulticastDomainsTags]
+        # The transit router ID.
         self.transit_router_id = transit_router_id  # type: str
-        # ListTransitRouterMulticastDomains
+        # The description of the multicast domain.
         self.transit_router_multicast_domain_description = transit_router_multicast_domain_description  # type: str
-        # <ListTransitRouterMulticastDomainsResponse>
-        #     <RequestId>8A0F93D1-FD6C-56FC-B6D2-668FC92D12D2</RequestId>
-        #     <TotalCount>1</TotalCount>
-        #     <MaxResults>20</MaxResults>
-        #     <NextToken>FFmyTO70tTpLG6I3FmYAXGKPd****</NextToken>
-        #     <TransitRouterMulticastDomains>
-        #         <TransitRouterMulticastDomainId>tr-mcast-domain-3r3bvbypxqheej****</TransitRouterMulticastDomainId>
-        #         <TransitRouterMulticastDomainName>nametest</TransitRouterMulticastDomainName>
-        #         <TransitRouterMulticastDomainDescription>desctest</TransitRouterMulticastDomainDescription>
-        #         <Status>Active</Status>
-        #     </TransitRouterMulticastDomains>
-        # </ListTransitRouterMulticastDomainsResponse>
+        # The ID of the multicast domain.
         self.transit_router_multicast_domain_id = transit_router_multicast_domain_id  # type: str
-        # Queries the information about a multicast domain.
+        # The name of the multicast domain.
         self.transit_router_multicast_domain_name = transit_router_multicast_domain_name  # type: str
 
     def validate(self):
@@ -20905,28 +21043,18 @@ class ListTransitRouterMulticastDomainsResponseBodyTransitRouterMulticastDomains
 class ListTransitRouterMulticastDomainsResponseBody(TeaModel):
     def __init__(self, max_results=None, next_token=None, request_id=None, total_count=None,
                  transit_router_multicast_domains=None):
-        # $.parameters[8].schema.example
+        # The number of entries returned per page.
         self.max_results = max_results  # type: int
-        # $.parameters[8].schema.enumValueTitles
+        # The returned value of NextToken is a pagination token, which can be used in the next request to retrieve a new page of results. Valid values:
+        # 
+        # *   If **NextToken** is empty, no next page exists.
+        # *   If a value is returned for **NextToken**, the value is the token that determines the start point of the next query.
         self.next_token = next_token  # type: str
-        # $.parameters[7].schema.enumValueTitles
+        # The request ID.
         self.request_id = request_id  # type: str
-        # $.parameters[8].schema.description
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
-        # {
-        #     "RequestId": "8A0F93D1-FD6C-56FC-B6D2-668FC92D12D2",
-        #     "TotalCount": 1,
-        #     "MaxResults": 20,
-        #     "NextToken": "FFmyTO70tTpLG6I3FmYAXGKPd****",
-        #     "TransitRouterMulticastDomains": [
-        #         {
-        #             "TransitRouterMulticastDomainId": "tr-mcast-domain-3r3bvbypxqheej****",
-        #             "TransitRouterMulticastDomainName": "nametest",
-        #             "TransitRouterMulticastDomainDescription": "desctest",
-        #             "Status": "Active"
-        #         }
-        #     ]
-        # }
+        # The information about the multicast domain.
         self.transit_router_multicast_domains = transit_router_multicast_domains  # type: list[ListTransitRouterMulticastDomainsResponseBodyTransitRouterMulticastDomains]
 
     def validate(self):
@@ -21820,6 +21948,7 @@ class ListTransitRouterPrefixListAssociationRequest(TeaModel):
         # 
         # > Set the value to **BlackHole** if you want to query the prefix list that generates blackhole routes.
         self.next_hop = next_hop  # type: str
+        # The ID of the network instance associated with the next hop connection.
         self.next_hop_instance_id = next_hop_instance_id  # type: str
         # The type of the next hop. Valid values:
         # 
@@ -21844,6 +21973,10 @@ class ListTransitRouterPrefixListAssociationRequest(TeaModel):
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The status of the prefix list. Valid values:
+        # 
+        # *   **Active**\
+        # *   **Updating**\
         self.status = status  # type: str
         # The ID of the transit router.
         self.transit_router_id = transit_router_id  # type: str
@@ -22860,9 +22993,9 @@ class ListTransitRouterRouteTablePropagationsRequest(TeaModel):
         self.status = status  # type: str
         # The ID of the network instance connection.
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
-        # The ID of the next hop.
+        # The ID of the network instance.
         self.transit_router_attachment_resource_id = transit_router_attachment_resource_id  # type: str
-        # The type of next hop. Valid values:
+        # The type of the network instance. Valid values:
         # 
         # *   **VPC**: virtual private cloud (VPC)
         # *   **VBR**: virtual border router (VBR)
@@ -22935,9 +23068,9 @@ class ListTransitRouterRouteTablePropagationsRequest(TeaModel):
 class ListTransitRouterRouteTablePropagationsResponseBodyTransitRouterPropagations(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, status=None, transit_router_attachment_id=None,
                  transit_router_route_table_id=None):
-        # The ID of the next hop.
+        # The ID of the network instance.
         self.resource_id = resource_id  # type: str
-        # The type of next hop. Valid values:
+        # The type of the network instance. Valid values:
         # 
         # *   **VPC**: VPC
         # *   **VBR**: VBR
@@ -22949,7 +23082,6 @@ class ListTransitRouterRouteTablePropagationsResponseBodyTransitRouterPropagatio
         # *   **Enabling**: being enabled
         # *   **Disabling**: being disabled
         # *   **Active**: available
-        # *   **Deleted**: deleted
         self.status = status  # type: str
         # The ID of the network instance connection.
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
@@ -26302,22 +26434,28 @@ class ModifyTransitRouterMulticastDomainRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, transit_router_multicast_domain_description=None,
                  transit_router_multicast_domain_id=None, transit_router_multicast_domain_name=None):
-        # The ID of the request.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. ClientToken can contain only ASCII characters.
         self.client_token = client_token  # type: str
+        # Specifies whether only to precheck the request. Valid values:
+        # 
+        # *   **true**: prechecks the request but does not modify the name or description of the multicast domain. The system checks the required parameters, the request format, and the service limits. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
+        # *   **false** (default): sends the request. If the request passes the precheck, the name and description of the multicast domain are modified.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The new description of the multicast domain.
+        # 
+        # The description must be 0 to 256 characters in length, and can contain letters, digits, commas (,), periods (.), semicolons (;), forward slashes (/), at signs (@), underscores (\_), and hyphens (-).
         self.transit_router_multicast_domain_description = transit_router_multicast_domain_description  # type: str
-        # The operation that you want to perform. Set the value to **ModifyTransitRouterMulticastDomain**.
+        # The ID of the multicast domain.
         self.transit_router_multicast_domain_id = transit_router_multicast_domain_id  # type: str
-        # Specifies whether only to precheck the request. Valid values:
+        # The new name of the multicast domain.
         # 
-        # *   **true**: prechecks the request but does not modify the name or description of the multicast domain. The system checks the required parameters, the request format, and the service limits. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
-        # *   **false** (default): sends the request. If the request passes the precheck, the name and description of the multicast domain are modified.
-        # 
-        # >  This parameter is not in use.
+        # The name must be 0 to 128 characters in length, and can contain letters, digits, commas (,), periods (.), semicolons (;), forward slashes (/), at signs (@), underscores (\_), and hyphens (-).
         self.transit_router_multicast_domain_name = transit_router_multicast_domain_name  # type: str
 
     def validate(self):
@@ -26374,6 +26512,7 @@ class ModifyTransitRouterMulticastDomainRequest(TeaModel):
 
 class ModifyTransitRouterMulticastDomainResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -28921,12 +29060,16 @@ class UpdateCenInterRegionTrafficQosQueueAttributeRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, dscps=None, owner_account=None, owner_id=None,
                  qos_queue_description=None, qos_queue_id=None, qos_queue_name=None, remain_bandwidth_percent=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The new name of the queue.
+        # The client token that is used to ensure the idempotence of the request.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
-        # The ID of the request.
+        # Specifies whether to perform a dry run, without performing the actual request. Valid values:
+        # 
+        # *   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
         self.dry_run = dry_run  # type: bool
+        # The differentiated services code point (DSCP) value used to match packets in the queue.
         self.dscps = dscps  # type: list[int]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -28934,13 +29077,15 @@ class UpdateCenInterRegionTrafficQosQueueAttributeRequest(TeaModel):
         # 
         # The description must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The description must start with a letter.
         self.qos_queue_description = qos_queue_description  # type: str
-        # The operation that you want to perform. Set the value to **UpdateCenInterRegionTrafficQosQueueAttribute**.
+        # The queue ID.
         self.qos_queue_id = qos_queue_id  # type: str
-        # The differentiated services code point (DSCP) value of the packets to be matched by the queue. Valid values: **0** to **63**.
+        # The new name of the queue.
         # 
-        # You can enter up to 20 DSCP values at a time.
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). It must start with a letter.
         self.qos_queue_name = qos_queue_name  # type: str
-        # Modifies a queue in a quality of service (QoS) policy.
+        # The percentage of the inter-region bandwidth that can be used by the queue.
+        # 
+        # Enter a number. You do not need to enter a percent sign (%).
         self.remain_bandwidth_percent = remain_bandwidth_percent  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -29007,6 +29152,7 @@ class UpdateCenInterRegionTrafficQosQueueAttributeRequest(TeaModel):
 
 class UpdateCenInterRegionTrafficQosQueueAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29429,22 +29575,34 @@ class UpdateTransitRouterRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, transit_router_description=None, transit_router_id=None,
                  transit_router_name=None):
-        # The operation that you want to perform. Set the value to **UpdateTransitRouter**.
-        self.client_token = client_token  # type: str
-        # The name of the transit router.
+        # The client token that is used to ensure the idempotence of the request.
         # 
-        # The name must be 2 to 128 characters in length and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
+        # 
+        # > If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
+        self.client_token = client_token  # type: str
+        # Specifies whether to perform only a dry run, without performing the actual request. Valid values:
+        # 
+        # *   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
+        # *   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the system returns the ID of the request.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # Modifies the name and description of a transit router.
+        # The region ID of the transit router.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The description of the transit router.
+        # 
+        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
         self.transit_router_description = transit_router_description  # type: str
-        # UpdateTransitRouter
+        # The transit router ID.
         self.transit_router_id = transit_router_id  # type: str
-        # WB656982
+        # The transit router name.
+        # 
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
         self.transit_router_name = transit_router_name  # type: str
 
     def validate(self):
@@ -29505,6 +29663,7 @@ class UpdateTransitRouterRequest(TeaModel):
 
 class UpdateTransitRouterResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29769,7 +29928,7 @@ class UpdateTransitRouterRouteEntryRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The new description of the route.
         # 
-        # The description must be 2 to 256 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -. You can also leave the description empty.
+        # The description must be 1 to 256 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -. You can also leave the description empty.
         self.transit_router_route_entry_description = transit_router_route_entry_description  # type: str
         # The ID of the route.
         self.transit_router_route_entry_id = transit_router_route_entry_id  # type: str
@@ -30058,19 +30217,35 @@ class UpdateTransitRouterVbrAttachmentAttributeRequest(TeaModel):
     def __init__(self, auto_publish_route_enabled=None, client_token=None, dry_run=None, owner_account=None,
                  owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  transit_router_attachment_description=None, transit_router_attachment_id=None, transit_router_attachment_name=None):
-        self.auto_publish_route_enabled = auto_publish_route_enabled  # type: bool
         # Specifies whether to allow the Enterprise Edition transit router to automatically advertise routes to the VBR. Valid values:
         # 
-        # *   **true**: yes
-        # *   **false**: no
+        # *   **true**\
+        # *   **false**\
+        self.auto_publish_route_enabled = auto_publish_route_enabled  # type: bool
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
+        # 
+        # > If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
         self.client_token = client_token  # type: str
+        # Specifies whether to perform only a dry run, without performing the actual request. Default values:
+        # 
+        # *   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
+        # *   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The new description of the VBR connection.
+        # 
+        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
         self.transit_router_attachment_description = transit_router_attachment_description  # type: str
+        # The ID of the VBR connection.
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
+        # The new name of the VBR connection.
+        # 
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
         self.transit_router_attachment_name = transit_router_attachment_name  # type: str
 
     def validate(self):
@@ -30131,6 +30306,7 @@ class UpdateTransitRouterVbrAttachmentAttributeRequest(TeaModel):
 
 class UpdateTransitRouterVbrAttachmentAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -30196,10 +30372,10 @@ class UpdateTransitRouterVpcAttachmentAttributeRequest(TeaModel):
     def __init__(self, auto_publish_route_enabled=None, client_token=None, dry_run=None, owner_account=None,
                  owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  transit_router_attachment_description=None, transit_router_attachment_id=None, transit_router_attachment_name=None):
-        # 是否允许企业版转发路由器自动发布路由到VPC实例。
+        # Specifies whether to allow the Enterprise Edition transit router to advertise routes to the VPC. Valid values:
         # 
-        # - **false**（默认值）：否。
-        # - **true**：是。
+        # *   **false:** (default)
+        # *   **true**\
         self.auto_publish_route_enabled = auto_publish_route_enabled  # type: bool
         # The client token that is used to ensure the idempotence of the request.
         # 
