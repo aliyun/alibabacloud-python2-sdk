@@ -15892,7 +15892,7 @@ class DescribeAppAttributesRequestTag(TeaModel):
         # 
         # N can be an integer from 1 to 20.``
         self.key = key  # type: str
-        # The key of the tag.
+        # The value of the tag.
         # 
         # N can be an integer from 1 to 20.``
         self.value = value  # type: str
@@ -15934,6 +15934,7 @@ class DescribeAppAttributesRequest(TeaModel):
         self.app_name = app_name  # type: str
         # Specifies whether to enable tag verification.
         self.enable_tag_auth = enable_tag_auth  # type: bool
+        # Extended Fields.
         self.extend = extend  # type: str
         # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
@@ -16090,6 +16091,7 @@ class DescribeAppAttributesResponseBodyAppsAppAttribute(TeaModel):
         self.created_time = created_time  # type: str
         # The description of the app.
         self.description = description  # type: str
+        # Extended Fields.
         self.extend = extend  # type: str
         # The modification time (UTC) of the app.
         self.modified_time = modified_time  # type: str
@@ -36780,9 +36782,11 @@ class SetAccessControlListAttributeResponse(TeaModel):
 
 
 class SetApiProductsAuthoritiesRequest(TeaModel):
-    def __init__(self, api_product_ids=None, app_id=None, description=None, security_token=None):
+    def __init__(self, api_product_ids=None, app_id=None, auth_valid_time=None, description=None,
+                 security_token=None):
         self.api_product_ids = api_product_ids  # type: list[str]
         self.app_id = app_id  # type: long
+        self.auth_valid_time = auth_valid_time  # type: str
         self.description = description  # type: str
         self.security_token = security_token  # type: str
 
@@ -36799,6 +36803,8 @@ class SetApiProductsAuthoritiesRequest(TeaModel):
             result['ApiProductIds'] = self.api_product_ids
         if self.app_id is not None:
             result['AppId'] = self.app_id
+        if self.auth_valid_time is not None:
+            result['AuthValidTime'] = self.auth_valid_time
         if self.description is not None:
             result['Description'] = self.description
         if self.security_token is not None:
@@ -36811,6 +36817,8 @@ class SetApiProductsAuthoritiesRequest(TeaModel):
             self.api_product_ids = m.get('ApiProductIds')
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
+        if m.get('AuthValidTime') is not None:
+            self.auth_valid_time = m.get('AuthValidTime')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('SecurityToken') is not None:
@@ -36819,9 +36827,11 @@ class SetApiProductsAuthoritiesRequest(TeaModel):
 
 
 class SetApiProductsAuthoritiesShrinkRequest(TeaModel):
-    def __init__(self, api_product_ids_shrink=None, app_id=None, description=None, security_token=None):
+    def __init__(self, api_product_ids_shrink=None, app_id=None, auth_valid_time=None, description=None,
+                 security_token=None):
         self.api_product_ids_shrink = api_product_ids_shrink  # type: str
         self.app_id = app_id  # type: long
+        self.auth_valid_time = auth_valid_time  # type: str
         self.description = description  # type: str
         self.security_token = security_token  # type: str
 
@@ -36838,6 +36848,8 @@ class SetApiProductsAuthoritiesShrinkRequest(TeaModel):
             result['ApiProductIds'] = self.api_product_ids_shrink
         if self.app_id is not None:
             result['AppId'] = self.app_id
+        if self.auth_valid_time is not None:
+            result['AuthValidTime'] = self.auth_valid_time
         if self.description is not None:
             result['Description'] = self.description
         if self.security_token is not None:
@@ -36850,6 +36862,8 @@ class SetApiProductsAuthoritiesShrinkRequest(TeaModel):
             self.api_product_ids_shrink = m.get('ApiProductIds')
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
+        if m.get('AuthValidTime') is not None:
+            self.auth_valid_time = m.get('AuthValidTime')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('SecurityToken') is not None:
