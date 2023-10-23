@@ -204,16 +204,6 @@ class Client(OpenApiClient):
         return self.decrease_nodes_with_options(request, runtime)
 
     def delete_cluster_with_options(self, request, runtime):
-        """
-        删除集群。
-        
-
-        @param request: DeleteClusterRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DeleteClusterResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -240,14 +230,6 @@ class Client(OpenApiClient):
         )
 
     def delete_cluster(self, request):
-        """
-        删除集群。
-        
-
-        @param request: DeleteClusterRequest
-
-        @return: DeleteClusterResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.delete_cluster_with_options(request, runtime)
 
@@ -2578,6 +2560,16 @@ class Client(OpenApiClient):
         return self.remove_auto_scaling_policy_with_options(request, runtime)
 
     def run_application_action_with_options(self, request, runtime):
+        """
+        执行应用操作。
+        
+
+        @param request: RunApplicationActionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RunApplicationActionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.action_name):
@@ -2618,20 +2610,18 @@ class Client(OpenApiClient):
         )
 
     def run_application_action(self, request):
+        """
+        执行应用操作。
+        
+
+        @param request: RunApplicationActionRequest
+
+        @return: RunApplicationActionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.run_application_action_with_options(request, runtime)
 
     def tag_resources_with_options(self, request, runtime):
-        """
-        给资源打标签。
-        
-
-        @param request: TagResourcesRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: TagResourcesResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.region_id):
@@ -2662,14 +2652,6 @@ class Client(OpenApiClient):
         )
 
     def tag_resources(self, request):
-        """
-        给资源打标签。
-        
-
-        @param request: TagResourcesRequest
-
-        @return: TagResourcesResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.tag_resources_with_options(request, runtime)
 

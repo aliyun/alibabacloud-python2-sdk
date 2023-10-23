@@ -1025,7 +1025,7 @@ class Cluster(TeaModel):
     def __init__(self, cluster_id=None, cluster_name=None, cluster_state=None, cluster_type=None, create_time=None,
                  deploy_mode=None, emr_default_role=None, end_time=None, expire_time=None, node_attributes=None,
                  payment_type=None, ready_time=None, region_id=None, release_version=None, resource_group_id=None,
-                 security_mode=None, state_change_reason=None, subscription_config=None, tags=None):
+                 security_mode=None, state_change_reason=None, status=None, subscription_config=None, tags=None):
         # 集群ID。
         self.cluster_id = cluster_id  # type: str
         # 集群名称。
@@ -1050,7 +1050,7 @@ class Cluster(TeaModel):
         self.payment_type = payment_type  # type: str
         # 可用时间。
         self.ready_time = ready_time  # type: long
-        # 区域ID。
+        # 地域ID。
         self.region_id = region_id  # type: str
         # EMR发行版。
         self.release_version = release_version  # type: str
@@ -1059,6 +1059,8 @@ class Cluster(TeaModel):
         # Kerberos安全模式。
         self.security_mode = security_mode  # type: str
         self.state_change_reason = state_change_reason  # type: ClusterStateChangeReason
+        # 集群状态，值同clusterState
+        self.status = status  # type: str
         # 预付费配置。
         self.subscription_config = subscription_config  # type: SubscriptionConfig
         # 集群标签。
@@ -1116,6 +1118,8 @@ class Cluster(TeaModel):
             result['SecurityMode'] = self.security_mode
         if self.state_change_reason is not None:
             result['StateChangeReason'] = self.state_change_reason.to_map()
+        if self.status is not None:
+            result['Status'] = self.status
         if self.subscription_config is not None:
             result['SubscriptionConfig'] = self.subscription_config.to_map()
         result['Tags'] = []
@@ -1162,6 +1166,8 @@ class Cluster(TeaModel):
         if m.get('StateChangeReason') is not None:
             temp_model = ClusterStateChangeReason()
             self.state_change_reason = temp_model.from_map(m['StateChangeReason'])
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         if m.get('SubscriptionConfig') is not None:
             temp_model = SubscriptionConfig()
             self.subscription_config = temp_model.from_map(m['SubscriptionConfig'])
@@ -1275,7 +1281,7 @@ class ClusterStateChangeReason(TeaModel):
 class ClusterSummary(TeaModel):
     def __init__(self, cluster_id=None, cluster_name=None, cluster_state=None, cluster_type=None, create_time=None,
                  emr_default_role=None, end_time=None, expire_time=None, payment_type=None, ready_time=None, release_version=None,
-                 resource_group_id=None, state_change_reason=None, tags=None):
+                 resource_group_id=None, state_change_reason=None, status=None, tags=None):
         # 集群ID。
         self.cluster_id = cluster_id  # type: str
         # 集群名称。
@@ -1316,6 +1322,16 @@ class ClusterSummary(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         # 失败原因。
         self.state_change_reason = state_change_reason  # type: ClusterStateChangeReason
+        # 集群状态。取值范围：
+        # - STARTING：启动中。
+        # - START_FAILED：启动失败。
+        # - BOOTSTRAPPING：引导操作初始化。
+        # - RUNNING：运行中。
+        # - TERMINATING：终止中。
+        # - TERMINATED：已终止。
+        # - TERMINATED_WITH_ERRORS：发生异常导致终止。
+        # - TERMINATE_FAILED：终止失败。
+        self.status = status  # type: str
         # 标签列表。
         self.tags = tags  # type: list[Tag]
 
@@ -1359,6 +1375,8 @@ class ClusterSummary(TeaModel):
             result['ResourceGroupId'] = self.resource_group_id
         if self.state_change_reason is not None:
             result['StateChangeReason'] = self.state_change_reason.to_map()
+        if self.status is not None:
+            result['Status'] = self.status
         result['Tags'] = []
         if self.tags is not None:
             for k in self.tags:
@@ -1394,6 +1412,8 @@ class ClusterSummary(TeaModel):
         if m.get('StateChangeReason') is not None:
             temp_model = ClusterStateChangeReason()
             self.state_change_reason = temp_model.from_map(m['StateChangeReason'])
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         self.tags = []
         if m.get('Tags') is not None:
             for k in m.get('Tags'):
@@ -7204,7 +7224,7 @@ class GetClusterRequest(TeaModel):
     def __init__(self, cluster_id=None, region_id=None):
         # 集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 区域ID。
+        # 地域ID。
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -37020,11 +37040,9 @@ class RunApplicationActionRequest(TeaModel):
         self.component_instance_selector = component_instance_selector  # type: ComponentInstanceSelector
         # 描述。
         self.description = description  # type: str
-        # 运行失败策略。取值范围：
-        # - FAILED_BLOCK：失败后阻塞。
-        # - FAILED_CONTINUE：失败后继续。
+        # 运行策略。
         self.execute_strategy = execute_strategy  # type: str
-        # 滚动执行间隔时间。
+        # 间隔时间。
         self.interval = interval  # type: long
         # 区域ID。
         self.region_id = region_id  # type: str
