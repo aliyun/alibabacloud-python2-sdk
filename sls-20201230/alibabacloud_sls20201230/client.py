@@ -758,6 +758,38 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_saved_search_with_options(project, request, headers, runtime)
 
+    def create_ticket_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.play_access_key_id):
+            body['playAccessKeyId'] = request.play_access_key_id
+        if not UtilClient.is_unset(request.play_access_key_secret):
+            body['playAccessKeySecret'] = request.play_access_key_secret
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateTicket',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/tickets',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateTicketResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_ticket(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_ticket_with_options(request, headers, runtime)
+
     def delete_annotation_data_with_options(self, dataset_id, annotationdata_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
@@ -832,6 +864,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_annotation_label_with_options(label_id, headers, runtime)
+
+    def delete_collection_policy_with_options(self, policy_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data_code):
+            query['dataCode'] = request.data_code
+        if not UtilClient.is_unset(request.product_code):
+            query['productCode'] = request.product_code
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteCollectionPolicy',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/collectionpolicy/%s' % TeaConverter.to_unicode(policy_name),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteCollectionPolicyResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_collection_policy(self, policy_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_collection_policy_with_options(policy_name, request, headers, runtime)
 
     def delete_config_with_options(self, project, config_name, headers, runtime):
         host_map = {}
@@ -1389,6 +1453,38 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_check_point_with_options(project, logstore, consumer_group, request, headers, runtime)
 
+    def get_collection_policy_with_options(self, policy_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data_code):
+            query['dataCode'] = request.data_code
+        if not UtilClient.is_unset(request.product_code):
+            query['productCode'] = request.product_code
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCollectionPolicy',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/collectionpolicy/%s' % TeaConverter.to_unicode(policy_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetCollectionPolicyResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_collection_policy(self, policy_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_collection_policy_with_options(policy_name, request, headers, runtime)
+
     def get_config_with_options(self, project, config_name, headers, runtime):
         host_map = {}
         host_map['project'] = project
@@ -1674,6 +1770,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_log_store_with_options(project, logstore, headers, runtime)
+
+    def get_log_store_metering_mode_with_options(self, project, logstore, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetLogStoreMeteringMode',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/meteringmode' % TeaConverter.to_unicode(logstore),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetLogStoreMeteringModeResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_log_store_metering_mode(self, project, logstore):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_log_store_metering_mode_with_options(project, logstore, headers, runtime)
 
     def get_logging_with_options(self, project, headers, runtime):
         host_map = {}
@@ -2119,6 +2243,52 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_annotation_labels_with_options(request, headers, runtime)
+
+    def list_collection_policies_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = sls_20201230_models.ListCollectionPoliciesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.attribute):
+            request.attribute_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.attribute, 'attribute', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.attribute_shrink):
+            query['attribute'] = request.attribute_shrink
+        if not UtilClient.is_unset(request.data_code):
+            query['dataCode'] = request.data_code
+        if not UtilClient.is_unset(request.instance_id):
+            query['instanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_num):
+            query['pageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.policy_name):
+            query['policyName'] = request.policy_name
+        if not UtilClient.is_unset(request.product_code):
+            query['productCode'] = request.product_code
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCollectionPolicies',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/collectionpolicy',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListCollectionPoliciesResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_collection_policies(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_collection_policies_with_options(request, headers, runtime)
 
     def list_config_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2907,7 +3077,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.UntagResourcesResponse(),
@@ -3176,6 +3346,39 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_log_store_with_options(project, logstore, request, headers, runtime)
+
+    def update_log_store_metering_mode_with_options(self, project, logstore, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.metering_mode):
+            body['meteringMode'] = request.metering_mode
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateLogStoreMeteringMode',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/meteringmode' % TeaConverter.to_unicode(logstore),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateLogStoreMeteringModeResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_log_store_metering_mode(self, project, logstore, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_log_store_metering_mode_with_options(project, logstore, request, headers, runtime)
 
     def update_logging_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3553,3 +3756,47 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_saved_search_with_options(project, savedsearch_name, request, headers, runtime)
+
+    def upsert_collection_policy_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.attribute):
+            body['attribute'] = request.attribute
+        if not UtilClient.is_unset(request.centralize_config):
+            body['centralizeConfig'] = request.centralize_config
+        if not UtilClient.is_unset(request.centralize_enabled):
+            body['centralizeEnabled'] = request.centralize_enabled
+        if not UtilClient.is_unset(request.data_code):
+            body['dataCode'] = request.data_code
+        if not UtilClient.is_unset(request.enabled):
+            body['enabled'] = request.enabled
+        if not UtilClient.is_unset(request.policy_config):
+            body['policyConfig'] = request.policy_config
+        if not UtilClient.is_unset(request.policy_name):
+            body['policyName'] = request.policy_name
+        if not UtilClient.is_unset(request.product_code):
+            body['productCode'] = request.product_code
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpsertCollectionPolicy',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/collectionpolicy',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpsertCollectionPolicyResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def upsert_collection_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upsert_collection_policy_with_options(request, headers, runtime)

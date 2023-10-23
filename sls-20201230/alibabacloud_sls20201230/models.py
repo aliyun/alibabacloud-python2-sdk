@@ -1851,6 +1851,35 @@ class Project(TeaModel):
         return self
 
 
+class ServiceStatus(TeaModel):
+    def __init__(self, enabled=None, status=None):
+        self.enabled = enabled  # type: bool
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ServiceStatus, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enabled is not None:
+            result['enabled'] = self.enabled
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('enabled') is not None:
+            self.enabled = m.get('enabled')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
 class Shard(TeaModel):
     def __init__(self, create_time=None, exclusive_end_key=None, inclusive_begin_key=None, shard_id=None,
                  status=None):
@@ -3821,6 +3850,98 @@ class CreateSavedSearchResponse(TeaModel):
         return self
 
 
+class CreateTicketRequest(TeaModel):
+    def __init__(self, play_access_key_id=None, play_access_key_secret=None):
+        self.play_access_key_id = play_access_key_id  # type: str
+        self.play_access_key_secret = play_access_key_secret  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTicketRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.play_access_key_id is not None:
+            result['playAccessKeyId'] = self.play_access_key_id
+        if self.play_access_key_secret is not None:
+            result['playAccessKeySecret'] = self.play_access_key_secret
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('playAccessKeyId') is not None:
+            self.play_access_key_id = m.get('playAccessKeyId')
+        if m.get('playAccessKeySecret') is not None:
+            self.play_access_key_secret = m.get('playAccessKeySecret')
+        return self
+
+
+class CreateTicketResponseBody(TeaModel):
+    def __init__(self, ticket=None):
+        self.ticket = ticket  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTicketResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ticket is not None:
+            result['ticket'] = self.ticket
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ticket') is not None:
+            self.ticket = m.get('ticket')
+        return self
+
+
+class CreateTicketResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateTicketResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateTicketResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateTicketResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteAnnotationDataResponse(TeaModel):
     def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
@@ -3908,6 +4029,98 @@ class DeleteAnnotationLabelResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
+        return self
+
+
+class DeleteCollectionPolicyRequest(TeaModel):
+    def __init__(self, data_code=None, product_code=None):
+        self.data_code = data_code  # type: str
+        self.product_code = product_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteCollectionPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_code is not None:
+            result['dataCode'] = self.data_code
+        if self.product_code is not None:
+            result['productCode'] = self.product_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('dataCode') is not None:
+            self.data_code = m.get('dataCode')
+        if m.get('productCode') is not None:
+            self.product_code = m.get('productCode')
+        return self
+
+
+class DeleteCollectionPolicyResponseBody(TeaModel):
+    def __init__(self, message=None):
+        self.message = message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteCollectionPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
+class DeleteCollectionPolicyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteCollectionPolicyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteCollectionPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteCollectionPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
@@ -4693,6 +4906,275 @@ class GetCheckPointResponse(TeaModel):
         return self
 
 
+class GetCollectionPolicyRequest(TeaModel):
+    def __init__(self, data_code=None, product_code=None):
+        self.data_code = data_code  # type: str
+        self.product_code = product_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCollectionPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_code is not None:
+            result['dataCode'] = self.data_code
+        if self.product_code is not None:
+            result['productCode'] = self.product_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('dataCode') is not None:
+            self.data_code = m.get('dataCode')
+        if m.get('productCode') is not None:
+            self.product_code = m.get('productCode')
+        return self
+
+
+class GetCollectionPolicyResponseBodyCollectionPolicyAttribute(TeaModel):
+    def __init__(self, app=None, policy_group=None):
+        self.app = app  # type: str
+        self.policy_group = policy_group  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCollectionPolicyResponseBodyCollectionPolicyAttribute, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app is not None:
+            result['app'] = self.app
+        if self.policy_group is not None:
+            result['policyGroup'] = self.policy_group
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('app') is not None:
+            self.app = m.get('app')
+        if m.get('policyGroup') is not None:
+            self.policy_group = m.get('policyGroup')
+        return self
+
+
+class GetCollectionPolicyResponseBodyCollectionPolicyCentralizeConfig(TeaModel):
+    def __init__(self, dest_logstore=None, dest_project=None, dest_region=None, dest_ttl=None):
+        self.dest_logstore = dest_logstore  # type: str
+        self.dest_project = dest_project  # type: str
+        self.dest_region = dest_region  # type: str
+        self.dest_ttl = dest_ttl  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCollectionPolicyResponseBodyCollectionPolicyCentralizeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dest_logstore is not None:
+            result['destLogstore'] = self.dest_logstore
+        if self.dest_project is not None:
+            result['destProject'] = self.dest_project
+        if self.dest_region is not None:
+            result['destRegion'] = self.dest_region
+        if self.dest_ttl is not None:
+            result['destTTL'] = self.dest_ttl
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('destLogstore') is not None:
+            self.dest_logstore = m.get('destLogstore')
+        if m.get('destProject') is not None:
+            self.dest_project = m.get('destProject')
+        if m.get('destRegion') is not None:
+            self.dest_region = m.get('destRegion')
+        if m.get('destTTL') is not None:
+            self.dest_ttl = m.get('destTTL')
+        return self
+
+
+class GetCollectionPolicyResponseBodyCollectionPolicyPolicyConfig(TeaModel):
+    def __init__(self, instance_ids=None, regions=None, resource_mode=None, resource_tags=None):
+        self.instance_ids = instance_ids  # type: list[str]
+        self.regions = regions  # type: list[str]
+        self.resource_mode = resource_mode  # type: str
+        self.resource_tags = resource_tags  # type: dict[str, any]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCollectionPolicyResponseBodyCollectionPolicyPolicyConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_ids is not None:
+            result['instanceIds'] = self.instance_ids
+        if self.regions is not None:
+            result['regions'] = self.regions
+        if self.resource_mode is not None:
+            result['resourceMode'] = self.resource_mode
+        if self.resource_tags is not None:
+            result['resourceTags'] = self.resource_tags
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('instanceIds') is not None:
+            self.instance_ids = m.get('instanceIds')
+        if m.get('regions') is not None:
+            self.regions = m.get('regions')
+        if m.get('resourceMode') is not None:
+            self.resource_mode = m.get('resourceMode')
+        if m.get('resourceTags') is not None:
+            self.resource_tags = m.get('resourceTags')
+        return self
+
+
+class GetCollectionPolicyResponseBodyCollectionPolicy(TeaModel):
+    def __init__(self, attribute=None, centralize_config=None, centralize_enabled=None, data_code=None,
+                 enabled=None, policy_config=None, policy_name=None, product_code=None):
+        self.attribute = attribute  # type: GetCollectionPolicyResponseBodyCollectionPolicyAttribute
+        self.centralize_config = centralize_config  # type: GetCollectionPolicyResponseBodyCollectionPolicyCentralizeConfig
+        self.centralize_enabled = centralize_enabled  # type: bool
+        self.data_code = data_code  # type: str
+        self.enabled = enabled  # type: str
+        self.policy_config = policy_config  # type: GetCollectionPolicyResponseBodyCollectionPolicyPolicyConfig
+        self.policy_name = policy_name  # type: str
+        self.product_code = product_code  # type: str
+
+    def validate(self):
+        if self.attribute:
+            self.attribute.validate()
+        if self.centralize_config:
+            self.centralize_config.validate()
+        if self.policy_config:
+            self.policy_config.validate()
+
+    def to_map(self):
+        _map = super(GetCollectionPolicyResponseBodyCollectionPolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attribute is not None:
+            result['attribute'] = self.attribute.to_map()
+        if self.centralize_config is not None:
+            result['centralizeConfig'] = self.centralize_config.to_map()
+        if self.centralize_enabled is not None:
+            result['centralizeEnabled'] = self.centralize_enabled
+        if self.data_code is not None:
+            result['dataCode'] = self.data_code
+        if self.enabled is not None:
+            result['enabled'] = self.enabled
+        if self.policy_config is not None:
+            result['policyConfig'] = self.policy_config.to_map()
+        if self.policy_name is not None:
+            result['policyName'] = self.policy_name
+        if self.product_code is not None:
+            result['productCode'] = self.product_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('attribute') is not None:
+            temp_model = GetCollectionPolicyResponseBodyCollectionPolicyAttribute()
+            self.attribute = temp_model.from_map(m['attribute'])
+        if m.get('centralizeConfig') is not None:
+            temp_model = GetCollectionPolicyResponseBodyCollectionPolicyCentralizeConfig()
+            self.centralize_config = temp_model.from_map(m['centralizeConfig'])
+        if m.get('centralizeEnabled') is not None:
+            self.centralize_enabled = m.get('centralizeEnabled')
+        if m.get('dataCode') is not None:
+            self.data_code = m.get('dataCode')
+        if m.get('enabled') is not None:
+            self.enabled = m.get('enabled')
+        if m.get('policyConfig') is not None:
+            temp_model = GetCollectionPolicyResponseBodyCollectionPolicyPolicyConfig()
+            self.policy_config = temp_model.from_map(m['policyConfig'])
+        if m.get('policyName') is not None:
+            self.policy_name = m.get('policyName')
+        if m.get('productCode') is not None:
+            self.product_code = m.get('productCode')
+        return self
+
+
+class GetCollectionPolicyResponseBody(TeaModel):
+    def __init__(self, collection_policy=None):
+        self.collection_policy = collection_policy  # type: GetCollectionPolicyResponseBodyCollectionPolicy
+
+    def validate(self):
+        if self.collection_policy:
+            self.collection_policy.validate()
+
+    def to_map(self):
+        _map = super(GetCollectionPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection_policy is not None:
+            result['collectionPolicy'] = self.collection_policy.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('collectionPolicy') is not None:
+            temp_model = GetCollectionPolicyResponseBodyCollectionPolicy()
+            self.collection_policy = temp_model.from_map(m['collectionPolicy'])
+        return self
+
+
+class GetCollectionPolicyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetCollectionPolicyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetCollectionPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetCollectionPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetConfigResponse(TeaModel):
     def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
@@ -5433,6 +5915,69 @@ class GetLogStoreResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = Logstore()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetLogStoreMeteringModeResponseBody(TeaModel):
+    def __init__(self, metering_mode=None):
+        self.metering_mode = metering_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetLogStoreMeteringModeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.metering_mode is not None:
+            result['meteringMode'] = self.metering_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('meteringMode') is not None:
+            self.metering_mode = m.get('meteringMode')
+        return self
+
+
+class GetLogStoreMeteringModeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetLogStoreMeteringModeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetLogStoreMeteringModeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetLogStoreMeteringModeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -6617,6 +7162,403 @@ class ListAnnotationLabelsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListAnnotationLabelsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListCollectionPoliciesRequestAttribute(TeaModel):
+    def __init__(self, app=None, policy_group=None):
+        self.app = app  # type: str
+        self.policy_group = policy_group  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCollectionPoliciesRequestAttribute, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app is not None:
+            result['app'] = self.app
+        if self.policy_group is not None:
+            result['policyGroup'] = self.policy_group
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('app') is not None:
+            self.app = m.get('app')
+        if m.get('policyGroup') is not None:
+            self.policy_group = m.get('policyGroup')
+        return self
+
+
+class ListCollectionPoliciesRequest(TeaModel):
+    def __init__(self, attribute=None, data_code=None, instance_id=None, page_num=None, page_size=None,
+                 policy_name=None, product_code=None):
+        self.attribute = attribute  # type: ListCollectionPoliciesRequestAttribute
+        self.data_code = data_code  # type: str
+        self.instance_id = instance_id  # type: str
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.policy_name = policy_name  # type: str
+        self.product_code = product_code  # type: str
+
+    def validate(self):
+        if self.attribute:
+            self.attribute.validate()
+
+    def to_map(self):
+        _map = super(ListCollectionPoliciesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attribute is not None:
+            result['attribute'] = self.attribute.to_map()
+        if self.data_code is not None:
+            result['dataCode'] = self.data_code
+        if self.instance_id is not None:
+            result['instanceId'] = self.instance_id
+        if self.page_num is not None:
+            result['pageNum'] = self.page_num
+        if self.page_size is not None:
+            result['pageSize'] = self.page_size
+        if self.policy_name is not None:
+            result['policyName'] = self.policy_name
+        if self.product_code is not None:
+            result['productCode'] = self.product_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('attribute') is not None:
+            temp_model = ListCollectionPoliciesRequestAttribute()
+            self.attribute = temp_model.from_map(m['attribute'])
+        if m.get('dataCode') is not None:
+            self.data_code = m.get('dataCode')
+        if m.get('instanceId') is not None:
+            self.instance_id = m.get('instanceId')
+        if m.get('pageNum') is not None:
+            self.page_num = m.get('pageNum')
+        if m.get('pageSize') is not None:
+            self.page_size = m.get('pageSize')
+        if m.get('policyName') is not None:
+            self.policy_name = m.get('policyName')
+        if m.get('productCode') is not None:
+            self.product_code = m.get('productCode')
+        return self
+
+
+class ListCollectionPoliciesShrinkRequest(TeaModel):
+    def __init__(self, attribute_shrink=None, data_code=None, instance_id=None, page_num=None, page_size=None,
+                 policy_name=None, product_code=None):
+        self.attribute_shrink = attribute_shrink  # type: str
+        self.data_code = data_code  # type: str
+        self.instance_id = instance_id  # type: str
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.policy_name = policy_name  # type: str
+        self.product_code = product_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCollectionPoliciesShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attribute_shrink is not None:
+            result['attribute'] = self.attribute_shrink
+        if self.data_code is not None:
+            result['dataCode'] = self.data_code
+        if self.instance_id is not None:
+            result['instanceId'] = self.instance_id
+        if self.page_num is not None:
+            result['pageNum'] = self.page_num
+        if self.page_size is not None:
+            result['pageSize'] = self.page_size
+        if self.policy_name is not None:
+            result['policyName'] = self.policy_name
+        if self.product_code is not None:
+            result['productCode'] = self.product_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('attribute') is not None:
+            self.attribute_shrink = m.get('attribute')
+        if m.get('dataCode') is not None:
+            self.data_code = m.get('dataCode')
+        if m.get('instanceId') is not None:
+            self.instance_id = m.get('instanceId')
+        if m.get('pageNum') is not None:
+            self.page_num = m.get('pageNum')
+        if m.get('pageSize') is not None:
+            self.page_size = m.get('pageSize')
+        if m.get('policyName') is not None:
+            self.policy_name = m.get('policyName')
+        if m.get('productCode') is not None:
+            self.product_code = m.get('productCode')
+        return self
+
+
+class ListCollectionPoliciesResponseBodyDataAttribute(TeaModel):
+    def __init__(self, app=None, policy_group=None):
+        self.app = app  # type: str
+        self.policy_group = policy_group  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCollectionPoliciesResponseBodyDataAttribute, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app is not None:
+            result['app'] = self.app
+        if self.policy_group is not None:
+            result['policyGroup'] = self.policy_group
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('app') is not None:
+            self.app = m.get('app')
+        if m.get('policyGroup') is not None:
+            self.policy_group = m.get('policyGroup')
+        return self
+
+
+class ListCollectionPoliciesResponseBodyDataCentralizeConfig(TeaModel):
+    def __init__(self, dest_logstore=None, dest_project=None, dest_region=None, dest_ttl=None):
+        self.dest_logstore = dest_logstore  # type: str
+        self.dest_project = dest_project  # type: str
+        self.dest_region = dest_region  # type: str
+        self.dest_ttl = dest_ttl  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCollectionPoliciesResponseBodyDataCentralizeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dest_logstore is not None:
+            result['destLogstore'] = self.dest_logstore
+        if self.dest_project is not None:
+            result['destProject'] = self.dest_project
+        if self.dest_region is not None:
+            result['destRegion'] = self.dest_region
+        if self.dest_ttl is not None:
+            result['destTTL'] = self.dest_ttl
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('destLogstore') is not None:
+            self.dest_logstore = m.get('destLogstore')
+        if m.get('destProject') is not None:
+            self.dest_project = m.get('destProject')
+        if m.get('destRegion') is not None:
+            self.dest_region = m.get('destRegion')
+        if m.get('destTTL') is not None:
+            self.dest_ttl = m.get('destTTL')
+        return self
+
+
+class ListCollectionPoliciesResponseBodyDataPolicyConfig(TeaModel):
+    def __init__(self, instance_ids=None, regions=None, resource_mode=None, resource_tags=None):
+        self.instance_ids = instance_ids  # type: list[str]
+        self.regions = regions  # type: list[str]
+        self.resource_mode = resource_mode  # type: str
+        self.resource_tags = resource_tags  # type: dict[str, any]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCollectionPoliciesResponseBodyDataPolicyConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_ids is not None:
+            result['instanceIds'] = self.instance_ids
+        if self.regions is not None:
+            result['regions'] = self.regions
+        if self.resource_mode is not None:
+            result['resourceMode'] = self.resource_mode
+        if self.resource_tags is not None:
+            result['resourceTags'] = self.resource_tags
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('instanceIds') is not None:
+            self.instance_ids = m.get('instanceIds')
+        if m.get('regions') is not None:
+            self.regions = m.get('regions')
+        if m.get('resourceMode') is not None:
+            self.resource_mode = m.get('resourceMode')
+        if m.get('resourceTags') is not None:
+            self.resource_tags = m.get('resourceTags')
+        return self
+
+
+class ListCollectionPoliciesResponseBodyData(TeaModel):
+    def __init__(self, attribute=None, centralize_config=None, centralize_enabled=None, data_code=None,
+                 enabled=None, policy_config=None, policy_name=None, product_code=None):
+        self.attribute = attribute  # type: ListCollectionPoliciesResponseBodyDataAttribute
+        self.centralize_config = centralize_config  # type: ListCollectionPoliciesResponseBodyDataCentralizeConfig
+        self.centralize_enabled = centralize_enabled  # type: bool
+        self.data_code = data_code  # type: str
+        self.enabled = enabled  # type: bool
+        self.policy_config = policy_config  # type: ListCollectionPoliciesResponseBodyDataPolicyConfig
+        self.policy_name = policy_name  # type: str
+        self.product_code = product_code  # type: str
+
+    def validate(self):
+        if self.attribute:
+            self.attribute.validate()
+        if self.centralize_config:
+            self.centralize_config.validate()
+        if self.policy_config:
+            self.policy_config.validate()
+
+    def to_map(self):
+        _map = super(ListCollectionPoliciesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attribute is not None:
+            result['attribute'] = self.attribute.to_map()
+        if self.centralize_config is not None:
+            result['centralizeConfig'] = self.centralize_config.to_map()
+        if self.centralize_enabled is not None:
+            result['centralizeEnabled'] = self.centralize_enabled
+        if self.data_code is not None:
+            result['dataCode'] = self.data_code
+        if self.enabled is not None:
+            result['enabled'] = self.enabled
+        if self.policy_config is not None:
+            result['policyConfig'] = self.policy_config.to_map()
+        if self.policy_name is not None:
+            result['policyName'] = self.policy_name
+        if self.product_code is not None:
+            result['productCode'] = self.product_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('attribute') is not None:
+            temp_model = ListCollectionPoliciesResponseBodyDataAttribute()
+            self.attribute = temp_model.from_map(m['attribute'])
+        if m.get('centralizeConfig') is not None:
+            temp_model = ListCollectionPoliciesResponseBodyDataCentralizeConfig()
+            self.centralize_config = temp_model.from_map(m['centralizeConfig'])
+        if m.get('centralizeEnabled') is not None:
+            self.centralize_enabled = m.get('centralizeEnabled')
+        if m.get('dataCode') is not None:
+            self.data_code = m.get('dataCode')
+        if m.get('enabled') is not None:
+            self.enabled = m.get('enabled')
+        if m.get('policyConfig') is not None:
+            temp_model = ListCollectionPoliciesResponseBodyDataPolicyConfig()
+            self.policy_config = temp_model.from_map(m['policyConfig'])
+        if m.get('policyName') is not None:
+            self.policy_name = m.get('policyName')
+        if m.get('productCode') is not None:
+            self.product_code = m.get('productCode')
+        return self
+
+
+class ListCollectionPoliciesResponseBody(TeaModel):
+    def __init__(self, current_count=None, data=None, total_count=None):
+        self.current_count = current_count  # type: int
+        self.data = data  # type: list[ListCollectionPoliciesResponseBodyData]
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListCollectionPoliciesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_count is not None:
+            result['currentCount'] = self.current_count
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['totalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('currentCount') is not None:
+            self.current_count = m.get('currentCount')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = ListCollectionPoliciesResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('totalCount') is not None:
+            self.total_count = m.get('totalCount')
+        return self
+
+
+class ListCollectionPoliciesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListCollectionPoliciesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListCollectionPoliciesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListCollectionPoliciesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -9333,6 +10275,60 @@ class UpdateLogStoreResponse(TeaModel):
         return self
 
 
+class UpdateLogStoreMeteringModeRequest(TeaModel):
+    def __init__(self, metering_mode=None):
+        self.metering_mode = metering_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateLogStoreMeteringModeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.metering_mode is not None:
+            result['meteringMode'] = self.metering_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('meteringMode') is not None:
+            self.metering_mode = m.get('meteringMode')
+        return self
+
+
+class UpdateLogStoreMeteringModeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(UpdateLogStoreMeteringModeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
 class UpdateLoggingRequestLoggingDetails(TeaModel):
     def __init__(self, logstore=None, type=None):
         self.logstore = logstore  # type: str
@@ -10380,6 +11376,244 @@ class UpdateSavedSearchResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
+        return self
+
+
+class UpsertCollectionPolicyRequestAttribute(TeaModel):
+    def __init__(self, app=None, policy_group=None):
+        self.app = app  # type: str
+        self.policy_group = policy_group  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpsertCollectionPolicyRequestAttribute, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app is not None:
+            result['app'] = self.app
+        if self.policy_group is not None:
+            result['policyGroup'] = self.policy_group
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('app') is not None:
+            self.app = m.get('app')
+        if m.get('policyGroup') is not None:
+            self.policy_group = m.get('policyGroup')
+        return self
+
+
+class UpsertCollectionPolicyRequestCentralizeConfig(TeaModel):
+    def __init__(self, dest_logstore=None, dest_project=None, dest_region=None, dest_ttl=None):
+        self.dest_logstore = dest_logstore  # type: str
+        self.dest_project = dest_project  # type: str
+        self.dest_region = dest_region  # type: str
+        self.dest_ttl = dest_ttl  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpsertCollectionPolicyRequestCentralizeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dest_logstore is not None:
+            result['destLogstore'] = self.dest_logstore
+        if self.dest_project is not None:
+            result['destProject'] = self.dest_project
+        if self.dest_region is not None:
+            result['destRegion'] = self.dest_region
+        if self.dest_ttl is not None:
+            result['destTTL'] = self.dest_ttl
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('destLogstore') is not None:
+            self.dest_logstore = m.get('destLogstore')
+        if m.get('destProject') is not None:
+            self.dest_project = m.get('destProject')
+        if m.get('destRegion') is not None:
+            self.dest_region = m.get('destRegion')
+        if m.get('destTTL') is not None:
+            self.dest_ttl = m.get('destTTL')
+        return self
+
+
+class UpsertCollectionPolicyRequestPolicyConfig(TeaModel):
+    def __init__(self, instance_ids=None, regions=None, resource_mode=None, resource_tags=None):
+        self.instance_ids = instance_ids  # type: list[str]
+        self.regions = regions  # type: list[str]
+        self.resource_mode = resource_mode  # type: str
+        self.resource_tags = resource_tags  # type: dict[str, any]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpsertCollectionPolicyRequestPolicyConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_ids is not None:
+            result['instanceIds'] = self.instance_ids
+        if self.regions is not None:
+            result['regions'] = self.regions
+        if self.resource_mode is not None:
+            result['resourceMode'] = self.resource_mode
+        if self.resource_tags is not None:
+            result['resourceTags'] = self.resource_tags
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('instanceIds') is not None:
+            self.instance_ids = m.get('instanceIds')
+        if m.get('regions') is not None:
+            self.regions = m.get('regions')
+        if m.get('resourceMode') is not None:
+            self.resource_mode = m.get('resourceMode')
+        if m.get('resourceTags') is not None:
+            self.resource_tags = m.get('resourceTags')
+        return self
+
+
+class UpsertCollectionPolicyRequest(TeaModel):
+    def __init__(self, attribute=None, centralize_config=None, centralize_enabled=None, data_code=None,
+                 enabled=None, policy_config=None, policy_name=None, product_code=None):
+        self.attribute = attribute  # type: UpsertCollectionPolicyRequestAttribute
+        self.centralize_config = centralize_config  # type: UpsertCollectionPolicyRequestCentralizeConfig
+        self.centralize_enabled = centralize_enabled  # type: bool
+        self.data_code = data_code  # type: str
+        self.enabled = enabled  # type: bool
+        self.policy_config = policy_config  # type: UpsertCollectionPolicyRequestPolicyConfig
+        self.policy_name = policy_name  # type: str
+        self.product_code = product_code  # type: str
+
+    def validate(self):
+        if self.attribute:
+            self.attribute.validate()
+        if self.centralize_config:
+            self.centralize_config.validate()
+        if self.policy_config:
+            self.policy_config.validate()
+
+    def to_map(self):
+        _map = super(UpsertCollectionPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attribute is not None:
+            result['attribute'] = self.attribute.to_map()
+        if self.centralize_config is not None:
+            result['centralizeConfig'] = self.centralize_config.to_map()
+        if self.centralize_enabled is not None:
+            result['centralizeEnabled'] = self.centralize_enabled
+        if self.data_code is not None:
+            result['dataCode'] = self.data_code
+        if self.enabled is not None:
+            result['enabled'] = self.enabled
+        if self.policy_config is not None:
+            result['policyConfig'] = self.policy_config.to_map()
+        if self.policy_name is not None:
+            result['policyName'] = self.policy_name
+        if self.product_code is not None:
+            result['productCode'] = self.product_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('attribute') is not None:
+            temp_model = UpsertCollectionPolicyRequestAttribute()
+            self.attribute = temp_model.from_map(m['attribute'])
+        if m.get('centralizeConfig') is not None:
+            temp_model = UpsertCollectionPolicyRequestCentralizeConfig()
+            self.centralize_config = temp_model.from_map(m['centralizeConfig'])
+        if m.get('centralizeEnabled') is not None:
+            self.centralize_enabled = m.get('centralizeEnabled')
+        if m.get('dataCode') is not None:
+            self.data_code = m.get('dataCode')
+        if m.get('enabled') is not None:
+            self.enabled = m.get('enabled')
+        if m.get('policyConfig') is not None:
+            temp_model = UpsertCollectionPolicyRequestPolicyConfig()
+            self.policy_config = temp_model.from_map(m['policyConfig'])
+        if m.get('policyName') is not None:
+            self.policy_name = m.get('policyName')
+        if m.get('productCode') is not None:
+            self.product_code = m.get('productCode')
+        return self
+
+
+class UpsertCollectionPolicyResponseBody(TeaModel):
+    def __init__(self, message=None):
+        self.message = message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpsertCollectionPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
+class UpsertCollectionPolicyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpsertCollectionPolicyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpsertCollectionPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpsertCollectionPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
