@@ -884,7 +884,13 @@ class CreateAccountResponse(TeaModel):
 
 class CreateDBClusterRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of tag N to add to the cluster. You can use tags to filter clusters. Valid values of N: 1 to 20. The values that you specify for N must be unique and consecutive integers that start from 1. Each value of `Tag.N.Key` is paired with a value of `Tag.N.Value`.
+        # 
+        # >  The tag key can be up to 64 characters in length and cannot start with `aliyun`, `acs:`, `http://`, or `https://`.
         self.key = key  # type: str
+        # The value of tag N to add to the cluster. You can use tags to filter clusters. Valid values of N: 1 to 20. The values that you specify for N must be unique and consecutive integers that start from 1. Each value of `Tag.N.Key` is paired with a value of `Tag.N.Value`.
+        # 
+        # >  The tag value can be up to 64 characters in length and cannot start with `aliyun`, `acs:`, `http://`, or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -1007,6 +1013,7 @@ class CreateDBClusterRequest(TeaModel):
         self.storage_resource = storage_resource  # type: str
         # A reserved parameter.
         self.storage_type = storage_type  # type: str
+        # The tags to add to the cluster.
         self.tag = tag  # type: list[CreateDBClusterRequestTag]
         # The subscription period of the subscription cluster.
         # 
@@ -7369,8 +7376,8 @@ class DescribeDBClusterNetInfoResponse(TeaModel):
 
 
 class DescribeDBClusterPerformanceRequest(TeaModel):
-    def __init__(self, dbcluster_id=None, end_time=None, key=None, owner_account=None, owner_id=None,
-                 resource_owner_account=None, resource_owner_id=None, start_time=None):
+    def __init__(self, dbcluster_id=None, end_time=None, key=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, resource_pools=None, start_time=None):
         # The cluster ID.
         # 
         # > You can call the [DescribeDBClusters](~~129857~~) operation to query the information about all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region, including cluster IDs.
@@ -7423,8 +7430,10 @@ class DescribeDBClusterPerformanceRequest(TeaModel):
         self.key = key  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.resource_pools = resource_pools  # type: str
         # The start time of the query. Specify the time in the ISO 8601 standard in the *yyyy-MM-ddTHH:mmZ* format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
@@ -7447,10 +7456,14 @@ class DescribeDBClusterPerformanceRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.resource_pools is not None:
+            result['ResourcePools'] = self.resource_pools
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         return result
@@ -7467,19 +7480,24 @@ class DescribeDBClusterPerformanceRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('ResourcePools') is not None:
+            self.resource_pools = m.get('ResourcePools')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDBClusterPerformanceResponseBodyPerformancesSeries(TeaModel):
-    def __init__(self, name=None, values=None):
+    def __init__(self, name=None, tags=None, values=None):
         # The name of the performance metric.
         self.name = name  # type: str
+        self.tags = tags  # type: str
         # The values of the queried performance metrics.
         self.values = values  # type: list[str]
 
@@ -7494,6 +7512,8 @@ class DescribeDBClusterPerformanceResponseBodyPerformancesSeries(TeaModel):
         result = dict()
         if self.name is not None:
             result['Name'] = self.name
+        if self.tags is not None:
+            result['Tags'] = self.tags
         if self.values is not None:
             result['Values'] = self.values
         return result
@@ -7502,6 +7522,8 @@ class DescribeDBClusterPerformanceResponseBodyPerformancesSeries(TeaModel):
         m = m or dict()
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
         if m.get('Values') is not None:
             self.values = m.get('Values')
         return self
@@ -13262,198 +13284,6 @@ class DescribeRegionsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRegionsResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class DescribeSQLPatternAttributeRequest(TeaModel):
-    def __init__(self, dbcluster_id=None, end_time=None, lang=None, pattern_id=None, region_id=None, start_time=None):
-        # The cluster ID.
-        # 
-        # > You can call the [DescribeDBClusters](~~129857~~) operation to query the information about all AnalyticDB for MySQL clusters within a region, including cluster IDs.
-        self.dbcluster_id = dbcluster_id  # type: str
-        # The end of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-ddTHH:mmZ* format. The time must be in UTC.
-        # 
-        # > The end time must be later than the start time.
-        self.end_time = end_time  # type: str
-        # The language of file titles and error messages. Valid values:
-        # 
-        # *   **zh**: simplified Chinese.
-        # *   **en**: English.
-        # *   **ja**: Japanese.
-        # *   **zh-tw**: traditional Chinese.
-        self.lang = lang  # type: str
-        # The SQL pattern ID.
-        # 
-        # > You can call the [DescribeSQLPatterns](~~321868~~) operation to query the information about all SQL patterns in an AnalyticDB for MySQL cluster within a period of time, including SQL pattern IDs.
-        self.pattern_id = pattern_id  # type: long
-        # The region ID of the cluster.
-        # 
-        # > You can call the [DescribeRegions](~~143074~~) operation to query the most recent region list.
-        self.region_id = region_id  # type: str
-        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-ddTHH:mmZ* format. The time must be in UTC.
-        # 
-        # > You can query the data only within the last 15 days.
-        self.start_time = start_time  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeSQLPatternAttributeRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.dbcluster_id is not None:
-            result['DBClusterId'] = self.dbcluster_id
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.lang is not None:
-            result['Lang'] = self.lang
-        if self.pattern_id is not None:
-            result['PatternId'] = self.pattern_id
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DBClusterId') is not None:
-            self.dbcluster_id = m.get('DBClusterId')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('Lang') is not None:
-            self.lang = m.get('Lang')
-        if m.get('PatternId') is not None:
-            self.pattern_id = m.get('PatternId')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        return self
-
-
-class DescribeSQLPatternAttributeResponseBodyPatternDetail(TeaModel):
-    def __init__(self, average_memory=None, average_query_time=None, query_count=None, sqlpattern=None,
-                 total_query_time=None):
-        # The average used memory associated with the SQL pattern. Unit: MB.
-        self.average_memory = average_memory  # type: str
-        # The average query duration associated with the SQL pattern. Unit: milliseconds.
-        self.average_query_time = average_query_time  # type: str
-        # The number of queries.
-        self.query_count = query_count  # type: long
-        # The statement of the SQL pattern.
-        self.sqlpattern = sqlpattern  # type: str
-        # The total query duration associated with the SQL pattern. Unit: milliseconds.
-        self.total_query_time = total_query_time  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeSQLPatternAttributeResponseBodyPatternDetail, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.average_memory is not None:
-            result['AverageMemory'] = self.average_memory
-        if self.average_query_time is not None:
-            result['AverageQueryTime'] = self.average_query_time
-        if self.query_count is not None:
-            result['QueryCount'] = self.query_count
-        if self.sqlpattern is not None:
-            result['SQLPattern'] = self.sqlpattern
-        if self.total_query_time is not None:
-            result['TotalQueryTime'] = self.total_query_time
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AverageMemory') is not None:
-            self.average_memory = m.get('AverageMemory')
-        if m.get('AverageQueryTime') is not None:
-            self.average_query_time = m.get('AverageQueryTime')
-        if m.get('QueryCount') is not None:
-            self.query_count = m.get('QueryCount')
-        if m.get('SQLPattern') is not None:
-            self.sqlpattern = m.get('SQLPattern')
-        if m.get('TotalQueryTime') is not None:
-            self.total_query_time = m.get('TotalQueryTime')
-        return self
-
-
-class DescribeSQLPatternAttributeResponseBody(TeaModel):
-    def __init__(self, pattern_detail=None, request_id=None):
-        # The queried SQL pattern.
-        self.pattern_detail = pattern_detail  # type: DescribeSQLPatternAttributeResponseBodyPatternDetail
-        # The request ID.
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.pattern_detail:
-            self.pattern_detail.validate()
-
-    def to_map(self):
-        _map = super(DescribeSQLPatternAttributeResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.pattern_detail is not None:
-            result['PatternDetail'] = self.pattern_detail.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('PatternDetail') is not None:
-            temp_model = DescribeSQLPatternAttributeResponseBodyPatternDetail()
-            self.pattern_detail = temp_model.from_map(m['PatternDetail'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class DescribeSQLPatternAttributeResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: DescribeSQLPatternAttributeResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeSQLPatternAttributeResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = DescribeSQLPatternAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
