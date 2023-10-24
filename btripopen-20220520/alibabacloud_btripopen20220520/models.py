@@ -53850,6 +53850,1005 @@ class InsureOrderPayResponse(TeaModel):
         return self
 
 
+class InsureOrderRefundHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsureOrderRefundHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class InsureOrderRefundRequest(TeaModel):
+    def __init__(self, btrip_user_id=None, buyer_name=None, isv_name=None, out_apply_id=None, policy_no_list=None,
+                 sub_ins_order_ids=None, supplier_code=None):
+        self.btrip_user_id = btrip_user_id  # type: str
+        self.buyer_name = buyer_name  # type: str
+        self.isv_name = isv_name  # type: str
+        self.out_apply_id = out_apply_id  # type: str
+        self.policy_no_list = policy_no_list  # type: list[str]
+        self.sub_ins_order_ids = sub_ins_order_ids  # type: list[str]
+        self.supplier_code = supplier_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsureOrderRefundRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.btrip_user_id is not None:
+            result['btrip_user_id'] = self.btrip_user_id
+        if self.buyer_name is not None:
+            result['buyer_name'] = self.buyer_name
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.out_apply_id is not None:
+            result['out_apply_id'] = self.out_apply_id
+        if self.policy_no_list is not None:
+            result['policy_no_list'] = self.policy_no_list
+        if self.sub_ins_order_ids is not None:
+            result['sub_ins_order_ids'] = self.sub_ins_order_ids
+        if self.supplier_code is not None:
+            result['supplier_code'] = self.supplier_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('btrip_user_id') is not None:
+            self.btrip_user_id = m.get('btrip_user_id')
+        if m.get('buyer_name') is not None:
+            self.buyer_name = m.get('buyer_name')
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('out_apply_id') is not None:
+            self.out_apply_id = m.get('out_apply_id')
+        if m.get('policy_no_list') is not None:
+            self.policy_no_list = m.get('policy_no_list')
+        if m.get('sub_ins_order_ids') is not None:
+            self.sub_ins_order_ids = m.get('sub_ins_order_ids')
+        if m.get('supplier_code') is not None:
+            self.supplier_code = m.get('supplier_code')
+        return self
+
+
+class InsureOrderRefundShrinkRequest(TeaModel):
+    def __init__(self, btrip_user_id=None, buyer_name=None, isv_name=None, out_apply_id=None,
+                 policy_no_list_shrink=None, sub_ins_order_ids_shrink=None, supplier_code=None):
+        self.btrip_user_id = btrip_user_id  # type: str
+        self.buyer_name = buyer_name  # type: str
+        self.isv_name = isv_name  # type: str
+        self.out_apply_id = out_apply_id  # type: str
+        self.policy_no_list_shrink = policy_no_list_shrink  # type: str
+        self.sub_ins_order_ids_shrink = sub_ins_order_ids_shrink  # type: str
+        self.supplier_code = supplier_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsureOrderRefundShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.btrip_user_id is not None:
+            result['btrip_user_id'] = self.btrip_user_id
+        if self.buyer_name is not None:
+            result['buyer_name'] = self.buyer_name
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.out_apply_id is not None:
+            result['out_apply_id'] = self.out_apply_id
+        if self.policy_no_list_shrink is not None:
+            result['policy_no_list'] = self.policy_no_list_shrink
+        if self.sub_ins_order_ids_shrink is not None:
+            result['sub_ins_order_ids'] = self.sub_ins_order_ids_shrink
+        if self.supplier_code is not None:
+            result['supplier_code'] = self.supplier_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('btrip_user_id') is not None:
+            self.btrip_user_id = m.get('btrip_user_id')
+        if m.get('buyer_name') is not None:
+            self.buyer_name = m.get('buyer_name')
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('out_apply_id') is not None:
+            self.out_apply_id = m.get('out_apply_id')
+        if m.get('policy_no_list') is not None:
+            self.policy_no_list_shrink = m.get('policy_no_list')
+        if m.get('sub_ins_order_ids') is not None:
+            self.sub_ins_order_ids_shrink = m.get('sub_ins_order_ids')
+        if m.get('supplier_code') is not None:
+            self.supplier_code = m.get('supplier_code')
+        return self
+
+
+class InsureOrderRefundResponseBodyModuleInsRefundList(TeaModel):
+    def __init__(self, policy_refund_no=None, refund_status=None, sub_ins_order_id=None):
+        self.policy_refund_no = policy_refund_no  # type: str
+        self.refund_status = refund_status  # type: str
+        self.sub_ins_order_id = sub_ins_order_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsureOrderRefundResponseBodyModuleInsRefundList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.policy_refund_no is not None:
+            result['policy_refund_no'] = self.policy_refund_no
+        if self.refund_status is not None:
+            result['refund_status'] = self.refund_status
+        if self.sub_ins_order_id is not None:
+            result['sub_ins_order_id'] = self.sub_ins_order_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('policy_refund_no') is not None:
+            self.policy_refund_no = m.get('policy_refund_no')
+        if m.get('refund_status') is not None:
+            self.refund_status = m.get('refund_status')
+        if m.get('sub_ins_order_id') is not None:
+            self.sub_ins_order_id = m.get('sub_ins_order_id')
+        return self
+
+
+class InsureOrderRefundResponseBodyModule(TeaModel):
+    def __init__(self, apply_id=None, ins_order_id=None, ins_refund_list=None, out_apply_id=None):
+        self.apply_id = apply_id  # type: str
+        self.ins_order_id = ins_order_id  # type: str
+        self.ins_refund_list = ins_refund_list  # type: list[InsureOrderRefundResponseBodyModuleInsRefundList]
+        self.out_apply_id = out_apply_id  # type: str
+
+    def validate(self):
+        if self.ins_refund_list:
+            for k in self.ins_refund_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(InsureOrderRefundResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apply_id is not None:
+            result['apply_id'] = self.apply_id
+        if self.ins_order_id is not None:
+            result['ins_order_id'] = self.ins_order_id
+        result['ins_refund_list'] = []
+        if self.ins_refund_list is not None:
+            for k in self.ins_refund_list:
+                result['ins_refund_list'].append(k.to_map() if k else None)
+        if self.out_apply_id is not None:
+            result['out_apply_id'] = self.out_apply_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('apply_id') is not None:
+            self.apply_id = m.get('apply_id')
+        if m.get('ins_order_id') is not None:
+            self.ins_order_id = m.get('ins_order_id')
+        self.ins_refund_list = []
+        if m.get('ins_refund_list') is not None:
+            for k in m.get('ins_refund_list'):
+                temp_model = InsureOrderRefundResponseBodyModuleInsRefundList()
+                self.ins_refund_list.append(temp_model.from_map(k))
+        if m.get('out_apply_id') is not None:
+            self.out_apply_id = m.get('out_apply_id')
+        return self
+
+
+class InsureOrderRefundResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: InsureOrderRefundResponseBodyModule
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(InsureOrderRefundResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = InsureOrderRefundResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class InsureOrderRefundResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: InsureOrderRefundResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(InsureOrderRefundResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = InsureOrderRefundResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class InsureOrderUrlDetailHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsureOrderUrlDetailHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class InsureOrderUrlDetailResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsureOrderUrlDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            self.module = m.get('module')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class InsureOrderUrlDetailResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: InsureOrderUrlDetailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(InsureOrderUrlDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = InsureOrderUrlDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class InsureRefundDetailHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsureRefundDetailHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class InsureRefundDetailRequest(TeaModel):
+    def __init__(self, apply_id=None, btrip_user_id=None, buyer_name=None, ins_order_id=None, isv_name=None,
+                 out_apply_id=None, supplier_code=None):
+        self.apply_id = apply_id  # type: str
+        self.btrip_user_id = btrip_user_id  # type: str
+        self.buyer_name = buyer_name  # type: str
+        self.ins_order_id = ins_order_id  # type: str
+        self.isv_name = isv_name  # type: str
+        self.out_apply_id = out_apply_id  # type: str
+        self.supplier_code = supplier_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsureRefundDetailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apply_id is not None:
+            result['apply_id'] = self.apply_id
+        if self.btrip_user_id is not None:
+            result['btrip_user_id'] = self.btrip_user_id
+        if self.buyer_name is not None:
+            result['buyer_name'] = self.buyer_name
+        if self.ins_order_id is not None:
+            result['ins_order_id'] = self.ins_order_id
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.out_apply_id is not None:
+            result['out_apply_id'] = self.out_apply_id
+        if self.supplier_code is not None:
+            result['supplier_code'] = self.supplier_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('apply_id') is not None:
+            self.apply_id = m.get('apply_id')
+        if m.get('btrip_user_id') is not None:
+            self.btrip_user_id = m.get('btrip_user_id')
+        if m.get('buyer_name') is not None:
+            self.buyer_name = m.get('buyer_name')
+        if m.get('ins_order_id') is not None:
+            self.ins_order_id = m.get('ins_order_id')
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('out_apply_id') is not None:
+            self.out_apply_id = m.get('out_apply_id')
+        if m.get('supplier_code') is not None:
+            self.supplier_code = m.get('supplier_code')
+        return self
+
+
+class InsureRefundDetailResponseBodyModuleInsureOrderApplicant(TeaModel):
+    def __init__(self, cert_name=None, cert_no=None, cert_type=None, phone=None):
+        self.cert_name = cert_name  # type: str
+        self.cert_no = cert_no  # type: str
+        self.cert_type = cert_type  # type: str
+        self.phone = phone  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsureRefundDetailResponseBodyModuleInsureOrderApplicant, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.phone is not None:
+            result['phone'] = self.phone
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        return self
+
+
+class InsureRefundDetailResponseBodyModuleInsureOrder(TeaModel):
+    def __init__(self, applicant=None, biz_order_id=None, biz_type=None, close_time=None, ins_order_id=None,
+                 out_ins_order_id=None, pay_time=None, price=None, settle_type=None, status=None):
+        self.applicant = applicant  # type: InsureRefundDetailResponseBodyModuleInsureOrderApplicant
+        self.biz_order_id = biz_order_id  # type: str
+        self.biz_type = biz_type  # type: int
+        self.close_time = close_time  # type: str
+        self.ins_order_id = ins_order_id  # type: str
+        self.out_ins_order_id = out_ins_order_id  # type: str
+        self.pay_time = pay_time  # type: str
+        self.price = price  # type: long
+        self.settle_type = settle_type  # type: int
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.applicant:
+            self.applicant.validate()
+
+    def to_map(self):
+        _map = super(InsureRefundDetailResponseBodyModuleInsureOrder, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.applicant is not None:
+            result['applicant'] = self.applicant.to_map()
+        if self.biz_order_id is not None:
+            result['biz_order_id'] = self.biz_order_id
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.close_time is not None:
+            result['close_time'] = self.close_time
+        if self.ins_order_id is not None:
+            result['ins_order_id'] = self.ins_order_id
+        if self.out_ins_order_id is not None:
+            result['out_ins_order_id'] = self.out_ins_order_id
+        if self.pay_time is not None:
+            result['pay_time'] = self.pay_time
+        if self.price is not None:
+            result['price'] = self.price
+        if self.settle_type is not None:
+            result['settle_type'] = self.settle_type
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('applicant') is not None:
+            temp_model = InsureRefundDetailResponseBodyModuleInsureOrderApplicant()
+            self.applicant = temp_model.from_map(m['applicant'])
+        if m.get('biz_order_id') is not None:
+            self.biz_order_id = m.get('biz_order_id')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('close_time') is not None:
+            self.close_time = m.get('close_time')
+        if m.get('ins_order_id') is not None:
+            self.ins_order_id = m.get('ins_order_id')
+        if m.get('out_ins_order_id') is not None:
+            self.out_ins_order_id = m.get('out_ins_order_id')
+        if m.get('pay_time') is not None:
+            self.pay_time = m.get('pay_time')
+        if m.get('price') is not None:
+            self.price = m.get('price')
+        if m.get('settle_type') is not None:
+            self.settle_type = m.get('settle_type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class InsureRefundDetailResponseBodyModuleSubOrderRefundListInsureSegment(TeaModel):
+    def __init__(self, arr_airport_code=None, arr_city=None, arr_city_code=None, arr_time=None,
+                 dep_airport_code=None, dep_city=None, dep_city_code=None, dep_time=None, flight_no=None):
+        self.arr_airport_code = arr_airport_code  # type: str
+        self.arr_city = arr_city  # type: str
+        self.arr_city_code = arr_city_code  # type: str
+        self.arr_time = arr_time  # type: str
+        self.dep_airport_code = dep_airport_code  # type: str
+        self.dep_city = dep_city  # type: str
+        self.dep_city_code = dep_city_code  # type: str
+        self.dep_time = dep_time  # type: str
+        self.flight_no = flight_no  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsureRefundDetailResponseBodyModuleSubOrderRefundListInsureSegment, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.arr_airport_code is not None:
+            result['arr_airport_code'] = self.arr_airport_code
+        if self.arr_city is not None:
+            result['arr_city'] = self.arr_city
+        if self.arr_city_code is not None:
+            result['arr_city_code'] = self.arr_city_code
+        if self.arr_time is not None:
+            result['arr_time'] = self.arr_time
+        if self.dep_airport_code is not None:
+            result['dep_airport_code'] = self.dep_airport_code
+        if self.dep_city is not None:
+            result['dep_city'] = self.dep_city
+        if self.dep_city_code is not None:
+            result['dep_city_code'] = self.dep_city_code
+        if self.dep_time is not None:
+            result['dep_time'] = self.dep_time
+        if self.flight_no is not None:
+            result['flight_no'] = self.flight_no
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('arr_airport_code') is not None:
+            self.arr_airport_code = m.get('arr_airport_code')
+        if m.get('arr_city') is not None:
+            self.arr_city = m.get('arr_city')
+        if m.get('arr_city_code') is not None:
+            self.arr_city_code = m.get('arr_city_code')
+        if m.get('arr_time') is not None:
+            self.arr_time = m.get('arr_time')
+        if m.get('dep_airport_code') is not None:
+            self.dep_airport_code = m.get('dep_airport_code')
+        if m.get('dep_city') is not None:
+            self.dep_city = m.get('dep_city')
+        if m.get('dep_city_code') is not None:
+            self.dep_city_code = m.get('dep_city_code')
+        if m.get('dep_time') is not None:
+            self.dep_time = m.get('dep_time')
+        if m.get('flight_no') is not None:
+            self.flight_no = m.get('flight_no')
+        return self
+
+
+class InsureRefundDetailResponseBodyModuleSubOrderRefundListInsured(TeaModel):
+    def __init__(self, birthday=None, btrip_user_id=None, cert_name=None, cert_no=None, cert_type=None, gender=None,
+                 phone=None):
+        self.birthday = birthday  # type: str
+        self.btrip_user_id = btrip_user_id  # type: str
+        self.cert_name = cert_name  # type: str
+        self.cert_no = cert_no  # type: str
+        self.cert_type = cert_type  # type: str
+        self.gender = gender  # type: str
+        self.phone = phone  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsureRefundDetailResponseBodyModuleSubOrderRefundListInsured, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.birthday is not None:
+            result['birthday'] = self.birthday
+        if self.btrip_user_id is not None:
+            result['btrip_user_id'] = self.btrip_user_id
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.gender is not None:
+            result['gender'] = self.gender
+        if self.phone is not None:
+            result['phone'] = self.phone
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('birthday') is not None:
+            self.birthday = m.get('birthday')
+        if m.get('btrip_user_id') is not None:
+            self.btrip_user_id = m.get('btrip_user_id')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('gender') is not None:
+            self.gender = m.get('gender')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        return self
+
+
+class InsureRefundDetailResponseBodyModuleSubOrderRefundList(TeaModel):
+    def __init__(self, effective_end_time=None, effective_start_time=None, insure_segment=None, insure_time=None,
+                 insured=None, out_sub_ins_order_id=None, policy_no=None, policy_refund_no=None, price=None,
+                 product_name=None, product_no=None, refund_status=None, refund_time=None, status=None, sub_ins_order_id=None):
+        self.effective_end_time = effective_end_time  # type: str
+        self.effective_start_time = effective_start_time  # type: str
+        self.insure_segment = insure_segment  # type: InsureRefundDetailResponseBodyModuleSubOrderRefundListInsureSegment
+        self.insure_time = insure_time  # type: str
+        self.insured = insured  # type: InsureRefundDetailResponseBodyModuleSubOrderRefundListInsured
+        self.out_sub_ins_order_id = out_sub_ins_order_id  # type: str
+        self.policy_no = policy_no  # type: str
+        self.policy_refund_no = policy_refund_no  # type: str
+        self.price = price  # type: long
+        self.product_name = product_name  # type: str
+        self.product_no = product_no  # type: str
+        self.refund_status = refund_status  # type: str
+        self.refund_time = refund_time  # type: str
+        self.status = status  # type: str
+        self.sub_ins_order_id = sub_ins_order_id  # type: str
+
+    def validate(self):
+        if self.insure_segment:
+            self.insure_segment.validate()
+        if self.insured:
+            self.insured.validate()
+
+    def to_map(self):
+        _map = super(InsureRefundDetailResponseBodyModuleSubOrderRefundList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.effective_end_time is not None:
+            result['effective_end_time'] = self.effective_end_time
+        if self.effective_start_time is not None:
+            result['effective_start_time'] = self.effective_start_time
+        if self.insure_segment is not None:
+            result['insure_segment'] = self.insure_segment.to_map()
+        if self.insure_time is not None:
+            result['insure_time'] = self.insure_time
+        if self.insured is not None:
+            result['insured'] = self.insured.to_map()
+        if self.out_sub_ins_order_id is not None:
+            result['out_sub_ins_order_id'] = self.out_sub_ins_order_id
+        if self.policy_no is not None:
+            result['policy_no'] = self.policy_no
+        if self.policy_refund_no is not None:
+            result['policy_refund_no'] = self.policy_refund_no
+        if self.price is not None:
+            result['price'] = self.price
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.product_no is not None:
+            result['product_no'] = self.product_no
+        if self.refund_status is not None:
+            result['refund_status'] = self.refund_status
+        if self.refund_time is not None:
+            result['refund_time'] = self.refund_time
+        if self.status is not None:
+            result['status'] = self.status
+        if self.sub_ins_order_id is not None:
+            result['sub_ins_order_id'] = self.sub_ins_order_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('effective_end_time') is not None:
+            self.effective_end_time = m.get('effective_end_time')
+        if m.get('effective_start_time') is not None:
+            self.effective_start_time = m.get('effective_start_time')
+        if m.get('insure_segment') is not None:
+            temp_model = InsureRefundDetailResponseBodyModuleSubOrderRefundListInsureSegment()
+            self.insure_segment = temp_model.from_map(m['insure_segment'])
+        if m.get('insure_time') is not None:
+            self.insure_time = m.get('insure_time')
+        if m.get('insured') is not None:
+            temp_model = InsureRefundDetailResponseBodyModuleSubOrderRefundListInsured()
+            self.insured = temp_model.from_map(m['insured'])
+        if m.get('out_sub_ins_order_id') is not None:
+            self.out_sub_ins_order_id = m.get('out_sub_ins_order_id')
+        if m.get('policy_no') is not None:
+            self.policy_no = m.get('policy_no')
+        if m.get('policy_refund_no') is not None:
+            self.policy_refund_no = m.get('policy_refund_no')
+        if m.get('price') is not None:
+            self.price = m.get('price')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('product_no') is not None:
+            self.product_no = m.get('product_no')
+        if m.get('refund_status') is not None:
+            self.refund_status = m.get('refund_status')
+        if m.get('refund_time') is not None:
+            self.refund_time = m.get('refund_time')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('sub_ins_order_id') is not None:
+            self.sub_ins_order_id = m.get('sub_ins_order_id')
+        return self
+
+
+class InsureRefundDetailResponseBodyModule(TeaModel):
+    def __init__(self, apply_id=None, gmt_create=None, gmt_modified=None, ins_order_id=None, insure_order=None,
+                 out_apply_id=None, sub_order_refund_list=None):
+        self.apply_id = apply_id  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.ins_order_id = ins_order_id  # type: str
+        self.insure_order = insure_order  # type: InsureRefundDetailResponseBodyModuleInsureOrder
+        self.out_apply_id = out_apply_id  # type: str
+        self.sub_order_refund_list = sub_order_refund_list  # type: list[InsureRefundDetailResponseBodyModuleSubOrderRefundList]
+
+    def validate(self):
+        if self.insure_order:
+            self.insure_order.validate()
+        if self.sub_order_refund_list:
+            for k in self.sub_order_refund_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(InsureRefundDetailResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apply_id is not None:
+            result['apply_id'] = self.apply_id
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.ins_order_id is not None:
+            result['ins_order_id'] = self.ins_order_id
+        if self.insure_order is not None:
+            result['insure_order'] = self.insure_order.to_map()
+        if self.out_apply_id is not None:
+            result['out_apply_id'] = self.out_apply_id
+        result['sub_order_refund_list'] = []
+        if self.sub_order_refund_list is not None:
+            for k in self.sub_order_refund_list:
+                result['sub_order_refund_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('apply_id') is not None:
+            self.apply_id = m.get('apply_id')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('ins_order_id') is not None:
+            self.ins_order_id = m.get('ins_order_id')
+        if m.get('insure_order') is not None:
+            temp_model = InsureRefundDetailResponseBodyModuleInsureOrder()
+            self.insure_order = temp_model.from_map(m['insure_order'])
+        if m.get('out_apply_id') is not None:
+            self.out_apply_id = m.get('out_apply_id')
+        self.sub_order_refund_list = []
+        if m.get('sub_order_refund_list') is not None:
+            for k in m.get('sub_order_refund_list'):
+                temp_model = InsureRefundDetailResponseBodyModuleSubOrderRefundList()
+                self.sub_order_refund_list.append(temp_model.from_map(k))
+        return self
+
+
+class InsureRefundDetailResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: InsureRefundDetailResponseBodyModule
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(InsureRefundDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = InsureRefundDetailResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class InsureRefundDetailResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: InsureRefundDetailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(InsureRefundDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = InsureRefundDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class InvoiceAddHeaders(TeaModel):
     def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
         self.common_headers = common_headers  # type: dict[str, str]
