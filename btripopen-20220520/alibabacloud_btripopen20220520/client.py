@@ -4265,6 +4265,241 @@ class Client(OpenApiClient):
         headers = btrip_open_20220520_models.InsInvoiceScanQueryHeaders()
         return self.ins_invoice_scan_query_with_options(request, headers, runtime)
 
+    def insure_order_apply_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.btrip_user_id):
+            body['btrip_user_id'] = request.btrip_user_id
+        if not UtilClient.is_unset(request.buyer_name):
+            body['buyer_name'] = request.buyer_name
+        if not UtilClient.is_unset(request.ins_order_id):
+            body['ins_order_id'] = request.ins_order_id
+        if not UtilClient.is_unset(request.isv_name):
+            body['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.out_order_id):
+            body['out_order_id'] = request.out_order_id
+        if not UtilClient.is_unset(request.out_sub_order_id):
+            body['out_sub_order_id'] = request.out_sub_order_id
+        if not UtilClient.is_unset(request.supplier_code):
+            body['supplier_code'] = request.supplier_code
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='InsureOrderApply',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/dtb-flight/v1/insurances/action/apply',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.InsureOrderApplyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def insure_order_apply(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.InsureOrderApplyHeaders()
+        return self.insure_order_apply_with_options(request, headers, runtime)
+
+    def insure_order_cancel_with_options(self, ins_order_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.btrip_user_id):
+            query['btrip_user_id'] = request.btrip_user_id
+        if not UtilClient.is_unset(request.buyer_name):
+            query['buyer_name'] = request.buyer_name
+        if not UtilClient.is_unset(request.isv_name):
+            query['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.supplier_code):
+            query['supplier_code'] = request.supplier_code
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='InsureOrderCancel',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/dtb-flight/v1/insurances/%s/action/cancel' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(ins_order_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.InsureOrderCancelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def insure_order_cancel(self, ins_order_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.InsureOrderCancelHeaders()
+        return self.insure_order_cancel_with_options(ins_order_id, request, headers, runtime)
+
+    def insure_order_create_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = btrip_open_20220520_models.InsureOrderCreateShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.applicant):
+            request.applicant_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.applicant, 'applicant', 'json')
+        if not UtilClient.is_unset(tmp_req.ins_person_and_segment_list):
+            request.ins_person_and_segment_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ins_person_and_segment_list, 'ins_person_and_segment_list', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.applicant_shrink):
+            body['applicant'] = request.applicant_shrink
+        if not UtilClient.is_unset(request.btrip_user_id):
+            body['btrip_user_id'] = request.btrip_user_id
+        if not UtilClient.is_unset(request.buyer_name):
+            body['buyer_name'] = request.buyer_name
+        if not UtilClient.is_unset(request.ins_person_and_segment_list_shrink):
+            body['ins_person_and_segment_list'] = request.ins_person_and_segment_list_shrink
+        if not UtilClient.is_unset(request.isv_name):
+            body['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.out_ins_order_id):
+            body['out_ins_order_id'] = request.out_ins_order_id
+        if not UtilClient.is_unset(request.out_order_id):
+            body['out_order_id'] = request.out_order_id
+        if not UtilClient.is_unset(request.out_sub_order_id):
+            body['out_sub_order_id'] = request.out_sub_order_id
+        if not UtilClient.is_unset(request.supplier_code):
+            body['supplier_code'] = request.supplier_code
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='InsureOrderCreate',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/dtb-flight/v1/insurances/action/create',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.InsureOrderCreateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def insure_order_create(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.InsureOrderCreateHeaders()
+        return self.insure_order_create_with_options(request, headers, runtime)
+
+    def insure_order_detail_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.btrip_user_id):
+            query['btrip_user_id'] = request.btrip_user_id
+        if not UtilClient.is_unset(request.buyer_name):
+            query['buyer_name'] = request.buyer_name
+        if not UtilClient.is_unset(request.ins_order_id):
+            query['ins_order_id'] = request.ins_order_id
+        if not UtilClient.is_unset(request.isv_name):
+            query['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.supplier_code):
+            query['supplier_code'] = request.supplier_code
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='InsureOrderDetail',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/dtb-flight/v1/insurances/action/detail',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.InsureOrderDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def insure_order_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.InsureOrderDetailHeaders()
+        return self.insure_order_detail_with_options(request, headers, runtime)
+
+    def insure_order_pay_with_options(self, ins_order_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.btrip_user_id):
+            body['btrip_user_id'] = request.btrip_user_id
+        if not UtilClient.is_unset(request.buyer_name):
+            body['buyer_name'] = request.buyer_name
+        if not UtilClient.is_unset(request.isv_name):
+            body['isv_name'] = request.isv_name
+        if not UtilClient.is_unset(request.out_order_id):
+            body['out_order_id'] = request.out_order_id
+        if not UtilClient.is_unset(request.out_sub_order_id):
+            body['out_sub_order_id'] = request.out_sub_order_id
+        if not UtilClient.is_unset(request.payment_amount):
+            body['payment_amount'] = request.payment_amount
+        if not UtilClient.is_unset(request.supplier_code):
+            body['supplier_code'] = request.supplier_code
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='InsureOrderPay',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/dtb-flight/v1/insurances/%s/action/pay' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(ins_order_id)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.InsureOrderPayResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def insure_order_pay(self, ins_order_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.InsureOrderPayHeaders()
+        return self.insure_order_pay_with_options(ins_order_id, request, headers, runtime)
+
     def invoice_add_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
