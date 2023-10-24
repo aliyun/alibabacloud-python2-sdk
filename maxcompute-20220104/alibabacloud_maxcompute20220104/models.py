@@ -611,10 +611,15 @@ class DeleteQuotaPlanResponse(TeaModel):
 
 class GetJobResourceUsageRequest(TeaModel):
     def __init__(self, date=None, job_owner_list=None, page_number=None, page_size=None, quota_nickname_list=None):
+        # The date that is accurate to the day part for the query. The date must be in the yyyy-MM-dd format.
         self.date = date  # type: str
+        # The list of job executors.
         self.job_owner_list = job_owner_list  # type: list[str]
+        # The page number.
         self.page_number = page_number  # type: long
+        # The number of entries per page. Default value: 10. Maximum value: 100.
         self.page_size = page_size  # type: long
+        # The list of nicknames of quotas that are used by jobs.
         self.quota_nickname_list = quota_nickname_list  # type: list[str]
 
     def validate(self):
@@ -656,10 +661,15 @@ class GetJobResourceUsageRequest(TeaModel):
 class GetJobResourceUsageShrinkRequest(TeaModel):
     def __init__(self, date=None, job_owner_list_shrink=None, page_number=None, page_size=None,
                  quota_nickname_list_shrink=None):
+        # The date that is accurate to the day part for the query. The date must be in the yyyy-MM-dd format.
         self.date = date  # type: str
+        # The list of job executors.
         self.job_owner_list_shrink = job_owner_list_shrink  # type: str
+        # The page number.
         self.page_number = page_number  # type: long
+        # The number of entries per page. Default value: 10. Maximum value: 100.
         self.page_size = page_size  # type: long
+        # The list of nicknames of quotas that are used by jobs.
         self.quota_nickname_list_shrink = quota_nickname_list_shrink  # type: str
 
     def validate(self):
@@ -700,10 +710,15 @@ class GetJobResourceUsageShrinkRequest(TeaModel):
 
 class GetJobResourceUsageResponseBodyDataJobResourceUsageList(TeaModel):
     def __init__(self, cu_usage=None, date=None, job_owner=None, memory_usage=None, quota_nickname=None):
+        # The total number of used compute units (CUs).
         self.cu_usage = cu_usage  # type: long
+        # The start date of the query in the format of yyyy-MM-dd.
         self.date = date  # type: str
+        # The job executor.
         self.job_owner = job_owner  # type: str
+        # The total memory usage.
         self.memory_usage = memory_usage  # type: long
+        # The quota nickname.
         self.quota_nickname = quota_nickname  # type: str
 
     def validate(self):
@@ -744,9 +759,13 @@ class GetJobResourceUsageResponseBodyDataJobResourceUsageList(TeaModel):
 
 class GetJobResourceUsageResponseBodyData(TeaModel):
     def __init__(self, job_resource_usage_list=None, page_number=None, page_size=None, total_count=None):
+        # The data list returned.
         self.job_resource_usage_list = job_resource_usage_list  # type: list[GetJobResourceUsageResponseBodyDataJobResourceUsageList]
+        # The page number.
         self.page_number = page_number  # type: long
+        # The number of entries per page.
         self.page_size = page_size  # type: long
+        # The total number of returned entries.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -791,10 +810,15 @@ class GetJobResourceUsageResponseBodyData(TeaModel):
 
 class GetJobResourceUsageResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_msg=None, http_code=None, request_id=None):
+        # The data returned.
         self.data = data  # type: GetJobResourceUsageResponseBodyData
+        # The error code returned if the request failed.
         self.error_code = error_code  # type: str
+        # The error message returned if the request failed.
         self.error_msg = error_msg  # type: str
+        # Indicates whether the request was successful. If this parameter was not empty and the value of this parameter was not 200, the request failed.
         self.http_code = http_code  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4235,11 +4259,23 @@ class GetRolePolicyResponse(TeaModel):
 class GetRunningJobsRequest(TeaModel):
     def __init__(self, from_=None, job_owner_list=None, page_number=None, page_size=None, quota_nickname_list=None,
                  to=None):
+        # The time when the query starts. This parameter specifies the time when a job is submitted.
+        # 
+        # *   The time range that is specified by the **from** and **to** request parameters is a closed interval. The start time and end time are included in the range. If the value of **from** is the same as the value of **to**, the time range is invalid, and a null value is returned.
+        # *   The value is a UNIX timestamp that represents the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.from_ = from_  # type: long
+        # The list of job executors.
         self.job_owner_list = job_owner_list  # type: list[str]
+        # The page number.
         self.page_number = page_number  # type: long
+        # The number of entries per page. Default value: 10. Maximum value: 20.
         self.page_size = page_size  # type: long
+        # The list of nicknames of quotas that are used by jobs.
         self.quota_nickname_list = quota_nickname_list  # type: list[str]
+        # The time when the query ends. This parameter specifies the time when a job is submitted.
+        # 
+        # *   The time interval that is specified by the **from** and **to** request parameters is a closed interval. The start time and end time are included in the interval. If the value of **from** is the same as the value of **to**, the interval is invalid, and a null value is returned.
+        # *   The value is a UNIX timestamp that represents the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.to = to  # type: long
 
     def validate(self):
@@ -4285,11 +4321,23 @@ class GetRunningJobsRequest(TeaModel):
 class GetRunningJobsShrinkRequest(TeaModel):
     def __init__(self, from_=None, job_owner_list_shrink=None, page_number=None, page_size=None,
                  quota_nickname_list_shrink=None, to=None):
+        # The time when the query starts. This parameter specifies the time when a job is submitted.
+        # 
+        # *   The time range that is specified by the **from** and **to** request parameters is a closed interval. The start time and end time are included in the range. If the value of **from** is the same as the value of **to**, the time range is invalid, and a null value is returned.
+        # *   The value is a UNIX timestamp that represents the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.from_ = from_  # type: long
+        # The list of job executors.
         self.job_owner_list_shrink = job_owner_list_shrink  # type: str
+        # The page number.
         self.page_number = page_number  # type: long
+        # The number of entries per page. Default value: 10. Maximum value: 20.
         self.page_size = page_size  # type: long
+        # The list of nicknames of quotas that are used by jobs.
         self.quota_nickname_list_shrink = quota_nickname_list_shrink  # type: str
+        # The time when the query ends. This parameter specifies the time when a job is submitted.
+        # 
+        # *   The time interval that is specified by the **from** and **to** request parameters is a closed interval. The start time and end time are included in the interval. If the value of **from** is the same as the value of **to**, the interval is invalid, and a null value is returned.
+        # *   The value is a UNIX timestamp that represents the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.to = to  # type: long
 
     def validate(self):
@@ -4335,14 +4383,23 @@ class GetRunningJobsShrinkRequest(TeaModel):
 class GetRunningJobsResponseBodyDataRunningJobInfoList(TeaModel):
     def __init__(self, cu_snapshot=None, instance_id=None, job_owner=None, memory_snapshot=None, progress=None,
                  project=None, quota_nickname=None, running_at_time=None, submitted_at_time=None):
+        # The compute unit (CU) snapshot proportion of the job.
         self.cu_snapshot = cu_snapshot  # type: float
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The account that submits the job.
         self.job_owner = job_owner  # type: str
+        # The memory snapshot proportion of the job.
         self.memory_snapshot = memory_snapshot  # type: float
+        # The progress of the job.
         self.progress = progress  # type: float
+        # The name of the MaxCompute project.
         self.project = project  # type: str
+        # The nickname of the quota that is used by the job.
         self.quota_nickname = quota_nickname  # type: str
+        # The time when the job starts to run.
         self.running_at_time = running_at_time  # type: long
+        # The time when the job is submitted.
         self.submitted_at_time = submitted_at_time  # type: long
 
     def validate(self):
@@ -4399,9 +4456,13 @@ class GetRunningJobsResponseBodyDataRunningJobInfoList(TeaModel):
 
 class GetRunningJobsResponseBodyData(TeaModel):
     def __init__(self, page_number=None, page_size=None, running_job_info_list=None, total_count=None):
+        # The page number.
         self.page_number = page_number  # type: long
+        # The number of entries per page.
         self.page_size = page_size  # type: long
+        # The list of jobs in the running state.
         self.running_job_info_list = running_job_info_list  # type: list[GetRunningJobsResponseBodyDataRunningJobInfoList]
+        # The total number of returned entries.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -4446,10 +4507,16 @@ class GetRunningJobsResponseBodyData(TeaModel):
 
 class GetRunningJobsResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_msg=None, http_code=None, request_id=None):
+        # The returned data.
         self.data = data  # type: GetRunningJobsResponseBodyData
+        # *   If the value of success was false, an error code was returned.
+        # *   If the value of success was true, a null value was returned.
         self.error_code = error_code  # type: str
+        # The error message.
         self.error_msg = error_msg  # type: str
+        # Indicates whether the request was successful. If this parameter was not empty and the value of this parameter was not 200, the request failed.
         self.http_code = http_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4601,8 +4668,11 @@ class GetTrustedProjectsResponse(TeaModel):
 
 class KillJobsRequest(TeaModel):
     def __init__(self, body=None, region=None, tenant_id=None):
+        # The request body parameters.
         self.body = body  # type: str
+        # The ID of the region in which the instance resides.
         self.region = region  # type: str
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: str
 
     def validate(self):
@@ -4635,8 +4705,11 @@ class KillJobsRequest(TeaModel):
 
 class KillJobsResponseBody(TeaModel):
     def __init__(self, data=None, http_code=None, request_id=None):
+        # The returned data.
         self.data = data  # type: str
+        # Indicates whether the request was successful. If this parameter was not empty and the value of this parameter was not 200, the request failed.
         self.http_code = http_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
