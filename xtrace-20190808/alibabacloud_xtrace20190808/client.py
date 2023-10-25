@@ -234,6 +234,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_span_names_with_options(request, runtime)
 
+    def open_xtrace_service_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='OpenXtraceService',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            xtrace_20190808_models.OpenXtraceServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def open_xtrace_service(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.open_xtrace_service_with_options(request, runtime)
+
     def query_metric_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}

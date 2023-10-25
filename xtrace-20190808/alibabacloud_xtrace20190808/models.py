@@ -5,10 +5,15 @@ from Tea.model import TeaModel
 
 class GetTagKeyRequest(TeaModel):
     def __init__(self, end_time=None, region_id=None, service_name=None, span_name=None, start_time=None):
+        # The timestamp of the end time of the time range to query. The timestamp is accurate to milliseconds.
         self.end_time = end_time  # type: long
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The name of the application.
         self.service_name = service_name  # type: str
+        # The name of the span.
         self.span_name = span_name  # type: str
+        # The timestamp of the start time of the time range to query. The timestamp is accurate to milliseconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -73,7 +78,9 @@ class GetTagKeyResponseBodyTagKeys(TeaModel):
 
 class GetTagKeyResponseBody(TeaModel):
     def __init__(self, request_id=None, tag_keys=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The tag keys.
         self.tag_keys = tag_keys  # type: GetTagKeyResponseBodyTagKeys
 
     def validate(self):
@@ -103,12 +110,14 @@ class GetTagKeyResponseBody(TeaModel):
 
 
 class GetTagKeyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetTagKeyResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -121,6 +130,8 @@ class GetTagKeyResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -129,6 +140,8 @@ class GetTagKeyResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetTagKeyResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -138,11 +151,17 @@ class GetTagKeyResponse(TeaModel):
 class GetTagValRequest(TeaModel):
     def __init__(self, end_time=None, region_id=None, service_name=None, span_name=None, start_time=None,
                  tag_key=None):
+        # The timestamp of the end time of the time range to query. The timestamp is accurate to milliseconds.
         self.end_time = end_time  # type: long
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The name of the application.
         self.service_name = service_name  # type: str
+        # The name of the span.
         self.span_name = span_name  # type: str
+        # The timestamp of the start time of the time range to query. The timestamp is accurate to milliseconds.
         self.start_time = start_time  # type: long
+        # The tag key.
         self.tag_key = tag_key  # type: str
 
     def validate(self):
@@ -211,7 +230,9 @@ class GetTagValResponseBodyTagValues(TeaModel):
 
 class GetTagValResponseBody(TeaModel):
     def __init__(self, request_id=None, tag_values=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The tag values.
         self.tag_values = tag_values  # type: GetTagValResponseBodyTagValues
 
     def validate(self):
@@ -241,12 +262,14 @@ class GetTagValResponseBody(TeaModel):
 
 
 class GetTagValResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetTagValResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -259,6 +282,8 @@ class GetTagValResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -267,6 +292,8 @@ class GetTagValResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetTagValResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -275,8 +302,11 @@ class GetTagValResponse(TeaModel):
 
 class GetTraceRequest(TeaModel):
     def __init__(self, app_type=None, region_id=None, trace_id=None):
+        # The type of the application. You can set the value to **XTRACE** or leave this parameter unspecified.
         self.app_type = app_type  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The unique ID of the trace.
         self.trace_id = trace_id  # type: str
 
     def validate(self):
@@ -309,7 +339,9 @@ class GetTraceRequest(TeaModel):
 
 class GetTraceResponseBodySpansSpanLogEventListLogEventTagEntryListTagEntry(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key in the log event.
         self.key = key  # type: str
+        # The tag value in the log event.
         self.value = value  # type: str
 
     def validate(self):
@@ -370,7 +402,9 @@ class GetTraceResponseBodySpansSpanLogEventListLogEventTagEntryList(TeaModel):
 
 class GetTraceResponseBodySpansSpanLogEventListLogEvent(TeaModel):
     def __init__(self, tag_entry_list=None, timestamp=None):
+        # The tags in the log event.
         self.tag_entry_list = tag_entry_list  # type: GetTraceResponseBodySpansSpanLogEventListLogEventTagEntryList
+        # The timestamp when the log event was generated.
         self.timestamp = timestamp  # type: long
 
     def validate(self):
@@ -433,7 +467,9 @@ class GetTraceResponseBodySpansSpanLogEventList(TeaModel):
 
 class GetTraceResponseBodySpansSpanTagEntryListTagEntry(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key in the span.
         self.key = key  # type: str
+        # The tag value in the span.
         self.value = value  # type: str
 
     def validate(self):
@@ -496,18 +532,34 @@ class GetTraceResponseBodySpansSpan(TeaModel):
     def __init__(self, duration=None, have_stack=None, log_event_list=None, operation_name=None,
                  parent_span_id=None, result_code=None, rpc_id=None, service_ip=None, service_name=None, span_id=None,
                  tag_entry_list=None, timestamp=None, trace_id=None):
+        # The time used to call the trace. Unit: milliseconds.
         self.duration = duration  # type: long
+        # Indicates whether the span has child spans. Valid values:
+        # 
+        # - true: The span has child spans. 
+        # - false: The span has no child spans.
         self.have_stack = have_stack  # type: bool
+        # The log events in the trace.
         self.log_event_list = log_event_list  # type: GetTraceResponseBodySpansSpanLogEventList
+        # The name of the span.
         self.operation_name = operation_name  # type: str
+        # The ID of the parent span.
         self.parent_span_id = parent_span_id  # type: str
+        # The status code.
         self.result_code = result_code  # type: str
+        # The parent-child and sibling relationship between spans. For example, span 1.1 is the parent of span 1.1.1, and span 1.1.2 and span 1.1.1 are siblings.
         self.rpc_id = rpc_id  # type: str
+        # The IP address of the server where the span resides.
         self.service_ip = service_ip  # type: str
+        # The name of the application.
         self.service_name = service_name  # type: str
+        # Span ID.
         self.span_id = span_id  # type: str
+        # The tags in the span.
         self.tag_entry_list = tag_entry_list  # type: GetTraceResponseBodySpansSpanTagEntryList
+        # The timestamp when the span was generated. Unit: microseconds.
         self.timestamp = timestamp  # type: long
+        # The unique ID of the trace.
         self.trace_id = trace_id  # type: str
 
     def validate(self):
@@ -617,7 +669,9 @@ class GetTraceResponseBodySpans(TeaModel):
 
 class GetTraceResponseBody(TeaModel):
     def __init__(self, request_id=None, spans=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The details of the trace.
         self.spans = spans  # type: GetTraceResponseBodySpans
 
     def validate(self):
@@ -647,12 +701,14 @@ class GetTraceResponseBody(TeaModel):
 
 
 class GetTraceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetTraceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -665,6 +721,8 @@ class GetTraceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -673,6 +731,8 @@ class GetTraceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetTraceResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -681,9 +741,13 @@ class GetTraceResponse(TeaModel):
 
 class ListIpOrHostsRequest(TeaModel):
     def __init__(self, end_time=None, region_id=None, service_name=None, start_time=None):
+        # The timestamp of the end time of the time range to query. The timestamp is accurate to milliseconds.
         self.end_time = end_time  # type: long
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The name of the application. If you do not set this parameter, the IP addresses of all applications in the specified region are returned.
         self.service_name = service_name  # type: str
+        # The timestamp of the start time of the time range to query. The timestamp is accurate to milliseconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -744,7 +808,9 @@ class ListIpOrHostsResponseBodyIpNames(TeaModel):
 
 class ListIpOrHostsResponseBody(TeaModel):
     def __init__(self, ip_names=None, request_id=None):
+        # The IP addresses.
         self.ip_names = ip_names  # type: ListIpOrHostsResponseBodyIpNames
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -774,12 +840,14 @@ class ListIpOrHostsResponseBody(TeaModel):
 
 
 class ListIpOrHostsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListIpOrHostsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -792,6 +860,8 @@ class ListIpOrHostsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -800,6 +870,8 @@ class ListIpOrHostsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListIpOrHostsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -808,7 +880,9 @@ class ListIpOrHostsResponse(TeaModel):
 
 class ListServicesRequest(TeaModel):
     def __init__(self, app_type=None, region_id=None):
+        # The type of the application. You can set the value to **XTRACE** or leave this parameter unspecified.
         self.app_type = app_type  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -837,8 +911,11 @@ class ListServicesRequest(TeaModel):
 
 class ListServicesResponseBodyServicesService(TeaModel):
     def __init__(self, pid=None, region_id=None, service_name=None):
+        # The ID of the application.
         self.pid = pid  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The name of the application.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -903,7 +980,9 @@ class ListServicesResponseBodyServices(TeaModel):
 
 class ListServicesResponseBody(TeaModel):
     def __init__(self, request_id=None, services=None):
+        # The ID of the region.
         self.request_id = request_id  # type: str
+        # The applications.
         self.services = services  # type: ListServicesResponseBodyServices
 
     def validate(self):
@@ -933,12 +1012,14 @@ class ListServicesResponseBody(TeaModel):
 
 
 class ListServicesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListServicesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -951,6 +1032,8 @@ class ListServicesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -959,6 +1042,8 @@ class ListServicesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListServicesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -967,9 +1052,13 @@ class ListServicesResponse(TeaModel):
 
 class ListSpanNamesRequest(TeaModel):
     def __init__(self, end_time=None, region_id=None, service_name=None, start_time=None):
+        # The timestamp of the end time of the time range to query. The timestamp is accurate to milliseconds.
         self.end_time = end_time  # type: long
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The name of the application.
         self.service_name = service_name  # type: str
+        # The timestamp of the start time of the time range to query. The timestamp is accurate to milliseconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -1030,7 +1119,9 @@ class ListSpanNamesResponseBodySpanNames(TeaModel):
 
 class ListSpanNamesResponseBody(TeaModel):
     def __init__(self, request_id=None, span_names=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The span names.
         self.span_names = span_names  # type: ListSpanNamesResponseBodySpanNames
 
     def validate(self):
@@ -1060,12 +1151,14 @@ class ListSpanNamesResponseBody(TeaModel):
 
 
 class ListSpanNamesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListSpanNamesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1078,6 +1171,8 @@ class ListSpanNamesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1086,15 +1181,111 @@ class ListSpanNamesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListSpanNamesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class OpenXtraceServiceRequest(TeaModel):
+    def __init__(self, region_id=None):
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(OpenXtraceServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class OpenXtraceServiceResponseBody(TeaModel):
+    def __init__(self, order_id=None, request_id=None):
+        self.order_id = order_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(OpenXtraceServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class OpenXtraceServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: OpenXtraceServiceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(OpenXtraceServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = OpenXtraceServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryMetricRequestFilters(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the field that you want to use to filter the returned entries.
         self.key = key  # type: str
+        # The value of the field that you want to use to filter the returned entries.
         self.value = value  # type: str
 
     def validate(self):
@@ -1124,16 +1315,35 @@ class QueryMetricRequestFilters(TeaModel):
 class QueryMetricRequest(TeaModel):
     def __init__(self, dimensions=None, end_time=None, filters=None, interval_in_sec=None, limit=None, measures=None,
                  metric=None, order=None, order_by=None, proxy_user_id=None, start_time=None):
+        # The dimensions of the metric that you want to query.
         self.dimensions = dimensions  # type: list[str]
+        # The timestamp of the end time of the time range to query. The timestamp is accurate to milliseconds.
         self.end_time = end_time  # type: long
+        # The filter conditions.
         self.filters = filters  # type: list[QueryMetricRequestFilters]
+        # The time interval at which you want to query metric data. Unit: milliseconds. Minimum value: 60000. 
+        # 
+        # > If you set this parameter to 2147483647, all data in the specified time interval is returned.
         self.interval_in_sec = interval_in_sec  # type: int
+        # The maximum number of entries that you want to return.
         self.limit = limit  # type: int
+        # The measures of the metric that you want to query.
         self.measures = measures  # type: list[str]
+        # The name of the metric. Valid values:
+        # 
+        # - `appstat.incall`: trace statistics 
+        # - `appstat.sql`: SQL statistics
         self.metric = metric  # type: str
+        # The order in which you want to sort the returned entries. Valid values:
+        # 
+        # - ASC: ascending order 
+        # - DESC: descending order
         self.order = order  # type: str
+        # The field based on which you want to sort the returned entries.
         self.order_by = order_by  # type: str
+        # The ID of the proxy user.
         self.proxy_user_id = proxy_user_id  # type: str
+        # The timestamp of the start time of the time range to query. The timestamp is accurate to milliseconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -1206,7 +1416,9 @@ class QueryMetricRequest(TeaModel):
 
 class QueryMetricResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The returned statistics.
         self.data = data  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1234,12 +1446,14 @@ class QueryMetricResponseBody(TeaModel):
 
 
 class QueryMetricResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: QueryMetricResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1252,6 +1466,8 @@ class QueryMetricResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1260,6 +1476,8 @@ class QueryMetricResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryMetricResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1268,7 +1486,9 @@ class QueryMetricResponse(TeaModel):
 
 class SearchTracesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -1298,17 +1518,32 @@ class SearchTracesRequestTag(TeaModel):
 class SearchTracesRequest(TeaModel):
     def __init__(self, app_type=None, end_time=None, min_duration=None, operation_name=None, page_number=None,
                  page_size=None, region_id=None, reverse=None, service_ip=None, service_name=None, start_time=None, tag=None):
+        # The type of the application. You can set the value to **XTRACE** or leave this parameter unspecified.
         self.app_type = app_type  # type: str
+        # The timestamp of the end time of the time range to query. The timestamp is accurate to milliseconds.
         self.end_time = end_time  # type: long
+        # The time more than which is used to call the trace. Unit: milliseconds. For example, a value of 100 specifies to return the traces that more than 100 milliseconds are used to call.
         self.min_duration = min_duration  # type: long
+        # The name of the span.
         self.operation_name = operation_name  # type: str
+        # The number of the page to return. For example, a value of 5 indicates page 5.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # Specifies whether to sort the query results in chronological order or reverse chronological order. Default value: false. Valid values:
+        # 
+        # - true: reverse chronological order 
+        # - false: chronological order
         self.reverse = reverse  # type: bool
+        # The IP address that corresponds to the span.
         self.service_ip = service_ip  # type: str
+        # The name of the application.
         self.service_name = service_name  # type: str
+        # The timestamp of the start time of the time range to query. The timestamp is accurate to milliseconds.
         self.start_time = start_time  # type: long
+        # The list of the tags.
         self.tag = tag  # type: list[SearchTracesRequestTag]
 
     def validate(self):
@@ -1386,12 +1621,19 @@ class SearchTracesRequest(TeaModel):
 class SearchTracesResponseBodyPageBeanTraceInfosTraceInfo(TeaModel):
     def __init__(self, duration=None, operation_name=None, service_ip=None, service_name=None, tag_map=None,
                  timestamp=None, trace_id=None):
+        # The time used to call the trace. Unit: milliseconds.
         self.duration = duration  # type: long
+        # The name of the span.
         self.operation_name = operation_name  # type: str
+        # The IP address of the server where the span resides.
         self.service_ip = service_ip  # type: str
+        # The name of the application.
         self.service_name = service_name  # type: str
+        # The map of tags.
         self.tag_map = tag_map  # type: dict[str, any]
+        # The time when the span was generated. Unit: microseconds.
         self.timestamp = timestamp  # type: long
+        # The ID of the trace.
         self.trace_id = trace_id  # type: str
 
     def validate(self):
@@ -1472,9 +1714,13 @@ class SearchTracesResponseBodyPageBeanTraceInfos(TeaModel):
 
 class SearchTracesResponseBodyPageBean(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None, trace_infos=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
+        # The information about the trace.
         self.trace_infos = trace_infos  # type: SearchTracesResponseBodyPageBeanTraceInfos
 
     def validate(self):
@@ -1513,7 +1759,9 @@ class SearchTracesResponseBodyPageBean(TeaModel):
 
 class SearchTracesResponseBody(TeaModel):
     def __init__(self, page_bean=None, request_id=None):
+        # The information about the returned page.
         self.page_bean = page_bean  # type: SearchTracesResponseBodyPageBean
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1543,12 +1791,14 @@ class SearchTracesResponseBody(TeaModel):
 
 
 class SearchTracesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SearchTracesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1561,6 +1811,8 @@ class SearchTracesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1569,6 +1821,8 @@ class SearchTracesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SearchTracesResponseBody()
             self.body = temp_model.from_map(m['body'])
