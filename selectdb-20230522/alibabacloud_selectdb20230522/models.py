@@ -3538,11 +3538,13 @@ class StopBEClusterResponse(TeaModel):
 
 
 class UpgradeDBInstanceEngineVersionRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, engine_version=None, region_id=None, resource_owner_id=None):
+    def __init__(self, dbinstance_id=None, engine_version=None, region_id=None, resource_owner_id=None,
+                 switch_time_mode=None):
         self.dbinstance_id = dbinstance_id  # type: str
         self.engine_version = engine_version  # type: str
         self.region_id = region_id  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.switch_time_mode = switch_time_mode  # type: str
 
     def validate(self):
         pass
@@ -3561,6 +3563,8 @@ class UpgradeDBInstanceEngineVersionRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.switch_time_mode is not None:
+            result['SwitchTimeMode'] = self.switch_time_mode
         return result
 
     def from_map(self, m=None):
@@ -3573,6 +3577,8 @@ class UpgradeDBInstanceEngineVersionRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SwitchTimeMode') is not None:
+            self.switch_time_mode = m.get('SwitchTimeMode')
         return self
 
 
