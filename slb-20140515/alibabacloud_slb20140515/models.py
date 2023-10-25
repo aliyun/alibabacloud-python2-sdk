@@ -6,10 +6,18 @@ from Tea.model import TeaModel
 class AddAccessControlListEntryRequest(TeaModel):
     def __init__(self, acl_entrys=None, acl_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The configuration of the network ACL. Valid values:
+        # 
+        # *   **entry**: the IP entries that you want to add to the network ACL. You can add CIDR blocks. Separate multiple CIDR blocks with commas (,).
+        # *   **comment**: the comment on the network ACL.
+        # 
+        # > You can add at most 50 IP entries to a network ACL in each call. If the IP entry that you want to add to a network ACL already exists, the IP entry is not added. The IP entries that you add must be CIDR blocks.
         self.acl_entrys = acl_entrys  # type: str
+        # The ID of the network ACL.
         self.acl_id = acl_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the network ACL.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -60,6 +68,7 @@ class AddAccessControlListEntryRequest(TeaModel):
 
 class AddAccessControlListEntryResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -83,12 +92,14 @@ class AddAccessControlListEntryResponseBody(TeaModel):
 
 
 class AddAccessControlListEntryResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AddAccessControlListEntryResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -101,6 +112,8 @@ class AddAccessControlListEntryResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -109,6 +122,8 @@ class AddAccessControlListEntryResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AddAccessControlListEntryResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -118,10 +133,43 @@ class AddAccessControlListEntryResponse(TeaModel):
 class AddBackendServersRequest(TeaModel):
     def __init__(self, backend_servers=None, load_balancer_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The list of backend servers that you want to add. Set the following parameters:
+        # 
+        # *   **ServerId**: Required. This value must be a string. Enter the ID of an ECS instance, elastic network interface (ENI), or elastic container instance. If **ServerId** is set to the ID of an ENI or elastic container instance, **Type** is required.
+        # 
+        # *   **Weight**: the weight of the backend server. Valid values: **0** to **100**. Default value: **100**.
+        # 
+        #     If the value is set to 0, no requests are forwarded to the backend server.
+        # 
+        # *   **Description**: Optional. The description of the backend server. This value must be a string. The description must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\_).
+        # 
+        # *   **Type**: the type of the backend server. Valid values:
+        # 
+        #     *   **ecs** (default): an ECS instance
+        #     *   **eni**: an ENI
+        #     *   **eci**: an elastic container instance
+        # 
+        # >  You can specify ENIs and elastic container instances as the backend servers only for high-performance CLB instances.
+        # 
+        # *   **ServerIp**: the IP address of the ECS instance, ENI, or elastic container instance
+        # *   **Port**: the backend port
+        # 
+        # Examples:
+        # 
+        # *   ECS instance: `[{ "ServerId": "i-xxxxxxxxx", "Weight": "100", "Type": "ecs", "Port":"80","Description":"test-112" }]`
+        # *   ENI: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","Description":"test-112" }]`
+        # *   ENI with multiple IP addresses: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","Description":"test-113" },{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "172.166.**.**", "Port":"80","Description":"test-113" }]`
+        # *   Elastic container instance: `[{ "ServerId": "eci-xxxxxxxxx", "Weight": "100", "Type": "eci", "ServerIp": "192.168.**.**", "Port":"80","Description":"test-114" }]`
+        # 
+        # >  The backend servers that you add to a CLB instance must be in the Running state. You can add at most 20 backend servers to a CLB instance in each request.
         self.backend_servers = backend_servers  # type: str
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Classic Load Balancer (CLB) instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -172,9 +220,21 @@ class AddBackendServersRequest(TeaModel):
 
 class AddBackendServersResponseBodyBackendServersBackendServer(TeaModel):
     def __init__(self, description=None, server_id=None, type=None, weight=None):
+        # The description of the backend server.
         self.description = description  # type: str
+        # The ID of the ECS instance, ENI, or elastic container instance.
         self.server_id = server_id  # type: str
+        # The type of the backend server. Valid values:
+        # 
+        # *   **ecs** (default): an ECS instance
+        # *   **eni**: an ENI
+        # *   **eci**: an elastic container instance
         self.type = type  # type: str
+        # The weight of the backend server.
+        # 
+        # Valid values: **0 to 100**. Default value: **100**.
+        # 
+        # If the value is set to **0**, no requests are forwarded to the backend server.
         self.weight = weight  # type: str
 
     def validate(self):
@@ -243,8 +303,11 @@ class AddBackendServersResponseBodyBackendServers(TeaModel):
 
 class AddBackendServersResponseBody(TeaModel):
     def __init__(self, backend_servers=None, load_balancer_id=None, request_id=None):
+        # The list of backend servers.
         self.backend_servers = backend_servers  # type: AddBackendServersResponseBodyBackendServers
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -278,12 +341,14 @@ class AddBackendServersResponseBody(TeaModel):
 
 
 class AddBackendServersResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AddBackendServersResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -296,6 +361,8 @@ class AddBackendServersResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -304,6 +371,8 @@ class AddBackendServersResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AddBackendServersResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -313,14 +382,29 @@ class AddBackendServersResponse(TeaModel):
 class AddListenerWhiteListItemRequest(TeaModel):
     def __init__(self, listener_port=None, listener_protocol=None, load_balancer_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, source_items=None):
+        # The frontend port that is used by the CLB instance.
         self.listener_port = listener_port  # type: int
+        # The frontend protocol that is used by the CLB instance.
+        # 
+        # >  This parameter is required when listeners that use different protocols listen on the same port.
         self.listener_protocol = listener_protocol  # type: str
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Classic Load Balancer (CLB) instance is created.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The IP addresses or CIDR blocks that you want to add to the whitelist.
+        # 
+        # This parameter takes effect when the **AccessControlStatus** parameter of the listener is set to **open_white_list**.
+        # 
+        # Separate multiple IP addresses or CIDR blocks with commas (,).
+        # 
+        # You cannot enter **0.0.0.0** or **0.0.0.0/0**. To disable access control, you can call the [SetListenerAccessControlStatus](~~27599~~) operation to set the value of the **AccessControlStatus** parameter to **close**.
         self.source_items = source_items  # type: str
 
     def validate(self):
@@ -377,6 +461,7 @@ class AddListenerWhiteListItemRequest(TeaModel):
 
 class AddListenerWhiteListItemResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -400,12 +485,14 @@ class AddListenerWhiteListItemResponseBody(TeaModel):
 
 
 class AddListenerWhiteListItemResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AddListenerWhiteListItemResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -418,6 +505,8 @@ class AddListenerWhiteListItemResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -426,6 +515,8 @@ class AddListenerWhiteListItemResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AddListenerWhiteListItemResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -435,12 +526,17 @@ class AddListenerWhiteListItemResponse(TeaModel):
 class AddTagsRequest(TeaModel):
     def __init__(self, load_balancer_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, tags=None):
+        # The name of this action.
+        # 
+        # Value: **AddTags**\
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region to which the SLB instance belongs.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the region to which the SLB instance belongs.
         self.tags = tags  # type: str
 
     def validate(self):
@@ -489,6 +585,7 @@ class AddTagsRequest(TeaModel):
 
 class AddTagsResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the SLB instance.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -512,12 +609,14 @@ class AddTagsResponseBody(TeaModel):
 
 
 class AddTagsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AddTagsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -530,6 +629,8 @@ class AddTagsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -538,6 +639,8 @@ class AddTagsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AddTagsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -547,12 +650,38 @@ class AddTagsResponse(TeaModel):
 class AddVServerGroupBackendServersRequest(TeaModel):
     def __init__(self, backend_servers=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, vserver_group_id=None):
+        # The list of backend servers. You can specify up to 20 backend servers in each request.
+        # 
+        # The following parameters are used to specify the backend servers:
+        # 
+        # *   **ServerId**: The ID of the backend server. You can specify the ID of an Elastic Compute Service (ECS) instance or an elastic network interface (ENI).
+        # 
+        # *   **Port**: Required. The port that is used by the backend server. Valid values: **1 to 65535**.
+        # 
+        # *   **Weight**: The weight of the backend server. Valid values: **0** to **100**. Default value: **100**. If the value is set to 0, no requests are forwarded to the backend server.
+        # 
+        # *   **Type**: The type of backend server. Valid values:
+        # 
+        #     *   **ecs**: an ECS instance. This is the default value.
+        #     *   **eni**: an ENI.
+        # 
+        # *   **Description**: Optional. The description of the backend server. This parameter is of the STRING type. The description must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\_).
+        # 
+        # *   **ServerIp**: The IP address of the ECS instance or ENI.
+        # 
+        # Examples:
+        # 
+        # *   ECS instance:`  [{ "ServerId": "i-xxxxxxxxx", "Weight": "100", "Type": "ecs", "Port": "80", "Description": "test-112" }]. `
+        # *   ENI:`  [{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168. **. **", "Port":"80","Description":"test-112" }] `
+        # *   ENI with multiple IP addresses:`  [{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168. **. **", "Port":"80","Description":"test-112" },{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "172.166. **. **", "Port":"80","Description":"test-113" }] `
         self.backend_servers = backend_servers  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Classic Load Balancer (CLB) instance is created.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the server group.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -601,10 +730,18 @@ class AddVServerGroupBackendServersRequest(TeaModel):
 
 class AddVServerGroupBackendServersResponseBodyBackendServersBackendServer(TeaModel):
     def __init__(self, description=None, port=None, server_id=None, type=None, weight=None):
+        # The description of the server group.
         self.description = description  # type: str
+        # The port that is used by the backend server.
         self.port = port  # type: int
+        # The ID of the ECS instance or ENI.
         self.server_id = server_id  # type: str
+        # The type of backend server. Valid values:
+        # 
+        # *   **ecs**: an ECS instance. This is the default value.
+        # *   **eni**: an ENI.
         self.type = type  # type: str
+        # The weight of the backend server.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -677,8 +814,11 @@ class AddVServerGroupBackendServersResponseBodyBackendServers(TeaModel):
 
 class AddVServerGroupBackendServersResponseBody(TeaModel):
     def __init__(self, backend_servers=None, request_id=None, vserver_group_id=None):
+        # The list of backend servers.
         self.backend_servers = backend_servers  # type: AddVServerGroupBackendServersResponseBodyBackendServers
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the server group.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -712,12 +852,14 @@ class AddVServerGroupBackendServersResponseBody(TeaModel):
 
 
 class AddVServerGroupBackendServersResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AddVServerGroupBackendServersResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -730,6 +872,8 @@ class AddVServerGroupBackendServersResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -738,26 +882,72 @@ class AddVServerGroupBackendServersResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AddVServerGroupBackendServersResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class CreateAccessControlListRequest(TeaModel):
-    def __init__(self, acl_name=None, address_ipversion=None, owner_account=None, owner_id=None, region_id=None,
-                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
-        self.acl_name = acl_name  # type: str
-        self.address_ipversion = address_ipversion  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
+class CreateAccessControlListRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The tag key of the bastion host. Valid values of N: **1 to 20**. The tag key cannot be an empty string.
+        # 
+        # The tag key can be at most 64 characters in length, and cannot contain `http://` or `https://`. It must not start with `aliyun` or `acs:`.
+        self.key = key  # type: str
+        # The tag value. You can specify at most 20 tag values. The tag value cannot be an empty string.
+        # 
+        # The tag value must be 1 to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(CreateAccessControlListRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class CreateAccessControlListRequest(TeaModel):
+    def __init__(self, acl_name=None, address_ipversion=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None):
+        # The operation that you want to perform. Set the value to **CreateAccessControlList**.
+        self.acl_name = acl_name  # type: str
+        # The ID of the region where you want to create the ACL.
+        self.address_ipversion = address_ipversion  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID.
+        self.region_id = region_id  # type: str
+        # The name of the ACL. The name must be 1 to 80 characters in length, and can contain letters, digits, periods (.), hyphens (-), forward slashes (/), and underscores (\_). The name of the ACL that you create must be unique within each region.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The tags.
+        self.tag = tag  # type: list[CreateAccessControlListRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateAccessControlListRequest, self).to_map()
@@ -781,6 +971,10 @@ class CreateAccessControlListRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -801,12 +995,19 @@ class CreateAccessControlListRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateAccessControlListRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
 class CreateAccessControlListResponseBody(TeaModel):
     def __init__(self, acl_id=None, request_id=None):
+        # The IP version. Valid values: **ipv4** and **ipv6**.
         self.acl_id = acl_id  # type: str
+        # The ID of the resource group to which the ACL belongs.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -834,12 +1035,14 @@ class CreateAccessControlListResponseBody(TeaModel):
 
 
 class CreateAccessControlListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateAccessControlListResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -852,6 +1055,8 @@ class CreateAccessControlListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -860,6 +1065,8 @@ class CreateAccessControlListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateAccessControlListResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -869,14 +1076,21 @@ class CreateAccessControlListResponse(TeaModel):
 class CreateDomainExtensionRequest(TeaModel):
     def __init__(self, domain=None, listener_port=None, load_balancer_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, server_certificate_id=None):
+        # The domain name to be created.
         self.domain = domain  # type: str
+        # The frontend port of the HTTPS listener.
+        # 
+        # Value range:** 1 to 65535**\
         self.listener_port = listener_port  # type: int
+        # The ID of the SLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region to which the SLB instance belongs.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the certificate used by the domain name.
         self.server_certificate_id = server_certificate_id  # type: str
 
     def validate(self):
@@ -933,8 +1147,11 @@ class CreateDomainExtensionRequest(TeaModel):
 
 class CreateDomainExtensionResponseBody(TeaModel):
     def __init__(self, domain_extension_id=None, listener_port=None, request_id=None):
+        # The ID of the created domain name extension.
         self.domain_extension_id = domain_extension_id  # type: str
+        # The frontend port used by the SLB instance.
         self.listener_port = listener_port  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -966,12 +1183,14 @@ class CreateDomainExtensionResponseBody(TeaModel):
 
 
 class CreateDomainExtensionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateDomainExtensionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -984,6 +1203,8 @@ class CreateDomainExtensionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -992,47 +1213,191 @@ class CreateDomainExtensionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateDomainExtensionResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class CreateLoadBalancerRequest(TeaModel):
-    def __init__(self, address=None, address_ipversion=None, address_type=None, auto_pay=None, bandwidth=None,
-                 client_token=None, delete_protection=None, duration=None, internet_charge_type=None, load_balancer_name=None,
-                 load_balancer_spec=None, master_zone_id=None, modification_protection_reason=None,
-                 modification_protection_status=None, owner_account=None, owner_id=None, pay_type=None, pricing_cycle=None, region_id=None,
-                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, slave_zone_id=None, v_switch_id=None,
-                 vpc_id=None):
-        self.address = address  # type: str
-        self.address_ipversion = address_ipversion  # type: str
-        self.address_type = address_type  # type: str
-        self.auto_pay = auto_pay  # type: bool
-        self.bandwidth = bandwidth  # type: int
-        self.client_token = client_token  # type: str
-        self.delete_protection = delete_protection  # type: str
-        self.duration = duration  # type: int
-        self.internet_charge_type = internet_charge_type  # type: str
-        self.load_balancer_name = load_balancer_name  # type: str
-        self.load_balancer_spec = load_balancer_spec  # type: str
-        self.master_zone_id = master_zone_id  # type: str
-        self.modification_protection_reason = modification_protection_reason  # type: str
-        self.modification_protection_status = modification_protection_status  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.pay_type = pay_type  # type: str
-        self.pricing_cycle = pricing_cycle  # type: str
-        self.region_id = region_id  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        self.slave_zone_id = slave_zone_id  # type: str
-        self.v_switch_id = v_switch_id  # type: str
-        self.vpc_id = vpc_id  # type: str
+class CreateLoadBalancerRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The tag key of the bastion host. Valid values of N: **1 to 20**. The tag key cannot be an empty string.
+        # 
+        # The tag key can be at most 64 characters in length, and cannot contain `http://` or `https://`. It must not start with `aliyun` or `acs:`.
+        self.key = key  # type: str
+        # The tag value. Valid values of N: **1 to 20**. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. The tag value cannot contain `http://` or `https://`.
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(CreateLoadBalancerRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class CreateLoadBalancerRequest(TeaModel):
+    def __init__(self, address=None, address_ipversion=None, address_type=None, auto_pay=None, bandwidth=None,
+                 client_token=None, delete_protection=None, duration=None, instance_charge_type=None, internet_charge_type=None,
+                 load_balancer_name=None, load_balancer_spec=None, master_zone_id=None, modification_protection_reason=None,
+                 modification_protection_status=None, owner_account=None, owner_id=None, pay_type=None, pricing_cycle=None, region_id=None,
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, slave_zone_id=None, tag=None,
+                 v_switch_id=None, vpc_id=None):
+        # The private IP address of the CLB instance. The private IP address must belong to the destination CIDR block of the vSwitch.
+        self.address = address  # type: str
+        # The IP version that is used by the CLB instance. Valid values: **ipv4** and **ipv6**.
+        self.address_ipversion = address_ipversion  # type: str
+        # The network type of the CLB instance. Valid values:
+        # 
+        # *   **internet**: After an Internet-facing CLB instance is created, the system assigns a public IP address to the CLB instance. Then, the CLB instance can forward requests over the Internet.
+        # *   **intranet**: After an internal-facing CLB instance is created, the system assigns a private IP address to the CLB instance. Then, the CLB instance can forward requests only over the internal networks.
+        self.address_type = address_type  # type: str
+        # Specifies whether to automatically pay for the subscription Internet-facing CLB instance. Valid values:
+        # 
+        # *   **true**: automatically pays for the CLB instance. After you call this operation, the system automatically completes the payment and creates the CLB instance.
+        # *   **false** (default): After you call the operation, the order is created but the payment is not completed. You can view the pending order in the console. The CLB instance will not be created until you complete the payment.
+        # 
+        # >  This parameter is supported only by subscription instances created on the Alibaba Cloud China site.
+        self.auto_pay = auto_pay  # type: bool
+        # The maximum bandwidth of the listener. Unit: Mbit/s.
+        # 
+        # Valid values: **1** to **5120**. For a pay-by-bandwidth Internet-facing CLB instance, you can specify the maximum bandwidth of each listener. The sum of the maximum bandwidth of all listeners cannot exceed the maximum bandwidth of the CLB instance.
+        self.bandwidth = bandwidth  # type: int
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests.
+        # 
+        # >  If you do not specify this parameter, the system uses the **request ID** as the **client token**. The **request ID** may be different for each request.
+        self.client_token = client_token  # type: str
+        # Specifies whether to enable deletion protection for the CLB instance. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
+        self.delete_protection = delete_protection  # type: str
+        # The subscription duration of the Internet-facing CLB instance. Valid values:
+        # 
+        # *   If **PricingCycle** is set to **month**, the valid values are **1 to 9**.
+        # *   If **PricingCycle** is set to **year**, the valid values are **1 to 5**.
+        # 
+        # >  This parameter is supported only by subscription instances created on the Alibaba Cloud China site.
+        self.duration = duration  # type: int
+        # The metering method of the CLB instance. Valid values:
+        # 
+        # *   **PayBySpec** (default)
+        # *   **PayByCLCU**\
+        # 
+        # >  This parameter is supported only by instances created on the Alibaba Cloud China site and only when **PayType** is set to **PayOnDemand**.
+        self.instance_charge_type = instance_charge_type  # type: str
+        # The metering method of the Internet-facing CLB instance. Valid values:
+        # 
+        # *   **paybytraffic** (default)
+        # 
+        # > If you set the value to **paybytraffic**, you do not need to specify **Bandwidth**. Even if you specify **Bandwidth**, the value does not take effect.
+        # 
+        # *   **paybybandwidth**: pay-by-bandwidth
+        # 
+        # >  If you set **PayType** to **PayOnDemand** and set **InstanceChargeType** to **PayByCLCU**, you must set InternetChargeType to **paybytraffic**.
+        self.internet_charge_type = internet_charge_type  # type: str
+        # The CLB instance name.
+        # 
+        # The name must be 1 to 80 characters in length, and can contain digits, periods (.), underscores (\_), and hyphens (-). It must start with a letter.
+        # 
+        # If you do not specify this parameter, the system automatically assigns a name to the CLB instance.
+        self.load_balancer_name = load_balancer_name  # type: str
+        # The specification of the CLB instance. Valid values:
+        # 
+        # *   **slb.s1.small**\
+        # 
+        # *   **slb.s2.small**\
+        # 
+        # *   **slb.s2.medium**\
+        # 
+        # *   **slb.s3.small**\
+        # 
+        # *   **slb.s3.medium**\
+        # 
+        # *   **slb.s3.large**\
+        # 
+        #     **\
+        # 
+        #     **Note** If you do not specify this parameter, a shared-resource CLB instance is created. Shared-resource CLB instances are no longer available for purchase. Therefore, you must specify this parameter.
+        # 
+        # If **InstanceChargeType** is set to **PayByCLCU**, this parameter is invalid and you do not need to specify this parameter.
+        self.load_balancer_spec = load_balancer_spec  # type: str
+        # The ID of the primary zone to which the CLB instance belongs.
+        # 
+        # You can call the [DescribeZone](~~DescribeZone~~) operation to query the primary and secondary zones in the region where you want to create the CLB instance.
+        self.master_zone_id = master_zone_id  # type: str
+        # The reason for enabling the configuration read-only mode. The reason must be 1 to 80 characters in length. It must start with a letter and can contain letters, digits, periods (.), underscores (\_), and hyphens (-).
+        # 
+        # >  This parameter takes effect only when **ModificationProtectionStatus** is set to **ConsoleProtection**.
+        self.modification_protection_reason = modification_protection_reason  # type: str
+        # Specifies whether to enable the configuration read-only mode. Valid values:
+        # 
+        # *   **NonProtection**: disables the configuration read-only mode. After you disable the configuration read-only mode, the value of **ModificationProtectionReason** is cleared.
+        # *   **ConsoleProtection**: enables the configuration read-only mode.
+        # 
+        # >  If you set this parameter to **ConsoleProtection**, you cannot modify instance configurations in the CLB console. However, you can modify instance configurations by calling API operations.
+        self.modification_protection_status = modification_protection_status  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The billing method of the CLB instance. Set the value to
+        # 
+        # **PayOnDemand**, which specifies the pay-as-you-go billing method.
+        self.pay_type = pay_type  # type: str
+        # The billing cycle of the subscription Internet-facing CLB instance. Valid values:
+        # 
+        # *   **month**\
+        # *   **year**\
+        # 
+        # >  This parameter is supported only by subscription instances created on the Alibaba Cloud China site.
+        self.pricing_cycle = pricing_cycle  # type: str
+        # The region ID of the CLB instance.
+        # 
+        # You can call the [DescribeRegions](~~DescribeRegions~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the secondary zone to which the CLB instance belongs.
+        # 
+        # You can call the [DescribeZone](~~DescribeZone~~) operation to query the primary and secondary zones in the region where you want to create the CLB instance.
+        self.slave_zone_id = slave_zone_id  # type: str
+        # The tags.
+        self.tag = tag  # type: list[CreateLoadBalancerRequestTag]
+        # The ID of the vSwitch to which the CLB instance belongs.
+        # 
+        # If you want to deploy the CLB instance in a VPC, this parameter is required. If this parameter is specified, **AddessType** is set to **intranet** by default.
+        self.v_switch_id = v_switch_id  # type: str
+        # The ID of the virtual private cloud (VPC) to which the CLB instance belongs.
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateLoadBalancerRequest, self).to_map()
@@ -1056,6 +1421,8 @@ class CreateLoadBalancerRequest(TeaModel):
             result['DeleteProtection'] = self.delete_protection
         if self.duration is not None:
             result['Duration'] = self.duration
+        if self.instance_charge_type is not None:
+            result['InstanceChargeType'] = self.instance_charge_type
         if self.internet_charge_type is not None:
             result['InternetChargeType'] = self.internet_charge_type
         if self.load_balancer_name is not None:
@@ -1086,6 +1453,10 @@ class CreateLoadBalancerRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.slave_zone_id is not None:
             result['SlaveZoneId'] = self.slave_zone_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
         if self.vpc_id is not None:
@@ -1110,6 +1481,8 @@ class CreateLoadBalancerRequest(TeaModel):
             self.delete_protection = m.get('DeleteProtection')
         if m.get('Duration') is not None:
             self.duration = m.get('Duration')
+        if m.get('InstanceChargeType') is not None:
+            self.instance_charge_type = m.get('InstanceChargeType')
         if m.get('InternetChargeType') is not None:
             self.internet_charge_type = m.get('InternetChargeType')
         if m.get('LoadBalancerName') is not None:
@@ -1140,6 +1513,11 @@ class CreateLoadBalancerRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('SlaveZoneId') is not None:
             self.slave_zone_id = m.get('SlaveZoneId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateLoadBalancerRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
         if m.get('VpcId') is not None:
@@ -1150,15 +1528,28 @@ class CreateLoadBalancerRequest(TeaModel):
 class CreateLoadBalancerResponseBody(TeaModel):
     def __init__(self, address=None, address_ipversion=None, load_balancer_id=None, load_balancer_name=None,
                  network_type=None, order_id=None, request_id=None, resource_group_id=None, v_switch_id=None, vpc_id=None):
+        # The IP address that is allocated to the CLB instance.
         self.address = address  # type: str
+        # The IP version that is used by the CLB instance.
         self.address_ipversion = address_ipversion  # type: str
+        # The CLB instance ID.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The CLB instance name.
         self.load_balancer_name = load_balancer_name  # type: str
+        # The network type of the CLB instance. Valid values:
+        # 
+        # *   **vpc**\
+        # *   **classic**\
         self.network_type = network_type  # type: str
+        # The order ID of the subscription CLB instance.
         self.order_id = order_id  # type: long
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The ID of the resource group to which the CLB instance belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the vSwitch to which the CLB instance belongs.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the VPC to which the CLB instance belongs.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -1218,12 +1609,14 @@ class CreateLoadBalancerResponseBody(TeaModel):
 
 
 class CreateLoadBalancerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateLoadBalancerResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1236,6 +1629,8 @@ class CreateLoadBalancerResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1244,9 +1639,46 @@ class CreateLoadBalancerResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateLoadBalancerResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateLoadBalancerHTTPListenerRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The tag key of the bastion host. Valid values of N: **1 to 20**. The tag key cannot be an empty string.
+        # 
+        # The tag key can be at most 64 characters in length, and cannot contain `http://` or `https://`. It must not start with `aliyun` or `acs:`.
+        self.key = key  # type: str
+        # The tag value. Valid values of N: **1 to 20**. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. The tag value cannot contain `http://` or `https://`.
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateLoadBalancerHTTPListenerRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
         return self
 
 
@@ -1257,49 +1689,208 @@ class CreateLoadBalancerHTTPListenerRequest(TeaModel):
                  health_check_method=None, health_check_timeout=None, health_check_uri=None, healthy_threshold=None, idle_timeout=None,
                  listener_forward=None, listener_port=None, load_balancer_id=None, owner_account=None, owner_id=None, region_id=None,
                  request_timeout=None, resource_owner_account=None, resource_owner_id=None, scheduler=None, sticky_session=None,
-                 sticky_session_type=None, unhealthy_threshold=None, vserver_group_id=None, xforwarded_for=None,
+                 sticky_session_type=None, tag=None, unhealthy_threshold=None, vserver_group_id=None, xforwarded_for=None,
                  xforwarded_for__slbid=None, xforwarded_for__slbip=None, xforwarded_for_proto=None):
+        # The ID of the network ACL that is associated with the listener.
+        # 
+        # >  If **AclStatus** is set to **on**, this parameter is required.
         self.acl_id = acl_id  # type: str
+        # Specifies whether to enable access control. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off** (default): no
         self.acl_status = acl_status  # type: str
+        # The type of the network ACL. Valid values:
+        # 
+        # *   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios where you want to allow only specific IP addresses to access an application. Your service may be adversely affected if the whitelist is not properly configured. If a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener.
+        # 
+        #     If you enable a whitelist but do not add an IP address to the ACL, the listener forwards all requests.
+        # 
+        # *   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the ACL are rejected. Blacklists apply to scenarios where you want to block access from specified IP addresses to an application.
+        # 
+        #     If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.
+        # 
+        # >  If **AclStatus** is set to **on**, this parameter is required.
         self.acl_type = acl_type  # type: str
+        # The backend port that is used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
+        # 
+        # >  If the VServerGroupId parameter is not set, this parameter is required.
         self.backend_server_port = backend_server_port  # type: int
+        # The maximum bandwidth of the listener. Unit: Mbit/s. Valid values:
+        # 
+        # *   **-1**: If you set the value to -1, the bandwidth of the listener is unlimited.
+        # *   **1** to **5120**: The sum of bandwidth values that you specify for all listeners of the CLB instance cannot exceed the maximum bandwidth of the CLB instance.
+        # 
+        # >  This parameter is available only in the Chinese mainland.
         self.bandwidth = bandwidth  # type: int
+        # The cookie that is configured on the server.
+        # 
+        # The cookie must be 1 to 200 characters in length and can contain only ASCII characters and digits. It cannot contain commas (,), semicolons (;), or space characters. It cannot start with a dollar sign ($).
+        # 
+        # >  This parameter is required if the **StickySession** parameter is set to **on** and the **StickySessionType** parameter is set to **server**.
         self.cookie = cookie  # type: str
+        # The timeout period of a cookie. Unit: seconds.
+        # 
+        # Valid values: **1** to **86400**.
+        # 
+        # >  If **StickySession** is set to **on** and **StickySessionType** is set to **insert**, this parameter is required.
         self.cookie_timeout = cookie_timeout  # type: int
+        # The name of the listener.
+        # 
+        # The name must be 1 to 256 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\_).
         self.description = description  # type: str
+        # The listening port that is used to redirect HTTP requests to HTTPS.
         self.forward_port = forward_port  # type: int
+        # Specifies whether to enable `Gzip` compression to compress specific types of files. Valid values:
+        # 
+        # *   **on** (default): yes
+        # *   **off**: no
         self.gzip = gzip  # type: str
+        # Specifies whether to enable the health check feature. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.health_check = health_check  # type: str
+        # The backend port that is used for health checks.
+        # 
+        # Valid values: **1** to **65535**.
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The domain name that is used for health checks. Valid values:
+        # 
+        # *   **$\_ip**: the private IP address of a backend server. If you do not set the HealthCheckDomain parameter or set the parameter to $\_ip, the CLB instance uses the private IP address of each backend server for health checks.
+        # *   **domain**: The domain name must be 1 to 80 characters in length and can contain letters, digits, periods (.), and hyphens (-).
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status code for a successful health check. Separate multiple HTTP status codes with commas (,).
+        # 
+        # Valid values: **http\_2xx** (default), **http\_3xx**, **http\_4xx**, and **http\_5xx**.
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The interval between two consecutive health checks. Unit: seconds.
+        # 
+        # Valid values: **1** to **50**.
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_interval = health_check_interval  # type: int
+        # The health check method used in HTTP health checks. Valid values: **head** and **get**.
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_method = health_check_method  # type: str
+        # The timeout period of a health check response. If a backend server, such as an Elastic Compute Service (ECS) instance, does not respond to a probe packet within the specified timeout period, the server fails the health check. Unit: seconds.
+        # 
+        # Valid values: **1** to **300**.
+        # 
+        # > 
+        # *   If the value of the **HealthCheckTimeout** parameter is smaller than that of the **HealthCheckInterval** parameter, the timeout period specified by the **HealthCheckTimeout** parameter is ignored and the period of time specified by the **HealthCheckInterval** parameter is used as the timeout period.
+        # *   This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_timeout = health_check_timeout  # type: int
+        # The URI that is used for health checks.
+        # 
+        # The URI must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), percent signs (%), question marks (?), number signs (#), and ampersands (&). The URI must start with a forward slash (/) but cannot be a single forward slash (/).
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_uri = health_check_uri  # type: str
+        # The number of times that an unhealthy backend server must consecutively pass health checks before it is declared healthy. In this case, the health status is changed from **fail** to **success**.
+        # 
+        # Valid values: **2** to **10**.
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The timeout period of an idle connection. Unit: seconds.
+        # 
+        # Default value: **15**. Valid values: **1** to **60**.
+        # 
+        # If no request is received within the specified timeout period, SLB closes the connection. When a request is received, SLB establishes a new connection.
         self.idle_timeout = idle_timeout  # type: int
+        # Specifies whether to enable HTTP-to-HTTPS redirection. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off** (default): no
         self.listener_forward = listener_forward  # type: str
+        # The frontend port that is used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
         self.listener_port = listener_port  # type: int
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the CLB instance is deployed.
+        # 
+        # You can query the region ID from the [Regions and zones](~~40654~~) list or by calling the [DescribeRegions](~~27584~~) operation.
         self.region_id = region_id  # type: str
+        # The timeout period of a request. Unit: seconds.
+        # 
+        # Default value: **60**. Valid values: **1** to **180**.
+        # 
+        # If no response is received from the backend server within the specified timeout period, CLB sends an `HTTP 504` error code to the client.
         self.request_timeout = request_timeout  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The scheduling algorithm. Valid values:
+        # 
+        # *   **wrr** (default): Backend servers with higher weights receive more requests than backend servers with lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
         self.scheduler = scheduler  # type: str
+        # Specifies whether to enable session persistence. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off** (default): no
         self.sticky_session = sticky_session  # type: str
+        # The method that is used to handle a cookie. Valid values:
+        # 
+        # *   **insert**: inserts a cookie.
+        # 
+        #     CLB inserts a cookie (SERVERID) into the first HTTP or HTTPS response that is sent to a client. The next request from the client carries this cookie, and the listener will forward this request to the recorded backend server.
+        # 
+        # *   **server**: rewrites a cookie.
+        # 
+        #     When CLB detects a user-defined cookie, it overwrites the original cookie with the user-defined cookie. The next request from the client carries the user-defined cookie, and the listener forwards this request to the recorded backend server.
+        # 
+        # > This parameter is required if the **StickySession** parameter is set to **on**.
         self.sticky_session_type = sticky_session_type  # type: str
+        # The tags.
+        self.tag = tag  # type: list[CreateLoadBalancerHTTPListenerRequestTag]
+        # The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**.
+        # 
+        # Valid values: **2** to **10**.
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
+        # Specifies whether to use the `X-Forwarded-For` header to retrieve client IP addresses. Valid values:
+        # 
+        # *   **on** (default): yes
+        # *   **off**: no
         self.xforwarded_for = xforwarded_for  # type: str
+        # Specifies whether to use the `SLB-ID` header to retrieve the ID of the CLB instance. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off** (default): no
         self.xforwarded_for__slbid = xforwarded_for__slbid  # type: str
+        # Specifies whether to use the `SLB-IP` header to retrieve the virtual IP address (VIP) of the client. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off** (default): no
         self.xforwarded_for__slbip = xforwarded_for__slbip  # type: str
+        # Specifies whether to use the `X-Forwarded-Proto` header to retrieve the listening protocol. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off** (default): no
         self.xforwarded_for_proto = xforwarded_for_proto  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateLoadBalancerHTTPListenerRequest, self).to_map()
@@ -1371,6 +1962,10 @@ class CreateLoadBalancerHTTPListenerRequest(TeaModel):
             result['StickySession'] = self.sticky_session
         if self.sticky_session_type is not None:
             result['StickySessionType'] = self.sticky_session_type
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.unhealthy_threshold is not None:
             result['UnhealthyThreshold'] = self.unhealthy_threshold
         if self.vserver_group_id is not None:
@@ -1451,6 +2046,11 @@ class CreateLoadBalancerHTTPListenerRequest(TeaModel):
             self.sticky_session = m.get('StickySession')
         if m.get('StickySessionType') is not None:
             self.sticky_session_type = m.get('StickySessionType')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateLoadBalancerHTTPListenerRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('UnhealthyThreshold') is not None:
             self.unhealthy_threshold = m.get('UnhealthyThreshold')
         if m.get('VServerGroupId') is not None:
@@ -1468,6 +2068,7 @@ class CreateLoadBalancerHTTPListenerRequest(TeaModel):
 
 class CreateLoadBalancerHTTPListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1491,12 +2092,14 @@ class CreateLoadBalancerHTTPListenerResponseBody(TeaModel):
 
 
 class CreateLoadBalancerHTTPListenerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateLoadBalancerHTTPListenerResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1509,6 +2112,8 @@ class CreateLoadBalancerHTTPListenerResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1517,9 +2122,42 @@ class CreateLoadBalancerHTTPListenerResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateLoadBalancerHTTPListenerResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateLoadBalancerHTTPSListenerRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The tag key.
+        self.key = key  # type: str
+        # The tag value.
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateLoadBalancerHTTPSListenerRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
         return self
 
 
@@ -1531,51 +2169,240 @@ class CreateLoadBalancerHTTPSListenerRequest(TeaModel):
                  healthy_threshold=None, idle_timeout=None, listener_port=None, load_balancer_id=None, owner_account=None,
                  owner_id=None, region_id=None, request_timeout=None, resource_owner_account=None, resource_owner_id=None,
                  scheduler=None, server_certificate_id=None, sticky_session=None, sticky_session_type=None,
-                 tlscipher_policy=None, unhealthy_threshold=None, vserver_group_id=None, xforwarded_for=None,
+                 tlscipher_policy=None, tag=None, unhealthy_threshold=None, vserver_group_id=None, xforwarded_for=None,
                  xforwarded_for__slbid=None, xforwarded_for__slbip=None, xforwarded_for_proto=None):
+        # The ID of the network access control list (ACL) that is associated with the listener.
+        # 
+        # >  If **AclStatus** is set to **on**, this parameter is required.
         self.acl_id = acl_id  # type: str
+        # Specifies whether to enable access control. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.acl_status = acl_status  # type: str
+        # The type of the network ACL. Valid values:
+        # 
+        # *   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios in which you want to allow only specific IP addresses to access an application. Your service may be adversely affected if the allowlist is not properly configured. After a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener.
+        # 
+        #     If you enable a whitelist but do not add an IP address to the ACL, the listener forwards all requests.
+        # 
+        # *   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the network ACL are denied. The blacklist applies to scenarios in which you want to deny access from specific IP addresses to an application.
+        # 
+        #     If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.
+        # 
+        # >  If **AclStatus** is set to **on**, this parameter is required.
         self.acl_type = acl_type  # type: str
+        # The backend port that is used by the CLB instance. Valid values: **1** to **65535**.
+        # 
+        # If the VServerGroupId parameter is not set, this parameter is required.
         self.backend_server_port = backend_server_port  # type: int
+        # The maximum bandwidth of the listener. Unit: Mbit/s.
+        # 
+        # Valid values: **-1** and **1** to **5120**.
+        # 
+        # *   **-1**: For a pay-by-data-transfer Internet-facing CLB instance, you can set this parameter to **-1**. This way, the bandwidth of the listener is unlimited.
+        # *   **1** to **5120**: For a pay-by-bandwidth Internet-facing SLB instance, you can specify the bandwidth limit of each listener. The sum of bandwidth limits that you set for all listeners cannot exceed the bandwidth limit of the SLB instance.
         self.bandwidth = bandwidth  # type: int
+        # The ID of the certification authority (CA) certificate.
+        # 
+        # If both the CA certificate and the server certificate are uploaded, mutual authentication is used.
+        # 
+        # If you upload only the server certificate, one-way authentication is used.
         self.cacertificate_id = cacertificate_id  # type: str
+        # The cookie that is configured on the server.
+        # 
+        # The cookie must be 1 to 200 characters in length and can contain only ASCII characters and digits. It cannot contain commas (,), semicolons (;), or space characters. It cannot start with a dollar sign ($).
+        # 
+        # >  This parameter is required if the **StickySession** parameter is set to **on** and the **StickySessionType** parameter is set to **server**.
         self.cookie = cookie  # type: str
+        # The timeout period of a cookie. Unit: seconds.
+        # 
+        # Valid values: **1** to **86400**.
+        # 
+        # >  If **StickySession** is set to **on** and **StickySessionType** is set to **insert**, this parameter is required.
         self.cookie_timeout = cookie_timeout  # type: int
+        # The name of the listener.
+        # 
+        # The name must be 1 to 256 characters in length and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\_).
         self.description = description  # type: str
+        # Specifies whether to enable HTTP/2. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.enable_http_2 = enable_http_2  # type: str
+        # Specifies whether to enable `Gzip` compression to compress specific types of files. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.gzip = gzip  # type: str
+        # Specifies whether to enable the health check feature. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.health_check = health_check  # type: str
+        # The port that is used for health checks.
+        # 
+        # Valid values: **1** to **65535**.
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The domain name that is used for health checks. Valid values:
+        # 
+        # *   **$\_ip**: the private IP address of a backend server. If you do not set the HealthCheckDomain parameter or set the parameter to $\_ip, the CLB instance uses the private IP address of each backend server for health checks.
+        # *   **domain**: The domain name must be 1 to 80 characters in length and can contain letters, digits, periods (.), and hyphens (-).
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status code for a successful health check. Separate multiple HTTP status codes with commas (,).
+        # 
+        # Valid values: **http\_2xx**, **http\_3xx**, **http\_4xx**, and **http\_5xx**.
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The interval between two consecutive health checks. Unit: seconds.
+        # 
+        # Valid values: **1** to **50**.
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_interval = health_check_interval  # type: int
+        # The health check method used in HTTP health checks. Valid values: **head** and **get**.
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_method = health_check_method  # type: str
+        # The timeout period of a health check response. If a backend server, such as an Elastic Compute Service (ECS) instance, does not return a health check response within the specified timeout period, the server fails the health check. Unit: seconds.
+        # 
+        # Valid values: **1** to **300**.
+        # 
+        # > 
+        # *   If the value of the **HealthCheckTimeout** parameter is smaller than that of the **HealthCheckInterval** parameter, the timeout period specified by the **HealthCheckTimeout** parameter is ignored and the period of time specified by the **HealthCheckInterval** parameter is used as the timeout period.
+        # *   This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_timeout = health_check_timeout  # type: int
+        # The URI that is used for health checks.
+        # 
+        # The URI must be 1 to 80 characters in length, and can contain letters, digits, and the following special characters: `-/.%?#&`. The URI must start with a forward slash (`/`), but cannot be a single forward slash (`/`).
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.health_check_uri = health_check_uri  # type: str
+        # The number of times that an unhealthy backend server must consecutively pass health checks before it is declared healthy. In this case, the health status is changed from **fail** to **success**.
+        # 
+        # Valid values: **2** to **10**.
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The timeout period of an idle connection. Valid values: **1 to 60**. Default value: **15**. Unit: seconds.
+        # 
+        # If no request is received within the specified timeout period, CLB closes the connection. When a request is received, CLB establishes a new connection.
         self.idle_timeout = idle_timeout  # type: int
+        # The frontend port that is used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
         self.listener_port = listener_port  # type: int
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the CLB instance.
+        # 
+        # You can query the region ID from the [Regions and zones](~~40654~~) list or by calling the [DescribeRegions](~~25609~~) operation.
         self.region_id = region_id  # type: str
+        # The timeout period of a request. Valid values: **1 to 180**. Default value: **60**. Unit: seconds.
+        # 
+        # If no response is received from a backend server within the specified timeout period, CLB returns the HTTP 504 status code to the client.
         self.request_timeout = request_timeout  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The scheduling algorithm. Valid values:
+        # 
+        # *   **wrr**: Backend servers with higher weights receive more requests than those with lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
         self.scheduler = scheduler  # type: str
+        # The ID of the server certificate.
         self.server_certificate_id = server_certificate_id  # type: str
+        # Specifies whether to enable session persistence. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.sticky_session = sticky_session  # type: str
+        # The method that is used to handle a cookie. Valid values: **insert** and **server**.
+        # 
+        # *   **insert**: inserts a cookie.
+        # 
+        #     CLB inserts a cookie (SERVERID) into the first HTTP or HTTPS response packet that is sent to a client. The next request from the client will contain this cookie, and the listener will distribute this request to the recorded backend server.
+        # 
+        # *   **server**: rewrites a cookie.
+        # 
+        #     When CLB detects a user-defined cookie, it overwrites the original cookie with the user-defined cookie. The next request from the client carries the user-defined cookie, and the listener will distribute the request to the recorded backend server.
+        # 
+        # >  This parameter is required if the **StickySession** parameter is set to **on**.
         self.sticky_session_type = sticky_session_type  # type: str
+        # The Transport Layer Security (TLS) security policy. Each security policy contains TLS protocol versions and cipher suites available for HTTPS.
+        # 
+        # *   **tls_cipher_policy\_1\_0**:
+        # 
+        #     Supported TLS versions: TLS 1.0, TLS 1.1, and TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, AES128-GCM-SHA256, AES256-GCM-SHA384, AES128-SHA256, AES256-SHA256, ECDHE-RSA-AES128-SHA, ECDHE-RSA-AES256-SHA, AES128-SHA, AES256-SHA, and DES-CBC3-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_1**:
+        # 
+        #     Supported TLS versions: TLS 1.1 and TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, AES128-GCM-SHA256, AES256-GCM-SHA384, AES128-SHA256, AES256-SHA256, ECDHE-RSA-AES128-SHA, ECDHE-RSA-AES256-SHA, AES128-SHA, AES256-SHA, and DES-CBC3-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_2**\
+        # 
+        #     Supported TLS version: TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, AES128-GCM-SHA256, AES256-GCM-SHA384, AES128-SHA256, AES256-SHA256, ECDHE-RSA-AES128-SHA, ECDHE-RSA-AES256-SHA, AES128-SHA, AES256-SHA, and DES-CBC3-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_2\_strict**\
+        # 
+        #     Supported TLS version: TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, ECDHE-RSA-AES128-SHA, and ECDHE-RSA-AES256-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_2\_strict_with\_1\_3**\
+        # 
+        #     Supported TLS versions: TLS 1.2 and TLS 1.3
+        # 
+        #     Supported cipher suites: TLS_AES\_128\_GCM_SHA256, TLS_AES\_256\_GCM_SHA384, TLS_CHACHA20\_POLY1305\_SHA256, TLS_AES\_128\_CCM_SHA256, TLS_AES\_128\_CCM\_8\_SHA256, ECDHE-ECDSA-AES128-GCM-SHA256, ECDHE-ECDSA-AES256-GCM-SHA384, ECDHE-ECDSA-AES128-SHA256, ECDHE-ECDSA-AES256-SHA384, ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, ECDHE-ECDSA-AES128-SHA, ECDHE-ECDSA-AES256-SHA, ECDHE-RSA-AES128-SHA, and ECDHE-RSA-AES256-SHA
         self.tlscipher_policy = tlscipher_policy  # type: str
+        # The tags.
+        self.tag = tag  # type: list[CreateLoadBalancerHTTPSListenerRequestTag]
+        # The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**.
+        # 
+        # Valid values: **2** to **10**.
+        # 
+        # >  This parameter takes effect only if the **HealthCheck** parameter is set to **on**.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # The ID of the server group.
         self.vserver_group_id = vserver_group_id  # type: str
+        # Specifies whether to use the `X-Forwarded-For` header to retrieve client IP addresses. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for = xforwarded_for  # type: str
+        # Specifies whether to use the `SLB-ID` header to retrieve the ID of the CLB instance. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__slbid = xforwarded_for__slbid  # type: str
+        # Specifies whether to use the `SLB-IP` header to retrieve the virtual IP address (VIP) of the client. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__slbip = xforwarded_for__slbip  # type: str
+        # Specifies whether to use the `X-Forwarded-Proto` header to retrieve the listener protocol. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for_proto = xforwarded_for_proto  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateLoadBalancerHTTPSListenerRequest, self).to_map()
@@ -1651,6 +2478,10 @@ class CreateLoadBalancerHTTPSListenerRequest(TeaModel):
             result['StickySessionType'] = self.sticky_session_type
         if self.tlscipher_policy is not None:
             result['TLSCipherPolicy'] = self.tlscipher_policy
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.unhealthy_threshold is not None:
             result['UnhealthyThreshold'] = self.unhealthy_threshold
         if self.vserver_group_id is not None:
@@ -1735,6 +2566,11 @@ class CreateLoadBalancerHTTPSListenerRequest(TeaModel):
             self.sticky_session_type = m.get('StickySessionType')
         if m.get('TLSCipherPolicy') is not None:
             self.tlscipher_policy = m.get('TLSCipherPolicy')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateLoadBalancerHTTPSListenerRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('UnhealthyThreshold') is not None:
             self.unhealthy_threshold = m.get('UnhealthyThreshold')
         if m.get('VServerGroupId') is not None:
@@ -1752,6 +2588,7 @@ class CreateLoadBalancerHTTPSListenerRequest(TeaModel):
 
 class CreateLoadBalancerHTTPSListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1775,12 +2612,14 @@ class CreateLoadBalancerHTTPSListenerResponseBody(TeaModel):
 
 
 class CreateLoadBalancerHTTPSListenerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateLoadBalancerHTTPSListenerResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1793,6 +2632,8 @@ class CreateLoadBalancerHTTPSListenerResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1801,9 +2642,46 @@ class CreateLoadBalancerHTTPSListenerResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateLoadBalancerHTTPSListenerResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateLoadBalancerTCPListenerRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # 
+        # The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        self.key = key  # type: str
+        # The value of the tag. You can specify up to 20 tag values. The tag value can be an empty string.
+        # 
+        # The tag value can be at most 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateLoadBalancerTCPListenerRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
         return self
 
 
@@ -1811,42 +2689,162 @@ class CreateLoadBalancerTCPListenerRequest(TeaModel):
     def __init__(self, acl_id=None, acl_status=None, acl_type=None, backend_server_port=None, bandwidth=None,
                  connection_drain=None, connection_drain_timeout=None, description=None, established_timeout=None,
                  health_check_connect_port=None, health_check_connect_timeout=None, health_check_domain=None, health_check_http_code=None,
-                 health_check_type=None, health_check_uri=None, healthy_threshold=None, listener_port=None, load_balancer_id=None,
-                 master_slave_server_group_id=None, owner_account=None, owner_id=None, persistence_timeout=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None, scheduler=None, unhealthy_threshold=None, vserver_group_id=None,
+                 health_check_switch=None, health_check_type=None, health_check_uri=None, healthy_threshold=None, listener_port=None,
+                 load_balancer_id=None, master_slave_server_group_id=None, owner_account=None, owner_id=None,
+                 persistence_timeout=None, proxy_protocol_v2enabled=None, region_id=None, resource_owner_account=None,
+                 resource_owner_id=None, scheduler=None, tag=None, unhealthy_threshold=None, vserver_group_id=None,
                  health_check_interval=None):
+        # The ID of the network ACL that is associated with the listener.
+        # 
+        # >  If **AclStatus** is set to **on**, this parameter is required.
         self.acl_id = acl_id  # type: str
+        # Specifies whether to enable access control. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off** (default): no
         self.acl_status = acl_status  # type: str
+        # The type of the ACL. Valid values:
+        # 
+        # *   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios where you want to allow only specific IP addresses to access an application.
+        # 
+        #     Your service may be adversely affected if the whitelist is not properly configured.
+        # 
+        #     If a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener. If a whitelist is configured but no IP address is added to the whitelist, the listener forwards all requests.
+        # 
+        # *   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the ACL are rejected. Blacklists apply to scenarios where you want to block access from specified IP addresses to an application.
+        # 
+        #     If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.
+        # 
+        # >  If **AclStatus** is set to **on**, this parameter is required.
         self.acl_type = acl_type  # type: str
+        # The backend port used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
+        # 
+        # If the **VServerGroupId** parameter is not set, this parameter is required.
         self.backend_server_port = backend_server_port  # type: int
+        # The maximum bandwidth of the listener. Unit: Mbit/s. Valid values:
+        # 
+        # *   **-1**: For a pay-by-data-transfer Internet-facing CLB instance, this value can be set to -1, which specifies unlimited bandwidth.
+        # *   **1** to **5120**: For a pay-by-bandwidth Internet-facing CLB instance, you can specify the maximum bandwidth of each listener. The sum of the maximum bandwidth values that you set for all listeners cannot exceed the maximum bandwidth of the CLB instance.
         self.bandwidth = bandwidth  # type: int
+        # Specifies whether to enable connection draining. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.connection_drain = connection_drain  # type: str
+        # The timeout period of connection draining. Unit: seconds.
+        # 
+        # Valid values: **10** to **900**.
+        # 
+        # >  This parameter is required if **ConnectionDrain** is set to **on**.
         self.connection_drain_timeout = connection_drain_timeout  # type: int
+        # The name of the listener.
+        # 
+        # The name must be 1 to 256 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\_).
         self.description = description  # type: str
+        # The timeout period of a connection. Unit: seconds.
+        # 
+        # Valid values: **10** to **900**.
         self.established_timeout = established_timeout  # type: int
+        # The port that is used for health checks.
+        # 
+        # Valid values: **1** to **65535**.
+        # 
+        # If this parameter is not set, the backend port specified by **BackendServerPort** is used for health checks.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The maximum timeout period of a health check response. Unit: seconds.
+        # 
+        # Valid values: **1** to **300**.
+        # 
+        # Default value: **5**.
         self.health_check_connect_timeout = health_check_connect_timeout  # type: int
+        # The domain name that you want to use for health checks. Valid values:
+        # 
+        # *   **$\_ip**: the private IP address of a backend server. If you do not set the HealthCheckDomain parameter or set the parameter to $\_ip, the CLB instance uses the private IP address of each backend server for health checks.
+        # *   **domain**: The domain name must be 1 to 80 characters in length, and can contain letters, digits, periods (.), and hyphens (-).
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status code for a successful health check. Separate multiple HTTP status codes with commas (,). Valid values:
+        # 
+        # *   **http\_2xx**(default)
+        # *   **http\_3xx**\
+        # *   **http\_4xx**\
+        # *   **http\_5xx**\
         self.health_check_http_code = health_check_http_code  # type: str
+        # Specifies whether to enable the health check feature. Valid values:
+        # 
+        # *   **on** (default): yes
+        # *   **off**: no
+        self.health_check_switch = health_check_switch  # type: str
+        # The type of health checks. Valid values:
+        # 
+        # *   **tcp** (default)
+        # *   **http**\
         self.health_check_type = health_check_type  # type: str
+        # The URI that is used for health checks. The URI must be 1 to 80 characters in length, and can contain only digits, letters, hyphens (-), forward slashes (/), periods (.), percent signs (%), number signs (#), and ampersands (&). The URI must start with a forward slash (/) but cannot be a single forward slash (/).
+        # 
+        # You can set this parameter when the TCP listener requires HTTP health checks. If you do not set this parameter, TCP health checks are performed.
         self.health_check_uri = health_check_uri  # type: str
+        # The number of times that an unhealthy backend server must consecutively pass health checks before it is declared healthy. In this case, the health status is changed from **fail** to **success**.
+        # 
+        # Valid values: **2** to **10**.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The frontend port used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
         self.listener_port = listener_port  # type: int
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The ID of the primary/secondary server group.
+        # 
+        # >  You cannot set both VServerGroupId and MasterSlaveServerGroupId.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The timeout period of session persistence. Unit: seconds.
+        # 
+        # Valid values: **0 to 3600**.
+        # 
+        # Default value: **0**. If the default value is used, the system disables session persistence.
         self.persistence_timeout = persistence_timeout  # type: int
+        # Specifies whether to use the Proxy protocol to pass client IP addresses to backend servers. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false** (default): no
+        self.proxy_protocol_v2enabled = proxy_protocol_v2enabled  # type: bool
+        # The ID of the region where the Classic Load Balancer (CLB) instance is deployed.
+        # 
+        # You can query the region ID from the [Regions and zones](~~40654~~) list or by calling the [DescribeRegions](~~25609~~) operation.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The routing algorithm. Valid values:
+        # 
+        # *   **wrr** (default): Backend servers with higher weights receive more requests than backend servers with lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
+        # *   **sch**: specifies consistent hashing that is based on source IP addresses. Requests from the same source IP address are distributed to the same backend server.
+        # *   **tch**: specifies consistent hashing that is based on four factors: source IP address, destination IP address, source port, and destination port. Requests that contain the same information based on the four factors are distributed to the same backend server.
+        # 
+        # >  Only high-performance CLB instances support the **sch** and **tch** consistent hashing algorithms.
         self.scheduler = scheduler  # type: str
+        # The tags.
+        self.tag = tag  # type: list[CreateLoadBalancerTCPListenerRequestTag]
+        # The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**.
+        # 
+        # Valid values: **2** to **10**.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
+        # The interval between two consecutive health checks. Unit: seconds.
+        # 
+        # Valid values: **1** to **50**.
         self.health_check_interval = health_check_interval  # type: int
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateLoadBalancerTCPListenerRequest, self).to_map()
@@ -1880,6 +2878,8 @@ class CreateLoadBalancerTCPListenerRequest(TeaModel):
             result['HealthCheckDomain'] = self.health_check_domain
         if self.health_check_http_code is not None:
             result['HealthCheckHttpCode'] = self.health_check_http_code
+        if self.health_check_switch is not None:
+            result['HealthCheckSwitch'] = self.health_check_switch
         if self.health_check_type is not None:
             result['HealthCheckType'] = self.health_check_type
         if self.health_check_uri is not None:
@@ -1898,6 +2898,8 @@ class CreateLoadBalancerTCPListenerRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.persistence_timeout is not None:
             result['PersistenceTimeout'] = self.persistence_timeout
+        if self.proxy_protocol_v2enabled is not None:
+            result['ProxyProtocolV2Enabled'] = self.proxy_protocol_v2enabled
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_owner_account is not None:
@@ -1906,6 +2908,10 @@ class CreateLoadBalancerTCPListenerRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.scheduler is not None:
             result['Scheduler'] = self.scheduler
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.unhealthy_threshold is not None:
             result['UnhealthyThreshold'] = self.unhealthy_threshold
         if self.vserver_group_id is not None:
@@ -1942,6 +2948,8 @@ class CreateLoadBalancerTCPListenerRequest(TeaModel):
             self.health_check_domain = m.get('HealthCheckDomain')
         if m.get('HealthCheckHttpCode') is not None:
             self.health_check_http_code = m.get('HealthCheckHttpCode')
+        if m.get('HealthCheckSwitch') is not None:
+            self.health_check_switch = m.get('HealthCheckSwitch')
         if m.get('HealthCheckType') is not None:
             self.health_check_type = m.get('HealthCheckType')
         if m.get('HealthCheckURI') is not None:
@@ -1960,6 +2968,8 @@ class CreateLoadBalancerTCPListenerRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('PersistenceTimeout') is not None:
             self.persistence_timeout = m.get('PersistenceTimeout')
+        if m.get('ProxyProtocolV2Enabled') is not None:
+            self.proxy_protocol_v2enabled = m.get('ProxyProtocolV2Enabled')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -1968,6 +2978,11 @@ class CreateLoadBalancerTCPListenerRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('Scheduler') is not None:
             self.scheduler = m.get('Scheduler')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateLoadBalancerTCPListenerRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('UnhealthyThreshold') is not None:
             self.unhealthy_threshold = m.get('UnhealthyThreshold')
         if m.get('VServerGroupId') is not None:
@@ -1979,6 +2994,7 @@ class CreateLoadBalancerTCPListenerRequest(TeaModel):
 
 class CreateLoadBalancerTCPListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2002,12 +3018,14 @@ class CreateLoadBalancerTCPListenerResponseBody(TeaModel):
 
 
 class CreateLoadBalancerTCPListenerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateLoadBalancerTCPListenerResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2020,6 +3038,8 @@ class CreateLoadBalancerTCPListenerResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2028,45 +3048,165 @@ class CreateLoadBalancerTCPListenerResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateLoadBalancerTCPListenerResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class CreateLoadBalancerUDPListenerRequest(TeaModel):
-    def __init__(self, acl_id=None, acl_status=None, acl_type=None, backend_server_port=None, bandwidth=None,
-                 description=None, health_check_connect_port=None, health_check_connect_timeout=None, healthy_threshold=None,
-                 listener_port=None, load_balancer_id=None, master_slave_server_group_id=None, owner_account=None, owner_id=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None, scheduler=None,
-                 unhealthy_threshold=None, vserver_group_id=None, health_check_exp=None, health_check_interval=None,
-                 health_check_req=None):
-        self.acl_id = acl_id  # type: str
-        self.acl_status = acl_status  # type: str
-        self.acl_type = acl_type  # type: str
-        self.backend_server_port = backend_server_port  # type: int
-        self.bandwidth = bandwidth  # type: int
-        self.description = description  # type: str
-        self.health_check_connect_port = health_check_connect_port  # type: int
-        self.health_check_connect_timeout = health_check_connect_timeout  # type: int
-        self.healthy_threshold = healthy_threshold  # type: int
-        self.listener_port = listener_port  # type: int
-        self.load_balancer_id = load_balancer_id  # type: str
-        self.master_slave_server_group_id = master_slave_server_group_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        self.scheduler = scheduler  # type: str
-        self.unhealthy_threshold = unhealthy_threshold  # type: int
-        self.vserver_group_id = vserver_group_id  # type: str
-        self.health_check_exp = health_check_exp  # type: str
-        self.health_check_interval = health_check_interval  # type: int
-        self.health_check_req = health_check_req  # type: str
+class CreateLoadBalancerUDPListenerRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # 
+        # The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        self.key = key  # type: str
+        # The tag value. Valid values of N: **1 to 20**. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. The tag value cannot contain `http://` or `https://`.
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(CreateLoadBalancerUDPListenerRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class CreateLoadBalancerUDPListenerRequest(TeaModel):
+    def __init__(self, acl_id=None, acl_status=None, acl_type=None, backend_server_port=None, bandwidth=None,
+                 description=None, health_check_connect_port=None, health_check_connect_timeout=None,
+                 health_check_switch=None, healthy_threshold=None, listener_port=None, load_balancer_id=None,
+                 master_slave_server_group_id=None, owner_account=None, owner_id=None, proxy_protocol_v2enabled=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, scheduler=None, tag=None, unhealthy_threshold=None,
+                 vserver_group_id=None, health_check_exp=None, health_check_interval=None, health_check_req=None):
+        # The ID of the network ACL that is associated with the listener.
+        # 
+        # If **AclStatus** is set to **on**, this parameter is required.
+        self.acl_id = acl_id  # type: str
+        # Specifies whether to enable access control. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off** (default): no
+        self.acl_status = acl_status  # type: str
+        # The type of the network ACL. Valid values:
+        # 
+        # *   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios in which you want to allow only specific IP addresses to access an application. After a whitelist is configured, only IP addresses in the whitelist can access the CLB listener. Risks may arise if the whitelist is improperly set.
+        # 
+        #     If a whitelist is configured but no IP address is added to the whitelist, the listener forwards all requests.
+        # 
+        # *   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the network ACL are blocked. Blacklists apply to scenarios in which you want to deny access from specific IP addresses to an application.
+        # 
+        #     If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.
+        # 
+        # If **AclStatus** is set to **on**, this parameter is required.
+        self.acl_type = acl_type  # type: str
+        # The backend port used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
+        # 
+        # If the **VServerGroupId** parameter is not set, this parameter is required.
+        self.backend_server_port = backend_server_port  # type: int
+        # The maximum bandwidth of the listener. Unit: Mbit/s. Valid values:
+        # 
+        # **-1**: For a pay-by-data-transfer Internet-facing CLB instance, you can set this parameter to **-1**. This way, the bandwidth of the listener is unlimited.
+        self.bandwidth = bandwidth  # type: int
+        # The name of the listener.
+        # 
+        # The name must be 1 to 256 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\_).
+        self.description = description  # type: str
+        # The port that is used for health checks.
+        # 
+        # Valid values: **1** to **65535**.
+        # 
+        # If this parameter is not set, the backend port specified by **BackendServerPort** is used for health checks.
+        self.health_check_connect_port = health_check_connect_port  # type: int
+        # The timeout period of a health check.
+        # 
+        # If a backend server, such as an Elastic Compute Service (ECS) instance, does not respond to a probe packet within the specified timeout period, the server fails the health check. Unit: seconds.
+        # 
+        # Valid values: **1** to **300**.
+        self.health_check_connect_timeout = health_check_connect_timeout  # type: int
+        # Specifies whether to enable the health check feature. Valid values:
+        # 
+        # *   **on** (default): yes
+        # *   **off**: no
+        self.health_check_switch = health_check_switch  # type: str
+        # The number of times that an unhealthy backend server must consecutively pass health checks before it is declared healthy. In this case, the health status is changed from **fail** to **success**.
+        # 
+        # Valid values: **2** to **10**.
+        self.healthy_threshold = healthy_threshold  # type: int
+        # The frontend port used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
+        self.listener_port = listener_port  # type: int
+        # The ID of the CLB instance.
+        self.load_balancer_id = load_balancer_id  # type: str
+        # The ID of the primary/secondary server group.
+        # 
+        # >  You can set only one of the VServerGroupId and MasterSlaveServerGroupId parameters.
+        self.master_slave_server_group_id = master_slave_server_group_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # Specifies whether to use the Proxy protocol to pass client IP addresses to backend servers. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false** (default): no
+        self.proxy_protocol_v2enabled = proxy_protocol_v2enabled  # type: bool
+        # The ID of the region where the CLB instance is deployed.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The routing algorithm. Valid values:
+        # 
+        # *   **wrr** (default): Backend servers with higher weights receive more requests than backend servers with lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
+        # *   **sch**: specifies consistent hashing that is based on source IP addresses. Requests from the same source IP address are distributed to the same backend server.
+        # *   **tch**: specifies consistent hashing that is based on four factors: source IP address, destination IP address, source port, and destination port. Requests that contain the same information based on the four factors are distributed to the same backend server.
+        # *   **qch**: specifies consistent hashing that is based on QUIC connection IDs. Requests that contain the same QUIC connection ID are distributed to the same backend server.
+        # 
+        # Only high-performance CLB instances support the sch, tch, and qch consistent hashing algorithms.
+        self.scheduler = scheduler  # type: str
+        # The tags.
+        self.tag = tag  # type: list[CreateLoadBalancerUDPListenerRequestTag]
+        # The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**.
+        # 
+        # Valid values: **2** to **10**.
+        self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # The ID of the vServer group.
+        self.vserver_group_id = vserver_group_id  # type: str
+        # The response string for UDP listener health checks. The string must be 1 to 64 characters in length and can contain only letters and digits.
+        self.health_check_exp = health_check_exp  # type: str
+        # The interval between two consecutive health checks. Unit: seconds.
+        # 
+        # Valid values: **1** to **50**.
+        self.health_check_interval = health_check_interval  # type: int
+        # The request string for UDP listener health checks. The string must be 1 to 64 characters in length and can contain only letters and digits.
+        self.health_check_req = health_check_req  # type: str
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateLoadBalancerUDPListenerRequest, self).to_map()
@@ -2090,6 +3230,8 @@ class CreateLoadBalancerUDPListenerRequest(TeaModel):
             result['HealthCheckConnectPort'] = self.health_check_connect_port
         if self.health_check_connect_timeout is not None:
             result['HealthCheckConnectTimeout'] = self.health_check_connect_timeout
+        if self.health_check_switch is not None:
+            result['HealthCheckSwitch'] = self.health_check_switch
         if self.healthy_threshold is not None:
             result['HealthyThreshold'] = self.healthy_threshold
         if self.listener_port is not None:
@@ -2102,6 +3244,8 @@ class CreateLoadBalancerUDPListenerRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.proxy_protocol_v2enabled is not None:
+            result['ProxyProtocolV2Enabled'] = self.proxy_protocol_v2enabled
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_owner_account is not None:
@@ -2110,6 +3254,10 @@ class CreateLoadBalancerUDPListenerRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.scheduler is not None:
             result['Scheduler'] = self.scheduler
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.unhealthy_threshold is not None:
             result['UnhealthyThreshold'] = self.unhealthy_threshold
         if self.vserver_group_id is not None:
@@ -2140,6 +3288,8 @@ class CreateLoadBalancerUDPListenerRequest(TeaModel):
             self.health_check_connect_port = m.get('HealthCheckConnectPort')
         if m.get('HealthCheckConnectTimeout') is not None:
             self.health_check_connect_timeout = m.get('HealthCheckConnectTimeout')
+        if m.get('HealthCheckSwitch') is not None:
+            self.health_check_switch = m.get('HealthCheckSwitch')
         if m.get('HealthyThreshold') is not None:
             self.healthy_threshold = m.get('HealthyThreshold')
         if m.get('ListenerPort') is not None:
@@ -2152,6 +3302,8 @@ class CreateLoadBalancerUDPListenerRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('ProxyProtocolV2Enabled') is not None:
+            self.proxy_protocol_v2enabled = m.get('ProxyProtocolV2Enabled')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -2160,6 +3312,11 @@ class CreateLoadBalancerUDPListenerRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('Scheduler') is not None:
             self.scheduler = m.get('Scheduler')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateLoadBalancerUDPListenerRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('UnhealthyThreshold') is not None:
             self.unhealthy_threshold = m.get('UnhealthyThreshold')
         if m.get('VServerGroupId') is not None:
@@ -2175,6 +3332,7 @@ class CreateLoadBalancerUDPListenerRequest(TeaModel):
 
 class CreateLoadBalancerUDPListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2198,12 +3356,14 @@ class CreateLoadBalancerUDPListenerResponseBody(TeaModel):
 
 
 class CreateLoadBalancerUDPListenerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateLoadBalancerUDPListenerResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2216,6 +3376,8 @@ class CreateLoadBalancerUDPListenerResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2224,27 +3386,104 @@ class CreateLoadBalancerUDPListenerResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateLoadBalancerUDPListenerResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class CreateMasterSlaveServerGroupRequest(TeaModel):
-    def __init__(self, load_balancer_id=None, master_slave_backend_servers=None,
-                 master_slave_server_group_name=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None):
-        self.load_balancer_id = load_balancer_id  # type: str
-        self.master_slave_backend_servers = master_slave_backend_servers  # type: str
-        self.master_slave_server_group_name = master_slave_server_group_name  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
+class CreateMasterSlaveServerGroupRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(CreateMasterSlaveServerGroupRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class CreateMasterSlaveServerGroupRequest(TeaModel):
+    def __init__(self, load_balancer_id=None, master_slave_backend_servers=None,
+                 master_slave_server_group_name=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
+                 resource_owner_id=None, tag=None):
+        # The ID of the Classic Load Balancer (CLB) instance.
+        self.load_balancer_id = load_balancer_id  # type: str
+        # The list of backend servers in the primary/secondary server group.
+        # 
+        # The value of this parameter must be a STRING list in the JSON format. You can specify up to 20 elements in each request.
+        # 
+        # *   **ServerId**: This parameter is required. Specify the ID of the backend server. This parameter must be of the STRING type.
+        # 
+        # *   **Port**: This parameter is required. Specify the port that is used by the backend server. This parameter must be of the INTEGER type. Valid values: **1** to **65535**.
+        # 
+        # *   **Weight**: This parameter is required. Specify the weight of the backend server. This parameter must be of the INTEGER type. Valid values: **0** to **100**.
+        # 
+        # *   **Description**: This parameter is optional. Specify the description of the backend server. This parameter must be of the STRING type. The description must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.),and underscores (\_).
+        # 
+        # *   **ServerType**: Specify the type of the backend server. This parameter must be of the STRING type. Valid values:
+        # 
+        #     *   **Master**: primary server
+        # 
+        #     <!---->
+        # 
+        #     *   **Slave**: secondary server
+        # 
+        # *   **Type**: Specify the type of backend server. This parameter must be of the STRING type. Valid values:
+        # 
+        #     *   **ecs**: an ECS instance
+        #     *   **eni**: an elastic network interface (ENI)
+        # 
+        # *   **ServerIp**: the IP address of the ECS instance or ENI
+        # 
+        # A primary/secondary server group can contain at most two backend servers.
+        # 
+        # If you do not set this parameter, an empty primary/secondary server group is created.
+        # 
+        # Examples:
+        # 
+        # *   ECS: `[{ "ServerId": "i-xxxxxxxxx", "Weight": "100", "Type": "ecs", "Port":"82","ServerType":"Master","Description":"test-112" }, { "ServerId": "i-xxxxxxxxx", "Weight": "100", "Type": "ecs", "Port":"84","ServerType":"Slave","Description":"test-112" }]`
+        # 
+        # <!---->
+        # 
+        # *   ENI: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "Port":"80","ServerType":"Master","Description":"test-112" }, { "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","ServerType":"Slave","Description":"test-112" }]`
+        # *   ENI with multiple IP addresses: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni","ServerIp": "192.168.**.**", "Port":"80","ServerType":"Master","Description":"test-112" }, { "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni","ServerIp": "192.168.**.**", "Port":"80","ServerType":"Slave","Description":"test-112" }]`
+        self.master_slave_backend_servers = master_slave_backend_servers  # type: str
+        # The name of the primary/secondary server group.
+        self.master_slave_server_group_name = master_slave_server_group_name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the region where the CLB instance is deployed.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreateMasterSlaveServerGroupRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateMasterSlaveServerGroupRequest, self).to_map()
@@ -2268,6 +3507,10 @@ class CreateMasterSlaveServerGroupRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -2288,16 +3531,32 @@ class CreateMasterSlaveServerGroupRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateMasterSlaveServerGroupRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
 class CreateMasterSlaveServerGroupResponseBodyMasterSlaveBackendServersMasterSlaveBackendServer(TeaModel):
     def __init__(self, description=None, port=None, server_id=None, server_type=None, type=None, weight=None):
+        # The description of the primary/secondary server group.
         self.description = description  # type: str
+        # The port number used by the backend server.
         self.port = port  # type: int
+        # The ID of the ECS instance or ENI that is added.
         self.server_id = server_id  # type: str
+        # The type of the backend server.
+        # 
+        # Valid values: **Master** and **Slave**.
         self.server_type = server_type  # type: str
+        # The type of the backend server. Valid values:
+        # 
+        # *   **ecs**: an ECS instance
+        # *   **eni**: an ENI
         self.type = type  # type: str
+        # The weight of the backend server.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -2374,8 +3633,11 @@ class CreateMasterSlaveServerGroupResponseBodyMasterSlaveBackendServers(TeaModel
 
 class CreateMasterSlaveServerGroupResponseBody(TeaModel):
     def __init__(self, master_slave_backend_servers=None, master_slave_server_group_id=None, request_id=None):
+        # The list of backend servers in the primary/secondary server group.
         self.master_slave_backend_servers = master_slave_backend_servers  # type: CreateMasterSlaveServerGroupResponseBodyMasterSlaveBackendServers
+        # The ID of the primary/secondary server group.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2409,12 +3671,14 @@ class CreateMasterSlaveServerGroupResponseBody(TeaModel):
 
 
 class CreateMasterSlaveServerGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateMasterSlaveServerGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2427,6 +3691,8 @@ class CreateMasterSlaveServerGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2435,6 +3701,8 @@ class CreateMasterSlaveServerGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateMasterSlaveServerGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2444,14 +3712,32 @@ class CreateMasterSlaveServerGroupResponse(TeaModel):
 class CreateRulesRequest(TeaModel):
     def __init__(self, listener_port=None, listener_protocol=None, load_balancer_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, rule_list=None):
+        # The frontend listener port that is used by the SLB instance.
+        # 
+        # Valid values: **1 to 65535**.
         self.listener_port = listener_port  # type: int
+        # The frontend protocol that is used by the SLB instance.
+        # 
+        # > This parameter is required if the same port is used by listeners that use different protocols.
         self.listener_protocol = listener_protocol  # type: str
+        # The ID of the SLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Server Load Balancer (SLB) instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The forwarding rules that you want to create. You can create up to 10 forwarding rules in each request. Each forwarding rule contains the following parameters:
+        # 
+        # *   **RuleName**: Required. The value must be of the STRING type. The name of the forwarding rule. The name must be 1 to 40 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\_). Forwarding rule names must be unique within the same listener.
+        # *   **Domain**: Optional. The value must be of the STRING type. The domain name that is associated with the forwarding rule. You must specify at least one of this parameter and **Url**.
+        # *   **Url**: Optional. The value must be of the STRING type. The URL must be 1 to 80 characters in length and can contain only letters, digits, hyphens (-), forward slashes (/), periods (.), percent signs (%), question marks (?), number signs (#), and ampersands (&). The URL cannot be a forward slash (/). However, the URL must start with a forward slash (/). You must specify at least one of this parameter and **Domain**.
+        # *   **VServerGroupId**: Required. The value must be of the STRING type. The ID of the vServer group that is associated with the forwarding rule.
+        # 
+        # > You must specify at least one of `Domain` and `Url`. The combination of `Domain` and `Url` must be unique within the same listener.
         self.rule_list = rule_list  # type: str
 
     def validate(self):
@@ -2508,7 +3794,9 @@ class CreateRulesRequest(TeaModel):
 
 class CreateRulesResponseBodyRulesRule(TeaModel):
     def __init__(self, rule_id=None, rule_name=None):
+        # The forwarding rule ID.
         self.rule_id = rule_id  # type: str
+        # The name of the forwarding rule.
         self.rule_name = rule_name  # type: str
 
     def validate(self):
@@ -2569,7 +3857,9 @@ class CreateRulesResponseBodyRules(TeaModel):
 
 class CreateRulesResponseBody(TeaModel):
     def __init__(self, request_id=None, rules=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The forwarding rules.
         self.rules = rules  # type: CreateRulesResponseBodyRules
 
     def validate(self):
@@ -2599,12 +3889,14 @@ class CreateRulesResponseBody(TeaModel):
 
 
 class CreateRulesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateRulesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2617,6 +3909,8 @@ class CreateRulesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2625,6 +3919,8 @@ class CreateRulesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateRulesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2634,13 +3930,59 @@ class CreateRulesResponse(TeaModel):
 class CreateTLSCipherPolicyRequest(TeaModel):
     def __init__(self, ciphers=None, name=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, tlsversions=None):
+        # The supported cipher suites, which are determined by the TLS protocol version. You can specify at most 32 cipher suites.
+        # 
+        # TLS 1.0 and TLS 1.1 support the following cipher suites:
+        # 
+        # *   **ECDHE-ECDSA-AES128-SHA**\
+        # *   **ECDHE-ECDSA-AES256-SHA**\
+        # *   **ECDHE-RSA-AES128-SHA**\
+        # *   **ECDHE-RSA-AES256-SHA**\
+        # *   **AES128-SHA**\
+        # *   **AES256-SHA**\
+        # *   **DES-CBC3-SHA**\
+        # 
+        # TLS 1.2 supports the following cipher suites:
+        # 
+        # *   **ECDHE-ECDSA-AES128-SHA**\
+        # *   **ECDHE-ECDSA-AES256-SHA**\
+        # *   **ECDHE-RSA-AES128-SHA**\
+        # *   **ECDHE-RSA-AES256-SHA**\
+        # *   **AES128-SHA**\
+        # *   **AES256-SHA**\
+        # *   **DES-CBC3-SHA**\
+        # *   **ECDHE-ECDSA-AES128-GCM-SHA256**\
+        # *   **ECDHE-ECDSA-AES256-GCM-SHA384**\
+        # *   **ECDHE-ECDSA-AES128-SHA256**\
+        # *   **ECDHE-ECDSA-AES256-SHA384**\
+        # *   **ECDHE-RSA-AES128-GCM-SHA256**\
+        # *   **ECDHE-RSA-AES256-GCM-SHA384**\
+        # *   **ECDHE-RSA-AES128-SHA256**\
+        # *   **ECDHE-RSA-AES256-SHA384**\
+        # *   **AES128-GCM-SHA256**\
+        # *   **AES256-GCM-SHA384**\
+        # *   **AES128-SHA256**\
+        # *   **AES256-SHA256**\
+        # 
+        # TLS 1.3 supports the following cipher suites:
+        # 
+        # *   **TLS_AES\_128\_GCM_SHA256**\
+        # *   **TLS_AES\_256\_GCM_SHA384**\
+        # *   **TLS_CHACHA20\_POLY1305\_SHA256**\
+        # *   **TLS_AES\_128\_CCM_SHA256**\
+        # *   **TLS_AES\_128\_CCM\_8\_SHA256**\
         self.ciphers = ciphers  # type: list[str]
+        # The name of the TLS policy. The name must be 1 to 200 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-).
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Server Load Balancer (SLB) instance is created.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The version of the TLS protocol. Valid values: **TLSv1.0**, **TLSv1.1**, **TLSv1.2**, and **TLSv1.3**. You can specify at most four TLS versions.
         self.tlsversions = tlsversions  # type: list[str]
 
     def validate(self):
@@ -2693,7 +4035,9 @@ class CreateTLSCipherPolicyRequest(TeaModel):
 
 class CreateTLSCipherPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None, tlscipher_policy_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the policy.
         self.tlscipher_policy_id = tlscipher_policy_id  # type: str
 
     def validate(self):
@@ -2721,12 +4065,14 @@ class CreateTLSCipherPolicyResponseBody(TeaModel):
 
 
 class CreateTLSCipherPolicyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateTLSCipherPolicyResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2739,6 +4085,8 @@ class CreateTLSCipherPolicyResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2747,26 +4095,96 @@ class CreateTLSCipherPolicyResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateTLSCipherPolicyResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class CreateVServerGroupRequest(TeaModel):
-    def __init__(self, backend_servers=None, load_balancer_id=None, owner_account=None, owner_id=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None, vserver_group_name=None):
-        self.backend_servers = backend_servers  # type: str
-        self.load_balancer_id = load_balancer_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        self.vserver_group_name = vserver_group_name  # type: str
+class CreateVServerGroupRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # 资源的标签键。N的取值范围：**1~20**。一旦输入该值，则不允许为空字符串。
+        # 
+        # 最多支持64个字符，不能以`aliyun`和`acs:`开头，不能包含`http://`或者`https://`。
+        self.key = key  # type: str
+        # 资源的标签值。N的取值范围：**1~20**。一旦输入该值，可以为空字符串。
+        # 最多支持128个字符，不能以`aliyun`和`acs:`开头，不能包含`http://`或者`https://`。
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(CreateVServerGroupRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class CreateVServerGroupRequest(TeaModel):
+    def __init__(self, backend_servers=None, load_balancer_id=None, owner_account=None, owner_id=None,
+                 region_id=None, resource_owner_account=None, resource_owner_id=None, tag=None, vserver_group_name=None):
+        # The list of backend servers to be added.
+        # 
+        # The value of this parameter must be a STRING list in the JSON format. You can specify up to 20 elements in each request.
+        # 
+        # *   **ServerId**: Required. Specify the ID of an Elastic Compute Service (ECS) instance or an Elastic Network Interface (ENI). This parameter must be of the STRING type.
+        # 
+        # *   **Port**: Required. Specify the port that is used by the backend server. This parameter must be of the INTEGER type. Valid values: **1** to **65535**.
+        # 
+        # *   **Weight**: Required. Specify the weight of the backend server. This parameter must be of the INTEGER type. Valid values: **0** to **100**.
+        # 
+        # *   **Description**: Optional. Specify the description of the backend server. This parameter must be of the STRING type. The description must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.),and underscores (\_).
+        # 
+        # *   **Type**: Specify the type of the backend server. This parameter must be of the STRING type. Valid values:
+        # 
+        #     *   **ecs**: an ECS instance. This is the default value.
+        #     *   **eni**: an ENI.
+        # 
+        # *   **ServerIp**: The IP address of the ECS instance or ENI.
+        # 
+        # Examples:
+        # 
+        # *   ECS instance:`  [{ "ServerId": "i-xxxxxxxxx", "Weight": "100", "Type": "ecs", "Port": "80", "Description": "test-112" }]. `
+        # *   ENI:`  [{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","Description":"test-112" }] `
+        # *   ENI with multiple IP addresses:`  [{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","Description":"test-112" },{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "172.166.**.**", "Port":"80","Description":"test-113" }] `
+        self.backend_servers = backend_servers  # type: str
+        # The ID of the Server Load Balancer (SLB) instance.
+        self.load_balancer_id = load_balancer_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the region where the SLB instance is deployed.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # 标签列表。
+        self.tag = tag  # type: list[CreateVServerGroupRequestTag]
+        # The name of the vServer group.
+        # 
+        # The name must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.),and underscores (\_).
+        self.vserver_group_name = vserver_group_name  # type: str
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateVServerGroupRequest, self).to_map()
@@ -2788,6 +4206,10 @@ class CreateVServerGroupRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.vserver_group_name is not None:
             result['VServerGroupName'] = self.vserver_group_name
         return result
@@ -2808,6 +4230,11 @@ class CreateVServerGroupRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateVServerGroupRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VServerGroupName') is not None:
             self.vserver_group_name = m.get('VServerGroupName')
         return self
@@ -2815,10 +4242,18 @@ class CreateVServerGroupRequest(TeaModel):
 
 class CreateVServerGroupResponseBodyBackendServersBackendServer(TeaModel):
     def __init__(self, description=None, port=None, server_id=None, type=None, weight=None):
+        # The description of the vServer group.
         self.description = description  # type: str
+        # The port that is used by the backend server.
         self.port = port  # type: int
+        # The ID of the ECS instance or ENI.
         self.server_id = server_id  # type: str
+        # The type of the backend server. Valid values:
+        # 
+        # *   **ecs**: an ECS instance. This is the default value.
+        # *   **eni**: an ENI.
         self.type = type  # type: str
+        # The weight of the backend server.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -2891,8 +4326,11 @@ class CreateVServerGroupResponseBodyBackendServers(TeaModel):
 
 class CreateVServerGroupResponseBody(TeaModel):
     def __init__(self, backend_servers=None, request_id=None, vserver_group_id=None):
+        # The list of backend servers.
         self.backend_servers = backend_servers  # type: CreateVServerGroupResponseBodyBackendServers
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -2926,12 +4364,14 @@ class CreateVServerGroupResponseBody(TeaModel):
 
 
 class CreateVServerGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateVServerGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2944,6 +4384,8 @@ class CreateVServerGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2952,6 +4394,8 @@ class CreateVServerGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateVServerGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2961,9 +4405,13 @@ class CreateVServerGroupResponse(TeaModel):
 class DeleteAccessControlListRequest(TeaModel):
     def __init__(self, acl_id=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The ACL ID.
         self.acl_id = acl_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the ACL.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -3010,6 +4458,7 @@ class DeleteAccessControlListRequest(TeaModel):
 
 class DeleteAccessControlListResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3033,12 +4482,14 @@ class DeleteAccessControlListResponseBody(TeaModel):
 
 
 class DeleteAccessControlListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteAccessControlListResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3051,6 +4502,8 @@ class DeleteAccessControlListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3059,8 +4512,142 @@ class DeleteAccessControlListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteAccessControlListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteAccessLogsDownloadAttributeRequest(TeaModel):
+    def __init__(self, load_balancer_id=None, logs_download_attributes=None, owner_account=None, owner_id=None,
+                 region_id=None, resource_owner_account=None, resource_owner_id=None, tags=None):
+        # The CLB instance ID.
+        self.load_balancer_id = load_balancer_id  # type: str
+        # The access log forwarding rule. Parameters:
+        # 
+        # *   **LogProject**: the name of the project of Log Service.
+        # *   **LogStore**: the name of the Logstore of Log Service.
+        # *   **LoadBalancerId**: the ID of the CLB instance.
+        self.logs_download_attributes = logs_download_attributes  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the CLB instance.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The tags that are added to the CLB instance. The tags must be key-value pairs that are contained in a JSON dictionary.
+        self.tags = tags  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAccessLogsDownloadAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.load_balancer_id is not None:
+            result['LoadBalancerId'] = self.load_balancer_id
+        if self.logs_download_attributes is not None:
+            result['LogsDownloadAttributes'] = self.logs_download_attributes
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.tags is not None:
+            result['Tags'] = self.tags
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LoadBalancerId') is not None:
+            self.load_balancer_id = m.get('LoadBalancerId')
+        if m.get('LogsDownloadAttributes') is not None:
+            self.logs_download_attributes = m.get('LogsDownloadAttributes')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
+        return self
+
+
+class DeleteAccessLogsDownloadAttributeResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAccessLogsDownloadAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteAccessLogsDownloadAttributeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteAccessLogsDownloadAttributeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteAccessLogsDownloadAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteAccessLogsDownloadAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3068,9 +4655,13 @@ class DeleteAccessControlListResponse(TeaModel):
 class DeleteCACertificateRequest(TeaModel):
     def __init__(self, cacertificate_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The CA certificate ID.
         self.cacertificate_id = cacertificate_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region of the CA certificates.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -3117,6 +4708,7 @@ class DeleteCACertificateRequest(TeaModel):
 
 class DeleteCACertificateResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3140,12 +4732,14 @@ class DeleteCACertificateResponseBody(TeaModel):
 
 
 class DeleteCACertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteCACertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3158,6 +4752,8 @@ class DeleteCACertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3166,6 +4762,8 @@ class DeleteCACertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteCACertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3175,9 +4773,11 @@ class DeleteCACertificateResponse(TeaModel):
 class DeleteDomainExtensionRequest(TeaModel):
     def __init__(self, domain_extension_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The ID of the domain name extension to be deleted.
         self.domain_extension_id = domain_extension_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region to which the SLB instance belongs.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -3224,6 +4824,7 @@ class DeleteDomainExtensionRequest(TeaModel):
 
 class DeleteDomainExtensionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3247,12 +4848,14 @@ class DeleteDomainExtensionResponseBody(TeaModel):
 
 
 class DeleteDomainExtensionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteDomainExtensionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3265,6 +4868,8 @@ class DeleteDomainExtensionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3273,6 +4878,8 @@ class DeleteDomainExtensionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteDomainExtensionResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3282,9 +4889,13 @@ class DeleteDomainExtensionResponse(TeaModel):
 class DeleteLoadBalancerRequest(TeaModel):
     def __init__(self, load_balancer_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The SLB instance ID.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the SLB instance.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -3331,6 +4942,7 @@ class DeleteLoadBalancerRequest(TeaModel):
 
 class DeleteLoadBalancerResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3354,12 +4966,14 @@ class DeleteLoadBalancerResponseBody(TeaModel):
 
 
 class DeleteLoadBalancerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteLoadBalancerResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3372,6 +4986,8 @@ class DeleteLoadBalancerResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3380,6 +4996,8 @@ class DeleteLoadBalancerResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteLoadBalancerResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3389,11 +5007,23 @@ class DeleteLoadBalancerResponse(TeaModel):
 class DeleteLoadBalancerListenerRequest(TeaModel):
     def __init__(self, listener_port=None, listener_protocol=None, load_balancer_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The frontend port that is used by the CLB instance.
+        # 
+        # Valid values: **1 to 65535**.
         self.listener_port = listener_port  # type: int
+        # The frontend protocol that is used by the CLB instance.
+        # 
+        # >  This parameter is required if the same port is specified for listeners of different protocols.
         self.listener_protocol = listener_protocol  # type: str
+        # The ID of the CLB instance.
+        # 
+        # >  If the endpoint of the selected region is slb.aliyuncs.com, the **RegionId** parameter is required.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the Classic Load Balancer (CLB) instance.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -3448,6 +5078,7 @@ class DeleteLoadBalancerListenerRequest(TeaModel):
 
 class DeleteLoadBalancerListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3471,12 +5102,14 @@ class DeleteLoadBalancerListenerResponseBody(TeaModel):
 
 
 class DeleteLoadBalancerListenerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteLoadBalancerListenerResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3489,6 +5122,8 @@ class DeleteLoadBalancerListenerResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3497,6 +5132,8 @@ class DeleteLoadBalancerListenerResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteLoadBalancerListenerResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3506,9 +5143,13 @@ class DeleteLoadBalancerListenerResponse(TeaModel):
 class DeleteMasterSlaveServerGroupRequest(TeaModel):
     def __init__(self, master_slave_server_group_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The ID of the active/standby server group to be deleted.
+        # 
+        # >  An active/standby server group in use cannot be deleted.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region to which the associated Server Load Balancer (SLB) instance belongs.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -3555,6 +5196,7 @@ class DeleteMasterSlaveServerGroupRequest(TeaModel):
 
 class DeleteMasterSlaveServerGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3578,12 +5220,14 @@ class DeleteMasterSlaveServerGroupResponseBody(TeaModel):
 
 
 class DeleteMasterSlaveServerGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteMasterSlaveServerGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3596,6 +5240,8 @@ class DeleteMasterSlaveServerGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3604,6 +5250,8 @@ class DeleteMasterSlaveServerGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteMasterSlaveServerGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3615,9 +5263,15 @@ class DeleteRulesRequest(TeaModel):
                  resource_owner_id=None, rule_ids=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Server Load Balancer (SLB) instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query region IDs.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The list of forwarding rules that you want to delete.
+        # 
+        # >  The RuleIds parameter is required. You can specify up to 10 forwarding rules in each request.
         self.rule_ids = rule_ids  # type: str
 
     def validate(self):
@@ -3662,6 +5316,7 @@ class DeleteRulesRequest(TeaModel):
 
 class DeleteRulesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3685,12 +5340,14 @@ class DeleteRulesResponseBody(TeaModel):
 
 
 class DeleteRulesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteRulesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3703,6 +5360,8 @@ class DeleteRulesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3711,6 +5370,8 @@ class DeleteRulesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteRulesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3722,9 +5383,13 @@ class DeleteServerCertificateRequest(TeaModel):
                  resource_owner_id=None, server_certificate_id=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region where the Server Load Balancer (SLB) instance is created.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query region IDs.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the server certificate.
         self.server_certificate_id = server_certificate_id  # type: str
 
     def validate(self):
@@ -3769,6 +5434,7 @@ class DeleteServerCertificateRequest(TeaModel):
 
 class DeleteServerCertificateResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3792,12 +5458,14 @@ class DeleteServerCertificateResponseBody(TeaModel):
 
 
 class DeleteServerCertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteServerCertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3810,6 +5478,8 @@ class DeleteServerCertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3818,6 +5488,8 @@ class DeleteServerCertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteServerCertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3829,9 +5501,13 @@ class DeleteTLSCipherPolicyRequest(TeaModel):
                  resource_owner_id=None, tlscipher_policy_id=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Classic Load Balancer (CLB) instance is created.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the TLS policy.
         self.tlscipher_policy_id = tlscipher_policy_id  # type: str
 
     def validate(self):
@@ -3876,6 +5552,7 @@ class DeleteTLSCipherPolicyRequest(TeaModel):
 
 class DeleteTLSCipherPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3899,12 +5576,14 @@ class DeleteTLSCipherPolicyResponseBody(TeaModel):
 
 
 class DeleteTLSCipherPolicyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteTLSCipherPolicyResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3917,6 +5596,8 @@ class DeleteTLSCipherPolicyResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3925,6 +5606,8 @@ class DeleteTLSCipherPolicyResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteTLSCipherPolicyResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3936,9 +5619,13 @@ class DeleteVServerGroupRequest(TeaModel):
                  resource_owner_id=None, vserver_group_id=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region to which the associated Server Load Balancer (SLB) instance belongs.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the VServer group to be deleted.
+        # 
+        # >  If the VServer group is in use, it cannot be deleted.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -3983,6 +5670,7 @@ class DeleteVServerGroupRequest(TeaModel):
 
 class DeleteVServerGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4006,12 +5694,14 @@ class DeleteVServerGroupResponseBody(TeaModel):
 
 
 class DeleteVServerGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteVServerGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4024,6 +5714,8 @@ class DeleteVServerGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4032,6 +5724,8 @@ class DeleteVServerGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteVServerGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4039,12 +5733,21 @@ class DeleteVServerGroupResponse(TeaModel):
 
 
 class DescribeAccessControlListAttributeRequest(TeaModel):
-    def __init__(self, acl_entry_comment=None, acl_id=None, owner_account=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, acl_entry_comment=None, acl_id=None, owner_account=None, owner_id=None, page=None,
+                 page_size=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The remarks of the ACL entry.
+        # 
+        # It must be 2 to 100 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). It must start with a letter.
         self.acl_entry_comment = acl_entry_comment  # type: str
+        # The ID of the ACL.
         self.acl_id = acl_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number.
+        self.page = page  # type: int
+        # The number of entries returned on each page. Maximum value: **50**. Default value: **10**.
+        self.page_size = page_size  # type: int
+        # The time when the network ACL was created. The time follows the `YYYY-MM-DDThh:mm:ssZ` format.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -4066,6 +5769,10 @@ class DescribeAccessControlListAttributeRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.page is not None:
+            result['Page'] = self.page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_owner_account is not None:
@@ -4084,6 +5791,10 @@ class DescribeAccessControlListAttributeRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('Page') is not None:
+            self.page = m.get('Page')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -4095,7 +5806,9 @@ class DescribeAccessControlListAttributeRequest(TeaModel):
 
 class DescribeAccessControlListAttributeResponseBodyAclEntrysAclEntry(TeaModel):
     def __init__(self, acl_entry_comment=None, acl_entry_ip=None):
+        # The description of the ACL entry.
         self.acl_entry_comment = acl_entry_comment  # type: str
+        # The IP address specified in the ACL entry.
         self.acl_entry_ip = acl_entry_ip  # type: str
 
     def validate(self):
@@ -4156,9 +5869,16 @@ class DescribeAccessControlListAttributeResponseBodyAclEntrys(TeaModel):
 
 class DescribeAccessControlListAttributeResponseBodyRelatedListenersRelatedListener(TeaModel):
     def __init__(self, acl_type=None, listener_port=None, load_balancer_id=None, protocol=None):
+        # The type of ACL. Valid values:
+        # 
+        # *   **black**\
+        # *   **white**\
         self.acl_type = acl_type  # type: str
+        # The frontend port of the listener with which the ACL is associated.
         self.listener_port = listener_port  # type: int
+        # The CLB instance ID.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The type of protocol that the associated listener uses.
         self.protocol = protocol  # type: str
 
     def validate(self):
@@ -4225,22 +5945,103 @@ class DescribeAccessControlListAttributeResponseBodyRelatedListeners(TeaModel):
         return self
 
 
+class DescribeAccessControlListAttributeResponseBodyTagsTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tag key.
+        self.tag_key = tag_key  # type: str
+        # The tag value.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAccessControlListAttributeResponseBodyTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeAccessControlListAttributeResponseBodyTags(TeaModel):
+    def __init__(self, tag=None):
+        self.tag = tag  # type: list[DescribeAccessControlListAttributeResponseBodyTagsTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeAccessControlListAttributeResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeAccessControlListAttributeResponseBodyTagsTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeAccessControlListAttributeResponseBody(TeaModel):
-    def __init__(self, acl_entrys=None, acl_id=None, acl_name=None, address_ipversion=None, related_listeners=None,
-                 request_id=None, resource_group_id=None):
+    def __init__(self, acl_entrys=None, acl_id=None, acl_name=None, address_ipversion=None, create_time=None,
+                 related_listeners=None, request_id=None, resource_group_id=None, tags=None, total_acl_entry=None):
+        # The IP entries that you want to remove from the network ACL. Valid values:
+        # 
+        # *   **entry**: the IP address or CIDR block that you want to remove from the network ACL. Separate multiple IP addresses or CIDR blocks with commas (,).
+        # *   **comment**: the description of the network ACL.
         self.acl_entrys = acl_entrys  # type: DescribeAccessControlListAttributeResponseBodyAclEntrys
+        # The ID of the network ACL.
         self.acl_id = acl_id  # type: str
+        # The ACL name. The name must be 1 to 80 characters in length, and can contain letters, digits, periods (.), hyphens (-), forward slashes (/), and underscores (\_). The name of each ACL must be unique within a region. Fuzzy match is supported.
         self.acl_name = acl_name  # type: str
+        # The IP version. Valid values: **ipv4** and **ipv6**.
         self.address_ipversion = address_ipversion  # type: str
+        # The time when the ACL was created. The time follows the `YYYY-MM-DDThh:mm:ssZ` format.
+        self.create_time = create_time  # type: str
+        # The listeners that are associated with the network ACL.
         self.related_listeners = related_listeners  # type: DescribeAccessControlListAttributeResponseBodyRelatedListeners
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The tags.
+        self.tags = tags  # type: DescribeAccessControlListAttributeResponseBodyTags
+        # The total number of access control entries.
+        self.total_acl_entry = total_acl_entry  # type: int
 
     def validate(self):
         if self.acl_entrys:
             self.acl_entrys.validate()
         if self.related_listeners:
             self.related_listeners.validate()
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeAccessControlListAttributeResponseBody, self).to_map()
@@ -4256,12 +6057,18 @@ class DescribeAccessControlListAttributeResponseBody(TeaModel):
             result['AclName'] = self.acl_name
         if self.address_ipversion is not None:
             result['AddressIPVersion'] = self.address_ipversion
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.related_listeners is not None:
             result['RelatedListeners'] = self.related_listeners.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
+        if self.total_acl_entry is not None:
+            result['TotalAclEntry'] = self.total_acl_entry
         return result
 
     def from_map(self, m=None):
@@ -4275,6 +6082,8 @@ class DescribeAccessControlListAttributeResponseBody(TeaModel):
             self.acl_name = m.get('AclName')
         if m.get('AddressIPVersion') is not None:
             self.address_ipversion = m.get('AddressIPVersion')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('RelatedListeners') is not None:
             temp_model = DescribeAccessControlListAttributeResponseBodyRelatedListeners()
             self.related_listeners = temp_model.from_map(m['RelatedListeners'])
@@ -4282,16 +6091,23 @@ class DescribeAccessControlListAttributeResponseBody(TeaModel):
             self.request_id = m.get('RequestId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Tags') is not None:
+            temp_model = DescribeAccessControlListAttributeResponseBodyTags()
+            self.tags = temp_model.from_map(m['Tags'])
+        if m.get('TotalAclEntry') is not None:
+            self.total_acl_entry = m.get('TotalAclEntry')
         return self
 
 
 class DescribeAccessControlListAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeAccessControlListAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4304,6 +6120,8 @@ class DescribeAccessControlListAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4312,28 +6130,82 @@ class DescribeAccessControlListAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeAccessControlListAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class DescribeAccessControlListsRequest(TeaModel):
-    def __init__(self, acl_name=None, address_ipversion=None, owner_account=None, owner_id=None, page_number=None,
-                 page_size=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
-        self.acl_name = acl_name  # type: str
-        self.address_ipversion = address_ipversion  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.page_number = page_number  # type: int
-        self.page_size = page_size  # type: int
-        self.region_id = region_id  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
+class DescribeAccessControlListsRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # 
+        # The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        self.key = key  # type: str
+        # The tag value. You can specify at most 20 tag values. The tag value cannot be an empty string.
+        # 
+        # The tag value must be 1 to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeAccessControlListsRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeAccessControlListsRequest(TeaModel):
+    def __init__(self, acl_name=None, address_ipversion=None, owner_account=None, owner_id=None, page_number=None,
+                 page_size=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 tag=None):
+        # The ACL name. The ACL name. The name must be 1 to 80 characters in length, and can contain letters, digits, periods (.), hyphens (-), forward slashes (/), and underscores (\_). The name of each ACL must be unique within a region. Fuzzy match is supported.
+        self.acl_name = acl_name  # type: str
+        # The IP version of the Classic Load Balancer (CLB) instance with which the ACL is associated. Valid values:
+        # 
+        # *   **ipv4**\
+        # *   **ipv6**\
+        self.address_ipversion = address_ipversion  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The number of the page to return. Default value: **1**.
+        self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
+        self.page_size = page_size  # type: int
+        # The region ID of the ACL.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The resource group ID.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The tags.
+        self.tag = tag  # type: list[DescribeAccessControlListsRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeAccessControlListsRequest, self).to_map()
@@ -4361,6 +6233,10 @@ class DescribeAccessControlListsRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -4385,18 +6261,96 @@ class DescribeAccessControlListsRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeAccessControlListsRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAccessControlListsResponseBodyAclsAclTagsTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tag key.
+        self.tag_key = tag_key  # type: str
+        # The tag value.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAccessControlListsResponseBodyAclsAclTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeAccessControlListsResponseBodyAclsAclTags(TeaModel):
+    def __init__(self, tag=None):
+        self.tag = tag  # type: list[DescribeAccessControlListsResponseBodyAclsAclTagsTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeAccessControlListsResponseBodyAclsAclTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeAccessControlListsResponseBodyAclsAclTagsTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
 class DescribeAccessControlListsResponseBodyAclsAcl(TeaModel):
-    def __init__(self, acl_id=None, acl_name=None, address_ipversion=None, resource_group_id=None):
+    def __init__(self, acl_id=None, acl_name=None, address_ipversion=None, create_time=None, resource_group_id=None,
+                 tags=None):
+        # The ACL ID.
         self.acl_id = acl_id  # type: str
+        # The ACL name.
         self.acl_name = acl_name  # type: str
+        # The IP version that is used by the CLB instance associated with the ACL.
         self.address_ipversion = address_ipversion  # type: str
+        # The time when the CLB instance was created. The time follows the `YYYY-MM-DDThh:mm:ssZ` format.
+        self.create_time = create_time  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The list of tags added to the network ACL. The value of this parameter must be a STRING list in the JSON format.
+        self.tags = tags  # type: DescribeAccessControlListsResponseBodyAclsAclTags
 
     def validate(self):
-        pass
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeAccessControlListsResponseBodyAclsAcl, self).to_map()
@@ -4410,8 +6364,12 @@ class DescribeAccessControlListsResponseBodyAclsAcl(TeaModel):
             result['AclName'] = self.acl_name
         if self.address_ipversion is not None:
             result['AddressIPVersion'] = self.address_ipversion
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         return result
 
     def from_map(self, m=None):
@@ -4422,8 +6380,13 @@ class DescribeAccessControlListsResponseBodyAclsAcl(TeaModel):
             self.acl_name = m.get('AclName')
         if m.get('AddressIPVersion') is not None:
             self.address_ipversion = m.get('AddressIPVersion')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Tags') is not None:
+            temp_model = DescribeAccessControlListsResponseBodyAclsAclTags()
+            self.tags = temp_model.from_map(m['Tags'])
         return self
 
 
@@ -4461,11 +6424,17 @@ class DescribeAccessControlListsResponseBodyAcls(TeaModel):
 
 class DescribeAccessControlListsResponseBody(TeaModel):
     def __init__(self, acls=None, count=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # A list of ACLs.
         self.acls = acls  # type: DescribeAccessControlListsResponseBodyAcls
+        # The number of ACLs on the current page.
         self.count = count  # type: int
+        # The number of the returned page. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries returned on each page. Maximum value: **50**. Default value: **10**.
         self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of ACLs.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -4511,12 +6480,14 @@ class DescribeAccessControlListsResponseBody(TeaModel):
 
 
 class DescribeAccessControlListsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeAccessControlListsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4529,6 +6500,8 @@ class DescribeAccessControlListsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4537,8 +6510,262 @@ class DescribeAccessControlListsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeAccessControlListsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeAccessLogsDownloadAttributeRequest(TeaModel):
+    def __init__(self, load_balancer_id=None, log_type=None, owner_account=None, owner_id=None, page_number=None,
+                 page_size=None, region_id=None, resource_owner_account=None, resource_owner_id=None, tags=None):
+        # The CLB instance ID.
+        self.load_balancer_id = load_balancer_id  # type: str
+        # The type of access log. Set the value to **layer7**, which specifies Layer 7 access logs.
+        self.log_type = log_type  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The page number. Default value: **1**.
+        self.page_number = page_number  # type: int
+        # The number of entries per page. Maximum value: **50**. Default value: **10**.
+        self.page_size = page_size  # type: int
+        # The region ID of the CLB instance.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The tags that are added to the CLB instance. The tags must be key-value pairs that are contained in a JSON dictionary.
+        # 
+        # You can specify up to 10 tags in each call.
+        self.tags = tags  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAccessLogsDownloadAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.load_balancer_id is not None:
+            result['LoadBalancerId'] = self.load_balancer_id
+        if self.log_type is not None:
+            result['LogType'] = self.log_type
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.tags is not None:
+            result['Tags'] = self.tags
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LoadBalancerId') is not None:
+            self.load_balancer_id = m.get('LoadBalancerId')
+        if m.get('LogType') is not None:
+            self.log_type = m.get('LogType')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
+        return self
+
+
+class DescribeAccessLogsDownloadAttributeResponseBodyLogsDownloadAttributesLogsDownloadAttribute(TeaModel):
+    def __init__(self, load_balancer_id=None, log_project=None, log_store=None, log_type=None, region=None):
+        # The CLB instance ID.
+        self.load_balancer_id = load_balancer_id  # type: str
+        # The name of the Log Service project.
+        self.log_project = log_project  # type: str
+        # The name of the Logstore.
+        self.log_store = log_store  # type: str
+        # The type of access log. Only **layer7** is returned, which indicates Layer 7 access logs.
+        self.log_type = log_type  # type: str
+        # The region ID of the CLB instance.
+        self.region = region  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAccessLogsDownloadAttributeResponseBodyLogsDownloadAttributesLogsDownloadAttribute, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.load_balancer_id is not None:
+            result['LoadBalancerId'] = self.load_balancer_id
+        if self.log_project is not None:
+            result['LogProject'] = self.log_project
+        if self.log_store is not None:
+            result['LogStore'] = self.log_store
+        if self.log_type is not None:
+            result['LogType'] = self.log_type
+        if self.region is not None:
+            result['Region'] = self.region
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LoadBalancerId') is not None:
+            self.load_balancer_id = m.get('LoadBalancerId')
+        if m.get('LogProject') is not None:
+            self.log_project = m.get('LogProject')
+        if m.get('LogStore') is not None:
+            self.log_store = m.get('LogStore')
+        if m.get('LogType') is not None:
+            self.log_type = m.get('LogType')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        return self
+
+
+class DescribeAccessLogsDownloadAttributeResponseBodyLogsDownloadAttributes(TeaModel):
+    def __init__(self, logs_download_attribute=None):
+        self.logs_download_attribute = logs_download_attribute  # type: list[DescribeAccessLogsDownloadAttributeResponseBodyLogsDownloadAttributesLogsDownloadAttribute]
+
+    def validate(self):
+        if self.logs_download_attribute:
+            for k in self.logs_download_attribute:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeAccessLogsDownloadAttributeResponseBodyLogsDownloadAttributes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['LogsDownloadAttribute'] = []
+        if self.logs_download_attribute is not None:
+            for k in self.logs_download_attribute:
+                result['LogsDownloadAttribute'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.logs_download_attribute = []
+        if m.get('LogsDownloadAttribute') is not None:
+            for k in m.get('LogsDownloadAttribute'):
+                temp_model = DescribeAccessLogsDownloadAttributeResponseBodyLogsDownloadAttributesLogsDownloadAttribute()
+                self.logs_download_attribute.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAccessLogsDownloadAttributeResponseBody(TeaModel):
+    def __init__(self, logs_download_attributes=None, page_number=None, page_size=None, request_id=None,
+                 total_count=None):
+        # The configuration of the access log.
+        self.logs_download_attributes = logs_download_attributes  # type: DescribeAccessLogsDownloadAttributeResponseBodyLogsDownloadAttributes
+        # The page number.
+        self.page_number = page_number  # type: int
+        # The number of entries per page.
+        self.page_size = page_size  # type: int
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The total number of entries returned.
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.logs_download_attributes:
+            self.logs_download_attributes.validate()
+
+    def to_map(self):
+        _map = super(DescribeAccessLogsDownloadAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.logs_download_attributes is not None:
+            result['LogsDownloadAttributes'] = self.logs_download_attributes.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LogsDownloadAttributes') is not None:
+            temp_model = DescribeAccessLogsDownloadAttributeResponseBodyLogsDownloadAttributes()
+            self.logs_download_attributes = temp_model.from_map(m['LogsDownloadAttributes'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeAccessLogsDownloadAttributeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeAccessLogsDownloadAttributeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeAccessLogsDownloadAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeAccessLogsDownloadAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -4546,10 +6773,23 @@ class DescribeAccessControlListsResponse(TeaModel):
 class DescribeAvailableResourceRequest(TeaModel):
     def __init__(self, address_ipversion=None, address_type=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The type of the IP address.
+        # 
+        # Valid values: **ipv4 and ipv6**.
         self.address_ipversion = address_ipversion  # type: str
+        # The network type.
+        # 
+        # Valid values: **vpc, classic-internet, and classic-intranet**.
+        # 
+        # vpc: an internal Classic Load Balancer (CLB) instance that is deployed in a virtual private cloud (VPC).
+        # 
+        # classic_internet: a public-facing CLB instance.
+        # 
+        # classic_intranet: an internal CLB instance that is deployed in a classic network.
         self.address_type = address_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -4600,7 +6840,13 @@ class DescribeAvailableResourceRequest(TeaModel):
 
 class DescribeAvailableResourceResponseBodyAvailableResourcesAvailableResourceSupportResourcesSupportResource(TeaModel):
     def __init__(self, address_ipversion=None, address_type=None):
+        # The type of the IP address.
+        # 
+        # Valid values: **ipv4 and ipv6**.
         self.address_ipversion = address_ipversion  # type: str
+        # The network type.
+        # 
+        # Valid values: **vpc, classic-internet, and classic-intranet**.
         self.address_type = address_type  # type: str
 
     def validate(self):
@@ -4661,8 +6907,11 @@ class DescribeAvailableResourceResponseBodyAvailableResourcesAvailableResourceSu
 
 class DescribeAvailableResourceResponseBodyAvailableResourcesAvailableResource(TeaModel):
     def __init__(self, master_zone_id=None, slave_zone_id=None, support_resources=None):
+        # The primary zone.
         self.master_zone_id = master_zone_id  # type: str
+        # The secondary zone.
         self.slave_zone_id = slave_zone_id  # type: str
+        # The supported resources.
         self.support_resources = support_resources  # type: DescribeAvailableResourceResponseBodyAvailableResourcesAvailableResourceSupportResources
 
     def validate(self):
@@ -4729,7 +6978,9 @@ class DescribeAvailableResourceResponseBodyAvailableResources(TeaModel):
 
 class DescribeAvailableResourceResponseBody(TeaModel):
     def __init__(self, available_resources=None, request_id=None):
+        # The zones and the supported resources.
         self.available_resources = available_resources  # type: DescribeAvailableResourceResponseBodyAvailableResources
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4759,12 +7010,14 @@ class DescribeAvailableResourceResponseBody(TeaModel):
 
 
 class DescribeAvailableResourceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeAvailableResourceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4777,6 +7030,8 @@ class DescribeAvailableResourceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4785,25 +7040,70 @@ class DescribeAvailableResourceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeAvailableResourceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class DescribeCACertificatesRequest(TeaModel):
-    def __init__(self, cacertificate_id=None, owner_account=None, owner_id=None, region_id=None,
-                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
-        self.cacertificate_id = cacertificate_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
+class DescribeCACertificatesRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The key of tag N. Valid values of N: **1 to 20**. The tag key cannot be an empty string.
+        # 
+        # The tag key can be up to 64 characters in length, and cannot contain `http://` or `https://`. It must not start with `aliyun` or `acs:`.
+        self.key = key  # type: str
+        # The value of tag N. Valid values of N: **1 to 20**. The tag value can be an empty string. The tag value can be up to 128 characters in length, and cannot contain `http://` or `https://`. It must not start with `aliyun` or `acs:`.
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeCACertificatesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeCACertificatesRequest(TeaModel):
+    def __init__(self, cacertificate_id=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None):
+        # The CA certificate ID.
+        self.cacertificate_id = cacertificate_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region of the CA certificates.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The resource group ID.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The tags of the CA certificates.
+        self.tag = tag  # type: list[DescribeCACertificatesRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeCACertificatesRequest, self).to_map()
@@ -4825,6 +7125,10 @@ class DescribeCACertificatesRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -4843,26 +7147,111 @@ class DescribeCACertificatesRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeCACertificatesRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeCACertificatesResponseBodyCACertificatesCACertificateTagsTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tag key.
+        self.tag_key = tag_key  # type: str
+        # The tag value.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCACertificatesResponseBodyCACertificatesCACertificateTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeCACertificatesResponseBodyCACertificatesCACertificateTags(TeaModel):
+    def __init__(self, tag=None):
+        self.tag = tag  # type: list[DescribeCACertificatesResponseBodyCACertificatesCACertificateTagsTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeCACertificatesResponseBodyCACertificatesCACertificateTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeCACertificatesResponseBodyCACertificatesCACertificateTagsTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
 class DescribeCACertificatesResponseBodyCACertificatesCACertificate(TeaModel):
     def __init__(self, cacertificate_id=None, cacertificate_name=None, common_name=None, create_time=None,
                  create_time_stamp=None, expire_time=None, expire_time_stamp=None, fingerprint=None, region_id=None,
-                 resource_group_id=None):
+                 resource_group_id=None, tags=None):
+        # The CA certificate ID.
         self.cacertificate_id = cacertificate_id  # type: str
+        # The CA certificate name.
         self.cacertificate_name = cacertificate_name  # type: str
+        # The domain name of the CA certificate.
         self.common_name = common_name  # type: str
+        # The time when the CA certificate was created. The time is in the `YYYY-MM-DDThh:mm:ssZ` format.
         self.create_time = create_time  # type: str
+        # The timestamp when the CA certificate was created. Unit: milliseconds.
+        # 
+        # This value is a UNIX timestamp representing the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.create_time_stamp = create_time_stamp  # type: long
+        # The time when the CA certificate expires. The time is in the `YYYY-MM-DDThh:mm:ssZ` format.
         self.expire_time = expire_time  # type: str
+        # The timestamp that indicates when the CA certificate expires. Unit: milliseconds.
+        # 
+        # This value is a UNIX timestamp representing the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.expire_time_stamp = expire_time_stamp  # type: long
+        # The fingerprint of the CA certificate.
         self.fingerprint = fingerprint  # type: str
+        # The region of the CA certificate.
         self.region_id = region_id  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The tag.
+        self.tags = tags  # type: DescribeCACertificatesResponseBodyCACertificatesCACertificateTags
 
     def validate(self):
-        pass
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeCACertificatesResponseBodyCACertificatesCACertificate, self).to_map()
@@ -4890,6 +7279,8 @@ class DescribeCACertificatesResponseBodyCACertificatesCACertificate(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         return result
 
     def from_map(self, m=None):
@@ -4914,6 +7305,9 @@ class DescribeCACertificatesResponseBodyCACertificatesCACertificate(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Tags') is not None:
+            temp_model = DescribeCACertificatesResponseBodyCACertificatesCACertificateTags()
+            self.tags = temp_model.from_map(m['Tags'])
         return self
 
 
@@ -4951,7 +7345,9 @@ class DescribeCACertificatesResponseBodyCACertificates(TeaModel):
 
 class DescribeCACertificatesResponseBody(TeaModel):
     def __init__(self, cacertificates=None, request_id=None):
+        # The information about the CA certificate.
         self.cacertificates = cacertificates  # type: DescribeCACertificatesResponseBodyCACertificates
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4981,12 +7377,14 @@ class DescribeCACertificatesResponseBody(TeaModel):
 
 
 class DescribeCACertificatesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeCACertificatesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4999,6 +7397,8 @@ class DescribeCACertificatesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5007,6 +7407,8 @@ class DescribeCACertificatesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeCACertificatesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5016,9 +7418,11 @@ class DescribeCACertificatesResponse(TeaModel):
 class DescribeDomainExtensionAttributeRequest(TeaModel):
     def __init__(self, domain_extension_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The ID of the additional certificate.
         self.domain_extension_id = domain_extension_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Server Load Balancer (SLB) instance is deployed.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -5066,11 +7470,17 @@ class DescribeDomainExtensionAttributeRequest(TeaModel):
 class DescribeDomainExtensionAttributeResponseBody(TeaModel):
     def __init__(self, domain=None, domain_extension_id=None, listener_port=None, load_balancer_id=None,
                  request_id=None, server_certificate_id=None):
+        # The domain name.
         self.domain = domain  # type: str
+        # The ID of the additional certificate.
         self.domain_extension_id = domain_extension_id  # type: str
+        # The frontend port of the HTTPS listener that is configured for the SLB instance. Valid values: **1** to **65535**.
         self.listener_port = listener_port  # type: int
+        # The ID of the SLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the server certificate that is used by the domain name.
         self.server_certificate_id = server_certificate_id  # type: str
 
     def validate(self):
@@ -5114,12 +7524,14 @@ class DescribeDomainExtensionAttributeResponseBody(TeaModel):
 
 
 class DescribeDomainExtensionAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDomainExtensionAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5132,6 +7544,8 @@ class DescribeDomainExtensionAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5140,6 +7554,8 @@ class DescribeDomainExtensionAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDomainExtensionAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5149,11 +7565,15 @@ class DescribeDomainExtensionAttributeResponse(TeaModel):
 class DescribeDomainExtensionsRequest(TeaModel):
     def __init__(self, domain_extension_id=None, listener_port=None, load_balancer_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The ID of the additional certificate.
         self.domain_extension_id = domain_extension_id  # type: str
+        # The frontend port of the HTTPS listener that is configured for the Classic Load Balancer (CLB) instance. Valid values: **1 to 65535**.
         self.listener_port = listener_port  # type: int
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the CLB instance is deployed.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -5208,8 +7628,11 @@ class DescribeDomainExtensionsRequest(TeaModel):
 
 class DescribeDomainExtensionsResponseBodyDomainExtensionsDomainExtension(TeaModel):
     def __init__(self, domain=None, domain_extension_id=None, server_certificate_id=None):
+        # The domain name.
         self.domain = domain  # type: str
+        # The ID of the additional certificate.
         self.domain_extension_id = domain_extension_id  # type: str
+        # The ID of the server certificate that is used by the domain name.
         self.server_certificate_id = server_certificate_id  # type: str
 
     def validate(self):
@@ -5274,7 +7697,9 @@ class DescribeDomainExtensionsResponseBodyDomainExtensions(TeaModel):
 
 class DescribeDomainExtensionsResponseBody(TeaModel):
     def __init__(self, domain_extensions=None, request_id=None):
+        # The list of additional certificates.
         self.domain_extensions = domain_extensions  # type: DescribeDomainExtensionsResponseBodyDomainExtensions
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5304,12 +7729,14 @@ class DescribeDomainExtensionsResponseBody(TeaModel):
 
 
 class DescribeDomainExtensionsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDomainExtensionsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5322,6 +7749,8 @@ class DescribeDomainExtensionsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5330,6 +7759,8 @@ class DescribeDomainExtensionsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDomainExtensionsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5339,11 +7770,19 @@ class DescribeDomainExtensionsResponse(TeaModel):
 class DescribeHealthStatusRequest(TeaModel):
     def __init__(self, listener_port=None, listener_protocol=None, load_balancer_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The frontend port that is used by the CLB instance.
+        # 
+        # Valid values: **1 to 65535**.
+        # 
+        # >  If you do not specify this parameter, the health status of all ports is returned.
         self.listener_port = listener_port  # type: int
+        # The frontend protocol that is used by the CLB instance.
         self.listener_protocol = listener_protocol  # type: str
+        # The ID of the Classic Load Balancer (CLB) instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the CLB instance is deployed.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -5399,11 +7838,21 @@ class DescribeHealthStatusRequest(TeaModel):
 class DescribeHealthStatusResponseBodyBackendServersBackendServer(TeaModel):
     def __init__(self, listener_port=None, port=None, protocol=None, server_health_status=None, server_id=None,
                  server_ip=None):
+        # The frontend port that is used by the CLB instance.
         self.listener_port = listener_port  # type: int
+        # The backend port that is used by the CLB instance.
         self.port = port  # type: int
+        # The frontend protocol that is used by the CLB instance.
         self.protocol = protocol  # type: str
+        # The health status of the backend server. Valid values:
+        # 
+        # *   **normal**: The backend server is healthy.
+        # *   **abnormal**: The backend server is unhealthy.
+        # *   **unavailable**: The health check is not complete.
         self.server_health_status = server_health_status  # type: str
+        # The ID of the Elastic Compute Service (ECS) instance or elastic network interface (ENI).
         self.server_id = server_id  # type: str
+        # The IP address of the ECS instance.
         self.server_ip = server_ip  # type: str
 
     def validate(self):
@@ -5480,7 +7929,9 @@ class DescribeHealthStatusResponseBodyBackendServers(TeaModel):
 
 class DescribeHealthStatusResponseBody(TeaModel):
     def __init__(self, backend_servers=None, request_id=None):
+        # The list of backend servers.
         self.backend_servers = backend_servers  # type: DescribeHealthStatusResponseBodyBackendServers
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5510,12 +7961,14 @@ class DescribeHealthStatusResponseBody(TeaModel):
 
 
 class DescribeHealthStatusResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeHealthStatusResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5528,6 +7981,8 @@ class DescribeHealthStatusResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5536,8 +7991,149 @@ class DescribeHealthStatusResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeHealthStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeHighDefinationMonitorRequest(TeaModel):
+    def __init__(self, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
+                 resource_owner_id=None, tags=None):
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the region where you want to query the configuration of fine-grained monitoring.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The tags of the logs. The tags must be key-value pairs that are contained in a JSON dictionary.
+        self.tags = tags  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHighDefinationMonitorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.tags is not None:
+            result['Tags'] = self.tags
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
+        return self
+
+
+class DescribeHighDefinationMonitorResponseBody(TeaModel):
+    def __init__(self, log_project=None, log_store=None, request_id=None, success=None):
+        # The name of the Log Service project.
+        self.log_project = log_project  # type: str
+        # The name of the Logstore.
+        self.log_store = log_store  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the call is successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHighDefinationMonitorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.log_project is not None:
+            result['LogProject'] = self.log_project
+        if self.log_store is not None:
+            result['LogStore'] = self.log_store
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LogProject') is not None:
+            self.log_project = m.get('LogProject')
+        if m.get('LogStore') is not None:
+            self.log_store = m.get('LogStore')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeHighDefinationMonitorResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeHighDefinationMonitorResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeHighDefinationMonitorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeHighDefinationMonitorResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5545,11 +8141,21 @@ class DescribeHealthStatusResponse(TeaModel):
 class DescribeListenerAccessControlAttributeRequest(TeaModel):
     def __init__(self, listener_port=None, listener_protocol=None, load_balancer_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The frontend port that is used by the CLB instance.
+        # 
+        # Valid values: **1 to 65535**.
         self.listener_port = listener_port  # type: int
+        # The frontend protocol that is used by the CLB instance.
+        # 
+        # > This parameter is required if the same port is specified for listeners of different protocols.
         self.listener_protocol = listener_protocol  # type: str
+        # The CLB instance ID.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region where the Classic Load Balancer (CLB) instance is created.
+        # 
+        # You can query the region ID from the [Regions and zones](~~40654~~) list or by calling the [DescribeRegions](~~25609~~) operation.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -5604,8 +8210,14 @@ class DescribeListenerAccessControlAttributeRequest(TeaModel):
 
 class DescribeListenerAccessControlAttributeResponseBody(TeaModel):
     def __init__(self, access_control_status=None, request_id=None, source_items=None):
+        # Indicates whether the whitelist is enabled. Valid values:
+        # 
+        # *   **open_white_list**: the whitelist is enabled.
+        # *   **close**: the whitelist is disabled.
         self.access_control_status = access_control_status  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The queried ACLs.
         self.source_items = source_items  # type: str
 
     def validate(self):
@@ -5637,12 +8249,14 @@ class DescribeListenerAccessControlAttributeResponseBody(TeaModel):
 
 
 class DescribeListenerAccessControlAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeListenerAccessControlAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5655,6 +8269,8 @@ class DescribeListenerAccessControlAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5663,6 +8279,8 @@ class DescribeListenerAccessControlAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeListenerAccessControlAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5672,9 +8290,13 @@ class DescribeListenerAccessControlAttributeResponse(TeaModel):
 class DescribeLoadBalancerAttributeRequest(TeaModel):
     def __init__(self, load_balancer_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The CLB instance ID.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the CLB instance.
+        # 
+        # You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -5720,10 +8342,18 @@ class DescribeLoadBalancerAttributeRequest(TeaModel):
 
 
 class DescribeLoadBalancerAttributeResponseBodyBackendServersBackendServer(TeaModel):
-    def __init__(self, description=None, server_id=None, type=None, weight=None):
+    def __init__(self, description=None, server_id=None, server_ip=None, type=None, weight=None):
+        # The description of the backend server.
+        # 
+        # > This parameter is not returned if Description is not set.
         self.description = description  # type: str
+        # The backend server ID.
         self.server_id = server_id  # type: str
+        # The ID of the elastic network interface (ENI) or elastic container instance.
+        self.server_ip = server_ip  # type: str
+        # The type of the backend server.
         self.type = type  # type: str
+        # The weight of the backend server.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -5739,6 +8369,8 @@ class DescribeLoadBalancerAttributeResponseBodyBackendServersBackendServer(TeaMo
             result['Description'] = self.description
         if self.server_id is not None:
             result['ServerId'] = self.server_id
+        if self.server_ip is not None:
+            result['ServerIp'] = self.server_ip
         if self.type is not None:
             result['Type'] = self.type
         if self.weight is not None:
@@ -5751,6 +8383,8 @@ class DescribeLoadBalancerAttributeResponseBodyBackendServersBackendServer(TeaMo
             self.description = m.get('Description')
         if m.get('ServerId') is not None:
             self.server_id = m.get('ServerId')
+        if m.get('ServerIp') is not None:
+            self.server_ip = m.get('ServerIp')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('Weight') is not None:
@@ -5816,7 +8450,9 @@ class DescribeLoadBalancerAttributeResponseBodyListenerPorts(TeaModel):
 
 class DescribeLoadBalancerAttributeResponseBodyListenerPortsAndProtocalListenerPortAndProtocal(TeaModel):
     def __init__(self, listener_port=None, listener_protocal=None):
+        # The frontend port that is used by the CLB instance.
         self.listener_port = listener_port  # type: int
+        # The frontend protocol that is used by the CLB instance.
         self.listener_protocal = listener_protocal  # type: str
 
     def validate(self):
@@ -5878,10 +8514,15 @@ class DescribeLoadBalancerAttributeResponseBodyListenerPortsAndProtocal(TeaModel
 class DescribeLoadBalancerAttributeResponseBodyListenerPortsAndProtocolListenerPortAndProtocol(TeaModel):
     def __init__(self, description=None, forward_port=None, listener_forward=None, listener_port=None,
                  listener_protocol=None):
+        # Indicates whether the listener is enabled.
         self.description = description  # type: str
+        # The destination listening port to which requests are forwarded. The port must be open and use HTTPS.
         self.forward_port = forward_port  # type: int
+        # Indicates whether the listener is enabled.
         self.listener_forward = listener_forward  # type: str
+        # The frontend port that is used by the CLB instance.
         self.listener_port = listener_port  # type: int
+        # The frontend protocol that is used by the CLB instance.
         self.listener_protocol = listener_protocol  # type: str
 
     def validate(self):
@@ -5952,48 +8593,194 @@ class DescribeLoadBalancerAttributeResponseBodyListenerPortsAndProtocol(TeaModel
         return self
 
 
+class DescribeLoadBalancerAttributeResponseBodyTagsTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tag key. Valid values of N: **1** to **20**. The tag key cannot be an empty string.
+        # 
+        # The tag key can be at most 64 characters in length, and cannot contain `http://` or `https://`. It must not start with `aliyun` or `acs:`.
+        self.tag_key = tag_key  # type: str
+        # The tag value. Valid values of N: **1** to **20**. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. The tag value cannot contain `http://` or `https://`.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeLoadBalancerAttributeResponseBodyTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeLoadBalancerAttributeResponseBodyTags(TeaModel):
+    def __init__(self, tag=None):
+        self.tag = tag  # type: list[DescribeLoadBalancerAttributeResponseBodyTagsTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeLoadBalancerAttributeResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeLoadBalancerAttributeResponseBodyTagsTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeLoadBalancerAttributeResponseBody(TeaModel):
     def __init__(self, address=None, address_ipversion=None, address_type=None, auto_release_time=None,
                  backend_servers=None, bandwidth=None, create_time=None, create_time_stamp=None, delete_protection=None,
-                 end_time=None, end_time_stamp=None, internet_charge_type=None, listener_ports=None,
-                 listener_ports_and_protocal=None, listener_ports_and_protocol=None, load_balancer_id=None, load_balancer_name=None,
-                 load_balancer_spec=None, load_balancer_status=None, master_zone_id=None, modification_protection_reason=None,
-                 modification_protection_status=None, network_type=None, pay_type=None, region_id=None, region_id_alias=None,
-                 renewal_cyc_unit=None, renewal_duration=None, renewal_status=None, request_id=None, resource_group_id=None,
-                 slave_zone_id=None, v_switch_id=None, vpc_id=None):
+                 end_time=None, end_time_stamp=None, instance_charge_type=None, internet_charge_type=None,
+                 listener_ports=None, listener_ports_and_protocal=None, listener_ports_and_protocol=None, load_balancer_id=None,
+                 load_balancer_name=None, load_balancer_spec=None, load_balancer_status=None, master_zone_id=None,
+                 modification_protection_reason=None, modification_protection_status=None, network_type=None, pay_type=None, region_id=None,
+                 region_id_alias=None, renewal_cyc_unit=None, renewal_duration=None, renewal_status=None, request_id=None,
+                 resource_group_id=None, slave_zone_id=None, tags=None, v_switch_id=None, vpc_id=None):
+        # The service IP address of the CLB instance.
         self.address = address  # type: str
+        # The version of the IP address. Valid values: **ipv4** and **ipv6**.
         self.address_ipversion = address_ipversion  # type: str
+        # The address type of the CLB instance.
         self.address_type = address_type  # type: str
+        # The timestamp generated when the CLB instance is released.
         self.auto_release_time = auto_release_time  # type: long
+        # The backend servers of the CLB instance.
         self.backend_servers = backend_servers  # type: DescribeLoadBalancerAttributeResponseBodyBackendServers
+        # The maximum bandwidth of the Internet-facing CLB instance that is billed on a pay-by-bandwidth basis.
         self.bandwidth = bandwidth  # type: int
+        # The time when the CLB instance was created. The time is in the `YYYY-MM-DDThh:mm:ssZ` format.
         self.create_time = create_time  # type: str
+        # The timestamp generated when the CA certificate is uploaded.
         self.create_time_stamp = create_time_stamp  # type: long
+        # Indicates whether deletion protection is enabled for the CLB instance.
+        # 
+        # Valid values: **on** and **off**.
         self.delete_protection = delete_protection  # type: str
+        # The time when the CLB instance expires.
         self.end_time = end_time  # type: str
+        # The timestamp that indicates the expiration time of the CLB instance.
         self.end_time_stamp = end_time_stamp  # type: long
+        # The metering method of the CLB instance. Valid values:
+        # 
+        # *   **PayBySpec** (default)
+        # *   **PayByCLCU**\
+        # 
+        # > This parameter is available only on the China site and takes effect only when **PayType** is set to **PayOnDemand**.
+        self.instance_charge_type = instance_charge_type  # type: str
+        # The metering method of the Internet-facing CLB instance. Valid values:
+        # 
+        # *   **paybytraffic**\
+        # *   **paybybandwidth**\
         self.internet_charge_type = internet_charge_type  # type: str
+        # The frontend port used by the CLB instance.
         self.listener_ports = listener_ports  # type: DescribeLoadBalancerAttributeResponseBodyListenerPorts
+        # The ports or protocols of the listeners.
         self.listener_ports_and_protocal = listener_ports_and_protocal  # type: DescribeLoadBalancerAttributeResponseBodyListenerPortsAndProtocal
+        # The ports or protocols of the listeners.
         self.listener_ports_and_protocol = listener_ports_and_protocol  # type: DescribeLoadBalancerAttributeResponseBodyListenerPortsAndProtocol
+        # The CLB instance ID.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The name of the CLB instance.
         self.load_balancer_name = load_balancer_name  # type: str
+        # The specification of the CLB instance.
         self.load_balancer_spec = load_balancer_spec  # type: str
+        # The status of the CLB instance. Valid values:
+        # 
+        # *   **inactive**: The CLB instance is disabled. CLB instances in the inactive state do not forward traffic.
+        # *   **active**: The CLB instance is running as expected. Newly created CLB instances are in the **active** state by default.
+        # *   **locked**: The CLB instance is locked. CLB instances may be locked due to overdue payments or other reasons.
         self.load_balancer_status = load_balancer_status  # type: str
+        # The ID of the primary zone to which the CLB instance belongs.
         self.master_zone_id = master_zone_id  # type: str
+        # The reason why the configuration read-only mode is enabled. The value is 1 to 80 characters in length. It starts with a letter and can contain digits, periods (.), underscores (\_), and hyphens (-).
+        # 
+        # >  This parameter is valid only when **ModificationProtectionStatus** is set to **ConsoleProtection**.
         self.modification_protection_reason = modification_protection_reason  # type: str
+        # Indicates whether the configuration read-only mode is enabled. Valid values:
+        # 
+        # *   **NonProtection**: The configuration read-only mode is disabled. After you disable the configuration read-only mode, the value of **ModificationProtectionReason** is cleared.
+        # *   **ConsoleProtection**: The configuration read-only mode is enabled.
+        # 
+        # >  If this parameter is set to **ConsoleProtection**, you cannot modify instance configurations in the CLB console. However, you can modify instance configurations by calling API operations.
         self.modification_protection_status = modification_protection_status  # type: str
+        # The network type of the CLB instance.
         self.network_type = network_type  # type: str
+        # The billing method of the CLB instance. Valid values:
+        # 
+        # *   Only **PayOnDemand** may be returned, which indicates the pay-as-you-go billing method.
         self.pay_type = pay_type  # type: str
+        # The region ID of the CLB instance.
         self.region_id = region_id  # type: str
+        # The alias of the region to which the CLB instance belongs.
         self.region_id_alias = region_id_alias  # type: str
+        # The auto-renewal cycle. Valid values: **Year** and **Month**. Default value: Month.
+        # 
+        # >  This parameter is valid only if you create a subscription CLB instance on the Alibaba Cloud China site. In this case, **PayType** must be set to **PrePay** and **RenewalStatus** must be set to **AutoRenewal**.
         self.renewal_cyc_unit = renewal_cyc_unit  # type: str
+        # The auto-renewal duration. This parameter is valid only if **RenewalStatus** is set to **AutoRenewal**.
+        # 
+        # *   Valid values when **PeriodUnit** is set to **Year**: **1**, **2**, and **3**.
+        # 
+        # *   Valid values when **PeriodUnit** is set to **Month**: **1**, **2**, **3**, and **6**.
+        # 
+        # > This parameter is valid only when you create a subscription CLB instance on the Alibaba Cloud China site. In this case, the **PayType** parameter must be set to **PrePay**.
         self.renewal_duration = renewal_duration  # type: int
+        # Indicates whether auto-renewal is enabled. Valid values:
+        # 
+        # *   **AutoRenewal**: Auto-renewal is enabled.
+        # 
+        # *   **Normal**: Auto-renewal is disabled. You must manually renew the CLB instance.
+        # 
+        # *   **NotRenewal**: The CLB instance will not be renewed upon expiration. If this value is returned, the system does not send notifications until three days before the expiration date.
+        # 
+        #     **\
+        # 
+        #     **Note** This parameter is valid only when you create a subscription CLB instance on the Alibaba Cloud China site. In this case, **PayType** must be set to **PrePay**.
         self.renewal_status = renewal_status  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the secondary zone to which the CLB instance belongs.
         self.slave_zone_id = slave_zone_id  # type: str
+        # The tags.
+        self.tags = tags  # type: DescribeLoadBalancerAttributeResponseBodyTags
+        # The ID of the vSwitch to which the internal-facing CLB instance belongs.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the virtual private cloud (VPC) where the internal-facing CLB instance is deployed.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -6005,6 +8792,8 @@ class DescribeLoadBalancerAttributeResponseBody(TeaModel):
             self.listener_ports_and_protocal.validate()
         if self.listener_ports_and_protocol:
             self.listener_ports_and_protocol.validate()
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeLoadBalancerAttributeResponseBody, self).to_map()
@@ -6034,6 +8823,8 @@ class DescribeLoadBalancerAttributeResponseBody(TeaModel):
             result['EndTime'] = self.end_time
         if self.end_time_stamp is not None:
             result['EndTimeStamp'] = self.end_time_stamp
+        if self.instance_charge_type is not None:
+            result['InstanceChargeType'] = self.instance_charge_type
         if self.internet_charge_type is not None:
             result['InternetChargeType'] = self.internet_charge_type
         if self.listener_ports is not None:
@@ -6076,6 +8867,8 @@ class DescribeLoadBalancerAttributeResponseBody(TeaModel):
             result['ResourceGroupId'] = self.resource_group_id
         if self.slave_zone_id is not None:
             result['SlaveZoneId'] = self.slave_zone_id
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
         if self.vpc_id is not None:
@@ -6107,6 +8900,8 @@ class DescribeLoadBalancerAttributeResponseBody(TeaModel):
             self.end_time = m.get('EndTime')
         if m.get('EndTimeStamp') is not None:
             self.end_time_stamp = m.get('EndTimeStamp')
+        if m.get('InstanceChargeType') is not None:
+            self.instance_charge_type = m.get('InstanceChargeType')
         if m.get('InternetChargeType') is not None:
             self.internet_charge_type = m.get('InternetChargeType')
         if m.get('ListenerPorts') is not None:
@@ -6152,6 +8947,9 @@ class DescribeLoadBalancerAttributeResponseBody(TeaModel):
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SlaveZoneId') is not None:
             self.slave_zone_id = m.get('SlaveZoneId')
+        if m.get('Tags') is not None:
+            temp_model = DescribeLoadBalancerAttributeResponseBodyTags()
+            self.tags = temp_model.from_map(m['Tags'])
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
         if m.get('VpcId') is not None:
@@ -6160,12 +8958,14 @@ class DescribeLoadBalancerAttributeResponseBody(TeaModel):
 
 
 class DescribeLoadBalancerAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeLoadBalancerAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6178,6 +8978,8 @@ class DescribeLoadBalancerAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6186,6 +8988,8 @@ class DescribeLoadBalancerAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeLoadBalancerAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6195,10 +8999,17 @@ class DescribeLoadBalancerAttributeResponse(TeaModel):
 class DescribeLoadBalancerHTTPListenerAttributeRequest(TeaModel):
     def __init__(self, listener_port=None, load_balancer_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The frontend port that is used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
         self.listener_port = listener_port  # type: int
+        # The CLB instance ID.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the CLB instance.
+        # 
+        # You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -6249,10 +9060,15 @@ class DescribeLoadBalancerHTTPListenerAttributeRequest(TeaModel):
 
 class DescribeLoadBalancerHTTPListenerAttributeResponseBodyRulesRule(TeaModel):
     def __init__(self, domain=None, rule_id=None, rule_name=None, url=None, vserver_group_id=None):
+        # The endpoint.
         self.domain = domain  # type: str
+        # The ID of the forwarding rule.
         self.rule_id = rule_id  # type: str
+        # The name of the forwarding rule.
         self.rule_name = rule_name  # type: str
+        # The request path.
         self.url = url  # type: str
+        # The ID of the server group that is associated with the forwarding rule.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -6323,55 +9139,239 @@ class DescribeLoadBalancerHTTPListenerAttributeResponseBodyRules(TeaModel):
         return self
 
 
+class DescribeLoadBalancerHTTPListenerAttributeResponseBodyTagsTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The key of tag N. Valid values of N: **1** to **20**. The tag key cannot be an empty string. The tag key can be up to 64 characters in length, and cannot start with `aliyun` or `acs:`. The tag key cannot contain `http://` or `https://`.
+        self.tag_key = tag_key  # type: str
+        # The value of tag N. Valid values of N: **1** to **20**. The tag value can be an empty string. The tag value can be up to 128 characters in length, and cannot start with `acs:`. The tag value cannot contain `http://` or `https://`.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeLoadBalancerHTTPListenerAttributeResponseBodyTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeLoadBalancerHTTPListenerAttributeResponseBodyTags(TeaModel):
+    def __init__(self, tag=None):
+        self.tag = tag  # type: list[DescribeLoadBalancerHTTPListenerAttributeResponseBodyTagsTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeLoadBalancerHTTPListenerAttributeResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeLoadBalancerHTTPListenerAttributeResponseBodyTagsTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
     def __init__(self, acl_id=None, acl_status=None, acl_type=None, backend_server_port=None, bandwidth=None,
                  cookie=None, cookie_timeout=None, description=None, forward_port=None, gzip=None, health_check=None,
                  health_check_connect_port=None, health_check_domain=None, health_check_http_code=None, health_check_interval=None,
                  health_check_method=None, health_check_timeout=None, health_check_uri=None, healthy_threshold=None, idle_timeout=None,
-                 listener_forward=None, listener_port=None, request_id=None, request_timeout=None, rules=None, scheduler=None,
-                 security_status=None, status=None, sticky_session=None, sticky_session_type=None, unhealthy_threshold=None,
-                 vserver_group_id=None, xforwarded_for=None, xforwarded_for__slbid=None, xforwarded_for__slbip=None,
-                 xforwarded_for_proto=None):
+                 listener_forward=None, listener_port=None, load_balancer_id=None, request_id=None, request_timeout=None, rules=None,
+                 scheduler=None, security_status=None, status=None, sticky_session=None, sticky_session_type=None, tags=None,
+                 unhealthy_threshold=None, vserver_group_id=None, xforwarded_for=None, xforwarded_for__slbid=None,
+                 xforwarded_for__slbip=None, xforwarded_for_proto=None):
+        # The ID of the network ACL that is associated with a listener.
+        # 
+        # > This parameter is returned when **AclStatus** is set to **on**.
         self.acl_id = acl_id  # type: str
+        # Indicates whether access control is enabled. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.acl_status = acl_status  # type: str
+        # The type of the ACL. Valid values:
+        # 
+        # *   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the ACL are forwarded. Whitelists apply to scenarios where you want to allow only specific IP addresses to access an application. Your service may be adversely affected if the whitelist is not properly configured. If a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener.
+        # 
+        # If you enable a whitelist but do not add an IP address to the ACL, the listener forwards all requests.
+        # 
+        # *   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the network ACL are rejected. Blacklists apply to scenarios where you want to block access from specified IP addresses to an application.
+        # 
+        # If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.
+        # 
+        # > This parameter is required when **AclStatus** is set to **on**.
         self.acl_type = acl_type  # type: str
+        # The backend port that is used by the CLB instance.
         self.backend_server_port = backend_server_port  # type: int
+        # The maximum bandwidth of the listener. Unit: Mbit/s.
+        # 
+        # *   **-1**: If -1 is returned, it indicates that the bandwidth of the listener is unlimited.
+        # *   **1 to 5120**: If a value from 1 to 5120 is returned, the value indicates the maximum bandwidth of the listener. The sum of the maximum bandwidth of all listeners added to a CLB instance does not exceed the maximum bandwidth of the CLB instance.
         self.bandwidth = bandwidth  # type: int
+        # The cookie that is configured on the server.
         self.cookie = cookie  # type: str
+        # The timeout period of a cookie. Unit: seconds.
         self.cookie_timeout = cookie_timeout  # type: int
+        # The name of the listener.
         self.description = description  # type: str
+        # The listener port that is used to redirect HTTP requests to HTTPS.
+        # 
+        # >  If the **ListenerForward** parameter is set to **off**, this parameter is not displayed.
         self.forward_port = forward_port  # type: int
+        # Indicates whether `Gzip` compression is enabled to compress specific types of files. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.gzip = gzip  # type: str
+        # Indicates whether the health check feature is enabled. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.health_check = health_check  # type: str
+        # The port that is used for health checks.
+        # 
+        # > This parameter takes effect only when **HealthCheck** is set to **on**.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The domain name that you want to use for health checks.
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status code for a successful health check.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The interval at which health checks are performed. Unit: seconds.
         self.health_check_interval = health_check_interval  # type: int
+        # The health check method used by HTTP listeners. Valid values: **head** and **get**.
+        # 
+        # > This parameter is returned when **HealthCheck** is set to **on**.
         self.health_check_method = health_check_method  # type: str
+        # The timeout period of each health check. Unit: seconds.
         self.health_check_timeout = health_check_timeout  # type: int
+        # The URL path that is used for health checks.
+        # 
+        # The URI must be 1 to 80 characters in length, and can contain only digits, letters, hyphens (-), forward slashes (/), periods (.), percent signs (%), question marks (?), number signs (#), and ampersands (&). The URI must start with a forward slash (/) but cannot be a single forward slash (/).
         self.health_check_uri = health_check_uri  # type: str
+        # The healthy threshold.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The timeout period of an idle connection. Unit: seconds.
+        # 
+        # Default value: **15**. Valid values: **1 to 60**.
+        # 
+        # If no request is received within the specified timeout period, CLB closes the connection. When a request is received, CLB establishes a new connection.
         self.idle_timeout = idle_timeout  # type: int
+        # Indicates whether HTTP-to-HTTPS redirection is enabled. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.listener_forward = listener_forward  # type: str
+        # The frontend port that is used by the CLB instance.
         self.listener_port = listener_port  # type: int
+        # The CLB instance ID.
+        self.load_balancer_id = load_balancer_id  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The timeout period of a request. Unit: seconds.
+        # 
+        # Default value: **60**. Valid values: **1 to 180**.
+        # 
+        # If no response is received from a backend server within the specified timeout period, CLB returns the HTTP 504 status code to the client.
         self.request_timeout = request_timeout  # type: int
+        # The list of forwarding rules.
         self.rules = rules  # type: DescribeLoadBalancerHTTPListenerAttributeResponseBodyRules
+        # The routing algorithm. Valid values:
+        # 
+        # *   **wrr**: Backend servers that have higher weights receive more requests than backend servers that have lower weights.
+        # *   \*\* rr\*\*: Requests are sequentially distributed to backend servers.
         self.scheduler = scheduler  # type: str
+        # Indicates whether the listener is in the Secure state. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.security_status = security_status  # type: str
+        # The status of the listener. Valid values:
+        # 
+        # *   **running**\
+        # *   **stopped**\
         self.status = status  # type: str
+        # Indicates whether session persistence is enabled. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.sticky_session = sticky_session  # type: str
+        # The method that is used to handle a cookie.
+        # 
+        # Valid values: **insert** and **server**.
+        # 
+        # *   **insert**: inserts a cookie.
+        # 
+        #     CLB inserts a session cookie (SERVERID) into the first HTTP or HTTPS response that is sent to a client. Subsequent requests to CLB carry this cookie, and CLB determines the destination servers of the requests based on the cookies.
+        # 
+        # *   **server**: rewrites a cookie.
+        # 
+        #     When CLB detects a user-defined cookie, it overwrites the original cookie with the user-defined cookie. The next request from the client carries the user-defined cookie, and the listener forwards this request to the recorded backend server.
+        # 
+        # > This parameter is required when **StickySession** is set to **on**.
         self.sticky_session_type = sticky_session_type  # type: str
+        # The tags.
+        self.tags = tags  # type: DescribeLoadBalancerHTTPListenerAttributeResponseBodyTags
+        # The unhealthy threshold.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # The ID of the associated server group.
         self.vserver_group_id = vserver_group_id  # type: str
+        # Indicates whether the `X-Forwarded-For` header is used to preserve the real IP address of the client. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for = xforwarded_for  # type: str
+        # Indicates whether the `SLB-ID` header is used to retrieve the ID of the CLB instance. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for__slbid = xforwarded_for__slbid  # type: str
+        # Indicates whether the `SLB-IP` header is used to retrieve the virtual IP address requested by the client. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for__slbip = xforwarded_for__slbip  # type: str
+        # Indicates whether the `X-Forwarded-Proto` header is used to retrieve the listener protocol. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for_proto = xforwarded_for_proto  # type: str
 
     def validate(self):
         if self.rules:
             self.rules.validate()
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeLoadBalancerHTTPListenerAttributeResponseBody, self).to_map()
@@ -6423,6 +9423,8 @@ class DescribeLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
             result['ListenerForward'] = self.listener_forward
         if self.listener_port is not None:
             result['ListenerPort'] = self.listener_port
+        if self.load_balancer_id is not None:
+            result['LoadBalancerId'] = self.load_balancer_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.request_timeout is not None:
@@ -6439,6 +9441,8 @@ class DescribeLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
             result['StickySession'] = self.sticky_session
         if self.sticky_session_type is not None:
             result['StickySessionType'] = self.sticky_session_type
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         if self.unhealthy_threshold is not None:
             result['UnhealthyThreshold'] = self.unhealthy_threshold
         if self.vserver_group_id is not None:
@@ -6499,6 +9503,8 @@ class DescribeLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
             self.listener_forward = m.get('ListenerForward')
         if m.get('ListenerPort') is not None:
             self.listener_port = m.get('ListenerPort')
+        if m.get('LoadBalancerId') is not None:
+            self.load_balancer_id = m.get('LoadBalancerId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('RequestTimeout') is not None:
@@ -6516,6 +9522,9 @@ class DescribeLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
             self.sticky_session = m.get('StickySession')
         if m.get('StickySessionType') is not None:
             self.sticky_session_type = m.get('StickySessionType')
+        if m.get('Tags') is not None:
+            temp_model = DescribeLoadBalancerHTTPListenerAttributeResponseBodyTags()
+            self.tags = temp_model.from_map(m['Tags'])
         if m.get('UnhealthyThreshold') is not None:
             self.unhealthy_threshold = m.get('UnhealthyThreshold')
         if m.get('VServerGroupId') is not None:
@@ -6532,12 +9541,14 @@ class DescribeLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
 
 
 class DescribeLoadBalancerHTTPListenerAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeLoadBalancerHTTPListenerAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6550,6 +9561,8 @@ class DescribeLoadBalancerHTTPListenerAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6558,6 +9571,8 @@ class DescribeLoadBalancerHTTPListenerAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeLoadBalancerHTTPListenerAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6567,10 +9582,15 @@ class DescribeLoadBalancerHTTPListenerAttributeResponse(TeaModel):
 class DescribeLoadBalancerHTTPSListenerAttributeRequest(TeaModel):
     def __init__(self, listener_port=None, load_balancer_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The frontend port that is used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
         self.listener_port = listener_port  # type: int
+        # The CLB instance ID.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the CLB instance.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -6621,8 +9641,11 @@ class DescribeLoadBalancerHTTPSListenerAttributeRequest(TeaModel):
 
 class DescribeLoadBalancerHTTPSListenerAttributeResponseBodyDomainExtensionsDomainExtension(TeaModel):
     def __init__(self, domain=None, domain_extension_id=None, server_certificate_id=None):
+        # The endpoint.
         self.domain = domain  # type: str
+        # The ID of the additional domain name.
         self.domain_extension_id = domain_extension_id  # type: str
+        # The ID of the server certificate that is associated with the domain name.
         self.server_certificate_id = server_certificate_id  # type: str
 
     def validate(self):
@@ -6687,10 +9710,15 @@ class DescribeLoadBalancerHTTPSListenerAttributeResponseBodyDomainExtensions(Tea
 
 class DescribeLoadBalancerHTTPSListenerAttributeResponseBodyRulesRule(TeaModel):
     def __init__(self, domain=None, rule_id=None, rule_name=None, url=None, vserver_group_id=None):
+        # The endpoint.
         self.domain = domain  # type: str
+        # The ID of the forwarding rule.
         self.rule_id = rule_id  # type: str
+        # The name of the forwarding rule.
         self.rule_name = rule_name  # type: str
+        # The request path.
         self.url = url  # type: str
+        # The ID of the server group that is associated with the forwarding rule.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -6761,62 +9789,290 @@ class DescribeLoadBalancerHTTPSListenerAttributeResponseBodyRules(TeaModel):
         return self
 
 
+class DescribeLoadBalancerHTTPSListenerAttributeResponseBodyTagsTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The key of tag N. Valid values of N: **1** to **20**. The tag key cannot be an empty string. The tag key can be up to 64 characters in length, and cannot start with `aliyun` or `acs:`. The tag key cannot contain `http://` or `https://`.
+        self.tag_key = tag_key  # type: str
+        # The value of tag N. Valid values of N: **1** to **20**. The tag value can be an empty string. The tag value can be up to 128 characters in length, and cannot start with `acs:`. The tag value cannot contain `http://` or `https://`.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeLoadBalancerHTTPSListenerAttributeResponseBodyTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeLoadBalancerHTTPSListenerAttributeResponseBodyTags(TeaModel):
+    def __init__(self, tag=None):
+        self.tag = tag  # type: list[DescribeLoadBalancerHTTPSListenerAttributeResponseBodyTagsTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeLoadBalancerHTTPSListenerAttributeResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeLoadBalancerHTTPSListenerAttributeResponseBodyTagsTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeLoadBalancerHTTPSListenerAttributeResponseBody(TeaModel):
     def __init__(self, acl_id=None, acl_status=None, acl_type=None, backend_server_port=None, bandwidth=None,
                  cacertificate_id=None, cookie=None, cookie_timeout=None, description=None, domain_extensions=None,
                  enable_http_2=None, gzip=None, health_check=None, health_check_connect_port=None, health_check_domain=None,
                  health_check_http_code=None, health_check_interval=None, health_check_method=None, health_check_timeout=None,
-                 health_check_uri=None, healthy_threshold=None, idle_timeout=None, listener_port=None, request_id=None,
-                 request_timeout=None, rules=None, scheduler=None, security_status=None, server_certificate_id=None, status=None,
-                 sticky_session=None, sticky_session_type=None, tlscipher_policy=None, unhealthy_threshold=None,
-                 vserver_group_id=None, xforwarded_for=None, xforwarded_for__client_cert_client_verify=None,
+                 health_check_uri=None, healthy_threshold=None, idle_timeout=None, listener_port=None, load_balancer_id=None,
+                 request_id=None, request_timeout=None, rules=None, scheduler=None, security_status=None,
+                 server_certificate_id=None, status=None, sticky_session=None, sticky_session_type=None, tlscipher_policy=None, tags=None,
+                 unhealthy_threshold=None, vserver_group_id=None, xforwarded_for=None, xforwarded_for__client_cert_client_verify=None,
                  xforwarded_for__client_cert_fingerprint=None, xforwarded_for__client_cert_issuer_dn=None, xforwarded_for__client_cert_subject_dn=None,
                  xforwarded_for__client_src_port=None, xforwarded_for__slbid=None, xforwarded_for__slbip=None, xforwarded_for__slbport=None,
                  xforwarded_for_proto=None):
+        # The ID of the network ACL that is associated with a listener.
+        # 
+        # > This parameter is required when **AclStatus** is set to **on**.
         self.acl_id = acl_id  # type: str
+        # Indicates whether access control is enabled. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.acl_status = acl_status  # type: str
+        # The type of the access control list (ACL). Valid values:
+        # 
+        # *   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the ACL are forwarded. Whitelists apply to scenarios where you want to allow only specific IP addresses to access an application. Your service may be adversely affected if the whitelist is not properly configured. If a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener.
+        # 
+        # If you enable a whitelist but do not add an IP address to the ACL, the listener forwards all requests.
+        # 
+        # *   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the network ACL are rejected. Blacklists apply to scenarios where you want to block access from specified IP addresses to an application.
+        # 
+        # If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.
+        # 
+        # > This parameter is required when **AclStatus** is set to **on**.
         self.acl_type = acl_type  # type: str
+        # The backend port that is used by the CLB instance.
         self.backend_server_port = backend_server_port  # type: int
+        # The maximum bandwidth of the listener. Unit: Mbit/s.
         self.bandwidth = bandwidth  # type: int
+        # The ID of the certification authority (CA) certificate.
         self.cacertificate_id = cacertificate_id  # type: str
+        # The cookie that is configured on the server.
         self.cookie = cookie  # type: str
+        # The timeout period of a cookie.
         self.cookie_timeout = cookie_timeout  # type: int
+        # The name of the listener.
         self.description = description  # type: str
+        # A list of additional certificates.
         self.domain_extensions = domain_extensions  # type: DescribeLoadBalancerHTTPSListenerAttributeResponseBodyDomainExtensions
+        # Indicates whether `HTTP/2` is used. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.enable_http_2 = enable_http_2  # type: str
+        # Indicates whether `Gzip` compression is enabled. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.gzip = gzip  # type: str
+        # Indicates whether the health check feature is enabled. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.health_check = health_check  # type: str
+        # The port that is used for health checks.
+        # 
+        # > This parameter is required when **HealthCheck** is set to **on**.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The domain name that you want to use for health checks.
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status code for a successful health check.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The interval at which health checks are performed. Unit: seconds.
         self.health_check_interval = health_check_interval  # type: int
+        # The health check method used by HTTP listeners. Valid values: **head** and **get**.
+        # 
+        # > This parameter is available only when **HealthCheck** is set to **on**.
         self.health_check_method = health_check_method  # type: str
+        # The maximum timeout period of a health check. Unit: seconds.
         self.health_check_timeout = health_check_timeout  # type: int
+        # The URL path that is used for health checks.
         self.health_check_uri = health_check_uri  # type: str
+        # The healthy threshold.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The timeout period of an idle connection. Valid values: **1** to **60**. Default value: **15**. Unit: seconds.
+        # 
+        # If no request is received within the specified timeout period, CLB closes the connection. When a request is received, CLB establishes a new connection.
         self.idle_timeout = idle_timeout  # type: int
+        # The frontend port that is used by the CLB instance.
         self.listener_port = listener_port  # type: int
+        # The CLB instance ID.
+        self.load_balancer_id = load_balancer_id  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The timeout period of a request. Valid values: **1** to **180**. Default value: **60**. Unit: seconds.
+        # 
+        # If no response is received from a backend server within the specified timeout period, CLB returns the HTTP 504 status code to the client.
         self.request_timeout = request_timeout  # type: int
+        # The list of forwarding rules that are associated with the listener.
         self.rules = rules  # type: DescribeLoadBalancerHTTPSListenerAttributeResponseBodyRules
+        # The routing algorithm. Valid values: **wrr** and **rr**.
+        # 
+        # *   **wrr**: Backend servers that have higher weights receive more requests than backend servers that have lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
         self.scheduler = scheduler  # type: str
+        # Indicates whether the listener is in the Secure state. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.security_status = security_status  # type: str
+        # The ID of the server certificate.
         self.server_certificate_id = server_certificate_id  # type: str
+        # The status of the listener. Valid values:
+        # 
+        # *   **running**\
+        # *   **stopped**\
         self.status = status  # type: str
+        # Indicates whether session persistence is enabled. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.sticky_session = sticky_session  # type: str
+        # The method that is used to handle a cookie.
+        # 
+        # Valid values: **insert** and **server**.
+        # 
+        # *   **insert**: inserts a cookie.
+        # 
+        #     CLB inserts a cookie (SERVERID) into the first HTTP or HTTPS response packet that is sent to a client. The next request from the client will contain this cookie, and the listener will distribute this request to the recorded backend server.
+        # 
+        # *   **server**: rewrites a cookie.
+        # 
+        #     When CLB detects a user-defined cookie, it overwrites the original cookie with the user-defined cookie. The next request from the client carries the user-defined cookie, and the listener will distribute the request to the recorded backend server.
         self.sticky_session_type = sticky_session_type  # type: str
+        # The Transport Layer Security (TLS) security policy for a high-performance CLB instance.
+        # 
+        # Each security policy contains TLS protocol versions and cipher suites available for HTTPS. Valid values:
+        # 
+        # *   **tls_cipher_policy\_1\_0**:
+        # 
+        #     Supported TLS versions: TLS 1.0, TLS 1.1, and TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, AES128-GCM-SHA256, AES256-GCM-SHA384, AES128-SHA256, AES256-SHA256, ECDHE-RSA-AES128-SHA, ECDHE-RSA-AES256-SHA, AES128-SHA, AES256-SHA, and DES-CBC3-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_1**:
+        # 
+        #     Supported TLS versions: TLS 1.1 and TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, AES128-GCM-SHA256, AES256-GCM-SHA384, AES128-SHA256, AES256-SHA256, ECDHE-RSA-AES128-SHA, ECDHE-RSA-AES256-SHA, AES128-SHA, AES256-SHA, and DES-CBC3-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_2**\
+        # 
+        #     Supported TLS version: TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, AES128-GCM-SHA256, AES256-GCM-SHA384, AES128-SHA256, AES256-SHA256, ECDHE-RSA-AES128-SHA, ECDHE-RSA-AES256-SHA, AES128-SHA, AES256-SHA, and DES-CBC3-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_2\_strict**\
+        # 
+        #     Supported TLS version: TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, ECDHE-RSA-AES128-SHA, and ECDHE-RSA-AES256-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_2\_strict_with\_1\_3**\
+        # 
+        #     Supported TLS versions: TLS 1.2 and TLS 1.3
+        # 
+        #     Supported cipher suites: TLS_AES\_128\_GCM_SHA256, TLS_AES\_256\_GCM_SHA384, TLS_CHACHA20\_POLY1305\_SHA256, TLS_AES\_128\_CCM_SHA256, TLS_AES\_128\_CCM\_8\_SHA256, ECDHE-ECDSA-AES128-GCM-SHA256, ECDHE-ECDSA-AES256-GCM-SHA384, ECDHE-ECDSA-AES128-SHA256, ECDHE-ECDSA-AES256-SHA384, ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, ECDHE-ECDSA-AES128-SHA, ECDHE-ECDSA-AES256-SHA, ECDHE-RSA-AES128-SHA, and ECDHE-RSA-AES256-SHA
         self.tlscipher_policy = tlscipher_policy  # type: str
+        # The tags.
+        self.tags = tags  # type: DescribeLoadBalancerHTTPSListenerAttributeResponseBodyTags
+        # The unhealthy threshold.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # The ID of the associated server group.
         self.vserver_group_id = vserver_group_id  # type: str
+        # Indicates whether the `X-Forwarded-For` header is used to retrieve client IP addresses. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for = xforwarded_for  # type: str
+        # Indicates whether the `XForwardedFor_ClientCertClientVerify` header is used to retrieve the verification result of the client certificate. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for__client_cert_client_verify = xforwarded_for__client_cert_client_verify  # type: str
+        # Indicates whether the `XForwardedFor_ClientCertFingerprint` header is used to retrieve the fingerprint of the client certificate. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for__client_cert_fingerprint = xforwarded_for__client_cert_fingerprint  # type: str
+        # Indicates whether the `XForwardedFor_ClientCertIssuerDN` header is used to retrieve information about the authority that issues the client certificate. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for__client_cert_issuer_dn = xforwarded_for__client_cert_issuer_dn  # type: str
+        # Indicates whether the `XForwardedFor_ClientCertSubjectDN` header is used to retrieve information about the owner of the client certificate. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for__client_cert_subject_dn = xforwarded_for__client_cert_subject_dn  # type: str
+        # Indicates whether the `XForwardedFor_ClientSrcPort` header is used to retrieve the client port. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for__client_src_port = xforwarded_for__client_src_port  # type: str
+        # Indicates whether the `SLB-ID` header is used to retrieve the ID of the ALB instance. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for__slbid = xforwarded_for__slbid  # type: str
+        # Indicates whether the `SLB-IP` header is used to retrieve the virtual IP address requested by the client. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for__slbip = xforwarded_for__slbip  # type: str
+        # Indicates whether the `XForwardedFor_SLBPORT` header is used to retrieve the listening port. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for__slbport = xforwarded_for__slbport  # type: str
+        # Indicates whether the `X-Forwarded-Proto` header is used to retrieve the listener protocol. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for_proto = xforwarded_for_proto  # type: str
 
     def validate(self):
@@ -6824,6 +10080,8 @@ class DescribeLoadBalancerHTTPSListenerAttributeResponseBody(TeaModel):
             self.domain_extensions.validate()
         if self.rules:
             self.rules.validate()
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeLoadBalancerHTTPSListenerAttributeResponseBody, self).to_map()
@@ -6877,6 +10135,8 @@ class DescribeLoadBalancerHTTPSListenerAttributeResponseBody(TeaModel):
             result['IdleTimeout'] = self.idle_timeout
         if self.listener_port is not None:
             result['ListenerPort'] = self.listener_port
+        if self.load_balancer_id is not None:
+            result['LoadBalancerId'] = self.load_balancer_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.request_timeout is not None:
@@ -6897,6 +10157,8 @@ class DescribeLoadBalancerHTTPSListenerAttributeResponseBody(TeaModel):
             result['StickySessionType'] = self.sticky_session_type
         if self.tlscipher_policy is not None:
             result['TLSCipherPolicy'] = self.tlscipher_policy
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         if self.unhealthy_threshold is not None:
             result['UnhealthyThreshold'] = self.unhealthy_threshold
         if self.vserver_group_id is not None:
@@ -6972,6 +10234,8 @@ class DescribeLoadBalancerHTTPSListenerAttributeResponseBody(TeaModel):
             self.idle_timeout = m.get('IdleTimeout')
         if m.get('ListenerPort') is not None:
             self.listener_port = m.get('ListenerPort')
+        if m.get('LoadBalancerId') is not None:
+            self.load_balancer_id = m.get('LoadBalancerId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('RequestTimeout') is not None:
@@ -6993,6 +10257,9 @@ class DescribeLoadBalancerHTTPSListenerAttributeResponseBody(TeaModel):
             self.sticky_session_type = m.get('StickySessionType')
         if m.get('TLSCipherPolicy') is not None:
             self.tlscipher_policy = m.get('TLSCipherPolicy')
+        if m.get('Tags') is not None:
+            temp_model = DescribeLoadBalancerHTTPSListenerAttributeResponseBodyTags()
+            self.tags = temp_model.from_map(m['Tags'])
         if m.get('UnhealthyThreshold') is not None:
             self.unhealthy_threshold = m.get('UnhealthyThreshold')
         if m.get('VServerGroupId') is not None:
@@ -7021,12 +10288,14 @@ class DescribeLoadBalancerHTTPSListenerAttributeResponseBody(TeaModel):
 
 
 class DescribeLoadBalancerHTTPSListenerAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeLoadBalancerHTTPSListenerAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7039,6 +10308,8 @@ class DescribeLoadBalancerHTTPSListenerAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7047,27 +10318,90 @@ class DescribeLoadBalancerHTTPSListenerAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeLoadBalancerHTTPSListenerAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class DescribeLoadBalancerListenersRequest(TeaModel):
-    def __init__(self, listener_protocol=None, load_balancer_id=None, max_results=None, next_token=None,
-                 owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        self.listener_protocol = listener_protocol  # type: str
-        self.load_balancer_id = load_balancer_id  # type: list[str]
-        self.max_results = max_results  # type: int
-        self.next_token = next_token  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
+class DescribeLoadBalancerListenersRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # 资源的标签键。N的取值范围：**1~20**。一旦输入该值，则不允许为空字符串。
+        # 
+        # 最多支持64个字符，不能以`aliyun`和`acs:`开头，不能包含`http://`或者`https://`。
+        self.key = key  # type: str
+        # 资源的标签值。N的取值范围：**1~20**。一旦输入该值，可以为空字符串。
+        # 最多支持128个字符，不能以`aliyun`和`acs:`开头，不能包含`http://`或者`https://`。
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeLoadBalancerListenersRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeLoadBalancerListenersRequest(TeaModel):
+    def __init__(self, description=None, listener_port=None, listener_protocol=None, load_balancer_id=None,
+                 max_results=None, next_token=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, tag=None):
+        self.description = description  # type: str
+        self.listener_port = listener_port  # type: int
+        # The protocol used by the listener. Valid values:
+        # 
+        # *   **tcp**\
+        # *   **udp**\
+        # *   **http**\
+        # *   **https**\
+        self.listener_protocol = listener_protocol  # type: str
+        # The ID of the CLB instance. You can specify at most 10 IDs.
+        self.load_balancer_id = load_balancer_id  # type: list[str]
+        # The number of entries to return on each page.
+        # 
+        # Valid values: **1** to **100**. If you do not specify a value, the default value **20** is used.
+        self.max_results = max_results  # type: int
+        # The token that is used for the next query. Valid values:
+        # 
+        # *   If this is your first query and no subsequent queries are to be sent, ignore this parameter.
+        # *   If a subsequent query is to be sent, set the parameter to the value of NextToken that is returned from the last call.
+        self.next_token = next_token  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the region where the CLB instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~DescribeRegions~~) operation to query the most recent region list.
+        # 
+        # >  If the endpoint of the selected region is slb.aliyuncs.com, the `RegionId` parameter is required.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # 标签列表。
+        self.tag = tag  # type: list[DescribeLoadBalancerListenersRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeLoadBalancerListenersRequest, self).to_map()
@@ -7075,6 +10409,10 @@ class DescribeLoadBalancerListenersRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.listener_port is not None:
+            result['ListenerPort'] = self.listener_port
         if self.listener_protocol is not None:
             result['ListenerProtocol'] = self.listener_protocol
         if self.load_balancer_id is not None:
@@ -7093,10 +10431,18 @@ class DescribeLoadBalancerListenersRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('ListenerPort') is not None:
+            self.listener_port = m.get('ListenerPort')
         if m.get('ListenerProtocol') is not None:
             self.listener_protocol = m.get('ListenerProtocol')
         if m.get('LoadBalancerId') is not None:
@@ -7115,6 +10461,11 @@ class DescribeLoadBalancerListenersRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeLoadBalancerListenersRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
@@ -7126,32 +10477,106 @@ class DescribeLoadBalancerListenersResponseBodyListenersHTTPListenerConfig(TeaMo
                  sticky_session=None, sticky_session_type=None, unhealthy_threshold=None, xforwarded_for=None,
                  xforwarded_for__client_src_port=None, xforwarded_for__slbid=None, xforwarded_for__slbip=None, xforwarded_for__slbport=None,
                  xforwarded_for_proto=None):
+        # The cookie that is configured on the server.
         self.cookie = cookie  # type: str
+        # The timeout period of a cookie. Unit: seconds.
+        # 
+        # Valid values: **1** to **86400**.
         self.cookie_timeout = cookie_timeout  # type: int
+        # The listening port that is used to redirect HTTP requests to HTTPS.
+        # 
+        # >  If the **ListenerForward** parameter is set to **off**, this parameter is not displayed.
         self.forward_port = forward_port  # type: int
+        # Indicates whether Gzip compression is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.gzip = gzip  # type: str
+        # Indicates whether the health check feature is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.health_check = health_check  # type: str
+        # The port that is used for health checks.
+        # 
+        # >  This parameter takes effect when the **HealthCheck** parameter is set to **on**.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The domain name that is used for health checks.
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status codes that are used to determine whether the backend server passes the health check.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The HTTP version that is used for health checks.
         self.health_check_http_version = health_check_http_version  # type: str
+        # The interval at which health checks are performed. Unit: seconds.
         self.health_check_interval = health_check_interval  # type: int
+        # The health check method. Valid values: **head** and **get**.
         self.health_check_method = health_check_method  # type: str
+        # The maximum timeout period of a health check. Unit: seconds.
         self.health_check_timeout = health_check_timeout  # type: int
+        # The protocol that is used for health checks.
         self.health_check_type = health_check_type  # type: str
+        # The URI that is used for health checks.
         self.health_check_uri = health_check_uri  # type: str
+        # The number of times that an unhealthy backend server must consecutively pass health checks before it is declared healthy. In this case, the health status is changed from **fail** to **success**.
+        # 
+        # Valid values: **2** to **10**.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The timeout period of an idle connection. Unit: seconds. Valid values: **1** to **60**.
+        # 
+        # If no request is received within the specified timeout period, CLB closes the connection. When a request is received, CLB establishes a new connection.
         self.idle_timeout = idle_timeout  # type: int
+        # Indicates whether HTTP-to-HTTPS redirection is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.listener_forward = listener_forward  # type: str
+        # The timeout period of a request. Unit: seconds. Valid values: **1** to **180**.
+        # 
+        # If no response is received from a backend server during the request timeout period, CLB sends the `HTTP 504` status code to the client.
         self.request_timeout = request_timeout  # type: int
+        # Indicates whether session persistence is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.sticky_session = sticky_session  # type: str
+        # The method that is used to handle a cookie. Valid values:
+        # 
+        # *   **insert**: inserts a cookie. CLB inserts a cookie (SERVERID) into the first HTTP or HTTPS response that is sent to a client. The next request from the client contains this cookie, and the listener forwards this request to the recorded backend server.
+        # *   **server**: rewrites a cookie. When CLB detects a user-defined cookie, it overwrites the original cookie with the user-defined cookie. The next request from the client carries the user-defined cookie, and the listener will distribute the request to the recorded backend server.
         self.sticky_session_type = sticky_session_type  # type: str
+        # The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**.
+        # 
+        # Valid values: **2** to **10**.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # Indicates whether the `XForwardedFor` header is used to retrieve client IP addresses. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for = xforwarded_for  # type: str
+        # Indicates whether the `XForwardedFor_ClientSrcPort` header is used to retrieve the client port. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__client_src_port = xforwarded_for__client_src_port  # type: str
+        # Indicates whether the `SLB-ID` header is used to retrieve the ID of the CLB instance. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__slbid = xforwarded_for__slbid  # type: str
+        # Indicates whether the `SLB-IP` header is used to retrieve the virtual IP address requested by the client. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__slbip = xforwarded_for__slbip  # type: str
+        # Indicates whether the `XForwardedFor_SLBPORT` header is used to retrieve the listening port. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__slbport = xforwarded_for__slbport  # type: str
+        # Indicates whether the `X-Forwarded-Proto` header is used to retrieve the listening protocol. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for_proto = xforwarded_for_proto  # type: str
 
     def validate(self):
@@ -7288,38 +10713,156 @@ class DescribeLoadBalancerListenersResponseBodyListenersHTTPSListenerConfig(TeaM
                  xforwarded_for__client_cert_fingerprint=None, xforwarded_for__client_cert_issuer_dn=None, xforwarded_for__client_cert_subject_dn=None,
                  xforwarded_for__client_src_port=None, xforwarded_for__slbid=None, xforwarded_for__slbip=None, xforwarded_for__slbport=None,
                  xforwarded_for_proto=None):
+        # The ID of the certificate authority (CA) certificate.
         self.cacertificate_id = cacertificate_id  # type: str
+        # The cookie that is configured on the server.
         self.cookie = cookie  # type: str
+        # The timeout period of a cookie. Unit: seconds.
+        # 
+        # Valid values: **1** to **86400**.
         self.cookie_timeout = cookie_timeout  # type: int
+        # Indicates whether `HTTP 2.0` is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.enable_http_2 = enable_http_2  # type: str
+        # Indicates whether Gzip compression is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.gzip = gzip  # type: str
+        # Indicates whether the health check feature is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.health_check = health_check  # type: str
+        # The port that is used for health checks.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The domain name that is used for health checks.
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status codes that are used to determine whether the backend server passes the health check.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The HTTP version that is used for health checks.
         self.health_check_http_version = health_check_http_version  # type: str
+        # The interval at which health checks are performed. Unit: seconds.
         self.health_check_interval = health_check_interval  # type: int
+        # The health check method.
         self.health_check_method = health_check_method  # type: str
+        # The maximum timeout period of a health check. Unit: seconds.
         self.health_check_timeout = health_check_timeout  # type: int
+        # The protocol that is used for health checks.
         self.health_check_type = health_check_type  # type: str
+        # The URI that is used for health checks.
         self.health_check_uri = health_check_uri  # type: str
+        # The number of times that an unhealthy backend server must consecutively pass health checks before it is declared healthy. In this case, the health status is changed from **fail** to **success**.
+        # 
+        # Valid values: **2** to **10**.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The timeout period of an idle connection. Unit: seconds. Valid values: **1** to **60**.
+        # 
+        # If no request is received within the specified timeout period, CLB closes the connection. When a request is received, CLB establishes a new connection.
         self.idle_timeout = idle_timeout  # type: int
+        # The request timeout period. Unit: seconds. Valid values: **1** to **180**.
+        # 
+        # If no response is received from a backend server during the request timeout period, CLB sends the `HTTP 504` status code to the client.
         self.request_timeout = request_timeout  # type: int
+        # The ID of the server certificate.
         self.server_certificate_id = server_certificate_id  # type: str
+        # Indicates whether session persistence is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.sticky_session = sticky_session  # type: str
+        # The method that is used to handle a cookie.
+        # 
+        # *   **insert**: inserts a cookie. CLB inserts a cookie (SERVERID) into the first HTTP or HTTPS response that is sent to a client. The next request from the client contains this cookie, and the listener forwards this request to the recorded backend server.
+        # *   **server**: rewrites a cookie. When CLB detects a user-defined cookie, it overwrites the original cookie with the user-defined cookie. The next request from the client carries the user-defined cookie, and the listener will distribute the request to the recorded backend server.
         self.sticky_session_type = sticky_session_type  # type: str
+        # The Transport Layer Security (TLS) security policy. Each security policy contains TLS protocol versions and cipher suites available for HTTPS.
+        # 
+        # *   **tls_cipher_policy\_1\_0**:
+        # 
+        #     Supported TLS versions: TLS 1.0, TLS 1.1, and TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, AES128-GCM-SHA256, AES256-GCM-SHA384, AES128-SHA256, AES256-SHA256, ECDHE-RSA-AES128-SHA, ECDHE-RSA-AES256-SHA, AES128-SHA, AES256-SHA, and DES-CBC3-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_1**:
+        # 
+        #     Supported TLS versions: TLS 1.1 and TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, AES128-GCM-SHA256, AES256-GCM-SHA384, AES128-SHA256, AES256-SHA256, ECDHE-RSA-AES128-SHA, ECDHE-RSA-AES256-SHA, AES128-SHA, AES256-SHA, and DES-CBC3-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_2**\
+        # 
+        #     Supported TLS version: TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, AES128-GCM-SHA256, AES256-GCM-SHA384, AES128-SHA256, AES256-SHA256, ECDHE-RSA-AES128-SHA, ECDHE-RSA-AES256-SHA, AES128-SHA, AES256-SHA, and DES-CBC3-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_2\_strict**\
+        # 
+        #     Supported TLS version: TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, ECDHE-RSA-AES128-SHA, and ECDHE-RSA-AES256-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_2\_strict_with\_1\_3**\
+        # 
+        #     Supported TLS versions: TLS 1.2 and TLS 1.3
+        # 
+        #     Supported cipher suites: TLS_AES\_128\_GCM_SHA256, TLS_AES\_256\_GCM_SHA384, TLS_CHACHA20\_POLY1305\_SHA256, TLS_AES\_128\_CCM_SHA256, TLS_AES\_128\_CCM\_8\_SHA256, ECDHE-ECDSA-AES128-GCM-SHA256, ECDHE-ECDSA-AES256-GCM-SHA384, ECDHE-ECDSA-AES128-SHA256, ECDHE-ECDSA-AES256-SHA384, ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, ECDHE-ECDSA-AES128-SHA, ECDHE-ECDSA-AES256-SHA, ECDHE-RSA-AES128-SHA, and ECDHE-RSA-AES256-SHA
         self.tlscipher_policy = tlscipher_policy  # type: str
+        # The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**.
+        # 
+        # Valid values: **2** to **10**.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # Indicates whether the `XForwardedFor` header is used to retrieve client IP addresses. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for = xforwarded_for  # type: str
+        # Indicates whether the `XForwardedFor_ClientCertClientVerify` header is used to retrieve the verification result of the client certificate. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__client_cert_client_verify = xforwarded_for__client_cert_client_verify  # type: str
+        # Indicates whether the `XForwardedFor_ClientCertFingerprint` header is used to retrieve the fingerprint of the client certificate. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__client_cert_fingerprint = xforwarded_for__client_cert_fingerprint  # type: str
+        # Indicates whether the `XForwardedFor_ClientCertIssuerDN` header is used to retrieve information about the authority that issues the client certificate. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__client_cert_issuer_dn = xforwarded_for__client_cert_issuer_dn  # type: str
+        # Indicates whether the `XForwardedFor_ClientCertSubjectDN` header is used to retrieve information about the owner of the client certificate. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__client_cert_subject_dn = xforwarded_for__client_cert_subject_dn  # type: str
+        # Indicates whether the `XForwardedFor_ClientSrcPort` header is used to retrieve the client port. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__client_src_port = xforwarded_for__client_src_port  # type: str
+        # Indicates whether the `SLB-ID` header is used to retrieve the ID of the CLB instance. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__slbid = xforwarded_for__slbid  # type: str
+        # Indicates whether the `SLB-IP` header is used to retrieve the virtual IP address requested by the client. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__slbip = xforwarded_for__slbip  # type: str
+        # Indicates whether the `XForwardedFor_SLBPORT` header is used to retrieve the listening port. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__slbport = xforwarded_for__slbport  # type: str
+        # Indicates whether the `X-Forwarded-Proto` header is used to retrieve the listening protocol. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for_proto = xforwarded_for_proto  # type: str
 
     def validate(self):
@@ -7475,22 +11018,61 @@ class DescribeLoadBalancerListenersResponseBodyListenersTCPListenerConfig(TeaMod
                  health_check=None, health_check_connect_port=None, health_check_connect_timeout=None,
                  health_check_domain=None, health_check_http_code=None, health_check_interval=None, health_check_method=None,
                  health_check_type=None, health_check_uri=None, healthy_threshold=None, master_slave_server_group_id=None,
-                 persistence_timeout=None, unhealthy_threshold=None):
+                 persistence_timeout=None, proxy_protocol_v2enabled=None, unhealthy_threshold=None):
+        # Indicates whether connection draining is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.connection_drain = connection_drain  # type: str
+        # The timeout period of connection draining. Unit: seconds.
+        # 
+        # Value values: **10 to 900**.
         self.connection_drain_timeout = connection_drain_timeout  # type: int
+        # The timeout period of a connection. Unit: seconds.
         self.established_timeout = established_timeout  # type: int
+        # Indicates whether the health check feature is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.health_check = health_check  # type: str
+        # The port that is used for health checks.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The timeout period of health checks. Unit: seconds.
+        # 
+        # Valid values: **1** to **300**.
         self.health_check_connect_timeout = health_check_connect_timeout  # type: int
+        # The domain name that is used for health checks.
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status codes that are used to determine whether the backend server passes the health check.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The interval between two consecutive health checks. Unit: seconds.
         self.health_check_interval = health_check_interval  # type: int
+        # The health check method.
         self.health_check_method = health_check_method  # type: str
+        # The protocol that is used for health checks.
         self.health_check_type = health_check_type  # type: str
+        # The URI that is used for health checks.
         self.health_check_uri = health_check_uri  # type: str
+        # The number of times that an unhealthy backend server must consecutively pass health checks before it is declared healthy. In this case, the health status is changed from **fail** to **success**.
+        # 
+        # Valid values: **2** to **10**.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The ID of the primary/secondary server group that is associated with the listener.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
+        # Indicates whether session persistence is enabled. Unit: seconds.
+        # 
+        # Valid values: **0** to **3600**.
+        # 
+        # **0** indicates that session persistence is disabled.
         self.persistence_timeout = persistence_timeout  # type: int
+        # Indicates whether the Proxy protocol is used to pass client IP addresses to backend servers. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
+        self.proxy_protocol_v2enabled = proxy_protocol_v2enabled  # type: str
+        # The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**.
+        # 
+        # Valid values: **2** to **10**.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -7532,6 +11114,8 @@ class DescribeLoadBalancerListenersResponseBodyListenersTCPListenerConfig(TeaMod
             result['MasterSlaveServerGroupId'] = self.master_slave_server_group_id
         if self.persistence_timeout is not None:
             result['PersistenceTimeout'] = self.persistence_timeout
+        if self.proxy_protocol_v2enabled is not None:
+            result['ProxyProtocolV2Enabled'] = self.proxy_protocol_v2enabled
         if self.unhealthy_threshold is not None:
             result['UnhealthyThreshold'] = self.unhealthy_threshold
         return result
@@ -7568,25 +11152,83 @@ class DescribeLoadBalancerListenersResponseBodyListenersTCPListenerConfig(TeaMod
             self.master_slave_server_group_id = m.get('MasterSlaveServerGroupId')
         if m.get('PersistenceTimeout') is not None:
             self.persistence_timeout = m.get('PersistenceTimeout')
+        if m.get('ProxyProtocolV2Enabled') is not None:
+            self.proxy_protocol_v2enabled = m.get('ProxyProtocolV2Enabled')
         if m.get('UnhealthyThreshold') is not None:
             self.unhealthy_threshold = m.get('UnhealthyThreshold')
+        return self
+
+
+class DescribeLoadBalancerListenersResponseBodyListenersTags(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # 资源的标签键。
+        self.tag_key = tag_key  # type: str
+        # 资源的标签值。
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeLoadBalancerListenersResponseBodyListenersTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
         return self
 
 
 class DescribeLoadBalancerListenersResponseBodyListenersUDPListenerConfig(TeaModel):
     def __init__(self, connection_drain=None, connection_drain_timeout=None, health_check=None,
                  health_check_connect_port=None, health_check_connect_timeout=None, health_check_exp=None, health_check_interval=None,
-                 health_check_req=None, healthy_threshold=None, master_slave_server_group_id=None, unhealthy_threshold=None):
+                 health_check_req=None, healthy_threshold=None, master_slave_server_group_id=None, proxy_protocol_v2enabled=None,
+                 unhealthy_threshold=None):
+        # Indicates whether connection draining is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.connection_drain = connection_drain  # type: str
+        # The timeout period of connection draining. Unit: seconds.
+        # 
+        # Value values: **10 to 900**.
         self.connection_drain_timeout = connection_drain_timeout  # type: int
+        # Indicates whether the health check feature is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.health_check = health_check  # type: str
+        # The port that is used for health checks.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The timeout period for a health check response.
         self.health_check_connect_timeout = health_check_connect_timeout  # type: int
+        # The response string for UDP listener health checks.
         self.health_check_exp = health_check_exp  # type: str
+        # The interval between two consecutive health checks. Unit: seconds.
         self.health_check_interval = health_check_interval  # type: int
+        # The request string for UDP listener health checks.
         self.health_check_req = health_check_req  # type: str
+        # The number of times that a backend server must consecutively pass health checks before it is declared healthy.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The ID of the primary/secondary server group that is associated with the listener.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
+        # Indicates whether the Proxy protocol is used to pass client IP addresses to backend servers. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
+        self.proxy_protocol_v2enabled = proxy_protocol_v2enabled  # type: str
+        # The number of times that a backend server must consecutively fail health checks before it is declared unhealthy.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
 
     def validate(self):
@@ -7618,6 +11260,8 @@ class DescribeLoadBalancerListenersResponseBodyListenersUDPListenerConfig(TeaMod
             result['HealthyThreshold'] = self.healthy_threshold
         if self.master_slave_server_group_id is not None:
             result['MasterSlaveServerGroupId'] = self.master_slave_server_group_id
+        if self.proxy_protocol_v2enabled is not None:
+            result['ProxyProtocolV2Enabled'] = self.proxy_protocol_v2enabled
         if self.unhealthy_threshold is not None:
             result['UnhealthyThreshold'] = self.unhealthy_threshold
         return result
@@ -7644,6 +11288,8 @@ class DescribeLoadBalancerListenersResponseBodyListenersUDPListenerConfig(TeaMod
             self.healthy_threshold = m.get('HealthyThreshold')
         if m.get('MasterSlaveServerGroupId') is not None:
             self.master_slave_server_group_id = m.get('MasterSlaveServerGroupId')
+        if m.get('ProxyProtocolV2Enabled') is not None:
+            self.proxy_protocol_v2enabled = m.get('ProxyProtocolV2Enabled')
         if m.get('UnhealthyThreshold') is not None:
             self.unhealthy_threshold = m.get('UnhealthyThreshold')
         return self
@@ -7652,23 +11298,63 @@ class DescribeLoadBalancerListenersResponseBodyListenersUDPListenerConfig(TeaMod
 class DescribeLoadBalancerListenersResponseBodyListeners(TeaModel):
     def __init__(self, acl_id=None, acl_status=None, acl_type=None, backend_server_port=None, bandwidth=None,
                  description=None, httplistener_config=None, httpslistener_config=None, listener_port=None,
-                 listener_protocol=None, load_balancer_id=None, scheduler=None, status=None, tcplistener_config=None,
+                 listener_protocol=None, load_balancer_id=None, scheduler=None, status=None, tcplistener_config=None, tags=None,
                  udplistener_config=None, vserver_group_id=None):
+        # The ID of the network ACL.
         self.acl_id = acl_id  # type: str
+        # Indicates whether access control is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.acl_status = acl_status  # type: str
+        # The type of the network access control list (ACL). Valid values:
+        # 
+        # *   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios in which you want to allow only specific IP addresses to access an application. Your service may be adversely affected if the whitelist is not properly configured. After a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener.
+        # 
+        # If you enable a whitelist but do not add an IP address to the whitelist, the listener forwards all requests.
+        # 
+        # *   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the network ACL are denied. A blacklist applies to scenarios in which you want to deny access from specific IP addresses.
+        # 
+        # If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.
         self.acl_type = acl_type  # type: str
+        # The port of the backend server.
+        # 
+        # >  This parameter takes effect when the `VServerGroupId` parameter and the `MasterSlaveServerGroupId` parameter are empty.
         self.backend_server_port = backend_server_port  # type: int
+        # The maximum bandwidth of the listener. Unit: Mbit/s. Valid values:
+        # 
+        # *   **-1**: If -1 is returned, it indicates that the bandwidth of the listener is unlimited.
+        # *   **1 to 5120**: If a value from 1 to 5120 is returned, the value indicates the maximum bandwidth of the listener. The sum of the maximum bandwidth of all listeners added to a CLB instance does not exceed the maximum bandwidth of the CLB instance.
         self.bandwidth = bandwidth  # type: int
+        # The description of the listener.
         self.description = description  # type: str
+        # The configuration of the HTTP listener.
         self.httplistener_config = httplistener_config  # type: DescribeLoadBalancerListenersResponseBodyListenersHTTPListenerConfig
+        # The configuration of the HTTPS listener.
         self.httpslistener_config = httpslistener_config  # type: DescribeLoadBalancerListenersResponseBodyListenersHTTPSListenerConfig
+        # The listening port.
         self.listener_port = listener_port  # type: int
+        # The protocol used by the listener.
         self.listener_protocol = listener_protocol  # type: str
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The scheduling algorithm. Valid values:
+        # 
+        # *   **wrr**: Backend servers with higher weights receive more requests than those with lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
         self.scheduler = scheduler  # type: str
+        # The status of the listener. Valid values:
+        # 
+        # *   **running**: The listener runs as expected.
+        # *   **stopped**: The listener is disabled.
         self.status = status  # type: str
+        # The configuration of the TCP listener.
         self.tcplistener_config = tcplistener_config  # type: DescribeLoadBalancerListenersResponseBodyListenersTCPListenerConfig
+        # 标签列表。
+        self.tags = tags  # type: list[DescribeLoadBalancerListenersResponseBodyListenersTags]
+        # The configuration of the UDP listener.
         self.udplistener_config = udplistener_config  # type: DescribeLoadBalancerListenersResponseBodyListenersUDPListenerConfig
+        # The ID of the vServer group that is associated with the listener.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -7678,6 +11364,10 @@ class DescribeLoadBalancerListenersResponseBodyListeners(TeaModel):
             self.httpslistener_config.validate()
         if self.tcplistener_config:
             self.tcplistener_config.validate()
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
         if self.udplistener_config:
             self.udplistener_config.validate()
 
@@ -7715,6 +11405,10 @@ class DescribeLoadBalancerListenersResponseBodyListeners(TeaModel):
             result['Status'] = self.status
         if self.tcplistener_config is not None:
             result['TCPListenerConfig'] = self.tcplistener_config.to_map()
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
         if self.udplistener_config is not None:
             result['UDPListenerConfig'] = self.udplistener_config.to_map()
         if self.vserver_group_id is not None:
@@ -7754,6 +11448,11 @@ class DescribeLoadBalancerListenersResponseBodyListeners(TeaModel):
         if m.get('TCPListenerConfig') is not None:
             temp_model = DescribeLoadBalancerListenersResponseBodyListenersTCPListenerConfig()
             self.tcplistener_config = temp_model.from_map(m['TCPListenerConfig'])
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = DescribeLoadBalancerListenersResponseBodyListenersTags()
+                self.tags.append(temp_model.from_map(k))
         if m.get('UDPListenerConfig') is not None:
             temp_model = DescribeLoadBalancerListenersResponseBodyListenersUDPListenerConfig()
             self.udplistener_config = temp_model.from_map(m['UDPListenerConfig'])
@@ -7764,10 +11463,20 @@ class DescribeLoadBalancerListenersResponseBodyListeners(TeaModel):
 
 class DescribeLoadBalancerListenersResponseBody(TeaModel):
     def __init__(self, listeners=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        # The list of listeners on the CLB instance.
+        # 
+        # >  This parameter is not returned if no listener is created on the CLB instance.
         self.listeners = listeners  # type: list[DescribeLoadBalancerListenersResponseBodyListeners]
+        # The number of entries returned per page.
         self.max_results = max_results  # type: int
+        # The token that determines the start point of the query. Valid values:
+        # 
+        # *   If **NextToken** is empty, it indicates that no subsequent query is to be sent.
+        # *   If a value is returned for **NextToken**, the value is the token that determines the start point of the next query.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -7815,12 +11524,14 @@ class DescribeLoadBalancerListenersResponseBody(TeaModel):
 
 
 class DescribeLoadBalancerListenersResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeLoadBalancerListenersResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7833,6 +11544,8 @@ class DescribeLoadBalancerListenersResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7841,6 +11554,8 @@ class DescribeLoadBalancerListenersResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeLoadBalancerListenersResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7850,10 +11565,17 @@ class DescribeLoadBalancerListenersResponse(TeaModel):
 class DescribeLoadBalancerTCPListenerAttributeRequest(TeaModel):
     def __init__(self, listener_port=None, load_balancer_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The frontend port used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
         self.listener_port = listener_port  # type: int
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the CLB instance.
+        # 
+        # You can query the region ID from the [Regions and zones](~~40654~~) list or by calling the [DescribeRegions](~~25609~~) operation.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -7902,45 +11624,194 @@ class DescribeLoadBalancerTCPListenerAttributeRequest(TeaModel):
         return self
 
 
+class DescribeLoadBalancerTCPListenerAttributeResponseBodyTagsTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tags.
+        self.tag_key = tag_key  # type: str
+        # The tag value.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeLoadBalancerTCPListenerAttributeResponseBodyTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeLoadBalancerTCPListenerAttributeResponseBodyTags(TeaModel):
+    def __init__(self, tag=None):
+        self.tag = tag  # type: list[DescribeLoadBalancerTCPListenerAttributeResponseBodyTagsTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeLoadBalancerTCPListenerAttributeResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeLoadBalancerTCPListenerAttributeResponseBodyTagsTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeLoadBalancerTCPListenerAttributeResponseBody(TeaModel):
     def __init__(self, acl_id=None, acl_status=None, acl_type=None, backend_server_port=None, bandwidth=None,
                  connection_drain=None, connection_drain_timeout=None, description=None, established_timeout=None,
                  health_check=None, health_check_connect_port=None, health_check_connect_timeout=None,
                  health_check_domain=None, health_check_http_code=None, health_check_interval=None, health_check_method=None,
-                 health_check_type=None, health_check_uri=None, healthy_threshold=None, listener_port=None,
-                 master_slave_server_group_id=None, persistence_timeout=None, request_id=None, scheduler=None, status=None, syn_proxy=None,
-                 unhealthy_threshold=None, vserver_group_id=None):
+                 health_check_type=None, health_check_uri=None, healthy_threshold=None, listener_port=None, load_balancer_id=None,
+                 master_slave_server_group_id=None, persistence_timeout=None, proxy_protocol_v2enabled=None, request_id=None, scheduler=None,
+                 status=None, syn_proxy=None, tags=None, unhealthy_threshold=None, vserver_group_id=None):
+        # The ID of the network ACL that is associated with the listener.
+        # 
+        # If **AclStatus** is set to **on**, this parameter is returned.
         self.acl_id = acl_id  # type: str
+        # Indicates whether access control is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.acl_status = acl_status  # type: str
+        # The type of the ACL. Valid values:
+        # 
+        # *   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios in which you want to allow only specific IP addresses to access an application.
+        # 
+        #     Your service may be adversely affected if the whitelist is not properly configured. After a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener.
+        # 
+        #     If you enable a whitelist but do not add an IP address to the ACL, the listener forwards all requests.
+        # 
+        # *   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the network ACL are rejected. Blacklists apply to scenarios in which you want to block access from specified IP addresses to an application.
+        # 
+        #     If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.
+        # 
+        # >  If **AclStatus** is set to **on**, this parameter is returned.
         self.acl_type = acl_type  # type: str
+        # The backend port used by the CLB instance.
+        # 
+        # >  If the listener is associated with a vServer group, this parameter is not returned.
         self.backend_server_port = backend_server_port  # type: int
+        # The maximum bandwidth of the listener. Unit: Mbit/s. Valid values:
+        # 
+        # *   **-1**: For a pay-by-data-transfer Internet-facing CLB instance, this parameter is set to -1. This indicates that the bandwidth of the listener is unlimited.
+        # *   **1** to **5120**: For a pay-by-bandwidth Internet-facing CLB instance, you can specify the maximum bandwidth of each listener. The sum of maximum bandwidth of all listeners cannot exceed the maximum bandwidth of the CLB instance.
         self.bandwidth = bandwidth  # type: int
+        # Indicates whether connection draining is enabled. If **ConnectionDrain** is set to **on**, the parameter is returned. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.connection_drain = connection_drain  # type: str
+        # The timeout period of connection draining. If **ConnectionDrain** is set to **on**, the parameter is returned.
+        # 
+        # Valid values: 10 to 900. Unit: seconds.
         self.connection_drain_timeout = connection_drain_timeout  # type: int
+        # The description of the listener.
         self.description = description  # type: str
+        # The timeout period of a connection.
         self.established_timeout = established_timeout  # type: int
+        # Indicates whether the health check feature is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.health_check = health_check  # type: str
+        # The port that is used for health checks. Valid values: **1** to **65535**. If this parameter is not set, the port specified by BackendServerPort is used for health checks.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The timeout period.
         self.health_check_connect_timeout = health_check_connect_timeout  # type: int
+        # The domain name that is used for health checks. Valid values:
+        # 
+        # *   **$\_ip**: the private IP addresses of backend servers. If you do not set the HealthCheckDomain parameter or set the parameter to $\_ip, the CLB instance uses the private IP address of each backend server for health checks.
+        # *   **domain**: The domain name is 1 to 80 characters in length, and can contain letters, digits, periods (.), and hyphens (-).
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status code for a successful health check.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The interval between two consecutive health checks. Valid values: **1** to **50**. Unit: seconds.
         self.health_check_interval = health_check_interval  # type: int
+        # The health check method.
         self.health_check_method = health_check_method  # type: str
+        # The health check method that is used by the TCP listener.
+        # 
+        # Valid values: **tcp** and **http**.
         self.health_check_type = health_check_type  # type: str
+        # The URL that is used for health checks. The URL must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), percent signs (%), question marks (?), number signs (#), and ampersands (&). The URL is not a single forward slash (/) but it starts with a forward slash (/).
         self.health_check_uri = health_check_uri  # type: str
+        # The healthy threshold. The number of times that an unhealthy backend server must consecutively pass health checks before it is declared healthy. In this case, the health status is changed from **fail** to **success**. Valid values: **2** to **10**.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The frontend port used by the CLB instance.
         self.listener_port = listener_port  # type: int
+        # The ID of the CLB instance.
+        self.load_balancer_id = load_balancer_id  # type: str
+        # The ID of the primary/secondary server group that is associated with the listener.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
+        # The timeout period of session persistence.
+        # 
+        # Valid values: **0** to **3600**. Unit: seconds. Default value: **0**. If the default value is used, the system disables session persistence.
         self.persistence_timeout = persistence_timeout  # type: int
+        # Indicates whether the Proxy protocol is used to pass client IP addresses to backend servers. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
+        self.proxy_protocol_v2enabled = proxy_protocol_v2enabled  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The scheduling algorithm.
+        # 
+        # *   **wrr** (default): Backend servers with higher weights receive more requests than backend servers with lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
         self.scheduler = scheduler  # type: str
+        # The status of the listener. Valid values:
+        # 
+        # *   **running**\
+        # *   **stopped**\
         self.status = status  # type: str
+        # Indicates whether the SynProxy feature of CLB is enabled for protection.
+        # 
+        # We recommend that you use the default value of this parameter. Valid values:
+        # 
+        # *   **enable**: yes
+        # *   **disable**: no
         self.syn_proxy = syn_proxy  # type: str
+        # The tags.
+        self.tags = tags  # type: DescribeLoadBalancerTCPListenerAttributeResponseBodyTags
+        # The unhealthy threshold. The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**. Valid values: **2** to **10**.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # The ID of the associated server group.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
-        pass
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeLoadBalancerTCPListenerAttributeResponseBody, self).to_map()
@@ -7988,10 +11859,14 @@ class DescribeLoadBalancerTCPListenerAttributeResponseBody(TeaModel):
             result['HealthyThreshold'] = self.healthy_threshold
         if self.listener_port is not None:
             result['ListenerPort'] = self.listener_port
+        if self.load_balancer_id is not None:
+            result['LoadBalancerId'] = self.load_balancer_id
         if self.master_slave_server_group_id is not None:
             result['MasterSlaveServerGroupId'] = self.master_slave_server_group_id
         if self.persistence_timeout is not None:
             result['PersistenceTimeout'] = self.persistence_timeout
+        if self.proxy_protocol_v2enabled is not None:
+            result['ProxyProtocolV2Enabled'] = self.proxy_protocol_v2enabled
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.scheduler is not None:
@@ -8000,6 +11875,8 @@ class DescribeLoadBalancerTCPListenerAttributeResponseBody(TeaModel):
             result['Status'] = self.status
         if self.syn_proxy is not None:
             result['SynProxy'] = self.syn_proxy
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         if self.unhealthy_threshold is not None:
             result['UnhealthyThreshold'] = self.unhealthy_threshold
         if self.vserver_group_id is not None:
@@ -8048,10 +11925,14 @@ class DescribeLoadBalancerTCPListenerAttributeResponseBody(TeaModel):
             self.healthy_threshold = m.get('HealthyThreshold')
         if m.get('ListenerPort') is not None:
             self.listener_port = m.get('ListenerPort')
+        if m.get('LoadBalancerId') is not None:
+            self.load_balancer_id = m.get('LoadBalancerId')
         if m.get('MasterSlaveServerGroupId') is not None:
             self.master_slave_server_group_id = m.get('MasterSlaveServerGroupId')
         if m.get('PersistenceTimeout') is not None:
             self.persistence_timeout = m.get('PersistenceTimeout')
+        if m.get('ProxyProtocolV2Enabled') is not None:
+            self.proxy_protocol_v2enabled = m.get('ProxyProtocolV2Enabled')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('Scheduler') is not None:
@@ -8060,6 +11941,9 @@ class DescribeLoadBalancerTCPListenerAttributeResponseBody(TeaModel):
             self.status = m.get('Status')
         if m.get('SynProxy') is not None:
             self.syn_proxy = m.get('SynProxy')
+        if m.get('Tags') is not None:
+            temp_model = DescribeLoadBalancerTCPListenerAttributeResponseBodyTags()
+            self.tags = temp_model.from_map(m['Tags'])
         if m.get('UnhealthyThreshold') is not None:
             self.unhealthy_threshold = m.get('UnhealthyThreshold')
         if m.get('VServerGroupId') is not None:
@@ -8068,12 +11952,14 @@ class DescribeLoadBalancerTCPListenerAttributeResponseBody(TeaModel):
 
 
 class DescribeLoadBalancerTCPListenerAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeLoadBalancerTCPListenerAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8086,6 +11972,8 @@ class DescribeLoadBalancerTCPListenerAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8094,6 +11982,8 @@ class DescribeLoadBalancerTCPListenerAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeLoadBalancerTCPListenerAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8103,10 +11993,15 @@ class DescribeLoadBalancerTCPListenerAttributeResponse(TeaModel):
 class DescribeLoadBalancerUDPListenerAttributeRequest(TeaModel):
     def __init__(self, listener_port=None, load_balancer_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The frontend port used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
         self.listener_port = listener_port  # type: int
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Classic Load Balancer (CLB) instance is deployed.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -8155,35 +12050,152 @@ class DescribeLoadBalancerUDPListenerAttributeRequest(TeaModel):
         return self
 
 
+class DescribeLoadBalancerUDPListenerAttributeResponseBodyTagsTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tag key.
+        self.tag_key = tag_key  # type: str
+        # The tag value.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeLoadBalancerUDPListenerAttributeResponseBodyTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeLoadBalancerUDPListenerAttributeResponseBodyTags(TeaModel):
+    def __init__(self, tag=None):
+        self.tag = tag  # type: list[DescribeLoadBalancerUDPListenerAttributeResponseBodyTagsTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeLoadBalancerUDPListenerAttributeResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeLoadBalancerUDPListenerAttributeResponseBodyTagsTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeLoadBalancerUDPListenerAttributeResponseBody(TeaModel):
     def __init__(self, acl_id=None, acl_status=None, acl_type=None, backend_server_port=None, bandwidth=None,
                  description=None, health_check=None, health_check_connect_port=None, health_check_connect_timeout=None,
                  health_check_exp=None, health_check_interval=None, health_check_req=None, healthy_threshold=None,
-                 listener_port=None, master_slave_server_group_id=None, request_id=None, scheduler=None, status=None,
-                 unhealthy_threshold=None, vserver_group_id=None):
+                 listener_port=None, load_balancer_id=None, master_slave_server_group_id=None, proxy_protocol_v2enabled=None,
+                 request_id=None, scheduler=None, status=None, tags=None, unhealthy_threshold=None, vserver_group_id=None):
+        # The ID of the network ACL.
         self.acl_id = acl_id  # type: str
+        # Indicates whether access control is enabled. Valid values: **on** and **off**. Default value: off.
         self.acl_status = acl_status  # type: str
+        # The type of the ACL. Valid values:
+        # 
+        # *   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios in which you want to allow only specified IP addresses to access an application.
+        # 
+        #     Your service may be adversely affected if the whitelist is not properly configured. After a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener. If you enable a whitelist but do not add an IP address to the ACL, the listener forwards all requests.
+        # 
+        # *   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the network ACL are blocked. Blacklists apply to scenarios in which you want to deny access from specific IP addresses or CIDR blocks to an application.
+        # 
+        #     If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.
         self.acl_type = acl_type  # type: str
+        # The backend port used by the CLB instance.
+        # 
+        # >  If the listener is associated with a vServer group, this parameter is not returned.
         self.backend_server_port = backend_server_port  # type: int
+        # The maximum bandwidth of the listener. Unit: Mbit/s. Valid values:
+        # 
+        # *   **-1**: For a pay-by-data-transfer Internet-facing CLB instance, this parameter is set to -1. This indicates that the bandwidth of the listener is unlimited.
+        # *   **1** to **5120**: For a pay-by-bandwidth Internet-facing CLB instance, you can specify the maximum bandwidth of each listener. The sum of maximum bandwidth of all listeners cannot exceed the maximum bandwidth of the CLB instance.
         self.bandwidth = bandwidth  # type: int
+        # The description of the listener.
         self.description = description  # type: str
+        # Indicates whether the health check feature is enabled. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.health_check = health_check  # type: str
+        # The port that is used for health checks. Valid values: **1** to **65535**. If this parameter is not set, the port specified by BackendServerPort is used for health checks.
+        # 
+        # >  This parameter takes effect only when the **HealthCheck** parameter is set to **on**.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The timeout period of a health check. If a backend Elastic Compute Service (ECS) instance does not return a health check response within the specified timeout period, the server fails the health check. Valid values: **1** to **300**. Unit: seconds.
         self.health_check_connect_timeout = health_check_connect_timeout  # type: int
+        # The response string for UDP listener health checks. The string is up to 64 characters in length, and can contain letters and digits.
         self.health_check_exp = health_check_exp  # type: str
+        # The interval between two consecutive health checks. Valid values: **1** to **50**. Unit: seconds.
         self.health_check_interval = health_check_interval  # type: int
+        # The request string for UDP listener health checks. The string is up to 64 characters in length, and can contain letters and digits.
         self.health_check_req = health_check_req  # type: str
+        # The healthy threshold. The number of times that an unhealthy backend server must consecutively pass health checks before it is declared healthy. In this case, the health status is changed from **fail** to **success**. Valid values: **2** to **10**.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The frontend port used by the CLB instance.
         self.listener_port = listener_port  # type: int
+        # The ID of the CLB instance.
+        self.load_balancer_id = load_balancer_id  # type: str
+        # The ID of the primary/secondary server group that is associated with the listener.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
+        # Indicates whether the Proxy protocol is used to pass client IP addresses to backend servers. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
+        self.proxy_protocol_v2enabled = proxy_protocol_v2enabled  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The scheduling algorithm. Valid values:
+        # 
+        # *   **wrr** (default): Backend servers with higher weights receive more requests than backend servers with lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
         self.scheduler = scheduler  # type: str
+        # The status of the listener. Valid values:
+        # 
+        # *   **running**\
+        # *   **stopped**\
         self.status = status  # type: str
+        # The tags.
+        self.tags = tags  # type: DescribeLoadBalancerUDPListenerAttributeResponseBodyTags
+        # The unhealthy threshold. The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**. Valid values: **2** to **10**.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # The ID of the vServer group that is associated with the listener.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
-        pass
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeLoadBalancerUDPListenerAttributeResponseBody, self).to_map()
@@ -8219,14 +12231,20 @@ class DescribeLoadBalancerUDPListenerAttributeResponseBody(TeaModel):
             result['HealthyThreshold'] = self.healthy_threshold
         if self.listener_port is not None:
             result['ListenerPort'] = self.listener_port
+        if self.load_balancer_id is not None:
+            result['LoadBalancerId'] = self.load_balancer_id
         if self.master_slave_server_group_id is not None:
             result['MasterSlaveServerGroupId'] = self.master_slave_server_group_id
+        if self.proxy_protocol_v2enabled is not None:
+            result['ProxyProtocolV2Enabled'] = self.proxy_protocol_v2enabled
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.scheduler is not None:
             result['Scheduler'] = self.scheduler
         if self.status is not None:
             result['Status'] = self.status
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         if self.unhealthy_threshold is not None:
             result['UnhealthyThreshold'] = self.unhealthy_threshold
         if self.vserver_group_id is not None:
@@ -8263,14 +12281,21 @@ class DescribeLoadBalancerUDPListenerAttributeResponseBody(TeaModel):
             self.healthy_threshold = m.get('HealthyThreshold')
         if m.get('ListenerPort') is not None:
             self.listener_port = m.get('ListenerPort')
+        if m.get('LoadBalancerId') is not None:
+            self.load_balancer_id = m.get('LoadBalancerId')
         if m.get('MasterSlaveServerGroupId') is not None:
             self.master_slave_server_group_id = m.get('MasterSlaveServerGroupId')
+        if m.get('ProxyProtocolV2Enabled') is not None:
+            self.proxy_protocol_v2enabled = m.get('ProxyProtocolV2Enabled')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('Scheduler') is not None:
             self.scheduler = m.get('Scheduler')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('Tags') is not None:
+            temp_model = DescribeLoadBalancerUDPListenerAttributeResponseBodyTags()
+            self.tags = temp_model.from_map(m['Tags'])
         if m.get('UnhealthyThreshold') is not None:
             self.unhealthy_threshold = m.get('UnhealthyThreshold')
         if m.get('VServerGroupId') is not None:
@@ -8279,12 +12304,14 @@ class DescribeLoadBalancerUDPListenerAttributeResponseBody(TeaModel):
 
 
 class DescribeLoadBalancerUDPListenerAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeLoadBalancerUDPListenerAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8297,6 +12324,8 @@ class DescribeLoadBalancerUDPListenerAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8305,9 +12334,46 @@ class DescribeLoadBalancerUDPListenerAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeLoadBalancerUDPListenerAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeLoadBalancersRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # 
+        # The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        self.key = key  # type: str
+        # The value of the tag. You can specify up to 20 tag values. The tag value can be an empty string.
+        # 
+        # The tag value can be at most 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeLoadBalancersRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
         return self
 
 
@@ -8316,34 +12382,92 @@ class DescribeLoadBalancersRequest(TeaModel):
                  load_balancer_id=None, load_balancer_name=None, load_balancer_status=None, master_zone_id=None, network_type=None,
                  owner_account=None, owner_id=None, page_number=None, page_size=None, pay_type=None, region_id=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None, server_id=None,
-                 server_intranet_address=None, slave_zone_id=None, tags=None, v_switch_id=None, vpc_id=None):
+                 server_intranet_address=None, slave_zone_id=None, tag=None, tags=None, v_switch_id=None, vpc_id=None):
+        # The IP address that the CLB instance uses to provide services.
         self.address = address  # type: str
+        # The IP version that is used by the CLB instance. Valid values: **ipv4** and **ipv6**.
         self.address_ipversion = address_ipversion  # type: str
+        # The network type of the CLB instance. Valid values:
+        # 
+        # *   **internet:** After an Internet-facing CLB instance is created, the system assigns a public IP address to the CLB instance. Then, the CLB instance can forward requests over the Internet.
+        # *   **intranet:** After an internal-facing CLB instance is created, the system assigns a private IP address to the CLB instance. Then, the CLB instance can forward requests only over internal networks.
         self.address_type = address_type  # type: str
+        # The metering method of Internet data transfer. Valid values:
+        # 
+        # *   **paybybandwidth:** pay-by-bandwidth.
+        # *   **paybytraffic:** pay-by-data-transfer.
         self.internet_charge_type = internet_charge_type  # type: str
+        # The ID of the CLB instance.
+        # 
+        # You can specify up to 10 IDs. Separate multiple IDs with commas (,).
         self.load_balancer_id = load_balancer_id  # type: str
+        # The name of the CLB instance.
+        # 
+        # The name must be 1 to 80 characters in length, and can contain digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter.
+        # 
+        # You can specify up to 10 names. Separate multiple names with commas (,).
         self.load_balancer_name = load_balancer_name  # type: str
+        # The status of the CLB instance. Valid values:
+        # 
+        # *   **inactive:** The CLB instance is disabled. CLB instances in the inactive state do not forward traffic.
+        # *   **active:** The CLB instance runs as expected. By default, newly created CLB instances are in the **active** state.
+        # *   **locked:** The CLB instance is locked. After a CLB instance expires, it is locked for seven days. A locked CLB instance cannot forward traffic and you cannot perform operations on the locked CLB instance. However, other settings such as the IP address are retained.
         self.load_balancer_status = load_balancer_status  # type: str
+        # The ID of the primary zone to which the CLB instance belongs.
         self.master_zone_id = master_zone_id  # type: str
+        # The network type of the internal-facing CLB instance. Valid values:
+        # 
+        # *   **vpc:** VPC.
+        # *   **classic:** classic network.
         self.network_type = network_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
+        # 
+        # Valid values: **1** to **100**.
+        # 
+        # >  If you specify the **PageSize** parameter, you must also specify the **PageNumber** parameter.
         self.page_size = page_size  # type: int
+        # The billing method of the CLB instance. Valid values:
+        # 
+        # *   Set the value to **PayOnDemand**.
         self.pay_type = pay_type  # type: str
+        # The ID of the region where the CLB instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the backend server that is added to the CLB instance.
         self.server_id = server_id  # type: str
+        # The private IP address of the backend server that is added to the CLB instance.
+        # 
+        # You can specify multiple IP addresses. Separate multiple IP addresses with commas (,).
         self.server_intranet_address = server_intranet_address  # type: str
+        # The ID of the secondary zone to which the CLB instance belongs.
+        # 
+        # CLB instances on Alibaba Finance Cloud do not support cross-zone deployment.
         self.slave_zone_id = slave_zone_id  # type: str
+        # The tags.
+        self.tag = tag  # type: list[DescribeLoadBalancersRequestTag]
+        # The tags that are added to the CLB instance. The tags must be key-value pairs that are contained in a JSON dictionary.
+        # 
+        # You can specify up to 10 tags in each call.
         self.tags = tags  # type: str
+        # The ID of the vSwitch to which the CLB instance belongs.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the virtual private cloud (VPC) to which the CLB instance belongs.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeLoadBalancersRequest, self).to_map()
@@ -8393,6 +12517,10 @@ class DescribeLoadBalancersRequest(TeaModel):
             result['ServerIntranetAddress'] = self.server_intranet_address
         if self.slave_zone_id is not None:
             result['SlaveZoneId'] = self.slave_zone_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.tags is not None:
             result['Tags'] = self.tags
         if self.v_switch_id is not None:
@@ -8445,6 +12573,11 @@ class DescribeLoadBalancersRequest(TeaModel):
             self.server_intranet_address = m.get('ServerIntranetAddress')
         if m.get('SlaveZoneId') is not None:
             self.slave_zone_id = m.get('SlaveZoneId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeLoadBalancersRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('Tags') is not None:
             self.tags = m.get('Tags')
         if m.get('VSwitchId') is not None:
@@ -8456,7 +12589,9 @@ class DescribeLoadBalancersRequest(TeaModel):
 
 class DescribeLoadBalancersResponseBodyLoadBalancersLoadBalancerTagsTag(TeaModel):
     def __init__(self, tag_key=None, tag_value=None):
+        # The key of the tag.
         self.tag_key = tag_key  # type: str
+        # The value of the tag.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -8517,35 +12652,98 @@ class DescribeLoadBalancersResponseBodyLoadBalancersLoadBalancerTags(TeaModel):
 
 class DescribeLoadBalancersResponseBodyLoadBalancersLoadBalancer(TeaModel):
     def __init__(self, address=None, address_ipversion=None, address_type=None, bandwidth=None, create_time=None,
-                 create_time_stamp=None, delete_protection=None, internet_charge_type=None, internet_charge_type_alias=None,
-                 load_balancer_id=None, load_balancer_name=None, load_balancer_spec=None, load_balancer_status=None,
-                 master_zone_id=None, modification_protection_reason=None, modification_protection_status=None,
-                 network_type=None, pay_type=None, region_id=None, region_id_alias=None, resource_group_id=None,
-                 slave_zone_id=None, tags=None, v_switch_id=None, vpc_id=None):
+                 create_time_stamp=None, delete_protection=None, instance_charge_type=None, internet_charge_type=None,
+                 internet_charge_type_alias=None, load_balancer_id=None, load_balancer_name=None, load_balancer_spec=None,
+                 load_balancer_status=None, master_zone_id=None, modification_protection_reason=None,
+                 modification_protection_status=None, network_type=None, pay_type=None, region_id=None, region_id_alias=None,
+                 resource_group_id=None, slave_zone_id=None, tags=None, v_switch_id=None, vpc_id=None):
+        # The endpoint of the CLB instance.
         self.address = address  # type: str
+        # The IP version that is used by the CLB instance. Valid values: **ipv4** and **ipv6**.
         self.address_ipversion = address_ipversion  # type: str
+        # The network type of the CLB instance. Valid values:
+        # 
+        # *   **internet:** After an Internet-facing CLB instance is created, the system assigns a public IP address to the CLB instance. Then, the CLB instance can forward requests over the Internet.
+        # *   **intranet:** After an internal-facing CLB instance is created, the system assigns a private IP address to the CLB instance. Then, the CLB instance can forward requests only over internal networks.
         self.address_type = address_type  # type: str
+        # The maximum bandwidth of the listener. Unit: Mbit/s. Valid values:
+        # 
+        # *   **-1:** For a pay-by-data-transfer Internet-facing CLB instance, this value is set to -1. This indicates that the bandwidth is unlimited.
+        # *   **1 to 5120:** For a pay-by-bandwidth Internet-facing CLB instance, you can specify the maximum bandwidth for each listener. The sum of the maximum bandwidth of all listeners cannot exceed the maximum bandwidth of the CLB instance.
         self.bandwidth = bandwidth  # type: int
+        # The time when the CLB instance was created. The time follows the `YYYY-MM-DDThh:mm:ssZ` format.
         self.create_time = create_time  # type: str
+        # The timestamp when the instance was created.
         self.create_time_stamp = create_time_stamp  # type: long
+        # Indicates whether deletion protection is enabled for the CLB instance. Valid values:
+        # 
+        # *   **on:** Deletion protection is enabled.
+        # *   **off:** Deletion protection is disabled.
         self.delete_protection = delete_protection  # type: str
+        # The metering method of the CLB instance. Valid values:
+        # 
+        # *   **PayBySpec:** pay-by-specification.
+        # *   **PayByCLCU:** pay-by-LCU.
+        # 
+        # >  This parameter takes effect only for accounts registered on the China site (aliyun.com) and when the **PayType** parameter is set to **PayOnDemand**.
+        self.instance_charge_type = instance_charge_type  # type: str
+        # The metering method of the Internet-facing CLB instance. Valid values:
+        # 
+        # *   **3:** pay-by-bandwidth (**paybybandwidth**).
+        # *   **4:** pay-by-data-transfer (**paybytraffic**).
         self.internet_charge_type = internet_charge_type  # type: str
+        # The metering method of Internet data transfer. Valid values:
+        # 
+        # *   **paybybandwidth:** pay-by-bandwidth.
+        # *   **paybytraffic:** pay-by-data-transfer.
         self.internet_charge_type_alias = internet_charge_type_alias  # type: str
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The name of the CLB instance.
         self.load_balancer_name = load_balancer_name  # type: str
+        # The specification of the CLB instance.
         self.load_balancer_spec = load_balancer_spec  # type: str
+        # The status of the CLB instance. Valid values:
+        # 
+        # *   **inactive:** The CLB instance is disabled. CLB instances in the inactive state do not forward traffic.
+        # *   **active:** The CLB instance runs as expected. By default, newly created CLB instances are in the **active** state.
+        # *   **locked:** The CLB instance is locked.
         self.load_balancer_status = load_balancer_status  # type: str
+        # The ID of the primary zone to which the CLB instance belongs.
         self.master_zone_id = master_zone_id  # type: str
+        # The reason why the configuration read-only mode was enabled. The reason must be 1 to 80 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The reason must start with a letter.
+        # 
+        # > This parameter takes effect only when you set the `ModificationProtectionStatus` parameter to **ConsoleProtection**.
         self.modification_protection_reason = modification_protection_reason  # type: str
+        # Indicates whether the configuration read-only mode is enabled for the CLB instance. Valid values:
+        # 
+        # *   **NonProtection:** The configuration read-only mode is disabled. In this case, you cannot specify the ModificationProtectionReason parameter. If you specify the `ModificationProtectionReason` parameter, the value is cleared.
+        # *   **ConsoleProtection:** The configuration read-only mode is enabled.
+        # 
+        # >  If you set this parameter to **ConsoleProtection**, you cannot modify the configurations of the CLB instance in the CLB console. However, you can call API operations to modify the configurations of the CLB instance.
         self.modification_protection_status = modification_protection_status  # type: str
+        # The network type of the internal-facing CLB instance. Valid values:
+        # 
+        # *   **vpc:** VPC.
+        # *   **classic:** classic network.
         self.network_type = network_type  # type: str
+        # The billing method of the CLB instance.
+        # 
+        # *   **PayOnDemand** is returned, which indicates the pay-as-you-go billing method.
         self.pay_type = pay_type  # type: str
+        # The ID of the region where the CLB instance was deployed.
         self.region_id = region_id  # type: str
+        # The region where the CLB instance was deployed.
         self.region_id_alias = region_id_alias  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the secondary zone to which the CLB instance belongs.
         self.slave_zone_id = slave_zone_id  # type: str
+        # The tags of the CLB instance.
         self.tags = tags  # type: DescribeLoadBalancersResponseBodyLoadBalancersLoadBalancerTags
+        # The ID of the vSwitch to which the internal-facing CLB instance belongs.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the VPC in which the internal-facing CLB instance was deployed.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -8572,6 +12770,8 @@ class DescribeLoadBalancersResponseBodyLoadBalancersLoadBalancer(TeaModel):
             result['CreateTimeStamp'] = self.create_time_stamp
         if self.delete_protection is not None:
             result['DeleteProtection'] = self.delete_protection
+        if self.instance_charge_type is not None:
+            result['InstanceChargeType'] = self.instance_charge_type
         if self.internet_charge_type is not None:
             result['InternetChargeType'] = self.internet_charge_type
         if self.internet_charge_type_alias is not None:
@@ -8626,6 +12826,8 @@ class DescribeLoadBalancersResponseBodyLoadBalancersLoadBalancer(TeaModel):
             self.create_time_stamp = m.get('CreateTimeStamp')
         if m.get('DeleteProtection') is not None:
             self.delete_protection = m.get('DeleteProtection')
+        if m.get('InstanceChargeType') is not None:
+            self.instance_charge_type = m.get('InstanceChargeType')
         if m.get('InternetChargeType') is not None:
             self.internet_charge_type = m.get('InternetChargeType')
         if m.get('InternetChargeTypeAlias') is not None:
@@ -8700,10 +12902,15 @@ class DescribeLoadBalancersResponseBodyLoadBalancers(TeaModel):
 
 class DescribeLoadBalancersResponseBody(TeaModel):
     def __init__(self, load_balancers=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # An array of CLB instances.
         self.load_balancers = load_balancers  # type: DescribeLoadBalancersResponseBodyLoadBalancers
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned on the current page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The number of instances returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -8745,12 +12952,14 @@ class DescribeLoadBalancersResponseBody(TeaModel):
 
 
 class DescribeLoadBalancersResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeLoadBalancersResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8763,6 +12972,8 @@ class DescribeLoadBalancersResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8771,6 +12982,8 @@ class DescribeLoadBalancersResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeLoadBalancersResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8780,9 +12993,11 @@ class DescribeLoadBalancersResponse(TeaModel):
 class DescribeMasterSlaveServerGroupAttributeRequest(TeaModel):
     def __init__(self, master_slave_server_group_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The ID of the primary/secondary server group.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the Classic Load Balancer (CLB) instance.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -8829,11 +13044,20 @@ class DescribeMasterSlaveServerGroupAttributeRequest(TeaModel):
 
 class DescribeMasterSlaveServerGroupAttributeResponseBodyMasterSlaveBackendServersMasterSlaveBackendServer(TeaModel):
     def __init__(self, description=None, port=None, server_id=None, server_type=None, type=None, weight=None):
+        # The description of the primary/secondary server group.
         self.description = description  # type: str
+        # The port used by the backend server.
         self.port = port  # type: int
+        # The ID of the ECS instance or ENI.
         self.server_id = server_id  # type: str
+        # The type of backend server. Valid values: **Master and Slave. Default value: Master.
         self.server_type = server_type  # type: str
+        # The type of the backend server. Valid values:
+        # 
+        # *   **ecs** (default): an Elastic Compute Service (ECS) instance
+        # *   **eni**: an elastic network interface (ENI)
         self.type = type  # type: str
+        # The weight of the backend server.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -8908,18 +13132,92 @@ class DescribeMasterSlaveServerGroupAttributeResponseBodyMasterSlaveBackendServe
         return self
 
 
+class DescribeMasterSlaveServerGroupAttributeResponseBodyTagsTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tag key.
+        self.tag_key = tag_key  # type: str
+        # The tag value.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeMasterSlaveServerGroupAttributeResponseBodyTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeMasterSlaveServerGroupAttributeResponseBodyTags(TeaModel):
+    def __init__(self, tag=None):
+        self.tag = tag  # type: list[DescribeMasterSlaveServerGroupAttributeResponseBodyTagsTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeMasterSlaveServerGroupAttributeResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeMasterSlaveServerGroupAttributeResponseBodyTagsTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeMasterSlaveServerGroupAttributeResponseBody(TeaModel):
-    def __init__(self, load_balancer_id=None, master_slave_backend_servers=None,
-                 master_slave_server_group_id=None, master_slave_server_group_name=None, request_id=None):
+    def __init__(self, create_time=None, load_balancer_id=None, master_slave_backend_servers=None,
+                 master_slave_server_group_id=None, master_slave_server_group_name=None, request_id=None, tags=None):
+        # The time when the CLB instance was created. The time follows the `YYYY-MM-DDThh:mm:ssZ` format.
+        self.create_time = create_time  # type: str
+        # The ID of the associated CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The list of backend servers in the primary/secondary server group.
         self.master_slave_backend_servers = master_slave_backend_servers  # type: DescribeMasterSlaveServerGroupAttributeResponseBodyMasterSlaveBackendServers
+        # The ID of the primary/secondary server group.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
+        # The name of the primary/secondary server group.
         self.master_slave_server_group_name = master_slave_server_group_name  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The tag list.
+        self.tags = tags  # type: DescribeMasterSlaveServerGroupAttributeResponseBodyTags
 
     def validate(self):
         if self.master_slave_backend_servers:
             self.master_slave_backend_servers.validate()
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeMasterSlaveServerGroupAttributeResponseBody, self).to_map()
@@ -8927,6 +13225,8 @@ class DescribeMasterSlaveServerGroupAttributeResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.load_balancer_id is not None:
             result['LoadBalancerId'] = self.load_balancer_id
         if self.master_slave_backend_servers is not None:
@@ -8937,10 +13237,14 @@ class DescribeMasterSlaveServerGroupAttributeResponseBody(TeaModel):
             result['MasterSlaveServerGroupName'] = self.master_slave_server_group_name
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('LoadBalancerId') is not None:
             self.load_balancer_id = m.get('LoadBalancerId')
         if m.get('MasterSlaveBackendServers') is not None:
@@ -8952,16 +13256,21 @@ class DescribeMasterSlaveServerGroupAttributeResponseBody(TeaModel):
             self.master_slave_server_group_name = m.get('MasterSlaveServerGroupName')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Tags') is not None:
+            temp_model = DescribeMasterSlaveServerGroupAttributeResponseBodyTags()
+            self.tags = temp_model.from_map(m['Tags'])
         return self
 
 
 class DescribeMasterSlaveServerGroupAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeMasterSlaveServerGroupAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8974,6 +13283,8 @@ class DescribeMasterSlaveServerGroupAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8982,25 +13293,74 @@ class DescribeMasterSlaveServerGroupAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeMasterSlaveServerGroupAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class DescribeMasterSlaveServerGroupsRequest(TeaModel):
-    def __init__(self, include_listener=None, load_balancer_id=None, owner_account=None, owner_id=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None):
-        self.include_listener = include_listener  # type: bool
-        self.load_balancer_id = load_balancer_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
+class DescribeMasterSlaveServerGroupsRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The tag key. You can specify at most 20 tag keys.
+        # 
+        # The tag key cannot be an empty string. The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        self.key = key  # type: str
+        # The tag value. You can specify at most 20 tag values. The tag value cannot be an empty string.
+        # 
+        # The tag value must be 1 to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeMasterSlaveServerGroupsRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeMasterSlaveServerGroupsRequest(TeaModel):
+    def __init__(self, description=None, include_listener=None, load_balancer_id=None, owner_account=None,
+                 owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, tag=None):
+        self.description = description  # type: str
+        # Specifies whether to return information about the associated listeners. Valid values:
+        # 
+        # *   **true**: returns information about the associated listeners.
+        # *   **false**: does not return information about the associated listeners.
+        self.include_listener = include_listener  # type: bool
+        # The ID of the CLB instance.
+        self.load_balancer_id = load_balancer_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the Classic Load Balancer (CLB) instance.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The tags.
+        self.tag = tag  # type: list[DescribeMasterSlaveServerGroupsRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeMasterSlaveServerGroupsRequest, self).to_map()
@@ -9008,6 +13368,8 @@ class DescribeMasterSlaveServerGroupsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
         if self.include_listener is not None:
             result['IncludeListener'] = self.include_listener
         if self.load_balancer_id is not None:
@@ -9022,10 +13384,16 @@ class DescribeMasterSlaveServerGroupsRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('IncludeListener') is not None:
             self.include_listener = m.get('IncludeListener')
         if m.get('LoadBalancerId') is not None:
@@ -9040,12 +13408,19 @@ class DescribeMasterSlaveServerGroupsRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeMasterSlaveServerGroupsRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
 class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupAssociatedObjectsListenersListener(TeaModel):
     def __init__(self, port=None, protocol=None):
+        # The listening port.
         self.port = port  # type: int
+        # The listening protocol.
         self.protocol = protocol  # type: str
 
     def validate(self):
@@ -9106,6 +13481,7 @@ class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSl
 
 class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupAssociatedObjects(TeaModel):
     def __init__(self, listeners=None):
+        # The list of listeners.
         self.listeners = listeners  # type: DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupAssociatedObjectsListeners
 
     def validate(self):
@@ -9130,16 +13506,88 @@ class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSl
         return self
 
 
+class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupTagsTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tag keys.
+        self.tag_key = tag_key  # type: str
+        # The tag values.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupTags(TeaModel):
+    def __init__(self, tag=None):
+        self.tag = tag  # type: list[DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupTagsTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupTagsTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroup(TeaModel):
-    def __init__(self, associated_objects=None, master_slave_server_group_id=None,
-                 master_slave_server_group_name=None):
+    def __init__(self, associated_objects=None, create_time=None, master_slave_server_group_id=None,
+                 master_slave_server_group_name=None, tags=None):
+        # The associated resources.
         self.associated_objects = associated_objects  # type: DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupAssociatedObjects
+        # The time when the CLB instance was created. The time follows the `YYYY-MM-DDThh:mm:ssZ` format.
+        self.create_time = create_time  # type: str
+        # The ID of the primary/secondary server group.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
+        # The name of the primary/secondary server group.
         self.master_slave_server_group_name = master_slave_server_group_name  # type: str
+        # The tag key.
+        self.tags = tags  # type: DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupTags
 
     def validate(self):
         if self.associated_objects:
             self.associated_objects.validate()
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroup, self).to_map()
@@ -9149,10 +13597,14 @@ class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSl
         result = dict()
         if self.associated_objects is not None:
             result['AssociatedObjects'] = self.associated_objects.to_map()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.master_slave_server_group_id is not None:
             result['MasterSlaveServerGroupId'] = self.master_slave_server_group_id
         if self.master_slave_server_group_name is not None:
             result['MasterSlaveServerGroupName'] = self.master_slave_server_group_name
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         return result
 
     def from_map(self, m=None):
@@ -9160,10 +13612,15 @@ class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSl
         if m.get('AssociatedObjects') is not None:
             temp_model = DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupAssociatedObjects()
             self.associated_objects = temp_model.from_map(m['AssociatedObjects'])
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('MasterSlaveServerGroupId') is not None:
             self.master_slave_server_group_id = m.get('MasterSlaveServerGroupId')
         if m.get('MasterSlaveServerGroupName') is not None:
             self.master_slave_server_group_name = m.get('MasterSlaveServerGroupName')
+        if m.get('Tags') is not None:
+            temp_model = DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupTags()
+            self.tags = temp_model.from_map(m['Tags'])
         return self
 
 
@@ -9201,7 +13658,9 @@ class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroups(TeaMode
 
 class DescribeMasterSlaveServerGroupsResponseBody(TeaModel):
     def __init__(self, master_slave_server_groups=None, request_id=None):
+        # The list of backend servers in the primary/secondary server group.
         self.master_slave_server_groups = master_slave_server_groups  # type: DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroups
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9231,12 +13690,14 @@ class DescribeMasterSlaveServerGroupsResponseBody(TeaModel):
 
 
 class DescribeMasterSlaveServerGroupsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeMasterSlaveServerGroupsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9249,6 +13710,8 @@ class DescribeMasterSlaveServerGroupsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9257,6 +13720,8 @@ class DescribeMasterSlaveServerGroupsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeMasterSlaveServerGroupsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9266,9 +13731,15 @@ class DescribeMasterSlaveServerGroupsResponse(TeaModel):
 class DescribeRegionsRequest(TeaModel):
     def __init__(self, accept_language=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The supported language. Valid values:
+        # 
+        # *   zh-CN: Chinese
+        # *   en-US: English
+        # *   ja: Japanese
         self.accept_language = accept_language  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -9315,8 +13786,11 @@ class DescribeRegionsRequest(TeaModel):
 
 class DescribeRegionsResponseBodyRegionsRegion(TeaModel):
     def __init__(self, local_name=None, region_endpoint=None, region_id=None):
+        # The name of the region.
         self.local_name = local_name  # type: str
+        # The endpoint of the region.
         self.region_endpoint = region_endpoint  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9381,7 +13855,9 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, regions=None, request_id=None):
+        # The list of regions.
         self.regions = regions  # type: DescribeRegionsResponseBodyRegions
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9411,12 +13887,14 @@ class DescribeRegionsResponseBody(TeaModel):
 
 
 class DescribeRegionsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9429,6 +13907,8 @@ class DescribeRegionsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9437,6 +13917,8 @@ class DescribeRegionsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRegionsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9448,9 +13930,13 @@ class DescribeRuleAttributeRequest(TeaModel):
                  resource_owner_id=None, rule_id=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Server Load Balancer (SLB) instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the forwarding rule.
         self.rule_id = rule_id  # type: str
 
     def validate(self):
@@ -9499,28 +13985,113 @@ class DescribeRuleAttributeResponseBody(TeaModel):
                  health_check_timeout=None, health_check_uri=None, healthy_threshold=None, listener_port=None, listener_sync=None,
                  load_balancer_id=None, request_id=None, rule_id=None, rule_name=None, scheduler=None, sticky_session=None,
                  sticky_session_type=None, unhealthy_threshold=None, url=None, vserver_group_id=None):
+        # The cookie to be configured on the backend server.
+        # 
+        # The cookie must be 1 to 200 characters in length and can contain ASCII letters and digits. It cannot contain commas (,), semicolons (;), or whitespace characters. It cannot start with a dollar sign ($).
+        # 
+        # If you set the **StickySession** parameter to **on** and the **StickySessionType** parameter to **server**, this parameter is required.
         self.cookie = cookie  # type: str
+        # The timeout period of a cookie.
+        # 
+        # Valid values: **1 to 86400**. Unit: seconds.
+        # 
+        # >  If you set the **StickySession** parameter to **on** and the **StickySessionType** parameter to **insert**, this parameter is required.
         self.cookie_timeout = cookie_timeout  # type: int
+        # The domain name that is configured in the forwarding rule.
         self.domain = domain  # type: str
+        # Specifies whether to enable health checks.
+        # 
+        # Valid values: **on** and **off**.
+        # 
+        # >  If you set the **ListenerSync** parameter to **off**, this parameter is required. If you set the parameter to **on**, the configuration of the listener is used.
         self.health_check = health_check  # type: str
+        # The port of the backend server that is used for health checks.
+        # 
+        # Valid values: **1** to **65535**.
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required. If you left this parameter empty and the **HealthCheck** parameter is set to **on**, the backend port configuration of the listener is used by default.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The domain name that is used for health checks. Valid values:
+        # 
+        # *   **$\_ip**: The private IP address of the backend server. If the $\_ip parameter is set or the HealthCheckDomain parameter is not set, SLB uses the private IP addresses of backend servers as the domain names for health checks.
+        # *   **domain**: The domain name must be 1 to 80 characters in length. It can contain only letters, digits, periods (.),and hyphens (-).
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status code that indicates a successful health check. Separate multiple HTTP status codes with commas (,). Default value: **http\_2xx**.
+        # 
+        # Valid values: **http\_2xx**, **http\_3xx**, **http\_4xx**, and **http\_5xx**.
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The time interval between two consecutive health checks.
+        # 
+        # Valid values: **1** to **50**. Unit: seconds.
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.health_check_interval = health_check_interval  # type: int
+        # The timeout period of a health check response. If a backend ECS instance does not send an expected response within the specified period of time, the ECS instance is considered unhealthy.
+        # 
+        # Valid values: **1** to **300**. Unit: seconds.
+        # 
+        # >  If the value of the **HealthCHeckTimeout** parameter is smaller than that of the **HealthCheckInterval** parameter, the value of the **HealthCHeckTimeout** parameter is ignored and the value of the **HealthCheckInterval** parameter is regarded as the waiting period. If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.health_check_timeout = health_check_timeout  # type: int
+        # The URI that is used for health checks.
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.health_check_uri = health_check_uri  # type: str
+        # The number of consecutive successful health checks that must occur before an unhealthy backend server is declared healthy. In this case, the health check state is changed from **fail** to **success**.
+        # 
+        # Valid values: **2** to **10**.
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The listener port that is used by the SLB instance.
         self.listener_port = listener_port  # type: str
+        # Indicates whether the forwarding rule uses the scheduling algorithm, session persistence, and health check configurations of the listener.
+        # 
+        # Valid values: **on** and **off**.
+        # 
+        # *   **off**: does not use the configurations of the listener. You can customize health check and session persistence configurations for the forwarding rule.
+        # *   **on**: uses the configurations of the listener.
         self.listener_sync = listener_sync  # type: str
+        # The ID of the SLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the forwarding rule.
         self.rule_id = rule_id  # type: str
+        # The name of the forwarding rule.
         self.rule_name = rule_name  # type: str
+        # The scheduling algorithm. Valid values:
+        # 
+        # *   **wrr** (default): Backend servers that have higher weights receive more requests than backend servers that have lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
+        # 
+        # >  If you set the **ListenerSync** parameter to **off**, this parameter is required. If you set the parameter to **on**, the configuration of the listener is used.
         self.scheduler = scheduler  # type: str
+        # Indicates whether session persistence is enabled.
+        # 
+        # Valid values: **on** and **off**.
+        # 
+        # >  If you set the **ListenerSync** parameter to **off**, this parameter is required. If you set the parameter to **on**, the configuration of the listener is used.
         self.sticky_session = sticky_session  # type: str
+        # The method that is used to handle a cookie. Valid values:
+        # 
+        # *   **insert**: inserts a cookie into the response. SLB inserts a cookie (SERVERID) into the first HTTP or HTTPS response packet that is sent to a client. The next request from the client will contain this cookie, and the listener will distribute this request to the recorded backend server.
+        # *   **server**: rewrites a cookie. When SLB detects a user-defined cookie, SLB overwrites the original cookie with the user-defined cookie. The next request from the client contains the user-defined cookie, and the listener distributes the request to the recorded backend server.
+        # 
+        # >  If you set the **StickySession** parameter to **on**, this parameter is required.
         self.sticky_session_type = sticky_session_type  # type: str
+        # The number of consecutive failed health checks that must occur before a healthy backend server is declared unhealthy. In this case, the health check state is changed from **success** to **fail**.
+        # 
+        # Valid values: **2** to **10**.
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # The URL that is configured in the forwarding rule.
         self.url = url  # type: str
+        # The ID of the vServer group that is associated with the forwarding rule.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -9632,12 +14203,14 @@ class DescribeRuleAttributeResponseBody(TeaModel):
 
 
 class DescribeRuleAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeRuleAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9650,6 +14223,8 @@ class DescribeRuleAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9658,6 +14233,8 @@ class DescribeRuleAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRuleAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9667,11 +14244,21 @@ class DescribeRuleAttributeResponse(TeaModel):
 class DescribeRulesRequest(TeaModel):
     def __init__(self, listener_port=None, listener_protocol=None, load_balancer_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The frontend listener port that is used by the Server Load Balancer (SLB) instance.
+        # 
+        # Valid values: **1 to 65535**.
         self.listener_port = listener_port  # type: int
+        # The frontend listener protocol that is used by the SLB instance.
+        # 
+        # >  This parameter is required when listeners that use different protocols listen on the same port.
         self.listener_protocol = listener_protocol  # type: str
+        # The ID of the SLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the SLB instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -9730,25 +14317,110 @@ class DescribeRulesResponseBodyRulesRule(TeaModel):
                  health_check_timeout=None, health_check_uri=None, healthy_threshold=None, listener_sync=None, rule_id=None,
                  rule_name=None, scheduler=None, sticky_session=None, sticky_session_type=None, unhealthy_threshold=None,
                  url=None, vserver_group_id=None):
+        # The cookie that is configured on the backend server.
+        # 
+        # The value must be 1 to 200 characters in length, and can contain only ASCII letters and digits. It cannot contain commas (,), semicolons (;), or spaces. It cannot start with a dollar sign ($).
+        # 
+        # >  If you set the **StickySession** parameter to **on** and the **StickySessionType** parameter to **server**, this parameter is required.
         self.cookie = cookie  # type: str
+        # The timeout period of a cookie. Valid values: **1 to 86400**. Unit: seconds.
+        # 
+        # >  If you set the **StickySession** parameter to **on** and the **StickySessionType** parameter to **insert**, this parameter is required.
         self.cookie_timeout = cookie_timeout  # type: int
+        # The requested domain name specified in the forwarding rule.
         self.domain = domain  # type: str
+        # Indicates whether health checks are enabled.
+        # 
+        # Valid values: **on** and **off**.
+        # 
+        # >  If you set the **ListenerSync** parameter to **off**, this parameter is required. If you set the parameter to **on**, the configuration of the listener is used.
         self.health_check = health_check  # type: str
+        # The port of the backend server that is used for health check.
+        # 
+        # Valid values: **1 to 65535**.
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required. If you left this parameter empty and the **HealthCheck** parameter is set to **on**, the backend port configuration of the listener is used by default.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The domain name that is used for health checks. Valid values:
+        # 
+        # *   **$\_ip**: The private IP address of the backend server.
+        # 
+        #     If you do not set this parameter or set the parameter to $\_ip, the SLB instance uses the private IP address of each backend server as the domain name for health checks.
+        # 
+        # *   **domain**: The domain name must be 1 to 80 characters in length. The domain name can contain only letters, digits, periods (.),and hyphens (-).
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status code that indicates a successful health check. Multiple HTTP status codes are separated by commas (,). Default value: **http\_2xx**.
+        # 
+        # Valid values: **http\_2xx**, **http\_3xx**, **http\_4xx**, and **http\_5xx**.
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The time interval between two consecutive health checks.
+        # 
+        # Valid values: **1 to 50**. Unit: seconds.
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.health_check_interval = health_check_interval  # type: int
+        # The timeout period for a health check response. If the backend Elastic Compute Service (ECS) instance does not send an expected response within the specified period of time, the health check fails.
+        # 
+        # Valid values: **1 to 300**. Unit: seconds.
+        # 
+        # >  If the value of the **HealthCHeckTimeout** parameter is smaller than that of the **HealthCheckInterval** parameter, the value of the **HealthCHeckTimeout** parameter is ignored and the value of the **HealthCheckInterval** parameter is regarded as the waiting period. If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.health_check_timeout = health_check_timeout  # type: int
+        # The URI that is used for health checks.
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.health_check_uri = health_check_uri  # type: str
+        # Specifies the number of successful health checks that must be consecutively performed before a backend server can be declared healthy (from **fail** to **success**).
+        # 
+        # Valid values: **2 to 10**.
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.healthy_threshold = healthy_threshold  # type: int
+        # Indicates whether the forwarding rule uses the scheduling algorithm, session persistence, and health check configurations of the listener.
+        # 
+        # Valid values: **on** and **off**.
+        # 
+        # *   **off**: does not use the configurations of the listener. You can customize health check and session persistence configurations for the forwarding rule.
+        # *   **on**: uses the configurations of the listener.
         self.listener_sync = listener_sync  # type: str
+        # The ID of the forwarding rule.
         self.rule_id = rule_id  # type: str
+        # The name of the forwarding rule. The name must be 1 to 80 characters in length, and can contain only letters, digits, hyphens (-), forward slashes (/), periods (.),and underscores (\_).
+        # 
+        # >  The name of each forwarding rule must be unique within a listener.
         self.rule_name = rule_name  # type: str
+        # The scheduling algorithm. Valid values:
+        # 
+        # *   **wrr** (default): Backend servers that have higher weights receive more requests than backend servers that have lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
+        # 
+        # >  If you set the **ListenerSync** parameter to **off**, this parameter is required. If you set the parameter to **on**, the configuration of the listener is used.
         self.scheduler = scheduler  # type: str
+        # Specifies whether to enable session persistence.
+        # 
+        # Valid values: **on** and **off**.
+        # 
+        # >  If you set the **ListenerSync** parameter to **off**, this parameter is required. If you set the parameter to **on**, the configuration of the listener is used.
         self.sticky_session = sticky_session  # type: str
+        # The method that is used to handle a cookie. Valid values:
+        # 
+        # *   **insert**: inserts a cookie into the response. SLB inserts a cookie (SERVERID) into the first HTTP or HTTPS response packet that is sent to a client. The next request from the client will contain this cookie, and the listener will distribute this request to the recorded backend server.
+        # *   **server**: rewrites a cookie. When SLB detects a user-defined cookie, SLB overwrites the original cookie with the user-defined cookie. The next request from the client contains the user-defined cookie, and the listener distributes the request to the recorded backend server.
+        # 
+        # >  If you set the **StickySession** parameter to **on**, this parameter is required.
         self.sticky_session_type = sticky_session_type  # type: str
+        # Specifies the number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy (from **success** to **fail**).
+        # 
+        # Valid values: **2 to 10**\
+        # 
+        # >  If you set the **HealthCheck** parameter to **on**, this parameter is required.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # The requested path specified in the forwarding rule.
         self.url = url  # type: str
+        # The ID of the destination vServer group specified in the forwarding rule.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -9881,7 +14553,9 @@ class DescribeRulesResponseBodyRules(TeaModel):
 
 class DescribeRulesResponseBody(TeaModel):
     def __init__(self, request_id=None, rules=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The list of forwarding rules.
         self.rules = rules  # type: DescribeRulesResponseBodyRules
 
     def validate(self):
@@ -9911,12 +14585,14 @@ class DescribeRulesResponseBody(TeaModel):
 
 
 class DescribeRulesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeRulesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9929,6 +14605,8 @@ class DescribeRulesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9937,25 +14615,70 @@ class DescribeRulesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRulesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class DescribeServerCertificatesRequest(TeaModel):
-    def __init__(self, owner_account=None, owner_id=None, region_id=None, resource_group_id=None,
-                 resource_owner_account=None, resource_owner_id=None, server_certificate_id=None):
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        self.server_certificate_id = server_certificate_id  # type: str
+class DescribeServerCertificatesRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The tag key.
+        self.key = key  # type: str
+        # The tag value.
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeServerCertificatesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeServerCertificatesRequest(TeaModel):
+    def __init__(self, owner_account=None, owner_id=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None, server_certificate_id=None, tag=None):
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region where the CLB instances are deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
+        # 
+        # >  If the endpoint of the region is slb.aliyuncs.com, you must specify the `RegionId` parameter.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the server certificate.
+        self.server_certificate_id = server_certificate_id  # type: str
+        # The tags.
+        self.tag = tag  # type: list[DescribeServerCertificatesRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeServerCertificatesRequest, self).to_map()
@@ -9977,6 +14700,10 @@ class DescribeServerCertificatesRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.server_certificate_id is not None:
             result['ServerCertificateId'] = self.server_certificate_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -9995,6 +14722,11 @@ class DescribeServerCertificatesRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('ServerCertificateId') is not None:
             self.server_certificate_id = m.get('ServerCertificateId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeServerCertificatesRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
@@ -10022,29 +14754,113 @@ class DescribeServerCertificatesResponseBodyServerCertificatesServerCertificateS
         return self
 
 
+class DescribeServerCertificatesResponseBodyServerCertificatesServerCertificateTagsTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tag keys of the resource.
+        self.tag_key = tag_key  # type: str
+        # The tag value.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeServerCertificatesResponseBodyServerCertificatesServerCertificateTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeServerCertificatesResponseBodyServerCertificatesServerCertificateTags(TeaModel):
+    def __init__(self, tag=None):
+        self.tag = tag  # type: list[DescribeServerCertificatesResponseBodyServerCertificatesServerCertificateTagsTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeServerCertificatesResponseBodyServerCertificatesServerCertificateTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeServerCertificatesResponseBodyServerCertificatesServerCertificateTagsTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeServerCertificatesResponseBodyServerCertificatesServerCertificate(TeaModel):
     def __init__(self, ali_cloud_certificate_id=None, ali_cloud_certificate_name=None, common_name=None,
                  create_time=None, create_time_stamp=None, expire_time=None, expire_time_stamp=None, fingerprint=None,
                  is_ali_cloud_certificate=None, region_id=None, resource_group_id=None, server_certificate_id=None,
-                 server_certificate_name=None, subject_alternative_names=None):
+                 server_certificate_name=None, subject_alternative_names=None, tags=None):
+        # The ID of the server certificate from Alibaba Cloud Certificate Management Service.
         self.ali_cloud_certificate_id = ali_cloud_certificate_id  # type: str
+        # The name of the server certificate from Alibaba Cloud Certificate Management Service.
         self.ali_cloud_certificate_name = ali_cloud_certificate_name  # type: str
+        # The domain name of the certificate. The domain name is specified in the `CommonName` field.
         self.common_name = common_name  # type: str
+        # The time when the server certificate is uploaded.
         self.create_time = create_time  # type: str
+        # The timestamp generated when the server certificate is uploaded.
         self.create_time_stamp = create_time_stamp  # type: long
+        # The expiration time.
         self.expire_time = expire_time  # type: str
+        # The timestamp that indicates when the certificate expires.
         self.expire_time_stamp = expire_time_stamp  # type: long
+        # The fingerprint of the server certificate.
         self.fingerprint = fingerprint  # type: str
+        # Indicates whether the server certificate is from Alibaba Cloud Certificate Management Service. Valid values:
+        # 
+        # *   **1**: yes
+        # *   **0**: no
         self.is_ali_cloud_certificate = is_ali_cloud_certificate  # type: int
+        # The ID of the region where the server certificate is created.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the server certificate.
         self.server_certificate_id = server_certificate_id  # type: str
+        # The name of the server certificate.
         self.server_certificate_name = server_certificate_name  # type: str
+        # The list of alternative domain names of the server certificate. The alternative domain names are specified in the `Subject Alternative Name` field of the server certificate.
         self.subject_alternative_names = subject_alternative_names  # type: DescribeServerCertificatesResponseBodyServerCertificatesServerCertificateSubjectAlternativeNames
+        # The tags.
+        self.tags = tags  # type: DescribeServerCertificatesResponseBodyServerCertificatesServerCertificateTags
 
     def validate(self):
         if self.subject_alternative_names:
             self.subject_alternative_names.validate()
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeServerCertificatesResponseBodyServerCertificatesServerCertificate, self).to_map()
@@ -10080,6 +14896,8 @@ class DescribeServerCertificatesResponseBodyServerCertificatesServerCertificate(
             result['ServerCertificateName'] = self.server_certificate_name
         if self.subject_alternative_names is not None:
             result['SubjectAlternativeNames'] = self.subject_alternative_names.to_map()
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         return result
 
     def from_map(self, m=None):
@@ -10113,6 +14931,9 @@ class DescribeServerCertificatesResponseBodyServerCertificatesServerCertificate(
         if m.get('SubjectAlternativeNames') is not None:
             temp_model = DescribeServerCertificatesResponseBodyServerCertificatesServerCertificateSubjectAlternativeNames()
             self.subject_alternative_names = temp_model.from_map(m['SubjectAlternativeNames'])
+        if m.get('Tags') is not None:
+            temp_model = DescribeServerCertificatesResponseBodyServerCertificatesServerCertificateTags()
+            self.tags = temp_model.from_map(m['Tags'])
         return self
 
 
@@ -10150,7 +14971,9 @@ class DescribeServerCertificatesResponseBodyServerCertificates(TeaModel):
 
 class DescribeServerCertificatesResponseBody(TeaModel):
     def __init__(self, request_id=None, server_certificates=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The list of server certificates.
         self.server_certificates = server_certificates  # type: DescribeServerCertificatesResponseBodyServerCertificates
 
     def validate(self):
@@ -10180,12 +15003,14 @@ class DescribeServerCertificatesResponseBody(TeaModel):
 
 
 class DescribeServerCertificatesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeServerCertificatesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10198,6 +15023,8 @@ class DescribeServerCertificatesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10206,6 +15033,8 @@ class DescribeServerCertificatesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeServerCertificatesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -10216,15 +15045,23 @@ class DescribeTagsRequest(TeaModel):
     def __init__(self, distinct_key=None, load_balancer_id=None, owner_account=None, owner_id=None,
                  page_number=None, page_size=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
                  tags=None):
+        # Specifies whether the tag is DistinctKey.
+        # 
+        # Valid values: **true and false**.
         self.distinct_key = distinct_key  # type: bool
+        # The ID of the SLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The number of the page to return. Minimum value: 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: 50. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The ID of the region where the Server Load Balancer (SLB) instance is deployed.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The tags that you want to query.
         self.tags = tags  # type: str
 
     def validate(self):
@@ -10285,8 +15122,11 @@ class DescribeTagsRequest(TeaModel):
 
 class DescribeTagsResponseBodyTagSetsTagSet(TeaModel):
     def __init__(self, instance_count=None, tag_key=None, tag_value=None):
+        # The number of instances to which the tag is added.
         self.instance_count = instance_count  # type: int
+        # The tag key.
         self.tag_key = tag_key  # type: str
+        # The tag value.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -10351,10 +15191,15 @@ class DescribeTagsResponseBodyTagSets(TeaModel):
 
 class DescribeTagsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, tag_sets=None, total_count=None):
+        # The number of the returned page. Minimum value: 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # Default value: 50. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # A list of tags.
         self.tag_sets = tag_sets  # type: DescribeTagsResponseBodyTagSets
+        # The number of instances returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -10396,12 +15241,14 @@ class DescribeTagsResponseBody(TeaModel):
 
 
 class DescribeTagsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeTagsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10414,6 +15261,8 @@ class DescribeTagsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10422,6 +15271,8 @@ class DescribeTagsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeTagsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -10433,9 +15284,11 @@ class DescribeVServerGroupAttributeRequest(TeaModel):
                  resource_owner_id=None, vserver_group_id=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the Classic Load Balancer (CLB) instance.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -10479,11 +15332,22 @@ class DescribeVServerGroupAttributeRequest(TeaModel):
 
 
 class DescribeVServerGroupAttributeResponseBodyBackendServersBackendServer(TeaModel):
-    def __init__(self, description=None, port=None, server_id=None, type=None, weight=None):
+    def __init__(self, description=None, port=None, server_id=None, server_ip=None, type=None, weight=None):
+        # The description of the vServer group.
         self.description = description  # type: str
+        # The port used by the backend server.
         self.port = port  # type: int
+        # The ID of the ECS instance, ENI, or elastic container instance.
         self.server_id = server_id  # type: str
+        # The IP address of the ECS instance, ENI, or elastic container instance.
+        self.server_ip = server_ip  # type: str
+        # The type of the backend server. Valid values:
+        # 
+        # *   **ecs** (default): an Elastic Compute Service (ECS) instance
+        # *   **eni**: an elastic network interface (ENI)
+        # *   **eci**: an elastic container instance
         self.type = type  # type: str
+        # The weight of the backend server.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -10501,6 +15365,8 @@ class DescribeVServerGroupAttributeResponseBodyBackendServersBackendServer(TeaMo
             result['Port'] = self.port
         if self.server_id is not None:
             result['ServerId'] = self.server_id
+        if self.server_ip is not None:
+            result['ServerIp'] = self.server_ip
         if self.type is not None:
             result['Type'] = self.type
         if self.weight is not None:
@@ -10515,6 +15381,8 @@ class DescribeVServerGroupAttributeResponseBodyBackendServersBackendServer(TeaMo
             self.port = m.get('Port')
         if m.get('ServerId') is not None:
             self.server_id = m.get('ServerId')
+        if m.get('ServerIp') is not None:
+            self.server_ip = m.get('ServerIp')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('Weight') is not None:
@@ -10554,18 +15422,92 @@ class DescribeVServerGroupAttributeResponseBodyBackendServers(TeaModel):
         return self
 
 
+class DescribeVServerGroupAttributeResponseBodyTagsTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tag key.
+        self.tag_key = tag_key  # type: str
+        # The tag value.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeVServerGroupAttributeResponseBodyTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeVServerGroupAttributeResponseBodyTags(TeaModel):
+    def __init__(self, tag=None):
+        self.tag = tag  # type: list[DescribeVServerGroupAttributeResponseBodyTagsTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeVServerGroupAttributeResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeVServerGroupAttributeResponseBodyTagsTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeVServerGroupAttributeResponseBody(TeaModel):
-    def __init__(self, backend_servers=None, load_balancer_id=None, request_id=None, vserver_group_id=None,
-                 vserver_group_name=None):
+    def __init__(self, backend_servers=None, create_time=None, load_balancer_id=None, request_id=None, tags=None,
+                 vserver_group_id=None, vserver_group_name=None):
+        # The list of backend servers.
         self.backend_servers = backend_servers  # type: DescribeVServerGroupAttributeResponseBodyBackendServers
+        # The time when the CLB instance was created. The time follows the `YYYY-MM-DDThh:mm:ssZ` format.
+        self.create_time = create_time  # type: str
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The tag list.
+        self.tags = tags  # type: DescribeVServerGroupAttributeResponseBodyTags
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
+        # The name of the vServer group.
         self.vserver_group_name = vserver_group_name  # type: str
 
     def validate(self):
         if self.backend_servers:
             self.backend_servers.validate()
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeVServerGroupAttributeResponseBody, self).to_map()
@@ -10575,10 +15517,14 @@ class DescribeVServerGroupAttributeResponseBody(TeaModel):
         result = dict()
         if self.backend_servers is not None:
             result['BackendServers'] = self.backend_servers.to_map()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.load_balancer_id is not None:
             result['LoadBalancerId'] = self.load_balancer_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         if self.vserver_group_id is not None:
             result['VServerGroupId'] = self.vserver_group_id
         if self.vserver_group_name is not None:
@@ -10590,10 +15536,15 @@ class DescribeVServerGroupAttributeResponseBody(TeaModel):
         if m.get('BackendServers') is not None:
             temp_model = DescribeVServerGroupAttributeResponseBodyBackendServers()
             self.backend_servers = temp_model.from_map(m['BackendServers'])
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('LoadBalancerId') is not None:
             self.load_balancer_id = m.get('LoadBalancerId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Tags') is not None:
+            temp_model = DescribeVServerGroupAttributeResponseBodyTags()
+            self.tags = temp_model.from_map(m['Tags'])
         if m.get('VServerGroupId') is not None:
             self.vserver_group_id = m.get('VServerGroupId')
         if m.get('VServerGroupName') is not None:
@@ -10602,12 +15553,14 @@ class DescribeVServerGroupAttributeResponseBody(TeaModel):
 
 
 class DescribeVServerGroupAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeVServerGroupAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10620,6 +15573,8 @@ class DescribeVServerGroupAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10628,26 +15583,77 @@ class DescribeVServerGroupAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeVServerGroupAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class DescribeVServerGroupsRequest(TeaModel):
-    def __init__(self, include_listener=None, include_rule=None, load_balancer_id=None, owner_account=None,
-                 owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        self.include_listener = include_listener  # type: bool
-        self.include_rule = include_rule  # type: bool
-        self.load_balancer_id = load_balancer_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
+class DescribeVServerGroupsRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The tag key.
+        self.key = key  # type: str
+        # The tag value.
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeVServerGroupsRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeVServerGroupsRequest(TeaModel):
+    def __init__(self, description=None, include_listener=None, include_rule=None, load_balancer_id=None,
+                 owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, tag=None):
+        self.description = description  # type: str
+        # Specifies whether to return information about the associated listeners. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false** (default): no
+        self.include_listener = include_listener  # type: bool
+        # Specifies whether to return the forwarding rules associated with the vServer groups. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false** (default): no
+        self.include_rule = include_rule  # type: bool
+        # The ID of the CLB instance.
+        self.load_balancer_id = load_balancer_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the Classic Load Balancer (CLB) instance.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The tags.
+        self.tag = tag  # type: list[DescribeVServerGroupsRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeVServerGroupsRequest, self).to_map()
@@ -10655,6 +15661,8 @@ class DescribeVServerGroupsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
         if self.include_listener is not None:
             result['IncludeListener'] = self.include_listener
         if self.include_rule is not None:
@@ -10671,10 +15679,16 @@ class DescribeVServerGroupsRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('IncludeListener') is not None:
             self.include_listener = m.get('IncludeListener')
         if m.get('IncludeRule') is not None:
@@ -10691,12 +15705,19 @@ class DescribeVServerGroupsRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeVServerGroupsRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
 class DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupAssociatedObjectsListenersListener(TeaModel):
     def __init__(self, port=None, protocol=None):
+        # The listening port.
         self.port = port  # type: int
+        # The listening protocol. Valid values: **tcp**, **udp**, **http**, and **https**.
         self.protocol = protocol  # type: str
 
     def validate(self):
@@ -10757,9 +15778,13 @@ class DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupAssociatedObject
 
 class DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupAssociatedObjectsRulesRule(TeaModel):
     def __init__(self, domain=None, rule_id=None, rule_name=None, url=None):
+        # The requested domain name.
         self.domain = domain  # type: str
+        # The ID of the forwarding rule.
         self.rule_id = rule_id  # type: str
+        # The name of the forwarding rule.
         self.rule_name = rule_name  # type: str
+        # The request path.
         self.url = url  # type: str
 
     def validate(self):
@@ -10828,7 +15853,9 @@ class DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupAssociatedObject
 
 class DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupAssociatedObjects(TeaModel):
     def __init__(self, listeners=None, rules=None):
+        # The list of listeners.
         self.listeners = listeners  # type: DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupAssociatedObjectsListeners
+        # The list of forwarding rules.
         self.rules = rules  # type: DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupAssociatedObjectsRules
 
     def validate(self):
@@ -10860,16 +15887,92 @@ class DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupAssociatedObject
         return self
 
 
+class DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupTagsTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tag keys of the resource.
+        self.tag_key = tag_key  # type: str
+        # The tag value.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupTags(TeaModel):
+    def __init__(self, tag=None):
+        self.tag = tag  # type: list[DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupTagsTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupTagsTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeVServerGroupsResponseBodyVServerGroupsVServerGroup(TeaModel):
-    def __init__(self, associated_objects=None, server_count=None, vserver_group_id=None, vserver_group_name=None):
+    def __init__(self, associated_objects=None, create_time=None, server_count=None, tags=None,
+                 vserver_group_id=None, vserver_group_name=None):
+        # The items associated with the server groups.
         self.associated_objects = associated_objects  # type: DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupAssociatedObjects
+        # The time when the CLB instance was created. The time follows the `YYYY-MM-DDThh:mm:ssZ` format.
+        self.create_time = create_time  # type: str
+        # The number of servers. 
+        # 
+        # >  The feature corresponding to this parameter is not available by default. If you want to use this feature, [submit a ticket](https://ticket-intl.console.aliyun.com/#/ticket/createIndex).
         self.server_count = server_count  # type: long
+        # The tags.
+        self.tags = tags  # type: DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupTags
+        # The ID of the server group.
         self.vserver_group_id = vserver_group_id  # type: str
+        # The name of the server group.
         self.vserver_group_name = vserver_group_name  # type: str
 
     def validate(self):
         if self.associated_objects:
             self.associated_objects.validate()
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeVServerGroupsResponseBodyVServerGroupsVServerGroup, self).to_map()
@@ -10879,8 +15982,12 @@ class DescribeVServerGroupsResponseBodyVServerGroupsVServerGroup(TeaModel):
         result = dict()
         if self.associated_objects is not None:
             result['AssociatedObjects'] = self.associated_objects.to_map()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.server_count is not None:
             result['ServerCount'] = self.server_count
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         if self.vserver_group_id is not None:
             result['VServerGroupId'] = self.vserver_group_id
         if self.vserver_group_name is not None:
@@ -10892,8 +15999,13 @@ class DescribeVServerGroupsResponseBodyVServerGroupsVServerGroup(TeaModel):
         if m.get('AssociatedObjects') is not None:
             temp_model = DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupAssociatedObjects()
             self.associated_objects = temp_model.from_map(m['AssociatedObjects'])
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('ServerCount') is not None:
             self.server_count = m.get('ServerCount')
+        if m.get('Tags') is not None:
+            temp_model = DescribeVServerGroupsResponseBodyVServerGroupsVServerGroupTags()
+            self.tags = temp_model.from_map(m['Tags'])
         if m.get('VServerGroupId') is not None:
             self.vserver_group_id = m.get('VServerGroupId')
         if m.get('VServerGroupName') is not None:
@@ -10935,7 +16047,9 @@ class DescribeVServerGroupsResponseBodyVServerGroups(TeaModel):
 
 class DescribeVServerGroupsResponseBody(TeaModel):
     def __init__(self, request_id=None, vserver_groups=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The list of backend servers.
         self.vserver_groups = vserver_groups  # type: DescribeVServerGroupsResponseBodyVServerGroups
 
     def validate(self):
@@ -10965,12 +16079,14 @@ class DescribeVServerGroupsResponseBody(TeaModel):
 
 
 class DescribeVServerGroupsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeVServerGroupsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10983,6 +16099,8 @@ class DescribeVServerGroupsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10991,6 +16109,8 @@ class DescribeVServerGroupsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeVServerGroupsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11000,10 +16120,15 @@ class DescribeVServerGroupsResponse(TeaModel):
 class DescribeZonesRequest(TeaModel):
     def __init__(self, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The logon name of the RAM user.
         self.owner_account = owner_account  # type: str
+        # The ID of the Alibaba Cloud account to which the VPC belongs.
         self.owner_id = owner_id  # type: long
+        # The region ID of the Server Load Balancer (SLB) instance.
         self.region_id = region_id  # type: str
+        # ResourceOwnerAccount
         self.resource_owner_account = resource_owner_account  # type: str
+        # The ID of the asset owner.
         self.resource_owner_id = resource_owner_id  # type: long
 
     def validate(self):
@@ -11044,7 +16169,9 @@ class DescribeZonesRequest(TeaModel):
 
 class DescribeZonesResponseBodyZonesZoneSlaveZonesSlaveZone(TeaModel):
     def __init__(self, local_name=None, zone_id=None):
+        # The name of the secondary zone.
         self.local_name = local_name  # type: str
+        # The ID of the secondary zone.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -11105,8 +16232,11 @@ class DescribeZonesResponseBodyZonesZoneSlaveZones(TeaModel):
 
 class DescribeZonesResponseBodyZonesZone(TeaModel):
     def __init__(self, local_name=None, slave_zones=None, zone_id=None):
+        # The name of the zone.
         self.local_name = local_name  # type: str
+        # The secondary zones.
         self.slave_zones = slave_zones  # type: DescribeZonesResponseBodyZonesZoneSlaveZones
+        # The ID of the zone.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -11173,7 +16303,9 @@ class DescribeZonesResponseBodyZones(TeaModel):
 
 class DescribeZonesResponseBody(TeaModel):
     def __init__(self, request_id=None, zones=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The zones.
         self.zones = zones  # type: DescribeZonesResponseBodyZones
 
     def validate(self):
@@ -11203,12 +16335,14 @@ class DescribeZonesResponseBody(TeaModel):
 
 
 class DescribeZonesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeZonesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11221,6 +16355,8 @@ class DescribeZonesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11229,8 +16365,149 @@ class DescribeZonesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeZonesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class EnableHighDefinationMonitorRequest(TeaModel):
+    def __init__(self, log_project=None, log_store=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, tags=None):
+        # The name of the project of Log Service. The name must be 4 to 63 characters in length, and can contain digits and lowercase letters. It must start and end with a digit or a letter.
+        self.log_project = log_project  # type: str
+        # The name of the Logstore of Log Service. The name must be 2 to 64 characters in length and can contain digits, lowercase letters, hyphens (-) and underscores (\_). It must start and end with a digit or a letter.
+        self.log_store = log_store  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the region where the Classic Load Balancer (CLB) instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The tags of the logs. The tags must be key-value pairs that are contained in a JSON dictionary.
+        self.tags = tags  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableHighDefinationMonitorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.log_project is not None:
+            result['LogProject'] = self.log_project
+        if self.log_store is not None:
+            result['LogStore'] = self.log_store
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.tags is not None:
+            result['Tags'] = self.tags
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LogProject') is not None:
+            self.log_project = m.get('LogProject')
+        if m.get('LogStore') is not None:
+            self.log_store = m.get('LogStore')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
+        return self
+
+
+class EnableHighDefinationMonitorResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None):
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # Indicates whether the call is successful. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableHighDefinationMonitorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class EnableHighDefinationMonitorResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: EnableHighDefinationMonitorResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(EnableHighDefinationMonitorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = EnableHighDefinationMonitorResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -11239,15 +16516,29 @@ class ListTLSCipherPoliciesRequest(TeaModel):
     def __init__(self, include_listener=None, max_items=None, name=None, next_token=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
                  tlscipher_policy_id=None):
+        # Specifies whether to return the information about the associated listeners. Valid values:
+        # 
+        # *   **true**: returns the information about the associated listeners.
+        # *   **false** (default): does not return the information about the associated listeners.
         self.include_listener = include_listener  # type: bool
+        # The maximum number of TLS policies to be queried in this call. Valid values: **1** to **100**. If you do not set this parameter, the default value **20** is used.
         self.max_items = max_items  # type: int
+        # The name of the TLS policy. The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter.
         self.name = name  # type: str
+        # The token that is used for the next query. Valid values:
+        # 
+        # *   If this is your first query or no next query is to be sent, ignore this parameter.
+        # *   If a next query is to be sent, set the value to the value of NextToken that is returned from the last call.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Classic Load Balancer (CLB) instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the TLS policy.
         self.tlscipher_policy_id = tlscipher_policy_id  # type: str
 
     def validate(self):
@@ -11308,8 +16599,16 @@ class ListTLSCipherPoliciesRequest(TeaModel):
 
 class ListTLSCipherPoliciesResponseBodyTLSCipherPoliciesRelateListeners(TeaModel):
     def __init__(self, load_balancer_id=None, port=None, protocol=None):
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The listening port. Valid values: **1** to **65535**.
         self.port = port  # type: int
+        # The listening protocol. Valid values:
+        # 
+        # *   **TCP**\
+        # *   **UDP**\
+        # *   **HTTP**\
+        # *   **HTTPS**\
         self.protocol = protocol  # type: str
 
     def validate(self):
@@ -11343,12 +16642,59 @@ class ListTLSCipherPoliciesResponseBodyTLSCipherPoliciesRelateListeners(TeaModel
 class ListTLSCipherPoliciesResponseBodyTLSCipherPolicies(TeaModel):
     def __init__(self, ciphers=None, create_time=None, instance_id=None, name=None, relate_listeners=None,
                  status=None, tlsversions=None):
+        # The cipher suites supported by the TLS version.
+        # 
+        # TLS 1.0 and TLS 1.1 support the following cipher suites:
+        # 
+        # *   ECDHE-ECDSA-AES128-SHA
+        # *   ECDHE-ECDSA-AES256-SHA
+        # *   ECDHE-RSA-AES128-SHA
+        # *   ECDHE-RSA-AES256-SHA
+        # *   AES128-SHA AES256-SHA
+        # *   DES-CBC3-SHA
+        # 
+        # TLS 1.2 supports the following cipher suites:
+        # 
+        # *   ECDHE-ECDSA-AES128-SHA
+        # *   ECDHE-ECDSA-AES256-SHA
+        # *   ECDHE-RSA-AES128-SHA
+        # *   ECDHE-RSA-AES256-SHA
+        # *   AES128-SHA AES256-SHA
+        # *   DES-CBC3-SHA
+        # *   ECDHE-ECDSA-AES128-GCM-SHA256
+        # *   ECDHE-ECDSA-AES256-GCM-SHA384
+        # *   ECDHE-ECDSA-AES128-SHA256
+        # *   ECDHE-ECDSA-AES256-SHA384
+        # *   ECDHE-RSA-AES128-GCM-SHA256
+        # *   ECDHE-RSA-AES256-GCM-SHA384
+        # *   ECDHE-RSA-AES128-SHA256
+        # *   ECDHE-RSA-AES256-SHA384
+        # *   AES128-GCM-SHA256
+        # *   AES256-GCM-SHA384
+        # *   AES128-SHA256 AES256-SHA256
+        # 
+        # TLS 1.3 supports the following cipher suites:
+        # 
+        # *   TLS_AES\_128\_GCM_SHA256
+        # *   TLS_AES\_256\_GCM_SHA384
+        # *   TLS_CHACHA20\_POLY1305\_SHA256
+        # *   TLS_AES\_128\_CCM_SHA256
+        # *   TLS_AES\_128\_CCM\_8\_SHA256
         self.ciphers = ciphers  # type: list[str]
+        # The timestamp generated when the TLS policy is created.
         self.create_time = create_time  # type: long
+        # The ID of the TLS policy.
         self.instance_id = instance_id  # type: str
+        # The name of the TLS policy.
         self.name = name  # type: str
+        # The list of associated listeners.
         self.relate_listeners = relate_listeners  # type: list[ListTLSCipherPoliciesResponseBodyTLSCipherPoliciesRelateListeners]
+        # The status of the TLS policy. Valid values:
+        # 
+        # *   **configuring**: The TLS policy is being configured.
+        # *   **normal**: The TLS policy works as expected.
         self.status = status  # type: str
+        # The version of the TLS protocol.
         self.tlsversions = tlsversions  # type: list[str]
 
     def validate(self):
@@ -11406,10 +16752,21 @@ class ListTLSCipherPoliciesResponseBodyTLSCipherPolicies(TeaModel):
 class ListTLSCipherPoliciesResponseBody(TeaModel):
     def __init__(self, is_truncated=None, next_token=None, request_id=None, tlscipher_policies=None,
                  total_count=None):
+        # Indicates whether the current page is the last page. Valid values:
+        # 
+        # *   **true**: The current page is the last page.
+        # *   **false**: The current page is not the last page.
         self.is_truncated = is_truncated  # type: bool
+        # The token that is used for the next query. Valid values:
+        # 
+        # *   If **NextToken** is empty, it indicates that no next query is to be sent.
+        # *   If **NextToken** is not empty, the value indicates the token that is used for the next query.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The list of TLS policies.
         self.tlscipher_policies = tlscipher_policies  # type: list[ListTLSCipherPoliciesResponseBodyTLSCipherPolicies]
+        # The total number of TLS policies returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -11457,12 +16814,14 @@ class ListTLSCipherPoliciesResponseBody(TeaModel):
 
 
 class ListTLSCipherPoliciesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListTLSCipherPoliciesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11475,6 +16834,8 @@ class ListTLSCipherPoliciesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11483,6 +16844,8 @@ class ListTLSCipherPoliciesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListTLSCipherPoliciesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11491,7 +16854,13 @@ class ListTLSCipherPoliciesResponse(TeaModel):
 
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key. You can specify at most 20 tag keys.
+        # 
+        # The tag key cannot be an empty string. The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
         self.key = key  # type: str
+        # The tag value. You can specify at most 20 tag values. The tag value cannot be an empty string.
+        # 
+        # The tag value must be 1 to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -11521,14 +16890,28 @@ class ListTagResourcesRequestTag(TeaModel):
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, next_token=None, owner_account=None, owner_id=None, region_id=None, resource_id=None,
                  resource_owner_account=None, resource_owner_id=None, resource_type=None, tag=None):
+        # The token that determines the start point of the query. Valid values:
+        # 
+        # *   If this is your first query or no subsequent query is to be sent, ignore this parameter.
+        # *   If a subsequent query is to be sent, set the parameter to the value of NextToken that is returned from the last call.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Server Load Balancer (SLB) instance is created.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of a resource. You can specify up to 20 resources.
         self.resource_id = resource_id  # type: list[str]
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The type of the resource. Valid values:
+        # 
+        # *   **instance**: an SLB instance
+        # *   **certificate**: a certificate
+        # *   **acl**: a network access control list (ACL)
         self.resource_type = resource_type  # type: str
+        # The tags.
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
     def validate(self):
@@ -11593,9 +16976,13 @@ class ListTagResourcesRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        # The ID of the resource.
         self.resource_id = resource_id  # type: str
+        # The resource type.
         self.resource_type = resource_type  # type: str
+        # The tag key.
         self.tag_key = tag_key  # type: str
+        # The tag value.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -11664,8 +17051,14 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, tag_resources=None):
+        # The token that determines the start point of the query. Valid values:
+        # 
+        # *   If **NextToken** is empty, it indicates that no subsequent query is to be sent.
+        # *   If a value of **NextToken** is returned, the value is the token that is used for the subsequent query.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The details about the resource to which the tags are added.
         self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
 
     def validate(self):
@@ -11699,12 +17092,14 @@ class ListTagResourcesResponseBody(TeaModel):
 
 
 class ListTagResourcesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11717,6 +17112,8 @@ class ListTagResourcesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11725,8 +17122,297 @@ class ListTagResourcesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListTagResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyHighDefinationMonitorRequest(TeaModel):
+    def __init__(self, log_project=None, log_store=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None):
+        # The new name of the project of Log Service. The name must be 4 to 63 characters in length, and can contain digits and lowercase letters. It must start and end with a digit or a letter.
+        self.log_project = log_project  # type: str
+        # The new name of the Logstore of Log Service. The name must be 2 to 64 characters in length and can contain digits, lowercase letters, hyphens (-) and underscores (\_). It must start and end with a digit or a letter.
+        self.log_store = log_store  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the region where the Classic Load Balancer (CLB) instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyHighDefinationMonitorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.log_project is not None:
+            result['LogProject'] = self.log_project
+        if self.log_store is not None:
+            result['LogStore'] = self.log_store
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LogProject') is not None:
+            self.log_project = m.get('LogProject')
+        if m.get('LogStore') is not None:
+            self.log_store = m.get('LogStore')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class ModifyHighDefinationMonitorResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None):
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # Indicates whether the call is successful. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyHighDefinationMonitorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ModifyHighDefinationMonitorResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyHighDefinationMonitorResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyHighDefinationMonitorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyHighDefinationMonitorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyLoadBalancerInstanceChargeTypeRequest(TeaModel):
+    def __init__(self, bandwidth=None, instance_charge_type=None, internet_charge_type=None, load_balancer_id=None,
+                 load_balancer_spec=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
+        # The maximum bandwidth of the Internet-facing CLB instance that is billed on a pay-by-bandwidth basis.
+        # 
+        # You do not need to set this parameter. The metering method of Internet data transfer for pay-by-LCU instances supports only pay-by-traffic.
+        self.bandwidth = bandwidth  # type: int
+        # The metering method of the instance after the change.
+        # 
+        # Valid value: **PayByCLCU**. Only pay-by-LCU is supported.
+        self.instance_charge_type = instance_charge_type  # type: str
+        # The metering method of Internet data transfer after the change.
+        # 
+        # Valid value: **paybytraffic**.
+        # 
+        # > *   If the value of the **InstanceChargeType** parameter is set to **PayByCLCU**, only pay-by-data-transfer is supported.
+        # >*   When you change the metering method, the new metering method takes effect at 00:00:00 the next day.
+        self.internet_charge_type = internet_charge_type  # type: str
+        # The ID of the CLB instance.
+        self.load_balancer_id = load_balancer_id  # type: str
+        # The specification of the CLB instance.
+        # 
+        # You do not need to set this parameter. For pay-as-you-go CLB instances, you can only change the metering method from pay-by-specification to pay-by-LCU. You cannot change the metering method from pay-by-LCU to pay-by-specification.
+        self.load_balancer_spec = load_balancer_spec  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the CLB instance.
+        # 
+        # You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyLoadBalancerInstanceChargeTypeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
+        if self.instance_charge_type is not None:
+            result['InstanceChargeType'] = self.instance_charge_type
+        if self.internet_charge_type is not None:
+            result['InternetChargeType'] = self.internet_charge_type
+        if self.load_balancer_id is not None:
+            result['LoadBalancerId'] = self.load_balancer_id
+        if self.load_balancer_spec is not None:
+            result['LoadBalancerSpec'] = self.load_balancer_spec
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
+        if m.get('InstanceChargeType') is not None:
+            self.instance_charge_type = m.get('InstanceChargeType')
+        if m.get('InternetChargeType') is not None:
+            self.internet_charge_type = m.get('InternetChargeType')
+        if m.get('LoadBalancerId') is not None:
+            self.load_balancer_id = m.get('LoadBalancerId')
+        if m.get('LoadBalancerSpec') is not None:
+            self.load_balancer_spec = m.get('LoadBalancerSpec')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class ModifyLoadBalancerInstanceChargeTypeResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyLoadBalancerInstanceChargeTypeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyLoadBalancerInstanceChargeTypeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyLoadBalancerInstanceChargeTypeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyLoadBalancerInstanceChargeTypeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyLoadBalancerInstanceChargeTypeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -11734,11 +17420,33 @@ class ListTagResourcesResponse(TeaModel):
 class ModifyLoadBalancerInstanceSpecRequest(TeaModel):
     def __init__(self, auto_pay=None, load_balancer_id=None, load_balancer_spec=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # Specifies whether to enable automatic payment. Valid values:
+        # 
+        # *   **true**: automatically completes the payment.
+        # *   **false** (default): If you select this option, you must complete the payment in the Order Center.
+        # 
+        # > This parameter takes effect only for subscription instances.
         self.auto_pay = auto_pay  # type: bool
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The specification of the CLB instance. Valid values:
+        # 
+        # *   **slb.s1.small**\
+        # *   **slb.s2.small**\
+        # *   **slb.s2.medium**\
+        # *   **slb.s3.small**\
+        # *   **slb.s3.medium**\
+        # *   **slb.s3.large**\
+        # 
+        # The specifications available vary by region. For more information about the specifications, see [High-performance CLB instance](~~85931~~).
+        # 
+        # > When you switch a shared-resource CLB instance to a high-performance CLB instance, your service may be interrupted for 10 to 30 seconds. We recommend that you modify the specification during off-peak hours or use Alibaba Cloud DNS to schedule your workloads to another CLB instance before you modify the specification.
         self.load_balancer_spec = load_balancer_spec  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the CLB instance.
+        # 
+        # You can query the region ID from the [Regions and zones](~~40654~~) list or by calling the [DescribeRegions](~~27584~~) operation.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -11793,7 +17501,9 @@ class ModifyLoadBalancerInstanceSpecRequest(TeaModel):
 
 class ModifyLoadBalancerInstanceSpecResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
+        # The order ID of the subscription CLB instance.
         self.order_id = order_id  # type: long
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11821,12 +17531,14 @@ class ModifyLoadBalancerInstanceSpecResponseBody(TeaModel):
 
 
 class ModifyLoadBalancerInstanceSpecResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyLoadBalancerInstanceSpecResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11839,6 +17551,8 @@ class ModifyLoadBalancerInstanceSpecResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11847,6 +17561,8 @@ class ModifyLoadBalancerInstanceSpecResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyLoadBalancerInstanceSpecResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11856,12 +17572,29 @@ class ModifyLoadBalancerInstanceSpecResponse(TeaModel):
 class ModifyLoadBalancerInternetSpecRequest(TeaModel):
     def __init__(self, auto_pay=None, bandwidth=None, internet_charge_type=None, load_balancer_id=None,
                  owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # Specifies whether to automatically pay the subscription fee of the Internet-facing CLB instance. Valid values:
+        # 
+        # *   **true**: enables automatic payments. This is the default value.
+        # *   **false**: disables automatic payment. You must complete the payment in Order Center.
         self.auto_pay = auto_pay  # type: bool
+        # The maximum bandwidth of the Internet-facing CLB instance that uses the pay-by-bandwidth metering method. Unit: Mbit/s.
+        # 
+        # Valid values: **1 to 5000**. The maximum bandwidth varies based on the region where the CLB instance is created.****\
+        # 
+        # >  You do not need to specify this parameter if you set **InternetChargeType** to **paybytraffic** (pay-by-data-transfer).
         self.bandwidth = bandwidth  # type: int
+        # The metering method of the Internet-facing CLB instance. Valid values:
+        # 
+        # *   **paybybandwidth**: pay-by-bandwidth
+        # *   **paybytraffic**: pay-by-data-transfer
         self.internet_charge_type = internet_charge_type  # type: str
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the CLB instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -11920,7 +17653,9 @@ class ModifyLoadBalancerInternetSpecRequest(TeaModel):
 
 class ModifyLoadBalancerInternetSpecResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
+        # The order ID of the subscription CLB instance.
         self.order_id = order_id  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11948,12 +17683,14 @@ class ModifyLoadBalancerInternetSpecResponseBody(TeaModel):
 
 
 class ModifyLoadBalancerInternetSpecResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyLoadBalancerInternetSpecResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11966,6 +17703,8 @@ class ModifyLoadBalancerInternetSpecResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11974,6 +17713,8 @@ class ModifyLoadBalancerInternetSpecResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyLoadBalancerInternetSpecResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11983,13 +17724,39 @@ class ModifyLoadBalancerInternetSpecResponse(TeaModel):
 class ModifyLoadBalancerPayTypeRequest(TeaModel):
     def __init__(self, auto_pay=None, duration=None, load_balancer_id=None, owner_account=None, owner_id=None,
                  pay_type=None, pricing_cycle=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # Specifies whether to enable automatic payment. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false** (default): no
+        # 
+        # >  This parameter is valid only when the `PayType` parameter is set to **PrePay**. This parameter is valid only for pay-as-you-go instances.
         self.auto_pay = auto_pay  # type: bool
+        # The subscription duration.
+        # 
+        # *   If **PricingCycle** is set to **month**, the valid values are **1** to **9**.
+        # *   If **PricingCycle** is set to **year**, the valid values are **1** to **3**.
+        # 
+        # >  This parameter is valid only when the **PayType** parameter is set to **PrePay**. This parameter is valid only for pay-as-you-go instances.
         self.duration = duration  # type: int
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The billing method of the CLB instance. Valid values:
+        # 
+        # *   **PayOnDemand** (default): pay-as-you-go
+        # 
+        # To change the billing method of a pay-as-you-go CLB instance to subscription, you must set the parameter to **PrePay**. In addition, the previous billing method of the CLB instance must be **PayOnDemand**.
         self.pay_type = pay_type  # type: str
+        # The billing cycle.
+        # 
+        # Valid values: **year** and **month**.
+        # 
+        # >  This parameter is valid only when the **PayType** parameter is set to **PrePay**. This parameter is valid only for pay-as-you-go instances.
         self.pricing_cycle = pricing_cycle  # type: str
+        # The ID of the region where the CLB instance is deployed.
+        # 
+        # You can query the region ID from the [Regions and zones](~~40654~~) list or by calling the [DescribeRegions](~~25609~~) operation.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -12052,7 +17819,9 @@ class ModifyLoadBalancerPayTypeRequest(TeaModel):
 
 class ModifyLoadBalancerPayTypeResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
+        # The order ID of the subscription CLB instance.
         self.order_id = order_id  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12080,12 +17849,14 @@ class ModifyLoadBalancerPayTypeResponseBody(TeaModel):
 
 
 class ModifyLoadBalancerPayTypeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyLoadBalancerPayTypeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12098,6 +17869,8 @@ class ModifyLoadBalancerPayTypeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12106,6 +17879,8 @@ class ModifyLoadBalancerPayTypeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyLoadBalancerPayTypeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -12115,13 +17890,59 @@ class ModifyLoadBalancerPayTypeResponse(TeaModel):
 class ModifyVServerGroupBackendServersRequest(TeaModel):
     def __init__(self, new_backend_servers=None, old_backend_servers=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, vserver_group_id=None):
+        # The list of new backend servers that you want to use to replace those in the vServer group. You can specify at most 20 backend servers for a vServer group in each call.
+        # 
+        # *   **ServerId**: required. The ID of the ECS instance or ENI that serves as a backend server. This parameter must be of the STRING type.
+        # 
+        # *   **Port**: required. The port that is used by the backend server. This parameter must be of the INTEGER type. Valid values: **1 to 65535**.
+        # 
+        # *   **Weight**: required. The weight of the backend server. This parameter must be of the INTEGER type. Valid values: **0 to 100**.
+        # 
+        # *   **Description**: optional. The description of the backend server. This parameter must be of the STRING type. The description can contain letters, digits, hyphens (-), forward slashes (/), periods (.),and underscores (\_).
+        # 
+        # *   **Type**: the type of backend server. This parameter must be of the STRING type. Valid values:
+        # 
+        #     *   **ecs**: an ECS instance. This is the default value.
+        #     *   **eni**: an ENI.
+        # 
+        # *   **ServerIp**: the IP address of the ECS instance or ENI.
+        # 
+        # Examples:
+        # 
+        # *   An ECS instance: `[{ "ServerId": "i-xxxxxxxxx", "Weight": "100", "Type": "ecs", "Port":"80","Description":"test-112" }]`
+        # *   An ENI: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","Description":"test-112" }]`
+        # *   An ENI with multiple IP addresses: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","Description":"test-112" },{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "172.166.**.**", "Port":"80","Description":"test-113" }]`
         self.new_backend_servers = new_backend_servers  # type: str
+        # The list of backend servers that you want to replace in the vServer group. You can specify at most 20 backend servers for a vServer group in each call.
+        # 
+        # *   **ServerId**: required. The ID of the Elastic Compute Service (ECS) instance or elastic network interface (ENI) that serves as a backend server. This parameter must be of the STRING type.
+        # 
+        # *   **Port**: required. The port that is used by the backend server. This parameter must be of the INTEGER type. Valid values: **1 to 65535**.
+        # 
+        # *   **Weight**: required. The weight of the backend server. This parameter must be of the INTEGER type. Valid values: **0 to 100**.
+        # 
+        # *   **Description**: optional. The description of the backend server. This parameter must be of the STRING type. The description must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.),and underscores (\_).
+        # 
+        # *   **Type**: the type of backend server. This parameter must be of the STRING type. Valid values:
+        # 
+        #     *   **ecs**: an ECS instance. This is the default value.
+        #     *   **eni**: an ENI.
+        # 
+        # *   **ServerIp**: the IP address of the ECS instance or ENI.
+        # 
+        # Examples:
+        # 
+        # *   An ECS instance: `[{ "ServerId": "i-xxxxxxxxx", "Weight": "100", "Type": "ecs", "Port":"80","Description":"test-112" }]`
+        # *   An ENI: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","Description":"test-112" }]`
+        # *   An ENI with multiple IP addresses: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","Description":"test-112" },{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "172.166.**.**", "Port":"80","Description":"test-113" }]`
         self.old_backend_servers = old_backend_servers  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Classic Load Balancer (CLB) instance is deployed.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -12174,10 +17995,18 @@ class ModifyVServerGroupBackendServersRequest(TeaModel):
 
 class ModifyVServerGroupBackendServersResponseBodyBackendServersBackendServer(TeaModel):
     def __init__(self, description=None, port=None, server_id=None, type=None, weight=None):
+        # The description of the backend server.
         self.description = description  # type: str
+        # The port that is used by the backend server.
         self.port = port  # type: int
+        # The ID of the ECS instance or ENI.
         self.server_id = server_id  # type: str
+        # The type of backend server. Valid values:
+        # 
+        # *   **ecs**: an ECS instance. This is the default value.
+        # *   **eni**: an ENI.
         self.type = type  # type: str
+        # The weight of the backend server.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -12250,8 +18079,11 @@ class ModifyVServerGroupBackendServersResponseBodyBackendServers(TeaModel):
 
 class ModifyVServerGroupBackendServersResponseBody(TeaModel):
     def __init__(self, backend_servers=None, request_id=None, vserver_group_id=None):
+        # The list of backend servers.
         self.backend_servers = backend_servers  # type: ModifyVServerGroupBackendServersResponseBodyBackendServers
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -12285,12 +18117,14 @@ class ModifyVServerGroupBackendServersResponseBody(TeaModel):
 
 
 class ModifyVServerGroupBackendServersResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyVServerGroupBackendServersResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12303,6 +18137,8 @@ class ModifyVServerGroupBackendServersResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12311,8 +18147,155 @@ class ModifyVServerGroupBackendServersResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyVServerGroupBackendServersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class MoveResourceGroupRequest(TeaModel):
+    def __init__(self, new_resource_group_id=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_group_id=None, resource_id=None, resource_owner_account=None, resource_owner_id=None, resource_type=None,
+                 access_key_id=None):
+        # The ID of the resource group to which you want to move the resource.
+        self.new_resource_group_id = new_resource_group_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the Classic Load Balancer (CLB) instance.
+        self.region_id = region_id  # type: str
+        # The resource group ID.
+        self.resource_group_id = resource_group_id  # type: str
+        # The resource ID.
+        self.resource_id = resource_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The type of the resource. Valid values:
+        # 
+        # *   **loadbalancer**: a CLB instance
+        # *   **certificate**: a certificate
+        # *   **acl**: an access control list (ACL)
+        self.resource_type = resource_type  # type: str
+        # The AccessKey ID provided by Alibaba Cloud.
+        self.access_key_id = access_key_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MoveResourceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.new_resource_group_id is not None:
+            result['NewResourceGroupId'] = self.new_resource_group_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.access_key_id is not None:
+            result['access_key_id'] = self.access_key_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NewResourceGroupId') is not None:
+            self.new_resource_group_id = m.get('NewResourceGroupId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('access_key_id') is not None:
+            self.access_key_id = m.get('access_key_id')
+        return self
+
+
+class MoveResourceGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MoveResourceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class MoveResourceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: MoveResourceGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(MoveResourceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = MoveResourceGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -12320,10 +18303,18 @@ class ModifyVServerGroupBackendServersResponse(TeaModel):
 class RemoveAccessControlListEntryRequest(TeaModel):
     def __init__(self, acl_entrys=None, acl_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The IP entries that you want to remove from the network ACL. Valid values:
+        # 
+        # *   **entry**: the IP address or CIDR block that you want to remove from the network ACL. Separate multiple IP addresses or CIDR blocks with commas (,).
+        # *   **comment**: the description of the network ACL.
         self.acl_entrys = acl_entrys  # type: str
+        # The ID of the network ACL.
         self.acl_id = acl_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the network ACL is created.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -12374,6 +18365,7 @@ class RemoveAccessControlListEntryRequest(TeaModel):
 
 class RemoveAccessControlListEntryResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12397,12 +18389,14 @@ class RemoveAccessControlListEntryResponseBody(TeaModel):
 
 
 class RemoveAccessControlListEntryResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RemoveAccessControlListEntryResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12415,6 +18409,8 @@ class RemoveAccessControlListEntryResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12423,6 +18419,8 @@ class RemoveAccessControlListEntryResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveAccessControlListEntryResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -12432,10 +18430,30 @@ class RemoveAccessControlListEntryResponse(TeaModel):
 class RemoveBackendServersRequest(TeaModel):
     def __init__(self, backend_servers=None, load_balancer_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The backend servers to be removed.
+        # 
+        # *   **ServerId**: The IDs of the backend servers. Set the value to a string. This parameter is required.
+        # 
+        # *   **Type**: The type of the backend server. Valid values:
+        # 
+        #     *   **ecs** (default): an Elastic Compute Service (ECS) instance
+        # 
+        #     <!---->
+        # 
+        #     *   **eni**: an elastic network interface (ENI)
+        # 
+        # *   **Weight**: the weight of the backend server. Valid values: **0** to **100**. Set the value to an integer.
+        # 
+        # You can remove at most 20 backend servers in each call. Examples:
+        # 
+        # *   Remove an ECS instance: `[{"ServerId":"i-bp1fq61enf4loa5i****", "Type": "ecs","Weight":"100"}]`
+        # *   Remove an ENI: `[{"ServerId":"eni-2ze1sdp5****","Type": "eni","Weight":"100"}]`
         self.backend_servers = backend_servers  # type: str
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the CLB instance is deployed.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -12486,9 +18504,16 @@ class RemoveBackendServersRequest(TeaModel):
 
 class RemoveBackendServersResponseBodyBackendServersBackendServer(TeaModel):
     def __init__(self, description=None, server_id=None, type=None, weight=None):
+        # The description of the server group.
         self.description = description  # type: str
+        # The ID of the backend server.
         self.server_id = server_id  # type: str
+        # The type of the backend server. Valid values:
+        # 
+        # *   **ecs**: an ECS instance
+        # *   **eni**: an ENI
         self.type = type  # type: str
+        # The weight of the backend server. Valid values: **0 to 100**.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -12557,8 +18582,11 @@ class RemoveBackendServersResponseBodyBackendServers(TeaModel):
 
 class RemoveBackendServersResponseBody(TeaModel):
     def __init__(self, backend_servers=None, load_balancer_id=None, request_id=None):
+        # The list of backend servers.
         self.backend_servers = backend_servers  # type: RemoveBackendServersResponseBodyBackendServers
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12592,12 +18620,14 @@ class RemoveBackendServersResponseBody(TeaModel):
 
 
 class RemoveBackendServersResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RemoveBackendServersResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12610,6 +18640,8 @@ class RemoveBackendServersResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12618,6 +18650,8 @@ class RemoveBackendServersResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveBackendServersResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -12627,14 +18661,25 @@ class RemoveBackendServersResponse(TeaModel):
 class RemoveListenerWhiteListItemRequest(TeaModel):
     def __init__(self, listener_port=None, listener_protocol=None, load_balancer_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, source_items=None):
+        # The listening port.
         self.listener_port = listener_port  # type: int
+        # The frontend protocol that is used by the CLB instance.
+        # 
+        # >  This parameter is required when listeners that use different protocols listen on the same port.
         self.listener_protocol = listener_protocol  # type: str
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region where the Classic Load Balancer (CLB) instance is created.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The list of IP addresses or CIDR blocks that you want to remove from the whitelist. Separate multiple IP addresses or CIDR blocks with commas (,).
+        # 
+        # >  If all IP addresses are removed from the whitelist, the listener does not forward requests.
         self.source_items = source_items  # type: str
 
     def validate(self):
@@ -12691,6 +18736,7 @@ class RemoveListenerWhiteListItemRequest(TeaModel):
 
 class RemoveListenerWhiteListItemResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12714,12 +18760,14 @@ class RemoveListenerWhiteListItemResponseBody(TeaModel):
 
 
 class RemoveListenerWhiteListItemResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RemoveListenerWhiteListItemResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12732,6 +18780,8 @@ class RemoveListenerWhiteListItemResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12740,6 +18790,8 @@ class RemoveListenerWhiteListItemResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveListenerWhiteListItemResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -12749,12 +18801,15 @@ class RemoveListenerWhiteListItemResponse(TeaModel):
 class RemoveTagsRequest(TeaModel):
     def __init__(self, load_balancer_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, tags=None):
+        # The ID of the SLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region to which the SLB instance belongs.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # A list of tags to be removed.
         self.tags = tags  # type: str
 
     def validate(self):
@@ -12803,6 +18858,7 @@ class RemoveTagsRequest(TeaModel):
 
 class RemoveTagsResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12826,12 +18882,14 @@ class RemoveTagsResponseBody(TeaModel):
 
 
 class RemoveTagsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RemoveTagsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12844,6 +18902,8 @@ class RemoveTagsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12852,6 +18912,8 @@ class RemoveTagsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveTagsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -12861,12 +18923,34 @@ class RemoveTagsResponse(TeaModel):
 class RemoveVServerGroupBackendServersRequest(TeaModel):
     def __init__(self, backend_servers=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, vserver_group_id=None):
+        # The list of backend servers that you want to remove from the vServer group.
+        # 
+        # You can specify at most 20 backend servers for a vServer group in each call.
+        # 
+        # The value of this parameter is a JSON list of the STRING type. You can specify at most 20 elements in a list for each request.
+        # 
+        # *   **ServerId**: the ID of the Elastic Compute Service (ECS) instance or elastic network interface (ENI) that serves as a backend server.
+        # 
+        # *   **Port**: the port that is used by the backend server. Valid values: **1 to 65535**.
+        # 
+        # *   **Weight**: the weight of the backend server. Valid values: **0 to 100**.
+        # 
+        # *   **Description**: the description of the backend server. The description must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.),and underscores (\_).
+        # 
+        # *   **Type**: the type of backend server. Valid values:
+        # 
+        #     *   **ecs**: an ECS instance. This is the default value.
+        #     *   **eni**: an ENI.
+        # 
+        # *   **ServerIp**: the IP address of the ECS instance or ENI.
         self.backend_servers = backend_servers  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Classic Load Balancer (CLB) instance is deployed.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -12915,9 +18999,16 @@ class RemoveVServerGroupBackendServersRequest(TeaModel):
 
 class RemoveVServerGroupBackendServersResponseBodyBackendServersBackendServer(TeaModel):
     def __init__(self, port=None, server_id=None, type=None, weight=None):
+        # The port that is used by the backend server.
         self.port = port  # type: int
+        # The ID of the ECS instance or ENI.
         self.server_id = server_id  # type: str
+        # The type of backend server. Valid values:
+        # 
+        # *   **ecs**: an ECS instance
+        # *   **eni**: an ENI
         self.type = type  # type: str
+        # The weight of the backend server.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -12986,8 +19077,11 @@ class RemoveVServerGroupBackendServersResponseBodyBackendServers(TeaModel):
 
 class RemoveVServerGroupBackendServersResponseBody(TeaModel):
     def __init__(self, backend_servers=None, request_id=None, vserver_group_id=None):
+        # The list of backend servers.
         self.backend_servers = backend_servers  # type: RemoveVServerGroupBackendServersResponseBodyBackendServers
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -13021,12 +19115,14 @@ class RemoveVServerGroupBackendServersResponseBody(TeaModel):
 
 
 class RemoveVServerGroupBackendServersResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RemoveVServerGroupBackendServersResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13039,6 +19135,8 @@ class RemoveVServerGroupBackendServersResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13047,6 +19145,8 @@ class RemoveVServerGroupBackendServersResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveVServerGroupBackendServersResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13056,10 +19156,15 @@ class RemoveVServerGroupBackendServersResponse(TeaModel):
 class SetAccessControlListAttributeRequest(TeaModel):
     def __init__(self, acl_id=None, acl_name=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The ID of the network ACL.
         self.acl_id = acl_id  # type: str
+        # The new name of the network ACL. The name must be 1 to 80 characters in length, and can contain only letters, digits, periods (.), hyphens (-), forward slashes (/), and underscores (\_). The name of the network ACL must be unique within each region.
         self.acl_name = acl_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the network ACL is created.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -13109,8 +19214,8 @@ class SetAccessControlListAttributeRequest(TeaModel):
 
 
 class SetAccessControlListAttributeResponseBody(TeaModel):
-    def __init__(self, acl_id=None, request_id=None):
-        self.acl_id = acl_id  # type: str
+    def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13122,28 +19227,26 @@ class SetAccessControlListAttributeResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.acl_id is not None:
-            result['AclId'] = self.acl_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('AclId') is not None:
-            self.acl_id = m.get('AclId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
 
 
 class SetAccessControlListAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetAccessControlListAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13156,6 +19259,8 @@ class SetAccessControlListAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13164,8 +19269,146 @@ class SetAccessControlListAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetAccessControlListAttributeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SetAccessLogsDownloadAttributeRequest(TeaModel):
+    def __init__(self, load_balancer_id=None, logs_download_attributes=None, owner_account=None, owner_id=None,
+                 region_id=None, resource_owner_account=None, resource_owner_id=None, tags=None):
+        # The ID of the CLB instance.
+        self.load_balancer_id = load_balancer_id  # type: str
+        # The access log forwarding rule. Parameters:
+        # 
+        # *   **LogProject**: the name of the project.
+        # *   **LogStore**: the name of the Logstore.
+        # *   **LoadBalancerId**: the ID of the CLB instance.
+        self.logs_download_attributes = logs_download_attributes  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the region where the CLB instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The tags that are added to the CLB instance. The tags must be key-value pairs that are contained in a JSON dictionary.
+        # 
+        # You can specify up to 10 tags in each call.
+        self.tags = tags  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetAccessLogsDownloadAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.load_balancer_id is not None:
+            result['LoadBalancerId'] = self.load_balancer_id
+        if self.logs_download_attributes is not None:
+            result['LogsDownloadAttributes'] = self.logs_download_attributes
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.tags is not None:
+            result['Tags'] = self.tags
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LoadBalancerId') is not None:
+            self.load_balancer_id = m.get('LoadBalancerId')
+        if m.get('LogsDownloadAttributes') is not None:
+            self.logs_download_attributes = m.get('LogsDownloadAttributes')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
+        return self
+
+
+class SetAccessLogsDownloadAttributeResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetAccessLogsDownloadAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SetAccessLogsDownloadAttributeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SetAccessLogsDownloadAttributeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetAccessLogsDownloadAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SetAccessLogsDownloadAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -13173,10 +19416,39 @@ class SetAccessControlListAttributeResponse(TeaModel):
 class SetBackendServersRequest(TeaModel):
     def __init__(self, backend_servers=None, load_balancer_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The list of backend servers that you want to modify.
+        # 
+        # The value of this parameter must be a STRING list in the JSON format. You can specify up to 20 elements in each request.
+        # 
+        # *   **ServerId**: Required. Specify the ID of the backend server. This parameter must be of the STRING type.
+        # 
+        # *   **Port**: Required. Specify the port that is used by the backend server. This parameter must be of the INTEGER type. Valid values: **1** to **65535**.
+        # 
+        # *   **Weight**: Specify the weight of the backend server. This parameter must be of the INTEGER type. Valid values: **0** to **100**.
+        # 
+        # *   **Description**: Optional. The description of the backend server. This value must be a string. The description must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\_).
+        # 
+        # *   **Type**: the type of backend server. This parameter must be of the STRING type. Valid values:
+        # 
+        #     *   **ecs** (default): an Elastic Compute Service (ECS) instance
+        #     *   **eni**: an elastic network interface (ENI). You can specify ENIs as the backend servers only for high-performance CLB instances.
+        # 
+        # *   **ServerIp**: the IP address of the ECS instance or ENI
+        # 
+        # Examples:
+        # 
+        # *   ECS instance: `[{ "ServerId": "ecs-******FmYAXG", "Weight": "100", "Type": "ecs", "Port":"80","Description":"test-112" }]`
+        # *   ENI: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","Description":"test-112" }]`
+        # *   ENI with multiple IP addresses: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","Description":"test-112" },{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "172.166.**.**", "Port":"80","Description":"test-113" }]`
+        # 
+        # > 
+        # *   The backend servers must be in the Running state. You can specify up to 20 backend servers in each request.
         self.backend_servers = backend_servers  # type: str
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the Classic Load Balancer (CLB) instance.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -13227,9 +19499,16 @@ class SetBackendServersRequest(TeaModel):
 
 class SetBackendServersResponseBodyBackendServersBackendServer(TeaModel):
     def __init__(self, description=None, server_id=None, type=None, weight=None):
+        # The description of the backend server.
         self.description = description  # type: str
+        # The ID of the server.
         self.server_id = server_id  # type: str
+        # The type of the backend server. Valid values:
+        # 
+        # *   **ecs** (default): an ECS instance
+        # *   **eni**: an elastic network interface (ENI)
         self.type = type  # type: str
+        # The weight of the backend server.
         self.weight = weight  # type: str
 
     def validate(self):
@@ -13298,8 +19577,11 @@ class SetBackendServersResponseBodyBackendServers(TeaModel):
 
 class SetBackendServersResponseBody(TeaModel):
     def __init__(self, backend_servers=None, load_balancer_id=None, request_id=None):
+        # The list of backend servers.
         self.backend_servers = backend_servers  # type: SetBackendServersResponseBodyBackendServers
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13333,12 +19615,14 @@ class SetBackendServersResponseBody(TeaModel):
 
 
 class SetBackendServersResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetBackendServersResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13351,6 +19635,8 @@ class SetBackendServersResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13359,6 +19645,8 @@ class SetBackendServersResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetBackendServersResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13368,10 +19656,17 @@ class SetBackendServersResponse(TeaModel):
 class SetCACertificateNameRequest(TeaModel):
     def __init__(self, cacertificate_id=None, cacertificate_name=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The ID of the CA certificate.
         self.cacertificate_id = cacertificate_id  # type: str
+        # The name of the CA certificate.
+        # 
+        # The name must be 1 to 80 characters in length and start with an English letter or a Chinese character. It can contain numbers, underscores (\_), periods (.), and hyphens (-).
         self.cacertificate_name = cacertificate_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region to which the CA certificate belongs.
+        # 
+        # To query the region ID, call [DescribeRegions](~~27584~~).
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -13422,6 +19717,7 @@ class SetCACertificateNameRequest(TeaModel):
 
 class SetCACertificateNameResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13445,12 +19741,14 @@ class SetCACertificateNameResponseBody(TeaModel):
 
 
 class SetCACertificateNameResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetCACertificateNameResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13463,6 +19761,8 @@ class SetCACertificateNameResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13471,6 +19771,8 @@ class SetCACertificateNameResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetCACertificateNameResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13480,12 +19782,15 @@ class SetCACertificateNameResponse(TeaModel):
 class SetDomainExtensionAttributeRequest(TeaModel):
     def __init__(self, domain_extension_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, server_certificate_id=None):
+        # The ID of the domain name that is associated with the additional certificate to be replaced.
         self.domain_extension_id = domain_extension_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the SLB instance is created.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the new certificate.
         self.server_certificate_id = server_certificate_id  # type: str
 
     def validate(self):
@@ -13534,6 +19839,7 @@ class SetDomainExtensionAttributeRequest(TeaModel):
 
 class SetDomainExtensionAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13557,12 +19863,14 @@ class SetDomainExtensionAttributeResponseBody(TeaModel):
 
 
 class SetDomainExtensionAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetDomainExtensionAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13575,6 +19883,8 @@ class SetDomainExtensionAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13583,6 +19893,8 @@ class SetDomainExtensionAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetDomainExtensionAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13593,12 +19905,28 @@ class SetListenerAccessControlStatusRequest(TeaModel):
     def __init__(self, access_control_status=None, listener_port=None, listener_protocol=None,
                  load_balancer_id=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # Specifies whether to enable the whitelist. Valid values:
+        # 
+        # *   **open_white_list**: enables the whitelist.
+        # *   **close**: disables the whitelist.
+        # 
+        # >  After the whitelist is enabled, if no IP address is added to the whitelist, the CLB instance does not distribute network traffic.
         self.access_control_status = access_control_status  # type: str
+        # The frontend port that is used by the CLB instance.
+        # 
+        # Valid values: **1 to 65535**.
         self.listener_port = listener_port  # type: int
+        # The frontend protocol that is used by the CLB instance.
+        # 
+        # >  This parameter is required when listeners that use different protocols listen on the same port.
         self.listener_protocol = listener_protocol  # type: str
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region where the Classic Load Balancer (CLB) instance is created.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -13657,6 +19985,7 @@ class SetListenerAccessControlStatusRequest(TeaModel):
 
 class SetListenerAccessControlStatusResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13680,12 +20009,14 @@ class SetListenerAccessControlStatusResponseBody(TeaModel):
 
 
 class SetListenerAccessControlStatusResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetListenerAccessControlStatusResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13698,6 +20029,8 @@ class SetListenerAccessControlStatusResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13706,6 +20039,8 @@ class SetListenerAccessControlStatusResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetListenerAccessControlStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13715,10 +20050,17 @@ class SetListenerAccessControlStatusResponse(TeaModel):
 class SetLoadBalancerDeleteProtectionRequest(TeaModel):
     def __init__(self, delete_protection=None, load_balancer_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # Specify whether to enable or disable deletion protection for the SLB instance.
+        # 
+        # Valid values: **on and off**.
         self.delete_protection = delete_protection  # type: str
+        # The ID of the SLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region where the SLB instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query region IDs.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -13769,6 +20111,7 @@ class SetLoadBalancerDeleteProtectionRequest(TeaModel):
 
 class SetLoadBalancerDeleteProtectionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13792,12 +20135,14 @@ class SetLoadBalancerDeleteProtectionResponseBody(TeaModel):
 
 
 class SetLoadBalancerDeleteProtectionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetLoadBalancerDeleteProtectionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13810,6 +20155,8 @@ class SetLoadBalancerDeleteProtectionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13818,6 +20165,8 @@ class SetLoadBalancerDeleteProtectionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetLoadBalancerDeleteProtectionResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13833,41 +20182,178 @@ class SetLoadBalancerHTTPListenerAttributeRequest(TeaModel):
                  resource_owner_id=None, scheduler=None, sticky_session=None, sticky_session_type=None, unhealthy_threshold=None,
                  vserver_group=None, vserver_group_id=None, xforwarded_for=None, xforwarded_for__slbid=None,
                  xforwarded_for__slbip=None, xforwarded_for_proto=None):
+        # The ID of the access control list (ACL) that is associated with the listener.
+        # 
+        # > This parameter is required when **AclStatus** is set to **on**.
         self.acl_id = acl_id  # type: str
+        # Specifies whether to enable access control. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.acl_status = acl_status  # type: str
+        # The type of the ACL. Valid values:
+        # 
+        # *   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the ACL are forwarded. Whitelists apply to scenarios where you want to allow only specific IP addresses to access an application. Risks may occur if a whitelist is improperly configured. If a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener.
+        # 
+        # If you enable a whitelist but do not add an IP address to the ACL, the listener forwards all requests.
+        # 
+        # *   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the ACL are rejected. Blacklists apply to scenarios where you want to block access from specified IP addresses to an application.
+        # 
+        # If a blacklist is configured for a listener but no IP addresses are added to the blacklist, the listener forwards all requests.
+        # 
+        # > This parameter takes effect when the value of **AclStatus** is set to **on**.
         self.acl_type = acl_type  # type: str
+        # The maximum bandwidth of the listener. Unit: Mbit/s. Set the value to
+        # 
+        # *   **-1**: For a pay-by-data-transfer Internet-facing CLB instance, this value specifies that the bandwidth of the listener is unlimited.
         self.bandwidth = bandwidth  # type: int
+        # The cookie that is configured on the server.
+        # 
+        # The cookie must be 1 to 200 characters in length, and can contain ASCII characters and digits. It cannot contain commas (,), semicolons (;), or spaces. It cannot start with a dollar sign ($).
+        # 
+        # > This parameter is required when **StickySession** is set to **on** and **StickySessionType** is set to **server**.
         self.cookie = cookie  # type: str
+        # The timeout period of a cookie.
+        # 
+        # Valid values: **1** to **86400**. Unit: seconds.
+        # 
+        # > This parameter is required when **StickySession** is set to **on** and **StickySessionType** is set to **insert**.
         self.cookie_timeout = cookie_timeout  # type: int
+        # The description of the listener.
         self.description = description  # type: str
+        # Specifies whether to enable `GZIP` compression to compress specific types of files. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.gzip = gzip  # type: str
+        # Specifies whether to enable the health check feature. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.health_check = health_check  # type: str
+        # The port that is used for health checks.
+        # 
+        # Valid values: **1** to **65535**.
+        # 
+        # > This parameter takes effect only if you set **HealthCheck** to **on**.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The domain name that is used for health checks. Valid values:
+        # 
+        # *   **$\_ip**: the private IP address of a backend server. If you specify \*\*$\_ip **or** ignore HealthCheckDomain\*\*, CLB uses the private IP addresses of backend servers as the health check domain names.
+        # *   **domain**: The domain name must be 1 to 80 characters in length, and can contain letters, digits, periods (.), and hyphens (-).
+        # 
+        # > The parameter takes effect only if you set **HealthCheck** to **on**.
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status code for a successful health check. Separate multiple HTTP status codes with commas (,).
+        # 
+        # Valid values: **http\_2xx**, **http\_3xx**, **http\_4xx**, and **http\_5xx**.
+        # 
+        # >  The parameter takes effect only if you set **HealthCheck** to **on**.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The interval at which health checks are performed.
+        # 
+        # Valid values: **1** to **50**. Unit: seconds.
+        # 
+        # >  The parameter takes effect only if you set **HealthCheck** to **on**.
         self.health_check_interval = health_check_interval  # type: int
+        # The health check method that is used in HTTP health checks. Valid values: **head** and **get**.
+        # 
+        # > The parameter takes effect only if you set **HealthCheck** to **on**.
         self.health_check_method = health_check_method  # type: str
+        # The timeout period of a health check response. If a backend server, such as an Elastic Compute Service (ECS) instance, does not respond to a probe packet within the specified timeout period, the server fails the health check. This parameter takes effect only if you set **HealthCheck** to **on**.
+        # 
+        # Valid values: **1** to **300**. Unit: seconds.
+        # 
+        # > If the value of **HealthCheckTimeout** is smaller than the value of **HealthCheckInterval**, the value of **HealthCheckTimeout** becomes invalid and the value of **HealthCheckInterval** is used as the timeout period.
         self.health_check_timeout = health_check_timeout  # type: int
+        # The Uniform Resource Identifier (URI) that you want to use for health checks.
+        # 
+        # The URI must be 1 to 80 characters in length, and can contain letters, digits, and the following characters: - / . % ? # & The URI must start with a forward slash (/) but cannot be a single forward slash (/).
+        # 
+        # > The parameter takes effect only if you set **HealthCheck** to **on**.
         self.health_check_uri = health_check_uri  # type: str
+        # The number of times that an unhealthy backend server must consecutively pass health checks before it is declared healthy. In this case, the health status is changed from **fail** to **success**.
+        # 
+        # Valid values: **2** to **10**.
+        # 
+        # > The parameter takes effect only if you set **HealthCheck** to **on**.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The timeout period of an idle connection. Unit: seconds. Valid values: **1 to 60**. Default value: **15**.
+        # 
+        # If no request is received within the specified timeout period, CLB closes the connection. When a request is received, CLB establishes a new connection.
         self.idle_timeout = idle_timeout  # type: int
+        # The frontend port that is used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
         self.listener_port = listener_port  # type: int
+        # The CLB instance ID.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the CLB instance.
+        # 
+        # You can query the region ID from the [Regions and zones](~~27585~~) list or by calling the [DescribeRegions](~~27584~~) operation.
         self.region_id = region_id  # type: str
+        # The timeout period of a request. Unit: seconds. Valid values: **1 to 180**. Default value: **60**.
+        # 
+        # If no response is received from the backend server within the request timeout period, CLB returns an HTTP 504 error code to the client.
         self.request_timeout = request_timeout  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The scheduling algorithm. Valid values:
+        # 
+        # *   **wrr**: Backend servers that have higher weights receive more requests than backend servers that have lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
         self.scheduler = scheduler  # type: str
+        # Specifies whether to enable session persistence. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.sticky_session = sticky_session  # type: str
+        # The method that is used to handle a cookie. Valid values:
+        # 
+        # *   **insert**: inserts a cookie.
+        # 
+        # CLB inserts a cookie (SERVERID) into the first HTTP or HTTPS response packet that is sent to a client. The next request from the client contains this cookie, and the listener distributes the request to the recorded backend server.
+        # 
+        # *   **server**: rewrites a cookie.
+        # 
+        # When CLB detects a user-defined cookie, CLB overwrites the original cookie with the user-defined cookie. The next request from the client carries the user-defined cookie, and the listener forwards the request to the recorded backend server.
+        # 
+        # > This parameter is required when **StickySession** is set to **on**.
         self.sticky_session_type = sticky_session_type  # type: str
+        # The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**.
+        # 
+        # Valid values: **2** to **10**.
+        # 
+        # > The parameter takes effect only if you set **HealthCheck** to **on**.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # Specifies whether to use a vServer group. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.vserver_group = vserver_group  # type: str
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
+        # Specifies whether to use the `X-Forwarded-For` header to preserve client IP addresses. Valid values:
+        # 
+        # *   **on** (default)
+        # *   **off**\
         self.xforwarded_for = xforwarded_for  # type: str
+        # Specifies whether to use the `SLB-ID` header to retrieve the ID of the CLB instance. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for__slbid = xforwarded_for__slbid  # type: str
+        # Specifies whether to use the `SLB-IP` header to retrieve the virtual IP address (VIP) requested by the client. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for__slbip = xforwarded_for__slbip  # type: str
+        # Specifies whether to use the `X-Forwarded-Proto` header to retrieve the listener protocol. Valid values:
+        # 
+        # *   **on**\
+        # *   **off**\
         self.xforwarded_for_proto = xforwarded_for_proto  # type: str
 
     def validate(self):
@@ -14032,6 +20518,7 @@ class SetLoadBalancerHTTPListenerAttributeRequest(TeaModel):
 
 class SetLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14055,12 +20542,14 @@ class SetLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
 
 
 class SetLoadBalancerHTTPListenerAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetLoadBalancerHTTPListenerAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14073,6 +20562,8 @@ class SetLoadBalancerHTTPListenerAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14081,6 +20572,8 @@ class SetLoadBalancerHTTPListenerAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetLoadBalancerHTTPListenerAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14097,45 +20590,227 @@ class SetLoadBalancerHTTPSListenerAttributeRequest(TeaModel):
                  server_certificate_id=None, sticky_session=None, sticky_session_type=None, tlscipher_policy=None,
                  unhealthy_threshold=None, vserver_group=None, vserver_group_id=None, xforwarded_for=None, xforwarded_for__slbid=None,
                  xforwarded_for__slbip=None, xforwarded_for_proto=None):
+        # The ID of the network access control list (ACL) that you want to associate with the listener.
+        # 
+        # If **AclStatus** is set to **on**, this parameter is required.
         self.acl_id = acl_id  # type: str
+        # Specifies whether to enable access control. Valid values:
+        # 
+        # *   **on**: enables access control
+        # *   **off**: disables access control
         self.acl_status = acl_status  # type: str
+        # The type of network ACL. Valid values:
+        # 
+        # *   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios where you want to allow only specific IP addresses to access an application. Your business may be adversely affected if the whitelist is not set properly. After a whitelist is configured, only IP addresses in the whitelist can access the CLB listener.
+        # 
+        #     If no IP address is added to the whitelist, the CLB listener forwards all requests.
+        # 
+        # *   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the network ACL are denied. Blacklists apply to scenarios where you want to deny access from specified IP addresses to an application.
+        # 
+        #     If no IP address is added to the blacklist, the listener forwards all requests.
+        # 
+        # >  This parameter takes effect only when **AclStatus** is set to **on**.
         self.acl_type = acl_type  # type: str
+        # The bandwidth limit of the listener. Unit: Mbit/s.
+        # 
+        # Valid values: **-1** and **1** to **5120**.
+        # 
+        # *   **-1**: If you set the value to -1, the bandwidth of the listener is unlimited.
+        # *   **1** to **5120**: If you set a value from 1 to 5120, the value that you specify equals the bandwidth limit of the listener. The sum of bandwidth limit values that you specify for all listeners of the CLB instance cannot exceed the bandwidth limit of the CLB instance.
         self.bandwidth = bandwidth  # type: int
+        # The ID of the CA certificate.
+        # 
+        # *   If both the CA certificate and the server certificate are uploaded, mutual authentication is used.
+        # *   If you upload only the server certificate, one-way authentication is used.
         self.cacertificate_id = cacertificate_id  # type: str
+        # The cookie to be configured on the backend server.
+        # 
+        # The cookie must be 1 to 200 characters in length, and can contain only ASCII characters and digits. It cannot contain commas (,), semicolons (;), or space characters. It cannot start with a dollar sign ($).
+        # 
+        # >  This parameter is required if the **StickySession** parameter is set to **on** and the **StickySessionType** parameter is set to **server**.
         self.cookie = cookie  # type: str
+        # The timeout period of the cookie. Unit: seconds.
+        # 
+        # Valid values: **1** to **86400**.
+        # 
+        # >  This parameter is required if the **StickySession** parameter is set to **on** and the **StickySessionType** parameter is set to **insert**.
         self.cookie_timeout = cookie_timeout  # type: int
+        # The description of the listener.
         self.description = description  # type: str
+        # Specifies whether to use `HTTP 2.0`. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.enable_http_2 = enable_http_2  # type: str
+        # Specifies whether to enable `Gzip` compression to compress specific types of files. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.gzip = gzip  # type: str
+        # Specifies whether to enable health checks. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.health_check = health_check  # type: str
+        # The port that is used for health checks.
+        # 
+        # Valid values: **1** to **65535**.
+        # 
+        # >  This parameter takes effect only when the **HealthCheck** parameter is set to **on**.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The domain name that is used for health checks. Valid values:
+        # 
+        # *   **$\_ip**: the private IP address of a backend server. If you do not set this parameter or set the parameter to $\_ip, the CLB instance uses the private IP address of each backend server as the domain name for health checks.
+        # *   **domain**: The domain name must be 1 to 80 characters in length, and can contain letters, digits, periods (.),and hyphens (-).
+        # 
+        # >  This parameter takes effect only when the **HealthCheck** parameter is set to **on**.
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status code of a successful health check. Separate multiple HTTP status codes with commas (,).
+        # 
+        # Valid values: **http\_2xx**, **http\_3xx**, **http\_4xx**, and **http\_5xx**.
+        # 
+        # >  This parameter takes effect only when the **HealthCheck** parameter is set to **on**.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The interval between two consecutive health checks. Unit: seconds.
+        # 
+        # Valid values: **1** to **50**.
+        # 
+        # >  This parameter takes effect only when the **HealthCheck** parameter is set to **on**.
         self.health_check_interval = health_check_interval  # type: int
+        # The HTTP method that is used for health checks. Valid values: **head** and **get**.
+        # 
+        # >  This parameter takes effect only when the **HealthCheck** parameter is set to **on**.
         self.health_check_method = health_check_method  # type: str
+        # The timeout period of a health check response. If a backend server does not respond within the specified timeout period, the health check fails. Unit: seconds.
+        # 
+        # Valid values: **1** to **300**.
+        # 
+        # If the value of the **HealthCheckTimeout** parameter is smaller than that of the **HealthCheckInterval** parameter, the timeout period specified by the **HealthCheckTimeout** parameter is ignored and the period of time specified by the **HealthCheckInterval** parameter is used as the timeout period.
+        # 
+        # >  This parameter takes effect only when the **HealthCheck** parameter is set to **on**.
         self.health_check_timeout = health_check_timeout  # type: int
+        # The URL that is used for health checks.
+        # 
+        # The URL must be 1 to 80 characters in length and can contain letters, digits, and the following characters: - / . % ? # &. The URL must not be a single forward slash (/) but it must start with a forward slash (/).
+        # 
+        # >  This parameter takes effect only when the **HealthCheck** parameter is set to **on**.
         self.health_check_uri = health_check_uri  # type: str
+        # The number of health checks that an unhealthy backend server must consecutively pass before it can be declared healthy (from **fail** to **success**).
+        # 
+        # Valid values: **2** to **10**.
+        # 
+        # >  This parameter takes effect only when the **HealthCheck** parameter is set to **on**.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The timeout period of an idle connection. Unit: seconds. Valid values: **1 to 60**. Default value: **15**.
+        # 
+        # If no request is received within the specified timeout period, CLB closes the connection. When another request is received, CLB establishes a new connection.
         self.idle_timeout = idle_timeout  # type: int
+        # The frontend port that is used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
         self.listener_port = listener_port  # type: int
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the CLB instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The timeout period of a request. Unit: seconds. Valid values: **1 to 180**. Default value: **60**.
+        # 
+        # If no response is received from the backend server during the request timeout period, CLB sends an HTTP 504 error code to the client.
         self.request_timeout = request_timeout  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The scheduling algorithm. Valid values:
+        # 
+        # *   **wrr**: Backend servers that have higher weights receive more requests than backend servers that have lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
         self.scheduler = scheduler  # type: str
+        # The ID of the server certificate.
         self.server_certificate_id = server_certificate_id  # type: str
+        # Specifies whether to enable session persistence. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.sticky_session = sticky_session  # type: str
+        # The method that is used to handle a cookie. Valid values:
+        # 
+        # *   **insert**: inserts a cookie.
+        # 
+        #     CLB inserts a cookie (SERVERID) into the first HTTP or HTTPS response that is sent to a client. The next request from the client will contain this cookie, and the listener will distribute this request to the recorded backend server.
+        # 
+        # *   **server**: rewrites a cookie.
+        # 
+        #     When CLB detects a user-defined cookie, it overwrites the original cookie with the user-defined cookie. The next request from the client will contain the user-defined cookie, and the listener will distribute this request to the recorded backend server.
+        # 
+        # >  This parameter is required if the **StickySession** parameter is set to **on**.
         self.sticky_session_type = sticky_session_type  # type: str
+        # The Transport Layer Security (TLS) security policy. Each security policy contains TLS protocol versions and cipher suites available for HTTPS.
+        # 
+        # *   **tls_cipher_policy\_1\_0**:
+        # 
+        #     Supported TLS versions: TLS 1.0, TLS 1.1, and TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, AES128-GCM-SHA256, AES256-GCM-SHA384, AES128-SHA256, AES256-SHA256, ECDHE-RSA-AES128-SHA, ECDHE-RSA-AES256-SHA, AES128-SHA, AES256-SHA, and DES-CBC3-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_1**:
+        # 
+        #     Supported TLS versions: TLS 1.1 and TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, AES128-GCM-SHA256, AES256-GCM-SHA384, AES128-SHA256, AES256-SHA256, ECDHE-RSA-AES128-SHA, ECDHE-RSA-AES256-SHA, AES128-SHA, AES256-SHA, and DES-CBC3-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_2**\
+        # 
+        #     Supported TLS version: TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, AES128-GCM-SHA256, AES256-GCM-SHA384, AES128-SHA256, AES256-SHA256, ECDHE-RSA-AES128-SHA, ECDHE-RSA-AES256-SHA, AES128-SHA, AES256-SHA, and DES-CBC3-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_2\_strict**\
+        # 
+        #     Supported TLS version: TLS 1.2
+        # 
+        #     Supported cipher suites: ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, ECDHE-RSA-AES128-SHA, and ECDHE-RSA-AES256-SHA
+        # 
+        # *   **tls_cipher_policy\_1\_2\_strict_with\_1\_3**\
+        # 
+        #     Supported TLS versions: TLS 1.2 and TLS 1.3
+        # 
+        #     Supported cipher suites: TLS_AES\_128\_GCM_SHA256, TLS_AES\_256\_GCM_SHA384, TLS_CHACHA20\_POLY1305\_SHA256, TLS_AES\_128\_CCM_SHA256, TLS_AES\_128\_CCM\_8\_SHA256, ECDHE-ECDSA-AES128-GCM-SHA256, ECDHE-ECDSA-AES256-GCM-SHA384, ECDHE-ECDSA-AES128-SHA256, ECDHE-ECDSA-AES256-SHA384, ECDHE-RSA-AES128-GCM-SHA256, ECDHE-RSA-AES256-GCM-SHA384, ECDHE-RSA-AES128-SHA256, ECDHE-RSA-AES256-SHA384, ECDHE-ECDSA-AES128-SHA, ECDHE-ECDSA-AES256-SHA, ECDHE-RSA-AES128-SHA, and ECDHE-RSA-AES256-SHA
         self.tlscipher_policy = tlscipher_policy  # type: str
+        # The number of health checks that a healthy backend server must consecutively fail before it can be declared unhealthy (from **success** to **fail**).
+        # 
+        # Valid values: **2** to **10**.
+        # 
+        # >  This parameter takes effect only when the **HealthCheck** parameter is set to **on**.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # Specifies whether to use a vServer group. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.vserver_group = vserver_group  # type: str
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
+        # Specifies whether to use the `X-Forwarded-For` header to retrieve client IP addresses. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for = xforwarded_for  # type: str
+        # Specifies whether to use the `SLB-ID` header to retrieve the ID of the CLB instance. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__slbid = xforwarded_for__slbid  # type: str
+        # Specifies whether to use the `SLB-IP` header to obtain the virtual IP address (VIP) requested by the client. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for__slbip = xforwarded_for__slbip  # type: str
+        # Specifies whether to use the `X-Forwarded-Proto` header to retrieve the listener protocol. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.xforwarded_for_proto = xforwarded_for_proto  # type: str
 
     def validate(self):
@@ -14316,6 +20991,7 @@ class SetLoadBalancerHTTPSListenerAttributeRequest(TeaModel):
 
 class SetLoadBalancerHTTPSListenerAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14339,12 +21015,14 @@ class SetLoadBalancerHTTPSListenerAttributeResponseBody(TeaModel):
 
 
 class SetLoadBalancerHTTPSListenerAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetLoadBalancerHTTPSListenerAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14357,6 +21035,8 @@ class SetLoadBalancerHTTPSListenerAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14365,6 +21045,8 @@ class SetLoadBalancerHTTPSListenerAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetLoadBalancerHTTPSListenerAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14375,11 +21057,24 @@ class SetLoadBalancerModificationProtectionRequest(TeaModel):
     def __init__(self, load_balancer_id=None, modification_protection_reason=None,
                  modification_protection_status=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The reason why the configuration read-only mode is enabled. The value must be 1 to 80 characters in length. It must start with a letter and can contain letters, digits, periods (.), underscores (\_), and hyphens (-).
+        # 
+        # >  This parameter is valid only if the **ModificationProtectionStatus** parameter is set to **ConsoleProtection**.
         self.modification_protection_reason = modification_protection_reason  # type: str
+        # Specifies whether to enable the configuration read-only mode. Valid values:
+        # 
+        # *   **NonProtection**: disables the configuration read-only mode. After you disable the configuration read-only mode, the value of **ModificationProtectionReason** is cleared.
+        # *   **ConsoleProtection**: enables the configuration read-only mode.
+        # 
+        # >  If you set this parameter to **ConsoleProtection**, you cannot use the CLB console to modify instance configurations. However, you can call API operations to modify instance configurations.
         self.modification_protection_status = modification_protection_status  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the CLB instance.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -14434,6 +21129,7 @@ class SetLoadBalancerModificationProtectionRequest(TeaModel):
 
 class SetLoadBalancerModificationProtectionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14457,12 +21153,14 @@ class SetLoadBalancerModificationProtectionResponseBody(TeaModel):
 
 
 class SetLoadBalancerModificationProtectionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetLoadBalancerModificationProtectionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14475,6 +21173,8 @@ class SetLoadBalancerModificationProtectionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14483,6 +21183,8 @@ class SetLoadBalancerModificationProtectionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetLoadBalancerModificationProtectionResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14496,6 +21198,9 @@ class SetLoadBalancerNameRequest(TeaModel):
         self.load_balancer_name = load_balancer_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the CLB instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -14569,12 +21274,14 @@ class SetLoadBalancerNameResponseBody(TeaModel):
 
 
 class SetLoadBalancerNameResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetLoadBalancerNameResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14587,6 +21294,8 @@ class SetLoadBalancerNameResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14595,6 +21304,8 @@ class SetLoadBalancerNameResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetLoadBalancerNameResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14604,10 +21315,27 @@ class SetLoadBalancerNameResponse(TeaModel):
 class SetLoadBalancerStatusRequest(TeaModel):
     def __init__(self, load_balancer_id=None, load_balancer_status=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The state of the CLB instance. Valid values: **active** and **inactive**.
+        # 
+        # *   **active** (default)
+        # 
+        #     If a CLB instance is in the **active** state, listeners of the CLB instance can forward traffic based on forwarding rules.
+        # 
+        #     By default, newly created CLB instances are in the **active** state.
+        # 
+        # *   **inactive**\
+        # 
+        #     If a CLB instance is in the **inactive** state, listeners of the CLB instance do not forward traffic.
+        # 
+        # >  If all listeners of a CLB instance are deleted, the CLB instance automatically switches to the **inactive** state.
         self.load_balancer_status = load_balancer_status  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the CLB instance is deployed.
+        # 
+        # You can query region IDs from the [Regions and zones](~~40654~~) list or by calling the [DescribeRegions](~~25609~~) operation.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -14658,6 +21386,7 @@ class SetLoadBalancerStatusRequest(TeaModel):
 
 class SetLoadBalancerStatusResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14681,12 +21410,14 @@ class SetLoadBalancerStatusResponseBody(TeaModel):
 
 
 class SetLoadBalancerStatusResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetLoadBalancerStatusResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14699,6 +21430,8 @@ class SetLoadBalancerStatusResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14707,6 +21440,8 @@ class SetLoadBalancerStatusResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetLoadBalancerStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14717,40 +21452,161 @@ class SetLoadBalancerTCPListenerAttributeRequest(TeaModel):
     def __init__(self, acl_id=None, acl_status=None, acl_type=None, bandwidth=None, connection_drain=None,
                  connection_drain_timeout=None, description=None, established_timeout=None, health_check_connect_port=None,
                  health_check_connect_timeout=None, health_check_domain=None, health_check_http_code=None, health_check_interval=None,
-                 health_check_type=None, health_check_uri=None, healthy_threshold=None, listener_port=None, load_balancer_id=None,
-                 master_slave_server_group=None, master_slave_server_group_id=None, owner_account=None, owner_id=None,
-                 persistence_timeout=None, region_id=None, resource_owner_account=None, resource_owner_id=None, scheduler=None,
-                 syn_proxy=None, unhealthy_threshold=None, vserver_group=None, vserver_group_id=None):
+                 health_check_switch=None, health_check_type=None, health_check_uri=None, healthy_threshold=None, listener_port=None,
+                 load_balancer_id=None, master_slave_server_group=None, master_slave_server_group_id=None, owner_account=None,
+                 owner_id=None, persistence_timeout=None, proxy_protocol_v2enabled=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, scheduler=None, syn_proxy=None, unhealthy_threshold=None,
+                 vserver_group=None, vserver_group_id=None):
+        # The ID of the network access control list (ACL) that is associated with the listener.
+        # 
+        # If **AclStatus** is set to **on**, this parameter is required.
         self.acl_id = acl_id  # type: str
+        # Specifies whether to enable access control. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.acl_status = acl_status  # type: str
+        # The type of the network ACL. Valid values:
+        # 
+        # *   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios where you want to allow only specific IP addresses to access an application. Your service may be adversely affected if the allowlist is not properly configured. After a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener.
+        # 
+        #     If you enable a whitelist but do not add an IP address to the ACL, the listener forwards all requests.
+        # 
+        # *   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the ACL are rejected. Blacklists apply to scenarios where you want to block access from specified IP addresses to an application.
+        # 
+        #     If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.
+        # 
+        # >  If **AclStatus** is set to **on**, this parameter is required.
         self.acl_type = acl_type  # type: str
+        # The maximum bandwidth of the listener. Unit: Mbit/s. Valid values: **-1** and **1** to **5120**.
+        # 
+        # *   **-1**: For a pay-by-data-transfer Internet-facing CLB instance, you can set this parameter to **-1**, which specifies unlimited bandwidth.
+        # *   **1** to **5120**: For a pay-by-bandwidth Internet-facing CLB instance, you can specify the maximum bandwidth of each listener. The sum of the maximum bandwidth values of all listeners cannot exceed the maximum bandwidth of the CLB instance.
         self.bandwidth = bandwidth  # type: int
+        # Specifies whether to enable connection draining. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.connection_drain = connection_drain  # type: str
+        # The timeout period of connection draining. This parameter is required if **ConnectionDrain** is set to **on**. Unit: seconds.
+        # 
+        # Valid values: **10** to **900**.
         self.connection_drain_timeout = connection_drain_timeout  # type: int
+        # The name of the listener.
+        # 
+        # The name must be 1 to 256 characters in length and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\_).
         self.description = description  # type: str
+        # The timeout period of a connection. Unit: seconds. Valid values: **10** to **900**.
         self.established_timeout = established_timeout  # type: int
+        # The port that is used for health checks. Valid values: **1** to **65535**.
+        # 
+        # If you do not set this parameter, the port specified by the **BackendServerPort** parameter is used.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The timeout period of a health check.
+        # 
+        # If a backend ECS instance does not return a health check response within the specified timeout period, the server fails the health check.
+        # 
+        # Valid values: **1** to **300**. Unit: seconds.
+        # 
+        # >  If the value of the **HealthCheckConnectTimeout** parameter is smaller than that of the **HealthCheckInterval** parameter, the timeout period specified by the **HCTimeout** parameter is ignored and the period of time specified by the **HealthCheckInterval** parameter is used as the timeout period.
         self.health_check_connect_timeout = health_check_connect_timeout  # type: int
+        # The domain name that is used for health checks. You can set this parameter when the TCP listener requires HTTP health checks. If you do not set this parameter, TCP health checks are performed.
+        # 
+        # *   **$\_ip**: the private IP addresses of the backend servers.
+        # 
+        #     If you do not set the HealthCheckHost parameter or set the parameter to $SERVER_IP, the CLB instance uses the private IP addresses of backend servers for health checks.
+        # 
+        # *   **domain**: The domain name is 1 to 80 characters in length, and can contain letters, digits, periods (.), and hyphens (-).
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status code for a successful health check. Separate multiple HTTP status codes with commas (,).
+        # 
+        # Valid values: **http\_2xx**, **http\_3xx**, **http\_4xx**, and **http\_5xx**.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The interval between two consecutive health checks. Unit: seconds.
+        # 
+        # Valid values: **1** to **50**.
         self.health_check_interval = health_check_interval  # type: int
+        # Specifies whether to enable the health check feature. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
+        self.health_check_switch = health_check_switch  # type: str
+        # The type of the health check. Valid values: **tcp** and **http**.
         self.health_check_type = health_check_type  # type: str
+        # The URI that is used for health checks. The URI must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), percent signs (%), question marks (?), number signs (#), and ampersands (&). The URI must start with a forward slash (/) but cannot be a single forward slash (/).
+        # 
+        # You can set this parameter when the TCP listener requires HTTP health checks.
+        # 
+        # If you do not set this parameter, TCP health checks are performed.
         self.health_check_uri = health_check_uri  # type: str
+        # The number of times that an unhealthy backend server must consecutively pass health checks before it is declared healthy. In this case, the health status is changed from **fail** to **success**.
+        # 
+        # Valid values: **2** to **10**.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The frontend port used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
         self.listener_port = listener_port  # type: int
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # Specifies whether to use a primary/secondary server group. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
+        # 
+        # You cannot set both **VserverGroup** and **MasterSlaveServerGroup** to **on**.
         self.master_slave_server_group = master_slave_server_group  # type: str
+        # The ID of the primary/secondary server group.
+        # 
+        # >  You can set only one of the VServerGroupId and MasterSlaveServerGroupId parameters.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The timeout period of session persistence. Valid values: **0** to **3600**. Unit: seconds.
+        # 
+        # Default value: **0**. If the default value is used, the system disables session persistence.
         self.persistence_timeout = persistence_timeout  # type: int
+        # Specifies whether to use the Proxy protocol to pass client IP addresses to backend servers. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
+        self.proxy_protocol_v2enabled = proxy_protocol_v2enabled  # type: bool
+        # The region ID of the CLB instance.
+        # 
+        # You can query the region ID from the [Regions and zones](~~40654~~) list or by calling the [DescribeRegions](~~DescribeRegions~~) operation.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The scheduling algorithm. Valid values:
+        # 
+        # *   **wrr**: Backend servers that have higher weights receive more requests than backend servers that have lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
+        # *   **sch**: specifies consistent hashing that is based on source IP addresses. Requests from the same source IP address are distributed to the same backend server.
+        # *   **tch**: specifies consistent hashing that is based on four factors: source IP address, destination IP address, source port, and destination port. Requests that contain the same information based on the four factors are distributed to the same backend server.
+        # 
+        # > 
+        # *   Only high-performance CLB instances support the **sch** and **tch** algorithms.
+        # *   CLB does not support converting the **wrr** and **rr** algorithms to sch or tch. You cannot switch the hash algorithm from one to another.
         self.scheduler = scheduler  # type: str
+        # Specifies whether to enable the SynProxy feature of CLB for protection. Valid values:
+        # 
+        # *   **enable**: yes
+        # *   **disable**: no
+        # 
+        # We recommend that you use the default value of this parameter.
         self.syn_proxy = syn_proxy  # type: str
+        # The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**.
+        # 
+        # Valid values: **2** to **10**.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # Specifies whether to use a vServer group. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
+        # 
+        # >  You cannot set both **VserverGroup** and **MasterSlaveServerGroup** to **on**.
         self.vserver_group = vserver_group  # type: str
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -14788,6 +21644,8 @@ class SetLoadBalancerTCPListenerAttributeRequest(TeaModel):
             result['HealthCheckHttpCode'] = self.health_check_http_code
         if self.health_check_interval is not None:
             result['HealthCheckInterval'] = self.health_check_interval
+        if self.health_check_switch is not None:
+            result['HealthCheckSwitch'] = self.health_check_switch
         if self.health_check_type is not None:
             result['HealthCheckType'] = self.health_check_type
         if self.health_check_uri is not None:
@@ -14808,6 +21666,8 @@ class SetLoadBalancerTCPListenerAttributeRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.persistence_timeout is not None:
             result['PersistenceTimeout'] = self.persistence_timeout
+        if self.proxy_protocol_v2enabled is not None:
+            result['ProxyProtocolV2Enabled'] = self.proxy_protocol_v2enabled
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_owner_account is not None:
@@ -14854,6 +21714,8 @@ class SetLoadBalancerTCPListenerAttributeRequest(TeaModel):
             self.health_check_http_code = m.get('HealthCheckHttpCode')
         if m.get('HealthCheckInterval') is not None:
             self.health_check_interval = m.get('HealthCheckInterval')
+        if m.get('HealthCheckSwitch') is not None:
+            self.health_check_switch = m.get('HealthCheckSwitch')
         if m.get('HealthCheckType') is not None:
             self.health_check_type = m.get('HealthCheckType')
         if m.get('HealthCheckURI') is not None:
@@ -14874,6 +21736,8 @@ class SetLoadBalancerTCPListenerAttributeRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('PersistenceTimeout') is not None:
             self.persistence_timeout = m.get('PersistenceTimeout')
+        if m.get('ProxyProtocolV2Enabled') is not None:
+            self.proxy_protocol_v2enabled = m.get('ProxyProtocolV2Enabled')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -14895,6 +21759,7 @@ class SetLoadBalancerTCPListenerAttributeRequest(TeaModel):
 
 class SetLoadBalancerTCPListenerAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14918,12 +21783,14 @@ class SetLoadBalancerTCPListenerAttributeResponseBody(TeaModel):
 
 
 class SetLoadBalancerTCPListenerAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetLoadBalancerTCPListenerAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14936,6 +21803,8 @@ class SetLoadBalancerTCPListenerAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14944,6 +21813,8 @@ class SetLoadBalancerTCPListenerAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetLoadBalancerTCPListenerAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14952,34 +21823,128 @@ class SetLoadBalancerTCPListenerAttributeResponse(TeaModel):
 
 class SetLoadBalancerUDPListenerAttributeRequest(TeaModel):
     def __init__(self, acl_id=None, acl_status=None, acl_type=None, bandwidth=None, description=None,
-                 health_check_connect_port=None, health_check_connect_timeout=None, health_check_interval=None, healthy_threshold=None,
-                 listener_port=None, load_balancer_id=None, master_slave_server_group=None, master_slave_server_group_id=None,
-                 owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
-                 scheduler=None, unhealthy_threshold=None, vserver_group=None, vserver_group_id=None, health_check_exp=None,
-                 health_check_req=None):
+                 health_check_connect_port=None, health_check_connect_timeout=None, health_check_interval=None, health_check_switch=None,
+                 healthy_threshold=None, listener_port=None, load_balancer_id=None, master_slave_server_group=None,
+                 master_slave_server_group_id=None, owner_account=None, owner_id=None, proxy_protocol_v2enabled=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, scheduler=None, unhealthy_threshold=None, vserver_group=None,
+                 vserver_group_id=None, health_check_exp=None, health_check_req=None):
+        # The ID of the network access control list (ACL) that is associated with the listener.
+        # 
+        # >  If **AclStatus** is set to **on**, this parameter is required.
         self.acl_id = acl_id  # type: str
+        # Specifies whether to enable access control. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
         self.acl_status = acl_status  # type: str
+        # The type of the network ACL. Valid values:
+        # 
+        # *   **white**: a whitelist. Only requests from the IP addresses or CIDR blocks in the network ACL are forwarded. Whitelists apply to scenarios where you want to allow only specific IP addresses to access an application. Your service may be adversely affected if the whitelist is not properly configured. After a whitelist is configured, only requests from IP addresses that are added to the whitelist are forwarded by the listener.
+        # 
+        #     If you enable a whitelist but do not add an IP address to the ACL, the listener forwards all requests.
+        # 
+        # *   **black**: a blacklist. All requests from the IP addresses or CIDR blocks in the network ACL are denied. Blacklists apply to scenarios where you want to block access from specified IP addresses to an application.
+        # 
+        #     If a blacklist is configured for a listener but no IP address is added to the blacklist, the listener forwards all requests.
+        # 
+        # >  If **AclStatus** is set to **on**, this parameter is required.
         self.acl_type = acl_type  # type: str
+        # The maximum bandwidth of the listener. Unit: Mbit/s. Valid values:
+        # 
+        # *   **-1**: For a pay-by-data-transfer Internet-facing CLB instance, you can set this parameter to **-1**. This way, the bandwidth of the listener is unlimited.
+        # *   **1** to **5120**: For a pay-by-bandwidth Internet-facing CLB instance, you can specify the maximum bandwidth of each listener. The sum of bandwidth limits that you set for all listeners cannot exceed the maximum bandwidth of the CLB instance.
         self.bandwidth = bandwidth  # type: int
+        # The name of the listener.
+        # 
+        # The name must be 1 to 256 characters in length and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\_).
         self.description = description  # type: str
+        # The port that is used for health checks.
+        # 
+        # Valid values: **1** to **65535**.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The timeout period of a health check. If a backend server, such as an Elastic Compute Service (ECS) instance, does not return a health check response within the specified timeout period, the server fails the health check. Unit: seconds.
+        # 
+        # Valid values: **1** to **300**.
+        # 
+        # >  If the value of the **HealthCheckConnectTimeout** parameter is smaller than that of the **HealthCheckInterval** parameter, the timeout period specified by the **HealthCheckConnectTimeout** parameter is ignored and the period of time specified by the **HealthCheckInterval** parameter is used as the timeout period.
         self.health_check_connect_timeout = health_check_connect_timeout  # type: int
+        # The interval at which health checks are performed. Unit: seconds.
+        # 
+        # Valid values: **1** to **50**.
         self.health_check_interval = health_check_interval  # type: int
+        # Specifies whether to enable the health check feature. Valid values:
+        # 
+        # *   **on** (default): yes
+        # *   **off**: no
+        self.health_check_switch = health_check_switch  # type: str
+        # The number of times that an unhealthy backend server must consecutively pass health checks before it can be declared healthy (from **fail** to **success**).
+        # 
+        # Valid values: **1** to **10**.
         self.healthy_threshold = healthy_threshold  # type: int
+        # The frontend port used by the CLB instance.
+        # 
+        # Valid values: **1** to **65535**.
         self.listener_port = listener_port  # type: int
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # Specifies whether to use a primary/secondary server group. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
+        # 
+        # >  You cannot set **VserverGroup** and **MasterSlaveServerGroup** both to **on**.
         self.master_slave_server_group = master_slave_server_group  # type: str
+        # The ID of the primary/secondary server group.
+        # 
+        # >  You cannot specify both VServerGroupId and MasterSlaveServerGroupId.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # Specifies whether to use the Proxy protocol to pass client IP addresses to backend servers. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false** (default): no
+        self.proxy_protocol_v2enabled = proxy_protocol_v2enabled  # type: bool
+        # The region ID of the CLB instance.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The scheduling algorithm. Valid values:
+        # 
+        # *   **wrr**: Backend servers with higher weights receive more requests than those with lower weights.
+        # 
+        #     If two backend servers have the same weight, the backend server that has fewer connections is expected to receive more requests.
+        # 
+        # *   **rr**: Requests are distributed to backend servers in sequence.
+        # 
+        # *   **sch**: specifies consistent hashing that is based on source IP addresses. Requests from the same source IP address are distributed to the same backend server.
+        # 
+        # *   **tch**: specifies consistent hashing that is based on the following parameters: source IP address, destination IP address, source port, and destination port. Requests that contain the same preceding information are distributed to the same backend server.
+        # 
+        # *   **qch**: specifies consistent hashing that is based on QUIC connection IDs. Requests that contain the same QUIC connection ID are distributed to the same backend server.
+        # 
+        # > 
+        # *   Only high-performance CLB instances support **sch**, **tch**, and **qch**.
+        # *   You cannot switch the algorithm used by a CLB instance from **wrr** or **rr** to consistent hashing or from consistent hashing to weighted round robin or round robin.
         self.scheduler = scheduler  # type: str
+        # The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**.
+        # 
+        # Valid values: **1** to **10**.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # Specifies whether to use a vServer group. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
+        # 
+        # >  You cannot set both **VserverGroup** and **MasterSlaveServerGroup** to **on**.
         self.vserver_group = vserver_group  # type: str
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
+        # The response string for UDP listener health checks. The string must be 1 to 64 characters in length and can contain only letters and digits.
         self.health_check_exp = health_check_exp  # type: str
+        # The request string for UDP listener health checks. The string must be 1 to 64 characters in length and can contain only letters and digits.
         self.health_check_req = health_check_req  # type: str
 
     def validate(self):
@@ -15007,6 +21972,8 @@ class SetLoadBalancerUDPListenerAttributeRequest(TeaModel):
             result['HealthCheckConnectTimeout'] = self.health_check_connect_timeout
         if self.health_check_interval is not None:
             result['HealthCheckInterval'] = self.health_check_interval
+        if self.health_check_switch is not None:
+            result['HealthCheckSwitch'] = self.health_check_switch
         if self.healthy_threshold is not None:
             result['HealthyThreshold'] = self.healthy_threshold
         if self.listener_port is not None:
@@ -15021,6 +21988,8 @@ class SetLoadBalancerUDPListenerAttributeRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.proxy_protocol_v2enabled is not None:
+            result['ProxyProtocolV2Enabled'] = self.proxy_protocol_v2enabled
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_owner_account is not None:
@@ -15059,6 +22028,8 @@ class SetLoadBalancerUDPListenerAttributeRequest(TeaModel):
             self.health_check_connect_timeout = m.get('HealthCheckConnectTimeout')
         if m.get('HealthCheckInterval') is not None:
             self.health_check_interval = m.get('HealthCheckInterval')
+        if m.get('HealthCheckSwitch') is not None:
+            self.health_check_switch = m.get('HealthCheckSwitch')
         if m.get('HealthyThreshold') is not None:
             self.healthy_threshold = m.get('HealthyThreshold')
         if m.get('ListenerPort') is not None:
@@ -15073,6 +22044,8 @@ class SetLoadBalancerUDPListenerAttributeRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('ProxyProtocolV2Enabled') is not None:
+            self.proxy_protocol_v2enabled = m.get('ProxyProtocolV2Enabled')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -15096,6 +22069,7 @@ class SetLoadBalancerUDPListenerAttributeRequest(TeaModel):
 
 class SetLoadBalancerUDPListenerAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15119,12 +22093,14 @@ class SetLoadBalancerUDPListenerAttributeResponseBody(TeaModel):
 
 
 class SetLoadBalancerUDPListenerAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetLoadBalancerUDPListenerAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -15137,6 +22113,8 @@ class SetLoadBalancerUDPListenerAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -15145,6 +22123,8 @@ class SetLoadBalancerUDPListenerAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetLoadBalancerUDPListenerAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -15158,28 +22138,110 @@ class SetRuleRequest(TeaModel):
                  region_id=None, resource_owner_account=None, resource_owner_id=None, rule_id=None, rule_name=None,
                  scheduler=None, sticky_session=None, sticky_session_type=None, unhealthy_threshold=None,
                  vserver_group_id=None):
+        # The cookie that is configured on the server.
+        # 
+        # The cookie must be 1 to 200 characters in length and can contain only ASCII characters and digits. It cannot contain commas (,), semicolons (;), or space characters. It cannot start with a dollar sign ($).
+        # 
+        # >  This parameter is required and takes effect if **StickySession** is set to **on** and **StickySessionType** is set to **server**.
         self.cookie = cookie  # type: str
+        # The timeout period of a cookie. Unit: seconds. Valid values: **1** to **86400**.
+        # 
+        # >  This parameter is required and takes effect if **StickySession** is set to **on** and **StickySessionType** is set to **insert**.
         self.cookie_timeout = cookie_timeout  # type: int
+        # Specifies whether to enable the health check feature. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
+        # 
+        # >  This parameter is required and takes effect if the **ListenerSync** parameter is set to **off**.
         self.health_check = health_check  # type: str
+        # The port that is used for health checks. Valid values: **1** to **65535**.
+        # 
+        # >  This parameter takes effect when the **HealthCheck** parameter is set to **on**.
         self.health_check_connect_port = health_check_connect_port  # type: int
+        # The domain name that is used for health checks. Valid values:
+        # 
+        # *   **$\_ip**: the private IP address of a backend server. If you do not set this parameter or set the parameter to $\_ip, the SLB instance uses the private IP address of each backend server for health checks.
+        # *   **domain**: The domain name must be 1 to 80 characters in length, and can contain letters, digits, periods (.), and hyphens (-).
+        # 
+        # >  This parameter takes effect if the **HealthCheck** parameter is set to **on**.
         self.health_check_domain = health_check_domain  # type: str
+        # The HTTP status code for a successful health check. Multiple HTTP status codes are separated by commas (,).
+        # 
+        # Valid values: **http\_2xx**, **http\_3xx**, **http\_4xx**, and **http\_5xx**.
+        # 
+        # >  This parameter is required and takes effect if the **HealthCheck** parameter is set to **on**.
         self.health_check_http_code = health_check_http_code  # type: str
+        # The interval between two consecutive health checks. Unit: seconds. Valid values: **1** to **50**.
+        # 
+        # >  This parameter is required and takes effect if the **HealthCheck** parameter is set to **on**.
         self.health_check_interval = health_check_interval  # type: int
+        # The timeout period of a health check response. If a backend server, such as an Elastic Compute Service (ECS) instance, does not return a health check response within the specified timeout period, the server fails the health check. Unit: seconds. Valid values: **1** to **300**.
+        # 
+        # >  This parameter is required and takes effect if the **HealthCheck** parameter is set to **on**.
         self.health_check_timeout = health_check_timeout  # type: int
+        # The URI that is used for health checks.
+        # 
+        # >  This parameter is required and takes effect if the **HealthCheck** parameter is set to **on**.
         self.health_check_uri = health_check_uri  # type: str
+        # The number of times that an unhealthy backend server must consecutively pass health checks before it is declared healthy. In this case, the health status is changed from **fail** to **success**.
+        # 
+        # Valid values: **2** to **10**.
+        # 
+        # >  This parameter is required and takes effect if the **HealthCheck** parameter is set to **on**.
         self.healthy_threshold = healthy_threshold  # type: int
+        # Specifies whether to use the scheduling algorithm, session persistence, and health check configurations of the listener. Valid values:
+        # 
+        # *   **on**: uses the configurations of the listener.
+        # *   **off**: does not use the configurations of the listener. You can customize the health check and session persistence configurations for the forwarding rule.
         self.listener_sync = listener_sync  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Classic Load Balancer (CLB) instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the forwarding rule.
         self.rule_id = rule_id  # type: str
+        # The name of the forwarding rule. The name must be 1 to 80 characters in length and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\_).
+        # 
+        # >  Forwarding rule names must be unique within the same listener.
         self.rule_name = rule_name  # type: str
+        # The scheduling algorithm. Valid values:
+        # 
+        # *   **wrr**: Backend servers with higher weights receive more requests than those with lower weights.
+        # *   **rr**: Requests are distributed to backend servers in sequence.
+        # 
+        # >  This parameter is required and takes effect if the **ListenerSync** parameter is set to **off**.
         self.scheduler = scheduler  # type: str
+        # Specifies whether to enable session persistence. Valid values:
+        # 
+        # *   **on**: yes
+        # *   **off**: no
+        # 
+        # This parameter is required and takes effect if the **ListenerSync** parameter is set to **off**.
         self.sticky_session = sticky_session  # type: str
+        # The method that is used to handle a cookie. Valid values:
+        # 
+        # *   **insert**: inserts a cookie.
+        # 
+        #     CLB inserts the backend server ID as a cookie into the first HTTP or HTTPS response that is sent to a client. The next request from the client will contain this cookie, and the listener will distribute this request to the recorded backend server.
+        # 
+        # *   **server**: rewrites a cookie.
+        # 
+        #     When CLB detects a user-defined cookie, it overwrites the original cookie with the user-defined cookie. The next request from the client will contain the user-defined cookie, and the listener will distribute this request to the recorded backend server.
+        # 
+        # >  This parameter is required and takes effect if the **StickySession** parameter is set to **on**.
         self.sticky_session_type = sticky_session_type  # type: str
+        # The number of times that a healthy backend server must consecutively fail health checks before it is declared unhealthy. In this case, the health status is changed from **success** to **fail**.
+        # 
+        # Valid values: **2** to **10**.
+        # 
+        # >  This parameter is required and takes effect if the **HealthCheck** parameter is set to **on**.
         self.unhealthy_threshold = unhealthy_threshold  # type: int
+        # The ID of the vServer group that is associated with the forwarding rule.
         self.vserver_group_id = vserver_group_id  # type: str
 
     def validate(self):
@@ -15292,6 +22354,7 @@ class SetRuleRequest(TeaModel):
 
 class SetRuleResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15315,12 +22378,14 @@ class SetRuleResponseBody(TeaModel):
 
 
 class SetRuleResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetRuleResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -15333,6 +22398,8 @@ class SetRuleResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -15341,6 +22408,8 @@ class SetRuleResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -15352,10 +22421,17 @@ class SetServerCertificateNameRequest(TeaModel):
                  resource_owner_id=None, server_certificate_id=None, server_certificate_name=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region to which the Server Load Balancer (SLB) instance belongs.
+        # 
+        # To query the region ID, call [DescribeRegions](~~27584~~).
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the server certificate.
         self.server_certificate_id = server_certificate_id  # type: str
+        # The name of the server certificate.
+        # 
+        # The name must be 1 to 80 characters in length. It must start with an English letter. It can contain letters, numbers, periods (.), underscores (\_), and hyphens (-).
         self.server_certificate_name = server_certificate_name  # type: str
 
     def validate(self):
@@ -15404,6 +22480,7 @@ class SetServerCertificateNameRequest(TeaModel):
 
 class SetServerCertificateNameResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15427,12 +22504,14 @@ class SetServerCertificateNameResponseBody(TeaModel):
 
 
 class SetServerCertificateNameResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetServerCertificateNameResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -15445,6 +22524,8 @@ class SetServerCertificateNameResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -15453,6 +22534,8 @@ class SetServerCertificateNameResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetServerCertificateNameResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -15462,14 +22545,60 @@ class SetServerCertificateNameResponse(TeaModel):
 class SetTLSCipherPolicyAttributeRequest(TeaModel):
     def __init__(self, ciphers=None, name=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, tlscipher_policy_id=None, tlsversions=None):
+        # The cipher suites supported by the TLS version.
+        # 
+        # The specified cipher suites must be supported by at least one TLS protocol version that you specify. For example, if you set the TLSVersions parameter to TLSv1.3, you must specify cipher suites that are supported by this protocol version.
+        # 
+        # TLS 1.0 and TLS 1.1 support the following cipher suites:
+        # 
+        # *   ECDHE-ECDSA-AES128-SHA
+        # *   ECDHE-ECDSA-AES256-SHA
+        # *   ECDHE-RSA-AES128-SHA
+        # *   ECDHE-RSA-AES256-SHA
+        # *   AES128-SHA AES256-SHA
+        # *   DES-CBC3-SHA
+        # 
+        # TLS 1.2 supports the following cipher suites:
+        # 
+        # *   ECDHE-ECDSA-AES128-SHA
+        # *   ECDHE-ECDSA-AES256-SHA
+        # *   ECDHE-RSA-AES128-SHA
+        # *   ECDHE-RSA-AES256-SHA
+        # *   AES128-SHA AES256-SHA
+        # *   DES-CBC3-SHA
+        # *   ECDHE-ECDSA-AES128-GCM-SHA256
+        # *   ECDHE-ECDSA-AES256-GCM-SHA384
+        # *   ECDHE-ECDSA-AES128-SHA256
+        # *   ECDHE-ECDSA-AES256-SHA384
+        # *   ECDHE-RSA-AES128-GCM-SHA256
+        # *   ECDHE-RSA-AES256-GCM-SHA384
+        # *   ECDHE-RSA-AES128-SHA256
+        # *   ECDHE-RSA-AES256-SHA384
+        # *   AES128-GCM-SHA256
+        # *   AES256-GCM-SHA384
+        # *   AES128-SHA256 AES256-SHA256
+        # 
+        # TLS 1.3 supports the following cipher suites:
+        # 
+        # *   TLS_AES\_128\_GCM_SHA256
+        # *   TLS_AES\_256\_GCM_SHA384
+        # *   TLS_CHACHA20\_POLY1305\_SHA256
+        # *   TLS_AES\_128\_CCM_SHA256
+        # *   TLS_AES\_128\_CCM\_8\_SHA256
         self.ciphers = ciphers  # type: list[str]
+        # The name of the TLS policy. The name must be 2 to 128 characters in length and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter.
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Server Load Balancer (SLB) instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the TLS policy.
         self.tlscipher_policy_id = tlscipher_policy_id  # type: str
+        # The version of the TLS protocol. Valid values: **TLSv1.0**, **TLSv1.1**, **TLSv1.2**, and **TLSv1.3**.
         self.tlsversions = tlsversions  # type: list[str]
 
     def validate(self):
@@ -15526,7 +22655,9 @@ class SetTLSCipherPolicyAttributeRequest(TeaModel):
 
 class SetTLSCipherPolicyAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the asynchronous task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -15554,12 +22685,14 @@ class SetTLSCipherPolicyAttributeResponseBody(TeaModel):
 
 
 class SetTLSCipherPolicyAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetTLSCipherPolicyAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -15572,6 +22705,8 @@ class SetTLSCipherPolicyAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -15580,6 +22715,8 @@ class SetTLSCipherPolicyAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetTLSCipherPolicyAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -15589,13 +22726,38 @@ class SetTLSCipherPolicyAttributeResponse(TeaModel):
 class SetVServerGroupAttributeRequest(TeaModel):
     def __init__(self, backend_servers=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, vserver_group_id=None, vserver_group_name=None):
+        # The list of backend servers in the vServer group. You can specify at most 20 backend servers for a vServer group in each call.
+        # 
+        # *   **ServerId**: required. The ID of the Elastic Compute Service (ECS) instance or elastic network interface (ENI) that serves as a backend server. This parameter must be of the STRING type.
+        # 
+        # *   **Port**: required. The port that is used by the backend server. This parameter must be of the INTEGER type. Valid values: **1 to 65535**.
+        # 
+        # *   **Weight**: required. The weight of the backend server. This parameter must be of the INTEGER type. You can modify this parameter. Valid values: **0 to 100**.
+        # 
+        # *   **Description**: optional. The description of the backend server. This parameter must be of the STRING type. You can modify this parameter. The description must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.),and underscores (\_).
+        # 
+        # *   **Type**: the type of backend server. This parameter must be of the STRING type. Valid values:
+        # 
+        #     *   **ecs**: an ECS instance. This is the default value.
+        #     *   **eni**: an ENI.
+        # 
+        # *   **ServerIp**: the IP address of the ECS instance or ENI.
+        # 
+        # Examples:
+        # 
+        # *   An ECS instance: `[{ "ServerId": "i-xxxxxxxxx", "Weight": "100", "Type": "ecs", "Port":"80","Description":"test-112" }]`
+        # *   An ENI: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","Description":"test-112" }]`
+        # *   An ENI with multiple IP addresses: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","Description":"test-112" },{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "172.166.**.**", "Port":"80","Description":"test-113" }]`
         self.backend_servers = backend_servers  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Classic Load Balancer (CLB) instance is deployed. This parameter cannot be modified.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the vServer group. This parameter cannot be modified.
         self.vserver_group_id = vserver_group_id  # type: str
+        # The name of the vServer group. You can specify a custom name for the vServer group.
         self.vserver_group_name = vserver_group_name  # type: str
 
     def validate(self):
@@ -15648,10 +22810,18 @@ class SetVServerGroupAttributeRequest(TeaModel):
 
 class SetVServerGroupAttributeResponseBodyBackendServersBackendServer(TeaModel):
     def __init__(self, description=None, port=None, server_id=None, type=None, weight=None):
+        # The description of the vServer group.
         self.description = description  # type: str
+        # The port that is used by the backend server.
         self.port = port  # type: int
+        # The ID of the ECS instance or ENI.
         self.server_id = server_id  # type: str
+        # The type of backend server. Valid values:
+        # 
+        # *   **ecs**: an ECS instance
+        # *   **eni**: an ENI
         self.type = type  # type: str
+        # The weight of the backend server.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -15724,9 +22894,13 @@ class SetVServerGroupAttributeResponseBodyBackendServers(TeaModel):
 
 class SetVServerGroupAttributeResponseBody(TeaModel):
     def __init__(self, backend_servers=None, request_id=None, vserver_group_id=None, vserver_group_name=None):
+        # The list of backend servers.
         self.backend_servers = backend_servers  # type: SetVServerGroupAttributeResponseBodyBackendServers
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the vServer group.
         self.vserver_group_id = vserver_group_id  # type: str
+        # The name of the vServer group.
         self.vserver_group_name = vserver_group_name  # type: str
 
     def validate(self):
@@ -15764,12 +22938,14 @@ class SetVServerGroupAttributeResponseBody(TeaModel):
 
 
 class SetVServerGroupAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetVServerGroupAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -15782,6 +22958,8 @@ class SetVServerGroupAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -15790,6 +22968,8 @@ class SetVServerGroupAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetVServerGroupAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -15799,11 +22979,21 @@ class SetVServerGroupAttributeResponse(TeaModel):
 class StartLoadBalancerListenerRequest(TeaModel):
     def __init__(self, listener_port=None, listener_protocol=None, load_balancer_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The listener port of the SLB instance.
+        # 
+        # Valid values: **1 to 65535**.
         self.listener_port = listener_port  # type: int
+        # The protocol used by the listener of the SLB instance.
+        # 
+        # >  If different listeners use the same port, you must specify this parameter.
         self.listener_protocol = listener_protocol  # type: str
+        # The ID of the SLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region where the SLB instance is deployed.
+        # 
+        # You can retrieve the region ID by calling the [DescribeRegions](~~27584~~) operation.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -15858,6 +23048,7 @@ class StartLoadBalancerListenerRequest(TeaModel):
 
 class StartLoadBalancerListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15881,12 +23072,14 @@ class StartLoadBalancerListenerResponseBody(TeaModel):
 
 
 class StartLoadBalancerListenerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: StartLoadBalancerListenerResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -15899,6 +23092,8 @@ class StartLoadBalancerListenerResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -15907,6 +23102,8 @@ class StartLoadBalancerListenerResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StartLoadBalancerListenerResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -15916,11 +23113,21 @@ class StartLoadBalancerListenerResponse(TeaModel):
 class StopLoadBalancerListenerRequest(TeaModel):
     def __init__(self, listener_port=None, listener_protocol=None, load_balancer_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The frontend listening port used by the listener.
+        # 
+        # Value range: **1 to 65535**\
         self.listener_port = listener_port  # type: int
+        # The frontend listening protocol used by the SLB instance.
+        # 
+        # >  This parameter is required when listeners with different protocols use the same port.
         self.listener_protocol = listener_protocol  # type: str
+        # The ID of the SLB instance to which the listener belongs.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region to which the SLB instance belongs.
+        # 
+        # To query the region ID, refer to the list of [regions and zones](~~40654~~) or call [DescribeRegions](~~25609~~).
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -15975,6 +23182,7 @@ class StopLoadBalancerListenerRequest(TeaModel):
 
 class StopLoadBalancerListenerResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15998,12 +23206,14 @@ class StopLoadBalancerListenerResponseBody(TeaModel):
 
 
 class StopLoadBalancerListenerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: StopLoadBalancerListenerResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16016,6 +23226,8 @@ class StopLoadBalancerListenerResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16024,6 +23236,8 @@ class StopLoadBalancerListenerResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StopLoadBalancerListenerResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -16032,7 +23246,13 @@ class StopLoadBalancerListenerResponse(TeaModel):
 
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # 
+        # The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. The tag key cannot contain `http://` or `https://`.
         self.key = key  # type: str
+        # The tag value. You can specify up to 20 tag values. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -16064,11 +23284,26 @@ class TagResourcesRequest(TeaModel):
                  resource_owner_account=None, resource_owner_id=None, resource_type=None, tag=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Server Load Balancer (SLB) instance is created.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The resource ID. You can specify up to 20 IDs.
+        # 
+        # >  The value of **ResourceId** of a **listener** is **LoadBalancerId\_ Listener protocol_Port**, where LoadBalancerId is the SLB instance ID and port is the listener port. Example: lb-bp1snb10sbml4mqty_http\_80.
         self.resource_id = resource_id  # type: list[str]
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The type of the resource. Valid values:
+        # 
+        # *   **instance**: a Server Load Balancer (SLB) instance
+        # *   **certificate**: a certificate
+        # *   **acl**: an access control list (ACL)
+        # *   **listener**: a listener
+        # *   **vservergroup**: a vServer group
+        # *   **masterslaveservergroup**: a primary/secondary server group
         self.resource_type = resource_type  # type: str
+        # The tags.
         self.tag = tag  # type: list[TagResourcesRequestTag]
 
     def validate(self):
@@ -16129,6 +23364,7 @@ class TagResourcesRequest(TeaModel):
 
 class TagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16152,12 +23388,14 @@ class TagResourcesResponseBody(TeaModel):
 
 
 class TagResourcesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16170,6 +23408,8 @@ class TagResourcesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16178,6 +23418,8 @@ class TagResourcesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = TagResourcesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -16187,14 +23429,31 @@ class TagResourcesResponse(TeaModel):
 class UntagResourcesRequest(TeaModel):
     def __init__(self, all=None, owner_account=None, owner_id=None, region_id=None, resource_id=None,
                  resource_owner_account=None, resource_owner_id=None, resource_type=None, tag_key=None):
+        # Specifies whether to remove all tags from the specified one or more resources. This parameter takes effect only if the **TagKey.N** parameter is not set.
+        # 
+        # Valid values: **true** and **false**.
         self.all = all  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the Server Load Balancer (SLB) instance is created.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of the resource. Valid values of N: 1 to 20.
         self.resource_id = resource_id  # type: list[str]
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The type of the resource. Valid values:
+        # 
+        # *   **instance**: an SLB instance
+        # *   **certificate**: a certificate
+        # *   **acl**: a network access control list (ACL)
         self.resource_type = resource_type  # type: str
+        # The tag value. Valid values of N: **1** to **20**.
+        # 
+        # The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`. The tag value cannot start with `acs:` or `aliyun`.
+        # 
+        # >  If you do not set **TagKey**, all tags of the specified instance are removed.
         self.tag_key = tag_key  # type: list[str]
 
     def validate(self):
@@ -16251,6 +23510,7 @@ class UntagResourcesRequest(TeaModel):
 
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16274,12 +23534,14 @@ class UntagResourcesResponseBody(TeaModel):
 
 
 class UntagResourcesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16292,6 +23554,8 @@ class UntagResourcesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16300,26 +23564,76 @@ class UntagResourcesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UntagResourcesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class UploadCACertificateRequest(TeaModel):
-    def __init__(self, cacertificate=None, cacertificate_name=None, owner_account=None, owner_id=None,
-                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
-        self.cacertificate = cacertificate  # type: str
-        self.cacertificate_name = cacertificate_name  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
+class UploadCACertificateRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The tag key. You can specify at most 20 tag keys.
+        # 
+        # The tag key cannot be an empty string. The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        self.key = key  # type: str
+        # The tag value. Valid values of N: **1 to 20**. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. The tag value cannot contain `http://` or `https://`.
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(UploadCACertificateRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class UploadCACertificateRequest(TeaModel):
+    def __init__(self, cacertificate=None, cacertificate_name=None, owner_account=None, owner_id=None,
+                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None):
+        # The name of this action.
+        # 
+        # Value: **UploadCACertificate**\
+        self.cacertificate = cacertificate  # type: str
+        # The ID of the region to which the CA certificate belongs.
+        # 
+        # To query the region ID, call [DescribeRegions](~~27584~~).
+        self.cacertificate_name = cacertificate_name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region id.
+        self.region_id = region_id  # type: str
+        # The content of the CA certificate to be uploaded.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The tags.
+        self.tag = tag  # type: list[UploadCACertificateRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(UploadCACertificateRequest, self).to_map()
@@ -16343,6 +23657,10 @@ class UploadCACertificateRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -16363,6 +23681,11 @@ class UploadCACertificateRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = UploadCACertificateRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
@@ -16370,15 +23693,25 @@ class UploadCACertificateResponseBody(TeaModel):
     def __init__(self, cacertificate_id=None, cacertificate_name=None, common_name=None, create_time=None,
                  create_time_stamp=None, expire_time=None, expire_time_stamp=None, fingerprint=None, request_id=None,
                  resource_group_id=None):
+        # The name of the CA certificate.
         self.cacertificate_id = cacertificate_id  # type: str
+        # The domain name of the CA certificate.
         self.cacertificate_name = cacertificate_name  # type: str
+        # The fingerprint of the CA certificate.
         self.common_name = common_name  # type: str
+        # The time when the CA certificate expires.
         self.create_time = create_time  # type: str
+        # The name of the CA certificate.
         self.create_time_stamp = create_time_stamp  # type: long
+        # The timestamp generated when the CA certificate is uploaded.
         self.expire_time = expire_time  # type: str
+        # The ID of the enterprise resource group.
         self.expire_time_stamp = expire_time_stamp  # type: long
+        # The ID of the request.
         self.fingerprint = fingerprint  # type: str
+        # The ID of the enterprise resource group.
         self.request_id = request_id  # type: str
+        # The time when the CA certificate is uploaded.
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -16438,12 +23771,14 @@ class UploadCACertificateResponseBody(TeaModel):
 
 
 class UploadCACertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UploadCACertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16456,6 +23791,8 @@ class UploadCACertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16464,31 +23801,83 @@ class UploadCACertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UploadCACertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class UploadServerCertificateRequest(TeaModel):
-    def __init__(self, ali_cloud_certificate_id=None, ali_cloud_certificate_name=None,
-                 ali_cloud_certificate_region_id=None, owner_account=None, owner_id=None, private_key=None, region_id=None, resource_group_id=None,
-                 resource_owner_account=None, resource_owner_id=None, server_certificate=None, server_certificate_name=None):
-        self.ali_cloud_certificate_id = ali_cloud_certificate_id  # type: str
-        self.ali_cloud_certificate_name = ali_cloud_certificate_name  # type: str
-        self.ali_cloud_certificate_region_id = ali_cloud_certificate_region_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.private_key = private_key  # type: str
-        self.region_id = region_id  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        self.server_certificate = server_certificate  # type: str
-        self.server_certificate_name = server_certificate_name  # type: str
+class UploadServerCertificateRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The key of tag N. Valid values of N: **1 to 20**. The tag key cannot be an empty string.
+        # 
+        # The tag key can be up to 64 characters in length, and cannot contain `http://` or `https://`. The tag key cannot start with `aliyun` or `acs:`.
+        self.key = key  # type: str
+        # The value of tag N. Valid values of N: **1 to 20**. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`. The tag value cannot start with `aliyun` and `acs:`.
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(UploadServerCertificateRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class UploadServerCertificateRequest(TeaModel):
+    def __init__(self, ali_cloud_certificate_id=None, ali_cloud_certificate_name=None,
+                 ali_cloud_certificate_region_id=None, owner_account=None, owner_id=None, private_key=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None, server_certificate=None, server_certificate_name=None, tag=None):
+        # AliCloud certificate ID.
+        self.ali_cloud_certificate_id = ali_cloud_certificate_id  # type: str
+        # AliCloud certificate name.
+        self.ali_cloud_certificate_name = ali_cloud_certificate_name  # type: str
+        # The region ID of AliCloud certificate.
+        self.ali_cloud_certificate_region_id = ali_cloud_certificate_region_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The private key of the certificate.
+        self.private_key = private_key  # type: str
+        # The region ID of the CLB instance.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The resource group ID.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The server certificate to be uploaded.
+        self.server_certificate = server_certificate  # type: str
+        # The name of the server certificate.
+        # 
+        # The name must be 1 to 80 characters in length. It must start with an English letter. It can contain letters, numbers, periods (.), underscores (\_), and hyphens (-).
+        self.server_certificate_name = server_certificate_name  # type: str
+        # The tags.
+        self.tag = tag  # type: list[UploadServerCertificateRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(UploadServerCertificateRequest, self).to_map()
@@ -16520,6 +23909,10 @@ class UploadServerCertificateRequest(TeaModel):
             result['ServerCertificate'] = self.server_certificate
         if self.server_certificate_name is not None:
             result['ServerCertificateName'] = self.server_certificate_name
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -16548,6 +23941,11 @@ class UploadServerCertificateRequest(TeaModel):
             self.server_certificate = m.get('ServerCertificate')
         if m.get('ServerCertificateName') is not None:
             self.server_certificate_name = m.get('ServerCertificateName')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = UploadServerCertificateRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
@@ -16580,20 +23978,43 @@ class UploadServerCertificateResponseBody(TeaModel):
                  create_time=None, create_time_stamp=None, expire_time=None, expire_time_stamp=None, fingerprint=None,
                  is_ali_cloud_certificate=None, region_id=None, request_id=None, resource_group_id=None, server_certificate_id=None,
                  server_certificate_name=None, subject_alternative_names=None):
+        # The AliCloud certificate ID.
         self.ali_cloud_certificate_id = ali_cloud_certificate_id  # type: str
+        # The AliCloud certificate name.
         self.ali_cloud_certificate_name = ali_cloud_certificate_name  # type: str
+        # The domain name of the CA certificate.
         self.common_name = common_name  # type: str
+        # The time when the CA certificate is uploaded.
         self.create_time = create_time  # type: str
+        # The timestamp generated when the CA certificate is uploaded.
         self.create_time_stamp = create_time_stamp  # type: long
+        # The time when the CA certificate expires.
         self.expire_time = expire_time  # type: str
+        # The timestamp generated when the CA certificate expires.
         self.expire_time_stamp = expire_time_stamp  # type: long
+        # The fingerprint of the CA certificate.
         self.fingerprint = fingerprint  # type: str
+        # Indicates whether the certificate is provided by Alibaba Cloud Certificate Management Service. Valid values:
+        # - **0**: The certificate is not provided by Alibaba Cloud Certificate Management Service.
+        # - **1**: The certificate is provided by Alibaba Cloud Certificate Management Service.
         self.is_ali_cloud_certificate = is_ali_cloud_certificate  # type: int
+        # The ID of the region where the Classic Load Balancer (CLB) instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~27584~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the server certificate.
         self.server_certificate_id = server_certificate_id  # type: str
+        # The name of the server certificate.
+        # 
+        # The name must be 1 to 80 characters in length. It must start with an English letter. It can contain letters, numbers, periods (.), underscores (\_), and hyphens (-).
         self.server_certificate_name = server_certificate_name  # type: str
+        # The subject alternative names.
+        # 
+        # A domain name list is supported. A maximum of 10 domain names are supported.
         self.subject_alternative_names = subject_alternative_names  # type: UploadServerCertificateResponseBodySubjectAlternativeNames
 
     def validate(self):
@@ -16675,12 +24096,14 @@ class UploadServerCertificateResponseBody(TeaModel):
 
 
 class UploadServerCertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UploadServerCertificateResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16693,6 +24116,8 @@ class UploadServerCertificateResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16701,6 +24126,8 @@ class UploadServerCertificateResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UploadServerCertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
