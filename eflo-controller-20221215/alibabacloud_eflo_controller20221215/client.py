@@ -70,6 +70,8 @@ class Client(OpenApiClient):
             request.components_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.components, 'Components', 'json')
         if not UtilClient.is_unset(tmp_req.networks):
             request.networks_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.networks, 'Networks', 'json')
+        if not UtilClient.is_unset(tmp_req.nimiz_vswitches):
+            request.nimiz_vswitches_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.nimiz_vswitches, 'NimizVSwitches', 'json')
         if not UtilClient.is_unset(tmp_req.node_groups):
             request.node_groups_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.node_groups, 'NodeGroups', 'json')
         query = {}
@@ -84,10 +86,14 @@ class Client(OpenApiClient):
             body['ClusterType'] = request.cluster_type
         if not UtilClient.is_unset(request.components_shrink):
             body['Components'] = request.components_shrink
+        if not UtilClient.is_unset(request.hpn_zone):
+            body['HpnZone'] = request.hpn_zone
         if not UtilClient.is_unset(request.ignore_failed_node_tasks):
             body['IgnoreFailedNodeTasks'] = request.ignore_failed_node_tasks
         if not UtilClient.is_unset(request.networks_shrink):
             body['Networks'] = request.networks_shrink
+        if not UtilClient.is_unset(request.nimiz_vswitches_shrink):
+            body['NimizVSwitches'] = request.nimiz_vswitches_shrink
         if not UtilClient.is_unset(request.node_groups_shrink):
             body['NodeGroups'] = request.node_groups_shrink
         if not UtilClient.is_unset(request.resource_group_id):
@@ -303,6 +309,8 @@ class Client(OpenApiClient):
             body['IpAllocationPolicy'] = request.ip_allocation_policy_shrink
         if not UtilClient.is_unset(request.node_groups_shrink):
             body['NodeGroups'] = request.node_groups_shrink
+        if not UtilClient.is_unset(request.v_switch_zone_id):
+            body['VSwitchZoneId'] = request.v_switch_zone_id
         if not UtilClient.is_unset(request.vpd_subnets_shrink):
             body['VpdSubnets'] = request.vpd_subnets_shrink
         req = open_api_models.OpenApiRequest(
@@ -397,6 +405,8 @@ class Client(OpenApiClient):
     def list_free_nodes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.hpn_zone):
+            body['HpnZone'] = request.hpn_zone
         if not UtilClient.is_unset(request.machine_type):
             body['MachineType'] = request.machine_type
         if not UtilClient.is_unset(request.max_results):
