@@ -856,6 +856,162 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_dispatch_rule_with_options(request, runtime)
 
+    def create_env_custom_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.custom_job_name):
+            query['CustomJobName'] = request.custom_job_name
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        body = {}
+        if not UtilClient.is_unset(request.config_yaml):
+            body['ConfigYaml'] = request.config_yaml
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateEnvCustomJob',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.CreateEnvCustomJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_env_custom_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_env_custom_job_with_options(request, runtime)
+
+    def create_env_pod_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        body = {}
+        if not UtilClient.is_unset(request.config_yaml):
+            body['ConfigYaml'] = request.config_yaml
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateEnvPodMonitor',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.CreateEnvPodMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_env_pod_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_env_pod_monitor_with_options(request, runtime)
+
+    def create_env_service_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        body = {}
+        if not UtilClient.is_unset(request.config_yaml):
+            body['ConfigYaml'] = request.config_yaml
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateEnvServiceMonitor',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.CreateEnvServiceMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_env_service_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_env_service_monitor_with_options(request, runtime)
+
+    def create_environment_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.bind_resource_id):
+            query['BindResourceId'] = request.bind_resource_id
+        if not UtilClient.is_unset(request.environment_name):
+            query['EnvironmentName'] = request.environment_name
+        if not UtilClient.is_unset(request.environment_sub_type):
+            query['EnvironmentSubType'] = request.environment_sub_type
+        if not UtilClient.is_unset(request.environment_type):
+            query['EnvironmentType'] = request.environment_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateEnvironment',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.CreateEnvironmentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_environment(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_environment_with_options(request, runtime)
+
     def create_integration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1930,6 +2086,168 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_dispatch_rule_with_options(request, runtime)
 
+    def delete_env_custom_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.custom_job_name):
+            query['CustomJobName'] = request.custom_job_name
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteEnvCustomJob',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.DeleteEnvCustomJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_env_custom_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_env_custom_job_with_options(request, runtime)
+
+    def delete_env_pod_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.pod_monitor_name):
+            query['PodMonitorName'] = request.pod_monitor_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteEnvPodMonitor',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.DeleteEnvPodMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_env_pod_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_env_pod_monitor_with_options(request, runtime)
+
+    def delete_env_service_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_monitor_name):
+            query['ServiceMonitorName'] = request.service_monitor_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteEnvServiceMonitor',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.DeleteEnvServiceMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_env_service_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_env_service_monitor_with_options(request, runtime)
+
+    def delete_environment_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteEnvironment',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.DeleteEnvironmentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_environment(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_environment_with_options(request, runtime)
+
+    def delete_environment_feature_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.feature_name):
+            query['FeatureName'] = request.feature_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteEnvironmentFeature',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.DeleteEnvironmentFeatureResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_environment_feature(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_environment_feature_with_options(request, runtime)
+
     def delete_event_bridge_integration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -2633,6 +2951,138 @@ class Client(OpenApiClient):
     def describe_dispatch_rule(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dispatch_rule_with_options(request, runtime)
+
+    def describe_env_custom_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.custom_job_name):
+            query['CustomJobName'] = request.custom_job_name
+        if not UtilClient.is_unset(request.encrypt_yaml):
+            query['EncryptYaml'] = request.encrypt_yaml
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeEnvCustomJob',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.DescribeEnvCustomJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_env_custom_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_env_custom_job_with_options(request, runtime)
+
+    def describe_env_pod_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.pod_monitor_name):
+            query['PodMonitorName'] = request.pod_monitor_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeEnvPodMonitor',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.DescribeEnvPodMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_env_pod_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_env_pod_monitor_with_options(request, runtime)
+
+    def describe_env_service_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_monitor_name):
+            query['ServiceMonitorName'] = request.service_monitor_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeEnvServiceMonitor',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.DescribeEnvServiceMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_env_service_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_env_service_monitor_with_options(request, runtime)
+
+    def describe_environment_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeEnvironment',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.DescribeEnvironmentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_environment(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_environment_with_options(request, runtime)
 
     def describe_imrobots_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3880,6 +4330,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.import_app_alert_rules_with_options(request, runtime)
 
+    def init_environment_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='InitEnvironment',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.InitEnvironmentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def init_environment(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.init_environment_with_options(request, runtime)
+
     def install_cms_exporter_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4300,6 +4782,98 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_dispatch_rule_with_options(request, runtime)
 
+    def list_env_custom_jobs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.encrypt_yaml):
+            query['EncryptYaml'] = request.encrypt_yaml
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListEnvCustomJobs',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.ListEnvCustomJobsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_env_custom_jobs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_env_custom_jobs_with_options(request, runtime)
+
+    def list_env_pod_monitors_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListEnvPodMonitors',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.ListEnvPodMonitorsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_env_pod_monitors(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_env_pod_monitors_with_options(request, runtime)
+
+    def list_env_service_monitors_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListEnvServiceMonitors',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.ListEnvServiceMonitorsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_env_service_monitors(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_env_service_monitors_with_options(request, runtime)
+
     def list_escalation_policies_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -4351,6 +4925,44 @@ class Client(OpenApiClient):
     def list_event_bridge_integrations(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_event_bridge_integrations_with_options(request, runtime)
+
+    def list_grafana_workspace_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = arms20190808_models.ListGrafanaWorkspaceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.tags_shrink):
+            query['Tags'] = request.tags_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListGrafanaWorkspace',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.ListGrafanaWorkspaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_grafana_workspace(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_grafana_workspace_with_options(request, runtime)
 
     def list_insights_events_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5355,6 +5967,38 @@ class Client(OpenApiClient):
     def remove_sources_from_prometheus_global_view(self, request):
         runtime = util_models.RuntimeOptions()
         return self.remove_sources_from_prometheus_global_view_with_options(request, runtime)
+
+    def restart_environment_feature_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.feature_name):
+            query['FeatureName'] = request.feature_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RestartEnvironmentFeature',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.RestartEnvironmentFeatureResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def restart_environment_feature(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.restart_environment_feature_with_options(request, runtime)
 
     def save_trace_app_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -6497,6 +7141,164 @@ class Client(OpenApiClient):
     def update_dispatch_rule(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_dispatch_rule_with_options(request, runtime)
+
+    def update_env_custom_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.custom_job_name):
+            query['CustomJobName'] = request.custom_job_name
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        body = {}
+        if not UtilClient.is_unset(request.config_yaml):
+            body['ConfigYaml'] = request.config_yaml
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateEnvCustomJob',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.UpdateEnvCustomJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_env_custom_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_env_custom_job_with_options(request, runtime)
+
+    def update_env_pod_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.pod_monitor_name):
+            query['PodMonitorName'] = request.pod_monitor_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        body = {}
+        if not UtilClient.is_unset(request.config_yaml):
+            body['ConfigYaml'] = request.config_yaml
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateEnvPodMonitor',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.UpdateEnvPodMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_env_pod_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_env_pod_monitor_with_options(request, runtime)
+
+    def update_env_service_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_monitor_name):
+            query['ServiceMonitorName'] = request.service_monitor_name
+        body = {}
+        if not UtilClient.is_unset(request.config_yaml):
+            body['ConfigYaml'] = request.config_yaml
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateEnvServiceMonitor',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.UpdateEnvServiceMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_env_service_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_env_service_monitor_with_options(request, runtime)
+
+    def update_environment_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.environment_name):
+            query['EnvironmentName'] = request.environment_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateEnvironment',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.UpdateEnvironmentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_environment(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_environment_with_options(request, runtime)
 
     def update_integration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
