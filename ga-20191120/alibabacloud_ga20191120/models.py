@@ -5548,12 +5548,75 @@ class CreateEndpointGroupsRequestEndpointGroupConfigurationsPortOverrides(TeaMod
         return self
 
 
+class CreateEndpointGroupsRequestEndpointGroupConfigurationsSystemTag(TeaModel):
+    def __init__(self, key=None, scope=None, value=None):
+        self.key = key  # type: str
+        self.scope = scope  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateEndpointGroupsRequestEndpointGroupConfigurationsSystemTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.scope is not None:
+            result['Scope'] = self.scope
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Scope') is not None:
+            self.scope = m.get('Scope')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class CreateEndpointGroupsRequestEndpointGroupConfigurationsTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateEndpointGroupsRequestEndpointGroupConfigurationsTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateEndpointGroupsRequestEndpointGroupConfigurations(TeaModel):
     def __init__(self, enable_client_ippreservation_proxy_protocol=None, enable_client_ippreservation_toa=None,
                  endpoint_configurations=None, endpoint_group_description=None, endpoint_group_name=None, endpoint_group_region=None,
                  endpoint_group_type=None, endpoint_request_protocol=None, health_check_enabled=None,
                  health_check_interval_seconds=None, health_check_path=None, health_check_port=None, health_check_protocol=None,
-                 port_overrides=None, threshold_count=None, traffic_percentage=None):
+                 port_overrides=None, system_tag=None, tag=None, threshold_count=None, traffic_percentage=None):
         # Specifies whether to use the proxy protocol to preserve client IP addresses. Default value: false. Valid values:
         # 
         # *   **true**: uses the proxy protocol to preserve client IP addresses.
@@ -5635,6 +5698,8 @@ class CreateEndpointGroupsRequestEndpointGroupConfigurations(TeaModel):
         self.health_check_protocol = health_check_protocol  # type: str
         # The mappings between ports.
         self.port_overrides = port_overrides  # type: list[CreateEndpointGroupsRequestEndpointGroupConfigurationsPortOverrides]
+        self.system_tag = system_tag  # type: list[CreateEndpointGroupsRequestEndpointGroupConfigurationsSystemTag]
+        self.tag = tag  # type: list[CreateEndpointGroupsRequestEndpointGroupConfigurationsTag]
         # The number of consecutive health check failures that must occur before a healthy endpoint group is considered unhealthy, or the number of consecutive health check successes that must occur before an unhealthy endpoint group is considered healthy.
         # 
         # Valid values: **2** to **10**. Default value: **3**.
@@ -5655,6 +5720,14 @@ class CreateEndpointGroupsRequestEndpointGroupConfigurations(TeaModel):
                     k.validate()
         if self.port_overrides:
             for k in self.port_overrides:
+                if k:
+                    k.validate()
+        if self.system_tag:
+            for k in self.system_tag:
+                if k:
+                    k.validate()
+        if self.tag:
+            for k in self.tag:
                 if k:
                     k.validate()
 
@@ -5696,6 +5769,14 @@ class CreateEndpointGroupsRequestEndpointGroupConfigurations(TeaModel):
         if self.port_overrides is not None:
             for k in self.port_overrides:
                 result['PortOverrides'].append(k.to_map() if k else None)
+        result['SystemTag'] = []
+        if self.system_tag is not None:
+            for k in self.system_tag:
+                result['SystemTag'].append(k.to_map() if k else None)
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.threshold_count is not None:
             result['ThresholdCount'] = self.threshold_count
         if self.traffic_percentage is not None:
@@ -5738,6 +5819,16 @@ class CreateEndpointGroupsRequestEndpointGroupConfigurations(TeaModel):
             for k in m.get('PortOverrides'):
                 temp_model = CreateEndpointGroupsRequestEndpointGroupConfigurationsPortOverrides()
                 self.port_overrides.append(temp_model.from_map(k))
+        self.system_tag = []
+        if m.get('SystemTag') is not None:
+            for k in m.get('SystemTag'):
+                temp_model = CreateEndpointGroupsRequestEndpointGroupConfigurationsSystemTag()
+                self.system_tag.append(temp_model.from_map(k))
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateEndpointGroupsRequestEndpointGroupConfigurationsTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('ThresholdCount') is not None:
             self.threshold_count = m.get('ThresholdCount')
         if m.get('TrafficPercentage') is not None:
@@ -7012,13 +7103,14 @@ class CreateListenerRequestCustomRoutingEndpointGroupConfigurations(TeaModel):
 
 
 class CreateListenerRequestEndpointGroupConfigurationsEndpointConfigurations(TeaModel):
-    def __init__(self, endpoint=None, type=None, weight=None):
+    def __init__(self, endpoint=None, sub_address=None, type=None, weight=None):
         # The IP address or domain name of the endpoint that is associated with the intelligent routing listener.
         # 
         # You can specify up to 100 endpoint IP addresses or domain names for an endpoint group of an intelligent routing listener.
         # 
         # > If the **Type** parameter is set to **Standard**, you can configure endpoint groups and endpoints for an intelligent routing listener, and this parameter is required.
         self.endpoint = endpoint  # type: str
+        self.sub_address = sub_address  # type: str
         # The endpoint type of the intelligent routing listener. Valid values:
         # 
         # *   **Domain**: a custom domain name
@@ -7065,6 +7157,8 @@ class CreateListenerRequestEndpointGroupConfigurationsEndpointConfigurations(Tea
         result = dict()
         if self.endpoint is not None:
             result['Endpoint'] = self.endpoint
+        if self.sub_address is not None:
+            result['SubAddress'] = self.sub_address
         if self.type is not None:
             result['Type'] = self.type
         if self.weight is not None:
@@ -7075,6 +7169,8 @@ class CreateListenerRequestEndpointGroupConfigurationsEndpointConfigurations(Tea
         m = m or dict()
         if m.get('Endpoint') is not None:
             self.endpoint = m.get('Endpoint')
+        if m.get('SubAddress') is not None:
+            self.sub_address = m.get('SubAddress')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('Weight') is not None:
@@ -13398,27 +13494,31 @@ class DescribeCustomRoutingEndpointGroupRequest(TeaModel):
 
 class DescribeCustomRoutingEndpointGroupResponseBodyServiceManagedInfos(TeaModel):
     def __init__(self, action=None, child_type=None, is_managed=None):
-        # 托管策略动作名称，取值：
-        # - **Create**：创建实例。
-        # - **Update**：更新当前实例。
-        # - **Delete**：删除当前实例。
-        # - **Associate**：引用/被引用当前实例。
-        # - **UserUnmanaged**：用户解托管实例。
-        # - **CreateChild**：在当前实例下创建子资源。
+        # The name of the action on the managed instance. Valid values:
+        # 
+        # *   **Create**\
+        # *   **Update**\
+        # *   **Delete**\
+        # *   **Associate**\
+        # *   **UserUnmanaged**\
+        # *   **CreateChild**\
         self.action = action  # type: str
-        # 子资源类型，取值：
-        # - **Listener**：监听资源。
-        # - **IpSet**：加速地域资源。
-        # - **EndpointGroup**：终端节点组资源。
-        # - **ForwardingRule**：转发策略资源。
-        # - **Endpoint**：终端节点资源。
-        # - **EndpointGroupDestination**：自定义路由监听下的终端节点组协议映射资源。
-        # - **EndpointPolicy**：自定义路由监听下的终端节点通行策略资源。
-        # > 仅在**Action**参数为**CreateChild**时有效
+        # The type of the child resource. Valid values:
+        # 
+        # *   **Listener**: listener
+        # *   **IpSet**: acceleration region
+        # *   **EndpointGroup**: endpoint group
+        # *   **ForwardingRule**: forwarding rule
+        # *   **Endpoint**: endpoint
+        # *   **EndpointGroupDestination**: protocol mapping of an endpoint group associated with a custom routing listener
+        # *   **EndpointPolicy**: traffic policy of an endpoint associated with a custom routing listener
+        # 
+        # >  This parameter takes effect only if **Action** is set to **CreateChild**.
         self.child_type = child_type  # type: str
-        # 托管策略动作是否被托管，取值：
-        # - **true**：托管策略动作被托管，用户无权在托管实例下执行Action指定的操作。
-        # - **false**：托管策略动作未被托管，用户可在托管实例下执行Action指定的操作。
+        # Indicates whether the specified actions are managed. Valid values:
+        # 
+        # *   **true**: The specified actions are managed, and users cannot perform the specified actions on the managed instance.
+        # *   **false**: The specified actions are not managed, and users can perform the specified actions on the managed instance.
         self.is_managed = is_managed  # type: bool
 
     def validate(self):
@@ -13484,19 +13584,20 @@ class DescribeCustomRoutingEndpointGroupResponseBody(TeaModel):
         self.name = name  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
-        # 托管实例所属的服务方ID。
-        # > 仅在**ServiceManaged**参数为**True**时有效。
+        # The ID of the service that manages the GA instance.
+        # 
+        # >  This parameter takes effect only if **ServiceManaged** is set to **True**.
         self.service_id = service_id  # type: str
-        # 是否为托管实例。取值：
+        # Indicates whether the GA instance is managed. Valid values:
         # 
-        # - **true**：是托管实例。
-        # 
-        # - **false**：不是托管实例。
+        # *   **true**\
+        # *   **false**\
         self.service_managed = service_managed  # type: bool
-        # 用户在此托管实例下可执行的动作策略列表。
+        # The actions that users can perform on the managed instance.
         # 
-        # > 仅在**ServiceManaged**参数为**True**时有效。
-        # > - 当实例处于托管状态时，用户对实例的操作会受到限制，某些操作行为会被禁止。
+        # >  This parameter takes effect only if **ServiceManaged** is set to **True**.
+        # 
+        # *   Users can perform only specific actions on a managed instance.
         self.service_managed_infos = service_managed_infos  # type: list[DescribeCustomRoutingEndpointGroupResponseBodyServiceManagedInfos]
         # The name of the Logstore.
         self.sls_log_store_name = sls_log_store_name  # type: str
@@ -20533,16 +20634,19 @@ class ListAvailableBusiRegionsRequest(TeaModel):
 
 class ListAvailableBusiRegionsResponseBodyRegions(TeaModel):
     def __init__(self, china_mainland=None, local_name=None, pop=None, region_id=None):
-        # Whether China Mainland.
-        self.china_mainland = china_mainland  # type: bool
-        # The name of the region.
-        self.local_name = local_name  # type: str
-        # Indicates whether the region is a point of presence (PoP). Valid values:
+        # Indicates whether the region is in the Chinese mainland. Valid values:
         # 
-        # *   **true**: The region is a PoP.
-        # *   **false**: The region is not a PoP.
+        # *   **true**\
+        # *   **false**\
+        self.china_mainland = china_mainland  # type: bool
+        # The region name.
+        self.local_name = local_name  # type: str
+        # Indicates whether the region is a point of presence (PoP) of Alibaba Cloud. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.pop = pop  # type: bool
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -28990,23 +29094,23 @@ class TagResourcesRequest(TeaModel):
         self.client_token = client_token  # type: str
         # The ID of the region where the GA instance is deployed. Set the value to **cn-hangzhou**.
         self.region_id = region_id  # type: str
-        # The ID of the GA resource.
+        # The ID of the resource to which you want to add tags.
         # 
-        # *   If you set the **ResourceType** parameter to **accelerator**, set the value of ResourceId to the ID of a standard GA instance.
-        # *   If you set the **ResourceType** parameter to **basicaccelerator**, set the value of ResourceId to the ID of a basic GA instance.
-        # *   If you set the **ResourceType** parameter to **bandwidthpackage**, set the value of ResourceId to the ID of a bandwidth plan.
-        # *   If you set the **ResourceType** parameter to **acl**, set the value of ResourceId to the ID of an ACL.
-        # *   If you set the **ResourceType** parameter to **endpointgroup**, set the value of ResourceId to the ID of an EndpointGroup.
+        # *   If you set **ResourceType** to **accelerator**, set the value of ResourceId to the ID of a standard GA instance.
+        # *   If you set **ResourceType** to **basicaccelerator**, set the value of ResourceId to the ID of a basic GA instance.
+        # *   If you set **ResourceType** to **bandwidthpackage**, set the value of ResourceId to the ID of a bandwidth plan.
+        # *   If you set **ResourceType** to **acl**, set the value of ResourceId to the ID of an ACL.
+        # *   If you set **ResourceType** to **endpointgroup**, set the value of ResourceId to the ID of an endpoint group.
         # 
-        # You can specify 1 to 50 GA resource IDs.
+        # The parameter is required. You can enter up to 50 GA resource IDs.
         self.resource_id = resource_id  # type: list[str]
-        # The type of the GA resource. Valid values:
+        # The type of the resource to which you want to add tags. Valid values:
         # 
-        # *   **accelerator:** a standard GA instance.
-        # *   **basicaccelerator:** a basic GA instance.
-        # *   **bandwidthpackage:** a bandwidth plan.
-        # *   **acl:** an access control list (ACL).
-        # *   **endpointgroup:** an endpoint group (EndpointGroup).
+        # *   **accelerator**: a standard GA instance
+        # *   **basicaccelerator**: a basic GA instance
+        # *   **bandwidthpackage**: a bandwidth plan
+        # *   **acl**: an ACL
+        # *   **endpointgroup**: an endpoint group
         self.resource_type = resource_type  # type: str
         # The tags of GA resources.
         # 
@@ -34279,13 +34383,13 @@ class UpdateServiceManagedControlRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The ID of the resource whose control mode you want to change.
         self.resource_id = resource_id  # type: str
-        # The type of the resource whose control mode you want to change. Valid value:
+        # The type of the resource whose control mode you want to change.
         # 
-        # *   **Accelerator**: standard GA instance.
+        # *   Set the value to **Accelerator**, which specifies a standard GA instance.
         self.resource_type = resource_type  # type: str
-        # Specifies the control mode of the resource. Valid value:
+        # The control mode of the resource.
         # 
-        # *   false: changes the control mode of the resource from managed mode to unmanaged mode.
+        # *   Set the value to false, which changes the control mode of the resource from managed mode to unmanaged mode.
         # 
         # >  You can change the control mode only from managed mode to unmanaged mode.
         self.service_managed = service_managed  # type: bool
