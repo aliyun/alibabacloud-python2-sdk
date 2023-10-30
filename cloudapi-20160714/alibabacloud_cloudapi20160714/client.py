@@ -6546,6 +6546,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_api_group_with_options(request, runtime)
 
+    def modify_api_group_network_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.https_policy):
+            query['HttpsPolicy'] = request.https_policy
+        if not UtilClient.is_unset(request.inner_domain_enable):
+            query['InnerDomainEnable'] = request.inner_domain_enable
+        if not UtilClient.is_unset(request.internet_enable):
+            query['InternetEnable'] = request.internet_enable
+        if not UtilClient.is_unset(request.internet_ipv6enable):
+            query['InternetIPV6Enable'] = request.internet_ipv6enable
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.vpc_intranet_enable):
+            query['VpcIntranetEnable'] = request.vpc_intranet_enable
+        if not UtilClient.is_unset(request.vpc_slb_intranet_enable):
+            query['VpcSlbIntranetEnable'] = request.vpc_slb_intranet_enable
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyApiGroupNetworkPolicy',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.ModifyApiGroupNetworkPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_api_group_network_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_api_group_network_policy_with_options(request, runtime)
+
     def modify_api_group_vpc_whitelist_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}

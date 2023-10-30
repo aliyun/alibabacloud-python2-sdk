@@ -32808,6 +32808,129 @@ class ModifyApiGroupResponse(TeaModel):
         return self
 
 
+class ModifyApiGroupNetworkPolicyRequest(TeaModel):
+    def __init__(self, group_id=None, https_policy=None, inner_domain_enable=None, internet_enable=None,
+                 internet_ipv6enable=None, security_token=None, vpc_intranet_enable=None, vpc_slb_intranet_enable=None):
+        self.group_id = group_id  # type: str
+        self.https_policy = https_policy  # type: str
+        self.inner_domain_enable = inner_domain_enable  # type: bool
+        self.internet_enable = internet_enable  # type: bool
+        self.internet_ipv6enable = internet_ipv6enable  # type: bool
+        self.security_token = security_token  # type: str
+        self.vpc_intranet_enable = vpc_intranet_enable  # type: bool
+        self.vpc_slb_intranet_enable = vpc_slb_intranet_enable  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyApiGroupNetworkPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.https_policy is not None:
+            result['HttpsPolicy'] = self.https_policy
+        if self.inner_domain_enable is not None:
+            result['InnerDomainEnable'] = self.inner_domain_enable
+        if self.internet_enable is not None:
+            result['InternetEnable'] = self.internet_enable
+        if self.internet_ipv6enable is not None:
+            result['InternetIPV6Enable'] = self.internet_ipv6enable
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.vpc_intranet_enable is not None:
+            result['VpcIntranetEnable'] = self.vpc_intranet_enable
+        if self.vpc_slb_intranet_enable is not None:
+            result['VpcSlbIntranetEnable'] = self.vpc_slb_intranet_enable
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('HttpsPolicy') is not None:
+            self.https_policy = m.get('HttpsPolicy')
+        if m.get('InnerDomainEnable') is not None:
+            self.inner_domain_enable = m.get('InnerDomainEnable')
+        if m.get('InternetEnable') is not None:
+            self.internet_enable = m.get('InternetEnable')
+        if m.get('InternetIPV6Enable') is not None:
+            self.internet_ipv6enable = m.get('InternetIPV6Enable')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('VpcIntranetEnable') is not None:
+            self.vpc_intranet_enable = m.get('VpcIntranetEnable')
+        if m.get('VpcSlbIntranetEnable') is not None:
+            self.vpc_slb_intranet_enable = m.get('VpcSlbIntranetEnable')
+        return self
+
+
+class ModifyApiGroupNetworkPolicyResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyApiGroupNetworkPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyApiGroupNetworkPolicyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyApiGroupNetworkPolicyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyApiGroupNetworkPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyApiGroupNetworkPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ModifyApiGroupVpcWhitelistRequest(TeaModel):
     def __init__(self, group_id=None, security_token=None, vpc_ids=None):
         self.group_id = group_id  # type: str
