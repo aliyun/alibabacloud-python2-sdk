@@ -910,6 +910,145 @@ class AttachCommonBandwidthPackageToLoadBalancerResponse(TeaModel):
         return self
 
 
+class CancelShiftLoadBalancerZonesRequestZoneMappings(TeaModel):
+    def __init__(self, v_switch_id=None, zone_id=None):
+        self.v_switch_id = v_switch_id  # type: str
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelShiftLoadBalancerZonesRequestZoneMappings, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class CancelShiftLoadBalancerZonesRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, load_balancer_id=None, zone_mappings=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.load_balancer_id = load_balancer_id  # type: str
+        self.zone_mappings = zone_mappings  # type: list[CancelShiftLoadBalancerZonesRequestZoneMappings]
+
+    def validate(self):
+        if self.zone_mappings:
+            for k in self.zone_mappings:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CancelShiftLoadBalancerZonesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.load_balancer_id is not None:
+            result['LoadBalancerId'] = self.load_balancer_id
+        result['ZoneMappings'] = []
+        if self.zone_mappings is not None:
+            for k in self.zone_mappings:
+                result['ZoneMappings'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('LoadBalancerId') is not None:
+            self.load_balancer_id = m.get('LoadBalancerId')
+        self.zone_mappings = []
+        if m.get('ZoneMappings') is not None:
+            for k in m.get('ZoneMappings'):
+                temp_model = CancelShiftLoadBalancerZonesRequestZoneMappings()
+                self.zone_mappings.append(temp_model.from_map(k))
+        return self
+
+
+class CancelShiftLoadBalancerZonesResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelShiftLoadBalancerZonesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CancelShiftLoadBalancerZonesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CancelShiftLoadBalancerZonesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CancelShiftLoadBalancerZonesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CancelShiftLoadBalancerZonesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateAScriptsRequestAScripts(TeaModel):
     def __init__(self, ascript_name=None, enabled=None, script_content=None):
         # The name of the AScript rule.
@@ -2344,7 +2483,8 @@ class CreateLoadBalancerRequestTag(TeaModel):
 
 
 class CreateLoadBalancerRequestZoneMappings(TeaModel):
-    def __init__(self, v_switch_id=None, zone_id=None):
+    def __init__(self, intranet_address=None, v_switch_id=None, zone_id=None):
+        self.intranet_address = intranet_address  # type: str
         # The ID of the vSwitch in the zone. You can specify only one vSwitch (subnet) in each zone of an ALB instance. You can specify up to 10 vSwitch IDs.
         self.v_switch_id = v_switch_id  # type: str
         # The ID of the zone where the ALB instance is deployed. You can specify up to 10 zone IDs.
@@ -2361,6 +2501,8 @@ class CreateLoadBalancerRequestZoneMappings(TeaModel):
             return _map
 
         result = dict()
+        if self.intranet_address is not None:
+            result['IntranetAddress'] = self.intranet_address
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
         if self.zone_id is not None:
@@ -2369,6 +2511,8 @@ class CreateLoadBalancerRequestZoneMappings(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('IntranetAddress') is not None:
+            self.intranet_address = m.get('IntranetAddress')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
         if m.get('ZoneId') is not None:
@@ -17911,6 +18055,145 @@ class StartListenerResponse(TeaModel):
         return self
 
 
+class StartShiftLoadBalancerZonesRequestZoneMappings(TeaModel):
+    def __init__(self, v_switch_id=None, zone_id=None):
+        self.v_switch_id = v_switch_id  # type: str
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartShiftLoadBalancerZonesRequestZoneMappings, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class StartShiftLoadBalancerZonesRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, load_balancer_id=None, zone_mappings=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.load_balancer_id = load_balancer_id  # type: str
+        self.zone_mappings = zone_mappings  # type: list[StartShiftLoadBalancerZonesRequestZoneMappings]
+
+    def validate(self):
+        if self.zone_mappings:
+            for k in self.zone_mappings:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(StartShiftLoadBalancerZonesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.load_balancer_id is not None:
+            result['LoadBalancerId'] = self.load_balancer_id
+        result['ZoneMappings'] = []
+        if self.zone_mappings is not None:
+            for k in self.zone_mappings:
+                result['ZoneMappings'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('LoadBalancerId') is not None:
+            self.load_balancer_id = m.get('LoadBalancerId')
+        self.zone_mappings = []
+        if m.get('ZoneMappings') is not None:
+            for k in m.get('ZoneMappings'):
+                temp_model = StartShiftLoadBalancerZonesRequestZoneMappings()
+                self.zone_mappings.append(temp_model.from_map(k))
+        return self
+
+
+class StartShiftLoadBalancerZonesResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartShiftLoadBalancerZonesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class StartShiftLoadBalancerZonesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: StartShiftLoadBalancerZonesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StartShiftLoadBalancerZonesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = StartShiftLoadBalancerZonesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class StopListenerRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, listener_id=None):
         # The client token that is used to ensure the idempotence of the request.
@@ -20087,7 +20370,8 @@ class UpdateLoadBalancerEditionResponse(TeaModel):
 
 
 class UpdateLoadBalancerZonesRequestZoneMappings(TeaModel):
-    def __init__(self, v_switch_id=None, zone_id=None):
+    def __init__(self, intranet_address=None, v_switch_id=None, zone_id=None):
+        self.intranet_address = intranet_address  # type: str
         # The ID of the vSwitch in the zone. By default, you can specify only one vSwitch (subnet) for each zone of an ALB instance. You can specify up to 10 zone IDs.
         self.v_switch_id = v_switch_id  # type: str
         # The name of the zone. You can call the [DescribeZones](~~189196~~) operation to query the zones. You can specify up to 10 zone IDs.
@@ -20102,6 +20386,8 @@ class UpdateLoadBalancerZonesRequestZoneMappings(TeaModel):
             return _map
 
         result = dict()
+        if self.intranet_address is not None:
+            result['IntranetAddress'] = self.intranet_address
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
         if self.zone_id is not None:
@@ -20110,6 +20396,8 @@ class UpdateLoadBalancerZonesRequestZoneMappings(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('IntranetAddress') is not None:
+            self.intranet_address = m.get('IntranetAddress')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
         if m.get('ZoneId') is not None:
