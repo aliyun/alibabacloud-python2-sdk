@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_docmind-api20220711_py2.
 
-Created on 19/09/2023
+Created on 01/11/2023
 
 @author: Alibaba Cloud SDK
 """
