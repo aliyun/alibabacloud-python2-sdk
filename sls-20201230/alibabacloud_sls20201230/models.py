@@ -915,7 +915,7 @@ class SavedSearch(TeaModel):
 
 class Ticket(TeaModel):
     def __init__(self, caller_uid=None, create_date=None, expiration_time=None, expire_date=None, extra=None,
-                 name=None, number=None, policy=None, ticket=None, ticket_id=None, unlimited_expiration=None,
+                 name=None, number=None, ticket=None, ticket_id=None, type=None, unlimited_expiration=None,
                  unlimited_number=None, used_number=None, valid=None):
         self.caller_uid = caller_uid  # type: long
         self.create_date = create_date  # type: str
@@ -924,9 +924,9 @@ class Ticket(TeaModel):
         self.extra = extra  # type: str
         self.name = name  # type: str
         self.number = number  # type: int
-        self.policy = policy  # type: str
         self.ticket = ticket  # type: str
         self.ticket_id = ticket_id  # type: str
+        self.type = type  # type: str
         self.unlimited_expiration = unlimited_expiration  # type: bool
         self.unlimited_number = unlimited_number  # type: bool
         self.used_number = used_number  # type: int
@@ -955,12 +955,12 @@ class Ticket(TeaModel):
             result['name'] = self.name
         if self.number is not None:
             result['number'] = self.number
-        if self.policy is not None:
-            result['policy'] = self.policy
         if self.ticket is not None:
             result['ticket'] = self.ticket
         if self.ticket_id is not None:
             result['ticketId'] = self.ticket_id
+        if self.type is not None:
+            result['type'] = self.type
         if self.unlimited_expiration is not None:
             result['unlimitedExpiration'] = self.unlimited_expiration
         if self.unlimited_number is not None:
@@ -987,12 +987,12 @@ class Ticket(TeaModel):
             self.name = m.get('name')
         if m.get('number') is not None:
             self.number = m.get('number')
-        if m.get('policy') is not None:
-            self.policy = m.get('policy')
         if m.get('ticket') is not None:
             self.ticket = m.get('ticket')
         if m.get('ticketId') is not None:
             self.ticket_id = m.get('ticketId')
+        if m.get('type') is not None:
+            self.type = m.get('type')
         if m.get('unlimitedExpiration') is not None:
             self.unlimited_expiration = m.get('unlimitedExpiration')
         if m.get('unlimitedNumber') is not None:
@@ -3131,132 +3131,6 @@ class CreateMachineGroupResponse(TeaModel):
         return self
 
 
-class CreateOdpsShipperRequestTargetConfiguration(TeaModel):
-    def __init__(self, buffer_interval=None, enable=None, fields=None, odps_endpoint=None, odps_project=None,
-                 odps_table=None, partition_column=None, partition_time_format=None):
-        self.buffer_interval = buffer_interval  # type: int
-        self.enable = enable  # type: bool
-        self.fields = fields  # type: list[str]
-        self.odps_endpoint = odps_endpoint  # type: str
-        self.odps_project = odps_project  # type: str
-        self.odps_table = odps_table  # type: str
-        self.partition_column = partition_column  # type: list[str]
-        self.partition_time_format = partition_time_format  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateOdpsShipperRequestTargetConfiguration, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.buffer_interval is not None:
-            result['bufferInterval'] = self.buffer_interval
-        if self.enable is not None:
-            result['enable'] = self.enable
-        if self.fields is not None:
-            result['fields'] = self.fields
-        if self.odps_endpoint is not None:
-            result['odpsEndpoint'] = self.odps_endpoint
-        if self.odps_project is not None:
-            result['odpsProject'] = self.odps_project
-        if self.odps_table is not None:
-            result['odpsTable'] = self.odps_table
-        if self.partition_column is not None:
-            result['partitionColumn'] = self.partition_column
-        if self.partition_time_format is not None:
-            result['partitionTimeFormat'] = self.partition_time_format
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('bufferInterval') is not None:
-            self.buffer_interval = m.get('bufferInterval')
-        if m.get('enable') is not None:
-            self.enable = m.get('enable')
-        if m.get('fields') is not None:
-            self.fields = m.get('fields')
-        if m.get('odpsEndpoint') is not None:
-            self.odps_endpoint = m.get('odpsEndpoint')
-        if m.get('odpsProject') is not None:
-            self.odps_project = m.get('odpsProject')
-        if m.get('odpsTable') is not None:
-            self.odps_table = m.get('odpsTable')
-        if m.get('partitionColumn') is not None:
-            self.partition_column = m.get('partitionColumn')
-        if m.get('partitionTimeFormat') is not None:
-            self.partition_time_format = m.get('partitionTimeFormat')
-        return self
-
-
-class CreateOdpsShipperRequest(TeaModel):
-    def __init__(self, shipper_name=None, target_configuration=None, target_type=None):
-        self.shipper_name = shipper_name  # type: str
-        self.target_configuration = target_configuration  # type: CreateOdpsShipperRequestTargetConfiguration
-        self.target_type = target_type  # type: str
-
-    def validate(self):
-        if self.target_configuration:
-            self.target_configuration.validate()
-
-    def to_map(self):
-        _map = super(CreateOdpsShipperRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.shipper_name is not None:
-            result['shipperName'] = self.shipper_name
-        if self.target_configuration is not None:
-            result['targetConfiguration'] = self.target_configuration.to_map()
-        if self.target_type is not None:
-            result['targetType'] = self.target_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('shipperName') is not None:
-            self.shipper_name = m.get('shipperName')
-        if m.get('targetConfiguration') is not None:
-            temp_model = CreateOdpsShipperRequestTargetConfiguration()
-            self.target_configuration = temp_model.from_map(m['targetConfiguration'])
-        if m.get('targetType') is not None:
-            self.target_type = m.get('targetType')
-        return self
-
-
-class CreateOdpsShipperResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-
-    def to_map(self):
-        _map = super(CreateOdpsShipperResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        return self
-
-
 class CreateOssExternalStoreRequestParameterColumns(TeaModel):
     def __init__(self, name=None, type=None):
         self.name = name  # type: str
@@ -3390,173 +3264,6 @@ class CreateOssExternalStoreResponse(TeaModel):
 
     def to_map(self):
         _map = super(CreateOssExternalStoreResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        return self
-
-
-class CreateOssShipperRequestTargetConfigurationStorage(TeaModel):
-    def __init__(self, detail=None, format=None):
-        self.detail = detail  # type: dict[str, any]
-        self.format = format  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateOssShipperRequestTargetConfigurationStorage, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.detail is not None:
-            result['detail'] = self.detail
-        if self.format is not None:
-            result['format'] = self.format
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('detail') is not None:
-            self.detail = m.get('detail')
-        if m.get('format') is not None:
-            self.format = m.get('format')
-        return self
-
-
-class CreateOssShipperRequestTargetConfiguration(TeaModel):
-    def __init__(self, buffer_interval=None, buffer_size=None, compress_type=None, enable=None, oss_bucket=None,
-                 oss_prefix=None, path_format=None, role_arn=None, storage=None, time_zone=None):
-        self.buffer_interval = buffer_interval  # type: int
-        self.buffer_size = buffer_size  # type: int
-        self.compress_type = compress_type  # type: str
-        self.enable = enable  # type: bool
-        self.oss_bucket = oss_bucket  # type: str
-        self.oss_prefix = oss_prefix  # type: str
-        self.path_format = path_format  # type: str
-        self.role_arn = role_arn  # type: str
-        self.storage = storage  # type: CreateOssShipperRequestTargetConfigurationStorage
-        self.time_zone = time_zone  # type: str
-
-    def validate(self):
-        if self.storage:
-            self.storage.validate()
-
-    def to_map(self):
-        _map = super(CreateOssShipperRequestTargetConfiguration, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.buffer_interval is not None:
-            result['bufferInterval'] = self.buffer_interval
-        if self.buffer_size is not None:
-            result['bufferSize'] = self.buffer_size
-        if self.compress_type is not None:
-            result['compressType'] = self.compress_type
-        if self.enable is not None:
-            result['enable'] = self.enable
-        if self.oss_bucket is not None:
-            result['ossBucket'] = self.oss_bucket
-        if self.oss_prefix is not None:
-            result['ossPrefix'] = self.oss_prefix
-        if self.path_format is not None:
-            result['pathFormat'] = self.path_format
-        if self.role_arn is not None:
-            result['roleArn'] = self.role_arn
-        if self.storage is not None:
-            result['storage'] = self.storage.to_map()
-        if self.time_zone is not None:
-            result['timeZone'] = self.time_zone
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('bufferInterval') is not None:
-            self.buffer_interval = m.get('bufferInterval')
-        if m.get('bufferSize') is not None:
-            self.buffer_size = m.get('bufferSize')
-        if m.get('compressType') is not None:
-            self.compress_type = m.get('compressType')
-        if m.get('enable') is not None:
-            self.enable = m.get('enable')
-        if m.get('ossBucket') is not None:
-            self.oss_bucket = m.get('ossBucket')
-        if m.get('ossPrefix') is not None:
-            self.oss_prefix = m.get('ossPrefix')
-        if m.get('pathFormat') is not None:
-            self.path_format = m.get('pathFormat')
-        if m.get('roleArn') is not None:
-            self.role_arn = m.get('roleArn')
-        if m.get('storage') is not None:
-            temp_model = CreateOssShipperRequestTargetConfigurationStorage()
-            self.storage = temp_model.from_map(m['storage'])
-        if m.get('timeZone') is not None:
-            self.time_zone = m.get('timeZone')
-        return self
-
-
-class CreateOssShipperRequest(TeaModel):
-    def __init__(self, shipper_name=None, target_configuration=None, target_type=None):
-        self.shipper_name = shipper_name  # type: str
-        self.target_configuration = target_configuration  # type: CreateOssShipperRequestTargetConfiguration
-        self.target_type = target_type  # type: str
-
-    def validate(self):
-        if self.target_configuration:
-            self.target_configuration.validate()
-
-    def to_map(self):
-        _map = super(CreateOssShipperRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.shipper_name is not None:
-            result['shipperName'] = self.shipper_name
-        if self.target_configuration is not None:
-            result['targetConfiguration'] = self.target_configuration.to_map()
-        if self.target_type is not None:
-            result['targetType'] = self.target_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('shipperName') is not None:
-            self.shipper_name = m.get('shipperName')
-        if m.get('targetConfiguration') is not None:
-            temp_model = CreateOssShipperRequestTargetConfiguration()
-            self.target_configuration = temp_model.from_map(m['targetConfiguration'])
-        if m.get('targetType') is not None:
-            self.target_type = m.get('targetType')
-        return self
-
-
-class CreateOssShipperResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-
-    def to_map(self):
-        _map = super(CreateOssShipperResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -7604,15 +7311,12 @@ class ListConfigRequest(TeaModel):
 
 class ListConfigResponseBody(TeaModel):
     def __init__(self, configs=None, count=None, total=None):
-        self.configs = configs  # type: list[LogtailConfig]
+        self.configs = configs  # type: list[str]
         self.count = count  # type: int
         self.total = total  # type: int
 
     def validate(self):
-        if self.configs:
-            for k in self.configs:
-                if k:
-                    k.validate()
+        pass
 
     def to_map(self):
         _map = super(ListConfigResponseBody, self).to_map()
@@ -7620,10 +7324,8 @@ class ListConfigResponseBody(TeaModel):
             return _map
 
         result = dict()
-        result['configs'] = []
         if self.configs is not None:
-            for k in self.configs:
-                result['configs'].append(k.to_map() if k else None)
+            result['configs'] = self.configs
         if self.count is not None:
             result['count'] = self.count
         if self.total is not None:
@@ -7632,11 +7334,8 @@ class ListConfigResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        self.configs = []
         if m.get('configs') is not None:
-            for k in m.get('configs'):
-                temp_model = LogtailConfig()
-                self.configs.append(temp_model.from_map(k))
+            self.configs = m.get('configs')
         if m.get('count') is not None:
             self.count = m.get('count')
         if m.get('total') is not None:
@@ -9093,70 +8792,6 @@ class ListTagResourcesResponse(TeaModel):
         return self
 
 
-class PullDataRequest(TeaModel):
-    def __init__(self, count=None, cursor=None, end_cursor=None):
-        self.count = count  # type: str
-        self.cursor = cursor  # type: str
-        self.end_cursor = end_cursor  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(PullDataRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.count is not None:
-            result['count'] = self.count
-        if self.cursor is not None:
-            result['cursor'] = self.cursor
-        if self.end_cursor is not None:
-            result['endCursor'] = self.end_cursor
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('count') is not None:
-            self.count = m.get('count')
-        if m.get('cursor') is not None:
-            self.cursor = m.get('cursor')
-        if m.get('endCursor') is not None:
-            self.end_cursor = m.get('endCursor')
-        return self
-
-
-class PullDataResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-
-    def to_map(self):
-        _map = super(PullDataResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        return self
-
-
 class PutAnnotationDataRequest(TeaModel):
     def __init__(self, annotationdata_id=None, ml_data_param=None, raw_log=None):
         self.annotationdata_id = annotationdata_id  # type: str
@@ -9653,7 +9288,7 @@ class TagResourcesResponse(TeaModel):
 class UntagResourcesRequest(TeaModel):
     def __init__(self, all=None, resource_id=None, resource_type=None, tags=None):
         self.all = all  # type: bool
-        self.resource_id = resource_id  # type: str
+        self.resource_id = resource_id  # type: list[str]
         self.resource_type = resource_type  # type: str
         self.tags = tags  # type: list[str]
 
@@ -10675,132 +10310,6 @@ class UpdateMachineGroupMachineResponse(TeaModel):
         return self
 
 
-class UpdateOdpsShipperRequestTargetConfiguration(TeaModel):
-    def __init__(self, buffer_interval=None, enable=None, fields=None, odps_endpoint=None, odps_project=None,
-                 odps_table=None, partition_column=None, partition_time_format=None):
-        self.buffer_interval = buffer_interval  # type: int
-        self.enable = enable  # type: bool
-        self.fields = fields  # type: list[str]
-        self.odps_endpoint = odps_endpoint  # type: str
-        self.odps_project = odps_project  # type: str
-        self.odps_table = odps_table  # type: str
-        self.partition_column = partition_column  # type: list[str]
-        self.partition_time_format = partition_time_format  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(UpdateOdpsShipperRequestTargetConfiguration, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.buffer_interval is not None:
-            result['bufferInterval'] = self.buffer_interval
-        if self.enable is not None:
-            result['enable'] = self.enable
-        if self.fields is not None:
-            result['fields'] = self.fields
-        if self.odps_endpoint is not None:
-            result['odpsEndpoint'] = self.odps_endpoint
-        if self.odps_project is not None:
-            result['odpsProject'] = self.odps_project
-        if self.odps_table is not None:
-            result['odpsTable'] = self.odps_table
-        if self.partition_column is not None:
-            result['partitionColumn'] = self.partition_column
-        if self.partition_time_format is not None:
-            result['partitionTimeFormat'] = self.partition_time_format
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('bufferInterval') is not None:
-            self.buffer_interval = m.get('bufferInterval')
-        if m.get('enable') is not None:
-            self.enable = m.get('enable')
-        if m.get('fields') is not None:
-            self.fields = m.get('fields')
-        if m.get('odpsEndpoint') is not None:
-            self.odps_endpoint = m.get('odpsEndpoint')
-        if m.get('odpsProject') is not None:
-            self.odps_project = m.get('odpsProject')
-        if m.get('odpsTable') is not None:
-            self.odps_table = m.get('odpsTable')
-        if m.get('partitionColumn') is not None:
-            self.partition_column = m.get('partitionColumn')
-        if m.get('partitionTimeFormat') is not None:
-            self.partition_time_format = m.get('partitionTimeFormat')
-        return self
-
-
-class UpdateOdpsShipperRequest(TeaModel):
-    def __init__(self, shipper_name=None, target_configuration=None, target_type=None):
-        self.shipper_name = shipper_name  # type: str
-        self.target_configuration = target_configuration  # type: UpdateOdpsShipperRequestTargetConfiguration
-        self.target_type = target_type  # type: str
-
-    def validate(self):
-        if self.target_configuration:
-            self.target_configuration.validate()
-
-    def to_map(self):
-        _map = super(UpdateOdpsShipperRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.shipper_name is not None:
-            result['shipperName'] = self.shipper_name
-        if self.target_configuration is not None:
-            result['targetConfiguration'] = self.target_configuration.to_map()
-        if self.target_type is not None:
-            result['targetType'] = self.target_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('shipperName') is not None:
-            self.shipper_name = m.get('shipperName')
-        if m.get('targetConfiguration') is not None:
-            temp_model = UpdateOdpsShipperRequestTargetConfiguration()
-            self.target_configuration = temp_model.from_map(m['targetConfiguration'])
-        if m.get('targetType') is not None:
-            self.target_type = m.get('targetType')
-        return self
-
-
-class UpdateOdpsShipperResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-
-    def to_map(self):
-        _map = super(UpdateOdpsShipperResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        return self
-
-
 class UpdateOssExternalStoreRequestParameterColumns(TeaModel):
     def __init__(self, name=None, type=None):
         self.name = name  # type: str
@@ -10934,173 +10443,6 @@ class UpdateOssExternalStoreResponse(TeaModel):
 
     def to_map(self):
         _map = super(UpdateOssExternalStoreResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        return self
-
-
-class UpdateOssShipperRequestTargetConfigurationStorage(TeaModel):
-    def __init__(self, detail=None, format=None):
-        self.detail = detail  # type: dict[str, any]
-        self.format = format  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(UpdateOssShipperRequestTargetConfigurationStorage, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.detail is not None:
-            result['detail'] = self.detail
-        if self.format is not None:
-            result['format'] = self.format
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('detail') is not None:
-            self.detail = m.get('detail')
-        if m.get('format') is not None:
-            self.format = m.get('format')
-        return self
-
-
-class UpdateOssShipperRequestTargetConfiguration(TeaModel):
-    def __init__(self, buffer_interval=None, buffer_size=None, compress_type=None, enable=None, oss_bucket=None,
-                 oss_prefix=None, path_format=None, role_arn=None, storage=None, time_zone=None):
-        self.buffer_interval = buffer_interval  # type: int
-        self.buffer_size = buffer_size  # type: int
-        self.compress_type = compress_type  # type: str
-        self.enable = enable  # type: bool
-        self.oss_bucket = oss_bucket  # type: str
-        self.oss_prefix = oss_prefix  # type: str
-        self.path_format = path_format  # type: str
-        self.role_arn = role_arn  # type: str
-        self.storage = storage  # type: UpdateOssShipperRequestTargetConfigurationStorage
-        self.time_zone = time_zone  # type: str
-
-    def validate(self):
-        if self.storage:
-            self.storage.validate()
-
-    def to_map(self):
-        _map = super(UpdateOssShipperRequestTargetConfiguration, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.buffer_interval is not None:
-            result['bufferInterval'] = self.buffer_interval
-        if self.buffer_size is not None:
-            result['bufferSize'] = self.buffer_size
-        if self.compress_type is not None:
-            result['compressType'] = self.compress_type
-        if self.enable is not None:
-            result['enable'] = self.enable
-        if self.oss_bucket is not None:
-            result['ossBucket'] = self.oss_bucket
-        if self.oss_prefix is not None:
-            result['ossPrefix'] = self.oss_prefix
-        if self.path_format is not None:
-            result['pathFormat'] = self.path_format
-        if self.role_arn is not None:
-            result['roleArn'] = self.role_arn
-        if self.storage is not None:
-            result['storage'] = self.storage.to_map()
-        if self.time_zone is not None:
-            result['timeZone'] = self.time_zone
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('bufferInterval') is not None:
-            self.buffer_interval = m.get('bufferInterval')
-        if m.get('bufferSize') is not None:
-            self.buffer_size = m.get('bufferSize')
-        if m.get('compressType') is not None:
-            self.compress_type = m.get('compressType')
-        if m.get('enable') is not None:
-            self.enable = m.get('enable')
-        if m.get('ossBucket') is not None:
-            self.oss_bucket = m.get('ossBucket')
-        if m.get('ossPrefix') is not None:
-            self.oss_prefix = m.get('ossPrefix')
-        if m.get('pathFormat') is not None:
-            self.path_format = m.get('pathFormat')
-        if m.get('roleArn') is not None:
-            self.role_arn = m.get('roleArn')
-        if m.get('storage') is not None:
-            temp_model = UpdateOssShipperRequestTargetConfigurationStorage()
-            self.storage = temp_model.from_map(m['storage'])
-        if m.get('timeZone') is not None:
-            self.time_zone = m.get('timeZone')
-        return self
-
-
-class UpdateOssShipperRequest(TeaModel):
-    def __init__(self, shipper_name=None, target_configuration=None, target_type=None):
-        self.shipper_name = shipper_name  # type: str
-        self.target_configuration = target_configuration  # type: UpdateOssShipperRequestTargetConfiguration
-        self.target_type = target_type  # type: str
-
-    def validate(self):
-        if self.target_configuration:
-            self.target_configuration.validate()
-
-    def to_map(self):
-        _map = super(UpdateOssShipperRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.shipper_name is not None:
-            result['shipperName'] = self.shipper_name
-        if self.target_configuration is not None:
-            result['targetConfiguration'] = self.target_configuration.to_map()
-        if self.target_type is not None:
-            result['targetType'] = self.target_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('shipperName') is not None:
-            self.shipper_name = m.get('shipperName')
-        if m.get('targetConfiguration') is not None:
-            temp_model = UpdateOssShipperRequestTargetConfiguration()
-            self.target_configuration = temp_model.from_map(m['targetConfiguration'])
-        if m.get('targetType') is not None:
-            self.target_type = m.get('targetType')
-        return self
-
-
-class UpdateOssShipperResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-
-    def to_map(self):
-        _map = super(UpdateOssShipperResponse, self).to_map()
         if _map is not None:
             return _map
 
