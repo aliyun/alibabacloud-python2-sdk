@@ -48820,13 +48820,16 @@ class HotelOrderQueryRequest(TeaModel):
 
 
 class HotelOrderQueryResponseBodyModuleHotelInfo(TeaModel):
-    def __init__(self, check_in=None, check_out=None, city=None, city_ad_code=None, hotel_name=None,
-                 hotel_support_vat_invoice_type=None, night=None, room_num=None, room_type=None):
+    def __init__(self, check_in=None, check_out=None, city=None, city_ad_code=None, hotel_address=None,
+                 hotel_name=None, hotel_phone=None, hotel_support_vat_invoice_type=None, night=None, room_num=None,
+                 room_type=None):
         self.check_in = check_in  # type: long
         self.check_out = check_out  # type: long
         self.city = city  # type: str
         self.city_ad_code = city_ad_code  # type: str
+        self.hotel_address = hotel_address  # type: str
         self.hotel_name = hotel_name  # type: str
+        self.hotel_phone = hotel_phone  # type: str
         self.hotel_support_vat_invoice_type = hotel_support_vat_invoice_type  # type: int
         self.night = night  # type: int
         self.room_num = room_num  # type: int
@@ -48849,8 +48852,12 @@ class HotelOrderQueryResponseBodyModuleHotelInfo(TeaModel):
             result['city'] = self.city
         if self.city_ad_code is not None:
             result['city_ad_code'] = self.city_ad_code
+        if self.hotel_address is not None:
+            result['hotel_address'] = self.hotel_address
         if self.hotel_name is not None:
             result['hotel_name'] = self.hotel_name
+        if self.hotel_phone is not None:
+            result['hotel_phone'] = self.hotel_phone
         if self.hotel_support_vat_invoice_type is not None:
             result['hotel_support_vat_invoice_type'] = self.hotel_support_vat_invoice_type
         if self.night is not None:
@@ -48871,8 +48878,12 @@ class HotelOrderQueryResponseBodyModuleHotelInfo(TeaModel):
             self.city = m.get('city')
         if m.get('city_ad_code') is not None:
             self.city_ad_code = m.get('city_ad_code')
+        if m.get('hotel_address') is not None:
+            self.hotel_address = m.get('hotel_address')
         if m.get('hotel_name') is not None:
             self.hotel_name = m.get('hotel_name')
+        if m.get('hotel_phone') is not None:
+            self.hotel_phone = m.get('hotel_phone')
         if m.get('hotel_support_vat_invoice_type') is not None:
             self.hotel_support_vat_invoice_type = m.get('hotel_support_vat_invoice_type')
         if m.get('night') is not None:
@@ -48915,8 +48926,8 @@ class HotelOrderQueryResponseBodyModuleInvoiceInfo(TeaModel):
 
 class HotelOrderQueryResponseBodyModuleOrderBaseInfo(TeaModel):
     def __init__(self, apply_id=None, btrip_title=None, corp_id=None, corp_name=None, depart_id=None,
-                 depart_name=None, extend_field=None, gmt_create=None, gmt_modified=None, id=None, itinerary_id=None,
-                 order_status=None, order_type=None, thirdpart_apply_id=None, thirdpart_depart_id=None,
+                 depart_name=None, exceed_apply_nos=None, extend_field=None, gmt_create=None, gmt_modified=None, id=None,
+                 itinerary_id=None, order_status=None, order_type=None, thirdpart_apply_id=None, thirdpart_depart_id=None,
                  thirdpart_itinerary_id=None, user_id=None, user_name=None):
         self.apply_id = apply_id  # type: str
         self.btrip_title = btrip_title  # type: str
@@ -48924,6 +48935,7 @@ class HotelOrderQueryResponseBodyModuleOrderBaseInfo(TeaModel):
         self.corp_name = corp_name  # type: str
         self.depart_id = depart_id  # type: str
         self.depart_name = depart_name  # type: str
+        self.exceed_apply_nos = exceed_apply_nos  # type: list[str]
         self.extend_field = extend_field  # type: str
         self.gmt_create = gmt_create  # type: long
         self.gmt_modified = gmt_modified  # type: long
@@ -48958,6 +48970,8 @@ class HotelOrderQueryResponseBodyModuleOrderBaseInfo(TeaModel):
             result['depart_id'] = self.depart_id
         if self.depart_name is not None:
             result['depart_name'] = self.depart_name
+        if self.exceed_apply_nos is not None:
+            result['exceed_apply_nos'] = self.exceed_apply_nos
         if self.extend_field is not None:
             result['extend_field'] = self.extend_field
         if self.gmt_create is not None:
@@ -48998,6 +49012,8 @@ class HotelOrderQueryResponseBodyModuleOrderBaseInfo(TeaModel):
             self.depart_id = m.get('depart_id')
         if m.get('depart_name') is not None:
             self.depart_name = m.get('depart_name')
+        if m.get('exceed_apply_nos') is not None:
+            self.exceed_apply_nos = m.get('exceed_apply_nos')
         if m.get('extend_field') is not None:
             self.extend_field = m.get('extend_field')
         if m.get('gmt_create') is not None:
