@@ -325,9 +325,10 @@ class ChangeResourceGroupResponse(TeaModel):
 
 
 class CreateArtifactBuildRuleRequest(TeaModel):
-    def __init__(self, artifact_type=None, instance_id=None, scope_id=None, scope_type=None):
+    def __init__(self, artifact_type=None, instance_id=None, parameters=None, scope_id=None, scope_type=None):
         self.artifact_type = artifact_type  # type: str
         self.instance_id = instance_id  # type: str
+        self.parameters = parameters  # type: dict[str, any]
         self.scope_id = scope_id  # type: str
         self.scope_type = scope_type  # type: str
 
@@ -344,6 +345,8 @@ class CreateArtifactBuildRuleRequest(TeaModel):
             result['ArtifactType'] = self.artifact_type
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.parameters is not None:
+            result['Parameters'] = self.parameters
         if self.scope_id is not None:
             result['ScopeId'] = self.scope_id
         if self.scope_type is not None:
@@ -356,6 +359,52 @@ class CreateArtifactBuildRuleRequest(TeaModel):
             self.artifact_type = m.get('ArtifactType')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('Parameters') is not None:
+            self.parameters = m.get('Parameters')
+        if m.get('ScopeId') is not None:
+            self.scope_id = m.get('ScopeId')
+        if m.get('ScopeType') is not None:
+            self.scope_type = m.get('ScopeType')
+        return self
+
+
+class CreateArtifactBuildRuleShrinkRequest(TeaModel):
+    def __init__(self, artifact_type=None, instance_id=None, parameters_shrink=None, scope_id=None, scope_type=None):
+        self.artifact_type = artifact_type  # type: str
+        self.instance_id = instance_id  # type: str
+        self.parameters_shrink = parameters_shrink  # type: str
+        self.scope_id = scope_id  # type: str
+        self.scope_type = scope_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateArtifactBuildRuleShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.artifact_type is not None:
+            result['ArtifactType'] = self.artifact_type
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.parameters_shrink is not None:
+            result['Parameters'] = self.parameters_shrink
+        if self.scope_id is not None:
+            result['ScopeId'] = self.scope_id
+        if self.scope_type is not None:
+            result['ScopeType'] = self.scope_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ArtifactType') is not None:
+            self.artifact_type = m.get('ArtifactType')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Parameters') is not None:
+            self.parameters_shrink = m.get('Parameters')
         if m.get('ScopeId') is not None:
             self.scope_id = m.get('ScopeId')
         if m.get('ScopeType') is not None:
