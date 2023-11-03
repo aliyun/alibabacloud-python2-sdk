@@ -3892,20 +3892,22 @@ class DescribeAuditRecordsResponse(TeaModel):
 
 
 class DescribeAvailabilityZonesRequest(TeaModel):
-    def __init__(self, accept_language=None, db_type=None, exclude_secondary_zone_id=None, exclude_zone_id=None,
-                 instance_charge_type=None, mongo_type=None, owner_account=None, owner_id=None, region_id=None, resource_group_id=None,
-                 resource_owner_account=None, resource_owner_id=None, security_token=None, storage_support=None, storage_type=None,
-                 zone_id=None):
+    def __init__(self, accept_language=None, dbinstance_class=None, db_type=None, engine_version=None,
+                 exclude_secondary_zone_id=None, exclude_zone_id=None, instance_charge_type=None, mongo_type=None, owner_account=None,
+                 owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 security_token=None, storage_support=None, storage_type=None, zone_id=None):
         # Specifies the language of the returned values of the **RegionName** and **ZoneName** parameters. Default value: zh. Valid values:
         # 
         # *   **zh**: Chinese.
         # *   **en**: English
         self.accept_language = accept_language  # type: str
+        self.dbinstance_class = dbinstance_class  # type: str
         # The database engine type of the instance. Valid values:
         # 
         # *   **normal**: replica set instance
         # *   **sharding**: sharded cluster instance
         self.db_type = db_type  # type: str
+        self.engine_version = engine_version  # type: str
         self.exclude_secondary_zone_id = exclude_secondary_zone_id  # type: str
         self.exclude_zone_id = exclude_zone_id  # type: str
         # The billing method of the instance. Default value: PrePaid. Valid values:
@@ -3953,8 +3955,12 @@ class DescribeAvailabilityZonesRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.dbinstance_class is not None:
+            result['DBInstanceClass'] = self.dbinstance_class
         if self.db_type is not None:
             result['DbType'] = self.db_type
+        if self.engine_version is not None:
+            result['EngineVersion'] = self.engine_version
         if self.exclude_secondary_zone_id is not None:
             result['ExcludeSecondaryZoneId'] = self.exclude_secondary_zone_id
         if self.exclude_zone_id is not None:
@@ -3989,8 +3995,12 @@ class DescribeAvailabilityZonesRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('DBInstanceClass') is not None:
+            self.dbinstance_class = m.get('DBInstanceClass')
         if m.get('DbType') is not None:
             self.db_type = m.get('DbType')
+        if m.get('EngineVersion') is not None:
+            self.engine_version = m.get('EngineVersion')
         if m.get('ExcludeSecondaryZoneId') is not None:
             self.exclude_secondary_zone_id = m.get('ExcludeSecondaryZoneId')
         if m.get('ExcludeZoneId') is not None:
@@ -4292,14 +4302,16 @@ class DescribeAvailableEngineVersionResponse(TeaModel):
 
 
 class DescribeAvailableResourceRequest(TeaModel):
-    def __init__(self, db_type=None, instance_charge_type=None, owner_account=None, owner_id=None, region_id=None,
-                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, security_token=None, storage_type=None,
-                 zone_id=None):
+    def __init__(self, dbinstance_class=None, db_type=None, engine_version=None, instance_charge_type=None,
+                 owner_account=None, owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None,
+                 resource_owner_id=None, security_token=None, storage_type=None, zone_id=None):
+        self.dbinstance_class = dbinstance_class  # type: str
         # The architecture of the instance. Valid values:
         # 
         # *   **normal**: replica set instance
         # *   **sharding**: sharded cluster instance
         self.db_type = db_type  # type: str
+        self.engine_version = engine_version  # type: str
         # The billing method of the instance. Default value: PrePaid. Valid values:
         # 
         # *   **PrePaid**: subscription
@@ -4327,8 +4339,12 @@ class DescribeAvailableResourceRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.dbinstance_class is not None:
+            result['DBInstanceClass'] = self.dbinstance_class
         if self.db_type is not None:
             result['DbType'] = self.db_type
+        if self.engine_version is not None:
+            result['EngineVersion'] = self.engine_version
         if self.instance_charge_type is not None:
             result['InstanceChargeType'] = self.instance_charge_type
         if self.owner_account is not None:
@@ -4353,8 +4369,12 @@ class DescribeAvailableResourceRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DBInstanceClass') is not None:
+            self.dbinstance_class = m.get('DBInstanceClass')
         if m.get('DbType') is not None:
             self.db_type = m.get('DbType')
+        if m.get('EngineVersion') is not None:
+            self.engine_version = m.get('EngineVersion')
         if m.get('InstanceChargeType') is not None:
             self.instance_charge_type = m.get('InstanceChargeType')
         if m.get('OwnerAccount') is not None:

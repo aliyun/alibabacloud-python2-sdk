@@ -1346,8 +1346,12 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
         if not UtilClient.is_unset(request.db_type):
             query['DbType'] = request.db_type
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
         if not UtilClient.is_unset(request.exclude_secondary_zone_id):
             query['ExcludeSecondaryZoneId'] = request.exclude_secondary_zone_id
         if not UtilClient.is_unset(request.exclude_zone_id):
@@ -1448,8 +1452,12 @@ class Client(OpenApiClient):
     def describe_available_resource_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
         if not UtilClient.is_unset(request.db_type):
             query['DbType'] = request.db_type
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
         if not UtilClient.is_unset(request.instance_charge_type):
             query['InstanceChargeType'] = request.instance_charge_type
         if not UtilClient.is_unset(request.owner_account):
