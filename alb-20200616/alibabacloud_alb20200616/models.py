@@ -2483,7 +2483,8 @@ class CreateLoadBalancerRequestTag(TeaModel):
 
 
 class CreateLoadBalancerRequestZoneMappings(TeaModel):
-    def __init__(self, intranet_address=None, v_switch_id=None, zone_id=None):
+    def __init__(self, allocation_id=None, intranet_address=None, v_switch_id=None, zone_id=None):
+        self.allocation_id = allocation_id  # type: str
         self.intranet_address = intranet_address  # type: str
         # The ID of the vSwitch in the zone. You can specify only one vSwitch (subnet) in each zone of an ALB instance. You can specify up to 10 vSwitch IDs.
         self.v_switch_id = v_switch_id  # type: str
@@ -2501,6 +2502,8 @@ class CreateLoadBalancerRequestZoneMappings(TeaModel):
             return _map
 
         result = dict()
+        if self.allocation_id is not None:
+            result['AllocationId'] = self.allocation_id
         if self.intranet_address is not None:
             result['IntranetAddress'] = self.intranet_address
         if self.v_switch_id is not None:
@@ -2511,6 +2514,8 @@ class CreateLoadBalancerRequestZoneMappings(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AllocationId') is not None:
+            self.allocation_id = m.get('AllocationId')
         if m.get('IntranetAddress') is not None:
             self.intranet_address = m.get('IntranetAddress')
         if m.get('VSwitchId') is not None:
@@ -5784,7 +5789,7 @@ class CreateServerGroupRequestUchConfig(TeaModel):
 class CreateServerGroupRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, health_check_config=None, protocol=None,
                  resource_group_id=None, scheduler=None, server_group_name=None, server_group_type=None, service_name=None,
-                 sticky_session_config=None, tag=None, uch_config=None, vpc_id=None):
+                 sticky_session_config=None, tag=None, uch_config=None, upstream_keepalive_enabled=None, vpc_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
@@ -5833,6 +5838,7 @@ class CreateServerGroupRequest(TeaModel):
         self.tag = tag  # type: list[CreateServerGroupRequestTag]
         # The setting of consistent hashing based on URLs.
         self.uch_config = uch_config  # type: CreateServerGroupRequestUchConfig
+        self.upstream_keepalive_enabled = upstream_keepalive_enabled  # type: bool
         # The ID of the virtual private cloud (VPC). You can add only backend servers that are deployed in the specified VPC to the server group.
         # 
         # > This parameter takes effect when the **ServerGroupType** parameter is set to **Instance** or **Ip**.
@@ -5882,6 +5888,8 @@ class CreateServerGroupRequest(TeaModel):
                 result['Tag'].append(k.to_map() if k else None)
         if self.uch_config is not None:
             result['UchConfig'] = self.uch_config.to_map()
+        if self.upstream_keepalive_enabled is not None:
+            result['UpstreamKeepaliveEnabled'] = self.upstream_keepalive_enabled
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
         return result
@@ -5918,6 +5926,8 @@ class CreateServerGroupRequest(TeaModel):
         if m.get('UchConfig') is not None:
             temp_model = CreateServerGroupRequestUchConfig()
             self.uch_config = temp_model.from_map(m['UchConfig'])
+        if m.get('UpstreamKeepaliveEnabled') is not None:
+            self.upstream_keepalive_enabled = m.get('UpstreamKeepaliveEnabled')
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
         return self
@@ -10227,13 +10237,14 @@ class GetLoadBalancerAttributeResponseBodyTags(TeaModel):
 
 
 class GetLoadBalancerAttributeResponseBodyZoneMappingsLoadBalancerAddresses(TeaModel):
-    def __init__(self, address=None, allocation_id=None, eip_type=None, ipv_6address=None):
+    def __init__(self, address=None, allocation_id=None, eip_type=None, intranet_address=None, ipv_6address=None):
         # The ID of the zone where the ALB instance was deployed.
         # 
         # You can call the [DescribeZones](~~189196~~) operation to query the zones of the ALB instance.
         self.address = address  # type: str
         self.allocation_id = allocation_id  # type: str
         self.eip_type = eip_type  # type: str
+        self.intranet_address = intranet_address  # type: str
         # The protocol version. Valid values:
         # 
         # *   **IPv4:** IPv4.
@@ -10255,6 +10266,8 @@ class GetLoadBalancerAttributeResponseBodyZoneMappingsLoadBalancerAddresses(TeaM
             result['AllocationId'] = self.allocation_id
         if self.eip_type is not None:
             result['EipType'] = self.eip_type
+        if self.intranet_address is not None:
+            result['IntranetAddress'] = self.intranet_address
         if self.ipv_6address is not None:
             result['Ipv6Address'] = self.ipv_6address
         return result
@@ -10267,6 +10280,8 @@ class GetLoadBalancerAttributeResponseBodyZoneMappingsLoadBalancerAddresses(TeaM
             self.allocation_id = m.get('AllocationId')
         if m.get('EipType') is not None:
             self.eip_type = m.get('EipType')
+        if m.get('IntranetAddress') is not None:
+            self.intranet_address = m.get('IntranetAddress')
         if m.get('Ipv6Address') is not None:
             self.ipv_6address = m.get('Ipv6Address')
         return self
@@ -23396,7 +23411,8 @@ class UpdateServerGroupAttributeRequestUchConfig(TeaModel):
 
 class UpdateServerGroupAttributeRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, health_check_config=None, scheduler=None,
-                 server_group_id=None, server_group_name=None, service_name=None, sticky_session_config=None, uch_config=None):
+                 server_group_id=None, server_group_name=None, service_name=None, sticky_session_config=None, uch_config=None,
+                 upstream_keepalive_enabled=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
@@ -23427,6 +23443,7 @@ class UpdateServerGroupAttributeRequest(TeaModel):
         # The configuration of session persistence.
         self.sticky_session_config = sticky_session_config  # type: UpdateServerGroupAttributeRequestStickySessionConfig
         self.uch_config = uch_config  # type: UpdateServerGroupAttributeRequestUchConfig
+        self.upstream_keepalive_enabled = upstream_keepalive_enabled  # type: bool
 
     def validate(self):
         if self.health_check_config:
@@ -23460,6 +23477,8 @@ class UpdateServerGroupAttributeRequest(TeaModel):
             result['StickySessionConfig'] = self.sticky_session_config.to_map()
         if self.uch_config is not None:
             result['UchConfig'] = self.uch_config.to_map()
+        if self.upstream_keepalive_enabled is not None:
+            result['UpstreamKeepaliveEnabled'] = self.upstream_keepalive_enabled
         return result
 
     def from_map(self, m=None):
@@ -23485,6 +23504,8 @@ class UpdateServerGroupAttributeRequest(TeaModel):
         if m.get('UchConfig') is not None:
             temp_model = UpdateServerGroupAttributeRequestUchConfig()
             self.uch_config = temp_model.from_map(m['UchConfig'])
+        if m.get('UpstreamKeepaliveEnabled') is not None:
+            self.upstream_keepalive_enabled = m.get('UpstreamKeepaliveEnabled')
         return self
 
 
