@@ -4802,14 +4802,13 @@ class CreateDispatchRuleResponse(TeaModel):
 class CreateEnvCustomJobRequest(TeaModel):
     def __init__(self, aliyun_lang=None, config_yaml=None, custom_job_name=None, environment_id=None,
                  region_id=None):
-        # Locale: zh | en. 
-        # The default value is zh.
+        # The language. Valid values: zh and en. Default value: zh.
         self.aliyun_lang = aliyun_lang  # type: str
-        # Customize the Job\"s yaml configuration string.
+        # The YAML configuration string of the custom job.
         self.config_yaml = config_yaml  # type: str
-        # Customize job name.
+        # The name of the custom job.
         self.custom_job_name = custom_job_name  # type: str
-        # Environment instance ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
@@ -4852,13 +4851,13 @@ class CreateEnvCustomJobRequest(TeaModel):
 
 class CreateEnvCustomJobResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The status code. The status code 200 indicates that the request was successful.
+        # The HTTP status code. The status code 200 indicates that the request was successful. Other status codes indicate that the request failed.
         self.code = code  # type: int
-        # The struct returned.
+        # The name of the custom job that was created, or the exception information.
         self.data = data  # type: str
-        # The message returned.
+        # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4934,13 +4933,13 @@ class CreateEnvCustomJobResponse(TeaModel):
 
 class CreateEnvPodMonitorRequest(TeaModel):
     def __init__(self, aliyun_lang=None, config_yaml=None, dry_run=None, environment_id=None, region_id=None):
-        # Locale, default is Chinese zh | en.
+        # The language. Valid values: zh and en. Default value: zh.
         self.aliyun_lang = aliyun_lang  # type: str
-        # PodMonitor\"s yaml configuration string.
+        # The YAML configuration string of the PodMonitor.
         self.config_yaml = config_yaml  # type: str
-        # Trial run: Check whether the format is legal and whether it can match targets.
+        # Specifies whether to perform only a dry run, without performing the actual request.
         self.dry_run = dry_run  # type: bool
-        # Environment instance ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
@@ -4983,13 +4982,13 @@ class CreateEnvPodMonitorRequest(TeaModel):
 
 class CreateEnvPodMonitorResponseBodyData(TeaModel):
     def __init__(self, matched_msg=None, matched_target_count=None, namespace=None, pod_monitor_name=None):
-        # target matching prompt information.
+        # Indicates whether targets are matched.
         self.matched_msg = matched_msg  # type: str
         # The number of matched targets.
         self.matched_target_count = matched_target_count  # type: str
         # The namespace.
         self.namespace = namespace  # type: str
-        # Successfully created podMonitor name.
+        # The name of the created PodMonitor.
         self.pod_monitor_name = pod_monitor_name  # type: str
 
     def validate(self):
@@ -5026,13 +5025,13 @@ class CreateEnvPodMonitorResponseBodyData(TeaModel):
 
 class CreateEnvPodMonitorResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The status code. The status code 200 indicates that the request was successful.
+        # The HTTP status code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
-        # The returned information.
+        # The returned result, which indicates whether the operation was successful.
         self.data = data  # type: CreateEnvPodMonitorResponseBodyData
         # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5110,15 +5109,15 @@ class CreateEnvPodMonitorResponse(TeaModel):
 
 class CreateEnvServiceMonitorRequest(TeaModel):
     def __init__(self, aliyun_lang=None, config_yaml=None, dry_run=None, environment_id=None, region_id=None):
-        # Locale, default is Chinese zh | en.
+        # The language. Valid values: zh and en. Default value: zh.
         self.aliyun_lang = aliyun_lang  # type: str
-        # ServiceMonitor\"s yaml configuration string.
+        # The YAML configuration string of the ServiceMonitor.
         self.config_yaml = config_yaml  # type: str
-        # Trial run: Check whether the format is legal and whether it can match targets.
+        # Specifies whether to perform only a dry run, without performing the actual request.
         self.dry_run = dry_run  # type: bool
-        # Environment instance ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5159,13 +5158,13 @@ class CreateEnvServiceMonitorRequest(TeaModel):
 
 class CreateEnvServiceMonitorResponseBodyData(TeaModel):
     def __init__(self, matched_msg=None, matched_target_count=None, namespace=None, service_monitor_name=None):
-        # target matching prompt information.
+        # Indicates whether targets are matched.
         self.matched_msg = matched_msg  # type: str
         # The number of matched targets.
         self.matched_target_count = matched_target_count  # type: int
         # The namespace.
         self.namespace = namespace  # type: str
-        # The name of the serviceMonitor successfully created.
+        # The name of the created ServiceMonitor.
         self.service_monitor_name = service_monitor_name  # type: str
 
     def validate(self):
@@ -5202,13 +5201,13 @@ class CreateEnvServiceMonitorResponseBodyData(TeaModel):
 
 class CreateEnvServiceMonitorResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The status code.
+        # The HTTP status code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
         # The returned struct.
         self.data = data  # type: CreateEnvServiceMonitorResponseBodyData
-        # The message returned.
+        # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12137,6 +12136,140 @@ class DelAuthTokenResponse(TeaModel):
         return self
 
 
+class DeleteAddonReleaseRequest(TeaModel):
+    def __init__(self, environment_id=None, force=None, region_id=None, release_name=None):
+        # Environment ID.
+        self.environment_id = environment_id  # type: str
+        # Whether to be forcibly deleted. The default value is false.
+        self.force = force  # type: bool
+        # The region ID.
+        self.region_id = region_id  # type: str
+        # Name of Release.
+        self.release_name = release_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAddonReleaseRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.force is not None:
+            result['Force'] = self.force
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.release_name is not None:
+            result['ReleaseName'] = self.release_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('Force') is not None:
+            self.force = m.get('Force')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ReleaseName') is not None:
+            self.release_name = m.get('ReleaseName')
+        return self
+
+
+class DeleteAddonReleaseResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # Status code: 200 indicates success.
+        self.code = code  # type: int
+        # Return a message.
+        self.data = data  # type: str
+        # The returned message.
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        # Indicates whether the alert rule was deleted. Valid values:
+        # 
+        # *   `true`: The alert rule was deleted.
+        # *   `false`: The alert rule failed to be deleted.
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAddonReleaseResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteAddonReleaseResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteAddonReleaseResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteAddonReleaseResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteAddonReleaseResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteAlertContactRequest(TeaModel):
     def __init__(self, contact_id=None, region_id=None):
         # The ID of the alert contact.
@@ -15912,6 +16045,363 @@ class DeleteWebhookContactResponse(TeaModel):
         return self
 
 
+class DescribeAddonReleaseRequest(TeaModel):
+    def __init__(self, environment_id=None, region_id=None, release_name=None):
+        # Environment ID.
+        self.environment_id = environment_id  # type: str
+        # The region ID.
+        self.region_id = region_id  # type: str
+        # Name of Release.
+        self.release_name = release_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAddonReleaseRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.release_name is not None:
+            result['ReleaseName'] = self.release_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ReleaseName') is not None:
+            self.release_name = m.get('ReleaseName')
+        return self
+
+
+class DescribeAddonReleaseResponseBodyDataReleaseConditions(TeaModel):
+    def __init__(self, first_transition_time=None, last_transition_time=None, message=None, reason=None,
+                 status=None, type=None):
+        # First transition time.
+        self.first_transition_time = first_transition_time  # type: str
+        # Last transition time.
+        self.last_transition_time = last_transition_time  # type: str
+        # COndition details.
+        self.message = message  # type: str
+        # Reason of failure.
+        self.reason = reason  # type: str
+        # Condition status.
+        self.status = status  # type: str
+        # Condition type.
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAddonReleaseResponseBodyDataReleaseConditions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.first_transition_time is not None:
+            result['FirstTransitionTime'] = self.first_transition_time
+        if self.last_transition_time is not None:
+            result['LastTransitionTime'] = self.last_transition_time
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.reason is not None:
+            result['Reason'] = self.reason
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FirstTransitionTime') is not None:
+            self.first_transition_time = m.get('FirstTransitionTime')
+        if m.get('LastTransitionTime') is not None:
+            self.last_transition_time = m.get('LastTransitionTime')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeAddonReleaseResponseBodyDataRelease(TeaModel):
+    def __init__(self, addon_name=None, alert_rule_count=None, conditions=None, create_time=None,
+                 dashboard_count=None, environment_id=None, exporter_count=None, have_config=None, install_user_id=None,
+                 language=None, region_id=None, release_id=None, release_name=None, scene=None, status=None, update_time=None,
+                 user_id=None, version=None):
+        # Name of Addon.
+        self.addon_name = addon_name  # type: str
+        # Number of alarm groups.
+        self.alert_rule_count = alert_rule_count  # type: long
+        # Condition list.
+        self.conditions = conditions  # type: list[DescribeAddonReleaseResponseBodyDataReleaseConditions]
+        # Create time.
+        self.create_time = create_time  # type: str
+        # Number of dashboard.
+        self.dashboard_count = dashboard_count  # type: long
+        # Environment ID.
+        self.environment_id = environment_id  # type: str
+        # Number of Exporter.
+        self.exporter_count = exporter_count  # type: long
+        # Whether there is configuration.
+        self.have_config = have_config  # type: bool
+        # User ID of the installation.
+        self.install_user_id = install_user_id  # type: str
+        # Language.
+        self.language = language  # type: str
+        # The region ID.
+        self.region_id = region_id  # type: str
+        # Release ID.
+        self.release_id = release_id  # type: str
+        # Name of Release.
+        self.release_name = release_name  # type: str
+        # Scene.
+        self.scene = scene  # type: str
+        # Status of Release.
+        self.status = status  # type: str
+        # Update time.
+        self.update_time = update_time  # type: str
+        # User ID.
+        self.user_id = user_id  # type: str
+        # Version of Addon.
+        self.version = version  # type: str
+
+    def validate(self):
+        if self.conditions:
+            for k in self.conditions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeAddonReleaseResponseBodyDataRelease, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.addon_name is not None:
+            result['AddonName'] = self.addon_name
+        if self.alert_rule_count is not None:
+            result['AlertRuleCount'] = self.alert_rule_count
+        result['Conditions'] = []
+        if self.conditions is not None:
+            for k in self.conditions:
+                result['Conditions'].append(k.to_map() if k else None)
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.dashboard_count is not None:
+            result['DashboardCount'] = self.dashboard_count
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.exporter_count is not None:
+            result['ExporterCount'] = self.exporter_count
+        if self.have_config is not None:
+            result['HaveConfig'] = self.have_config
+        if self.install_user_id is not None:
+            result['InstallUserId'] = self.install_user_id
+        if self.language is not None:
+            result['Language'] = self.language
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.release_id is not None:
+            result['ReleaseId'] = self.release_id
+        if self.release_name is not None:
+            result['ReleaseName'] = self.release_name
+        if self.scene is not None:
+            result['Scene'] = self.scene
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        if self.user_id is not None:
+            result['UserID'] = self.user_id
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AddonName') is not None:
+            self.addon_name = m.get('AddonName')
+        if m.get('AlertRuleCount') is not None:
+            self.alert_rule_count = m.get('AlertRuleCount')
+        self.conditions = []
+        if m.get('Conditions') is not None:
+            for k in m.get('Conditions'):
+                temp_model = DescribeAddonReleaseResponseBodyDataReleaseConditions()
+                self.conditions.append(temp_model.from_map(k))
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DashboardCount') is not None:
+            self.dashboard_count = m.get('DashboardCount')
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('ExporterCount') is not None:
+            self.exporter_count = m.get('ExporterCount')
+        if m.get('HaveConfig') is not None:
+            self.have_config = m.get('HaveConfig')
+        if m.get('InstallUserId') is not None:
+            self.install_user_id = m.get('InstallUserId')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ReleaseId') is not None:
+            self.release_id = m.get('ReleaseId')
+        if m.get('ReleaseName') is not None:
+            self.release_name = m.get('ReleaseName')
+        if m.get('Scene') is not None:
+            self.scene = m.get('Scene')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        if m.get('UserID') is not None:
+            self.user_id = m.get('UserID')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class DescribeAddonReleaseResponseBodyData(TeaModel):
+    def __init__(self, config=None, release=None):
+        # Config of the Release.
+        self.config = config  # type: str
+        # Release Detail.
+        self.release = release  # type: DescribeAddonReleaseResponseBodyDataRelease
+
+    def validate(self):
+        if self.release:
+            self.release.validate()
+
+    def to_map(self):
+        _map = super(DescribeAddonReleaseResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.release is not None:
+            result['Release'] = self.release.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('Release') is not None:
+            temp_model = DescribeAddonReleaseResponseBodyDataRelease()
+            self.release = temp_model.from_map(m['Release'])
+        return self
+
+
+class DescribeAddonReleaseResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # Status code: 200 indicates success.
+        self.code = code  # type: str
+        # The struct returned.
+        self.data = data  # type: DescribeAddonReleaseResponseBodyData
+        # The returned message.
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        # Indicates whether the alert rule was deleted. Valid values:
+        # 
+        # *   `true`: The alert rule was deleted.
+        # *   `false`: The alert rule failed to be deleted.
+        self.success = success  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeAddonReleaseResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribeAddonReleaseResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeAddonReleaseResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeAddonReleaseResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeAddonReleaseResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeAddonReleaseResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeContactGroupsRequest(TeaModel):
     def __init__(self, contact_group_name=None, group_ids=None, is_detail=None, page=None, region_id=None, size=None):
         # The name of the alert contact group.
@@ -16906,11 +17396,11 @@ class DescribeDispatchRuleResponse(TeaModel):
 
 class DescribeEnvCustomJobRequest(TeaModel):
     def __init__(self, custom_job_name=None, encrypt_yaml=None, environment_id=None, region_id=None):
-        # Custom job name.
+        # The name of the custom job.
         self.custom_job_name = custom_job_name  # type: str
-        # Whether to return the encrypted yaml string.
+        # Specifies whether to return the encrypted YAML string.
         self.encrypt_yaml = encrypt_yaml  # type: bool
-        # Environment instance ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
@@ -16949,15 +17439,15 @@ class DescribeEnvCustomJobRequest(TeaModel):
 
 class DescribeEnvCustomJobResponseBodyData(TeaModel):
     def __init__(self, config_yaml=None, custom_job_name=None, environment_id=None, region_id=None, status=None):
-        # If the request parameter encryptYaml is true, the base64-encoded yaml string is returned. Otherwise, the plaintext yaml string is returned.
+        # If the request parameter EncryptYaml is set to true, a Base64-encoded YAML string is returned. Otherwise, a plaintext YAML string is returned.
         self.config_yaml = config_yaml  # type: str
-        # Custom job name.
+        # The name of the custom job.
         self.custom_job_name = custom_job_name  # type: str
-        # Environment instance ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
-        # Status: run, stop.
+        # The status of the custom job. Valid values: run and stop.
         self.status = status  # type: str
 
     def validate(self):
@@ -16998,13 +17488,13 @@ class DescribeEnvCustomJobResponseBodyData(TeaModel):
 
 class DescribeEnvCustomJobResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The status code. The status code 200 indicates that the request was successful.
+        # The HTTP status code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
         # The returned struct.
         self.data = data  # type: DescribeEnvCustomJobResponseBodyData
         # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17082,13 +17572,13 @@ class DescribeEnvCustomJobResponse(TeaModel):
 
 class DescribeEnvPodMonitorRequest(TeaModel):
     def __init__(self, environment_id=None, namespace=None, pod_monitor_name=None, region_id=None):
-        # Environment instance ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
-        # The namespace where podMonitor is located.
+        # The namespace where the PodMonitor is located.
         self.namespace = namespace  # type: str
-        # PodMonitor name.
+        # The name of the PodMonitor.
         self.pod_monitor_name = pod_monitor_name  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -17126,17 +17616,17 @@ class DescribeEnvPodMonitorRequest(TeaModel):
 class DescribeEnvPodMonitorResponseBodyData(TeaModel):
     def __init__(self, config_yaml=None, environment_id=None, namespace=None, pod_monitor_name=None, region_id=None,
                  status=None):
-        # PodMonitor\"s yaml configuration string.
+        # The YAML configuration string of the PodMonitor.
         self.config_yaml = config_yaml  # type: str
-        # Environment instance ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
         # The namespace.
         self.namespace = namespace  # type: str
-        # PodMonitor name.
+        # The name of the PodMonitor.
         self.pod_monitor_name = pod_monitor_name  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
-        # Status: run, stop.
+        # The status of the PodMonitor. Valid values: run and stop.
         self.status = status  # type: str
 
     def validate(self):
@@ -17181,13 +17671,13 @@ class DescribeEnvPodMonitorResponseBodyData(TeaModel):
 
 class DescribeEnvPodMonitorResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The response code. The status code 200 indicates that the request was successful.
+        # The HTTP status code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
         # The returned struct.
         self.data = data  # type: DescribeEnvPodMonitorResponseBodyData
-        # The message returned.
+        # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17265,13 +17755,13 @@ class DescribeEnvPodMonitorResponse(TeaModel):
 
 class DescribeEnvServiceMonitorRequest(TeaModel):
     def __init__(self, environment_id=None, namespace=None, region_id=None, service_monitor_name=None):
-        # Environment instance ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
-        # The name of the namespace.
+        # The namespace where the ServiceMonitor is located.
         self.namespace = namespace  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
-        # ServiceMonitor name.
+        # The name of the ServiceMonitor.
         self.service_monitor_name = service_monitor_name  # type: str
 
     def validate(self):
@@ -17309,17 +17799,17 @@ class DescribeEnvServiceMonitorRequest(TeaModel):
 class DescribeEnvServiceMonitorResponseBodyData(TeaModel):
     def __init__(self, config_yaml=None, environment_id=None, namespace=None, region_id=None,
                  service_monitor_name=None, status=None):
-        # ServiceMonitor\"s yaml configuration string.
+        # The YAML configuration string of the ServiceMonitor.
         self.config_yaml = config_yaml  # type: str
-        # Environment instance ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
         # The namespace.
         self.namespace = namespace  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
-        # ServiceMonitor name.
+        # The name of the ServiceMonitor.
         self.service_monitor_name = service_monitor_name  # type: str
-        # Status: run, stop.
+        # The status of the ServiceMonitor. Valid values: run and stop.
         self.status = status  # type: str
 
     def validate(self):
@@ -17364,13 +17854,13 @@ class DescribeEnvServiceMonitorResponseBodyData(TeaModel):
 
 class DescribeEnvServiceMonitorResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The status code. The status code 200 indicates that the request was successful.
+        # The HTTP status code. The status code 200 indicates that the request was successful. Other status codes indicate that the request failed.
         self.code = code  # type: int
         # The returned struct.
         self.data = data  # type: DescribeEnvServiceMonitorResponseBodyData
         # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17509,9 +17999,9 @@ class DescribeEnvironmentResponseBodyDataTags(TeaModel):
 class DescribeEnvironmentResponseBodyData(TeaModel):
     def __init__(self, bind_resource_id=None, bind_resource_profile=None, bind_resource_status=None,
                  bind_resource_store_duration=None, bind_resource_type=None, bind_vpc_cidr=None, environment_id=None, environment_name=None,
-                 environment_type=None, grafa_data_source_name=None, grafana_datasource_uid=None, grafana_folder_title=None,
-                 grafana_folder_uid=None, grafana_folder_url=None, prometheus_instance_id=None, prometheus_instance_name=None,
-                 region_id=None, resource_group_id=None, tags=None, user_id=None, vpc_id=None):
+                 environment_sub_type=None, environment_type=None, grafa_data_source_name=None, grafana_datasource_uid=None,
+                 grafana_folder_title=None, grafana_folder_uid=None, grafana_folder_url=None, prometheus_instance_id=None,
+                 prometheus_instance_name=None, region_id=None, resource_group_id=None, tags=None, user_id=None, vpc_id=None):
         # Resource instance ID bound to the environment, including container instance ID or VpcId.
         self.bind_resource_id = bind_resource_id  # type: str
         # Profile of bound resources.
@@ -17528,6 +18018,7 @@ class DescribeEnvironmentResponseBodyData(TeaModel):
         self.environment_id = environment_id  # type: str
         # Environment name.
         self.environment_name = environment_name  # type: str
+        self.environment_sub_type = environment_sub_type  # type: str
         # Environment type:
         # - CS: Container Service.
         # - ECS.
@@ -17585,6 +18076,8 @@ class DescribeEnvironmentResponseBodyData(TeaModel):
             result['EnvironmentId'] = self.environment_id
         if self.environment_name is not None:
             result['EnvironmentName'] = self.environment_name
+        if self.environment_sub_type is not None:
+            result['EnvironmentSubType'] = self.environment_sub_type
         if self.environment_type is not None:
             result['EnvironmentType'] = self.environment_type
         if self.grafa_data_source_name is not None:
@@ -17633,6 +18126,8 @@ class DescribeEnvironmentResponseBodyData(TeaModel):
             self.environment_id = m.get('EnvironmentId')
         if m.get('EnvironmentName') is not None:
             self.environment_name = m.get('EnvironmentName')
+        if m.get('EnvironmentSubType') is not None:
+            self.environment_sub_type = m.get('EnvironmentSubType')
         if m.get('EnvironmentType') is not None:
             self.environment_type = m.get('EnvironmentType')
         if m.get('GrafaDataSourceName') is not None:
@@ -17745,6 +18240,343 @@ class DescribeEnvironmentResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeEnvironmentResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeEnvironmentFeatureRequest(TeaModel):
+    def __init__(self, environment_id=None, feature_name=None, region_id=None):
+        # Environment ID.
+        self.environment_id = environment_id  # type: str
+        # Name of Feature.
+        self.feature_name = feature_name  # type: str
+        # The region ID.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnvironmentFeatureRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.feature_name is not None:
+            result['FeatureName'] = self.feature_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('FeatureName') is not None:
+            self.feature_name = m.get('FeatureName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeEnvironmentFeatureResponseBodyDataFeature(TeaModel):
+    def __init__(self, alias=None, config=None, description=None, environment_id=None, icon=None, language=None,
+                 latest_version=None, name=None, status=None, version=None):
+        # Alias of Feature.
+        self.alias = alias  # type: str
+        # Config of Feature.
+        self.config = config  # type: dict[str, str]
+        # Description of Feature.
+        self.description = description  # type: str
+        # Environment ID.
+        self.environment_id = environment_id  # type: str
+        # Icon address.
+        self.icon = icon  # type: str
+        # Lanuage.
+        self.language = language  # type: str
+        # This is the latest version of Feature.
+        self.latest_version = latest_version  # type: str
+        # Name of Feature.
+        self.name = name  # type: str
+        # Status of Feature.
+        self.status = status  # type: str
+        # Version of Feature.
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnvironmentFeatureResponseBodyDataFeature, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias is not None:
+            result['Alias'] = self.alias
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.icon is not None:
+            result['Icon'] = self.icon
+        if self.language is not None:
+            result['Language'] = self.language
+        if self.latest_version is not None:
+            result['LatestVersion'] = self.latest_version
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Alias') is not None:
+            self.alias = m.get('Alias')
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('Icon') is not None:
+            self.icon = m.get('Icon')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
+        if m.get('LatestVersion') is not None:
+            self.latest_version = m.get('LatestVersion')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class DescribeEnvironmentFeatureResponseBodyDataFeatureStatusFeatureContainers(TeaModel):
+    def __init__(self, args=None, image=None, name=None):
+        # Container parameters.
+        self.args = args  # type: list[str]
+        # Container image.
+        self.image = image  # type: str
+        # Name of the container.
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnvironmentFeatureResponseBodyDataFeatureStatusFeatureContainers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.args is not None:
+            result['Args'] = self.args
+        if self.image is not None:
+            result['Image'] = self.image
+        if self.name is not None:
+            result['Name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Args') is not None:
+            self.args = m.get('Args')
+        if m.get('Image') is not None:
+            self.image = m.get('Image')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        return self
+
+
+class DescribeEnvironmentFeatureResponseBodyDataFeatureStatus(TeaModel):
+    def __init__(self, feature_containers=None, name=None, namespace=None, status=None):
+        # Feature container list.
+        self.feature_containers = feature_containers  # type: list[DescribeEnvironmentFeatureResponseBodyDataFeatureStatusFeatureContainers]
+        # K8s resource name of the Feature.
+        self.name = name  # type: str
+        # Namespace.
+        self.namespace = namespace  # type: str
+        # Running status.
+        # - Success: Normal operation
+        # - Failed: running exception
+        # - Not Found: Not installed
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.feature_containers:
+            for k in self.feature_containers:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnvironmentFeatureResponseBodyDataFeatureStatus, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['FeatureContainers'] = []
+        if self.feature_containers is not None:
+            for k in self.feature_containers:
+                result['FeatureContainers'].append(k.to_map() if k else None)
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.feature_containers = []
+        if m.get('FeatureContainers') is not None:
+            for k in m.get('FeatureContainers'):
+                temp_model = DescribeEnvironmentFeatureResponseBodyDataFeatureStatusFeatureContainers()
+                self.feature_containers.append(temp_model.from_map(k))
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DescribeEnvironmentFeatureResponseBodyData(TeaModel):
+    def __init__(self, feature=None, feature_status=None):
+        # Feature Installation information.
+        self.feature = feature  # type: DescribeEnvironmentFeatureResponseBodyDataFeature
+        # Running status of the Feature.
+        self.feature_status = feature_status  # type: DescribeEnvironmentFeatureResponseBodyDataFeatureStatus
+
+    def validate(self):
+        if self.feature:
+            self.feature.validate()
+        if self.feature_status:
+            self.feature_status.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnvironmentFeatureResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.feature is not None:
+            result['Feature'] = self.feature.to_map()
+        if self.feature_status is not None:
+            result['FeatureStatus'] = self.feature_status.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Feature') is not None:
+            temp_model = DescribeEnvironmentFeatureResponseBodyDataFeature()
+            self.feature = temp_model.from_map(m['Feature'])
+        if m.get('FeatureStatus') is not None:
+            temp_model = DescribeEnvironmentFeatureResponseBodyDataFeatureStatus()
+            self.feature_status = temp_model.from_map(m['FeatureStatus'])
+        return self
+
+
+class DescribeEnvironmentFeatureResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # Status code: 200 indicates success.
+        self.code = code  # type: int
+        # The return data.
+        self.data = data  # type: DescribeEnvironmentFeatureResponseBodyData
+        # The message returned.
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
+        # 
+        # *   `true`: successful
+        # *   `false`: failed
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnvironmentFeatureResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribeEnvironmentFeatureResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeEnvironmentFeatureResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeEnvironmentFeatureResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnvironmentFeatureResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeEnvironmentFeatureResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -27808,6 +28640,361 @@ class InitEnvironmentResponse(TeaModel):
         return self
 
 
+class InstallAddonRequest(TeaModel):
+    def __init__(self, addon_version=None, aliyun_lang=None, dry_run=None, environment_id=None, name=None,
+                 region_id=None, release_name=None, values=None):
+        # Version of Addon.
+        self.addon_version = addon_version  # type: str
+        # Locale, the default is Chinese zh.
+        self.aliyun_lang = aliyun_lang  # type: str
+        # Whether to test run. The default value is false.
+        self.dry_run = dry_run  # type: bool
+        # Environment ID.
+        self.environment_id = environment_id  # type: str
+        # Name of Addon.
+        self.name = name  # type: str
+        # The region ID.
+        self.region_id = region_id  # type: str
+        # The release name after installation, if not specified, generates the default rule name.
+        self.release_name = release_name  # type: str
+        # Config information.
+        self.values = values  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InstallAddonRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.addon_version is not None:
+            result['AddonVersion'] = self.addon_version
+        if self.aliyun_lang is not None:
+            result['AliyunLang'] = self.aliyun_lang
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.release_name is not None:
+            result['ReleaseName'] = self.release_name
+        if self.values is not None:
+            result['Values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AddonVersion') is not None:
+            self.addon_version = m.get('AddonVersion')
+        if m.get('AliyunLang') is not None:
+            self.aliyun_lang = m.get('AliyunLang')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ReleaseName') is not None:
+            self.release_name = m.get('ReleaseName')
+        if m.get('Values') is not None:
+            self.values = m.get('Values')
+        return self
+
+
+class InstallAddonResponseBodyDataConditions(TeaModel):
+    def __init__(self, first_transition_time=None, last_transition_time=None, message=None, reason=None,
+                 status=None, type=None):
+        # First transition time.
+        self.first_transition_time = first_transition_time  # type: str
+        # Last transition time.
+        self.last_transition_time = last_transition_time  # type: str
+        # Details.
+        self.message = message  # type: str
+        # Reason of failure.
+        self.reason = reason  # type: str
+        # Condition status.
+        self.status = status  # type: str
+        # Condition type.
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InstallAddonResponseBodyDataConditions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.first_transition_time is not None:
+            result['FirstTransitionTime'] = self.first_transition_time
+        if self.last_transition_time is not None:
+            result['LastTransitionTime'] = self.last_transition_time
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.reason is not None:
+            result['Reason'] = self.reason
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FirstTransitionTime') is not None:
+            self.first_transition_time = m.get('FirstTransitionTime')
+        if m.get('LastTransitionTime') is not None:
+            self.last_transition_time = m.get('LastTransitionTime')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class InstallAddonResponseBodyData(TeaModel):
+    def __init__(self, addon_name=None, alert_rule_count=None, conditions=None, create_time=None,
+                 dashboard_count=None, environment_id=None, exporter_count=None, have_config=None, install_user_id=None,
+                 language=None, region_id=None, release_id=None, release_name=None, scene=None, status=None, update_time=None,
+                 user_id=None, version=None):
+        # Addon name.
+        self.addon_name = addon_name  # type: str
+        # Number of alarm groups.
+        self.alert_rule_count = alert_rule_count  # type: long
+        # Condition list.
+        self.conditions = conditions  # type: list[InstallAddonResponseBodyDataConditions]
+        # Created time.
+        self.create_time = create_time  # type: str
+        # Number of dashboard.
+        self.dashboard_count = dashboard_count  # type: long
+        # Environment ID.
+        self.environment_id = environment_id  # type: str
+        # Number of Exporter.
+        self.exporter_count = exporter_count  # type: long
+        # Whether there is configuration.
+        self.have_config = have_config  # type: bool
+        # User ID of the installation.
+        self.install_user_id = install_user_id  # type: str
+        # Language.
+        self.language = language  # type: str
+        # The region ID.
+        self.region_id = region_id  # type: str
+        # Release ID.
+        self.release_id = release_id  # type: str
+        # Name of Release.
+        self.release_name = release_name  # type: str
+        # Scene.
+        self.scene = scene  # type: str
+        # Status of Release.
+        self.status = status  # type: str
+        # Update time.
+        self.update_time = update_time  # type: str
+        # User ID.
+        self.user_id = user_id  # type: str
+        # The version number.
+        self.version = version  # type: str
+
+    def validate(self):
+        if self.conditions:
+            for k in self.conditions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(InstallAddonResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.addon_name is not None:
+            result['AddonName'] = self.addon_name
+        if self.alert_rule_count is not None:
+            result['AlertRuleCount'] = self.alert_rule_count
+        result['Conditions'] = []
+        if self.conditions is not None:
+            for k in self.conditions:
+                result['Conditions'].append(k.to_map() if k else None)
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.dashboard_count is not None:
+            result['DashboardCount'] = self.dashboard_count
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.exporter_count is not None:
+            result['ExporterCount'] = self.exporter_count
+        if self.have_config is not None:
+            result['HaveConfig'] = self.have_config
+        if self.install_user_id is not None:
+            result['InstallUserId'] = self.install_user_id
+        if self.language is not None:
+            result['Language'] = self.language
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.release_id is not None:
+            result['ReleaseId'] = self.release_id
+        if self.release_name is not None:
+            result['ReleaseName'] = self.release_name
+        if self.scene is not None:
+            result['Scene'] = self.scene
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AddonName') is not None:
+            self.addon_name = m.get('AddonName')
+        if m.get('AlertRuleCount') is not None:
+            self.alert_rule_count = m.get('AlertRuleCount')
+        self.conditions = []
+        if m.get('Conditions') is not None:
+            for k in m.get('Conditions'):
+                temp_model = InstallAddonResponseBodyDataConditions()
+                self.conditions.append(temp_model.from_map(k))
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DashboardCount') is not None:
+            self.dashboard_count = m.get('DashboardCount')
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('ExporterCount') is not None:
+            self.exporter_count = m.get('ExporterCount')
+        if m.get('HaveConfig') is not None:
+            self.have_config = m.get('HaveConfig')
+        if m.get('InstallUserId') is not None:
+            self.install_user_id = m.get('InstallUserId')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ReleaseId') is not None:
+            self.release_id = m.get('ReleaseId')
+        if m.get('ReleaseName') is not None:
+            self.release_name = m.get('ReleaseName')
+        if m.get('Scene') is not None:
+            self.scene = m.get('Scene')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class InstallAddonResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # Status code: 200 indicates success.
+        self.code = code  # type: int
+        # The returned struct.
+        self.data = data  # type: InstallAddonResponseBodyData
+        # The message returned.
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        # Indicates whether the call was successful. Valid values:
+        # 
+        # *   `true`: The call was successful.
+        # *   `false`: The call failed.
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(InstallAddonResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = InstallAddonResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class InstallAddonResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: InstallAddonResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(InstallAddonResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = InstallAddonResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class InstallCmsExporterRequest(TeaModel):
     def __init__(self, cluster_id=None, cms_args=None, direct_args=None, enable_tag=None, region_id=None):
         self.cluster_id = cluster_id  # type: str
@@ -27916,6 +29103,159 @@ class InstallCmsExporterResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = InstallCmsExporterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class InstallEnvironmentFeatureRequest(TeaModel):
+    def __init__(self, aliyun_lang=None, config=None, environment_id=None, feature_name=None, feature_version=None,
+                 region=None, region_id=None):
+        # Language,the default language is Chinese.
+        self.aliyun_lang = aliyun_lang  # type: str
+        # Config information of Feature.
+        self.config = config  # type: str
+        # Environment ID.
+        self.environment_id = environment_id  # type: str
+        # Name of Feature.
+        self.feature_name = feature_name  # type: str
+        # Version of Feature.
+        self.feature_version = feature_version  # type: str
+        # Region of Feature.
+        self.region = region  # type: str
+        # The region ID.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InstallEnvironmentFeatureRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aliyun_lang is not None:
+            result['AliyunLang'] = self.aliyun_lang
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.feature_name is not None:
+            result['FeatureName'] = self.feature_name
+        if self.feature_version is not None:
+            result['FeatureVersion'] = self.feature_version
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliyunLang') is not None:
+            self.aliyun_lang = m.get('AliyunLang')
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('FeatureName') is not None:
+            self.feature_name = m.get('FeatureName')
+        if m.get('FeatureVersion') is not None:
+            self.feature_version = m.get('FeatureVersion')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class InstallEnvironmentFeatureResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # Status code: 200 indicates success.
+        self.code = code  # type: int
+        # ReleaseId after installation.
+        self.data = data  # type: str
+        # Prompt message.
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        # api was successful:
+        # 
+        # - true: success.
+        # - false: fails.
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InstallEnvironmentFeatureResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class InstallEnvironmentFeatureResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: InstallEnvironmentFeatureResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(InstallEnvironmentFeatureResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = InstallEnvironmentFeatureResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -28421,6 +29761,369 @@ class ListActivatedAlertsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListActivatedAlertsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListAddonReleasesRequest(TeaModel):
+    def __init__(self, addon_name=None, environment_id=None, region_id=None):
+        # Name of Addon.
+        self.addon_name = addon_name  # type: str
+        # Environment instance ID.
+        self.environment_id = environment_id  # type: str
+        # The region ID.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAddonReleasesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.addon_name is not None:
+            result['AddonName'] = self.addon_name
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AddonName') is not None:
+            self.addon_name = m.get('AddonName')
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListAddonReleasesResponseBodyDataReleasesConditions(TeaModel):
+    def __init__(self, first_transition_time=None, last_transition_time=None, message=None, reason=None,
+                 status=None, type=None):
+        # First transition time.
+        self.first_transition_time = first_transition_time  # type: str
+        # Last transition time.
+        self.last_transition_time = last_transition_time  # type: str
+        # Details.
+        self.message = message  # type: str
+        # Reason of failure.
+        self.reason = reason  # type: str
+        # Condition status.
+        self.status = status  # type: str
+        # Condition type.
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAddonReleasesResponseBodyDataReleasesConditions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.first_transition_time is not None:
+            result['FirstTransitionTime'] = self.first_transition_time
+        if self.last_transition_time is not None:
+            result['LastTransitionTime'] = self.last_transition_time
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.reason is not None:
+            result['Reason'] = self.reason
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FirstTransitionTime') is not None:
+            self.first_transition_time = m.get('FirstTransitionTime')
+        if m.get('LastTransitionTime') is not None:
+            self.last_transition_time = m.get('LastTransitionTime')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ListAddonReleasesResponseBodyDataReleases(TeaModel):
+    def __init__(self, addon_name=None, alert_rule_count=None, conditions=None, create_time=None,
+                 dashboard_count=None, environment_id=None, exporter_count=None, have_config=None, install_user_id=None,
+                 language=None, region_id=None, release_id=None, release_name=None, scene=None, status=None, update_time=None,
+                 user_id=None, version=None):
+        # Name of Addon.
+        self.addon_name = addon_name  # type: str
+        # Number of alarm groups.
+        self.alert_rule_count = alert_rule_count  # type: long
+        # Condition list.
+        self.conditions = conditions  # type: list[ListAddonReleasesResponseBodyDataReleasesConditions]
+        # Created time.
+        self.create_time = create_time  # type: str
+        # Number of dashboard.
+        self.dashboard_count = dashboard_count  # type: long
+        # Environment instance ID.
+        self.environment_id = environment_id  # type: str
+        # Number of Exporter.
+        self.exporter_count = exporter_count  # type: long
+        # Whether there is configuration.
+        self.have_config = have_config  # type: bool
+        # User ID of the installation.
+        self.install_user_id = install_user_id  # type: str
+        # Language.
+        self.language = language  # type: str
+        # The ID of the region.
+        self.region_id = region_id  # type: str
+        # Release ID.
+        self.release_id = release_id  # type: str
+        # Name of Release.
+        self.release_name = release_name  # type: str
+        # Scene.
+        self.scene = scene  # type: str
+        # Status of Release.
+        self.status = status  # type: str
+        # Update time.
+        self.update_time = update_time  # type: str
+        # User ID.
+        self.user_id = user_id  # type: str
+        # Version of Addon.
+        self.version = version  # type: str
+
+    def validate(self):
+        if self.conditions:
+            for k in self.conditions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListAddonReleasesResponseBodyDataReleases, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.addon_name is not None:
+            result['AddonName'] = self.addon_name
+        if self.alert_rule_count is not None:
+            result['AlertRuleCount'] = self.alert_rule_count
+        result['Conditions'] = []
+        if self.conditions is not None:
+            for k in self.conditions:
+                result['Conditions'].append(k.to_map() if k else None)
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.dashboard_count is not None:
+            result['DashboardCount'] = self.dashboard_count
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.exporter_count is not None:
+            result['ExporterCount'] = self.exporter_count
+        if self.have_config is not None:
+            result['HaveConfig'] = self.have_config
+        if self.install_user_id is not None:
+            result['InstallUserId'] = self.install_user_id
+        if self.language is not None:
+            result['Language'] = self.language
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.release_id is not None:
+            result['ReleaseId'] = self.release_id
+        if self.release_name is not None:
+            result['ReleaseName'] = self.release_name
+        if self.scene is not None:
+            result['Scene'] = self.scene
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AddonName') is not None:
+            self.addon_name = m.get('AddonName')
+        if m.get('AlertRuleCount') is not None:
+            self.alert_rule_count = m.get('AlertRuleCount')
+        self.conditions = []
+        if m.get('Conditions') is not None:
+            for k in m.get('Conditions'):
+                temp_model = ListAddonReleasesResponseBodyDataReleasesConditions()
+                self.conditions.append(temp_model.from_map(k))
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DashboardCount') is not None:
+            self.dashboard_count = m.get('DashboardCount')
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('ExporterCount') is not None:
+            self.exporter_count = m.get('ExporterCount')
+        if m.get('HaveConfig') is not None:
+            self.have_config = m.get('HaveConfig')
+        if m.get('InstallUserId') is not None:
+            self.install_user_id = m.get('InstallUserId')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ReleaseId') is not None:
+            self.release_id = m.get('ReleaseId')
+        if m.get('ReleaseName') is not None:
+            self.release_name = m.get('ReleaseName')
+        if m.get('Scene') is not None:
+            self.scene = m.get('Scene')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class ListAddonReleasesResponseBodyData(TeaModel):
+    def __init__(self, releases=None, total=None):
+        # Release list.
+        self.releases = releases  # type: list[ListAddonReleasesResponseBodyDataReleases]
+        # The total number of entries returned.
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.releases:
+            for k in self.releases:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListAddonReleasesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Releases'] = []
+        if self.releases is not None:
+            for k in self.releases:
+                result['Releases'].append(k.to_map() if k else None)
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.releases = []
+        if m.get('Releases') is not None:
+            for k in m.get('Releases'):
+                temp_model = ListAddonReleasesResponseBodyDataReleases()
+                self.releases.append(temp_model.from_map(k))
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class ListAddonReleasesResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # Status code: 200 indicates success.
+        self.code = code  # type: int
+        # The returned struct.
+        self.data = data  # type: ListAddonReleasesResponseBodyData
+        # The returned message.
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
+        # 
+        # *   `true`: The request was successful.
+        # *   `false`: The request failed.
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListAddonReleasesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ListAddonReleasesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListAddonReleasesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListAddonReleasesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListAddonReleasesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListAddonReleasesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -30500,9 +32203,9 @@ class ListDispatchRuleResponse(TeaModel):
 
 class ListEnvCustomJobsRequest(TeaModel):
     def __init__(self, encrypt_yaml=None, environment_id=None, region_id=None):
-        # Whether to return encrypted yaml.
+        # Specifies whether to return the encrypted YAML string.
         self.encrypt_yaml = encrypt_yaml  # type: bool
-        # Environment instance ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
@@ -30537,13 +32240,13 @@ class ListEnvCustomJobsRequest(TeaModel):
 
 class ListEnvCustomJobsResponseBodyDataScrapeConfigs(TeaModel):
     def __init__(self, job_name=None, metrics_path=None, scrape_discoverys=None, scrape_interval=None):
-        # Job name.
+        # The name of the job.
         self.job_name = job_name  # type: str
-        # scrape the path of the metric.
+        # The path of the metric.
         self.metrics_path = metrics_path  # type: str
-        # List of service discovery methods.
+        # The service discovery methods.
         self.scrape_discoverys = scrape_discoverys  # type: list[str]
-        # scrape interval.
+        # The capture interval.
         self.scrape_interval = scrape_interval  # type: str
 
     def validate(self):
@@ -30581,25 +32284,25 @@ class ListEnvCustomJobsResponseBodyDataScrapeConfigs(TeaModel):
 class ListEnvCustomJobsResponseBodyData(TeaModel):
     def __init__(self, addon_name=None, addon_release_name=None, addon_version=None, config_yaml=None,
                  creation_timestamp=None, custom_job_name=None, environment_id=None, region_id=None, scrape_configs=None, status=None):
-        # The attributed component name.
+        # The name of the component to which the custom job belongs.
         self.addon_name = addon_name  # type: str
-        # The attributed component instance name.
+        # The instance name of the component.
         self.addon_release_name = addon_release_name  # type: str
-        # The attributed component version.
+        # The version of the component.
         self.addon_version = addon_version  # type: str
-        # If the request parameter encryptYaml is true, the base64-encoded yaml string is returned. Otherwise, the plaintext yaml string is returned.
+        # If the request parameter EncryptYaml is set to true, a Base64-encoded YAML string is returned. Otherwise, a plaintext YAML string is returned.
         self.config_yaml = config_yaml  # type: str
-        # Creation time (timestamp).
+        # The time when the custom job was created. The value of this parameter is a timestamp.
         self.creation_timestamp = creation_timestamp  # type: str
-        # Custom job name.
+        # The name of the custom job.
         self.custom_job_name = custom_job_name  # type: str
-        # Environment instance ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
-        # scrape configuration.
+        # The capture configurations.
         self.scrape_configs = scrape_configs  # type: list[ListEnvCustomJobsResponseBodyDataScrapeConfigs]
-        # state.
+        # The status of the custom job.
         self.status = status  # type: str
 
     def validate(self):
@@ -30668,13 +32371,13 @@ class ListEnvCustomJobsResponseBodyData(TeaModel):
 
 class ListEnvCustomJobsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The response code. The status code 200 indicates that the request was successful.
+        # The HTTP status code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
-        # The returned information.
+        # The returned struct.
         self.data = data  # type: list[ListEnvCustomJobsResponseBodyData]
         # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -30758,7 +32461,7 @@ class ListEnvCustomJobsResponse(TeaModel):
 
 class ListEnvPodMonitorsRequest(TeaModel):
     def __init__(self, environment_id=None, region_id=None):
-        # Environment ID.
+        # The environment ID.
         self.environment_id = environment_id  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
@@ -30789,15 +32492,15 @@ class ListEnvPodMonitorsRequest(TeaModel):
 
 class ListEnvPodMonitorsResponseBodyDataEndpoints(TeaModel):
     def __init__(self, interval=None, matched_target_count=None, path=None, port=None, target_port=None):
-        # scrape interval.
+        # The collection interval.
         self.interval = interval  # type: str
-        # The number of targets (pods) matched by PodMonitor.Endpoint.
+        # The number of pods that match the PodMonitor endpoint.
         self.matched_target_count = matched_target_count  # type: int
-        # metric path.
+        # The collection path.
         self.path = path  # type: str
-        # External port.
+        # The external port.
         self.port = port  # type: str
-        # Destination port.
+        # The destination port.
         self.target_port = target_port  # type: int
 
     def validate(self):
@@ -30840,27 +32543,27 @@ class ListEnvPodMonitorsResponseBodyData(TeaModel):
     def __init__(self, addon_name=None, addon_release_name=None, addon_version=None, config_yaml=None,
                  creation_timestamp=None, endpoints=None, environment_id=None, namespace=None, pod_monitor_name=None, region_id=None,
                  status=None):
-        # addon name.
+        # The name of the component to which the PodMonitor belongs.
         self.addon_name = addon_name  # type: str
-        # addon release name.
+        # The instance name of the component.
         self.addon_release_name = addon_release_name  # type: str
-        # addon version.
+        # The version of the component.
         self.addon_version = addon_version  # type: str
-        # yaml configuration string.
+        # The YAML configuration string.
         self.config_yaml = config_yaml  # type: str
-        # Creation time (timestamp).
+        # The time when the PodMonitor was created. The value of this parameter is a timestamp.
         self.creation_timestamp = creation_timestamp  # type: str
-        # List of endpoints for podmonitor.
+        # The endpoints of the PodMonitor.
         self.endpoints = endpoints  # type: list[ListEnvPodMonitorsResponseBodyDataEndpoints]
-        # Environment ID.
+        # The environment ID.
         self.environment_id = environment_id  # type: str
         # The namespace.
         self.namespace = namespace  # type: str
-        # PodMonitor name.
+        # The name of the PodMonitor.
         self.pod_monitor_name = pod_monitor_name  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
-        # state.
+        # The status of the PodMonitor.
         self.status = status  # type: str
 
     def validate(self):
@@ -30933,13 +32636,13 @@ class ListEnvPodMonitorsResponseBodyData(TeaModel):
 
 class ListEnvPodMonitorsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The status code. The status code 200 indicates that the request was successful.
+        # The HTTP status code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
-        # The returned struct.
+        # The result of the operation.
         self.data = data  # type: list[ListEnvPodMonitorsResponseBodyData]
         # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -31023,7 +32726,7 @@ class ListEnvPodMonitorsResponse(TeaModel):
 
 class ListEnvServiceMonitorsRequest(TeaModel):
     def __init__(self, environment_id=None, region_id=None):
-        # Environment ID.
+        # The environment ID.
         self.environment_id = environment_id  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
@@ -31054,15 +32757,15 @@ class ListEnvServiceMonitorsRequest(TeaModel):
 
 class ListEnvServiceMonitorsResponseBodyDataEndpoints(TeaModel):
     def __init__(self, interval=None, matched_target_count=None, path=None, port=None, target_port=None):
-        # scrape interval.
+        # The collection interval.
         self.interval = interval  # type: str
-        # The number of targets matched by servcieMonitor.Endpoint.
+        # The number of pods that match the ServiceMonitor endpoint.
         self.matched_target_count = matched_target_count  # type: int
-        # metric path.
+        # The collection path.
         self.path = path  # type: str
-        # External port.
+        # The external port.
         self.port = port  # type: str
-        # Destination port.
+        # The destination port.
         self.target_port = target_port  # type: int
 
     def validate(self):
@@ -31105,29 +32808,29 @@ class ListEnvServiceMonitorsResponseBodyData(TeaModel):
     def __init__(self, addon_name=None, addon_release_name=None, addon_version=None, config_yaml=None,
                  creation_timestamp=None, endpoints=None, environment_id=None, matched_service_count=None, namespace=None,
                  region_id=None, service_monitor_name=None, status=None):
-        # addon name.
+        # The name of the component to which the ServiceMonitor belongs.
         self.addon_name = addon_name  # type: str
-        # addon release name.
+        # The instance name of the component.
         self.addon_release_name = addon_release_name  # type: str
-        # addon version.
+        # The version of the component.
         self.addon_version = addon_version  # type: str
-        # yaml configuration string.
+        # The YAML configuration string.
         self.config_yaml = config_yaml  # type: str
-        # Creation time (timestamp).
+        # The time when the ServiceMonitor was created. The value of this parameter is a timestamp.
         self.creation_timestamp = creation_timestamp  # type: str
-        # List of endpoints for ServiceMonitor.
+        # The endpoints of the ServiceMonitor.
         self.endpoints = endpoints  # type: list[ListEnvServiceMonitorsResponseBodyDataEndpoints]
-        # Environment ID.
+        # The environment ID.
         self.environment_id = environment_id  # type: str
-        # The number of matching services.
+        # The number of matched services.
         self.matched_service_count = matched_service_count  # type: int
         # The namespace.
         self.namespace = namespace  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
-        # ServiceMonitor name.
+        # The name of the ServiceMonitor.
         self.service_monitor_name = service_monitor_name  # type: str
-        # status.
+        # The status of the ServiceMonitor.
         self.status = status  # type: str
 
     def validate(self):
@@ -31204,13 +32907,13 @@ class ListEnvServiceMonitorsResponseBodyData(TeaModel):
 
 class ListEnvServiceMonitorsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The status code. The status code 200 indicates that the request was successful.
+        # The HTTP status code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
         # The returned struct.
         self.data = data  # type: list[ListEnvServiceMonitorsResponseBodyData]
         # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -31288,6 +32991,765 @@ class ListEnvServiceMonitorsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListEnvServiceMonitorsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListEnvironmentFeaturesRequest(TeaModel):
+    def __init__(self, environment_id=None, region_id=None):
+        self.environment_id = environment_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListEnvironmentFeaturesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListEnvironmentFeaturesResponseBodyData(TeaModel):
+    def __init__(self, alias=None, config=None, description=None, environment_id=None, icon=None, language=None,
+                 latest_version=None, name=None, status=None, version=None):
+        self.alias = alias  # type: str
+        self.config = config  # type: dict[str, str]
+        self.description = description  # type: str
+        self.environment_id = environment_id  # type: str
+        self.icon = icon  # type: str
+        self.language = language  # type: str
+        self.latest_version = latest_version  # type: str
+        self.name = name  # type: str
+        self.status = status  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListEnvironmentFeaturesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias is not None:
+            result['Alias'] = self.alias
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.icon is not None:
+            result['Icon'] = self.icon
+        if self.language is not None:
+            result['Language'] = self.language
+        if self.latest_version is not None:
+            result['LatestVersion'] = self.latest_version
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Alias') is not None:
+            self.alias = m.get('Alias')
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('Icon') is not None:
+            self.icon = m.get('Icon')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
+        if m.get('LatestVersion') is not None:
+            self.latest_version = m.get('LatestVersion')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class ListEnvironmentFeaturesResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: list[ListEnvironmentFeaturesResponseBodyData]
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListEnvironmentFeaturesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListEnvironmentFeaturesResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListEnvironmentFeaturesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListEnvironmentFeaturesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListEnvironmentFeaturesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListEnvironmentFeaturesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListEnvironmentsRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # Tag key.
+        self.key = key  # type: str
+        # Tag value.
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListEnvironmentsRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class ListEnvironmentsRequest(TeaModel):
+    def __init__(self, addon_name=None, environment_type=None, region_id=None, resource_group_id=None, tag=None):
+        # Name of Addon.
+        self.addon_name = addon_name  # type: str
+        # Environment type, AddonName or EnvironmentType must be at least one.
+        self.environment_type = environment_type  # type: str
+        # The region ID.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_group_id = resource_group_id  # type: str
+        # Resource tag list.
+        self.tag = tag  # type: list[ListEnvironmentsRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListEnvironmentsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.addon_name is not None:
+            result['AddonName'] = self.addon_name
+        if self.environment_type is not None:
+            result['EnvironmentType'] = self.environment_type
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AddonName') is not None:
+            self.addon_name = m.get('AddonName')
+        if m.get('EnvironmentType') is not None:
+            self.environment_type = m.get('EnvironmentType')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = ListEnvironmentsRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class ListEnvironmentsShrinkRequest(TeaModel):
+    def __init__(self, addon_name=None, environment_type=None, region_id=None, resource_group_id=None,
+                 tag_shrink=None):
+        # Name of Addon.
+        self.addon_name = addon_name  # type: str
+        # Environment type, AddonName or EnvironmentType must be at least one.
+        self.environment_type = environment_type  # type: str
+        # The region ID.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_group_id = resource_group_id  # type: str
+        # Resource tag list.
+        self.tag_shrink = tag_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListEnvironmentsShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.addon_name is not None:
+            result['AddonName'] = self.addon_name
+        if self.environment_type is not None:
+            result['EnvironmentType'] = self.environment_type
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.tag_shrink is not None:
+            result['Tag'] = self.tag_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AddonName') is not None:
+            self.addon_name = m.get('AddonName')
+        if m.get('EnvironmentType') is not None:
+            self.environment_type = m.get('EnvironmentType')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Tag') is not None:
+            self.tag_shrink = m.get('Tag')
+        return self
+
+
+class ListEnvironmentsResponseBodyDataEnvironmentsAddons(TeaModel):
+    def __init__(self, alias=None, description=None, icon=None, name=None):
+        # Alias of Addon.
+        self.alias = alias  # type: str
+        # Description of Addon.
+        self.description = description  # type: str
+        # Icon of Addon.
+        self.icon = icon  # type: str
+        # Name of Addon.
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListEnvironmentsResponseBodyDataEnvironmentsAddons, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias is not None:
+            result['Alias'] = self.alias
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.icon is not None:
+            result['Icon'] = self.icon
+        if self.name is not None:
+            result['Name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Alias') is not None:
+            self.alias = m.get('Alias')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Icon') is not None:
+            self.icon = m.get('Icon')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        return self
+
+
+class ListEnvironmentsResponseBodyDataEnvironmentsFeatures(TeaModel):
+    def __init__(self, alias=None, description=None, icon=None, name=None):
+        # Alias of Feature.
+        self.alias = alias  # type: str
+        # Description of Feature.
+        self.description = description  # type: str
+        # Icon address.
+        self.icon = icon  # type: str
+        # Name of Feature.
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListEnvironmentsResponseBodyDataEnvironmentsFeatures, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias is not None:
+            result['Alias'] = self.alias
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.icon is not None:
+            result['Icon'] = self.icon
+        if self.name is not None:
+            result['Name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Alias') is not None:
+            self.alias = m.get('Alias')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Icon') is not None:
+            self.icon = m.get('Icon')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        return self
+
+
+class ListEnvironmentsResponseBodyDataEnvironmentsTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        # Tag key.
+        self.key = key  # type: str
+        # Tag value.
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListEnvironmentsResponseBodyDataEnvironmentsTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class ListEnvironmentsResponseBodyDataEnvironments(TeaModel):
+    def __init__(self, addons=None, bind_resource_id=None, bind_resource_profile=None, bind_resource_type=None,
+                 bind_vpc_cidr=None, create_time=None, created_user_id=None, environment_id=None, environment_name=None,
+                 environment_type=None, features=None, grafana_datasource_uid=None, grafana_folder_title=None,
+                 grafana_folder_uid=None, latest_release_create_time=None, prometheus_id=None, prometheus_instance_id=None,
+                 region_id=None, release_count=None, resource_group_id=None, tags=None, user_id=None):
+        # Addon list.
+        self.addons = addons  # type: list[ListEnvironmentsResponseBodyDataEnvironmentsAddons]
+        # Id of the resource to be bound.
+        self.bind_resource_id = bind_resource_id  # type: str
+        # Profile of the resource to be bound.
+        self.bind_resource_profile = bind_resource_profile  # type: str
+        # Type of the resource to be bound.
+        self.bind_resource_type = bind_resource_type  # type: str
+        # Bound Vpc IP Cidr.
+        self.bind_vpc_cidr = bind_vpc_cidr  # type: str
+        # Create time.
+        self.create_time = create_time  # type: str
+        # Created User ID.
+        self.created_user_id = created_user_id  # type: str
+        # Environment ID.
+        self.environment_id = environment_id  # type: str
+        # Environment name.
+        self.environment_name = environment_name  # type: str
+        # Environment type.
+        self.environment_type = environment_type  # type: str
+        # Featyre list.
+        self.features = features  # type: list[ListEnvironmentsResponseBodyDataEnvironmentsFeatures]
+        # Grafana datasource UID.
+        self.grafana_datasource_uid = grafana_datasource_uid  # type: str
+        # Grafana folder title.
+        self.grafana_folder_title = grafana_folder_title  # type: str
+        # Grafana folder UID.
+        self.grafana_folder_uid = grafana_folder_uid  # type: str
+        # Latest Release create time.
+        self.latest_release_create_time = latest_release_create_time  # type: str
+        # Prometheus ID.
+        self.prometheus_id = prometheus_id  # type: long
+        # Prometheus instance ID.
+        self.prometheus_instance_id = prometheus_instance_id  # type: str
+        # The ID of the region.
+        self.region_id = region_id  # type: str
+        # Number of Release.
+        self.release_count = release_count  # type: int
+        # The ID of the resource group.
+        self.resource_group_id = resource_group_id  # type: str
+        # The tag value.
+        self.tags = tags  # type: list[ListEnvironmentsResponseBodyDataEnvironmentsTags]
+        # User ID.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        if self.addons:
+            for k in self.addons:
+                if k:
+                    k.validate()
+        if self.features:
+            for k in self.features:
+                if k:
+                    k.validate()
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListEnvironmentsResponseBodyDataEnvironments, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Addons'] = []
+        if self.addons is not None:
+            for k in self.addons:
+                result['Addons'].append(k.to_map() if k else None)
+        if self.bind_resource_id is not None:
+            result['BindResourceId'] = self.bind_resource_id
+        if self.bind_resource_profile is not None:
+            result['BindResourceProfile'] = self.bind_resource_profile
+        if self.bind_resource_type is not None:
+            result['BindResourceType'] = self.bind_resource_type
+        if self.bind_vpc_cidr is not None:
+            result['BindVpcCidr'] = self.bind_vpc_cidr
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.created_user_id is not None:
+            result['CreatedUserId'] = self.created_user_id
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.environment_name is not None:
+            result['EnvironmentName'] = self.environment_name
+        if self.environment_type is not None:
+            result['EnvironmentType'] = self.environment_type
+        result['Features'] = []
+        if self.features is not None:
+            for k in self.features:
+                result['Features'].append(k.to_map() if k else None)
+        if self.grafana_datasource_uid is not None:
+            result['GrafanaDatasourceUid'] = self.grafana_datasource_uid
+        if self.grafana_folder_title is not None:
+            result['GrafanaFolderTitle'] = self.grafana_folder_title
+        if self.grafana_folder_uid is not None:
+            result['GrafanaFolderUid'] = self.grafana_folder_uid
+        if self.latest_release_create_time is not None:
+            result['LatestReleaseCreateTime'] = self.latest_release_create_time
+        if self.prometheus_id is not None:
+            result['PrometheusId'] = self.prometheus_id
+        if self.prometheus_instance_id is not None:
+            result['PrometheusInstanceId'] = self.prometheus_instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.release_count is not None:
+            result['ReleaseCount'] = self.release_count
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.addons = []
+        if m.get('Addons') is not None:
+            for k in m.get('Addons'):
+                temp_model = ListEnvironmentsResponseBodyDataEnvironmentsAddons()
+                self.addons.append(temp_model.from_map(k))
+        if m.get('BindResourceId') is not None:
+            self.bind_resource_id = m.get('BindResourceId')
+        if m.get('BindResourceProfile') is not None:
+            self.bind_resource_profile = m.get('BindResourceProfile')
+        if m.get('BindResourceType') is not None:
+            self.bind_resource_type = m.get('BindResourceType')
+        if m.get('BindVpcCidr') is not None:
+            self.bind_vpc_cidr = m.get('BindVpcCidr')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('CreatedUserId') is not None:
+            self.created_user_id = m.get('CreatedUserId')
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('EnvironmentName') is not None:
+            self.environment_name = m.get('EnvironmentName')
+        if m.get('EnvironmentType') is not None:
+            self.environment_type = m.get('EnvironmentType')
+        self.features = []
+        if m.get('Features') is not None:
+            for k in m.get('Features'):
+                temp_model = ListEnvironmentsResponseBodyDataEnvironmentsFeatures()
+                self.features.append(temp_model.from_map(k))
+        if m.get('GrafanaDatasourceUid') is not None:
+            self.grafana_datasource_uid = m.get('GrafanaDatasourceUid')
+        if m.get('GrafanaFolderTitle') is not None:
+            self.grafana_folder_title = m.get('GrafanaFolderTitle')
+        if m.get('GrafanaFolderUid') is not None:
+            self.grafana_folder_uid = m.get('GrafanaFolderUid')
+        if m.get('LatestReleaseCreateTime') is not None:
+            self.latest_release_create_time = m.get('LatestReleaseCreateTime')
+        if m.get('PrometheusId') is not None:
+            self.prometheus_id = m.get('PrometheusId')
+        if m.get('PrometheusInstanceId') is not None:
+            self.prometheus_instance_id = m.get('PrometheusInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ReleaseCount') is not None:
+            self.release_count = m.get('ReleaseCount')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = ListEnvironmentsResponseBodyDataEnvironmentsTags()
+                self.tags.append(temp_model.from_map(k))
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class ListEnvironmentsResponseBodyData(TeaModel):
+    def __init__(self, environments=None, total=None):
+        # Environment list.
+        self.environments = environments  # type: list[ListEnvironmentsResponseBodyDataEnvironments]
+        # The total number of entries returned.
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.environments:
+            for k in self.environments:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListEnvironmentsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Environments'] = []
+        if self.environments is not None:
+            for k in self.environments:
+                result['Environments'].append(k.to_map() if k else None)
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.environments = []
+        if m.get('Environments') is not None:
+            for k in m.get('Environments'):
+                temp_model = ListEnvironmentsResponseBodyDataEnvironments()
+                self.environments.append(temp_model.from_map(k))
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class ListEnvironmentsResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # Status code: 200 indicates success.
+        self.code = code  # type: int
+        # The returned message.
+        self.data = data  # type: ListEnvironmentsResponseBodyData
+        # The returned message.
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   `true`
+        # *   `false`
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListEnvironmentsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ListEnvironmentsResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListEnvironmentsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListEnvironmentsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListEnvironmentsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListEnvironmentsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -44119,17 +46581,17 @@ class UpdateDispatchRuleResponse(TeaModel):
 class UpdateEnvCustomJobRequest(TeaModel):
     def __init__(self, aliyun_lang=None, config_yaml=None, custom_job_name=None, environment_id=None,
                  region_id=None, status=None):
-        # Locale, the default is Chinese zh | en.
+        # The language. Valid values: zh and en. Default value: zh.
         self.aliyun_lang = aliyun_lang  # type: str
-        # yaml configuration string.
+        # The YAML configuration string.
         self.config_yaml = config_yaml  # type: str
-        # Custom job name.
+        # The name of the custom job.
         self.custom_job_name = custom_job_name  # type: str
-        # Environment ID.
+        # The environment ID.
         self.environment_id = environment_id  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
-        # Custom task status: run or stop.
+        # The status of the custom job. Valid values: run and stop.
         self.status = status  # type: str
 
     def validate(self):
@@ -44174,13 +46636,13 @@ class UpdateEnvCustomJobRequest(TeaModel):
 
 class UpdateEnvCustomJobResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The status code. The status code 200 indicates that the request was successful.
+        # The status code or error code.
         self.code = code  # type: int
-        # Operation results.
+        # The result of the operation.
         self.data = data  # type: str
         # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -44257,19 +46719,19 @@ class UpdateEnvCustomJobResponse(TeaModel):
 class UpdateEnvPodMonitorRequest(TeaModel):
     def __init__(self, aliyun_lang=None, config_yaml=None, dry_run=None, environment_id=None, namespace=None,
                  pod_monitor_name=None, region_id=None):
-        # Locale, the default is Chinese zh | en.
+        # The language. Valid values: zh and en. Default value: zh.
         self.aliyun_lang = aliyun_lang  # type: str
-        # yaml configuration string.
+        # The YAML configuration string.
         self.config_yaml = config_yaml  # type: str
-        # Trial run: Check whether the format is legal and whether it can match targets.
+        # Specifies whether to perform only a dry run, without performing the actual request.
         self.dry_run = dry_run  # type: bool
-        # Environment ID.
+        # The environment ID.
         self.environment_id = environment_id  # type: str
-        # The namespace where podMonitor is located.
+        # The namespace where the PodMonitor is located.
         self.namespace = namespace  # type: str
-        # PodMonitor name.
+        # The name of the PodMonitor.
         self.pod_monitor_name = pod_monitor_name  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -44318,7 +46780,7 @@ class UpdateEnvPodMonitorRequest(TeaModel):
 
 class UpdateEnvPodMonitorResponseBodyData(TeaModel):
     def __init__(self, matched_msg=None, matched_target_count=None):
-        # Target matching prompt information.
+        # Indicates whether targets are matched.
         self.matched_msg = matched_msg  # type: str
         # The number of matched targets.
         self.matched_target_count = matched_target_count  # type: str
@@ -44349,13 +46811,13 @@ class UpdateEnvPodMonitorResponseBodyData(TeaModel):
 
 class UpdateEnvPodMonitorResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The status code. The status code 200 indicates that the request was successful. If another status code is returned, the request failed.
+        # The HTTP status code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
         # The returned struct.
         self.data = data  # type: UpdateEnvPodMonitorResponseBodyData
-        # The message returned.
+        # The returned message.
         self.message = message  # type: str
-        # ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -44434,19 +46896,19 @@ class UpdateEnvPodMonitorResponse(TeaModel):
 class UpdateEnvServiceMonitorRequest(TeaModel):
     def __init__(self, aliyun_lang=None, config_yaml=None, dry_run=None, environment_id=None, namespace=None,
                  region_id=None, service_monitor_name=None):
-        # Locale, the default is Chinese zh | en.
+        # The language. Valid values: zh and en. Default value: zh.
         self.aliyun_lang = aliyun_lang  # type: str
-        # yaml configuration string.
+        # The YAML configuration string.
         self.config_yaml = config_yaml  # type: str
-        # Trial run: Check whether the format is legal and whether it can match targets.
+        # Specifies whether to perform only a dry run, without performing the actual request.
         self.dry_run = dry_run  # type: bool
-        # Environment ID.
+        # The environment ID.
         self.environment_id = environment_id  # type: str
-        # The namespace where serviceMonitor is located.
+        # The namespace where the ServiceMonitor is located.
         self.namespace = namespace  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
-        # ServiceMonitor name.
+        # The name of the ServiceMonitor.
         self.service_monitor_name = service_monitor_name  # type: str
 
     def validate(self):
@@ -44495,7 +46957,7 @@ class UpdateEnvServiceMonitorRequest(TeaModel):
 
 class UpdateEnvServiceMonitorResponseBodyData(TeaModel):
     def __init__(self, matched_msg=None, matched_target_count=None):
-        # Target matching prompt information.
+        # Indicates whether targets are matched.
         self.matched_msg = matched_msg  # type: str
         # The number of matched targets.
         self.matched_target_count = matched_target_count  # type: str
@@ -44526,13 +46988,13 @@ class UpdateEnvServiceMonitorResponseBodyData(TeaModel):
 
 class UpdateEnvServiceMonitorResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The status code. The status code 200 indicates that the request was successful.
+        # The HTTP status code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
-        # The struct returned.
+        # The returned struct.
         self.data = data  # type: UpdateEnvServiceMonitorResponseBodyData
-        # The message returned.
+        # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -47475,6 +49937,284 @@ class UpdateWebhookResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateWebhookResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpgradeAddonReleaseRequest(TeaModel):
+    def __init__(self, addon_version=None, dry_run=None, environment_id=None, region_id=None, release_name=None,
+                 values=None):
+        # Version of Addon.
+        self.addon_version = addon_version  # type: str
+        # Whether to pre-check this request.
+        self.dry_run = dry_run  # type: bool
+        # Environment ID.
+        self.environment_id = environment_id  # type: str
+        # The ID of the region.
+        self.region_id = region_id  # type: str
+        # The name of Release.
+        self.release_name = release_name  # type: str
+        # Metadata information.
+        self.values = values  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradeAddonReleaseRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.addon_version is not None:
+            result['AddonVersion'] = self.addon_version
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.release_name is not None:
+            result['ReleaseName'] = self.release_name
+        if self.values is not None:
+            result['Values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AddonVersion') is not None:
+            self.addon_version = m.get('AddonVersion')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ReleaseName') is not None:
+            self.release_name = m.get('ReleaseName')
+        if m.get('Values') is not None:
+            self.values = m.get('Values')
+        return self
+
+
+class UpgradeAddonReleaseResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The status code. 200 indicates success.
+        self.code = code  # type: int
+        # Return a message.
+        self.data = data  # type: str
+        # The information returned when the request parameter is incorrect.
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        # Whether the call was successful.
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradeAddonReleaseResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpgradeAddonReleaseResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpgradeAddonReleaseResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpgradeAddonReleaseResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpgradeAddonReleaseResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpgradeEnvironmentFeatureRequest(TeaModel):
+    def __init__(self, aliyun_lang=None, environment_id=None, feature_name=None, feature_version=None,
+                 region_id=None, values=None):
+        self.aliyun_lang = aliyun_lang  # type: str
+        self.environment_id = environment_id  # type: str
+        self.feature_name = feature_name  # type: str
+        self.feature_version = feature_version  # type: str
+        self.region_id = region_id  # type: str
+        self.values = values  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradeEnvironmentFeatureRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aliyun_lang is not None:
+            result['AliyunLang'] = self.aliyun_lang
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
+        if self.feature_name is not None:
+            result['FeatureName'] = self.feature_name
+        if self.feature_version is not None:
+            result['FeatureVersion'] = self.feature_version
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.values is not None:
+            result['Values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliyunLang') is not None:
+            self.aliyun_lang = m.get('AliyunLang')
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
+        if m.get('FeatureName') is not None:
+            self.feature_name = m.get('FeatureName')
+        if m.get('FeatureVersion') is not None:
+            self.feature_version = m.get('FeatureVersion')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Values') is not None:
+            self.values = m.get('Values')
+        return self
+
+
+class UpgradeEnvironmentFeatureResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: dict[str, str]
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpgradeEnvironmentFeatureResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpgradeEnvironmentFeatureResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpgradeEnvironmentFeatureResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpgradeEnvironmentFeatureResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpgradeEnvironmentFeatureResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
