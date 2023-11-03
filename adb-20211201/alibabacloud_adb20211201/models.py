@@ -13573,7 +13573,7 @@ class GetDatabaseObjectsRequest(TeaModel):
         # *   Asc
         # *   Desc
         # 
-        # Valid values for Field: DatabaseName, CreateTime, and UpdateTime.
+        # Valid values for Field: DatabaseName, CreateTime, and UpdateTime. -CreateTime; -UpdateTime;
         # 
         # Default value: {"Type": "Desc","Field": "DatabaseName"}.
         self.order_by = order_by  # type: str
@@ -13820,8 +13820,9 @@ class GetSparkAppAttemptLogRequest(TeaModel):
 
 class GetSparkAppAttemptLogResponseBodyData(TeaModel):
     def __init__(self, app_id=None, dbcluster_id=None, log_content=None, message=None):
+        # The application ID.
         self.app_id = app_id  # type: str
-        # The ID of the Data Lakehouse Edition (V3.0) cluster.
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
         # The content of the log.
         self.log_content = log_content  # type: str

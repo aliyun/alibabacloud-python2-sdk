@@ -2781,6 +2781,17 @@ class Client(OpenApiClient):
         return self.get_spark_template_full_tree_with_options(request, runtime)
 
     def get_table_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: GetTableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetTableResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -2811,6 +2822,15 @@ class Client(OpenApiClient):
         )
 
     def get_table(self, request):
+        """
+        @deprecated
+        
+
+        @param request: GetTableRequest
+
+        @return: GetTableResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_table_with_options(request, runtime)
 
