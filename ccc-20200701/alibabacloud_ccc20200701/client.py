@@ -969,6 +969,8 @@ class Client(OpenApiClient):
             query['DisplayName'] = request.display_name
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.media_type):
+            query['MediaType'] = request.media_type
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
         req = open_api_models.OpenApiRequest(
@@ -2939,10 +2941,14 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.order_by_field):
+            query['OrderByField'] = request.order_by_field
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.sort_order):
+            query['SortOrder'] = request.sort_order
         if not UtilClient.is_unset(request.type):
             query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
@@ -4053,6 +4059,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.media_type):
+            query['MediaType'] = request.media_type
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):

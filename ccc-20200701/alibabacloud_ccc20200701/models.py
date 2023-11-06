@@ -5246,10 +5246,11 @@ class CreateInstanceResponse(TeaModel):
 
 
 class CreateSkillGroupRequest(TeaModel):
-    def __init__(self, description=None, display_name=None, instance_id=None, name=None):
+    def __init__(self, description=None, display_name=None, instance_id=None, media_type=None, name=None):
         self.description = description  # type: str
         self.display_name = display_name  # type: str
         self.instance_id = instance_id  # type: str
+        self.media_type = media_type  # type: str
         self.name = name  # type: str
 
     def validate(self):
@@ -5267,6 +5268,8 @@ class CreateSkillGroupRequest(TeaModel):
             result['DisplayName'] = self.display_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.media_type is not None:
+            result['MediaType'] = self.media_type
         if self.name is not None:
             result['Name'] = self.name
         return result
@@ -5279,15 +5282,18 @@ class CreateSkillGroupRequest(TeaModel):
             self.display_name = m.get('DisplayName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MediaType') is not None:
+            self.media_type = m.get('MediaType')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         return self
 
 
 class CreateSkillGroupResponseBodyData(TeaModel):
-    def __init__(self, description=None, instance_id=None, name=None, skill_group_id=None):
+    def __init__(self, description=None, instance_id=None, media_type=None, name=None, skill_group_id=None):
         self.description = description  # type: str
         self.instance_id = instance_id  # type: str
+        self.media_type = media_type  # type: str
         self.name = name  # type: str
         self.skill_group_id = skill_group_id  # type: str
 
@@ -5304,6 +5310,8 @@ class CreateSkillGroupResponseBodyData(TeaModel):
             result['Description'] = self.description
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.media_type is not None:
+            result['MediaType'] = self.media_type
         if self.name is not None:
             result['Name'] = self.name
         if self.skill_group_id is not None:
@@ -5316,6 +5324,8 @@ class CreateSkillGroupResponseBodyData(TeaModel):
             self.description = m.get('Description')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MediaType') is not None:
+            self.media_type = m.get('MediaType')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('SkillGroupId') is not None:
@@ -6774,11 +6784,12 @@ class ExportDoNotCallNumbersRequest(TeaModel):
 
 
 class ExportDoNotCallNumbersResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, params=None, request_id=None):
         self.code = code  # type: str
         self.data = data  # type: str
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
+        self.params = params  # type: list[str]
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6798,6 +6809,8 @@ class ExportDoNotCallNumbersResponseBody(TeaModel):
             result['HttpStatusCode'] = self.http_status_code
         if self.message is not None:
             result['Message'] = self.message
+        if self.params is not None:
+            result['Params'] = self.params
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
@@ -6812,6 +6825,8 @@ class ExportDoNotCallNumbersResponseBody(TeaModel):
             self.http_status_code = m.get('HttpStatusCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        if m.get('Params') is not None:
+            self.params = m.get('Params')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
@@ -11987,10 +12002,12 @@ class GetSkillGroupRequest(TeaModel):
 
 
 class GetSkillGroupResponseBodyData(TeaModel):
-    def __init__(self, description=None, display_name=None, instance_id=None, name=None, skill_group_id=None):
+    def __init__(self, description=None, display_name=None, instance_id=None, media_type=None, name=None,
+                 skill_group_id=None):
         self.description = description  # type: str
         self.display_name = display_name  # type: str
         self.instance_id = instance_id  # type: str
+        self.media_type = media_type  # type: str
         self.name = name  # type: str
         self.skill_group_id = skill_group_id  # type: str
 
@@ -12009,6 +12026,8 @@ class GetSkillGroupResponseBodyData(TeaModel):
             result['DisplayName'] = self.display_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.media_type is not None:
+            result['MediaType'] = self.media_type
         if self.name is not None:
             result['Name'] = self.name
         if self.skill_group_id is not None:
@@ -12023,6 +12042,8 @@ class GetSkillGroupResponseBodyData(TeaModel):
             self.display_name = m.get('DisplayName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MediaType') is not None:
+            self.media_type = m.get('MediaType')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('SkillGroupId') is not None:
@@ -12174,11 +12195,12 @@ class GetTurnCredentialsResponseBodyData(TeaModel):
 
 
 class GetTurnCredentialsResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, params=None, request_id=None):
         self.code = code  # type: str
         self.data = data  # type: GetTurnCredentialsResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
+        self.params = params  # type: list[str]
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12199,6 +12221,8 @@ class GetTurnCredentialsResponseBody(TeaModel):
             result['HttpStatusCode'] = self.http_status_code
         if self.message is not None:
             result['Message'] = self.message
+        if self.params is not None:
+            result['Params'] = self.params
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
@@ -12214,6 +12238,8 @@ class GetTurnCredentialsResponseBody(TeaModel):
             self.http_status_code = m.get('HttpStatusCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        if m.get('Params') is not None:
+            self.params = m.get('Params')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
@@ -12283,11 +12309,12 @@ class GetTurnServerListRequest(TeaModel):
 
 
 class GetTurnServerListResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, params=None, request_id=None):
         self.code = code  # type: str
         self.data = data  # type: str
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
+        self.params = params  # type: list[str]
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12307,6 +12334,8 @@ class GetTurnServerListResponseBody(TeaModel):
             result['HttpStatusCode'] = self.http_status_code
         if self.message is not None:
             result['Message'] = self.message
+        if self.params is not None:
+            result['Params'] = self.params
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
@@ -12321,6 +12350,8 @@ class GetTurnServerListResponseBody(TeaModel):
             self.http_status_code = m.get('HttpStatusCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        if m.get('Params') is not None:
+            self.params = m.get('Params')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
@@ -13739,10 +13770,11 @@ class ImportDoNotCallNumbersRequest(TeaModel):
 
 
 class ImportDoNotCallNumbersResponseBody(TeaModel):
-    def __init__(self, code=None, http_status_code=None, message=None, request_id=None):
+    def __init__(self, code=None, http_status_code=None, message=None, params=None, request_id=None):
         self.code = code  # type: str
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
+        self.params = params  # type: list[str]
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13760,6 +13792,8 @@ class ImportDoNotCallNumbersResponseBody(TeaModel):
             result['HttpStatusCode'] = self.http_status_code
         if self.message is not None:
             result['Message'] = self.message
+        if self.params is not None:
+            result['Params'] = self.params
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
@@ -13772,6 +13806,8 @@ class ImportDoNotCallNumbersResponseBody(TeaModel):
             self.http_status_code = m.get('HttpStatusCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        if m.get('Params') is not None:
+            self.params = m.get('Params')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
@@ -18817,10 +18853,13 @@ class ListConfigItemsResponse(TeaModel):
 
 
 class ListContactFlowsRequest(TeaModel):
-    def __init__(self, instance_id=None, page_number=None, page_size=None, type=None):
+    def __init__(self, instance_id=None, order_by_field=None, page_number=None, page_size=None, sort_order=None,
+                 type=None):
         self.instance_id = instance_id  # type: str
+        self.order_by_field = order_by_field  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.sort_order = sort_order  # type: str
         self.type = type  # type: str
 
     def validate(self):
@@ -18834,10 +18873,14 @@ class ListContactFlowsRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.order_by_field is not None:
+            result['OrderByField'] = self.order_by_field
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.sort_order is not None:
+            result['SortOrder'] = self.sort_order
         if self.type is not None:
             result['Type'] = self.type
         return result
@@ -18846,10 +18889,14 @@ class ListContactFlowsRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('OrderByField') is not None:
+            self.order_by_field = m.get('OrderByField')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('SortOrder') is not None:
+            self.sort_order = m.get('SortOrder')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         return self
@@ -19361,11 +19408,12 @@ class ListDevicesRequest(TeaModel):
 
 
 class ListDevicesResponseBodyData(TeaModel):
-    def __init__(self, call_id=None, contact=None, device_id=None, expires=None, extension=None, instance_id=None,
-                 user_id=None):
+    def __init__(self, call_id=None, contact=None, device_id=None, device_type=None, expires=None, extension=None,
+                 instance_id=None, user_id=None):
         self.call_id = call_id  # type: str
         self.contact = contact  # type: str
         self.device_id = device_id  # type: str
+        self.device_type = device_type  # type: str
         self.expires = expires  # type: long
         self.extension = extension  # type: str
         self.instance_id = instance_id  # type: str
@@ -19386,6 +19434,8 @@ class ListDevicesResponseBodyData(TeaModel):
             result['Contact'] = self.contact
         if self.device_id is not None:
             result['DeviceId'] = self.device_id
+        if self.device_type is not None:
+            result['DeviceType'] = self.device_type
         if self.expires is not None:
             result['Expires'] = self.expires
         if self.extension is not None:
@@ -19404,6 +19454,8 @@ class ListDevicesResponseBodyData(TeaModel):
             self.contact = m.get('Contact')
         if m.get('DeviceId') is not None:
             self.device_id = m.get('DeviceId')
+        if m.get('DeviceType') is not None:
+            self.device_type = m.get('DeviceType')
         if m.get('Expires') is not None:
             self.expires = m.get('Expires')
         if m.get('Extension') is not None:
@@ -29252,11 +29304,12 @@ class ListRamUsersResponseBodyData(TeaModel):
 
 
 class ListRamUsersResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, params=None, request_id=None):
         self.code = code  # type: str
         self.data = data  # type: ListRamUsersResponseBodyData
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
+        self.params = params  # type: list[str]
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29277,6 +29330,8 @@ class ListRamUsersResponseBody(TeaModel):
             result['HttpStatusCode'] = self.http_status_code
         if self.message is not None:
             result['Message'] = self.message
+        if self.params is not None:
+            result['Params'] = self.params
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
@@ -29292,6 +29347,8 @@ class ListRamUsersResponseBody(TeaModel):
             self.http_status_code = m.get('HttpStatusCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        if m.get('Params') is not None:
+            self.params = m.get('Params')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
@@ -31195,8 +31252,9 @@ class ListSkillGroupSummaryReportsSinceMidnightResponse(TeaModel):
 
 
 class ListSkillGroupsRequest(TeaModel):
-    def __init__(self, instance_id=None, page_number=None, page_size=None, search_pattern=None):
+    def __init__(self, instance_id=None, media_type=None, page_number=None, page_size=None, search_pattern=None):
         self.instance_id = instance_id  # type: str
+        self.media_type = media_type  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.search_pattern = search_pattern  # type: str
@@ -31212,6 +31270,8 @@ class ListSkillGroupsRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.media_type is not None:
+            result['MediaType'] = self.media_type
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -31224,6 +31284,8 @@ class ListSkillGroupsRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MediaType') is not None:
+            self.media_type = m.get('MediaType')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -31234,11 +31296,12 @@ class ListSkillGroupsRequest(TeaModel):
 
 
 class ListSkillGroupsResponseBodyDataList(TeaModel):
-    def __init__(self, description=None, display_name=None, instance_id=None, phone_number_count=None,
-                 skill_group_id=None, skill_group_name=None, user_count=None):
+    def __init__(self, description=None, display_name=None, instance_id=None, media_type=None,
+                 phone_number_count=None, skill_group_id=None, skill_group_name=None, user_count=None):
         self.description = description  # type: str
         self.display_name = display_name  # type: str
         self.instance_id = instance_id  # type: str
+        self.media_type = media_type  # type: str
         self.phone_number_count = phone_number_count  # type: int
         self.skill_group_id = skill_group_id  # type: str
         self.skill_group_name = skill_group_name  # type: str
@@ -31259,6 +31322,8 @@ class ListSkillGroupsResponseBodyDataList(TeaModel):
             result['DisplayName'] = self.display_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.media_type is not None:
+            result['MediaType'] = self.media_type
         if self.phone_number_count is not None:
             result['PhoneNumberCount'] = self.phone_number_count
         if self.skill_group_id is not None:
@@ -31277,6 +31342,8 @@ class ListSkillGroupsResponseBodyDataList(TeaModel):
             self.display_name = m.get('DisplayName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('MediaType') is not None:
+            self.media_type = m.get('MediaType')
         if m.get('PhoneNumberCount') is not None:
             self.phone_number_count = m.get('PhoneNumberCount')
         if m.get('SkillGroupId') is not None:
@@ -31471,7 +31538,8 @@ class ListSkillLevelsOfUserRequest(TeaModel):
 
 
 class ListSkillLevelsOfUserResponseBodyDataList(TeaModel):
-    def __init__(self, skill_group_id=None, skill_group_name=None, skill_level=None):
+    def __init__(self, media_type=None, skill_group_id=None, skill_group_name=None, skill_level=None):
+        self.media_type = media_type  # type: str
         self.skill_group_id = skill_group_id  # type: str
         self.skill_group_name = skill_group_name  # type: str
         self.skill_level = skill_level  # type: str
@@ -31485,6 +31553,8 @@ class ListSkillLevelsOfUserResponseBodyDataList(TeaModel):
             return _map
 
         result = dict()
+        if self.media_type is not None:
+            result['MediaType'] = self.media_type
         if self.skill_group_id is not None:
             result['SkillGroupId'] = self.skill_group_id
         if self.skill_group_name is not None:
@@ -31495,6 +31565,8 @@ class ListSkillLevelsOfUserResponseBodyDataList(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('MediaType') is not None:
+            self.media_type = m.get('MediaType')
         if m.get('SkillGroupId') is not None:
             self.skill_group_id = m.get('SkillGroupId')
         if m.get('SkillGroupName') is not None:
@@ -37053,11 +37125,12 @@ class RemoveDoNotCallNumbersRequest(TeaModel):
 
 
 class RemoveDoNotCallNumbersResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, params=None, request_id=None):
         self.code = code  # type: str
         self.data = data  # type: str
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
+        self.params = params  # type: list[str]
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -37077,6 +37150,8 @@ class RemoveDoNotCallNumbersResponseBody(TeaModel):
             result['HttpStatusCode'] = self.http_status_code
         if self.message is not None:
             result['Message'] = self.message
+        if self.params is not None:
+            result['Params'] = self.params
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
@@ -37091,6 +37166,8 @@ class RemoveDoNotCallNumbersResponseBody(TeaModel):
             self.http_status_code = m.get('HttpStatusCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        if m.get('Params') is not None:
+            self.params = m.get('Params')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
