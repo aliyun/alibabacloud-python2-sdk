@@ -5,8 +5,11 @@ from Tea.model import TeaModel
 
 class ChangeAccountPasswordRequest(TeaModel):
     def __init__(self, account_name=None, drds_instance_id=None, password=None):
+        # The name of the member account.
         self.account_name = account_name  # type: str
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The new password.
         self.password = password  # type: str
 
     def validate(self):
@@ -39,7 +42,9 @@ class ChangeAccountPasswordRequest(TeaModel):
 
 class ChangeAccountPasswordResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -67,12 +72,14 @@ class ChangeAccountPasswordResponseBody(TeaModel):
 
 
 class ChangeAccountPasswordResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ChangeAccountPasswordResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -85,6 +92,8 @@ class ChangeAccountPasswordResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -93,6 +102,8 @@ class ChangeAccountPasswordResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ChangeAccountPasswordResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -100,10 +111,17 @@ class ChangeAccountPasswordResponse(TeaModel):
 
 
 class ChangeInstanceAzoneRequest(TeaModel):
-    def __init__(self, drds_instance_id=None, drds_region_id=None, origin_azone_id=None, target_azone_id=None):
+    def __init__(self, change_vswitch=None, drds_instance_id=None, drds_region_id=None, new_vswitch=None,
+                 origin_azone_id=None, target_azone_id=None):
+        self.change_vswitch = change_vswitch  # type: bool
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region.
         self.drds_region_id = drds_region_id  # type: str
+        self.new_vswitch = new_vswitch  # type: str
+        # The source zone of the PolarDB-X 1.0 instance.
         self.origin_azone_id = origin_azone_id  # type: str
+        # The destination zone to which you want to modify
         self.target_azone_id = target_azone_id  # type: str
 
     def validate(self):
@@ -115,10 +133,14 @@ class ChangeInstanceAzoneRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.change_vswitch is not None:
+            result['ChangeVSwitch'] = self.change_vswitch
         if self.drds_instance_id is not None:
             result['DrdsInstanceId'] = self.drds_instance_id
         if self.drds_region_id is not None:
             result['DrdsRegionId'] = self.drds_region_id
+        if self.new_vswitch is not None:
+            result['NewVSwitch'] = self.new_vswitch
         if self.origin_azone_id is not None:
             result['OriginAzoneId'] = self.origin_azone_id
         if self.target_azone_id is not None:
@@ -127,10 +149,14 @@ class ChangeInstanceAzoneRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ChangeVSwitch') is not None:
+            self.change_vswitch = m.get('ChangeVSwitch')
         if m.get('DrdsInstanceId') is not None:
             self.drds_instance_id = m.get('DrdsInstanceId')
         if m.get('DrdsRegionId') is not None:
             self.drds_region_id = m.get('DrdsRegionId')
+        if m.get('NewVSwitch') is not None:
+            self.new_vswitch = m.get('NewVSwitch')
         if m.get('OriginAzoneId') is not None:
             self.origin_azone_id = m.get('OriginAzoneId')
         if m.get('TargetAzoneId') is not None:
@@ -140,7 +166,9 @@ class ChangeInstanceAzoneRequest(TeaModel):
 
 class ChangeInstanceAzoneResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -168,12 +196,14 @@ class ChangeInstanceAzoneResponseBody(TeaModel):
 
 
 class ChangeInstanceAzoneResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ChangeInstanceAzoneResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -186,6 +216,8 @@ class ChangeInstanceAzoneResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -194,6 +226,8 @@ class ChangeInstanceAzoneResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ChangeInstanceAzoneResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -202,7 +236,9 @@ class ChangeInstanceAzoneResponse(TeaModel):
 
 class CheckDrdsDbNameRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # DRDS database name
         self.db_name = db_name  # type: str
+        # DRDS instance ID
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -231,8 +267,11 @@ class CheckDrdsDbNameRequest(TeaModel):
 
 class CheckDrdsDbNameResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the DRDS database name is valid. Valid values: true: The database name is valid. false: the database name is invalid.
         self.result = result  # type: bool
+        # Indicates whether the call is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -264,12 +303,14 @@ class CheckDrdsDbNameResponseBody(TeaModel):
 
 
 class CheckDrdsDbNameResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CheckDrdsDbNameResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -282,6 +323,8 @@ class CheckDrdsDbNameResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -290,6 +333,8 @@ class CheckDrdsDbNameResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CheckDrdsDbNameResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -298,7 +343,9 @@ class CheckDrdsDbNameResponse(TeaModel):
 
 class CheckExpandStatusRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the PolarDB-X database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -327,7 +374,9 @@ class CheckExpandStatusRequest(TeaModel):
 
 class CheckExpandStatusResponseBodyData(TeaModel):
     def __init__(self, is_active=None, msg=None):
+        # Indicates whether scale-out operations can be performed on the database.
         self.is_active = is_active  # type: bool
+        # The additional information.
         self.msg = msg  # type: str
 
     def validate(self):
@@ -356,8 +405,11 @@ class CheckExpandStatusResponseBodyData(TeaModel):
 
 class CheckExpandStatusResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # The result of the verification.
         self.data = data  # type: CheckExpandStatusResponseBodyData
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -391,12 +443,14 @@ class CheckExpandStatusResponseBody(TeaModel):
 
 
 class CheckExpandStatusResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CheckExpandStatusResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -409,6 +463,8 @@ class CheckExpandStatusResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -417,6 +473,8 @@ class CheckExpandStatusResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CheckExpandStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -425,7 +483,9 @@ class CheckExpandStatusResponse(TeaModel):
 
 class CheckSqlAuditEnableStatusRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -454,8 +514,14 @@ class CheckSqlAuditEnableStatusRequest(TeaModel):
 
 class CheckSqlAuditEnableStatusResponseBody(TeaModel):
     def __init__(self, request_id=None, status=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The status of the SQL audit feature. Valid values:
+        # 
+        # *   enabled: The SQL audit feature is enabled.
+        # *   disabled: The SQL audit feature is disabled.
         self.status = status  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -487,12 +553,14 @@ class CheckSqlAuditEnableStatusResponseBody(TeaModel):
 
 
 class CheckSqlAuditEnableStatusResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CheckSqlAuditEnableStatusResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -505,6 +573,8 @@ class CheckSqlAuditEnableStatusResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -513,6 +583,8 @@ class CheckSqlAuditEnableStatusResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CheckSqlAuditEnableStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -521,6 +593,7 @@ class CheckSqlAuditEnableStatusResponse(TeaModel):
 
 class CreateDrdsDBRequestInstDbName(TeaModel):
     def __init__(self, db_instance_id=None, shard_db_name=None):
+        # The ID of the ApsaraDB RDS for MySQL instance on which the databases need to be vertically partitioned. This parameter is required only when the Type parameter is set to VERTICAL.
         self.db_instance_id = db_instance_id  # type: str
         self.shard_db_name = shard_db_name  # type: list[str]
 
@@ -550,8 +623,11 @@ class CreateDrdsDBRequestInstDbName(TeaModel):
 
 class CreateDrdsDBRequestRdsSuperAccount(TeaModel):
     def __init__(self, account_name=None, db_instance_id=None, password=None):
+        # The account name of the super administrator that is used to connect to the ApsaraDB RDS for MySQL instance.
         self.account_name = account_name  # type: str
+        # The ID of ApsaraDB RDS instance.
         self.db_instance_id = db_instance_id  # type: str
+        # The password of the super administrator account that is used to connect to the ApsaraDB RDS instance.
         self.password = password  # type: str
 
     def validate(self):
@@ -586,16 +662,29 @@ class CreateDrdsDBRequest(TeaModel):
     def __init__(self, account_name=None, db_inst_type=None, db_instance_is_creating=None, db_name=None,
                  drds_instance_id=None, encode=None, inst_db_name=None, password=None, rds_instance=None, rds_super_account=None,
                  type=None):
+        # The name of the account that has permissions to access all databases on the ApsaraDB RDS for MySQL instance.
+        # 
+        # This parameter is required only when the Type parameter is set to VERTICAL.
         self.account_name = account_name  # type: str
+        # The type of the storage instances that are used by the PolarDB-X 1.0 database. Set the value to RDS.
         self.db_inst_type = db_inst_type  # type: str
+        # Specifies whether the required ApsaraDB RDS for MySQL instance is being created.
         self.db_instance_is_creating = db_instance_is_creating  # type: bool
+        # The name of the PolarDB-X 1.0 database you want to create.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance on which you want to create the database.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The encoding method that is used by the database.
         self.encode = encode  # type: str
         self.inst_db_name = inst_db_name  # type: list[CreateDrdsDBRequestInstDbName]
+        # The password that is used to log on to the database.
         self.password = password  # type: str
         self.rds_instance = rds_instance  # type: list[str]
         self.rds_super_account = rds_super_account  # type: list[CreateDrdsDBRequestRdsSuperAccount]
+        # The partitioning mode of the database. Valid values:
+        # 
+        # *   **HORIZONTAL**: The database is horizontally partitioned (sharded).
+        # *   **VERTICAL**: The database is vertically partitioned.
         self.type = type  # type: str
 
     def validate(self):
@@ -677,7 +766,9 @@ class CreateDrdsDBRequest(TeaModel):
 
 class CreateDrdsDBResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -705,12 +796,14 @@ class CreateDrdsDBResponseBody(TeaModel):
 
 
 class CreateDrdsDBResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateDrdsDBResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -723,6 +816,8 @@ class CreateDrdsDBResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -731,6 +826,8 @@ class CreateDrdsDBResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateDrdsDBResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -741,23 +838,75 @@ class CreateDrdsInstanceRequest(TeaModel):
     def __init__(self, client_token=None, description=None, duration=None, instance_series=None, is_auto_renew=None,
                  master_inst_id=None, my_sqlversion=None, pay_type=None, pricing_cycle=None, quantity=None, region_id=None,
                  resource_group_id=None, specification=None, type=None, vpc_id=None, vswitch_id=None, zone_id=None, is_ha=None):
+        # Specifies the client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
+        # Specifies the description of the instance. The description must meet the following requirements:
+        # 
+        # *   The description cannot contain the prefix http:// or https://.
+        # *   The description must start with a letter or a Chinese character, and can contain uppercase and lowercase letters, Chinese characters, digits, underscores (\_), and hyphens (-).
+        # *   The description must be 2 to 256 characters in length.
         self.description = description  # type: str
+        # Specifies the purchase duration of the subscription instance.
+        # 
+        # *   If the PricingCycle parameter is set to year, the value range of the Duration parameter is 1 to 3.
+        # *   If the PricingCycle parameter is set to month, the value range of the Duration parameter is 1 to 9.
+        # 
+        # >  This parameter only takes effect when the PayType parameter is set to drdsPre.
         self.duration = duration  # type: int
+        # Specifies the instance type of the instance. Valid values:
+        # 
+        # *   **drds.sn2.4c16g**: The instance is of the Starter Edition.
+        # *   **drds.sn2.8c32g**: The instance is of the Standard Edition
+        # *   **drds.sn2.16c64g**: The instance is of the Enterprise Edition.
         self.instance_series = instance_series  # type: str
+        # Specifies whether to enable automatic renewal. Valid values:
+        # 
+        # *   **true**: If the PricingCycle parameter is set to month, the subscription is automatically renewed for one month. If the PricingCycle parameter is set to year, the subscription is automatically renewed for one year.
+        # *   **false**: The auto-renewal feature is disabled for the instance.
+        # 
+        # >  This parameter only takes effect when the PayType parameter is set to drdsPre.
         self.is_auto_renew = is_auto_renew  # type: bool
+        # Specifies the ID of the primary instance. This parameter is only required when you create a read-only instance.
         self.master_inst_id = master_inst_id  # type: str
+        # Specifies the MySQL version that is supported by the instance. Valid values:
+        # 
+        # *   **5**: The instance is fully compatible with MySQL 5.x. This value is the default value.
+        # *   **8**: The instance is fully compatible with MySQL 8.0.
+        # 
+        # >  This parameter only takes effect when you create a primary instance. By default, the MySQL version of the read-only instance is the same as that of the primary instance.
         self.my_sqlversion = my_sqlversion  # type: int
+        # Specifies the billing method of the instance. Valid values:
+        # 
+        # *   **drdsPre**: The instance uses the subscription billing method.
+        # *   **drdsPost**: The instance uses the pay-as-you-go billing method.
+        # *   **drdsRo**: By default, the pay-as-you-go billing method is used when you create read-only instances.
         self.pay_type = pay_type  # type: str
+        # Specifies the unit of the subscription duration of the subscription instance. Valid values:
+        # 
+        # *   **year**: The unit of the subscription duration is year.
+        # *   **month**: The unit of the subscription duration is month.
+        # 
+        # >  This parameter is required if you set the PayType parameter to drdsPre.
         self.pricing_cycle = pricing_cycle  # type: str
+        # Specifies the number of instances to be created. You can set the value only to 1. The value specifies that you can create one instance each time.
         self.quantity = quantity  # type: int
+        # Specifies the region ID of the instance.
         self.region_id = region_id  # type: str
+        # Specifies the ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # Specifies the specification code of the instance. The value consists of the instance type and the specified instance specification. For example, you can set the value to drds.sn2.4c16g.8c32g.
         self.specification = specification  # type: str
+        # Specifies the type of the instance. Set the value to PRIVATE. The value PRIVATE specifies that the instance is a dedicated instance.
+        # 
+        # >  You can also set the value to 1 to specify that the instance is a dedicated instance.
         self.type = type  # type: str
+        # Specifies the ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # Specifies the ID of the vSwitch.
         self.vswitch_id = vswitch_id  # type: str
+        # Specifies the zone ID of the instance.
         self.zone_id = zone_id  # type: str
+        # Specifies whether the instance is a high-availability instance.
         self.is_ha = is_ha  # type: bool
 
     def validate(self):
@@ -874,7 +1023,9 @@ class CreateDrdsInstanceResponseBodyDataDrdsInstanceIdList(TeaModel):
 
 class CreateDrdsInstanceResponseBodyData(TeaModel):
     def __init__(self, drds_instance_id_list=None, order_id=None):
+        # Indicates the ID of the instance.
         self.drds_instance_id_list = drds_instance_id_list  # type: CreateDrdsInstanceResponseBodyDataDrdsInstanceIdList
+        # Indicates the ID of the order.
         self.order_id = order_id  # type: long
 
     def validate(self):
@@ -905,8 +1056,11 @@ class CreateDrdsInstanceResponseBodyData(TeaModel):
 
 class CreateDrdsInstanceResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # Indicates the details of the result.
         self.data = data  # type: CreateDrdsInstanceResponseBodyData
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -940,12 +1094,14 @@ class CreateDrdsInstanceResponseBody(TeaModel):
 
 
 class CreateDrdsInstanceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateDrdsInstanceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -958,6 +1114,8 @@ class CreateDrdsInstanceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -966,6 +1124,8 @@ class CreateDrdsInstanceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateDrdsInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -974,7 +1134,9 @@ class CreateDrdsInstanceResponse(TeaModel):
 
 class CreateInstanceAccountRequestDbPrivilege(TeaModel):
     def __init__(self, db_name=None, privilege=None):
+        # The name of the database that you want to manage by using the account to create.
         self.db_name = db_name  # type: str
+        # The permissions that you want to grant to the account to manage the database.
         self.privilege = privilege  # type: str
 
     def validate(self):
@@ -1003,9 +1165,12 @@ class CreateInstanceAccountRequestDbPrivilege(TeaModel):
 
 class CreateInstanceAccountRequest(TeaModel):
     def __init__(self, account_name=None, db_privilege=None, drds_instance_id=None, password=None):
+        # The username of the account you want to create.
         self.account_name = account_name  # type: str
         self.db_privilege = db_privilege  # type: list[CreateInstanceAccountRequestDbPrivilege]
+        # The ID of the PolarDB-X 1.0 instance for which you want to create the account.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The password of the account you want to create.
         self.password = password  # type: str
 
     def validate(self):
@@ -1050,7 +1215,9 @@ class CreateInstanceAccountRequest(TeaModel):
 
 class CreateInstanceAccountResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1078,12 +1245,14 @@ class CreateInstanceAccountResponseBody(TeaModel):
 
 
 class CreateInstanceAccountResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateInstanceAccountResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1096,6 +1265,8 @@ class CreateInstanceAccountResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1104,6 +1275,8 @@ class CreateInstanceAccountResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateInstanceAccountResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1112,7 +1285,9 @@ class CreateInstanceAccountResponse(TeaModel):
 
 class CreateInstanceInternetAddressRequest(TeaModel):
     def __init__(self, drds_instance_id=None, region_id=None):
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region to which the DRDS instance belongs.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1141,9 +1316,15 @@ class CreateInstanceInternetAddressRequest(TeaModel):
 
 class CreateInstanceInternetAddressResponseBody(TeaModel):
     def __init__(self, code=None, data=None, request_id=None, success=None):
+        # The error code returned when the activity fails.
+        # 
+        # >  This parameter appears only when an error occurs during the API call.
         self.code = code  # type: int
+        # Indicates whether the public IP address was created.
         self.data = data  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1179,12 +1360,14 @@ class CreateInstanceInternetAddressResponseBody(TeaModel):
 
 
 class CreateInstanceInternetAddressResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateInstanceInternetAddressResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1197,6 +1380,8 @@ class CreateInstanceInternetAddressResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1205,6 +1390,8 @@ class CreateInstanceInternetAddressResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateInstanceInternetAddressResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1213,7 +1400,9 @@ class CreateInstanceInternetAddressResponse(TeaModel):
 
 class CreateOrderForRdsRequest(TeaModel):
     def __init__(self, params=None, region_id=None):
+        # The JSON string that contains the order details. For more information, see [CreateDBInstance](~~26228~~).
         self.params = params  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1242,8 +1431,11 @@ class CreateOrderForRdsRequest(TeaModel):
 
 class CreateOrderForRdsResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # The ID of the purchased RDS instance.
         self.data = data  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1275,12 +1467,14 @@ class CreateOrderForRdsResponseBody(TeaModel):
 
 
 class CreateOrderForRdsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateOrderForRdsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1293,6 +1487,8 @@ class CreateOrderForRdsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1301,6 +1497,8 @@ class CreateOrderForRdsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateOrderForRdsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1310,11 +1508,17 @@ class CreateOrderForRdsResponse(TeaModel):
 class CreateShardTaskRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, region_id=None, source_table_name=None,
                  target_table_name=None, task_type=None):
+        # The name of the DRDS database.
         self.db_name = db_name  # type: str
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region where the resource group resides.
         self.region_id = region_id  # type: str
+        # The name of the source table.
         self.source_table_name = source_table_name  # type: str
+        # The name of the destination table.
         self.target_table_name = target_table_name  # type: str
+        # The type of the task. Valid values:`  SHARD_TO_SINGLE `,`  SINGLE_TO_SHARD `,`  SHARD_TO_SHARD `.
         self.task_type = task_type  # type: str
 
     def validate(self):
@@ -1359,8 +1563,11 @@ class CreateShardTaskRequest(TeaModel):
 
 class CreateShardTaskResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # Task creation result
         self.data = data  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the operation.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1392,12 +1599,14 @@ class CreateShardTaskResponseBody(TeaModel):
 
 
 class CreateShardTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateShardTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1410,6 +1619,8 @@ class CreateShardTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1418,6 +1629,8 @@ class CreateShardTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateShardTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1426,6 +1639,7 @@ class CreateShardTaskResponse(TeaModel):
 
 class DescribeBackMenuRequest(TeaModel):
     def __init__(self, drds_instance_id=None):
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -1450,7 +1664,12 @@ class DescribeBackMenuRequest(TeaModel):
 
 class DescribeBackMenuResponseBodyListList(TeaModel):
     def __init__(self, menu_name=None, support=None):
+        # The backup method. Valid values:
+        # 
+        # *   **Logic **: logical backup
+        # *   **phy**: physical backup
         self.menu_name = menu_name  # type: str
+        # Indicates whether backup recovery is supported.
         self.support = support  # type: bool
 
     def validate(self):
@@ -1511,8 +1730,11 @@ class DescribeBackMenuResponseBodyList(TeaModel):
 
 class DescribeBackMenuResponseBody(TeaModel):
     def __init__(self, list=None, request_id=None, success=None):
+        # The backup information list.
         self.list = list  # type: DescribeBackMenuResponseBodyList
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1546,12 +1768,14 @@ class DescribeBackMenuResponseBody(TeaModel):
 
 
 class DescribeBackMenuResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeBackMenuResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1564,6 +1788,8 @@ class DescribeBackMenuResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1572,6 +1798,8 @@ class DescribeBackMenuResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeBackMenuResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1580,8 +1808,11 @@ class DescribeBackMenuResponse(TeaModel):
 
 class DescribeBackupDbsRequest(TeaModel):
     def __init__(self, backup_id=None, drds_instance_id=None, preferred_restore_time=None):
+        # Query by backup set ID
         self.backup_id = backup_id  # type: str
+        # The ID of a DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # Query by restoration time.
         self.preferred_restore_time = preferred_restore_time  # type: str
 
     def validate(self):
@@ -1638,8 +1869,11 @@ class DescribeBackupDbsResponseBodyDbNames(TeaModel):
 
 class DescribeBackupDbsResponseBody(TeaModel):
     def __init__(self, db_names=None, request_id=None, success=None):
+        # The details about a database.
         self.db_names = db_names  # type: DescribeBackupDbsResponseBodyDbNames
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1673,12 +1907,14 @@ class DescribeBackupDbsResponseBody(TeaModel):
 
 
 class DescribeBackupDbsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeBackupDbsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1691,6 +1927,8 @@ class DescribeBackupDbsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1699,6 +1937,8 @@ class DescribeBackupDbsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeBackupDbsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1707,6 +1947,7 @@ class DescribeBackupDbsResponse(TeaModel):
 
 class DescribeBackupLocalRequest(TeaModel):
     def __init__(self, drds_instance_id=None):
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -1735,23 +1976,44 @@ class DescribeBackupLocalResponseBodyBackupPolicyDO(TeaModel):
                  data_backup_retention_period=None, gmt_create=None, gmt_modified=None, high_space_usage_protection=None,
                  local_log_retention_hours=None, local_log_retention_space=None, log_backup_retention_period=None,
                  next_backup_actually_time=None, preferred_backup_period=None, preferred_backup_time=None):
+        # No value is returned.
         self.backup_app_name = backup_app_name  # type: str
+        # No value is returned.
         self.backup_db_name = backup_db_name  # type: str
+        # No value is returned.
         self.backup_level = backup_level  # type: str
+        # No value is returned.
         self.backup_log = backup_log  # type: str
+        # No value is returned.
         self.backup_mode = backup_mode  # type: str
+        # No value is returned.
         self.backup_policy_mode = backup_policy_mode  # type: str
+        # No value is returned.
         self.backup_retention_period = backup_retention_period  # type: long
+        # No value is returned.
         self.backup_type = backup_type  # type: str
+        # No value is returned.
         self.data_backup_retention_period = data_backup_retention_period  # type: long
+        # No value is returned.
         self.gmt_create = gmt_create  # type: long
+        # No value is returned.
         self.gmt_modified = gmt_modified  # type: long
+        # Indicates whether the feature is enabled to forcibly delete binary log files if the used storage space of the instance exceeds 90% of the total storage space or the remaining storage space is less than 5 GB. Valid values:
+        # 
+        # *   1: The feature is enabled.
+        # *   0: The feature is disabled.
         self.high_space_usage_protection = high_space_usage_protection  # type: long
+        # The number of hours for which log backup files are retained on the instance. Valid values: 0 to 168. Default value: **18**. The value **0** indicates that log backup files are not retained.
         self.local_log_retention_hours = local_log_retention_hours  # type: long
+        # The maximum storage usage that is allowed for local log files. Valid values: 0 to 50. Default value: 30.
         self.local_log_retention_space = local_log_retention_space  # type: long
+        # No value is returned.
         self.log_backup_retention_period = log_backup_retention_period  # type: long
+        # No value is returned.
         self.next_backup_actually_time = next_backup_actually_time  # type: str
+        # No value is returned.
         self.preferred_backup_period = preferred_backup_period  # type: str
+        # No value is returned.
         self.preferred_backup_time = preferred_backup_time  # type: str
 
     def validate(self):
@@ -1844,8 +2106,11 @@ class DescribeBackupLocalResponseBodyBackupPolicyDO(TeaModel):
 
 class DescribeBackupLocalResponseBody(TeaModel):
     def __init__(self, backup_policy_do=None, request_id=None, success=None):
+        # The information about the backup policy.
         self.backup_policy_do = backup_policy_do  # type: DescribeBackupLocalResponseBodyBackupPolicyDO
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1879,12 +2144,14 @@ class DescribeBackupLocalResponseBody(TeaModel):
 
 
 class DescribeBackupLocalResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeBackupLocalResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1897,6 +2164,8 @@ class DescribeBackupLocalResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1905,6 +2174,8 @@ class DescribeBackupLocalResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeBackupLocalResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1913,6 +2184,7 @@ class DescribeBackupLocalResponse(TeaModel):
 
 class DescribeBackupPolicyRequest(TeaModel):
     def __init__(self, drds_instance_id=None):
+        # The ID of the instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -1941,23 +2213,61 @@ class DescribeBackupPolicyResponseBodyBackupPolicyDO(TeaModel):
                  data_backup_retention_period=None, gmt_create=None, gmt_modified=None, high_space_usage_protection=None,
                  local_log_retention_hours=None, local_log_retention_space=None, log_backup_retention_period=None,
                  next_backup_actually_time=None, preferred_backup_period=None, preferred_backup_time=None):
+        # No value is returned.
         self.backup_app_name = backup_app_name  # type: str
+        # No value is returned.
         self.backup_db_name = backup_db_name  # type: str
+        # The backup level. Valid values:
+        # 
+        # *   **db**: database backup
+        # *   **instance**: instance backup
         self.backup_level = backup_level  # type: str
+        # Indicates whether the log backup feature is enabled. Valid values:
+        # 
+        # *   **1**: The log backup feature is enabled.
+        # *   **0**: The log backup feature is disabled.
         self.backup_log = backup_log  # type: str
+        # The backup mode. Valid values:
+        # 
+        # *   **logic**: logical backup
+        # *   **phy**: fast backup
         self.backup_mode = backup_mode  # type: str
+        # The type of the backup policy. Valid values:
+        # 
+        # *   **DataBackupPolicy**: a data backup policy
+        # *   **LogBackupPolicy**: a log backup policy
         self.backup_policy_mode = backup_policy_mode  # type: str
+        # The retention period of backup files. Unit: days.
         self.backup_retention_period = backup_retention_period  # type: long
+        # No value is returned.
         self.backup_type = backup_type  # type: str
+        # The retention period of data backup files. Unit: days.
         self.data_backup_retention_period = data_backup_retention_period  # type: long
+        # No value is returned.
         self.gmt_create = gmt_create  # type: long
+        # No value is returned.
         self.gmt_modified = gmt_modified  # type: long
+        # No value is returned.
         self.high_space_usage_protection = high_space_usage_protection  # type: long
+        # No value is returned.
         self.local_log_retention_hours = local_log_retention_hours  # type: long
+        # No value is returned.
         self.local_log_retention_space = local_log_retention_space  # type: long
+        # The retention period of log backup files. Unit: days.
         self.log_backup_retention_period = log_backup_retention_period  # type: long
+        # No value is returned.
         self.next_backup_actually_time = next_backup_actually_time  # type: str
+        # The backup cycle. You can specify multiple backup cycles. Separate multiple backup cycles with commas (,). Valid values:
+        # 
+        # *   **0**: every Monday
+        # *   **1**: every Tuesday
+        # *   **2**: every Wednesday
+        # *   **3**: every Thursday
+        # *   **4**: every Friday
+        # *   **5**: every Saturday
+        # *   **6**: every Sunday
         self.preferred_backup_period = preferred_backup_period  # type: str
+        # The time range in which a backup is performed. The time is displayed in UTC.
         self.preferred_backup_time = preferred_backup_time  # type: str
 
     def validate(self):
@@ -2050,8 +2360,11 @@ class DescribeBackupPolicyResponseBodyBackupPolicyDO(TeaModel):
 
 class DescribeBackupPolicyResponseBody(TeaModel):
     def __init__(self, backup_policy_do=None, request_id=None, success=None):
+        # The information about the backup policy.
         self.backup_policy_do = backup_policy_do  # type: DescribeBackupPolicyResponseBodyBackupPolicyDO
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2085,12 +2398,14 @@ class DescribeBackupPolicyResponseBody(TeaModel):
 
 
 class DescribeBackupPolicyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeBackupPolicyResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2103,6 +2418,8 @@ class DescribeBackupPolicyResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2111,6 +2428,8 @@ class DescribeBackupPolicyResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeBackupPolicyResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2119,8 +2438,13 @@ class DescribeBackupPolicyResponse(TeaModel):
 
 class DescribeBackupSetsRequest(TeaModel):
     def __init__(self, drds_instance_id=None, end_time=None, start_time=None):
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The end of the query time which is in timestamp format (measured in millisecond) .
+        # 
+        # >  The end time must be later than the start time.
         self.end_time = end_time  # type: str
+        # The beginning of the query time which is in timestamp format (measured in millisecond).
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -2179,16 +2503,43 @@ class DescribeBackupSetsResponseBodyBackupSetsBackupSet(TeaModel):
     def __init__(self, backup_consitent_time=None, backup_dbs=None, backup_end_time=None, backup_level=None,
                  backup_mode=None, backup_start_time=None, backup_total_size=None, backup_type=None, enable_recovery=None,
                  id=None, status=None):
+        # Backup Recovery duration.
         self.backup_consitent_time = backup_consitent_time  # type: str
+        # The list of backup databases.
         self.backup_dbs = backup_dbs  # type: DescribeBackupSetsResponseBodyBackupSetsBackupSetBackupDbs
+        # The end of the backup time which is in timestamp format (measured in millisecond).
+        # 
+        # >  0 indicates not finished.
         self.backup_end_time = backup_end_time  # type: long
+        # The level of the backup. Valid values:
+        # 
+        # *   db: The database level.
+        # *   instance: the instance level.
         self.backup_level = backup_level  # type: str
+        # The backup method. Valid values:
+        # 
+        # *   logic: the logical backup.
+        # *   phy: fast backup
         self.backup_mode = backup_mode  # type: str
+        # The beginning of the backup time which is in timestamp format (measured in millisecond).
         self.backup_start_time = backup_start_time  # type: long
+        # The size of the backup set. Unit: MB.
         self.backup_total_size = backup_total_size  # type: str
+        # The type of the backup. Valid values:
+        # 
+        # *   manual: indicates a manual backup.
+        # *   auto: indicates an automatic backup.
         self.backup_type = backup_type  # type: str
+        # Indicates whether the backup set can be restored. Valid values:
         self.enable_recovery = enable_recovery  # type: bool
+        # The ID of the data backup file you want to use.
         self.id = id  # type: str
+        # The status of the backup instance. Valid values:
+        # 
+        # *   \-1: Failed
+        # *   0: Not started
+        # *   1: The storage instance is running.
+        # *   2: Success
         self.status = status  # type: long
 
     def validate(self):
@@ -2287,8 +2638,11 @@ class DescribeBackupSetsResponseBodyBackupSets(TeaModel):
 
 class DescribeBackupSetsResponseBody(TeaModel):
     def __init__(self, backup_sets=None, request_id=None, success=None):
+        # The list of backup sets.
         self.backup_sets = backup_sets  # type: DescribeBackupSetsResponseBodyBackupSets
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2322,12 +2676,14 @@ class DescribeBackupSetsResponseBody(TeaModel):
 
 
 class DescribeBackupSetsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeBackupSetsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2340,6 +2696,8 @@ class DescribeBackupSetsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2348,6 +2706,8 @@ class DescribeBackupSetsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeBackupSetsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2356,6 +2716,7 @@ class DescribeBackupSetsResponse(TeaModel):
 
 class DescribeBackupTimesRequest(TeaModel):
     def __init__(self, drds_instance_id=None):
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -2380,7 +2741,9 @@ class DescribeBackupTimesRequest(TeaModel):
 
 class DescribeBackupTimesResponseBodyRestoreTime(TeaModel):
     def __init__(self, end_time=None, start_time=None):
+        # Indicates the end time. The time is in the UNIX timestamp format. The time is in UTC. Unit: ms.
         self.end_time = end_time  # type: str
+        # Indicates the start time. The time is in the UNIX timestamp format. The time must be in UTC. Unit: ms.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -2409,8 +2772,11 @@ class DescribeBackupTimesResponseBodyRestoreTime(TeaModel):
 
 class DescribeBackupTimesResponseBody(TeaModel):
     def __init__(self, request_id=None, restore_time=None, success=None):
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates the information about the time range within which the data of the instance can be restored to a point in time.
         self.restore_time = restore_time  # type: DescribeBackupTimesResponseBodyRestoreTime
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2444,12 +2810,14 @@ class DescribeBackupTimesResponseBody(TeaModel):
 
 
 class DescribeBackupTimesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeBackupTimesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2462,6 +2830,8 @@ class DescribeBackupTimesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2470,6 +2840,8 @@ class DescribeBackupTimesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeBackupTimesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2479,11 +2851,17 @@ class DescribeBackupTimesResponse(TeaModel):
 class DescribeBroadcastTablesRequest(TeaModel):
     def __init__(self, current_page=None, db_name=None, drds_instance_id=None, page_size=None, query=None,
                  region_id=None):
+        # The number of the page to return.
         self.current_page = current_page  # type: int
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The content of the query.
         self.query = query  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2529,11 +2907,27 @@ class DescribeBroadcastTablesRequest(TeaModel):
 class DescribeBroadcastTablesResponseBodyList(TeaModel):
     def __init__(self, broadcast=None, broadcast_type=None, db_inst_type=None, is_shard=None, status=None,
                  table=None):
+        # Indicates whether a table is a broadcast table.
         self.broadcast = broadcast  # type: bool
+        # Indicates the type of the broadcast table. Valid values:
+        # 
+        # *   **1**: multi-write mode
+        # *   **2**: synchronous mode
         self.broadcast_type = broadcast_type  # type: str
+        # Indicates the storage type of the database. Valid values:
+        # 
+        # *   **0**: RDS
+        # *   **4**: PolarDB
         self.db_inst_type = db_inst_type  # type: int
+        # Indicates whether the broadcast table was sharded.
         self.is_shard = is_shard  # type: bool
+        # Indicates the activation state of the broadcast table. Valid values:
+        # 
+        # *   **1**: The broadcast table is activated.
+        # *   **2**: The broadcast table is being activated.
+        # *   **3**: An exception occurs when the broadcast table is being activated.
         self.status = status  # type: int
+        # Indicates the name of the table.
         self.table = table  # type: str
 
     def validate(self):
@@ -2579,12 +2973,19 @@ class DescribeBroadcastTablesResponseBodyList(TeaModel):
 class DescribeBroadcastTablesResponseBody(TeaModel):
     def __init__(self, is_shard=None, list=None, page_number=None, page_size=None, request_id=None, success=None,
                  total=None):
+        # Indicates whether the database is sharded.
         self.is_shard = is_shard  # type: bool
+        # Indicates information about broadcast tables.
         self.list = list  # type: list[DescribeBroadcastTablesResponseBodyList]
+        # Indicates the page number of the returned page.
         self.page_number = page_number  # type: int
+        # Indicates the number of entries returned per page.
         self.page_size = page_size  # type: int
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # Indicates the total number of entries returned.
         self.total = total  # type: int
 
     def validate(self):
@@ -2640,12 +3041,14 @@ class DescribeBroadcastTablesResponseBody(TeaModel):
 
 
 class DescribeBroadcastTablesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeBroadcastTablesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2658,6 +3061,8 @@ class DescribeBroadcastTablesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2666,6 +3071,8 @@ class DescribeBroadcastTablesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeBroadcastTablesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2675,10 +3082,15 @@ class DescribeBroadcastTablesResponse(TeaModel):
 class DescribeDbInstanceDbsRequest(TeaModel):
     def __init__(self, account_name=None, db_inst_type=None, db_instance_id=None, drds_instance_id=None,
                  password=None):
+        # The name of the privileged account of the PolarDB-X 1.0 instance. You do not need to specify this parameter if you have no privileged account.
         self.account_name = account_name  # type: str
+        # The engine type of the storage-layer databases. Valid values: **POLARDB** and **RDS**.
         self.db_inst_type = db_inst_type  # type: str
+        # The ID of the instance in which the storage-layer databases are deployed.
         self.db_instance_id = db_instance_id  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The password of the privileged account. You do not need to specify this parameter if you have no privileged account.
         self.password = password  # type: str
 
     def validate(self):
@@ -2719,8 +3131,15 @@ class DescribeDbInstanceDbsRequest(TeaModel):
 
 class DescribeDbInstanceDbsResponseBodyDatabasesDatabase(TeaModel):
     def __init__(self, db_name=None, description=None, status=None):
+        # Indicates the name of a storage-layer database.
         self.db_name = db_name  # type: str
+        # Indicates the description of the storage-layer database.
         self.description = description  # type: str
+        # Indicates the state of the storage-layer database. Valid values:
+        # 
+        # *   **0**: The database is being created.
+        # *   **1**: The database is available.
+        # *   **3**: The database is being deleted.
         self.status = status  # type: int
 
     def validate(self):
@@ -2785,9 +3204,13 @@ class DescribeDbInstanceDbsResponseBodyDatabases(TeaModel):
 
 class DescribeDbInstanceDbsResponseBody(TeaModel):
     def __init__(self, databases=None, request_id=None, success=None, total=None):
+        # Indicates the information about the storage-layer databases.
         self.databases = databases  # type: DescribeDbInstanceDbsResponseBodyDatabases
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # Indicates the total number of storage-layer databases.
         self.total = total  # type: str
 
     def validate(self):
@@ -2825,12 +3248,14 @@ class DescribeDbInstanceDbsResponseBody(TeaModel):
 
 
 class DescribeDbInstanceDbsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDbInstanceDbsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2843,6 +3268,8 @@ class DescribeDbInstanceDbsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2851,6 +3278,8 @@ class DescribeDbInstanceDbsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDbInstanceDbsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2858,11 +3287,19 @@ class DescribeDbInstanceDbsResponse(TeaModel):
 
 
 class DescribeDbInstancesRequest(TeaModel):
-    def __init__(self, db_inst_type=None, drds_instance_id=None, page_number=None, page_size=None, search=None):
+    def __init__(self, db_inst_type=None, drds_instance_id=None, page_number=None, page_size=None, region_id=None,
+                 search=None):
+        # Storage layer type. Valid values: **POLARDB** or **RDS**.
         self.db_inst_type = db_inst_type  # type: str
+        # The ID of a DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The ID of the region.
+        self.region_id = region_id  # type: str
+        # The ID of the storage or cluster.
         self.search = search  # type: str
 
     def validate(self):
@@ -2882,6 +3319,8 @@ class DescribeDbInstancesRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.search is not None:
             result['Search'] = self.search
         return result
@@ -2896,6 +3335,8 @@ class DescribeDbInstancesRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Search') is not None:
             self.search = m.get('Search')
         return self
@@ -2929,15 +3370,36 @@ class DescribeDbInstancesResponseBodyItemsDBInstance(TeaModel):
     def __init__(self, dbinstance_description=None, dbinstance_id=None, dbinstance_status=None,
                  dbinstance_type=None, engine=None, engine_version=None, instance_network_type=None, read_only_dbinstance_id=None,
                  region_id=None, zone_id=None):
+        # The description of the storage instance.
         self.dbinstance_description = dbinstance_description  # type: str
+        # The ID of the storage instance.
         self.dbinstance_id = dbinstance_id  # type: str
+        # Storage layer instance status. Valid values:
+        # 
+        # *   **0**: creating
+        # *   **1**: In use
+        # *   **3**: Deleting
+        # *   **5**: restarting
+        # *   **6**: upgrading /Downgrading
+        # *   **7**: Recovering
+        # *   **8**: switching the Internet and intranet
         self.dbinstance_status = dbinstance_status  # type: int
+        # The storage layer instance type.
         self.dbinstance_type = dbinstance_type  # type: str
+        # The engine of the storage instance.
         self.engine = engine  # type: str
+        # The version of the engine for the storage instance.
         self.engine_version = engine_version  # type: str
+        # The network type of the storage layer. Valid values:
+        # 
+        # *   **VPC**: VPC
+        # *   **CLASSIC **: Classic Network
         self.instance_network_type = instance_network_type  # type: str
+        # The details about a read-only storage instance.
         self.read_only_dbinstance_id = read_only_dbinstance_id  # type: DescribeDbInstancesResponseBodyItemsDBInstanceReadOnlyDBInstanceId
+        # The ID of the region where the storage instance resides.
         self.region_id = region_id  # type: str
+        # The ID of the zone where the storage instance resides.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -3032,7 +3494,9 @@ class DescribeDbInstancesResponseBodyItems(TeaModel):
 
 class DescribeDbInstancesResponseBody(TeaModel):
     def __init__(self, items=None, request_id=None):
+        # The details of the instance.
         self.items = items  # type: DescribeDbInstancesResponseBodyItems
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3062,12 +3526,14 @@ class DescribeDbInstancesResponseBody(TeaModel):
 
 
 class DescribeDbInstancesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDbInstancesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3080,6 +3546,8 @@ class DescribeDbInstancesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3088,6 +3556,8 @@ class DescribeDbInstancesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDbInstancesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3096,7 +3566,9 @@ class DescribeDbInstancesResponse(TeaModel):
 
 class DescribeDrdsDBRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -3126,12 +3598,28 @@ class DescribeDrdsDBRequest(TeaModel):
 class DescribeDrdsDBResponseBodyData(TeaModel):
     def __init__(self, create_time=None, db_inst_type=None, db_name=None, inst_role=None, mode=None, schema=None,
                  status=None):
+        # Indicates the time when the database was created. The value is in the UNIX timestamp format. Unit: ms.
         self.create_time = create_time  # type: str
+        # Indicates the storage type of the database.
         self.db_inst_type = db_inst_type  # type: str
+        # Indicates the name of the database.
         self.db_name = db_name  # type: str
+        # Indicates the type of the instance in which the database is deployed. Valid values:
+        # 
+        # *   **MASTER**: The instance is a primary instance.
+        # *   **SLAVE**: The instance is a read-only instance.
         self.inst_role = inst_role  # type: str
+        # Indicates the database sharding method.
+        # 
+        # *   **HORIZONTAL**: The database is horizontally sharded.
+        # *   **VERTICAL**: The database is vertically sharded.
         self.mode = mode  # type: str
+        # Indicates the schema name of the database.
         self.schema = schema  # type: str
+        # Indicates the state of the database. Valid values:
+        # 
+        # *   **TO_BE_INIT**: The database is being created.
+        # *   **NORMAL**: The database is running.
         self.status = status  # type: str
 
     def validate(self):
@@ -3180,8 +3668,11 @@ class DescribeDrdsDBResponseBodyData(TeaModel):
 
 class DescribeDrdsDBResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # Indicates the details about the database.
         self.data = data  # type: DescribeDrdsDBResponseBodyData
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3215,12 +3706,14 @@ class DescribeDrdsDBResponseBody(TeaModel):
 
 
 class DescribeDrdsDBResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsDBResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3233,6 +3726,8 @@ class DescribeDrdsDBResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3241,6 +3736,8 @@ class DescribeDrdsDBResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsDBResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3249,8 +3746,11 @@ class DescribeDrdsDBResponse(TeaModel):
 
 class DescribeDrdsDBClusterRequest(TeaModel):
     def __init__(self, db_instance_id=None, db_name=None, drds_instance_id=None):
+        # The ID of the PolarDB cluster.
         self.db_instance_id = db_instance_id  # type: str
+        # The name of the DRDS database.
         self.db_name = db_name  # type: str
+        # The ID of a DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -3283,9 +3783,16 @@ class DescribeDrdsDBClusterRequest(TeaModel):
 
 class DescribeDrdsDBClusterResponseBodyDbInstanceDBNodesDBNode(TeaModel):
     def __init__(self, dbnode_id=None, dbnode_role=None, dbnode_status=None, zone_id=None):
+        # The ID of the node in the apsaradb for PolarDB cluster.
         self.dbnode_id = dbnode_id  # type: str
+        # The role of a node in the apsaradb for PolarDB cluster. Valid values:
+        # 
+        # *   **Reader**\
+        # *   **Writer**\
         self.dbnode_role = dbnode_role  # type: str
+        # The status of the nodes in the PolarDB cluster.
         self.dbnode_status = dbnode_status  # type: str
+        # The ID of the zone where the node of the PolarDB cluster resides.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -3354,8 +3861,11 @@ class DescribeDrdsDBClusterResponseBodyDbInstanceDBNodes(TeaModel):
 
 class DescribeDrdsDBClusterResponseBodyDbInstanceEndpointsEndpoint(TeaModel):
     def __init__(self, endpoint_id=None, node_ids=None, read_weight=None):
+        # The ID of the PolarDB connection address.
         self.endpoint_id = endpoint_id  # type: str
+        # The ID list of the nodes in the PolarDB connection string. Separate multiple nodes with commas (,).
         self.node_ids = node_ids  # type: str
+        # The read ratio of this connection address managed by the DRDS database.
         self.read_weight = read_weight  # type: int
 
     def validate(self):
@@ -3422,19 +3932,39 @@ class DescribeDrdsDBClusterResponseBodyDbInstance(TeaModel):
     def __init__(self, dbinstance_id=None, dbinstance_status=None, dbnodes=None, db_inst_type=None, endpoints=None,
                  engine=None, engine_version=None, expire_time=None, network_type=None, pay_type=None, port=None,
                  rds_inst_type=None, read_mode=None, remain_days=None):
+        # The ID of the PolarDB cluster.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The status of the PolarDB instance.
         self.dbinstance_status = dbinstance_status  # type: str
+        # The information about the nodes in the PolarDB Cluster.
         self.dbnodes = dbnodes  # type: DescribeDrdsDBClusterResponseBodyDbInstanceDBNodes
+        # The type of storage used by the DRDS database.
         self.db_inst_type = db_inst_type  # type: str
+        # The endpoint of the PolarDB read /write splitting endpoint
         self.endpoints = endpoints  # type: DescribeDrdsDBClusterResponseBodyDbInstanceEndpoints
+        # The type of the DRDS database storage engine.
         self.engine = engine  # type: str
+        # The version of the DRDS database storage engine.
         self.engine_version = engine_version  # type: str
+        # The time when the PolarDB cluster expires.
         self.expire_time = expire_time  # type: str
+        # The network type of the PolarDB cluster.
         self.network_type = network_type  # type: str
+        # The billing method of the PolarDB cluster.
         self.pay_type = pay_type  # type: str
+        # The PolarDB access port.
         self.port = port  # type: int
+        # The type of RDS instance. PolarDB cluster does not support this parameter.
         self.rds_inst_type = rds_inst_type  # type: str
+        # This parameter specifies the Read mode when the database storage type is PolarDB.
+        # 
+        # Valid values:
+        # 
+        # *   **DEFAULT**: the default mode (that is, all read traffic is sent to the PolarDB read /write node).
+        # *   **CUSTOM**: Custom mode (you can customize the ratio of traffic sent to read /write nodes and read-only nodes).
+        # *   **BALANCE**: read balancing mode (the read traffic is automatically distributed by the read load module of the PolarDB cluster, which can also be understood as the read traffic being evenly distributed to each node).
         self.read_mode = read_mode  # type: str
+        # The number of days remaining on the PolarDB for MySQL instance.
         self.remain_days = remain_days  # type: str
 
     def validate(self):
@@ -3516,8 +4046,11 @@ class DescribeDrdsDBClusterResponseBodyDbInstance(TeaModel):
 
 class DescribeDrdsDBClusterResponseBody(TeaModel):
     def __init__(self, db_instance=None, request_id=None, success=None):
+        # The details of each PolarDB cluster.
         self.db_instance = db_instance  # type: DescribeDrdsDBClusterResponseBodyDbInstance
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3551,12 +4084,14 @@ class DescribeDrdsDBClusterResponseBody(TeaModel):
 
 
 class DescribeDrdsDBClusterResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsDBClusterResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3569,6 +4104,8 @@ class DescribeDrdsDBClusterResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3577,6 +4114,8 @@ class DescribeDrdsDBClusterResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsDBClusterResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3584,10 +4123,14 @@ class DescribeDrdsDBClusterResponse(TeaModel):
 
 
 class DescribeDrdsDBIpWhiteListRequest(TeaModel):
-    def __init__(self, db_name=None, drds_instance_id=None, group_name=None):
+    def __init__(self, db_name=None, drds_instance_id=None, group_name=None, region_id=None):
+        # The database name.
         self.db_name = db_name  # type: str
+        # The instance ID.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The name of the whitelist group.
         self.group_name = group_name  # type: str
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -3604,6 +4147,8 @@ class DescribeDrdsDBIpWhiteListRequest(TeaModel):
             result['DrdsInstanceId'] = self.drds_instance_id
         if self.group_name is not None:
             result['GroupName'] = self.group_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -3614,6 +4159,8 @@ class DescribeDrdsDBIpWhiteListRequest(TeaModel):
             self.drds_instance_id = m.get('DrdsInstanceId')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         return self
 
 
@@ -3643,8 +4190,11 @@ class DescribeDrdsDBIpWhiteListResponseBodyIpWhiteList(TeaModel):
 
 class DescribeDrdsDBIpWhiteListResponseBody(TeaModel):
     def __init__(self, ip_white_list=None, request_id=None, success=None):
+        # The IP address whitelist.
         self.ip_white_list = ip_white_list  # type: DescribeDrdsDBIpWhiteListResponseBodyIpWhiteList
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3678,12 +4228,14 @@ class DescribeDrdsDBIpWhiteListResponseBody(TeaModel):
 
 
 class DescribeDrdsDBIpWhiteListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsDBIpWhiteListResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3696,6 +4248,8 @@ class DescribeDrdsDBIpWhiteListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3704,6 +4258,8 @@ class DescribeDrdsDBIpWhiteListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsDBIpWhiteListResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3712,9 +4268,15 @@ class DescribeDrdsDBIpWhiteListResponse(TeaModel):
 
 class DescribeDrdsDBsRequest(TeaModel):
     def __init__(self, drds_instance_id=None, page_number=None, page_size=None, region_id=None):
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The number of the page to return. The value of this parameter must be an integer that is greater than 0. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of databases to return on each page. Valid values: **30**, **50**, and **100**.
+        # 
+        # Default value: **30**.
         self.page_size = page_size  # type: int
+        # The ID of the region in which the PolarDB-X 1.0 instance is created.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -3751,11 +4313,20 @@ class DescribeDrdsDBsRequest(TeaModel):
 
 class DescribeDrdsDBsResponseBodyDataDb(TeaModel):
     def __init__(self, create_time=None, db_inst_type=None, db_name=None, mode=None, schema=None, status=None):
+        # The time when the database is created. The value of this parameter is a UNIX timestamp. Unit: ms.
         self.create_time = create_time  # type: str
+        # The type of the database. Valid values: **RDS** and **POLARDB**.
         self.db_inst_type = db_inst_type  # type: str
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The partitioning mode of the database. Valid values:
+        # 
+        # *   **HORIZONTAL**: The database is horizontally partitioned.
+        # *   **VERTICAL**: The database is vertically partitioned.
         self.mode = mode  # type: str
+        # The schema ID that is assigned to the partitioned database.
         self.schema = schema  # type: str
+        # The state of the database.
         self.status = status  # type: str
 
     def validate(self):
@@ -3832,11 +4403,17 @@ class DescribeDrdsDBsResponseBodyData(TeaModel):
 
 class DescribeDrdsDBsResponseBody(TeaModel):
     def __init__(self, data=None, page_number=None, page_size=None, request_id=None, success=None, total=None):
+        # The list of returned databases.
         self.data = data  # type: DescribeDrdsDBsResponseBodyData
+        # The page number of the returned page.
         self.page_number = page_number  # type: str
+        # The number of databases returned on each page.
         self.page_size = page_size  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # The number of returned databases.
         self.total = total  # type: str
 
     def validate(self):
@@ -3882,12 +4459,14 @@ class DescribeDrdsDBsResponseBody(TeaModel):
 
 
 class DescribeDrdsDBsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsDBsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3900,6 +4479,8 @@ class DescribeDrdsDBsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3908,6 +4489,8 @@ class DescribeDrdsDBsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsDBsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3916,8 +4499,11 @@ class DescribeDrdsDBsResponse(TeaModel):
 
 class DescribeDrdsDbInstanceRequest(TeaModel):
     def __init__(self, db_instance_id=None, db_name=None, drds_instance_id=None):
+        # The ID of the custom ApsaraDB RDS for MySQL instance that you want to query.
         self.db_instance_id = db_instance_id  # type: str
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The name of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -3952,20 +4538,35 @@ class DescribeDrdsDbInstanceResponseBodyDbInstanceReadOnlyInstancesReadOnlyInsta
     def __init__(self, connect_url=None, dbinstance_id=None, dbinstance_status=None, db_inst_type=None,
                  dm_instance_id=None, engine=None, engine_version=None, expire_time=None, network_type=None, pay_type=None,
                  port=None, rds_inst_type=None, read_weight=None, remain_days=None, version_action=None):
+        # The URL used to connect to the read-only instance.
         self.connect_url = connect_url  # type: str
+        # The ID of the read-only instance.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The state of the read-only instance.
         self.dbinstance_status = dbinstance_status  # type: str
+        # The role of the read-only instance.
         self.db_inst_type = db_inst_type  # type: str
+        # The ID of the resource.
         self.dm_instance_id = dm_instance_id  # type: str
+        # The engine of the database that is run on the read-only instance.
         self.engine = engine  # type: str
+        # The engine version of the database that is run on the read-only instance.
         self.engine_version = engine_version  # type: str
+        # The timestamp that indicates when the read-only instance expires.
         self.expire_time = expire_time  # type: str
+        # The network type of the read-only instance.
         self.network_type = network_type  # type: str
+        # The billing method of the read-only instance.
         self.pay_type = pay_type  # type: str
+        # The port used to connect to the read-only instance.
         self.port = port  # type: int
+        # The type of the ApsaraDB RDS for MySQL instance.
         self.rds_inst_type = rds_inst_type  # type: str
+        # The read ratio of the read-only instance.
         self.read_weight = read_weight  # type: int
+        # The number of remaining days before the read-only instance expires.
         self.remain_days = remain_days  # type: str
+        # This parameter is unavailable for read-only instances.
         self.version_action = version_action  # type: int
 
     def validate(self):
@@ -4080,20 +4681,43 @@ class DescribeDrdsDbInstanceResponseBodyDbInstance(TeaModel):
     def __init__(self, connect_url=None, dbinstance_id=None, dbinstance_status=None, db_inst_type=None,
                  dm_instance_id=None, engine=None, engine_version=None, expire_time=None, network_type=None, pay_type=None,
                  port=None, rds_inst_type=None, read_only_instances=None, read_weight=None, remain_days=None):
+        # The URL used to connect to the custom ApsaraDB RDS for MySQL instance.
         self.connect_url = connect_url  # type: str
+        # The ID of the ApsaraDB RDS for MySQL instance.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The state of the instance.
         self.dbinstance_status = dbinstance_status  # type: str
+        # The role of the instance. Valid values:
+        # 
+        # *   **Primary**: The instance is a primary instance.
+        # *   **ReadOnly**: The instance is a read-only instance.
         self.db_inst_type = db_inst_type  # type: str
+        # The ID of the resource.
         self.dm_instance_id = dm_instance_id  # type: str
+        # The engine of the database that is run on the instance. Valid value: **MySQL**.
         self.engine = engine  # type: str
+        # The engine version of the database that is run on the instance. Valid values: **5.7**.
         self.engine_version = engine_version  # type: str
+        # The time when the custom ApsaraDB RDS for MySQL instance expires. The value of this parameter is a UNIX timestamp. Unit: seconds.
+        # 
+        # >  This parameter is returned only when the custom ApsaraDB RDS for MySQL instance is a subscription instance.
         self.expire_time = expire_time  # type: str
+        # The type of the network. Valid values: **VPC**.
         self.network_type = network_type  # type: str
+        # The billing method of the custom ApsaraDB RDS for MySQL instance. Valid values:
+        # 
+        # *   **Prepaid**: subscription
+        # *   **Postaid**: pay-as-you-go
         self.pay_type = pay_type  # type: str
+        # The port used to connect to the custom ApsaraDB RDS for MySQL instance.
         self.port = port  # type: int
+        # The type of the instance.
         self.rds_inst_type = rds_inst_type  # type: str
+        # The list of read-only ApsaraDB RDS for MySQL instances.
         self.read_only_instances = read_only_instances  # type: DescribeDrdsDbInstanceResponseBodyDbInstanceReadOnlyInstances
+        # The read ratio of the instance.
         self.read_weight = read_weight  # type: int
+        # The number of remaining days before the instance expires.
         self.remain_days = remain_days  # type: str
 
     def validate(self):
@@ -4176,8 +4800,11 @@ class DescribeDrdsDbInstanceResponseBodyDbInstance(TeaModel):
 
 class DescribeDrdsDbInstanceResponseBody(TeaModel):
     def __init__(self, db_instance=None, request_id=None, success=None):
+        # The detailed information about the returned custom ApsaraDB RDS for MySQL instance.
         self.db_instance = db_instance  # type: DescribeDrdsDbInstanceResponseBodyDbInstance
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -4211,12 +4838,14 @@ class DescribeDrdsDbInstanceResponseBody(TeaModel):
 
 
 class DescribeDrdsDbInstanceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsDbInstanceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4229,6 +4858,8 @@ class DescribeDrdsDbInstanceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4237,6 +4868,8 @@ class DescribeDrdsDbInstanceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsDbInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4245,9 +4878,13 @@ class DescribeDrdsDbInstanceResponse(TeaModel):
 
 class DescribeDrdsDbInstancesRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, page_number=None, page_size=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -4286,19 +4923,55 @@ class DescribeDrdsDbInstancesResponseBodyDbInstancesDbInstanceReadOnlyInstancesR
     def __init__(self, connect_url=None, dbinstance_status=None, db_inst_type=None, dm_instance_id=None,
                  engine=None, engine_version=None, expire_time=None, instance_name=None, network_type=None, pay_type=None,
                  port=None, rds_inst_type=None, read_weight=None, remain_days=None):
+        # Indicates the endpoint that is used to connect to the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database.
         self.connect_url = connect_url  # type: str
+        # Indicates the state of the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database. Valid values:
+        # 
+        # *   **0**: The ApsaraDB RDS for MySQL instance is being created.
+        # *   **1**: The ApsaraDB RDS for MySQL instance is running.
+        # *   **3**: The ApsaraDB RDS for MySQL instance is being deleted.
+        # *   **5**: The ApsaraDB RDS for MySQL instance is being restarted.
+        # *   **6**: The ApsaraDB RDS for MySQL instance is being upgraded or downgraded.
+        # *   **7**: The ApsaraDB RDS for MySQL instance is being backed up.
+        # *   **8**: The network type of the ApsaraDB RDS for MySQL instance is being changed.
+        # *   **9**: The ApsaraDB RDS for MySQL instance is being migrated.
+        # *   **11**: The data of the ApsaraDB RDS for MySQL instance is being migrated.
+        # *   **12**: A disaster-recovery instance is being generated.
+        # *   **13**: Data is being imported to the ApsaraDB RDS for MySQL instance.
+        # *   **14**: Data is being imported to the ApsaraDB RDS for MySQL instance from an another ApsaraDB RDS for MySQL instance.
+        # *   **15**: A failover is being performed.
+        # *   **16**: A temporary instance is being created.
+        # *   **17**: A network is being created for the ApsaraDB RDS for MySQL instance.
+        # *   **18**: The ApsaraDB RDS for MySQL instance is being cloned.
+        # *   **19**: The link is being changed.
+        # *   **20**: The read-only instances of the ApsaraDB RDS for MySQL instance are being migrated.
         self.dbinstance_status = dbinstance_status  # type: str
+        # Indicates the type of the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database. The value is set to RDS.
         self.db_inst_type = db_inst_type  # type: str
+        # Indicates the ID of a resource.
         self.dm_instance_id = dm_instance_id  # type: str
+        # Indicates the engine of the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database.
         self.engine = engine  # type: str
+        # Indicates the engine version of the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database.
         self.engine_version = engine_version  # type: str
+        # Indicates the timestamp when the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database expires.
         self.expire_time = expire_time  # type: str
+        # Indicates the name of a read-only instance.
         self.instance_name = instance_name  # type: str
+        # Indicates the network type of the read-only instance.
         self.network_type = network_type  # type: str
+        # Indicates the billing method of the read-only instance.
+        # 
+        # *   **drdsPre**: The instance uses the subscription billing method.
+        # *   **drdsPost**: The instance uses the pay-as-you-go billing method.
         self.pay_type = pay_type  # type: str
+        # Indicates the port that is used to connect to the read-only instance.
         self.port = port  # type: int
+        # Indicates the type of the read-only instance.
         self.rds_inst_type = rds_inst_type  # type: str
+        # Indicates the read weight of the read-only instance.
         self.read_weight = read_weight  # type: int
+        # Indicates the number of remaining days before the read-only instance expires.
         self.remain_days = remain_days  # type: int
 
     def validate(self):
@@ -4409,20 +5082,60 @@ class DescribeDrdsDbInstancesResponseBodyDbInstancesDbInstance(TeaModel):
     def __init__(self, connect_url=None, dbinstance_id=None, dbinstance_status=None, db_inst_type=None,
                  dm_instance_id=None, engine=None, engine_version=None, expire_time=None, network_type=None, pay_type=None,
                  port=None, rds_inst_type=None, read_only_instances=None, read_weight=None, remain_days=None):
+        # Indicates the endpoint that is used to connect to an ApsaraDB RDS for MySQL instance that is used to store the data of the specified database.
         self.connect_url = connect_url  # type: str
+        # Indicates the ID of the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database.
         self.dbinstance_id = dbinstance_id  # type: str
+        # Indicates the state of the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database. Valid values:
+        # 
+        # *   **0**: The ApsaraDB RDS for MySQL instance is being created.
+        # *   **1**: The ApsaraDB RDS for MySQL instance is running.
+        # *   **3**: The ApsaraDB RDS for MySQL instance is being deleted.
+        # *   **5**: The ApsaraDB RDS for MySQL instance is being restarted.
+        # *   **6**: The ApsaraDB RDS for MySQL instance is being upgraded or downgraded.
+        # *   **7**: The ApsaraDB RDS for MySQL instance is being backed up.
+        # *   **8**: The network type of the ApsaraDB RDS for MySQL instance is being changed.
+        # *   **9**: The ApsaraDB RDS for MySQL instance is being migrated.
+        # *   **11**: The data of the ApsaraDB RDS for MySQL instance is being migrated.
+        # *   **12**: A disaster-recovery instance is being generated.
+        # *   **13**: Data is being imported to the ApsaraDB RDS for MySQL instance.
+        # *   **14**: Data is being imported to the ApsaraDB RDS for MySQL instance from an another ApsaraDB RDS for MySQL instance.
+        # *   **15**: A failover is being performed.
+        # *   **16**: A temporary instance is being created.
+        # *   **17**: A network is being created for the ApsaraDB RDS for MySQL instance.
+        # *   **18**: The ApsaraDB RDS for MySQL instance is being cloned.
+        # *   **19**: The link is being changed.
+        # *   **20**: The read-only instances of the ApsaraDB RDS for MySQL instance are being migrated.
         self.dbinstance_status = dbinstance_status  # type: str
+        # Indicates the type of the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database. The value is set to RDS.
         self.db_inst_type = db_inst_type  # type: str
+        # Indicates the ID of a resource.
         self.dm_instance_id = dm_instance_id  # type: str
+        # Indicates the engine of the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database.
         self.engine = engine  # type: str
+        # Indicates the engine version of the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database.
         self.engine_version = engine_version  # type: str
+        # Indicates the point in time when the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database expires.
         self.expire_time = expire_time  # type: str
+        # Indicates the network type of the ApsaraDB RDS for MySQL instance.
         self.network_type = network_type  # type: str
+        # Indicates the billing method of the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database. Valid values:
+        # 
+        # *   **drdsPre**: The instance uses the subscription billing method.
+        # *   **drdsPost**: The instance uses the pay-as-you-go billing method.
         self.pay_type = pay_type  # type: str
+        # Indicates the port that is used to connect to the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database.
         self.port = port  # type: int
+        # Indicates whether the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database is a primary instance or a read-only instance.
+        # 
+        # *   **Primary**: The instance is a primary instance.
+        # *   **Readonly**: The instance is a read-only instance.
         self.rds_inst_type = rds_inst_type  # type: str
+        # Indicates information about the read-only instances of the ApsaraDB RDS for MySQL instance that is used to store the data of the specified database.
         self.read_only_instances = read_only_instances  # type: DescribeDrdsDbInstancesResponseBodyDbInstancesDbInstanceReadOnlyInstances
+        # Indicates the read weight of the read-only instance.
         self.read_weight = read_weight  # type: int
+        # Indicates the number of remaining days before a subscription instance expires.
         self.remain_days = remain_days  # type: int
 
     def validate(self):
@@ -4538,11 +5251,17 @@ class DescribeDrdsDbInstancesResponseBodyDbInstances(TeaModel):
 class DescribeDrdsDbInstancesResponseBody(TeaModel):
     def __init__(self, db_instances=None, page_number=None, page_size=None, request_id=None, success=None,
                  total=None):
+        # Indicates information about the ApsaraDB RDS for MySQL instances that are used to store the data of the specified database.
         self.db_instances = db_instances  # type: DescribeDrdsDbInstancesResponseBodyDbInstances
+        # Indicates the page number of the returned page.
         self.page_number = page_number  # type: str
+        # Indicates the number of entries returned per page.
         self.page_size = page_size  # type: str
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # Indicates the number of primary ApsaraDB RDS for MySQL instances.
         self.total = total  # type: str
 
     def validate(self):
@@ -4588,12 +5307,14 @@ class DescribeDrdsDbInstancesResponseBody(TeaModel):
 
 
 class DescribeDrdsDbInstancesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsDbInstancesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4606,6 +5327,8 @@ class DescribeDrdsDbInstancesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4614,6 +5337,8 @@ class DescribeDrdsDbInstancesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsDbInstancesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4622,7 +5347,9 @@ class DescribeDrdsDbInstancesResponse(TeaModel):
 
 class DescribeDrdsDbRdsNameListRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -4675,8 +5402,11 @@ class DescribeDrdsDbRdsNameListResponseBodyInstanceNameList(TeaModel):
 
 class DescribeDrdsDbRdsNameListResponseBody(TeaModel):
     def __init__(self, instance_name_list=None, request_id=None, success=None):
+        # Indicates the instances that are used to store the data of a database.
         self.instance_name_list = instance_name_list  # type: DescribeDrdsDbRdsNameListResponseBodyInstanceNameList
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -4710,12 +5440,14 @@ class DescribeDrdsDbRdsNameListResponseBody(TeaModel):
 
 
 class DescribeDrdsDbRdsNameListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsDbRdsNameListResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4728,6 +5460,8 @@ class DescribeDrdsDbRdsNameListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4736,251 +5470,19 @@ class DescribeDrdsDbRdsNameListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsDbRdsNameListResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class DescribeDrdsDbTasksRequest(TeaModel):
-    def __init__(self, db_name=None, drds_instance_id=None, task_type=None):
-        self.db_name = db_name  # type: str
-        self.drds_instance_id = drds_instance_id  # type: str
-        self.task_type = task_type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeDrdsDbTasksRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.db_name is not None:
-            result['DbName'] = self.db_name
-        if self.drds_instance_id is not None:
-            result['DrdsInstanceId'] = self.drds_instance_id
-        if self.task_type is not None:
-            result['TaskType'] = self.task_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DbName') is not None:
-            self.db_name = m.get('DbName')
-        if m.get('DrdsInstanceId') is not None:
-            self.drds_instance_id = m.get('DrdsInstanceId')
-        if m.get('TaskType') is not None:
-            self.task_type = m.get('TaskType')
-        return self
-
-
-class DescribeDrdsDbTasksResponseBodyTasksTask(TeaModel):
-    def __init__(self, allow_cancel=None, db_compute_length=None, detail_task_id=None, expand_type=None,
-                 gmt_create=None, label=None, parent_job_id=None, progress=None, show_progress=None, target_id=None,
-                 task_detail=None, task_name=None, task_phase=None, task_status=None, task_type=None, tb_compute_length=None):
-        self.allow_cancel = allow_cancel  # type: bool
-        self.db_compute_length = db_compute_length  # type: int
-        self.detail_task_id = detail_task_id  # type: str
-        self.expand_type = expand_type  # type: str
-        self.gmt_create = gmt_create  # type: long
-        self.label = label  # type: str
-        self.parent_job_id = parent_job_id  # type: str
-        self.progress = progress  # type: int
-        self.show_progress = show_progress  # type: bool
-        self.target_id = target_id  # type: long
-        self.task_detail = task_detail  # type: str
-        self.task_name = task_name  # type: str
-        self.task_phase = task_phase  # type: str
-        self.task_status = task_status  # type: int
-        self.task_type = task_type  # type: int
-        self.tb_compute_length = tb_compute_length  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeDrdsDbTasksResponseBodyTasksTask, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.allow_cancel is not None:
-            result['AllowCancel'] = self.allow_cancel
-        if self.db_compute_length is not None:
-            result['DbComputeLength'] = self.db_compute_length
-        if self.detail_task_id is not None:
-            result['DetailTaskId'] = self.detail_task_id
-        if self.expand_type is not None:
-            result['ExpandType'] = self.expand_type
-        if self.gmt_create is not None:
-            result['GmtCreate'] = self.gmt_create
-        if self.label is not None:
-            result['Label'] = self.label
-        if self.parent_job_id is not None:
-            result['ParentJobId'] = self.parent_job_id
-        if self.progress is not None:
-            result['Progress'] = self.progress
-        if self.show_progress is not None:
-            result['ShowProgress'] = self.show_progress
-        if self.target_id is not None:
-            result['TargetId'] = self.target_id
-        if self.task_detail is not None:
-            result['TaskDetail'] = self.task_detail
-        if self.task_name is not None:
-            result['TaskName'] = self.task_name
-        if self.task_phase is not None:
-            result['TaskPhase'] = self.task_phase
-        if self.task_status is not None:
-            result['TaskStatus'] = self.task_status
-        if self.task_type is not None:
-            result['TaskType'] = self.task_type
-        if self.tb_compute_length is not None:
-            result['TbComputeLength'] = self.tb_compute_length
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AllowCancel') is not None:
-            self.allow_cancel = m.get('AllowCancel')
-        if m.get('DbComputeLength') is not None:
-            self.db_compute_length = m.get('DbComputeLength')
-        if m.get('DetailTaskId') is not None:
-            self.detail_task_id = m.get('DetailTaskId')
-        if m.get('ExpandType') is not None:
-            self.expand_type = m.get('ExpandType')
-        if m.get('GmtCreate') is not None:
-            self.gmt_create = m.get('GmtCreate')
-        if m.get('Label') is not None:
-            self.label = m.get('Label')
-        if m.get('ParentJobId') is not None:
-            self.parent_job_id = m.get('ParentJobId')
-        if m.get('Progress') is not None:
-            self.progress = m.get('Progress')
-        if m.get('ShowProgress') is not None:
-            self.show_progress = m.get('ShowProgress')
-        if m.get('TargetId') is not None:
-            self.target_id = m.get('TargetId')
-        if m.get('TaskDetail') is not None:
-            self.task_detail = m.get('TaskDetail')
-        if m.get('TaskName') is not None:
-            self.task_name = m.get('TaskName')
-        if m.get('TaskPhase') is not None:
-            self.task_phase = m.get('TaskPhase')
-        if m.get('TaskStatus') is not None:
-            self.task_status = m.get('TaskStatus')
-        if m.get('TaskType') is not None:
-            self.task_type = m.get('TaskType')
-        if m.get('TbComputeLength') is not None:
-            self.tb_compute_length = m.get('TbComputeLength')
-        return self
-
-
-class DescribeDrdsDbTasksResponseBodyTasks(TeaModel):
-    def __init__(self, task=None):
-        self.task = task  # type: list[DescribeDrdsDbTasksResponseBodyTasksTask]
-
-    def validate(self):
-        if self.task:
-            for k in self.task:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeDrdsDbTasksResponseBodyTasks, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['Task'] = []
-        if self.task is not None:
-            for k in self.task:
-                result['Task'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.task = []
-        if m.get('Task') is not None:
-            for k in m.get('Task'):
-                temp_model = DescribeDrdsDbTasksResponseBodyTasksTask()
-                self.task.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeDrdsDbTasksResponseBody(TeaModel):
-    def __init__(self, request_id=None, success=None, tasks=None):
-        self.request_id = request_id  # type: str
-        self.success = success  # type: bool
-        self.tasks = tasks  # type: DescribeDrdsDbTasksResponseBodyTasks
-
-    def validate(self):
-        if self.tasks:
-            self.tasks.validate()
-
-    def to_map(self):
-        _map = super(DescribeDrdsDbTasksResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        if self.tasks is not None:
-            result['Tasks'] = self.tasks.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        if m.get('Tasks') is not None:
-            temp_model = DescribeDrdsDbTasksResponseBodyTasks()
-            self.tasks = temp_model.from_map(m['Tasks'])
-        return self
-
-
-class DescribeDrdsDbTasksResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeDrdsDbTasksResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeDrdsDbTasksResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeDrdsDbTasksResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class DescribeDrdsInstanceRequest(TeaModel):
     def __init__(self, drds_instance_id=None, region_id=None):
+        # The ID of the instance that you want to query.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region in which the instance is created.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5033,11 +5535,17 @@ class DescribeDrdsInstanceResponseBodyDataReadOnlyDBInstanceIds(TeaModel):
 
 class DescribeDrdsInstanceResponseBodyDataVipsVip(TeaModel):
     def __init__(self, dns=None, expire_days=None, port=None, type=None, vpc_id=None, vswitch_id=None):
+        # The domain name that is mapped to the VIP.
         self.dns = dns  # type: str
+        # The number of remaining days before the VIP expires.
         self.expire_days = expire_days  # type: long
+        # The ports that are opened on the VIP.
         self.port = port  # type: str
+        # The type of the VIP. Valid values: intranet and internet.
         self.type = type  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # The ID of the vSwitch.
         self.vswitch_id = vswitch_id  # type: str
 
     def validate(self):
@@ -5118,31 +5626,67 @@ class DescribeDrdsInstanceResponseBodyData(TeaModel):
                  master_instance_id=None, mysql_version=None, network_type=None, order_instance_id=None, product_version=None,
                  read_only_dbinstance_ids=None, region_id=None, resource_group_id=None, status=None, storage_type=None, type=None,
                  version=None, version_action=None, vips=None, vpc_cloud_instance_id=None, zone_id=None):
+        # The commodity code of the instance.
         self.commodity_code = commodity_code  # type: str
+        # The timestamp that indicates when the instance is created.
         self.create_time = create_time  # type: long
+        # The description of the instance.
         self.description = description  # type: str
+        # The ID of the instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The timestamp that indicates when the instance expires.
         self.expire_date = expire_date  # type: long
+        # The role of the instance. Valid values:
+        # 
+        # *   **MASTER**: The instance is a primary instance.
+        # *   **SLAVE**: The instance is a read-only instance to analyze complex queries
+        # *   **SLAVE_FLOW**: The instance is a read-only instance for high-concurrency scenarios
         self.inst_role = inst_role  # type: str
+        # The instance series of the instance.
         self.instance_series = instance_series  # type: str
+        # The specification of the instance.
         self.instance_spec = instance_spec  # type: str
+        # The tag of the instance. Valid values:
+        # 
+        # *   **NORMAL**: The instance is a standard instance.
+        # *   **HA**: The instance is a high-availability (HA) instance.
+        # *   **VPC**: The instance is a VPC-based instance.
         self.label = label  # type: str
+        # The machine type of the instance. The value of this parameter is **ecs**.
         self.machine_type = machine_type  # type: str
+        # The ID of the primary instance.
+        # 
+        # >  This parameter is returned only when the instance is a primary instance.
         self.master_instance_id = master_instance_id  # type: str
+        # The MySQL version that is supported by the instance.
         self.mysql_version = mysql_version  # type: int
+        # The network type of the instance. Valid values: CLASSIC and VPC.
         self.network_type = network_type  # type: str
+        # The ID of the purchased instance.
         self.order_instance_id = order_instance_id  # type: str
+        # The version of .
         self.product_version = product_version  # type: str
+        # The details about each read-only instance that is associated with the instance.
         self.read_only_dbinstance_ids = read_only_dbinstance_ids  # type: DescribeDrdsInstanceResponseBodyDataReadOnlyDBInstanceIds
+        # The ID of the region in which the instance is created.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the instance belongs. The value of this parameter can be null.
         self.resource_group_id = resource_group_id  # type: str
+        # The state of the instance.
         self.status = status  # type: str
+        # The type of the instance used for storage.
         self.storage_type = storage_type  # type: str
+        # The type of the instance. Valid values: PRIVATE and PUBLIC. The value of PRIVATE indicates that the instance is a dedicated instance. The value of PUBLIC indicates that the instance is a shared instance.
         self.type = type  # type: str
+        # The version of the instance. The value of this parameter is 0.
         self.version = version  # type: long
+        # Indicates whether the version of the instance can be upgraded.
         self.version_action = version_action  # type: str
+        # The list of returned virtual IP addresses (VIPs).
         self.vips = vips  # type: DescribeDrdsInstanceResponseBodyDataVips
+        # The ID of the instance that is deployed in the VPC.
         self.vpc_cloud_instance_id = vpc_cloud_instance_id  # type: str
+        # The ID of the zone in which the instance is located.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -5272,8 +5816,11 @@ class DescribeDrdsInstanceResponseBodyData(TeaModel):
 
 class DescribeDrdsInstanceResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # The details of the instance.
         self.data = data  # type: DescribeDrdsInstanceResponseBodyData
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5307,12 +5854,14 @@ class DescribeDrdsInstanceResponseBody(TeaModel):
 
 
 class DescribeDrdsInstanceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsInstanceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5325,6 +5874,8 @@ class DescribeDrdsInstanceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5333,6 +5884,8 @@ class DescribeDrdsInstanceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5341,11 +5894,19 @@ class DescribeDrdsInstanceResponse(TeaModel):
 
 class DescribeDrdsInstanceDbMonitorRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, end_time=None, key=None, region_id=None, start_time=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the Distributed Relational Database Service (DRDS) instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The end time. Specify the time in the UNIX timestamp format. The time must be in UTC. Unit: ms.
         self.end_time = end_time  # type: long
+        # The performance monitoring metrics. You can specify one or more metrics for a query at a time. Separate multiple metric parameters with commas (,).
+        # 
+        # >  For more information about the details of performance monitoring metrics, see [Database monitoring](~~186704~~).
         self.key = key  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The start time. Specify the time in the UNIX timestamp format. The time must be in UTC. Unit: ms.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -5390,7 +5951,9 @@ class DescribeDrdsInstanceDbMonitorRequest(TeaModel):
 
 class DescribeDrdsInstanceDbMonitorResponseBodyDataValues(TeaModel):
     def __init__(self, date=None, value=None):
+        # The time point when the value of monitoring data was obtained. The value is in the UNIX timestamp format. Unit: ms.
         self.date = date  # type: long
+        # The data value.
         self.value = value  # type: str
 
     def validate(self):
@@ -5419,8 +5982,11 @@ class DescribeDrdsInstanceDbMonitorResponseBodyDataValues(TeaModel):
 
 class DescribeDrdsInstanceDbMonitorResponseBodyData(TeaModel):
     def __init__(self, key=None, unit=None, values=None):
+        # The name of the monitoring metric.
         self.key = key  # type: str
+        # The unit of the monitoring metric.
         self.unit = unit  # type: str
+        # The details about the value of monitoring data.
         self.values = values  # type: list[DescribeDrdsInstanceDbMonitorResponseBodyDataValues]
 
     def validate(self):
@@ -5461,8 +6027,11 @@ class DescribeDrdsInstanceDbMonitorResponseBodyData(TeaModel):
 
 class DescribeDrdsInstanceDbMonitorResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # The list of monitoring data.
         self.data = data  # type: list[DescribeDrdsInstanceDbMonitorResponseBodyData]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5502,12 +6071,14 @@ class DescribeDrdsInstanceDbMonitorResponseBody(TeaModel):
 
 
 class DescribeDrdsInstanceDbMonitorResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsInstanceDbMonitorResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5520,6 +6091,8 @@ class DescribeDrdsInstanceDbMonitorResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5528,6 +6101,8 @@ class DescribeDrdsInstanceDbMonitorResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsInstanceDbMonitorResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5536,6 +6111,7 @@ class DescribeDrdsInstanceDbMonitorResponse(TeaModel):
 
 class DescribeDrdsInstanceLevelTasksRequest(TeaModel):
     def __init__(self, drds_instance_id=None):
+        # The ID of the PolarDB-X 1.0 instance of which the unfinished tasks you want to query.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -5561,16 +6137,32 @@ class DescribeDrdsInstanceLevelTasksRequest(TeaModel):
 class DescribeDrdsInstanceLevelTasksResponseBodyTasksTask(TeaModel):
     def __init__(self, allow_cancel=None, err_msg=None, gmt_create=None, progress=None, progress_description=None,
                  show_progress=None, target_id=None, task_name=None, task_phase=None, task_status=None, task_type=None):
+        # Indicates whether the task can be canceled.
         self.allow_cancel = allow_cancel  # type: bool
+        # The error message returned for the task.
         self.err_msg = err_msg  # type: str
+        # The timestamp when the task is created.
         self.gmt_create = gmt_create  # type: long
+        # The progress of the task. Valid values: 0 to 100.
         self.progress = progress  # type: int
+        # The description of the task progress.
         self.progress_description = progress_description  # type: str
+        # Indicates whether the progress of the task is displayed.
         self.show_progress = show_progress  # type: bool
+        # The ID of the task.
         self.target_id = target_id  # type: long
+        # The name of the task.
         self.task_name = task_name  # type: str
+        # The phase of the task.
         self.task_phase = task_phase  # type: str
+        # The state of the task. Valid values:
+        # 
+        # *   0: The task is being executed.
+        # *   1: The task is executed.
+        # *   2: The task failed to be executed.
+        # *   3: The task is canceled.
         self.task_status = task_status  # type: int
+        # The type of the task.
         self.task_type = task_type  # type: int
 
     def validate(self):
@@ -5667,8 +6259,11 @@ class DescribeDrdsInstanceLevelTasksResponseBodyTasks(TeaModel):
 
 class DescribeDrdsInstanceLevelTasksResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None, tasks=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # The list of returned unfinished tasks.
         self.tasks = tasks  # type: DescribeDrdsInstanceLevelTasksResponseBodyTasks
 
     def validate(self):
@@ -5702,12 +6297,14 @@ class DescribeDrdsInstanceLevelTasksResponseBody(TeaModel):
 
 
 class DescribeDrdsInstanceLevelTasksResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsInstanceLevelTasksResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5720,6 +6317,8 @@ class DescribeDrdsInstanceLevelTasksResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5728,6 +6327,8 @@ class DescribeDrdsInstanceLevelTasksResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsInstanceLevelTasksResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5737,11 +6338,21 @@ class DescribeDrdsInstanceLevelTasksResponse(TeaModel):
 class DescribeDrdsInstanceMonitorRequest(TeaModel):
     def __init__(self, drds_instance_id=None, end_time=None, key=None, period_multiple=None, region_id=None,
                  start_time=None):
+        # The ID of the instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The end time of the query. Specify the value in the UNIX timestamp format. The timestamp must be in UTC. Unit: ms.
+        # 
+        # >  If the time range that you specify is less than 1 hour, the monitoring data that is collected in a 1-hour period before the end time is returned.
         self.end_time = end_time  # type: long
+        # The performance monitoring metrics. You can specify one or more metrics. Separate multiple metric names with commas (,).
+        # 
+        # >  For more information about performance monitoring metrics, see [Monitor instances](~~186703~~).
         self.key = key  # type: str
+        # The multiple of the default time interval that you want to use to collect monitoring data. By default, the system collects monitoring data of resources at an interval of 1 minute. If you set the value of this parameter to 2, the system collects monitoring data of the instance at an interval of 2 minutes.
         self.period_multiple = period_multiple  # type: int
+        # The ID of the region where the instance is deployed.
         self.region_id = region_id  # type: str
+        # The start time of the query. Specify the value in the UNIX timestamp format. The timestamp must be in UTC. Unit: ms.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -5786,7 +6397,9 @@ class DescribeDrdsInstanceMonitorRequest(TeaModel):
 
 class DescribeDrdsInstanceMonitorResponseBodyDataValues(TeaModel):
     def __init__(self, date=None, value=None):
+        # The point in time when the value of the metric was collected. The value is in the UNIX timestamp format. The timestamp is displayed in UTC. Unit: ms.
         self.date = date  # type: long
+        # The value of the metric.
         self.value = value  # type: str
 
     def validate(self):
@@ -5815,9 +6428,13 @@ class DescribeDrdsInstanceMonitorResponseBodyDataValues(TeaModel):
 
 class DescribeDrdsInstanceMonitorResponseBodyData(TeaModel):
     def __init__(self, key=None, node_num=None, unit=None, values=None):
+        # The name of the metric.
         self.key = key  # type: str
+        # The number of nodes.
         self.node_num = node_num  # type: int
+        # The unit of the metric value.
         self.unit = unit  # type: str
+        # The details of the monitoring data of the metric.
         self.values = values  # type: list[DescribeDrdsInstanceMonitorResponseBodyDataValues]
 
     def validate(self):
@@ -5862,7 +6479,9 @@ class DescribeDrdsInstanceMonitorResponseBodyData(TeaModel):
 
 class DescribeDrdsInstanceMonitorResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The result set of the query.
         self.data = data  # type: list[DescribeDrdsInstanceMonitorResponseBodyData]
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5898,12 +6517,14 @@ class DescribeDrdsInstanceMonitorResponseBody(TeaModel):
 
 
 class DescribeDrdsInstanceMonitorResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsInstanceMonitorResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5916,6 +6537,8 @@ class DescribeDrdsInstanceMonitorResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5924,6 +6547,8 @@ class DescribeDrdsInstanceMonitorResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsInstanceMonitorResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5932,7 +6557,9 @@ class DescribeDrdsInstanceMonitorResponse(TeaModel):
 
 class DescribeDrdsInstanceVersionRequest(TeaModel):
     def __init__(self, drds_instance_id=None, region_id=None):
+        # The ID of the PolarDB-X 1.0 instance whose version you want to query.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5961,7 +6588,9 @@ class DescribeDrdsInstanceVersionRequest(TeaModel):
 
 class DescribeDrdsInstanceVersionResponseBodyData(TeaModel):
     def __init__(self, instance_version=None, newest_version=None):
+        # The current version of the instance.
         self.instance_version = instance_version  # type: str
+        # The latest version of the instance.
         self.newest_version = newest_version  # type: str
 
     def validate(self):
@@ -5990,8 +6619,11 @@ class DescribeDrdsInstanceVersionResponseBodyData(TeaModel):
 
 class DescribeDrdsInstanceVersionResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # The details about the instance version.
         self.data = data  # type: DescribeDrdsInstanceVersionResponseBodyData
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -6025,12 +6657,14 @@ class DescribeDrdsInstanceVersionResponseBody(TeaModel):
 
 
 class DescribeDrdsInstanceVersionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsInstanceVersionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6043,6 +6677,8 @@ class DescribeDrdsInstanceVersionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6051,6 +6687,8 @@ class DescribeDrdsInstanceVersionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsInstanceVersionResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6059,7 +6697,9 @@ class DescribeDrdsInstanceVersionResponse(TeaModel):
 
 class DescribeDrdsInstancesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag configured for the instances you want to query.
         self.key = key  # type: str
+        # The value of the tag configured for the instances you want to query.
         self.value = value  # type: str
 
     def validate(self):
@@ -6089,15 +6729,27 @@ class DescribeDrdsInstancesRequestTag(TeaModel):
 class DescribeDrdsInstancesRequest(TeaModel):
     def __init__(self, description=None, expired=None, mix=None, page_number=None, page_size=None,
                  product_version=None, region_id=None, resource_group_id=None, tag=None, type=None):
+        # The description of the instances.
         self.description = description  # type: str
+        # Specifies whether the instances that you want to query expire.
         self.expired = expired  # type: bool
+        # Specifies whether hybrid queries are supported.
         self.mix = mix  # type: bool
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of instances returned on each page.
         self.page_size = page_size  # type: int
+        # The version of the service.
         self.product_version = product_version  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the instances you want to query belong. The value of this parameter can be NULL.
         self.resource_group_id = resource_group_id  # type: str
         self.tag = tag  # type: list[DescribeDrdsInstancesRequestTag]
+        # The type of the instances that you want to query. Valid values:
+        # 
+        # *   **0**: shared instances
+        # *   **1**: dedicated instances
         self.type = type  # type: str
 
     def validate(self):
@@ -6189,12 +6841,22 @@ class DescribeDrdsInstancesResponseBodyInstancesInstanceReadOnlyDBInstanceIds(Te
 
 
 class DescribeDrdsInstancesResponseBodyInstancesInstanceVipsVip(TeaModel):
-    def __init__(self, ip=None, port=None, type=None, vpc_id=None, vswitch_id=None):
+    def __init__(self, ip=None, port=None, type=None, vpc_id=None, vswitch_id=None, dns=None):
+        # The virtual IP address.
         self.ip = ip  # type: str
+        # The ports that are opened on the VIP.
         self.port = port  # type: str
+        # The type of the VIP. Valid values:
+        # 
+        # *   intranet: a private IP address
+        # *   internet: a public IP address
         self.type = type  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # The ID of the vSwitch.
         self.vswitch_id = vswitch_id  # type: str
+        # The domain name that is mapped to the VIP.
+        self.dns = dns  # type: str
 
     def validate(self):
         pass
@@ -6215,6 +6877,8 @@ class DescribeDrdsInstancesResponseBodyInstancesInstanceVipsVip(TeaModel):
             result['VpcId'] = self.vpc_id
         if self.vswitch_id is not None:
             result['VswitchId'] = self.vswitch_id
+        if self.dns is not None:
+            result['dns'] = self.dns
         return result
 
     def from_map(self, m=None):
@@ -6229,6 +6893,8 @@ class DescribeDrdsInstancesResponseBodyInstancesInstanceVipsVip(TeaModel):
             self.vpc_id = m.get('VpcId')
         if m.get('VswitchId') is not None:
             self.vswitch_id = m.get('VswitchId')
+        if m.get('dns') is not None:
+            self.dns = m.get('dns')
         return self
 
 
@@ -6269,32 +6935,77 @@ class DescribeDrdsInstancesResponseBodyInstancesInstance(TeaModel):
                  expire_date=None, inst_role=None, instance_series=None, instance_spec=None, label=None, machine_type=None,
                  master_instance_id=None, network_type=None, order_instance_id=None, product_version=None,
                  read_only_dbinstance_ids=None, region_id=None, resource_group_id=None, status=None, type=None, version=None,
-                 version_action=None, vips=None, vpc_cloud_instance_id=None, vpc_id=None, zone_id=None):
+                 version_action=None, vips=None, vpc_cloud_instance_id=None, vpc_id=None, zone_id=None, series=None):
+        # The commodity code of the service.
         self.commodity_code = commodity_code  # type: str
+        # The timestamp that indicates when the instance is created.
         self.create_time = create_time  # type: long
+        # The description of the instance.
         self.description = description  # type: str
+        # The ID of the instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The timestamp that indicates when the instance expires.
         self.expire_date = expire_date  # type: long
+        # The role of the instance. Valid values:
+        # 
+        # *   MASTER: The instance is a primary instance.
+        # *   SLAVE: The instance is a read-only instance to analyze complex queries.
+        # *   SLAVE_FLOW: The instance is a read-only instance for high-concurrency scenarios.
         self.inst_role = inst_role  # type: str
+        # The instance series.
         self.instance_series = instance_series  # type: str
+        # The specification of the instance.
         self.instance_spec = instance_spec  # type: str
+        # The tag of the instance. Valid values:
+        # 
+        # *   **NORMAL**: The instance is a standard instance.
+        # *   **HA**: The instance is a high-availability (HA) instance.
+        # *   **VPC**: The instance is a VPC-based instance.
         self.label = label  # type: str
+        # The machine type of the instance. Valid value: ecs.
         self.machine_type = machine_type  # type: str
+        # The ID of the primary instance.
         self.master_instance_id = master_instance_id  # type: str
+        # The network type of the instance. Valid values:
+        # 
+        # *   **CLASSIC**\
+        # *   **VPC**\
         self.network_type = network_type  # type: str
+        # The ID of the purchased instance.
         self.order_instance_id = order_instance_id  # type: str
+        # The version of the service.
         self.product_version = product_version  # type: str
+        # The IDs of read-only instances that are associated with the instance.
         self.read_only_dbinstance_ids = read_only_dbinstance_ids  # type: DescribeDrdsInstancesResponseBodyInstancesInstanceReadOnlyDBInstanceIds
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the instance belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # The status of the instance.
         self.status = status  # type: str
+        # The type of the instance. Valid values:
+        # 
+        # *   **PUBLIC**: The returned instance is a shared instance.
+        # *   **PRIVATE**: The returned instance is a dedicated instance.
         self.type = type  # type: str
+        # The version of the instance.
         self.version = version  # type: long
+        # Indicates whether the version of the instance can be upgraded.
         self.version_action = version_action  # type: str
+        # The list of returned virtual IP addresses (VIPs).
         self.vips = vips  # type: DescribeDrdsInstancesResponseBodyInstancesInstanceVips
+        # The ID of the instance that is deployed in the VPC.
         self.vpc_cloud_instance_id = vpc_cloud_instance_id  # type: str
+        # The ID of the VPC to which the instance belongs.
         self.vpc_id = vpc_id  # type: str
+        # The ID of the zone in which the resource is located.
         self.zone_id = zone_id  # type: str
+        # The edition of the instance. Valid values:
+        # 
+        # *   **starter**: Starter Edition
+        # *   **enterprise**: Enterprise Edition
+        # *   **standard**: Standard Edition
+        self.series = series  # type: str
 
     def validate(self):
         if self.read_only_dbinstance_ids:
@@ -6358,6 +7069,8 @@ class DescribeDrdsInstancesResponseBodyInstancesInstance(TeaModel):
             result['VpcId'] = self.vpc_id
         if self.zone_id is not None:
             result['ZoneId'] = self.zone_id
+        if self.series is not None:
+            result['series'] = self.series
         return result
 
     def from_map(self, m=None):
@@ -6414,6 +7127,8 @@ class DescribeDrdsInstancesResponseBodyInstancesInstance(TeaModel):
             self.vpc_id = m.get('VpcId')
         if m.get('ZoneId') is not None:
             self.zone_id = m.get('ZoneId')
+        if m.get('series') is not None:
+            self.series = m.get('series')
         return self
 
 
@@ -6451,10 +7166,15 @@ class DescribeDrdsInstancesResponseBodyInstances(TeaModel):
 
 class DescribeDrdsInstancesResponseBody(TeaModel):
     def __init__(self, instances=None, page_number=None, page_size=None, request_id=None, total=None):
+        # The list of returned instances.
         self.instances = instances  # type: DescribeDrdsInstancesResponseBodyInstances
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of instances returned on each page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of instances returned.
         self.total = total  # type: int
 
     def validate(self):
@@ -6496,12 +7216,14 @@ class DescribeDrdsInstancesResponseBody(TeaModel):
 
 
 class DescribeDrdsInstancesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsInstancesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6514,6 +7236,8 @@ class DescribeDrdsInstancesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6522,6 +7246,8 @@ class DescribeDrdsInstancesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsInstancesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6530,9 +7256,16 @@ class DescribeDrdsInstancesResponse(TeaModel):
 
 class DescribeDrdsParamsRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, param_level=None, region_id=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The type of nodes whose parameters you want to query. Valid values:
+        # 
+        # *   **INSTANCE: the instance level.**\
+        # *   **DB**: the database level.
         self.param_level = param_level  # type: str
+        # The ID of the region where the PolarDB-X 1.0 instance is created.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -6571,16 +7304,27 @@ class DescribeDrdsParamsResponseBodyList(TeaModel):
     def __init__(self, db_name=None, need_restart=None, param_default_value=None, param_desc=None,
                  param_english_name=None, param_level=None, param_name=None, param_ranges=None, param_type=None, param_value=None,
                  param_variable_name=None):
+        # Indicates the name of the database.
         self.db_name = db_name  # type: str
+        # Indicates whether a restart is required.
         self.need_restart = need_restart  # type: bool
+        # Indicates the default value of a parameter.
         self.param_default_value = param_default_value  # type: str
+        # Indicates the description of the parameter.
         self.param_desc = param_desc  # type: str
+        # Indicates the name of the parameter.
         self.param_english_name = param_english_name  # type: str
+        # Indicates the parameter level.
         self.param_level = param_level  # type: str
+        # Indicates the name of the parameter.
         self.param_name = param_name  # type: str
+        # Indicates the value range of the parameter.
         self.param_ranges = param_ranges  # type: str
+        # Indicates the type of the parameter.
         self.param_type = param_type  # type: str
+        # Indicates the value of the parameter.
         self.param_value = param_value  # type: str
+        # Indicates the name of the variable.
         self.param_variable_name = param_variable_name  # type: str
 
     def validate(self):
@@ -6645,8 +7389,11 @@ class DescribeDrdsParamsResponseBodyList(TeaModel):
 
 class DescribeDrdsParamsResponseBody(TeaModel):
     def __init__(self, list=None, request_id=None, success=None):
+        # Indicates information about parameters.
         self.list = list  # type: list[DescribeDrdsParamsResponseBodyList]
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -6686,12 +7433,14 @@ class DescribeDrdsParamsResponseBody(TeaModel):
 
 
 class DescribeDrdsParamsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsParamsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6704,6 +7453,8 @@ class DescribeDrdsParamsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6712,6 +7463,8 @@ class DescribeDrdsParamsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsParamsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6720,6 +7473,9 @@ class DescribeDrdsParamsResponse(TeaModel):
 
 class DescribeDrdsRdsInstancesRequest(TeaModel):
     def __init__(self, drds_instance_id=None):
+        # The ID of the PolarDB-X instance.
+        # 
+        # > You can call the [DescribeDrdsInstances](~~139284~~) operation to query the information about instances in the specified account, such as the IDs of the instances.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -6745,23 +7501,84 @@ class DescribeDrdsRdsInstancesRequest(TeaModel):
 class DescribeDrdsRdsInstancesResponseBodyDbInstancesDbInstance(TeaModel):
     def __init__(self, connect_url=None, dbinstance_cpu=None, dbinstance_class_type=None, dbinstance_id=None,
                  dbinstance_memory=None, dbinstance_status=None, dbinstance_storage=None, db_inst_type=None, dm_instance_id=None,
-                 engine=None, engine_version=None, network_type=None, pay_type=None, port=None, rds_inst_type=None,
-                 read_weight=None):
+                 engine=None, engine_version=None, lock_mode=None, lock_reason=None, network_type=None, pay_type=None,
+                 port=None, rds_inst_type=None, read_weight=None):
+        # The internal endpoint of the custom ApsaraDB RDS for MySQL instance at the storage layer.
         self.connect_url = connect_url  # type: str
+        # The number of CPU cores of the custom ApsaraDB RDS for MySQL instance at the storage layer.
         self.dbinstance_cpu = dbinstance_cpu  # type: str
+        # The instance family of the custom ApsaraDB RDS for MySQL instance at the storage layer. Valid values:
+        # 
+        # *   **x**: general-purpose instance family
+        # *   **d**: dedicated instance family
+        # *   **h**: dedicated host instance family
         self.dbinstance_class_type = dbinstance_class_type  # type: str
+        # The ID of the custom ApsaraDB RDS for MySQL instance at the storage layer.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The memory size of the custom ApsaraDB RDS for MySQL instance at the storage layer. Unit: MB.
         self.dbinstance_memory = dbinstance_memory  # type: long
+        # The status of the custom ApsaraDB RDS for MySQL instance at the storage layer. Valid values:
+        # 
+        # *   0: The instance is being created.
+        # *   1: The instance is running.
+        # *   3: The instance is being deleted.
+        # *   5: The instance is being restarted.
+        # *   6: The instance is being upgraded or downgraded.
+        # *   7: The instance is being backed up.
+        # *   8: The network type of the instance is being changed.
+        # *   9: The instance is being migrated.
+        # *   11: The data stored on the instance is being migrated.
+        # *   12: A disaster recovery instance is being generated.
+        # *   13: Data is being imported to the instance.
+        # *   14: Data is being imported from another RDS instance to the instance.
+        # *   15: A switchover is being performed.
+        # *   16: A temporary instance is being created.
+        # *   17: The network of the instance is being created.
+        # *   18: The instance is being cloned.
+        # *   19: The link is being changed.
+        # *   20: The read-only RDS instances of the instance are being migrated.
         self.dbinstance_status = dbinstance_status  # type: str
+        # The storage space of the custom ApsaraDB RDS for MySQL instance at the storage layer. Unit: GB.
         self.dbinstance_storage = dbinstance_storage  # type: long
+        # The type of the instance at the storage layer. The value is RDS.
         self.db_inst_type = db_inst_type  # type: str
+        # The ID of the resource.
         self.dm_instance_id = dm_instance_id  # type: str
+        # The engine type of the custom ApsaraDB RDS for MySQL instance at the storage layer. The value is MySQL.
         self.engine = engine  # type: str
+        # The engine version of the custom ApsaraDB RDS for MySQL instance at the storage layer. The value is 8.0.
         self.engine_version = engine_version  # type: str
+        # The lock mode of the RDS instance. Valid values:
+        # 
+        # 0: The instance is not locked.
+        # 
+        # 1: The instance is manually locked.
+        # 
+        # 2: The instance is automatically locked if the instance expires.
+        # 
+        # 3: The instance is automatically locked if the instance is rolled back.
+        # 
+        # 4: The instance is automatically locked if the storage space of the instance reaches the upper limit.
+        # 
+        # 5: The instance is automatically locked if the storage space of the read-only instances reaches the upper limit.
+        self.lock_mode = lock_mode  # type: int
+        # The reason why the RDS instance is locked.
+        self.lock_reason = lock_reason  # type: str
+        # The network type of the custom ApsaraDB RDS for MySQL instance at the storage layer. The value is VPC.
         self.network_type = network_type  # type: str
+        # The billing method of the custom ApsaraDB RDS for MySQL instance at the storage layer. Valid values:
+        # 
+        # *   Postpaid: pay-as-you-go
+        # *   Prepaid: subscription
         self.pay_type = pay_type  # type: str
+        # The port used to connect to the instance over an internal network.
         self.port = port  # type: int
+        # The type of the custom ApsaraDB RDS for MySQL instance at the storage layer. Valid values:
+        # 
+        # *   Primary: primary instance
+        # *   Readonly: read-only instance
         self.rds_inst_type = rds_inst_type  # type: str
+        # The read and write weights of the custom ApsaraDB RDS for MySQL instance at the storage layer.
         self.read_weight = read_weight  # type: int
 
     def validate(self):
@@ -6795,6 +7612,10 @@ class DescribeDrdsRdsInstancesResponseBodyDbInstancesDbInstance(TeaModel):
             result['Engine'] = self.engine
         if self.engine_version is not None:
             result['EngineVersion'] = self.engine_version
+        if self.lock_mode is not None:
+            result['LockMode'] = self.lock_mode
+        if self.lock_reason is not None:
+            result['LockReason'] = self.lock_reason
         if self.network_type is not None:
             result['NetworkType'] = self.network_type
         if self.pay_type is not None:
@@ -6831,6 +7652,10 @@ class DescribeDrdsRdsInstancesResponseBodyDbInstancesDbInstance(TeaModel):
             self.engine = m.get('Engine')
         if m.get('EngineVersion') is not None:
             self.engine_version = m.get('EngineVersion')
+        if m.get('LockMode') is not None:
+            self.lock_mode = m.get('LockMode')
+        if m.get('LockReason') is not None:
+            self.lock_reason = m.get('LockReason')
         if m.get('NetworkType') is not None:
             self.network_type = m.get('NetworkType')
         if m.get('PayType') is not None:
@@ -6878,8 +7703,11 @@ class DescribeDrdsRdsInstancesResponseBodyDbInstances(TeaModel):
 
 class DescribeDrdsRdsInstancesResponseBody(TeaModel):
     def __init__(self, db_instances=None, request_id=None, success=None):
+        # The information about the custom ApsaraDB RDS for MySQL instances at the storage layer.
         self.db_instances = db_instances  # type: DescribeDrdsRdsInstancesResponseBodyDbInstances
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -6913,12 +7741,14 @@ class DescribeDrdsRdsInstancesResponseBody(TeaModel):
 
 
 class DescribeDrdsRdsInstancesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsRdsInstancesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6931,6 +7761,8 @@ class DescribeDrdsRdsInstancesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6939,6 +7771,8 @@ class DescribeDrdsRdsInstancesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsRdsInstancesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6947,10 +7781,15 @@ class DescribeDrdsRdsInstancesResponse(TeaModel):
 
 class DescribeDrdsShardingDbsRequest(TeaModel):
     def __init__(self, db_name=None, db_name_pattern=None, drds_instance_id=None, page_number=None, page_size=None):
+        # The name of the database whose shards you want to query.
         self.db_name = db_name  # type: str
+        # The matching pattern of the database name.
         self.db_name_pattern = db_name_pattern  # type: str
+        # The ID of the PolarDB-X 1.0 instance whose database shards you want to query.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The page number of the returned page.
         self.page_number = page_number  # type: long
+        # The number of database shards returned on each page.
         self.page_size = page_size  # type: long
 
     def validate(self):
@@ -6993,18 +7832,31 @@ class DescribeDrdsShardingDbsResponseBodyShardingDbsShardingDb(TeaModel):
     def __init__(self, blocking_timeout=None, connect_url=None, connection_properties=None, db_instance_id=None,
                  db_status=None, db_type=None, group_name=None, idle_time_out=None, max_pool_size=None, min_pool_size=None,
                  prepared_statement_cache_size=None, sharding_db_name=None, user_name=None):
+        # The timeout period for a transaction to wait for the release of the data lock.
         self.blocking_timeout = blocking_timeout  # type: int
+        # The URL that is used to access the Apsara RDS for MySQL instance.
         self.connect_url = connect_url  # type: str
+        # The properties of the connection string.
         self.connection_properties = connection_properties  # type: str
+        # The ID of the Apsara RDS for MySQL instance that is used as the storage of the database shard.
         self.db_instance_id = db_instance_id  # type: str
+        # The status of the database.
         self.db_status = db_status  # type: str
+        # The engine of the database.
         self.db_type = db_type  # type: str
+        # The name of group on which the database shard is stored.
         self.group_name = group_name  # type: str
+        # The timeout period of an idle connection.
         self.idle_time_out = idle_time_out  # type: int
+        # The maximum size of the connection pool.
         self.max_pool_size = max_pool_size  # type: int
+        # The minimum size of the connection pool.
         self.min_pool_size = min_pool_size  # type: int
+        # The size of cache for the returned results.
         self.prepared_statement_cache_size = prepared_statement_cache_size  # type: int
+        # The name of the database shard.
         self.sharding_db_name = sharding_db_name  # type: str
+        # The username that is used to connect to the ApsaraDB RDS for MySQL instance.
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -7110,11 +7962,17 @@ class DescribeDrdsShardingDbsResponseBodyShardingDbs(TeaModel):
 class DescribeDrdsShardingDbsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, sharding_dbs=None, success=None,
                  total=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: str
+        # The number of database shards returned per page.
         self.page_size = page_size  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The list of returned database shards.
         self.sharding_dbs = sharding_dbs  # type: DescribeDrdsShardingDbsResponseBodyShardingDbs
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # The number of returned database shards.
         self.total = total  # type: str
 
     def validate(self):
@@ -7160,12 +8018,14 @@ class DescribeDrdsShardingDbsResponseBody(TeaModel):
 
 
 class DescribeDrdsShardingDbsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsShardingDbsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7178,6 +8038,8 @@ class DescribeDrdsShardingDbsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7186,6 +8048,8 @@ class DescribeDrdsShardingDbsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsShardingDbsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7195,12 +8059,19 @@ class DescribeDrdsShardingDbsResponse(TeaModel):
 class DescribeDrdsSlowSqlsRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, end_time=None, exe_time=None, page_number=None,
                  page_size=None, start_time=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The start time of the SQL query. Specify the time in the UNIX timestamp format. The time must be in UTC. Unit: ms.
         self.end_time = end_time  # type: long
+        # The SQL execution time. Unit: ms.
         self.exe_time = exe_time  # type: long
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The end time of the SQL query. Specify the time in the UNIX timestamp format. The time must be in UTC. Unit: ms.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -7249,10 +8120,15 @@ class DescribeDrdsSlowSqlsRequest(TeaModel):
 
 class DescribeDrdsSlowSqlsResponseBodyItemsItem(TeaModel):
     def __init__(self, host=None, response_time=None, schema=None, send_time=None, sql=None):
+        # Indicates the IP address of the execution machine.
         self.host = host  # type: str
+        # Indicates the response time. Unit: ms.
         self.response_time = response_time  # type: long
+        # Indicates the name of the database.
         self.schema = schema  # type: str
+        # Indicates the time when the slow SQL query was sent. Unit: ms.
         self.send_time = send_time  # type: long
+        # Indicates the content of the slow SQL query.
         self.sql = sql  # type: str
 
     def validate(self):
@@ -7325,11 +8201,17 @@ class DescribeDrdsSlowSqlsResponseBodyItems(TeaModel):
 
 class DescribeDrdsSlowSqlsResponseBody(TeaModel):
     def __init__(self, items=None, page_number=None, page_size=None, request_id=None, success=None, total=None):
+        # Indicates the details of the slow SQL query.
         self.items = items  # type: DescribeDrdsSlowSqlsResponseBodyItems
+        # Indicates the page number of the returned page.
         self.page_number = page_number  # type: int
+        # Indicates the number of entries returned on each page.
         self.page_size = page_size  # type: int
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # Indicates the total number of entries.
         self.total = total  # type: int
 
     def validate(self):
@@ -7375,12 +8257,14 @@ class DescribeDrdsSlowSqlsResponseBody(TeaModel):
 
 
 class DescribeDrdsSlowSqlsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsSlowSqlsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7393,6 +8277,8 @@ class DescribeDrdsSlowSqlsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7401,6 +8287,8 @@ class DescribeDrdsSlowSqlsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsSlowSqlsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7409,6 +8297,7 @@ class DescribeDrdsSlowSqlsResponse(TeaModel):
 
 class DescribeDrdsSqlAuditStatusRequest(TeaModel):
     def __init__(self, drds_instance_id=None):
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -7434,12 +8323,25 @@ class DescribeDrdsSqlAuditStatusRequest(TeaModel):
 class DescribeDrdsSqlAuditStatusResponseBodyDataData(TeaModel):
     def __init__(self, db_name=None, detailed=None, enabled=None, extra_ali_uid=None, extra_sls_log_store=None,
                  extra_sls_project=None, extra_write_enabled=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # Indicates whether the complete report of the SQL audit is supported. Valid values: true and false.
         self.detailed = detailed  # type: str
+        # Indicates whether the SQL audit feature is enabled for the database. Valid values: true and false.
         self.enabled = enabled  # type: str
+        # The UID of the external delivery.
+        # 
+        # > This parameter is returned only if external log delivery is enabled.
         self.extra_ali_uid = extra_ali_uid  # type: long
+        # The Log Service Logstore from which logs are delivered.
+        # 
+        # > This parameter is returned only if external log delivery is enabled.
         self.extra_sls_log_store = extra_sls_log_store  # type: str
+        # The Log Service project from which logs are delivered.
+        # 
+        # > This parameter is returned only if external log delivery is enabled.
         self.extra_sls_project = extra_sls_project  # type: str
+        # Indicates whether external log delivery is enabled. Valid values: true and false.
         self.extra_write_enabled = extra_write_enabled  # type: bool
 
     def validate(self):
@@ -7520,8 +8422,11 @@ class DescribeDrdsSqlAuditStatusResponseBodyData(TeaModel):
 
 class DescribeDrdsSqlAuditStatusResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # The returned data set.
         self.data = data  # type: DescribeDrdsSqlAuditStatusResponseBodyData
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7555,12 +8460,14 @@ class DescribeDrdsSqlAuditStatusResponseBody(TeaModel):
 
 
 class DescribeDrdsSqlAuditStatusResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsSqlAuditStatusResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7573,6 +8480,8 @@ class DescribeDrdsSqlAuditStatusResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7581,6 +8490,8 @@ class DescribeDrdsSqlAuditStatusResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsSqlAuditStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7589,8 +8500,11 @@ class DescribeDrdsSqlAuditStatusResponse(TeaModel):
 
 class DescribeDrdsTasksRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, task_type=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The type of tasks.
         self.task_type = task_type  # type: str
 
     def validate(self):
@@ -7623,8 +8537,11 @@ class DescribeDrdsTasksRequest(TeaModel):
 
 class DescribeDrdsTasksResponseBodyTasksTask(TeaModel):
     def __init__(self, content=None, id=None, state=None):
+        # Indicates the content of a task.
         self.content = content  # type: str
+        # Indicates the ID of the task.
         self.id = id  # type: long
+        # Indicates the state of the task.
         self.state = state  # type: str
 
     def validate(self):
@@ -7689,8 +8606,11 @@ class DescribeDrdsTasksResponseBodyTasks(TeaModel):
 
 class DescribeDrdsTasksResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None, tasks=None):
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # Indicates information about the tasks.
         self.tasks = tasks  # type: DescribeDrdsTasksResponseBodyTasks
 
     def validate(self):
@@ -7724,12 +8644,14 @@ class DescribeDrdsTasksResponseBody(TeaModel):
 
 
 class DescribeDrdsTasksResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDrdsTasksResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7742,6 +8664,8 @@ class DescribeDrdsTasksResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7750,6 +8674,8 @@ class DescribeDrdsTasksResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDrdsTasksResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7758,7 +8684,9 @@ class DescribeDrdsTasksResponse(TeaModel):
 
 class DescribeExpandLogicTableInfoListRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -7787,8 +8715,11 @@ class DescribeExpandLogicTableInfoListRequest(TeaModel):
 
 class DescribeExpandLogicTableInfoListResponseBodyDataData(TeaModel):
     def __init__(self, shard_db_key=None, shard_tb_key=None, table_name=None):
+        # Indicates the database sharding key.
         self.shard_db_key = shard_db_key  # type: str
+        # Indicates the table sharding key.
         self.shard_tb_key = shard_tb_key  # type: str
+        # Indicates the name of the table.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -7853,8 +8784,11 @@ class DescribeExpandLogicTableInfoListResponseBodyData(TeaModel):
 
 class DescribeExpandLogicTableInfoListResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # Indicates the result that is returned.
         self.data = data  # type: DescribeExpandLogicTableInfoListResponseBodyData
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7888,12 +8822,14 @@ class DescribeExpandLogicTableInfoListResponseBody(TeaModel):
 
 
 class DescribeExpandLogicTableInfoListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeExpandLogicTableInfoListResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7906,6 +8842,8 @@ class DescribeExpandLogicTableInfoListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7914,6 +8852,8 @@ class DescribeExpandLogicTableInfoListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeExpandLogicTableInfoListResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7922,7 +8862,9 @@ class DescribeExpandLogicTableInfoListResponse(TeaModel):
 
 class DescribeHotDbListRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -7976,6 +8918,7 @@ class DescribeHotDbListResponseBodyDataListInstanceDbHotDbList(TeaModel):
 class DescribeHotDbListResponseBodyDataListInstanceDb(TeaModel):
     def __init__(self, hot_db_list=None, instance_name=None):
         self.hot_db_list = hot_db_list  # type: DescribeHotDbListResponseBodyDataListInstanceDbHotDbList
+        # The name of the instance.
         self.instance_name = instance_name  # type: str
 
     def validate(self):
@@ -8038,7 +8981,9 @@ class DescribeHotDbListResponseBodyDataList(TeaModel):
 
 class DescribeHotDbListResponseBodyData(TeaModel):
     def __init__(self, list=None, random_code=None):
+        # The information about the databases on which hot-spot scale-out is performed.
         self.list = list  # type: DescribeHotDbListResponseBodyDataList
+        # The random number.
         self.random_code = random_code  # type: str
 
     def validate(self):
@@ -8069,9 +9014,13 @@ class DescribeHotDbListResponseBodyData(TeaModel):
 
 class DescribeHotDbListResponseBody(TeaModel):
     def __init__(self, data=None, msg=None, request_id=None, success=None):
+        # The result that is returned.
         self.data = data  # type: DescribeHotDbListResponseBodyData
+        # The message that is returned.
         self.msg = msg  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -8109,12 +9058,14 @@ class DescribeHotDbListResponseBody(TeaModel):
 
 
 class DescribeHotDbListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeHotDbListResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8127,6 +9078,8 @@ class DescribeHotDbListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8135,6 +9088,8 @@ class DescribeHotDbListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeHotDbListResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8143,7 +9098,9 @@ class DescribeHotDbListResponse(TeaModel):
 
 class DescribeInstDbLogInfoRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the DRDS database.
         self.db_name = db_name  # type: str
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -8172,7 +9129,9 @@ class DescribeInstDbLogInfoRequest(TeaModel):
 
 class DescribeInstDbLogInfoResponseBodyLogTimeRange(TeaModel):
     def __init__(self, support_latest_time=None, support_oldest_time=None):
+        # The start time of the query time range.
         self.support_latest_time = support_latest_time  # type: long
+        # The end time of the task.
         self.support_oldest_time = support_oldest_time  # type: long
 
     def validate(self):
@@ -8201,8 +9160,11 @@ class DescribeInstDbLogInfoResponseBodyLogTimeRange(TeaModel):
 
 class DescribeInstDbLogInfoResponseBody(TeaModel):
     def __init__(self, log_time_range=None, request_id=None, success=None):
+        # The time range for log query.
         self.log_time_range = log_time_range  # type: DescribeInstDbLogInfoResponseBodyLogTimeRange
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -8236,12 +9198,14 @@ class DescribeInstDbLogInfoResponseBody(TeaModel):
 
 
 class DescribeInstDbLogInfoResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeInstDbLogInfoResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8254,6 +9218,8 @@ class DescribeInstDbLogInfoResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8262,6 +9228,8 @@ class DescribeInstDbLogInfoResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeInstDbLogInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8270,7 +9238,9 @@ class DescribeInstDbLogInfoResponse(TeaModel):
 
 class DescribeInstDbSlsInfoRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -8299,7 +9269,9 @@ class DescribeInstDbSlsInfoRequest(TeaModel):
 
 class DescribeInstDbSlsInfoResponseBodyAuditInfo(TeaModel):
     def __init__(self, log_store=None, project=None):
+        # The name of the LogStore.
         self.log_store = log_store  # type: str
+        # The name of the Log Service project.
         self.project = project  # type: str
 
     def validate(self):
@@ -8328,8 +9300,11 @@ class DescribeInstDbSlsInfoResponseBodyAuditInfo(TeaModel):
 
 class DescribeInstDbSlsInfoResponseBody(TeaModel):
     def __init__(self, audit_info=None, request_id=None, success=None):
+        # The details of the SQL audit.
         self.audit_info = audit_info  # type: DescribeInstDbSlsInfoResponseBodyAuditInfo
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -8363,12 +9338,14 @@ class DescribeInstDbSlsInfoResponseBody(TeaModel):
 
 
 class DescribeInstDbSlsInfoResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeInstDbSlsInfoResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8381,6 +9358,8 @@ class DescribeInstDbSlsInfoResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8389,6 +9368,8 @@ class DescribeInstDbSlsInfoResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeInstDbSlsInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8397,6 +9378,7 @@ class DescribeInstDbSlsInfoResponse(TeaModel):
 
 class DescribeInstanceAccountsRequest(TeaModel):
     def __init__(self, drds_instance_id=None):
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -8421,7 +9403,14 @@ class DescribeInstanceAccountsRequest(TeaModel):
 
 class DescribeInstanceAccountsResponseBodyInstanceAccountsInstanceAccountDbPrivilegesDbPrivilege(TeaModel):
     def __init__(self, db_name=None, privilege=None):
+        # Indicates the name of a database.
         self.db_name = db_name  # type: str
+        # Indicates the permissions that an account is granted on the database. Valid values:
+        # 
+        # *   **R**: The account is granted the permissions that are required to read the data of the database.
+        # *   **W**: The account is granted the permissions that are required to write data to the database.
+        # *   **DDL**: The account is granted the permissions that are required to perform DDL operations on the database.
+        # *   **DML**: The account is granted the permissions that are required to perform DML operations on the database.
         self.privilege = privilege  # type: str
 
     def validate(self):
@@ -8482,10 +9471,18 @@ class DescribeInstanceAccountsResponseBodyInstanceAccountsInstanceAccountDbPrivi
 
 class DescribeInstanceAccountsResponseBodyInstanceAccountsInstanceAccount(TeaModel):
     def __init__(self, account_name=None, account_type=None, db_privileges=None, description=None, host=None):
+        # Indicates the username of an instance account.
         self.account_name = account_name  # type: str
+        # Indicates the type of an instance account. Valid values:
+        # 
+        # *   **0**: The instance account is a privileged account.
+        # *   **1**: The instance account is a standard account.
         self.account_type = account_type  # type: int
+        # Indicates the information about the permissions of an account on a database.
         self.db_privileges = db_privileges  # type: DescribeInstanceAccountsResponseBodyInstanceAccountsInstanceAccountDbPrivileges
+        # Indicates the description of an account. By default, if 0 is the value of the AccountType parameter, **Created by DRDS** is returned as the value of the Description parameter. If 1 is the value of the AccountType parameter, an empty string is returned as the value of the Description parameter. You can modify the description of an account on the Accounts page in the PolarDB-X console.
         self.description = description  # type: str
+        # Indicates an IP address that is allowed to access the database. The value **%** indicates that each IP address is allowed to access the database. \</note>
         self.host = host  # type: str
 
     def validate(self):
@@ -8560,8 +9557,11 @@ class DescribeInstanceAccountsResponseBodyInstanceAccounts(TeaModel):
 
 class DescribeInstanceAccountsResponseBody(TeaModel):
     def __init__(self, instance_accounts=None, request_id=None, success=None):
+        # Indicates the information about the instance accounts.
         self.instance_accounts = instance_accounts  # type: DescribeInstanceAccountsResponseBodyInstanceAccounts
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -8595,12 +9595,14 @@ class DescribeInstanceAccountsResponseBody(TeaModel):
 
 
 class DescribeInstanceAccountsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeInstanceAccountsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8613,6 +9615,8 @@ class DescribeInstanceAccountsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8621,6 +9625,8 @@ class DescribeInstanceAccountsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeInstanceAccountsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8629,6 +9635,7 @@ class DescribeInstanceAccountsResponse(TeaModel):
 
 class DescribeInstanceSwitchAzoneRequest(TeaModel):
     def __init__(self, drds_instance_id=None):
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -8677,9 +9684,13 @@ class DescribeInstanceSwitchAzoneResponseBodyResultTargetAzones(TeaModel):
 
 class DescribeInstanceSwitchAzoneResponseBodyResult(TeaModel):
     def __init__(self, origin_azone_id=None, region_id=None, switch_able=None, target_azones=None):
+        # The ID of the source azoneId.
         self.origin_azone_id = origin_azone_id  # type: str
+        # regionId.
         self.region_id = region_id  # type: str
+        # Indicates whether the job can be switched.
         self.switch_able = switch_able  # type: bool
+        # Target azones.
         self.target_azones = target_azones  # type: DescribeInstanceSwitchAzoneResponseBodyResultTargetAzones
 
     def validate(self):
@@ -8718,8 +9729,11 @@ class DescribeInstanceSwitchAzoneResponseBodyResult(TeaModel):
 
 class DescribeInstanceSwitchAzoneResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the operation.
         self.result = result  # type: DescribeInstanceSwitchAzoneResponseBodyResult
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -8753,12 +9767,14 @@ class DescribeInstanceSwitchAzoneResponseBody(TeaModel):
 
 
 class DescribeInstanceSwitchAzoneResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeInstanceSwitchAzoneResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8771,6 +9787,8 @@ class DescribeInstanceSwitchAzoneResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8779,6 +9797,8 @@ class DescribeInstanceSwitchAzoneResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeInstanceSwitchAzoneResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8787,6 +9807,7 @@ class DescribeInstanceSwitchAzoneResponse(TeaModel):
 
 class DescribeInstanceSwitchNetworkRequest(TeaModel):
     def __init__(self, drds_instance_id=None):
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -8811,10 +9832,15 @@ class DescribeInstanceSwitchNetworkRequest(TeaModel):
 
 class DescribeInstanceSwitchNetworkResponseBodyVpcInfosVpcInfoVswitchInfosVswitchInfo(TeaModel):
     def __init__(self, azone_id=None, drds_supported=None, vpc_id=None, vswitch_id=None, vswitch_name=None):
+        # Indicates the ID of the zone in which the instance is deployed.
         self.azone_id = azone_id  # type: str
+        # Indicates whether you can change the network type of the instance.
         self.drds_supported = drds_supported  # type: bool
+        # Indicates the ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # Indicates the ID of the vSwitch.
         self.vswitch_id = vswitch_id  # type: str
+        # Indicates the name of the vSwitch.
         self.vswitch_name = vswitch_name  # type: str
 
     def validate(self):
@@ -8887,9 +9913,13 @@ class DescribeInstanceSwitchNetworkResponseBodyVpcInfosVpcInfoVswitchInfos(TeaMo
 
 class DescribeInstanceSwitchNetworkResponseBodyVpcInfosVpcInfo(TeaModel):
     def __init__(self, region_id=None, vpc_id=None, vpc_name=None, vswitch_infos=None):
+        # Indicates the ID of the region in which the instance is deployed.
         self.region_id = region_id  # type: str
+        # Indicates the ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # Indicates the name of the VPC.
         self.vpc_name = vpc_name  # type: str
+        # Indicates information about the vSwitch to which the instance is connected.
         self.vswitch_infos = vswitch_infos  # type: DescribeInstanceSwitchNetworkResponseBodyVpcInfosVpcInfoVswitchInfos
 
     def validate(self):
@@ -8960,8 +9990,11 @@ class DescribeInstanceSwitchNetworkResponseBodyVpcInfos(TeaModel):
 
 class DescribeInstanceSwitchNetworkResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None, vpc_infos=None):
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # Indicates the information about the virtual private cloud (VPC) in which the instance is deployed.
         self.vpc_infos = vpc_infos  # type: DescribeInstanceSwitchNetworkResponseBodyVpcInfos
 
     def validate(self):
@@ -8995,12 +10028,14 @@ class DescribeInstanceSwitchNetworkResponseBody(TeaModel):
 
 
 class DescribeInstanceSwitchNetworkResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeInstanceSwitchNetworkResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9013,6 +10048,8 @@ class DescribeInstanceSwitchNetworkResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9021,6 +10058,8 @@ class DescribeInstanceSwitchNetworkResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeInstanceSwitchNetworkResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9029,8 +10068,11 @@ class DescribeInstanceSwitchNetworkResponse(TeaModel):
 
 class DescribePreCheckResultRequest(TeaModel):
     def __init__(self, drds_instance_id=None, region_id=None, task_id=None):
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The ID of the precheck task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -9063,9 +10105,13 @@ class DescribePreCheckResultRequest(TeaModel):
 
 class DescribePreCheckResultResponseBodyPreCheckResultSubCheckItems(TeaModel):
     def __init__(self, error_msg_code=None, error_msg_params=None, pre_check_item_name=None, state=None):
+        # Indicates the error code that is returned by a subtask.
         self.error_msg_code = error_msg_code  # type: str
+        # Indicates an error message.
         self.error_msg_params = error_msg_params  # type: list[str]
+        # Indicates the name of the subtask.
         self.pre_check_item_name = pre_check_item_name  # type: str
+        # Indicates the state of the subtask.
         self.state = state  # type: str
 
     def validate(self):
@@ -9102,8 +10148,11 @@ class DescribePreCheckResultResponseBodyPreCheckResultSubCheckItems(TeaModel):
 
 class DescribePreCheckResultResponseBodyPreCheckResult(TeaModel):
     def __init__(self, pre_check_name=None, state=None, sub_check_items=None):
+        # Indicates the name of the precheck task.
         self.pre_check_name = pre_check_name  # type: str
+        # Indicates the state of the precheck task.
         self.state = state  # type: str
+        # Indicates the details about the subtasks of the precheck task.
         self.sub_check_items = sub_check_items  # type: list[DescribePreCheckResultResponseBodyPreCheckResultSubCheckItems]
 
     def validate(self):
@@ -9144,8 +10193,11 @@ class DescribePreCheckResultResponseBodyPreCheckResult(TeaModel):
 
 class DescribePreCheckResultResponseBody(TeaModel):
     def __init__(self, pre_check_result=None, request_id=None, success=None):
+        # Indicates the result of the precheck task.
         self.pre_check_result = pre_check_result  # type: DescribePreCheckResultResponseBodyPreCheckResult
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -9179,12 +10231,14 @@ class DescribePreCheckResultResponseBody(TeaModel):
 
 
 class DescribePreCheckResultResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribePreCheckResultResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9197,6 +10251,8 @@ class DescribePreCheckResultResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9205,6 +10261,8 @@ class DescribePreCheckResultResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribePreCheckResultResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9214,11 +10272,19 @@ class DescribePreCheckResultResponse(TeaModel):
 class DescribeRDSPerformanceRequest(TeaModel):
     def __init__(self, db_inst_type=None, drds_instance_id=None, end_time=None, keys=None, rds_instance_id=None,
                  start_time=None):
+        # The type of the database engine.
         self.db_inst_type = db_inst_type  # type: str
+        # The ID of the Distributed Relational Database Service (DRDS) instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The end time of the query. Specify the time in the UNIX timestamp format. The time must be in UTC. Unit: ms.
         self.end_time = end_time  # type: long
+        # The performance monitoring metrics. You can specify one or more metrics for a query at a time. Separate multiple metric parameters with commas (,).
+        # 
+        # >  For more information about the details of performance monitoring metrics, see [Storage monitoring](~~186705~~).
         self.keys = keys  # type: str
+        # The ID of the storage-layer ApsaraDB RDS for MySQL instance.
         self.rds_instance_id = rds_instance_id  # type: str
+        # The start time of the query. Specify the time in the UNIX timestamp format. The time must be in UTC. Unit: ms.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -9263,7 +10329,9 @@ class DescribeRDSPerformanceRequest(TeaModel):
 
 class DescribeRDSPerformanceResponseBodyDataValues(TeaModel):
     def __init__(self, date=None, value=None):
+        # The time point when the value of the monitoring metric was obtained. The value is in the UNIX timestamp format. The time is displayed in UTC. Unit: ms.
         self.date = date  # type: long
+        # The value of the monitoring metric.
         self.value = value  # type: str
 
     def validate(self):
@@ -9292,10 +10360,17 @@ class DescribeRDSPerformanceResponseBodyDataValues(TeaModel):
 
 class DescribeRDSPerformanceResponseBodyData(TeaModel):
     def __init__(self, key=None, node_name=None, node_num=None, unit=None, values=None):
+        # The name of the monitoring metric.
         self.key = key  # type: str
+        # The name of the node.
+        # 
+        # >  This parameter is returned only when the storage type of the database is PolarDB for MySQL. If the storage type of the database is ApsaraDB RDS for MySQL, this parameter is not returned.
         self.node_name = node_name  # type: str
+        # The number of nodes.
         self.node_num = node_num  # type: int
+        # The unit of the monitoring metric.
         self.unit = unit  # type: str
+        # The details of the monitoring metric data.
         self.values = values  # type: list[DescribeRDSPerformanceResponseBodyDataValues]
 
     def validate(self):
@@ -9344,8 +10419,11 @@ class DescribeRDSPerformanceResponseBodyData(TeaModel):
 
 class DescribeRDSPerformanceResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # The result set of the query.
         self.data = data  # type: list[DescribeRDSPerformanceResponseBodyData]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -9385,12 +10463,14 @@ class DescribeRDSPerformanceResponseBody(TeaModel):
 
 
 class DescribeRDSPerformanceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeRDSPerformanceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9403,6 +10483,8 @@ class DescribeRDSPerformanceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9411,6 +10493,8 @@ class DescribeRDSPerformanceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRDSPerformanceResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9419,8 +10503,11 @@ class DescribeRDSPerformanceResponse(TeaModel):
 
 class DescribeRdsCommodityRequest(TeaModel):
     def __init__(self, commodity_code=None, drds_instance_id=None, order_type=None):
+        # The commodity code of the service.
         self.commodity_code = commodity_code  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The type of the order.
         self.order_type = order_type  # type: str
 
     def validate(self):
@@ -9453,8 +10540,11 @@ class DescribeRdsCommodityRequest(TeaModel):
 
 class DescribeRdsCommodityResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # Indicates the returned result.
         self.data = data  # type: str
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -9486,12 +10576,14 @@ class DescribeRdsCommodityResponseBody(TeaModel):
 
 
 class DescribeRdsCommodityResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeRdsCommodityResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9504,6 +10596,8 @@ class DescribeRdsCommodityResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9512,6 +10606,8 @@ class DescribeRdsCommodityResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRdsCommodityResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9520,8 +10616,10 @@ class DescribeRdsCommodityResponse(TeaModel):
 
 class DescribeRdsPerformanceSummaryRequest(TeaModel):
     def __init__(self, drds_instance_id=None, rds_instance_id=None, region_id=None):
+        # The ID of a DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
         self.rds_instance_id = rds_instance_id  # type: list[str]
+        # The ID of the region where the streaming domain resides.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9554,11 +10652,17 @@ class DescribeRdsPerformanceSummaryRequest(TeaModel):
 
 class DescribeRdsPerformanceSummaryResponseBodyRdsPerformanceInfos(TeaModel):
     def __init__(self, active_sessions=None, cpu=None, iops=None, rds_id=None, space_usage=None, total_sessions=None):
+        # The number of active sessions of the RDS instance.
         self.active_sessions = active_sessions  # type: int
+        # The CPU utilization of an RDS instance.
         self.cpu = cpu  # type: float
+        # The IOPS of the RDS instance.
         self.iops = iops  # type: float
+        # The ID of an RDS instance.
         self.rds_id = rds_id  # type: str
+        # The disk usage of apsaradb for RDS. Unit: MB.
         self.space_usage = space_usage  # type: long
+        # The total number of current RDS sessions.
         self.total_sessions = total_sessions  # type: int
 
     def validate(self):
@@ -9603,8 +10707,11 @@ class DescribeRdsPerformanceSummaryResponseBodyRdsPerformanceInfos(TeaModel):
 
 class DescribeRdsPerformanceSummaryResponseBody(TeaModel):
     def __init__(self, rds_performance_infos=None, request_id=None, success=None):
+        # A collection of objects.
         self.rds_performance_infos = rds_performance_infos  # type: list[DescribeRdsPerformanceSummaryResponseBodyRdsPerformanceInfos]
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the API request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -9644,12 +10751,14 @@ class DescribeRdsPerformanceSummaryResponseBody(TeaModel):
 
 
 class DescribeRdsPerformanceSummaryResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeRdsPerformanceSummaryResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9662,6 +10771,8 @@ class DescribeRdsPerformanceSummaryResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9670,6 +10781,8 @@ class DescribeRdsPerformanceSummaryResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRdsPerformanceSummaryResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9678,7 +10791,9 @@ class DescribeRdsPerformanceSummaryResponse(TeaModel):
 
 class DescribeRdsSuperAccountInstancesRequest(TeaModel):
     def __init__(self, db_inst_type=None, drds_instance_id=None, rds_instance=None):
+        # The type of the ApsaraDB RDS for MySQL instances. Default value: **RDS**.
         self.db_inst_type = db_inst_type  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
         self.rds_instance = rds_instance  # type: list[str]
 
@@ -9736,7 +10851,9 @@ class DescribeRdsSuperAccountInstancesResponseBodyDbInstances(TeaModel):
 
 class DescribeRdsSuperAccountInstancesResponseBody(TeaModel):
     def __init__(self, db_instances=None, request_id=None):
+        # The privileged accounts.
         self.db_instances = db_instances  # type: DescribeRdsSuperAccountInstancesResponseBodyDbInstances
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9766,12 +10883,14 @@ class DescribeRdsSuperAccountInstancesResponseBody(TeaModel):
 
 
 class DescribeRdsSuperAccountInstancesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeRdsSuperAccountInstancesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9784,6 +10903,8 @@ class DescribeRdsSuperAccountInstancesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9792,6 +10913,8 @@ class DescribeRdsSuperAccountInstancesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRdsSuperAccountInstancesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9800,8 +10923,11 @@ class DescribeRdsSuperAccountInstancesResponse(TeaModel):
 
 class DescribeRecycleBinStatusRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, region_id=None):
+        # The name of the database that is created in the PolarDB-X 1.0 instance.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9834,8 +10960,14 @@ class DescribeRecycleBinStatusRequest(TeaModel):
 
 class DescribeRecycleBinStatusResponseBody(TeaModel):
     def __init__(self, request_id=None, status=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The status of the table recycle bin. Valid values:
+        # 
+        # *   disable: The table recycle bin is enabled.
+        # *   enable: The table recycle bin is disabled.
         self.status = status  # type: str
+        # The result of the request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -9867,12 +10999,14 @@ class DescribeRecycleBinStatusResponseBody(TeaModel):
 
 
 class DescribeRecycleBinStatusResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeRecycleBinStatusResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9885,6 +11019,8 @@ class DescribeRecycleBinStatusResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9893,6 +11029,8 @@ class DescribeRecycleBinStatusResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRecycleBinStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9901,8 +11039,11 @@ class DescribeRecycleBinStatusResponse(TeaModel):
 
 class DescribeRecycleBinTablesRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, region_id=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9935,8 +11076,11 @@ class DescribeRecycleBinTablesRequest(TeaModel):
 
 class DescribeRecycleBinTablesResponseBodyData(TeaModel):
     def __init__(self, create_time=None, original_table_name=None, table_name=None):
+        # The time when the table was created.
         self.create_time = create_time  # type: str
+        # The original name of the table.
         self.original_table_name = original_table_name  # type: str
+        # The name of the table.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -9969,8 +11113,11 @@ class DescribeRecycleBinTablesResponseBodyData(TeaModel):
 
 class DescribeRecycleBinTablesResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # The data object returned.
         self.data = data  # type: list[DescribeRecycleBinTablesResponseBodyData]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -10010,12 +11157,14 @@ class DescribeRecycleBinTablesResponseBody(TeaModel):
 
 
 class DescribeRecycleBinTablesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeRecycleBinTablesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10028,6 +11177,8 @@ class DescribeRecycleBinTablesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10036,6 +11187,8 @@ class DescribeRecycleBinTablesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRecycleBinTablesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -10045,11 +11198,20 @@ class DescribeRecycleBinTablesResponse(TeaModel):
 class DescribeRestoreOrderRequest(TeaModel):
     def __init__(self, backup_db_names=None, backup_id=None, backup_level=None, backup_mode=None,
                  drds_instance_id=None, preferred_backup_time=None):
+        # The name of the database involved in the backup.
         self.backup_db_names = backup_db_names  # type: str
+        # The ID of the backup set.
         self.backup_id = backup_id  # type: str
+        # The level of the backup. Valid values:
+        # 
+        # *   **DB**: The database Level
+        # *   **instance **: instance level
         self.backup_level = backup_level  # type: str
+        # The backup mode. Valid values: **logic** or **phy**.
         self.backup_mode = backup_mode  # type: str
+        # The ID of the instance for which to modify the backup policy.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The preferred backup time.
         self.preferred_backup_time = preferred_backup_time  # type: str
 
     def validate(self):
@@ -10094,11 +11256,20 @@ class DescribeRestoreOrderRequest(TeaModel):
 
 class DescribeRestoreOrderResponseBodyRestoreOrderDODrdsOrderDOListDrdsOrderDOList(TeaModel):
     def __init__(self, azone_id=None, inst_spec=None, network=None, region_id=None, vswtich_id=None, vpc_id=None):
+        # The ID of the zone for which to query resources.
         self.azone_id = azone_id  # type: str
+        # The instance type of the instance.
         self.inst_spec = inst_spec  # type: str
+        # The network type. Valid values:
+        # 
+        # *   **Classic **: Classic Network
+        # *   **vpc**: VPC
         self.network = network  # type: str
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
+        # The ID of the vSwitch in the VPC.
         self.vswtich_id = vswtich_id  # type: str
+        # The ID of the VPC network.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -10176,13 +11347,24 @@ class DescribeRestoreOrderResponseBodyRestoreOrderDODrdsOrderDOList(TeaModel):
 class DescribeRestoreOrderResponseBodyRestoreOrderDOPolarOrderDOListPolarOrderDOList(TeaModel):
     def __init__(self, azone_id=None, db_instance_storage=None, engine=None, instance_class=None, network=None,
                  num=None, region_id=None, version=None):
+        # The zone ID of the node.
         self.azone_id = azone_id  # type: str
+        # The capacity of disk.
         self.db_instance_storage = db_instance_storage  # type: str
+        # The storage engine of PolarDB.
         self.engine = engine  # type: str
+        # The type of the instance.
         self.instance_class = instance_class  # type: str
+        # The network type. Valid values:
+        # 
+        # *   **Classic**: Classic Network
+        # *   **vpc**: VPC
         self.network = network  # type: str
+        # The number of streams that were returned.
         self.num = num  # type: long
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
+        # The version of the operating system.
         self.version = version  # type: str
 
     def validate(self):
@@ -10268,13 +11450,22 @@ class DescribeRestoreOrderResponseBodyRestoreOrderDOPolarOrderDOList(TeaModel):
 class DescribeRestoreOrderResponseBodyRestoreOrderDORdsOrderDOListRdsOrderDOList(TeaModel):
     def __init__(self, azone_id=None, db_instance_storage=None, engine=None, instance_class=None, network=None,
                  num=None, region_id=None, version=None):
+        # The zone ID of the node.
         self.azone_id = azone_id  # type: str
+        # The capacity of disk.
         self.db_instance_storage = db_instance_storage  # type: str
+        # The storage engine of the instance.
         self.engine = engine  # type: str
+        # The instance type of the instance.
         self.instance_class = instance_class  # type: str
+        # The network type. Valid values: - **Classic **: Classic Network
+        # - **vpc**: VPC
         self.network = network  # type: str
+        # The number of streams that were returned.
         self.num = num  # type: long
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
+        # The version of the operating system.
         self.version = version  # type: str
 
     def validate(self):
@@ -10359,8 +11550,11 @@ class DescribeRestoreOrderResponseBodyRestoreOrderDORdsOrderDOList(TeaModel):
 
 class DescribeRestoreOrderResponseBodyRestoreOrderDO(TeaModel):
     def __init__(self, drds_order_dolist=None, polar_order_dolist=None, rds_order_dolist=None):
+        # The information of the restored order.
         self.drds_order_dolist = drds_order_dolist  # type: DescribeRestoreOrderResponseBodyRestoreOrderDODrdsOrderDOList
+        # The ID of the restored apsaradb for PolarDB cluster.
         self.polar_order_dolist = polar_order_dolist  # type: DescribeRestoreOrderResponseBodyRestoreOrderDOPolarOrderDOList
+        # The information of the restored RDS order.
         self.rds_order_dolist = rds_order_dolist  # type: DescribeRestoreOrderResponseBodyRestoreOrderDORdsOrderDOList
 
     def validate(self):
@@ -10401,8 +11595,11 @@ class DescribeRestoreOrderResponseBodyRestoreOrderDO(TeaModel):
 
 class DescribeRestoreOrderResponseBody(TeaModel):
     def __init__(self, request_id=None, restore_order_do=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The returned data object.
         self.restore_order_do = restore_order_do  # type: DescribeRestoreOrderResponseBodyRestoreOrderDO
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -10436,12 +11633,14 @@ class DescribeRestoreOrderResponseBody(TeaModel):
 
 
 class DescribeRestoreOrderResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeRestoreOrderResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10454,6 +11653,8 @@ class DescribeRestoreOrderResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10462,6 +11663,8 @@ class DescribeRestoreOrderResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRestoreOrderResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -10471,10 +11674,15 @@ class DescribeRestoreOrderResponse(TeaModel):
 class DescribeShardTaskInfoRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, region_id=None, source_table_name=None,
                  target_table_name=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The name of the table that you want to convert or shard.
         self.source_table_name = source_table_name  # type: str
+        # The name of the table that is generated after you convert or shard the table.
         self.target_table_name = target_table_name  # type: str
 
     def validate(self):
@@ -10515,10 +11723,15 @@ class DescribeShardTaskInfoRequest(TeaModel):
 
 class DescribeShardTaskInfoResponseBodyDataFull(TeaModel):
     def __init__(self, expired=None, progress=None, start_time=None, total=None, tps=None):
+        # Indicates the number of remaining days before the tasks expire.
         self.expired = expired  # type: int
+        # Indicates the progress of the tasks.
         self.progress = progress  # type: int
+        # Indicates the start time when the tasks are performed.
         self.start_time = start_time  # type: str
+        # Indicates the number of tasks.
         self.total = total  # type: int
+        # Indicates the number of transactions processed by the database per second.
         self.tps = tps  # type: int
 
     def validate(self):
@@ -10559,10 +11772,15 @@ class DescribeShardTaskInfoResponseBodyDataFull(TeaModel):
 
 class DescribeShardTaskInfoResponseBodyDataFullCheck(TeaModel):
     def __init__(self, expired=None, progress=None, start_time=None, total=None, tps=None):
+        # Indicates the number of remaining days before the tasks expire.
         self.expired = expired  # type: int
+        # Indicates the progress of the tasks.
         self.progress = progress  # type: int
+        # Indicates the start time when the tasks are performed.
         self.start_time = start_time  # type: str
+        # Indicates the number of tasks.
         self.total = total  # type: int
+        # Indicates the number of transactions processed by the database per second.
         self.tps = tps  # type: int
 
     def validate(self):
@@ -10603,10 +11821,15 @@ class DescribeShardTaskInfoResponseBodyDataFullCheck(TeaModel):
 
 class DescribeShardTaskInfoResponseBodyDataFullRevise(TeaModel):
     def __init__(self, expired=None, progress=None, start_time=None, total=None, tps=None):
+        # Indicates the number of remaining days before the tasks expire.
         self.expired = expired  # type: int
+        # Indicates the progress of the tasks.
         self.progress = progress  # type: int
+        # Indicates the start time when the tasks are performed.
         self.start_time = start_time  # type: str
+        # Indicates the number of tasks.
         self.total = total  # type: int
+        # Indicates the number of transactions processed by the database per second.
         self.tps = tps  # type: int
 
     def validate(self):
@@ -10647,8 +11870,11 @@ class DescribeShardTaskInfoResponseBodyDataFullRevise(TeaModel):
 
 class DescribeShardTaskInfoResponseBodyDataIncrement(TeaModel):
     def __init__(self, delay=None, start_time=None, tps=None):
+        # Indicates the latency of the incremental data synchronization.
         self.delay = delay  # type: int
+        # Indicates the start time when the incremental data synchronization is performed.
         self.start_time = start_time  # type: str
+        # Indicates the number of transactions processed by the database per second.
         self.tps = tps  # type: int
 
     def validate(self):
@@ -10681,10 +11907,15 @@ class DescribeShardTaskInfoResponseBodyDataIncrement(TeaModel):
 
 class DescribeShardTaskInfoResponseBodyDataReview(TeaModel):
     def __init__(self, expired=None, progress=None, start_time=None, total=None, tps=None):
+        # Indicates the number of remaining days before the tasks expire.
         self.expired = expired  # type: int
+        # Indicates the progress of the tasks.
         self.progress = progress  # type: int
+        # Indicates the start time when the tasks are performed.
         self.start_time = start_time  # type: str
+        # Indicates the number of tasks.
         self.total = total  # type: int
+        # Indicates the number of transactions processed by the database per second.
         self.tps = tps  # type: int
 
     def validate(self):
@@ -10726,16 +11957,27 @@ class DescribeShardTaskInfoResponseBodyDataReview(TeaModel):
 class DescribeShardTaskInfoResponseBodyData(TeaModel):
     def __init__(self, expired=None, full=None, full_check=None, full_revise=None, increment=None, progress=None,
                  review=None, source_table_name=None, stage=None, status=None, target_table_name=None):
+        # Indicates the number of remaining days before the tasks to shard tables or convert tables expire.
         self.expired = expired  # type: str
+        # Indicates information about full migration tasks.
         self.full = full  # type: DescribeShardTaskInfoResponseBodyDataFull
+        # Indicates information about full check tasks.
         self.full_check = full_check  # type: DescribeShardTaskInfoResponseBodyDataFullCheck
+        # Indicates information about full correction tasks.
         self.full_revise = full_revise  # type: DescribeShardTaskInfoResponseBodyDataFullRevise
+        # Indicates information about incremental data synchronization.
         self.increment = increment  # type: DescribeShardTaskInfoResponseBodyDataIncrement
+        # Indicates the incremental data synchronization progress.
         self.progress = progress  # type: str
+        # Indicates check tasks.
         self.review = review  # type: DescribeShardTaskInfoResponseBodyDataReview
+        # Indicates the name of the table that you convert or shard.
         self.source_table_name = source_table_name  # type: str
+        # Indicates the current stage of the task.
         self.stage = stage  # type: str
+        # Indicates the state of the tasks to shard tables or convert tables.
         self.status = status  # type: str
+        # Indicates the name of the table after you convert or shard the table.
         self.target_table_name = target_table_name  # type: str
 
     def validate(self):
@@ -10814,8 +12056,11 @@ class DescribeShardTaskInfoResponseBodyData(TeaModel):
 
 class DescribeShardTaskInfoResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # Indicates the data that is returned.
         self.data = data  # type: DescribeShardTaskInfoResponseBodyData
+        # Indicates the unique ID of the request. If the request fails, provide this ID for technical support to troubleshoot the failure.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -10849,12 +12094,14 @@ class DescribeShardTaskInfoResponseBody(TeaModel):
 
 
 class DescribeShardTaskInfoResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeShardTaskInfoResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10867,6 +12114,8 @@ class DescribeShardTaskInfoResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10875,214 +12124,17 @@ class DescribeShardTaskInfoResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeShardTaskInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class DescribeShardTaskListRequest(TeaModel):
-    def __init__(self, current_page=None, db_name=None, drds_instance_id=None, page_size=None, query=None,
-                 region_id=None, task_type=None):
-        self.current_page = current_page  # type: int
-        self.db_name = db_name  # type: str
-        self.drds_instance_id = drds_instance_id  # type: str
-        self.page_size = page_size  # type: int
-        self.query = query  # type: str
-        self.region_id = region_id  # type: str
-        self.task_type = task_type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeShardTaskListRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
-        if self.db_name is not None:
-            result['DbName'] = self.db_name
-        if self.drds_instance_id is not None:
-            result['DrdsInstanceId'] = self.drds_instance_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.query is not None:
-            result['Query'] = self.query
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.task_type is not None:
-            result['TaskType'] = self.task_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
-        if m.get('DbName') is not None:
-            self.db_name = m.get('DbName')
-        if m.get('DrdsInstanceId') is not None:
-            self.drds_instance_id = m.get('DrdsInstanceId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('Query') is not None:
-            self.query = m.get('Query')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('TaskType') is not None:
-            self.task_type = m.get('TaskType')
-        return self
-
-
-class DescribeShardTaskListResponseBodyList(TeaModel):
-    def __init__(self, delay=None, expired=None, progress=None, source_table_name=None, stage=None, status=None,
-                 target_table_name=None):
-        self.delay = delay  # type: int
-        self.expired = expired  # type: long
-        self.progress = progress  # type: int
-        self.source_table_name = source_table_name  # type: str
-        self.stage = stage  # type: int
-        self.status = status  # type: str
-        self.target_table_name = target_table_name  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeShardTaskListResponseBodyList, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.delay is not None:
-            result['Delay'] = self.delay
-        if self.expired is not None:
-            result['Expired'] = self.expired
-        if self.progress is not None:
-            result['Progress'] = self.progress
-        if self.source_table_name is not None:
-            result['SourceTableName'] = self.source_table_name
-        if self.stage is not None:
-            result['Stage'] = self.stage
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.target_table_name is not None:
-            result['TargetTableName'] = self.target_table_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Delay') is not None:
-            self.delay = m.get('Delay')
-        if m.get('Expired') is not None:
-            self.expired = m.get('Expired')
-        if m.get('Progress') is not None:
-            self.progress = m.get('Progress')
-        if m.get('SourceTableName') is not None:
-            self.source_table_name = m.get('SourceTableName')
-        if m.get('Stage') is not None:
-            self.stage = m.get('Stage')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('TargetTableName') is not None:
-            self.target_table_name = m.get('TargetTableName')
-        return self
-
-
-class DescribeShardTaskListResponseBody(TeaModel):
-    def __init__(self, list=None, page_number=None, page_size=None, request_id=None, success=None, total=None):
-        self.list = list  # type: list[DescribeShardTaskListResponseBodyList]
-        self.page_number = page_number  # type: int
-        self.page_size = page_size  # type: int
-        self.request_id = request_id  # type: str
-        self.success = success  # type: bool
-        self.total = total  # type: int
-
-    def validate(self):
-        if self.list:
-            for k in self.list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeShardTaskListResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['List'] = []
-        if self.list is not None:
-            for k in self.list:
-                result['List'].append(k.to_map() if k else None)
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        if self.total is not None:
-            result['Total'] = self.total
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.list = []
-        if m.get('List') is not None:
-            for k in m.get('List'):
-                temp_model = DescribeShardTaskListResponseBodyList()
-                self.list.append(temp_model.from_map(k))
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        if m.get('Total') is not None:
-            self.total = m.get('Total')
-        return self
-
-
-class DescribeShardTaskListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeShardTaskListResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeShardTaskListResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeShardTaskListResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class DescribeSqlFlashbakTaskRequest(TeaModel):
     def __init__(self, drds_instance_id=None):
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -11110,23 +12162,47 @@ class DescribeSqlFlashbakTaskResponseBodySqlFlashbackTasksSqlFlashbackTask(TeaMo
                  id=None, inst_id=None, recall_progress=None, recall_restore_type=None, recall_status=None,
                  recall_type=None, search_end_time=None, search_start_time=None, sql_counter=None, sql_pk=None, sql_type=None,
                  table_name=None, trace_id=None):
+        # Indicates the name of the database on which a flashback task is performed.
         self.db_name = db_name  # type: str
+        # Indicates the download URL.
         self.download_url = download_url  # type: str
+        # Indicates the time when the download URL expires.
         self.expire_time = expire_time  # type: long
+        # Indicates the point in time when the instance was created.
         self.gmt_create = gmt_create  # type: long
+        # Indicates the point in time when the flashback task is performed.
         self.gmt_modified = gmt_modified  # type: long
+        # Indicates the ID of the primary key that corresponds to a table used in the flashback task.
         self.id = id  # type: long
+        # Indicates the ID of the instance.
         self.inst_id = inst_id  # type: str
+        # Indicates the progress of the reverse call.
         self.recall_progress = recall_progress  # type: int
+        # Indicates the type of the flashback task. Valid values:
+        # 
+        # *   **1**: image restoration
+        # *   **2**: reverse restoration
         self.recall_restore_type = recall_restore_type  # type: int
+        # Indicates the status of the data recall task.
         self.recall_status = recall_status  # type: int
+        # Indicates the type of the reverse call. Valid values:
+        # 
+        # *   **0**: exact search
+        # *   **1**: fuzzy search
         self.recall_type = recall_type  # type: int
+        # Indicates the start time of the reverse call.
         self.search_end_time = search_end_time  # type: long
+        # Indicates the end time of the reverse call.
         self.search_start_time = search_start_time  # type: long
+        # Indicates the number of data rows that are flashed back.
         self.sql_counter = sql_counter  # type: long
+        # Indicates the primary key specified in the SQL statements.
         self.sql_pk = sql_pk  # type: str
+        # Indicates the types of the SQL statements.
         self.sql_type = sql_type  # type: str
+        # Indicates the name of the table that contains the data that are flashed back.
         self.table_name = table_name  # type: str
+        # Indicates the ID of the trace of the SQL query.
         self.trace_id = trace_id  # type: str
 
     def validate(self):
@@ -11251,8 +12327,11 @@ class DescribeSqlFlashbakTaskResponseBodySqlFlashbackTasks(TeaModel):
 
 class DescribeSqlFlashbakTaskResponseBody(TeaModel):
     def __init__(self, request_id=None, sql_flashback_tasks=None, success=None):
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates the information about flashback tasks.
         self.sql_flashback_tasks = sql_flashback_tasks  # type: DescribeSqlFlashbakTaskResponseBodySqlFlashbackTasks
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -11286,12 +12365,14 @@ class DescribeSqlFlashbakTaskResponseBody(TeaModel):
 
 
 class DescribeSqlFlashbakTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeSqlFlashbakTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11304,6 +12385,8 @@ class DescribeSqlFlashbakTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11312,6 +12395,8 @@ class DescribeSqlFlashbakTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeSqlFlashbakTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11320,9 +12405,13 @@ class DescribeSqlFlashbakTaskResponse(TeaModel):
 
 class DescribeTableRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, region_id=None, table_name=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region where the PolarDB-X 1.0 instance is created.
         self.region_id = region_id  # type: str
+        # The name of the table.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -11359,11 +12448,17 @@ class DescribeTableRequest(TeaModel):
 
 class DescribeTableResponseBodyDataList(TeaModel):
     def __init__(self, column_name=None, column_type=None, extra=None, index=None, is_allow_null=None, is_pk=None):
+        # Indicates the name of a column.
         self.column_name = column_name  # type: str
+        # Indicates the type of the column.
         self.column_type = column_type  # type: str
+        # Extra
         self.extra = extra  # type: str
+        # Indicates the primary key of the table.
         self.index = index  # type: str
+        # Indicates whether the column can be empty.
         self.is_allow_null = is_allow_null  # type: str
+        # Indicates whether the column is the primary key column of the table.
         self.is_pk = is_pk  # type: str
 
     def validate(self):
@@ -11408,6 +12503,7 @@ class DescribeTableResponseBodyDataList(TeaModel):
 
 class DescribeTableResponseBodyData(TeaModel):
     def __init__(self, list=None):
+        # Indicates the details about the table schema.
         self.list = list  # type: list[DescribeTableResponseBodyDataList]
 
     def validate(self):
@@ -11440,8 +12536,11 @@ class DescribeTableResponseBodyData(TeaModel):
 
 class DescribeTableResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # Indicates the returned data.
         self.data = data  # type: DescribeTableResponseBodyData
+        # Indicates the unique ID of the request. If the request fails, provide this ID for technical support to troubleshoot the failure.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -11475,12 +12574,14 @@ class DescribeTableResponseBody(TeaModel):
 
 
 class DescribeTableResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeTableResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11493,6 +12594,8 @@ class DescribeTableResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11501,6 +12604,8 @@ class DescribeTableResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeTableResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11510,12 +12615,19 @@ class DescribeTableResponse(TeaModel):
 class DescribeTableListByTypeRequest(TeaModel):
     def __init__(self, current_page=None, db_name=None, drds_instance_id=None, page_size=None, query=None,
                  region_id=None, table_type=None):
+        # The number of the page to return.
         self.current_page = current_page  # type: int
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The field that you specify for your query.
         self.query = query  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The type of tables. Valid values:
         self.table_type = table_type  # type: str
 
     def validate(self):
@@ -11564,7 +12676,9 @@ class DescribeTableListByTypeRequest(TeaModel):
 
 class DescribeTableListByTypeResponseBodyList(TeaModel):
     def __init__(self, property=None, table_name=None):
+        # Indicates the property of a table.
         self.property = property  # type: str
+        # Indicates the name of the table.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -11593,11 +12707,17 @@ class DescribeTableListByTypeResponseBodyList(TeaModel):
 
 class DescribeTableListByTypeResponseBody(TeaModel):
     def __init__(self, list=None, page_number=None, page_size=None, request_id=None, success=None, total=None):
+        # Indicates the information about tables.
         self.list = list  # type: list[DescribeTableListByTypeResponseBodyList]
+        # Indicates the page number of the returned page.
         self.page_number = page_number  # type: int
+        # Indicates the number of entries returned per page.
         self.page_size = page_size  # type: int
+        # Indicates the unique ID of the request. If the request fails, provide this ID for technical support to troubleshoot the failure.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # Indicates the total number of returned tables.
         self.total = total  # type: int
 
     def validate(self):
@@ -11649,12 +12769,14 @@ class DescribeTableListByTypeResponseBody(TeaModel):
 
 
 class DescribeTableListByTypeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeTableListByTypeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11667,6 +12789,8 @@ class DescribeTableListByTypeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11675,6 +12799,8 @@ class DescribeTableListByTypeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeTableListByTypeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11684,11 +12810,17 @@ class DescribeTableListByTypeResponse(TeaModel):
 class DescribeTablesRequest(TeaModel):
     def __init__(self, current_page=None, db_name=None, drds_instance_id=None, page_size=None, query=None,
                  region_id=None):
+        # The page number of the returned page.
         self.current_page = current_page  # type: int
+        # The name of the database whose tables you want to query.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The number of tables returned on each page.
         self.page_size = page_size  # type: int
+        # The query condition. The value of this parameter is the ID of the PolarDB-X 1.0 instance.
         self.query = query  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -11734,13 +12866,27 @@ class DescribeTablesRequest(TeaModel):
 class DescribeTablesResponseBodyList(TeaModel):
     def __init__(self, allow_full_table_scan=None, broadcast=None, db_inst_type=None, is_locked=None, is_shard=None,
                  shard_key=None, status=None, table=None):
+        # Indicates whether full table scanning is allowed.
         self.allow_full_table_scan = allow_full_table_scan  # type: bool
+        # Indicates whether the table is a replicated table.
         self.broadcast = broadcast  # type: bool
+        # The type of the PolarDB-X 1.0 instance. Valid values:
+        # 
+        # *   0: The instance is a dedicated instance.
+        # *   1: The instance is a shard instance.
         self.db_inst_type = db_inst_type  # type: int
+        # Indicates whether the table is locked.
         self.is_locked = is_locked  # type: bool
+        # Indicates whether the table is sharded.
         self.is_shard = is_shard  # type: bool
+        # The shard key of the table.
         self.shard_key = shard_key  # type: str
+        # Indicates whether sharding tasks are performed on the table. Valid values:
+        # 
+        # *   0: No sharding task is performed on the table.
+        # *   1: Sharding tasks are performed on the table.
         self.status = status  # type: int
+        # The name of the table.
         self.table = table  # type: str
 
     def validate(self):
@@ -11793,11 +12939,17 @@ class DescribeTablesResponseBodyList(TeaModel):
 
 class DescribeTablesResponseBody(TeaModel):
     def __init__(self, list=None, page_number=None, page_size=None, request_id=None, success=None, total=None):
+        # The list of returned tables.
         self.list = list  # type: list[DescribeTablesResponseBodyList]
+        # The number of returned pages.
         self.page_number = page_number  # type: int
+        # The number of tables returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # The total number of returned tables.
         self.total = total  # type: int
 
     def validate(self):
@@ -11849,12 +13001,14 @@ class DescribeTablesResponseBody(TeaModel):
 
 
 class DescribeTablesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeTablesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11867,6 +13021,8 @@ class DescribeTablesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11875,6 +13031,8 @@ class DescribeTablesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeTablesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11883,7 +13041,9 @@ class DescribeTablesResponse(TeaModel):
 
 class DisableSqlAuditRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the database for which you want to disable the SQL audit feature.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -11912,8 +13072,11 @@ class DisableSqlAuditRequest(TeaModel):
 
 class DisableSqlAuditResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The return result.
         self.result = result  # type: bool
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -11945,12 +13108,14 @@ class DisableSqlAuditResponseBody(TeaModel):
 
 
 class DisableSqlAuditResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DisableSqlAuditResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11963,6 +13128,8 @@ class DisableSqlAuditResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11971,6 +13138,8 @@ class DisableSqlAuditResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DisableSqlAuditResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11979,7 +13148,9 @@ class DisableSqlAuditResponse(TeaModel):
 
 class EnableInstanceIpv6AddressRequest(TeaModel):
     def __init__(self, drds_instance_id=None, region_id=None):
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region in which the instance resides.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -12008,7 +13179,9 @@ class EnableInstanceIpv6AddressRequest(TeaModel):
 
 class EnableInstanceIpv6AddressResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The result of the request.
         self.data = data  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12036,12 +13209,14 @@ class EnableInstanceIpv6AddressResponseBody(TeaModel):
 
 
 class EnableInstanceIpv6AddressResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: EnableInstanceIpv6AddressResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12054,6 +13229,8 @@ class EnableInstanceIpv6AddressResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12062,6 +13239,8 @@ class EnableInstanceIpv6AddressResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = EnableInstanceIpv6AddressResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -12071,10 +13250,17 @@ class EnableInstanceIpv6AddressResponse(TeaModel):
 class EnableSqlAuditRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, is_recall=None, recall_end_timestamp=None,
                  recall_start_timestamp=None):
+        # The name of the database for which you want to enable the SQL audit feature.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # Specifies whether to backtrack historical SQL statements for auditing.
         self.is_recall = is_recall  # type: bool
+        # The timestamp that indicates when the backtracking ends. Unit: milliseconds.
+        # 
+        # > The end time of the backtracking must be later than the start time of the backtracking.
         self.recall_end_timestamp = recall_end_timestamp  # type: str
+        # The timestamp that indicates when the backtracking starts. Unit: milliseconds.
         self.recall_start_timestamp = recall_start_timestamp  # type: str
 
     def validate(self):
@@ -12115,8 +13301,11 @@ class EnableSqlAuditRequest(TeaModel):
 
 class EnableSqlAuditResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indices whether the SQL audit feature is enabled.
         self.result = result  # type: bool
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -12148,12 +13337,14 @@ class EnableSqlAuditResponseBody(TeaModel):
 
 
 class EnableSqlAuditResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: EnableSqlAuditResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12166,6 +13357,8 @@ class EnableSqlAuditResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12174,6 +13367,8 @@ class EnableSqlAuditResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = EnableSqlAuditResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -12182,7 +13377,9 @@ class EnableSqlAuditResponse(TeaModel):
 
 class EnableSqlFlashbackMatchSwitchRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the database you want to back up.
         self.db_name = db_name  # type: str
+        # The ID of the ApsaraDB RDS for PostgreSQL instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -12211,8 +13408,11 @@ class EnableSqlFlashbackMatchSwitchRequest(TeaModel):
 
 class EnableSqlFlashbackMatchSwitchResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether SqlFlashbackMatchSwitch is enabled or not.
         self.result = result  # type: bool
+        # Indicates whether the request was sent successfully or not.
         self.success = success  # type: bool
 
     def validate(self):
@@ -12244,12 +13444,14 @@ class EnableSqlFlashbackMatchSwitchResponseBody(TeaModel):
 
 
 class EnableSqlFlashbackMatchSwitchResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: EnableSqlFlashbackMatchSwitchResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12262,6 +13464,8 @@ class EnableSqlFlashbackMatchSwitchResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12270,6 +13474,8 @@ class EnableSqlFlashbackMatchSwitchResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = EnableSqlFlashbackMatchSwitchResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -12278,9 +13484,13 @@ class EnableSqlFlashbackMatchSwitchResponse(TeaModel):
 
 class FlashbackRecycleBinTableRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, region_id=None, table_name=None):
+        # The name of the database to which the table belongs.
         self.db_name = db_name  # type: str
+        # The ID of the instance to which the table belongs.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The name of the logical table to be restored.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -12317,8 +13527,11 @@ class FlashbackRecycleBinTableRequest(TeaModel):
 
 class FlashbackRecycleBinTableResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # Indicates whether the deleted logical table is restored.
         self.data = data  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -12350,12 +13563,14 @@ class FlashbackRecycleBinTableResponseBody(TeaModel):
 
 
 class FlashbackRecycleBinTableResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: FlashbackRecycleBinTableResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12368,6 +13583,8 @@ class FlashbackRecycleBinTableResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12376,6 +13593,8 @@ class FlashbackRecycleBinTableResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = FlashbackRecycleBinTableResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -12384,7 +13603,9 @@ class FlashbackRecycleBinTableResponse(TeaModel):
 
 class GetDrdsDbRdsRelationInfoRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the DRDS database.
         self.db_name = db_name  # type: str
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -12414,9 +13635,13 @@ class GetDrdsDbRdsRelationInfoRequest(TeaModel):
 class GetDrdsDbRdsRelationInfoResponseBodyData(TeaModel):
     def __init__(self, rds_instance_id=None, read_only_instance_info=None, used_instance_id=None,
                  used_instance_type=None):
+        # The ID of the storage instance.
         self.rds_instance_id = rds_instance_id  # type: str
+        # The IDs of the read-only storage instances.
         self.read_only_instance_info = read_only_instance_info  # type: list[str]
+        # The ID of the storage instance that is in use. If the specified instance in the request is a primary DRDS instance, the value of this parameter is the ID of the primary storage instance. If the specified instance in the request is a read-only DRDS instance, the value of this parameter is the ID of the secondary storage instance.
         self.used_instance_id = used_instance_id  # type: str
+        # The type of the storage instance that is in use.
         self.used_instance_type = used_instance_type  # type: str
 
     def validate(self):
@@ -12453,8 +13678,11 @@ class GetDrdsDbRdsRelationInfoResponseBodyData(TeaModel):
 
 class GetDrdsDbRdsRelationInfoResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # The structure information about the storage instances of the DRDS database. Each entry corresponds to a primary storage instance.
         self.data = data  # type: list[GetDrdsDbRdsRelationInfoResponseBodyData]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the call was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -12494,12 +13722,14 @@ class GetDrdsDbRdsRelationInfoResponseBody(TeaModel):
 
 
 class GetDrdsDbRdsRelationInfoResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetDrdsDbRdsRelationInfoResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12512,6 +13742,8 @@ class GetDrdsDbRdsRelationInfoResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12520,6 +13752,8 @@ class GetDrdsDbRdsRelationInfoResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetDrdsDbRdsRelationInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -12528,7 +13762,9 @@ class GetDrdsDbRdsRelationInfoResponse(TeaModel):
 
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag that you want to query.
         self.key = key  # type: str
+        # The value of the tag that you want to query.
         self.value = value  # type: str
 
     def validate(self):
@@ -12557,9 +13793,12 @@ class ListTagResourcesRequestTag(TeaModel):
 
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, next_token=None, region_id=None, resource_id=None, resource_type=None, tag=None):
+        # Specify the token that is used to display the returned tags on multiple pages.
         self.next_token = next_token  # type: str
+        # The ID of the region in which the resource is located.
         self.region_id = region_id  # type: str
         self.resource_id = resource_id  # type: list[str]
+        # The resource type. Set the value to INSTANCE.
         self.resource_type = resource_type  # type: str
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
@@ -12609,9 +13848,13 @@ class ListTagResourcesRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        # The ID of the resource.
         self.resource_id = resource_id  # type: str
+        # The resource type. The value of this parameter is fixed to INSTANCE.
         self.resource_type = resource_type  # type: str
+        # The key of the tag.
         self.tag_key = tag_key  # type: str
+        # The value of the tag.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -12680,9 +13923,13 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, success=None, tag_resources=None):
+        # The token that is used to display the returned tags on multiple pages.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
+        # The list of returned tags.
         self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
 
     def validate(self):
@@ -12720,12 +13967,14 @@ class ListTagResourcesResponseBody(TeaModel):
 
 
 class ListTagResourcesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12738,6 +13987,8 @@ class ListTagResourcesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12746,6 +13997,8 @@ class ListTagResourcesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListTagResourcesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -12754,10 +14007,43 @@ class ListTagResourcesResponse(TeaModel):
 
 class ManagePrivateRdsRequest(TeaModel):
     def __init__(self, dbinstance_id=None, drds_instance_id=None, params=None, rds_action=None, region_id=None):
+        # The ID of the custom ApsaraDB RDS instance at the storage layer.
+        # 
+        # > You can call the [DescribeDrdsRdsInstances](~~215526~~) operation to query the details of all ApsaraDB RDS instances, including the ID of the instance.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
+        # 
+        # > You can call the [DescribeDrdsInstances](~~139284~~) operation to query the details of all PolarDB-X 1.0 instances within an Alibaba Cloud account, including the IDs of the instances.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The JSON string that consists of request parameters and the values of the request parameters of an operation that you need to call for the custom ApsaraDB RDS instance. The value of a request parameter is of the STRING type. Example: `{NodeId:"1797****"}`.
+        # 
+        # For more information about the request parameters and valid values of the request parameters of each operation, see the request parameter sections in the following topics:
+        # 
+        # *   [DescribeDBInstanceAttribute](~~26231~~)
+        # *   [DescribeAvailableClasses](~~196546~~)
+        # *   [DescribeSQLCollectorPolicy](~~26292~~)
+        # *   [ModifySQLCollectorPolicy](~~26293~~)
+        # *   [DescribeParameters](~~26285~~)
+        # *   [ModifyParameter](~~26286~~)
+        # *   [DescribeDBInstanceHAConfig](~~26244~~)
+        # *   [SwitchDBInstanceHA](~~26251~~)
+        # 
+        # > Among the required request parameters of the preceding operations, you do not need to specify the `Action` and `DBInstanceId` parameters. You must specify all the other required request parameters.
         self.params = params  # type: str
+        # The operation that you want to perform on the custom ApsaraDB RDS instance. Valid values:
+        # 
+        # *   **DescribeDBInstanceAttribute**: queries the details of the custom ApsaraDB RDS instance.
+        # *   **DescribeAvailableClasses**: queries the specifications that are supported for a custom ApsaraDB RDS instance. The specifications include the instance type and the storage capacity.
+        # *   **DescribeSQLCollectorPolicy**: queries whether the SQL Explorer (SQL Audit) feature is enabled for custom ApsaraDB RDS instance.
+        # *   **ModifySQLCollectorPolicy**: enables or disables the SQL Explorer (SQL Audit) feature for the custom ApsaraDB RDS instance.
+        # *   **DescribeParameters**: queries the parameter settings of the custom ApsaraDB RDS instance.
+        # *   **ModifyParameter**: modifies the parameters of the custom ApsaraDB RDS instance.
+        # *   **DescribeDBInstanceHAConfig**: queries the high availability mode and data replication mode of the custom ApsaraDB RDS instance.
+        # *   **SwitchDBInstanceHA**: switches workloads between the primary and secondary custom ApsaraDB RDS instances.
         self.rds_action = rds_action  # type: str
+        # The ID of the region in which the PolarDB-X 1.0 instance resides.
+        # 
+        # > You can call the [DescribeDrdsInstances](~~139284~~) operation to query the details of all PolarDB-X 1.0 instances within an Alibaba Cloud account, including the IDs of regions in which the instances reside.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -12798,8 +14084,11 @@ class ManagePrivateRdsRequest(TeaModel):
 
 class ManagePrivateRdsResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # The parameter result set returned for the operation that is called for the custom ApsaraDB RDS instance.
         self.data = data  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -12831,12 +14120,14 @@ class ManagePrivateRdsResponseBody(TeaModel):
 
 
 class ManagePrivateRdsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ManagePrivateRdsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12849,6 +14140,8 @@ class ManagePrivateRdsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12857,6 +14150,8 @@ class ManagePrivateRdsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ManagePrivateRdsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -12865,8 +14160,11 @@ class ManagePrivateRdsResponse(TeaModel):
 
 class ModifyAccountDescriptionRequest(TeaModel):
     def __init__(self, account_name=None, description=None, drds_instance_id=None):
+        # The name of the member account.
         self.account_name = account_name  # type: str
+        # The description of the account.
         self.description = description  # type: str
+        # The ID of the ApsaraDB RDS for PostgreSQL instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -12899,7 +14197,9 @@ class ModifyAccountDescriptionRequest(TeaModel):
 
 class ModifyAccountDescriptionResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was sent successfully or not.
         self.success = success  # type: bool
 
     def validate(self):
@@ -12927,12 +14227,14 @@ class ModifyAccountDescriptionResponseBody(TeaModel):
 
 
 class ModifyAccountDescriptionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyAccountDescriptionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -12945,6 +14247,8 @@ class ModifyAccountDescriptionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -12953,6 +14257,8 @@ class ModifyAccountDescriptionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyAccountDescriptionResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -12961,7 +14267,9 @@ class ModifyAccountDescriptionResponse(TeaModel):
 
 class ModifyAccountPrivilegeRequestDbPrivilege(TeaModel):
     def __init__(self, db_name=None, privilege=None):
+        # The name of the database that you want to manage by using the account to modify.
         self.db_name = db_name  # type: str
+        # The permissions that you want to grant to the account.
         self.privilege = privilege  # type: str
 
     def validate(self):
@@ -12990,9 +14298,12 @@ class ModifyAccountPrivilegeRequestDbPrivilege(TeaModel):
 
 class ModifyAccountPrivilegeRequest(TeaModel):
     def __init__(self, account_name=None, db_privilege=None, drds_instance_id=None, region_id=None):
+        # The username of the account that you want to modify.
         self.account_name = account_name  # type: str
         self.db_privilege = db_privilege  # type: list[ModifyAccountPrivilegeRequestDbPrivilege]
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region in which the PolarDB-X 1.0 instance is located.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -13037,7 +14348,9 @@ class ModifyAccountPrivilegeRequest(TeaModel):
 
 class ModifyAccountPrivilegeResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13065,12 +14378,14 @@ class ModifyAccountPrivilegeResponseBody(TeaModel):
 
 
 class ModifyAccountPrivilegeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyAccountPrivilegeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13083,6 +14398,8 @@ class ModifyAccountPrivilegeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13091,6 +14408,8 @@ class ModifyAccountPrivilegeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyAccountPrivilegeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13099,7 +14418,9 @@ class ModifyAccountPrivilegeResponse(TeaModel):
 
 class ModifyDrdsInstanceDescriptionRequest(TeaModel):
     def __init__(self, description=None, drds_instance_id=None):
+        # The description of the DRDS instance.
         self.description = description  # type: str
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -13128,7 +14449,9 @@ class ModifyDrdsInstanceDescriptionRequest(TeaModel):
 
 class ModifyDrdsInstanceDescriptionResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13156,12 +14479,14 @@ class ModifyDrdsInstanceDescriptionResponseBody(TeaModel):
 
 
 class ModifyDrdsInstanceDescriptionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyDrdsInstanceDescriptionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13174,6 +14499,8 @@ class ModifyDrdsInstanceDescriptionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13182,6 +14509,8 @@ class ModifyDrdsInstanceDescriptionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyDrdsInstanceDescriptionResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13191,11 +14520,20 @@ class ModifyDrdsInstanceDescriptionResponse(TeaModel):
 class ModifyDrdsIpWhiteListRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, group_attribute=None, group_name=None,
                  ip_white_list=None, mode=None):
+        # The name of the DRDS database.
         self.db_name = db_name  # type: str
+        # The ID of the Message Queue for Apache Kafka instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The attribute of the IP address whitelist group.
         self.group_attribute = group_attribute  # type: str
+        # The name of the IP address whitelist group.
         self.group_name = group_name  # type: str
+        # The modified whitelist. Separate multiple IP addresses with commas (,).
         self.ip_white_list = ip_white_list  # type: str
+        # Specifies the mode. Valid values:
+        # 
+        # *   `True`: append modifications
+        # *   `False`: overwrite modification
         self.mode = mode  # type: bool
 
     def validate(self):
@@ -13240,7 +14578,9 @@ class ModifyDrdsIpWhiteListRequest(TeaModel):
 
 class ModifyDrdsIpWhiteListResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13268,12 +14608,14 @@ class ModifyDrdsIpWhiteListResponseBody(TeaModel):
 
 
 class ModifyDrdsIpWhiteListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyDrdsIpWhiteListResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13286,6 +14628,8 @@ class ModifyDrdsIpWhiteListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13294,6 +14638,8 @@ class ModifyDrdsIpWhiteListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyDrdsIpWhiteListResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13302,10 +14648,15 @@ class ModifyDrdsIpWhiteListResponse(TeaModel):
 
 class ModifyPolarDbReadWeightRequest(TeaModel):
     def __init__(self, db_instance_id=None, db_name=None, db_node_ids=None, drds_instance_id=None, weights=None):
+        # Polar cluster ID.
         self.db_instance_id = db_instance_id  # type: str
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The node list in the destination apsaradb for PolarDB cluster. The nodes in each cluster are separated with commas (,) and colons (:).
         self.db_node_ids = db_node_ids  # type: str
+        # The ID of a DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The weight of the PolarDB cluster. Separate multiple weights with commas (,).
         self.weights = weights  # type: str
 
     def validate(self):
@@ -13346,7 +14697,9 @@ class ModifyPolarDbReadWeightRequest(TeaModel):
 
 class ModifyPolarDbReadWeightResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the database creation failure records were removed from the PolarDB-X instance.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13374,12 +14727,14 @@ class ModifyPolarDbReadWeightResponseBody(TeaModel):
 
 
 class ModifyPolarDbReadWeightResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyPolarDbReadWeightResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13392,6 +14747,8 @@ class ModifyPolarDbReadWeightResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13400,6 +14757,8 @@ class ModifyPolarDbReadWeightResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyPolarDbReadWeightResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13408,9 +14767,13 @@ class ModifyPolarDbReadWeightResponse(TeaModel):
 
 class ModifyRdsReadWeightRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, instance_names=None, weights=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The names of the ApsaraDB RDS for MySQL instances. Separate the names with commas (,).
         self.instance_names = instance_names  # type: str
+        # The weights of the ApsaraDB RDS for MySQL instances. Separate the weights with commas (,).
         self.weights = weights  # type: str
 
     def validate(self):
@@ -13447,7 +14810,9 @@ class ModifyRdsReadWeightRequest(TeaModel):
 
 class ModifyRdsReadWeightResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13475,12 +14840,14 @@ class ModifyRdsReadWeightResponseBody(TeaModel):
 
 
 class ModifyRdsReadWeightResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyRdsReadWeightResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13493,6 +14860,8 @@ class ModifyRdsReadWeightResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13501,6 +14870,8 @@ class ModifyRdsReadWeightResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyRdsReadWeightResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13509,9 +14880,19 @@ class ModifyRdsReadWeightResponse(TeaModel):
 
 class PutStartBackupRequest(TeaModel):
     def __init__(self, backup_db_names=None, backup_level=None, backup_mode=None, drds_instance_id=None):
+        # If you need to back up data at the database level, you must specify the list of databases to be backed up, and separate multiple databases with commas (,).
         self.backup_db_names = backup_db_names  # type: str
+        # The backup level. Valid values:
+        # 
+        # *   instance: instance
+        # *   db: The database type.
         self.backup_level = backup_level  # type: str
+        # The backup mode. For more information, see [backup mode](~~108631~~) and the valid values are as follows:
+        # 
+        # *   phy: fast backup
+        # *   logic: Consistent backup
         self.backup_mode = backup_mode  # type: str
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -13548,8 +14929,11 @@ class PutStartBackupRequest(TeaModel):
 
 class PutStartBackupResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the backup task was submitted.
         self.result = result  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13581,12 +14965,14 @@ class PutStartBackupResponseBody(TeaModel):
 
 
 class PutStartBackupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: PutStartBackupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13599,6 +14985,8 @@ class PutStartBackupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13607,6 +14995,8 @@ class PutStartBackupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = PutStartBackupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13615,7 +15005,9 @@ class PutStartBackupResponse(TeaModel):
 
 class RefreshDrdsAtomUrlRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the DRDS database.
         self.db_name = db_name  # type: str
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -13644,8 +15036,11 @@ class RefreshDrdsAtomUrlRequest(TeaModel):
 
 class RefreshDrdsAtomUrlResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the connection after refresh was successful.
         self.result = result  # type: bool
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13677,12 +15072,14 @@ class RefreshDrdsAtomUrlResponseBody(TeaModel):
 
 
 class RefreshDrdsAtomUrlResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RefreshDrdsAtomUrlResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13695,6 +15092,8 @@ class RefreshDrdsAtomUrlResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13703,6 +15102,8 @@ class RefreshDrdsAtomUrlResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RefreshDrdsAtomUrlResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13711,7 +15112,9 @@ class RefreshDrdsAtomUrlResponse(TeaModel):
 
 class ReleaseInstanceInternetAddressRequest(TeaModel):
     def __init__(self, drds_instance_id=None, region_id=None):
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The region where the instance is located.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -13740,7 +15143,9 @@ class ReleaseInstanceInternetAddressRequest(TeaModel):
 
 class ReleaseInstanceInternetAddressResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The result returned by the current API.
         self.data = data  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13768,12 +15173,14 @@ class ReleaseInstanceInternetAddressResponseBody(TeaModel):
 
 
 class ReleaseInstanceInternetAddressResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ReleaseInstanceInternetAddressResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13786,6 +15193,8 @@ class ReleaseInstanceInternetAddressResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13794,6 +15203,8 @@ class ReleaseInstanceInternetAddressResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ReleaseInstanceInternetAddressResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13802,7 +15213,9 @@ class ReleaseInstanceInternetAddressResponse(TeaModel):
 
 class RemoveBackupsSetRequest(TeaModel):
     def __init__(self, backup_id=None, drds_instance_id=None):
+        # The ID of the backup set. You can call the [DescribeBackupSets](~~139331~~) interface to query the ID of a backup set.
         self.backup_id = backup_id  # type: str
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -13831,8 +15244,11 @@ class RemoveBackupsSetRequest(TeaModel):
 
 class RemoveBackupsSetResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether SQL audit was disabled for the DRDS database.
         self.result = result  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13864,12 +15280,14 @@ class RemoveBackupsSetResponseBody(TeaModel):
 
 
 class RemoveBackupsSetResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RemoveBackupsSetResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13882,6 +15300,8 @@ class RemoveBackupsSetResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13890,6 +15310,8 @@ class RemoveBackupsSetResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveBackupsSetResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13898,7 +15320,9 @@ class RemoveBackupsSetResponse(TeaModel):
 
 class RemoveDrdsDbRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the database you want to back up.
         self.db_name = db_name  # type: str
+        # The ID of the DRDS instance to which the destination database belongs.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -13927,7 +15351,9 @@ class RemoveDrdsDbRequest(TeaModel):
 
 class RemoveDrdsDbResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13955,12 +15381,14 @@ class RemoveDrdsDbResponseBody(TeaModel):
 
 
 class RemoveDrdsDbResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RemoveDrdsDbResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -13973,6 +15401,8 @@ class RemoveDrdsDbResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -13981,6 +15411,8 @@ class RemoveDrdsDbResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveDrdsDbResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -13989,7 +15421,9 @@ class RemoveDrdsDbResponse(TeaModel):
 
 class RemoveDrdsDbFailedRecordRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the DRDS database.
         self.db_name = db_name  # type: str
+        # The ID of the ApsaraDB RDS for PostgreSQL instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -14018,8 +15452,11 @@ class RemoveDrdsDbFailedRecordRequest(TeaModel):
 
 class RemoveDrdsDbFailedRecordResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the database creation failure records were deleted from the DRDS instance.
         self.result = result  # type: bool
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -14051,12 +15488,14 @@ class RemoveDrdsDbFailedRecordResponseBody(TeaModel):
 
 
 class RemoveDrdsDbFailedRecordResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RemoveDrdsDbFailedRecordResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14069,6 +15508,8 @@ class RemoveDrdsDbFailedRecordResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14077,6 +15518,8 @@ class RemoveDrdsDbFailedRecordResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveDrdsDbFailedRecordResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14085,6 +15528,7 @@ class RemoveDrdsDbFailedRecordResponse(TeaModel):
 
 class RemoveDrdsInstanceRequest(TeaModel):
     def __init__(self, drds_instance_id=None):
+        # The ID of the instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -14109,7 +15553,9 @@ class RemoveDrdsInstanceRequest(TeaModel):
 
 class RemoveDrdsInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -14137,12 +15583,14 @@ class RemoveDrdsInstanceResponseBody(TeaModel):
 
 
 class RemoveDrdsInstanceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RemoveDrdsInstanceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14155,6 +15603,8 @@ class RemoveDrdsInstanceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14163,6 +15613,8 @@ class RemoveDrdsInstanceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveDrdsInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14171,7 +15623,9 @@ class RemoveDrdsInstanceResponse(TeaModel):
 
 class RemoveInstanceAccountRequest(TeaModel):
     def __init__(self, account_name=None, drds_instance_id=None):
+        # The name of the member account.
         self.account_name = account_name  # type: str
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -14200,7 +15654,9 @@ class RemoveInstanceAccountRequest(TeaModel):
 
 class RemoveInstanceAccountResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -14228,12 +15684,14 @@ class RemoveInstanceAccountResponseBody(TeaModel):
 
 
 class RemoveInstanceAccountResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RemoveInstanceAccountResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14246,6 +15704,8 @@ class RemoveInstanceAccountResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14254,6 +15714,8 @@ class RemoveInstanceAccountResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveInstanceAccountResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14262,9 +15724,13 @@ class RemoveInstanceAccountResponse(TeaModel):
 
 class RemoveRecycleBinTableRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, region_id=None, table_name=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The name of the logical table.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -14301,8 +15767,11 @@ class RemoveRecycleBinTableRequest(TeaModel):
 
 class RemoveRecycleBinTableResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # Indicates whether the table in the recycle bin is deleted.
         self.data = data  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -14334,12 +15803,14 @@ class RemoveRecycleBinTableResponseBody(TeaModel):
 
 
 class RemoveRecycleBinTableResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RemoveRecycleBinTableResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14352,6 +15823,8 @@ class RemoveRecycleBinTableResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14360,6 +15833,8 @@ class RemoveRecycleBinTableResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveRecycleBinTableResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14368,6 +15843,7 @@ class RemoveRecycleBinTableResponse(TeaModel):
 
 class RestartDrdsInstanceRequest(TeaModel):
     def __init__(self, drds_instance_id=None):
+        # The ID of a DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -14392,8 +15868,11 @@ class RestartDrdsInstanceRequest(TeaModel):
 
 class RestartDrdsInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the database creation failure records were removed from the PolarDB-X instance.
         self.success = success  # type: bool
+        # The ID of the task.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -14425,12 +15904,14 @@ class RestartDrdsInstanceResponseBody(TeaModel):
 
 
 class RestartDrdsInstanceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RestartDrdsInstanceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14443,6 +15924,8 @@ class RestartDrdsInstanceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14451,6 +15934,8 @@ class RestartDrdsInstanceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RestartDrdsInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14459,7 +15944,9 @@ class RestartDrdsInstanceResponse(TeaModel):
 
 class RollbackInstanceVersionRequest(TeaModel):
     def __init__(self, drds_instance_id=None, region_id=None):
+        # The instance ID.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14488,7 +15975,9 @@ class RollbackInstanceVersionRequest(TeaModel):
 
 class RollbackInstanceVersionResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # Indicates whether the instance version was rolled back.
         self.data = data  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14516,12 +16005,14 @@ class RollbackInstanceVersionResponseBody(TeaModel):
 
 
 class RollbackInstanceVersionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RollbackInstanceVersionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14534,6 +16025,8 @@ class RollbackInstanceVersionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14542,6 +16035,8 @@ class RollbackInstanceVersionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RollbackInstanceVersionResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14551,9 +16046,13 @@ class RollbackInstanceVersionResponse(TeaModel):
 class SetBackupLocalRequest(TeaModel):
     def __init__(self, drds_instance_id=None, high_space_usage_protection=None, local_log_retention_hours=None,
                  local_log_retention_space=None):
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # Specifies whether to enable the feature to forcibly delete binary log files if the used storage space reaches 90% of the total storage space or the remaining storage space is less than 5 GB. Valid values: 1 and 0. A value of 1 specifies to enable this feature. A value of 0 specifies not to enable this feature.
         self.high_space_usage_protection = high_space_usage_protection  # type: str
+        # The number of hours for which log backup files are retained on the instance. Valid values: 0 to 168. Default value: 18. A value of 0 indicates that log backup files are not retained.
         self.local_log_retention_hours = local_log_retention_hours  # type: str
+        # The maximum storage space usage that is allowed for log files on the instance. Valid values: 0 to 50. Default value: 30.
         self.local_log_retention_space = local_log_retention_space  # type: str
 
     def validate(self):
@@ -14590,8 +16089,11 @@ class SetBackupLocalRequest(TeaModel):
 
 class SetBackupLocalResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result returned.
         self.result = result  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -14623,12 +16125,14 @@ class SetBackupLocalResponseBody(TeaModel):
 
 
 class SetBackupLocalResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetBackupLocalResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14641,6 +16145,8 @@ class SetBackupLocalResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14649,6 +16155,8 @@ class SetBackupLocalResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetBackupLocalResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14659,15 +16167,44 @@ class SetBackupPolicyRequest(TeaModel):
     def __init__(self, backup_db_names=None, backup_level=None, backup_log=None, backup_mode=None,
                  data_backup_retention_period=None, drds_instance_id=None, log_backup_retention_period=None, preferred_backup_end_time=None,
                  preferred_backup_period=None, preferred_backup_start_time=None):
+        # The databases to be backed up. Separate multiple databases with commas (,).
+        # 
+        # >  This parameter takes effect only when the backup level is database level.
         self.backup_db_names = backup_db_names  # type: str
+        # The level of the backup. Valid values:
+        # 
+        # *   db: The database type.
+        # *   instance: instance
         self.backup_level = backup_level  # type: str
+        # Specifies whether to enable log Backup. Valid values:
+        # 
+        # *   1: enabled.
+        # *   0: disabled.
         self.backup_log = backup_log  # type: str
+        # The backup mode. Valid values:
+        # 
+        # *   **Logic **: logical backup
+        # *   **phy**: physical backup
         self.backup_mode = backup_mode  # type: str
+        # The retention period of the backup data. Value range: 7 to 730.
         self.data_backup_retention_period = data_backup_retention_period  # type: str
+        # The ID of the instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The log retention period. Valid values: 7 to 730. This value must be less than or equal to the number of data backup days.
         self.log_backup_retention_period = log_backup_retention_period  # type: str
+        # The end time of the backup.
         self.preferred_backup_end_time = preferred_backup_end_time  # type: str
+        # The backup cycle. Valid values:
+        # 
+        # *   0: Monday
+        # *   1: Tuesday
+        # *   2: Wednesday
+        # *   3: Thursday
+        # *   4: Friday
+        # *   5: Saturday
+        # *   6: Sunday
         self.preferred_backup_period = preferred_backup_period  # type: str
+        # The start time of the backup.
         self.preferred_backup_start_time = preferred_backup_start_time  # type: str
 
     def validate(self):
@@ -14728,8 +16265,11 @@ class SetBackupPolicyRequest(TeaModel):
 
 class SetBackupPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the backup policy was successfully configured.
         self.result = result  # type: str
+        # Indicates whether the database creation failure records were removed from the DRDS instance.
         self.success = success  # type: bool
 
     def validate(self):
@@ -14761,12 +16301,14 @@ class SetBackupPolicyResponseBody(TeaModel):
 
 
 class SetBackupPolicyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetBackupPolicyResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14779,6 +16321,8 @@ class SetBackupPolicyResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14787,6 +16331,8 @@ class SetBackupPolicyResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetBackupPolicyResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14795,10 +16341,15 @@ class SetBackupPolicyResponse(TeaModel):
 
 class SetupBroadcastTablesRequest(TeaModel):
     def __init__(self, active=None, db_name=None, drds_instance_id=None, region_id=None, table_name=None):
+        # Specifies whether to activate a broadcast table for the database.
         self.active = active  # type: bool
+        # The name of the database for which you want to configure a broadcast table.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region in which the PolarDB-X 1.0 instance resides.
         self.region_id = region_id  # type: str
+        # The name of the table.
         self.table_name = table_name  # type: list[str]
 
     def validate(self):
@@ -14839,8 +16390,11 @@ class SetupBroadcastTablesRequest(TeaModel):
 
 class SetupBroadcastTablesResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # Indicates whether the broadcast table is configured.
         self.data = data  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -14872,12 +16426,14 @@ class SetupBroadcastTablesResponseBody(TeaModel):
 
 
 class SetupBroadcastTablesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetupBroadcastTablesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -14890,6 +16446,8 @@ class SetupBroadcastTablesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -14898,6 +16456,8 @@ class SetupBroadcastTablesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetupBroadcastTablesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -14906,10 +16466,19 @@ class SetupBroadcastTablesResponse(TeaModel):
 
 class SetupDrdsParamsRequestData(TeaModel):
     def __init__(self, db_name=None, param_ranges=None, param_type=None, param_value=None, param_variable_name=None):
+        # The name of the parameter that you want to configure for a database.
         self.db_name = db_name  # type: str
+        # The valid values of the parameter.
         self.param_ranges = param_ranges  # type: str
+        # The type of the parameter that you want to configure. Valid values:
+        # 
+        # *   **ATOM**: the configuration item in the layer-3 data source.
+        # *   **CONFIG**: the configuration item in ConfigServer.
+        # *   **DIAMOND**: the configuration item in Diamond.
         self.param_type = param_type  # type: str
+        # The value of parameter that you want to configure.
         self.param_value = param_value  # type: str
+        # The name of the parameter that you want to configure.
         self.param_variable_name = param_variable_name  # type: str
 
     def validate(self):
@@ -14951,8 +16520,14 @@ class SetupDrdsParamsRequestData(TeaModel):
 class SetupDrdsParamsRequest(TeaModel):
     def __init__(self, data=None, drds_instance_id=None, param_level=None, region_id=None):
         self.data = data  # type: list[SetupDrdsParamsRequestData]
+        # The ID of the PolarDB-X 1.0 instance for which you want to configure parameters.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The resource for which you want to configure parameters. Valid values:
+        # 
+        # *   **INSTANCE**: Configure parameters for the instance.
+        # *   **DB**: Configure parameters for the databases of the instance.
         self.param_level = param_level  # type: str
+        # The ID of the region in which the PolarDB-X 1.0 instance is located.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14997,8 +16572,11 @@ class SetupDrdsParamsRequest(TeaModel):
 
 class SetupDrdsParamsResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # The returned results.
         self.data = data  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -15030,12 +16608,14 @@ class SetupDrdsParamsResponseBody(TeaModel):
 
 
 class SetupDrdsParamsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetupDrdsParamsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -15048,6 +16628,8 @@ class SetupDrdsParamsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -15056,6 +16638,8 @@ class SetupDrdsParamsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetupDrdsParamsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -15064,9 +16648,16 @@ class SetupDrdsParamsResponse(TeaModel):
 
 class SetupRecycleBinStatusRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, region_id=None, status_action=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # Specifies the status of the table recycle bin. Valid values:
+        # 
+        # *   enable: The table recycle bin is enabled.
+        # *   disable: The table recycle bin is disabled.
         self.status_action = status_action  # type: str
 
     def validate(self):
@@ -15103,8 +16694,11 @@ class SetupRecycleBinStatusRequest(TeaModel):
 
 class SetupRecycleBinStatusResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # Indicates whether the table recycle bin is enabled.
         self.data = data  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -15136,12 +16730,14 @@ class SetupRecycleBinStatusResponseBody(TeaModel):
 
 
 class SetupRecycleBinStatusResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetupRecycleBinStatusResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -15154,6 +16750,8 @@ class SetupRecycleBinStatusResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -15162,6 +16760,8 @@ class SetupRecycleBinStatusResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetupRecycleBinStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -15171,9 +16771,13 @@ class SetupRecycleBinStatusResponse(TeaModel):
 class SetupTableRequest(TeaModel):
     def __init__(self, allow_full_table_scan=None, db_name=None, drds_instance_id=None, region_id=None,
                  table_name=None):
+        # Specifies whether to enable full table scan.
         self.allow_full_table_scan = allow_full_table_scan  # type: bool
+        # The name of the database in which the table resides.
         self.db_name = db_name  # type: str
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region where the streaming domain resides.
         self.region_id = region_id  # type: str
         self.table_name = table_name  # type: list[str]
 
@@ -15215,8 +16819,11 @@ class SetupTableRequest(TeaModel):
 
 class SetupTableResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # Specifies whether to use a full table scan.
         self.data = data  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -15248,12 +16855,14 @@ class SetupTableResponseBody(TeaModel):
 
 
 class SetupTableResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SetupTableResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -15266,6 +16875,8 @@ class SetupTableResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -15274,6 +16885,8 @@ class SetupTableResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SetupTableResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -15283,11 +16896,27 @@ class SetupTableResponse(TeaModel):
 class StartRestoreRequest(TeaModel):
     def __init__(self, backup_db_names=None, backup_id=None, backup_level=None, backup_mode=None,
                  drds_instance_id=None, preferred_backup_time=None):
+        # The name of the database to be restored. Separate multiple databases with commas (,).
+        # 
+        # >  If you do not specify any database name, all databases in the instance are restored by default.
         self.backup_db_names = backup_db_names  # type: str
+        # The ID of the DRDS backup set.
+        # 
+        # >  If you do not specify this parameter, the system restores data by time (PreferredBackupTime).
         self.backup_id = backup_id  # type: str
+        # The level of the backup. Valid values:
+        # 
+        # *   db: The database level.
+        # *   instance: the instance level.
         self.backup_level = backup_level  # type: str
+        # The backup method. Valid values:
+        # 
+        # *   logic: the logical backup.
+        # *   phy: fast backup
         self.backup_mode = backup_mode  # type: str
+        # The ID of the DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The restoration time of the instance, in the format of`  yyyy-MM-dd HH:mm:ss `.
         self.preferred_backup_time = preferred_backup_time  # type: str
 
     def validate(self):
@@ -15332,8 +16961,11 @@ class StartRestoreRequest(TeaModel):
 
 class StartRestoreResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether SQL audit was disabled for the DRDS database.
         self.result = result  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -15365,12 +16997,14 @@ class StartRestoreResponseBody(TeaModel):
 
 
 class StartRestoreResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: StartRestoreResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -15383,6 +17017,8 @@ class StartRestoreResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -15391,6 +17027,8 @@ class StartRestoreResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StartRestoreResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -15399,10 +17037,18 @@ class StartRestoreResponse(TeaModel):
 
 class SubmitCleanTaskRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, expand_type=None, job_id=None, parent_job_id=None):
+        # The name of the database that is scaled out.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The scale-out type. Valid values:
+        # 
+        # *   smooth_expand: smooth scale-out
+        # *   hot_expand: hot-spot scale-out
         self.expand_type = expand_type  # type: str
+        # The job ID of the scale-out task. The value of this parameter is the same as that of the ParentJobId parameter.
         self.job_id = job_id  # type: str
+        # The ID of the scale-out task. This parameter is returned if you send a request for the smooth scale-out task.
         self.parent_job_id = parent_job_id  # type: str
 
     def validate(self):
@@ -15443,7 +17089,9 @@ class SubmitCleanTaskRequest(TeaModel):
 
 class SubmitCleanTaskResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -15471,12 +17119,14 @@ class SubmitCleanTaskResponseBody(TeaModel):
 
 
 class SubmitCleanTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SubmitCleanTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -15489,6 +17139,8 @@ class SubmitCleanTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -15497,6 +17149,8 @@ class SubmitCleanTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitCleanTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -15505,9 +17159,16 @@ class SubmitCleanTaskResponse(TeaModel):
 
 class SubmitHotExpandPreCheckTaskRequest(TeaModel):
     def __init__(self, db_inst_type=None, db_name=None, drds_instance_id=None, table_list=None):
+        # The type of the database. Valid values:
+        # 
+        # *   RDS
+        # *   PolarDB
         self.db_inst_type = db_inst_type  # type: str
+        # The name of the PolarDB-X database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The name of the table.
         self.table_list = table_list  # type: list[str]
 
     def validate(self):
@@ -15544,9 +17205,13 @@ class SubmitHotExpandPreCheckTaskRequest(TeaModel):
 
 class SubmitHotExpandPreCheckTaskResponseBody(TeaModel):
     def __init__(self, msg=None, request_id=None, success=None, task_id=None):
+        # The result of the task.
         self.msg = msg  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
+        # The ID of the task.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -15582,12 +17247,14 @@ class SubmitHotExpandPreCheckTaskResponseBody(TeaModel):
 
 
 class SubmitHotExpandPreCheckTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SubmitHotExpandPreCheckTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -15600,6 +17267,8 @@ class SubmitHotExpandPreCheckTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -15608,6 +17277,8 @@ class SubmitHotExpandPreCheckTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitHotExpandPreCheckTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -15616,7 +17287,9 @@ class SubmitHotExpandPreCheckTaskResponse(TeaModel):
 
 class SubmitHotExpandTaskRequestExtendedMapping(TeaModel):
     def __init__(self, src_db=None, src_instance_id=None):
+        # The name of the source physical database.
         self.src_db = src_db  # type: str
+        # The ID of the ApsaraDB RDS instance to which the source physical database belongs.
         self.src_instance_id = src_instance_id  # type: str
 
     def validate(self):
@@ -15645,7 +17318,9 @@ class SubmitHotExpandTaskRequestExtendedMapping(TeaModel):
 
 class SubmitHotExpandTaskRequestInstanceDbMapping(TeaModel):
     def __init__(self, db_list=None, instance_name=None):
+        # The name of the hot-spot database.
         self.db_list = db_list  # type: str
+        # The name of the ApsaraDB RDS instance to which the hot-spot database belongs.
         self.instance_name = instance_name  # type: str
 
     def validate(self):
@@ -15675,12 +17350,19 @@ class SubmitHotExpandTaskRequestInstanceDbMapping(TeaModel):
 class SubmitHotExpandTaskRequestMapping(TeaModel):
     def __init__(self, db_shard_column=None, hot_db_name=None, hot_table_name=None, logic_table=None,
                  shard_db_value=None, shard_tb_value=None, tb_shard_column=None):
+        # The shard key used to split the database to which the associated table belongs.
         self.db_shard_column = db_shard_column  # type: str
+        # The name of the hot-spot database.
         self.hot_db_name = hot_db_name  # type: str
+        # The name of the hot-spot table. The name must be prefixed with the name of a logical table.
         self.hot_table_name = hot_table_name  # type: str
+        # The name of the logical table on which you want to perform hot-spot scale-out.
         self.logic_table = logic_table  # type: str
+        # The value of the shard key used to split a database.
         self.shard_db_value = shard_db_value  # type: str
+        # The value of the shard key used to split a table.
         self.shard_tb_value = shard_tb_value  # type: str
+        # The shard key used to split an associated table.
         self.tb_shard_column = tb_shard_column  # type: str
 
     def validate(self):
@@ -15729,8 +17411,11 @@ class SubmitHotExpandTaskRequestMapping(TeaModel):
 
 class SubmitHotExpandTaskRequestSupperAccountMapping(TeaModel):
     def __init__(self, instance_name=None, supper_account=None, supper_password=None):
+        # The ID of the ApsaraDB RDS instance that has the privileged account.
         self.instance_name = instance_name  # type: str
+        # The name of the privileged account of the ApsaraDB RDS instance.
         self.supper_account = supper_account  # type: str
+        # The password of the privileged account of the ApsaraDB RDS instance.
         self.supper_password = supper_password  # type: str
 
     def validate(self):
@@ -15764,13 +17449,21 @@ class SubmitHotExpandTaskRequestSupperAccountMapping(TeaModel):
 class SubmitHotExpandTaskRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, extended_mapping=None, instance_db_mapping=None,
                  mapping=None, supper_account_mapping=None, task_desc=None, task_name=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The information about the database on which you want to perform hot-spot scale-out.
         self.extended_mapping = extended_mapping  # type: list[SubmitHotExpandTaskRequestExtendedMapping]
+        # The information about the instance to which the hot-spot database belongs.
         self.instance_db_mapping = instance_db_mapping  # type: list[SubmitHotExpandTaskRequestInstanceDbMapping]
+        # The information about the hot-spot database.
         self.mapping = mapping  # type: list[SubmitHotExpandTaskRequestMapping]
+        # The information about the privileged account.
         self.supper_account_mapping = supper_account_mapping  # type: list[SubmitHotExpandTaskRequestSupperAccountMapping]
+        # The description of the task.
         self.task_desc = task_desc  # type: str
+        # The name of the task.
         self.task_name = task_name  # type: str
 
     def validate(self):
@@ -15858,7 +17551,9 @@ class SubmitHotExpandTaskRequest(TeaModel):
 
 class SubmitHotExpandTaskResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -15886,12 +17581,14 @@ class SubmitHotExpandTaskResponseBody(TeaModel):
 
 
 class SubmitHotExpandTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SubmitHotExpandTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -15904,6 +17601,8 @@ class SubmitHotExpandTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -15912,6 +17611,8 @@ class SubmitHotExpandTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitHotExpandTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -15920,8 +17621,14 @@ class SubmitHotExpandTaskResponse(TeaModel):
 
 class SubmitSmoothExpandPreCheckRequest(TeaModel):
     def __init__(self, db_inst_type=None, db_name=None, drds_instance_id=None):
+        # The type of the database. Valid values:
+        # 
+        # *   RDS
+        # *   POLARDB
         self.db_inst_type = db_inst_type  # type: str
+        # The name of the PolarDB-X database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -15954,9 +17661,13 @@ class SubmitSmoothExpandPreCheckRequest(TeaModel):
 
 class SubmitSmoothExpandPreCheckResponseBody(TeaModel):
     def __init__(self, msg=None, request_id=None, success=None, task_id=None):
+        # The result of the precheck task.
         self.msg = msg  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
+        # The ID of the precheck task.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -15992,12 +17703,14 @@ class SubmitSmoothExpandPreCheckResponseBody(TeaModel):
 
 
 class SubmitSmoothExpandPreCheckResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SubmitSmoothExpandPreCheckResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16010,6 +17723,8 @@ class SubmitSmoothExpandPreCheckResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16018,6 +17733,8 @@ class SubmitSmoothExpandPreCheckResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitSmoothExpandPreCheckResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -16026,7 +17743,9 @@ class SubmitSmoothExpandPreCheckResponse(TeaModel):
 
 class SubmitSmoothExpandPreCheckTaskRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None):
+        # The name of the PolarDB-X 1.0 database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
 
     def validate(self):
@@ -16055,9 +17774,13 @@ class SubmitSmoothExpandPreCheckTaskRequest(TeaModel):
 
 class SubmitSmoothExpandPreCheckTaskResponseBody(TeaModel):
     def __init__(self, msg=None, request_id=None, success=None, task_id=None):
+        # Indicates whether the precheck task was submitted.
         self.msg = msg  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
+        # The ID of the task.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -16093,12 +17816,14 @@ class SubmitSmoothExpandPreCheckTaskResponseBody(TeaModel):
 
 
 class SubmitSmoothExpandPreCheckTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SubmitSmoothExpandPreCheckTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16111,6 +17836,8 @@ class SubmitSmoothExpandPreCheckTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16119,6 +17846,8 @@ class SubmitSmoothExpandPreCheckTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitSmoothExpandPreCheckTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -16128,15 +17857,31 @@ class SubmitSmoothExpandPreCheckTaskResponse(TeaModel):
 class SubmitSqlFlashbackTaskRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, end_time=None, recall_restore_type=None,
                  recall_type=None, sql_pk=None, sql_type=None, start_time=None, table_name=None, trace_id=None):
+        # The name of the DRDS database.
         self.db_name = db_name  # type: str
+        # The ID of a DRDS instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The time when the SQL flashback task ends.
         self.end_time = end_time  # type: str
+        # The restoration type. Valid values:
+        # 
+        # *   1: Image restoration
+        # *   0: reverse recovery
         self.recall_restore_type = recall_restore_type  # type: int
+        # Exact match or fuzzy match. Valid values:
+        # 
+        # *   0: the exact match.
+        # *   1: the fuzzy match.
         self.recall_type = recall_type  # type: int
+        # The primary key of flashback SQL.
         self.sql_pk = sql_pk  # type: str
+        # The type of the SQL statement. Valid values: INSERT, UPDATE, and DELETE. Separate multiple types with commas (,).
         self.sql_type = sql_type  # type: str
+        # The start time of the flashback SQL statement.
         self.start_time = start_time  # type: str
+        # The name of the table where the flashback SQL operation was performed.
         self.table_name = table_name  # type: str
+        # The Trace ID of the flashback SQL.
         self.trace_id = trace_id  # type: str
 
     def validate(self):
@@ -16197,8 +17942,11 @@ class SubmitSqlFlashbackTaskRequest(TeaModel):
 
 class SubmitSqlFlashbackTaskResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the database creation failure records were removed from the DRDS instance.
         self.success = success  # type: bool
+        # The ID of the replication task.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -16230,12 +17978,14 @@ class SubmitSqlFlashbackTaskResponseBody(TeaModel):
 
 
 class SubmitSqlFlashbackTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SubmitSqlFlashbackTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16248,6 +17998,8 @@ class SubmitSqlFlashbackTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16256,6 +18008,8 @@ class SubmitSqlFlashbackTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitSqlFlashbackTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -16264,8 +18018,11 @@ class SubmitSqlFlashbackTaskResponse(TeaModel):
 
 class SwitchGlobalBroadcastTypeRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, region_id=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -16298,8 +18055,11 @@ class SwitchGlobalBroadcastTypeRequest(TeaModel):
 
 class SwitchGlobalBroadcastTypeResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # Indicates whether the mode of broadcast tables was switched from the multi-write mode to the asynchronous link mode.
         self.data = data  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -16331,12 +18091,14 @@ class SwitchGlobalBroadcastTypeResponseBody(TeaModel):
 
 
 class SwitchGlobalBroadcastTypeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SwitchGlobalBroadcastTypeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16349,6 +18111,8 @@ class SwitchGlobalBroadcastTypeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16357,6 +18121,8 @@ class SwitchGlobalBroadcastTypeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SwitchGlobalBroadcastTypeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -16365,7 +18131,9 @@ class SwitchGlobalBroadcastTypeResponse(TeaModel):
 
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag that you want to add.
         self.key = key  # type: str
+        # The value of the tag that you want to add.
         self.value = value  # type: str
 
     def validate(self):
@@ -16394,8 +18162,10 @@ class TagResourcesRequestTag(TeaModel):
 
 class TagResourcesRequest(TeaModel):
     def __init__(self, region_id=None, resource_id=None, resource_type=None, tag=None):
+        # The ID of the region in which the resource is located.
         self.region_id = region_id  # type: str
         self.resource_id = resource_id  # type: list[str]
+        # The resource type. Set the value to INSTANCE.
         self.resource_type = resource_type  # type: str
         self.tag = tag  # type: list[TagResourcesRequestTag]
 
@@ -16441,7 +18211,9 @@ class TagResourcesRequest(TeaModel):
 
 class TagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -16469,12 +18241,14 @@ class TagResourcesResponseBody(TeaModel):
 
 
 class TagResourcesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16487,6 +18261,8 @@ class TagResourcesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16495,6 +18271,8 @@ class TagResourcesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = TagResourcesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -16503,9 +18281,12 @@ class TagResourcesResponse(TeaModel):
 
 class UntagResourcesRequest(TeaModel):
     def __init__(self, all=None, region_id=None, resource_id=None, resource_type=None, tag_key=None):
+        # Specifies whether to delete all tags of the resource.
         self.all = all  # type: bool
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource. Set the value to INSTANCE.
         self.resource_type = resource_type  # type: str
         self.tag_key = tag_key  # type: list[str]
 
@@ -16547,7 +18328,9 @@ class UntagResourcesRequest(TeaModel):
 
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the database creation failure records were removed from the DRDS instance.
         self.success = success  # type: bool
 
     def validate(self):
@@ -16575,12 +18358,14 @@ class UntagResourcesResponseBody(TeaModel):
 
 
 class UntagResourcesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16593,6 +18378,8 @@ class UntagResourcesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16601,6 +18388,8 @@ class UntagResourcesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UntagResourcesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -16610,9 +18399,16 @@ class UntagResourcesResponse(TeaModel):
 class UpdateInstanceNetworkRequest(TeaModel):
     def __init__(self, classic_expired_days=None, drds_instance_id=None, retain_classic=None,
                  src_instance_network_type=None):
+        # Specifies the retention period of the classic network endpoint. Unit: days.
         self.classic_expired_days = classic_expired_days  # type: int
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # Specifies whether to retain the classic network endpoint.
         self.retain_classic = retain_classic  # type: bool
+        # The network type of the PolarDB-X 1.0 instance. Valid values:
+        # 
+        # *   vpc: Virtual Private Cloud (VPC)
+        # *   classic: classic network
         self.src_instance_network_type = src_instance_network_type  # type: str
 
     def validate(self):
@@ -16649,7 +18445,9 @@ class UpdateInstanceNetworkRequest(TeaModel):
 
 class UpdateInstanceNetworkResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the request.
         self.success = success  # type: bool
 
     def validate(self):
@@ -16677,12 +18475,14 @@ class UpdateInstanceNetworkResponseBody(TeaModel):
 
 
 class UpdateInstanceNetworkResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UpdateInstanceNetworkResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16695,6 +18495,8 @@ class UpdateInstanceNetworkResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16703,6 +18505,8 @@ class UpdateInstanceNetworkResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateInstanceNetworkResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -16712,11 +18516,27 @@ class UpdateInstanceNetworkResponse(TeaModel):
 class UpdatePrivateRdsClassRequest(TeaModel):
     def __init__(self, auto_use_coupon=None, dbinstance_id=None, drds_instance_id=None, pre_pay_duration=None,
                  rds_class=None, storage=None):
+        # Specifies whether to use vouchers to offset the purchase fees. Valid values: **true** and **false**. Default value: false.
+        # 
+        # > If you downgrade the specifications of an instance after you use the vouchers, the vouchers used for the purchase cannot be refunded.
         self.auto_use_coupon = auto_use_coupon  # type: bool
+        # The ID of the custom ApsaraDB RDS instance at the storage layer.
+        # 
+        # > You can call the [DescribeDrdsRdsInstances](~~xxxx~~) operation to query the details of all ApsaraDB RDS instances at the storage layer of a PolarDB-X 1.0 instance, including the IDs of the ApsaraDB RDS instances.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
+        # 
+        # > You can call the [DescribeDrdsInstances](~~139284~~) operation to query the details of all PolarDB-X 1.0 instances within an Alibaba Cloud account, including the IDs of the instances.
         self.drds_instance_id = drds_instance_id  # type: str
+        # This parameter is discontinued.
         self.pre_pay_duration = pre_pay_duration  # type: int
+        # The new instance type of the custom ApsaraDB RDS instance at the storage layer.
+        # 
+        # > You can call the [DescribeAvailableClasses](~~196546~~) operation to view the specifications that are supported for a custom ApsaraDB RDS instance. The specifications include the instance type and the storage capacity.
         self.rds_class = rds_class  # type: str
+        # The new storage capacity of the custom ApsaraDB RDS instance at the storage layer.
+        # 
+        # > You can call the [DescribeAvailableClasses](~~196546~~) operation to view the specifications that are supported for a custom ApsaraDB RDS instance. The specifications include the instance type and the storage capacity.
         self.storage = storage  # type: str
 
     def validate(self):
@@ -16761,8 +18581,11 @@ class UpdatePrivateRdsClassRequest(TeaModel):
 
 class UpdatePrivateRdsClassResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # The ID of the order.
         self.data = data  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -16794,12 +18617,14 @@ class UpdatePrivateRdsClassResponseBody(TeaModel):
 
 
 class UpdatePrivateRdsClassResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UpdatePrivateRdsClassResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16812,6 +18637,8 @@ class UpdatePrivateRdsClassResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16820,6 +18647,8 @@ class UpdatePrivateRdsClassResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdatePrivateRdsClassResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -16828,8 +18657,17 @@ class UpdatePrivateRdsClassResponse(TeaModel):
 
 class UpdateResourceGroupAttributeRequest(TeaModel):
     def __init__(self, drds_instance_id=None, new_resource_group_id=None, region_id=None):
+        # The ID of the instance that you want to transfer.
+        # 
+        # >  You can call the [DescribeDrdsInstances](~~139284~~) operation to view the details of the instances under the account, including the instance IDs.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the resource group that you want to specify.
+        # 
+        # >  You can call the [ListResourceGroups](~~158855~~) operation to view the details of the resource groups, including the resource group IDs.
         self.new_resource_group_id = new_resource_group_id  # type: str
+        # The ID of the region where the instance you want to transfer is located.
+        # 
+        # >  You can call the [DescribeDrdsInstances](~~139284~~) operation to view the details of the instances under the account, including the region IDs.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -16862,6 +18700,7 @@ class UpdateResourceGroupAttributeRequest(TeaModel):
 
 class UpdateResourceGroupAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16885,12 +18724,14 @@ class UpdateResourceGroupAttributeResponseBody(TeaModel):
 
 
 class UpdateResourceGroupAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UpdateResourceGroupAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16903,6 +18744,8 @@ class UpdateResourceGroupAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -16911,6 +18754,8 @@ class UpdateResourceGroupAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateResourceGroupAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -16919,8 +18764,11 @@ class UpdateResourceGroupAttributeResponse(TeaModel):
 
 class UpgradeHiStoreInstanceRequest(TeaModel):
     def __init__(self, drds_instance_id=None, histore_instance_id=None, region_id=None):
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the column-oriented storage instance.
         self.histore_instance_id = histore_instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -16953,7 +18801,9 @@ class UpgradeHiStoreInstanceRequest(TeaModel):
 
 class UpgradeHiStoreInstanceResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # Indicates whether the request was successful. A value of true indicates that the request was successful. An error message was returned if the request failed.
         self.data = data  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16981,12 +18831,14 @@ class UpgradeHiStoreInstanceResponseBody(TeaModel):
 
 
 class UpgradeHiStoreInstanceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UpgradeHiStoreInstanceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -16999,6 +18851,8 @@ class UpgradeHiStoreInstanceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -17007,6 +18861,8 @@ class UpgradeHiStoreInstanceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpgradeHiStoreInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -17015,8 +18871,11 @@ class UpgradeHiStoreInstanceResponse(TeaModel):
 
 class UpgradeInstanceVersionRequest(TeaModel):
     def __init__(self, drds_instance_id=None, region_id=None, rpm=None):
+        # The ID of the PolarDB-X 1.0 instance that you want to upgrade.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The version number of the PolarDB-X 1.0 instance. You can leave this parameter unspecified.
         self.rpm = rpm  # type: str
 
     def validate(self):
@@ -17049,7 +18908,9 @@ class UpgradeInstanceVersionRequest(TeaModel):
 
 class UpgradeInstanceVersionResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The result of the request.
         self.data = data  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17077,12 +18938,14 @@ class UpgradeInstanceVersionResponseBody(TeaModel):
 
 
 class UpgradeInstanceVersionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UpgradeInstanceVersionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -17095,6 +18958,8 @@ class UpgradeInstanceVersionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -17103,6 +18968,8 @@ class UpgradeInstanceVersionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpgradeInstanceVersionResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -17112,11 +18979,21 @@ class UpgradeInstanceVersionResponse(TeaModel):
 class ValidateShardTaskRequest(TeaModel):
     def __init__(self, db_name=None, drds_instance_id=None, region_id=None, source_table_name=None,
                  target_table_name=None, task_type=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
+        # The ID of the PolarDB-X 1.0 instance.
         self.drds_instance_id = drds_instance_id  # type: str
+        # The ID of the region where the PolarDB-X 1.0 instance is created.
         self.region_id = region_id  # type: str
+        # The name of the table or table shard on which you want to perform the task.
         self.source_table_name = source_table_name  # type: str
+        # The name of the table or table shard on which you perform the task.
         self.target_table_name = target_table_name  # type: str
+        # The type of the task. Valid values:
+        # 
+        # *   **SINGLE_TO_SHARD**: converts a single table to a table shard.
+        # *   **SHARD_TO_SINGLE**: converts a table shard to a single table.
+        # *   **SHARD_TO_SHARD**: converts a table shard to another table shard.
         self.task_type = task_type  # type: str
 
     def validate(self):
@@ -17161,7 +19038,12 @@ class ValidateShardTaskRequest(TeaModel):
 
 class ValidateShardTaskResponseBodyList(TeaModel):
     def __init__(self, item=None, result=None):
+        # Indicates the name of a check item.
         self.item = item  # type: str
+        # Indicates the result of the check item. Valid values:
+        # 
+        # *   **0**: indicates the task is valid.
+        # *   **1**: indicates the task is invalid.
         self.result = result  # type: int
 
     def validate(self):
@@ -17190,8 +19072,11 @@ class ValidateShardTaskResponseBodyList(TeaModel):
 
 class ValidateShardTaskResponseBody(TeaModel):
     def __init__(self, list=None, request_id=None, success=None):
+        # Indicates the check results.
         self.list = list  # type: list[ValidateShardTaskResponseBodyList]
+        # Indicates the ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -17231,12 +19116,14 @@ class ValidateShardTaskResponseBody(TeaModel):
 
 
 class ValidateShardTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ValidateShardTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -17249,6 +19136,8 @@ class ValidateShardTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -17257,6 +19146,8 @@ class ValidateShardTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ValidateShardTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
