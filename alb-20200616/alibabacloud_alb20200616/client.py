@@ -2335,8 +2335,14 @@ class Client(OpenApiClient):
     def list_load_balancers_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.address_ip_version):
+            query['AddressIpVersion'] = request.address_ip_version
         if not UtilClient.is_unset(request.address_type):
             query['AddressType'] = request.address_type
+        if not UtilClient.is_unset(request.dnsname):
+            query['DNSName'] = request.dnsname
+        if not UtilClient.is_unset(request.ipv_6address_type):
+            query['Ipv6AddressType'] = request.ipv_6address_type
         if not UtilClient.is_unset(request.load_balancer_bussiness_status):
             query['LoadBalancerBussinessStatus'] = request.load_balancer_bussiness_status
         if not UtilClient.is_unset(request.load_balancer_ids):

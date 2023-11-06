@@ -1707,8 +1707,8 @@ class CreateHealthCheckTemplateResponse(TeaModel):
 
 
 class CreateListenerRequestCaCertificates(TeaModel):
-    def __init__(self):
-        pass
+    def __init__(self, certificate_id=None):
+        self.certificate_id = certificate_id  # type: str
 
     def validate(self):
         pass
@@ -1719,10 +1719,14 @@ class CreateListenerRequestCaCertificates(TeaModel):
             return _map
 
         result = dict()
+        if self.certificate_id is not None:
+            result['CertificateId'] = self.certificate_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CertificateId') is not None:
+            self.certificate_id = m.get('CertificateId')
         return self
 
 
@@ -13182,14 +13186,17 @@ class ListLoadBalancersRequestTag(TeaModel):
 
 
 class ListLoadBalancersRequest(TeaModel):
-    def __init__(self, address_type=None, load_balancer_bussiness_status=None, load_balancer_ids=None,
-                 load_balancer_names=None, load_balancer_status=None, max_results=None, next_token=None, pay_type=None,
-                 resource_group_id=None, tag=None, vpc_ids=None, zone_id=None):
+    def __init__(self, address_ip_version=None, address_type=None, dnsname=None, ipv_6address_type=None,
+                 load_balancer_bussiness_status=None, load_balancer_ids=None, load_balancer_names=None, load_balancer_status=None,
+                 max_results=None, next_token=None, pay_type=None, resource_group_id=None, tag=None, vpc_ids=None, zone_id=None):
+        self.address_ip_version = address_ip_version  # type: str
         # The network type. Valid values:
         # 
         # *   **Internet**: The ALB instance uses a public IP address. The domain name of the ALB instance is resolved to the public IP address. Therefore, the ALB instance can be accessed over the Internet.
         # *   **Intranet**: The ALB instance uses a private IP address. The domain name of the ALB instance is resolved to the private IP address. In this case, the ALB instance can be accessed over the VPC where the ALB instance is deployed.
         self.address_type = address_type  # type: str
+        self.dnsname = dnsname  # type: str
+        self.ipv_6address_type = ipv_6address_type  # type: str
         # The service status of the ALB instance. Valid values:
         # 
         # *   **Abnormal**\
@@ -13241,8 +13248,14 @@ class ListLoadBalancersRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.address_ip_version is not None:
+            result['AddressIpVersion'] = self.address_ip_version
         if self.address_type is not None:
             result['AddressType'] = self.address_type
+        if self.dnsname is not None:
+            result['DNSName'] = self.dnsname
+        if self.ipv_6address_type is not None:
+            result['Ipv6AddressType'] = self.ipv_6address_type
         if self.load_balancer_bussiness_status is not None:
             result['LoadBalancerBussinessStatus'] = self.load_balancer_bussiness_status
         if self.load_balancer_ids is not None:
@@ -13271,8 +13284,14 @@ class ListLoadBalancersRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AddressIpVersion') is not None:
+            self.address_ip_version = m.get('AddressIpVersion')
         if m.get('AddressType') is not None:
             self.address_type = m.get('AddressType')
+        if m.get('DNSName') is not None:
+            self.dnsname = m.get('DNSName')
+        if m.get('Ipv6AddressType') is not None:
+            self.ipv_6address_type = m.get('Ipv6AddressType')
         if m.get('LoadBalancerBussinessStatus') is not None:
             self.load_balancer_bussiness_status = m.get('LoadBalancerBussinessStatus')
         if m.get('LoadBalancerIds') is not None:
@@ -19140,8 +19159,8 @@ class UpdateHealthCheckTemplateAttributeResponse(TeaModel):
 
 
 class UpdateListenerAttributeRequestCaCertificates(TeaModel):
-    def __init__(self):
-        pass
+    def __init__(self, certificate_id=None):
+        self.certificate_id = certificate_id  # type: str
 
     def validate(self):
         pass
@@ -19152,10 +19171,14 @@ class UpdateListenerAttributeRequestCaCertificates(TeaModel):
             return _map
 
         result = dict()
+        if self.certificate_id is not None:
+            result['CertificateId'] = self.certificate_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CertificateId') is not None:
+            self.certificate_id = m.get('CertificateId')
         return self
 
 
