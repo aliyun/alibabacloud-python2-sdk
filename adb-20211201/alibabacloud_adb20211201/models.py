@@ -12343,22 +12343,41 @@ class DescribeSqlPatternResponseBodyItems(TeaModel):
                  avg_stage_count=None, avg_task_count=None, instance_name=None, max_cpu_time=None, max_peak_memory=None,
                  max_scan_size=None, max_stage_count=None, max_task_count=None, pattern=None, query_count=None, report_date=None,
                  user=None):
+        # The IP address of the client.
+        # 
+        # >  This parameter is returned only when **Type** is set to **accessip**.
         self.access_ip = access_ip  # type: str
+        # The average execution duration of the SQL pattern within the query time range. Unit: milliseconds.
         self.avg_cpu_time = avg_cpu_time  # type: str
+        # The average peak memory usage of the SQL pattern within the query time range. Unit: KB.
         self.avg_peak_memory = avg_peak_memory  # type: str
+        # The average amount of data scanned based on the SQL pattern within the query time range. Unit: KB.
         self.avg_scan_size = avg_scan_size  # type: str
+        # The average number of scanned rows.
         self.avg_stage_count = avg_stage_count  # type: str
+        # The average number of tasks.
         self.avg_task_count = avg_task_count  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.instance_name = instance_name  # type: str
+        # The maximum execution duration of the SQL pattern within the query time range. Unit: milliseconds.
         self.max_cpu_time = max_cpu_time  # type: str
+        # The maximum peak memory usage of the SQL pattern within the query time range. Unit: KB.
         self.max_peak_memory = max_peak_memory  # type: str
+        # The maximum amount of data scanned based on the SQL pattern within the query time range. Unit: KB.
         self.max_scan_size = max_scan_size  # type: str
+        # The maximum number of stages.
         self.max_stage_count = max_stage_count  # type: str
+        # The maximum number of tasks.
         self.max_task_count = max_task_count  # type: str
-        # SQL Pattern。
+        # The SQL pattern.
         self.pattern = pattern  # type: str
+        # The number of queries performed in association with the SQL pattern within the query time range.
         self.query_count = query_count  # type: str
+        # The start date of the query.
         self.report_date = report_date  # type: str
+        # The username.
+        # 
+        # >  This parameter is returned only when **Type** is left empty or set to **user**.
         self.user = user  # type: str
 
     def validate(self):
@@ -12443,7 +12462,7 @@ class DescribeSqlPatternResponseBodyItems(TeaModel):
 
 class DescribeSqlPatternResponseBody(TeaModel):
     def __init__(self, items=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The average number of tasks.
+        # The queried SQL pattern.
         self.items = items  # type: list[DescribeSqlPatternResponseBodyItems]
         # The page number.
         self.page_number = page_number  # type: int
@@ -12906,8 +12925,9 @@ class DescribeTablesResponse(TeaModel):
 
 
 class DescribeUserQuotaRequest(TeaModel):
-    def __init__(self, dbcluster_id=None):
+    def __init__(self, dbcluster_id=None, region_id=None):
         self.dbcluster_id = dbcluster_id  # type: str
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -12920,12 +12940,16 @@ class DescribeUserQuotaRequest(TeaModel):
         result = dict()
         if self.dbcluster_id is not None:
             result['DBClusterId'] = self.dbcluster_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('DBClusterId') is not None:
             self.dbcluster_id = m.get('DBClusterId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         return self
 
 
