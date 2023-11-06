@@ -2040,6 +2040,8 @@ class Client(OpenApiClient):
             query['Description'] = request.description
         if not UtilClient.is_unset(request.endpoint_group_configurations):
             query['EndpointGroupConfigurations'] = request.endpoint_group_configurations
+        if not UtilClient.is_unset(request.idle_timeout):
+            query['IdleTimeout'] = request.idle_timeout
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.port_ranges):
@@ -2050,6 +2052,8 @@ class Client(OpenApiClient):
             query['ProxyProtocol'] = request.proxy_protocol
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.request_timeout):
+            query['RequestTimeout'] = request.request_timeout
         if not UtilClient.is_unset(request.security_policy_id):
             query['SecurityPolicyId'] = request.security_policy_id
         if not UtilClient.is_unset(request.type):
@@ -7788,6 +7792,8 @@ class Client(OpenApiClient):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
+        if not UtilClient.is_unset(request.idle_timeout):
+            query['IdleTimeout'] = request.idle_timeout
         if not UtilClient.is_unset(request.listener_id):
             query['ListenerId'] = request.listener_id
         if not UtilClient.is_unset(request.name):
@@ -7800,6 +7806,8 @@ class Client(OpenApiClient):
             query['ProxyProtocol'] = request.proxy_protocol
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.request_timeout):
+            query['RequestTimeout'] = request.request_timeout
         if not UtilClient.is_unset(request.security_policy_id):
             query['SecurityPolicyId'] = request.security_policy_id
         if not UtilClient.is_unset(request.xforwarded_for_config):

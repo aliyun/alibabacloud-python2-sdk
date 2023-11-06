@@ -7572,9 +7572,9 @@ class CreateListenerRequestXForwardedForConfig(TeaModel):
 
 class CreateListenerRequest(TeaModel):
     def __init__(self, accelerator_id=None, certificates=None, client_affinity=None, client_token=None,
-                 custom_routing_endpoint_group_configurations=None, description=None, endpoint_group_configurations=None, name=None, port_ranges=None,
-                 protocol=None, proxy_protocol=None, region_id=None, security_policy_id=None, type=None,
-                 xforwarded_for_config=None):
+                 custom_routing_endpoint_group_configurations=None, description=None, endpoint_group_configurations=None, idle_timeout=None, name=None,
+                 port_ranges=None, protocol=None, proxy_protocol=None, region_id=None, request_timeout=None,
+                 security_policy_id=None, type=None, xforwarded_for_config=None):
         # The ID of the GA instance.
         self.accelerator_id = accelerator_id  # type: str
         # The SSL certificates.
@@ -7604,6 +7604,7 @@ class CreateListenerRequest(TeaModel):
         # 
         # > You can configure endpoint groups and endpoints for an intelligent routing listener only if the **Type** parameter is set to **Standard**.
         self.endpoint_group_configurations = endpoint_group_configurations  # type: list[CreateListenerRequestEndpointGroupConfigurations]
+        self.idle_timeout = idle_timeout  # type: int
         # The name of the listener.
         # 
         # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
@@ -7626,6 +7627,7 @@ class CreateListenerRequest(TeaModel):
         self.proxy_protocol = proxy_protocol  # type: bool
         # The ID of the region where the GA instance is deployed. Set the value to **cn-hangzhou**.
         self.region_id = region_id  # type: str
+        self.request_timeout = request_timeout  # type: int
         # The ID of the security policy. Valid values:
         # 
         # *   **tls_cipher_policy\_1\_0**\
@@ -7715,6 +7717,8 @@ class CreateListenerRequest(TeaModel):
         if self.endpoint_group_configurations is not None:
             for k in self.endpoint_group_configurations:
                 result['EndpointGroupConfigurations'].append(k.to_map() if k else None)
+        if self.idle_timeout is not None:
+            result['IdleTimeout'] = self.idle_timeout
         if self.name is not None:
             result['Name'] = self.name
         result['PortRanges'] = []
@@ -7727,6 +7731,8 @@ class CreateListenerRequest(TeaModel):
             result['ProxyProtocol'] = self.proxy_protocol
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.request_timeout is not None:
+            result['RequestTimeout'] = self.request_timeout
         if self.security_policy_id is not None:
             result['SecurityPolicyId'] = self.security_policy_id
         if self.type is not None:
@@ -7760,6 +7766,8 @@ class CreateListenerRequest(TeaModel):
             for k in m.get('EndpointGroupConfigurations'):
                 temp_model = CreateListenerRequestEndpointGroupConfigurations()
                 self.endpoint_group_configurations.append(temp_model.from_map(k))
+        if m.get('IdleTimeout') is not None:
+            self.idle_timeout = m.get('IdleTimeout')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         self.port_ranges = []
@@ -7773,6 +7781,8 @@ class CreateListenerRequest(TeaModel):
             self.proxy_protocol = m.get('ProxyProtocol')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RequestTimeout') is not None:
+            self.request_timeout = m.get('RequestTimeout')
         if m.get('SecurityPolicyId') is not None:
             self.security_policy_id = m.get('SecurityPolicyId')
         if m.get('Type') is not None:
@@ -15104,9 +15114,9 @@ class DescribeListenerResponseBodyXForwardedForConfig(TeaModel):
 
 class DescribeListenerResponseBody(TeaModel):
     def __init__(self, accelerator_id=None, acl_type=None, backend_ports=None, certificates=None,
-                 client_affinity=None, create_time=None, description=None, listener_id=None, name=None, port_ranges=None,
-                 protocol=None, proxy_protocol=None, related_acls=None, request_id=None, security_policy_id=None,
-                 service_id=None, service_managed=None, service_managed_infos=None, state=None, type=None,
+                 client_affinity=None, create_time=None, description=None, idle_timeout=None, listener_id=None, name=None,
+                 port_ranges=None, protocol=None, proxy_protocol=None, related_acls=None, request_id=None, request_timeout=None,
+                 security_policy_id=None, service_id=None, service_managed=None, service_managed_infos=None, state=None, type=None,
                  xforwarded_for_config=None):
         # The ID of the GA instance.
         self.accelerator_id = accelerator_id  # type: str
@@ -15130,6 +15140,7 @@ class DescribeListenerResponseBody(TeaModel):
         self.create_time = create_time  # type: str
         # The description of the listener.
         self.description = description  # type: str
+        self.idle_timeout = idle_timeout  # type: int
         # The ID of the listener.
         self.listener_id = listener_id  # type: str
         # The name of the listener.
@@ -15152,6 +15163,7 @@ class DescribeListenerResponseBody(TeaModel):
         self.related_acls = related_acls  # type: list[DescribeListenerResponseBodyRelatedAcls]
         # The ID of the request.
         self.request_id = request_id  # type: str
+        self.request_timeout = request_timeout  # type: int
         # The ID of the security policy.
         # 
         # *   **tls_cipher_policy\_1\_0**\
@@ -15255,6 +15267,8 @@ class DescribeListenerResponseBody(TeaModel):
             result['CreateTime'] = self.create_time
         if self.description is not None:
             result['Description'] = self.description
+        if self.idle_timeout is not None:
+            result['IdleTimeout'] = self.idle_timeout
         if self.listener_id is not None:
             result['ListenerId'] = self.listener_id
         if self.name is not None:
@@ -15273,6 +15287,8 @@ class DescribeListenerResponseBody(TeaModel):
                 result['RelatedAcls'].append(k.to_map() if k else None)
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.request_timeout is not None:
+            result['RequestTimeout'] = self.request_timeout
         if self.security_policy_id is not None:
             result['SecurityPolicyId'] = self.security_policy_id
         if self.service_id is not None:
@@ -15313,6 +15329,8 @@ class DescribeListenerResponseBody(TeaModel):
             self.create_time = m.get('CreateTime')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('IdleTimeout') is not None:
+            self.idle_timeout = m.get('IdleTimeout')
         if m.get('ListenerId') is not None:
             self.listener_id = m.get('ListenerId')
         if m.get('Name') is not None:
@@ -15333,6 +15351,8 @@ class DescribeListenerResponseBody(TeaModel):
                 self.related_acls.append(temp_model.from_map(k))
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('RequestTimeout') is not None:
+            self.request_timeout = m.get('RequestTimeout')
         if m.get('SecurityPolicyId') is not None:
             self.security_policy_id = m.get('SecurityPolicyId')
         if m.get('ServiceId') is not None:
@@ -27590,9 +27610,9 @@ class ListListenersResponseBodyListenersXForwardedForConfig(TeaModel):
 
 class ListListenersResponseBodyListeners(TeaModel):
     def __init__(self, accelerator_id=None, backend_ports=None, certificates=None, client_affinity=None,
-                 create_time=None, description=None, listener_id=None, name=None, port_ranges=None, protocol=None,
-                 proxy_protocol=None, security_policy_id=None, service_id=None, service_managed=None, service_managed_infos=None,
-                 state=None, type=None, xforwarded_for_config=None):
+                 create_time=None, description=None, idle_timeout=None, listener_id=None, name=None, port_ranges=None,
+                 protocol=None, proxy_protocol=None, request_timeout=None, security_policy_id=None, service_id=None,
+                 service_managed=None, service_managed_infos=None, state=None, type=None, xforwarded_for_config=None):
         # The ID of the GA instance.
         self.accelerator_id = accelerator_id  # type: str
         # Details about the ports that can be used by the backend server.
@@ -27608,6 +27628,7 @@ class ListListenersResponseBodyListeners(TeaModel):
         self.create_time = create_time  # type: long
         # The description of the listener.
         self.description = description  # type: str
+        self.idle_timeout = idle_timeout  # type: int
         # The ID of the listener.
         self.listener_id = listener_id  # type: str
         # The name of the listener.
@@ -27626,6 +27647,7 @@ class ListListenersResponseBodyListeners(TeaModel):
         # *   **true**: The client IP address preservation feature is enabled. After client IP addresses are reserved, you can view the source IP addresses of clients over the backend service.
         # *   **false**: The client IP address preservation feature is disabled.
         self.proxy_protocol = proxy_protocol  # type: bool
+        self.request_timeout = request_timeout  # type: int
         # The ID of the security policy.
         # 
         # *   **tls_cipher_policy\_1\_0**\
@@ -27723,6 +27745,8 @@ class ListListenersResponseBodyListeners(TeaModel):
             result['CreateTime'] = self.create_time
         if self.description is not None:
             result['Description'] = self.description
+        if self.idle_timeout is not None:
+            result['IdleTimeout'] = self.idle_timeout
         if self.listener_id is not None:
             result['ListenerId'] = self.listener_id
         if self.name is not None:
@@ -27735,6 +27759,8 @@ class ListListenersResponseBodyListeners(TeaModel):
             result['Protocol'] = self.protocol
         if self.proxy_protocol is not None:
             result['ProxyProtocol'] = self.proxy_protocol
+        if self.request_timeout is not None:
+            result['RequestTimeout'] = self.request_timeout
         if self.security_policy_id is not None:
             result['SecurityPolicyId'] = self.security_policy_id
         if self.service_id is not None:
@@ -27773,6 +27799,8 @@ class ListListenersResponseBodyListeners(TeaModel):
             self.create_time = m.get('CreateTime')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('IdleTimeout') is not None:
+            self.idle_timeout = m.get('IdleTimeout')
         if m.get('ListenerId') is not None:
             self.listener_id = m.get('ListenerId')
         if m.get('Name') is not None:
@@ -27786,6 +27814,8 @@ class ListListenersResponseBodyListeners(TeaModel):
             self.protocol = m.get('Protocol')
         if m.get('ProxyProtocol') is not None:
             self.proxy_protocol = m.get('ProxyProtocol')
+        if m.get('RequestTimeout') is not None:
+            self.request_timeout = m.get('RequestTimeout')
         if m.get('SecurityPolicyId') is not None:
             self.security_policy_id = m.get('SecurityPolicyId')
         if m.get('ServiceId') is not None:
@@ -34130,8 +34160,8 @@ class UpdateListenerRequestXForwardedForConfig(TeaModel):
 
 class UpdateListenerRequest(TeaModel):
     def __init__(self, backend_ports=None, certificates=None, client_affinity=None, client_token=None,
-                 description=None, listener_id=None, name=None, port_ranges=None, protocol=None, proxy_protocol=None,
-                 region_id=None, security_policy_id=None, xforwarded_for_config=None):
+                 description=None, idle_timeout=None, listener_id=None, name=None, port_ranges=None, protocol=None,
+                 proxy_protocol=None, region_id=None, request_timeout=None, security_policy_id=None, xforwarded_for_config=None):
         # The range of ports that are used by backend servers to receive requests.
         self.backend_ports = backend_ports  # type: list[UpdateListenerRequestBackendPorts]
         # The SSL certificate.
@@ -34149,6 +34179,7 @@ class UpdateListenerRequest(TeaModel):
         self.client_token = client_token  # type: str
         # The description of the listener. The description can be at most 200 characters in length.
         self.description = description  # type: str
+        self.idle_timeout = idle_timeout  # type: int
         # The ID of the listener.
         self.listener_id = listener_id  # type: str
         # The name of the listener.
@@ -34177,6 +34208,7 @@ class UpdateListenerRequest(TeaModel):
         self.proxy_protocol = proxy_protocol  # type: str
         # The region ID of the GA instance. Set the value to **cn-hangzhou**.
         self.region_id = region_id  # type: str
+        self.request_timeout = request_timeout  # type: int
         # The ID of the security policy. Valid values:
         # 
         # *   **tls_cipher_policy\_1\_0**\
@@ -34245,6 +34277,8 @@ class UpdateListenerRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.description is not None:
             result['Description'] = self.description
+        if self.idle_timeout is not None:
+            result['IdleTimeout'] = self.idle_timeout
         if self.listener_id is not None:
             result['ListenerId'] = self.listener_id
         if self.name is not None:
@@ -34259,6 +34293,8 @@ class UpdateListenerRequest(TeaModel):
             result['ProxyProtocol'] = self.proxy_protocol
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.request_timeout is not None:
+            result['RequestTimeout'] = self.request_timeout
         if self.security_policy_id is not None:
             result['SecurityPolicyId'] = self.security_policy_id
         if self.xforwarded_for_config is not None:
@@ -34283,6 +34319,8 @@ class UpdateListenerRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('IdleTimeout') is not None:
+            self.idle_timeout = m.get('IdleTimeout')
         if m.get('ListenerId') is not None:
             self.listener_id = m.get('ListenerId')
         if m.get('Name') is not None:
@@ -34298,6 +34336,8 @@ class UpdateListenerRequest(TeaModel):
             self.proxy_protocol = m.get('ProxyProtocol')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RequestTimeout') is not None:
+            self.request_timeout = m.get('RequestTimeout')
         if m.get('SecurityPolicyId') is not None:
             self.security_policy_id = m.get('SecurityPolicyId')
         if m.get('XForwardedForConfig') is not None:
