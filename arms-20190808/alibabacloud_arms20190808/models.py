@@ -49228,6 +49228,61 @@ class UpdateTimingSyntheticTaskRequestMonitorConfNetTCP(TeaModel):
         return self
 
 
+class UpdateTimingSyntheticTaskRequestMonitorConfStream(TeaModel):
+    def __init__(self, custom_header_content=None, player_type=None, stream_address_type=None,
+                 stream_monitor_timeout=None, stream_type=None, target_url=None, white_list=None):
+        self.custom_header_content = custom_header_content  # type: dict[str, str]
+        self.player_type = player_type  # type: int
+        self.stream_address_type = stream_address_type  # type: int
+        self.stream_monitor_timeout = stream_monitor_timeout  # type: int
+        self.stream_type = stream_type  # type: int
+        self.target_url = target_url  # type: str
+        self.white_list = white_list  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateTimingSyntheticTaskRequestMonitorConfStream, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.custom_header_content is not None:
+            result['CustomHeaderContent'] = self.custom_header_content
+        if self.player_type is not None:
+            result['PlayerType'] = self.player_type
+        if self.stream_address_type is not None:
+            result['StreamAddressType'] = self.stream_address_type
+        if self.stream_monitor_timeout is not None:
+            result['StreamMonitorTimeout'] = self.stream_monitor_timeout
+        if self.stream_type is not None:
+            result['StreamType'] = self.stream_type
+        if self.target_url is not None:
+            result['TargetUrl'] = self.target_url
+        if self.white_list is not None:
+            result['WhiteList'] = self.white_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustomHeaderContent') is not None:
+            self.custom_header_content = m.get('CustomHeaderContent')
+        if m.get('PlayerType') is not None:
+            self.player_type = m.get('PlayerType')
+        if m.get('StreamAddressType') is not None:
+            self.stream_address_type = m.get('StreamAddressType')
+        if m.get('StreamMonitorTimeout') is not None:
+            self.stream_monitor_timeout = m.get('StreamMonitorTimeout')
+        if m.get('StreamType') is not None:
+            self.stream_type = m.get('StreamType')
+        if m.get('TargetUrl') is not None:
+            self.target_url = m.get('TargetUrl')
+        if m.get('WhiteList') is not None:
+            self.white_list = m.get('WhiteList')
+        return self
+
+
 class UpdateTimingSyntheticTaskRequestMonitorConfWebsite(TeaModel):
     def __init__(self, automatic_scrolling=None, custom_header=None, custom_header_content=None,
                  dnshijack_whitelist=None, disable_cache=None, disable_compression=None, element_blacklist=None,
@@ -49347,12 +49402,14 @@ class UpdateTimingSyntheticTaskRequestMonitorConfWebsite(TeaModel):
 
 
 class UpdateTimingSyntheticTaskRequestMonitorConf(TeaModel):
-    def __init__(self, api_http=None, file_download=None, net_dns=None, net_icmp=None, net_tcp=None, website=None):
+    def __init__(self, api_http=None, file_download=None, net_dns=None, net_icmp=None, net_tcp=None, stream=None,
+                 website=None):
         self.api_http = api_http  # type: UpdateTimingSyntheticTaskRequestMonitorConfApiHTTP
         self.file_download = file_download  # type: UpdateTimingSyntheticTaskRequestMonitorConfFileDownload
         self.net_dns = net_dns  # type: UpdateTimingSyntheticTaskRequestMonitorConfNetDNS
         self.net_icmp = net_icmp  # type: UpdateTimingSyntheticTaskRequestMonitorConfNetICMP
         self.net_tcp = net_tcp  # type: UpdateTimingSyntheticTaskRequestMonitorConfNetTCP
+        self.stream = stream  # type: UpdateTimingSyntheticTaskRequestMonitorConfStream
         self.website = website  # type: UpdateTimingSyntheticTaskRequestMonitorConfWebsite
 
     def validate(self):
@@ -49366,6 +49423,8 @@ class UpdateTimingSyntheticTaskRequestMonitorConf(TeaModel):
             self.net_icmp.validate()
         if self.net_tcp:
             self.net_tcp.validate()
+        if self.stream:
+            self.stream.validate()
         if self.website:
             self.website.validate()
 
@@ -49385,6 +49444,8 @@ class UpdateTimingSyntheticTaskRequestMonitorConf(TeaModel):
             result['NetICMP'] = self.net_icmp.to_map()
         if self.net_tcp is not None:
             result['NetTCP'] = self.net_tcp.to_map()
+        if self.stream is not None:
+            result['Stream'] = self.stream.to_map()
         if self.website is not None:
             result['Website'] = self.website.to_map()
         return result
@@ -49406,6 +49467,9 @@ class UpdateTimingSyntheticTaskRequestMonitorConf(TeaModel):
         if m.get('NetTCP') is not None:
             temp_model = UpdateTimingSyntheticTaskRequestMonitorConfNetTCP()
             self.net_tcp = temp_model.from_map(m['NetTCP'])
+        if m.get('Stream') is not None:
+            temp_model = UpdateTimingSyntheticTaskRequestMonitorConfStream()
+            self.stream = temp_model.from_map(m['Stream'])
         if m.get('Website') is not None:
             temp_model = UpdateTimingSyntheticTaskRequestMonitorConfWebsite()
             self.website = temp_model.from_map(m['Website'])
