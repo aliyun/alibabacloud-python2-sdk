@@ -230,6 +230,18 @@ class Client(OpenApiClient):
         return self.add_task_flow_edges_with_options(request, runtime)
 
     def analyze_sqllineage_with_options(self, request, runtime):
+        """
+        The following conditions must be met before you call this API operation.
+        *   The database instance is of one of the following types: ApsaraDB RDS for MySQL, PolarDB for MySQL, AnalyticDB for MySQL, ApsaraDB RDS for PostgreSQL, PolarDB for PostgreSQL, AnalyticDB for PostgreSQL, Oracle, and openGauss.
+        *   A database instance is managed in Security Collaboration mode. For more information about control modes, see [Control modes](~~151629~~).
+        
+
+        @param request: AnalyzeSQLLineageRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AnalyzeSQLLineageResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.db_id):
@@ -258,6 +270,16 @@ class Client(OpenApiClient):
         )
 
     def analyze_sqllineage(self, request):
+        """
+        The following conditions must be met before you call this API operation.
+        *   The database instance is of one of the following types: ApsaraDB RDS for MySQL, PolarDB for MySQL, AnalyticDB for MySQL, ApsaraDB RDS for PostgreSQL, PolarDB for PostgreSQL, AnalyticDB for PostgreSQL, Oracle, and openGauss.
+        *   A database instance is managed in Security Collaboration mode. For more information about control modes, see [Control modes](~~151629~~).
+        
+
+        @param request: AnalyzeSQLLineageRequest
+
+        @return: AnalyzeSQLLineageResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.analyze_sqllineage_with_options(request, runtime)
 
@@ -1732,6 +1754,36 @@ class Client(OpenApiClient):
     def create_upload_ossfile_job(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_upload_ossfile_job_with_options(request, runtime)
+
+    def delete_authority_template_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        if not UtilClient.is_unset(request.tid):
+            query['Tid'] = request.tid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAuthorityTemplate',
+            version='2018-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dms_enterprise_20181101_models.DeleteAuthorityTemplateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_authority_template(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_authority_template_with_options(request, runtime)
 
     def delete_instance_with_options(self, request, runtime):
         """
@@ -3409,6 +3461,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_database_export_order_detail_with_options(request, runtime)
 
+    def get_db_export_download_urlwith_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.tid):
+            query['Tid'] = request.tid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDbExportDownloadURL',
+            version='2018-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dms_enterprise_20181101_models.GetDbExportDownloadURLResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_db_export_download_url(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_db_export_download_urlwith_options(request, runtime)
+
     def get_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3844,6 +3926,32 @@ class Client(OpenApiClient):
     def get_owner_apply_order_detail(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_owner_apply_order_detail_with_options(request, runtime)
+
+    def get_paged_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetPagedInstance',
+            version='2018-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dms_enterprise_20181101_models.GetPagedInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_paged_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_paged_instance_with_options(request, runtime)
 
     def get_perm_apply_order_detail_with_options(self, request, runtime):
         """
@@ -4640,6 +4748,40 @@ class Client(OpenApiClient):
     def inspect_proxy_access_secret(self, request):
         runtime = util_models.RuntimeOptions()
         return self.inspect_proxy_access_secret_with_options(request, runtime)
+
+    def list_authority_template_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_key):
+            query['SearchKey'] = request.search_key
+        if not UtilClient.is_unset(request.tid):
+            query['Tid'] = request.tid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAuthorityTemplate',
+            version='2018-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dms_enterprise_20181101_models.ListAuthorityTemplateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_authority_template(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_authority_template_with_options(request, runtime)
 
     def list_classification_templates_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -6743,6 +6885,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.pause_data_correct_sqljob_with_options(request, runtime)
 
+    def preview_workflow_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.tid):
+            query['Tid'] = request.tid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PreviewWorkflow',
+            version='2018-11-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dms_enterprise_20181101_models.PreviewWorkflowResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def preview_workflow(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.preview_workflow_with_options(request, runtime)
+
     def publish_and_deploy_task_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -6926,6 +7098,8 @@ class Client(OpenApiClient):
             query['DatabaseUser'] = request.database_user
         if not UtilClient.is_unset(request.dba_uid):
             query['DbaUid'] = request.dba_uid
+        if not UtilClient.is_unset(request.dba_uid_by_string):
+            query['DbaUidByString'] = request.dba_uid_by_string
         if not UtilClient.is_unset(request.ddl_online):
             query['DdlOnline'] = request.ddl_online
         if not UtilClient.is_unset(request.ecs_instance_id):
