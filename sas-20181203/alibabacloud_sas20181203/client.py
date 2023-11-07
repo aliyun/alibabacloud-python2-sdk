@@ -429,6 +429,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_private_registry_with_options(request, runtime)
 
+    def add_sas_module_trial_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.module_code):
+            query['ModuleCode'] = request.module_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddSasModuleTrial',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.AddSasModuleTrialResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_sas_module_trial(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_sas_module_trial_with_options(request, runtime)
+
     def add_tag_with_uuid_with_options(self, request, runtime):
         """
         Security Center provides asset importance tags and custom tags. You can call the AddTagWithUuid operation to add only a custom tag to assets.
@@ -12622,6 +12652,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
             query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.uuid):
+            query['Uuid'] = request.uuid
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -13466,6 +13498,36 @@ class Client(OpenApiClient):
     def get_module_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_module_config_with_options(request, runtime)
+
+    def get_module_trial_auth_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.module_code):
+            query['ModuleCode'] = request.module_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetModuleTrialAuthInfo',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetModuleTrialAuthInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_module_trial_auth_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_module_trial_auth_info_with_options(request, runtime)
 
     def get_object_scan_event_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -14968,6 +15030,8 @@ class Client(OpenApiClient):
             query['RiskType'] = request.risk_type
         if not UtilClient.is_unset(request.source):
             query['Source'] = request.source
+        if not UtilClient.is_unset(request.uuid_list):
+            query['UuidList'] = request.uuid_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
