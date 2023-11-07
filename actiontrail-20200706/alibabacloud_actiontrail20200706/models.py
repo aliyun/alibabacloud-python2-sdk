@@ -5,7 +5,13 @@ from Tea.model import TeaModel
 
 class CreateDeliveryHistoryJobRequest(TeaModel):
     def __init__(self, client_token=None, trail_name=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests.
+        # 
+        # The token can contain only ASCII characters and can be up to 64 characters in length.
+        # 
+        # For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
+        # The name of the trail for which you want to create a historical event delivery task.
         self.trail_name = trail_name  # type: str
 
     def validate(self):
@@ -34,7 +40,9 @@ class CreateDeliveryHistoryJobRequest(TeaModel):
 
 class CreateDeliveryHistoryJobResponseBody(TeaModel):
     def __init__(self, job_id=None, request_id=None):
+        # The ID of the historical event delivery task.
         self.job_id = job_id  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -103,14 +111,52 @@ class CreateDeliveryHistoryJobResponse(TeaModel):
 class CreateTrailRequest(TeaModel):
     def __init__(self, event_rw=None, is_organization_trail=None, name=None, oss_bucket_name=None,
                  oss_key_prefix=None, oss_write_role_arn=None, sls_project_arn=None, sls_write_role_arn=None, trail_region=None):
+        # The read/write type of the events to be delivered. Valid values:
+        # 
+        # *   Write: write events. It is the default value.
+        # *   Read: read events.
+        # *   All: read and write events.
         self.event_rw = event_rw  # type: str
+        # Specifies whether to create a multi-account trail. Valid values:
+        # 
+        # *   true: creates a multi-account trail.
+        # *   false (default): creates a single-account trail.
         self.is_organization_trail = is_organization_trail  # type: bool
+        # The name of the trail to be created.
+        # 
+        # The name must be 6 to 36 characters in length. The name must start with a lowercase letter and can contain lowercase letters, digits, hyphens (-), and underscores (\_).
+        # 
+        # > The name must be unique within your Alibaba Cloud account.
         self.name = name  # type: str
+        # The name of the OSS bucket to which events are to be delivered.
+        # 
+        # The name must be 3 to 63 characters in length. The name must start with a lowercase letter or a digit and can contain lowercase letters, digits, and hyphens (-).
+        # 
+        # > You must specify at least one of the OssBucketName and SlsProjectArn parameters.
         self.oss_bucket_name = oss_bucket_name  # type: str
+        # The prefix of the log files to be stored in the destination OSS bucket. This parameter can be left empty.
+        # 
+        # The prefix must be 6 to 32 characters in length. The prefix must start with a letter and can contain letters, digits, hyphens (-), forward slashes (/), and underscores (\_).
         self.oss_key_prefix = oss_key_prefix  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the RAM role that is assumed by ActionTrail to deliver events to the OSS bucket.
+        # 
+        # *   If you do not specify this parameter, ActionTrail creates a service-linked role to create the required resources. For more information, see [Manage the service-linked role](~~169244~~).
+        # *   If you specify this parameter, you must grant the permissions of the service-linked role that is assumed by ActionTrail to the RAM role before you can deliver events to your Alibaba Cloud account. If you need to deliver events to other Alibaba Cloud accounts, you must attach the permission policy that is used to grant permissions related to event delivery to the RAM role. For more information about how to deliver events across Alibaba Cloud accounts, see [Deliver events across Alibaba Cloud accounts](~~207462~~).
         self.oss_write_role_arn = oss_write_role_arn  # type: str
+        # The ARN of the Log Service project to which events are to be delivered.
+        # 
+        # > You must specify at least one of the OssBucketName and SlsProjectArn parameters.
         self.sls_project_arn = sls_project_arn  # type: str
+        # The ARN of the RAM role that is assumed by ActionTrail to deliver events to the Log Service project.
+        # 
+        # *   If you do not specify this parameter, ActionTrail creates a service-linked role to create the corresponding resource. For more information, see [Manage the service-linked role](~~169244~~).
+        # *   If you specify this parameter, you must grant the permissions of the service-linked role that is assumed by ActionTrail to the RAM role before you can deliver events to your Alibaba Cloud account. If you need to deliver events to other Alibaba Cloud accounts, you must attach the permission policy that is used to grant permissions related to event delivery to the RAM role. For more information about how to deliver events across Alibaba Cloud accounts, see [Deliver events across Alibaba Cloud accounts](~~207462~~).
         self.sls_write_role_arn = sls_write_role_arn  # type: str
+        # The one or more regions from which the trail delivers events.
+        # 
+        # The default value is All, which indicates that the trail delivers events from all regions.
+        # 
+        # You can also specify specific regions. You can call the [DescribeRegions](~~213597~~) operation to query all the supported regions.
         self.trail_region = trail_region  # type: str
 
     def validate(self):
@@ -168,15 +214,25 @@ class CreateTrailRequest(TeaModel):
 class CreateTrailResponseBody(TeaModel):
     def __init__(self, event_rw=None, home_region=None, name=None, oss_bucket_name=None, oss_key_prefix=None,
                  oss_write_role_arn=None, request_id=None, sls_project_arn=None, sls_write_role_arn=None, trail_region=None):
+        # The read/write type of the events to be delivered.
         self.event_rw = event_rw  # type: str
+        # The home region of the trail.
         self.home_region = home_region  # type: str
+        # The name of the trail.
         self.name = name  # type: str
+        # The name of the OSS bucket to which events are to be delivered.
         self.oss_bucket_name = oss_bucket_name  # type: str
+        # The prefix of the log files to be stored in the destination OSS bucket.
         self.oss_key_prefix = oss_key_prefix  # type: str
+        # The ARN of the service-linked role that is assumed by ActionTrail to deliver events to the destination OSS bucket.
         self.oss_write_role_arn = oss_write_role_arn  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ARN of the Log Service project to which events are to be delivered.
         self.sls_project_arn = sls_project_arn  # type: str
+        # The ARN of the service-linked role that is assumed by ActionTrail to deliver events to the destination Log Service project.
         self.sls_write_role_arn = sls_write_role_arn  # type: str
+        # The one or more regions from which the trail delivers events.
         self.trail_region = trail_region  # type: str
 
     def validate(self):
@@ -276,6 +332,9 @@ class CreateTrailResponse(TeaModel):
 
 class DeleteDeliveryHistoryJobRequest(TeaModel):
     def __init__(self, job_id=None):
+        # The ID of the historical event delivery task to be deleted.
+        # 
+        # You can call the [ListDeliveryHistoryJobs](~~188101~~) operation to query task IDs.
         self.job_id = job_id  # type: int
 
     def validate(self):
@@ -300,6 +359,7 @@ class DeleteDeliveryHistoryJobRequest(TeaModel):
 
 class DeleteDeliveryHistoryJobResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -363,6 +423,11 @@ class DeleteDeliveryHistoryJobResponse(TeaModel):
 
 class DeleteTrailRequest(TeaModel):
     def __init__(self, name=None):
+        # The name of the trail that you want to delete.
+        # 
+        # The name must be 6 to 36 characters in length. The name must start with a lowercase letter and can contain lowercase letters, digits, hyphens (-), and underscores (\_).
+        # 
+        # > The name must be unique within your Alibaba Cloud account.
         self.name = name  # type: str
 
     def validate(self):
@@ -387,6 +452,7 @@ class DeleteTrailRequest(TeaModel):
 
 class DeleteTrailResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -450,6 +516,10 @@ class DeleteTrailResponse(TeaModel):
 
 class DescribeRegionsRequest(TeaModel):
     def __init__(self, accept_language=None):
+        # The language in which the region names are returned. Valid values:
+        # 
+        # - zh-CN: Chinese.
+        # - en-US: English. It is the default value.
         self.accept_language = accept_language  # type: str
 
     def validate(self):
@@ -474,11 +544,13 @@ class DescribeRegionsRequest(TeaModel):
 
 class DescribeRegionsResponseBodyRegionsRegion(TeaModel):
     def __init__(self, local_name=None, region_endpoint=None, region_id=None):
-        # 地域名称
+        # The name of the region.
+        # 
+        # > If the AcceptLanguage parameter is set to zh-CN, the Chinese name of the region is returned. If the AcceptLanguage parameter is set to zh-US or left empty, the English name of the region is returned.
         self.local_name = local_name  # type: str
-        # 地域链接地址
+        # The endpoint of ActionTrail in the region.
         self.region_endpoint = region_endpoint  # type: str
-        # 地域ID
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -543,7 +615,9 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, regions=None, request_id=None):
+        # The regions returned.
         self.regions = regions  # type: DescribeRegionsResponseBodyRegions
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -613,8 +687,17 @@ class DescribeRegionsResponse(TeaModel):
 
 class DescribeTrailsRequest(TeaModel):
     def __init__(self, include_organization_trail=None, include_shadow_trails=None, name_list=None):
+        # Specifies whether to query the information about multi-account trails. Valid values:
+        # 
+        # *   true
+        # *   false (default)
         self.include_organization_trail = include_organization_trail  # type: bool
+        # Specifies whether to return the information about shadow trails. Valid values:
+        # 
+        # *   false: Do not return the information about shadow trails. It is the default value.
+        # *   true: Return the information about shadow trails.
         self.include_shadow_trails = include_shadow_trails  # type: bool
+        # The names of the trails whose information you want to query. Separate multiple trail names with commas (,).
         self.name_list = name_list  # type: str
 
     def validate(self):
@@ -650,24 +733,56 @@ class DescribeTrailsResponseBodyTrailList(TeaModel):
                  organization_id=None, oss_bucket_location=None, oss_bucket_name=None, oss_key_prefix=None,
                  oss_write_role_arn=None, region=None, sls_project_arn=None, sls_write_role_arn=None, start_logging_time=None,
                  status=None, stop_logging_time=None, trail_arn=None, trail_region=None, update_time=None):
+        # The time when the trail was created.
         self.create_time = create_time  # type: str
+        # The read/write type of the events that are delivered. Valid values:
+        # 
+        # *   Write: write events. This is the default value.
+        # *   Read: read events.
+        # *   All: read and write events.
         self.event_rw = event_rw  # type: str
+        # The home region of the trail.
         self.home_region = home_region  # type: str
+        # Indicates whether the trail is a multi-account trail. Valid values:
+        # 
+        # *   false (default)
+        # *   true
         self.is_organization_trail = is_organization_trail  # type: bool
+        # The name of the trail.
         self.name = name  # type: str
+        # The ID of the resource directory.
+        # 
+        # >  This parameter is returned only when the trail is a multi-account trail.
         self.organization_id = organization_id  # type: str
+        # The region where the OSS bucket resides.
         self.oss_bucket_location = oss_bucket_location  # type: str
+        # The name of the OSS bucket to which events are delivered.
         self.oss_bucket_name = oss_bucket_name  # type: str
+        # The prefix of the files that are stored in the Object Storage Service (OSS) bucket.
         self.oss_key_prefix = oss_key_prefix  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the RAM role that is assumed by ActionTrail to deliver events to the OSS bucket.
         self.oss_write_role_arn = oss_write_role_arn  # type: str
+        # The region where the trail resides.
         self.region = region  # type: str
+        # The ARN of the Log Service project to which events are delivered.
         self.sls_project_arn = sls_project_arn  # type: str
+        # The ARN of the RAM role that is assumed by ActionTrail to deliver events to the Log Service project.
         self.sls_write_role_arn = sls_write_role_arn  # type: str
+        # The time when the trail was last enabled.
         self.start_logging_time = start_logging_time  # type: str
+        # The status of the trail. Valid values:
+        # 
+        # *   Disable: disabled.
+        # *   Enable: enabled.
+        # *   Fresh: The trail is created but is not enabled.
         self.status = status  # type: str
+        # The time when the trail was last disabled.
         self.stop_logging_time = stop_logging_time  # type: str
+        # The ARN of the trail.
         self.trail_arn = trail_arn  # type: str
+        # The region of the trail.
         self.trail_region = trail_region  # type: str
+        # The time when the configurations of the trail were last updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -764,7 +879,9 @@ class DescribeTrailsResponseBodyTrailList(TeaModel):
 
 class DescribeTrailsResponseBody(TeaModel):
     def __init__(self, request_id=None, trail_list=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # A list of returned trails.
         self.trail_list = trail_list  # type: list[DescribeTrailsResponseBodyTrailList]
 
     def validate(self):
@@ -840,9 +957,19 @@ class DescribeTrailsResponse(TeaModel):
 
 class GetAccessKeyLastUsedEventsRequest(TeaModel):
     def __init__(self, access_key=None, next_token=None, page_size=None, service_name=None):
+        # The AccessKey ID.
         self.access_key = access_key  # type: str
+        # The token that determines the start point of the query.
+        # 
+        # > The request parameters must be the same as those of the last request.
         self.next_token = next_token  # type: str
+        # The number of entries to return on each page.
+        # 
+        # Valid values: 0 to 100.
+        # 
+        # Default value: 20.
         self.page_size = page_size  # type: str
+        # The Alibaba Cloud service. For more information about the Alibaba Cloud services supported by ActionTrail, see [Supported Alibaba Cloud services](~~28829~~).
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -879,9 +1006,13 @@ class GetAccessKeyLastUsedEventsRequest(TeaModel):
 
 class GetAccessKeyLastUsedEventsResponseBodyEvents(TeaModel):
     def __init__(self, detail=None, event_name=None, source=None, used_timestamp=None):
+        # An array that consists of the details about the event.
         self.detail = detail  # type: str
+        # The name of the event.
         self.event_name = event_name  # type: str
+        # The event source.
         self.source = source  # type: str
+        # The timestamp when the event was generated.
         self.used_timestamp = used_timestamp  # type: long
 
     def validate(self):
@@ -918,8 +1049,11 @@ class GetAccessKeyLastUsedEventsResponseBodyEvents(TeaModel):
 
 class GetAccessKeyLastUsedEventsResponseBody(TeaModel):
     def __init__(self, events=None, next_token=None, request_id=None):
+        # The list of returned events.
         self.events = events  # type: list[GetAccessKeyLastUsedEventsResponseBodyEvents]
+        # The token that determines the start point of the query.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -999,6 +1133,7 @@ class GetAccessKeyLastUsedEventsResponse(TeaModel):
 
 class GetAccessKeyLastUsedInfoRequest(TeaModel):
     def __init__(self, access_key=None):
+        # The AccessKey secret.
         self.access_key = access_key  # type: str
 
     def validate(self):
@@ -1025,17 +1160,31 @@ class GetAccessKeyLastUsedInfoResponseBody(TeaModel):
     def __init__(self, access_key_id=None, account_id=None, account_type=None, detail=None, owner_id=None,
                  request_id=None, service_name=None, service_name_cn=None, service_name_en=None, source=None,
                  used_timestamp=None, user_name=None):
+        # The AccessKey ID.
         self.access_key_id = access_key_id  # type: str
+        # The ID of the Alibaba Cloud account.
         self.account_id = account_id  # type: str
+        # The type of the account to which the AccessKey pair belongs.
         self.account_type = account_type  # type: str
+        # The details about the event.
         self.detail = detail  # type: str
+        # The ID of the account to which the AccessKey pair belongs.
         self.owner_id = owner_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The Alibaba Cloud service that was last accessed.
         self.service_name = service_name  # type: str
+        # The Chinese name of the Alibaba Cloud service that was last accessed.
         self.service_name_cn = service_name_cn  # type: str
+        # The English name of the Alibaba Cloud service that was last accessed.
         self.service_name_en = service_name_en  # type: str
+        # The event source.
         self.source = source  # type: str
+        # The timestamp when the AccessKey pair was last called.
         self.used_timestamp = used_timestamp  # type: long
+        # The name of the account to which the AccessKey pair belongs.
+        # 
+        # If the value of the AccountType parameter is root-account, the value of the UserName parameter is root. If the value of the AccountType parameter is ram-user, the value of the UserName parameter is the name of a RAM user.
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -1143,9 +1292,19 @@ class GetAccessKeyLastUsedInfoResponse(TeaModel):
 
 class GetAccessKeyLastUsedIpsRequest(TeaModel):
     def __init__(self, access_key=None, next_token=None, page_size=None, service_name=None):
+        # The AccessKey ID.
         self.access_key = access_key  # type: str
+        # The token that determines the start point of the query.
+        # 
+        # > The request parameters must be the same as those of the last request.
         self.next_token = next_token  # type: str
+        # The number of entries to return on each page.
+        # 
+        # Valid values: 0 to 100.
+        # 
+        # Default value: 20.
         self.page_size = page_size  # type: str
+        # The Alibaba Cloud service. For more information about the Alibaba Cloud services supported by ActionTrail, see [Supported Alibaba Cloud services](~~28829~~).
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -1182,9 +1341,13 @@ class GetAccessKeyLastUsedIpsRequest(TeaModel):
 
 class GetAccessKeyLastUsedIpsResponseBodyIps(TeaModel):
     def __init__(self, detail=None, ip=None, source=None, used_timestamp=None):
+        # An array that consists of the details about the event.
         self.detail = detail  # type: str
+        # The IP address.
         self.ip = ip  # type: str
+        # The event source.
         self.source = source  # type: str
+        # The timestamp when the IP address was used.
         self.used_timestamp = used_timestamp  # type: long
 
     def validate(self):
@@ -1221,8 +1384,11 @@ class GetAccessKeyLastUsedIpsResponseBodyIps(TeaModel):
 
 class GetAccessKeyLastUsedIpsResponseBody(TeaModel):
     def __init__(self, ips=None, next_token=None, request_id=None):
+        # The list of returned IP addresses.
         self.ips = ips  # type: list[GetAccessKeyLastUsedIpsResponseBodyIps]
+        # The token that determines the start point of the query.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1302,6 +1468,7 @@ class GetAccessKeyLastUsedIpsResponse(TeaModel):
 
 class GetAccessKeyLastUsedProductsRequest(TeaModel):
     def __init__(self, access_key=None):
+        # The AccessKey ID.
         self.access_key = access_key  # type: str
 
     def validate(self):
@@ -1327,11 +1494,55 @@ class GetAccessKeyLastUsedProductsRequest(TeaModel):
 class GetAccessKeyLastUsedProductsResponseBodyProducts(TeaModel):
     def __init__(self, detail=None, service_name=None, service_name_cn=None, service_name_en=None, source=None,
                  used_timestamp=None):
+        # The event details.
         self.detail = detail  # type: str
+        # The Alibaba Cloud service.
         self.service_name = service_name  # type: str
+        # The Chinese name of the Alibaba Cloud service.
         self.service_name_cn = service_name_cn  # type: str
+        # The English name of the Alibaba Cloud service.
         self.service_name_en = service_name_en  # type: str
+        # The event source.
+        # 
+        # Valid values:
+        # 
+        # *   Internal
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     other events
+        # 
+        #     <!-- -->
+        # 
+        # *   ManagementEvent
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     management events
+        # 
+        #     <!-- -->
+        # 
+        # *   DataEvent
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     data events
+        # 
+        #     <!-- -->
         self.source = source  # type: str
+        # A pagination token. It can be used in the next request to retrieve a new page of results. Unit: millisecond.
         self.used_timestamp = used_timestamp  # type: long
 
     def validate(self):
@@ -1376,7 +1587,9 @@ class GetAccessKeyLastUsedProductsResponseBodyProducts(TeaModel):
 
 class GetAccessKeyLastUsedProductsResponseBody(TeaModel):
     def __init__(self, products=None, request_id=None):
+        # The list of returned Alibaba Cloud services.
         self.products = products  # type: list[GetAccessKeyLastUsedProductsResponseBodyProducts]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1452,9 +1665,18 @@ class GetAccessKeyLastUsedProductsResponse(TeaModel):
 
 class GetAccessKeyLastUsedResourcesRequest(TeaModel):
     def __init__(self, access_key=None, next_token=None, page_size=None, service_name=None):
+        # The AccessKey ID.
         self.access_key = access_key  # type: str
+        # The pagination token that is used in the next request to retrieve a new page of results.
+        # 
+        # > The request parameters must be the same as those of the last request.
         self.next_token = next_token  # type: str
+        # The number of entries per page.
+        # 
+        # *   Valid values: 0 to 100.
+        # *   Default value: 20.
         self.page_size = page_size  # type: str
+        # The Alibaba Cloud service. For more information about the Alibaba Cloud services supported by ActionTrail, see [Supported Alibaba Cloud services](~~28829~~).
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -1491,10 +1713,53 @@ class GetAccessKeyLastUsedResourcesRequest(TeaModel):
 
 class GetAccessKeyLastUsedResourcesResponseBodyResources(TeaModel):
     def __init__(self, detail=None, resource_name=None, resource_type=None, source=None, used_timestamp=None):
+        # The event details.
         self.detail = detail  # type: str
+        # The resource name.
         self.resource_name = resource_name  # type: str
+        # The resource type.
         self.resource_type = resource_type  # type: str
+        # The event source.
+        # 
+        # Valid values:
+        # 
+        # *   Internal
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     other events
+        # 
+        #     <!-- -->
+        # 
+        # *   ManagementEvent
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     management events
+        # 
+        #     <!-- -->
+        # 
+        # *   DataEvent
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     data events
+        # 
+        #     <!-- -->
         self.source = source  # type: str
+        # The timestamp when the resource was used. Unit: millisecond.
         self.used_timestamp = used_timestamp  # type: long
 
     def validate(self):
@@ -1535,8 +1800,11 @@ class GetAccessKeyLastUsedResourcesResponseBodyResources(TeaModel):
 
 class GetAccessKeyLastUsedResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, resources=None):
+        # A pagination token. It can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The list of returned resources.
         self.resources = resources  # type: list[GetAccessKeyLastUsedResourcesResponseBodyResources]
 
     def validate(self):
@@ -1616,6 +1884,7 @@ class GetAccessKeyLastUsedResourcesResponse(TeaModel):
 
 class GetDeliveryHistoryJobRequest(TeaModel):
     def __init__(self, job_id=None):
+        # The ID of the historical event delivery task.
         self.job_id = job_id  # type: long
 
     def validate(self):
@@ -1640,7 +1909,14 @@ class GetDeliveryHistoryJobRequest(TeaModel):
 
 class GetDeliveryHistoryJobResponseBodyStatus(TeaModel):
     def __init__(self, region=None, status=None):
+        # The ID of the region.
         self.region = region  # type: str
+        # The task status in each region. Valid values:
+        # 
+        # *   0: The task is initializing.
+        # *   1: The task is delivering historical events.
+        # *   2: The task is complete.
+        # *   3: The task fails.
         self.status = status  # type: int
 
     def validate(self):
@@ -1670,15 +1946,30 @@ class GetDeliveryHistoryJobResponseBodyStatus(TeaModel):
 class GetDeliveryHistoryJobResponseBody(TeaModel):
     def __init__(self, created_time=None, end_time=None, home_region=None, job_id=None, job_status=None,
                  request_id=None, start_time=None, status=None, trail_name=None, updated_time=None):
+        # The time when the task was created.
         self.created_time = created_time  # type: str
+        # The time when the task ended.
         self.end_time = end_time  # type: str
+        # The home region of the trail.
         self.home_region = home_region  # type: str
+        # The ID of the task.
         self.job_id = job_id  # type: long
+        # The task status. Valid values:
+        # 
+        # *   0: The task is initializing.
+        # *   1: The task is delivering historical events.
+        # *   2: The task is complete.
+        # *   3: The task fails.
         self.job_status = job_status  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The time when the task started.
         self.start_time = start_time  # type: str
+        # A list of task statuses in each region.
         self.status = status  # type: list[GetDeliveryHistoryJobResponseBodyStatus]
+        # The name of the trail based on which the task delivers events.
         self.trail_name = trail_name  # type: str
+        # The time when the task was updated.
         self.updated_time = updated_time  # type: str
 
     def validate(self):
@@ -1784,9 +2075,114 @@ class GetDeliveryHistoryJobResponse(TeaModel):
         return self
 
 
+class GetGlobalEventsStorageRegionResponseBody(TeaModel):
+    def __init__(self, request_id=None, storage_region=None):
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The region where global events are stored.
+        # 
+        # Valid values:
+        # 
+        # *   ap-southeast-1
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     the Singapore region
+        # 
+        #     <!-- -->
+        # 
+        # *   cn-hangzhou
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     the China (Hangzhou) region
+        # 
+        #     <!-- -->
+        self.storage_region = storage_region  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetGlobalEventsStorageRegionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.storage_region is not None:
+            result['StorageRegion'] = self.storage_region
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StorageRegion') is not None:
+            self.storage_region = m.get('StorageRegion')
+        return self
+
+
+class GetGlobalEventsStorageRegionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetGlobalEventsStorageRegionResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetGlobalEventsStorageRegionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetGlobalEventsStorageRegionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetTrailStatusRequest(TeaModel):
     def __init__(self, is_organization_trail=None, name=None):
+        # Specifies whether to query the status of a multi-account trail. Valid values:
+        # 
+        # *   true: Query the status of a multi-account trail.
+        # *   false: Query the status of a single-account trail. It is the default value.
         self.is_organization_trail = is_organization_trail  # type: bool
+        # The name of the trail.
+        # 
+        # The name must be 6 to 36 characters in length. The name must start with a lowercase letter and can contain lowercase letters, digits, hyphens (-), and underscores (\_).
+        # 
+        # > The name must be unique within your Alibaba Cloud account.
         self.name = name  # type: str
 
     def validate(self):
@@ -1817,15 +2213,34 @@ class GetTrailStatusResponseBody(TeaModel):
     def __init__(self, is_logging=None, latest_delivery_error=None, latest_delivery_log_service_error=None,
                  latest_delivery_log_service_time=None, latest_delivery_time=None, oss_bucket_status=None, request_id=None,
                  sls_log_store_status=None, start_logging_time=None, stop_logging_time=None):
+        # Indicates whether logging is enabled for the trail. Valid values:
+        # 
+        # *   true
+        # *   false
         self.is_logging = is_logging  # type: bool
+        # The log of the last failed delivery.
         self.latest_delivery_error = latest_delivery_error  # type: str
+        # The log of the last failed delivery to Log Service.
         self.latest_delivery_log_service_error = latest_delivery_log_service_error  # type: str
+        # The most recent time when an event was delivered to Log Service.
         self.latest_delivery_log_service_time = latest_delivery_log_service_time  # type: str
+        # The most recent time when an event was delivered by the trail.
         self.latest_delivery_time = latest_delivery_time  # type: str
+        # Indicates whether the destination Object Storage Service (OSS) bucket is available. Valid values:
+        # 
+        # *   true
+        # *   false
         self.oss_bucket_status = oss_bucket_status  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the destination Log Service Logstore is available. Valid values:
+        # 
+        # *   true
+        # *   false
         self.sls_log_store_status = sls_log_store_status  # type: bool
+        # The time when logging was last enabled for the trail.
         self.start_logging_time = start_logging_time  # type: str
+        # The time when logging was last disabled for the trail.
         self.stop_logging_time = stop_logging_time  # type: str
 
     def validate(self):
@@ -1925,7 +2340,15 @@ class GetTrailStatusResponse(TeaModel):
 
 class ListDeliveryHistoryJobsRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None):
+        # The page number.
+        # 
+        # *   Pages start from page 1.
+        # *   Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries per page.
+        # 
+        # *   Valid values: 1 to 100.
+        # *   Default value: 20.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -1955,13 +2378,26 @@ class ListDeliveryHistoryJobsRequest(TeaModel):
 class ListDeliveryHistoryJobsResponseBodyDeliveryHistoryJobs(TeaModel):
     def __init__(self, created_time=None, end_time=None, home_region=None, job_id=None, job_status=None,
                  start_time=None, trail_name=None, updated_time=None):
+        # The time when the task was created.
         self.created_time = created_time  # type: str
+        # The time when the task ended.
         self.end_time = end_time  # type: str
+        # The home region of the trail.
         self.home_region = home_region  # type: str
+        # The task ID.
         self.job_id = job_id  # type: long
+        # The task status. Valid values:
+        # 
+        # *   0: The task is initializing.
+        # *   1: The task is delivering historical events.
+        # *   2: The task is complete.
+        # *   3: The task fails.
         self.job_status = job_status  # type: int
+        # The time when the task started.
         self.start_time = start_time  # type: str
+        # The name of the trail.
         self.trail_name = trail_name  # type: str
+        # The time when the task was updated.
         self.updated_time = updated_time  # type: str
 
     def validate(self):
@@ -2015,10 +2451,15 @@ class ListDeliveryHistoryJobsResponseBodyDeliveryHistoryJobs(TeaModel):
 class ListDeliveryHistoryJobsResponseBody(TeaModel):
     def __init__(self, delivery_history_jobs=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
+        # The list of historical event delivery tasks.
         self.delivery_history_jobs = delivery_history_jobs  # type: list[ListDeliveryHistoryJobsResponseBodyDeliveryHistoryJobs]
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The number of historical event delivery tasks returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -2106,7 +2547,29 @@ class ListDeliveryHistoryJobsResponse(TeaModel):
 
 class LookupEventsRequestLookupAttribute(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the query condition. Valid values:
+        # 
+        # *  ServiceName: the name of a specific Alibaba Cloud service.
+        # *  EventName: the name of a specific event.
+        # *  User: the name of the RAM user who calls a specific operation.
+        # *  EventId: the ID of a specific event.
+        # *  ResourceType: the type of resources.
+        # *   ResourceName: the name of a specific resource.
+        # *   EventRW: the read/write type of events.
+        # *  EventAccessKeyId: the AccessKey ID used in events.
+        # 
+        # > You can use only one query condition for each query.
         self.key = key  # type: str
+        # The value of the query condition. Valid values:
+        # 
+        # *   When the LookupAttribute.N.Key parameter is set to ServiceName, you can set this parameter to a value such as `Ecs`.
+        # *   When the LookupAttribute.N.Key parameter is set to EventName, you can set this parameter to a value such as `ConsoleSignin`.
+        # *   When the LookupAttribute.N.Key parameter is set to User, you can set this parameter to a value such as `Alice`.
+        # *   When the LookupAttribute.N.Key parameter is set to EventId, you can set this parameter to a value such as `B702AFA3-FD4B-40E3-88E4-C0752FAA****`.
+        # *   When the LookupAttribute.N.Key parameter is set to ResourceType, you can set this parameter to a value such as `ACS::ECS::Instance`.
+        # *   When the LookupAttribute.N.Key parameter is set to ResourceName, you can set this parameter to a value such as `i-bp14664y88udkt45****`.
+        # *   When the LookupAttribute.N.Key parameter is set to EventRW, you can set this parameter to `Read` or `Write`.
+        # *   When the LookupAttribute.N.Key parameter is set to EventAccessKeyId, you can set this parameter to a value such as `LTAI4FoDkCf4DU1bic1V****`.
         self.value = value  # type: str
 
     def validate(self):
@@ -2136,11 +2599,24 @@ class LookupEventsRequestLookupAttribute(TeaModel):
 class LookupEventsRequest(TeaModel):
     def __init__(self, direction=None, end_time=None, lookup_attribute=None, max_results=None, next_token=None,
                  start_time=None):
+        # The order in which details of events are to be retrieved. Valid values:
+        # 
+        # *   FORWARD: ascending order.
+        # *   BACKWARD: descending order. This is the default value.
         self.direction = direction  # type: str
+        # The end of the time range to query. The default time is the current time. Specify the time in the ISO 8601 standard in the `YYYY-MM-DDThh:mm:ssZ` format. The time must be in UTC.
         self.end_time = end_time  # type: str
+        # Query conditions.
         self.lookup_attribute = lookup_attribute  # type: list[LookupEventsRequestLookupAttribute]
+        # The maximum number of entries to be returned.
+        # 
+        # Valid values: 0 to 50.
         self.max_results = max_results  # type: str
+        # The token used to request the next page of query results.
+        # 
+        # > The request parameters must be the same as those of the last request.
         self.next_token = next_token  # type: str
+        # The beginning of the time range to query. The default time is seven days prior to the current time. Specify the time in the ISO 8601 standard in the `YYYY-MM-DDThh:mm:ssZ` format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -2193,10 +2669,19 @@ class LookupEventsRequest(TeaModel):
 
 class LookupEventsResponseBody(TeaModel):
     def __init__(self, end_time=None, events=None, next_token=None, request_id=None, start_time=None):
+        # The end of the time range when event details were queried.
         self.end_time = end_time  # type: str
+        # The returned event details.
+        # 
+        # For more information about the fields in an event log, see [ActionTrail event log reference](~~28819~~).
         self.events = events  # type: list[dict[str, any]]
+        # The token used to return the next page of query results.
+        # 
+        # > This parameter is not returned if no more results are to be returned.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The beginning of the time range when event details were queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -2276,6 +2761,11 @@ class LookupEventsResponse(TeaModel):
 
 class StartLoggingRequest(TeaModel):
     def __init__(self, name=None):
+        # The name of the trail that you want to enable.
+        # 
+        # The name must be 6 to 36 characters in length, and can contain lowercase letters, digits, hyphens (-), and underscores (\_). It must start with a lowercase letter.
+        # 
+        # > The name must be unique within your Alibaba Cloud account.
         self.name = name  # type: str
 
     def validate(self):
@@ -2300,6 +2790,7 @@ class StartLoggingRequest(TeaModel):
 
 class StartLoggingResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2363,6 +2854,11 @@ class StartLoggingResponse(TeaModel):
 
 class StopLoggingRequest(TeaModel):
     def __init__(self, name=None):
+        # The name of the trail that you want to disable.
+        # 
+        # The name must be 6 to 36 characters in length, and can contain lowercase letters, digits, hyphens (-), and underscores (\_). It must start with a lowercase letter.
+        # 
+        # > The name must be unique within your Alibaba Cloud account.
         self.name = name  # type: str
 
     def validate(self):
@@ -2387,6 +2883,7 @@ class StopLoggingRequest(TeaModel):
 
 class StopLoggingResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2448,16 +2945,163 @@ class StopLoggingResponse(TeaModel):
         return self
 
 
+class UpdateGlobalEventsStorageRegionRequest(TeaModel):
+    def __init__(self, storage_region=None):
+        # The region where you want to store global events.
+        # 
+        # Valid values:
+        # 
+        # *   ap-southeast-1
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     the Singapore region
+        # 
+        #     <!-- -->
+        # 
+        # *   cn-hangzhou
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     the China (Hangzhou) region
+        # 
+        #     <!-- -->
+        self.storage_region = storage_region  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGlobalEventsStorageRegionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.storage_region is not None:
+            result['StorageRegion'] = self.storage_region
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('StorageRegion') is not None:
+            self.storage_region = m.get('StorageRegion')
+        return self
+
+
+class UpdateGlobalEventsStorageRegionResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGlobalEventsStorageRegionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateGlobalEventsStorageRegionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateGlobalEventsStorageRegionResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateGlobalEventsStorageRegionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateGlobalEventsStorageRegionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateTrailRequest(TeaModel):
     def __init__(self, event_rw=None, name=None, oss_bucket_name=None, oss_key_prefix=None, oss_write_role_arn=None,
                  sls_project_arn=None, sls_write_role_arn=None, trail_region=None):
+        # The read/write type of the events to be delivered. Valid values:
+        # 
+        # *   Write: write events. It is the default value.
+        # *   Read: read events.
+        # *   All: read and write events.
         self.event_rw = event_rw  # type: str
+        # The name of the trail whose configurations you want to update.
+        # 
+        # The name must be 6 to 36 characters in length and can contain lowercase letters, digits, hyphens (-), and underscores (\_). It must start with a lowercase letter.
+        # 
+        # >  The name must be unique within an Alibaba Cloud account.
         self.name = name  # type: str
+        # The name of the Object Storage Service (OSS) bucket to which you want to deliver events.
+        # 
+        # The name must be 3 to 63 characters in length. The name must start with a lowercase letter or a digit and can contain lowercase letters, digits, and hyphens (-).
+        # 
+        # >  Make sure that the bucket exists before you update the configuration of the trail.
         self.oss_bucket_name = oss_bucket_name  # type: str
+        # The prefix of the files that are stored in the OSS bucket.
+        # 
+        # The prefix must be 6 to 32 characters in length. The prefix must start with a letter and can contain letters, digits, hyphens (-), forward slashes (/), and underscores (\_).
         self.oss_key_prefix = oss_key_prefix  # type: str
+        # The Alibaba Cloud Resource Name (ARN) of the RAM role that is assumed by ActionTrail to deliver events to the OSS bucket.
+        # 
+        # *   If you do not specify this parameter, ActionTrail creates a service-linked role to create the required resources. For more information, see [Manage the service-linked role](~~169244~~).
+        # *   If you specify this parameter, you must grant the permissions of the service-linked role that is assumed by ActionTrail to the RAM role before you can deliver events to your Alibaba Cloud account. If you need to deliver events to other Alibaba Cloud accounts, you must attach the permission policy that is used to grant permissions related to event delivery to the RAM role. For more information about how to deliver events across Alibaba Cloud accounts, see [Deliver events across Alibaba Cloud accounts](~~207462~~).
         self.oss_write_role_arn = oss_write_role_arn  # type: str
+        # The ARN of the Log Service project to which you want to deliver events.
         self.sls_project_arn = sls_project_arn  # type: str
+        # The ARN of the RAM role that is assumed by ActionTrail to deliver events to the Log Service project.
+        # 
+        # *   If you do not specify this parameter, ActionTrail creates a service-linked role to create the corresponding resource. For more information, see [Manage the service-linked role](~~169244~~).
+        # *   If you specify this parameter, you must grant the permissions of the service-linked role that is assumed by ActionTrail to the RAM role before you can deliver events to your Alibaba Cloud account. If you need to deliver events to other Alibaba Cloud accounts, you must attach the permission policy that is used to grant permissions related to event delivery to the RAM role. For more information about how to deliver events across Alibaba Cloud accounts, see [Deliver events across Alibaba Cloud accounts](~~207462~~).
         self.sls_write_role_arn = sls_write_role_arn  # type: str
+        # The region of the trail.
+        # 
+        # *   The default value is All, which indicates that the trail delivers events from all regions.
+        # 
+        # You can also specify specific regions. You can call the [DescribeRegions](~~213597~~) operation to query all the supported regions.
         self.trail_region = trail_region  # type: str
 
     def validate(self):
@@ -2511,15 +3155,25 @@ class UpdateTrailRequest(TeaModel):
 class UpdateTrailResponseBody(TeaModel):
     def __init__(self, event_rw=None, home_region=None, name=None, oss_bucket_name=None, oss_key_prefix=None,
                  oss_write_role_arn=None, request_id=None, sls_project_arn=None, sls_write_role_arn=None, trail_region=None):
+        # The read/write type of the events to be delivered.
         self.event_rw = event_rw  # type: str
+        # The home region of the trail.
         self.home_region = home_region  # type: str
+        # The name of the trail.
         self.name = name  # type: str
+        # The name of the OSS bucket.
         self.oss_bucket_name = oss_bucket_name  # type: str
+        # The prefix of the log files to be stored in the destination OSS bucket.
         self.oss_key_prefix = oss_key_prefix  # type: str
+        # The ARN of the RAM role that is assumed by ActionTrail to deliver events to the OSS bucket.
         self.oss_write_role_arn = oss_write_role_arn  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ARN of the Log Service project to which events are to be delivered.
         self.sls_project_arn = sls_project_arn  # type: str
+        # The ARN of the RAM role that is assumed by ActionTrail is to deliver events to the Log Service project.
         self.sls_write_role_arn = sls_write_role_arn  # type: str
+        # The one or more regions from which the trail delivers events.
         self.trail_region = trail_region  # type: str
 
     def validate(self):
