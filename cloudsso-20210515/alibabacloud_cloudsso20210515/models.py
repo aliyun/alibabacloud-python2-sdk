@@ -870,7 +870,7 @@ class CreateDirectoryRequest(TeaModel):
     def __init__(self, directory_name=None):
         # The name of the directory. The name must be globally unique.
         # 
-        # The name can contain lowercase letters, digits, and hyphens (-). The name cannot start or end with a hyphen (-) and cannot contain two consecutive hyphens (-). The name cannot start with d-.
+        # The name can contain lowercase letters, digits, or hyphens (-). The name cannot start or end with a hyphen (-) and cannot contain two consecutive hyphens (-). The name cannot start with d-.
         # 
         # The name must be 2 to 64 characters in length.
         # 
@@ -1595,6 +1595,238 @@ class CreateUserResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateUserResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateUserProvisioningRequest(TeaModel):
+    def __init__(self, deletion_strategy=None, description=None, directory_id=None, duplication_strategy=None,
+                 principal_id=None, principal_type=None, target_id=None, target_type=None):
+        self.deletion_strategy = deletion_strategy  # type: str
+        self.description = description  # type: str
+        self.directory_id = directory_id  # type: str
+        self.duplication_strategy = duplication_strategy  # type: str
+        self.principal_id = principal_id  # type: str
+        self.principal_type = principal_type  # type: str
+        self.target_id = target_id  # type: str
+        self.target_type = target_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateUserProvisioningRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deletion_strategy is not None:
+            result['DeletionStrategy'] = self.deletion_strategy
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.directory_id is not None:
+            result['DirectoryId'] = self.directory_id
+        if self.duplication_strategy is not None:
+            result['DuplicationStrategy'] = self.duplication_strategy
+        if self.principal_id is not None:
+            result['PrincipalId'] = self.principal_id
+        if self.principal_type is not None:
+            result['PrincipalType'] = self.principal_type
+        if self.target_id is not None:
+            result['TargetId'] = self.target_id
+        if self.target_type is not None:
+            result['TargetType'] = self.target_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeletionStrategy') is not None:
+            self.deletion_strategy = m.get('DeletionStrategy')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DirectoryId') is not None:
+            self.directory_id = m.get('DirectoryId')
+        if m.get('DuplicationStrategy') is not None:
+            self.duplication_strategy = m.get('DuplicationStrategy')
+        if m.get('PrincipalId') is not None:
+            self.principal_id = m.get('PrincipalId')
+        if m.get('PrincipalType') is not None:
+            self.principal_type = m.get('PrincipalType')
+        if m.get('TargetId') is not None:
+            self.target_id = m.get('TargetId')
+        if m.get('TargetType') is not None:
+            self.target_type = m.get('TargetType')
+        return self
+
+
+class CreateUserProvisioningResponseBodyUserProvisioning(TeaModel):
+    def __init__(self, create_time=None, deletion_strategy=None, description=None, directory_id=None,
+                 duplication_strategy=None, owner_pk=None, principal_id=None, principal_name=None, principal_type=None, status=None,
+                 target_id=None, target_name=None, target_path=None, target_type=None, update_time=None,
+                 user_provisioning_id=None):
+        self.create_time = create_time  # type: str
+        self.deletion_strategy = deletion_strategy  # type: str
+        self.description = description  # type: str
+        self.directory_id = directory_id  # type: str
+        self.duplication_strategy = duplication_strategy  # type: str
+        self.owner_pk = owner_pk  # type: str
+        self.principal_id = principal_id  # type: str
+        self.principal_name = principal_name  # type: str
+        self.principal_type = principal_type  # type: str
+        self.status = status  # type: str
+        self.target_id = target_id  # type: str
+        self.target_name = target_name  # type: str
+        self.target_path = target_path  # type: str
+        self.target_type = target_type  # type: str
+        self.update_time = update_time  # type: str
+        self.user_provisioning_id = user_provisioning_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateUserProvisioningResponseBodyUserProvisioning, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.deletion_strategy is not None:
+            result['DeletionStrategy'] = self.deletion_strategy
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.directory_id is not None:
+            result['DirectoryId'] = self.directory_id
+        if self.duplication_strategy is not None:
+            result['DuplicationStrategy'] = self.duplication_strategy
+        if self.owner_pk is not None:
+            result['OwnerPk'] = self.owner_pk
+        if self.principal_id is not None:
+            result['PrincipalId'] = self.principal_id
+        if self.principal_name is not None:
+            result['PrincipalName'] = self.principal_name
+        if self.principal_type is not None:
+            result['PrincipalType'] = self.principal_type
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.target_id is not None:
+            result['TargetId'] = self.target_id
+        if self.target_name is not None:
+            result['TargetName'] = self.target_name
+        if self.target_path is not None:
+            result['TargetPath'] = self.target_path
+        if self.target_type is not None:
+            result['TargetType'] = self.target_type
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        if self.user_provisioning_id is not None:
+            result['UserProvisioningId'] = self.user_provisioning_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DeletionStrategy') is not None:
+            self.deletion_strategy = m.get('DeletionStrategy')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DirectoryId') is not None:
+            self.directory_id = m.get('DirectoryId')
+        if m.get('DuplicationStrategy') is not None:
+            self.duplication_strategy = m.get('DuplicationStrategy')
+        if m.get('OwnerPk') is not None:
+            self.owner_pk = m.get('OwnerPk')
+        if m.get('PrincipalId') is not None:
+            self.principal_id = m.get('PrincipalId')
+        if m.get('PrincipalName') is not None:
+            self.principal_name = m.get('PrincipalName')
+        if m.get('PrincipalType') is not None:
+            self.principal_type = m.get('PrincipalType')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TargetId') is not None:
+            self.target_id = m.get('TargetId')
+        if m.get('TargetName') is not None:
+            self.target_name = m.get('TargetName')
+        if m.get('TargetPath') is not None:
+            self.target_path = m.get('TargetPath')
+        if m.get('TargetType') is not None:
+            self.target_type = m.get('TargetType')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        if m.get('UserProvisioningId') is not None:
+            self.user_provisioning_id = m.get('UserProvisioningId')
+        return self
+
+
+class CreateUserProvisioningResponseBody(TeaModel):
+    def __init__(self, request_id=None, user_provisioning=None):
+        self.request_id = request_id  # type: str
+        self.user_provisioning = user_provisioning  # type: CreateUserProvisioningResponseBodyUserProvisioning
+
+    def validate(self):
+        if self.user_provisioning:
+            self.user_provisioning.validate()
+
+    def to_map(self):
+        _map = super(CreateUserProvisioningResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.user_provisioning is not None:
+            result['UserProvisioning'] = self.user_provisioning.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('UserProvisioning') is not None:
+            temp_model = CreateUserProvisioningResponseBodyUserProvisioning()
+            self.user_provisioning = temp_model.from_map(m['UserProvisioning'])
+        return self
+
+
+class CreateUserProvisioningResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateUserProvisioningResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateUserProvisioningResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateUserProvisioningResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2425,6 +2657,103 @@ class DeleteUserResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteUserResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteUserProvisioningRequest(TeaModel):
+    def __init__(self, deletion_strategy=None, directory_id=None, user_provisioning_id=None):
+        self.deletion_strategy = deletion_strategy  # type: str
+        self.directory_id = directory_id  # type: str
+        self.user_provisioning_id = user_provisioning_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteUserProvisioningRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deletion_strategy is not None:
+            result['DeletionStrategy'] = self.deletion_strategy
+        if self.directory_id is not None:
+            result['DirectoryId'] = self.directory_id
+        if self.user_provisioning_id is not None:
+            result['UserProvisioningId'] = self.user_provisioning_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeletionStrategy') is not None:
+            self.deletion_strategy = m.get('DeletionStrategy')
+        if m.get('DirectoryId') is not None:
+            self.directory_id = m.get('DirectoryId')
+        if m.get('UserProvisioningId') is not None:
+            self.user_provisioning_id = m.get('UserProvisioningId')
+        return self
+
+
+class DeleteUserProvisioningResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteUserProvisioningResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteUserProvisioningResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteUserProvisioningResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteUserProvisioningResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteUserProvisioningResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3261,9 +3590,9 @@ class GetDirectoryStatisticsResponseBodyDirectoryStatistics(TeaModel):
         self.directory_id = directory_id  # type: str
         # The name of the directory.
         self.directory_name = directory_name  # type: str
-        # The number of groups.
+        # The number of user groups.
         self.group_count = group_count  # type: int
-        # The quota for groups.
+        # The quota for user groups.
         self.group_quota = group_quota  # type: int
         # The number of tasks that are being performed.
         self.in_progress_task_count = in_progress_task_count  # type: int
@@ -3273,14 +3602,15 @@ class GetDirectoryStatisticsResponseBodyDirectoryStatistics(TeaModel):
         self.scimserver_credential_count = scimserver_credential_count  # type: int
         # Indicates whether SCIM synchronization is enabled. Valid values:
         # 
-        # *   true: SCIM synchronization is enabled.
-        # *   false: SCIM synchronization is disabled.
+        # *   true
+        # *   false
         self.scimsync_enabled = scimsync_enabled  # type: bool
-        # Indicates whether SSO logon is enabled. Valid values:
+        # Indicates whether SSO is enabled. Valid values:
         # 
-        # *   true: SSO logon is enabled.
-        # *   false: SSO logon is disabled.
+        # *   true
+        # *   false
         self.ssoenabled = ssoenabled  # type: bool
+        # The quota for system policies that can be configured for an access configuration.
         self.system_policy_per_access_configuration_quota = system_policy_per_access_configuration_quota  # type: int
         # The number of users.
         self.user_count = user_count  # type: int
@@ -3367,7 +3697,7 @@ class GetDirectoryStatisticsResponseBody(TeaModel):
     def __init__(self, directory_statistics=None, request_id=None):
         # The statistics of the directory.
         self.directory_statistics = directory_statistics  # type: GetDirectoryStatisticsResponseBodyDirectoryStatistics
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5034,6 +5364,207 @@ class GetUserMFAAuthenticationSettingsResponse(TeaModel):
         return self
 
 
+class GetUserProvisioningRequest(TeaModel):
+    def __init__(self, directory_id=None, user_provisioning_id=None):
+        self.directory_id = directory_id  # type: str
+        self.user_provisioning_id = user_provisioning_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetUserProvisioningRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.directory_id is not None:
+            result['DirectoryId'] = self.directory_id
+        if self.user_provisioning_id is not None:
+            result['UserProvisioningId'] = self.user_provisioning_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DirectoryId') is not None:
+            self.directory_id = m.get('DirectoryId')
+        if m.get('UserProvisioningId') is not None:
+            self.user_provisioning_id = m.get('UserProvisioningId')
+        return self
+
+
+class GetUserProvisioningResponseBodyUserProvisioning(TeaModel):
+    def __init__(self, create_time=None, deletion_strategy=None, description=None, directory_id=None,
+                 duplication_strategy=None, owner_pk=None, principal_id=None, principal_name=None, principal_type=None, status=None,
+                 target_id=None, target_name=None, target_path=None, target_type=None, update_time=None,
+                 user_provisioning_id=None):
+        self.create_time = create_time  # type: str
+        self.deletion_strategy = deletion_strategy  # type: str
+        self.description = description  # type: str
+        self.directory_id = directory_id  # type: str
+        self.duplication_strategy = duplication_strategy  # type: str
+        self.owner_pk = owner_pk  # type: str
+        self.principal_id = principal_id  # type: str
+        self.principal_name = principal_name  # type: str
+        self.principal_type = principal_type  # type: str
+        self.status = status  # type: str
+        self.target_id = target_id  # type: str
+        self.target_name = target_name  # type: str
+        self.target_path = target_path  # type: str
+        self.target_type = target_type  # type: str
+        self.update_time = update_time  # type: str
+        self.user_provisioning_id = user_provisioning_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetUserProvisioningResponseBodyUserProvisioning, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.deletion_strategy is not None:
+            result['DeletionStrategy'] = self.deletion_strategy
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.directory_id is not None:
+            result['DirectoryId'] = self.directory_id
+        if self.duplication_strategy is not None:
+            result['DuplicationStrategy'] = self.duplication_strategy
+        if self.owner_pk is not None:
+            result['OwnerPk'] = self.owner_pk
+        if self.principal_id is not None:
+            result['PrincipalId'] = self.principal_id
+        if self.principal_name is not None:
+            result['PrincipalName'] = self.principal_name
+        if self.principal_type is not None:
+            result['PrincipalType'] = self.principal_type
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.target_id is not None:
+            result['TargetId'] = self.target_id
+        if self.target_name is not None:
+            result['TargetName'] = self.target_name
+        if self.target_path is not None:
+            result['TargetPath'] = self.target_path
+        if self.target_type is not None:
+            result['TargetType'] = self.target_type
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        if self.user_provisioning_id is not None:
+            result['UserProvisioningId'] = self.user_provisioning_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DeletionStrategy') is not None:
+            self.deletion_strategy = m.get('DeletionStrategy')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DirectoryId') is not None:
+            self.directory_id = m.get('DirectoryId')
+        if m.get('DuplicationStrategy') is not None:
+            self.duplication_strategy = m.get('DuplicationStrategy')
+        if m.get('OwnerPk') is not None:
+            self.owner_pk = m.get('OwnerPk')
+        if m.get('PrincipalId') is not None:
+            self.principal_id = m.get('PrincipalId')
+        if m.get('PrincipalName') is not None:
+            self.principal_name = m.get('PrincipalName')
+        if m.get('PrincipalType') is not None:
+            self.principal_type = m.get('PrincipalType')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TargetId') is not None:
+            self.target_id = m.get('TargetId')
+        if m.get('TargetName') is not None:
+            self.target_name = m.get('TargetName')
+        if m.get('TargetPath') is not None:
+            self.target_path = m.get('TargetPath')
+        if m.get('TargetType') is not None:
+            self.target_type = m.get('TargetType')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        if m.get('UserProvisioningId') is not None:
+            self.user_provisioning_id = m.get('UserProvisioningId')
+        return self
+
+
+class GetUserProvisioningResponseBody(TeaModel):
+    def __init__(self, request_id=None, user_provisioning=None):
+        self.request_id = request_id  # type: str
+        self.user_provisioning = user_provisioning  # type: GetUserProvisioningResponseBodyUserProvisioning
+
+    def validate(self):
+        if self.user_provisioning:
+            self.user_provisioning.validate()
+
+    def to_map(self):
+        _map = super(GetUserProvisioningResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.user_provisioning is not None:
+            result['UserProvisioning'] = self.user_provisioning.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('UserProvisioning') is not None:
+            temp_model = GetUserProvisioningResponseBodyUserProvisioning()
+            self.user_provisioning = temp_model.from_map(m['UserProvisioning'])
+        return self
+
+
+class GetUserProvisioningResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetUserProvisioningResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetUserProvisioningResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetUserProvisioningResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListAccessAssignmentsRequest(TeaModel):
     def __init__(self, access_configuration_id=None, directory_id=None, max_results=None, next_token=None,
                  principal_id=None, principal_type=None, target_id=None, target_type=None):
@@ -6025,7 +6556,7 @@ class ListExternalSAMLIdPCertificatesResponseBodySAMLIdPCertificates(TeaModel):
         self.not_after = not_after  # type: str
         # The time when the certificate was created.
         self.not_before = not_before  # type: str
-        # The public key of the certificate. The value of this paremeter is in the PEM format and is Base64-encoded.
+        # The public key of the certificate. The value of this parameter is in the PEM format and is Base64-encoded.
         self.public_key = public_key  # type: str
         # The serial number of the certificate.
         self.serial_number = serial_number  # type: str
@@ -6421,7 +6952,7 @@ class ListGroupsRequest(TeaModel):
         self.directory_id = directory_id  # type: str
         # The filter condition.
         # 
-        # Specify the value in the \<Attribute> \<Operator> \<Value> format. The value is not case sensitive. You can set \<Attribute> only to `GroupName` and \<Operator> only to `eq` or `sw`. The value eq indicates Equals. The value sw indicates Starts With.
+        # Specify the value in the `<Attribute> <Operator> <Value>` format. The value is not case sensitive. You can set `<Attribute>` only to `GroupName` and `<Operator>` only to `eq` or `sw`. The value eq indicates Equals. The value sw indicates Starts With.
         # 
         # For example, if you set Filter to GroupName sw test, the operation queries the groups whose names start with test. If you set Filter to GroupName eq testgroup, the operation queries the group whose name is testgroup.
         self.filter = filter  # type: str
@@ -7730,6 +8261,260 @@ class ListTasksResponse(TeaModel):
         return self
 
 
+class ListUserProvisioningsRequest(TeaModel):
+    def __init__(self, directory_id=None, max_results=None, next_token=None, principal_id=None, principal_type=None,
+                 target_id=None, target_type=None):
+        self.directory_id = directory_id  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.principal_id = principal_id  # type: str
+        self.principal_type = principal_type  # type: str
+        self.target_id = target_id  # type: str
+        self.target_type = target_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserProvisioningsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.directory_id is not None:
+            result['DirectoryId'] = self.directory_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.principal_id is not None:
+            result['PrincipalId'] = self.principal_id
+        if self.principal_type is not None:
+            result['PrincipalType'] = self.principal_type
+        if self.target_id is not None:
+            result['TargetId'] = self.target_id
+        if self.target_type is not None:
+            result['TargetType'] = self.target_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DirectoryId') is not None:
+            self.directory_id = m.get('DirectoryId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PrincipalId') is not None:
+            self.principal_id = m.get('PrincipalId')
+        if m.get('PrincipalType') is not None:
+            self.principal_type = m.get('PrincipalType')
+        if m.get('TargetId') is not None:
+            self.target_id = m.get('TargetId')
+        if m.get('TargetType') is not None:
+            self.target_type = m.get('TargetType')
+        return self
+
+
+class ListUserProvisioningsResponseBodyUserProvisionings(TeaModel):
+    def __init__(self, create_time=None, deletion_strategy=None, description=None, directory_id=None,
+                 duplication_strategy=None, owner_pk=None, principal_id=None, principal_name=None, principal_type=None, status=None,
+                 target_id=None, target_name=None, target_path=None, target_type=None, update_time=None,
+                 user_provisioning_id=None):
+        self.create_time = create_time  # type: str
+        self.deletion_strategy = deletion_strategy  # type: str
+        self.description = description  # type: str
+        self.directory_id = directory_id  # type: str
+        self.duplication_strategy = duplication_strategy  # type: str
+        self.owner_pk = owner_pk  # type: str
+        self.principal_id = principal_id  # type: str
+        self.principal_name = principal_name  # type: str
+        self.principal_type = principal_type  # type: str
+        self.status = status  # type: str
+        self.target_id = target_id  # type: str
+        self.target_name = target_name  # type: str
+        self.target_path = target_path  # type: str
+        self.target_type = target_type  # type: str
+        self.update_time = update_time  # type: str
+        self.user_provisioning_id = user_provisioning_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserProvisioningsResponseBodyUserProvisionings, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.deletion_strategy is not None:
+            result['DeletionStrategy'] = self.deletion_strategy
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.directory_id is not None:
+            result['DirectoryId'] = self.directory_id
+        if self.duplication_strategy is not None:
+            result['DuplicationStrategy'] = self.duplication_strategy
+        if self.owner_pk is not None:
+            result['OwnerPk'] = self.owner_pk
+        if self.principal_id is not None:
+            result['PrincipalId'] = self.principal_id
+        if self.principal_name is not None:
+            result['PrincipalName'] = self.principal_name
+        if self.principal_type is not None:
+            result['PrincipalType'] = self.principal_type
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.target_id is not None:
+            result['TargetId'] = self.target_id
+        if self.target_name is not None:
+            result['TargetName'] = self.target_name
+        if self.target_path is not None:
+            result['TargetPath'] = self.target_path
+        if self.target_type is not None:
+            result['TargetType'] = self.target_type
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        if self.user_provisioning_id is not None:
+            result['UserProvisioningId'] = self.user_provisioning_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DeletionStrategy') is not None:
+            self.deletion_strategy = m.get('DeletionStrategy')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DirectoryId') is not None:
+            self.directory_id = m.get('DirectoryId')
+        if m.get('DuplicationStrategy') is not None:
+            self.duplication_strategy = m.get('DuplicationStrategy')
+        if m.get('OwnerPk') is not None:
+            self.owner_pk = m.get('OwnerPk')
+        if m.get('PrincipalId') is not None:
+            self.principal_id = m.get('PrincipalId')
+        if m.get('PrincipalName') is not None:
+            self.principal_name = m.get('PrincipalName')
+        if m.get('PrincipalType') is not None:
+            self.principal_type = m.get('PrincipalType')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TargetId') is not None:
+            self.target_id = m.get('TargetId')
+        if m.get('TargetName') is not None:
+            self.target_name = m.get('TargetName')
+        if m.get('TargetPath') is not None:
+            self.target_path = m.get('TargetPath')
+        if m.get('TargetType') is not None:
+            self.target_type = m.get('TargetType')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        if m.get('UserProvisioningId') is not None:
+            self.user_provisioning_id = m.get('UserProvisioningId')
+        return self
+
+
+class ListUserProvisioningsResponseBody(TeaModel):
+    def __init__(self, is_truncated=None, max_results=None, next_token=None, request_id=None, total_counts=None,
+                 user_provisionings=None):
+        self.is_truncated = is_truncated  # type: bool
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_counts = total_counts  # type: int
+        self.user_provisionings = user_provisionings  # type: list[ListUserProvisioningsResponseBodyUserProvisionings]
+
+    def validate(self):
+        if self.user_provisionings:
+            for k in self.user_provisionings:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListUserProvisioningsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_truncated is not None:
+            result['IsTruncated'] = self.is_truncated
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_counts is not None:
+            result['TotalCounts'] = self.total_counts
+        result['UserProvisionings'] = []
+        if self.user_provisionings is not None:
+            for k in self.user_provisionings:
+                result['UserProvisionings'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IsTruncated') is not None:
+            self.is_truncated = m.get('IsTruncated')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCounts') is not None:
+            self.total_counts = m.get('TotalCounts')
+        self.user_provisionings = []
+        if m.get('UserProvisionings') is not None:
+            for k in m.get('UserProvisionings'):
+                temp_model = ListUserProvisioningsResponseBodyUserProvisionings()
+                self.user_provisionings.append(temp_model.from_map(k))
+        return self
+
+
+class ListUserProvisioningsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListUserProvisioningsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListUserProvisioningsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListUserProvisioningsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListUsersRequest(TeaModel):
     def __init__(self, directory_id=None, filter=None, max_results=None, next_token=None, provision_type=None,
                  status=None):
@@ -8066,7 +8851,7 @@ class ProvisionAccessConfigurationResponseBodyTasks(TeaModel):
         self.target_path = target_path  # type: str
         # The path name of the task object in your resource directory.
         self.target_path_name = target_path_name  # type: str
-        # The type of the task object. The value is fixed as RD-Account, which indicates an account your resource directory.
+        # The type of the task object. The value is fixed as RD-Account, which indicates an account in your resource directory.
         self.target_type = target_type  # type: str
         # The ID of the task.
         self.task_id = task_id  # type: str
@@ -10317,6 +11102,223 @@ class UpdateUserMFAAuthenticationSettingsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateUserMFAAuthenticationSettingsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateUserProvisioningRequest(TeaModel):
+    def __init__(self, directory_id=None, new_deletion_strategy=None, new_description=None,
+                 new_duplication_strategy=None, user_provisioning_id=None):
+        self.directory_id = directory_id  # type: str
+        self.new_deletion_strategy = new_deletion_strategy  # type: str
+        self.new_description = new_description  # type: str
+        self.new_duplication_strategy = new_duplication_strategy  # type: str
+        self.user_provisioning_id = user_provisioning_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateUserProvisioningRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.directory_id is not None:
+            result['DirectoryId'] = self.directory_id
+        if self.new_deletion_strategy is not None:
+            result['NewDeletionStrategy'] = self.new_deletion_strategy
+        if self.new_description is not None:
+            result['NewDescription'] = self.new_description
+        if self.new_duplication_strategy is not None:
+            result['NewDuplicationStrategy'] = self.new_duplication_strategy
+        if self.user_provisioning_id is not None:
+            result['UserProvisioningId'] = self.user_provisioning_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DirectoryId') is not None:
+            self.directory_id = m.get('DirectoryId')
+        if m.get('NewDeletionStrategy') is not None:
+            self.new_deletion_strategy = m.get('NewDeletionStrategy')
+        if m.get('NewDescription') is not None:
+            self.new_description = m.get('NewDescription')
+        if m.get('NewDuplicationStrategy') is not None:
+            self.new_duplication_strategy = m.get('NewDuplicationStrategy')
+        if m.get('UserProvisioningId') is not None:
+            self.user_provisioning_id = m.get('UserProvisioningId')
+        return self
+
+
+class UpdateUserProvisioningResponseBodyUserProvisioning(TeaModel):
+    def __init__(self, create_time=None, deletion_strategy=None, description=None, directory_id=None,
+                 duplication_strategy=None, owner_pk=None, principal_id=None, principal_name=None, principal_type=None, status=None,
+                 target_id=None, target_name=None, target_path=None, target_type=None, update_time=None,
+                 user_provisioning_id=None):
+        self.create_time = create_time  # type: str
+        self.deletion_strategy = deletion_strategy  # type: str
+        self.description = description  # type: str
+        self.directory_id = directory_id  # type: str
+        self.duplication_strategy = duplication_strategy  # type: str
+        self.owner_pk = owner_pk  # type: str
+        self.principal_id = principal_id  # type: str
+        self.principal_name = principal_name  # type: str
+        self.principal_type = principal_type  # type: str
+        self.status = status  # type: str
+        self.target_id = target_id  # type: str
+        self.target_name = target_name  # type: str
+        self.target_path = target_path  # type: str
+        self.target_type = target_type  # type: str
+        self.update_time = update_time  # type: str
+        self.user_provisioning_id = user_provisioning_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateUserProvisioningResponseBodyUserProvisioning, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.deletion_strategy is not None:
+            result['DeletionStrategy'] = self.deletion_strategy
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.directory_id is not None:
+            result['DirectoryId'] = self.directory_id
+        if self.duplication_strategy is not None:
+            result['DuplicationStrategy'] = self.duplication_strategy
+        if self.owner_pk is not None:
+            result['OwnerPk'] = self.owner_pk
+        if self.principal_id is not None:
+            result['PrincipalId'] = self.principal_id
+        if self.principal_name is not None:
+            result['PrincipalName'] = self.principal_name
+        if self.principal_type is not None:
+            result['PrincipalType'] = self.principal_type
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.target_id is not None:
+            result['TargetId'] = self.target_id
+        if self.target_name is not None:
+            result['TargetName'] = self.target_name
+        if self.target_path is not None:
+            result['TargetPath'] = self.target_path
+        if self.target_type is not None:
+            result['TargetType'] = self.target_type
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        if self.user_provisioning_id is not None:
+            result['UserProvisioningId'] = self.user_provisioning_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DeletionStrategy') is not None:
+            self.deletion_strategy = m.get('DeletionStrategy')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DirectoryId') is not None:
+            self.directory_id = m.get('DirectoryId')
+        if m.get('DuplicationStrategy') is not None:
+            self.duplication_strategy = m.get('DuplicationStrategy')
+        if m.get('OwnerPk') is not None:
+            self.owner_pk = m.get('OwnerPk')
+        if m.get('PrincipalId') is not None:
+            self.principal_id = m.get('PrincipalId')
+        if m.get('PrincipalName') is not None:
+            self.principal_name = m.get('PrincipalName')
+        if m.get('PrincipalType') is not None:
+            self.principal_type = m.get('PrincipalType')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TargetId') is not None:
+            self.target_id = m.get('TargetId')
+        if m.get('TargetName') is not None:
+            self.target_name = m.get('TargetName')
+        if m.get('TargetPath') is not None:
+            self.target_path = m.get('TargetPath')
+        if m.get('TargetType') is not None:
+            self.target_type = m.get('TargetType')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        if m.get('UserProvisioningId') is not None:
+            self.user_provisioning_id = m.get('UserProvisioningId')
+        return self
+
+
+class UpdateUserProvisioningResponseBody(TeaModel):
+    def __init__(self, request_id=None, user_provisioning=None):
+        self.request_id = request_id  # type: str
+        self.user_provisioning = user_provisioning  # type: UpdateUserProvisioningResponseBodyUserProvisioning
+
+    def validate(self):
+        if self.user_provisioning:
+            self.user_provisioning.validate()
+
+    def to_map(self):
+        _map = super(UpdateUserProvisioningResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.user_provisioning is not None:
+            result['UserProvisioning'] = self.user_provisioning.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('UserProvisioning') is not None:
+            temp_model = UpdateUserProvisioningResponseBodyUserProvisioning()
+            self.user_provisioning = temp_model.from_map(m['UserProvisioning'])
+        return self
+
+
+class UpdateUserProvisioningResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateUserProvisioningResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateUserProvisioningResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateUserProvisioningResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

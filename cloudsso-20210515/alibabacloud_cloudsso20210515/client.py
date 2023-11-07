@@ -34,8 +34,6 @@ class Client(OpenApiClient):
         """
         You can add up to two SAML signing certificates.
         This topic provides an example on how to add a SAML signing certificate to the directory `d-00fc2p61****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: AddExternalSAMLIdPCertificateRequest
@@ -73,8 +71,6 @@ class Client(OpenApiClient):
         """
         You can add up to two SAML signing certificates.
         This topic provides an example on how to add a SAML signing certificate to the directory `d-00fc2p61****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: AddExternalSAMLIdPCertificateRequest
@@ -87,8 +83,6 @@ class Client(OpenApiClient):
     def add_permission_policy_to_access_configuration_with_options(self, request, runtime):
         """
         This topic provides an example on how to add the system policy `AliyunECSFullAccess` to the access configuration `ac-00jhtfl8thteu6uj***`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: AddPermissionPolicyToAccessConfigurationRequest
@@ -131,8 +125,6 @@ class Client(OpenApiClient):
     def add_permission_policy_to_access_configuration(self, request):
         """
         This topic provides an example on how to add the system policy `AliyunECSFullAccess` to the access configuration `ac-00jhtfl8thteu6uj***`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: AddPermissionPolicyToAccessConfigurationRequest
@@ -146,8 +138,6 @@ class Client(OpenApiClient):
         """
         If System for Cross-domain Identity Management (SCIM) synchronization is enabled, you cannot add a user to a group that is synchronized by using SCIM.
         This topic provides an example of how to add the user `u-00q8wbq42wiltcrk****` to the group `g-00jqzghi2n3o5hkh****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: AddUserToGroupRequest
@@ -187,8 +177,6 @@ class Client(OpenApiClient):
         """
         If System for Cross-domain Identity Management (SCIM) synchronization is enabled, you cannot add a user to a group that is synchronized by using SCIM.
         This topic provides an example of how to add the user `u-00q8wbq42wiltcrk****` to the group `g-00jqzghi2n3o5hkh****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: AddUserToGroupRequest
@@ -202,8 +190,6 @@ class Client(OpenApiClient):
         """
         If single sign-on (SSO) logon is disabled, you can clear the configurations of a SAML IdP. If SSO logon is enabled, you cannot clear the configurations.
         This topic provides an example on how to clear the configurations of the SAML IdP within the directory `d-00fc2p61****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ClearExternalSAMLIdentityProviderRequest
@@ -239,8 +225,6 @@ class Client(OpenApiClient):
         """
         If single sign-on (SSO) logon is disabled, you can clear the configurations of a SAML IdP. If SSO logon is enabled, you cannot clear the configurations.
         This topic provides an example on how to clear the configurations of the SAML IdP within the directory `d-00fc2p61****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ClearExternalSAMLIdentityProviderRequest
@@ -255,8 +239,6 @@ class Client(OpenApiClient):
         When you call this operation, an asynchronous task is created. You can call the [GetTask](~~340670~~) operation to query the progress of task execution by using the value of the `TaskId` response parameter.
         For more information about how to assign permissions on an account in your resource directory, see [Overview of multi-account authorization](~~266726~~).
         This topic provides an example on how to assign access permissions on the account `114240524784****` in your resource directory to the CloudSSO user `u-00q8wbq42wiltcrk****` by using the access configuration `ac-00jhtfl8thteu6uj****`. After the call is successful, the CloudSSO user can access resources within the account in the resource directory.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: CreateAccessAssignmentRequest
@@ -303,8 +285,6 @@ class Client(OpenApiClient):
         When you call this operation, an asynchronous task is created. You can call the [GetTask](~~340670~~) operation to query the progress of task execution by using the value of the `TaskId` response parameter.
         For more information about how to assign permissions on an account in your resource directory, see [Overview of multi-account authorization](~~266726~~).
         This topic provides an example on how to assign access permissions on the account `114240524784****` in your resource directory to the CloudSSO user `u-00q8wbq42wiltcrk****` by using the access configuration `ac-00jhtfl8thteu6uj****`. After the call is successful, the CloudSSO user can access resources within the account in the resource directory.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: CreateAccessAssignmentRequest
@@ -318,8 +298,6 @@ class Client(OpenApiClient):
         """
         For more information about access configurations, see [Overview of access configurations](~~266737~~).
         This topic provides an example on how to create an access configuration named `ECS-Admin`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: CreateAccessConfigurationRequest
@@ -363,8 +341,6 @@ class Client(OpenApiClient):
         """
         For more information about access configurations, see [Overview of access configurations](~~266737~~).
         This topic provides an example on how to create an access configuration named `ECS-Admin`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: CreateAccessConfigurationRequest
@@ -382,8 +358,6 @@ class Client(OpenApiClient):
         ## Limits
         - You can create only one directory for a management account.
         - If you want to change the region of a directory, you must delete the directory and then create a directory in a different region.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: CreateDirectoryRequest
@@ -423,8 +397,6 @@ class Client(OpenApiClient):
         ## Limits
         - You can create only one directory for a management account.
         - If you want to change the region of a directory, you must delete the directory and then create a directory in a different region.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: CreateDirectoryRequest
@@ -437,8 +409,6 @@ class Client(OpenApiClient):
     def create_group_with_options(self, request, runtime):
         """
         This topic provides an example on how to create a group named `TestGroup`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: CreateGroupRequest
@@ -477,8 +447,6 @@ class Client(OpenApiClient):
     def create_group(self, request):
         """
         This topic provides an example on how to create a group named `TestGroup`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: CreateGroupRequest
@@ -492,8 +460,6 @@ class Client(OpenApiClient):
         """
         SCIM credentials are required for SCIM synchronization. You can create up to two SCIM credentials.
         This topic provides an example on how to create a SCIM credential within the directory `d-00fc2p61****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: CreateSCIMServerCredentialRequest
@@ -529,8 +495,6 @@ class Client(OpenApiClient):
         """
         SCIM credentials are required for SCIM synchronization. You can create up to two SCIM credentials.
         This topic provides an example on how to create a SCIM credential within the directory `d-00fc2p61****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: CreateSCIMServerCredentialRequest
@@ -543,8 +507,6 @@ class Client(OpenApiClient):
     def create_user_with_options(self, request, runtime):
         """
         This topic provides an example on how to create a user named `Alice`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: CreateUserRequest
@@ -593,8 +555,6 @@ class Client(OpenApiClient):
     def create_user(self, request):
         """
         This topic provides an example on how to create a user named `Alice`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: CreateUserRequest
@@ -604,12 +564,52 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_user_with_options(request, runtime)
 
+    def create_user_provisioning_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.deletion_strategy):
+            query['DeletionStrategy'] = request.deletion_strategy
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.duplication_strategy):
+            query['DuplicationStrategy'] = request.duplication_strategy
+        if not UtilClient.is_unset(request.principal_id):
+            query['PrincipalId'] = request.principal_id
+        if not UtilClient.is_unset(request.principal_type):
+            query['PrincipalType'] = request.principal_type
+        if not UtilClient.is_unset(request.target_id):
+            query['TargetId'] = request.target_id
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateUserProvisioning',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.CreateUserProvisioningResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_user_provisioning(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_user_provisioning_with_options(request, runtime)
+
     def delete_access_assignment_with_options(self, request, runtime):
         """
         When you call this operation, an asynchronous task is created. You can call the [GetTask](~~340670~~) operation to query the progress of the task based on the value of the `TaskId` response parameter.
         This topic provides an example on how to remove the access permissions on the account `114240524784****` in the resource directory from the CloudSSO user `u-00q8wbq42wiltcrk****`. The access permissions are assigned by using the access configuration `ac-00jhtfl8thteu6uj****`.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteAccessAssignmentRequest
@@ -657,8 +657,6 @@ class Client(OpenApiClient):
         """
         When you call this operation, an asynchronous task is created. You can call the [GetTask](~~340670~~) operation to query the progress of the task based on the value of the `TaskId` response parameter.
         This topic provides an example on how to remove the access permissions on the account `114240524784****` in the resource directory from the CloudSSO user `u-00q8wbq42wiltcrk****`. The access permissions are assigned by using the access configuration `ac-00jhtfl8thteu6uj****`.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteAccessAssignmentRequest
@@ -673,8 +671,6 @@ class Client(OpenApiClient):
         This topic provides an example on how to delete the access configuration whose ID is `ac-001j9mcm3k7335bc***`.
         ## Prerequisites
         The access configuration that you want to delete is de-provisioned from the accounts in your resource directory. For more information, see [DeprovisionAccessConfiguration](~~338352~~).
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteAccessConfigurationRequest
@@ -715,8 +711,6 @@ class Client(OpenApiClient):
         This topic provides an example on how to delete the access configuration whose ID is `ac-001j9mcm3k7335bc***`.
         ## Prerequisites
         The access configuration that you want to delete is de-provisioned from the accounts in your resource directory. For more information, see [DeprovisionAccessConfiguration](~~338352~~).
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteAccessConfigurationRequest
@@ -737,8 +731,6 @@ class Client(OpenApiClient):
         *   Access configurations are deleted. For more information, see [DeleteAccessConfiguration](~~336907~~).
         *   System for Cross-domain Identity Management (SCIM) credentials are deleted. For more information, see [DeleteSCIMServerCredential](~~341842~~).
         *   SSO logon configurations are deleted. For more information, see [ClearExternalSAMLIdentityProvider](~~341573~~).
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteDirectoryRequest
@@ -781,8 +773,6 @@ class Client(OpenApiClient):
         *   Access configurations are deleted. For more information, see [DeleteAccessConfiguration](~~336907~~).
         *   System for Cross-domain Identity Management (SCIM) credentials are deleted. For more information, see [DeleteSCIMServerCredential](~~341842~~).
         *   SSO logon configurations are deleted. For more information, see [ClearExternalSAMLIdentityProvider](~~341573~~).
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteDirectoryRequest
@@ -799,8 +789,6 @@ class Client(OpenApiClient):
         The group that you want to delete is not associated with the following resources. If the group is associated with the resources, the deletion fails.
         *   Users: You must remove users from the group. For more information, see [RemoveUserFromGroup](~~335116~~).
         *   Access permissions: You must remove the access permissions on the accounts in your resource directory from the group. For more information, see [DeleteAccessAssignment](~~338350~~).
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteGroupRequest
@@ -841,8 +829,6 @@ class Client(OpenApiClient):
         The group that you want to delete is not associated with the following resources. If the group is associated with the resources, the deletion fails.
         *   Users: You must remove users from the group. For more information, see [RemoveUserFromGroup](~~335116~~).
         *   Access permissions: You must remove the access permissions on the accounts in your resource directory from the group. For more information, see [DeleteAccessAssignment](~~338350~~).
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteGroupRequest
@@ -855,8 +841,6 @@ class Client(OpenApiClient):
     def delete_mfadevice_for_user_with_options(self, request, runtime):
         """
         This topic provides an example on how to unbind the MFA device `mfa-00ujhet8pycljj7j***` from the user `u-00q8wbq42wiltcrk****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteMFADeviceForUserRequest
@@ -895,8 +879,6 @@ class Client(OpenApiClient):
     def delete_mfadevice_for_user(self, request):
         """
         This topic provides an example on how to unbind the MFA device `mfa-00ujhet8pycljj7j***` from the user `u-00q8wbq42wiltcrk****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteMFADeviceForUserRequest
@@ -910,8 +892,6 @@ class Client(OpenApiClient):
         """
         After a SCIM credential is deleted, the synchronization task that uses the SCIM credential fails.
         This topic provides an example on how to delete the SCIM credential whose ID is `scimcred-004whl0kvfwcypbi****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteSCIMServerCredentialRequest
@@ -949,8 +929,6 @@ class Client(OpenApiClient):
         """
         After a SCIM credential is deleted, the synchronization task that uses the SCIM credential fails.
         This topic provides an example on how to delete the SCIM credential whose ID is `scimcred-004whl0kvfwcypbi****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteSCIMServerCredentialRequest
@@ -968,8 +946,6 @@ class Client(OpenApiClient):
         *   Multi-factor authentication (MFA) devices: You must unbind the MFA devices from the user. For more information, see [DeleteMFADeviceForUser](~~341675~~).
         *   Access permissions: You must remove the access permissions on the accounts in your resource directory from the user. For more information, see [DeleteAccessAssignment](~~338350~~).
         *   Groups: You must remove the user from groups. For more information, see [RemoveUserFromGroup](~~335116~~).
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteUserRequest
@@ -1011,8 +987,6 @@ class Client(OpenApiClient):
         *   Multi-factor authentication (MFA) devices: You must unbind the MFA devices from the user. For more information, see [DeleteMFADeviceForUser](~~341675~~).
         *   Access permissions: You must remove the access permissions on the accounts in your resource directory from the user. For more information, see [DeleteAccessAssignment](~~338350~~).
         *   Groups: You must remove the user from groups. For more information, see [RemoveUserFromGroup](~~335116~~).
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeleteUserRequest
@@ -1022,12 +996,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_user_with_options(request, runtime)
 
+    def delete_user_provisioning_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.deletion_strategy):
+            query['DeletionStrategy'] = request.deletion_strategy
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.user_provisioning_id):
+            query['UserProvisioningId'] = request.user_provisioning_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteUserProvisioning',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.DeleteUserProvisioningResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_user_provisioning(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_user_provisioning_with_options(request, runtime)
+
     def deprovision_access_configuration_with_options(self, request, runtime):
         """
         When you call this operation, an asynchronous task is automatically created. You can call the [GetTask](~~340670~~) operation to query the progress of the task based on the value of the `TaskId` response parameter.
         This topic provides an example on how to de-provision the access configuration `ac-00jhtfl8thteu6uj****` from the account `114240524784****` in your resource directory.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeprovisionAccessConfigurationRequest
@@ -1069,8 +1073,6 @@ class Client(OpenApiClient):
         """
         When you call this operation, an asynchronous task is automatically created. You can call the [GetTask](~~340670~~) operation to query the progress of the task based on the value of the `TaskId` response parameter.
         This topic provides an example on how to de-provision the access configuration `ac-00jhtfl8thteu6uj****` from the account `114240524784****` in your resource directory.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DeprovisionAccessConfigurationRequest
@@ -1083,8 +1085,6 @@ class Client(OpenApiClient):
     def disable_service_with_options(self, runtime):
         """
         If your CloudSSO has no directory, you can disable CloudSSO based on your business requirements. After you disable CloudSSO, you can enable it at any time.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: DisableServiceRequest
@@ -1113,8 +1113,6 @@ class Client(OpenApiClient):
     def disable_service(self):
         """
         If your CloudSSO has no directory, you can disable CloudSSO based on your business requirements. After you disable CloudSSO, you can enable it at any time.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @return: DisableServiceResponse
@@ -1126,8 +1124,6 @@ class Client(OpenApiClient):
         """
         You can call this operation only if your account belongs to the management account that is used to enable a resource directory and has permissions to enable CloudSSO. For more information, see [Enable CloudSSO](~~262819~~).
         If you call this operation, you agree to the [Alibaba Cloud International Website Product Terms of Service](https://www.alibabacloud.com/help/doc-detail/42416.htm).
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: EnableServiceRequest
@@ -1157,8 +1153,6 @@ class Client(OpenApiClient):
         """
         You can call this operation only if your account belongs to the management account that is used to enable a resource directory and has permissions to enable CloudSSO. For more information, see [Enable CloudSSO](~~262819~~).
         If you call this operation, you agree to the [Alibaba Cloud International Website Product Terms of Service](https://www.alibabacloud.com/help/doc-detail/42416.htm).
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @return: EnableServiceResponse
@@ -1168,8 +1162,7 @@ class Client(OpenApiClient):
 
     def get_access_configuration_with_options(self, request, runtime):
         """
-        ## Usage notes
-        This topic provides an example on how to query the information about the access configuration whose ID is `ac-00ccule7tadaijxc****`.
+        This topic provides an example on how to query the information about the access configuration whose ID is `ac-00ccule7tadaijxc***`.
         
 
         @param request: GetAccessConfigurationRequest
@@ -1205,8 +1198,7 @@ class Client(OpenApiClient):
 
     def get_access_configuration(self, request):
         """
-        ## Usage notes
-        This topic provides an example on how to query the information about the access configuration whose ID is `ac-00ccule7tadaijxc****`.
+        This topic provides an example on how to query the information about the access configuration whose ID is `ac-00ccule7tadaijxc***`.
         
 
         @param request: GetAccessConfigurationRequest
@@ -1219,8 +1211,6 @@ class Client(OpenApiClient):
     def get_directory_with_options(self, request, runtime):
         """
         This topic provides an example on how to query information about the directory whose ID is `d-00fc2p61***`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetDirectoryRequest
@@ -1255,8 +1245,6 @@ class Client(OpenApiClient):
     def get_directory(self, request):
         """
         This topic provides an example on how to query information about the directory whose ID is `d-00fc2p61***`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetDirectoryRequest
@@ -1270,8 +1258,6 @@ class Client(OpenApiClient):
         """
         During SAML 2.0-based single sign-on (SSO) logon, CloudSSO is an SP, and the identity management system of an enterprise is an identity provider (IdP).
         This topic provides an example on how to query the information about the SP within the directory `d-00fc2p61****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetDirectorySAMLServiceProviderInfoRequest
@@ -1307,8 +1293,6 @@ class Client(OpenApiClient):
         """
         During SAML 2.0-based single sign-on (SSO) logon, CloudSSO is an SP, and the identity management system of an enterprise is an identity provider (IdP).
         This topic provides an example on how to query the information about the SP within the directory `d-00fc2p61****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetDirectorySAMLServiceProviderInfoRequest
@@ -1320,8 +1304,9 @@ class Client(OpenApiClient):
 
     def get_directory_statistics_with_options(self, request, runtime):
         """
-        This topic provides an example on how to query the statistics of a directory whose ID is `d-00fc2p61***`. The statistics include the number of users, quota for users, number of groups, quota for groups, number of access configurations, quota for access configurations, number of access permissions that are assigned, number of System for Cross-domain Identity Management (SCIM) credentials, number of asynchronous tasks, status of single sign-on (SSO) logon, and status of SCIM synchronization.
-        ## Limits
+        ### [](#)
+        This topic provides an example on how to query the statistics of a directory whose ID is `d-00fc2p61****`. The statistics include the number of users, quota for users, number of groups, quota for groups, number of access configurations, quota for access configurations, quota for system policies that can be configured for an access configuration, number of access permissions that are assigned, number of System for Cross-domain Identity Management (SCIM) credentials, number of asynchronous tasks, status of single sign-on (SSO), and status of SCIM synchronization.
+        ### [](#qps)Limit
         You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
@@ -1356,8 +1341,9 @@ class Client(OpenApiClient):
 
     def get_directory_statistics(self, request):
         """
-        This topic provides an example on how to query the statistics of a directory whose ID is `d-00fc2p61***`. The statistics include the number of users, quota for users, number of groups, quota for groups, number of access configurations, quota for access configurations, number of access permissions that are assigned, number of System for Cross-domain Identity Management (SCIM) credentials, number of asynchronous tasks, status of single sign-on (SSO) logon, and status of SCIM synchronization.
-        ## Limits
+        ### [](#)
+        This topic provides an example on how to query the statistics of a directory whose ID is `d-00fc2p61****`. The statistics include the number of users, quota for users, number of groups, quota for groups, number of access configurations, quota for access configurations, quota for system policies that can be configured for an access configuration, number of access permissions that are assigned, number of System for Cross-domain Identity Management (SCIM) credentials, number of asynchronous tasks, status of single sign-on (SSO), and status of SCIM synchronization.
+        ### [](#qps)Limit
         You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
@@ -1371,8 +1357,6 @@ class Client(OpenApiClient):
     def get_external_samlidentity_provider_with_options(self, request, runtime):
         """
         This topic provides an example on how to query the configurations of the SAML IdP within the directory `d-00fc2p61***`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetExternalSAMLIdentityProviderRequest
@@ -1407,8 +1391,6 @@ class Client(OpenApiClient):
     def get_external_samlidentity_provider(self, request):
         """
         This topic provides an example on how to query the configurations of the SAML IdP within the directory `d-00fc2p61***`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetExternalSAMLIdentityProviderRequest
@@ -1421,8 +1403,6 @@ class Client(OpenApiClient):
     def get_group_with_options(self, request, runtime):
         """
         This topic provides an example on how to query the information about the group `g-00jqzghi2n3o5hkh***` in the directory `d-00fc2p61****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetGroupRequest
@@ -1459,8 +1439,6 @@ class Client(OpenApiClient):
     def get_group(self, request):
         """
         This topic provides an example on how to query the information about the group `g-00jqzghi2n3o5hkh***` in the directory `d-00fc2p61****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetGroupRequest
@@ -1569,8 +1547,6 @@ class Client(OpenApiClient):
     def get_mfaauthentication_status_with_options(self, request, runtime):
         """
         This topic provides an example on how to check whether MFA is enabled for users in the directory whose ID is `00fc2p61***`. The returned result shows that MFA is in the Enabled state.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetMFAAuthenticationStatusRequest
@@ -1605,8 +1581,6 @@ class Client(OpenApiClient):
     def get_mfaauthentication_status(self, request):
         """
         This topic provides an example on how to check whether MFA is enabled for users in the directory whose ID is `00fc2p61***`. The returned result shows that MFA is in the Enabled state.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetMFAAuthenticationStatusRequest
@@ -1619,8 +1593,6 @@ class Client(OpenApiClient):
     def get_scimsynchronization_status_with_options(self, request, runtime):
         """
         This topic provides an example on how to query the status of SCIM synchronization within the directory `d-00fc2p61***`. The returned result shows that SCIM synchronization is in the Enabled state.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetSCIMSynchronizationStatusRequest
@@ -1655,8 +1627,6 @@ class Client(OpenApiClient):
     def get_scimsynchronization_status(self, request):
         """
         This topic provides an example on how to query the status of SCIM synchronization within the directory `d-00fc2p61***`. The returned result shows that SCIM synchronization is in the Enabled state.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetSCIMSynchronizationStatusRequest
@@ -1667,17 +1637,6 @@ class Client(OpenApiClient):
         return self.get_scimsynchronization_status_with_options(request, runtime)
 
     def get_service_status_with_options(self, runtime):
-        """
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
-        
-
-        @param request: GetServiceStatusRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: GetServiceStatusResponse
-        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='GetServiceStatus',
@@ -1696,21 +1655,12 @@ class Client(OpenApiClient):
         )
 
     def get_service_status(self):
-        """
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
-        
-
-        @return: GetServiceStatusResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.get_service_status_with_options(runtime)
 
     def get_task_with_options(self, request, runtime):
         """
         This topic provides an example on how to query the information about the task whose ID is `t-shfqw1u1edszvxw5***`.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetTaskRequest
@@ -1747,8 +1697,6 @@ class Client(OpenApiClient):
     def get_task(self, request):
         """
         This topic provides an example on how to query the information about the task whose ID is `t-shfqw1u1edszvxw5***`.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetTaskRequest
@@ -1762,8 +1710,6 @@ class Client(OpenApiClient):
         """
         You can call the GetTaskStatus operation to query the status of an asynchronous task. If you want to query more information about an asynchronous task, you can call the [GetTask](~~340670~~) operation.
         This topic provides an example on how to query the information about the task whose ID is `t-shfqw1u1edszvxw5****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetTaskStatusRequest
@@ -1801,8 +1747,6 @@ class Client(OpenApiClient):
         """
         You can call the GetTaskStatus operation to query the status of an asynchronous task. If you want to query more information about an asynchronous task, you can call the [GetTask](~~340670~~) operation.
         This topic provides an example on how to query the information about the task whose ID is `t-shfqw1u1edszvxw5****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetTaskStatusRequest
@@ -1815,8 +1759,6 @@ class Client(OpenApiClient):
     def get_user_with_options(self, request, runtime):
         """
         This topic provides an example on how to query information about the user whose ID is `u-00q8wbq42wiltcrk***` in the `d-00fc2p61****` directory.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetUserRequest
@@ -1853,8 +1795,6 @@ class Client(OpenApiClient):
     def get_user(self, request):
         """
         This topic provides an example on how to query information about the user whose ID is `u-00q8wbq42wiltcrk***` in the `d-00fc2p61****` directory.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: GetUserRequest
@@ -1912,11 +1852,39 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_user_mfaauthentication_settings_with_options(request, runtime)
 
+    def get_user_provisioning_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.user_provisioning_id):
+            query['UserProvisioningId'] = request.user_provisioning_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetUserProvisioning',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.GetUserProvisioningResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_user_provisioning(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_user_provisioning_with_options(request, runtime)
+
     def list_access_assignments_with_options(self, request, runtime):
         """
         This topic provides an example on how to query the assigned access permissions on the account `114240524784***` in your resource directory. The returned result shows that access permissions on the account in your resource directory is assigned to one user.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListAccessAssignmentsRequest
@@ -1965,8 +1933,6 @@ class Client(OpenApiClient):
     def list_access_assignments(self, request):
         """
         This topic provides an example on how to query the assigned access permissions on the account `114240524784***` in your resource directory. The returned result shows that access permissions on the account in your resource directory is assigned to one user.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListAccessAssignmentsRequest
@@ -1978,8 +1944,7 @@ class Client(OpenApiClient):
 
     def list_access_configuration_provisionings_with_options(self, request, runtime):
         """
-        ## Usage notes
-        This topic provides an example on how to query the accounts for which the access permission `ac-00ccule7tadaijxc****` is provisioned. The returned result shows that the access configuration is provisioned for two accounts in your resource directory.
+        This topic provides an example on how to query the accounts for which the access permission `ac-00ccule7tadaijxc***` is provisioned. The returned result shows that the access configuration is provisioned for two accounts in your resource directory.
         
 
         @param request: ListAccessConfigurationProvisioningsRequest
@@ -2025,8 +1990,7 @@ class Client(OpenApiClient):
 
     def list_access_configuration_provisionings(self, request):
         """
-        ## Usage notes
-        This topic provides an example on how to query the accounts for which the access permission `ac-00ccule7tadaijxc****` is provisioned. The returned result shows that the access configuration is provisioned for two accounts in your resource directory.
+        This topic provides an example on how to query the accounts for which the access permission `ac-00ccule7tadaijxc***` is provisioned. The returned result shows that the access configuration is provisioned for two accounts in your resource directory.
         
 
         @param request: ListAccessConfigurationProvisioningsRequest
@@ -2038,8 +2002,7 @@ class Client(OpenApiClient):
 
     def list_access_configurations_with_options(self, request, runtime):
         """
-        ## Usage notes
-        This topic provides an example on how to query the access configurations within the directory `d-00fc2p61****`. The returned result shows that the directory contains the `VPC-Admin` and `ECS-Admin` access configurations.
+        This topic provides an example on how to query the access configurations within the directory `d-00fc2p61***`. The returned result shows that the directory contains the `VPC-Admin` and `ECS-Admin` access configurations.
         
 
         @param request: ListAccessConfigurationsRequest
@@ -2081,8 +2044,7 @@ class Client(OpenApiClient):
 
     def list_access_configurations(self, request):
         """
-        ## Usage notes
-        This topic provides an example on how to query the access configurations within the directory `d-00fc2p61****`. The returned result shows that the directory contains the `VPC-Admin` and `ECS-Admin` access configurations.
+        This topic provides an example on how to query the access configurations within the directory `d-00fc2p61***`. The returned result shows that the directory contains the `VPC-Admin` and `ECS-Admin` access configurations.
         
 
         @param request: ListAccessConfigurationsRequest
@@ -2095,8 +2057,6 @@ class Client(OpenApiClient):
     def list_directories_with_options(self, runtime):
         """
         This topic provides an example on how to query the directories within your Alibaba Cloud account. The returned result shows that only one directory with the ID `d-00fc2p61***` is created within your Alibaba Cloud account.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListDirectoriesRequest
@@ -2125,8 +2085,6 @@ class Client(OpenApiClient):
     def list_directories(self):
         """
         This topic provides an example on how to query the directories within your Alibaba Cloud account. The returned result shows that only one directory with the ID `d-00fc2p61***` is created within your Alibaba Cloud account.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @return: ListDirectoriesResponse
@@ -2137,8 +2095,6 @@ class Client(OpenApiClient):
     def list_external_samlid_pcertificates_with_options(self, request, runtime):
         """
         This topic provides an example on how to query the SAML signing certificates within the directory `d-00fc2p61***`. The returned result shows that the directory contains one SAML signing certificate.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListExternalSAMLIdPCertificatesRequest
@@ -2173,8 +2129,6 @@ class Client(OpenApiClient):
     def list_external_samlid_pcertificates(self, request):
         """
         This topic provides an example on how to query the SAML signing certificates within the directory `d-00fc2p61***`. The returned result shows that the directory contains one SAML signing certificate.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListExternalSAMLIdPCertificatesRequest
@@ -2187,8 +2141,6 @@ class Client(OpenApiClient):
     def list_group_members_with_options(self, request, runtime):
         """
         This topic provides an example on how to query the users in the group `g-00jqzghi2n3o5hkh***`. The returned result shows that the group contains the user `Alice` and the user `user1`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListGroupMembersRequest
@@ -2229,8 +2181,6 @@ class Client(OpenApiClient):
     def list_group_members(self, request):
         """
         This topic provides an example on how to query the users in the group `g-00jqzghi2n3o5hkh***`. The returned result shows that the group contains the user `Alice` and the user `user1`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListGroupMembersRequest
@@ -2243,8 +2193,6 @@ class Client(OpenApiClient):
     def list_groups_with_options(self, request, runtime):
         """
         This topic provides an example on how to query the groups in the directory `d-00fc2p61***`. The returned result shows that the directory contains three groups. The groups `group1` and `group2` are synchronized from an external identity provider (IdP). The group `TestGroup` is manually created in CloudSSO.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListGroupsRequest
@@ -2287,8 +2235,6 @@ class Client(OpenApiClient):
     def list_groups(self, request):
         """
         This topic provides an example on how to query the groups in the directory `d-00fc2p61***`. The returned result shows that the directory contains three groups. The groups `group1` and `group2` are synchronized from an external identity provider (IdP). The group `TestGroup` is manually created in CloudSSO.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListGroupsRequest
@@ -2301,8 +2247,6 @@ class Client(OpenApiClient):
     def list_joined_groups_for_user_with_options(self, request, runtime):
         """
         This topic provides an example on how to query the groups to which the user `u-00q8wbq42wiltcrk***` is added. The returned result shows that the user is added to both the `TestGroup` and the `group1` groups.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListJoinedGroupsForUserRequest
@@ -2343,8 +2287,6 @@ class Client(OpenApiClient):
     def list_joined_groups_for_user(self, request):
         """
         This topic provides an example on how to query the groups to which the user `u-00q8wbq42wiltcrk***` is added. The returned result shows that the user is added to both the `TestGroup` and the `group1` groups.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListJoinedGroupsForUserRequest
@@ -2357,8 +2299,6 @@ class Client(OpenApiClient):
     def list_mfadevices_for_user_with_options(self, request, runtime):
         """
         This topic provides an example on how to query the MFA devices that are bound to the user `u-00q8wbq42wiltcrk***`. The returned result shows that the MFA device named `Alice-MFA1` is bound to the user.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListMFADevicesForUserRequest
@@ -2395,8 +2335,6 @@ class Client(OpenApiClient):
     def list_mfadevices_for_user(self, request):
         """
         This topic provides an example on how to query the MFA devices that are bound to the user `u-00q8wbq42wiltcrk***`. The returned result shows that the MFA device named `Alice-MFA1` is bound to the user.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListMFADevicesForUserRequest
@@ -2409,8 +2347,6 @@ class Client(OpenApiClient):
     def list_permission_policies_in_access_configuration_with_options(self, request, runtime):
         """
         This topic provides an example on how to query the policies that are created for the access configuration `ac-00jhtfl8thteu6uj***`. The returned result shows that the access configuration contains one system policy and one inline policy.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListPermissionPoliciesInAccessConfigurationRequest
@@ -2449,8 +2385,6 @@ class Client(OpenApiClient):
     def list_permission_policies_in_access_configuration(self, request):
         """
         This topic provides an example on how to query the policies that are created for the access configuration `ac-00jhtfl8thteu6uj***`. The returned result shows that the access configuration contains one system policy and one inline policy.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListPermissionPoliciesInAccessConfigurationRequest
@@ -2463,8 +2397,6 @@ class Client(OpenApiClient):
     def list_scimserver_credentials_with_options(self, request, runtime):
         """
         This topic provides an example on how to query the SCIM credentials within the `d-00fc2p61***` directory.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListSCIMServerCredentialsRequest
@@ -2499,8 +2431,6 @@ class Client(OpenApiClient):
     def list_scimserver_credentials(self, request):
         """
         This topic provides an example on how to query the SCIM credentials within the `d-00fc2p61***` directory.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListSCIMServerCredentialsRequest
@@ -2514,8 +2444,6 @@ class Client(OpenApiClient):
         """
         By default, this operation queries the tasks within the previous 24 hours. This operation allows you to query the tasks within a maximum of 7 days. You can specify the start time of the query by using `Filter`.
         This topic provides an example on how to query the tasks within the previous 24 hours.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListTasksRequest
@@ -2571,8 +2499,6 @@ class Client(OpenApiClient):
         """
         By default, this operation queries the tasks within the previous 24 hours. This operation allows you to query the tasks within a maximum of 7 days. You can specify the start time of the query by using `Filter`.
         This topic provides an example on how to query the tasks within the previous 24 hours.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListTasksRequest
@@ -2582,11 +2508,49 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_tasks_with_options(request, runtime)
 
+    def list_user_provisionings_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.principal_id):
+            query['PrincipalId'] = request.principal_id
+        if not UtilClient.is_unset(request.principal_type):
+            query['PrincipalType'] = request.principal_type
+        if not UtilClient.is_unset(request.target_id):
+            query['TargetId'] = request.target_id
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUserProvisionings',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.ListUserProvisioningsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_user_provisionings(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_user_provisionings_with_options(request, runtime)
+
     def list_users_with_options(self, request, runtime):
         """
         This topic provides an example on how to query users in the `d-00fc2p61***` directory. The returned result shows that the directory contains two users. The user `AliceLee` is synchronized from an external identity provider (IdP). The user `user1` is manually created within CloudSSO.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListUsersRequest
@@ -2631,8 +2595,6 @@ class Client(OpenApiClient):
     def list_users(self, request):
         """
         This topic provides an example on how to query users in the `d-00fc2p61***` directory. The returned result shows that the directory contains two users. The user `AliceLee` is synchronized from an external identity provider (IdP). The user `user1` is manually created within CloudSSO.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ListUsersRequest
@@ -2646,8 +2608,6 @@ class Client(OpenApiClient):
         """
         When you call this operation, an asynchronous task is automatically created. You can call the [GetTask](~~340670~~) operation to query the progress of the task based on the value of the `TaskId` response parameter.
         This topic provides an example on how to provision the access configuration `ac-00jhtfl8thteu6uj****` for the account `114240524784****` in your resource directory.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ProvisionAccessConfigurationRequest
@@ -2689,8 +2649,6 @@ class Client(OpenApiClient):
         """
         When you call this operation, an asynchronous task is automatically created. You can call the [GetTask](~~340670~~) operation to query the progress of the task based on the value of the `TaskId` response parameter.
         This topic provides an example on how to provision the access configuration `ac-00jhtfl8thteu6uj****` for the account `114240524784****` in your resource directory.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ProvisionAccessConfigurationRequest
@@ -2703,8 +2661,6 @@ class Client(OpenApiClient):
     def remove_external_samlid_pcertificate_with_options(self, request, runtime):
         """
         This topic provides an example on how to remove the SAML signing certificate whose ID is `idp-c-00dt9gnl7fmjaw9c***`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: RemoveExternalSAMLIdPCertificateRequest
@@ -2741,8 +2697,6 @@ class Client(OpenApiClient):
     def remove_external_samlid_pcertificate(self, request):
         """
         This topic provides an example on how to remove the SAML signing certificate whose ID is `idp-c-00dt9gnl7fmjaw9c***`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: RemoveExternalSAMLIdPCertificateRequest
@@ -2756,8 +2710,6 @@ class Client(OpenApiClient):
         """
         After you remove an inline policy from an access configuration, the policy cannot be restored.
         This topic provides an example on how to remove the system policy `AliyunECSFullAccess` from the access configuration `ac-00jhtfl8thteu6uj****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: RemovePermissionPolicyFromAccessConfigurationRequest
@@ -2799,8 +2751,6 @@ class Client(OpenApiClient):
         """
         After you remove an inline policy from an access configuration, the policy cannot be restored.
         This topic provides an example on how to remove the system policy `AliyunECSFullAccess` from the access configuration `ac-00jhtfl8thteu6uj****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: RemovePermissionPolicyFromAccessConfigurationRequest
@@ -2814,8 +2764,6 @@ class Client(OpenApiClient):
         """
         If System for Cross-domain Identity Management (SCIM) synchronization is enabled, you cannot remove a user from a group that is synchronized by using SCIM.
         This topic provides an example on how to remove the user `u-00q8wbq42wiltcrk****` from the group `g-00jqzghi2n3o5hkh****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: RemoveUserFromGroupRequest
@@ -2855,8 +2803,6 @@ class Client(OpenApiClient):
         """
         If System for Cross-domain Identity Management (SCIM) synchronization is enabled, you cannot remove a user from a group that is synchronized by using SCIM.
         This topic provides an example on how to remove the user `u-00q8wbq42wiltcrk****` from the group `g-00jqzghi2n3o5hkh****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: RemoveUserFromGroupRequest
@@ -2871,8 +2817,6 @@ class Client(OpenApiClient):
         If you forget your password or your password expires or is at risk, you must contact a CloudSSO administrator to reset your password.
         >  After you enable SSO logon, your password cannot be reset.
         This topic provides an example on how to reset the password of the user `u-00q8wbq42wiltcrk****`. The new password is automatically generated by the system.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ResetUserPasswordRequest
@@ -2917,8 +2861,6 @@ class Client(OpenApiClient):
         If you forget your password or your password expires or is at risk, you must contact a CloudSSO administrator to reset your password.
         >  After you enable SSO logon, your password cannot be reset.
         This topic provides an example on how to reset the password of the user `u-00q8wbq42wiltcrk****`. The new password is automatically generated by the system.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: ResetUserPasswordRequest
@@ -2930,11 +2872,10 @@ class Client(OpenApiClient):
 
     def set_external_samlidentity_provider_with_options(self, request, runtime):
         """
-        ## Usage notes
         During SAML 2.0-based single sign-on (SSO) logon, CloudSSO is an SP, and the identity management system of an enterprise is an IdP.
         You can use one of the following methods to configure a SAML IdP. You can obtain the required metadata file or parameter values from your IdP.
         *   Use the metadata file. You can specify the `EncodedMetadataDocument` parameter to upload the metadata file.
-        *   Manually configure the IdP. You can manually specifythe following parameters for your IdP: `EntityId`, `LoginUrl`, `WantRequestSigned`, and `X509Certificate`.
+        *   Manually configure the IdP. You can manually specify the following parameters for your IdP: `EntityId`, `LoginUrl`, `WantRequestSigned`, and `X509Certificate`.
         If you have configured a SAML IdP, the existing configurations are replaced after you call this operation.
         *   If the IdP is configured by using the metadata file, all existing configurations are replaced with new configurations.
         *   If the IdP is manually configured, the original parameter values that are different from the new parameter values are replaced.
@@ -2985,11 +2926,10 @@ class Client(OpenApiClient):
 
     def set_external_samlidentity_provider(self, request):
         """
-        ## Usage notes
         During SAML 2.0-based single sign-on (SSO) logon, CloudSSO is an SP, and the identity management system of an enterprise is an IdP.
         You can use one of the following methods to configure a SAML IdP. You can obtain the required metadata file or parameter values from your IdP.
         *   Use the metadata file. You can specify the `EncodedMetadataDocument` parameter to upload the metadata file.
-        *   Manually configure the IdP. You can manually specifythe following parameters for your IdP: `EntityId`, `LoginUrl`, `WantRequestSigned`, and `X509Certificate`.
+        *   Manually configure the IdP. You can manually specify the following parameters for your IdP: `EntityId`, `LoginUrl`, `WantRequestSigned`, and `X509Certificate`.
         If you have configured a SAML IdP, the existing configurations are replaced after you call this operation.
         *   If the IdP is configured by using the metadata file, all existing configurations are replaced with new configurations.
         *   If the IdP is manually configured, the original parameter values that are different from the new parameter values are replaced.
@@ -3008,8 +2948,6 @@ class Client(OpenApiClient):
         """
         If a CloudSSO administrator enables username-password logon for users, CloudSSO automatically enables MFA to improve security. The administrator can call this operation to enable or disable MFA based on the business requirements.
         This topic provides an example on how to enable MFA for users.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: SetMFAAuthenticationStatusRequest
@@ -3047,8 +2985,6 @@ class Client(OpenApiClient):
         """
         If a CloudSSO administrator enables username-password logon for users, CloudSSO automatically enables MFA to improve security. The administrator can call this operation to enable or disable MFA based on the business requirements.
         This topic provides an example on how to enable MFA for users.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: SetMFAAuthenticationStatusRequest
@@ -3064,8 +3000,6 @@ class Client(OpenApiClient):
         *   After you enable SCIM synchronization, you cannot modify or delete the users or groups that are synchronized to CloudSSO by using SCIM. In addition, you cannot add users to or remove users from the groups. However, you can change the passwords of the users and enable or disable the logon of the users.
         *   After you disable SCIM synchronization, you can modify and delete the users and groups that are synchronized to CloudSSO by using SCIM. You can also add users to or remove users from the groups.
         This topic provides an example on how to enable SCIM synchronization within the directory `d-00fc2p61****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: SetSCIMSynchronizationStatusRequest
@@ -3105,8 +3039,6 @@ class Client(OpenApiClient):
         *   After you enable SCIM synchronization, you cannot modify or delete the users or groups that are synchronized to CloudSSO by using SCIM. In addition, you cannot add users to or remove users from the groups. However, you can change the passwords of the users and enable or disable the logon of the users.
         *   After you disable SCIM synchronization, you can modify and delete the users and groups that are synchronized to CloudSSO by using SCIM. You can also add users to or remove users from the groups.
         This topic provides an example on how to enable SCIM synchronization within the directory `d-00fc2p61****`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: SetSCIMSynchronizationStatusRequest
@@ -3120,8 +3052,6 @@ class Client(OpenApiClient):
         """
         You can modify the `Description`, `SessionDuration`, and `RelayState` parameters for an access configuration.
         This topic provides an example on how to change the initial web page in the access configuration `ac-00jhtfl8thteu6uj****` to `https://cloudsso.console.aliyun.com`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateAccessConfigurationRequest
@@ -3165,8 +3095,6 @@ class Client(OpenApiClient):
         """
         You can modify the `Description`, `SessionDuration`, and `RelayState` parameters for an access configuration.
         This topic provides an example on how to change the initial web page in the access configuration `ac-00jhtfl8thteu6uj****` to `https://cloudsso.console.aliyun.com`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateAccessConfigurationRequest
@@ -3180,8 +3108,6 @@ class Client(OpenApiClient):
         """
         After you change the name of a directory, the URL that is used to log on to the Cloud SSO user portal is changed. You must notify the Cloud SSO users of the correct URL.
         This topic provides an example on how to change the name of a directory to `new-example`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateDirectoryRequest
@@ -3219,8 +3145,6 @@ class Client(OpenApiClient):
         """
         After you change the name of a directory, the URL that is used to log on to the Cloud SSO user portal is changed. You must notify the Cloud SSO users of the correct URL.
         This topic provides an example on how to change the name of a directory to `new-example`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateDirectoryRequest
@@ -3235,8 +3159,6 @@ class Client(OpenApiClient):
         You can modify `GroupName` and `Description` for a group.
         >  If System for Cross-domain Identity Management (SCIM) synchronization is enabled, you cannot modify the information about a group that is synchronized by using SCIM.
         This topic provides an example on how to change the name of the group `g-00jqzghi2n3o5hkh****` to `NewTestGroup`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateGroupRequest
@@ -3279,8 +3201,6 @@ class Client(OpenApiClient):
         You can modify `GroupName` and `Description` for a group.
         >  If System for Cross-domain Identity Management (SCIM) synchronization is enabled, you cannot modify the information about a group that is synchronized by using SCIM.
         This topic provides an example on how to change the name of the group `g-00jqzghi2n3o5hkh****` to `NewTestGroup`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateGroupRequest
@@ -3293,8 +3213,6 @@ class Client(OpenApiClient):
     def update_inline_policy_for_access_configuration_with_options(self, request, runtime):
         """
         This topic provides an example on how to modify an inline policy that is created for the access configuration `ac-00jhtfl8thteu6uj***`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateInlinePolicyForAccessConfigurationRequest
@@ -3335,8 +3253,6 @@ class Client(OpenApiClient):
     def update_inline_policy_for_access_configuration(self, request):
         """
         This topic provides an example on how to modify an inline policy that is created for the access configuration `ac-00jhtfl8thteu6uj***`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateInlinePolicyForAccessConfigurationRequest
@@ -3401,8 +3317,6 @@ class Client(OpenApiClient):
     def update_scimserver_credential_status_with_options(self, request, runtime):
         """
         This topic provides an example on how to disable the SCIM credential whose ID is `scimcred-004whl0kvfwcypbi***`. After the SCIM credential is disabled, the synchronization task that uses the SCIM credential fails. You can call this operation again to enable the SCIM credential.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateSCIMServerCredentialStatusRequest
@@ -3441,8 +3355,6 @@ class Client(OpenApiClient):
     def update_scimserver_credential_status(self, request):
         """
         This topic provides an example on how to disable the SCIM credential whose ID is `scimcred-004whl0kvfwcypbi***`. After the SCIM credential is disabled, the synchronization task that uses the SCIM credential fails. You can call this operation again to enable the SCIM credential.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateSCIMServerCredentialStatusRequest
@@ -3457,8 +3369,6 @@ class Client(OpenApiClient):
         You can modify `FirstName`, `LastName`, `DisplayName`, `Email`, and `Description` for a user. You cannot modify `UserName` for a user.
         >  If System for Cross-domain Identity Management (SCIM) synchronization is enabled, you cannot modify the information about a user that is synchronized by using SCIM.
         This topic provides an example on how to change the email address of the user whose ID is `u-00q8wbq42wiltcrk****` to `AliceLee@example.com`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateUserRequest
@@ -3507,8 +3417,6 @@ class Client(OpenApiClient):
         You can modify `FirstName`, `LastName`, `DisplayName`, `Email`, and `Description` for a user. You cannot modify `UserName` for a user.
         >  If System for Cross-domain Identity Management (SCIM) synchronization is enabled, you cannot modify the information about a user that is synchronized by using SCIM.
         This topic provides an example on how to change the email address of the user whose ID is `u-00q8wbq42wiltcrk****` to `AliceLee@example.com`.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateUserRequest
@@ -3572,11 +3480,45 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_user_mfaauthentication_settings_with_options(request, runtime)
 
+    def update_user_provisioning_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.new_deletion_strategy):
+            query['NewDeletionStrategy'] = request.new_deletion_strategy
+        if not UtilClient.is_unset(request.new_description):
+            query['NewDescription'] = request.new_description
+        if not UtilClient.is_unset(request.new_duplication_strategy):
+            query['NewDuplicationStrategy'] = request.new_duplication_strategy
+        if not UtilClient.is_unset(request.user_provisioning_id):
+            query['UserProvisioningId'] = request.user_provisioning_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateUserProvisioning',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.UpdateUserProvisioningResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_user_provisioning(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_user_provisioning_with_options(request, runtime)
+
     def update_user_status_with_options(self, request, runtime):
         """
         This topic provides an example on how to change the status of the user whose ID is `u-00q8wbq42wiltcrk***` to Disabled. Users in the Disabled state cannot log on to the CloudSSO user portal.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateUserStatusRequest
@@ -3615,8 +3557,6 @@ class Client(OpenApiClient):
     def update_user_status(self, request):
         """
         This topic provides an example on how to change the status of the user whose ID is `u-00q8wbq42wiltcrk***` to Disabled. Users in the Disabled state cannot log on to the CloudSSO user portal.
-        ## Limits
-        You can call this operation up to 100 times per second per account. This operation is globally limited to 100 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
         
 
         @param request: UpdateUserStatusRequest
