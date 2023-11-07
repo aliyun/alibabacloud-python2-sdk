@@ -17076,9 +17076,10 @@ class DescribeTrafficControlsResponse(TeaModel):
 
 
 class ExportSwaggerRequest(TeaModel):
-    def __init__(self, api_uid=None, data_format=None):
+    def __init__(self, api_uid=None, data_format=None, security_token=None):
         self.api_uid = api_uid  # type: str
         self.data_format = data_format  # type: str
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -17093,6 +17094,8 @@ class ExportSwaggerRequest(TeaModel):
             result['ApiUid'] = self.api_uid
         if self.data_format is not None:
             result['DataFormat'] = self.data_format
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
@@ -17101,6 +17104,8 @@ class ExportSwaggerRequest(TeaModel):
             self.api_uid = m.get('ApiUid')
         if m.get('DataFormat') is not None:
             self.data_format = m.get('DataFormat')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
