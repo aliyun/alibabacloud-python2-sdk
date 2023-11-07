@@ -539,6 +539,8 @@ class Client(OpenApiClient):
     def get_web_terminal_with_options(self, job_id, pod_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.is_shared):
+            query['IsShared'] = request.is_shared
         if not UtilClient.is_unset(request.pod_uid):
             query['PodUid'] = request.pod_uid
         req = open_api_models.OpenApiRequest(

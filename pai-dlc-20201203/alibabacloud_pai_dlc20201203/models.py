@@ -599,6 +599,50 @@ class EnvVar(TeaModel):
         return self
 
 
+class EventInfo(TeaModel):
+    def __init__(self, content=None, id=None, pod_id=None, pod_uid=None, time=None):
+        self.content = content  # type: str
+        self.id = id  # type: str
+        self.pod_id = pod_id  # type: str
+        self.pod_uid = pod_uid  # type: str
+        self.time = time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EventInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.pod_id is not None:
+            result['PodId'] = self.pod_id
+        if self.pod_uid is not None:
+            result['PodUid'] = self.pod_uid
+        if self.time is not None:
+            result['Time'] = self.time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('PodId') is not None:
+            self.pod_id = m.get('PodId')
+        if m.get('PodUid') is not None:
+            self.pod_uid = m.get('PodUid')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        return self
+
+
 class ExtraPodSpec(TeaModel):
     def __init__(self, init_containers=None, pod_annotations=None, pod_labels=None, shared_volume_mount_paths=None,
                  side_car_containers=None):
@@ -1490,6 +1534,55 @@ class JobSpec(TeaModel):
             self.type = m.get('Type')
         if m.get('UseSpotInstance') is not None:
             self.use_spot_instance = m.get('UseSpotInstance')
+        return self
+
+
+class LogInfo(TeaModel):
+    def __init__(self, content=None, id=None, pod_id=None, pod_uid=None, source=None, time=None):
+        self.content = content  # type: str
+        self.id = id  # type: str
+        self.pod_id = pod_id  # type: str
+        self.pod_uid = pod_uid  # type: str
+        self.source = source  # type: str
+        self.time = time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(LogInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.pod_id is not None:
+            result['PodId'] = self.pod_id
+        if self.pod_uid is not None:
+            result['PodUid'] = self.pod_uid
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.time is not None:
+            result['Time'] = self.time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('PodId') is not None:
+            self.pod_id = m.get('PodId')
+        if m.get('PodUid') is not None:
+            self.pod_uid = m.get('PodUid')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
         return self
 
 
@@ -4213,7 +4306,8 @@ class GetTokenResponse(TeaModel):
 
 
 class GetWebTerminalRequest(TeaModel):
-    def __init__(self, pod_uid=None):
+    def __init__(self, is_shared=None, pod_uid=None):
+        self.is_shared = is_shared  # type: bool
         # Pod UID。
         self.pod_uid = pod_uid  # type: str
 
@@ -4226,12 +4320,16 @@ class GetWebTerminalRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.is_shared is not None:
+            result['IsShared'] = self.is_shared
         if self.pod_uid is not None:
             result['PodUid'] = self.pod_uid
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('IsShared') is not None:
+            self.is_shared = m.get('IsShared')
         if m.get('PodUid') is not None:
             self.pod_uid = m.get('PodUid')
         return self
