@@ -8222,6 +8222,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.set_apis_authorities_with_options(request, runtime)
 
+    def set_apps_auth_to_api_product_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_product_id):
+            query['ApiProductId'] = request.api_product_id
+        if not UtilClient.is_unset(request.app_ids):
+            query['AppIds'] = request.app_ids
+        if not UtilClient.is_unset(request.auth_valid_time):
+            query['AuthValidTime'] = request.auth_valid_time
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetAppsAuthToApiProduct',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.SetAppsAuthToApiProductResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_apps_auth_to_api_product(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_apps_auth_to_api_product_with_options(request, runtime)
+
     def set_apps_authorities_with_options(self, request, runtime):
         """
         This operation is intended for API providers and callers.
