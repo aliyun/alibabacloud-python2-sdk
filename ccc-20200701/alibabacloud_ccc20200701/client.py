@@ -123,6 +123,8 @@ class Client(OpenApiClient):
     def add_numbers_to_skill_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.inst_number_group_id_list):
+            query['InstNumberGroupIdList'] = request.inst_number_group_id_list
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.number_list):
@@ -467,6 +469,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.call_priority):
             query['CallPriority'] = request.call_priority
+        if not UtilClient.is_unset(request.contact_flow_variables):
+            query['ContactFlowVariables'] = request.contact_flow_variables
         if not UtilClient.is_unset(request.device_id):
             query['DeviceId'] = request.device_id
         if not UtilClient.is_unset(request.instance_id):
@@ -481,6 +485,8 @@ class Client(OpenApiClient):
             query['TimeoutSeconds'] = request.timeout_seconds
         if not UtilClient.is_unset(request.transferee):
             query['Transferee'] = request.transferee
+        if not UtilClient.is_unset(request.transferee_type):
+            query['TransfereeType'] = request.transferee_type
         if not UtilClient.is_unset(request.transferor):
             query['Transferor'] = request.transferor
         if not UtilClient.is_unset(request.user_id):
@@ -999,6 +1005,8 @@ class Client(OpenApiClient):
     def create_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.avatar_url):
+            query['AvatarUrl'] = request.avatar_url
         if not UtilClient.is_unset(request.display_id):
             query['DisplayId'] = request.display_id
         if not UtilClient.is_unset(request.display_name):
@@ -1011,6 +1019,8 @@ class Client(OpenApiClient):
             query['LoginName'] = request.login_name
         if not UtilClient.is_unset(request.mobile):
             query['Mobile'] = request.mobile
+        if not UtilClient.is_unset(request.nickname):
+            query['Nickname'] = request.nickname
         if not UtilClient.is_unset(request.reset_password):
             query['ResetPassword'] = request.reset_password
         if not UtilClient.is_unset(request.role_id):
@@ -1803,6 +1813,8 @@ class Client(OpenApiClient):
             query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.media_type):
+            query['MediaType'] = request.media_type
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -1831,6 +1843,8 @@ class Client(OpenApiClient):
     def get_login_details_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.chat_device_id):
+            query['ChatDeviceId'] = request.chat_device_id
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.user_id):
@@ -1981,6 +1995,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.media_type):
+            query['MediaType'] = request.media_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
