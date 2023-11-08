@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_btripopen20220520_py2.
 
-Created on 07/11/2023
+Created on 08/11/2023
 
 @author: Alibaba Cloud SDK
 """
