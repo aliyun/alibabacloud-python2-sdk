@@ -1253,7 +1253,7 @@ class Client(OpenApiClient):
 
     def create_nacos_instance_with_options(self, request, runtime):
         """
-        mse-200-105
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: CreateNacosInstanceRequest
@@ -1311,7 +1311,7 @@ class Client(OpenApiClient):
 
     def create_nacos_instance(self, request):
         """
-        mse-200-105
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
         
 
         @param request: CreateNacosInstanceRequest
@@ -6709,7 +6709,7 @@ class Client(OpenApiClient):
 
     def update_cluster_spec_with_options(self, request, runtime):
         """
-        You can call this operation to update the number or specifications of nodes in a pay-as-you-go or subscription MSE instance. You are charged when you add nodes or upgrade node specifications. For more information, see "Pricing" (`~~1806469~~`).
+        You can call this operation to update the number or specifications of nodes in a pay-as-you-go MSE instance. You are charged when you add nodes or upgrade node specifications. For more information, see \\[Pricing] (`~~1806469~~`).
         
 
         @param request: UpdateClusterSpecRequest
@@ -6753,7 +6753,7 @@ class Client(OpenApiClient):
 
     def update_cluster_spec(self, request):
         """
-        You can call this operation to update the number or specifications of nodes in a pay-as-you-go or subscription MSE instance. You are charged when you add nodes or upgrade node specifications. For more information, see "Pricing" (`~~1806469~~`).
+        You can call this operation to update the number or specifications of nodes in a pay-as-you-go MSE instance. You are charged when you add nodes or upgrade node specifications. For more information, see \\[Pricing] (`~~1806469~~`).
         
 
         @param request: UpdateClusterSpecRequest
