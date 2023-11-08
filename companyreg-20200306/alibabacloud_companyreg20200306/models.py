@@ -4463,9 +4463,10 @@ class SubmitIntentionNoteResponse(TeaModel):
 
 
 class SubmitSolutionRequest(TeaModel):
-    def __init__(self, biz_type=None, intention_biz_id=None, solution=None, user_id=None):
+    def __init__(self, biz_type=None, intention_biz_id=None, operate_type=None, solution=None, user_id=None):
         self.biz_type = biz_type  # type: str
         self.intention_biz_id = intention_biz_id  # type: str
+        self.operate_type = operate_type  # type: str
         self.solution = solution  # type: str
         self.user_id = user_id  # type: str
 
@@ -4482,6 +4483,8 @@ class SubmitSolutionRequest(TeaModel):
             result['BizType'] = self.biz_type
         if self.intention_biz_id is not None:
             result['IntentionBizId'] = self.intention_biz_id
+        if self.operate_type is not None:
+            result['OperateType'] = self.operate_type
         if self.solution is not None:
             result['Solution'] = self.solution
         if self.user_id is not None:
@@ -4494,6 +4497,8 @@ class SubmitSolutionRequest(TeaModel):
             self.biz_type = m.get('BizType')
         if m.get('IntentionBizId') is not None:
             self.intention_biz_id = m.get('IntentionBizId')
+        if m.get('OperateType') is not None:
+            self.operate_type = m.get('OperateType')
         if m.get('Solution') is not None:
             self.solution = m.get('Solution')
         if m.get('UserId') is not None:
