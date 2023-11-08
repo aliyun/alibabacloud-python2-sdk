@@ -15983,6 +15983,62 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_instance_catalog_with_options(request, runtime)
 
+    def list_instance_risk_levels_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_list):
+            query['InstanceList'] = request.instance_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListInstanceRiskLevels',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListInstanceRiskLevelsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_instance_risk_levels(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_instance_risk_levels_with_options(request, runtime)
+
+    def list_instance_risk_num_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_list):
+            query['InstanceList'] = request.instance_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListInstanceRiskNum',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListInstanceRiskNumResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_instance_risk_num(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_instance_risk_num_with_options(request, runtime)
+
     def list_interception_history_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
