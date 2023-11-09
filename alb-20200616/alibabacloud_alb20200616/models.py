@@ -3104,6 +3104,30 @@ class CreateRuleRequestRuleActionsRedirectConfig(TeaModel):
         return self
 
 
+class CreateRuleRequestRuleActionsRemoveHeaderConfig(TeaModel):
+    def __init__(self, key=None):
+        self.key = key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateRuleRequestRuleActionsRemoveHeaderConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        return self
+
+
 class CreateRuleRequestRuleActionsRewriteConfig(TeaModel):
     def __init__(self, host=None, path=None, query=None):
         # The hostname to which requests are redirected. Valid values:
@@ -3293,8 +3317,8 @@ class CreateRuleRequestRuleActionsTrafficMirrorConfig(TeaModel):
 
 class CreateRuleRequestRuleActions(TeaModel):
     def __init__(self, cors_config=None, fixed_response_config=None, forward_group_config=None,
-                 insert_header_config=None, order=None, redirect_config=None, rewrite_config=None, traffic_limit_config=None,
-                 traffic_mirror_config=None, type=None):
+                 insert_header_config=None, order=None, redirect_config=None, remove_header_config=None, rewrite_config=None,
+                 traffic_limit_config=None, traffic_mirror_config=None, type=None):
         # The origins allowed.
         self.cors_config = cors_config  # type: CreateRuleRequestRuleActionsCorsConfig
         # The configuration of the custom response.
@@ -3309,6 +3333,7 @@ class CreateRuleRequestRuleActions(TeaModel):
         # 
         # > When you configure the **RedirectConfig** action, you can use the default value only for the **httpCode** parameter. Do not use the default values for the other parameters.
         self.redirect_config = redirect_config  # type: CreateRuleRequestRuleActionsRedirectConfig
+        self.remove_header_config = remove_header_config  # type: CreateRuleRequestRuleActionsRemoveHeaderConfig
         # The rewrite configuration.
         # 
         # > If multiple actions are configured within a forwarding rule, you must set **RewriteConfig** to the value of **ForwardGroup**.
@@ -3346,6 +3371,8 @@ class CreateRuleRequestRuleActions(TeaModel):
             self.insert_header_config.validate()
         if self.redirect_config:
             self.redirect_config.validate()
+        if self.remove_header_config:
+            self.remove_header_config.validate()
         if self.rewrite_config:
             self.rewrite_config.validate()
         if self.traffic_limit_config:
@@ -3371,6 +3398,8 @@ class CreateRuleRequestRuleActions(TeaModel):
             result['Order'] = self.order
         if self.redirect_config is not None:
             result['RedirectConfig'] = self.redirect_config.to_map()
+        if self.remove_header_config is not None:
+            result['RemoveHeaderConfig'] = self.remove_header_config.to_map()
         if self.rewrite_config is not None:
             result['RewriteConfig'] = self.rewrite_config.to_map()
         if self.traffic_limit_config is not None:
@@ -3400,6 +3429,9 @@ class CreateRuleRequestRuleActions(TeaModel):
         if m.get('RedirectConfig') is not None:
             temp_model = CreateRuleRequestRuleActionsRedirectConfig()
             self.redirect_config = temp_model.from_map(m['RedirectConfig'])
+        if m.get('RemoveHeaderConfig') is not None:
+            temp_model = CreateRuleRequestRuleActionsRemoveHeaderConfig()
+            self.remove_header_config = temp_model.from_map(m['RemoveHeaderConfig'])
         if m.get('RewriteConfig') is not None:
             temp_model = CreateRuleRequestRuleActionsRewriteConfig()
             self.rewrite_config = temp_model.from_map(m['RewriteConfig'])
@@ -3666,6 +3698,59 @@ class CreateRuleRequestRuleConditionsQueryStringConfig(TeaModel):
         return self
 
 
+class CreateRuleRequestRuleConditionsResponseHeaderConfig(TeaModel):
+    def __init__(self, key=None, values=None):
+        self.key = key  # type: str
+        self.values = values  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateRuleRequestRuleConditionsResponseHeaderConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.values is not None:
+            result['Values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Values') is not None:
+            self.values = m.get('Values')
+        return self
+
+
+class CreateRuleRequestRuleConditionsResponseStatusCodeConfig(TeaModel):
+    def __init__(self, values=None):
+        self.values = values  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateRuleRequestRuleConditionsResponseStatusCodeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.values is not None:
+            result['Values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Values') is not None:
+            self.values = m.get('Values')
+        return self
+
+
 class CreateRuleRequestRuleConditionsSourceIpConfig(TeaModel):
     def __init__(self, values=None):
         # The configuration of the source IP-based forwarding rule.
@@ -3693,7 +3778,8 @@ class CreateRuleRequestRuleConditionsSourceIpConfig(TeaModel):
 
 class CreateRuleRequestRuleConditions(TeaModel):
     def __init__(self, cookie_config=None, header_config=None, host_config=None, method_config=None,
-                 path_config=None, query_string_config=None, source_ip_config=None, type=None):
+                 path_config=None, query_string_config=None, response_header_config=None, response_status_code_config=None,
+                 source_ip_config=None, type=None):
         # The configurations of the cookies.
         self.cookie_config = cookie_config  # type: CreateRuleRequestRuleConditionsCookieConfig
         # The configuration of the header.
@@ -3706,6 +3792,8 @@ class CreateRuleRequestRuleConditions(TeaModel):
         self.path_config = path_config  # type: CreateRuleRequestRuleConditionsPathConfig
         # The configurations of the query strings.
         self.query_string_config = query_string_config  # type: CreateRuleRequestRuleConditionsQueryStringConfig
+        self.response_header_config = response_header_config  # type: CreateRuleRequestRuleConditionsResponseHeaderConfig
+        self.response_status_code_config = response_status_code_config  # type: CreateRuleRequestRuleConditionsResponseStatusCodeConfig
         # The configuration of the source IP-based forwarding rule. This parameter is required and takes effect only when **Type** is set to **SourceIP**.
         self.source_ip_config = source_ip_config  # type: CreateRuleRequestRuleConditionsSourceIpConfig
         # The type of forwarding rule. Valid values:
@@ -3732,6 +3820,10 @@ class CreateRuleRequestRuleConditions(TeaModel):
             self.path_config.validate()
         if self.query_string_config:
             self.query_string_config.validate()
+        if self.response_header_config:
+            self.response_header_config.validate()
+        if self.response_status_code_config:
+            self.response_status_code_config.validate()
         if self.source_ip_config:
             self.source_ip_config.validate()
 
@@ -3753,6 +3845,10 @@ class CreateRuleRequestRuleConditions(TeaModel):
             result['PathConfig'] = self.path_config.to_map()
         if self.query_string_config is not None:
             result['QueryStringConfig'] = self.query_string_config.to_map()
+        if self.response_header_config is not None:
+            result['ResponseHeaderConfig'] = self.response_header_config.to_map()
+        if self.response_status_code_config is not None:
+            result['ResponseStatusCodeConfig'] = self.response_status_code_config.to_map()
         if self.source_ip_config is not None:
             result['SourceIpConfig'] = self.source_ip_config.to_map()
         if self.type is not None:
@@ -3779,6 +3875,12 @@ class CreateRuleRequestRuleConditions(TeaModel):
         if m.get('QueryStringConfig') is not None:
             temp_model = CreateRuleRequestRuleConditionsQueryStringConfig()
             self.query_string_config = temp_model.from_map(m['QueryStringConfig'])
+        if m.get('ResponseHeaderConfig') is not None:
+            temp_model = CreateRuleRequestRuleConditionsResponseHeaderConfig()
+            self.response_header_config = temp_model.from_map(m['ResponseHeaderConfig'])
+        if m.get('ResponseStatusCodeConfig') is not None:
+            temp_model = CreateRuleRequestRuleConditionsResponseStatusCodeConfig()
+            self.response_status_code_config = temp_model.from_map(m['ResponseStatusCodeConfig'])
         if m.get('SourceIpConfig') is not None:
             temp_model = CreateRuleRequestRuleConditionsSourceIpConfig()
             self.source_ip_config = temp_model.from_map(m['SourceIpConfig'])
@@ -4391,6 +4493,30 @@ class CreateRulesRequestRulesRuleActionsRedirectConfig(TeaModel):
         return self
 
 
+class CreateRulesRequestRulesRuleActionsRemoveHeaderConfig(TeaModel):
+    def __init__(self, key=None):
+        self.key = key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateRulesRequestRulesRuleActionsRemoveHeaderConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        return self
+
+
 class CreateRulesRequestRulesRuleActionsRewriteConfig(TeaModel):
     def __init__(self, host=None, path=None, query=None):
         # Queries per second (QPS). Valid values: **1 to 100000**.
@@ -4566,8 +4692,8 @@ class CreateRulesRequestRulesRuleActionsTrafficMirrorConfig(TeaModel):
 
 class CreateRulesRequestRulesRuleActions(TeaModel):
     def __init__(self, cors_config=None, fixed_response_config=None, forward_group_config=None,
-                 insert_header_config=None, order=None, redirect_config=None, rewrite_config=None, traffic_limit_config=None,
-                 traffic_mirror_config=None, type=None):
+                 insert_header_config=None, order=None, redirect_config=None, remove_header_config=None, rewrite_config=None,
+                 traffic_limit_config=None, traffic_mirror_config=None, type=None):
         self.cors_config = cors_config  # type: CreateRulesRequestRulesRuleActionsCorsConfig
         self.fixed_response_config = fixed_response_config  # type: CreateRulesRequestRulesRuleActionsFixedResponseConfig
         self.forward_group_config = forward_group_config  # type: CreateRulesRequestRulesRuleActionsForwardGroupConfig
@@ -4578,6 +4704,7 @@ class CreateRulesRequestRulesRuleActions(TeaModel):
         # *   You can also enter a port number. Valid values: **1 to 63335**.
         self.order = order  # type: int
         self.redirect_config = redirect_config  # type: CreateRulesRequestRulesRuleActionsRedirectConfig
+        self.remove_header_config = remove_header_config  # type: CreateRulesRequestRulesRuleActionsRemoveHeaderConfig
         self.rewrite_config = rewrite_config  # type: CreateRulesRequestRulesRuleActionsRewriteConfig
         self.traffic_limit_config = traffic_limit_config  # type: CreateRulesRequestRulesRuleActionsTrafficLimitConfig
         self.traffic_mirror_config = traffic_mirror_config  # type: CreateRulesRequestRulesRuleActionsTrafficMirrorConfig
@@ -4595,6 +4722,8 @@ class CreateRulesRequestRulesRuleActions(TeaModel):
             self.insert_header_config.validate()
         if self.redirect_config:
             self.redirect_config.validate()
+        if self.remove_header_config:
+            self.remove_header_config.validate()
         if self.rewrite_config:
             self.rewrite_config.validate()
         if self.traffic_limit_config:
@@ -4620,6 +4749,8 @@ class CreateRulesRequestRulesRuleActions(TeaModel):
             result['Order'] = self.order
         if self.redirect_config is not None:
             result['RedirectConfig'] = self.redirect_config.to_map()
+        if self.remove_header_config is not None:
+            result['RemoveHeaderConfig'] = self.remove_header_config.to_map()
         if self.rewrite_config is not None:
             result['RewriteConfig'] = self.rewrite_config.to_map()
         if self.traffic_limit_config is not None:
@@ -4649,6 +4780,9 @@ class CreateRulesRequestRulesRuleActions(TeaModel):
         if m.get('RedirectConfig') is not None:
             temp_model = CreateRulesRequestRulesRuleActionsRedirectConfig()
             self.redirect_config = temp_model.from_map(m['RedirectConfig'])
+        if m.get('RemoveHeaderConfig') is not None:
+            temp_model = CreateRulesRequestRulesRuleActionsRemoveHeaderConfig()
+            self.remove_header_config = temp_model.from_map(m['RemoveHeaderConfig'])
         if m.get('RewriteConfig') is not None:
             temp_model = CreateRulesRequestRulesRuleActionsRewriteConfig()
             self.rewrite_config = temp_model.from_map(m['RewriteConfig'])
@@ -4943,6 +5077,30 @@ class CreateRulesRequestRulesRuleConditionsResponseHeaderConfig(TeaModel):
         return self
 
 
+class CreateRulesRequestRulesRuleConditionsResponseStatusCodeConfig(TeaModel):
+    def __init__(self, values=None):
+        self.values = values  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateRulesRequestRulesRuleConditionsResponseStatusCodeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.values is not None:
+            result['Values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Values') is not None:
+            self.values = m.get('Values')
+        return self
+
+
 class CreateRulesRequestRulesRuleConditionsSourceIpConfig(TeaModel):
     def __init__(self, values=None):
         self.values = values  # type: list[str]
@@ -4969,7 +5127,8 @@ class CreateRulesRequestRulesRuleConditionsSourceIpConfig(TeaModel):
 
 class CreateRulesRequestRulesRuleConditions(TeaModel):
     def __init__(self, cookie_config=None, header_config=None, host_config=None, method_config=None,
-                 path_config=None, query_string_config=None, response_header_config=None, source_ip_config=None, type=None):
+                 path_config=None, query_string_config=None, response_header_config=None, response_status_code_config=None,
+                 source_ip_config=None, type=None):
         self.cookie_config = cookie_config  # type: CreateRulesRequestRulesRuleConditionsCookieConfig
         self.header_config = header_config  # type: CreateRulesRequestRulesRuleConditionsHeaderConfig
         self.host_config = host_config  # type: CreateRulesRequestRulesRuleConditionsHostConfig
@@ -4977,6 +5136,7 @@ class CreateRulesRequestRulesRuleConditions(TeaModel):
         self.path_config = path_config  # type: CreateRulesRequestRulesRuleConditionsPathConfig
         self.query_string_config = query_string_config  # type: CreateRulesRequestRulesRuleConditionsQueryStringConfig
         self.response_header_config = response_header_config  # type: CreateRulesRequestRulesRuleConditionsResponseHeaderConfig
+        self.response_status_code_config = response_status_code_config  # type: CreateRulesRequestRulesRuleConditionsResponseStatusCodeConfig
         self.source_ip_config = source_ip_config  # type: CreateRulesRequestRulesRuleConditionsSourceIpConfig
         # The ID of the asynchronous task.
         self.type = type  # type: str
@@ -4996,6 +5156,8 @@ class CreateRulesRequestRulesRuleConditions(TeaModel):
             self.query_string_config.validate()
         if self.response_header_config:
             self.response_header_config.validate()
+        if self.response_status_code_config:
+            self.response_status_code_config.validate()
         if self.source_ip_config:
             self.source_ip_config.validate()
 
@@ -5019,6 +5181,8 @@ class CreateRulesRequestRulesRuleConditions(TeaModel):
             result['QueryStringConfig'] = self.query_string_config.to_map()
         if self.response_header_config is not None:
             result['ResponseHeaderConfig'] = self.response_header_config.to_map()
+        if self.response_status_code_config is not None:
+            result['ResponseStatusCodeConfig'] = self.response_status_code_config.to_map()
         if self.source_ip_config is not None:
             result['SourceIpConfig'] = self.source_ip_config.to_map()
         if self.type is not None:
@@ -5048,6 +5212,9 @@ class CreateRulesRequestRulesRuleConditions(TeaModel):
         if m.get('ResponseHeaderConfig') is not None:
             temp_model = CreateRulesRequestRulesRuleConditionsResponseHeaderConfig()
             self.response_header_config = temp_model.from_map(m['ResponseHeaderConfig'])
+        if m.get('ResponseStatusCodeConfig') is not None:
+            temp_model = CreateRulesRequestRulesRuleConditionsResponseStatusCodeConfig()
+            self.response_status_code_config = temp_model.from_map(m['ResponseStatusCodeConfig'])
         if m.get('SourceIpConfig') is not None:
             temp_model = CreateRulesRequestRulesRuleConditionsSourceIpConfig()
             self.source_ip_config = temp_model.from_map(m['SourceIpConfig'])
@@ -20782,7 +20949,8 @@ class UpdateRuleAttributeRequestRuleActionsForwardGroupConfig(TeaModel):
 
 
 class UpdateRuleAttributeRequestRuleActionsInsertHeaderConfig(TeaModel):
-    def __init__(self, key=None, value=None, value_type=None):
+    def __init__(self, cover_enabled=None, key=None, value=None, value_type=None):
+        self.cover_enabled = cover_enabled  # type: bool
         # The key of the header. The key must be 1 to 40 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The header key specified by **InsertHeaderConfig** must be unique.
         # 
         # > You cannot specify the following header keys (case-insensitive): `slb-id`, `slb-ip`, `x-forwarded-for`, `x-forwarded-proto`, `x-forwarded-eip`, `x-forwarded-port`, `x-forwarded-client-srcport`, `connection`, `upgrade`, `content-length`, `transfer-encoding`, `keep-alive`, `te`, `host`, `cookie`, `remoteip`, and `authority`.
@@ -20817,6 +20985,8 @@ class UpdateRuleAttributeRequestRuleActionsInsertHeaderConfig(TeaModel):
             return _map
 
         result = dict()
+        if self.cover_enabled is not None:
+            result['CoverEnabled'] = self.cover_enabled
         if self.key is not None:
             result['Key'] = self.key
         if self.value is not None:
@@ -20827,6 +20997,8 @@ class UpdateRuleAttributeRequestRuleActionsInsertHeaderConfig(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CoverEnabled') is not None:
+            self.cover_enabled = m.get('CoverEnabled')
         if m.get('Key') is not None:
             self.key = m.get('Key')
         if m.get('Value') is not None:
@@ -20920,6 +21092,30 @@ class UpdateRuleAttributeRequestRuleActionsRedirectConfig(TeaModel):
             self.protocol = m.get('Protocol')
         if m.get('Query') is not None:
             self.query = m.get('Query')
+        return self
+
+
+class UpdateRuleAttributeRequestRuleActionsRemoveHeaderConfig(TeaModel):
+    def __init__(self, key=None):
+        self.key = key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateRuleAttributeRequestRuleActionsRemoveHeaderConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
         return self
 
 
@@ -21112,8 +21308,8 @@ class UpdateRuleAttributeRequestRuleActionsTrafficMirrorConfig(TeaModel):
 
 class UpdateRuleAttributeRequestRuleActions(TeaModel):
     def __init__(self, cors_config=None, fixed_response_config=None, forward_group_config=None,
-                 insert_header_config=None, order=None, redirect_config=None, rewrite_config=None, traffic_limit_config=None,
-                 traffic_mirror_config=None, type=None):
+                 insert_header_config=None, order=None, redirect_config=None, remove_header_config=None, rewrite_config=None,
+                 traffic_limit_config=None, traffic_mirror_config=None, type=None):
         # The origins allowed.
         self.cors_config = cors_config  # type: UpdateRuleAttributeRequestRuleActionsCorsConfig
         # The configuration of the custom response.
@@ -21126,6 +21322,7 @@ class UpdateRuleAttributeRequestRuleActions(TeaModel):
         self.order = order  # type: int
         # The configuration of the redirection. You can specify at most 20 rewrites.
         self.redirect_config = redirect_config  # type: UpdateRuleAttributeRequestRuleActionsRedirectConfig
+        self.remove_header_config = remove_header_config  # type: UpdateRuleAttributeRequestRuleActionsRemoveHeaderConfig
         # The configuration of the rewrite action.
         self.rewrite_config = rewrite_config  # type: UpdateRuleAttributeRequestRuleActionsRewriteConfig
         # The action to throttle traffic.
@@ -21161,6 +21358,8 @@ class UpdateRuleAttributeRequestRuleActions(TeaModel):
             self.insert_header_config.validate()
         if self.redirect_config:
             self.redirect_config.validate()
+        if self.remove_header_config:
+            self.remove_header_config.validate()
         if self.rewrite_config:
             self.rewrite_config.validate()
         if self.traffic_limit_config:
@@ -21186,6 +21385,8 @@ class UpdateRuleAttributeRequestRuleActions(TeaModel):
             result['Order'] = self.order
         if self.redirect_config is not None:
             result['RedirectConfig'] = self.redirect_config.to_map()
+        if self.remove_header_config is not None:
+            result['RemoveHeaderConfig'] = self.remove_header_config.to_map()
         if self.rewrite_config is not None:
             result['RewriteConfig'] = self.rewrite_config.to_map()
         if self.traffic_limit_config is not None:
@@ -21215,6 +21416,9 @@ class UpdateRuleAttributeRequestRuleActions(TeaModel):
         if m.get('RedirectConfig') is not None:
             temp_model = UpdateRuleAttributeRequestRuleActionsRedirectConfig()
             self.redirect_config = temp_model.from_map(m['RedirectConfig'])
+        if m.get('RemoveHeaderConfig') is not None:
+            temp_model = UpdateRuleAttributeRequestRuleActionsRemoveHeaderConfig()
+            self.remove_header_config = temp_model.from_map(m['RemoveHeaderConfig'])
         if m.get('RewriteConfig') is not None:
             temp_model = UpdateRuleAttributeRequestRuleActionsRewriteConfig()
             self.rewrite_config = temp_model.from_map(m['RewriteConfig'])
@@ -21463,6 +21667,59 @@ class UpdateRuleAttributeRequestRuleConditionsQueryStringConfig(TeaModel):
         return self
 
 
+class UpdateRuleAttributeRequestRuleConditionsResponseHeaderConfig(TeaModel):
+    def __init__(self, key=None, values=None):
+        self.key = key  # type: str
+        self.values = values  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateRuleAttributeRequestRuleConditionsResponseHeaderConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.values is not None:
+            result['Values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Values') is not None:
+            self.values = m.get('Values')
+        return self
+
+
+class UpdateRuleAttributeRequestRuleConditionsResponseStatusCodeConfig(TeaModel):
+    def __init__(self, values=None):
+        self.values = values  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateRuleAttributeRequestRuleConditionsResponseStatusCodeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.values is not None:
+            result['Values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Values') is not None:
+            self.values = m.get('Values')
+        return self
+
+
 class UpdateRuleAttributeRequestRuleConditionsSourceIpConfig(TeaModel):
     def __init__(self, values=None):
         # The IP addresses or CIDR blocks.
@@ -21490,7 +21747,8 @@ class UpdateRuleAttributeRequestRuleConditionsSourceIpConfig(TeaModel):
 
 class UpdateRuleAttributeRequestRuleConditions(TeaModel):
     def __init__(self, cookie_config=None, header_config=None, host_config=None, method_config=None,
-                 path_config=None, query_string_config=None, source_ip_config=None, type=None):
+                 path_config=None, query_string_config=None, response_header_config=None, response_status_code_config=None,
+                 source_ip_config=None, type=None):
         # The configurations of the cookies.
         self.cookie_config = cookie_config  # type: UpdateRuleAttributeRequestRuleConditionsCookieConfig
         # The configuration of the header.
@@ -21503,6 +21761,8 @@ class UpdateRuleAttributeRequestRuleConditions(TeaModel):
         self.path_config = path_config  # type: UpdateRuleAttributeRequestRuleConditionsPathConfig
         # The configurations of the query strings. You can specify at most 20 query conditions.
         self.query_string_config = query_string_config  # type: UpdateRuleAttributeRequestRuleConditionsQueryStringConfig
+        self.response_header_config = response_header_config  # type: UpdateRuleAttributeRequestRuleConditionsResponseHeaderConfig
+        self.response_status_code_config = response_status_code_config  # type: UpdateRuleAttributeRequestRuleConditionsResponseStatusCodeConfig
         # The configuration of the source IP-based forwarding rule. You can add at most five source IP-based forwarding rules.
         self.source_ip_config = source_ip_config  # type: UpdateRuleAttributeRequestRuleConditionsSourceIpConfig
         # The type of the forwarding rule. You can specify at most seven types. Valid values:
@@ -21529,6 +21789,10 @@ class UpdateRuleAttributeRequestRuleConditions(TeaModel):
             self.path_config.validate()
         if self.query_string_config:
             self.query_string_config.validate()
+        if self.response_header_config:
+            self.response_header_config.validate()
+        if self.response_status_code_config:
+            self.response_status_code_config.validate()
         if self.source_ip_config:
             self.source_ip_config.validate()
 
@@ -21550,6 +21814,10 @@ class UpdateRuleAttributeRequestRuleConditions(TeaModel):
             result['PathConfig'] = self.path_config.to_map()
         if self.query_string_config is not None:
             result['QueryStringConfig'] = self.query_string_config.to_map()
+        if self.response_header_config is not None:
+            result['ResponseHeaderConfig'] = self.response_header_config.to_map()
+        if self.response_status_code_config is not None:
+            result['ResponseStatusCodeConfig'] = self.response_status_code_config.to_map()
         if self.source_ip_config is not None:
             result['SourceIpConfig'] = self.source_ip_config.to_map()
         if self.type is not None:
@@ -21576,6 +21844,12 @@ class UpdateRuleAttributeRequestRuleConditions(TeaModel):
         if m.get('QueryStringConfig') is not None:
             temp_model = UpdateRuleAttributeRequestRuleConditionsQueryStringConfig()
             self.query_string_config = temp_model.from_map(m['QueryStringConfig'])
+        if m.get('ResponseHeaderConfig') is not None:
+            temp_model = UpdateRuleAttributeRequestRuleConditionsResponseHeaderConfig()
+            self.response_header_config = temp_model.from_map(m['ResponseHeaderConfig'])
+        if m.get('ResponseStatusCodeConfig') is not None:
+            temp_model = UpdateRuleAttributeRequestRuleConditionsResponseStatusCodeConfig()
+            self.response_status_code_config = temp_model.from_map(m['ResponseStatusCodeConfig'])
         if m.get('SourceIpConfig') is not None:
             temp_model = UpdateRuleAttributeRequestRuleConditionsSourceIpConfig()
             self.source_ip_config = temp_model.from_map(m['SourceIpConfig'])
