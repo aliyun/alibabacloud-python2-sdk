@@ -4884,6 +4884,20 @@ class Client(OpenApiClient):
         return self.describe_analyticdb_by_primary_dbinstance_with_options(request, runtime)
 
     def describe_available_classes_with_options(self, request, runtime):
+        """
+        ### [](#)Supported database engines
+        *   MySQL
+        *   PostgreSQL
+        *   SQL Server
+        *   MariaDB
+        
+
+        @param request: DescribeAvailableClassesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeAvailableClassesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.category):
@@ -4928,6 +4942,18 @@ class Client(OpenApiClient):
         )
 
     def describe_available_classes(self, request):
+        """
+        ### [](#)Supported database engines
+        *   MySQL
+        *   PostgreSQL
+        *   SQL Server
+        *   MariaDB
+        
+
+        @param request: DescribeAvailableClassesRequest
+
+        @return: DescribeAvailableClassesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_available_classes_with_options(request, runtime)
 
@@ -10270,6 +10296,20 @@ class Client(OpenApiClient):
         return self.describe_read_dbinstance_delay_with_options(request, runtime)
 
     def describe_region_infos_with_options(self, request, runtime):
+        """
+        ### [](#)Supported database engines
+        *   MySQL
+        *   PostgreSQL
+        *   SQL Server
+        *   MariaDB
+        
+
+        @param request: DescribeRegionInfosRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeRegionInfosResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -10302,6 +10342,18 @@ class Client(OpenApiClient):
         )
 
     def describe_region_infos(self, request):
+        """
+        ### [](#)Supported database engines
+        *   MySQL
+        *   PostgreSQL
+        *   SQL Server
+        *   MariaDB
+        
+
+        @param request: DescribeRegionInfosRequest
+
+        @return: DescribeRegionInfosResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_region_infos_with_options(request, runtime)
 
@@ -12161,9 +12213,13 @@ class Client(OpenApiClient):
 
     def import_database_between_instances_with_options(self, request, runtime):
         """
+        ### [](#)Supported database engine
+        *   SQL Server
+        ### [](#)Description
         We recommend that you use Data Transmission Service (DTS). DTS provides data migration, subscription, and synchronization features that allow you to establish stable, secure transmission links. For more information, see [DTS API overview](~~49456~~).
-        During the migration, the source instance is in the **Migrating** state, and the destination instance is in the **Importing** state.
-        Before you call this operation, make sure that the following requirements are met:
+        ### [](#)Precautions
+        *   During the migration, the source instance is in the **Migrating** state, and the destination instance is in the **Importing** state.
+        *   Before you call this operation, make sure that the following requirements are met:
         *   The source and destination instances must run SQL Server and belong to the dedicated or dedicated host instance family. For more information about the supported instance types, see [Primary instance types](~~26312~~).
         *   The source and destination instances must be created by using the same user credentials.
         *   The instance is in the Running state.
@@ -12217,9 +12273,13 @@ class Client(OpenApiClient):
 
     def import_database_between_instances(self, request):
         """
+        ### [](#)Supported database engine
+        *   SQL Server
+        ### [](#)Description
         We recommend that you use Data Transmission Service (DTS). DTS provides data migration, subscription, and synchronization features that allow you to establish stable, secure transmission links. For more information, see [DTS API overview](~~49456~~).
-        During the migration, the source instance is in the **Migrating** state, and the destination instance is in the **Importing** state.
-        Before you call this operation, make sure that the following requirements are met:
+        ### [](#)Precautions
+        *   During the migration, the source instance is in the **Migrating** state, and the destination instance is in the **Importing** state.
+        *   Before you call this operation, make sure that the following requirements are met:
         *   The source and destination instances must run SQL Server and belong to the dedicated or dedicated host instance family. For more information about the supported instance types, see [Primary instance types](~~26312~~).
         *   The source and destination instances must be created by using the same user credentials.
         *   The instance is in the Running state.
@@ -14752,6 +14812,20 @@ class Client(OpenApiClient):
         return self.modify_dbinstance_tdewith_options(request, runtime)
 
     def modify_dbnode_with_options(self, tmp_req, runtime):
+        """
+        ### [](#)Supported database engines
+        *   MySQL
+        ### [](#)References
+        > Fees are generated if the call is successful. Before you call this operation, carefully read the following topics:
+        *   [Change the specifications of an ApsaraDB RDS for MySQL instance](~~96061~~)
+        
+
+        @param tmp_req: ModifyDBNodeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBNodeResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = rds_20140815_models.ModifyDBNodeShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -14802,6 +14876,18 @@ class Client(OpenApiClient):
         )
 
     def modify_dbnode(self, request):
+        """
+        ### [](#)Supported database engines
+        *   MySQL
+        ### [](#)References
+        > Fees are generated if the call is successful. Before you call this operation, carefully read the following topics:
+        *   [Change the specifications of an ApsaraDB RDS for MySQL instance](~~96061~~)
+        
+
+        @param request: ModifyDBNodeRequest
+
+        @return: ModifyDBNodeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbnode_with_options(request, runtime)
 
@@ -16799,8 +16885,7 @@ class Client(OpenApiClient):
 
     def receive_dbinstance_with_options(self, request, runtime):
         """
-        ## Prerequisites
-        A disaster recovery instance is created.
+        The operation is phased out.
         
 
         @param request: ReceiveDBInstanceRequest
@@ -16844,8 +16929,7 @@ class Client(OpenApiClient):
 
     def receive_dbinstance(self, request):
         """
-        ## Prerequisites
-        A disaster recovery instance is created.
+        The operation is phased out.
         
 
         @param request: ReceiveDBInstanceRequest
@@ -18198,6 +18282,16 @@ class Client(OpenApiClient):
         return self.switch_dbinstance_vpc_with_options(request, runtime)
 
     def switch_guard_to_master_instance_with_options(self, request, runtime):
+        """
+        This operation is phased out.
+        
+
+        @param request: SwitchGuardToMasterInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SwitchGuardToMasterInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -18232,6 +18326,14 @@ class Client(OpenApiClient):
         )
 
     def switch_guard_to_master_instance(self, request):
+        """
+        This operation is phased out.
+        
+
+        @param request: SwitchGuardToMasterInstanceRequest
+
+        @return: SwitchGuardToMasterInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.switch_guard_to_master_instance_with_options(request, runtime)
 
