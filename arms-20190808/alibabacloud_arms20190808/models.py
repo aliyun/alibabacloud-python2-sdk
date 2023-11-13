@@ -13547,7 +13547,8 @@ class DeleteEnvServiceMonitorResponse(TeaModel):
 
 
 class DeleteEnvironmentRequest(TeaModel):
-    def __init__(self, environment_id=None, region_id=None):
+    def __init__(self, delete_prom_instance=None, environment_id=None, region_id=None):
+        self.delete_prom_instance = delete_prom_instance  # type: bool
         # Environment instance ID.
         self.environment_id = environment_id  # type: str
         # The ID of the region.
@@ -13562,6 +13563,8 @@ class DeleteEnvironmentRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.delete_prom_instance is not None:
+            result['DeletePromInstance'] = self.delete_prom_instance
         if self.environment_id is not None:
             result['EnvironmentId'] = self.environment_id
         if self.region_id is not None:
@@ -13570,6 +13573,8 @@ class DeleteEnvironmentRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DeletePromInstance') is not None:
+            self.delete_prom_instance = m.get('DeletePromInstance')
         if m.get('EnvironmentId') is not None:
             self.environment_id = m.get('EnvironmentId')
         if m.get('RegionId') is not None:
@@ -15575,8 +15580,11 @@ class DeleteSyntheticTaskResponse(TeaModel):
 
 class DeleteTimingSyntheticTaskRequest(TeaModel):
     def __init__(self, region_id=None, resource_group_id=None, task_id=None):
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the synthetic monitoring task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -15609,9 +15617,13 @@ class DeleteTimingSyntheticTaskRequest(TeaModel):
 
 class DeleteTimingSyntheticTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
+        # The HTTP status code. The status code 200 indicates that the request was successful. Other status codes indicate that the request failed.
         self.code = code  # type: long
+        # Indicates whether the synthetic monitoring task was deleted. true: The synthetic monitoring task was deleted. false: The synthetic monitoring task failed to be deleted.
         self.data = data  # type: bool
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17938,7 +17950,7 @@ class DescribeEnvServiceMonitorResponse(TeaModel):
 
 class DescribeEnvironmentRequest(TeaModel):
     def __init__(self, environment_id=None, region_id=None):
-        # Environment instance ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
@@ -17969,7 +17981,9 @@ class DescribeEnvironmentRequest(TeaModel):
 
 class DescribeEnvironmentResponseBodyDataTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # Tag的键。
         self.key = key  # type: str
+        # Tag的值
         self.value = value  # type: str
 
     def validate(self):
@@ -18002,41 +18016,46 @@ class DescribeEnvironmentResponseBodyData(TeaModel):
                  environment_sub_type=None, environment_type=None, grafa_data_source_name=None, grafana_datasource_uid=None,
                  grafana_folder_title=None, grafana_folder_uid=None, grafana_folder_url=None, prometheus_instance_id=None,
                  prometheus_instance_name=None, region_id=None, resource_group_id=None, tags=None, user_id=None, vpc_id=None):
-        # Resource instance ID bound to the environment, including container instance ID or VpcId.
+        # The ID of the resource associated with the environment, such as the ACK cluster ID or VPC ID.
         self.bind_resource_id = bind_resource_id  # type: str
-        # Profile of bound resources.
+        # The profile of the resource.
         self.bind_resource_profile = bind_resource_profile  # type: str
-        # The state of the bound resource.
+        # The status of the resource.
         self.bind_resource_status = bind_resource_status  # type: str
-        # The storage duration of bound resources (days).
+        # The retention period of the resource. Unit: days.
         self.bind_resource_store_duration = bind_resource_store_duration  # type: str
-        # The bound resource type.
+        # The resource type.
         self.bind_resource_type = bind_resource_type  # type: str
-        # Bind the network segment of the vpc.
+        # The VPC CIDR block.
         self.bind_vpc_cidr = bind_vpc_cidr  # type: str
-        # Environment instance ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
-        # Environment name.
+        # The environment name.
         self.environment_name = environment_name  # type: str
+        # Environment subtypes:
+        # - CS: Currently supports ACK.
+        # - ECS: ECS is currently supported.
+        # - Cloud: Currently supports Cloud.
         self.environment_sub_type = environment_sub_type  # type: str
-        # Environment type:
-        # - CS: Container Service.
-        # - ECS.
-        # - Cloud: cloud service.
+        # The type of the environment. Valid values:
+        # 
+        # *   CS: Container Service for Kubernetes (ACK)
+        # *   ECS: Elastic Compute Service
+        # *   Cloud: cloud service
         self.environment_type = environment_type  # type: str
-        # Grafana data source name.
+        # The name of the Grafana data source.
         self.grafa_data_source_name = grafa_data_source_name  # type: str
-        # Grafana data source unique ID.
+        # The unique ID of the Grafana data source.
         self.grafana_datasource_uid = grafana_datasource_uid  # type: str
-        # Grafana directory name.
+        # The name of the Grafana directory.
         self.grafana_folder_title = grafana_folder_title  # type: str
-        # Grafana directory unique ID.
+        # The unique ID of the Grafana directory.
         self.grafana_folder_uid = grafana_folder_uid  # type: str
-        # Grafana directory URL.
+        # The URL of the Grafana directory.
         self.grafana_folder_url = grafana_folder_url  # type: str
-        # The bound prometheus instance ID.
+        # The ID of the Prometheus instance.
         self.prometheus_instance_id = prometheus_instance_id  # type: str
-        # The name of the bound prometheus instance.
+        # The name of the Prometheus instance.
         self.prometheus_instance_name = prometheus_instance_name  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
@@ -18044,8 +18063,9 @@ class DescribeEnvironmentResponseBodyData(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         # The tags.
         self.tags = tags  # type: list[DescribeEnvironmentResponseBodyDataTags]
-        # UserId.
+        # The user ID.
         self.user_id = user_id  # type: str
+        # VPC ID。
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -18162,13 +18182,13 @@ class DescribeEnvironmentResponseBodyData(TeaModel):
 
 class DescribeEnvironmentResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The status code or error code.
+        # The HTTP status code. The status code 200 indicates that the request was successful. Other status codes indicate that the request failed.
         self.code = code  # type: int
         # The returned struct.
         self.data = data  # type: DescribeEnvironmentResponseBodyData
         # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -21274,6 +21294,161 @@ class GetClusterAllUrlResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetClusterAllUrlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetCommercialStatusRequest(TeaModel):
+    def __init__(self, commodity_code=None, region_id=None):
+        self.commodity_code = commodity_code  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCommercialStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class GetCommercialStatusResponseBodyUserAndCommodityStatus(TeaModel):
+    def __init__(self, basic=None, charge_type=None, enable=None, extra_info=None, free_days=None, lable=None,
+                 status=None):
+        self.basic = basic  # type: bool
+        self.charge_type = charge_type  # type: str
+        self.enable = enable  # type: bool
+        self.extra_info = extra_info  # type: dict[str, any]
+        self.free_days = free_days  # type: long
+        self.lable = lable  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCommercialStatusResponseBodyUserAndCommodityStatus, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.basic is not None:
+            result['Basic'] = self.basic
+        if self.charge_type is not None:
+            result['ChargeType'] = self.charge_type
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.extra_info is not None:
+            result['ExtraInfo'] = self.extra_info
+        if self.free_days is not None:
+            result['FreeDays'] = self.free_days
+        if self.lable is not None:
+            result['Lable'] = self.lable
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Basic') is not None:
+            self.basic = m.get('Basic')
+        if m.get('ChargeType') is not None:
+            self.charge_type = m.get('ChargeType')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('ExtraInfo') is not None:
+            self.extra_info = m.get('ExtraInfo')
+        if m.get('FreeDays') is not None:
+            self.free_days = m.get('FreeDays')
+        if m.get('Lable') is not None:
+            self.lable = m.get('Lable')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class GetCommercialStatusResponseBody(TeaModel):
+    def __init__(self, request_id=None, user_and_commodity_status=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.user_and_commodity_status = user_and_commodity_status  # type: GetCommercialStatusResponseBodyUserAndCommodityStatus
+
+    def validate(self):
+        if self.user_and_commodity_status:
+            self.user_and_commodity_status.validate()
+
+    def to_map(self):
+        _map = super(GetCommercialStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.user_and_commodity_status is not None:
+            result['UserAndCommodityStatus'] = self.user_and_commodity_status.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('UserAndCommodityStatus') is not None:
+            temp_model = GetCommercialStatusResponseBodyUserAndCommodityStatus()
+            self.user_and_commodity_status = temp_model.from_map(m['UserAndCommodityStatus'])
+        return self
+
+
+class GetCommercialStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetCommercialStatusResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetCommercialStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetCommercialStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
