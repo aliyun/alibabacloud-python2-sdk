@@ -838,8 +838,9 @@ class JobMetric(TeaModel):
 
 
 class JobStartParameters(TeaModel):
-    def __init__(self, deployment_id=None, restore_strategy=None):
+    def __init__(self, deployment_id=None, resource_queue_name=None, restore_strategy=None):
         self.deployment_id = deployment_id  # type: str
+        self.resource_queue_name = resource_queue_name  # type: str
         self.restore_strategy = restore_strategy  # type: DeploymentRestoreStrategy
 
     def validate(self):
@@ -854,6 +855,8 @@ class JobStartParameters(TeaModel):
         result = dict()
         if self.deployment_id is not None:
             result['deploymentId'] = self.deployment_id
+        if self.resource_queue_name is not None:
+            result['resourceQueueName'] = self.resource_queue_name
         if self.restore_strategy is not None:
             result['restoreStrategy'] = self.restore_strategy.to_map()
         return result
@@ -862,6 +865,8 @@ class JobStartParameters(TeaModel):
         m = m or dict()
         if m.get('deploymentId') is not None:
             self.deployment_id = m.get('deploymentId')
+        if m.get('resourceQueueName') is not None:
+            self.resource_queue_name = m.get('resourceQueueName')
         if m.get('restoreStrategy') is not None:
             temp_model = DeploymentRestoreStrategy()
             self.restore_strategy = temp_model.from_map(m['restoreStrategy'])
