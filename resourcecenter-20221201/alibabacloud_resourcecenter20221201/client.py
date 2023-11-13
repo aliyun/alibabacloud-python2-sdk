@@ -8,8 +8,8 @@ from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
-from alibabacloud_tea_util import models as util_models
 from alibabacloud_resourcecenter20221201 import models as resource_center_20221201_models
+from alibabacloud_tea_util import models as util_models
 from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 
 
@@ -29,6 +29,66 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(endpoint_map) and not UtilClient.empty(endpoint_map.get(region_id)):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
+
+    def create_saved_query_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.expression):
+            query['Expression'] = request.expression
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateSavedQuery',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.CreateSavedQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_saved_query(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_saved_query_with_options(request, runtime)
+
+    def delete_saved_query_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.query_id):
+            query['QueryId'] = request.query_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteSavedQuery',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.DeleteSavedQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_saved_query(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_saved_query_with_options(request, runtime)
 
     def disable_multi_account_resource_center_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
@@ -133,6 +193,94 @@ class Client(OpenApiClient):
     def enable_resource_center(self):
         runtime = util_models.RuntimeOptions()
         return self.enable_resource_center_with_options(runtime)
+
+    def execute_multi_account_sqlquery_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.expression):
+            query['Expression'] = request.expression
+        if not UtilClient.is_unset(request.scope):
+            query['Scope'] = request.scope
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ExecuteMultiAccountSQLQuery',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.ExecuteMultiAccountSQLQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def execute_multi_account_sqlquery(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.execute_multi_account_sqlquery_with_options(request, runtime)
+
+    def execute_sqlquery_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.expression):
+            query['Expression'] = request.expression
+        if not UtilClient.is_unset(request.scope):
+            query['Scope'] = request.scope
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ExecuteSQLQuery',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.ExecuteSQLQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def execute_sqlquery(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.execute_sqlquery_with_options(request, runtime)
+
+    def get_example_query_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.query_id):
+            query['QueryId'] = request.query_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetExampleQuery',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.GetExampleQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_example_query(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_example_query_with_options(request, runtime)
 
     def get_multi_account_resource_center_service_status_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
@@ -274,6 +422,64 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_resource_counts_with_options(request, runtime)
 
+    def get_saved_query_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.query_id):
+            query['QueryId'] = request.query_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetSavedQuery',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.GetSavedQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_saved_query(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_saved_query_with_options(request, runtime)
+
+    def list_example_queries_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListExampleQueries',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.ListExampleQueriesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_example_queries(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_example_queries_with_options(request, runtime)
+
     def list_multi_account_resource_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -414,6 +620,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_resource_types_with_options(request, runtime)
 
+    def list_saved_queries_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSavedQueries',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.ListSavedQueriesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_saved_queries(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_saved_queries_with_options(request, runtime)
+
     def list_tag_keys_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -485,6 +721,21 @@ class Client(OpenApiClient):
         return self.list_tag_values_with_options(request, runtime)
 
     def search_multi_account_resources_with_options(self, request, runtime):
+        """
+        You can use this operation to search for only resources whose types are supported by Resource Center in services that work with Resource Center. For more information about the services and the resource types that are supported by Resource Center, see [Services that work with Resource Center](~~477798~~).
+        *   Before you use a RAM user or a RAM role to call the operation, you must make sure that the RAM user or RAM role is granted the required permissions. For more information, see [Grant a RAM user the permissions to use Resource Center](~~600556~~).
+        *   By default, the operation returns a maximum of 20 entries. You can configure the `MaxResults` parameter to specify the maximum number of entries to return.
+        *   If the response does not contain the `NextToken` parameter, all entries are returned. Otherwise, more entries exist. If you want to obtain the entries, you can call the operation again to initiate another query request. In the request, set the `NextToken` parameter to the value of `NextToken` in the last response of the operation. If you do not configure the `NextToken` parameter, entries on the first page are returned by default.
+        *   You can specify one or more filter conditions to narrow the search scope. For more information about supported filter parameters and matching methods, see the Supported filter parameters section. Multiple filter conditions have logical `AND` relations. Only resources that meet all filter conditions are returned. The values of a filter condition have logical `OR` relations. Resources that meet any value of the filter condition are returned.
+        *   You can visit [Sample Code Center](https://api.alibabacloud.com/api-tools/demo/ResourceCenter) to view more sample queries.
+        
+
+        @param request: SearchMultiAccountResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SearchMultiAccountResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.filter):
@@ -517,10 +768,37 @@ class Client(OpenApiClient):
         )
 
     def search_multi_account_resources(self, request):
+        """
+        You can use this operation to search for only resources whose types are supported by Resource Center in services that work with Resource Center. For more information about the services and the resource types that are supported by Resource Center, see [Services that work with Resource Center](~~477798~~).
+        *   Before you use a RAM user or a RAM role to call the operation, you must make sure that the RAM user or RAM role is granted the required permissions. For more information, see [Grant a RAM user the permissions to use Resource Center](~~600556~~).
+        *   By default, the operation returns a maximum of 20 entries. You can configure the `MaxResults` parameter to specify the maximum number of entries to return.
+        *   If the response does not contain the `NextToken` parameter, all entries are returned. Otherwise, more entries exist. If you want to obtain the entries, you can call the operation again to initiate another query request. In the request, set the `NextToken` parameter to the value of `NextToken` in the last response of the operation. If you do not configure the `NextToken` parameter, entries on the first page are returned by default.
+        *   You can specify one or more filter conditions to narrow the search scope. For more information about supported filter parameters and matching methods, see the Supported filter parameters section. Multiple filter conditions have logical `AND` relations. Only resources that meet all filter conditions are returned. The values of a filter condition have logical `OR` relations. Resources that meet any value of the filter condition are returned.
+        *   You can visit [Sample Code Center](https://api.alibabacloud.com/api-tools/demo/ResourceCenter) to view more sample queries.
+        
+
+        @param request: SearchMultiAccountResourcesRequest
+
+        @return: SearchMultiAccountResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.search_multi_account_resources_with_options(request, runtime)
 
     def search_resources_with_options(self, request, runtime):
+        """
+        You can use this operation to search for only resources whose types are supported by Resource Center in services that work with Resource Center. For more information about the services and the resource types that are supported by Resource Center, see [Services that work with Resource Center](~~477798~~).
+        *   By default, the operation returns a maximum of 20 entries. You can configure the `MaxResults` parameter to specify the maximum number of entries to return.
+        *   If the response does not contain the `NextToken` parameter, all entries are returned. Otherwise, more entries exist. If you want to obtain the entries, you can call the operation again to initiate another query request. In the request, set the `NextToken` parameter to the value of `NextToken` in the last response of the operation. If you do not configure the `NextToken` parameter, entries on the first page are returned by default.
+        *   You can specify one or more filter conditions to narrow the search scope. For more information about supported filter parameters and matching methods, see the Supported filter parameters section. Multiple filter conditions have logical `AND` relations. Only resources that meet all filter conditions are returned. The values of a filter condition have logical `OR` relations. Resources that meet any value of the filter condition are returned.
+        *   You can visit [Sample Code Center](https://api.aliyun.com/api-tools/demo/ResourceCenter) to view more sample queries.
+        
+
+        @param request: SearchResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SearchResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.filter):
@@ -553,5 +831,51 @@ class Client(OpenApiClient):
         )
 
     def search_resources(self, request):
+        """
+        You can use this operation to search for only resources whose types are supported by Resource Center in services that work with Resource Center. For more information about the services and the resource types that are supported by Resource Center, see [Services that work with Resource Center](~~477798~~).
+        *   By default, the operation returns a maximum of 20 entries. You can configure the `MaxResults` parameter to specify the maximum number of entries to return.
+        *   If the response does not contain the `NextToken` parameter, all entries are returned. Otherwise, more entries exist. If you want to obtain the entries, you can call the operation again to initiate another query request. In the request, set the `NextToken` parameter to the value of `NextToken` in the last response of the operation. If you do not configure the `NextToken` parameter, entries on the first page are returned by default.
+        *   You can specify one or more filter conditions to narrow the search scope. For more information about supported filter parameters and matching methods, see the Supported filter parameters section. Multiple filter conditions have logical `AND` relations. Only resources that meet all filter conditions are returned. The values of a filter condition have logical `OR` relations. Resources that meet any value of the filter condition are returned.
+        *   You can visit [Sample Code Center](https://api.aliyun.com/api-tools/demo/ResourceCenter) to view more sample queries.
+        
+
+        @param request: SearchResourcesRequest
+
+        @return: SearchResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.search_resources_with_options(request, runtime)
+
+    def update_saved_query_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.expression):
+            query['Expression'] = request.expression
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.query_id):
+            query['QueryId'] = request.query_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateSavedQuery',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.UpdateSavedQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_saved_query(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_saved_query_with_options(request, runtime)
