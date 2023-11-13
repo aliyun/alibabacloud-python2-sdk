@@ -1,3 +1,6 @@
+2023-11-13 Version: 1.1.0
+- Generated python2 2020-01-01 for ddoscoo.
+
 2023-07-19 Version: 1.0.1
 - Update sdk.
 

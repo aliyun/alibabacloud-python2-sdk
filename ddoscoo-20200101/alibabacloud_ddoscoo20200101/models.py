@@ -10770,6 +10770,166 @@ class DescribeInstanceDetailsResponse(TeaModel):
         return self
 
 
+class DescribeInstanceExtRequest(TeaModel):
+    def __init__(self, instance_id=None, page_number=None, page_size=None):
+        self.instance_id = instance_id  # type: str
+        self.page_number = page_number  # type: str
+        self.page_size = page_size  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInstanceExtRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class DescribeInstanceExtResponseBodyInstanceExtSpecs(TeaModel):
+    def __init__(self, function_version=None, instance_id=None, normal_bandwidth=None, product_plan=None,
+                 service_partner=None):
+        self.function_version = function_version  # type: long
+        self.instance_id = instance_id  # type: str
+        self.normal_bandwidth = normal_bandwidth  # type: long
+        self.product_plan = product_plan  # type: long
+        self.service_partner = service_partner  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInstanceExtResponseBodyInstanceExtSpecs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.function_version is not None:
+            result['FunctionVersion'] = self.function_version
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.normal_bandwidth is not None:
+            result['NormalBandwidth'] = self.normal_bandwidth
+        if self.product_plan is not None:
+            result['ProductPlan'] = self.product_plan
+        if self.service_partner is not None:
+            result['ServicePartner'] = self.service_partner
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FunctionVersion') is not None:
+            self.function_version = m.get('FunctionVersion')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NormalBandwidth') is not None:
+            self.normal_bandwidth = m.get('NormalBandwidth')
+        if m.get('ProductPlan') is not None:
+            self.product_plan = m.get('ProductPlan')
+        if m.get('ServicePartner') is not None:
+            self.service_partner = m.get('ServicePartner')
+        return self
+
+
+class DescribeInstanceExtResponseBody(TeaModel):
+    def __init__(self, instance_ext_specs=None, request_id=None, total_count=None):
+        self.instance_ext_specs = instance_ext_specs  # type: list[DescribeInstanceExtResponseBodyInstanceExtSpecs]
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.instance_ext_specs:
+            for k in self.instance_ext_specs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstanceExtResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['InstanceExtSpecs'] = []
+        if self.instance_ext_specs is not None:
+            for k in self.instance_ext_specs:
+                result['InstanceExtSpecs'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.instance_ext_specs = []
+        if m.get('InstanceExtSpecs') is not None:
+            for k in m.get('InstanceExtSpecs'):
+                temp_model = DescribeInstanceExtResponseBodyInstanceExtSpecs()
+                self.instance_ext_specs.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeInstanceExtResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeInstanceExtResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstanceExtResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeInstanceExtResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeInstanceIdsRequest(TeaModel):
     def __init__(self, edition=None, instance_ids=None, resource_group_id=None):
         self.edition = edition  # type: int
