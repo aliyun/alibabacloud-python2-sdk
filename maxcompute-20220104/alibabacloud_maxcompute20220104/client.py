@@ -666,6 +666,8 @@ class Client(OpenApiClient):
             query['maxItem'] = request.max_item
         if not UtilClient.is_unset(request.prefix):
             query['prefix'] = request.prefix
+        if not UtilClient.is_unset(request.schema_name):
+            query['schemaName'] = request.schema_name
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -744,6 +746,8 @@ class Client(OpenApiClient):
     def list_projects_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.list_system_catalog):
+            query['listSystemCatalog'] = request.list_system_catalog
         if not UtilClient.is_unset(request.marker):
             query['marker'] = request.marker
         if not UtilClient.is_unset(request.max_item):
@@ -870,6 +874,8 @@ class Client(OpenApiClient):
             query['maxItem'] = request.max_item
         if not UtilClient.is_unset(request.name):
             query['name'] = request.name
+        if not UtilClient.is_unset(request.schema_name):
+            query['schemaName'] = request.schema_name
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -929,6 +935,8 @@ class Client(OpenApiClient):
             query['maxItem'] = request.max_item
         if not UtilClient.is_unset(request.prefix):
             query['prefix'] = request.prefix
+        if not UtilClient.is_unset(request.schema_name):
+            query['schemaName'] = request.schema_name
         if not UtilClient.is_unset(request.type):
             query['type'] = request.type
         req = open_api_models.OpenApiRequest(
