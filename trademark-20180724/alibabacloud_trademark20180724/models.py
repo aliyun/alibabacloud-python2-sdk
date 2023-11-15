@@ -13975,8 +13975,8 @@ class QueryTradeMarkApplicationLogsResponse(TeaModel):
 class QueryTradeMarkApplicationsRequest(TeaModel):
     def __init__(self, biz_id=None, classification_code=None, hidden=None, intention_biz_id=None, logistics_no=None,
                  material_name=None, order_id=None, page_num=None, page_size=None, product_type=None, sort_filed=None,
-                 sort_order=None, specification=None, status=None, supplement_status=None, tm_name=None, tm_number=None,
-                 type=None):
+                 sort_order=None, specification=None, status=None, status_list=None, supplement_status=None, tm_name=None,
+                 tm_number=None, type=None):
         self.biz_id = biz_id  # type: str
         self.classification_code = classification_code  # type: str
         self.hidden = hidden  # type: int
@@ -13991,6 +13991,7 @@ class QueryTradeMarkApplicationsRequest(TeaModel):
         self.sort_order = sort_order  # type: str
         self.specification = specification  # type: int
         self.status = status  # type: int
+        self.status_list = status_list  # type: list[int]
         self.supplement_status = supplement_status  # type: int
         self.tm_name = tm_name  # type: str
         self.tm_number = tm_number  # type: str
@@ -14033,6 +14034,8 @@ class QueryTradeMarkApplicationsRequest(TeaModel):
             result['Specification'] = self.specification
         if self.status is not None:
             result['Status'] = self.status
+        if self.status_list is not None:
+            result['StatusList'] = self.status_list
         if self.supplement_status is not None:
             result['SupplementStatus'] = self.supplement_status
         if self.tm_name is not None:
@@ -14073,6 +14076,125 @@ class QueryTradeMarkApplicationsRequest(TeaModel):
             self.specification = m.get('Specification')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('StatusList') is not None:
+            self.status_list = m.get('StatusList')
+        if m.get('SupplementStatus') is not None:
+            self.supplement_status = m.get('SupplementStatus')
+        if m.get('TmName') is not None:
+            self.tm_name = m.get('TmName')
+        if m.get('TmNumber') is not None:
+            self.tm_number = m.get('TmNumber')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class QueryTradeMarkApplicationsShrinkRequest(TeaModel):
+    def __init__(self, biz_id=None, classification_code=None, hidden=None, intention_biz_id=None, logistics_no=None,
+                 material_name=None, order_id=None, page_num=None, page_size=None, product_type=None, sort_filed=None,
+                 sort_order=None, specification=None, status=None, status_list_shrink=None, supplement_status=None,
+                 tm_name=None, tm_number=None, type=None):
+        self.biz_id = biz_id  # type: str
+        self.classification_code = classification_code  # type: str
+        self.hidden = hidden  # type: int
+        self.intention_biz_id = intention_biz_id  # type: str
+        self.logistics_no = logistics_no  # type: str
+        self.material_name = material_name  # type: str
+        self.order_id = order_id  # type: str
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.product_type = product_type  # type: int
+        self.sort_filed = sort_filed  # type: str
+        self.sort_order = sort_order  # type: str
+        self.specification = specification  # type: int
+        self.status = status  # type: int
+        self.status_list_shrink = status_list_shrink  # type: str
+        self.supplement_status = supplement_status  # type: int
+        self.tm_name = tm_name  # type: str
+        self.tm_number = tm_number  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryTradeMarkApplicationsShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_id is not None:
+            result['BizId'] = self.biz_id
+        if self.classification_code is not None:
+            result['ClassificationCode'] = self.classification_code
+        if self.hidden is not None:
+            result['Hidden'] = self.hidden
+        if self.intention_biz_id is not None:
+            result['IntentionBizId'] = self.intention_biz_id
+        if self.logistics_no is not None:
+            result['LogisticsNo'] = self.logistics_no
+        if self.material_name is not None:
+            result['MaterialName'] = self.material_name
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.product_type is not None:
+            result['ProductType'] = self.product_type
+        if self.sort_filed is not None:
+            result['SortFiled'] = self.sort_filed
+        if self.sort_order is not None:
+            result['SortOrder'] = self.sort_order
+        if self.specification is not None:
+            result['Specification'] = self.specification
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.status_list_shrink is not None:
+            result['StatusList'] = self.status_list_shrink
+        if self.supplement_status is not None:
+            result['SupplementStatus'] = self.supplement_status
+        if self.tm_name is not None:
+            result['TmName'] = self.tm_name
+        if self.tm_number is not None:
+            result['TmNumber'] = self.tm_number
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BizId') is not None:
+            self.biz_id = m.get('BizId')
+        if m.get('ClassificationCode') is not None:
+            self.classification_code = m.get('ClassificationCode')
+        if m.get('Hidden') is not None:
+            self.hidden = m.get('Hidden')
+        if m.get('IntentionBizId') is not None:
+            self.intention_biz_id = m.get('IntentionBizId')
+        if m.get('LogisticsNo') is not None:
+            self.logistics_no = m.get('LogisticsNo')
+        if m.get('MaterialName') is not None:
+            self.material_name = m.get('MaterialName')
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ProductType') is not None:
+            self.product_type = m.get('ProductType')
+        if m.get('SortFiled') is not None:
+            self.sort_filed = m.get('SortFiled')
+        if m.get('SortOrder') is not None:
+            self.sort_order = m.get('SortOrder')
+        if m.get('Specification') is not None:
+            self.specification = m.get('Specification')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('StatusList') is not None:
+            self.status_list_shrink = m.get('StatusList')
         if m.get('SupplementStatus') is not None:
             self.supplement_status = m.get('SupplementStatus')
         if m.get('TmName') is not None:

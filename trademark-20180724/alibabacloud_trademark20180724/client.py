@@ -2592,8 +2592,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_trade_mark_application_logs_with_options(request, runtime)
 
-    def query_trade_mark_applications_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def query_trade_mark_applications_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = trademark_20180724_models.QueryTradeMarkApplicationsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.status_list):
+            request.status_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.status_list, 'StatusList', 'simple')
         query = {}
         if not UtilClient.is_unset(request.biz_id):
             query['BizId'] = request.biz_id
@@ -2623,6 +2627,8 @@ class Client(OpenApiClient):
             query['Specification'] = request.specification
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
+        if not UtilClient.is_unset(request.status_list_shrink):
+            query['StatusList'] = request.status_list_shrink
         if not UtilClient.is_unset(request.supplement_status):
             query['SupplementStatus'] = request.supplement_status
         if not UtilClient.is_unset(request.tm_name):
