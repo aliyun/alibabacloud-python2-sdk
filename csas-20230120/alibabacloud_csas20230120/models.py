@@ -6031,12 +6031,13 @@ class ListPrivateAccessPolicesResponse(TeaModel):
 
 class ListPrivateAccessTagsRequest(TeaModel):
     def __init__(self, application_id=None, current_page=None, name=None, page_size=None, policy_id=None,
-                 tag_ids=None):
+                 simple_mode=None, tag_ids=None):
         self.application_id = application_id  # type: str
         self.current_page = current_page  # type: int
         self.name = name  # type: str
         self.page_size = page_size  # type: int
         self.policy_id = policy_id  # type: str
+        self.simple_mode = simple_mode  # type: bool
         self.tag_ids = tag_ids  # type: list[str]
 
     def validate(self):
@@ -6058,6 +6059,8 @@ class ListPrivateAccessTagsRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.policy_id is not None:
             result['PolicyId'] = self.policy_id
+        if self.simple_mode is not None:
+            result['SimpleMode'] = self.simple_mode
         if self.tag_ids is not None:
             result['TagIds'] = self.tag_ids
         return result
@@ -6074,6 +6077,8 @@ class ListPrivateAccessTagsRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('PolicyId') is not None:
             self.policy_id = m.get('PolicyId')
+        if m.get('SimpleMode') is not None:
+            self.simple_mode = m.get('SimpleMode')
         if m.get('TagIds') is not None:
             self.tag_ids = m.get('TagIds')
         return self
@@ -7491,7 +7496,7 @@ class ListUserDevicesRequest(TeaModel):
     def __init__(self, app_statuses=None, current_page=None, department=None, device_belong=None,
                  device_statuses=None, device_tags=None, device_types=None, dlp_statuses=None, hostname=None, ia_statuses=None,
                  mac=None, nac_statuses=None, pa_statuses=None, page_size=None, sase_user_id=None, sharing_status=None,
-                 username=None):
+                 sort_by=None, username=None):
         self.app_statuses = app_statuses  # type: list[str]
         self.current_page = current_page  # type: long
         self.department = department  # type: str
@@ -7508,6 +7513,7 @@ class ListUserDevicesRequest(TeaModel):
         self.page_size = page_size  # type: long
         self.sase_user_id = sase_user_id  # type: str
         self.sharing_status = sharing_status  # type: bool
+        self.sort_by = sort_by  # type: str
         self.username = username  # type: str
 
     def validate(self):
@@ -7551,6 +7557,8 @@ class ListUserDevicesRequest(TeaModel):
             result['SaseUserId'] = self.sase_user_id
         if self.sharing_status is not None:
             result['SharingStatus'] = self.sharing_status
+        if self.sort_by is not None:
+            result['SortBy'] = self.sort_by
         if self.username is not None:
             result['Username'] = self.username
         return result
@@ -7589,6 +7597,8 @@ class ListUserDevicesRequest(TeaModel):
             self.sase_user_id = m.get('SaseUserId')
         if m.get('SharingStatus') is not None:
             self.sharing_status = m.get('SharingStatus')
+        if m.get('SortBy') is not None:
+            self.sort_by = m.get('SortBy')
         if m.get('Username') is not None:
             self.username = m.get('Username')
         return self
