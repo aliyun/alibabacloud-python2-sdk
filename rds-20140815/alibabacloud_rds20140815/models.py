@@ -20414,17 +20414,18 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
                  availability_value=None, babelfish_config=None, bpe_enabled=None, bursting_enabled=None, category=None,
                  collation=None, connection_mode=None, connection_string=None, console_version=None, creation_time=None,
                  current_kernel_version=None, dbcluster_nodes=None, dbinstance_cpu=None, dbinstance_class=None,
-                 dbinstance_class_type=None, dbinstance_description=None, dbinstance_id=None, dbinstance_memory=None,
-                 dbinstance_net_type=None, dbinstance_status=None, dbinstance_storage=None, dbinstance_storage_type=None,
-                 dbinstance_type=None, dbmax_quantity=None, dedicated_host_group_id=None, deletion_protection=None, engine=None,
-                 engine_version=None, expire_time=None, extra=None, general_group_name=None, guard_dbinstance_id=None, iptype=None,
-                 increment_source_dbinstance_id=None, instance_network_type=None, instruction_set_arch=None, latest_kernel_version=None,
-                 lock_mode=None, lock_reason=None, maintain_time=None, master_instance_id=None, master_zone=None,
-                 max_connections=None, max_iombps=None, max_iops=None, pgbouncer_enabled=None, pay_type=None, port=None,
-                 proxy_type=None, read_only_dbinstance_ids=None, readonly_instance_sqldelayed_time=None, region_id=None,
-                 resource_group_id=None, security_iplist=None, security_ipmode=None, serverless_config=None, slave_zones=None,
-                 super_permission_mode=None, temp_dbinstance_id=None, time_zone=None, tips=None, tips_level=None, v_switch_id=None,
-                 vpc_cloud_instance_id=None, vpc_id=None, zone_id=None, kind_code=None):
+                 dbinstance_class_type=None, dbinstance_description=None, dbinstance_disk_used=None, dbinstance_id=None,
+                 dbinstance_memory=None, dbinstance_net_type=None, dbinstance_status=None, dbinstance_storage=None,
+                 dbinstance_storage_type=None, dbinstance_type=None, dbmax_quantity=None, dedicated_host_group_id=None,
+                 deletion_protection=None, engine=None, engine_version=None, expire_time=None, extra=None, general_group_name=None,
+                 guard_dbinstance_id=None, iptype=None, increment_source_dbinstance_id=None, instance_network_type=None,
+                 instruction_set_arch=None, latest_kernel_version=None, lock_mode=None, lock_reason=None, maintain_time=None,
+                 master_instance_id=None, master_zone=None, max_connections=None, max_iombps=None, max_iops=None,
+                 pgbouncer_enabled=None, pay_type=None, port=None, proxy_type=None, read_only_dbinstance_ids=None,
+                 readonly_instance_sqldelayed_time=None, region_id=None, resource_group_id=None, security_iplist=None, security_ipmode=None,
+                 serverless_config=None, slave_zones=None, super_permission_mode=None, temp_dbinstance_id=None, time_zone=None,
+                 tips=None, tips_level=None, v_switch_id=None, vpc_cloud_instance_id=None, vpc_id=None, zone_id=None,
+                 kind_code=None):
         # The maximum number of accounts that can be created on the instance.
         self.account_max_quantity = account_max_quantity  # type: int
         # The advanced features that are enabled for the instance. If multiple advanced features are enabled, the advanced features are separated by commas (,). This parameter is available only to instances that run **SQL Server**. Valid values:
@@ -20491,6 +20492,7 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
         self.dbinstance_class_type = dbinstance_class_type  # type: str
         # The description of the instance.
         self.dbinstance_description = dbinstance_description  # type: str
+        self.dbinstance_disk_used = dbinstance_disk_used  # type: str
         # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
         # The memory capacity of the instance. Unit: MB.
@@ -20707,6 +20709,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             result['DBInstanceClassType'] = self.dbinstance_class_type
         if self.dbinstance_description is not None:
             result['DBInstanceDescription'] = self.dbinstance_description
+        if self.dbinstance_disk_used is not None:
+            result['DBInstanceDiskUsed'] = self.dbinstance_disk_used
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
         if self.dbinstance_memory is not None:
@@ -20853,6 +20857,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             self.dbinstance_class_type = m.get('DBInstanceClassType')
         if m.get('DBInstanceDescription') is not None:
             self.dbinstance_description = m.get('DBInstanceDescription')
+        if m.get('DBInstanceDiskUsed') is not None:
+            self.dbinstance_disk_used = m.get('DBInstanceDiskUsed')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('DBInstanceMemory') is not None:
