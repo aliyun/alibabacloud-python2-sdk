@@ -579,6 +579,8 @@ class Client(OpenApiClient):
             query['PayType'] = request.pay_type
         if not UtilClient.is_unset(request.period):
             query['Period'] = request.period
+        if not UtilClient.is_unset(request.provisioned_iops):
+            query['ProvisionedIops'] = request.provisioned_iops
         if not UtilClient.is_unset(request.proxy_class):
             query['ProxyClass'] = request.proxy_class
         if not UtilClient.is_unset(request.proxy_type):

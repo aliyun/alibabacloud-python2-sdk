@@ -1365,12 +1365,12 @@ class CreateDBClusterRequest(TeaModel):
                  creation_option=None, dbcluster_description=None, dbminor_version=None, dbnode_class=None, dbnode_num=None,
                  dbtype=None, dbversion=None, default_time_zone=None, gdnid=None, hot_standby_cluster=None,
                  loose_polar_log_bin=None, loose_xengine=None, loose_xengine_use_memory_pct=None, lower_case_table_names=None,
-                 owner_account=None, owner_id=None, parameter_group_id=None, pay_type=None, period=None, proxy_class=None,
-                 proxy_type=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
-                 scale_max=None, scale_min=None, scale_ro_num_max=None, scale_ro_num_min=None, security_iplist=None,
-                 serverless_type=None, source_resource_id=None, standby_az=None, storage_auto_scale=None, storage_pay_type=None,
-                 storage_space=None, storage_type=None, storage_upper_bound=None, strict_consistency=None, tdestatus=None,
-                 tag=None, used_time=None, vpcid=None, v_switch_id=None, zone_id=None):
+                 owner_account=None, owner_id=None, parameter_group_id=None, pay_type=None, period=None, provisioned_iops=None,
+                 proxy_class=None, proxy_type=None, region_id=None, resource_group_id=None, resource_owner_account=None,
+                 resource_owner_id=None, scale_max=None, scale_min=None, scale_ro_num_max=None, scale_ro_num_min=None,
+                 security_iplist=None, serverless_type=None, source_resource_id=None, standby_az=None, storage_auto_scale=None,
+                 storage_pay_type=None, storage_space=None, storage_type=None, storage_upper_bound=None, strict_consistency=None,
+                 tdestatus=None, tag=None, used_time=None, vpcid=None, v_switch_id=None, zone_id=None):
         # Specifies whether to enable the no-activity suspension feature. Default value: false. Valid values:
         # 
         # *   **true**\
@@ -1549,6 +1549,7 @@ class CreateDBClusterRequest(TeaModel):
         # *   **Year**: annual subscription. Unit: years.
         # *   **Month**: monthly subscription. Unit: months.
         self.period = period  # type: str
+        self.provisioned_iops = provisioned_iops  # type: long
         # 标准版数据库代理规格。
         self.proxy_class = proxy_class  # type: str
         # 数据库代理类型，取值范围如下：
@@ -1715,6 +1716,8 @@ class CreateDBClusterRequest(TeaModel):
             result['PayType'] = self.pay_type
         if self.period is not None:
             result['Period'] = self.period
+        if self.provisioned_iops is not None:
+            result['ProvisionedIops'] = self.provisioned_iops
         if self.proxy_class is not None:
             result['ProxyClass'] = self.proxy_class
         if self.proxy_type is not None:
@@ -1827,6 +1830,8 @@ class CreateDBClusterRequest(TeaModel):
             self.pay_type = m.get('PayType')
         if m.get('Period') is not None:
             self.period = m.get('Period')
+        if m.get('ProvisionedIops') is not None:
+            self.provisioned_iops = m.get('ProvisionedIops')
         if m.get('ProxyClass') is not None:
             self.proxy_class = m.get('ProxyClass')
         if m.get('ProxyType') is not None:
