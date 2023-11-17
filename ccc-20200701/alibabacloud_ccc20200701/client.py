@@ -391,6 +391,17 @@ class Client(OpenApiClient):
         return self.append_cases_with_options(request, runtime)
 
     def assign_users_with_options(self, request, runtime):
+        """
+        @deprecated : AssignUsers is deprecated, please use CCC::2020-07-01::ImportRamUsers instead.
+        
+
+        @param request: AssignUsersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AssignUsersResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -423,6 +434,15 @@ class Client(OpenApiClient):
         )
 
     def assign_users(self, request):
+        """
+        @deprecated : AssignUsers is deprecated, please use CCC::2020-07-01::ImportRamUsers instead.
+        
+
+        @param request: AssignUsersRequest
+
+        @return: AssignUsersResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.assign_users_with_options(request, runtime)
 
@@ -1269,6 +1289,17 @@ class Client(OpenApiClient):
         return self.end_conference_with_options(request, runtime)
 
     def export_custom_call_tagging_with_options(self, request, runtime):
+        """
+        @deprecated : ExportCustomCallTagging is deprecated, please use CCC::2020-07-01::ExportCustomCallTaggings instead.
+        
+
+        @param request: ExportCustomCallTaggingRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ExportCustomCallTaggingResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -1293,6 +1324,15 @@ class Client(OpenApiClient):
         )
 
     def export_custom_call_tagging(self, request):
+        """
+        @deprecated : ExportCustomCallTagging is deprecated, please use CCC::2020-07-01::ExportCustomCallTaggings instead.
+        
+
+        @param request: ExportCustomCallTaggingRequest
+
+        @return: ExportCustomCallTaggingResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.export_custom_call_tagging_with_options(request, runtime)
 
@@ -2291,6 +2331,17 @@ class Client(OpenApiClient):
         return self.import_admins_with_options(request, runtime)
 
     def import_custom_call_tagging_with_options(self, request, runtime):
+        """
+        @deprecated : ImportCustomCallTagging is deprecated, please use CCC::2020-07-01::ImportCustomCallTaggings instead.
+        
+
+        @param request: ImportCustomCallTaggingRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ImportCustomCallTaggingResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.file_path):
@@ -2317,6 +2368,15 @@ class Client(OpenApiClient):
         )
 
     def import_custom_call_tagging(self, request):
+        """
+        @deprecated : ImportCustomCallTagging is deprecated, please use CCC::2020-07-01::ImportCustomCallTaggings instead.
+        
+
+        @param request: ImportCustomCallTaggingRequest
+
+        @return: ImportCustomCallTaggingResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.import_custom_call_tagging_with_options(request, runtime)
 
@@ -2653,6 +2713,10 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.usage):
+            query['Usage'] = request.usage
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2681,6 +2745,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.media_type):
+            query['MediaType'] = request.media_type
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -2991,6 +3057,17 @@ class Client(OpenApiClient):
         return self.list_contact_flows_with_options(request, runtime)
 
     def list_custom_call_tagging_with_options(self, request, runtime):
+        """
+        @deprecated : ListCustomCallTagging is deprecated, please use CCC::2020-07-01::ListCustomCallTaggings instead.
+        
+
+        @param request: ListCustomCallTaggingRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListCustomCallTaggingResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.call_tag_name_list):
@@ -3023,6 +3100,15 @@ class Client(OpenApiClient):
         )
 
     def list_custom_call_tagging(self, request):
+        """
+        @deprecated : ListCustomCallTagging is deprecated, please use CCC::2020-07-01::ListCustomCallTaggings instead.
+        
+
+        @param request: ListCustomCallTaggingRequest
+
+        @return: ListCustomCallTaggingResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_custom_call_tagging_with_options(request, runtime)
 
@@ -4345,6 +4431,8 @@ class Client(OpenApiClient):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.oss_file_key):
             query['OssFileKey'] = request.oss_file_key
+        if not UtilClient.is_unset(request.usage):
+            query['Usage'] = request.usage
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4535,6 +4623,8 @@ class Client(OpenApiClient):
     def modify_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.avatar_url):
+            query['AvatarUrl'] = request.avatar_url
         if not UtilClient.is_unset(request.display_id):
             query['DisplayId'] = request.display_id
         if not UtilClient.is_unset(request.display_name):
@@ -4545,6 +4635,8 @@ class Client(OpenApiClient):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.mobile):
             query['Mobile'] = request.mobile
+        if not UtilClient.is_unset(request.nickname):
+            query['Nickname'] = request.nickname
         if not UtilClient.is_unset(request.role_id):
             query['RoleId'] = request.role_id
         if not UtilClient.is_unset(request.user_id):
@@ -5209,10 +5301,14 @@ class Client(OpenApiClient):
     def remove_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.file_path):
+            query['FilePath'] = request.file_path
         if not UtilClient.is_unset(request.force):
             query['Force'] = request.force
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.notification_email):
+            query['NotificationEmail'] = request.notification_email
         if not UtilClient.is_unset(request.user_id_list):
             query['UserIdList'] = request.user_id_list
         req = open_api_models.OpenApiRequest(
@@ -5627,6 +5723,10 @@ class Client(OpenApiClient):
     def sign_in_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.additivity):
+            query['Additivity'] = request.additivity
+        if not UtilClient.is_unset(request.chat_device_id):
+            query['ChatDeviceId'] = request.chat_device_id
         if not UtilClient.is_unset(request.device_id):
             query['DeviceId'] = request.device_id
         if not UtilClient.is_unset(request.instance_id):
