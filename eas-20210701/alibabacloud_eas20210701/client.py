@@ -73,6 +73,52 @@ class Client(OpenApiClient):
         headers = {}
         return self.commit_service_with_options(cluster_id, service_name, headers, runtime)
 
+    def create_app_service_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.quota_id):
+            query['QuotaId'] = request.quota_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
+        body = {}
+        if not UtilClient.is_unset(request.app_type):
+            body['AppType'] = request.app_type
+        if not UtilClient.is_unset(request.app_version):
+            body['AppVersion'] = request.app_version
+        if not UtilClient.is_unset(request.config):
+            body['Config'] = request.config
+        if not UtilClient.is_unset(request.replicas):
+            body['Replicas'] = request.replicas
+        if not UtilClient.is_unset(request.service_name):
+            body['ServiceName'] = request.service_name
+        if not UtilClient.is_unset(request.service_spec):
+            body['ServiceSpec'] = request.service_spec
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateAppService',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/app_services',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.CreateAppServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_app_service(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_app_service_with_options(request, headers, runtime)
+
     def create_benchmark_task_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -100,6 +146,78 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_benchmark_task_with_options(request, headers, runtime)
 
+    def create_gateway_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.resource_name):
+            query['ResourceName'] = request.resource_name
+        body = {}
+        if not UtilClient.is_unset(request.enable_internet):
+            body['EnableInternet'] = request.enable_internet
+        if not UtilClient.is_unset(request.enable_intranet):
+            body['EnableIntranet'] = request.enable_intranet
+        if not UtilClient.is_unset(request.instance_type):
+            body['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateGateway',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/gateways',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.CreateGatewayResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_gateway(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_gateway_with_options(request, headers, runtime)
+
+    def create_gateway_intranet_linked_vpc_with_options(self, cluster_id, gateway_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateGatewayIntranetLinkedVpc',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/gateways/%s/%s/intranet_endpoint_linked_vpc' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(gateway_id))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.CreateGatewayIntranetLinkedVpcResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_gateway_intranet_linked_vpc(self, cluster_id, gateway_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_gateway_intranet_linked_vpc_with_options(cluster_id, gateway_id, request, headers, runtime)
+
     def create_resource_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -111,16 +229,10 @@ class Client(OpenApiClient):
             body['EcsInstanceCount'] = request.ecs_instance_count
         if not UtilClient.is_unset(request.ecs_instance_type):
             body['EcsInstanceType'] = request.ecs_instance_type
-        if not UtilClient.is_unset(request.external_cluster_id):
-            body['ExternalClusterId'] = request.external_cluster_id
-        if not UtilClient.is_unset(request.node_match_labels):
-            body['NodeMatchLabels'] = request.node_match_labels
-        if not UtilClient.is_unset(request.node_tolerations):
-            body['NodeTolerations'] = request.node_tolerations
         if not UtilClient.is_unset(request.resource_type):
             body['ResourceType'] = request.resource_type
-        if not UtilClient.is_unset(request.role_name):
-            body['RoleName'] = request.role_name
+        if not UtilClient.is_unset(request.self_managed_resource_options):
+            body['SelfManagedResourceOptions'] = request.self_managed_resource_options
         if not UtilClient.is_unset(request.system_disk_size):
             body['SystemDiskSize'] = request.system_disk_size
         if not UtilClient.is_unset(request.zone):
@@ -235,6 +347,8 @@ class Client(OpenApiClient):
             query['Develop'] = request.develop
         if not UtilClient.is_unset(request.labels_shrink):
             query['Labels'] = request.labels_shrink
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
@@ -385,6 +499,63 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_benchmark_task_with_options(cluster_id, task_name, headers, runtime)
+
+    def delete_gateway_with_options(self, cluster_id, gateway_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteGateway',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/gateways/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(gateway_id))),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.DeleteGatewayResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_gateway(self, cluster_id, gateway_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_gateway_with_options(cluster_id, gateway_id, headers, runtime)
+
+    def delete_gateway_intranet_linked_vpc_with_options(self, cluster_id, gateway_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteGatewayIntranetLinkedVpc',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/gateways/%s/%s/intranet_endpoint_linked_vpc' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(gateway_id))),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.DeleteGatewayIntranetLinkedVpcResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_gateway_intranet_linked_vpc(self, cluster_id, gateway_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_gateway_intranet_linked_vpc_with_options(cluster_id, gateway_id, request, headers, runtime)
 
     def delete_resource_with_options(self, cluster_id, resource_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -715,6 +886,31 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_benchmark_task_report_with_options(cluster_id, task_name, request, headers, runtime)
+
+    def describe_gateway_with_options(self, cluster_id, gateway_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DescribeGateway',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/gateways/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(gateway_id))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.DescribeGatewayResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_gateway(self, cluster_id, gateway_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_gateway_with_options(cluster_id, gateway_id, headers, runtime)
 
     def describe_group_with_options(self, cluster_id, group_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1118,6 +1314,31 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_benchmark_task_with_options(request, headers, runtime)
 
+    def list_gateway_intranet_linked_vpc_with_options(self, cluster_id, gateway_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListGatewayIntranetLinkedVpc',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/gateways/%s/%s/intranet_endpoint_linked_vpc' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(gateway_id))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.ListGatewayIntranetLinkedVpcResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_gateway_intranet_linked_vpc(self, cluster_id, gateway_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_gateway_intranet_linked_vpc_with_options(cluster_id, gateway_id, headers, runtime)
+
     def list_groups_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1127,6 +1348,8 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1446,6 +1669,8 @@ class Client(OpenApiClient):
             query['ServiceUid'] = request.service_uid
         if not UtilClient.is_unset(request.sort):
             query['Sort'] = request.sort
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1628,6 +1853,50 @@ class Client(OpenApiClient):
         headers = {}
         return self.stop_service_with_options(cluster_id, service_name, headers, runtime)
 
+    def update_app_service_with_options(self, cluster_id, service_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.quota_id):
+            query['QuotaId'] = request.quota_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
+        body = {}
+        if not UtilClient.is_unset(request.app_type):
+            body['AppType'] = request.app_type
+        if not UtilClient.is_unset(request.app_version):
+            body['AppVersion'] = request.app_version
+        if not UtilClient.is_unset(request.config):
+            body['Config'] = request.config
+        if not UtilClient.is_unset(request.replicas):
+            body['Replicas'] = request.replicas
+        if not UtilClient.is_unset(request.service_spec):
+            body['ServiceSpec'] = request.service_spec
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateAppService',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/app_services/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.UpdateAppServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_app_service(self, cluster_id, service_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_app_service_with_options(cluster_id, service_name, request, headers, runtime)
+
     def update_benchmark_task_with_options(self, cluster_id, task_name, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -1655,15 +1924,49 @@ class Client(OpenApiClient):
         headers = {}
         return self.update_benchmark_task_with_options(cluster_id, task_name, request, headers, runtime)
 
+    def update_gateway_with_options(self, gateway_id, cluster_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.enable_internet):
+            body['EnableInternet'] = request.enable_internet
+        if not UtilClient.is_unset(request.enable_intranet):
+            body['EnableIntranet'] = request.enable_intranet
+        if not UtilClient.is_unset(request.instance_type):
+            body['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateGateway',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/gateways/%s/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(gateway_id))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.UpdateGatewayResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_gateway(self, gateway_id, cluster_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_gateway_with_options(gateway_id, cluster_id, request, headers, runtime)
+
     def update_resource_with_options(self, cluster_id, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
-        if not UtilClient.is_unset(request.node_match_labels):
-            body['NodeMatchLabels'] = request.node_match_labels
-        if not UtilClient.is_unset(request.node_tolerations):
-            body['NodeTolerations'] = request.node_tolerations
         if not UtilClient.is_unset(request.resource_name):
             body['ResourceName'] = request.resource_name
+        if not UtilClient.is_unset(request.self_managed_resource_options):
+            body['SelfManagedResourceOptions'] = request.self_managed_resource_options
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -1849,6 +2152,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_service_cron_scaler_with_options(cluster_id, service_name, request, headers, runtime)
+
+    def update_service_instance_with_options(self, cluster_id, service_name, instance_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.isolate):
+            body['Isolate'] = request.isolate
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateServiceInstance',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/services/%s/%s/instances/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_name))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.UpdateServiceInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_service_instance(self, cluster_id, service_name, instance_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_service_instance_with_options(cluster_id, service_name, instance_name, request, headers, runtime)
 
     def update_service_label_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
