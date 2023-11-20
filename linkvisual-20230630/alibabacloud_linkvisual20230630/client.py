@@ -806,6 +806,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_batch_status_with_options(request, runtime)
 
+    def query_device_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryDeviceDetail',
+            version='2023-06-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkvisual_20230630_models.QueryDeviceDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_device_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_device_detail_with_options(request, runtime)
+
     def query_devices_download_url_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
