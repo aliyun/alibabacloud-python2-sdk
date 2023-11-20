@@ -1453,3 +1453,65 @@ class Client(OpenApiClient):
     def single_send_mail(self, request):
         runtime = util_models.RuntimeOptions()
         return self.single_send_mail_with_options(request, runtime)
+
+    def single_send_mail_v2with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = dm_20170622_models.SingleSendMailV2ShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.html_body_place_holders):
+            request.html_body_place_holders_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.html_body_place_holders, 'HtmlBodyPlaceHolders', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.address_type):
+            query['AddressType'] = request.address_type
+        if not UtilClient.is_unset(request.click_trace):
+            query['ClickTrace'] = request.click_trace
+        if not UtilClient.is_unset(request.from_alias):
+            query['FromAlias'] = request.from_alias
+        if not UtilClient.is_unset(request.html_body):
+            query['HtmlBody'] = request.html_body
+        if not UtilClient.is_unset(request.html_body_place_holders_shrink):
+            query['HtmlBodyPlaceHolders'] = request.html_body_place_holders_shrink
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.reply_address):
+            query['ReplyAddress'] = request.reply_address
+        if not UtilClient.is_unset(request.reply_address_alias):
+            query['ReplyAddressAlias'] = request.reply_address_alias
+        if not UtilClient.is_unset(request.reply_to_address):
+            query['ReplyToAddress'] = request.reply_to_address
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.subject):
+            query['Subject'] = request.subject
+        if not UtilClient.is_unset(request.tag_name):
+            query['TagName'] = request.tag_name
+        if not UtilClient.is_unset(request.text_body):
+            query['TextBody'] = request.text_body
+        if not UtilClient.is_unset(request.to_address):
+            query['ToAddress'] = request.to_address
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SingleSendMailV2',
+            version='2017-06-22',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dm_20170622_models.SingleSendMailV2Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def single_send_mail_v2(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.single_send_mail_v2with_options(request, runtime)
