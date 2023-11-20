@@ -4,10 +4,11 @@ from Tea.model import TeaModel
 
 
 class Addon(TeaModel):
-    def __init__(self, config=None, disabled=None, name=None):
+    def __init__(self, config=None, disabled=None, name=None, version=None):
         self.config = config  # type: str
         self.disabled = disabled  # type: bool
         self.name = name  # type: str
+        self.version = version  # type: str
 
     def validate(self):
         pass
@@ -24,6 +25,8 @@ class Addon(TeaModel):
             result['disabled'] = self.disabled
         if self.name is not None:
             result['name'] = self.name
+        if self.version is not None:
+            result['version'] = self.version
         return result
 
     def from_map(self, m=None):
@@ -34,6 +37,8 @@ class Addon(TeaModel):
             self.disabled = m.get('disabled')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('version') is not None:
+            self.version = m.get('version')
         return self
 
 
@@ -1454,9 +1459,30 @@ class AttachInstancesResponse(TeaModel):
 
 class AttachInstancesToNodePoolRequest(TeaModel):
     def __init__(self, format_disk=None, instances=None, keep_instance_name=None, password=None):
+        # Specifies whether to store container data and images on data disks. Valid values:
+        # 
+        # *   `true`: stores container data and images on data disks.
+        # *   `false`: does not store container data or images on data disks.
+        # 
+        # Default value: `false`.
+        # 
+        # How to mount a data disk:
+        # 
+        # *   If the ECS instances are already mounted with data disks and the file system of the last data disk is not initialized, the system automatically formats this data disk to ext4 and mounts it to /var/lib/docker and /var/lib/kubelet.
+        # *   If no data disk is attached to the ECS instances, the system does not purchase a new data disk.
+        # 
+        # > If you choose to store container data and images on a data disk and the data disk is already mounted to the ECS instance, the existing data on the data disk will be cleared. You can back up the disk to avoid data loss.
         self.format_disk = format_disk  # type: bool
+        # The IDs of the instances to be added.
         self.instances = instances  # type: list[str]
+        # Specifies whether to retain the instance name. Valid values:
+        # 
+        # *   `true`: retains the instance name.
+        # *   `false`: does not retain the instance name.
+        # 
+        # Default value: `true`.
         self.keep_instance_name = keep_instance_name  # type: bool
+        # The SSH password that is used to log on to the instance.
         self.password = password  # type: str
 
     def validate(self):
@@ -1493,7 +1519,9 @@ class AttachInstancesToNodePoolRequest(TeaModel):
 
 class AttachInstancesToNodePoolResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The task ID.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -7087,6 +7115,7 @@ class DescribeClusterNodePoolDetailResponseBodyKubernetesConfig(TeaModel):
 
 class DescribeClusterNodePoolDetailResponseBodyManagementAutoRepairPolicy(TeaModel):
     def __init__(self, restart_node=None):
+        # 是否允许重启节点。
         self.restart_node = restart_node  # type: bool
 
     def validate(self):
@@ -7111,6 +7140,7 @@ class DescribeClusterNodePoolDetailResponseBodyManagementAutoRepairPolicy(TeaMod
 
 class DescribeClusterNodePoolDetailResponseBodyManagementAutoUpgradePolicy(TeaModel):
     def __init__(self, auto_upgrade_kubelet=None):
+        # 是否允许自动升级kubelet。
         self.auto_upgrade_kubelet = auto_upgrade_kubelet  # type: bool
 
     def validate(self):
@@ -7135,7 +7165,9 @@ class DescribeClusterNodePoolDetailResponseBodyManagementAutoUpgradePolicy(TeaMo
 
 class DescribeClusterNodePoolDetailResponseBodyManagementAutoVulFixPolicy(TeaModel):
     def __init__(self, restart_node=None, vul_level=None):
+        # 是否允许重启节点。
         self.restart_node = restart_node  # type: bool
+        # 允许自动修复的漏洞级别，以逗号分隔。
         self.vul_level = vul_level  # type: str
 
     def validate(self):
@@ -7218,10 +7250,15 @@ class DescribeClusterNodePoolDetailResponseBodyManagement(TeaModel):
         # *   `true`: Auto repair is enabled.
         # *   `false`: Auto repair is disabled.
         self.auto_repair = auto_repair  # type: bool
+        # 自动修复节点策略。
         self.auto_repair_policy = auto_repair_policy  # type: DescribeClusterNodePoolDetailResponseBodyManagementAutoRepairPolicy
+        # 是否自动升级。
         self.auto_upgrade = auto_upgrade  # type: bool
+        # 自动升级策略。
         self.auto_upgrade_policy = auto_upgrade_policy  # type: DescribeClusterNodePoolDetailResponseBodyManagementAutoUpgradePolicy
+        # 是否自动修复CVE。
         self.auto_vul_fix = auto_vul_fix  # type: bool
+        # 自动修复CVE策略。
         self.auto_vul_fix_policy = auto_vul_fix_policy  # type: DescribeClusterNodePoolDetailResponseBodyManagementAutoVulFixPolicy
         # Indicates whether the managed node pool feature is enabled. Valid values:
         # 
@@ -8255,6 +8292,7 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsKubernetesConfig(TeaModel):
 
 class DescribeClusterNodePoolsResponseBodyNodepoolsManagementAutoRepairPolicy(TeaModel):
     def __init__(self, restart_node=None):
+        # 是否允许重启节点。
         self.restart_node = restart_node  # type: bool
 
     def validate(self):
@@ -8279,6 +8317,7 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsManagementAutoRepairPolicy(Te
 
 class DescribeClusterNodePoolsResponseBodyNodepoolsManagementAutoUpgradePolicy(TeaModel):
     def __init__(self, auto_upgrade_kubelet=None):
+        # 是否允许自动升级kubelet。
         self.auto_upgrade_kubelet = auto_upgrade_kubelet  # type: bool
 
     def validate(self):
@@ -8303,7 +8342,9 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsManagementAutoUpgradePolicy(T
 
 class DescribeClusterNodePoolsResponseBodyNodepoolsManagementAutoVulFixPolicy(TeaModel):
     def __init__(self, restart_node=None, vul_level=None):
+        # 是否允许重启节点。
         self.restart_node = restart_node  # type: bool
+        # 允许自动修复的漏洞级别，以逗号分隔。
         self.vul_level = vul_level  # type: str
 
     def validate(self):
@@ -8388,10 +8429,15 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsManagement(TeaModel):
         # *   `true`: Auto repair is enabled.
         # *   `false`: Auto repair is disabled.
         self.auto_repair = auto_repair  # type: bool
+        # 自动修复节点策略。
         self.auto_repair_policy = auto_repair_policy  # type: DescribeClusterNodePoolsResponseBodyNodepoolsManagementAutoRepairPolicy
+        # 是否自动升级。
         self.auto_upgrade = auto_upgrade  # type: bool
+        # 自动升级策略。
         self.auto_upgrade_policy = auto_upgrade_policy  # type: DescribeClusterNodePoolsResponseBodyNodepoolsManagementAutoUpgradePolicy
+        # 是否自动修复CVE。
         self.auto_vul_fix = auto_vul_fix  # type: bool
+        # 自动修复CVE策略。
         self.auto_vul_fix_policy = auto_vul_fix_policy  # type: DescribeClusterNodePoolsResponseBodyNodepoolsManagementAutoVulFixPolicy
         # Indicates whether the managed node pool feature is enabled. Valid values:
         # 
@@ -9585,11 +9631,8 @@ class DescribeClusterNodesResponse(TeaModel):
 
 class DescribeClusterResourcesResponseBodyDependencies(TeaModel):
     def __init__(self, cluster_id=None, resource_type=None, instance_id=None):
-        # 依赖资源的集群ID。
         self.cluster_id = cluster_id  # type: str
-        # 依赖资源类型。
         self.resource_type = resource_type  # type: str
-        # 依赖资源实例ID。
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -9649,11 +9692,13 @@ class DescribeClusterResourcesResponseBody(TeaModel):
         # *   1: The resource is created by ACK.
         # *   0: The resource is an existing resource.
         self.auto_create = auto_create  # type: long
-        self.dependencies = dependencies  # type: DescribeClusterResourcesResponseBodyDependencies
+        self.dependencies = dependencies  # type: list[DescribeClusterResourcesResponseBodyDependencies]
 
     def validate(self):
         if self.dependencies:
-            self.dependencies.validate()
+            for k in self.dependencies:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeClusterResourcesResponseBody, self).to_map()
@@ -9675,8 +9720,10 @@ class DescribeClusterResourcesResponseBody(TeaModel):
             result['state'] = self.state
         if self.auto_create is not None:
             result['auto_create'] = self.auto_create
+        result['dependencies'] = []
         if self.dependencies is not None:
-            result['dependencies'] = self.dependencies.to_map()
+            for k in self.dependencies:
+                result['dependencies'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -9695,9 +9742,11 @@ class DescribeClusterResourcesResponseBody(TeaModel):
             self.state = m.get('state')
         if m.get('auto_create') is not None:
             self.auto_create = m.get('auto_create')
+        self.dependencies = []
         if m.get('dependencies') is not None:
-            temp_model = DescribeClusterResourcesResponseBodyDependencies()
-            self.dependencies = temp_model.from_map(m['dependencies'])
+            for k in m.get('dependencies'):
+                temp_model = DescribeClusterResourcesResponseBodyDependencies()
+                self.dependencies.append(temp_model.from_map(k))
         return self
 
 
@@ -14999,8 +15048,11 @@ class DescribeWorkflowsResponse(TeaModel):
 
 class EdgeClusterAddEdgeMachineRequest(TeaModel):
     def __init__(self, expired=None, nodepool_id=None, options=None):
+        # The timeout period of sessions. Unit: seconds.
         self.expired = expired  # type: long
+        # The node pool ID.
         self.nodepool_id = nodepool_id  # type: str
+        # The options that you want to configure.
         self.options = options  # type: str
 
     def validate(self):
@@ -15035,7 +15087,7 @@ class EdgeClusterAddEdgeMachineResponseBody(TeaModel):
     def __init__(self, edge_machine_id=None, request_id=None):
         # The ID of the cloud-native box.
         self.edge_machine_id = edge_machine_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15103,6 +15155,7 @@ class EdgeClusterAddEdgeMachineResponse(TeaModel):
 
 class FixNodePoolVulsRequestRolloutPolicy(TeaModel):
     def __init__(self, max_parallelism=None):
+        # The maximum number of nodes that can be patched in parallel. The minimum value is 1. The maximum value equals the number of nodes in the node pool.
         self.max_parallelism = max_parallelism  # type: long
 
     def validate(self):
@@ -15126,9 +15179,13 @@ class FixNodePoolVulsRequestRolloutPolicy(TeaModel):
 
 
 class FixNodePoolVulsRequest(TeaModel):
-    def __init__(self, nodes=None, rollout_policy=None, vuls=None):
+    def __init__(self, auto_restart=None, nodes=None, rollout_policy=None, vuls=None):
+        self.auto_restart = auto_restart  # type: bool
+        # The names of the nodes to be patched.
         self.nodes = nodes  # type: list[str]
+        # The batch patching policy.
         self.rollout_policy = rollout_policy  # type: FixNodePoolVulsRequestRolloutPolicy
+        # The list of vulnerabilities.
         self.vuls = vuls  # type: list[str]
 
     def validate(self):
@@ -15141,6 +15198,8 @@ class FixNodePoolVulsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.auto_restart is not None:
+            result['auto_restart'] = self.auto_restart
         if self.nodes is not None:
             result['nodes'] = self.nodes
         if self.rollout_policy is not None:
@@ -15151,6 +15210,8 @@ class FixNodePoolVulsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('auto_restart') is not None:
+            self.auto_restart = m.get('auto_restart')
         if m.get('nodes') is not None:
             self.nodes = m.get('nodes')
         if m.get('rollout_policy') is not None:
@@ -15163,6 +15224,7 @@ class FixNodePoolVulsRequest(TeaModel):
 
 class FixNodePoolVulsResponseBody(TeaModel):
     def __init__(self, task_id=None):
+        # The ID of the CVE patching task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -15220,6 +15282,101 @@ class FixNodePoolVulsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = FixNodePoolVulsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetClusterCheckResponseBody(TeaModel):
+    def __init__(self, check_id=None, check_items=None, created_at=None, finished_at=None, message=None, status=None,
+                 type=None):
+        # Id of the request
+        self.check_id = check_id  # type: str
+        self.check_items = check_items  # type: dict[str, list[dict[str, any]]]
+        self.created_at = created_at  # type: str
+        self.finished_at = finished_at  # type: str
+        self.message = message  # type: str
+        self.status = status  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetClusterCheckResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_id is not None:
+            result['check_id'] = self.check_id
+        if self.check_items is not None:
+            result['check_items'] = self.check_items
+        if self.created_at is not None:
+            result['created_at'] = self.created_at
+        if self.finished_at is not None:
+            result['finished_at'] = self.finished_at
+        if self.message is not None:
+            result['message'] = self.message
+        if self.status is not None:
+            result['status'] = self.status
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('check_id') is not None:
+            self.check_id = m.get('check_id')
+        if m.get('check_items') is not None:
+            self.check_items = m.get('check_items')
+        if m.get('created_at') is not None:
+            self.created_at = m.get('created_at')
+        if m.get('finished_at') is not None:
+            self.finished_at = m.get('finished_at')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class GetClusterCheckResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetClusterCheckResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetClusterCheckResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetClusterCheckResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -15762,6 +15919,150 @@ class InstallClusterAddonsResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
+        return self
+
+
+class ListClusterChecksRequest(TeaModel):
+    def __init__(self, type=None):
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListClusterChecksRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class ListClusterChecksResponseBodyChecks(TeaModel):
+    def __init__(self, check_id=None, created_at=None, finished_at=None, message=None, status=None, type=None):
+        self.check_id = check_id  # type: str
+        self.created_at = created_at  # type: str
+        self.finished_at = finished_at  # type: str
+        self.message = message  # type: str
+        self.status = status  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListClusterChecksResponseBodyChecks, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_id is not None:
+            result['check_id'] = self.check_id
+        if self.created_at is not None:
+            result['created_at'] = self.created_at
+        if self.finished_at is not None:
+            result['finished_at'] = self.finished_at
+        if self.message is not None:
+            result['message'] = self.message
+        if self.status is not None:
+            result['status'] = self.status
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('check_id') is not None:
+            self.check_id = m.get('check_id')
+        if m.get('created_at') is not None:
+            self.created_at = m.get('created_at')
+        if m.get('finished_at') is not None:
+            self.finished_at = m.get('finished_at')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class ListClusterChecksResponseBody(TeaModel):
+    def __init__(self, checks=None):
+        self.checks = checks  # type: list[ListClusterChecksResponseBodyChecks]
+
+    def validate(self):
+        if self.checks:
+            for k in self.checks:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListClusterChecksResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['checks'] = []
+        if self.checks is not None:
+            for k in self.checks:
+                result['checks'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.checks = []
+        if m.get('checks') is not None:
+            for k in m.get('checks'):
+                temp_model = ListClusterChecksResponseBodyChecks()
+                self.checks.append(temp_model.from_map(k))
+        return self
+
+
+class ListClusterChecksResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListClusterChecksResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListClusterChecksResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListClusterChecksResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
@@ -18281,7 +18582,8 @@ class RemoveWorkflowResponse(TeaModel):
 
 
 class RepairClusterNodePoolRequest(TeaModel):
-    def __init__(self, nodes=None):
+    def __init__(self, auto_restart=None, nodes=None):
+        self.auto_restart = auto_restart  # type: bool
         # The list of nodes. If you do not specify nodes, all nodes in the node pool are selected.
         self.nodes = nodes  # type: list[str]
 
@@ -18294,12 +18596,16 @@ class RepairClusterNodePoolRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.auto_restart is not None:
+            result['auto_restart'] = self.auto_restart
         if self.nodes is not None:
             result['nodes'] = self.nodes
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('auto_restart') is not None:
+            self.auto_restart = m.get('auto_restart')
         if m.get('nodes') is not None:
             self.nodes = m.get('nodes')
         return self
@@ -18462,6 +18768,104 @@ class ResumeUpgradeClusterResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
+        return self
+
+
+class RunClusterCheckRequest(TeaModel):
+    def __init__(self, options=None, type=None):
+        self.options = options  # type: dict[str, str]
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RunClusterCheckRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.options is not None:
+            result['options'] = self.options
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('options') is not None:
+            self.options = m.get('options')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class RunClusterCheckResponseBody(TeaModel):
+    def __init__(self, check_id=None, request_id=None):
+        self.check_id = check_id  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RunClusterCheckResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_id is not None:
+            result['check_id'] = self.check_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('check_id') is not None:
+            self.check_id = m.get('check_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
+class RunClusterCheckResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RunClusterCheckResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RunClusterCheckResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RunClusterCheckResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
@@ -20105,9 +20509,17 @@ class UpdateContactGroupForAlertResponse(TeaModel):
 
 class UpdateControlPlaneLogRequest(TeaModel):
     def __init__(self, aliuid=None, components=None, log_project=None, log_ttl=None):
+        # The ID of the Alibaba Cloud account.
         self.aliuid = aliuid  # type: str
+        # The control plane components for which you want to enable log collection.
         self.components = components  # type: list[str]
+        # The name of the Simple Log Service project that you want to use to store the logs of control plane components.
+        # 
+        # Default value: k8s-log-$Cluster ID.
         self.log_project = log_project  # type: str
+        # The retention period of the log data stored in the Logstore. Valid values: 1 to 3000. Unit: days.
+        # 
+        # Default value: 30.
         self.log_ttl = log_ttl  # type: str
 
     def validate(self):
@@ -20321,12 +20733,12 @@ class UpgradeClusterRequest(TeaModel):
     def __init__(self, component_name=None, master_only=None, next_version=None, version=None):
         # The name of the component. Set the value to `k8s`.
         self.component_name = component_name  # type: str
-        # Specifies whether to upgrade only master nodes. Valid values:
+        # Specifies whether to update only master nodes. Valid values:
         # 
-        # *   true: upgrade only master nodes.
-        # *   false: upgrade master and worker nodes.
+        # *   true: update only master nodes.
+        # *   false: update master and worker nodes.
         self.master_only = master_only  # type: bool
-        # The Kubernetes version to which the cluster can be upgraded.
+        # The Kubernetes version to which the cluster can be updated.
         self.next_version = next_version  # type: str
         # The current Kubernetes version of the cluster. For more information, see [Kubernetes versions](~~185269~~).
         self.version = version  # type: str

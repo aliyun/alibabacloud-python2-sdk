@@ -2490,8 +2490,26 @@ class Client(OpenApiClient):
         return self.edge_cluster_add_edge_machine_with_options(clusterid, edge_machineid, request, headers, runtime)
 
     def fix_node_pool_vuls_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
+        """
+        1.  The Common Vulnerabilities and Exposures (CVE) patching feature is developed based on Security Center. To use this feature, you must purchase the Security Center Ultimate Edition that supports Container Service for Kubernetes (ACK).
+        2.  ACK may need to restart nodes to patch certain vulnerabilities. ACK drains a node before the node restarts. Make sure that the ACK cluster has sufficient idle nodes to host the pods evicted from the trained nodes. For example, you can scale out a node pool before you patch vulnerabilities for the nodes in the node pool.
+        3.  Security Center ensures the compatibility of CVE patches. We recommend that you check the compatibility of a CVE patch with your application before you install the patch. You can pause or cancel a CVE patching task anytime.
+        4.  CVE patching is a progressive task that consists of multiple batches. After you pause or cancel a CVE patching task, ACK continues to process the dispatched batches. Only the batches that have not been dispatched are paused or canceled.
+        
+
+        @param request: FixNodePoolVulsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: FixNodePoolVulsResponse
+        """
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.auto_restart):
+            body['auto_restart'] = request.auto_restart
         if not UtilClient.is_unset(request.nodes):
             body['nodes'] = request.nodes
         if not UtilClient.is_unset(request.rollout_policy):
@@ -2519,9 +2537,45 @@ class Client(OpenApiClient):
         )
 
     def fix_node_pool_vuls(self, cluster_id, nodepool_id, request):
+        """
+        1.  The Common Vulnerabilities and Exposures (CVE) patching feature is developed based on Security Center. To use this feature, you must purchase the Security Center Ultimate Edition that supports Container Service for Kubernetes (ACK).
+        2.  ACK may need to restart nodes to patch certain vulnerabilities. ACK drains a node before the node restarts. Make sure that the ACK cluster has sufficient idle nodes to host the pods evicted from the trained nodes. For example, you can scale out a node pool before you patch vulnerabilities for the nodes in the node pool.
+        3.  Security Center ensures the compatibility of CVE patches. We recommend that you check the compatibility of a CVE patch with your application before you install the patch. You can pause or cancel a CVE patching task anytime.
+        4.  CVE patching is a progressive task that consists of multiple batches. After you pause or cancel a CVE patching task, ACK continues to process the dispatched batches. Only the batches that have not been dispatched are paused or canceled.
+        
+
+        @param request: FixNodePoolVulsRequest
+
+        @return: FixNodePoolVulsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.fix_node_pool_vuls_with_options(cluster_id, nodepool_id, request, headers, runtime)
+
+    def get_cluster_check_with_options(self, cluster_id, check_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetClusterCheck',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%5Bcluster_id%5D/checks/%5Bcheck_id%5D',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.GetClusterCheckResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_cluster_check(self, cluster_id, check_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_cluster_check_with_options(cluster_id, check_id, headers, runtime)
 
     def get_kubernetes_trigger_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2664,6 +2718,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.install_cluster_addons_with_options(cluster_id, request, headers, runtime)
+
+    def list_cluster_checks_with_options(self, cluster_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListClusterChecks',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%5Bcluster_id%5D/checks',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.ListClusterChecksResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_cluster_checks(self, cluster_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_cluster_checks_with_options(cluster_id, request, headers, runtime)
 
     def list_tag_resources_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -3328,6 +3412,8 @@ class Client(OpenApiClient):
     def repair_cluster_node_pool_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.auto_restart):
+            body['auto_restart'] = request.auto_restart
         if not UtilClient.is_unset(request.nodes):
             body['nodes'] = request.nodes
         req = open_api_models.OpenApiRequest(
@@ -3429,6 +3515,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.resume_upgrade_cluster_with_options(cluster_id, headers, runtime)
+
+    def run_cluster_check_with_options(self, cluster_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.options):
+            body['options'] = request.options
+        if not UtilClient.is_unset(request.type):
+            body['type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RunClusterCheck',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%5Bcluster_id%5D/checks',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.RunClusterCheckResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def run_cluster_check(self, cluster_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.run_cluster_check_with_options(cluster_id, request, headers, runtime)
 
     def scale_cluster_with_options(self, cluster_id, request, headers, runtime):
         """
