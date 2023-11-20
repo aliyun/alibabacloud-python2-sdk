@@ -15813,6 +15813,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_check_standard_with_options(request, runtime)
 
+    def list_check_types_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.risk_id):
+            query['RiskId'] = request.risk_id
+        if not UtilClient.is_unset(request.uuid):
+            query['Uuid'] = request.uuid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCheckTypes',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListCheckTypesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_check_types(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_check_types_with_options(request, runtime)
+
     def list_client_alert_mode_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -22682,6 +22718,64 @@ class Client(OpenApiClient):
     def update_jenkins_image_registry_persistence_day(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_jenkins_image_registry_persistence_day_with_options(request, runtime)
+
+    def update_opa_strategy_new_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = sas_20181203_models.UpdateOpaStrategyNewShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.alarm_detail):
+            request.alarm_detail_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.alarm_detail, 'AlarmDetail', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.alarm_detail_shrink):
+            query['AlarmDetail'] = request.alarm_detail_shrink
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.cluster_name):
+            query['ClusterName'] = request.cluster_name
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.image_name):
+            query['ImageName'] = request.image_name
+        if not UtilClient.is_unset(request.label):
+            query['Label'] = request.label
+        if not UtilClient.is_unset(request.malicious_image):
+            query['MaliciousImage'] = request.malicious_image
+        if not UtilClient.is_unset(request.rule_action):
+            query['RuleAction'] = request.rule_action
+        if not UtilClient.is_unset(request.scopes):
+            query['Scopes'] = request.scopes
+        if not UtilClient.is_unset(request.strategy_id):
+            query['StrategyId'] = request.strategy_id
+        if not UtilClient.is_unset(request.strategy_name):
+            query['StrategyName'] = request.strategy_name
+        if not UtilClient.is_unset(request.strategy_template_id):
+            query['StrategyTemplateId'] = request.strategy_template_id
+        if not UtilClient.is_unset(request.un_scaned_image):
+            query['UnScanedImage'] = request.un_scaned_image
+        if not UtilClient.is_unset(request.white_list):
+            query['WhiteList'] = request.white_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateOpaStrategyNew',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.UpdateOpaStrategyNewResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_opa_strategy_new(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_opa_strategy_new_with_options(request, runtime)
 
     def update_oss_scan_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
