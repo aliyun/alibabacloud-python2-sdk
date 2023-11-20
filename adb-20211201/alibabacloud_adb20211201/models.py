@@ -663,6 +663,121 @@ class LogAnalyzeResult(TeaModel):
         return self
 
 
+class OperatorNodeStats(TeaModel):
+    def __init__(self, bytes=None, output_rows=None, parameters=None, peak_memory=None, time_cost=None):
+        self.bytes = bytes  # type: long
+        self.output_rows = output_rows  # type: long
+        self.parameters = parameters  # type: str
+        self.peak_memory = peak_memory  # type: long
+        self.time_cost = time_cost  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(OperatorNodeStats, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bytes is not None:
+            result['bytes'] = self.bytes
+        if self.output_rows is not None:
+            result['outputRows'] = self.output_rows
+        if self.parameters is not None:
+            result['parameters'] = self.parameters
+        if self.peak_memory is not None:
+            result['peakMemory'] = self.peak_memory
+        if self.time_cost is not None:
+            result['timeCost'] = self.time_cost
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bytes') is not None:
+            self.bytes = m.get('bytes')
+        if m.get('outputRows') is not None:
+            self.output_rows = m.get('outputRows')
+        if m.get('parameters') is not None:
+            self.parameters = m.get('parameters')
+        if m.get('peakMemory') is not None:
+            self.peak_memory = m.get('peakMemory')
+        if m.get('timeCost') is not None:
+            self.time_cost = m.get('timeCost')
+        return self
+
+
+class OperatorNode(TeaModel):
+    def __init__(self, children=None, id=None, level_width=None, node_depth=None, node_name=None, node_width=None,
+                 parent_id=None, stats=None):
+        self.children = children  # type: list[OperatorNode]
+        self.id = id  # type: int
+        self.level_width = level_width  # type: int
+        self.node_depth = node_depth  # type: int
+        self.node_name = node_name  # type: str
+        self.node_width = node_width  # type: int
+        self.parent_id = parent_id  # type: int
+        self.stats = stats  # type: OperatorNodeStats
+
+    def validate(self):
+        if self.children:
+            for k in self.children:
+                if k:
+                    k.validate()
+        if self.stats:
+            self.stats.validate()
+
+    def to_map(self):
+        _map = super(OperatorNode, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['children'] = []
+        if self.children is not None:
+            for k in self.children:
+                result['children'].append(k.to_map() if k else None)
+        if self.id is not None:
+            result['id'] = self.id
+        if self.level_width is not None:
+            result['levelWidth'] = self.level_width
+        if self.node_depth is not None:
+            result['nodeDepth'] = self.node_depth
+        if self.node_name is not None:
+            result['nodeName'] = self.node_name
+        if self.node_width is not None:
+            result['nodeWidth'] = self.node_width
+        if self.parent_id is not None:
+            result['parentId'] = self.parent_id
+        if self.stats is not None:
+            result['stats'] = self.stats.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.children = []
+        if m.get('children') is not None:
+            for k in m.get('children'):
+                temp_model = OperatorNode()
+                self.children.append(temp_model.from_map(k))
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('levelWidth') is not None:
+            self.level_width = m.get('levelWidth')
+        if m.get('nodeDepth') is not None:
+            self.node_depth = m.get('nodeDepth')
+        if m.get('nodeName') is not None:
+            self.node_name = m.get('nodeName')
+        if m.get('nodeWidth') is not None:
+            self.node_width = m.get('nodeWidth')
+        if m.get('parentId') is not None:
+            self.parent_id = m.get('parentId')
+        if m.get('stats') is not None:
+            temp_model = OperatorNodeStats()
+            self.stats = temp_model.from_map(m['stats'])
+        return self
+
+
 class SerDeInfoModel(TeaModel):
     def __init__(self, name=None, parameters=None, ser_de_id=None, serialization_lib=None):
         self.name = name  # type: str
@@ -875,6 +990,35 @@ class SparkAttemptInfo(TeaModel):
             self.priority = m.get('Priority')
         if m.get('State') is not None:
             self.state = m.get('State')
+        return self
+
+
+class SparkOperatorInfo(TeaModel):
+    def __init__(self, metric_value=None, operator_name=None):
+        self.metric_value = metric_value  # type: long
+        self.operator_name = operator_name  # type: bytes
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SparkOperatorInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.metric_value is not None:
+            result['MetricValue'] = self.metric_value
+        if self.operator_name is not None:
+            result['OperatorName'] = self.operator_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MetricValue') is not None:
+            self.metric_value = m.get('MetricValue')
+        if m.get('OperatorName') is not None:
+            self.operator_name = m.get('OperatorName')
         return self
 
 
@@ -13488,7 +13632,13 @@ class EnableElasticPlanResponse(TeaModel):
 
 class ExistRunningSQLEngineRequest(TeaModel):
     def __init__(self, dbcluster_id=None, resource_group_name=None):
+        # The cluster ID.
+        # 
+        # >  You can call the [DescribeDBClusters](~~612397~~) operation to query the information about all AnalyticDB for MySQL clusters within a region, including cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The name of the resource group.
+        # 
+        # >  You can call the [DescribeDBResourceGroup](~~459446~~) operation to query the name of the resource group for a cluster.
         self.resource_group_name = resource_group_name  # type: str
 
     def validate(self):
@@ -13517,7 +13667,14 @@ class ExistRunningSQLEngineRequest(TeaModel):
 
 class ExistRunningSQLEngineResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # Indicates whether a running SQL engine exists in the resource group.
+        # 
+        # Valid values:
+        # 
+        # *   **True**\
+        # *   **False**\
         self.data = data  # type: bool
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17243,9 +17400,17 @@ class ListSparkAppAttemptsResponse(TeaModel):
 
 class ListSparkAppsRequest(TeaModel):
     def __init__(self, dbcluster_id=None, page_number=None, page_size=None, resource_group_name=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The number of the page to return. The value must be an integer that is greater than 0. Default value: **1**.
         self.page_number = page_number  # type: long
+        # The number of entries to return on each page. Default value: 10. Valid values:
+        # 
+        # - **10**\
+        # - **50**\
+        # - **100**\
         self.page_size = page_size  # type: long
+        # The name of the job resource group.
         self.resource_group_name = resource_group_name  # type: str
 
     def validate(self):
@@ -17282,9 +17447,26 @@ class ListSparkAppsRequest(TeaModel):
 
 class ListSparkAppsResponseBodyData(TeaModel):
     def __init__(self, app_info_list=None, page_number=None, page_size=None, total_count=None):
+        # Details of the applications. Fields in the response parameter:
+        # 
+        # - **Data**: the data of the Spark application template.
+        # - **EstimateExecutionCpuTimeInSeconds**: the amount of time it takes to consume CPU resources for running the Spark application. Unit: milliseconds.
+        # - **LogRootPath**: the storage path of log files.
+        # - **LastAttemptId**: the most recent attempt ID.
+        # - **WebUiAddress**: the web UI URL.
+        # - **SubmittedTimeInMillis**: the time when the Spark application was submitted. The time is displayed in the UNIX timestamp format. Unit: milliseconds.
+        # - **StartedTimeInMillis**: the time when the Spark application was created. The time is displayed in the UNIX timestamp format. Unit: milliseconds.
+        # - **LastUpdatedTimeInMillis**: the time when the Spark application was last updated. The time is displayed in the UNIX timestamp format. Unit: milliseconds.
+        # - **TerminatedTimeInMillis**: the time when the Spark application task was terminated. The time is displayed in the UNIX timestamp format. Unit: milliseconds.
+        # - **DBClusterId**: the ID of the cluster on which the Spark application runs.
+        # - **ResourceGroupName**: the name of the job resource group.
+        # - **DurationInMillis**: the amount of time it takes to run the Spark application. Unit: milliseconds.
         self.app_info_list = app_info_list  # type: list[SparkAppInfo]
+        # The page number of the returned page.
         self.page_number = page_number  # type: long
+        # The number of entries returned per page.
         self.page_size = page_size  # type: long
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -17329,10 +17511,15 @@ class ListSparkAppsResponseBodyData(TeaModel):
 
 class ListSparkAppsResponseBody(TeaModel):
     def __init__(self, data=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The data returned.
         self.data = data  # type: ListSparkAppsResponseBodyData
+        # The page number of the returned page.
         self.page_number = page_number  # type: long
+        # The number of entries returned per page.
         self.page_size = page_size  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -18398,12 +18585,18 @@ class ModifyClusterConnectionStringResponse(TeaModel):
 class ModifyDBClusterRequest(TeaModel):
     def __init__(self, compute_resource=None, dbcluster_id=None, enable_default_resource_pool=None,
                  owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, storage_resource=None):
-        # The reserved computing resources. Unit: ACUs. Valid values: 0 to 4096. The value must be in increments of 16 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
+        # The amount of reserved computing resources. Unit: ACUs. Valid values: 0 to 4096. The value must be in increments of 16 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
         # 
-        # >  You must specify a value with the unit for this parameter.
+        # >  This parameter must be specified with a unit.
         self.compute_resource = compute_resource  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~454250~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # Specifies whether to allocate all reserved computing resources to the user_default resource group. Valid values:
+        # 
+        # *   true (default)
+        # *   false
         self.enable_default_resource_pool = enable_default_resource_pool  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -18412,9 +18605,9 @@ class ModifyDBClusterRequest(TeaModel):
         # >  You can call the [DescribeRegions](~~454314~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
-        # The reserved storage resources. Unit: AnalyticDB Compute Units (ACUs). Valid values: 0 to 2064. The value must be in increments of 24 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
+        # The amount of reserved storage resources. Unit: ACUs. Valid values: 0 to 2064. The value must be in increments of 24 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
         # 
-        # >  You must specify a value with the unit for this parameter.
+        # >  This parameter must be specified with a unit.
         self.storage_resource = storage_resource  # type: str
 
     def validate(self):
@@ -18469,9 +18662,9 @@ class ModifyDBClusterResponseBody(TeaModel):
     def __init__(self, dbcluster_id=None, order_id=None, request_id=None):
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The ID of the order.
+        # The order ID.
         self.order_id = order_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19288,8 +19481,11 @@ class ReleaseClusterPublicConnectionResponse(TeaModel):
 
 class RenameSparkTemplateFileRequest(TeaModel):
     def __init__(self, dbcluster_id=None, id=None, name=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The template file ID.
         self.id = id  # type: long
+        # The name of the template file that you want to rename.
         self.name = name  # type: str
 
     def validate(self):
@@ -19322,6 +19518,10 @@ class RenameSparkTemplateFileRequest(TeaModel):
 
 class RenameSparkTemplateFileResponseBodyData(TeaModel):
     def __init__(self, succeeded=None):
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   True
+        # *   False
         self.succeeded = succeeded  # type: bool
 
     def validate(self):
@@ -19346,7 +19546,9 @@ class RenameSparkTemplateFileResponseBodyData(TeaModel):
 
 class RenameSparkTemplateFileResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: RenameSparkTemplateFileResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
