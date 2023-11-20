@@ -57372,9 +57372,10 @@ class InvoiceRuleSaveRequestEntities(TeaModel):
 
 
 class InvoiceRuleSaveRequest(TeaModel):
-    def __init__(self, all_employe=None, entities=None, third_part_id=None):
+    def __init__(self, all_employe=None, entities=None, scope=None, third_part_id=None):
         self.all_employe = all_employe  # type: bool
         self.entities = entities  # type: list[InvoiceRuleSaveRequestEntities]
+        self.scope = scope  # type: int
         self.third_part_id = third_part_id  # type: str
 
     def validate(self):
@@ -57395,6 +57396,8 @@ class InvoiceRuleSaveRequest(TeaModel):
         if self.entities is not None:
             for k in self.entities:
                 result['entities'].append(k.to_map() if k else None)
+        if self.scope is not None:
+            result['scope'] = self.scope
         if self.third_part_id is not None:
             result['third_part_id'] = self.third_part_id
         return result
@@ -57408,15 +57411,18 @@ class InvoiceRuleSaveRequest(TeaModel):
             for k in m.get('entities'):
                 temp_model = InvoiceRuleSaveRequestEntities()
                 self.entities.append(temp_model.from_map(k))
+        if m.get('scope') is not None:
+            self.scope = m.get('scope')
         if m.get('third_part_id') is not None:
             self.third_part_id = m.get('third_part_id')
         return self
 
 
 class InvoiceRuleSaveShrinkRequest(TeaModel):
-    def __init__(self, all_employe=None, entities_shrink=None, third_part_id=None):
+    def __init__(self, all_employe=None, entities_shrink=None, scope=None, third_part_id=None):
         self.all_employe = all_employe  # type: bool
         self.entities_shrink = entities_shrink  # type: str
+        self.scope = scope  # type: int
         self.third_part_id = third_part_id  # type: str
 
     def validate(self):
@@ -57432,6 +57438,8 @@ class InvoiceRuleSaveShrinkRequest(TeaModel):
             result['all_employe'] = self.all_employe
         if self.entities_shrink is not None:
             result['entities'] = self.entities_shrink
+        if self.scope is not None:
+            result['scope'] = self.scope
         if self.third_part_id is not None:
             result['third_part_id'] = self.third_part_id
         return result
@@ -57442,6 +57450,8 @@ class InvoiceRuleSaveShrinkRequest(TeaModel):
             self.all_employe = m.get('all_employe')
         if m.get('entities') is not None:
             self.entities_shrink = m.get('entities')
+        if m.get('scope') is not None:
+            self.scope = m.get('scope')
         if m.get('third_part_id') is not None:
             self.third_part_id = m.get('third_part_id')
         return self
