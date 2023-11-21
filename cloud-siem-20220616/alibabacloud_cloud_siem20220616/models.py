@@ -1437,6 +1437,223 @@ class DescribeAggregateFunctionResponse(TeaModel):
         return self
 
 
+class DescribeAlertSceneRequest(TeaModel):
+    def __init__(self, region_id=None):
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAlertSceneRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeAlertSceneResponseBodyDataTargets(TeaModel):
+    def __init__(self, name=None, type=None, value=None, values=None):
+        self.name = name  # type: str
+        self.type = type  # type: str
+        self.value = value  # type: str
+        self.values = values  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAlertSceneResponseBodyDataTargets, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.value is not None:
+            result['Value'] = self.value
+        if self.values is not None:
+            result['Values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        if m.get('Values') is not None:
+            self.values = m.get('Values')
+        return self
+
+
+class DescribeAlertSceneResponseBodyData(TeaModel):
+    def __init__(self, alert_name=None, alert_name_id=None, alert_tile=None, alert_tile_id=None, alert_type=None,
+                 alert_type_id=None, targets=None):
+        self.alert_name = alert_name  # type: str
+        self.alert_name_id = alert_name_id  # type: str
+        self.alert_tile = alert_tile  # type: str
+        self.alert_tile_id = alert_tile_id  # type: str
+        self.alert_type = alert_type  # type: str
+        self.alert_type_id = alert_type_id  # type: str
+        self.targets = targets  # type: list[DescribeAlertSceneResponseBodyDataTargets]
+
+    def validate(self):
+        if self.targets:
+            for k in self.targets:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeAlertSceneResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alert_name is not None:
+            result['AlertName'] = self.alert_name
+        if self.alert_name_id is not None:
+            result['AlertNameId'] = self.alert_name_id
+        if self.alert_tile is not None:
+            result['AlertTile'] = self.alert_tile
+        if self.alert_tile_id is not None:
+            result['AlertTileId'] = self.alert_tile_id
+        if self.alert_type is not None:
+            result['AlertType'] = self.alert_type
+        if self.alert_type_id is not None:
+            result['AlertTypeId'] = self.alert_type_id
+        result['Targets'] = []
+        if self.targets is not None:
+            for k in self.targets:
+                result['Targets'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlertName') is not None:
+            self.alert_name = m.get('AlertName')
+        if m.get('AlertNameId') is not None:
+            self.alert_name_id = m.get('AlertNameId')
+        if m.get('AlertTile') is not None:
+            self.alert_tile = m.get('AlertTile')
+        if m.get('AlertTileId') is not None:
+            self.alert_tile_id = m.get('AlertTileId')
+        if m.get('AlertType') is not None:
+            self.alert_type = m.get('AlertType')
+        if m.get('AlertTypeId') is not None:
+            self.alert_type_id = m.get('AlertTypeId')
+        self.targets = []
+        if m.get('Targets') is not None:
+            for k in m.get('Targets'):
+                temp_model = DescribeAlertSceneResponseBodyDataTargets()
+                self.targets.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAlertSceneResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: list[DescribeAlertSceneResponseBodyData]
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeAlertSceneResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = DescribeAlertSceneResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeAlertSceneResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeAlertSceneResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeAlertSceneResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeAlertSceneResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeAlertSceneByEventRequest(TeaModel):
     def __init__(self, incident_uuid=None, region_id=None):
         self.incident_uuid = incident_uuid  # type: str
@@ -8765,6 +8982,477 @@ class DescribeWafScopeResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeWafScopeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeWhiteRuleListRequest(TeaModel):
+    def __init__(self, alert_name=None, alert_type=None, current_page=None, incident_uuid=None, page_size=None,
+                 region_id=None):
+        self.alert_name = alert_name  # type: str
+        self.alert_type = alert_type  # type: str
+        self.current_page = current_page  # type: int
+        self.incident_uuid = incident_uuid  # type: str
+        self.page_size = page_size  # type: int
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWhiteRuleListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alert_name is not None:
+            result['AlertName'] = self.alert_name
+        if self.alert_type is not None:
+            result['AlertType'] = self.alert_type
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.incident_uuid is not None:
+            result['IncidentUuid'] = self.incident_uuid
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlertName') is not None:
+            self.alert_name = m.get('AlertName')
+        if m.get('AlertType') is not None:
+            self.alert_type = m.get('AlertType')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('IncidentUuid') is not None:
+            self.incident_uuid = m.get('IncidentUuid')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeWhiteRuleListResponseBodyDataPageInfo(TeaModel):
+    def __init__(self, current_page=None, page_size=None, total_count=None):
+        self.current_page = current_page  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWhiteRuleListResponseBodyDataPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsLeft(TeaModel):
+    def __init__(self, is_var=None, modifier=None, modifier_param=None, type=None, value=None):
+        self.is_var = is_var  # type: bool
+        self.modifier = modifier  # type: str
+        self.modifier_param = modifier_param  # type: dict[str, any]
+        self.type = type  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsLeft, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_var is not None:
+            result['IsVar'] = self.is_var
+        if self.modifier is not None:
+            result['Modifier'] = self.modifier
+        if self.modifier_param is not None:
+            result['ModifierParam'] = self.modifier_param
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IsVar') is not None:
+            self.is_var = m.get('IsVar')
+        if m.get('Modifier') is not None:
+            self.modifier = m.get('Modifier')
+        if m.get('ModifierParam') is not None:
+            self.modifier_param = m.get('ModifierParam')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsRight(TeaModel):
+    def __init__(self, is_var=None, modifier=None, modifier_param=None, type=None, value=None):
+        self.is_var = is_var  # type: bool
+        self.modifier = modifier  # type: str
+        self.modifier_param = modifier_param  # type: dict[str, any]
+        self.type = type  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsRight, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_var is not None:
+            result['IsVar'] = self.is_var
+        if self.modifier is not None:
+            result['Modifier'] = self.modifier
+        if self.modifier_param is not None:
+            result['ModifierParam'] = self.modifier_param
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IsVar') is not None:
+            self.is_var = m.get('IsVar')
+        if m.get('Modifier') is not None:
+            self.modifier = m.get('Modifier')
+        if m.get('ModifierParam') is not None:
+            self.modifier_param = m.get('ModifierParam')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditions(TeaModel):
+    def __init__(self, is_not=None, item_id=None, left=None, operator=None, right=None):
+        self.is_not = is_not  # type: bool
+        self.item_id = item_id  # type: int
+        self.left = left  # type: DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsLeft
+        self.operator = operator  # type: str
+        self.right = right  # type: DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsRight
+
+    def validate(self):
+        if self.left:
+            self.left.validate()
+        if self.right:
+            self.right.validate()
+
+    def to_map(self):
+        _map = super(DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_not is not None:
+            result['IsNot'] = self.is_not
+        if self.item_id is not None:
+            result['ItemId'] = self.item_id
+        if self.left is not None:
+            result['Left'] = self.left.to_map()
+        if self.operator is not None:
+            result['Operator'] = self.operator
+        if self.right is not None:
+            result['Right'] = self.right.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IsNot') is not None:
+            self.is_not = m.get('IsNot')
+        if m.get('ItemId') is not None:
+            self.item_id = m.get('ItemId')
+        if m.get('Left') is not None:
+            temp_model = DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsLeft()
+            self.left = temp_model.from_map(m['Left'])
+        if m.get('Operator') is not None:
+            self.operator = m.get('Operator')
+        if m.get('Right') is not None:
+            temp_model = DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsRight()
+            self.right = temp_model.from_map(m['Right'])
+        return self
+
+
+class DescribeWhiteRuleListResponseBodyDataResponseDataExpression(TeaModel):
+    def __init__(self, conditions=None, logic=None):
+        self.conditions = conditions  # type: list[DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditions]
+        self.logic = logic  # type: str
+
+    def validate(self):
+        if self.conditions:
+            for k in self.conditions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeWhiteRuleListResponseBodyDataResponseDataExpression, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Conditions'] = []
+        if self.conditions is not None:
+            for k in self.conditions:
+                result['Conditions'].append(k.to_map() if k else None)
+        if self.logic is not None:
+            result['Logic'] = self.logic
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.conditions = []
+        if m.get('Conditions') is not None:
+            for k in m.get('Conditions'):
+                temp_model = DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditions()
+                self.conditions.append(temp_model.from_map(k))
+        if m.get('Logic') is not None:
+            self.logic = m.get('Logic')
+        return self
+
+
+class DescribeWhiteRuleListResponseBodyDataResponseData(TeaModel):
+    def __init__(self, alert_name=None, alert_name_id=None, alert_type=None, alert_type_id=None, alert_uuid=None,
+                 aliuid=None, expression=None, gmt_create=None, gmt_modified=None, id=None, incident_uuid=None, status=None,
+                 sub_aliuid=None):
+        self.alert_name = alert_name  # type: str
+        self.alert_name_id = alert_name_id  # type: str
+        self.alert_type = alert_type  # type: str
+        self.alert_type_id = alert_type_id  # type: str
+        self.alert_uuid = alert_uuid  # type: str
+        self.aliuid = aliuid  # type: long
+        self.expression = expression  # type: DescribeWhiteRuleListResponseBodyDataResponseDataExpression
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.id = id  # type: long
+        self.incident_uuid = incident_uuid  # type: str
+        self.status = status  # type: int
+        self.sub_aliuid = sub_aliuid  # type: long
+
+    def validate(self):
+        if self.expression:
+            self.expression.validate()
+
+    def to_map(self):
+        _map = super(DescribeWhiteRuleListResponseBodyDataResponseData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alert_name is not None:
+            result['AlertName'] = self.alert_name
+        if self.alert_name_id is not None:
+            result['AlertNameId'] = self.alert_name_id
+        if self.alert_type is not None:
+            result['AlertType'] = self.alert_type
+        if self.alert_type_id is not None:
+            result['AlertTypeId'] = self.alert_type_id
+        if self.alert_uuid is not None:
+            result['AlertUuid'] = self.alert_uuid
+        if self.aliuid is not None:
+            result['Aliuid'] = self.aliuid
+        if self.expression is not None:
+            result['Expression'] = self.expression.to_map()
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.incident_uuid is not None:
+            result['IncidentUuid'] = self.incident_uuid
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.sub_aliuid is not None:
+            result['SubAliuid'] = self.sub_aliuid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlertName') is not None:
+            self.alert_name = m.get('AlertName')
+        if m.get('AlertNameId') is not None:
+            self.alert_name_id = m.get('AlertNameId')
+        if m.get('AlertType') is not None:
+            self.alert_type = m.get('AlertType')
+        if m.get('AlertTypeId') is not None:
+            self.alert_type_id = m.get('AlertTypeId')
+        if m.get('AlertUuid') is not None:
+            self.alert_uuid = m.get('AlertUuid')
+        if m.get('Aliuid') is not None:
+            self.aliuid = m.get('Aliuid')
+        if m.get('Expression') is not None:
+            temp_model = DescribeWhiteRuleListResponseBodyDataResponseDataExpression()
+            self.expression = temp_model.from_map(m['Expression'])
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('IncidentUuid') is not None:
+            self.incident_uuid = m.get('IncidentUuid')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('SubAliuid') is not None:
+            self.sub_aliuid = m.get('SubAliuid')
+        return self
+
+
+class DescribeWhiteRuleListResponseBodyData(TeaModel):
+    def __init__(self, page_info=None, response_data=None):
+        self.page_info = page_info  # type: DescribeWhiteRuleListResponseBodyDataPageInfo
+        self.response_data = response_data  # type: list[DescribeWhiteRuleListResponseBodyDataResponseData]
+
+    def validate(self):
+        if self.page_info:
+            self.page_info.validate()
+        if self.response_data:
+            for k in self.response_data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeWhiteRuleListResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_info is not None:
+            result['PageInfo'] = self.page_info.to_map()
+        result['ResponseData'] = []
+        if self.response_data is not None:
+            for k in self.response_data:
+                result['ResponseData'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageInfo') is not None:
+            temp_model = DescribeWhiteRuleListResponseBodyDataPageInfo()
+            self.page_info = temp_model.from_map(m['PageInfo'])
+        self.response_data = []
+        if m.get('ResponseData') is not None:
+            for k in m.get('ResponseData'):
+                temp_model = DescribeWhiteRuleListResponseBodyDataResponseData()
+                self.response_data.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeWhiteRuleListResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: DescribeWhiteRuleListResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeWhiteRuleListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribeWhiteRuleListResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeWhiteRuleListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeWhiteRuleListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeWhiteRuleListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeWhiteRuleListResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
