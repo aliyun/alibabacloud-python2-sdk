@@ -658,6 +658,10 @@ class Client(OpenApiClient):
             query['Description'] = request.description
         if not UtilClient.is_unset(request.namespace):
             query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.namespace_region):
+            query['NamespaceRegion'] = request.namespace_region
+        if not UtilClient.is_unset(request.namespace_type):
+            query['NamespaceType'] = request.namespace_type
         if not UtilClient.is_unset(request.spec):
             query['Spec'] = request.spec
         req = open_api_models.OpenApiRequest(
@@ -3932,7 +3936,7 @@ class Client(OpenApiClient):
 
     def describe_metric_rule_template_attribute_with_options(self, request, runtime):
         """
-        This topic provides an example to show how to query the details of an alert template whose ID is `70***`.
+        This topic provides an example on how to query the details of an alert template whose ID is `70***`.
         
 
         @param request: DescribeMetricRuleTemplateAttributeRequest
@@ -3968,7 +3972,7 @@ class Client(OpenApiClient):
 
     def describe_metric_rule_template_attribute(self, request):
         """
-        This topic provides an example to show how to query the details of an alert template whose ID is `70***`.
+        This topic provides an example on how to query the details of an alert template whose ID is `70***`.
         
 
         @param request: DescribeMetricRuleTemplateAttributeRequest
