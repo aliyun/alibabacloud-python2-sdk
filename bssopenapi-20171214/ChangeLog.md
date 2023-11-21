@@ -1,3 +1,6 @@
+2023-11-21 Version: 1.2.1
+- Generated python2 2017-12-14 for BssOpenApi.
+
 2023-10-19 Version: 1.2.0
 - Generated python2 2017-12-14 for BssOpenApi.
 

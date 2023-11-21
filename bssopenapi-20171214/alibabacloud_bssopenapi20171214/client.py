@@ -1563,6 +1563,8 @@ class Client(OpenApiClient):
             query['Granularity'] = request.granularity
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceID'] = request.instance_id
+        if not UtilClient.is_unset(request.is_hide_zero_charge):
+            query['IsHideZeroCharge'] = request.is_hide_zero_charge
         if not UtilClient.is_unset(request.max_results):
             query['MaxResults'] = request.max_results
         if not UtilClient.is_unset(request.next_token):

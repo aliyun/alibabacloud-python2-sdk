@@ -2316,16 +2316,40 @@ class CreateResourcePackageResponse(TeaModel):
 class CreateSavingsPlansInstanceRequest(TeaModel):
     def __init__(self, commodity_code=None, duration=None, effective_date=None, extend_map=None, pay_mode=None,
                  pool_value=None, pricing_cycle=None, region=None, spec_type=None, specification=None, type=None):
+        # The code of the service.
         self.commodity_code = commodity_code  # type: str
+        # The service duration. This parameter is used together with the PricingCycle parameter.
         self.duration = duration  # type: str
+        # The time when the savings plan takes effect. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.effective_date = effective_date  # type: str
         self.extend_map = extend_map  # type: dict[str, str]
+        # The payment mode. Valid values:
+        # 
+        # *   total: all upfront
+        # *   half: partial upfront
+        # *   zero: no upfront
         self.pay_mode = pay_mode  # type: str
+        # The contracted amount. unit: CNY
         self.pool_value = pool_value  # type: str
+        # The unit of the service duration. This parameter is used together with the During parameter. Valid values:
+        # 
+        # *   Year
+        # *   Month
         self.pricing_cycle = pricing_cycle  # type: str
+        # The ID of the region in which you create the savings plan. You must specify this parameter if the Type parameter is not set to universal.
         self.region = region  # type: str
+        # The specification type. This parameter is used together with the Specification parameter. You must specify this parameter if the Type parameter is not set to universal. Valid values:
+        # 
+        # *   group: specification group
+        # *   family: specification family
         self.spec_type = spec_type  # type: str
+        # The specifications of the savings plan. This parameter is used together with the SpecType parameter.
         self.specification = specification  # type: str
+        # The type of the savings plan. Valid values:
+        # 
+        # *   universal: general-purpose type
+        # *   ecs: ECS compute type
+        # *   elasticy: elastic type
         self.type = type  # type: str
 
     def validate(self):
@@ -2392,16 +2416,40 @@ class CreateSavingsPlansInstanceShrinkRequest(TeaModel):
     def __init__(self, commodity_code=None, duration=None, effective_date=None, extend_map_shrink=None,
                  pay_mode=None, pool_value=None, pricing_cycle=None, region=None, spec_type=None, specification=None,
                  type=None):
+        # The code of the service.
         self.commodity_code = commodity_code  # type: str
+        # The service duration. This parameter is used together with the PricingCycle parameter.
         self.duration = duration  # type: str
+        # The time when the savings plan takes effect. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.effective_date = effective_date  # type: str
         self.extend_map_shrink = extend_map_shrink  # type: str
+        # The payment mode. Valid values:
+        # 
+        # *   total: all upfront
+        # *   half: partial upfront
+        # *   zero: no upfront
         self.pay_mode = pay_mode  # type: str
+        # The contracted amount. unit: CNY
         self.pool_value = pool_value  # type: str
+        # The unit of the service duration. This parameter is used together with the During parameter. Valid values:
+        # 
+        # *   Year
+        # *   Month
         self.pricing_cycle = pricing_cycle  # type: str
+        # The ID of the region in which you create the savings plan. You must specify this parameter if the Type parameter is not set to universal.
         self.region = region  # type: str
+        # The specification type. This parameter is used together with the Specification parameter. You must specify this parameter if the Type parameter is not set to universal. Valid values:
+        # 
+        # *   group: specification group
+        # *   family: specification family
         self.spec_type = spec_type  # type: str
+        # The specifications of the savings plan. This parameter is used together with the SpecType parameter.
         self.specification = specification  # type: str
+        # The type of the savings plan. Valid values:
+        # 
+        # *   universal: general-purpose type
+        # *   ecs: ECS compute type
+        # *   elasticy: elastic type
         self.type = type  # type: str
 
     def validate(self):
@@ -2466,6 +2514,7 @@ class CreateSavingsPlansInstanceShrinkRequest(TeaModel):
 
 class CreateSavingsPlansInstanceResponseBodyData(TeaModel):
     def __init__(self, order_id=None):
+        # The ID of the order.
         self.order_id = order_id  # type: long
 
     def validate(self):
@@ -2490,10 +2539,15 @@ class CreateSavingsPlansInstanceResponseBodyData(TeaModel):
 
 class CreateSavingsPlansInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The status code.
         self.code = code  # type: str
+        # The data returned.
         self.data = data  # type: CreateSavingsPlansInstanceResponseBodyData
+        # The error message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -10105,8 +10159,8 @@ class DescribeSplitItemBillRequestTagFilter(TeaModel):
 
 class DescribeSplitItemBillRequest(TeaModel):
     def __init__(self, bill_owner_id=None, billing_cycle=None, billing_date=None, granularity=None,
-                 instance_id=None, max_results=None, next_token=None, owner_id=None, product_code=None, product_type=None,
-                 split_item_id=None, subscription_type=None, tag_filter=None):
+                 instance_id=None, is_hide_zero_charge=None, max_results=None, next_token=None, owner_id=None,
+                 product_code=None, product_type=None, split_item_id=None, subscription_type=None, tag_filter=None):
         # The ID of the member. If you specify this parameter, the bills of the member are queried. If you do not specify this parameter, the bills of the current account are queried by default.
         self.bill_owner_id = bill_owner_id  # type: long
         # The billing cycle. Specify the parameter in the YYYY-MM format.
@@ -10122,6 +10176,7 @@ class DescribeSplitItemBillRequest(TeaModel):
         self.granularity = granularity  # type: str
         # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        self.is_hide_zero_charge = is_hide_zero_charge  # type: bool
         # The maximum number of entries to query. Default value: 20. Maximum value: 300.
         self.max_results = max_results  # type: int
         # The token that is used for the next query. The parameter must be left empty or set to the value of the NextToken parameter returned in the last call. Otherwise, an error is returned. If the parameter is left empty, the data is queried from the first entry.
@@ -10160,6 +10215,8 @@ class DescribeSplitItemBillRequest(TeaModel):
             result['Granularity'] = self.granularity
         if self.instance_id is not None:
             result['InstanceID'] = self.instance_id
+        if self.is_hide_zero_charge is not None:
+            result['IsHideZeroCharge'] = self.is_hide_zero_charge
         if self.max_results is not None:
             result['MaxResults'] = self.max_results
         if self.next_token is not None:
@@ -10192,6 +10249,8 @@ class DescribeSplitItemBillRequest(TeaModel):
             self.granularity = m.get('Granularity')
         if m.get('InstanceID') is not None:
             self.instance_id = m.get('InstanceID')
+        if m.get('IsHideZeroCharge') is not None:
+            self.is_hide_zero_charge = m.get('IsHideZeroCharge')
         if m.get('MaxResults') is not None:
             self.max_results = m.get('MaxResults')
         if m.get('NextToken') is not None:
@@ -11397,7 +11456,7 @@ class GetOrderDetailResponseBodyDataOrderListOrder(TeaModel):
                  payment_currency=None, payment_status=None, payment_time=None, pretax_amount=None, pretax_amount_local=None,
                  pretax_gross_amount=None, product_code=None, product_type=None, quantity=None, region=None, related_order_id=None,
                  sub_order_id=None, subscription_type=None, tax=None, usage_end_time=None, usage_start_time=None):
-        # The aftertaxt amount of the order.
+        # The after-tax amount of the order.
         self.after_tax_amount = after_tax_amount  # type: str
         # The service code.
         self.commodity_code = commodity_code  # type: str
@@ -13873,25 +13932,32 @@ class QueryAccountBalanceResponse(TeaModel):
 class QueryAccountBillRequest(TeaModel):
     def __init__(self, bill_owner_id=None, billing_cycle=None, billing_date=None, granularity=None,
                  is_group_by_product=None, owner_id=None, page_num=None, page_size=None, product_code=None):
+        # The ID of the member. If you specify a value for this parameter, you can query the bills of the specified member. If you leave this parameter empty, the bills of the current account are queried by default.
+        self.bill_owner_id = bill_owner_id  # type: long
+        # The billing cycle. Format: YYYY-MM.
+        self.billing_cycle = billing_cycle  # type: str
+        # The billing date. This parameter is required only if the Granularity parameter is set to DAILY. Format: YYYY-MM-DD.
+        self.billing_date = billing_date  # type: str
+        # The granularity at which bills are queried. Valid values:
+        # 
+        # *   MONTHLY: queries bills by month. The data queried is consistent with the data that is displayed for the specified billing cycle on the Billing Details tab of the Bill Details page in User Center.
+        # *   DAILY: queries bills by day. The data queried is consistent with the data that is displayed for the specified day on the Billing Details tab of the Bill Details page in User Center.
+        # 
+        # You must set the BillingDate parameter before you can set the Granularity parameter to DAILY.
+        self.granularity = granularity  # type: str
         # Specifies whether to summarize bills based on service codes. Valid values:
         # 
         # *   true: summarizes bills based on service codes.
         # *   false: does not summarize bills based on service codes.
         # 
         # Default value: false.
-        self.bill_owner_id = bill_owner_id  # type: long
-        self.billing_cycle = billing_cycle  # type: str
-        # The ID of the member. If you specify a value for this parameter, you can query the bills of the specified member. If you leave this parameter empty, the bills of the current account are queried by default.
-        self.billing_date = billing_date  # type: str
-        # The code of the service.
-        self.granularity = granularity  # type: str
-        # The number of the page to return. Default value: 1.
         self.is_group_by_product = is_group_by_product  # type: bool
         self.owner_id = owner_id  # type: long
+        # The number of the page to return. Default value: 1.
         self.page_num = page_num  # type: int
-        # The billing cycle. Format: YYYY-MM.
-        self.page_size = page_size  # type: int
         # The number of entries to return on each page. Default value: 20. Maximum value: 300.
+        self.page_size = page_size  # type: int
+        # The code of the service.
         self.product_code = product_code  # type: str
 
     def validate(self):
@@ -13952,64 +14018,62 @@ class QueryAccountBillResponseBodyDataItemsItem(TeaModel):
                  deducted_by_coupons=None, deducted_by_prepaid_card=None, invoice_discount=None, outstanding_amount=None,
                  owner_id=None, owner_name=None, payment_amount=None, pip_code=None, pretax_amount=None,
                  pretax_gross_amount=None, product_code=None, product_name=None, subscription_type=None):
-        # The billing date.
-        self.adjust_amount = adjust_amount  # type: float
-        # The amount deducted by using prepaid cards.
-        self.bill_account_id = bill_account_id  # type: str
-        # The name of the member.
-        self.bill_account_name = bill_account_name  # type: str
-        # The code of the service. The service code is consistent with that displayed in User Center.
-        self.billing_date = billing_date  # type: str
-        # The billing method. Valid values:
-        # 
-        # *   Subscription: the subscription billing method
-        # *   PayAsYouGo: the pay-as-you-go billing method
-        # 
-        # **\
-        # 
-        # ****A value is returned only if the IsGroupByProduct parameter is set to true.
-        self.biz_type = biz_type  # type: str
-        # Not allocated
-        self.cash_amount = cash_amount  # type: float
-        # The discount amount.
-        self.cost_unit = cost_unit  # type: str
         # The amount deducted by using credit refunds.
-        self.currency = currency  # type: str
-        # The name of the account to which the bill belongs.
-        self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
-        # The ID of the member.
-        self.deducted_by_coupons = deducted_by_coupons  # type: float
-        # The business type.
-        self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
+        self.adjust_amount = adjust_amount  # type: float
         # The ID of the account to which the bill belongs.
-        self.invoice_discount = invoice_discount  # type: float
-        # The amount paid in cash. The amount that was deducted by using credit refunds is included.
-        self.outstanding_amount = outstanding_amount  # type: float
-        # The amount deducted by using vouchers.
-        self.owner_id = owner_id  # type: str
-        # The name of the service.
-        # 
-        # **\
-        # 
-        # ****A value is returned only if the **IsGroupByProduct **parameter is set to true.
-        self.owner_name = owner_name  # type: str
-        # The amount deducted by using coupons.
-        self.payment_amount = payment_amount  # type: float
-        # The name of the Alibaba Cloud account.
-        self.pip_code = pip_code  # type: str
-        # The details of the bills.
-        self.pretax_amount = pretax_amount  # type: float
+        self.bill_account_id = bill_account_id  # type: str
+        # The name of the account to which the bill belongs.
+        self.bill_account_name = bill_account_name  # type: str
+        # The billing date.
+        self.billing_date = billing_date  # type: str
+        # The business type.
+        self.biz_type = biz_type  # type: str
+        # The amount paid in cash. The amount that was deducted by using credit refunds is not included.
+        self.cash_amount = cash_amount  # type: float
         # The cost center.
-        self.pretax_gross_amount = pretax_gross_amount  # type: float
-        # The pretax gross amount.
-        self.product_code = product_code  # type: str
-        # The pretax amount.
-        self.product_name = product_name  # type: str
+        self.cost_unit = cost_unit  # type: str
         # The type of the currency. Valid values:
         # 
         # *   CNY
         # *   USD
         # *   JPY
+        self.currency = currency  # type: str
+        # The amount deducted by using vouchers.
+        self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
+        # The amount deducted by using coupons.
+        self.deducted_by_coupons = deducted_by_coupons  # type: float
+        # The amount deducted by using prepaid cards.
+        self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
+        # The discount amount.
+        self.invoice_discount = invoice_discount  # type: float
+        # The unsettled amount or the amount settled with credits.
+        self.outstanding_amount = outstanding_amount  # type: float
+        # The ID of the member.
+        self.owner_id = owner_id  # type: str
+        # The name of the member.
+        self.owner_name = owner_name  # type: str
+        # The amount paid in cash. The amount that was deducted by using credit refunds is included.
+        self.payment_amount = payment_amount  # type: float
+        # The code of the service. The service code is consistent with that displayed in User Center.
+        self.pip_code = pip_code  # type: str
+        # The pretax amount.
+        self.pretax_amount = pretax_amount  # type: float
+        # The pretax gross amount.
+        self.pretax_gross_amount = pretax_gross_amount  # type: float
+        # The code of the service.
+        # 
+        # >A value is returned only if the **IsGroupByProduct** parameter is set to true.
+        self.product_code = product_code  # type: str
+        # The name of the service.
+        # 
+        # > A value is returned only if the **IsGroupByProduct** parameter is set to true.
+        self.product_name = product_name  # type: str
+        # The billing method. Valid values:
+        # 
+        # *   Subscription: the subscription billing method
+        # *   PayAsYouGo: the pay-as-you-go billing method
+        # 
+        # > A value is returned only if the IsGroupByProduct parameter is set to true.
         self.subscription_type = subscription_type  # type: str
 
     def validate(self):
@@ -14151,19 +14215,19 @@ class QueryAccountBillResponseBodyDataItems(TeaModel):
 class QueryAccountBillResponseBodyData(TeaModel):
     def __init__(self, account_id=None, account_name=None, billing_cycle=None, items=None, page_num=None,
                  page_size=None, total_count=None):
-        # The page number of the returned page.
-        self.account_id = account_id  # type: str
-        # The number of entries returned per page.
-        self.account_name = account_name  # type: str
-        # The data returned.
-        self.billing_cycle = billing_cycle  # type: str
-        # The total number of returned entries.
-        self.items = items  # type: QueryAccountBillResponseBodyDataItems
-        # Indicates whether the request is successful.
-        self.page_num = page_num  # type: int
-        # The billing cycle. Format: YYYY-MM.
-        self.page_size = page_size  # type: int
         # The ID of your Alibaba Cloud account.
+        self.account_id = account_id  # type: str
+        # The name of the Alibaba Cloud account.
+        self.account_name = account_name  # type: str
+        # The billing cycle. Format: YYYY-MM.
+        self.billing_cycle = billing_cycle  # type: str
+        # The details of the bills.
+        self.items = items  # type: QueryAccountBillResponseBodyDataItems
+        # The page number of the returned page.
+        self.page_num = page_num  # type: int
+        # The number of entries returned per page.
+        self.page_size = page_size  # type: int
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -14214,20 +14278,15 @@ class QueryAccountBillResponseBodyData(TeaModel):
 
 class QueryAccountBillResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # The granularity at which bills are queried. Valid values:
-        # 
-        # *   MONTHLY: queries bills by month. The data queried is consistent with the data that is displayed for the specified billing cycle on the Billing Details tab of the Bill Details page in User Center.
-        # *   DAILY: queries bills by day. The data queried is consistent with the data that is displayed for the specified day on the Billing Details tab of the Bill Details page in User Center.
-        # 
-        # You must set the BillingDate parameter before you can set the Granularity parameter to DAILY.
-        self.code = code  # type: str
-        # The ID of the request.
-        self.data = data  # type: QueryAccountBillResponseBodyData
-        # The billing date. This parameter is required only if the Granularity parameter is set to DAILY. Format: YYYY-MM-DD.
-        self.message = message  # type: str
         # The status code returned.
-        self.request_id = request_id  # type: str
+        self.code = code  # type: str
+        # The data returned.
+        self.data = data  # type: QueryAccountBillResponseBodyData
         # The message returned.
+        self.message = message  # type: str
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
