@@ -686,6 +686,76 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_chatapp_template_with_options(request, runtime)
 
+    def create_flow_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cams_20200606_models.CreateFlowShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.categories):
+            request.categories_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.categories, 'Categories', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.categories_shrink):
+            body['Categories'] = request.categories_shrink
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.flow_name):
+            body['FlowName'] = request.flow_name
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateFlow',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.CreateFlowResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_flow(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_flow_with_options(request, runtime)
+
+    def create_phone_message_qrdl_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.generate_qr_image):
+            body['GenerateQrImage'] = request.generate_qr_image
+        if not UtilClient.is_unset(request.phone_number):
+            body['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.prefilled_message):
+            body['PrefilledMessage'] = request.prefilled_message
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreatePhoneMessageQrdl',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.CreatePhoneMessageQrdlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_phone_message_qrdl(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_phone_message_qrdl_with_options(request, runtime)
+
     def delete_chatapp_template_with_options(self, request, runtime):
         """
         ### QPS limit
@@ -739,6 +809,98 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.delete_chatapp_template_with_options(request, runtime)
+
+    def delete_flow_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.flow_id):
+            body['FlowId'] = request.flow_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteFlow',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.DeleteFlowResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_flow(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_flow_with_options(request, runtime)
+
+    def delete_phone_message_qrdl_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.phone_number):
+            body['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.qrdl_code):
+            body['QrdlCode'] = request.qrdl_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeletePhoneMessageQrdl',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.DeletePhoneMessageQrdlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_phone_message_qrdl(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_phone_message_qrdl_with_options(request, runtime)
+
+    def deprecate_flow_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.flow_id):
+            body['FlowId'] = request.flow_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeprecateFlow',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.DeprecateFlowResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def deprecate_flow(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.deprecate_flow_with_options(request, runtime)
 
     def enable_whatsapp_roimetric_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1036,6 +1198,96 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_commerce_setting_with_options(request, runtime)
 
+    def get_flow_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.flow_id):
+            body['FlowId'] = request.flow_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetFlow',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.GetFlowResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_flow(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_flow_with_options(request, runtime)
+
+    def get_flow_jsonassest_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.flow_id):
+            body['FlowId'] = request.flow_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetFlowJSONAssest',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.GetFlowJSONAssestResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_flow_jsonassest(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_flow_jsonassest_with_options(request, runtime)
+
+    def get_flow_preview_url_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.flow_id):
+            body['FlowId'] = request.flow_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetFlowPreviewUrl',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.GetFlowPreviewUrlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_flow_preview_url(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_flow_preview_url_with_options(request, runtime)
+
     def get_migration_verify_code_with_options(self, request, runtime):
         """
         The ID of the phone number.
@@ -1087,6 +1339,72 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.get_migration_verify_code_with_options(request, runtime)
+
+    def get_permission_by_code_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cams_20200606_models.GetPermissionByCodeShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.permissions):
+            request.permissions_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.permissions, 'Permissions', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.code):
+            body['Code'] = request.code
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.permissions_shrink):
+            body['Permissions'] = request.permissions_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetPermissionByCode',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.GetPermissionByCodeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_permission_by_code(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_permission_by_code_with_options(request, runtime)
+
+    def get_phone_encryption_public_key_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.phone_number):
+            body['PhoneNumber'] = request.phone_number
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetPhoneEncryptionPublicKey',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.GetPhoneEncryptionPublicKeyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_phone_encryption_public_key(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_phone_encryption_public_key_with_options(request, runtime)
 
     def get_phone_number_verification_status_with_options(self, request, runtime):
         """
@@ -1334,6 +1652,72 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_chatapp_template_with_options(request, runtime)
 
+    def list_flow_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cams_20200606_models.ListFlowShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.page):
+            request.page_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.page, 'Page', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.flow_name):
+            body['FlowName'] = request.flow_name
+        if not UtilClient.is_unset(request.page_shrink):
+            body['Page'] = request.page_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListFlow',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.ListFlowResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_flow(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_flow_with_options(request, runtime)
+
+    def list_phone_message_qrdl_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.phone_number):
+            body['PhoneNumber'] = request.phone_number
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListPhoneMessageQrdl',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.ListPhoneMessageQrdlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_phone_message_qrdl(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_phone_message_qrdl_with_options(request, runtime)
+
     def list_product_with_options(self, request, runtime):
         """
         You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
@@ -1530,6 +1914,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_chatapp_template_with_options(request, runtime)
 
+    def modify_flow_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cams_20200606_models.ModifyFlowShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.categories):
+            request.categories_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.categories, 'Categories', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.categories_shrink):
+            body['Categories'] = request.categories_shrink
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.flow_id):
+            body['FlowId'] = request.flow_id
+        if not UtilClient.is_unset(request.flow_name):
+            body['FlowName'] = request.flow_name
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyFlow',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.ModifyFlowResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_flow(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_flow_with_options(request, runtime)
+
     def modify_phone_business_profile_with_options(self, tmp_req, runtime):
         """
         ModifyPhoneBusinessProfile
@@ -1593,6 +2015,36 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.modify_phone_business_profile_with_options(request, runtime)
+
+    def publish_flow_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.flow_id):
+            body['FlowId'] = request.flow_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='PublishFlow',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.PublishFlowResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def publish_flow(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.publish_flow_with_options(request, runtime)
 
     def query_chatapp_bind_waba_with_options(self, request, runtime):
         """
@@ -2117,6 +2569,106 @@ class Client(OpenApiClient):
     def update_commerce_setting(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_commerce_setting_with_options(request, runtime)
+
+    def update_flow_jsonasset_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.file_path):
+            body['FilePath'] = request.file_path
+        if not UtilClient.is_unset(request.flow_id):
+            body['FlowId'] = request.flow_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateFlowJSONAsset',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.UpdateFlowJSONAssetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_flow_jsonasset(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_flow_jsonasset_with_options(request, runtime)
+
+    def update_phone_encryption_public_key_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.encryption_public_key):
+            body['EncryptionPublicKey'] = request.encryption_public_key
+        if not UtilClient.is_unset(request.phone_number):
+            body['PhoneNumber'] = request.phone_number
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdatePhoneEncryptionPublicKey',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.UpdatePhoneEncryptionPublicKeyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_phone_encryption_public_key(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_phone_encryption_public_key_with_options(request, runtime)
+
+    def update_phone_message_qrdl_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cust_space_id):
+            body['CustSpaceId'] = request.cust_space_id
+        if not UtilClient.is_unset(request.generate_qr_image):
+            body['GenerateQrImage'] = request.generate_qr_image
+        if not UtilClient.is_unset(request.phone_number):
+            body['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.prefilled_message):
+            body['PrefilledMessage'] = request.prefilled_message
+        if not UtilClient.is_unset(request.qrdl_code):
+            body['QrdlCode'] = request.qrdl_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdatePhoneMessageQrdl',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.UpdatePhoneMessageQrdlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_phone_message_qrdl(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_phone_message_qrdl_with_options(request, runtime)
 
     def update_phone_webhook_with_options(self, request, runtime):
         """

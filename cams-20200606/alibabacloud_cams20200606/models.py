@@ -2393,8 +2393,8 @@ class CreateChatappMigrationInitiateResponse(TeaModel):
 
 class CreateChatappTemplateRequestComponentsButtons(TeaModel):
     def __init__(self, autofill_text=None, coupon_code=None, flow_action=None, flow_id=None, is_opt_out=None,
-                 package_name=None, phone_number=None, signature_hash=None, text=None, type=None, url=None, url_type=None,
-                 navigate_screen=None):
+                 navigate_screen=None, package_name=None, phone_number=None, signature_hash=None, text=None, type=None, url=None,
+                 url_type=None):
         # The text of the one-tap autofill button. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP in a WhatsApp message template.
         self.autofill_text = autofill_text  # type: str
         self.coupon_code = coupon_code  # type: str
@@ -2402,6 +2402,7 @@ class CreateChatappTemplateRequestComponentsButtons(TeaModel):
         self.flow_id = flow_id  # type: str
         # The unsubscribe button. This parameter is valid if Category is set to MARKETING and the Type sub-parameter of the Buttons parameter is set to QUICK_REPLY in a WhatsApp message template. After you configure message sending in the ChatApp Message Service console, marketing messages will not be sent to customers if they click this button.
         self.is_opt_out = is_opt_out  # type: bool
+        self.navigate_screen = navigate_screen  # type: str
         # The app package name that WhatsApp uses to load your app. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP in a WhatsApp message template.
         self.package_name = package_name  # type: str
         # The phone number. This parameter is valid only when the Type sub-parameter of the Buttons parameter is set to **PHONE_NUMBER**.
@@ -2435,7 +2436,6 @@ class CreateChatappTemplateRequestComponentsButtons(TeaModel):
         # *   **static**\
         # *   **dynamic**\
         self.url_type = url_type  # type: str
-        self.navigate_screen = navigate_screen  # type: str
 
     def validate(self):
         pass
@@ -2456,6 +2456,8 @@ class CreateChatappTemplateRequestComponentsButtons(TeaModel):
             result['FlowId'] = self.flow_id
         if self.is_opt_out is not None:
             result['IsOptOut'] = self.is_opt_out
+        if self.navigate_screen is not None:
+            result['NavigateScreen'] = self.navigate_screen
         if self.package_name is not None:
             result['PackageName'] = self.package_name
         if self.phone_number is not None:
@@ -2470,8 +2472,6 @@ class CreateChatappTemplateRequestComponentsButtons(TeaModel):
             result['Url'] = self.url
         if self.url_type is not None:
             result['UrlType'] = self.url_type
-        if self.navigate_screen is not None:
-            result['navigateScreen'] = self.navigate_screen
         return result
 
     def from_map(self, m=None):
@@ -2486,6 +2486,8 @@ class CreateChatappTemplateRequestComponentsButtons(TeaModel):
             self.flow_id = m.get('FlowId')
         if m.get('IsOptOut') is not None:
             self.is_opt_out = m.get('IsOptOut')
+        if m.get('NavigateScreen') is not None:
+            self.navigate_screen = m.get('NavigateScreen')
         if m.get('PackageName') is not None:
             self.package_name = m.get('PackageName')
         if m.get('PhoneNumber') is not None:
@@ -2500,8 +2502,6 @@ class CreateChatappTemplateRequestComponentsButtons(TeaModel):
             self.url = m.get('Url')
         if m.get('UrlType') is not None:
             self.url_type = m.get('UrlType')
-        if m.get('navigateScreen') is not None:
-            self.navigate_screen = m.get('navigateScreen')
         return self
 
 
@@ -3133,6 +3133,360 @@ class CreateChatappTemplateResponse(TeaModel):
         return self
 
 
+class CreateFlowRequest(TeaModel):
+    def __init__(self, categories=None, cust_space_id=None, flow_name=None):
+        self.categories = categories  # type: list[str]
+        self.cust_space_id = cust_space_id  # type: str
+        self.flow_name = flow_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.categories is not None:
+            result['Categories'] = self.categories
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Categories') is not None:
+            self.categories = m.get('Categories')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
+        return self
+
+
+class CreateFlowShrinkRequest(TeaModel):
+    def __init__(self, categories_shrink=None, cust_space_id=None, flow_name=None):
+        self.categories_shrink = categories_shrink  # type: str
+        self.cust_space_id = cust_space_id  # type: str
+        self.flow_name = flow_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateFlowShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.categories_shrink is not None:
+            result['Categories'] = self.categories_shrink
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Categories') is not None:
+            self.categories_shrink = m.get('Categories')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
+        return self
+
+
+class CreateFlowResponseBodyData(TeaModel):
+    def __init__(self, categories=None, flow_id=None, flow_name=None):
+        self.categories = categories  # type: list[str]
+        # flow ID。
+        self.flow_id = flow_id  # type: str
+        self.flow_name = flow_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateFlowResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.categories is not None:
+            result['Categories'] = self.categories
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Categories') is not None:
+            self.categories = m.get('Categories')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
+        return self
+
+
+class CreateFlowResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: CreateFlowResponseBodyData
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CreateFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = CreateFlowResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateFlowResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateFlowResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateFlowResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreatePhoneMessageQrdlRequest(TeaModel):
+    def __init__(self, cust_space_id=None, generate_qr_image=None, phone_number=None, prefilled_message=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.generate_qr_image = generate_qr_image  # type: str
+        self.phone_number = phone_number  # type: str
+        self.prefilled_message = prefilled_message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreatePhoneMessageQrdlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.generate_qr_image is not None:
+            result['GenerateQrImage'] = self.generate_qr_image
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.prefilled_message is not None:
+            result['PrefilledMessage'] = self.prefilled_message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('GenerateQrImage') is not None:
+            self.generate_qr_image = m.get('GenerateQrImage')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('PrefilledMessage') is not None:
+            self.prefilled_message = m.get('PrefilledMessage')
+        return self
+
+
+class CreatePhoneMessageQrdlResponseBodyData(TeaModel):
+    def __init__(self, deep_link_url=None, generate_qr_image=None, phone_number=None, prefilled_message=None,
+                 qr_image_url=None, qrdl_code=None):
+        self.deep_link_url = deep_link_url  # type: str
+        self.generate_qr_image = generate_qr_image  # type: str
+        self.phone_number = phone_number  # type: str
+        self.prefilled_message = prefilled_message  # type: str
+        self.qr_image_url = qr_image_url  # type: str
+        self.qrdl_code = qrdl_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreatePhoneMessageQrdlResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deep_link_url is not None:
+            result['DeepLinkUrl'] = self.deep_link_url
+        if self.generate_qr_image is not None:
+            result['GenerateQrImage'] = self.generate_qr_image
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.prefilled_message is not None:
+            result['PrefilledMessage'] = self.prefilled_message
+        if self.qr_image_url is not None:
+            result['QrImageUrl'] = self.qr_image_url
+        if self.qrdl_code is not None:
+            result['QrdlCode'] = self.qrdl_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeepLinkUrl') is not None:
+            self.deep_link_url = m.get('DeepLinkUrl')
+        if m.get('GenerateQrImage') is not None:
+            self.generate_qr_image = m.get('GenerateQrImage')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('PrefilledMessage') is not None:
+            self.prefilled_message = m.get('PrefilledMessage')
+        if m.get('QrImageUrl') is not None:
+            self.qr_image_url = m.get('QrImageUrl')
+        if m.get('QrdlCode') is not None:
+            self.qrdl_code = m.get('QrdlCode')
+        return self
+
+
+class CreatePhoneMessageQrdlResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: CreatePhoneMessageQrdlResponseBodyData
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CreatePhoneMessageQrdlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = CreatePhoneMessageQrdlResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreatePhoneMessageQrdlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreatePhoneMessageQrdlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreatePhoneMessageQrdlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreatePhoneMessageQrdlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteChatappTemplateRequest(TeaModel):
     def __init__(self, cust_space_id=None, cust_waba_id=None, isv_code=None, template_code=None):
         # The space ID of the user under the ISV account.
@@ -3256,6 +3610,322 @@ class DeleteChatappTemplateResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteChatappTemplateResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteFlowRequest(TeaModel):
+    def __init__(self, cust_space_id=None, flow_id=None):
+        self.cust_space_id = cust_space_id  # type: str
+        # Flow ID。
+        self.flow_id = flow_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        return self
+
+
+class DeleteFlowResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteFlowResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteFlowResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteFlowResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeletePhoneMessageQrdlRequest(TeaModel):
+    def __init__(self, cust_space_id=None, phone_number=None, qrdl_code=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.phone_number = phone_number  # type: str
+        self.qrdl_code = qrdl_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeletePhoneMessageQrdlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.qrdl_code is not None:
+            result['QrdlCode'] = self.qrdl_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('QrdlCode') is not None:
+            self.qrdl_code = m.get('QrdlCode')
+        return self
+
+
+class DeletePhoneMessageQrdlResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeletePhoneMessageQrdlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeletePhoneMessageQrdlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeletePhoneMessageQrdlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeletePhoneMessageQrdlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeletePhoneMessageQrdlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeprecateFlowRequest(TeaModel):
+    def __init__(self, cust_space_id=None, flow_id=None):
+        self.cust_space_id = cust_space_id  # type: str
+        # Flow ID。
+        self.flow_id = flow_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeprecateFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        return self
+
+
+class DeprecateFlowResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeprecateFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeprecateFlowResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeprecateFlowResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeprecateFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeprecateFlowResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5055,6 +5725,465 @@ class GetCommerceSettingResponse(TeaModel):
         return self
 
 
+class GetFlowRequest(TeaModel):
+    def __init__(self, cust_space_id=None, flow_id=None):
+        self.cust_space_id = cust_space_id  # type: str
+        # Flow ID。
+        self.flow_id = flow_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        return self
+
+
+class GetFlowResponseBodyData(TeaModel):
+    def __init__(self, categories=None, data_api_version=None, flow_id=None, flow_name=None, jsonversion=None,
+                 preview_url=None, preview_url_expires=None, status=None):
+        self.categories = categories  # type: list[str]
+        self.data_api_version = data_api_version  # type: str
+        # flow ID。
+        self.flow_id = flow_id  # type: str
+        self.flow_name = flow_name  # type: str
+        self.jsonversion = jsonversion  # type: str
+        self.preview_url = preview_url  # type: str
+        self.preview_url_expires = preview_url_expires  # type: long
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFlowResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.categories is not None:
+            result['Categories'] = self.categories
+        if self.data_api_version is not None:
+            result['DataApiVersion'] = self.data_api_version
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
+        if self.jsonversion is not None:
+            result['JSONVersion'] = self.jsonversion
+        if self.preview_url is not None:
+            result['PreviewUrl'] = self.preview_url
+        if self.preview_url_expires is not None:
+            result['PreviewUrlExpires'] = self.preview_url_expires
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Categories') is not None:
+            self.categories = m.get('Categories')
+        if m.get('DataApiVersion') is not None:
+            self.data_api_version = m.get('DataApiVersion')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
+        if m.get('JSONVersion') is not None:
+            self.jsonversion = m.get('JSONVersion')
+        if m.get('PreviewUrl') is not None:
+            self.preview_url = m.get('PreviewUrl')
+        if m.get('PreviewUrlExpires') is not None:
+            self.preview_url_expires = m.get('PreviewUrlExpires')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class GetFlowResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetFlowResponseBodyData
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetFlowResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetFlowResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetFlowResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetFlowResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetFlowJSONAssestRequest(TeaModel):
+    def __init__(self, cust_space_id=None, flow_id=None):
+        self.cust_space_id = cust_space_id  # type: str
+        # Flow ID。
+        self.flow_id = flow_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFlowJSONAssestRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        return self
+
+
+class GetFlowJSONAssestResponseBodyData(TeaModel):
+    def __init__(self, file_path=None, flow_id=None):
+        self.file_path = file_path  # type: str
+        # flow ID。
+        self.flow_id = flow_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFlowJSONAssestResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_path is not None:
+            result['FilePath'] = self.file_path
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FilePath') is not None:
+            self.file_path = m.get('FilePath')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        return self
+
+
+class GetFlowJSONAssestResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetFlowJSONAssestResponseBodyData
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetFlowJSONAssestResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetFlowJSONAssestResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetFlowJSONAssestResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetFlowJSONAssestResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetFlowJSONAssestResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetFlowJSONAssestResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetFlowPreviewUrlRequest(TeaModel):
+    def __init__(self, cust_space_id=None, flow_id=None):
+        self.cust_space_id = cust_space_id  # type: str
+        # Flow ID。
+        self.flow_id = flow_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFlowPreviewUrlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        return self
+
+
+class GetFlowPreviewUrlResponseBodyData(TeaModel):
+    def __init__(self, flow_id=None, preview_url=None, preview_url_expires=None):
+        # flow ID。
+        self.flow_id = flow_id  # type: str
+        self.preview_url = preview_url  # type: str
+        self.preview_url_expires = preview_url_expires  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFlowPreviewUrlResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        if self.preview_url is not None:
+            result['PreviewUrl'] = self.preview_url
+        if self.preview_url_expires is not None:
+            result['PreviewUrlExpires'] = self.preview_url_expires
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        if m.get('PreviewUrl') is not None:
+            self.preview_url = m.get('PreviewUrl')
+        if m.get('PreviewUrlExpires') is not None:
+            self.preview_url_expires = m.get('PreviewUrlExpires')
+        return self
+
+
+class GetFlowPreviewUrlResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetFlowPreviewUrlResponseBodyData
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetFlowPreviewUrlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetFlowPreviewUrlResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetFlowPreviewUrlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetFlowPreviewUrlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetFlowPreviewUrlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetFlowPreviewUrlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetMigrationVerifyCodeRequest(TeaModel):
     def __init__(self, cust_space_id=None, locale=None, method=None, phone_number=None):
         self.cust_space_id = cust_space_id  # type: str
@@ -5204,6 +6333,292 @@ class GetMigrationVerifyCodeResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetMigrationVerifyCodeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetPermissionByCodeRequest(TeaModel):
+    def __init__(self, code=None, cust_space_id=None, permissions=None):
+        self.code = code  # type: str
+        self.cust_space_id = cust_space_id  # type: str
+        self.permissions = permissions  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPermissionByCodeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.permissions is not None:
+            result['Permissions'] = self.permissions
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('Permissions') is not None:
+            self.permissions = m.get('Permissions')
+        return self
+
+
+class GetPermissionByCodeShrinkRequest(TeaModel):
+    def __init__(self, code=None, cust_space_id=None, permissions_shrink=None):
+        self.code = code  # type: str
+        self.cust_space_id = cust_space_id  # type: str
+        self.permissions_shrink = permissions_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPermissionByCodeShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.permissions_shrink is not None:
+            result['Permissions'] = self.permissions_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('Permissions') is not None:
+            self.permissions_shrink = m.get('Permissions')
+        return self
+
+
+class GetPermissionByCodeResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPermissionByCodeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetPermissionByCodeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetPermissionByCodeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetPermissionByCodeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetPermissionByCodeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetPhoneEncryptionPublicKeyRequest(TeaModel):
+    def __init__(self, cust_space_id=None, phone_number=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPhoneEncryptionPublicKeyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class GetPhoneEncryptionPublicKeyResponseBodyData(TeaModel):
+    def __init__(self, encryption_public_key=None, encryption_public_key_status=None, phone_number=None):
+        self.encryption_public_key = encryption_public_key  # type: str
+        self.encryption_public_key_status = encryption_public_key_status  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPhoneEncryptionPublicKeyResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.encryption_public_key is not None:
+            result['EncryptionPublicKey'] = self.encryption_public_key
+        if self.encryption_public_key_status is not None:
+            result['EncryptionPublicKeyStatus'] = self.encryption_public_key_status
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EncryptionPublicKey') is not None:
+            self.encryption_public_key = m.get('EncryptionPublicKey')
+        if m.get('EncryptionPublicKeyStatus') is not None:
+            self.encryption_public_key_status = m.get('EncryptionPublicKeyStatus')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class GetPhoneEncryptionPublicKeyResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetPhoneEncryptionPublicKeyResponseBodyData
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetPhoneEncryptionPublicKeyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetPhoneEncryptionPublicKeyResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetPhoneEncryptionPublicKeyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetPhoneEncryptionPublicKeyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetPhoneEncryptionPublicKeyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetPhoneEncryptionPublicKeyResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -6139,6 +7554,393 @@ class ListChatappTemplateResponse(TeaModel):
         return self
 
 
+class ListFlowRequestPage(TeaModel):
+    def __init__(self, index=None, size=None):
+        self.index = index  # type: int
+        self.size = size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListFlowRequestPage, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.index is not None:
+            result['Index'] = self.index
+        if self.size is not None:
+            result['Size'] = self.size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Index') is not None:
+            self.index = m.get('Index')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        return self
+
+
+class ListFlowRequest(TeaModel):
+    def __init__(self, cust_space_id=None, flow_name=None, page=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.flow_name = flow_name  # type: str
+        self.page = page  # type: ListFlowRequestPage
+
+    def validate(self):
+        if self.page:
+            self.page.validate()
+
+    def to_map(self):
+        _map = super(ListFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
+        if self.page is not None:
+            result['Page'] = self.page.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
+        if m.get('Page') is not None:
+            temp_model = ListFlowRequestPage()
+            self.page = temp_model.from_map(m['Page'])
+        return self
+
+
+class ListFlowShrinkRequest(TeaModel):
+    def __init__(self, cust_space_id=None, flow_name=None, page_shrink=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.flow_name = flow_name  # type: str
+        self.page_shrink = page_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListFlowShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
+        if self.page_shrink is not None:
+            result['Page'] = self.page_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
+        if m.get('Page') is not None:
+            self.page_shrink = m.get('Page')
+        return self
+
+
+class ListFlowResponseBodyData(TeaModel):
+    def __init__(self, categories=None, flow_id=None, flow_name=None):
+        self.categories = categories  # type: list[str]
+        # flow ID。
+        self.flow_id = flow_id  # type: str
+        self.flow_name = flow_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListFlowResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.categories is not None:
+            result['Categories'] = self.categories
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Categories') is not None:
+            self.categories = m.get('Categories')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
+        return self
+
+
+class ListFlowResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[ListFlowResponseBodyData]
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListFlowResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListFlowResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListFlowResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListFlowResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListPhoneMessageQrdlRequest(TeaModel):
+    def __init__(self, cust_space_id=None, phone_number=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListPhoneMessageQrdlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class ListPhoneMessageQrdlResponseBodyData(TeaModel):
+    def __init__(self, deep_link_url=None, generate_qr_image=None, phone_number=None, prefilled_message=None,
+                 qr_image_url=None, qrdl_code=None):
+        self.deep_link_url = deep_link_url  # type: str
+        self.generate_qr_image = generate_qr_image  # type: str
+        self.phone_number = phone_number  # type: str
+        self.prefilled_message = prefilled_message  # type: str
+        self.qr_image_url = qr_image_url  # type: str
+        self.qrdl_code = qrdl_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListPhoneMessageQrdlResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deep_link_url is not None:
+            result['DeepLinkUrl'] = self.deep_link_url
+        if self.generate_qr_image is not None:
+            result['GenerateQrImage'] = self.generate_qr_image
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.prefilled_message is not None:
+            result['PrefilledMessage'] = self.prefilled_message
+        if self.qr_image_url is not None:
+            result['QrImageUrl'] = self.qr_image_url
+        if self.qrdl_code is not None:
+            result['QrdlCode'] = self.qrdl_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeepLinkUrl') is not None:
+            self.deep_link_url = m.get('DeepLinkUrl')
+        if m.get('GenerateQrImage') is not None:
+            self.generate_qr_image = m.get('GenerateQrImage')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('PrefilledMessage') is not None:
+            self.prefilled_message = m.get('PrefilledMessage')
+        if m.get('QrImageUrl') is not None:
+            self.qr_image_url = m.get('QrImageUrl')
+        if m.get('QrdlCode') is not None:
+            self.qrdl_code = m.get('QrdlCode')
+        return self
+
+
+class ListPhoneMessageQrdlResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[ListPhoneMessageQrdlResponseBodyData]
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListPhoneMessageQrdlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListPhoneMessageQrdlResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListPhoneMessageQrdlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListPhoneMessageQrdlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListPhoneMessageQrdlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListPhoneMessageQrdlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListProductRequest(TeaModel):
     def __init__(self, after=None, before=None, catalog_id=None, cust_space_id=None, fields=None, limit=None,
                  owner_id=None, resource_owner_account=None, resource_owner_id=None, waba_id=None):
@@ -6678,8 +8480,8 @@ class ListProductCatalogResponse(TeaModel):
 
 class ModifyChatappTemplateRequestComponentsButtons(TeaModel):
     def __init__(self, autofill_text=None, coupon_code=None, flow_action=None, flow_id=None, is_opt_out=None,
-                 package_name=None, phone_number=None, signature_hash=None, text=None, type=None, url=None, url_type=None,
-                 navigate_screen=None):
+                 navigate_screen=None, package_name=None, phone_number=None, signature_hash=None, text=None, type=None, url=None,
+                 url_type=None):
         # The text of the one-tap autofill button. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP in a WhatsApp message template.
         self.autofill_text = autofill_text  # type: str
         self.coupon_code = coupon_code  # type: str
@@ -6687,6 +8489,7 @@ class ModifyChatappTemplateRequestComponentsButtons(TeaModel):
         self.flow_id = flow_id  # type: str
         # The unsubscribe button. This parameter is valid only when Category is set to MARKETING and the Type sub-parameter of the Buttons parameter is set to QUICK_REPLY in a WhatsApp message template. After you configure message sending in the ChatApp Message Service console, marketing messages will not be sent to customers if they click this button.
         self.is_opt_out = is_opt_out  # type: bool
+        self.navigate_screen = navigate_screen  # type: str
         # The app package name that WhatsApp uses to load your app. This parameter is required if Category is set to AUTHENTICATION and the Type sub-parameter of the Buttons parameter is set to ONE_TAP in a WhatsApp message template.
         self.package_name = package_name  # type: str
         # The phone number.
@@ -6720,7 +8523,6 @@ class ModifyChatappTemplateRequestComponentsButtons(TeaModel):
         # *   **static**\
         # *   **dynamic**\
         self.url_type = url_type  # type: str
-        self.navigate_screen = navigate_screen  # type: str
 
     def validate(self):
         pass
@@ -6741,6 +8543,8 @@ class ModifyChatappTemplateRequestComponentsButtons(TeaModel):
             result['FlowId'] = self.flow_id
         if self.is_opt_out is not None:
             result['IsOptOut'] = self.is_opt_out
+        if self.navigate_screen is not None:
+            result['NavigateScreen'] = self.navigate_screen
         if self.package_name is not None:
             result['PackageName'] = self.package_name
         if self.phone_number is not None:
@@ -6755,8 +8559,6 @@ class ModifyChatappTemplateRequestComponentsButtons(TeaModel):
             result['Url'] = self.url
         if self.url_type is not None:
             result['UrlType'] = self.url_type
-        if self.navigate_screen is not None:
-            result['navigateScreen'] = self.navigate_screen
         return result
 
     def from_map(self, m=None):
@@ -6771,6 +8573,8 @@ class ModifyChatappTemplateRequestComponentsButtons(TeaModel):
             self.flow_id = m.get('FlowId')
         if m.get('IsOptOut') is not None:
             self.is_opt_out = m.get('IsOptOut')
+        if m.get('NavigateScreen') is not None:
+            self.navigate_screen = m.get('NavigateScreen')
         if m.get('PackageName') is not None:
             self.package_name = m.get('PackageName')
         if m.get('PhoneNumber') is not None:
@@ -6785,8 +8589,6 @@ class ModifyChatappTemplateRequestComponentsButtons(TeaModel):
             self.url = m.get('Url')
         if m.get('UrlType') is not None:
             self.url_type = m.get('UrlType')
-        if m.get('navigateScreen') is not None:
-            self.navigate_screen = m.get('navigateScreen')
         return self
 
 
@@ -7399,6 +9201,200 @@ class ModifyChatappTemplateResponse(TeaModel):
         return self
 
 
+class ModifyFlowRequest(TeaModel):
+    def __init__(self, categories=None, cust_space_id=None, flow_id=None, flow_name=None):
+        self.categories = categories  # type: list[str]
+        self.cust_space_id = cust_space_id  # type: str
+        self.flow_id = flow_id  # type: str
+        self.flow_name = flow_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.categories is not None:
+            result['Categories'] = self.categories
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Categories') is not None:
+            self.categories = m.get('Categories')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
+        return self
+
+
+class ModifyFlowShrinkRequest(TeaModel):
+    def __init__(self, categories_shrink=None, cust_space_id=None, flow_id=None, flow_name=None):
+        self.categories_shrink = categories_shrink  # type: str
+        self.cust_space_id = cust_space_id  # type: str
+        self.flow_id = flow_id  # type: str
+        self.flow_name = flow_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyFlowShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.categories_shrink is not None:
+            result['Categories'] = self.categories_shrink
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Categories') is not None:
+            self.categories_shrink = m.get('Categories')
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
+        return self
+
+
+class ModifyFlowResponseBodyData(TeaModel):
+    def __init__(self, categories=None, flow_id=None, flow_name=None):
+        self.categories = categories  # type: list[str]
+        # flow ID。
+        self.flow_id = flow_id  # type: str
+        self.flow_name = flow_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyFlowResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.categories is not None:
+            result['Categories'] = self.categories
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Categories') is not None:
+            self.categories = m.get('Categories')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
+        return self
+
+
+class ModifyFlowResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: ModifyFlowResponseBodyData
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ModifyFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = ModifyFlowResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyFlowResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyFlowResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyFlowResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ModifyPhoneBusinessProfileRequest(TeaModel):
     def __init__(self, address=None, cust_space_id=None, description=None, email=None, phone_number=None,
                  profile_picture_url=None, vertical=None, websites=None):
@@ -7616,6 +9612,110 @@ class ModifyPhoneBusinessProfileResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyPhoneBusinessProfileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PublishFlowRequest(TeaModel):
+    def __init__(self, cust_space_id=None, flow_id=None):
+        self.cust_space_id = cust_space_id  # type: str
+        # Flow ID。
+        self.flow_id = flow_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PublishFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        return self
+
+
+class PublishFlowResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PublishFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class PublishFlowResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: PublishFlowResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PublishFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = PublishFlowResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -9960,6 +12060,431 @@ class UpdateCommerceSettingResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateCommerceSettingResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateFlowJSONAssetRequest(TeaModel):
+    def __init__(self, cust_space_id=None, file_path=None, flow_id=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.file_path = file_path  # type: str
+        # Flow ID。
+        self.flow_id = flow_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateFlowJSONAssetRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.file_path is not None:
+            result['FilePath'] = self.file_path
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('FilePath') is not None:
+            self.file_path = m.get('FilePath')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        return self
+
+
+class UpdateFlowJSONAssetResponseBodyData(TeaModel):
+    def __init__(self, flow_id=None):
+        # Flow ID。
+        self.flow_id = flow_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateFlowJSONAssetResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        return self
+
+
+class UpdateFlowJSONAssetResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: UpdateFlowJSONAssetResponseBodyData
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(UpdateFlowJSONAssetResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = UpdateFlowJSONAssetResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateFlowJSONAssetResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateFlowJSONAssetResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateFlowJSONAssetResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateFlowJSONAssetResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdatePhoneEncryptionPublicKeyRequest(TeaModel):
+    def __init__(self, cust_space_id=None, encryption_public_key=None, phone_number=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.encryption_public_key = encryption_public_key  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdatePhoneEncryptionPublicKeyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.encryption_public_key is not None:
+            result['EncryptionPublicKey'] = self.encryption_public_key
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('EncryptionPublicKey') is not None:
+            self.encryption_public_key = m.get('EncryptionPublicKey')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class UpdatePhoneEncryptionPublicKeyResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdatePhoneEncryptionPublicKeyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdatePhoneEncryptionPublicKeyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdatePhoneEncryptionPublicKeyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdatePhoneEncryptionPublicKeyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdatePhoneEncryptionPublicKeyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdatePhoneMessageQrdlRequest(TeaModel):
+    def __init__(self, cust_space_id=None, generate_qr_image=None, phone_number=None, prefilled_message=None,
+                 qrdl_code=None):
+        self.cust_space_id = cust_space_id  # type: str
+        self.generate_qr_image = generate_qr_image  # type: str
+        self.phone_number = phone_number  # type: str
+        self.prefilled_message = prefilled_message  # type: str
+        self.qrdl_code = qrdl_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdatePhoneMessageQrdlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_space_id is not None:
+            result['CustSpaceId'] = self.cust_space_id
+        if self.generate_qr_image is not None:
+            result['GenerateQrImage'] = self.generate_qr_image
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.prefilled_message is not None:
+            result['PrefilledMessage'] = self.prefilled_message
+        if self.qrdl_code is not None:
+            result['QrdlCode'] = self.qrdl_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustSpaceId') is not None:
+            self.cust_space_id = m.get('CustSpaceId')
+        if m.get('GenerateQrImage') is not None:
+            self.generate_qr_image = m.get('GenerateQrImage')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('PrefilledMessage') is not None:
+            self.prefilled_message = m.get('PrefilledMessage')
+        if m.get('QrdlCode') is not None:
+            self.qrdl_code = m.get('QrdlCode')
+        return self
+
+
+class UpdatePhoneMessageQrdlResponseBodyData(TeaModel):
+    def __init__(self, deep_link_url=None, generate_qr_image=None, phone_number=None, prefilled_message=None,
+                 qr_image_url=None, qrdl_code=None):
+        self.deep_link_url = deep_link_url  # type: str
+        self.generate_qr_image = generate_qr_image  # type: str
+        self.phone_number = phone_number  # type: str
+        self.prefilled_message = prefilled_message  # type: str
+        self.qr_image_url = qr_image_url  # type: str
+        self.qrdl_code = qrdl_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdatePhoneMessageQrdlResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deep_link_url is not None:
+            result['DeepLinkUrl'] = self.deep_link_url
+        if self.generate_qr_image is not None:
+            result['GenerateQrImage'] = self.generate_qr_image
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.prefilled_message is not None:
+            result['PrefilledMessage'] = self.prefilled_message
+        if self.qr_image_url is not None:
+            result['QrImageUrl'] = self.qr_image_url
+        if self.qrdl_code is not None:
+            result['QrdlCode'] = self.qrdl_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeepLinkUrl') is not None:
+            self.deep_link_url = m.get('DeepLinkUrl')
+        if m.get('GenerateQrImage') is not None:
+            self.generate_qr_image = m.get('GenerateQrImage')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('PrefilledMessage') is not None:
+            self.prefilled_message = m.get('PrefilledMessage')
+        if m.get('QrImageUrl') is not None:
+            self.qr_image_url = m.get('QrImageUrl')
+        if m.get('QrdlCode') is not None:
+            self.qrdl_code = m.get('QrdlCode')
+        return self
+
+
+class UpdatePhoneMessageQrdlResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: UpdatePhoneMessageQrdlResponseBodyData
+        self.message = message  # type: str
+        # Id of the request。
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(UpdatePhoneMessageQrdlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = UpdatePhoneMessageQrdlResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdatePhoneMessageQrdlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdatePhoneMessageQrdlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdatePhoneMessageQrdlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdatePhoneMessageQrdlResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
