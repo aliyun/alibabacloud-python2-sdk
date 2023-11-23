@@ -5731,9 +5731,9 @@ class ApplyInvoiceTaskHeaders(TeaModel):
 class ApplyInvoiceTaskRequestInvoiceTaskList(TeaModel):
     def __init__(self, contact=None, email=None, flight_invoice_fee=None, fu_point_invoice_fee=None,
                  hotel_normal_invoice_fee=None, hotel_special_invoice_fee=None, international_flight_invoice_fee=None,
-                 international_hotel_invoice_fee=None, invoice_third_part_id=None, mail_address=None, mail_city=None, mail_full_address=None,
-                 mail_province=None, penalty_fee=None, remark=None, service_fee=None, telephone=None, train_invoice_fee=None,
-                 vehicle_invoice_fee=None):
+                 international_hotel_invoice_fee=None, invoice_third_part_id=None, invoice_type=None, mail_address=None, mail_city=None,
+                 mail_full_address=None, mail_province=None, penalty_fee=None, remark=None, service_fee=None, telephone=None,
+                 train_invoice_fee=None, vehicle_invoice_fee=None):
         self.contact = contact  # type: str
         self.email = email  # type: str
         self.flight_invoice_fee = flight_invoice_fee  # type: str
@@ -5743,6 +5743,7 @@ class ApplyInvoiceTaskRequestInvoiceTaskList(TeaModel):
         self.international_flight_invoice_fee = international_flight_invoice_fee  # type: str
         self.international_hotel_invoice_fee = international_hotel_invoice_fee  # type: str
         self.invoice_third_part_id = invoice_third_part_id  # type: str
+        self.invoice_type = invoice_type  # type: int
         self.mail_address = mail_address  # type: str
         self.mail_city = mail_city  # type: str
         self.mail_full_address = mail_full_address  # type: str
@@ -5781,6 +5782,8 @@ class ApplyInvoiceTaskRequestInvoiceTaskList(TeaModel):
             result['international_hotel_invoice_fee'] = self.international_hotel_invoice_fee
         if self.invoice_third_part_id is not None:
             result['invoice_third_part_id'] = self.invoice_third_part_id
+        if self.invoice_type is not None:
+            result['invoice_type'] = self.invoice_type
         if self.mail_address is not None:
             result['mail_address'] = self.mail_address
         if self.mail_city is not None:
@@ -5823,6 +5826,8 @@ class ApplyInvoiceTaskRequestInvoiceTaskList(TeaModel):
             self.international_hotel_invoice_fee = m.get('international_hotel_invoice_fee')
         if m.get('invoice_third_part_id') is not None:
             self.invoice_third_part_id = m.get('invoice_third_part_id')
+        if m.get('invoice_type') is not None:
+            self.invoice_type = m.get('invoice_type')
         if m.get('mail_address') is not None:
             self.mail_address = m.get('mail_address')
         if m.get('mail_city') is not None:
