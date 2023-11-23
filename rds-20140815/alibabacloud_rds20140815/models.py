@@ -28469,7 +28469,8 @@ class DescribeDBProxyResponseBody(TeaModel):
     def __init__(self, dbproxy_avzones=None, dbproxy_connect_string_items=None, dbproxy_engine_type=None,
                  dbproxy_instance_current_minor_version=None, dbproxy_instance_latest_minor_version=None, dbproxy_instance_name=None,
                  dbproxy_instance_num=None, dbproxy_instance_size=None, dbproxy_instance_status=None, dbproxy_instance_type=None,
-                 dbproxy_service_status=None, db_proxy_endpoint_items=None, request_id=None, resource_group_id=None):
+                 dbproxy_persistent_connection_support=None, dbproxy_service_status=None, db_proxy_endpoint_items=None, request_id=None,
+                 resource_group_id=None):
         # The list of zones that are available for the database proxy.
         self.dbproxy_avzones = dbproxy_avzones  # type: DescribeDBProxyResponseBodyDBProxyAVZones
         # An array consisting of the information about the database proxy endpoint that is created for the instance.
@@ -28504,6 +28505,7 @@ class DescribeDBProxyResponseBody(TeaModel):
         # 
         # >  ApsaraDB RDS for PostgreSQL instances support only dedicated proxies.
         self.dbproxy_instance_type = dbproxy_instance_type  # type: str
+        self.dbproxy_persistent_connection_support = dbproxy_persistent_connection_support  # type: str
         # The status of the database proxy.
         # 
         # *   Shutdown: disabled
@@ -28550,6 +28552,8 @@ class DescribeDBProxyResponseBody(TeaModel):
             result['DBProxyInstanceStatus'] = self.dbproxy_instance_status
         if self.dbproxy_instance_type is not None:
             result['DBProxyInstanceType'] = self.dbproxy_instance_type
+        if self.dbproxy_persistent_connection_support is not None:
+            result['DBProxyPersistentConnectionSupport'] = self.dbproxy_persistent_connection_support
         if self.dbproxy_service_status is not None:
             result['DBProxyServiceStatus'] = self.dbproxy_service_status
         if self.db_proxy_endpoint_items is not None:
@@ -28584,6 +28588,8 @@ class DescribeDBProxyResponseBody(TeaModel):
             self.dbproxy_instance_status = m.get('DBProxyInstanceStatus')
         if m.get('DBProxyInstanceType') is not None:
             self.dbproxy_instance_type = m.get('DBProxyInstanceType')
+        if m.get('DBProxyPersistentConnectionSupport') is not None:
+            self.dbproxy_persistent_connection_support = m.get('DBProxyPersistentConnectionSupport')
         if m.get('DBProxyServiceStatus') is not None:
             self.dbproxy_service_status = m.get('DBProxyServiceStatus')
         if m.get('DbProxyEndpointItems') is not None:
@@ -54333,8 +54339,8 @@ class ModifyDBNodeResponse(TeaModel):
 
 class ModifyDBProxyRequest(TeaModel):
     def __init__(self, config_dbproxy_service=None, dbinstance_id=None, dbproxy_engine_type=None,
-                 dbproxy_instance_num=None, instance_network_type=None, owner_id=None, region_id=None, resource_group_id=None,
-                 resource_owner_account=None, resource_owner_id=None, vpcid=None, v_switch_id=None):
+                 dbproxy_instance_num=None, dbproxy_instance_type=None, instance_network_type=None, owner_id=None, region_id=None,
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, vpcid=None, v_switch_id=None):
         # Specifies whether to enable or disable the database proxy feature. Valid values:
         # 
         # *   **Startup**: enables the database proxy feature.
@@ -54348,6 +54354,7 @@ class ModifyDBProxyRequest(TeaModel):
         # 
         # >  The capability of the database proxy to process requests increases with the number of proxy instances that are enabled. You can monitor the load on the instance and specify an appropriate number of proxy instances based on the load monitoring data.
         self.dbproxy_instance_num = dbproxy_instance_num  # type: str
+        self.dbproxy_instance_type = dbproxy_instance_type  # type: str
         # The network type of the instance. Set the value to **VPC**.
         # 
         # > This parameter is required if you enable the database proxy feature for an ApsaraDB RDS for MySQL instance that uses cloud disks or an ApsaraDB RDS for PostgreSQL instance.
@@ -54385,6 +54392,8 @@ class ModifyDBProxyRequest(TeaModel):
             result['DBProxyEngineType'] = self.dbproxy_engine_type
         if self.dbproxy_instance_num is not None:
             result['DBProxyInstanceNum'] = self.dbproxy_instance_num
+        if self.dbproxy_instance_type is not None:
+            result['DBProxyInstanceType'] = self.dbproxy_instance_type
         if self.instance_network_type is not None:
             result['InstanceNetworkType'] = self.instance_network_type
         if self.owner_id is not None:
@@ -54413,6 +54422,8 @@ class ModifyDBProxyRequest(TeaModel):
             self.dbproxy_engine_type = m.get('DBProxyEngineType')
         if m.get('DBProxyInstanceNum') is not None:
             self.dbproxy_instance_num = m.get('DBProxyInstanceNum')
+        if m.get('DBProxyInstanceType') is not None:
+            self.dbproxy_instance_type = m.get('DBProxyInstanceType')
         if m.get('InstanceNetworkType') is not None:
             self.instance_network_type = m.get('InstanceNetworkType')
         if m.get('OwnerId') is not None:
