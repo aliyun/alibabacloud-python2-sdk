@@ -292,6 +292,8 @@ class Client(OpenApiClient):
             request.sink_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sink, 'Sink', 'json')
         if not UtilClient.is_unset(tmp_req.source):
             request.source_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.source, 'Source', 'json')
+        if not UtilClient.is_unset(tmp_req.transforms):
+            request.transforms_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.transforms, 'Transforms', 'json')
         body = {}
         if not UtilClient.is_unset(request.description):
             body['Description'] = request.description
@@ -305,6 +307,8 @@ class Client(OpenApiClient):
             body['Sink'] = request.sink_shrink
         if not UtilClient.is_unset(request.source_shrink):
             body['Source'] = request.source_shrink
+        if not UtilClient.is_unset(request.transforms_shrink):
+            body['Transforms'] = request.transforms_shrink
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -1603,6 +1607,8 @@ class Client(OpenApiClient):
             query['EventBusName'] = request.event_bus_name
         if not UtilClient.is_unset(request.event_id):
             query['EventId'] = request.event_id
+        if not UtilClient.is_unset(request.event_source):
+            query['EventSource'] = request.event_source
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2148,6 +2154,8 @@ class Client(OpenApiClient):
             request.sink_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sink, 'Sink', 'json')
         if not UtilClient.is_unset(tmp_req.source):
             request.source_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.source, 'Source', 'json')
+        if not UtilClient.is_unset(tmp_req.transforms):
+            request.transforms_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.transforms, 'Transforms', 'json')
         body = {}
         if not UtilClient.is_unset(request.description):
             body['Description'] = request.description
@@ -2161,6 +2169,8 @@ class Client(OpenApiClient):
             body['Sink'] = request.sink_shrink
         if not UtilClient.is_unset(request.source_shrink):
             body['Source'] = request.source_shrink
+        if not UtilClient.is_unset(request.transforms_shrink):
+            body['Transforms'] = request.transforms_shrink
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
