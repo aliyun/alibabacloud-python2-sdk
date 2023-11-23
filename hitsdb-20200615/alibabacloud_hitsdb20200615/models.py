@@ -3268,9 +3268,11 @@ class UntagResourcesResponse(TeaModel):
 
 
 class UpdateInstanceIpWhiteListRequest(TeaModel):
-    def __init__(self, delete=None, instance_id=None, owner_account=None, owner_id=None,
+    def __init__(self, delete=None, group_name=None, instance_id=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_ip_list=None, security_token=None):
         self.delete = delete  # type: bool
+        # The name of the group to which the instance belongs. The group name can contain only letters, digits, and underscores (\_).
+        self.group_name = group_name  # type: str
         # The ID of the instance for which you want to configure a whitelist. You can call the [GetLindormInstanceList](~~426069~~) operation to obtain the ID.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
@@ -3294,6 +3296,8 @@ class UpdateInstanceIpWhiteListRequest(TeaModel):
         result = dict()
         if self.delete is not None:
             result['Delete'] = self.delete
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.owner_account is not None:
@@ -3314,6 +3318,8 @@ class UpdateInstanceIpWhiteListRequest(TeaModel):
         m = m or dict()
         if m.get('Delete') is not None:
             self.delete = m.get('Delete')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('OwnerAccount') is not None:
