@@ -2890,15 +2890,25 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_trademark_model_esp_detail_with_options(request, runtime)
 
-    def query_trademark_model_esp_list_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def query_trademark_model_esp_list_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = trademark_20180724_models.QueryTrademarkModelEspListShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.exist_status):
+            request.exist_status_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.exist_status, 'ExistStatus', 'json')
         query = {}
+        if not UtilClient.is_unset(request.additional_submit_status):
+            query['AdditionalSubmitStatus'] = request.additional_submit_status
+        if not UtilClient.is_unset(request.additional_submit_time):
+            query['AdditionalSubmitTime'] = request.additional_submit_time
         if not UtilClient.is_unset(request.biz_id):
             query['BizId'] = request.biz_id
         if not UtilClient.is_unset(request.biz_type):
             query['BizType'] = request.biz_type
         if not UtilClient.is_unset(request.env):
             query['Env'] = request.env
+        if not UtilClient.is_unset(request.exist_status_shrink):
+            query['ExistStatus'] = request.exist_status_shrink
         if not UtilClient.is_unset(request.order_id):
             query['OrderId'] = request.order_id
         if not UtilClient.is_unset(request.order_ids_str):
@@ -4221,6 +4231,8 @@ class Client(OpenApiClient):
             query['BizType'] = request.biz_type
         if not UtilClient.is_unset(request.ext_map):
             query['ExtMap'] = request.ext_map
+        if not UtilClient.is_unset(request.operate_type):
+            query['OperateType'] = request.operate_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
