@@ -3893,14 +3893,14 @@ class CreateDBInstanceRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         # The key of the tag that you want to add to the instance. You can use this parameter to add tags to the instance.
         # 
-        # *   If the specified tag key is an existing key, the system directly adds the tag key to the instance. You can call the [ListTagResources](~~610627~~) operation to query the details of the existing tags.
+        # *   If the specified tag key is an existing key, the system directly adds the tag key to the instance. You can call the ListTagResources operation to query the details of the existing tags.
         # *   If the specified tag key is not an existing key, the system creates the tag key and adds the tag key to the instance.
         # *   A tag key cannot be an empty string.
         # *   This parameter must be used together with the **Tag.Value** parameter.
         self.key = key  # type: str
         # The tag value that is associated with the specified tag key. You can use this parameter to add tags to the instance.
         # 
-        # *   If the specified tag value is found in the specified tag key, the system directly adds the tag value to the instance. You can call the [ListTagResources](~~610627~~) operation to query the details of the existing tags.
+        # *   If the specified tag value is found in the specified tag key, the system directly adds the tag value to the instance. You can call the ListTagResources operation to query the details of the existing tags.
         # *   If the specified tag value is not found in the specified tag key, the system creates the tag value and adds the tag value to the instance.
         # *   This parameter must be used together with the **Tag.Key** parameter.
         self.value = value  # type: str
@@ -3947,7 +3947,7 @@ class CreateDBInstanceRequest(TeaModel):
         # Valid values: **1** to **20**. Default value: **1**.
         # 
         # > *   If you want to create multiple ApsaraDB RDS for MySQL instances at a time by using a single request, you can add tags to all the instances by using the **Tag.Key** parameter and the **Tag.Value** parameter. After the instances are created, you can manage the instances based on the tags.
-        # > *   After you submit a request to create multiple ApsaraDB RDS for MySQL instances, this operation returns **TaskId**, **RequestId**, and **Message**. You can call the [DescribeDBInstanceAttribute](~~610394~~) operation to query the details of an instance.
+        # > *   After you submit a request to create multiple ApsaraDB RDS for MySQL instances, this operation returns **TaskId**, **RequestId**, and **Message**. You can call the DescribeDBInstanceAttribute operation to query the details of an instance.
         # > *   If the value of the **Engine** parameter is not **MySQL** and the value of the Amount parameter is greater than **1**, this operation fails and returns an error code `InvalidParam.Engine`.
         self.amount = amount  # type: int
         # Specifies whether to automatically complete the payment. Default value: true. Valid values:
@@ -4060,9 +4060,9 @@ class CreateDBInstanceRequest(TeaModel):
         # *   **true**: Table names are not case-sensitive. This is the default value.
         # *   **false**: Table names are case-sensitive.
         self.dbis_ignore_case = dbis_ignore_case  # type: str
-        # The ID of the parameter template. You can call the [DescribeParameterGroups](~~610588~~) operation to query the ID of the parameter template.
+        # The ID of the parameter template. You can call the DescribeParameterGroups operation to query the ID of the parameter template.
         # 
-        # > : This parameter is available if you want to create an instance that runs MySQL or PostgreSQL . If you do not configure this parameter, the default parameter template is used. If you want to use a custom parameter template, you can customize a parameter template and set this parameter to the ID of the custom template. For more information, see [Create a parameter template](~~610585~~).
+        # > : This parameter is available if you want to create an instance that runs MySQL or PostgreSQL . If you do not configure this parameter, the default parameter template is used. If you want to use a custom parameter template, you can customize a parameter template and set this parameter to the ID of the custom template.
         self.dbparam_group_id = dbparam_group_id  # type: str
         # The time zone of the instance. This parameter takes effect only when you set the **Engine** parameter to **MySQL** or **PostgreSQL**.
         # 
@@ -4083,8 +4083,8 @@ class CreateDBInstanceRequest(TeaModel):
         # 
         # If you create the instance in a dedicated cluster, you must specify this parameter.
         # 
-        # *   You can call the [DescribeDedicatedHostGroups](~~610640~~) operation to query the details of a dedicated cluster.
-        # *   If no dedicated clusters are created, you can call the [CreateDedicatedHostGroup](~~209828~~) operation to create a dedicated cluster.
+        # *   You can call the DescribeDedicatedHostGroups operation to query the details of a dedicated cluster.
+        # *   If no dedicated clusters are created, you can call the CreateDedicatedHostGroup operation to create a dedicated cluster.
         self.dedicated_host_group_id = dedicated_host_group_id  # type: str
         # Specifies whether to enable the release protection feature for the instance. This feature is available only for pay-as-you-go instances. Valid values:
         # 
@@ -4172,12 +4172,12 @@ class CreateDBInstanceRequest(TeaModel):
         self.port = port  # type: str
         # The private IP address of the instance. The private IP address must be within the CIDR block that is supported by the specified vSwitch. ApsaraDB RDS automatically assigns a private IP address to the instance based on the values of the **VPCId** and **vSwitchId** parameters.
         self.private_ip_address = private_ip_address  # type: str
-        # The region ID. You can call the [DescribeRegions](~~610399~~) operation to query the most recent region list.
+        # The region ID. You can call the DescribeRegions operation to query the most recent region list.
         self.region_id = region_id  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The Alibaba Cloud Resource Name (ARN) that is provided by your Alibaba Cloud account for RAM users. RAM users can use the ARN to connect ApsaraDB RDS to KMS. You can call the [CheckCloudResourceAuthorized](~~610408~~) operation to query the ARN.
+        # The Alibaba Cloud Resource Name (ARN) that is provided by your Alibaba Cloud account for RAM users. RAM users can use the ARN to connect ApsaraDB RDS to KMS. You can call the CheckCloudResourceAuthorized operation to query the ARN.
         self.role_arn = role_arn  # type: str
         # The IP address whitelist of the instance. For more information, see [Use a database client or the CLI to connect to an ApsaraDB RDS for MySQL instance](~~43185~~). If the IP address whitelist contains more than one entry, separate the entries with commas (,). Each entry must be unique. The IP address whitelist can contain up to 1,000 entries. The entries in the IP address whitelist must be in one of the following formats:
         # 
@@ -4193,7 +4193,7 @@ class CreateDBInstanceRequest(TeaModel):
         # *   **Enable**\
         # *   **Disable** (default)
         # 
-        # >  After the instance is created, you can call the [ModifyDasInstanceConfig](~~610391~~) operation to adjust the settings of automatic storage expansion for the instance. For more information, see [Configure automatic storage expansion for an ApsaraDB RDS for MySQL instance](~~173826~~).
+        # >  After the instance is created, you can call the ModifyDasInstanceConfig operation to adjust the settings of automatic storage expansion for the instance. For more information, see [Configure automatic storage expansion for an ApsaraDB RDS for MySQL instance](~~173826~~).
         self.storage_auto_scale = storage_auto_scale  # type: str
         # The threshold in percentage based on which automatic storage expansion is triggered.
         # 
@@ -4218,22 +4218,22 @@ class CreateDBInstanceRequest(TeaModel):
         # 
         # If you want to create an instance that runs RDS Enterprise Edition in a dedicated cluster, you must specify this parameter. If you do not specify this parameter, the system automatically assigns a host.
         # 
-        # *   You can call the [DescribeDedicatedHosts](~~610641~~) operation to query the details of the hosts in a dedicated cluster.
-        # *   If no hosts are created, you can call the [CreateDedicatedHost](~~210864~~) operation to create a host.
+        # *   You can call the DescribeDedicatedHosts operation to query the details of the hosts in a dedicated cluster.
+        # *   If no hosts are created, you can call the CreateDedicatedHost operation to create a host.
         self.target_dedicated_host_id_for_log = target_dedicated_host_id_for_log  # type: str
         # The ID of the host to which the instance belongs in the specified dedicated cluster.
         # 
         # If you create the instance in a dedicated cluster, you must specify this parameter. If you do not specify this parameter, the system automatically assigns a host.
         # 
-        # *   You can call the [DescribeDedicatedHost](~~610641~~) operation to query the details about the hosts in a dedicated cluster.
-        # *   If no hosts are created, you can call the [CreateDedicatedHost](~~210864~~) operation to create a host.
+        # *   You can call the DescribeDedicatedHost operation to query the details about the hosts in a dedicated cluster.
+        # *   If no hosts are created, you can call the CreateDedicatedHost operation to create a host.
         self.target_dedicated_host_id_for_master = target_dedicated_host_id_for_master  # type: str
         # The ID of the host to which the secondary instance belongs in the specified dedicated cluster.
         # 
         # If you want to create an instance that runs RDS High-availability Edition or RDS Enterprise Edition in a dedicated cluster, you must specify this parameter. If you do not specify this parameter, the system automatically assigns a host.
         # 
-        # *   You can call the [DescribeDedicatedHosts](~~610641~~) operation to query the details of the hosts in a dedicated cluster.
-        # *   If no hosts are created, you can call the [CreateDedicatedHost](~~210864~~) operation to create a host.
+        # *   You can call the DescribeDedicatedHosts operation to query the details of the hosts in a dedicated cluster.
+        # *   If no hosts are created, you can call the CreateDedicatedHost operation to create a host.
         self.target_dedicated_host_id_for_slave = target_dedicated_host_id_for_slave  # type: str
         # The minor engine version of the instance. This parameter is required only when you create an instance that runs MySQL or PostgreSQL. The value format varies based on the database engine of the instance.
         # 
@@ -4245,12 +4245,12 @@ class CreateDBInstanceRequest(TeaModel):
         # 
         #     **\
         # 
-        #     **Note** You can call the [DescribeDBMiniEngineVersions](~~610643~~) operation to query the minor engine version. For more information about minor engine versions, see [Release notes of minor AliSQL versions](~~96060~~).
+        #     **Note** You can call the DescribeDBMiniEngineVersions operation to query the minor engine version. For more information about minor engine versions, see [Release notes of minor AliSQL versions](~~96060~~).
         # 
         # *   If you create an instance that runs PostgreSQL, the value is in the following format: `rds_postgres_<Major engine version>00_<Minor engine version>`. Example: `rds_postgres_1400_20220830`. The following list describes the fields in the example values:
         # 
         #     *   1400: The major engine version is PostgreSQL 14.
-        #     *   20220830: the AliPG version. You can call the [DescribeDBMiniEngineVersions](~~610643~~) operation to query the AliPG version. For more information about minor engine versions, see [Release notes for AliPG](~~126002~~).
+        #     *   20220830: the AliPG version. You can call the DescribeDBMiniEngineVersions operation to query the AliPG version. For more information about minor engine versions, see [Release notes for AliPG](~~126002~~).
         # 
         #     **\
         # 
@@ -4263,7 +4263,7 @@ class CreateDBInstanceRequest(TeaModel):
         # 
         # >  If you set the PayType parameter to **Prepaid**, you must specify the UsedTime parameter.
         self.used_time = used_time  # type: str
-        # The ID of the backup file. You can call the [ListUserBackupFiles](~~610600~~) operation to query backup files. If you want to create an instance by using the data of a backup file, you must specify this parameter.
+        # The ID of the backup file. You can call the ListUserBackupFiles operation to query backup files. If you want to create an instance by using the data of a backup file, you must specify this parameter.
         # 
         # This parameter is supported only when the following requirements are met:
         # 
@@ -4540,14 +4540,14 @@ class CreateDBInstanceShrinkRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         # The key of the tag that you want to add to the instance. You can use this parameter to add tags to the instance.
         # 
-        # *   If the specified tag key is an existing key, the system directly adds the tag key to the instance. You can call the [ListTagResources](~~610627~~) operation to query the details of the existing tags.
+        # *   If the specified tag key is an existing key, the system directly adds the tag key to the instance. You can call the ListTagResources operation to query the details of the existing tags.
         # *   If the specified tag key is not an existing key, the system creates the tag key and adds the tag key to the instance.
         # *   A tag key cannot be an empty string.
         # *   This parameter must be used together with the **Tag.Value** parameter.
         self.key = key  # type: str
         # The tag value that is associated with the specified tag key. You can use this parameter to add tags to the instance.
         # 
-        # *   If the specified tag value is found in the specified tag key, the system directly adds the tag value to the instance. You can call the [ListTagResources](~~610627~~) operation to query the details of the existing tags.
+        # *   If the specified tag value is found in the specified tag key, the system directly adds the tag value to the instance. You can call the ListTagResources operation to query the details of the existing tags.
         # *   If the specified tag value is not found in the specified tag key, the system creates the tag value and adds the tag value to the instance.
         # *   This parameter must be used together with the **Tag.Key** parameter.
         self.value = value  # type: str
@@ -4594,7 +4594,7 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # Valid values: **1** to **20**. Default value: **1**.
         # 
         # > *   If you want to create multiple ApsaraDB RDS for MySQL instances at a time by using a single request, you can add tags to all the instances by using the **Tag.Key** parameter and the **Tag.Value** parameter. After the instances are created, you can manage the instances based on the tags.
-        # > *   After you submit a request to create multiple ApsaraDB RDS for MySQL instances, this operation returns **TaskId**, **RequestId**, and **Message**. You can call the [DescribeDBInstanceAttribute](~~610394~~) operation to query the details of an instance.
+        # > *   After you submit a request to create multiple ApsaraDB RDS for MySQL instances, this operation returns **TaskId**, **RequestId**, and **Message**. You can call the DescribeDBInstanceAttribute operation to query the details of an instance.
         # > *   If the value of the **Engine** parameter is not **MySQL** and the value of the Amount parameter is greater than **1**, this operation fails and returns an error code `InvalidParam.Engine`.
         self.amount = amount  # type: int
         # Specifies whether to automatically complete the payment. Default value: true. Valid values:
@@ -4707,9 +4707,9 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # *   **true**: Table names are not case-sensitive. This is the default value.
         # *   **false**: Table names are case-sensitive.
         self.dbis_ignore_case = dbis_ignore_case  # type: str
-        # The ID of the parameter template. You can call the [DescribeParameterGroups](~~610588~~) operation to query the ID of the parameter template.
+        # The ID of the parameter template. You can call the DescribeParameterGroups operation to query the ID of the parameter template.
         # 
-        # > : This parameter is available if you want to create an instance that runs MySQL or PostgreSQL . If you do not configure this parameter, the default parameter template is used. If you want to use a custom parameter template, you can customize a parameter template and set this parameter to the ID of the custom template. For more information, see [Create a parameter template](~~610585~~).
+        # > : This parameter is available if you want to create an instance that runs MySQL or PostgreSQL . If you do not configure this parameter, the default parameter template is used. If you want to use a custom parameter template, you can customize a parameter template and set this parameter to the ID of the custom template.
         self.dbparam_group_id = dbparam_group_id  # type: str
         # The time zone of the instance. This parameter takes effect only when you set the **Engine** parameter to **MySQL** or **PostgreSQL**.
         # 
@@ -4730,8 +4730,8 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # 
         # If you create the instance in a dedicated cluster, you must specify this parameter.
         # 
-        # *   You can call the [DescribeDedicatedHostGroups](~~610640~~) operation to query the details of a dedicated cluster.
-        # *   If no dedicated clusters are created, you can call the [CreateDedicatedHostGroup](~~209828~~) operation to create a dedicated cluster.
+        # *   You can call the DescribeDedicatedHostGroups operation to query the details of a dedicated cluster.
+        # *   If no dedicated clusters are created, you can call the CreateDedicatedHostGroup operation to create a dedicated cluster.
         self.dedicated_host_group_id = dedicated_host_group_id  # type: str
         # Specifies whether to enable the release protection feature for the instance. This feature is available only for pay-as-you-go instances. Valid values:
         # 
@@ -4819,12 +4819,12 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         self.port = port  # type: str
         # The private IP address of the instance. The private IP address must be within the CIDR block that is supported by the specified vSwitch. ApsaraDB RDS automatically assigns a private IP address to the instance based on the values of the **VPCId** and **vSwitchId** parameters.
         self.private_ip_address = private_ip_address  # type: str
-        # The region ID. You can call the [DescribeRegions](~~610399~~) operation to query the most recent region list.
+        # The region ID. You can call the DescribeRegions operation to query the most recent region list.
         self.region_id = region_id  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The Alibaba Cloud Resource Name (ARN) that is provided by your Alibaba Cloud account for RAM users. RAM users can use the ARN to connect ApsaraDB RDS to KMS. You can call the [CheckCloudResourceAuthorized](~~610408~~) operation to query the ARN.
+        # The Alibaba Cloud Resource Name (ARN) that is provided by your Alibaba Cloud account for RAM users. RAM users can use the ARN to connect ApsaraDB RDS to KMS. You can call the CheckCloudResourceAuthorized operation to query the ARN.
         self.role_arn = role_arn  # type: str
         # The IP address whitelist of the instance. For more information, see [Use a database client or the CLI to connect to an ApsaraDB RDS for MySQL instance](~~43185~~). If the IP address whitelist contains more than one entry, separate the entries with commas (,). Each entry must be unique. The IP address whitelist can contain up to 1,000 entries. The entries in the IP address whitelist must be in one of the following formats:
         # 
@@ -4840,7 +4840,7 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # *   **Enable**\
         # *   **Disable** (default)
         # 
-        # >  After the instance is created, you can call the [ModifyDasInstanceConfig](~~610391~~) operation to adjust the settings of automatic storage expansion for the instance. For more information, see [Configure automatic storage expansion for an ApsaraDB RDS for MySQL instance](~~173826~~).
+        # >  After the instance is created, you can call the ModifyDasInstanceConfig operation to adjust the settings of automatic storage expansion for the instance. For more information, see [Configure automatic storage expansion for an ApsaraDB RDS for MySQL instance](~~173826~~).
         self.storage_auto_scale = storage_auto_scale  # type: str
         # The threshold in percentage based on which automatic storage expansion is triggered.
         # 
@@ -4865,22 +4865,22 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # 
         # If you want to create an instance that runs RDS Enterprise Edition in a dedicated cluster, you must specify this parameter. If you do not specify this parameter, the system automatically assigns a host.
         # 
-        # *   You can call the [DescribeDedicatedHosts](~~610641~~) operation to query the details of the hosts in a dedicated cluster.
-        # *   If no hosts are created, you can call the [CreateDedicatedHost](~~210864~~) operation to create a host.
+        # *   You can call the DescribeDedicatedHosts operation to query the details of the hosts in a dedicated cluster.
+        # *   If no hosts are created, you can call the CreateDedicatedHost operation to create a host.
         self.target_dedicated_host_id_for_log = target_dedicated_host_id_for_log  # type: str
         # The ID of the host to which the instance belongs in the specified dedicated cluster.
         # 
         # If you create the instance in a dedicated cluster, you must specify this parameter. If you do not specify this parameter, the system automatically assigns a host.
         # 
-        # *   You can call the [DescribeDedicatedHost](~~610641~~) operation to query the details about the hosts in a dedicated cluster.
-        # *   If no hosts are created, you can call the [CreateDedicatedHost](~~210864~~) operation to create a host.
+        # *   You can call the DescribeDedicatedHost operation to query the details about the hosts in a dedicated cluster.
+        # *   If no hosts are created, you can call the CreateDedicatedHost operation to create a host.
         self.target_dedicated_host_id_for_master = target_dedicated_host_id_for_master  # type: str
         # The ID of the host to which the secondary instance belongs in the specified dedicated cluster.
         # 
         # If you want to create an instance that runs RDS High-availability Edition or RDS Enterprise Edition in a dedicated cluster, you must specify this parameter. If you do not specify this parameter, the system automatically assigns a host.
         # 
-        # *   You can call the [DescribeDedicatedHosts](~~610641~~) operation to query the details of the hosts in a dedicated cluster.
-        # *   If no hosts are created, you can call the [CreateDedicatedHost](~~210864~~) operation to create a host.
+        # *   You can call the DescribeDedicatedHosts operation to query the details of the hosts in a dedicated cluster.
+        # *   If no hosts are created, you can call the CreateDedicatedHost operation to create a host.
         self.target_dedicated_host_id_for_slave = target_dedicated_host_id_for_slave  # type: str
         # The minor engine version of the instance. This parameter is required only when you create an instance that runs MySQL or PostgreSQL. The value format varies based on the database engine of the instance.
         # 
@@ -4892,12 +4892,12 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # 
         #     **\
         # 
-        #     **Note** You can call the [DescribeDBMiniEngineVersions](~~610643~~) operation to query the minor engine version. For more information about minor engine versions, see [Release notes of minor AliSQL versions](~~96060~~).
+        #     **Note** You can call the DescribeDBMiniEngineVersions operation to query the minor engine version. For more information about minor engine versions, see [Release notes of minor AliSQL versions](~~96060~~).
         # 
         # *   If you create an instance that runs PostgreSQL, the value is in the following format: `rds_postgres_<Major engine version>00_<Minor engine version>`. Example: `rds_postgres_1400_20220830`. The following list describes the fields in the example values:
         # 
         #     *   1400: The major engine version is PostgreSQL 14.
-        #     *   20220830: the AliPG version. You can call the [DescribeDBMiniEngineVersions](~~610643~~) operation to query the AliPG version. For more information about minor engine versions, see [Release notes for AliPG](~~126002~~).
+        #     *   20220830: the AliPG version. You can call the DescribeDBMiniEngineVersions operation to query the AliPG version. For more information about minor engine versions, see [Release notes for AliPG](~~126002~~).
         # 
         #     **\
         # 
@@ -4910,7 +4910,7 @@ class CreateDBInstanceShrinkRequest(TeaModel):
         # 
         # >  If you set the PayType parameter to **Prepaid**, you must specify the UsedTime parameter.
         self.used_time = used_time  # type: str
-        # The ID of the backup file. You can call the [ListUserBackupFiles](~~610600~~) operation to query backup files. If you want to create an instance by using the data of a backup file, you must specify this parameter.
+        # The ID of the backup file. You can call the ListUserBackupFiles operation to query backup files. If you want to create an instance by using the data of a backup file, you must specify this parameter.
         # 
         # This parameter is supported only when the following requirements are met:
         # 
@@ -12027,7 +12027,7 @@ class DeleteSecretRequest(TeaModel):
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None, secret_arn=None, secret_name=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
-        # The ID of the instance. You can call the [DescribeDBInstances](~~26232~~) operation to query the ID of the instance.
+        # The ID of the instance. You can call the **DescribeDBInstances** operation to query the ID of the instance.
         # 
         # > If you specify this parameter, you must also specify **SecretName**.
         self.db_instance_id = db_instance_id  # type: str
@@ -12036,23 +12036,20 @@ class DeleteSecretRequest(TeaModel):
         # > Only MySQL is supported.
         self.engine = engine  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance. You can call the [DescribeRegions](~~446624~~) operation to query the most recent region list.
+        # The region ID of the instance. You can call the **DescribeRegions** operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The ID of the resource group. You can call the [DescribeDBInstanceAttribute](~~610394~~) operation to obtain the ID of the resource group.
+        # The ID of the resource group. You can call the **DescribeDBInstanceAttribute** operation to obtain the ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The Alibaba Cloud Resource Name (ARN) of the credential for the created Data API account. You can call the [CreateSecret](~~446607~~) operation to obtain the value of this parameter.
+        # The Alibaba Cloud Resource Name (ARN) of the credential for the created Data API account. You can call the **CreateSecret** operation to obtain the value of this parameter.
         # 
         # > You must specify one of **SecretName** and SecretArn.
         self.secret_arn = secret_arn  # type: str
         # The name of the credential.
         # 
-        # > 
-        # 
-        # *   You must specify one of **SecretArn** and SecretName.
-        # 
-        # *   If you specify this parameter, you must also specify **DbInstanceId**.
+        # > *   You must specify one of **SecretArn** and SecretName.
+        # > *   If you specify this parameter, you must also specify **DbInstanceId**.
         self.secret_name = secret_name  # type: str
 
     def validate(self):
@@ -40108,7 +40105,7 @@ class DescribeRegionsResponseBodyRegionsRDSRegion(TeaModel):
     def __init__(self, local_name=None, region_endpoint=None, region_id=None, zone_id=None, zone_name=None):
         # The name of the region. The return value of the LocalName parameter is in the language that is specified by the **AcceptLanguage** parameter. For example, if the value of the RegionId parameter in the response is cn-hangzhou, the following values are returned for the LocalName parameter:
         # 
-        # *   If the value of the **AcceptLanguage** parameter is **zh-CN**, the value 华东1（杭州） is returned for the LocalName parameter.
+        # *   If the value of the **AcceptLanguage** parameter is **zh-CN**, the value China (Hangzhou)  is returned for the LocalName parameter.
         # *   If the value of the **AcceptLanguage** parameter is **en-US**, the value China (Hangzhou) is returned for the LocalName parameter.
         self.local_name = local_name  # type: str
         # The endpoint that is used to connect to Alibaba Cloud services in the region. For more information, see [Request structure](~~26223~~).
@@ -40119,7 +40116,7 @@ class DescribeRegionsResponseBodyRegionsRDSRegion(TeaModel):
         self.zone_id = zone_id  # type: str
         # The name of the zone. The return value of the ZoneName parameter is in the language that is specified by the **AcceptLanguage** parameter. For example, if the value of the RegionId parameter in the response is cn-hangzhou-h, the following values are returned for the LocalName parameter:
         # 
-        # *   If the value of the **AcceptLanguage** parameter is **zh-CN**, the value 杭州 可用区H is returned for the LocalName parameter.
+        # *   If the value of the **AcceptLanguage** parameter is **zh-CN**, the value Hangzhou Zone H is returned for the LocalName parameter.
         # *   If the value of the **AcceptLanguage** parameter is **en-US**, the value Hangzhou Zone H is returned for the LocalName parameter.
         self.zone_name = zone_name  # type: str
 
@@ -54017,8 +54014,8 @@ class ModifyDBNodeRequestDBNode(TeaModel):
 
 class ModifyDBNodeRequest(TeaModel):
     def __init__(self, auto_pay=None, client_token=None, dbinstance_id=None, dbinstance_storage=None,
-                 dbinstance_storage_type=None, dbnode=None, dry_run=None, owner_account=None, owner_id=None, produce_async=None,
-                 resource_owner_account=None, resource_owner_id=None):
+                 dbinstance_storage_type=None, dbnode=None, dry_run=None, effective_time=None, owner_account=None, owner_id=None,
+                 produce_async=None, resource_owner_account=None, resource_owner_id=None):
         # Specifies whether to automatically complete the payment. Valid values:
         # 
         # 1.  **true**: automatically completes the payment. Make sure that your account balance is sufficient.
@@ -54047,6 +54044,7 @@ class ModifyDBNodeRequest(TeaModel):
         # *   **true**: performs a dry run and does not perform the actual request. The system checks items such as the request parameters, request format, service limits, and available resources.
         # *   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, the operation is performed.
         self.dry_run = dry_run  # type: bool
+        self.effective_time = effective_time  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # Specifies whether to asynchronously perform the operation. Valid values:
@@ -54087,6 +54085,8 @@ class ModifyDBNodeRequest(TeaModel):
                 result['DBNode'].append(k.to_map() if k else None)
         if self.dry_run is not None:
             result['DryRun'] = self.dry_run
+        if self.effective_time is not None:
+            result['EffectiveTime'] = self.effective_time
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -54118,6 +54118,8 @@ class ModifyDBNodeRequest(TeaModel):
                 self.dbnode.append(temp_model.from_map(k))
         if m.get('DryRun') is not None:
             self.dry_run = m.get('DryRun')
+        if m.get('EffectiveTime') is not None:
+            self.effective_time = m.get('EffectiveTime')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -54133,8 +54135,8 @@ class ModifyDBNodeRequest(TeaModel):
 
 class ModifyDBNodeShrinkRequest(TeaModel):
     def __init__(self, auto_pay=None, client_token=None, dbinstance_id=None, dbinstance_storage=None,
-                 dbinstance_storage_type=None, dbnode_shrink=None, dry_run=None, owner_account=None, owner_id=None, produce_async=None,
-                 resource_owner_account=None, resource_owner_id=None):
+                 dbinstance_storage_type=None, dbnode_shrink=None, dry_run=None, effective_time=None, owner_account=None, owner_id=None,
+                 produce_async=None, resource_owner_account=None, resource_owner_id=None):
         # Specifies whether to automatically complete the payment. Valid values:
         # 
         # 1.  **true**: automatically completes the payment. Make sure that your account balance is sufficient.
@@ -54163,6 +54165,7 @@ class ModifyDBNodeShrinkRequest(TeaModel):
         # *   **true**: performs a dry run and does not perform the actual request. The system checks items such as the request parameters, request format, service limits, and available resources.
         # *   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, the operation is performed.
         self.dry_run = dry_run  # type: bool
+        self.effective_time = effective_time  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # Specifies whether to asynchronously perform the operation. Valid values:
@@ -54198,6 +54201,8 @@ class ModifyDBNodeShrinkRequest(TeaModel):
             result['DBNode'] = self.dbnode_shrink
         if self.dry_run is not None:
             result['DryRun'] = self.dry_run
+        if self.effective_time is not None:
+            result['EffectiveTime'] = self.effective_time
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -54226,6 +54231,8 @@ class ModifyDBNodeShrinkRequest(TeaModel):
             self.dbnode_shrink = m.get('DBNode')
         if m.get('DryRun') is not None:
             self.dry_run = m.get('DryRun')
+        if m.get('EffectiveTime') is not None:
+            self.effective_time = m.get('EffectiveTime')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
