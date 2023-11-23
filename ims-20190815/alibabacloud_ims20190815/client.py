@@ -317,6 +317,8 @@ class Client(OpenApiClient):
             query['RedirectUris'] = request.redirect_uris
         if not UtilClient.is_unset(request.refresh_token_validity):
             query['RefreshTokenValidity'] = request.refresh_token_validity
+        if not UtilClient.is_unset(request.required_scopes):
+            query['RequiredScopes'] = request.required_scopes
         if not UtilClient.is_unset(request.secret_required):
             query['SecretRequired'] = request.secret_required
         req = open_api_models.OpenApiRequest(
@@ -412,13 +414,13 @@ class Client(OpenApiClient):
 
     def create_oidcprovider_with_options(self, request, runtime):
         """
-        ### [](#)Prerequisite
-        Before you call this operation, make sure that the information such as the URL of the issuer, the fingerprints of HTTPS certificates, and the client IDs are obtained from an external IdP, such as Google G Suite or Okta.
-        ### [](#)Limits
+        ### Prerequisites
+        Before you call this operation, make sure that the information such as the URL of the issuer, the fingerprints of HTTPS certificates, and the client IDs are obtained from an external (IdP, such as Google G Suite or Okta.
+        ### Limits
         *   You can create a maximum of 100 OIDC IdPs in an Alibaba Cloud account.
         *   You can add a maximum of 20 client IDs to an OIDC IdP.
         *   You can add a maximum of five fingerprints to an OIDC IdP.
-        ### [](#)
+        ###
         This topic provides an example on how to create an IdP named `TestOIDCProvider` to configure a trust relationship between the external IdP and Alibaba Cloud.
         
 
@@ -463,13 +465,13 @@ class Client(OpenApiClient):
 
     def create_oidcprovider(self, request):
         """
-        ### [](#)Prerequisite
-        Before you call this operation, make sure that the information such as the URL of the issuer, the fingerprints of HTTPS certificates, and the client IDs are obtained from an external IdP, such as Google G Suite or Okta.
-        ### [](#)Limits
+        ### Prerequisites
+        Before you call this operation, make sure that the information such as the URL of the issuer, the fingerprints of HTTPS certificates, and the client IDs are obtained from an external (IdP, such as Google G Suite or Okta.
+        ### Limits
         *   You can create a maximum of 100 OIDC IdPs in an Alibaba Cloud account.
         *   You can add a maximum of 20 client IDs to an OIDC IdP.
         *   You can add a maximum of five fingerprints to an OIDC IdP.
-        ### [](#)
+        ###
         This topic provides an example on how to create an IdP named `TestOIDCProvider` to configure a trust relationship between the external IdP and Alibaba Cloud.
         
 
@@ -1822,8 +1824,8 @@ class Client(OpenApiClient):
 
     def list_users_with_options(self, request, runtime):
         """
-        ## Description
-        You can call the following API operations to query the information about all RAM users:
+        ### [](#)
+        You can call the following API operations to query the details of all RAM users:
         *   ListUsers: queries the details of all RAM users.
         *   ListUserBasicInfos: queries the basic information about all RAM users. The basic information includes only the logon names (`UserPrincipalName`), display names (`DisplayName`), and user IDs (`UserId`).
         
@@ -1863,8 +1865,8 @@ class Client(OpenApiClient):
 
     def list_users(self, request):
         """
-        ## Description
-        You can call the following API operations to query the information about all RAM users:
+        ### [](#)
+        You can call the following API operations to query the details of all RAM users:
         *   ListUsers: queries the details of all RAM users.
         *   ListUserBasicInfos: queries the basic information about all RAM users. The basic information includes only the logon names (`UserPrincipalName`), display names (`DisplayName`), and user IDs (`UserId`).
         
@@ -2393,6 +2395,8 @@ class Client(OpenApiClient):
             query['NewRedirectUris'] = request.new_redirect_uris
         if not UtilClient.is_unset(request.new_refresh_token_validity):
             query['NewRefreshTokenValidity'] = request.new_refresh_token_validity
+        if not UtilClient.is_unset(request.new_required_scopes):
+            query['NewRequiredScopes'] = request.new_required_scopes
         if not UtilClient.is_unset(request.new_secret_required):
             query['NewSecretRequired'] = request.new_secret_required
         req = open_api_models.OpenApiRequest(
