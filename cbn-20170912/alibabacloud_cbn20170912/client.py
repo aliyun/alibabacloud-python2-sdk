@@ -2160,19 +2160,19 @@ class Client(OpenApiClient):
 
     def delete_cen_with_options(self, request, runtime):
         """
-        *DeleteCen** is an asynchronous operation. After you send a request, the **request ID** is returned but the operation is still being performed in the system background. You can call **DescribeCens** to query the status of a CEN instance.
-        - If a CEN instance is in the **Deleting** state, the CEN instance is being deleted. In this case, you can query the CEN instance but cannot perform other operations.
-        - If a CEN instance cannot be found, the CEN instance is deleted.
-        ## Prerequisites
+        *DeleteCen** is an asynchronous operation. After a request is sent, the system returns a **request ID** and runs the task in the background. You can call the **DescribeCens** operation to query the status of a CEN instance.
+        *   If a CEN instance is in the **Deleting** state, the CEN instance is being deleted. In this case, you can query the CEN instance but cannot perform other operations.
+        *   If a CEN instance cannot be found, the CEN instance is deleted.
+        #### Prerequisites
         The CEN instance that you want to delete is not associated with a bandwidth plan, and the transit router associated with the CEN instance does not have a network instance connection or a custom route table.
-        - For more information about how to detach a network instance, see the following topics:
-        - [DeleteTransitRouterVpcAttachment](~~468238~~)
-        - [DeleteTransitRouterVbrAttachment](~~468244~~)
-        - [DeleteTransitRouterVpnAttachment](~~468251~~)
-        - [DeleteTransitRouterPeerAttachment](~~468271~~)
-        >  For more information about how to detach network instances from a Basic Edition transit router, see [DetachCenChildInstance](~~468685~~).
-        - For more information about how to delete a custom route table, see [DeleteTransitRouterRouteTable](~~468285~~).
-        - For more information about how to disassociate a bandwidth plan from a CEN instance, see [UnassociateCenBandwidthPackage](~~468506~~).
+        *   For more information about how to detach a network instance, see the following topics:
+        *   [DeleteTransitRouterVpcAttachment](~~261220~~)
+        *   [DeleteTransitRouterVbrAttachment](~~261223~~)
+        *   [DeleteTransitRouterVpnAttachment](~~443992~~)
+        *   [DeleteTransitRouterPeerAttachment](~~261227~~)
+        >For more information about how to detach network instances from a Basic Edition transit router, see [DetachCenChildInstance](~~65915~~).
+        *   For more information about how to delete a custom route table, see [DeleteTransitRouterRouteTable](~~261235~~).
+        *   For more information about how to disassociate a bandwidth plan from a CEN instance, see [UnassociateCenBandwidthPackage](~~65935~~).
         
 
         @param request: DeleteCenRequest
@@ -2214,19 +2214,19 @@ class Client(OpenApiClient):
 
     def delete_cen(self, request):
         """
-        *DeleteCen** is an asynchronous operation. After you send a request, the **request ID** is returned but the operation is still being performed in the system background. You can call **DescribeCens** to query the status of a CEN instance.
-        - If a CEN instance is in the **Deleting** state, the CEN instance is being deleted. In this case, you can query the CEN instance but cannot perform other operations.
-        - If a CEN instance cannot be found, the CEN instance is deleted.
-        ## Prerequisites
+        *DeleteCen** is an asynchronous operation. After a request is sent, the system returns a **request ID** and runs the task in the background. You can call the **DescribeCens** operation to query the status of a CEN instance.
+        *   If a CEN instance is in the **Deleting** state, the CEN instance is being deleted. In this case, you can query the CEN instance but cannot perform other operations.
+        *   If a CEN instance cannot be found, the CEN instance is deleted.
+        #### Prerequisites
         The CEN instance that you want to delete is not associated with a bandwidth plan, and the transit router associated with the CEN instance does not have a network instance connection or a custom route table.
-        - For more information about how to detach a network instance, see the following topics:
-        - [DeleteTransitRouterVpcAttachment](~~468238~~)
-        - [DeleteTransitRouterVbrAttachment](~~468244~~)
-        - [DeleteTransitRouterVpnAttachment](~~468251~~)
-        - [DeleteTransitRouterPeerAttachment](~~468271~~)
-        >  For more information about how to detach network instances from a Basic Edition transit router, see [DetachCenChildInstance](~~468685~~).
-        - For more information about how to delete a custom route table, see [DeleteTransitRouterRouteTable](~~468285~~).
-        - For more information about how to disassociate a bandwidth plan from a CEN instance, see [UnassociateCenBandwidthPackage](~~468506~~).
+        *   For more information about how to detach a network instance, see the following topics:
+        *   [DeleteTransitRouterVpcAttachment](~~261220~~)
+        *   [DeleteTransitRouterVbrAttachment](~~261223~~)
+        *   [DeleteTransitRouterVpnAttachment](~~443992~~)
+        *   [DeleteTransitRouterPeerAttachment](~~261227~~)
+        >For more information about how to detach network instances from a Basic Edition transit router, see [DetachCenChildInstance](~~65915~~).
+        *   For more information about how to delete a custom route table, see [DeleteTransitRouterRouteTable](~~261235~~).
+        *   For more information about how to disassociate a bandwidth plan from a CEN instance, see [UnassociateCenBandwidthPackage](~~65935~~).
         
 
         @param request: DeleteCenRequest
@@ -2414,7 +2414,10 @@ class Client(OpenApiClient):
 
     def delete_cen_inter_region_traffic_qos_policy_with_options(self, request, runtime):
         """
-        The ID of the request.
+        Before you delete a QoS policy, you must delete all queues in the QoS policy except the default queue. For more information, see [DeleteCenInterRegionTrafficQosQueue](~~419062~~).
+        *   **DeleteCenInterRegionTrafficQosPolicy** is an asynchronous operation. After you send a request, the system returns a **request ID** and runs the task in the background. You can call the **ListCenInterRegionTrafficQosPolicies** operation to query the status of a QoS policy.
+        *   If a QoS policy is in the **Deleting** state, the QoS policy is being deleted. You can query the QoS policy but cannot perform other operations.
+        *   If a QoS policy cannot be found, the QoS policy is deleted.
         
 
         @param request: DeleteCenInterRegionTrafficQosPolicyRequest
@@ -2460,7 +2463,10 @@ class Client(OpenApiClient):
 
     def delete_cen_inter_region_traffic_qos_policy(self, request):
         """
-        The ID of the request.
+        Before you delete a QoS policy, you must delete all queues in the QoS policy except the default queue. For more information, see [DeleteCenInterRegionTrafficQosQueue](~~419062~~).
+        *   **DeleteCenInterRegionTrafficQosPolicy** is an asynchronous operation. After you send a request, the system returns a **request ID** and runs the task in the background. You can call the **ListCenInterRegionTrafficQosPolicies** operation to query the status of a QoS policy.
+        *   If a QoS policy is in the **Deleting** state, the QoS policy is being deleted. You can query the QoS policy but cannot perform other operations.
+        *   If a QoS policy cannot be found, the QoS policy is deleted.
         
 
         @param request: DeleteCenInterRegionTrafficQosPolicyRequest
@@ -2472,7 +2478,8 @@ class Client(OpenApiClient):
 
     def delete_cen_inter_region_traffic_qos_queue_with_options(self, request, runtime):
         """
-        The ID of the request.
+        You cannot delete the default queue.
+        *   **DeleteCenInterRegionTrafficQosQueue** is an asynchronous operation. After you send a request, the system returns a **request ID** and runs the task in the background. You can call the **ListCenInterRegionTrafficQosPolicies** operation to query the status of a queue. If a queue cannot be found, the queue is deleted.
         
 
         @param request: DeleteCenInterRegionTrafficQosQueueRequest
@@ -2518,7 +2525,8 @@ class Client(OpenApiClient):
 
     def delete_cen_inter_region_traffic_qos_queue(self, request):
         """
-        The ID of the request.
+        You cannot delete the default queue.
+        *   **DeleteCenInterRegionTrafficQosQueue** is an asynchronous operation. After you send a request, the system returns a **request ID** and runs the task in the background. You can call the **ListCenInterRegionTrafficQosPolicies** operation to query the status of a queue. If a queue cannot be found, the queue is deleted.
         
 
         @param request: DeleteCenInterRegionTrafficQosQueueRequest
@@ -2592,7 +2600,9 @@ class Client(OpenApiClient):
 
     def delete_flowlog_with_options(self, request, runtime):
         """
-        The response.
+        `DeleteFlowlog` is an asynchronous operation. After you send a request, the system returns a *request ID** and runs the task in the background. You can call the `DescribeFlowlogs` operation to query the status of a flow log.
+        *   If a flow log is in the **Deleting** state, the flow log is being deleted. In this case, you can query the flow log but cannot perform other operations.
+        *   If a flow log cannot be found, the flow log is deleted.
         
 
         @param request: DeleteFlowlogRequest
@@ -2640,7 +2650,9 @@ class Client(OpenApiClient):
 
     def delete_flowlog(self, request):
         """
-        The response.
+        `DeleteFlowlog` is an asynchronous operation. After you send a request, the system returns a *request ID** and runs the task in the background. You can call the `DescribeFlowlogs` operation to query the status of a flow log.
+        *   If a flow log is in the **Deleting** state, the flow log is being deleted. In this case, you can query the flow log but cannot perform other operations.
+        *   If a flow log cannot be found, the flow log is deleted.
         
 
         @param request: DeleteFlowlogRequest
@@ -2824,7 +2836,19 @@ class Client(OpenApiClient):
 
     def delete_transit_router_with_options(self, request, runtime):
         """
-        The ID of the request.
+        *DeleteTransitRouter** is an asynchronous operation. After you send a request, the **request ID** is returned but the operation is still being performed in the system background. You can call **ListTransitRouters** to query the status of a transit router.
+        *   If a transit router is in the **Deleting** state, the transit router is being deleted. In this case, you can query the transit router but cannot perform other operations.
+        *   If a transit router cannot be found, the transit router is deleted.
+        #### Prerequisites
+        Before you delete a transit router, make sure that the following prerequisites are met:
+        - No network instance connections are created on the transit router.
+        
+        - For more information about how to delete a virtual private cloud (VPC) connection, see [DeleteTransitRouterVpcAttachment](~~261220~~).
+        - For more information about how to delete a virtual border router (VBR) connection, see [DeleteTransitRouterVbrAttachment](~~261223~~).
+        - For more information about how to delete a Cloud Connect Network (CCN) connection, see [DetachCenChildInstance](~~65915~~).
+        - For more information about how to delete a VPN connection, see [DeleteTransitRouterVpnAttachment](~~443992~~).
+        - For more information about how to delete an inter-region connection, see [DeleteTransitRouterPeerAttachment](~~261227~~).
+        - No custom route tables are created on the transit router. For more information about how to delete a custom route table, see [DeleteTransitRouterRouteTable](~~261235~~).
         
 
         @param request: DeleteTransitRouterRequest
@@ -2870,7 +2894,19 @@ class Client(OpenApiClient):
 
     def delete_transit_router(self, request):
         """
-        The ID of the request.
+        *DeleteTransitRouter** is an asynchronous operation. After you send a request, the **request ID** is returned but the operation is still being performed in the system background. You can call **ListTransitRouters** to query the status of a transit router.
+        *   If a transit router is in the **Deleting** state, the transit router is being deleted. In this case, you can query the transit router but cannot perform other operations.
+        *   If a transit router cannot be found, the transit router is deleted.
+        #### Prerequisites
+        Before you delete a transit router, make sure that the following prerequisites are met:
+        - No network instance connections are created on the transit router.
+        
+        - For more information about how to delete a virtual private cloud (VPC) connection, see [DeleteTransitRouterVpcAttachment](~~261220~~).
+        - For more information about how to delete a virtual border router (VBR) connection, see [DeleteTransitRouterVbrAttachment](~~261223~~).
+        - For more information about how to delete a Cloud Connect Network (CCN) connection, see [DetachCenChildInstance](~~65915~~).
+        - For more information about how to delete a VPN connection, see [DeleteTransitRouterVpnAttachment](~~443992~~).
+        - For more information about how to delete an inter-region connection, see [DeleteTransitRouterPeerAttachment](~~261227~~).
+        - No custom route tables are created on the transit router. For more information about how to delete a custom route table, see [DeleteTransitRouterRouteTable](~~261235~~).
         
 
         @param request: DeleteTransitRouterRequest
@@ -3568,9 +3604,9 @@ class Client(OpenApiClient):
 
     def deregister_transit_router_multicast_group_sources_with_options(self, request, runtime):
         """
-        The ID of the multicast source.
-        You can create only one multicast source in a multicast group.
-        >  This parameter is required.
+        `DeregisterTransitRouterMulticastGroupSources` is an asynchronous operation. After you send a request, the system returns a *request ID** and runs the task in the background. You can call the `ListTransitRouterMulticastGroups` operation to query the status of a multicast source.
+        *   If a multicast source is in the **Deregistering** state, the multicast source is being deleted. You can query the multicast source but cannot perform other operations.
+        *   If a multicast source cannot be found, the multicast source is deleted.
         
 
         @param request: DeregisterTransitRouterMulticastGroupSourcesRequest
@@ -3620,9 +3656,9 @@ class Client(OpenApiClient):
 
     def deregister_transit_router_multicast_group_sources(self, request):
         """
-        The ID of the multicast source.
-        You can create only one multicast source in a multicast group.
-        >  This parameter is required.
+        `DeregisterTransitRouterMulticastGroupSources` is an asynchronous operation. After you send a request, the system returns a *request ID** and runs the task in the background. You can call the `ListTransitRouterMulticastGroups` operation to query the status of a multicast source.
+        *   If a multicast source is in the **Deregistering** state, the multicast source is being deleted. You can query the multicast source but cannot perform other operations.
+        *   If a multicast source cannot be found, the multicast source is deleted.
         
 
         @param request: DeregisterTransitRouterMulticastGroupSourcesRequest
@@ -5102,10 +5138,9 @@ class Client(OpenApiClient):
 
     def grant_instance_to_transit_router_with_options(self, request, runtime):
         """
-        The type of the network instance. Valid values:
-        *   **VPC**: VPC
-        *   **ExpressConnect**: VBR
-        *   **VPN**: IPsec-VPN connection
+        `GrantInstanceToTransitRouter` grants transit routers the permissions to connect only to virtual private clouds (VPCs), virtual border routers (VBRs), and IPsec-VPN connections that belong to another Alibaba Cloud account.
+        If you want to grant transit routers permissions to connect to Cloud Connect Network (CCN) instances, call the [GrantInstanceToCbn](~~126141~~) operation.
+        *   Before you call `GrantInstanceToTransitRouter`, take note of the billing rules, permission limits, and prerequisites on permission management of transit routers. For more information, see [Acquire permissions to connect to a network instance that belongs to another account](~~181553~~).
         
 
         @param request: GrantInstanceToTransitRouterRequest
@@ -5157,10 +5192,9 @@ class Client(OpenApiClient):
 
     def grant_instance_to_transit_router(self, request):
         """
-        The type of the network instance. Valid values:
-        *   **VPC**: VPC
-        *   **ExpressConnect**: VBR
-        *   **VPN**: IPsec-VPN connection
+        `GrantInstanceToTransitRouter` grants transit routers the permissions to connect only to virtual private clouds (VPCs), virtual border routers (VBRs), and IPsec-VPN connections that belong to another Alibaba Cloud account.
+        If you want to grant transit routers permissions to connect to Cloud Connect Network (CCN) instances, call the [GrantInstanceToCbn](~~126141~~) operation.
+        *   Before you call `GrantInstanceToTransitRouter`, take note of the billing rules, permission limits, and prerequisites on permission management of transit routers. For more information, see [Acquire permissions to connect to a network instance that belongs to another account](~~181553~~).
         
 
         @param request: GrantInstanceToTransitRouterRequest
@@ -6686,7 +6720,9 @@ class Client(OpenApiClient):
 
     def modify_cen_attribute_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *ModifyCenAttribute**.
+        *ModifyCenAttribute** is an asynchronous operation. After you send a request, the system returns the **request ID** but the operation is still being performed in the system background. You can call **DescribeCens** to query the status of a CEN instance.
+        *   If a CEN instance is in the **Modifying** state, the CEN instance is being modified. You can query the CEN instance but cannot perform other operations.
+        *   If a CEN instance is in the **Active** state, the CEN instance is modified.
         
 
         @param request: ModifyCenAttributeRequest
@@ -6734,7 +6770,9 @@ class Client(OpenApiClient):
 
     def modify_cen_attribute(self, request):
         """
-        The operation that you want to perform. Set the value to *ModifyCenAttribute**.
+        *ModifyCenAttribute** is an asynchronous operation. After you send a request, the system returns the **request ID** but the operation is still being performed in the system background. You can call **DescribeCens** to query the status of a CEN instance.
+        *   If a CEN instance is in the **Modifying** state, the CEN instance is being modified. You can query the CEN instance but cannot perform other operations.
+        *   If a CEN instance is in the **Active** state, the CEN instance is modified.
         
 
         @param request: ModifyCenAttributeRequest
@@ -7400,7 +7438,12 @@ class Client(OpenApiClient):
 
     def register_transit_router_multicast_group_sources_with_options(self, request, runtime):
         """
-        The ID of the request.
+        - You can specify only elastic network interfaces (ENIs) as multicast sources.
+        - `RegisterTransitRouterMulticastGroupSources` is an asynchronous operation. After you send a request, the **request ID** is returned but the operation is still being performed in the system background. You can call `ListTransitRouterMulticastGroups` to query the status of a multicast source.
+        - If a multicast source is in the **Registering** state, the multicast source is being created. You can query the multicast source but cannot perform other operations.
+        - If a multicast source is in the **Registered** state, the multicast source is created.
+        #### Prerequisites
+        Before you call `RegisterTransitRouterMulticastGroupSources`, make sure that the vSwitch on which the ENI is created is associated with the multicast domain. For more information, see [AssociateTransitRouterMulticastDomain](https://www.alibabacloud.com/help/en/cloud-enterprise-network/latest/associatetransitroutermulticastdomain).
         
 
         @param request: RegisterTransitRouterMulticastGroupSourcesRequest
@@ -7452,7 +7495,12 @@ class Client(OpenApiClient):
 
     def register_transit_router_multicast_group_sources(self, request):
         """
-        The ID of the request.
+        - You can specify only elastic network interfaces (ENIs) as multicast sources.
+        - `RegisterTransitRouterMulticastGroupSources` is an asynchronous operation. After you send a request, the **request ID** is returned but the operation is still being performed in the system background. You can call `ListTransitRouterMulticastGroups` to query the status of a multicast source.
+        - If a multicast source is in the **Registering** state, the multicast source is being created. You can query the multicast source but cannot perform other operations.
+        - If a multicast source is in the **Registered** state, the multicast source is created.
+        #### Prerequisites
+        Before you call `RegisterTransitRouterMulticastGroupSources`, make sure that the vSwitch on which the ENI is created is associated with the multicast domain. For more information, see [AssociateTransitRouterMulticastDomain](https://www.alibabacloud.com/help/en/cloud-enterprise-network/latest/associatetransitroutermulticastdomain).
         
 
         @param request: RegisterTransitRouterMulticastGroupSourcesRequest
@@ -7464,7 +7512,13 @@ class Client(OpenApiClient):
 
     def remove_traffic_match_rule_from_traffic_marking_policy_with_options(self, request, runtime):
         """
-        The ID of the request.
+        When you call **RemoveTrafficMatchRuleFromTrafficMarkingPolicy**, take note of the following rules:
+        *   If you specify the ID of a traffic classification rule in the **TrafficMarkRuleIds** parameter, the specified traffic classification rule is deleted.
+        *   If you do not specify a traffic classification rule ID in the **TrafficMarkRuleIds** parameter, no operation is performed after you call this operation.
+        If you want to delete a traffic classification rule, you must specify the rule ID before you call this operation.
+        *   **RemoveTrafficMatchRuleFromTrafficMarkingPolicy** is an asynchronous operation. After you send a request, the system returns a **request ID** and runs the task in the background. You can call the **ListTrafficMarkingPolicies** operation to query the status of a traffic classification rule.
+        *   If a traffic classification rule is in the **Deleting** state, the traffic classification rule is being deleted. In this case, you can query the traffic classification rule but cannot perform other operations.
+        *   If a traffic classification rule cannot be found, the traffic classification rule is deleted.
         
 
         @param request: RemoveTrafficMatchRuleFromTrafficMarkingPolicyRequest
@@ -7512,7 +7566,13 @@ class Client(OpenApiClient):
 
     def remove_traffic_match_rule_from_traffic_marking_policy(self, request):
         """
-        The ID of the request.
+        When you call **RemoveTrafficMatchRuleFromTrafficMarkingPolicy**, take note of the following rules:
+        *   If you specify the ID of a traffic classification rule in the **TrafficMarkRuleIds** parameter, the specified traffic classification rule is deleted.
+        *   If you do not specify a traffic classification rule ID in the **TrafficMarkRuleIds** parameter, no operation is performed after you call this operation.
+        If you want to delete a traffic classification rule, you must specify the rule ID before you call this operation.
+        *   **RemoveTrafficMatchRuleFromTrafficMarkingPolicy** is an asynchronous operation. After you send a request, the system returns a **request ID** and runs the task in the background. You can call the **ListTrafficMarkingPolicies** operation to query the status of a traffic classification rule.
+        *   If a traffic classification rule is in the **Deleting** state, the traffic classification rule is being deleted. In this case, you can query the traffic classification rule but cannot perform other operations.
+        *   If a traffic classification rule cannot be found, the traffic classification rule is deleted.
         
 
         @param request: RemoveTrafficMatchRuleFromTrafficMarkingPolicyRequest
@@ -7525,7 +7585,8 @@ class Client(OpenApiClient):
     def remove_trafic_match_rule_from_traffic_marking_policy_with_options(self, request, runtime):
         """
         @deprecated : RemoveTraficMatchRuleFromTrafficMarkingPolicy is deprecated, please use Cbn::2017-09-12::RemoveTrafficMatchRuleFromTrafficMarkingPolicy instead.
-        The ID of the traffic marking policy.
+        # [](#)Precautions
+        The **RemoveTraficMatchRuleFromTrafficMarkingPolicy** operation is deprecated and will be discontinued soon. If you need to delete traffic classification rules from a traffic marking policy, call the [RemoveTrafficMatchRuleFromTrafficMarkingPolicy](~~452726~~) operation.
         
 
         @param request: RemoveTraficMatchRuleFromTrafficMarkingPolicyRequest
@@ -7575,7 +7636,8 @@ class Client(OpenApiClient):
     def remove_trafic_match_rule_from_traffic_marking_policy(self, request):
         """
         @deprecated : RemoveTraficMatchRuleFromTrafficMarkingPolicy is deprecated, please use Cbn::2017-09-12::RemoveTrafficMatchRuleFromTrafficMarkingPolicy instead.
-        The ID of the traffic marking policy.
+        # [](#)Precautions
+        The **RemoveTraficMatchRuleFromTrafficMarkingPolicy** operation is deprecated and will be discontinued soon. If you need to delete traffic classification rules from a traffic marking policy, call the [RemoveTrafficMatchRuleFromTrafficMarkingPolicy](~~452726~~) operation.
         
 
         @param request: RemoveTraficMatchRuleFromTrafficMarkingPolicyRequest
@@ -7716,14 +7778,14 @@ class Client(OpenApiClient):
 
     def revoke_instance_from_transit_router_with_options(self, request, runtime):
         """
-        ## Usage notes
         `RevokeInstanceFromTransitRouter` disallows transit routers only from connecting to virtual private clouds (VPCs), virtual border routers (VBRs), and IPsec-VPN connections.
-        If you want to disallow transit routers from connecting to Cloud Connect Network (CCN) instances, call the [RevokeInstanceFromCbn](https://www.alibabacloud.com/help/en/smart-access-gateway/latest/revokeinstancefromcbn) operation.
-        ## Prerequisites
+        If you want to disallow transit routers from connecting to Cloud Connect Network (CCN) instances, call the [RevokeInstanceFromCbn](~~126142~~) operation.
+        ## [](#)Prerequisite
         Before you call `RevokeInstanceFromTransitRouter`, you must detach the network instances from the transit router.
-        - For more information about how to detach VPCs from an Enterprise Edition transit router, see [DeleteTransitRouterVpcAttachment](https://www.alibabacloud.com/help/en/cloud-enterprise-network/latest/deletetransitroutervpcattachment).
-        - For more information about how to detach VBRs from an Enterprise Edition transit router, see [DeleteTransitRouterVbrAttachment](https://www.alibabacloud.com/help/en/cloud-enterprise-network/latest/deletetransitroutervbrattachment).
-        - For more information about how to detach network instances from a Basic Edition transit router, see [DetachCenChildInstance](~~468685~~).
+        *   For more information about how to detach VPCs from an Enterprise Edition transit router, see [DeleteTransitRouterVpcAttachment](~~261220~~).
+        *   For more information about how to detach VBRs from an Enterprise Edition transit router, see [DeleteTransitRouterVbrAttachment](~~261223~~).
+        *   For more information about how to detach IPsec-VPN connections from an Enterprise Edition transit router, see [DeleteTransitRouterVpnAttachment](~~443992~~).
+        *   For more information about how to detach network instances from a Basic Edition transit router, see [DetachCenChildInstance](~~65915~~).
         
 
         @param request: RevokeInstanceFromTransitRouterRequest
@@ -7773,14 +7835,14 @@ class Client(OpenApiClient):
 
     def revoke_instance_from_transit_router(self, request):
         """
-        ## Usage notes
         `RevokeInstanceFromTransitRouter` disallows transit routers only from connecting to virtual private clouds (VPCs), virtual border routers (VBRs), and IPsec-VPN connections.
-        If you want to disallow transit routers from connecting to Cloud Connect Network (CCN) instances, call the [RevokeInstanceFromCbn](https://www.alibabacloud.com/help/en/smart-access-gateway/latest/revokeinstancefromcbn) operation.
-        ## Prerequisites
+        If you want to disallow transit routers from connecting to Cloud Connect Network (CCN) instances, call the [RevokeInstanceFromCbn](~~126142~~) operation.
+        ## [](#)Prerequisite
         Before you call `RevokeInstanceFromTransitRouter`, you must detach the network instances from the transit router.
-        - For more information about how to detach VPCs from an Enterprise Edition transit router, see [DeleteTransitRouterVpcAttachment](https://www.alibabacloud.com/help/en/cloud-enterprise-network/latest/deletetransitroutervpcattachment).
-        - For more information about how to detach VBRs from an Enterprise Edition transit router, see [DeleteTransitRouterVbrAttachment](https://www.alibabacloud.com/help/en/cloud-enterprise-network/latest/deletetransitroutervbrattachment).
-        - For more information about how to detach network instances from a Basic Edition transit router, see [DetachCenChildInstance](~~468685~~).
+        *   For more information about how to detach VPCs from an Enterprise Edition transit router, see [DeleteTransitRouterVpcAttachment](~~261220~~).
+        *   For more information about how to detach VBRs from an Enterprise Edition transit router, see [DeleteTransitRouterVbrAttachment](~~261223~~).
+        *   For more information about how to detach IPsec-VPN connections from an Enterprise Edition transit router, see [DeleteTransitRouterVpnAttachment](~~443992~~).
+        *   For more information about how to detach network instances from a Basic Edition transit router, see [DetachCenChildInstance](~~65915~~).
         
 
         @param request: RevokeInstanceFromTransitRouterRequest
@@ -7792,7 +7854,18 @@ class Client(OpenApiClient):
 
     def route_private_zone_in_cen_to_vpc_with_options(self, request, runtime):
         """
-        The ID of the request.
+        Alibaba Cloud DNS PrivateZone (PrivateZone) is an Alibaba Cloud private domain name resolution and management service based on Virtual Private Cloud (VPC). After you attach virtual border routers (VBRs) and Cloud Connect Network (CCN) instances to a Cloud Enterprise Network (CEN) instance, you can enable the on-premises networks connected to the VBRs and CCN instances to access PrivateZone through the CEN instance.
+        #### Usage notes
+        - The on-premises networks connected to VBRs or CCN instances must be deployed in the same region as the PrivateZone service. For example, if the PrivateZone service is deployed in the China (Beijing) region, only on-premises networks connected to VBRs or CCN instances in the China (Beijing) region can access the PrivateZone service.
+        - **RoutePrivateZoneInCenToVpc** is an asynchronous operation. After you send a request, the **request ID** is returned but the operation is still being performed in the system background. You can call **DescribeCenPrivateZoneRoutes** to query the status of PrivateZone.
+        - If PrivateZone is in the **Creating** state, access to PrivateZone is being configured. In this case, you can query PrivateZone configurations but cannot perform other operations.
+        - If PrivateZone is in the **Active** state, access to PrivateZone is enabled.
+        - If PrivateZone is in the **Failed** state, configurations of access to PrivateZone failed.
+        #### Prerequisites
+        Before you call **RoutePrivateZoneInCenToVpc**, make sure that the following conditions are met:
+        - PrivateZone is deployed. For more information, see [PrivateZone quick start](~~64627~~).
+        - The following network instances are attached to the same CEN instance: the VPC that is associated with the PrivateZone service, and the VBR and CCN instance that want to access the PrivateZone service. For more information, see [AttachCenChildInstance](~~468684~~).
+        - If your on-premises network uses a CCN instance to connect to Alibaba Cloud and the account that owns the CCN instance is different from the account that owns the VPC or CEN instance, you must grant the CCN instance required permissions. For more information, see [Grant permissions to CCN](~~181654~~).
         
 
         @param request: RoutePrivateZoneInCenToVpcRequest
@@ -7840,7 +7913,18 @@ class Client(OpenApiClient):
 
     def route_private_zone_in_cen_to_vpc(self, request):
         """
-        The ID of the request.
+        Alibaba Cloud DNS PrivateZone (PrivateZone) is an Alibaba Cloud private domain name resolution and management service based on Virtual Private Cloud (VPC). After you attach virtual border routers (VBRs) and Cloud Connect Network (CCN) instances to a Cloud Enterprise Network (CEN) instance, you can enable the on-premises networks connected to the VBRs and CCN instances to access PrivateZone through the CEN instance.
+        #### Usage notes
+        - The on-premises networks connected to VBRs or CCN instances must be deployed in the same region as the PrivateZone service. For example, if the PrivateZone service is deployed in the China (Beijing) region, only on-premises networks connected to VBRs or CCN instances in the China (Beijing) region can access the PrivateZone service.
+        - **RoutePrivateZoneInCenToVpc** is an asynchronous operation. After you send a request, the **request ID** is returned but the operation is still being performed in the system background. You can call **DescribeCenPrivateZoneRoutes** to query the status of PrivateZone.
+        - If PrivateZone is in the **Creating** state, access to PrivateZone is being configured. In this case, you can query PrivateZone configurations but cannot perform other operations.
+        - If PrivateZone is in the **Active** state, access to PrivateZone is enabled.
+        - If PrivateZone is in the **Failed** state, configurations of access to PrivateZone failed.
+        #### Prerequisites
+        Before you call **RoutePrivateZoneInCenToVpc**, make sure that the following conditions are met:
+        - PrivateZone is deployed. For more information, see [PrivateZone quick start](~~64627~~).
+        - The following network instances are attached to the same CEN instance: the VPC that is associated with the PrivateZone service, and the VBR and CCN instance that want to access the PrivateZone service. For more information, see [AttachCenChildInstance](~~468684~~).
+        - If your on-premises network uses a CCN instance to connect to Alibaba Cloud and the account that owns the CCN instance is different from the account that owns the VPC or CEN instance, you must grant the CCN instance required permissions. For more information, see [Grant permissions to CCN](~~181654~~).
         
 
         @param request: RoutePrivateZoneInCenToVpcRequest
@@ -7894,8 +7978,9 @@ class Client(OpenApiClient):
 
     def tag_resources_with_options(self, request, runtime):
         """
-        The ID of the resource.
-        You can enter multiple resource IDs. Valid values of **N**: **1** to **20**.
+        Each tag consists of a tag key and a tag value. When you add a tag, you must specify the tag key and tag value.
+        *   If you want to add multiple tags to a Cloud Enterprise Network (CEN) instance, each tag key must be unique.
+        *   You can add at most 20 tags to a CEN instance.
         
 
         @param request: TagResourcesRequest
@@ -7943,8 +8028,9 @@ class Client(OpenApiClient):
 
     def tag_resources(self, request):
         """
-        The ID of the resource.
-        You can enter multiple resource IDs. Valid values of **N**: **1** to **20**.
+        Each tag consists of a tag key and a tag value. When you add a tag, you must specify the tag key and tag value.
+        *   If you want to add multiple tags to a Cloud Enterprise Network (CEN) instance, each tag key must be unique.
+        *   You can add at most 20 tags to a CEN instance.
         
 
         @param request: TagResourcesRequest
