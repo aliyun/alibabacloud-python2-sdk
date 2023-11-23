@@ -338,9 +338,9 @@ class AddDnsCacheDomainResponse(TeaModel):
 
 class AddDnsGtmAccessStrategyRequestDefaultAddrPool(TeaModel):
     def __init__(self, id=None, lba_weight=None):
-        # The weight of the address pool in the secondary address pool group.
-        self.id = id  # type: str
         # The ID of the address pool in the primary address pool group.
+        self.id = id  # type: str
+        # The weight of the address pool in the primary address pool group.
         self.lba_weight = lba_weight  # type: int
 
     def validate(self):
@@ -369,9 +369,9 @@ class AddDnsGtmAccessStrategyRequestDefaultAddrPool(TeaModel):
 
 class AddDnsGtmAccessStrategyRequestFailoverAddrPool(TeaModel):
     def __init__(self, id=None, lba_weight=None):
-        # The ID of the access policy.
-        self.id = id  # type: str
         # The ID of the address pool in the secondary address pool group.
+        self.id = id  # type: str
+        # The weight of the address pool in the secondary address pool group.
         self.lba_weight = lba_weight  # type: int
 
     def validate(self):
@@ -405,59 +405,59 @@ class AddDnsGtmAccessStrategyRequest(TeaModel):
                  failover_lba_strategy=None, failover_max_return_addr_num=None, failover_min_available_addr_num=None, instance_id=None,
                  lang=None, lines=None, strategy_mode=None, strategy_name=None):
         self.default_addr_pool = default_addr_pool  # type: list[AddDnsGtmAccessStrategyRequestDefaultAddrPool]
-        # The load balancing policy of the primary address pool group. Valid values:
-        # 
-        # *   ALL_RR: returns all addresses.
-        # *   RATIO: returns addresses by weight.
-        self.default_addr_pool_type = default_addr_pool_type  # type: str
-        # The type of the secondary address pool. Valid values:
-        # 
-        # *   IPV4
-        # *   IPV6
-        # *   DOMAIN
-        self.default_latency_optimization = default_latency_optimization  # type: str
-        # The minimum number of available addresses in the primary address pool group.
-        self.default_lba_strategy = default_lba_strategy  # type: str
-        # Specifies whether to enable scheduling optimization for latency resolution for the primary address pool group. Valid values:
-        # 
-        # *   OPEN: enable
-        # *   CLOSE: disable
-        self.default_max_return_addr_num = default_max_return_addr_num  # type: int
-        # The maximum number of addresses returned from the primary address pool group.
-        self.default_min_available_addr_num = default_min_available_addr_num  # type: int
-        self.failover_addr_pool = failover_addr_pool  # type: list[AddDnsGtmAccessStrategyRequestFailoverAddrPool]
-        # The load balancing policy of the secondary address pool group. Valid values:
-        # 
-        # *   ALL_RR: returns all addresses.
-        # *   RATIO: returns addresses by weight.
-        self.failover_addr_pool_type = failover_addr_pool_type  # type: str
-        # The type of the access policy. Valid values:
-        # 
-        # *   GEO: geographical location-based
-        # *   LATENCY: latency-based
-        self.failover_latency_optimization = failover_latency_optimization  # type: str
-        # The minimum number of available addresses in the secondary address pool group.
-        self.failover_lba_strategy = failover_lba_strategy  # type: str
-        # Specifies whether to enable scheduling optimization for latency resolution for the secondary address pool group. Valid values:
-        # 
-        # *   OPEN: enable
-        # *   CLOSE: disable
-        self.failover_max_return_addr_num = failover_max_return_addr_num  # type: int
-        # The maximum number of addresses returned from the secondary address pool group.
-        self.failover_min_available_addr_num = failover_min_available_addr_num  # type: int
-        # The name of the access policy.
-        self.instance_id = instance_id  # type: str
-        # The ID of the instance.
-        self.lang = lang  # type: str
         # The type of the primary address pool. Valid values:
         # 
         # *   IPV4
         # *   IPV6
         # *   DOMAIN
-        self.lines = lines  # type: str
-        # The weight of the address pool in the primary address pool group.
-        self.strategy_mode = strategy_mode  # type: str
+        self.default_addr_pool_type = default_addr_pool_type  # type: str
+        # Specifies whether to enable scheduling optimization for latency resolution for the primary address pool group. Valid values:
+        # 
+        # *   OPEN: enable
+        # *   CLOSE: disable
+        self.default_latency_optimization = default_latency_optimization  # type: str
+        # The load balancing policy of the primary address pool group. Valid values:
+        # 
+        # *   ALL_RR: returns all addresses.
+        # *   RATIO: returns addresses by weight.
+        self.default_lba_strategy = default_lba_strategy  # type: str
+        # The maximum number of addresses returned from the primary address pool group.
+        self.default_max_return_addr_num = default_max_return_addr_num  # type: int
+        # The minimum number of available addresses in the primary address pool group.
+        self.default_min_available_addr_num = default_min_available_addr_num  # type: int
+        self.failover_addr_pool = failover_addr_pool  # type: list[AddDnsGtmAccessStrategyRequestFailoverAddrPool]
+        # The type of the secondary address pool. Valid values:
+        # 
+        # *   IPV4
+        # *   IPV6
+        # *   DOMAIN
+        self.failover_addr_pool_type = failover_addr_pool_type  # type: str
+        # Specifies whether to enable scheduling optimization for latency resolution for the secondary address pool group. Valid values:
+        # 
+        # *   OPEN: enable
+        # *   CLOSE: disable
+        self.failover_latency_optimization = failover_latency_optimization  # type: str
+        # The load balancing policy of the secondary address pool group. Valid values:
+        # 
+        # *   ALL_RR: returns all addresses.
+        # *   RATIO: returns addresses by weight.
+        self.failover_lba_strategy = failover_lba_strategy  # type: str
+        # The maximum number of addresses returned from the secondary address pool group.
+        self.failover_max_return_addr_num = failover_max_return_addr_num  # type: int
+        # The minimum number of available addresses in the secondary address pool group.
+        self.failover_min_available_addr_num = failover_min_available_addr_num  # type: int
+        # The ID of the instance.
+        self.instance_id = instance_id  # type: str
+        # The language to return some response parameters. Default value: en. Valid values: en, zh, and ja.
+        self.lang = lang  # type: str
         # The line codes of source regions. For example: `["default", "drpeng"]` indicates Global and Dr. Peng Telecom & Media Group.
+        self.lines = lines  # type: str
+        # The type of the access policy. Valid values:
+        # 
+        # *   GEO: geographical location-based
+        # *   LATENCY: latency-based
+        self.strategy_mode = strategy_mode  # type: str
+        # The name of the access policy.
         self.strategy_name = strategy_name  # type: str
 
     def validate(self):
@@ -563,8 +563,9 @@ class AddDnsGtmAccessStrategyRequest(TeaModel):
 
 class AddDnsGtmAccessStrategyResponseBody(TeaModel):
     def __init__(self, request_id=None, strategy_id=None):
-        self.request_id = request_id  # type: str
         # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The ID of the access policy.
         self.strategy_id = strategy_id  # type: str
 
     def validate(self):
@@ -13533,6 +13534,7 @@ class DescribeDomainRecordInfoResponseBody(TeaModel):
         self.rr = rr  # type: str
         # The ID of the DNS record.
         self.record_id = record_id  # type: str
+        # The remark of the DNS record.
         self.remark = remark  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -17437,7 +17439,7 @@ class DescribeGtmLogsRequest(TeaModel):
         self.lang = lang  # type: str
         # The number of the page to return. Pages start from page **1**. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The number of entries to return on per page. Maximum value: **100**. Default value: **20**.
+        # The number of entries to return on each page. Maximum value: **100**. Default value: **20**.
         self.page_size = page_size  # type: int
         # The beginning of the time range to query.
         self.start_timestamp = start_timestamp  # type: long
