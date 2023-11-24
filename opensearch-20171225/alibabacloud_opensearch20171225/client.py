@@ -209,9 +209,9 @@ class Client(OpenApiClient):
     def create_app_with_options(self, app_group_identity, request, headers, runtime):
         """
         When you create a standard application, a new version of the application is created if the specified application name already exists.
-        *   When you create a version of an existing application, you must set the autoSwitch and realtimeShared parameters.
+        *   When you create a version of an existing application, you must specify the autoSwitch and realtimeShared parameters.
         *   When you create a version of an existing application, the value of the quota parameter is the same as that of the quota parameter in the previous version of the application.
-        *   When you create a version of an existing application, the modification of the quota parameter does not take effect.
+        *   When you create a version of an existing application, the modification of the value of the quota parameter does not take effect.
         
 
         @param request: CreateAppRequest
@@ -251,9 +251,9 @@ class Client(OpenApiClient):
     def create_app(self, app_group_identity, request):
         """
         When you create a standard application, a new version of the application is created if the specified application name already exists.
-        *   When you create a version of an existing application, you must set the autoSwitch and realtimeShared parameters.
+        *   When you create a version of an existing application, you must specify the autoSwitch and realtimeShared parameters.
         *   When you create a version of an existing application, the value of the quota parameter is the same as that of the quota parameter in the previous version of the application.
-        *   When you create a version of an existing application, the modification of the quota parameter does not take effect.
+        *   When you create a version of an existing application, the modification of the value of the quota parameter does not take effect.
         
 
         @param request: CreateAppRequest
@@ -385,6 +385,42 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_function_instance_with_options(app_group_identity, function_name, request, headers, runtime)
 
+    def create_function_resource_with_options(self, app_group_identity, function_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.data):
+            body['Data'] = request.data
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.resource_name):
+            body['ResourceName'] = request.resource_name
+        if not UtilClient.is_unset(request.resource_type):
+            body['ResourceType'] = request.resource_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateFunctionResource',
+            version='2017-12-25',
+            protocol='HTTPS',
+            pathname='/v4/openapi/app-groups/%s/functions/%s/resources' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            open_search_20171225_models.CreateFunctionResourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_function_resource(self, app_group_identity, function_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_function_resource_with_options(app_group_identity, function_name, request, headers, runtime)
+
     def create_function_task_with_options(self, app_group_identity, function_name, instance_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
@@ -480,19 +516,6 @@ class Client(OpenApiClient):
         return self.create_query_processor_with_options(app_group_identity, app_id, request, headers, runtime)
 
     def create_scheduled_task_with_options(self, app_group_identity, request, headers, runtime):
-        """
-        ***\
-        
-
-        @param request: CreateScheduledTaskRequest
-
-        @type headers: dict
-        @param headers: map
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: CreateScheduledTaskResponse
-        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -515,14 +538,6 @@ class Client(OpenApiClient):
         )
 
     def create_scheduled_task(self, app_group_identity, request):
-        """
-        ***\
-        
-
-        @param request: CreateScheduledTaskRequest
-
-        @return: CreateScheduledTaskResponse
-        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_scheduled_task_with_options(app_group_identity, request, headers, runtime)
@@ -585,9 +600,18 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_second_rank_with_options(app_group_identity, app_id, request, headers, runtime)
 
-    def create_sort_script_with_options(self, app_group_identity, app_version_id, headers, runtime):
+    def create_sort_script_with_options(self, app_group_identity, app_version_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.scope):
+            body['scope'] = request.scope
+        if not UtilClient.is_unset(request.script_name):
+            body['scriptName'] = request.script_name
+        if not UtilClient.is_unset(request.type):
+            body['type'] = request.type
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateSortScript',
@@ -605,12 +629,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_sort_script(self, app_group_identity, app_version_id):
+    def create_sort_script(self, app_group_identity, app_version_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_sort_script_with_options(app_group_identity, app_version_id, headers, runtime)
+        return self.create_sort_script_with_options(app_group_identity, app_version_id, request, headers, runtime)
 
     def create_user_analyzer_with_options(self, request, headers, runtime):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=OpenSearch\\&api=CreateUserAnalyzer\\&type=ROA\\&version=2017-12-25)
+        
+
+        @param request: CreateUserAnalyzerRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateUserAnalyzerResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
@@ -648,6 +686,15 @@ class Client(OpenApiClient):
         )
 
     def create_user_analyzer(self, request):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=OpenSearch\\&api=CreateUserAnalyzer\\&type=ROA\\&version=2017-12-25)
+        
+
+        @param request: CreateUserAnalyzerRequest
+
+        @return: CreateUserAnalyzerResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_user_analyzer_with_options(request, headers, runtime)
@@ -751,6 +798,31 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_function_instance_with_options(app_group_identity, function_name, instance_name, headers, runtime)
+
+    def delete_function_resource_with_options(self, app_group_identity, function_name, resource_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteFunctionResource',
+            version='2017-12-25',
+            protocol='HTTPS',
+            pathname='/v4/openapi/app-groups/%s/functions/%s/resources/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_name))),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            open_search_20171225_models.DeleteFunctionResourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_function_resource(self, app_group_identity, function_name, resource_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_function_resource_with_options(app_group_identity, function_name, resource_name, headers, runtime)
 
     def delete_function_task_with_options(self, app_group_identity, function_name, instance_name, generation, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1102,31 +1174,6 @@ class Client(OpenApiClient):
         headers = {}
         return self.describe_query_processor_with_options(app_group_identity, app_id, name, headers, runtime)
 
-    def describe_region_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='DescribeRegion',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/region',
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.DescribeRegionResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_region(self):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_region_with_options(headers, runtime)
-
     def describe_regions_with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
@@ -1459,6 +1506,36 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_function_instance_with_options(app_group_identity, function_name, instance_name, request, headers, runtime)
 
+    def get_function_resource_with_options(self, app_group_identity, function_name, resource_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.output):
+            query['output'] = request.output
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetFunctionResource',
+            version='2017-12-25',
+            protocol='HTTPS',
+            pathname='/v4/openapi/app-groups/%s/functions/%s/resources/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            open_search_20171225_models.GetFunctionResourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_function_resource(self, app_group_identity, function_name, resource_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_function_resource_with_options(app_group_identity, function_name, resource_name, request, headers, runtime)
+
     def get_function_task_with_options(self, app_group_identity, function_name, instance_name, generation, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
@@ -1508,31 +1585,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_function_version_with_options(function_name, version_id, headers, runtime)
-
-    def get_model_report_with_options(self, app_group_identity, model_name, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='GetModelReport',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/models/%s/report' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(model_name))),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.GetModelReportResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_model_report(self, app_group_identity, model_name):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_model_report_with_options(app_group_identity, model_name, headers, runtime)
 
     def get_script_file_names_with_options(self, app_group_identity, app_version_id, script_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1807,40 +1859,6 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_app_groups_with_options(request, headers, runtime)
 
-    def list_apps_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.group):
-            query['group'] = request.group
-        if not UtilClient.is_unset(request.page):
-            query['page'] = request.page
-        if not UtilClient.is_unset(request.size):
-            query['size'] = request.size
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListApps',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/apps',
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='none'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.ListAppsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_apps(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_apps_with_options(request, headers, runtime)
-
     def list_data_collections_with_options(self, app_group_identity, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1999,6 +2017,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_function_instances_with_options(app_group_identity, function_name, request, headers, runtime)
+
+    def list_function_resources_with_options(self, app_group_identity, function_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.output):
+            query['output'] = request.output
+        if not UtilClient.is_unset(request.page_number):
+            query['pageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_type):
+            query['resourceType'] = request.resource_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListFunctionResources',
+            version='2017-12-25',
+            protocol='HTTPS',
+            pathname='/v4/openapi/app-groups/%s/functions/%s/resources' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            open_search_20171225_models.ListFunctionResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_function_resources(self, app_group_identity, function_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_function_resources_with_options(app_group_identity, function_name, request, headers, runtime)
 
     def list_function_tasks_with_options(self, app_group_identity, function_name, instance_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2160,40 +2214,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_intervention_dictionary_related_entities_with_options(name, headers, runtime)
-
-    def list_models_with_options(self, app_group_identity, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.page_number):
-            query['pageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            query['pageSize'] = request.page_size
-        if not UtilClient.is_unset(request.type):
-            query['type'] = request.type
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListModels',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/models' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.ListModelsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_models(self, app_group_identity, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_models_with_options(app_group_identity, request, headers, runtime)
 
     def list_proceedings_with_options(self, app_group_identity, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2724,20 +2744,6 @@ class Client(OpenApiClient):
         return self.list_user_analyzers_with_options(request, headers, runtime)
 
     def modify_app_group_with_options(self, app_group_identity, request, headers, runtime):
-        """
-        ## Debugging
-        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=OpenSearch\\&api=ModifyAppGroup\\&type=ROA\\&version=2017-12-25)
-        
-
-        @param request: ModifyAppGroupRequest
-
-        @type headers: dict
-        @param headers: map
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ModifyAppGroupResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
@@ -2773,15 +2779,6 @@ class Client(OpenApiClient):
         )
 
     def modify_app_group(self, app_group_identity, request):
-        """
-        ## Debugging
-        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=OpenSearch\\&api=ModifyAppGroup\\&type=ROA\\&version=2017-12-25)
-        
-
-        @param request: ModifyAppGroupRequest
-
-        @return: ModifyAppGroupResponse
-        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.modify_app_group_with_options(app_group_identity, request, headers, runtime)
@@ -2937,36 +2934,6 @@ class Client(OpenApiClient):
         headers = {}
         return self.modify_second_rank_with_options(app_group_identity, app_id, name, request, headers, runtime)
 
-    def preview_model_with_options(self, app_group_identity, model_name, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.query):
-            query['query'] = request.query
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='PreviewModel',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/models/%s/actions/preview' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(model_name))),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.PreviewModelResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def preview_model(self, app_group_identity, model_name, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.preview_model_with_options(app_group_identity, model_name, request, headers, runtime)
-
     def push_intervention_dictionary_entries_with_options(self, name, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3083,17 +3050,6 @@ class Client(OpenApiClient):
         return self.release_sort_script_with_options(app_group_identity, script_name, app_version_id, headers, runtime)
 
     def remove_app_with_options(self, app_group_identity, app_id, headers, runtime):
-        """
-        > If an application has two versions, you can delete only the offline version.
-        
-
-        @type headers: dict
-        @param headers: map
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: RemoveAppResponse
-        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3114,29 +3070,11 @@ class Client(OpenApiClient):
         )
 
     def remove_app(self, app_group_identity, app_id):
-        """
-        > If an application has two versions, you can delete only the offline version.
-        
-
-        @return: RemoveAppResponse
-        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.remove_app_with_options(app_group_identity, app_id, headers, runtime)
 
     def remove_app_group_with_options(self, app_group_identity, headers, runtime):
-        """
-        ## Debugging
-        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=OpenSearch\\&api=RemoveAppGroup\\&type=ROA\\&version=2017-12-25)
-        
-
-        @type headers: dict
-        @param headers: map
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: RemoveAppGroupResponse
-        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3157,13 +3095,6 @@ class Client(OpenApiClient):
         )
 
     def remove_app_group(self, app_group_identity):
-        """
-        ## Debugging
-        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=OpenSearch\\&api=RemoveAppGroup\\&type=ROA\\&version=2017-12-25)
-        
-
-        @return: RemoveAppGroupResponse
-        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.remove_app_group_with_options(app_group_identity, headers, runtime)
@@ -3846,6 +3777,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_function_instance_with_options(app_group_identity, function_name, instance_name, request, headers, runtime)
+
+    def update_function_resource_with_options(self, app_group_identity, function_name, resource_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.data):
+            body['Data'] = request.data
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateFunctionResource',
+            version='2017-12-25',
+            protocol='HTTPS',
+            pathname='/v4/openapi/app-groups/%s/functions/%s/resources/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(resource_name))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            open_search_20171225_models.UpdateFunctionResourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_function_resource(self, app_group_identity, function_name, resource_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_function_resource_with_options(app_group_identity, function_name, resource_name, request, headers, runtime)
 
     def update_search_strategy_with_options(self, app_group_identity, app_id, strategy_name, request, headers, runtime):
         UtilClient.validate_model(request)

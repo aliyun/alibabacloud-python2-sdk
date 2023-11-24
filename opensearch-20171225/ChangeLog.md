@@ -1,3 +1,6 @@
+2023-11-24 Version: 2.0.0
+- Generated python2 2017-12-25 for OpenSearch.
+
 2023-08-10 Version: 1.0.6
 - Generated python2 2017-12-25 for OpenSearch.
 
