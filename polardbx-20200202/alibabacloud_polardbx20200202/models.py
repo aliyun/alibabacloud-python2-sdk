@@ -4121,16 +4121,21 @@ class DescribeDBInstanceAttributeResponseBodyDBInstanceTagSet(TeaModel):
 
 
 class DescribeDBInstanceAttributeResponseBodyDBInstance(TeaModel):
-    def __init__(self, cn_node_class_code=None, cn_node_count=None, commodity_code=None, conn_addrs=None,
+    def __init__(self, can_not_create_columnar=None, cn_node_class_code=None, cn_node_count=None,
+                 columnar_instance_name=None, columnar_read_dbinstances=None, commodity_code=None, conn_addrs=None,
                  connection_string=None, create_time=None, dbinstance_type=None, dbnode_class=None, dbnode_count=None, dbnodes=None,
-                 dbtype=None, dbversion=None, description=None, dn_node_class_code=None, dn_node_count=None, engine=None,
-                 expire_date=None, expired=None, id=None, kind_code=None, ltsversions=None, latest_minor_version=None,
-                 lock_mode=None, maintain_end_time=None, maintain_start_time=None, minor_version=None, network=None,
-                 pay_type=None, port=None, read_dbinstances=None, region_id=None, resource_group_id=None,
-                 rights_separation_enabled=None, rights_separation_status=None, series=None, status=None, storage_used=None, tag_set=None,
+                 dbtype=None, dbversion=None, description=None, different_dnspec=None, dn_node_class_code=None,
+                 dn_node_count=None, engine=None, expire_date=None, expired=None, id=None, kind_code=None, ltsversions=None,
+                 latest_minor_version=None, lock_mode=None, maintain_end_time=None, maintain_start_time=None, minor_version=None,
+                 network=None, pay_type=None, port=None, primary_zone=None, read_dbinstances=None, region_id=None,
+                 resource_group_id=None, rights_separation_enabled=None, rights_separation_status=None, secondary_zone=None,
+                 series=None, status=None, storage_used=None, tag_set=None, tertiary_zone=None, topology_type=None,
                  type=None, vpcid=None, v_switch_id=None, zone_id=None):
+        self.can_not_create_columnar = can_not_create_columnar  # type: bool
         self.cn_node_class_code = cn_node_class_code  # type: str
         self.cn_node_count = cn_node_count  # type: int
+        self.columnar_instance_name = columnar_instance_name  # type: str
+        self.columnar_read_dbinstances = columnar_read_dbinstances  # type: list[str]
         self.commodity_code = commodity_code  # type: str
         self.conn_addrs = conn_addrs  # type: list[DescribeDBInstanceAttributeResponseBodyDBInstanceConnAddrs]
         self.connection_string = connection_string  # type: str
@@ -4142,6 +4147,7 @@ class DescribeDBInstanceAttributeResponseBodyDBInstance(TeaModel):
         self.dbtype = dbtype  # type: str
         self.dbversion = dbversion  # type: str
         self.description = description  # type: str
+        self.different_dnspec = different_dnspec  # type: bool
         self.dn_node_class_code = dn_node_class_code  # type: str
         self.dn_node_count = dn_node_count  # type: int
         self.engine = engine  # type: str
@@ -4158,15 +4164,26 @@ class DescribeDBInstanceAttributeResponseBodyDBInstance(TeaModel):
         self.network = network  # type: str
         self.pay_type = pay_type  # type: str
         self.port = port  # type: str
+        # 主可用区。
+        self.primary_zone = primary_zone  # type: str
         self.read_dbinstances = read_dbinstances  # type: list[str]
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.rights_separation_enabled = rights_separation_enabled  # type: bool
         self.rights_separation_status = rights_separation_status  # type: str
+        # 次可用区。
+        self.secondary_zone = secondary_zone  # type: str
         self.series = series  # type: str
         self.status = status  # type: str
         self.storage_used = storage_used  # type: long
         self.tag_set = tag_set  # type: list[DescribeDBInstanceAttributeResponseBodyDBInstanceTagSet]
+        # 第三可用区。
+        self.tertiary_zone = tertiary_zone  # type: str
+        # 拓扑类型：
+        # 
+        # - **3azones**：三可用区；
+        # - **1azone**：单可用区。
+        self.topology_type = topology_type  # type: str
         self.type = type  # type: str
         # VPC ID。
         self.vpcid = vpcid  # type: str
@@ -4193,10 +4210,16 @@ class DescribeDBInstanceAttributeResponseBodyDBInstance(TeaModel):
             return _map
 
         result = dict()
+        if self.can_not_create_columnar is not None:
+            result['CanNotCreateColumnar'] = self.can_not_create_columnar
         if self.cn_node_class_code is not None:
             result['CnNodeClassCode'] = self.cn_node_class_code
         if self.cn_node_count is not None:
             result['CnNodeCount'] = self.cn_node_count
+        if self.columnar_instance_name is not None:
+            result['ColumnarInstanceName'] = self.columnar_instance_name
+        if self.columnar_read_dbinstances is not None:
+            result['ColumnarReadDBInstances'] = self.columnar_read_dbinstances
         if self.commodity_code is not None:
             result['CommodityCode'] = self.commodity_code
         result['ConnAddrs'] = []
@@ -4223,6 +4246,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstance(TeaModel):
             result['DBVersion'] = self.dbversion
         if self.description is not None:
             result['Description'] = self.description
+        if self.different_dnspec is not None:
+            result['DifferentDNSpec'] = self.different_dnspec
         if self.dn_node_class_code is not None:
             result['DnNodeClassCode'] = self.dn_node_class_code
         if self.dn_node_count is not None:
@@ -4255,6 +4280,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstance(TeaModel):
             result['PayType'] = self.pay_type
         if self.port is not None:
             result['Port'] = self.port
+        if self.primary_zone is not None:
+            result['PrimaryZone'] = self.primary_zone
         if self.read_dbinstances is not None:
             result['ReadDBInstances'] = self.read_dbinstances
         if self.region_id is not None:
@@ -4265,6 +4292,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstance(TeaModel):
             result['RightsSeparationEnabled'] = self.rights_separation_enabled
         if self.rights_separation_status is not None:
             result['RightsSeparationStatus'] = self.rights_separation_status
+        if self.secondary_zone is not None:
+            result['SecondaryZone'] = self.secondary_zone
         if self.series is not None:
             result['Series'] = self.series
         if self.status is not None:
@@ -4275,6 +4304,10 @@ class DescribeDBInstanceAttributeResponseBodyDBInstance(TeaModel):
         if self.tag_set is not None:
             for k in self.tag_set:
                 result['TagSet'].append(k.to_map() if k else None)
+        if self.tertiary_zone is not None:
+            result['TertiaryZone'] = self.tertiary_zone
+        if self.topology_type is not None:
+            result['TopologyType'] = self.topology_type
         if self.type is not None:
             result['Type'] = self.type
         if self.vpcid is not None:
@@ -4287,10 +4320,16 @@ class DescribeDBInstanceAttributeResponseBodyDBInstance(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CanNotCreateColumnar') is not None:
+            self.can_not_create_columnar = m.get('CanNotCreateColumnar')
         if m.get('CnNodeClassCode') is not None:
             self.cn_node_class_code = m.get('CnNodeClassCode')
         if m.get('CnNodeCount') is not None:
             self.cn_node_count = m.get('CnNodeCount')
+        if m.get('ColumnarInstanceName') is not None:
+            self.columnar_instance_name = m.get('ColumnarInstanceName')
+        if m.get('ColumnarReadDBInstances') is not None:
+            self.columnar_read_dbinstances = m.get('ColumnarReadDBInstances')
         if m.get('CommodityCode') is not None:
             self.commodity_code = m.get('CommodityCode')
         self.conn_addrs = []
@@ -4319,6 +4358,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstance(TeaModel):
             self.dbversion = m.get('DBVersion')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('DifferentDNSpec') is not None:
+            self.different_dnspec = m.get('DifferentDNSpec')
         if m.get('DnNodeClassCode') is not None:
             self.dn_node_class_code = m.get('DnNodeClassCode')
         if m.get('DnNodeCount') is not None:
@@ -4351,6 +4392,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstance(TeaModel):
             self.pay_type = m.get('PayType')
         if m.get('Port') is not None:
             self.port = m.get('Port')
+        if m.get('PrimaryZone') is not None:
+            self.primary_zone = m.get('PrimaryZone')
         if m.get('ReadDBInstances') is not None:
             self.read_dbinstances = m.get('ReadDBInstances')
         if m.get('RegionId') is not None:
@@ -4361,6 +4404,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstance(TeaModel):
             self.rights_separation_enabled = m.get('RightsSeparationEnabled')
         if m.get('RightsSeparationStatus') is not None:
             self.rights_separation_status = m.get('RightsSeparationStatus')
+        if m.get('SecondaryZone') is not None:
+            self.secondary_zone = m.get('SecondaryZone')
         if m.get('Series') is not None:
             self.series = m.get('Series')
         if m.get('Status') is not None:
@@ -4372,6 +4417,10 @@ class DescribeDBInstanceAttributeResponseBodyDBInstance(TeaModel):
             for k in m.get('TagSet'):
                 temp_model = DescribeDBInstanceAttributeResponseBodyDBInstanceTagSet()
                 self.tag_set.append(temp_model.from_map(k))
+        if m.get('TertiaryZone') is not None:
+            self.tertiary_zone = m.get('TertiaryZone')
+        if m.get('TopologyType') is not None:
+            self.topology_type = m.get('TopologyType')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('VPCId') is not None:
@@ -6175,15 +6224,19 @@ class DescribeDBInstancesResponseBodyDBInstancesTagSet(TeaModel):
 
 
 class DescribeDBInstancesResponseBodyDBInstances(TeaModel):
-    def __init__(self, cdc_instance_name=None, cn_node_class_code=None, cn_node_count=None, commodity_code=None,
-                 contain_binlog_x=None, create_time=None, dbinstance_name=None, dbtype=None, dbversion=None, description=None,
-                 dn_node_class_code=None, dn_node_count=None, engine=None, expire_time=None, expired=None, id=None, lock_mode=None,
-                 lock_reason=None, minor_version=None, network=None, node_class=None, node_count=None, nodes=None, pay_type=None,
-                 read_dbinstances=None, region_id=None, resource_group_id=None, series=None, status=None, storage_used=None,
-                 support_binlog_x=None, tag_set=None, type=None, vpcid=None, zone_id=None):
+    def __init__(self, cdc_instance_name=None, cn_node_class_code=None, cn_node_count=None,
+                 columnar_instance_name=None, columnar_read_dbinstances=None, commodity_code=None, contain_binlog_x=None,
+                 create_time=None, dbinstance_name=None, dbtype=None, dbversion=None, description=None, dn_node_class_code=None,
+                 dn_node_count=None, engine=None, expire_time=None, expired=None, id=None, lock_mode=None, lock_reason=None,
+                 minor_version=None, network=None, node_class=None, node_count=None, nodes=None, pay_type=None, primary_zone=None,
+                 read_dbinstances=None, region_id=None, resource_group_id=None, secondary_zone=None, series=None, status=None,
+                 storage_used=None, support_binlog_x=None, tag_set=None, tertiary_zone=None, topology_type=None, type=None,
+                 vpcid=None, zone_id=None):
         self.cdc_instance_name = cdc_instance_name  # type: str
         self.cn_node_class_code = cn_node_class_code  # type: str
         self.cn_node_count = cn_node_count  # type: int
+        self.columnar_instance_name = columnar_instance_name  # type: str
+        self.columnar_read_dbinstances = columnar_read_dbinstances  # type: list[str]
         self.commodity_code = commodity_code  # type: str
         self.contain_binlog_x = contain_binlog_x  # type: bool
         self.create_time = create_time  # type: str
@@ -6205,14 +6258,25 @@ class DescribeDBInstancesResponseBodyDBInstances(TeaModel):
         self.node_count = node_count  # type: int
         self.nodes = nodes  # type: list[DescribeDBInstancesResponseBodyDBInstancesNodes]
         self.pay_type = pay_type  # type: str
+        # 主可用区。
+        self.primary_zone = primary_zone  # type: str
         self.read_dbinstances = read_dbinstances  # type: list[str]
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        # 次可用区。
+        self.secondary_zone = secondary_zone  # type: str
         self.series = series  # type: str
         self.status = status  # type: str
         self.storage_used = storage_used  # type: long
         self.support_binlog_x = support_binlog_x  # type: bool
         self.tag_set = tag_set  # type: list[DescribeDBInstancesResponseBodyDBInstancesTagSet]
+        # 第三可用区。
+        self.tertiary_zone = tertiary_zone  # type: str
+        # 拓扑类型：
+        # 
+        # - **3azones**：三可用区；
+        # - **1azone**：单可用区。
+        self.topology_type = topology_type  # type: str
         self.type = type  # type: str
         # VPC ID。
         self.vpcid = vpcid  # type: str
@@ -6240,6 +6304,10 @@ class DescribeDBInstancesResponseBodyDBInstances(TeaModel):
             result['CnNodeClassCode'] = self.cn_node_class_code
         if self.cn_node_count is not None:
             result['CnNodeCount'] = self.cn_node_count
+        if self.columnar_instance_name is not None:
+            result['ColumnarInstanceName'] = self.columnar_instance_name
+        if self.columnar_read_dbinstances is not None:
+            result['ColumnarReadDBInstances'] = self.columnar_read_dbinstances
         if self.commodity_code is not None:
             result['CommodityCode'] = self.commodity_code
         if self.contain_binlog_x is not None:
@@ -6284,12 +6352,16 @@ class DescribeDBInstancesResponseBodyDBInstances(TeaModel):
                 result['Nodes'].append(k.to_map() if k else None)
         if self.pay_type is not None:
             result['PayType'] = self.pay_type
+        if self.primary_zone is not None:
+            result['PrimaryZone'] = self.primary_zone
         if self.read_dbinstances is not None:
             result['ReadDBInstances'] = self.read_dbinstances
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.secondary_zone is not None:
+            result['SecondaryZone'] = self.secondary_zone
         if self.series is not None:
             result['Series'] = self.series
         if self.status is not None:
@@ -6302,6 +6374,10 @@ class DescribeDBInstancesResponseBodyDBInstances(TeaModel):
         if self.tag_set is not None:
             for k in self.tag_set:
                 result['TagSet'].append(k.to_map() if k else None)
+        if self.tertiary_zone is not None:
+            result['TertiaryZone'] = self.tertiary_zone
+        if self.topology_type is not None:
+            result['TopologyType'] = self.topology_type
         if self.type is not None:
             result['Type'] = self.type
         if self.vpcid is not None:
@@ -6318,6 +6394,10 @@ class DescribeDBInstancesResponseBodyDBInstances(TeaModel):
             self.cn_node_class_code = m.get('CnNodeClassCode')
         if m.get('CnNodeCount') is not None:
             self.cn_node_count = m.get('CnNodeCount')
+        if m.get('ColumnarInstanceName') is not None:
+            self.columnar_instance_name = m.get('ColumnarInstanceName')
+        if m.get('ColumnarReadDBInstances') is not None:
+            self.columnar_read_dbinstances = m.get('ColumnarReadDBInstances')
         if m.get('CommodityCode') is not None:
             self.commodity_code = m.get('CommodityCode')
         if m.get('ContainBinlogX') is not None:
@@ -6363,12 +6443,16 @@ class DescribeDBInstancesResponseBodyDBInstances(TeaModel):
                 self.nodes.append(temp_model.from_map(k))
         if m.get('PayType') is not None:
             self.pay_type = m.get('PayType')
+        if m.get('PrimaryZone') is not None:
+            self.primary_zone = m.get('PrimaryZone')
         if m.get('ReadDBInstances') is not None:
             self.read_dbinstances = m.get('ReadDBInstances')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SecondaryZone') is not None:
+            self.secondary_zone = m.get('SecondaryZone')
         if m.get('Series') is not None:
             self.series = m.get('Series')
         if m.get('Status') is not None:
@@ -6382,6 +6466,10 @@ class DescribeDBInstancesResponseBodyDBInstances(TeaModel):
             for k in m.get('TagSet'):
                 temp_model = DescribeDBInstancesResponseBodyDBInstancesTagSet()
                 self.tag_set.append(temp_model.from_map(k))
+        if m.get('TertiaryZone') is not None:
+            self.tertiary_zone = m.get('TertiaryZone')
+        if m.get('TopologyType') is not None:
+            self.topology_type = m.get('TopologyType')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('VPCId') is not None:
