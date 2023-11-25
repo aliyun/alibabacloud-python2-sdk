@@ -1537,9 +1537,16 @@ class Client(OpenApiClient):
         headers = {}
         return self.describe_cluster_resources_with_options(cluster_id, headers, runtime)
 
-    def describe_cluster_tasks_with_options(self, cluster_id, headers, runtime):
+    def describe_cluster_tasks_with_options(self, cluster_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.page_number):
+            query['page_number'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['page_size'] = request.page_size
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeClusterTasks',
@@ -1557,10 +1564,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_tasks(self, cluster_id):
+    def describe_cluster_tasks(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_tasks_with_options(cluster_id, headers, runtime)
+        return self.describe_cluster_tasks_with_options(cluster_id, request, headers, runtime)
 
     def describe_cluster_user_kubeconfig_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1730,6 +1737,8 @@ class Client(OpenApiClient):
     def describe_clusters_v1with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['cluster_id'] = request.cluster_id
         if not UtilClient.is_unset(request.cluster_spec):
             query['cluster_spec'] = request.cluster_spec
         if not UtilClient.is_unset(request.cluster_type):

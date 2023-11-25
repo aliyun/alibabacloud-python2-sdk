@@ -9795,6 +9795,35 @@ class DescribeClusterResourcesResponse(TeaModel):
         return self
 
 
+class DescribeClusterTasksRequest(TeaModel):
+    def __init__(self, page_number=None, page_size=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterTasksRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['page_number'] = self.page_number
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('page_number') is not None:
+            self.page_number = m.get('page_number')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
 class DescribeClusterTasksResponseBodyPageInfo(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
         # The number of the page returned.
@@ -10737,8 +10766,9 @@ class DescribeClustersResponse(TeaModel):
 
 
 class DescribeClustersV1Request(TeaModel):
-    def __init__(self, cluster_spec=None, cluster_type=None, name=None, page_number=None, page_size=None,
-                 profile=None, region_id=None):
+    def __init__(self, cluster_id=None, cluster_spec=None, cluster_type=None, name=None, page_number=None,
+                 page_size=None, profile=None, region_id=None):
+        self.cluster_id = cluster_id  # type: str
         # The cluster type, which is available only when the cluster type is set to `ManagedKubernetes`. Valid values:
         # 
         # *   `ack.pro.small`: ACK Pro cluster
@@ -10783,6 +10813,8 @@ class DescribeClustersV1Request(TeaModel):
             return _map
 
         result = dict()
+        if self.cluster_id is not None:
+            result['cluster_id'] = self.cluster_id
         if self.cluster_spec is not None:
             result['cluster_spec'] = self.cluster_spec
         if self.cluster_type is not None:
@@ -10801,6 +10833,8 @@ class DescribeClustersV1Request(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('cluster_id') is not None:
+            self.cluster_id = m.get('cluster_id')
         if m.get('cluster_spec') is not None:
             self.cluster_spec = m.get('cluster_spec')
         if m.get('cluster_type') is not None:
