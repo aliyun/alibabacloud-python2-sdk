@@ -675,6 +675,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.advance_security_event_operations_with_options(request, runtime)
 
+    def batch_delete_malicious_file_whitelist_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_id_list):
+            query['ConfigIdList'] = request.config_id_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchDeleteMaliciousFileWhitelistConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.BatchDeleteMaliciousFileWhitelistConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def batch_delete_malicious_file_whitelist_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.batch_delete_malicious_file_whitelist_config_with_options(request, runtime)
+
     def batch_operate_common_overall_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -704,6 +732,34 @@ class Client(OpenApiClient):
     def batch_operate_common_overall_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.batch_operate_common_overall_config_with_options(request, runtime)
+
+    def batch_update_malicious_file_whitelist_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_list):
+            query['ConfigList'] = request.config_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchUpdateMaliciousFileWhitelistConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.BatchUpdateMaliciousFileWhitelistConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def batch_update_malicious_file_whitelist_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.batch_update_malicious_file_whitelist_config_with_options(request, runtime)
 
     def bind_auth_to_machine_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1922,6 +1978,46 @@ class Client(OpenApiClient):
     def create_jenkins_image_registry(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_jenkins_image_registry_with_options(request, runtime)
+
+    def create_malicious_file_whitelist_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.event_name):
+            query['EventName'] = request.event_name
+        if not UtilClient.is_unset(request.field):
+            query['Field'] = request.field
+        if not UtilClient.is_unset(request.field_value):
+            query['FieldValue'] = request.field_value
+        if not UtilClient.is_unset(request.operator):
+            query['Operator'] = request.operator
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
+        if not UtilClient.is_unset(request.target_value):
+            query['TargetValue'] = request.target_value
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateMaliciousFileWhitelistConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.CreateMaliciousFileWhitelistConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_malicious_file_whitelist_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_malicious_file_whitelist_config_with_options(request, runtime)
 
     def create_malicious_note_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3246,6 +3342,34 @@ class Client(OpenApiClient):
     def delete_login_base_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_login_base_config_with_options(request, runtime)
+
+    def delete_malicious_file_whitelist_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_id):
+            query['ConfigId'] = request.config_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteMaliciousFileWhitelistConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DeleteMaliciousFileWhitelistConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_malicious_file_whitelist_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_malicious_file_whitelist_config_with_options(request, runtime)
 
     def delete_malicious_note_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -14013,6 +14137,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_log_meta_with_options(request, runtime)
 
+    def get_malicious_file_whitelist_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_id):
+            query['ConfigId'] = request.config_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetMaliciousFileWhitelistConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetMaliciousFileWhitelistConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_malicious_file_whitelist_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_malicious_file_whitelist_config_with_options(request, runtime)
+
     def get_module_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -17004,6 +17156,42 @@ class Client(OpenApiClient):
     def list_k8s_access_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_k8s_access_info_with_options(request, runtime)
+
+    def list_malicious_file_whitelist_configs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.event_name):
+            query['EventName'] = request.event_name
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListMaliciousFileWhitelistConfigs',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListMaliciousFileWhitelistConfigsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_malicious_file_whitelist_configs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_malicious_file_whitelist_configs_with_options(request, runtime)
 
     def list_object_scan_event_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -22748,6 +22936,48 @@ class Client(OpenApiClient):
     def update_jenkins_image_registry_persistence_day(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_jenkins_image_registry_persistence_day_with_options(request, runtime)
+
+    def update_malicious_file_whitelist_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_id):
+            query['ConfigId'] = request.config_id
+        if not UtilClient.is_unset(request.event_name):
+            query['EventName'] = request.event_name
+        if not UtilClient.is_unset(request.field):
+            query['Field'] = request.field
+        if not UtilClient.is_unset(request.field_value):
+            query['FieldValue'] = request.field_value
+        if not UtilClient.is_unset(request.operator):
+            query['Operator'] = request.operator
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
+        if not UtilClient.is_unset(request.target_value):
+            query['TargetValue'] = request.target_value
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateMaliciousFileWhitelistConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.UpdateMaliciousFileWhitelistConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_malicious_file_whitelist_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_malicious_file_whitelist_config_with_options(request, runtime)
 
     def update_opa_strategy_new_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
