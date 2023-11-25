@@ -3121,16 +3121,18 @@ class AssociateNetworkAclRequestResource(TeaModel):
 
 
 class AssociateNetworkAclRequest(TeaModel):
-    def __init__(self, client_token=None, network_acl_id=None, owner_id=None, region_id=None, resource=None,
-                 resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, client_token=None, dry_run=None, network_acl_id=None, owner_account=None, owner_id=None,
+                 region_id=None, resource=None, resource_owner_account=None, resource_owner_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         # 
         # >  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
         self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
         # The ID of the network ACL.
         self.network_acl_id = network_acl_id  # type: str
+        self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the network ACL. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
@@ -3153,8 +3155,12 @@ class AssociateNetworkAclRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
         if self.network_acl_id is not None:
             result['NetworkAclId'] = self.network_acl_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -3173,8 +3179,12 @@ class AssociateNetworkAclRequest(TeaModel):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
         if m.get('NetworkAclId') is not None:
             self.network_acl_id = m.get('NetworkAclId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
@@ -5623,16 +5633,18 @@ class ConvertBandwidthPackageResponse(TeaModel):
 
 
 class CopyNetworkAclEntriesRequest(TeaModel):
-    def __init__(self, client_token=None, network_acl_id=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None, source_network_acl_id=None):
+    def __init__(self, client_token=None, dry_run=None, network_acl_id=None, owner_account=None, owner_id=None,
+                 region_id=None, resource_owner_account=None, resource_owner_id=None, source_network_acl_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
         self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
         # The ID of the network ACL.
         self.network_acl_id = network_acl_id  # type: str
+        self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The region where the network ACL is deployed. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
@@ -5652,8 +5664,12 @@ class CopyNetworkAclEntriesRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
         if self.network_acl_id is not None:
             result['NetworkAclId'] = self.network_acl_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -5670,8 +5686,12 @@ class CopyNetworkAclEntriesRequest(TeaModel):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
         if m.get('NetworkAclId') is not None:
             self.network_acl_id = m.get('NetworkAclId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
@@ -11076,8 +11096,8 @@ class CreateNetworkAclRequestTag(TeaModel):
 
 
 class CreateNetworkAclRequest(TeaModel):
-    def __init__(self, client_token=None, description=None, network_acl_name=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None, tag=None, vpc_id=None):
+    def __init__(self, client_token=None, description=None, dry_run=None, network_acl_name=None, owner_account=None,
+                 owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, tag=None, vpc_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.
@@ -11088,10 +11108,12 @@ class CreateNetworkAclRequest(TeaModel):
         # 
         # The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
         self.description = description  # type: str
+        self.dry_run = dry_run  # type: bool
         # The name of the network ACL.
         # 
         # The name must be 1 to 128 characters in length and cannot start with `http://` or `https://`.
         self.network_acl_name = network_acl_name  # type: str
+        self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the network ACL.
         # 
@@ -11128,8 +11150,12 @@ class CreateNetworkAclRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.description is not None:
             result['Description'] = self.description
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
         if self.network_acl_name is not None:
             result['NetworkAclName'] = self.network_acl_name
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -11152,8 +11178,12 @@ class CreateNetworkAclRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
         if m.get('NetworkAclName') is not None:
             self.network_acl_name = m.get('NetworkAclName')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
@@ -22663,16 +22693,18 @@ class DeleteNatIpCidrResponse(TeaModel):
 
 
 class DeleteNetworkAclRequest(TeaModel):
-    def __init__(self, client_token=None, network_acl_id=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, client_token=None, dry_run=None, network_acl_id=None, owner_account=None, owner_id=None,
+                 region_id=None, resource_owner_account=None, resource_owner_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
         self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
         # The ID of the network ACL.
         self.network_acl_id = network_acl_id  # type: str
+        self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the network ACL.
         # 
@@ -22692,8 +22724,12 @@ class DeleteNetworkAclRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
         if self.network_acl_id is not None:
             result['NetworkAclId'] = self.network_acl_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -22708,8 +22744,12 @@ class DeleteNetworkAclRequest(TeaModel):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
         if m.get('NetworkAclId') is not None:
             self.network_acl_id = m.get('NetworkAclId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
@@ -37541,7 +37581,7 @@ class DescribeNatGatewaysResponse(TeaModel):
 
 
 class DescribeNetworkAclAttributesRequest(TeaModel):
-    def __init__(self, client_token=None, network_acl_id=None, owner_id=None, region_id=None,
+    def __init__(self, client_token=None, network_acl_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
@@ -37551,6 +37591,7 @@ class DescribeNetworkAclAttributesRequest(TeaModel):
         self.client_token = client_token  # type: str
         # The ID of the network ACL.
         self.network_acl_id = network_acl_id  # type: str
+        self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the network ACL.
         # 
@@ -37572,6 +37613,8 @@ class DescribeNetworkAclAttributesRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.network_acl_id is not None:
             result['NetworkAclId'] = self.network_acl_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -37588,6 +37631,8 @@ class DescribeNetworkAclAttributesRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('NetworkAclId') is not None:
             self.network_acl_id = m.get('NetworkAclId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
@@ -37600,12 +37645,14 @@ class DescribeNetworkAclAttributesRequest(TeaModel):
 
 
 class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeEgressAclEntriesEgressAclEntry(TeaModel):
-    def __init__(self, description=None, destination_cidr_ip=None, network_acl_entry_id=None,
-                 network_acl_entry_name=None, policy=None, port=None, protocol=None):
+    def __init__(self, description=None, destination_cidr_ip=None, entry_type=None, ip_version=None,
+                 network_acl_entry_id=None, network_acl_entry_name=None, policy=None, port=None, protocol=None):
         # The description of the outbound rule.
         self.description = description  # type: str
         # The destination CIDR block.
         self.destination_cidr_ip = destination_cidr_ip  # type: str
+        self.entry_type = entry_type  # type: str
+        self.ip_version = ip_version  # type: str
         # The ID of the outbound rule.
         self.network_acl_entry_id = network_acl_entry_id  # type: str
         # The name of the outbound rule.
@@ -37642,6 +37689,10 @@ class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeEgressAclEntrie
             result['Description'] = self.description
         if self.destination_cidr_ip is not None:
             result['DestinationCidrIp'] = self.destination_cidr_ip
+        if self.entry_type is not None:
+            result['EntryType'] = self.entry_type
+        if self.ip_version is not None:
+            result['IpVersion'] = self.ip_version
         if self.network_acl_entry_id is not None:
             result['NetworkAclEntryId'] = self.network_acl_entry_id
         if self.network_acl_entry_name is not None:
@@ -37660,6 +37711,10 @@ class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeEgressAclEntrie
             self.description = m.get('Description')
         if m.get('DestinationCidrIp') is not None:
             self.destination_cidr_ip = m.get('DestinationCidrIp')
+        if m.get('EntryType') is not None:
+            self.entry_type = m.get('EntryType')
+        if m.get('IpVersion') is not None:
+            self.ip_version = m.get('IpVersion')
         if m.get('NetworkAclEntryId') is not None:
             self.network_acl_entry_id = m.get('NetworkAclEntryId')
         if m.get('NetworkAclEntryName') is not None:
@@ -37706,10 +37761,12 @@ class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeEgressAclEntrie
 
 
 class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeIngressAclEntriesIngressAclEntry(TeaModel):
-    def __init__(self, description=None, network_acl_entry_id=None, network_acl_entry_name=None, policy=None,
-                 port=None, protocol=None, source_cidr_ip=None):
+    def __init__(self, description=None, entry_type=None, ip_version=None, network_acl_entry_id=None,
+                 network_acl_entry_name=None, policy=None, port=None, protocol=None, source_cidr_ip=None):
         # The description of the inbound rule.
         self.description = description  # type: str
+        self.entry_type = entry_type  # type: str
+        self.ip_version = ip_version  # type: str
         # The ID of the inbound rule.
         self.network_acl_entry_id = network_acl_entry_id  # type: str
         # The name of the inbound rule.
@@ -37746,6 +37803,10 @@ class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeIngressAclEntri
         result = dict()
         if self.description is not None:
             result['Description'] = self.description
+        if self.entry_type is not None:
+            result['EntryType'] = self.entry_type
+        if self.ip_version is not None:
+            result['IpVersion'] = self.ip_version
         if self.network_acl_entry_id is not None:
             result['NetworkAclEntryId'] = self.network_acl_entry_id
         if self.network_acl_entry_name is not None:
@@ -37764,6 +37825,10 @@ class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeIngressAclEntri
         m = m or dict()
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('EntryType') is not None:
+            self.entry_type = m.get('EntryType')
+        if m.get('IpVersion') is not None:
+            self.ip_version = m.get('IpVersion')
         if m.get('NetworkAclEntryId') is not None:
             self.network_acl_entry_id = m.get('NetworkAclEntryId')
         if m.get('NetworkAclEntryName') is not None:
@@ -38162,9 +38227,9 @@ class DescribeNetworkAclsRequestTags(TeaModel):
 
 
 class DescribeNetworkAclsRequest(TeaModel):
-    def __init__(self, client_token=None, network_acl_id=None, network_acl_name=None, owner_id=None,
-                 page_number=None, page_size=None, region_id=None, resource_id=None, resource_owner_account=None,
-                 resource_owner_id=None, resource_type=None, tags=None, vpc_id=None):
+    def __init__(self, client_token=None, network_acl_id=None, network_acl_name=None, owner_account=None,
+                 owner_id=None, page_number=None, page_size=None, region_id=None, resource_id=None,
+                 resource_owner_account=None, resource_owner_id=None, resource_type=None, tags=None, vpc_id=None):
         # The client token that you want to use to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that the value is unique among different requests. ClientToken can contain only ASCII characters.
@@ -38177,6 +38242,7 @@ class DescribeNetworkAclsRequest(TeaModel):
         # 
         # The name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.
         self.network_acl_name = network_acl_name  # type: str
+        self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
@@ -38216,6 +38282,8 @@ class DescribeNetworkAclsRequest(TeaModel):
             result['NetworkAclId'] = self.network_acl_id
         if self.network_acl_name is not None:
             result['NetworkAclName'] = self.network_acl_name
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.page_number is not None:
@@ -38248,6 +38316,8 @@ class DescribeNetworkAclsRequest(TeaModel):
             self.network_acl_id = m.get('NetworkAclId')
         if m.get('NetworkAclName') is not None:
             self.network_acl_name = m.get('NetworkAclName')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('PageNumber') is not None:
@@ -38275,12 +38345,14 @@ class DescribeNetworkAclsRequest(TeaModel):
 
 
 class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclEgressAclEntriesEgressAclEntry(TeaModel):
-    def __init__(self, description=None, destination_cidr_ip=None, network_acl_entry_id=None,
-                 network_acl_entry_name=None, policy=None, port=None, protocol=None):
+    def __init__(self, description=None, destination_cidr_ip=None, entry_type=None, ip_version=None,
+                 network_acl_entry_id=None, network_acl_entry_name=None, policy=None, port=None, protocol=None):
         # The description of the outbound rule.
         self.description = description  # type: str
         # The destination CIDR block.
         self.destination_cidr_ip = destination_cidr_ip  # type: str
+        self.entry_type = entry_type  # type: str
+        self.ip_version = ip_version  # type: str
         # The ID of the outbound rule.
         self.network_acl_entry_id = network_acl_entry_id  # type: str
         # The name of the outbound rule.
@@ -38317,6 +38389,10 @@ class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclEgressAclEntriesEgress
             result['Description'] = self.description
         if self.destination_cidr_ip is not None:
             result['DestinationCidrIp'] = self.destination_cidr_ip
+        if self.entry_type is not None:
+            result['EntryType'] = self.entry_type
+        if self.ip_version is not None:
+            result['IpVersion'] = self.ip_version
         if self.network_acl_entry_id is not None:
             result['NetworkAclEntryId'] = self.network_acl_entry_id
         if self.network_acl_entry_name is not None:
@@ -38335,6 +38411,10 @@ class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclEgressAclEntriesEgress
             self.description = m.get('Description')
         if m.get('DestinationCidrIp') is not None:
             self.destination_cidr_ip = m.get('DestinationCidrIp')
+        if m.get('EntryType') is not None:
+            self.entry_type = m.get('EntryType')
+        if m.get('IpVersion') is not None:
+            self.ip_version = m.get('IpVersion')
         if m.get('NetworkAclEntryId') is not None:
             self.network_acl_entry_id = m.get('NetworkAclEntryId')
         if m.get('NetworkAclEntryName') is not None:
@@ -38381,10 +38461,12 @@ class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclEgressAclEntries(TeaMo
 
 
 class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclIngressAclEntriesIngressAclEntry(TeaModel):
-    def __init__(self, description=None, network_acl_entry_id=None, network_acl_entry_name=None, policy=None,
-                 port=None, protocol=None, source_cidr_ip=None):
+    def __init__(self, description=None, entry_type=None, ip_version=None, network_acl_entry_id=None,
+                 network_acl_entry_name=None, policy=None, port=None, protocol=None, source_cidr_ip=None):
         # The description of the inbound rule.
         self.description = description  # type: str
+        self.entry_type = entry_type  # type: str
+        self.ip_version = ip_version  # type: str
         # The ID of the inbound rule.
         self.network_acl_entry_id = network_acl_entry_id  # type: str
         # The name of the inbound rule.
@@ -38421,6 +38503,10 @@ class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclIngressAclEntriesIngre
         result = dict()
         if self.description is not None:
             result['Description'] = self.description
+        if self.entry_type is not None:
+            result['EntryType'] = self.entry_type
+        if self.ip_version is not None:
+            result['IpVersion'] = self.ip_version
         if self.network_acl_entry_id is not None:
             result['NetworkAclEntryId'] = self.network_acl_entry_id
         if self.network_acl_entry_name is not None:
@@ -38439,6 +38525,10 @@ class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclIngressAclEntriesIngre
         m = m or dict()
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('EntryType') is not None:
+            self.entry_type = m.get('EntryType')
+        if m.get('IpVersion') is not None:
+            self.ip_version = m.get('IpVersion')
         if m.get('NetworkAclEntryId') is not None:
             self.network_acl_entry_id = m.get('NetworkAclEntryId')
         if m.get('NetworkAclEntryName') is not None:
@@ -43815,11 +43905,11 @@ class DescribeSslVpnClientCertsRequest(TeaModel):
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return. Default value: **1**.
+        # The page number. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page. Default value: **10**. Valid values: **1** to **50**.
+        # The number of entries per page. Default value: **10**. Valid values: **1** to **50**.
         self.page_size = page_size  # type: int
-        # The region ID of the SSL client certificates to be queried.
+        # The region ID of the SSL client certificate.
         # 
         # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
@@ -43894,11 +43984,11 @@ class DescribeSslVpnClientCertsRequest(TeaModel):
 class DescribeSslVpnClientCertsResponseBodySslVpnClientCertKeysSslVpnClientCertKey(TeaModel):
     def __init__(self, create_time=None, end_time=None, name=None, region_id=None, resource_group_id=None,
                  ssl_vpn_client_cert_id=None, ssl_vpn_server_id=None, status=None):
-        # The timestamp that indicates when the SSL client certificate was created. Unit: milliseconds.
+        # The timestamp that indicates when the SSL client certificate was created. Unit: millisecond.
         # 
         # This value is a UNIX timestamp representing the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.create_time = create_time  # type: long
-        # The timestamp that indicates when the SSL client certificate expires. Unit: milliseconds.
+        # The timestamp that indicates when the SSL client certificate expires. Unit: millisecond.
         # 
         # This value is a UNIX timestamp representing the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.end_time = end_time  # type: long
@@ -43913,9 +44003,9 @@ class DescribeSslVpnClientCertsResponseBodySslVpnClientCertKeysSslVpnClientCertK
         self.ssl_vpn_server_id = ssl_vpn_server_id  # type: str
         # The status of the SSL client certificate. Valid values:
         # 
-        # *   **expiring-soon**: The certificate expires in one week.
-        # *   **normal**: The certificate is active.
-        # *   **expired**: The certificate has expired.
+        # *   **expiring-soon**\
+        # *   **normal**\
+        # *   **expired**\
         self.status = status  # type: str
 
     def validate(self):
@@ -44001,11 +44091,11 @@ class DescribeSslVpnClientCertsResponseBodySslVpnClientCertKeys(TeaModel):
 class DescribeSslVpnClientCertsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, ssl_vpn_client_cert_keys=None,
                  total_count=None):
-        # The number of the returned page.
+        # The number of the page to return.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
+        # The number of entries per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The information about the SSL client certificates.
         self.ssl_vpn_client_cert_keys = ssl_vpn_client_cert_keys  # type: DescribeSslVpnClientCertsResponseBodySslVpnClientCertKeys
@@ -53875,11 +53965,11 @@ class DescribeVpnPbrRouteEntriesRequest(TeaModel):
                  resource_owner_account=None, resource_owner_id=None, vpn_gateway_id=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return. Default value: **1**.
+        # The page number. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
+        # The number of entries per page. Maximum value: **50**. Default value: **10**.
         self.page_size = page_size  # type: int
-        # The ID of the region where the VPN gateway is created.
+        # The region ID of the VPN gateway.
         # 
         # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
@@ -53939,9 +54029,9 @@ class DescribeVpnPbrRouteEntriesRequest(TeaModel):
 class DescribeVpnPbrRouteEntriesResponseBodyVpnPbrRouteEntriesVpnPbrRouteEntry(TeaModel):
     def __init__(self, create_time=None, next_hop=None, next_hop_tunnel_id=None, priority=None, route_dest=None,
                  route_source=None, state=None, vpn_instance_id=None, weight=None):
-        # The timestamp generated when the policy-based route was created. Unit: milliseconds.
+        # The time when the policy-based route was created. Unit: milliseconds.
         # 
-        # This value is a UNIX timestamp representing the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
+        # This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.create_time = create_time  # type: long
         # The next hop of the policy-based route.
         self.next_hop = next_hop  # type: str
@@ -53962,14 +54052,16 @@ class DescribeVpnPbrRouteEntriesResponseBodyVpnPbrRouteEntriesVpnPbrRouteEntry(T
         # *   **published**: advertised to the VPC route table.
         # *   **normal**: not advertised to the VPC route table.
         self.state = state  # type: str
-        # The ID of the VPN gateway.
+        # The VPN gateway ID.
         self.vpn_instance_id = vpn_instance_id  # type: str
         # The weight of the policy-based route. Valid values:
         # 
-        # - For a VPN gateway that supports the dual-tunnel mode, the default weight is **100**.
-        # - For a VPN gateway that supports the single-tunnel mode, the weight specifies the priority of the policy-based route.
-        #    - **100**: a high priority. If multiple policy-based routes with the same source CIDR block and destination CIDR block exist, the IPsec-VPN connection associated with the policy-based route is the active connection.
-        #    - **0**: a low priority. If multiple policy-based routes with the same source CIDR block and destination CIDR block exist, the IPsec-VPN connection associated with the policy-based route is the standby connection.
+        # *   For a VPN gateway that supports the dual-tunnel mode, the default value is **100**.
+        # 
+        # *   For a VPN gateway that supports the single-tunnel mode, the weight specifies the priority of the policy-based route.
+        # 
+        #     *   **100**: a high priority If multiple policy-based routes with the same source CIDR block and destination CIDR block exist, the IPsec-VPN connection associated with the policy-based route is the active connection.
+        #     *   **0**: a low priority If multiple policy-based routes with the same source CIDR block and destination CIDR block exist, the IPsec-VPN connection associated with the policy-based route is the standby connection.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -54059,13 +54151,13 @@ class DescribeVpnPbrRouteEntriesResponseBodyVpnPbrRouteEntries(TeaModel):
 class DescribeVpnPbrRouteEntriesResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None,
                  vpn_pbr_route_entries=None):
-        # The page number of the returned page.
+        # The page number.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
+        # The number of entries per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The total number of entries returned.
+        # The number of entries returned.
         self.total_count = total_count  # type: int
         # The list of policy-based routes.
         self.vpn_pbr_route_entries = vpn_pbr_route_entries  # type: DescribeVpnPbrRouteEntriesResponseBodyVpnPbrRouteEntries
@@ -61918,15 +62010,15 @@ class ListIpsecServersResponseBodyIpsecServers(TeaModel):
         # *   **true**: immediately initiates negotiations after the configuration is completed.
         # *   **false**: initiates negotiations when inbound traffic is detected.
         self.effect_immediately = effect_immediately  # type: bool
-        # The ID of the Identity as a Service (IDaaS) instance.
+        # The ID of the IDaaS instance.
         self.idaa_sinstance_id = idaa_sinstance_id  # type: str
-        # The configurations of phase 1 negotiations.
+        # The configurations of Phase 1 negotiations.
         self.ike_config = ike_config  # type: ListIpsecServersResponseBodyIpsecServersIkeConfig
         # The public IP address of the VPN gateway.
         self.internet_ip = internet_ip  # type: str
-        # The configuration of phase 2 negotiations.
+        # The configurations of Phase 2 negotiations.
         self.ipsec_config = ipsec_config  # type: ListIpsecServersResponseBodyIpsecServersIpsecConfig
-        # The ID of the IPsec server.
+        # The IPsec server ID.
         self.ipsec_server_id = ipsec_server_id  # type: str
         # The name of the IPsec server.
         self.ipsec_server_name = ipsec_server_name  # type: str
@@ -61934,18 +62026,18 @@ class ListIpsecServersResponseBodyIpsecServers(TeaModel):
         self.local_subnet = local_subnet  # type: str
         # The number of SSL-VPN connections supported by the VPN gateway.
         # 
-        # >  The number of SSL-VPN connections specified in this parameter includes both SSL-VPN and IPsec-VPN connections. For example, if a VPN gateway supports up to five SSL-VPN connections, and three SSL-VPN connections are already established to SSL clients. In this case, you can establish at most two connections to IPsec servers.
+        # >  The number of SSL-VPN connections specified in this parameter includes both SSL-VPN and IPsec-VPN connections. For example, you have five SSL-VPN connections and three SSL clients occupy three SSL-VPN connections. In this case, two clients can connect to the IPsec server.
         self.max_connections = max_connections  # type: int
         # Indicates whether two-factor authentication is enabled. Valid values:
         # 
-        # *   **true**: yes
-        # *   **false**: no
+        # *   **true**\
+        # *   **false**: The feature is disabled.
         self.multi_factor_auth_enabled = multi_factor_auth_enabled  # type: bool
         # The number of clients that are connected to the IPsec server.
         self.online_client_count = online_client_count  # type: int
         # The pre-shared key.
         self.psk = psk  # type: str
-        # Indicates whether pre-shared key authentication is enabled. Pre-shared key authentication is enabled only when the value is set to **true**.
+        # Indicates whether pre-shared key authentication is enabled. Only **true** may be returned, which indicates that pre-shared key authentication is enabled.
         self.psk_enabled = psk_enabled  # type: bool
         # The ID of the region where the IPsec server is created.
         self.region_id = region_id  # type: str
@@ -62048,7 +62140,7 @@ class ListIpsecServersResponseBodyIpsecServers(TeaModel):
 
 class ListIpsecServersResponseBody(TeaModel):
     def __init__(self, ipsec_servers=None, max_results=None, next_token=None, request_id=None, total_count=None):
-        # The Diffie-Hellman key exchange algorithm.
+        # The list of IPsec servers.
         self.ipsec_servers = ipsec_servers  # type: list[ListIpsecServersResponseBodyIpsecServers]
         # The number of entries returned per page.
         self.max_results = max_results  # type: int
@@ -71566,8 +71658,9 @@ class ModifyNatIpCidrAttributeResponse(TeaModel):
 
 
 class ModifyNetworkAclAttributesRequest(TeaModel):
-    def __init__(self, client_token=None, description=None, network_acl_id=None, network_acl_name=None,
-                 owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, client_token=None, description=None, dry_run=None, network_acl_id=None,
+                 network_acl_name=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.
@@ -71578,12 +71671,14 @@ class ModifyNetworkAclAttributesRequest(TeaModel):
         # 
         # The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
         self.description = description  # type: str
+        self.dry_run = dry_run  # type: bool
         # The ID of the network ACL.
         self.network_acl_id = network_acl_id  # type: str
         # The name of the network ACL.
         # 
         # The name must be 1 to 128 characters in length and cannot start with `http://` or `https://`.
         self.network_acl_name = network_acl_name  # type: str
+        self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the network ACL.
         # 
@@ -71605,10 +71700,14 @@ class ModifyNetworkAclAttributesRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.description is not None:
             result['Description'] = self.description
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
         if self.network_acl_id is not None:
             result['NetworkAclId'] = self.network_acl_id
         if self.network_acl_name is not None:
             result['NetworkAclName'] = self.network_acl_name
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -71625,10 +71724,14 @@ class ModifyNetworkAclAttributesRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
         if m.get('NetworkAclId') is not None:
             self.network_acl_id = m.get('NetworkAclId')
         if m.get('NetworkAclName') is not None:
             self.network_acl_name = m.get('NetworkAclName')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
@@ -82489,16 +82592,18 @@ class UnassociateNetworkAclRequestResource(TeaModel):
 
 
 class UnassociateNetworkAclRequest(TeaModel):
-    def __init__(self, client_token=None, network_acl_id=None, owner_id=None, region_id=None, resource=None,
-                 resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, client_token=None, dry_run=None, network_acl_id=None, owner_account=None, owner_id=None,
+                 region_id=None, resource=None, resource_owner_account=None, resource_owner_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         # 
         # >  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
         self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
         # The ID of the network ACL that you want to disassociate from a resource.
         self.network_acl_id = network_acl_id  # type: str
+        self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the network ACL.
         # 
@@ -82523,8 +82628,12 @@ class UnassociateNetworkAclRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
         if self.network_acl_id is not None:
             result['NetworkAclId'] = self.network_acl_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -82543,8 +82652,12 @@ class UnassociateNetworkAclRequest(TeaModel):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
         if m.get('NetworkAclId') is not None:
             self.network_acl_id = m.get('NetworkAclId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
@@ -84180,8 +84293,8 @@ class UpdateNatGatewayNatTypeResponse(TeaModel):
 
 
 class UpdateNetworkAclEntriesRequestEgressAclEntries(TeaModel):
-    def __init__(self, description=None, destination_cidr_ip=None, entry_type=None, network_acl_entry_id=None,
-                 network_acl_entry_name=None, policy=None, port=None, protocol=None):
+    def __init__(self, description=None, destination_cidr_ip=None, entry_type=None, ip_version=None,
+                 network_acl_entry_id=None, network_acl_entry_name=None, policy=None, port=None, protocol=None):
         # The description of the outbound rule.
         # 
         # The description must be 1 to 256 characters in length, and cannot start with `http://` or `https://`.
@@ -84190,6 +84303,7 @@ class UpdateNetworkAclEntriesRequestEgressAclEntries(TeaModel):
         self.destination_cidr_ip = destination_cidr_ip  # type: str
         # The type of the rule. Set the value to **custom**, which specifies custom rules.
         self.entry_type = entry_type  # type: str
+        self.ip_version = ip_version  # type: str
         # The ID of the outbound rule.
         # 
         # Valid values of **N**: **0** to **99**. You can specify at most 100 outbound rules.
@@ -84232,6 +84346,8 @@ class UpdateNetworkAclEntriesRequestEgressAclEntries(TeaModel):
             result['DestinationCidrIp'] = self.destination_cidr_ip
         if self.entry_type is not None:
             result['EntryType'] = self.entry_type
+        if self.ip_version is not None:
+            result['IpVersion'] = self.ip_version
         if self.network_acl_entry_id is not None:
             result['NetworkAclEntryId'] = self.network_acl_entry_id
         if self.network_acl_entry_name is not None:
@@ -84252,6 +84368,8 @@ class UpdateNetworkAclEntriesRequestEgressAclEntries(TeaModel):
             self.destination_cidr_ip = m.get('DestinationCidrIp')
         if m.get('EntryType') is not None:
             self.entry_type = m.get('EntryType')
+        if m.get('IpVersion') is not None:
+            self.ip_version = m.get('IpVersion')
         if m.get('NetworkAclEntryId') is not None:
             self.network_acl_entry_id = m.get('NetworkAclEntryId')
         if m.get('NetworkAclEntryName') is not None:
@@ -84266,14 +84384,15 @@ class UpdateNetworkAclEntriesRequestEgressAclEntries(TeaModel):
 
 
 class UpdateNetworkAclEntriesRequestIngressAclEntries(TeaModel):
-    def __init__(self, description=None, entry_type=None, network_acl_entry_id=None, network_acl_entry_name=None,
-                 policy=None, port=None, protocol=None, source_cidr_ip=None):
+    def __init__(self, description=None, entry_type=None, ip_version=None, network_acl_entry_id=None,
+                 network_acl_entry_name=None, policy=None, port=None, protocol=None, source_cidr_ip=None):
         # The description of the inbound rule.
         # 
         # The description must be 1 to 256 characters in length, and cannot start with `http://` or `https://`.
         self.description = description  # type: str
         # The type of the rule. Set the value to **custom**, which specifies custom rules.
         self.entry_type = entry_type  # type: str
+        self.ip_version = ip_version  # type: str
         # The ID of the inbound rule.
         # 
         # Valid values of **N**: **0** to **99**. You can specify at most 100 inbound rules.
@@ -84316,6 +84435,8 @@ class UpdateNetworkAclEntriesRequestIngressAclEntries(TeaModel):
             result['Description'] = self.description
         if self.entry_type is not None:
             result['EntryType'] = self.entry_type
+        if self.ip_version is not None:
+            result['IpVersion'] = self.ip_version
         if self.network_acl_entry_id is not None:
             result['NetworkAclEntryId'] = self.network_acl_entry_id
         if self.network_acl_entry_name is not None:
@@ -84336,6 +84457,8 @@ class UpdateNetworkAclEntriesRequestIngressAclEntries(TeaModel):
             self.description = m.get('Description')
         if m.get('EntryType') is not None:
             self.entry_type = m.get('EntryType')
+        if m.get('IpVersion') is not None:
+            self.ip_version = m.get('IpVersion')
         if m.get('NetworkAclEntryId') is not None:
             self.network_acl_entry_id = m.get('NetworkAclEntryId')
         if m.get('NetworkAclEntryName') is not None:
@@ -84352,21 +84475,23 @@ class UpdateNetworkAclEntriesRequestIngressAclEntries(TeaModel):
 
 
 class UpdateNetworkAclEntriesRequest(TeaModel):
-    def __init__(self, client_token=None, egress_acl_entries=None, ingress_acl_entries=None, network_acl_id=None,
-                 owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
-                 update_egress_acl_entries=None, update_ingress_acl_entries=None):
+    def __init__(self, client_token=None, dry_run=None, egress_acl_entries=None, ingress_acl_entries=None,
+                 network_acl_id=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
+                 resource_owner_id=None, update_egress_acl_entries=None, update_ingress_acl_entries=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         # 
         # >  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
         self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
         # The information about the outbound rules.
         self.egress_acl_entries = egress_acl_entries  # type: list[UpdateNetworkAclEntriesRequestEgressAclEntries]
         # The information about the inbound rule.
         self.ingress_acl_entries = ingress_acl_entries  # type: list[UpdateNetworkAclEntriesRequestIngressAclEntries]
         # The ID of the network ACL.
         self.network_acl_id = network_acl_id  # type: str
+        self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the network ACL.
         # 
@@ -84407,6 +84532,8 @@ class UpdateNetworkAclEntriesRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
         result['EgressAclEntries'] = []
         if self.egress_acl_entries is not None:
             for k in self.egress_acl_entries:
@@ -84417,6 +84544,8 @@ class UpdateNetworkAclEntriesRequest(TeaModel):
                 result['IngressAclEntries'].append(k.to_map() if k else None)
         if self.network_acl_id is not None:
             result['NetworkAclId'] = self.network_acl_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -84435,6 +84564,8 @@ class UpdateNetworkAclEntriesRequest(TeaModel):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
         self.egress_acl_entries = []
         if m.get('EgressAclEntries') is not None:
             for k in m.get('EgressAclEntries'):
@@ -84447,6 +84578,8 @@ class UpdateNetworkAclEntriesRequest(TeaModel):
                 self.ingress_acl_entries.append(temp_model.from_map(k))
         if m.get('NetworkAclId') is not None:
             self.network_acl_id = m.get('NetworkAclId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
