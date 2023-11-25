@@ -14115,11 +14115,12 @@ class GetSparkAppAttemptLogResponse(TeaModel):
 
 
 class GetSparkAppInfoRequest(TeaModel):
-    def __init__(self, app_id=None):
+    def __init__(self, app_id=None, dbcluster_id=None):
         # The ID of the application. 
         # 
         # >  You can call the [ListSparkApps](~~612475~~) operation to query the Spark application ID.
         self.app_id = app_id  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
         pass
@@ -14132,12 +14133,16 @@ class GetSparkAppInfoRequest(TeaModel):
         result = dict()
         if self.app_id is not None:
             result['AppId'] = self.app_id
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
         return self
 
 
@@ -14227,11 +14232,12 @@ class GetSparkAppInfoResponse(TeaModel):
 
 
 class GetSparkAppLogRequest(TeaModel):
-    def __init__(self, app_id=None, log_length=None):
+    def __init__(self, app_id=None, dbcluster_id=None, log_length=None):
         # The Spark application ID.
         # 
         # > You can call the [ListSparkApps](~~612475~~) operation to query the Spark application ID.
         self.app_id = app_id  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
         # The number of log entries to return. Valid values: 1 to 500. Default value: 300.
         self.log_length = log_length  # type: long
 
@@ -14246,6 +14252,8 @@ class GetSparkAppLogRequest(TeaModel):
         result = dict()
         if self.app_id is not None:
             result['AppId'] = self.app_id
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
         if self.log_length is not None:
             result['LogLength'] = self.log_length
         return result
@@ -14254,6 +14262,8 @@ class GetSparkAppLogRequest(TeaModel):
         m = m or dict()
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
         if m.get('LogLength') is not None:
             self.log_length = m.get('LogLength')
         return self
@@ -14369,9 +14379,10 @@ class GetSparkAppLogResponse(TeaModel):
 
 
 class GetSparkAppMetricsRequest(TeaModel):
-    def __init__(self, app_id=None):
+    def __init__(self, app_id=None, dbcluster_id=None):
         # The ID of the Spark application.
         self.app_id = app_id  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
         pass
@@ -14384,12 +14395,16 @@ class GetSparkAppMetricsRequest(TeaModel):
         result = dict()
         if self.app_id is not None:
             result['AppId'] = self.app_id
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
         return self
 
 
@@ -14551,9 +14566,10 @@ class GetSparkAppMetricsResponse(TeaModel):
 
 
 class GetSparkAppStateRequest(TeaModel):
-    def __init__(self, app_id=None):
+    def __init__(self, app_id=None, dbcluster_id=None):
         # The ID of the application.
         self.app_id = app_id  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
         pass
@@ -14566,12 +14582,16 @@ class GetSparkAppStateRequest(TeaModel):
         result = dict()
         if self.app_id is not None:
             result['AppId'] = self.app_id
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
         return self
 
 
@@ -14709,9 +14729,10 @@ class GetSparkAppStateResponse(TeaModel):
 
 
 class GetSparkAppWebUiAddressRequest(TeaModel):
-    def __init__(self, app_id=None):
+    def __init__(self, app_id=None, dbcluster_id=None):
         # The ID of the Spark application.
         self.app_id = app_id  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
         pass
@@ -14724,12 +14745,16 @@ class GetSparkAppWebUiAddressRequest(TeaModel):
         result = dict()
         if self.app_id is not None:
             result['AppId'] = self.app_id
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
         return self
 
 
@@ -15902,17 +15927,17 @@ class GetTableColumnsRequest(TeaModel):
                  schema_name=None, table_name=None):
         # The name of the column.
         self.column_name = column_name  # type: str
-        # The ID of the cluster.
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The number of the page to return. The value is an integer that is greater than 0. Default value: **1**.
+        # The page number. Pages start from page 1. Default value: **1**.
         self.page_number = page_number  # type: long
-        # The number of entries to return on each page. Default value: 30. Valid values:
+        # The number of entries per page. Valid values:
         # 
-        # *   **30**\
+        # *   **30** (default)
         # *   **50**\
         # *   **100**\
         self.page_size = page_size  # type: long
-        # The ID of the region in which the cluster resides.
+        # The region ID of the cluster.
         self.region_id = region_id  # type: str
         # The name of the database.
         self.schema_name = schema_name  # type: str
@@ -15965,15 +15990,15 @@ class GetTableColumnsRequest(TeaModel):
 
 class GetTableColumnsResponseBodyData(TeaModel):
     def __init__(self, page_number=None, page_size=None, table=None, total_count=None):
-        # The page number of the returned page. The value is an integer that is greater than 0. Default value: 1.
+        # The page number. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: long
-        # The number of entries returned per page. Default value: 30. Valid values:
+        # The number of entries per page. Valid values:
         # 
-        # *   **30**\
+        # *   **30** (default)
         # *   **50**\
         # *   **100**\
         self.page_size = page_size  # type: long
-        # Details of the table.
+        # The information about the table.
         self.table = table  # type: TableDetailModel
         # The total number of entries returned.
         self.total_count = total_count  # type: long
@@ -16014,17 +16039,17 @@ class GetTableColumnsResponseBodyData(TeaModel):
 
 class GetTableColumnsResponseBody(TeaModel):
     def __init__(self, data=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The data returned.
+        # The queried data.
         self.data = data  # type: GetTableColumnsResponseBodyData
-        # The page number of the returned page. The value is an integer that is greater than 0. Default value: 1.
+        # The page number. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: long
-        # The number of entries returned per page. Default value: 30. Valid values:
+        # The number of entries per page. Valid values:
         # 
-        # *   **30**\
+        # *   **30** (default)
         # *   **50**\
         # *   **100**\
         self.page_size = page_size  # type: long
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The total number of entries returned.
         self.total_count = total_count  # type: long
@@ -16841,9 +16866,10 @@ class GetViewObjectsResponse(TeaModel):
 
 
 class KillSparkAppRequest(TeaModel):
-    def __init__(self, app_id=None):
+    def __init__(self, app_id=None, dbcluster_id=None):
         # The ID of the Spark application.
         self.app_id = app_id  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
         pass
@@ -16856,12 +16882,16 @@ class KillSparkAppRequest(TeaModel):
         result = dict()
         if self.app_id is not None:
             result['AppId'] = self.app_id
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
         return self
 
 
@@ -17191,11 +17221,12 @@ class KillSparkSQLEngineResponse(TeaModel):
 
 
 class ListSparkAppAttemptsRequest(TeaModel):
-    def __init__(self, app_id=None, page_number=None, page_size=None):
+    def __init__(self, app_id=None, dbcluster_id=None, page_number=None, page_size=None):
         # The ID of the Spark application.
         # 
         # > You can call the [ListSparkApps](~~455888~~) operation to query all application IDs.
         self.app_id = app_id  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
         # The page number. The value must be an integer that is greater than 0. Default value: **1**.
         self.page_number = page_number  # type: long
         # The number of entries per page. Valid values:
@@ -17216,6 +17247,8 @@ class ListSparkAppAttemptsRequest(TeaModel):
         result = dict()
         if self.app_id is not None:
             result['AppId'] = self.app_id
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -17226,6 +17259,8 @@ class ListSparkAppAttemptsRequest(TeaModel):
         m = m or dict()
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -19209,9 +19244,10 @@ class ModifyElasticPlanResponse(TeaModel):
 
 
 class PreloadSparkAppMetricsRequest(TeaModel):
-    def __init__(self, app_id=None):
+    def __init__(self, app_id=None, dbcluster_id=None):
         # The ID of the Spark application.
         self.app_id = app_id  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
         pass
@@ -19224,12 +19260,16 @@ class PreloadSparkAppMetricsRequest(TeaModel):
         result = dict()
         if self.app_id is not None:
             result['AppId'] = self.app_id
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
         return self
 
 
