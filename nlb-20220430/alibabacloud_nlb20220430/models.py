@@ -645,6 +645,41 @@ class CancelShiftLoadBalancerZonesResponse(TeaModel):
         return self
 
 
+class CreateListenerRequestProxyProtocolV2Config(TeaModel):
+    def __init__(self, ppv_2private_link_ep_id_enabled=None, ppv_2private_link_eps_id_enabled=None,
+                 ppv_2vpc_id_enabled=None):
+        self.ppv_2private_link_ep_id_enabled = ppv_2private_link_ep_id_enabled  # type: bool
+        self.ppv_2private_link_eps_id_enabled = ppv_2private_link_eps_id_enabled  # type: bool
+        self.ppv_2vpc_id_enabled = ppv_2vpc_id_enabled  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateListenerRequestProxyProtocolV2Config, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ppv_2private_link_ep_id_enabled is not None:
+            result['Ppv2PrivateLinkEpIdEnabled'] = self.ppv_2private_link_ep_id_enabled
+        if self.ppv_2private_link_eps_id_enabled is not None:
+            result['Ppv2PrivateLinkEpsIdEnabled'] = self.ppv_2private_link_eps_id_enabled
+        if self.ppv_2vpc_id_enabled is not None:
+            result['Ppv2VpcIdEnabled'] = self.ppv_2vpc_id_enabled
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Ppv2PrivateLinkEpIdEnabled') is not None:
+            self.ppv_2private_link_ep_id_enabled = m.get('Ppv2PrivateLinkEpIdEnabled')
+        if m.get('Ppv2PrivateLinkEpsIdEnabled') is not None:
+            self.ppv_2private_link_eps_id_enabled = m.get('Ppv2PrivateLinkEpsIdEnabled')
+        if m.get('Ppv2VpcIdEnabled') is not None:
+            self.ppv_2vpc_id_enabled = m.get('Ppv2VpcIdEnabled')
+        return self
+
+
 class CreateListenerRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
@@ -684,8 +719,8 @@ class CreateListenerRequest(TeaModel):
     def __init__(self, alpn_enabled=None, alpn_policy=None, ca_certificate_ids=None, ca_enabled=None,
                  certificate_ids=None, client_token=None, cps=None, dry_run=None, end_port=None, idle_timeout=None,
                  listener_description=None, listener_port=None, listener_protocol=None, load_balancer_id=None, mss=None,
-                 proxy_protocol_enabled=None, region_id=None, sec_sensor_enabled=None, security_policy_id=None, server_group_id=None,
-                 start_port=None, tag=None):
+                 proxy_protocol_enabled=None, proxy_protocol_v2config=None, region_id=None, sec_sensor_enabled=None,
+                 security_policy_id=None, server_group_id=None, start_port=None, tag=None):
         # Specifies whether to enable Application-Layer Protocol Negotiation (ALPN). Valid values:
         # 
         # *   **true**\
@@ -753,6 +788,7 @@ class CreateListenerRequest(TeaModel):
         # *   **true**\
         # *   **false** (default)
         self.proxy_protocol_enabled = proxy_protocol_enabled  # type: bool
+        self.proxy_protocol_v2config = proxy_protocol_v2config  # type: CreateListenerRequestProxyProtocolV2Config
         # The region ID of the NLB instance.
         # 
         # You can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.
@@ -778,6 +814,8 @@ class CreateListenerRequest(TeaModel):
         self.tag = tag  # type: list[CreateListenerRequestTag]
 
     def validate(self):
+        if self.proxy_protocol_v2config:
+            self.proxy_protocol_v2config.validate()
         if self.tag:
             for k in self.tag:
                 if k:
@@ -821,6 +859,8 @@ class CreateListenerRequest(TeaModel):
             result['Mss'] = self.mss
         if self.proxy_protocol_enabled is not None:
             result['ProxyProtocolEnabled'] = self.proxy_protocol_enabled
+        if self.proxy_protocol_v2config is not None:
+            result['ProxyProtocolV2Config'] = self.proxy_protocol_v2config.to_map()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.sec_sensor_enabled is not None:
@@ -871,6 +911,9 @@ class CreateListenerRequest(TeaModel):
             self.mss = m.get('Mss')
         if m.get('ProxyProtocolEnabled') is not None:
             self.proxy_protocol_enabled = m.get('ProxyProtocolEnabled')
+        if m.get('ProxyProtocolV2Config') is not None:
+            temp_model = CreateListenerRequestProxyProtocolV2Config()
+            self.proxy_protocol_v2config = temp_model.from_map(m['ProxyProtocolV2Config'])
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('SecSensorEnabled') is not None:
@@ -885,6 +928,255 @@ class CreateListenerRequest(TeaModel):
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
                 temp_model = CreateListenerRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class CreateListenerShrinkRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
+        # 
+        # The tag key can be up to 64 characters in length and cannot contain `http://` or `https://`. It cannot start with `aliyun` or `acs:`.
+        self.key = key  # type: str
+        # The tag value. The tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        # 
+        # You can add up to 20 tags in each call.
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateListenerShrinkRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class CreateListenerShrinkRequest(TeaModel):
+    def __init__(self, alpn_enabled=None, alpn_policy=None, ca_certificate_ids=None, ca_enabled=None,
+                 certificate_ids=None, client_token=None, cps=None, dry_run=None, end_port=None, idle_timeout=None,
+                 listener_description=None, listener_port=None, listener_protocol=None, load_balancer_id=None, mss=None,
+                 proxy_protocol_enabled=None, proxy_protocol_v2config_shrink=None, region_id=None, sec_sensor_enabled=None,
+                 security_policy_id=None, server_group_id=None, start_port=None, tag=None):
+        # Specifies whether to enable Application-Layer Protocol Negotiation (ALPN). Valid values:
+        # 
+        # *   **true**\
+        # *   **false** (default)
+        self.alpn_enabled = alpn_enabled  # type: bool
+        # The ALPN policy.
+        # 
+        # Valid values:
+        # 
+        # *   HTTP1Only
+        # *   HTTP2Only
+        # *   HTTP2Preferred
+        # *   HTTP2Optional
+        self.alpn_policy = alpn_policy  # type: str
+        # The certificate authority (CA) certificates. This parameter takes effect only for listeners that use SSL over TCP.
+        # 
+        # > You can specify only one CA certificate.
+        self.ca_certificate_ids = ca_certificate_ids  # type: list[str]
+        # Specifies whether to enable mutual authentication. Valid values:
+        # 
+        # *   **true**\
+        # *   **false** (default)
+        self.ca_enabled = ca_enabled  # type: bool
+        # The server certificates. This parameter takes effect only for listeners that use SSL over TCP.
+        # 
+        # > You can specify only one server certificate.
+        self.certificate_ids = certificate_ids  # type: list[str]
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # > If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
+        self.client_token = client_token  # type: str
+        # The maximum number of connections that can be created per second on the NLB instance. Valid values: **0** to **1000000**. **0** specifies that the number of connections is unlimited.
+        self.cps = cps  # type: int
+        # Specifies whether to perform only a dry run without performing the actual request. Valid values:
+        # 
+        # *   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false**(default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        # The last port in the listener port range. Valid values: **0** to **65535**. The number of the last port must be greater than the number of the first port.
+        # 
+        # > This parameter is required when **ListenerPort** is set to **0**.
+        self.end_port = end_port  # type: int
+        # The timeout period of idle connections. Unit: seconds. Valid values: **1** to **900**. Default value: **900**.
+        self.idle_timeout = idle_timeout  # type: int
+        # The name of the listener.
+        # 
+        # The name must be 2 to 256 characters in length, and can contain letters, digits, commas (,), periods (.), semicolons (;), forward slashes (/), at signs (@), underscores (\_), and hyphens (-).
+        self.listener_description = listener_description  # type: str
+        # The listener port. Valid values: **0** to **65535**.
+        # 
+        # If you set the value to **0**, the listener listens by port range. If you set the value to **0**, you must specify **StartPort** and **EndPort**.
+        self.listener_port = listener_port  # type: int
+        # The listener protocol. Valid values: **TCP**, **UDP**, and **TCPSSL**.
+        self.listener_protocol = listener_protocol  # type: str
+        # The ID of the Network Load Balancer (NLB) instance.
+        self.load_balancer_id = load_balancer_id  # type: str
+        # The maximum size of a TCP segment. Unit: bytes. Valid values: **0** to **1500**. **0** specifies that the maximum segment size remains unchanged.
+        # 
+        # > This parameter is supported only by TCP listeners and listeners that use SSL over TCP.
+        self.mss = mss  # type: int
+        # Specifies whether to use the Proxy protocol to pass client IP addresses to backend servers. Valid values:
+        # 
+        # *   **true**\
+        # *   **false** (default)
+        self.proxy_protocol_enabled = proxy_protocol_enabled  # type: bool
+        self.proxy_protocol_v2config_shrink = proxy_protocol_v2config_shrink  # type: str
+        # The region ID of the NLB instance.
+        # 
+        # You can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # Specifies whether to enable fine-grained monitoring. Valid values:
+        # 
+        # *   **true**\
+        # *   **false** (default)
+        self.sec_sensor_enabled = sec_sensor_enabled  # type: bool
+        # The security policy ID. System security policies and custom security policies are supported.
+        # 
+        # Valid values: **tls_cipher_policy\_1\_0** (default), **tls_cipher_policy\_1\_1**, **tls_cipher_policy\_1\_2**, **tls_cipher_policy\_1\_2\_strict**, and **tls_cipher_policy\_1\_2\_strict_with\_1\_3**.
+        # 
+        # > This parameter takes effect only for listeners that use SSL over TCP.
+        self.security_policy_id = security_policy_id  # type: str
+        # The server group ID.
+        self.server_group_id = server_group_id  # type: str
+        # The first port in the listener port range. Valid values: **0** to **65535**.
+        # 
+        # > This parameter is required when **ListenerPort** is set to **0**.
+        self.start_port = start_port  # type: int
+        # The tags.
+        self.tag = tag  # type: list[CreateListenerShrinkRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateListenerShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alpn_enabled is not None:
+            result['AlpnEnabled'] = self.alpn_enabled
+        if self.alpn_policy is not None:
+            result['AlpnPolicy'] = self.alpn_policy
+        if self.ca_certificate_ids is not None:
+            result['CaCertificateIds'] = self.ca_certificate_ids
+        if self.ca_enabled is not None:
+            result['CaEnabled'] = self.ca_enabled
+        if self.certificate_ids is not None:
+            result['CertificateIds'] = self.certificate_ids
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.cps is not None:
+            result['Cps'] = self.cps
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.end_port is not None:
+            result['EndPort'] = self.end_port
+        if self.idle_timeout is not None:
+            result['IdleTimeout'] = self.idle_timeout
+        if self.listener_description is not None:
+            result['ListenerDescription'] = self.listener_description
+        if self.listener_port is not None:
+            result['ListenerPort'] = self.listener_port
+        if self.listener_protocol is not None:
+            result['ListenerProtocol'] = self.listener_protocol
+        if self.load_balancer_id is not None:
+            result['LoadBalancerId'] = self.load_balancer_id
+        if self.mss is not None:
+            result['Mss'] = self.mss
+        if self.proxy_protocol_enabled is not None:
+            result['ProxyProtocolEnabled'] = self.proxy_protocol_enabled
+        if self.proxy_protocol_v2config_shrink is not None:
+            result['ProxyProtocolV2Config'] = self.proxy_protocol_v2config_shrink
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.sec_sensor_enabled is not None:
+            result['SecSensorEnabled'] = self.sec_sensor_enabled
+        if self.security_policy_id is not None:
+            result['SecurityPolicyId'] = self.security_policy_id
+        if self.server_group_id is not None:
+            result['ServerGroupId'] = self.server_group_id
+        if self.start_port is not None:
+            result['StartPort'] = self.start_port
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlpnEnabled') is not None:
+            self.alpn_enabled = m.get('AlpnEnabled')
+        if m.get('AlpnPolicy') is not None:
+            self.alpn_policy = m.get('AlpnPolicy')
+        if m.get('CaCertificateIds') is not None:
+            self.ca_certificate_ids = m.get('CaCertificateIds')
+        if m.get('CaEnabled') is not None:
+            self.ca_enabled = m.get('CaEnabled')
+        if m.get('CertificateIds') is not None:
+            self.certificate_ids = m.get('CertificateIds')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Cps') is not None:
+            self.cps = m.get('Cps')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('EndPort') is not None:
+            self.end_port = m.get('EndPort')
+        if m.get('IdleTimeout') is not None:
+            self.idle_timeout = m.get('IdleTimeout')
+        if m.get('ListenerDescription') is not None:
+            self.listener_description = m.get('ListenerDescription')
+        if m.get('ListenerPort') is not None:
+            self.listener_port = m.get('ListenerPort')
+        if m.get('ListenerProtocol') is not None:
+            self.listener_protocol = m.get('ListenerProtocol')
+        if m.get('LoadBalancerId') is not None:
+            self.load_balancer_id = m.get('LoadBalancerId')
+        if m.get('Mss') is not None:
+            self.mss = m.get('Mss')
+        if m.get('ProxyProtocolEnabled') is not None:
+            self.proxy_protocol_enabled = m.get('ProxyProtocolEnabled')
+        if m.get('ProxyProtocolV2Config') is not None:
+            self.proxy_protocol_v2config_shrink = m.get('ProxyProtocolV2Config')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SecSensorEnabled') is not None:
+            self.sec_sensor_enabled = m.get('SecSensorEnabled')
+        if m.get('SecurityPolicyId') is not None:
+            self.security_policy_id = m.get('SecurityPolicyId')
+        if m.get('ServerGroupId') is not None:
+            self.server_group_id = m.get('ServerGroupId')
+        if m.get('StartPort') is not None:
+            self.start_port = m.get('StartPort')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateListenerShrinkRequestTag()
                 self.tag.append(temp_model.from_map(k))
         return self
 
@@ -3465,6 +3757,41 @@ class GetListenerAttributeRequest(TeaModel):
         return self
 
 
+class GetListenerAttributeResponseBodyProxyProtocolV2Config(TeaModel):
+    def __init__(self, ppv_2private_link_ep_id_enabled=None, ppv_2private_link_eps_id_enabled=None,
+                 ppv_2vpc_id_enabled=None):
+        self.ppv_2private_link_ep_id_enabled = ppv_2private_link_ep_id_enabled  # type: str
+        self.ppv_2private_link_eps_id_enabled = ppv_2private_link_eps_id_enabled  # type: str
+        self.ppv_2vpc_id_enabled = ppv_2vpc_id_enabled  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetListenerAttributeResponseBodyProxyProtocolV2Config, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ppv_2private_link_ep_id_enabled is not None:
+            result['Ppv2PrivateLinkEpIdEnabled'] = self.ppv_2private_link_ep_id_enabled
+        if self.ppv_2private_link_eps_id_enabled is not None:
+            result['Ppv2PrivateLinkEpsIdEnabled'] = self.ppv_2private_link_eps_id_enabled
+        if self.ppv_2vpc_id_enabled is not None:
+            result['Ppv2VpcIdEnabled'] = self.ppv_2vpc_id_enabled
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Ppv2PrivateLinkEpIdEnabled') is not None:
+            self.ppv_2private_link_ep_id_enabled = m.get('Ppv2PrivateLinkEpIdEnabled')
+        if m.get('Ppv2PrivateLinkEpsIdEnabled') is not None:
+            self.ppv_2private_link_eps_id_enabled = m.get('Ppv2PrivateLinkEpsIdEnabled')
+        if m.get('Ppv2VpcIdEnabled') is not None:
+            self.ppv_2vpc_id_enabled = m.get('Ppv2VpcIdEnabled')
+        return self
+
+
 class GetListenerAttributeResponseBodyTags(TeaModel):
     def __init__(self, tag_key=None, tag_value=None):
         # The key of the tag that you want to remove. You can remove up to 20 tags in each call.
@@ -3500,8 +3827,8 @@ class GetListenerAttributeResponseBody(TeaModel):
     def __init__(self, alpn_enabled=None, alpn_policy=None, ca_certificate_ids=None, ca_enabled=None,
                  certificate_ids=None, cps=None, end_port=None, idle_timeout=None, listener_description=None, listener_id=None,
                  listener_port=None, listener_protocol=None, listener_status=None, load_balancer_id=None, mss=None,
-                 proxy_protocol_enabled=None, region_id=None, request_id=None, sec_sensor_enabled=None, security_policy_id=None,
-                 server_group_id=None, start_port=None, tags=None):
+                 proxy_protocol_enabled=None, proxy_protocol_v2config=None, region_id=None, request_id=None, sec_sensor_enabled=None,
+                 security_policy_id=None, server_group_id=None, start_port=None, tags=None):
         # Indicates whether Application-Layer Protocol Negotiation (ALPN) is enabled. Valid values:
         # 
         # *   **true**: yes
@@ -3565,6 +3892,7 @@ class GetListenerAttributeResponseBody(TeaModel):
         # *   **true**: yes
         # *   **false**: no
         self.proxy_protocol_enabled = proxy_protocol_enabled  # type: bool
+        self.proxy_protocol_v2config = proxy_protocol_v2config  # type: GetListenerAttributeResponseBodyProxyProtocolV2Config
         # The ID of the region where the NLB instance is deployed.
         self.region_id = region_id  # type: str
         # The ID of the request.
@@ -3588,6 +3916,8 @@ class GetListenerAttributeResponseBody(TeaModel):
         self.tags = tags  # type: list[GetListenerAttributeResponseBodyTags]
 
     def validate(self):
+        if self.proxy_protocol_v2config:
+            self.proxy_protocol_v2config.validate()
         if self.tags:
             for k in self.tags:
                 if k:
@@ -3631,6 +3961,8 @@ class GetListenerAttributeResponseBody(TeaModel):
             result['Mss'] = self.mss
         if self.proxy_protocol_enabled is not None:
             result['ProxyProtocolEnabled'] = self.proxy_protocol_enabled
+        if self.proxy_protocol_v2config is not None:
+            result['ProxyProtocolV2Config'] = self.proxy_protocol_v2config.to_map()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.request_id is not None:
@@ -3683,6 +4015,9 @@ class GetListenerAttributeResponseBody(TeaModel):
             self.mss = m.get('Mss')
         if m.get('ProxyProtocolEnabled') is not None:
             self.proxy_protocol_enabled = m.get('ProxyProtocolEnabled')
+        if m.get('ProxyProtocolV2Config') is not None:
+            temp_model = GetListenerAttributeResponseBodyProxyProtocolV2Config()
+            self.proxy_protocol_v2config = temp_model.from_map(m['ProxyProtocolV2Config'])
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('RequestId') is not None:
@@ -5029,6 +5364,41 @@ class ListListenersRequest(TeaModel):
         return self
 
 
+class ListListenersResponseBodyListenersProxyProtocolV2Config(TeaModel):
+    def __init__(self, ppv_2private_link_ep_id_enabled=None, ppv_2private_link_eps_id_enabled=None,
+                 ppv_2vpc_id_enabled=None):
+        self.ppv_2private_link_ep_id_enabled = ppv_2private_link_ep_id_enabled  # type: str
+        self.ppv_2private_link_eps_id_enabled = ppv_2private_link_eps_id_enabled  # type: str
+        self.ppv_2vpc_id_enabled = ppv_2vpc_id_enabled  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListListenersResponseBodyListenersProxyProtocolV2Config, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ppv_2private_link_ep_id_enabled is not None:
+            result['Ppv2PrivateLinkEpIdEnabled'] = self.ppv_2private_link_ep_id_enabled
+        if self.ppv_2private_link_eps_id_enabled is not None:
+            result['Ppv2PrivateLinkEpsIdEnabled'] = self.ppv_2private_link_eps_id_enabled
+        if self.ppv_2vpc_id_enabled is not None:
+            result['Ppv2VpcIdEnabled'] = self.ppv_2vpc_id_enabled
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Ppv2PrivateLinkEpIdEnabled') is not None:
+            self.ppv_2private_link_ep_id_enabled = m.get('Ppv2PrivateLinkEpIdEnabled')
+        if m.get('Ppv2PrivateLinkEpsIdEnabled') is not None:
+            self.ppv_2private_link_eps_id_enabled = m.get('Ppv2PrivateLinkEpsIdEnabled')
+        if m.get('Ppv2VpcIdEnabled') is not None:
+            self.ppv_2vpc_id_enabled = m.get('Ppv2VpcIdEnabled')
+        return self
+
+
 class ListListenersResponseBodyListenersTags(TeaModel):
     def __init__(self, key=None, value=None):
         # The key of the tag.
@@ -5066,8 +5436,8 @@ class ListListenersResponseBodyListeners(TeaModel):
     def __init__(self, alpn_enabled=None, alpn_policy=None, ca_certificate_ids=None, ca_enabled=None,
                  certificate_ids=None, cps=None, end_port=None, idle_timeout=None, listener_description=None, listener_id=None,
                  listener_port=None, listener_protocol=None, listener_status=None, load_balancer_id=None, mss=None,
-                 proxy_protocol_enabled=None, region_id=None, sec_sensor_enabled=None, security_policy_id=None, server_group_id=None,
-                 start_port=None, tags=None):
+                 proxy_protocol_enabled=None, proxy_protocol_v2config=None, region_id=None, sec_sensor_enabled=None,
+                 security_policy_id=None, server_group_id=None, start_port=None, tags=None):
         # Indicates whether Application-Layer Protocol Negotiation (ALPN) is enabled. Valid values:
         # 
         # *   **true**: enabled
@@ -5131,6 +5501,7 @@ class ListListenersResponseBodyListeners(TeaModel):
         # *   **true**: enabled
         # *   **false**: disabled
         self.proxy_protocol_enabled = proxy_protocol_enabled  # type: bool
+        self.proxy_protocol_v2config = proxy_protocol_v2config  # type: ListListenersResponseBodyListenersProxyProtocolV2Config
         # The ID of the region where the NLB instance is deployed.
         self.region_id = region_id  # type: str
         # Indicates whether fine-grained monitoring is enabled. Valid values:
@@ -5150,6 +5521,8 @@ class ListListenersResponseBodyListeners(TeaModel):
         self.tags = tags  # type: list[ListListenersResponseBodyListenersTags]
 
     def validate(self):
+        if self.proxy_protocol_v2config:
+            self.proxy_protocol_v2config.validate()
         if self.tags:
             for k in self.tags:
                 if k:
@@ -5193,6 +5566,8 @@ class ListListenersResponseBodyListeners(TeaModel):
             result['Mss'] = self.mss
         if self.proxy_protocol_enabled is not None:
             result['ProxyProtocolEnabled'] = self.proxy_protocol_enabled
+        if self.proxy_protocol_v2config is not None:
+            result['ProxyProtocolV2Config'] = self.proxy_protocol_v2config.to_map()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.sec_sensor_enabled is not None:
@@ -5243,6 +5618,9 @@ class ListListenersResponseBodyListeners(TeaModel):
             self.mss = m.get('Mss')
         if m.get('ProxyProtocolEnabled') is not None:
             self.proxy_protocol_enabled = m.get('ProxyProtocolEnabled')
+        if m.get('ProxyProtocolV2Config') is not None:
+            temp_model = ListListenersResponseBodyListenersProxyProtocolV2Config()
+            self.proxy_protocol_v2config = temp_model.from_map(m['ProxyProtocolV2Config'])
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('SecSensorEnabled') is not None:
@@ -9141,11 +9519,46 @@ class UntagResourcesResponse(TeaModel):
         return self
 
 
+class UpdateListenerAttributeRequestProxyProtocolV2Config(TeaModel):
+    def __init__(self, ppv_2private_link_ep_id_enabled=None, ppv_2private_link_eps_id_enabled=None,
+                 ppv_2vpc_id_enabled=None):
+        self.ppv_2private_link_ep_id_enabled = ppv_2private_link_ep_id_enabled  # type: bool
+        self.ppv_2private_link_eps_id_enabled = ppv_2private_link_eps_id_enabled  # type: bool
+        self.ppv_2vpc_id_enabled = ppv_2vpc_id_enabled  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateListenerAttributeRequestProxyProtocolV2Config, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ppv_2private_link_ep_id_enabled is not None:
+            result['Ppv2PrivateLinkEpIdEnabled'] = self.ppv_2private_link_ep_id_enabled
+        if self.ppv_2private_link_eps_id_enabled is not None:
+            result['Ppv2PrivateLinkEpsIdEnabled'] = self.ppv_2private_link_eps_id_enabled
+        if self.ppv_2vpc_id_enabled is not None:
+            result['Ppv2VpcIdEnabled'] = self.ppv_2vpc_id_enabled
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Ppv2PrivateLinkEpIdEnabled') is not None:
+            self.ppv_2private_link_ep_id_enabled = m.get('Ppv2PrivateLinkEpIdEnabled')
+        if m.get('Ppv2PrivateLinkEpsIdEnabled') is not None:
+            self.ppv_2private_link_eps_id_enabled = m.get('Ppv2PrivateLinkEpsIdEnabled')
+        if m.get('Ppv2VpcIdEnabled') is not None:
+            self.ppv_2vpc_id_enabled = m.get('Ppv2VpcIdEnabled')
+        return self
+
+
 class UpdateListenerAttributeRequest(TeaModel):
     def __init__(self, alpn_enabled=None, alpn_policy=None, ca_certificate_ids=None, ca_enabled=None,
                  certificate_ids=None, client_token=None, cps=None, dry_run=None, idle_timeout=None, listener_description=None,
-                 listener_id=None, mss=None, proxy_protocol_enabled=None, region_id=None, sec_sensor_enabled=None,
-                 security_policy_id=None, server_group_id=None):
+                 listener_id=None, mss=None, proxy_protocol_enabled=None, proxy_protocol_v2config=None, region_id=None,
+                 sec_sensor_enabled=None, security_policy_id=None, server_group_id=None):
         # Specifies whether to enable Application-Layer Protocol Negotiation (ALPN). Valid values:
         # 
         # *   **true**: yes
@@ -9199,6 +9612,7 @@ class UpdateListenerAttributeRequest(TeaModel):
         # *   **true**: yes
         # *   **false**: no
         self.proxy_protocol_enabled = proxy_protocol_enabled  # type: bool
+        self.proxy_protocol_v2config = proxy_protocol_v2config  # type: UpdateListenerAttributeRequestProxyProtocolV2Config
         # The ID of the region where the NLB instance is deployed.
         # 
         # You can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.
@@ -9216,7 +9630,8 @@ class UpdateListenerAttributeRequest(TeaModel):
         self.server_group_id = server_group_id  # type: str
 
     def validate(self):
-        pass
+        if self.proxy_protocol_v2config:
+            self.proxy_protocol_v2config.validate()
 
     def to_map(self):
         _map = super(UpdateListenerAttributeRequest, self).to_map()
@@ -9250,6 +9665,8 @@ class UpdateListenerAttributeRequest(TeaModel):
             result['Mss'] = self.mss
         if self.proxy_protocol_enabled is not None:
             result['ProxyProtocolEnabled'] = self.proxy_protocol_enabled
+        if self.proxy_protocol_v2config is not None:
+            result['ProxyProtocolV2Config'] = self.proxy_protocol_v2config.to_map()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.sec_sensor_enabled is not None:
@@ -9288,6 +9705,172 @@ class UpdateListenerAttributeRequest(TeaModel):
             self.mss = m.get('Mss')
         if m.get('ProxyProtocolEnabled') is not None:
             self.proxy_protocol_enabled = m.get('ProxyProtocolEnabled')
+        if m.get('ProxyProtocolV2Config') is not None:
+            temp_model = UpdateListenerAttributeRequestProxyProtocolV2Config()
+            self.proxy_protocol_v2config = temp_model.from_map(m['ProxyProtocolV2Config'])
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SecSensorEnabled') is not None:
+            self.sec_sensor_enabled = m.get('SecSensorEnabled')
+        if m.get('SecurityPolicyId') is not None:
+            self.security_policy_id = m.get('SecurityPolicyId')
+        if m.get('ServerGroupId') is not None:
+            self.server_group_id = m.get('ServerGroupId')
+        return self
+
+
+class UpdateListenerAttributeShrinkRequest(TeaModel):
+    def __init__(self, alpn_enabled=None, alpn_policy=None, ca_certificate_ids=None, ca_enabled=None,
+                 certificate_ids=None, client_token=None, cps=None, dry_run=None, idle_timeout=None, listener_description=None,
+                 listener_id=None, mss=None, proxy_protocol_enabled=None, proxy_protocol_v2config_shrink=None, region_id=None,
+                 sec_sensor_enabled=None, security_policy_id=None, server_group_id=None):
+        # Specifies whether to enable Application-Layer Protocol Negotiation (ALPN). Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
+        self.alpn_enabled = alpn_enabled  # type: bool
+        # The ALPN policy. Valid values:
+        # 
+        # *   **HTTP1Only**: uses only HTTP 1.x. The priority of HTTP 1.1 is higher than the priority of HTTP 1.0.
+        # *   **HTTP2Only**: uses only HTTP 2.0.
+        # *   **HTTP2Optional**: preferentially uses HTTP 1.x over HTTP 2.0. The priority of HTTP 1.1 is higher than the priority of HTTP 1.0, and the priority of HTTP 1.0 is higher than the priority of HTTP 2.0.
+        # *   **HTTP2Preferred**: preferentially uses HTTP 2.0 over HTTP 1.x. The priority of HTTP 2.0 is higher than the priority of HTTP 1.1, and the priority of HTTP 1.1 is higher than the priority of HTTP 1.0.
+        # 
+        # > This parameter is required if AlpnEnabled is set to true.
+        self.alpn_policy = alpn_policy  # type: str
+        # The CA certificates. Only one CA certificate is supported.
+        # 
+        # >  This parameter takes effect only for listeners that use SSL over TCP.
+        self.ca_certificate_ids = ca_certificate_ids  # type: list[str]
+        # Specifies whether to enable mutual authentication. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false** (default): no
+        self.ca_enabled = ca_enabled  # type: bool
+        # The server certificates.
+        self.certificate_ids = certificate_ids  # type: list[str]
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
+        # 
+        # > If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
+        self.client_token = client_token  # type: str
+        # The maximum number of connections that can be created per second on the NLB instance. Valid values: **0** to **1000000**. **0** specifies that the number of connections is unlimited.
+        self.cps = cps  # type: int
+        # Specifies whether only to precheck the request. Valid values:
+        # 
+        # *   **true**: prechecks the request but does not update the configurations of the listener. The system prechecks the required parameters, request syntax, and limits. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
+        # *   **false** (default): sends the request. If the request passes the precheck, an HTTP 2xx status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        # The timeout period of an idle connection. Unit: seconds. Valid values: **1** to **900**.
+        self.idle_timeout = idle_timeout  # type: int
+        # Enter a name for the listener.
+        # 
+        # The description must be 2 to 256 characters in length, and can contain letters, digits, commas (,), periods (.), semicolons (;), forward slashes (/), at signs (@), underscores (\_), and hyphens (-).
+        self.listener_description = listener_description  # type: str
+        # The ID of the listener.
+        self.listener_id = listener_id  # type: str
+        # The size of the largest TCP segment. Unit: bytes. Valid values: **0** to **1500**. **0** specifies that the maximum segment size remains unchanged. This parameter is supported only by listeners that use SSL over TCP.
+        self.mss = mss  # type: int
+        # Specifies whether to use the Proxy protocol to pass client IP addresses to backend servers. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
+        self.proxy_protocol_enabled = proxy_protocol_enabled  # type: bool
+        self.proxy_protocol_v2config_shrink = proxy_protocol_v2config_shrink  # type: str
+        # The ID of the region where the NLB instance is deployed.
+        # 
+        # You can call the [DescribeRegions](~~443657~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # Specifies whether to enable fine-grained monitoring. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
+        self.sec_sensor_enabled = sec_sensor_enabled  # type: bool
+        # The ID of the security policy.
+        # 
+        # >  This parameter takes effect only for listeners that use SSL over TCP.
+        self.security_policy_id = security_policy_id  # type: str
+        # The ID of the server group.
+        self.server_group_id = server_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateListenerAttributeShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alpn_enabled is not None:
+            result['AlpnEnabled'] = self.alpn_enabled
+        if self.alpn_policy is not None:
+            result['AlpnPolicy'] = self.alpn_policy
+        if self.ca_certificate_ids is not None:
+            result['CaCertificateIds'] = self.ca_certificate_ids
+        if self.ca_enabled is not None:
+            result['CaEnabled'] = self.ca_enabled
+        if self.certificate_ids is not None:
+            result['CertificateIds'] = self.certificate_ids
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.cps is not None:
+            result['Cps'] = self.cps
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.idle_timeout is not None:
+            result['IdleTimeout'] = self.idle_timeout
+        if self.listener_description is not None:
+            result['ListenerDescription'] = self.listener_description
+        if self.listener_id is not None:
+            result['ListenerId'] = self.listener_id
+        if self.mss is not None:
+            result['Mss'] = self.mss
+        if self.proxy_protocol_enabled is not None:
+            result['ProxyProtocolEnabled'] = self.proxy_protocol_enabled
+        if self.proxy_protocol_v2config_shrink is not None:
+            result['ProxyProtocolV2Config'] = self.proxy_protocol_v2config_shrink
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.sec_sensor_enabled is not None:
+            result['SecSensorEnabled'] = self.sec_sensor_enabled
+        if self.security_policy_id is not None:
+            result['SecurityPolicyId'] = self.security_policy_id
+        if self.server_group_id is not None:
+            result['ServerGroupId'] = self.server_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlpnEnabled') is not None:
+            self.alpn_enabled = m.get('AlpnEnabled')
+        if m.get('AlpnPolicy') is not None:
+            self.alpn_policy = m.get('AlpnPolicy')
+        if m.get('CaCertificateIds') is not None:
+            self.ca_certificate_ids = m.get('CaCertificateIds')
+        if m.get('CaEnabled') is not None:
+            self.ca_enabled = m.get('CaEnabled')
+        if m.get('CertificateIds') is not None:
+            self.certificate_ids = m.get('CertificateIds')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Cps') is not None:
+            self.cps = m.get('Cps')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IdleTimeout') is not None:
+            self.idle_timeout = m.get('IdleTimeout')
+        if m.get('ListenerDescription') is not None:
+            self.listener_description = m.get('ListenerDescription')
+        if m.get('ListenerId') is not None:
+            self.listener_id = m.get('ListenerId')
+        if m.get('Mss') is not None:
+            self.mss = m.get('Mss')
+        if m.get('ProxyProtocolEnabled') is not None:
+            self.proxy_protocol_enabled = m.get('ProxyProtocolEnabled')
+        if m.get('ProxyProtocolV2Config') is not None:
+            self.proxy_protocol_v2config_shrink = m.get('ProxyProtocolV2Config')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('SecSensorEnabled') is not None:
