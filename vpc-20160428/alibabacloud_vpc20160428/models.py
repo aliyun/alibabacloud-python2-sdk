@@ -40938,7 +40938,7 @@ class DescribeRouteTableListRequestTag(TeaModel):
 class DescribeRouteTableListRequest(TeaModel):
     def __init__(self, owner_account=None, owner_id=None, page_number=None, page_size=None, region_id=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None, route_table_id=None,
-                 route_table_name=None, router_id=None, router_type=None, tag=None, vpc_id=None):
+                 route_table_name=None, route_table_type=None, router_id=None, router_type=None, tag=None, vpc_id=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The page number. Default value: **1**.
@@ -40957,6 +40957,7 @@ class DescribeRouteTableListRequest(TeaModel):
         self.route_table_id = route_table_id  # type: str
         # The name of the route table that you want to query.
         self.route_table_name = route_table_name  # type: str
+        self.route_table_type = route_table_type  # type: str
         # The ID of the router to which the route table belongs.
         self.router_id = router_id  # type: str
         # The type of the router to which the route table belongs. Valid values:
@@ -41003,6 +41004,8 @@ class DescribeRouteTableListRequest(TeaModel):
             result['RouteTableId'] = self.route_table_id
         if self.route_table_name is not None:
             result['RouteTableName'] = self.route_table_name
+        if self.route_table_type is not None:
+            result['RouteTableType'] = self.route_table_type
         if self.router_id is not None:
             result['RouterId'] = self.router_id
         if self.router_type is not None:
@@ -41037,6 +41040,8 @@ class DescribeRouteTableListRequest(TeaModel):
             self.route_table_id = m.get('RouteTableId')
         if m.get('RouteTableName') is not None:
             self.route_table_name = m.get('RouteTableName')
+        if m.get('RouteTableType') is not None:
+            self.route_table_type = m.get('RouteTableType')
         if m.get('RouterId') is not None:
             self.router_id = m.get('RouterId')
         if m.get('RouterType') is not None:
