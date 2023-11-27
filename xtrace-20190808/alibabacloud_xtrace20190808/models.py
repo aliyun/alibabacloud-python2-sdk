@@ -3,6 +3,104 @@
 from Tea.model import TeaModel
 
 
+class CheckCommercialStatusRequest(TeaModel):
+    def __init__(self, region_id=None, service=None):
+        self.region_id = region_id  # type: str
+        self.service = service  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckCommercialStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service is not None:
+            result['Service'] = self.service
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Service') is not None:
+            self.service = m.get('Service')
+        return self
+
+
+class CheckCommercialStatusResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckCommercialStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CheckCommercialStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CheckCommercialStatusResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CheckCommercialStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CheckCommercialStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetTagKeyRequest(TeaModel):
     def __init__(self, end_time=None, region_id=None, service_name=None, span_name=None, start_time=None):
         # The timestamp of the end time of the time range to query. The timestamp is accurate to milliseconds.
@@ -1214,9 +1312,10 @@ class OpenXtraceServiceRequest(TeaModel):
 
 
 class OpenXtraceServiceResponseBody(TeaModel):
-    def __init__(self, order_id=None, request_id=None):
+    def __init__(self, order_id=None, request_id=None, result=None):
         self.order_id = order_id  # type: str
         self.request_id = request_id  # type: str
+        self.result = result  # type: str
 
     def validate(self):
         pass
@@ -1231,6 +1330,8 @@ class OpenXtraceServiceResponseBody(TeaModel):
             result['OrderId'] = self.order_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
         return result
 
     def from_map(self, m=None):
@@ -1239,6 +1340,8 @@ class OpenXtraceServiceResponseBody(TeaModel):
             self.order_id = m.get('OrderId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
         return self
 
 
