@@ -1028,6 +1028,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_user_provisioning_with_options(request, runtime)
 
+    def delete_user_provisioning_event_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.event_id):
+            query['EventId'] = request.event_id
+        if not UtilClient.is_unset(request.user_provisioning_id):
+            query['UserProvisioningId'] = request.user_provisioning_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteUserProvisioningEvent',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.DeleteUserProvisioningEventResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_user_provisioning_event(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_user_provisioning_event_with_options(request, runtime)
+
     def deprovision_access_configuration_with_options(self, request, runtime):
         """
         When you call this operation, an asynchronous task is automatically created. You can call the [GetTask](~~340670~~) operation to query the progress of the task based on the value of the `TaskId` response parameter.
@@ -1882,9 +1914,127 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_user_provisioning_with_options(request, runtime)
 
+    def get_user_provisioning_configuration_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetUserProvisioningConfiguration',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.GetUserProvisioningConfigurationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_user_provisioning_configuration(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_user_provisioning_configuration_with_options(request, runtime)
+
+    def get_user_provisioning_event_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.event_id):
+            query['EventId'] = request.event_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetUserProvisioningEvent',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.GetUserProvisioningEventResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_user_provisioning_event(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_user_provisioning_event_with_options(request, runtime)
+
+    def get_user_provisioning_rd_account_statistics_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.rd_member_id):
+            query['RdMemberId'] = request.rd_member_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetUserProvisioningRdAccountStatistics',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.GetUserProvisioningRdAccountStatisticsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_user_provisioning_rd_account_statistics(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_user_provisioning_rd_account_statistics_with_options(request, runtime)
+
+    def get_user_provisioning_statistics_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.user_provisioning_id):
+            query['UserProvisioningId'] = request.user_provisioning_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetUserProvisioningStatistics',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.GetUserProvisioningStatisticsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_user_provisioning_statistics(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_user_provisioning_statistics_with_options(request, runtime)
+
     def list_access_assignments_with_options(self, request, runtime):
         """
-        This topic provides an example on how to query the assigned access permissions on the account `114240524784***` in your resource directory. The returned result shows that access permissions on the account in your resource directory is assigned to one user.
+        This topic provides an example on how to query the assigned access permissions on the account `114240524784***` in your resource directory. The returned result shows that access permissions on the account in your resource directory are assigned to one user.
         
 
         @param request: ListAccessAssignmentsRequest
@@ -1932,7 +2082,7 @@ class Client(OpenApiClient):
 
     def list_access_assignments(self, request):
         """
-        This topic provides an example on how to query the assigned access permissions on the account `114240524784***` in your resource directory. The returned result shows that access permissions on the account in your resource directory is assigned to one user.
+        This topic provides an example on how to query the assigned access permissions on the account `114240524784***` in your resource directory. The returned result shows that access permissions on the account in your resource directory are assigned to one user.
         
 
         @param request: ListAccessAssignmentsRequest
@@ -2508,6 +2658,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_tasks_with_options(request, runtime)
 
+    def list_user_provisioning_events_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.user_provisioning_id):
+            query['UserProvisioningId'] = request.user_provisioning_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUserProvisioningEvents',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.ListUserProvisioningEventsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_user_provisioning_events(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_user_provisioning_events_with_options(request, runtime)
+
     def list_user_provisionings_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2869,6 +3053,38 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.reset_user_password_with_options(request, runtime)
+
+    def retry_user_provisioning_event_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.duplication_strategy):
+            query['DuplicationStrategy'] = request.duplication_strategy
+        if not UtilClient.is_unset(request.event_id):
+            query['EventId'] = request.event_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RetryUserProvisioningEvent',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.RetryUserProvisioningEventResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def retry_user_provisioning_event(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.retry_user_provisioning_event_with_options(request, runtime)
 
     def set_external_samlidentity_provider_with_options(self, request, runtime):
         """
@@ -3515,6 +3731,38 @@ class Client(OpenApiClient):
     def update_user_provisioning(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_user_provisioning_with_options(request, runtime)
+
+    def update_user_provisioning_configuration_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.new_default_landing_page):
+            query['NewDefaultLandingPage'] = request.new_default_landing_page
+        if not UtilClient.is_unset(request.new_session_duration):
+            query['NewSessionDuration'] = request.new_session_duration
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateUserProvisioningConfiguration',
+            version='2021-05-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudsso_20210515_models.UpdateUserProvisioningConfigurationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_user_provisioning_configuration(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_user_provisioning_configuration_with_options(request, runtime)
 
     def update_user_status_with_options(self, request, runtime):
         """
