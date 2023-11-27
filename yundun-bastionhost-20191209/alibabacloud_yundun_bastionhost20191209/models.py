@@ -1941,8 +1941,8 @@ class ConfigInstanceWhiteListResponse(TeaModel):
 
 class CreateHostRequest(TeaModel):
     def __init__(self, active_address_type=None, comment=None, host_name=None, host_private_address=None,
-                 host_public_address=None, instance_id=None, instance_region_id=None, ostype=None, region_id=None, source=None,
-                 source_instance_id=None):
+                 host_public_address=None, instance_id=None, instance_region_id=None, network_domain_id=None, ostype=None,
+                 region_id=None, source=None, source_instance_id=None):
         # The endpoint type of the host that you want to create. Valid values:
         # 
         # *   **Public**: public endpoint
@@ -1968,6 +1968,7 @@ class CreateHostRequest(TeaModel):
         # 
         # > This parameter is required if the **Source** parameter is set to **Ecs** or **Rds**.
         self.instance_region_id = instance_region_id  # type: str
+        self.network_domain_id = network_domain_id  # type: str
         # The operating system of the host that you want to create. Valid values:
         # 
         # *   **Linux**\
@@ -2011,6 +2012,8 @@ class CreateHostRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.instance_region_id is not None:
             result['InstanceRegionId'] = self.instance_region_id
+        if self.network_domain_id is not None:
+            result['NetworkDomainId'] = self.network_domain_id
         if self.ostype is not None:
             result['OSType'] = self.ostype
         if self.region_id is not None:
@@ -2037,6 +2040,8 @@ class CreateHostRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('InstanceRegionId') is not None:
             self.instance_region_id = m.get('InstanceRegionId')
+        if m.get('NetworkDomainId') is not None:
+            self.network_domain_id = m.get('NetworkDomainId')
         if m.get('OSType') is not None:
             self.ostype = m.get('OSType')
         if m.get('RegionId') is not None:
@@ -3762,7 +3767,15 @@ class DescribeInstanceAttributeRequest(TeaModel):
 
 class DescribeInstanceAttributeResponseBodyInstanceAttributePorts(TeaModel):
     def __init__(self, custom_port=None, standard_port=None):
+        # The custom port.
+        # 
+        # >  You can change only the SSH and RDP ports. If O\&M ports are not specified, the value of the StandardPort parameter is returned.
         self.custom_port = custom_port  # type: int
+        # The standard port of the bastion host. Valid values:
+        # 
+        # *   **SSH**: 60022
+        # *   **RDP**: 63389
+        # *   **HTTPS**: 443
         self.standard_port = standard_port  # type: int
 
     def validate(self):
@@ -3798,7 +3811,9 @@ class DescribeInstanceAttributeResponseBodyInstanceAttribute(TeaModel):
                  resource_group_id=None, security_group_ids=None, start_time=None, storage=None, vpc_id=None, vswitch_id=None,
                  web_terminal_module=None):
         self.authorized_security_groups = authorized_security_groups  # type: list[str]
+        # The total bandwidth of the bastion host.
         self.bandwidth = bandwidth  # type: str
+        # The extra bandwidth plan of the bastion host.
         self.bandwidth_package = bandwidth_package  # type: str
         self.db_operation_module = db_operation_module  # type: str
         self.description = description  # type: str
@@ -3969,6 +3984,7 @@ class DescribeInstanceAttributeResponseBodyInstanceAttribute(TeaModel):
 
 class DescribeInstanceAttributeResponseBody(TeaModel):
     def __init__(self, instance_attribute=None, request_id=None):
+        # The attribute information about the bastion host.
         self.instance_attribute = instance_attribute  # type: DescribeInstanceAttributeResponseBodyInstanceAttribute
         self.request_id = request_id  # type: str
 
@@ -5719,9 +5735,11 @@ class DisableInstancePublicAccessResponse(TeaModel):
 
 class EnableInstancePublicAccessRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None):
-        # The operation that you want to perform. Set the value to **EnableInstancePublicAccess**.
+        # The ID of the bastion host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
-        # The ID of the bastion host whose Internet access is enabled.
+        # The region ID of the bastion host.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5750,7 +5768,9 @@ class EnableInstancePublicAccessRequest(TeaModel):
 
 class EnableInstancePublicAccessResponseBody(TeaModel):
     def __init__(self, instance_id=None, request_id=None):
+        # The ID of the bastion host whose Internet access is enabled.
         self.instance_id = instance_id  # type: str
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5896,8 +5916,8 @@ class GetHostResponseBodyHostProtocols(TeaModel):
 
 class GetHostResponseBodyHost(TeaModel):
     def __init__(self, active_address_type=None, comment=None, host_id=None, host_name=None,
-                 host_private_address=None, host_public_address=None, ostype=None, protocols=None, source=None, source_instance_id=None,
-                 source_instance_state=None):
+                 host_private_address=None, host_public_address=None, network_domain_id=None, ostype=None, protocols=None, source=None,
+                 source_instance_id=None, source_instance_state=None):
         # The public endpoint of the host. You can set this parameter to a domain name or an IP address.
         self.active_address_type = active_address_type  # type: str
         # The ID of the ECS instance or dedicated cluster host that was queried.
@@ -5918,6 +5938,7 @@ class GetHostResponseBodyHost(TeaModel):
         # 
         # - **Release**: The host is released.
         self.host_public_address = host_public_address  # type: str
+        self.network_domain_id = network_domain_id  # type: str
         # The operating system of the host. Valid values:
         # 
         # *   **Linux**\
@@ -5958,6 +5979,8 @@ class GetHostResponseBodyHost(TeaModel):
             result['HostPrivateAddress'] = self.host_private_address
         if self.host_public_address is not None:
             result['HostPublicAddress'] = self.host_public_address
+        if self.network_domain_id is not None:
+            result['NetworkDomainId'] = self.network_domain_id
         if self.ostype is not None:
             result['OSType'] = self.ostype
         result['Protocols'] = []
@@ -5986,6 +6009,8 @@ class GetHostResponseBodyHost(TeaModel):
             self.host_private_address = m.get('HostPrivateAddress')
         if m.get('HostPublicAddress') is not None:
             self.host_public_address = m.get('HostPublicAddress')
+        if m.get('NetworkDomainId') is not None:
+            self.network_domain_id = m.get('NetworkDomainId')
         if m.get('OSType') is not None:
             self.ostype = m.get('OSType')
         self.protocols = []
@@ -11780,7 +11805,7 @@ class LockUsersResponse(TeaModel):
 
 class ModifyHostRequest(TeaModel):
     def __init__(self, comment=None, host_id=None, host_name=None, host_private_address=None,
-                 host_public_address=None, instance_id=None, ostype=None, region_id=None):
+                 host_public_address=None, instance_id=None, network_domain_id=None, ostype=None, region_id=None):
         # The new internal endpoint of the host. You can set this parameter to a domain name or an IP address.
         self.comment = comment  # type: str
         # The ID of the Bastionhost instance where you want to modify the information of the host.
@@ -11799,6 +11824,7 @@ class ModifyHostRequest(TeaModel):
         # 
         # >  The basic information of ECS instances and hosts in dedicated clusters within your Alibaba Cloud account is synchronized to Bastionhost on a regular basis. After you modify the basic information of an ECS instance or a host in a dedicated cluster, the modification result may be overwritten by the synchronized information.
         self.instance_id = instance_id  # type: str
+        self.network_domain_id = network_domain_id  # type: str
         # The ID of the host.
         # 
         # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host.
@@ -11830,6 +11856,8 @@ class ModifyHostRequest(TeaModel):
             result['HostPublicAddress'] = self.host_public_address
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.network_domain_id is not None:
+            result['NetworkDomainId'] = self.network_domain_id
         if self.ostype is not None:
             result['OSType'] = self.ostype
         if self.region_id is not None:
@@ -11850,6 +11878,8 @@ class ModifyHostRequest(TeaModel):
             self.host_public_address = m.get('HostPublicAddress')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('NetworkDomainId') is not None:
+            self.network_domain_id = m.get('NetworkDomainId')
         if m.get('OSType') is not None:
             self.ostype = m.get('OSType')
         if m.get('RegionId') is not None:
@@ -12304,16 +12334,22 @@ class ModifyHostShareKeyResponse(TeaModel):
 
 class ModifyHostsActiveAddressTypeRequest(TeaModel):
     def __init__(self, active_address_type=None, host_ids=None, instance_id=None, region_id=None):
+        # The new portal type of the host. Valid values:
+        # 
+        # *   **Public**: public portal
+        # *   **Private**: internal portal
         self.active_address_type = active_address_type  # type: str
-        # All Alibaba Cloud API operations must include common request parameters. For more information about common request parameters, see [Common parameters](~~148139~~).
+        # The ID of the host for which you want to change the portal type. The value is a JSON string. You can add up to 100 host IDs.
         # 
-        # For more information about sample requests, see the "Examples" section of this topic.
+        # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host.
         self.host_ids = host_ids  # type: str
-        # The ID of the request, which is used to locate and troubleshoot issues.
-        self.instance_id = instance_id  # type: str
-        # The operation that you want to perform.
+        # The ID of the bastion host for which you want to change the portal type of the host.
         # 
-        # Set the value to **ModifyHostsActiveAddressType**.
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
+        self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host for which you want to change the portal type of the host.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -12350,8 +12386,17 @@ class ModifyHostsActiveAddressTypeRequest(TeaModel):
 
 class ModifyHostsActiveAddressTypeResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_id=None, message=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
 
     def validate(self):
@@ -12384,7 +12429,9 @@ class ModifyHostsActiveAddressTypeResponseBodyResults(TeaModel):
 
 class ModifyHostsActiveAddressTypeResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[ModifyHostsActiveAddressTypeResponseBodyResults]
 
     def validate(self):
