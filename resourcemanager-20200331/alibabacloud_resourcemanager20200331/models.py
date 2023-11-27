@@ -2132,6 +2132,7 @@ class CreateResourceAccountRequest(TeaModel):
         # 
         # >  This parameter is available only for resellers at the international site (alibabacloud.com).
         self.resell_account_type = resell_account_type  # type: str
+        # The tag key and value.
         self.tag = tag  # type: list[CreateResourceAccountRequestTag]
 
     def validate(self):
@@ -4459,6 +4460,69 @@ class DetachPolicyResponse(TeaModel):
         return self
 
 
+class DisableAssociatedTransferResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableAssociatedTransferResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DisableAssociatedTransferResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DisableAssociatedTransferResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DisableAssociatedTransferResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DisableAssociatedTransferResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DisableControlPolicyResponseBody(TeaModel):
     def __init__(self, enablement_status=None, request_id=None):
         # The status of the Control Policy feature. Valid values:
@@ -4530,6 +4594,69 @@ class DisableControlPolicyResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DisableControlPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class EnableAssociatedTransferResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableAssociatedTransferResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class EnableAssociatedTransferResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: EnableAssociatedTransferResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(EnableAssociatedTransferResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = EnableAssociatedTransferResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5306,6 +5433,7 @@ class GetAccountDeletionCheckResultResponse(TeaModel):
 
 class GetAccountDeletionStatusRequest(TeaModel):
     def __init__(self, account_id=None):
+        # The Alibaba Cloud account ID of the member.
         self.account_id = account_id  # type: str
 
     def validate(self):
@@ -5330,7 +5458,9 @@ class GetAccountDeletionStatusRequest(TeaModel):
 
 class GetAccountDeletionStatusResponseBodyRdAccountDeletionStatusFailReasonList(TeaModel):
     def __init__(self, description=None, name=None):
+        # The description of the check item.
         self.description = description  # type: str
+        # The name of the cloud service to which the check item belongs.
         self.name = name  # type: str
 
     def validate(self):
@@ -5360,11 +5490,26 @@ class GetAccountDeletionStatusResponseBodyRdAccountDeletionStatusFailReasonList(
 class GetAccountDeletionStatusResponseBodyRdAccountDeletionStatus(TeaModel):
     def __init__(self, account_id=None, create_time=None, deletion_time=None, deletion_type=None,
                  fail_reason_list=None, status=None):
+        # The Alibaba Cloud account ID of the member.
         self.account_id = account_id  # type: str
+        # The start time of the deletion.
         self.create_time = create_time  # type: str
+        # The end time of the deletion.
         self.deletion_time = deletion_time  # type: str
+        # The type of the deletion. Valid values:
+        # 
+        # *   0: direct deletion. If the member does not have pay-as-you-go resources that are purchased within the previous 30 days, the system directly deletes the member.
+        # *   1: deletion with a silence period. If the member has pay-as-you-go resources that are purchased within the previous 30 days, the member enters a silence period. The system starts to delete the member until the silence period ends. For more information about the silence period, see [What is the silence period for member deletion?](~~446079~~)
         self.deletion_type = deletion_type  # type: str
+        # The reasons why the member fails to be deleted.
         self.fail_reason_list = fail_reason_list  # type: list[GetAccountDeletionStatusResponseBodyRdAccountDeletionStatusFailReasonList]
+        # The status. Valid values:
+        # 
+        # *   Success: The member is deleted.
+        # *   Checking: A deletion check is being performed for the member.
+        # *   Deleting: The member is being deleted.
+        # *   CheckFailed: The deletion check for the member fails.
+        # *   DeleteFailed: The member fails to be deleted.
         self.status = status  # type: str
 
     def validate(self):
@@ -5417,7 +5562,9 @@ class GetAccountDeletionStatusResponseBodyRdAccountDeletionStatus(TeaModel):
 
 class GetAccountDeletionStatusResponseBody(TeaModel):
     def __init__(self, rd_account_deletion_status=None, request_id=None):
+        # The deletion status of the member.
         self.rd_account_deletion_status = rd_account_deletion_status  # type: GetAccountDeletionStatusResponseBodyRdAccountDeletionStatus
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7633,6 +7780,7 @@ class InviteAccountToResourceDirectoryRequest(TeaModel):
         # 
         # The comment can be up to 1,024 characters in length.
         self.note = note  # type: str
+        # The tag key and value.
         self.tag = tag  # type: list[InviteAccountToResourceDirectoryRequestTag]
         # The ID or logon email address of the account that you want to invite.
         self.target_entity = target_entity  # type: str
@@ -7896,6 +8044,7 @@ class ListAccountsRequest(TeaModel):
         # 
         # Valid values: 1 to 100. Default value: 10.
         self.page_size = page_size  # type: int
+        # The tag key and value.
         self.tag = tag  # type: list[ListAccountsRequestTag]
 
     def validate(self):
@@ -8279,6 +8428,7 @@ class ListAccountsForParentRequest(TeaModel):
         # 
         # Fuzzy match is supported.
         self.query_keyword = query_keyword  # type: str
+        # The tag key and value.
         self.tag = tag  # type: list[ListAccountsForParentRequestTag]
 
     def validate(self):
@@ -11427,7 +11577,21 @@ class ListResourceGroupsResponse(TeaModel):
 
 class ListResourcesRequestResourceTypes(TeaModel):
     def __init__(self, resource_type=None, service=None):
+        # The resource type.
+        # 
+        # Valid values of N: 1 to 50.
+        # 
+        # For more information about the supported resource types, see the **Resource type** column in [Services that work with Resource Group](~~94479~~).
+        # 
+        # >  You must configure both `Service` and `ResourceType` in `ResourceTypes`. Otherwise, the two parameters do not take effect.
         self.resource_type = resource_type  # type: str
+        # The ID of the Alibaba Cloud service.
+        # 
+        # Valid values of N: 1 to 50.
+        # 
+        # You can obtain the ID from the **Service code** column in [Services that work with Resource Group](~~94479~~).
+        # 
+        # >  You must configure both `Service` and `ResourceType` in `ResourceTypes`. Otherwise, the two parameters do not take effect.
         self.service = service  # type: str
 
     def validate(self):
@@ -11457,11 +11621,11 @@ class ListResourcesRequestResourceTypes(TeaModel):
 class ListResourcesRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None, region=None, resource_group_id=None, resource_id=None,
                  resource_type=None, resource_types=None, service=None):
-        # The number of the page to return.
+        # The page number.
         # 
         # Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page.
+        # The number of entries per page.
         # 
         # Valid values: 1 to 100. Default value: 10.
         self.page_size = page_size  # type: int
@@ -11473,12 +11637,15 @@ class ListResourcesRequest(TeaModel):
         self.resource_id = resource_id  # type: str
         # The resource type.
         # 
-        # For more information about the supported resource types, see the **Resource type** column in [Alibaba Cloud services that support resource groups](~~94479~~).
+        # For more information about the supported resource types, see the **Resource type** column in [Services that work with Resource Group](~~94479~~).
         self.resource_type = resource_type  # type: str
+        # The resource types. A maximum of 50 resource types are supported.
+        # 
+        # >  If you configure `ResourceTypes`, you must configure both `Service` and `ResourceType`. Otherwise, the configured Service or ResourceType does not take effect.
         self.resource_types = resource_types  # type: list[ListResourcesRequestResourceTypes]
         # The ID of the Alibaba Cloud service.
         # 
-        # You can obtain the ID from the **Service code** column in [Alibaba Cloud services that support resource groups](~~94479~~).
+        # You can obtain the ID from the **Service code** column in [Services that work with Resource Group](~~94479~~).
         self.service = service  # type: str
 
     def validate(self):
@@ -11548,7 +11715,7 @@ class ListResourcesResponseBodyResourcesResource(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         # The ID of the resource.
         self.resource_id = resource_id  # type: str
-        # The type of the resource.
+        # The resource type.
         self.resource_type = resource_type  # type: str
         # The ID of the Alibaba Cloud service.
         self.service = service  # type: str
@@ -11627,13 +11794,13 @@ class ListResourcesResponseBodyResources(TeaModel):
 
 class ListResourcesResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, resources=None, total_count=None):
-        # The page number of the returned page.
+        # The page number.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
+        # The number of entries per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The information of the resources.
+        # The information about the resources.
         self.resources = resources  # type: ListResourcesResponseBodyResources
         # The total number of entries returned.
         self.total_count = total_count  # type: int
@@ -12194,12 +12361,14 @@ class ListTagResourcesRequest(TeaModel):
         self.max_results = max_results  # type: int
         # The token that is used to start the next query.
         self.next_token = next_token  # type: str
+        # The resource ID.
         self.resource_id = resource_id  # type: list[str]
         # The type of the objects whose tags you want to query. This parameter specifies a filter condition for the query. Valid values:
         # 
         # *   ResourceGroup: resource group. This is the default value.
         # *   Account: member.
         self.resource_type = resource_type  # type: str
+        # The tag key and value.
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
     def validate(self):
@@ -14735,6 +14904,9 @@ class UntagResourcesRequest(TeaModel):
         # *   false (default value)
         # *   true
         self.all = all  # type: bool
+        # The ID of a resource group or member.
+        # 
+        # You can specify a maximum of 50 IDs.
         self.resource_id = resource_id  # type: list[str]
         # The type of the objects from which you want to remove tags. Valid values:
         # 
@@ -14743,6 +14915,11 @@ class UntagResourcesRequest(TeaModel):
         # 
         # >  This parameter is required if you remove tags from members in a resource directory.
         self.resource_type = resource_type  # type: str
+        # A tag key.
+        # 
+        # You can specify a maximum of 20 tag keys.
+        # 
+        # >  If you set the `All` parameter to `true`, you do not need to configure this parameter.
         self.tag_key = tag_key  # type: list[str]
 
     def validate(self):

@@ -1402,6 +1402,28 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.detach_policy_with_options(request, runtime)
 
+    def disable_associated_transfer_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='DisableAssociatedTransfer',
+            version='2020-03-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_manager_20200331_models.DisableAssociatedTransferResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def disable_associated_transfer(self):
+        runtime = util_models.RuntimeOptions()
+        return self.disable_associated_transfer_with_options(runtime)
+
     def disable_control_policy_with_options(self, runtime):
         """
         After you disable the Control Policy feature, the system automatically detaches all control policies that are attached to folders and member accounts. The system does not delete these control policies, but you cannot attach them to folders or member accounts again.
@@ -1441,6 +1463,28 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.disable_control_policy_with_options(runtime)
+
+    def enable_associated_transfer_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='EnableAssociatedTransfer',
+            version='2020-03-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_manager_20200331_models.EnableAssociatedTransferResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_associated_transfer(self):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_associated_transfer_with_options(runtime)
 
     def enable_control_policy_with_options(self, runtime):
         """
@@ -1631,6 +1675,16 @@ class Client(OpenApiClient):
         return self.get_account_deletion_check_result_with_options(request, runtime)
 
     def get_account_deletion_status_with_options(self, request, runtime):
+        """
+        This topic provides an example on how to call the API operation to query the deletion status of the member whose Alibaba Cloud account ID is `169946124551***`. The response shows that the member is deleted.
+        
+
+        @param request: GetAccountDeletionStatusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetAccountDeletionStatusResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.account_id):
@@ -1655,6 +1709,14 @@ class Client(OpenApiClient):
         )
 
     def get_account_deletion_status(self, request):
+        """
+        This topic provides an example on how to call the API operation to query the deletion status of the member whose Alibaba Cloud account ID is `169946124551***`. The response shows that the member is deleted.
+        
+
+        @param request: GetAccountDeletionStatusRequest
+
+        @return: GetAccountDeletionStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_account_deletion_status_with_options(request, runtime)
 
@@ -2791,7 +2853,7 @@ class Client(OpenApiClient):
     def list_resources_with_options(self, request, runtime):
         """
         >  You can use a RAM role that is not associated with a session policy to call this API operation.
-        This topic provides an example on how to call the API operation to query the resources that can be accessed by the current account in resource groups. The response shows that the current account can access only the Elastic Compute Service (ECS) instance `i-23v38****` in the resource group `rg-uPJpP****`.
+        This topic provides an example on how to call the API operation to query resources that can be accessed by the current account in resource groups. The response shows that the current account can access only the Elastic Compute Service (ECS) instance `i-23v38****` in the resource group `rg-uPJpP****`.
         
 
         @param request: ListResourcesRequest
@@ -2840,7 +2902,7 @@ class Client(OpenApiClient):
     def list_resources(self, request):
         """
         >  You can use a RAM role that is not associated with a session policy to call this API operation.
-        This topic provides an example on how to call the API operation to query the resources that can be accessed by the current account in resource groups. The response shows that the current account can access only the Elastic Compute Service (ECS) instance `i-23v38****` in the resource group `rg-uPJpP****`.
+        This topic provides an example on how to call the API operation to query resources that can be accessed by the current account in resource groups. The response shows that the current account can access only the Elastic Compute Service (ECS) instance `i-23v38****` in the resource group `rg-uPJpP****`.
         
 
         @param request: ListResourcesRequest
