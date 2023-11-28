@@ -126,8 +126,9 @@ class AcceptVpcPeerConnectionResponse(TeaModel):
 
 
 class CreateVpcPeerConnectionRequest(TeaModel):
-    def __init__(self, accepting_ali_uid=None, accepting_region_id=None, accepting_vpc_id=None, client_token=None,
-                 description=None, dry_run=None, name=None, region_id=None, resource_group_id=None, vpc_id=None):
+    def __init__(self, accepting_ali_uid=None, accepting_region_id=None, accepting_vpc_id=None, bandwidth=None,
+                 client_token=None, description=None, dry_run=None, name=None, region_id=None, resource_group_id=None,
+                 vpc_id=None):
         # The ID of the Alibaba Cloud account to which the accepter VPC belongs.
         # 
         # *   To create a VPC peering connection within your Alibaba Cloud account, enter the ID of your Alibaba Cloud account.
@@ -143,6 +144,7 @@ class CreateVpcPeerConnectionRequest(TeaModel):
         self.accepting_region_id = accepting_region_id  # type: str
         # The ID of the accepter VPC.
         self.accepting_vpc_id = accepting_vpc_id  # type: str
+        self.bandwidth = bandwidth  # type: int
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
@@ -188,6 +190,8 @@ class CreateVpcPeerConnectionRequest(TeaModel):
             result['AcceptingRegionId'] = self.accepting_region_id
         if self.accepting_vpc_id is not None:
             result['AcceptingVpcId'] = self.accepting_vpc_id
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
         if self.description is not None:
@@ -212,6 +216,8 @@ class CreateVpcPeerConnectionRequest(TeaModel):
             self.accepting_region_id = m.get('AcceptingRegionId')
         if m.get('AcceptingVpcId') is not None:
             self.accepting_vpc_id = m.get('AcceptingVpcId')
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
         if m.get('Description') is not None:
@@ -1353,7 +1359,7 @@ class ListVpcPeerConnectionsResponseBodyVpcPeerConnects(TeaModel):
                  biz_status=None, description=None, gmt_create=None, gmt_expired=None, gmt_modified=None, instance_id=None,
                  name=None, owner_id=None, region_id=None, resource_group_id=None, status=None, tags=None, vpc=None):
         # The ID of the Alibaba Cloud account to which the accepter VPC belongs.
-        self.accepting_owner_uid = accepting_owner_uid  # type: int
+        self.accepting_owner_uid = accepting_owner_uid  # type: long
         # The region ID of the accepter VPC.
         self.accepting_region_id = accepting_region_id  # type: str
         # The details of the accepter VPC.
@@ -1387,7 +1393,7 @@ class ListVpcPeerConnectionsResponseBodyVpcPeerConnects(TeaModel):
         # The name of the VPC peering connection.
         self.name = name  # type: str
         # The ID of the Alibaba Cloud account to which the requester VPC belongs.
-        self.owner_id = owner_id  # type: int
+        self.owner_id = owner_id  # type: long
         # The region ID of the requester VPC.
         self.region_id = region_id  # type: str
         # The ID of the resource group.
