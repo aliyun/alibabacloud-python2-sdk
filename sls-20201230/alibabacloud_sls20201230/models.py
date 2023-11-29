@@ -915,8 +915,7 @@ class SavedSearch(TeaModel):
 
 class Ticket(TeaModel):
     def __init__(self, caller_uid=None, create_date=None, expiration_time=None, expire_date=None, extra=None,
-                 name=None, number=None, ticket=None, ticket_id=None, type=None, unlimited_expiration=None,
-                 unlimited_number=None, used_number=None, valid=None):
+                 name=None, number=None, ticket=None, ticket_id=None, used_number=None, valid=None):
         self.caller_uid = caller_uid  # type: long
         self.create_date = create_date  # type: str
         self.expiration_time = expiration_time  # type: long
@@ -926,9 +925,6 @@ class Ticket(TeaModel):
         self.number = number  # type: int
         self.ticket = ticket  # type: str
         self.ticket_id = ticket_id  # type: str
-        self.type = type  # type: str
-        self.unlimited_expiration = unlimited_expiration  # type: bool
-        self.unlimited_number = unlimited_number  # type: bool
         self.used_number = used_number  # type: int
         self.valid = valid  # type: bool
 
@@ -959,12 +955,6 @@ class Ticket(TeaModel):
             result['ticket'] = self.ticket
         if self.ticket_id is not None:
             result['ticketId'] = self.ticket_id
-        if self.type is not None:
-            result['type'] = self.type
-        if self.unlimited_expiration is not None:
-            result['unlimitedExpiration'] = self.unlimited_expiration
-        if self.unlimited_number is not None:
-            result['unlimitedNumber'] = self.unlimited_number
         if self.used_number is not None:
             result['usedNumber'] = self.used_number
         if self.valid is not None:
@@ -991,12 +981,6 @@ class Ticket(TeaModel):
             self.ticket = m.get('ticket')
         if m.get('ticketId') is not None:
             self.ticket_id = m.get('ticketId')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('unlimitedExpiration') is not None:
-            self.unlimited_expiration = m.get('unlimitedExpiration')
-        if m.get('unlimitedNumber') is not None:
-            self.unlimited_number = m.get('unlimitedNumber')
         if m.get('usedNumber') is not None:
             self.used_number = m.get('usedNumber')
         if m.get('valid') is not None:
@@ -2044,11 +2028,23 @@ class IndexKeysValue(TeaModel):
 
 class KeysValue(TeaModel):
     def __init__(self, case_sensitive=None, chn=None, type=None, alias=None, token=None, doc_value=None):
+        # Specifies whether to enable case sensitivity. This parameter is required only when **type** is set to **text**. Valid values:
+        # 
+        # *   true
+        # *   false (default)
         self.case_sensitive = case_sensitive  # type: bool
+        # Specifies whether to include Chinese characters. This parameter is required only when **type** is set to **text**. Valid values:
+        # 
+        # *   true
+        # *   false (default)
         self.chn = chn  # type: bool
+        # The data type of the field value. Valid values: text, json, double, and long.
         self.type = type  # type: str
+        # The alias of the field.
         self.alias = alias  # type: str
+        # The delimiters that are used to split text.
         self.token = token  # type: list[str]
+        # Specifies whether to turn on Enable Analytics for the field.
         self.doc_value = doc_value  # type: bool
 
     def validate(self):
@@ -2425,8 +2421,19 @@ class CreateConfigResponse(TeaModel):
 
 class CreateConsumerGroupRequest(TeaModel):
     def __init__(self, consumer_group=None, order=None, timeout=None):
+        # The name of the consumer group. The name must be unique in a project.
         self.consumer_group = consumer_group  # type: str
+        # Specifies whether to consume data in sequence. Valid values:
+        # 
+        # *   true
+        # 
+        #     *   In a shard, data is consumed in ascending order based on the value of the \*\*\__tag\_\_:\__receive_time\_\_\*\* field.
+        #     *   If a shard is split, data in the original shard is consumed first. Then, data in the new shards is consumed at the same time.
+        #     *   If shards are merged, data in the original shards is consumed first. Then, data in the new shard is consumed.
+        # 
+        # *   false Data in all shards is consumed at the same time. If a new shard is generated after a shard is split or after shards are merged, data in the new shard is immediately consumed.
         self.order = order  # type: bool
+        # The timeout period. If the server does not receive heartbeats from a consumer within the timeout period, the server deletes the consumer. Unit: seconds.
         self.timeout = timeout  # type: int
 
     def validate(self):
@@ -2545,6 +2552,7 @@ class CreateDashboardResponse(TeaModel):
 
 class CreateDomainRequest(TeaModel):
     def __init__(self, domain_name=None):
+        # The domain name.
         self.domain_name = domain_name  # type: str
 
     def validate(self):
@@ -2599,10 +2607,21 @@ class CreateDomainResponse(TeaModel):
 
 class CreateIndexRequestLine(TeaModel):
     def __init__(self, case_sensitive=None, chn=None, exclude_keys=None, include_keys=None, token=None):
+        # Specifies whether to enable case sensitivity. Valid values:
+        # 
+        # *   true
+        # *   false (default)
         self.case_sensitive = case_sensitive  # type: bool
+        # Specifies whether to include Chinese characters. Valid values:
+        # 
+        # *   true
+        # *   false (default)
         self.chn = chn  # type: bool
+        # The excluded fields. You cannot specify both include_keys and exclude_keys.
         self.exclude_keys = exclude_keys  # type: list[str]
+        # The included fields. You cannot specify both include_keys and exclude_keys.
         self.include_keys = include_keys  # type: list[str]
+        # The delimiters. You can specify a delimiter to delimit the content of a field value. For more information about delimiters, see Example.
         self.token = token  # type: list[str]
 
     def validate(self):
@@ -2644,12 +2663,19 @@ class CreateIndexRequestLine(TeaModel):
 class CreateIndexRequest(TeaModel):
     def __init__(self, keys=None, line=None, log_reduce=None, log_reduce_black_list=None,
                  log_reduce_white_list=None, max_text_len=None, ttl=None):
+        # The configuration of field indexes. A field index is a key-value pair in which the key specifies the name of the field and the value specifies the index configuration of the field. You must specify this parameter, the line parameter, or both parameters. For more information, see Example.
         self.keys = keys  # type: dict[str, KeysValue]
+        # The configuration of full-text indexes. You must specify this parameter, the keys parameter, or both parameters. For more information, see Example.
         self.line = line  # type: CreateIndexRequestLine
+        # Specifies whether to turn on LogReduce. After you turn on LogReduce, either the whitelist or blacklist takes effect.
         self.log_reduce = log_reduce  # type: bool
+        # The fields in the blacklist that you want to use to cluster logs.
         self.log_reduce_black_list = log_reduce_black_list  # type: list[str]
+        # The fields in the whitelist that you want to use to cluster logs.
         self.log_reduce_white_list = log_reduce_white_list  # type: list[str]
+        # The maximum length of a field value that can be retained. Default value: 2048. Unit: bytes. The default value is equal to 2 KB. You can change the value of max_text_len. Valid values: 64 to 16384.
         self.max_text_len = max_text_len  # type: int
+        # The retention period of logs. Unit: days. Valid values: 7, 30, and 90.
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -2740,16 +2766,53 @@ class CreateIndexResponse(TeaModel):
 class CreateLogStoreRequest(TeaModel):
     def __init__(self, append_meta=None, auto_split=None, enable_tracking=None, encrypt_conf=None, hot_ttl=None,
                  logstore_name=None, max_split_shard=None, mode=None, shard_count=None, telemetry_type=None, ttl=None):
+        # Specifies whether to record public IP addresses. Default value: false. Valid values:
+        # 
+        # *   true
+        # *   false
         self.append_meta = append_meta  # type: bool
+        # Specifies whether to enable automatic sharding. Valid values:
+        # 
+        # *   true
+        # *   false
         self.auto_split = auto_split  # type: bool
+        # Specifies whether to enable the web tracking feature. Default value: false. Valid values:
+        # 
+        # *   true
+        # *   false
         self.enable_tracking = enable_tracking  # type: bool
+        # The data structure of the encryption configuration.
         self.encrypt_conf = encrypt_conf  # type: EncryptConf
+        # The retention period of data in the hot storage tier of the Logstore. Unit: days. You can specify a value that ranges from 30 to the value of ttl.
+        # 
+        # Hot data that is stored for longer than the period specified by hot_ttl is converted to cold data. For more information, see [Enable hot and cold-tiered storage for a Logstore](~~308645~~).
         self.hot_ttl = hot_ttl  # type: int
+        # The name of the Logstore. The name must meet the following requirements:
+        # 
+        # *   The name must be unique in a project.
+        # *   The name can contain only lowercase letters, digits, hyphens (-), and underscores (\_).
+        # *   The name must start and end with a lowercase letter or a digit.
+        # *   The name must be 3 to 63 characters in length.
         self.logstore_name = logstore_name  # type: str
+        # The maximum number of shards into which existing shards can be automatically split. Valid values: 1 to 64.
+        # 
+        # > If you set autoSplit to true, you must configure this parameter.
         self.max_split_shard = max_split_shard  # type: int
+        # The type of the Logstore. Log Service provides the following types of Logstores: Standard Logstores and Query Logstores. Valid values:
+        # 
+        # *   **standard**: Standard Logstore. This type of Logstore supports the log analysis feature and is suitable for scenarios such as real-time monitoring and interactive analysis. You can also use this type of Logstore to build a comprehensive observability system.
+        # *   **query**: Query Logstore. This type of Logstore supports high-performance queries. The index traffic fee of a Query Logstore is approximately half that of a Standard Logstore. Query Logstores do not support SQL analysis. Query Logstores are suitable for scenarios in which the amount of data is large, the log retention period is long, or log analysis is not required. Log retention periods of weeks or months are considered long.
         self.mode = mode  # type: str
+        # The number of shards.
+        # 
+        # > You cannot call the CreateLogStore operation to change the number of shards. You can call the SplitShard or MergeShards operation to change the number of shards.
         self.shard_count = shard_count  # type: int
+        # The type of the observable data. Valid values:
+        # 
+        # *   None: logs
+        # *   Metrics: metrics
         self.telemetry_type = telemetry_type  # type: str
+        # The retention period of data. Unit: days. Valid values: 1 to 3000. If you set this parameter to 3650, data is permanently stored.
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -2846,7 +2909,18 @@ class CreateLogStoreResponse(TeaModel):
 
 class CreateLoggingRequestLoggingDetails(TeaModel):
     def __init__(self, logstore=None, type=None):
+        # The name of the Logstore to which service logs of the type are stored.
         self.logstore = logstore  # type: str
+        # The type of service logs. Valid values:
+        # 
+        # *   consumergroup_log: the consumption delay logs of consumer groups.
+        # *   logtail_alarm: the alert logs of Logtail.
+        # *   operation_log: the operation logs.
+        # *   logtail_profile: the collection logs of Logtail.
+        # *   metering: the metering logs.
+        # *   logtail_status: the status logs of Logtail.
+        # *   scheduledsqlalert: the run logs of Scheduled SQL jobs.
+        # *   etl_alert: the run logs of data transformation jobs.
         self.type = type  # type: str
 
     def validate(self):
@@ -2875,7 +2949,9 @@ class CreateLoggingRequestLoggingDetails(TeaModel):
 
 class CreateLoggingRequest(TeaModel):
     def __init__(self, logging_details=None, logging_project=None):
+        # The configurations of service logs.
         self.logging_details = logging_details  # type: list[CreateLoggingRequestLoggingDetails]
+        # The name of the project to which service logs are stored.
         self.logging_project = logging_project  # type: str
 
     def validate(self):
@@ -3027,7 +3103,9 @@ class CreateLogtailPipelineConfigResponse(TeaModel):
 
 class CreateMachineGroupRequestGroupAttribute(TeaModel):
     def __init__(self, external_name=None, group_topic=None):
+        # The identifier of the external management system on which the machine group depends.
         self.external_name = external_name  # type: str
+        # The log topic of the machine group.
         self.group_topic = group_topic  # type: str
 
     def validate(self):
@@ -3057,10 +3135,26 @@ class CreateMachineGroupRequestGroupAttribute(TeaModel):
 class CreateMachineGroupRequest(TeaModel):
     def __init__(self, group_attribute=None, group_name=None, group_type=None, machine_identify_type=None,
                  machine_list=None):
+        # The attributes of the machine group.
         self.group_attribute = group_attribute  # type: CreateMachineGroupRequestGroupAttribute
+        # The name of the machine group. The name must meet the following requirements:
+        # 
+        # *   The name of each machine group in a project must be unique.
+        # *   It can contain only lowercase letters, digits, hyphens (-), and underscores (\_).
+        # *   It must start and end with a lowercase letter or a digit.
+        # *   It must be 3 to 128 characters in length.
         self.group_name = group_name  # type: str
+        # The type of the machine group. The parameter can be left empty.
         self.group_type = group_type  # type: str
+        # The type of the machine group identifier. Valid values:
+        # 
+        # *   ip: The machine group uses IP addresses as identifiers.
+        # *   userdefined: The machine group uses custom identifiers.
         self.machine_identify_type = machine_identify_type  # type: str
+        # The identifiers of machine group.
+        # 
+        # *   If you set machineIdentifyType to ip, enter the IP address of the machine.
+        # *   If you set machineIdentifyType to userdefined, enter a custom identifier.
         self.machine_list = machine_list  # type: list[str]
 
     def validate(self):
@@ -3133,7 +3227,9 @@ class CreateMachineGroupResponse(TeaModel):
 
 class CreateOssExternalStoreRequestParameterColumns(TeaModel):
     def __init__(self, name=None, type=None):
+        # The name of the field.
         self.name = name  # type: str
+        # The type of the field.
         self.type = type  # type: str
 
     def validate(self):
@@ -3162,11 +3258,17 @@ class CreateOssExternalStoreRequestParameterColumns(TeaModel):
 
 class CreateOssExternalStoreRequestParameter(TeaModel):
     def __init__(self, accessid=None, accesskey=None, bucket=None, columns=None, endpoint=None, objects=None):
+        # The AccessKey ID of your account.
         self.accessid = accessid  # type: str
+        # The AccessKey secret of your account.
         self.accesskey = accesskey  # type: str
+        # The name of the OSS bucket.
         self.bucket = bucket  # type: str
+        # The associated fields.
         self.columns = columns  # type: list[CreateOssExternalStoreRequestParameterColumns]
+        # The OSS endpoint.
         self.endpoint = endpoint  # type: str
+        # The associated objects.
         self.objects = objects  # type: list[str]
 
     def validate(self):
@@ -3219,8 +3321,11 @@ class CreateOssExternalStoreRequestParameter(TeaModel):
 
 class CreateOssExternalStoreRequest(TeaModel):
     def __init__(self, external_store_name=None, parameter=None, store_type=None):
+        # The name of the external store.
         self.external_store_name = external_store_name  # type: str
+        # The parameters that are configured for the external store.
         self.parameter = parameter  # type: CreateOssExternalStoreRequestParameter
+        # The type of the external store. Set the value to oss.
         self.store_type = store_type  # type: str
 
     def validate(self):
@@ -3285,9 +3390,18 @@ class CreateOssExternalStoreResponse(TeaModel):
 
 class CreateProjectRequest(TeaModel):
     def __init__(self, data_redundancy_type=None, description=None, project_name=None, resource_group_id=None):
+        # Data redundancy type
         self.data_redundancy_type = data_redundancy_type  # type: str
+        # The description of the project.
         self.description = description  # type: str
+        # The name of the project. The name must be unique in a region. You cannot change the name after you create the project. The name must meet the following requirements:
+        # 
+        # *   The name must be unique.
+        # *   It can contain only lowercase letters, digits, and hyphens (-).
+        # *   It must start and end with a lowercase letter or a digit.
+        # *   It must be 3 to 63 characters in length.
         self.project_name = project_name  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -3355,14 +3469,23 @@ class CreateProjectResponse(TeaModel):
 class CreateRdsExternalStoreRequestParameter(TeaModel):
     def __init__(self, db=None, host=None, instance_id=None, password=None, port=None, region=None, table=None,
                  username=None, vpc_id=None):
+        # The name of the database in the ApsaraDB RDS for MySQL instance.
         self.db = db  # type: str
+        # The internal or public endpoint of the ApsaraDB RDS for MySQL instance.
         self.host = host  # type: str
+        # The ID of the ApsaraDB RDS for MySQL instance.
         self.instance_id = instance_id  # type: str
+        # The password that is used to log on to the ApsaraDB RDS for MySQL instance.
         self.password = password  # type: str
+        # The internal or public port of the ApsaraDB RDS for MySQL instance.
         self.port = port  # type: str
+        # The region where the ApsaraDB RDS for MySQL instance resides. Valid values: cn-qingdao, cn-beijing, and cn-hangzhou.
         self.region = region  # type: str
+        # The name of the database table in the ApsaraDB RDS for MySQL instance.
         self.table = table  # type: str
+        # The username that is used to log on to the ApsaraDB RDS for MySQL instance.
         self.username = username  # type: str
+        # The ID of the VPC to which the ApsaraDB RDS for MySQL instance belongs.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -3419,8 +3542,11 @@ class CreateRdsExternalStoreRequestParameter(TeaModel):
 
 class CreateRdsExternalStoreRequest(TeaModel):
     def __init__(self, external_store_name=None, parameter=None, store_type=None):
+        # The name of the external store. The name must be unique in a project and must be different from Logstore names.
         self.external_store_name = external_store_name  # type: str
+        # The parameter struct.
         self.parameter = parameter  # type: CreateRdsExternalStoreRequestParameter
+        # The storage type. Set the value to rds-vpc, which indicates an ApsaraDB RDS for MySQL database in a virtual private cloud (VPC).
         self.store_type = store_type  # type: str
 
     def validate(self):
@@ -3485,10 +3611,15 @@ class CreateRdsExternalStoreResponse(TeaModel):
 
 class CreateSavedSearchRequest(TeaModel):
     def __init__(self, display_name=None, logstore=None, savedsearch_name=None, search_query=None, topic=None):
+        # The display name.
         self.display_name = display_name  # type: str
+        # The name of the Logstore to which the saved search belongs.
         self.logstore = logstore  # type: str
+        # The name of the saved search. The name must be 3 to 63 characters in length.
         self.savedsearch_name = savedsearch_name  # type: str
+        # The query statement of the saved search. A query statement consists of a search statement and an analytic statement in the `Search statement|Analytic statement` format. For more information about search statements and analytic statements, see [Log search overview](~~43772~~) and [Log analysis overview](~~53608~~).
         self.search_query = search_query  # type: str
+        # The topic of the log.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -3554,98 +3685,6 @@ class CreateSavedSearchResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
-        return self
-
-
-class CreateTicketRequest(TeaModel):
-    def __init__(self, play_access_key_id=None, play_access_key_secret=None):
-        self.play_access_key_id = play_access_key_id  # type: str
-        self.play_access_key_secret = play_access_key_secret  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateTicketRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.play_access_key_id is not None:
-            result['playAccessKeyId'] = self.play_access_key_id
-        if self.play_access_key_secret is not None:
-            result['playAccessKeySecret'] = self.play_access_key_secret
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('playAccessKeyId') is not None:
-            self.play_access_key_id = m.get('playAccessKeyId')
-        if m.get('playAccessKeySecret') is not None:
-            self.play_access_key_secret = m.get('playAccessKeySecret')
-        return self
-
-
-class CreateTicketResponseBody(TeaModel):
-    def __init__(self, ticket=None):
-        self.ticket = ticket  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateTicketResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.ticket is not None:
-            result['ticket'] = self.ticket
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ticket') is not None:
-            self.ticket = m.get('ticket')
-        return self
-
-
-class CreateTicketResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: CreateTicketResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(CreateTicketResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = CreateTicketResponseBody()
-            self.body = temp_model.from_map(m['body'])
         return self
 
 
@@ -4370,7 +4409,9 @@ class GetAnnotationLabelResponse(TeaModel):
 
 class GetAppliedConfigsResponseBody(TeaModel):
     def __init__(self, configs=None, count=None):
+        # The names of the Logtail configurations.
         self.configs = configs  # type: list[str]
+        # The number of Logtail configurations.
         self.count = count  # type: int
 
     def validate(self):
@@ -4438,7 +4479,9 @@ class GetAppliedConfigsResponse(TeaModel):
 
 class GetAppliedMachineGroupsResponseBody(TeaModel):
     def __init__(self, count=None, machinegroups=None):
+        # The number of returned machine groups.
         self.count = count  # type: int
+        # The names of the returned machine groups.
         self.machinegroups = machinegroups  # type: list[str]
 
     def validate(self):
@@ -4506,6 +4549,10 @@ class GetAppliedMachineGroupsResponse(TeaModel):
 
 class GetCheckPointRequest(TeaModel):
     def __init__(self, shard=None):
+        # The shard ID.
+        # 
+        # *   If the specified shard does not exist, an empty list is returned.
+        # *   If no shard ID is specified, the checkpoints of all shards are returned.
         self.shard = shard  # type: int
 
     def validate(self):
@@ -4530,10 +4577,13 @@ class GetCheckPointRequest(TeaModel):
 
 class GetCheckPointResponseBody(TeaModel):
     def __init__(self, shard=None, checkpoint=None, update_time=None, consumer=None):
-        # Shard ID。
+        # The shard ID.
         self.shard = shard  # type: int
+        # The value of the checkpoint.
         self.checkpoint = checkpoint  # type: str
+        # The time when the checkpoint was last updated. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.update_time = update_time  # type: long
+        # The consumer at the checkpoint.
         self.consumer = consumer  # type: str
 
     def validate(self):
@@ -4923,10 +4973,15 @@ class GetConfigResponse(TeaModel):
 
 class GetContextLogsRequest(TeaModel):
     def __init__(self, back_lines=None, forward_lines=None, pack_id=None, pack_meta=None, type=None):
+        # The number of logs that you want to obtain and are generated before the generation time of the start log. Valid values: (0,100].
         self.back_lines = back_lines  # type: long
+        # The number of logs that you want to obtain and are generated after the generation time of the start log. Valid values: (0,100].
         self.forward_lines = forward_lines  # type: long
+        # The unique identifier of the log group to which the start log belongs.
         self.pack_id = pack_id  # type: str
+        # The unique context identifier of the start log in the log group.
         self.pack_meta = pack_meta  # type: str
+        # The type of the data in the Logstore. Set the value to context_log.
         self.type = type  # type: str
 
     def validate(self):
@@ -4967,10 +5022,18 @@ class GetContextLogsRequest(TeaModel):
 
 class GetContextLogsResponseBody(TeaModel):
     def __init__(self, back_lines=None, forward_lines=None, logs=None, progress=None, total_lines=None):
+        # The number of logs that are generated before the generation time of the start log.
         self.back_lines = back_lines  # type: long
+        # The number of logs that are generated after the generation time of the start log.
         self.forward_lines = forward_lines  # type: long
+        # The logs that are returned.
         self.logs = logs  # type: list[dict[str, any]]
+        # Indicates whether the query and analysis results are complete. Valid values:
+        # 
+        # *   Complete: The query is successful, and the complete query and analysis results are returned.
+        # *   Incomplete: The query is successful, but the query and analysis results are incomplete. To obtain the complete results, you must repeat the request.
         self.progress = progress  # type: str
+        # The total number of logs that are returned. The logs include the start log that is specified in the request.
         self.total_lines = total_lines  # type: long
 
     def validate(self):
@@ -5050,6 +5113,7 @@ class GetContextLogsResponse(TeaModel):
 
 class GetCursorRequest(TeaModel):
     def __init__(self, from_=None):
+        # The point in time that you want to use to query a cursor. Set the value to a UNIX timestamp or a string such as `begin` and `end`.
         self.from_ = from_  # type: str
 
     def validate(self):
@@ -5074,6 +5138,7 @@ class GetCursorRequest(TeaModel):
 
 class GetCursorResponseBody(TeaModel):
     def __init__(self, cursor=None):
+        # The value of the cursor.
         self.cursor = cursor  # type: str
 
     def validate(self):
@@ -5137,6 +5202,7 @@ class GetCursorResponse(TeaModel):
 
 class GetCursorTimeRequest(TeaModel):
     def __init__(self, cursor=None):
+        # The cursor.
         self.cursor = cursor  # type: str
 
     def validate(self):
@@ -5161,6 +5227,7 @@ class GetCursorTimeRequest(TeaModel):
 
 class GetCursorTimeResponseBody(TeaModel):
     def __init__(self, cursor_time=None):
+        # The server time that is queried based on the cursor. The value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.cursor_time = cursor_time  # type: str
 
     def validate(self):
@@ -5302,9 +5369,13 @@ class GetExternalStoreResponse(TeaModel):
 
 class GetHistogramsRequest(TeaModel):
     def __init__(self, from_=None, query=None, to=None, topic=None):
+        # The start time of the subinterval. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.from_ = from_  # type: long
+        # The search statement. Only search statements are supported. Analytic statements are not supported. For more information about the syntax of search statements, see [Log search overview](~~43772~~).
         self.query = query  # type: str
+        # The end time of the subinterval. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.to = to  # type: long
+        # The topic of the logs.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -5341,9 +5412,21 @@ class GetHistogramsRequest(TeaModel):
 
 class GetHistogramsResponseBody(TeaModel):
     def __init__(self, from_=None, to=None, count=None, progress=None):
+        # The start time of the subinterval. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
+        # 
+        # The time range that is specified in this operation is a left-closed, right-open interval. The interval includes the start time specified by the from parameter, but does not include the end time specified by the to parameter. If you specify the same value for the from and to parameters, the interval is invalid, and an error message is returned.
         self.from_ = from_  # type: long
+        # The end time of the subinterval. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
+        # 
+        # The time range that is specified in this operation is a left-closed, right-open interval. The interval includes the start time specified by the from parameter, but does not include the end time specified by the to parameter. If you specify the same value for the from and to parameters, the interval is invalid, and an error message is returned.
         self.to = to  # type: long
+        # The number of logs that are generated within the subinterval.
         self.count = count  # type: long
+        # Indicates whether the query and analysis results in the subinterval is complete. Valid values:
+        # 
+        # Complete: The query is successful, and the complete query and analysis results are returned.
+        # 
+        # Incomplete: The query is successful, but the query and analysis results are incomplete. To obtain the complete results, you must repeat the request.
         self.progress = progress  # type: str
 
     def validate(self):
@@ -5425,10 +5508,21 @@ class GetHistogramsResponse(TeaModel):
 
 class GetIndexResponseBodyLine(TeaModel):
     def __init__(self, case_sensitive=None, chn=None, exclude_keys=None, include_keys=None, token=None):
+        # Indicates whether case sensitivity is enabled. Valid values:
+        # 
+        # *   true
+        # *   false
         self.case_sensitive = case_sensitive  # type: bool
+        # Indicates whether Chinese characters are included. Valid values:
+        # 
+        # *   true
+        # *   false
         self.chn = chn  # type: bool
+        # The excluded fields.
         self.exclude_keys = exclude_keys  # type: list[str]
+        # The included fields.
         self.include_keys = include_keys  # type: list[str]
+        # The delimiters.
         self.token = token  # type: list[str]
 
     def validate(self):
@@ -5470,15 +5564,25 @@ class GetIndexResponseBodyLine(TeaModel):
 class GetIndexResponseBody(TeaModel):
     def __init__(self, index_mode=None, keys=None, last_modify_time=None, line=None, log_reduce=None,
                  log_reduce_black_list=None, log_reduce_white_list=None, max_text_len=None, storage=None, ttl=None):
+        # The type of the index.
         self.index_mode = index_mode  # type: str
+        # The configurations of field indexes. A field index is in the key-value format in which the key specifies the name of the field and the value specifies the index configuration of the field.
         self.keys = keys  # type: dict[str, KeysValue]
+        # The time when the index configurations were last updated. The value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.last_modify_time = last_modify_time  # type: long
+        # The configurations of full-text indexes.
         self.line = line  # type: GetIndexResponseBodyLine
+        # Indicates whether the log clustering feature is enabled.
         self.log_reduce = log_reduce  # type: bool
+        # The fields in the blacklist that are used to cluster logs. This parameter is valid only if the log clustering feature is enabled.
         self.log_reduce_black_list = log_reduce_black_list  # type: list[str]
+        # The fields in the whitelist that are used to cluster logs. This parameter is valid only if the log clustering feature is enabled.
         self.log_reduce_white_list = log_reduce_white_list  # type: list[str]
+        # The maximum length of a field value that can be retained. Default value: 2048. Unit: bytes. The default value is equal to 2 KB. You can change the value of the max_text_len parameter. Valid values: 64 to 16384. Unit: bytes.
         self.max_text_len = max_text_len  # type: int
+        # The storage type. The value is fixed as pg.
         self.storage = storage  # type: str
+        # The lifecycle of the index file. Valid values: 7, 30, and 90. Unit: day.
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -5731,13 +5835,56 @@ class GetLoggingResponse(TeaModel):
 class GetLogsRequest(TeaModel):
     def __init__(self, from_=None, line=None, offset=None, power_sql=None, query=None, reverse=None, to=None,
                  topic=None):
+        # The beginning of the time range to query. The value is the log time that is specified when log data is written.
+        # 
+        # *   The time range that is specified in this operation is a left-closed, right-open interval. The interval includes the start time specified by the **from** parameter, but does not include the end time specified by the **to** parameter. If you specify the same value for the **from** and **to** parameters, the interval is invalid, and an error message is returned.
+        # *   The value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # > To ensure that full data can be queried, specify a query time range that is accurate to the minute. If you also specify a time range in an analytic statement, Simple Log Service uses the time range specified in the analytic statement for query and analysis.
+        # 
+        # If you want to specify a time range that is accurate to the second in your analytic statement, you must use the from_unixtime or to_unixtime function to convert the time format. For more information about the functions, see [from_unixtime function](~~63451~~) and [to_unixtime function](~~63451~~). Examples:
+        # 
+        # *   `* | SELECT * FROM log WHERE from_unixtime(__time__) > from_unixtime(1664186624) AND from_unixtime(__time__) < now()`
+        # *   `* | SELECT * FROM log WHERE __time__ > to_unixtime(date_parse(\"2022-10-19 15:46:05\", \"%Y-%m-%d %H:%i:%s\")) AND __time__ < to_unixtime(now())`
         self.from_ = from_  # type: int
+        # The maximum number of logs to return for the request. This parameter takes effect only when the query parameter is set to a search statement. Minimum value: 0. Maximum value: 100. Default value: 100.
         self.line = line  # type: long
+        # The line from which the query starts. This parameter takes effect only when the query parameter is set to a search statement. Default value: 0.
         self.offset = offset  # type: long
+        # Specifies whether to enable the Dedicated SQL feature. For more information, see [Enable Dedicated SQL](~~223777~~). Valid values:
+        # 
+        # *   true: enables the Dedicated SQL feature.
+        # *   false (default): enables the Standard SQL feature.
+        # 
+        # You can use the powerSql or **query** parameter to configure Dedicated SQL.
         self.power_sql = power_sql  # type: bool
+        # The search statement or the query statement. For more information, see [Log search overview](~~43772~~) and [Log analysis overview](~~53608~~). If you add `set session parallel_sql=true;` to the analytic statement in the query parameter, Dedicated SQL is used. For example, you can set the query parameter to `* | set session parallel_sql=true; select count(*) as pv`. For more information about common errors that may occur during log query and analysis, see [How do I resolve common errors that occur when I query and analyze logs?](~~61628~~)
+        # 
+        # > If you specify an analytic statement in the value of the query parameter, the line and offset parameters do not take effect. In this case, we recommend that you set the line and offset parameters to 0 and use the LIMIT clause to limit the number of logs to return on each page. For more information, see [Paged query](~~89994~~).
         self.query = query  # type: str
+        # Specifies whether to return logs in reverse chronological order of log timestamps. The log timestamps are accurate to the minute. Valid values:
+        # 
+        # *   true: returns logs in reverse chronological order of log timestamps.
+        # *   false (default): returns logs in chronological order of log timestamps.
+        # 
+        # > 
+        # 
+        # *   The reverse parameter takes effect only when the query parameter is set to a search statement. The reverse parameter specifies the method used to sort returned logs.
+        # *   If the query parameter is set to a query statement, the reverse parameter does not take effect. The method used to sort returned logs is specified by the ORDER BY clause in the analytic statement. If you use the keyword asc in the ORDER BY clause, the logs are sorted in chronological order. If you use the keyword desc in the ORDER BY clause, the logs are sorted in reverse chronological order. By default, asc is used in the ORDER BY clause.
         self.reverse = reverse  # type: bool
+        # The end of the time range to query. The value is the log time that is specified when log data is written.
+        # 
+        # *   The time range that is specified in this operation is a left-closed, right-open interval. The interval includes the start time specified by the **from** parameter, but does not include the end time specified by the **to** parameter. If you specify the same value for the **from** and **to** parameters, the interval is invalid, and an error message is returned.
+        # *   The value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # > To ensure that full data can be queried, specify a query time range that is accurate to the minute. If you also specify a time range in an analytic statement, Simple Log Service uses the time range specified in the analytic statement for query and analysis.
+        # 
+        # If you want to specify a time range that is accurate to the second in your analytic statement, you must use the from_unixtime or to_unixtime function to convert the time format. For more information about the functions, see [from_unixtime function](~~63451~~) and [to_unixtime function](~~63451~~). Examples:
+        # 
+        # *   `* | SELECT * FROM log WHERE from_unixtime(__time__) > from_unixtime(1664186624) AND from_unixtime(__time__) < now()`
+        # *   `* | SELECT * FROM log WHERE __time__ > to_unixtime(date_parse(\"2022-10-19 15:46:05\", \"%Y-%m-%d %H:%i:%s\")) AND __time__ < to_unixtime(now())`
         self.to = to  # type: int
+        # The topic of the logs. The default value is double quotation marks (""). For more information, see [Topic](~~48881~~).
         self.topic = topic  # type: str
 
     def validate(self):
@@ -5827,6 +5974,7 @@ class GetLogsResponse(TeaModel):
 class GetLogsV2Headers(TeaModel):
     def __init__(self, common_headers=None, accept_encoding=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The compression method.
         self.accept_encoding = accept_encoding  # type: str
 
     def validate(self):
@@ -5856,17 +6004,36 @@ class GetLogsV2Headers(TeaModel):
 class GetLogsV2Request(TeaModel):
     def __init__(self, forward=None, from_=None, line=None, offset=None, power_sql=None, query=None, reverse=None,
                  session=None, shard=None, to=None, topic=None):
+        # Specifies whether to page forward or backward for the scan-based query or the phrase query.
         self.forward = forward  # type: bool
+        # The beginning of the time range to query. The value is the log time that is specified when log data is written.
+        # 
+        # The time range specified by the from and to parameters is a left-closed and right-open interval. Each interval includes the specified start time but does not include the specified end time. If you specify the same value for the from and to parameters, the interval is invalid, and an error message is returned. The value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.from_ = from_  # type: int
+        # The maximum number of logs to return for the request. This parameter takes effect only when the query parameter is set to a search statement. Valid values: 0 to 100. Default value: 100.
         self.line = line  # type: long
+        # The row from which the query starts. This parameter takes effect only when the query parameter is set to a search statement. Default value: 0.
         self.offset = offset  # type: long
+        # Specifies whether to enable the SQL enhancement feature. By default, the feature is disabled.
         self.power_sql = power_sql  # type: bool
+        # The search statement or the query statement. For more information, see the "Log search overview" and "Log analysis overview" topics.
+        # 
+        # If you add set session parallel_sql=true; to the analytic statement in the query parameter, the dedicated SQL feature is enabled. Example: \* | set session parallel_sql=true; select count(\*) as pv.
+        # 
+        # Note: If you specify an analytic statement in the query parameter, the line and offset parameters are invalid for this operation. In this case, we recommend that you set the line and offset parameters to 0 and use a LIMIT clause to limit the number of entries to return on each page. For more information, see the "Perform paged queries" topic.
         self.query = query  # type: str
+        # Specifies whether to return logs in reverse chronological order of log timestamps. The log timestamps are accurate to the minute. Valid values:
+        # 
+        # true: returns logs in reverse chronological order of log timestamps. false (default): returns logs in chronological order of log timestamps. Note The reverse parameter takes effect only when the query parameter is set to a search statement. The reverse parameter specifies the method used to sort the returned logs. If the query parameter is set to a query statement, which consists of a search statement and an analytic statement, the reverse parameter does not take effect. The method used to sort the returned logs is specified by the ORDER BY clause in the analytic statement. If you use the keyword asc in the ORDER BY clause, the logs are sorted in chronological order. If you use the keyword desc in the ORDER BY clause, the logs are sorted in reverse chronological order. By default, asc is used in the ORDER BY clause.
         self.reverse = reverse  # type: bool
         self.session = session  # type: str
-        # Shard ID。
+        # The ID of the shard.
         self.shard = shard  # type: int
+        # The end of the time range to query. The value is the log time that is specified when log data is written.
+        # 
+        # The time range specified by the from and to parameters is a left-closed and right-open interval. Each interval includes the specified start time but does not include the specified end time. If you specify the same value for the from and to parameters, the interval is invalid, and an error message is returned. The value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.to = to  # type: int
+        # The topic of the logs. Default value: double quotation marks ("").
         self.topic = topic  # type: str
 
     def validate(self):
@@ -5933,17 +6100,32 @@ class GetLogsV2ResponseBodyMeta(TeaModel):
     def __init__(self, agg_query=None, count=None, elapsed_millisecond=None, has_sql=None, is_accurate=None,
                  keys=None, processed_bytes=None, processed_rows=None, progress=None, telementry_type=None, terms=None,
                  where_query=None):
+        # The SQL statement after | in the query statement.
         self.agg_query = agg_query  # type: str
+        # The number of rows that are returned.
         self.count = count  # type: int
+        # The amount of time that is consumed by the request. Unit: milliseconds.
         self.elapsed_millisecond = elapsed_millisecond  # type: long
+        # Indicates whether the query is an SQL query.
         self.has_sql = has_sql  # type: bool
+        # Indicates whether the returned result is accurate.
         self.is_accurate = is_accurate  # type: bool
+        # All keys in the query result.
         self.keys = keys  # type: list[str]
+        # The number of logs that are processed in the request.
         self.processed_bytes = processed_bytes  # type: long
+        # The number of rows that are processed in the request.
         self.processed_rows = processed_rows  # type: int
+        # Indicates whether the query result is complete. Valid values:
+        # 
+        # *   Complete: The query was successful, and the complete result is returned.
+        # *   Incomplete: The query was successful, but the query result is incomplete. To obtain the complete result, you must call the operation again.
         self.progress = progress  # type: str
+        # The type of observable data.
         self.telementry_type = telementry_type  # type: str
+        # All terms in the query statement.
         self.terms = terms  # type: list[dict[str, any]]
+        # The part before | in the query statement.
         self.where_query = where_query  # type: str
 
     def validate(self):
@@ -6012,7 +6194,9 @@ class GetLogsV2ResponseBodyMeta(TeaModel):
 
 class GetLogsV2ResponseBody(TeaModel):
     def __init__(self, data=None, meta=None):
+        # The returned result.
         self.data = data  # type: list[dict[str, str]]
+        # The metadata that is returned.
         self.meta = meta  # type: GetLogsV2ResponseBodyMeta
 
     def validate(self):
@@ -6119,6 +6303,105 @@ class GetLogtailPipelineConfigResponse(TeaModel):
         return self
 
 
+class GetMLServiceResultsRequest(TeaModel):
+    def __init__(self, allow_builtin=None, body=None):
+        self.allow_builtin = allow_builtin  # type: bool
+        self.body = body  # type: MLServiceAnalysisParam
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetMLServiceResultsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.allow_builtin is not None:
+            result['allowBuiltin'] = self.allow_builtin
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('allowBuiltin') is not None:
+            self.allow_builtin = m.get('allowBuiltin')
+        if m.get('body') is not None:
+            temp_model = MLServiceAnalysisParam()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetMLServiceResultsResponseBody(TeaModel):
+    def __init__(self, data=None, status=None):
+        self.data = data  # type: list[dict[str, str]]
+        self.status = status  # type: dict[str, str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMLServiceResultsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['data'] = self.data
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class GetMLServiceResultsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetMLServiceResultsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetMLServiceResultsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetMLServiceResultsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetMachineGroupResponse(TeaModel):
     def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
@@ -6199,7 +6482,14 @@ class GetProjectResponse(TeaModel):
 
 class GetProjectLogsRequest(TeaModel):
     def __init__(self, power_sql=None, query=None):
+        # Specifies whether to enable the Dedicated SQL feature. For more information, see [Enable Dedicated SQL](~~223777~~). Valid values:
+        # 
+        # *   true
+        # *   false (default): enables the Standard SQL feature.
+        # 
+        # You can use the powerSql or **query** parameter to configure Dedicated SQL.
         self.power_sql = power_sql  # type: bool
+        # The standard SQL statement. In this example, the SQL statement queries the number of page views (PVs) from 2022-03-01 10:41:40 to 2022-03-01 10:56:40 in a Logstore whose name is nginx-moni.
         self.query = query  # type: str
 
     def validate(self):
@@ -6339,10 +6629,15 @@ class GetSavedSearchResponse(TeaModel):
 
 class GetShipperStatusRequest(TeaModel):
     def __init__(self, from_=None, offset=None, size=None, status=None, to=None):
+        # The start time of the log shipping job. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.from_ = from_  # type: long
+        # The line from which the query starts. Default value: 0.
         self.offset = offset  # type: int
+        # The number of entries per page. Default value: 100. Maximum value: 500.
         self.size = size  # type: int
+        # The status of the log shipping job. This parameter is empty by default, which indicates that log shipping jobs in all states are returned. Valid values: success, fail, and running.
         self.status = status  # type: str
+        # The end time of the log shipping job. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.to = to  # type: long
 
     def validate(self):
@@ -6383,8 +6678,11 @@ class GetShipperStatusRequest(TeaModel):
 
 class GetShipperStatusResponseBodyStatistics(TeaModel):
     def __init__(self, fail=None, running=None, success=None):
+        # The number of log shipping jobs that are in the fail state.
         self.fail = fail  # type: long
+        # The number of log shipping jobs that are in the running state.
         self.running = running  # type: long
+        # The number of log shipping jobs that are in the success state.
         self.success = success  # type: long
 
     def validate(self):
@@ -6418,13 +6716,21 @@ class GetShipperStatusResponseBodyStatistics(TeaModel):
 class GetShipperStatusResponseBodyTasks(TeaModel):
     def __init__(self, id=None, task_code=None, task_create_time=None, task_data_lines=None, task_finish_time=None,
                  task_last_data_receive_time=None, task_message=None, task_status=None):
+        # The ID of the log shipping job.
         self.id = id  # type: str
+        # The error code of the log shipping job.
         self.task_code = task_code  # type: str
+        # The start time of the log shipping job. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.task_create_time = task_create_time  # type: long
+        # The number of logs that are shipped in the log shipping job.
         self.task_data_lines = task_data_lines  # type: int
+        # The end time of the log shipping job. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.task_finish_time = task_finish_time  # type: long
+        # The time when Simple Log Service receives the most recent log of the log shipping job. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.task_last_data_receive_time = task_last_data_receive_time  # type: long
+        # The error message of the log shipping job.
         self.task_message = task_message  # type: str
+        # The status of the log shipping job. Valid values: running, success, and fail.
         self.task_status = task_status  # type: str
 
     def validate(self):
@@ -6477,9 +6783,13 @@ class GetShipperStatusResponseBodyTasks(TeaModel):
 
 class GetShipperStatusResponseBody(TeaModel):
     def __init__(self, count=None, statistics=None, tasks=None, total=None):
+        # The number of log shipping jobs returned on the current page.
         self.count = count  # type: long
+        # The statistics about log shipping jobs.
         self.statistics = statistics  # type: GetShipperStatusResponseBodyStatistics
+        # The details of log shipping jobs.
         self.tasks = tasks  # type: GetShipperStatusResponseBodyTasks
+        # The total number of log shipping jobs.
         self.total = total  # type: long
 
     def validate(self):
@@ -7563,8 +7873,11 @@ class ListDashboardResponse(TeaModel):
 
 class ListDomainsRequest(TeaModel):
     def __init__(self, domain_name=None, offset=None, size=None):
+        # The domain name that is used to match custom domain names. For example, if you set domainName to `example.com`, the matched domain names are `a.example.com` and `b.example.com`.
         self.domain_name = domain_name  # type: str
+        # The line from which the query starts. Default value: 0.
         self.offset = offset  # type: int
+        # The number of entries per page. Default value: 500. Maximum value: 500.
         self.size = size  # type: int
 
     def validate(self):
@@ -7597,8 +7910,11 @@ class ListDomainsRequest(TeaModel):
 
 class ListDomainsResponseBody(TeaModel):
     def __init__(self, count=None, domains=None, total=None):
+        # The number of domain names that are returned on the current page.
         self.count = count  # type: long
+        # The domain names.
         self.domains = domains  # type: list[str]
+        # The total number of domain names that are returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -7670,8 +7986,11 @@ class ListDomainsResponse(TeaModel):
 
 class ListExternalStoreRequest(TeaModel):
     def __init__(self, external_store_name=None, offset=None, sizs=None):
+        # The name of the external store. You can query external stores that contain a specified string.
         self.external_store_name = external_store_name  # type: str
+        # The line from which the query starts. Default value: 0.
         self.offset = offset  # type: int
+        # The number of entries per page. Maximum value: 500.
         self.sizs = sizs  # type: int
 
     def validate(self):
@@ -7704,8 +8023,11 @@ class ListExternalStoreRequest(TeaModel):
 
 class ListExternalStoreResponseBody(TeaModel):
     def __init__(self, count=None, externalstores=None, total=None):
+        # The number of external stores returned on the current page.
         self.count = count  # type: int
+        # The names of the external stores.
         self.externalstores = externalstores  # type: list[ExternalStore]
+        # The number of external stores that meet the query conditions.
         self.total = total  # type: int
 
     def validate(self):
@@ -7785,10 +8107,21 @@ class ListExternalStoreResponse(TeaModel):
 
 class ListLogStoresRequest(TeaModel):
     def __init__(self, logstore_name=None, mode=None, offset=None, size=None, telemetry_type=None):
+        # The name of the Logstore. Fuzzy match is supported. For example, if you enter test, Logstores whose name contains test are returned.
         self.logstore_name = logstore_name  # type: str
+        # The type of the Logstore. Valid values: standard and query.
+        # 
+        # *   **standard**: Standard Logstore. This type of Logstore supports the log analysis feature and is suitable for scenarios such as real-time monitoring and interactive analysis. You can also use this type of Logstore to build a comprehensive observability system.
+        # *   **query**: Query Logstore. This type of Logstore supports high-performance queries. The index traffic fee of a Query Logstore is approximately half that of a Standard Logstore. Query Logstores do not support SQL analysis. Query Logstores are suitable for scenarios in which the volume of data is large, the log retention period is long, or log analysis is not required. Log retention periods of weeks or months are considered long.
         self.mode = mode  # type: str
+        # The line from which the query starts. Default value: 0.
         self.offset = offset  # type: int
+        # The number of entries per page. Maximum value: 500. Default value: 500.
         self.size = size  # type: int
+        # The type of the data that you want to query. Valid values:
+        # 
+        # *   None: logs
+        # *   Metrics: metrics
         self.telemetry_type = telemetry_type  # type: str
 
     def validate(self):
@@ -7829,8 +8162,11 @@ class ListLogStoresRequest(TeaModel):
 
 class ListLogStoresResponseBody(TeaModel):
     def __init__(self, count=None, logstores=None, total=None):
+        # The number of entries that are returned on the current page.
         self.count = count  # type: int
+        # The Logstores that meet the query conditions.
         self.logstores = logstores  # type: list[str]
+        # The number of the Logstores that meet the query conditions.
         self.total = total  # type: int
 
     def validate(self):
@@ -8014,8 +8350,11 @@ class ListLogtailPipelineConfigResponse(TeaModel):
 
 class ListMachineGroupRequest(TeaModel):
     def __init__(self, group_name=None, offset=None, size=None):
+        # The name of the machine group. This parameter is used to filter machine groups. Partial match is supported.
         self.group_name = group_name  # type: str
+        # The line from which the query starts. Default value: 0.
         self.offset = offset  # type: int
+        # The number of entries per page. Maximum value: 500.
         self.size = size  # type: int
 
     def validate(self):
@@ -8048,8 +8387,11 @@ class ListMachineGroupRequest(TeaModel):
 
 class ListMachineGroupResponseBody(TeaModel):
     def __init__(self, count=None, machinegroups=None, total=None):
+        # The number of machine groups that are returned on the current page.
         self.count = count  # type: int
+        # The machine groups that meet the query conditions.
         self.machinegroups = machinegroups  # type: list[str]
+        # The total number of machine groups that meet the query conditions.
         self.total = total  # type: int
 
     def validate(self):
@@ -8121,7 +8463,9 @@ class ListMachineGroupResponse(TeaModel):
 
 class ListMachinesRequest(TeaModel):
     def __init__(self, offset=None, size=None):
+        # The line from which the query starts. Default value: 0.
         self.offset = offset  # type: int
+        # The number of entries per page. Default value: 100. Maximum value: 500.
         self.size = size  # type: int
 
     def validate(self):
@@ -8150,8 +8494,11 @@ class ListMachinesRequest(TeaModel):
 
 class ListMachinesResponseBody(TeaModel):
     def __init__(self, count=None, machines=None, total=None):
+        # The number of machines that are returned on the current page.
         self.count = count  # type: int
+        # The machines that are returned.
         self.machines = machines  # type: list[Machine]
+        # The total number of machines.
         self.total = total  # type: int
 
     def validate(self):
@@ -8230,9 +8577,13 @@ class ListMachinesResponse(TeaModel):
 
 
 class ListProjectRequest(TeaModel):
-    def __init__(self, offset=None, project_name=None, size=None):
+    def __init__(self, offset=None, project_name=None, resource_group_id=None, size=None):
+        # The line from which the query starts. Default value: 0.
         self.offset = offset  # type: int
+        # The name of the project.
         self.project_name = project_name  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        # The number of entries per page. Default value: 100. This operation can return up to 500 projects.
         self.size = size  # type: int
 
     def validate(self):
@@ -8248,6 +8599,8 @@ class ListProjectRequest(TeaModel):
             result['offset'] = self.offset
         if self.project_name is not None:
             result['projectName'] = self.project_name
+        if self.resource_group_id is not None:
+            result['resourceGroupId'] = self.resource_group_id
         if self.size is not None:
             result['size'] = self.size
         return result
@@ -8258,6 +8611,8 @@ class ListProjectRequest(TeaModel):
             self.offset = m.get('offset')
         if m.get('projectName') is not None:
             self.project_name = m.get('projectName')
+        if m.get('resourceGroupId') is not None:
+            self.resource_group_id = m.get('resourceGroupId')
         if m.get('size') is not None:
             self.size = m.get('size')
         return self
@@ -8265,8 +8620,11 @@ class ListProjectRequest(TeaModel):
 
 class ListProjectResponseBody(TeaModel):
     def __init__(self, count=None, projects=None, total=None):
+        # The number of returned projects on the current page.
         self.count = count  # type: long
+        # The projects that meet the query conditions.
         self.projects = projects  # type: list[Project]
+        # The total number of projects that meet the query conditions.
         self.total = total  # type: long
 
     def validate(self):
@@ -8346,7 +8704,9 @@ class ListProjectResponse(TeaModel):
 
 class ListSavedSearchRequest(TeaModel):
     def __init__(self, offset=None, size=None):
+        # The line from which the query starts. Default value: 0.
         self.offset = offset  # type: int
+        # The number of entries per page. Maximum value: 500.
         self.size = size  # type: int
 
     def validate(self):
@@ -8375,8 +8735,11 @@ class ListSavedSearchRequest(TeaModel):
 
 class ListSavedSearchResponseBody(TeaModel):
     def __init__(self, count=None, savedsearch_items=None, total=None):
+        # The number of saved searches returned on the current page.
         self.count = count  # type: int
+        # The saved searches.
         self.savedsearch_items = savedsearch_items  # type: list[SavedSearch]
+        # The total number of saved searches that meet the query conditions.
         self.total = total  # type: int
 
     def validate(self):
@@ -8501,8 +8864,11 @@ class ListShardsResponse(TeaModel):
 
 class ListShipperResponseBody(TeaModel):
     def __init__(self, count=None, shipper=None, total=None):
+        # The number of log shipping jobs returned.
         self.count = count  # type: long
+        # The names of the log shipping jobs.
         self.shipper = shipper  # type: list[str]
+        # The total number of log shipping jobs.
         self.total = total  # type: long
 
     def validate(self):
@@ -8574,7 +8940,9 @@ class ListShipperResponse(TeaModel):
 
 class ListTagResourcesRequestTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag that you want to use to filter resources. For example, if you set the key to `"test-key"`, only resources to which the key is added are returned.``
         self.key = key  # type: str
+        # The value of the tag that you want to use to filter resources. If you set the value to null, resources are filtered based only on the key of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -8603,8 +8971,13 @@ class ListTagResourcesRequestTags(TeaModel):
 
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tags=None):
+        # The IDs of the resources for which you want to query tags. You must specify at least one of resourceId and tags.
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource. Set the value to project.
         self.resource_type = resource_type  # type: str
+        # The tags that you want to use to filter resources based on exact match. Each tag is a key-value pair. You must specify at least one of resourceId and tags.
+        # 
+        # You can enter up to 20 tags.
         self.tags = tags  # type: list[ListTagResourcesRequestTags]
 
     def validate(self):
@@ -8645,8 +9018,13 @@ class ListTagResourcesRequest(TeaModel):
 
 class ListTagResourcesShrinkRequest(TeaModel):
     def __init__(self, resource_id_shrink=None, resource_type=None, tags_shrink=None):
+        # The IDs of the resources for which you want to query tags. You must specify at least one of resourceId and tags.
         self.resource_id_shrink = resource_id_shrink  # type: str
+        # The type of the resource. Set the value to project.
         self.resource_type = resource_type  # type: str
+        # The tags that you want to use to filter resources based on exact match. Each tag is a key-value pair. You must specify at least one of resourceId and tags.
+        # 
+        # You can enter up to 20 tags.
         self.tags_shrink = tags_shrink  # type: str
 
     def validate(self):
@@ -8679,9 +9057,13 @@ class ListTagResourcesShrinkRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResources(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        # The ID of the resource.
         self.resource_id = resource_id  # type: str
+        # The type of the resource.
         self.resource_type = resource_type  # type: str
+        # The key of the tag.
         self.tag_key = tag_key  # type: str
+        # The value of the tag.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -8718,7 +9100,9 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, tag_resources=None):
+        # The pagination token that is used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
+        # The returned tags.
         self.tag_resources = tag_resources  # type: list[ListTagResourcesResponseBodyTagResources]
 
     def validate(self):
@@ -8860,6 +9244,7 @@ class PutAnnotationDataResponse(TeaModel):
 
 class PutProjectPolicyRequest(TeaModel):
     def __init__(self, body=None):
+        # The project policy.
         self.body = body  # type: str
 
     def validate(self):
@@ -9112,7 +9497,9 @@ class RemoveConfigFromMachineGroupResponse(TeaModel):
 
 class SplitShardRequest(TeaModel):
     def __init__(self, key=None, shard_count=None):
+        # The position where the shard is split.
         self.key = key  # type: str
+        # The number of new shards that are generated after splitting.
         self.shard_count = shard_count  # type: int
 
     def validate(self):
@@ -9186,7 +9573,16 @@ class SplitShardResponse(TeaModel):
 
 class TagResourcesRequestTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag. The key must meet the following requirements:
+        # 
+        # *   The key must be `1 to 128` characters in length.
+        # *   The key cannot contain `"http://"` or `"https://"`.
+        # *   The key cannot start with `"acs:"` or `"aliyun"`.
         self.key = key  # type: str
+        # The value of the tag. The value must meet the following requirements:
+        # 
+        # *   The value must be `1 to 128` characters in length.
+        # *   The value cannot contain `"http://"` or `"https://"`.
         self.value = value  # type: str
 
     def validate(self):
@@ -9215,8 +9611,11 @@ class TagResourcesRequestTags(TeaModel):
 
 class TagResourcesRequest(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tags=None):
+        # The resource IDs. You can specify only one resource and add tags to the resource.
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource. Set the value to project.
         self.resource_type = resource_type  # type: str
+        # The tags that you want to add to the resource. Up to 20 tags are supported at a time. Each tag is a key-value pair.
         self.tags = tags  # type: list[TagResourcesRequestTags]
 
     def validate(self):
@@ -9524,7 +9923,12 @@ class UpdateConfigResponse(TeaModel):
 
 class UpdateConsumerGroupRequest(TeaModel):
     def __init__(self, order=None, timeout=None):
+        # Specifies whether to consume data in sequence. Valid values:
+        # 
+        # *   true: If a shard is split, the data in the original shard is consumed first. Then, the data in the new shards is consumed at the same time. If shards are merged, the data in the original shards is consumed first. Then, the data in the new shard is consumed.
+        # *   false: The data in all shards is consumed at the same time. If a new shard is generated after a shard is split or shards are merged, the data in the new shard is immediately consumed.
         self.order = order  # type: bool
+        # The timeout period. If Simple Log Service does not receive heartbeats from a consumer within the timeout period, Simple Log Service deletes the consumer. Unit: seconds.
         self.timeout = timeout  # type: int
 
     def validate(self):
@@ -9665,10 +10069,21 @@ class UpdateDashboardResponse(TeaModel):
 
 class UpdateIndexRequestLine(TeaModel):
     def __init__(self, case_sensitive=None, chn=None, exclude_keys=None, include_keys=None, token=None):
+        # Specifies whether to enable case sensitivity. Valid values:
+        # 
+        # *   true
+        # *   false
         self.case_sensitive = case_sensitive  # type: bool
+        # Specifies whether to include Chinese characters. Valid values:
+        # 
+        # *   true
+        # *   false
         self.chn = chn  # type: bool
+        # The excluded fields. You cannot specify both include_keys and exclude_keys.
         self.exclude_keys = exclude_keys  # type: list[str]
+        # The included fields. You cannot specify both include_keys and exclude_keys.
         self.include_keys = include_keys  # type: list[str]
+        # The delimiters that are used to split text.
         self.token = token  # type: list[str]
 
     def validate(self):
@@ -9710,12 +10125,19 @@ class UpdateIndexRequestLine(TeaModel):
 class UpdateIndexRequest(TeaModel):
     def __init__(self, keys=None, line=None, log_reduce=None, log_reduce_black_list=None,
                  log_reduce_white_list=None, max_text_len=None, ttl=None):
+        # The configuration of field indexes. A field index is a key-value pair in which the key specifies the name of the field and the value specifies the index configuration of the field.
         self.keys = keys  # type: dict[str, KeysValue]
+        # The configuration of full-text indexes.
         self.line = line  # type: UpdateIndexRequestLine
+        # Specifies whether to turn on LogReduce. If you turn on LogReduce, only one of `log_reduce_white_list` and `log_reduce_black_list` takes effect.
         self.log_reduce = log_reduce  # type: bool
+        # The fields in the blacklist that you want to use to cluster logs.
         self.log_reduce_black_list = log_reduce_black_list  # type: list[str]
+        # The fields in the whitelist that you want to use to cluster logs.
         self.log_reduce_white_list = log_reduce_white_list  # type: list[str]
+        # The maximum length of a field value that can be retained.
         self.max_text_len = max_text_len  # type: int
+        # The retention period of data. Unit: days. Valid values: 7, 30, and 90.
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -9806,16 +10228,46 @@ class UpdateIndexResponse(TeaModel):
 class UpdateLogStoreRequest(TeaModel):
     def __init__(self, append_meta=None, auto_split=None, enable_tracking=None, encrypt_conf=None, hot_ttl=None,
                  logstore_name=None, max_split_shard=None, mode=None, shard_count=None, telemetry_type=None, ttl=None):
+        # Specifies whether to record public IP addresses. Default value: false. Valid values:
+        # 
+        # *   true
+        # *   false
         self.append_meta = append_meta  # type: bool
+        # Specifies whether to enable automatic sharding. Valid values:
+        # 
+        # *   true
+        # *   false
         self.auto_split = auto_split  # type: bool
+        # Specifies whether to enable the web tracking feature. Default value: false. Valid values:
+        # 
+        # *   true
+        # *   false
         self.enable_tracking = enable_tracking  # type: bool
+        # The data structure of the encryption configuration.
         self.encrypt_conf = encrypt_conf  # type: EncryptConf
+        # The retention period of data in the hot storage tier of the Logstore. Minimum value: 30. Unit: day. You can specify a value that ranges from 30 to the value of ttl. Hot data that is stored for longer than the period specified by hot_ttl is converted to cold data. For more information, see [Enable hot and cold-tiered storage for a Logstore](~~308645~~).
         self.hot_ttl = hot_ttl  # type: int
+        # The name of the Logstore.
         self.logstore_name = logstore_name  # type: str
+        # The maximum number of shards into which existing shards can be automatically split. Valid values: 1 to 64.
+        # 
+        # > If you set autoSplit to true, you must specify maxSplitShard.
         self.max_split_shard = max_split_shard  # type: int
+        # The type of the Logstore. Simple Log Service provides two types of Logstores: Standard Logstores and Query Logstores.
+        # 
+        # *   **standard**: Standard Logstore. This type of Logstore supports the log analysis feature and is suitable for scenarios such as real-time monitoring and interactive analysis. You can also use this type of Logstore to build a comprehensive observability system.
+        # *   **query**: Query Logstore. This type of Logstore supports high-performance queries. The index traffic fee of a Query Logstore is approximately half that of a Standard Logstore. Query Logstores do not support SQL analysis. Query Logstores are suitable for scenarios in which the volume of data is large, the log retention period is long, or log analysis is not required. Log retention periods of weeks or months are considered long.
         self.mode = mode  # type: str
+        # The number of shards.
+        # 
+        # > You cannot call the UpdateLogstore operation to change the number of shards. You can call the SplitShard or MergeShards operation to change the number of shards.
         self.shard_count = shard_count  # type: int
+        # The type of the log that you want to query. Valid values:
+        # 
+        # *   None: all types of logs.
+        # *   Metrics: metrics.
         self.telemetry_type = telemetry_type  # type: str
+        # The retention period of data. Unit: day. Valid values: 1 to 3650. If you set ttl to 3650, data is permanently stored.
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -9966,7 +10418,18 @@ class UpdateLogStoreMeteringModeResponse(TeaModel):
 
 class UpdateLoggingRequestLoggingDetails(TeaModel):
     def __init__(self, logstore=None, type=None):
+        # The name of the Logstore to which you want to save service logs.
         self.logstore = logstore  # type: str
+        # The type of service logs. Valid values:
+        # 
+        # *   consumergroup_log: the consumption delay logs of consumer groups.
+        # *   logtail_alarm: the alert logs of Logtail.
+        # *   operation_log: the operation logs.
+        # *   logtail_profile: the collection logs of Logtail.
+        # *   metering: the metering logs.
+        # *   logtail_status: the status logs of Logtail.
+        # *   scheduledsqlalert: the operational logs of Scheduled SQL jobs.
+        # *   etl_alert: the operational logs of data transformation jobs.
         self.type = type  # type: str
 
     def validate(self):
@@ -9995,7 +10458,9 @@ class UpdateLoggingRequestLoggingDetails(TeaModel):
 
 class UpdateLoggingRequest(TeaModel):
     def __init__(self, logging_details=None, logging_project=None):
+        # The configurations of service logs.
         self.logging_details = logging_details  # type: list[UpdateLoggingRequestLoggingDetails]
+        # The name of the project to which you want to save service logs.
         self.logging_project = logging_project  # type: str
 
     def validate(self):
@@ -10147,7 +10612,9 @@ class UpdateLogtailPipelineConfigResponse(TeaModel):
 
 class UpdateMachineGroupRequestGroupAttribute(TeaModel):
     def __init__(self, external_name=None, group_topic=None):
+        # The identifier of the external management system on which the machine group depends. This parameter is empty by default.
         self.external_name = external_name  # type: str
+        # The topic of the machine group. This parameter is empty by default.
         self.group_topic = group_topic  # type: str
 
     def validate(self):
@@ -10177,10 +10644,21 @@ class UpdateMachineGroupRequestGroupAttribute(TeaModel):
 class UpdateMachineGroupRequest(TeaModel):
     def __init__(self, group_attribute=None, group_name=None, group_type=None, machine_identify_type=None,
                  machine_list=None):
+        # The attribute of the machine group. This parameter is empty by default.
         self.group_attribute = group_attribute  # type: UpdateMachineGroupRequestGroupAttribute
+        # The name of the machine group.
         self.group_name = group_name  # type: str
+        # The type of the machine group. Set the value to an empty string.
         self.group_type = group_type  # type: str
+        # The identifier type of the machine group. Valid values:
+        # 
+        # *   ip: The machine group uses IP addresses as identifiers.
+        # *   userdefined: The machine group uses custom identifiers.
         self.machine_identify_type = machine_identify_type  # type: str
+        # The identifiers of the machines in the machine group.
+        # 
+        # *   If you set machineIdentifyType to ip, enter the IP addresses of the machines.
+        # *   If you set machineIdentifyType to userdefined, enter a custom identifier.
         self.machine_list = machine_list  # type: list[str]
 
     def validate(self):
@@ -10253,7 +10731,9 @@ class UpdateMachineGroupResponse(TeaModel):
 
 class UpdateMachineGroupMachineRequest(TeaModel):
     def __init__(self, action=None, body=None):
+        # The operation on the machine. Valid values: add and delete. A value of add specifies to add the machine to the machine group. A value of delete specifies to remove the machine from the machine group.
         self.action = action  # type: str
+        # The machines to be added or removed.
         self.body = body  # type: list[str]
 
     def validate(self):
@@ -10312,7 +10792,9 @@ class UpdateMachineGroupMachineResponse(TeaModel):
 
 class UpdateOssExternalStoreRequestParameterColumns(TeaModel):
     def __init__(self, name=None, type=None):
+        # The key of the field.
         self.name = name  # type: str
+        # The type of the field.
         self.type = type  # type: str
 
     def validate(self):
@@ -10341,11 +10823,17 @@ class UpdateOssExternalStoreRequestParameterColumns(TeaModel):
 
 class UpdateOssExternalStoreRequestParameter(TeaModel):
     def __init__(self, accessid=None, accesskey=None, bucket=None, columns=None, endpoint=None, objects=None):
+        # The AccessKey ID of your account.
         self.accessid = accessid  # type: str
+        # The AccessKey secret of your account.
         self.accesskey = accesskey  # type: str
+        # The name of the OSS bucket.
         self.bucket = bucket  # type: str
+        # The associated fields.
         self.columns = columns  # type: list[UpdateOssExternalStoreRequestParameterColumns]
+        # The OSS endpoint.
         self.endpoint = endpoint  # type: str
+        # The associated objects.
         self.objects = objects  # type: list[str]
 
     def validate(self):
@@ -10398,8 +10886,11 @@ class UpdateOssExternalStoreRequestParameter(TeaModel):
 
 class UpdateOssExternalStoreRequest(TeaModel):
     def __init__(self, external_store_name=None, parameter=None, store_type=None):
+        # The name of the external store.
         self.external_store_name = external_store_name  # type: str
+        # The parameters that are configured for the external store.
         self.parameter = parameter  # type: UpdateOssExternalStoreRequestParameter
+        # The type of the external store. Set the value to oss.
         self.store_type = store_type  # type: str
 
     def validate(self):
@@ -10464,6 +10955,7 @@ class UpdateOssExternalStoreResponse(TeaModel):
 
 class UpdateProjectRequest(TeaModel):
     def __init__(self, description=None):
+        # The description of the project. The default value is an empty string.
         self.description = description  # type: str
 
     def validate(self):
@@ -10519,14 +11011,23 @@ class UpdateProjectResponse(TeaModel):
 class UpdateRdsExternalStoreRequestParameter(TeaModel):
     def __init__(self, db=None, host=None, instance_id=None, password=None, port=None, region=None, table=None,
                  username=None, vpc_id=None):
+        # The name of the database in the ApsaraDB RDS for MySQL instance.
         self.db = db  # type: str
+        # The internal or public endpoint of the ApsaraDB RDS for MySQL instance.
         self.host = host  # type: str
+        # The ID of the ApsaraDB RDS for MySQL instance.
         self.instance_id = instance_id  # type: str
+        # The password that is used to log on to the ApsaraDB RDS for MySQL instance.
         self.password = password  # type: str
+        # The internal or public port of the ApsaraDB RDS for MySQL instance.
         self.port = port  # type: str
+        # The region where the ApsaraDB RDS for MySQL instance resides. Valid values: cn-qingdao, cn-beijing, and cn-hangzhou.
         self.region = region  # type: str
+        # The name of the database table in the ApsaraDB RDS for MySQL instance.
         self.table = table  # type: str
+        # The username that is used to log on to the ApsaraDB RDS for MySQL instance.
         self.username = username  # type: str
+        # The ID of the VPC to which the ApsaraDB RDS for MySQL instance belongs.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -10583,8 +11084,11 @@ class UpdateRdsExternalStoreRequestParameter(TeaModel):
 
 class UpdateRdsExternalStoreRequest(TeaModel):
     def __init__(self, external_store_name=None, parameter=None, store_type=None):
+        # The name of the external store.
         self.external_store_name = external_store_name  # type: str
+        # The parameter struct.
         self.parameter = parameter  # type: UpdateRdsExternalStoreRequestParameter
+        # The storage type. Set the value to rds-vpc, which indicates an ApsaraDB RDS for MySQL database in a virtual private cloud (VPC).
         self.store_type = store_type  # type: str
 
     def validate(self):
@@ -10649,10 +11153,17 @@ class UpdateRdsExternalStoreResponse(TeaModel):
 
 class UpdateSavedSearchRequest(TeaModel):
     def __init__(self, display_name=None, logstore=None, savedsearch_name=None, search_query=None, topic=None):
+        # The display name.
         self.display_name = display_name  # type: str
+        # The name of the Logstore to which the saved search belongs.
         self.logstore = logstore  # type: str
+        # The name of the saved search. The name must be 3 to 63 characters in length.
         self.savedsearch_name = savedsearch_name  # type: str
+        # The search statement or the query statement of the saved search. A query statement consists of a search statement and an analytic statement in the Search statement|Analytic statement format.
+        # 
+        # For more information, see Log search overview and Log analysis overview.
         self.search_query = search_query  # type: str
+        # The topic of the logs.
         self.topic = topic  # type: str
 
     def validate(self):
