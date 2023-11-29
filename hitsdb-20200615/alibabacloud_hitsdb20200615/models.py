@@ -255,7 +255,6 @@ class CreateLindormInstanceRequest(TeaModel):
         self.pricing_cycle = pricing_cycle  # type: str
         # The ID of the vSwitch that is specified for the secondary zone of the instance. The vSwitch must be deployed in the zone specified by the StandbyZoneId parameter. **This parameter is required if you want to create a multi-zone instance**.
         self.primary_vswitch_id = primary_vswitch_id  # type: str
-        # 多可用区实例，主可用区的可用区ID。**如果需要创建多可用区实例，该参数必填。**\
         self.primary_zone_id = primary_zone_id  # type: str
         # The ID of the region in which you want to create the instance. You can call the [DescribeRegions](~~426062~~) operation to query the region in which you can create the instance.
         self.region_id = region_id  # type: str
@@ -564,7 +563,10 @@ class CreateLindormInstanceResponse(TeaModel):
 class DescribeRegionsRequest(TeaModel):
     def __init__(self, accept_language=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, security_token=None):
-        # The ID of the region.
+        # The display language of the regions in the returned results. Valid values:
+        # 
+        # *   **zh-CN** (default): Chinese.
+        # *   **en-US**: English.
         self.accept_language = accept_language  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -614,9 +616,11 @@ class DescribeRegionsRequest(TeaModel):
 
 class DescribeRegionsResponseBodyRegions(TeaModel):
     def __init__(self, local_name=None, region_endpoint=None, region_id=None):
+        # The name of the region.
         self.local_name = local_name  # type: str
-        # Queries the regions where Lindorm is available.
+        # The endpoint for the region.
         self.region_endpoint = region_endpoint  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -649,7 +653,7 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, regions=None, request_id=None):
-        # China (Hangzhou)
+        # The regions supported by Lindorm.
         self.regions = regions  # type: list[DescribeRegionsResponseBodyRegions]
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -728,7 +732,7 @@ class DescribeRegionsResponse(TeaModel):
 class GetInstanceIpWhiteListRequest(TeaModel):
     def __init__(self, instance_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, security_token=None):
-        # The ID of the instance whose whitelist you want to query. You can call the [GetLindormInstanceList](~~426068~~) operation to query the instance ID.
+        # The ID of the instance whose whitelists you want to query. You can call the [GetLindormInstanceList](~~426068~~) operation to obtain the instance ID.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -1356,9 +1360,20 @@ class GetLindormInstanceResponseBody(TeaModel):
         self.ali_uid = ali_uid  # type: long
         self.arbiter_vswitch_id = arbiter_vswitch_id  # type: str
         self.arbiter_zone_id = arbiter_zone_id  # type: str
+        # 部署架构，取值：
+        # 
+        # - **1.0**：单可用区。
+        # - **2.0**：多可用区。
         self.arch_version = arch_version  # type: str
         self.auto_renew = auto_renew  # type: bool
+        # The Capacity storage size of the instance.
         self.cold_storage = cold_storage  # type: int
+        # The disk type of the core nodes. This parameter is returned only for multi-zone instances. Valid values:
+        # 
+        # *   **cloud_efficiency**: This instance uses the Standard type of storage.
+        # *   **cloud_ssd**: This instance uses the Performance type of storage.
+        # *   **cloud_essd**: This instance uses ESSDs for storage.
+        # *   **cloud_essd_pl0**: This instance uses PL0 ESSDs for storage.
         self.core_disk_category = core_disk_category  # type: str
         self.core_num = core_num  # type: int
         self.core_single_storage = core_single_storage  # type: int
@@ -1367,6 +1382,15 @@ class GetLindormInstanceResponseBody(TeaModel):
         # The storage capacity of the disk of a single log node. This parameter is returned only for multi-zone instances.
         self.create_time = create_time  # type: str
         self.deletion_protection = deletion_protection  # type: str
+        # The storage type of the instance. Valid values:
+        # 
+        # *   **cloud_efficiency**: This instance uses the Standard type of storage.
+        # *   **cloud_ssd**: This instance uses the Performance type of storage.
+        # *   **cloud_essd**: This instance uses ESSDs for storage.
+        # *   **cloud_essd_pl0**: This instance uses PL0 ESSDs for storage.
+        # *   **capacity_cloud_storage**: This instance uses the Capacity type of storage.
+        # *   **local_ssd_pro**: This instance uses local SSDs for storage.
+        # *   **local_hdd_pro**: This instance uses local HDDs for storage.
         self.disk_category = disk_category  # type: str
         self.disk_threshold = disk_threshold  # type: str
         self.disk_usage = disk_usage  # type: str
@@ -1374,22 +1398,51 @@ class GetLindormInstanceResponseBody(TeaModel):
         self.enable_cdc = enable_cdc  # type: bool
         self.enable_compute = enable_compute  # type: bool
         self.enable_kms = enable_kms  # type: bool
+        # 实例是否开通LTS引擎，返回值：
+        # 
+        # - **true**：开通LTS引擎。
+        # - **false**：未开通LTS引擎。
         self.enable_lts = enable_lts  # type: bool
         self.enable_lsql_version_v3 = enable_lsql_version_v3  # type: bool
         self.enable_mlctrl = enable_mlctrl  # type: bool
         self.enable_ssl = enable_ssl  # type: bool
         self.enable_shs = enable_shs  # type: bool
         self.enable_stream = enable_stream  # type: bool
+        # The latest version number of the engine.
         self.engine_list = engine_list  # type: list[GetLindormInstanceResponseBodyEngineList]
         self.engine_type = engine_type  # type: int
         self.expire_time = expire_time  # type: str
         self.expired_milliseconds = expired_milliseconds  # type: long
         self.instance_alias = instance_alias  # type: str
         self.instance_id = instance_id  # type: str
+        # The status of the instance. Valid values:
+        # 
+        # *   **CREATING**: The instance is being created.
+        # *   **ACTIVATION**: The instance is running.
+        # *   **COLD_EXPANDING**: The Capacity storage of the instance is being scaled up.
+        # *   **MINOR_VERSION_TRANSING**: The minor version of the instance is being updated.
+        # *   **RESIZING**: The nodes in the instance are being scaled up.
+        # *   **SHRINKING**: The nodes in the instance are being scaled down.
+        # *   **CLASS_CHANGING**: The specification of the instance is being changed.
+        # *   **SSL_SWITCHING: SSL**: The SSL configurations of the instance are being changed.
+        # *   **CDC_OPENING**: Data subscription is being enabled for the instance.
+        # *   **TRANSFER**: The data of the instance is being transferred.
+        # *   **DATABASE_TRANSFER**: The data of the instance is being transferred to databases.
+        # *   **GUARD_CREATING**: A disaster recovery instance is being created.
+        # *   **BACKUP_RECOVERING**: The data of the instance is being restored from a backup.
+        # *   **DATABASE_IMPORTING**: Data is being imported to the instance.
+        # *   **NET_MODIFYING**: The network configurations of the instance are being changed.
+        # *   **NET_SWITCHING**: The network of the instance is being switched between a virtual private cloud (VPC) and the Internet.
+        # *   **NET_CREATING**: The connection to the instance is being created.
+        # *   **NET_DELETING**: The connection to the instance is being deleted.
+        # *   **DELETING**: The instance is being deleted.
+        # *   **RESTARTING**: The instance is restarting.
+        # *   **LOCKED**: The instance is locked because it expires.
         self.instance_status = instance_status  # type: str
         self.instance_storage = instance_storage  # type: str
         self.log_disk_category = log_disk_category  # type: str
         self.log_num = log_num  # type: int
+        # The storage capacity of the disk of a single log node. This parameter is returned only for multi-zone instances.
         self.log_single_storage = log_single_storage  # type: int
         self.log_spec = log_spec  # type: str
         self.maintain_end_time = maintain_end_time  # type: str
@@ -2949,6 +3002,124 @@ class RenewLindormInstanceResponse(TeaModel):
         return self
 
 
+class SwitchLSQLV3MySQLServiceRequest(TeaModel):
+    def __init__(self, action_type=None, instance_id=None, owner_account=None, owner_id=None,
+                 resource_owner_account=None, resource_owner_id=None, security_token=None):
+        self.action_type = action_type  # type: int
+        self.instance_id = instance_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SwitchLSQLV3MySQLServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.action_type is not None:
+            result['ActionType'] = self.action_type
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActionType') is not None:
+            self.action_type = m.get('ActionType')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class SwitchLSQLV3MySQLServiceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SwitchLSQLV3MySQLServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SwitchLSQLV3MySQLServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SwitchLSQLV3MySQLServiceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SwitchLSQLV3MySQLServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SwitchLSQLV3MySQLServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         # The key of the tag that you want to associate with the resource.
@@ -3270,8 +3441,8 @@ class UntagResourcesResponse(TeaModel):
 class UpdateInstanceIpWhiteListRequest(TeaModel):
     def __init__(self, delete=None, group_name=None, instance_id=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_ip_list=None, security_token=None):
+        # Specifies whether to clear all IP addresses and CIDR blocks in the whitelist.
         self.delete = delete  # type: bool
-        # The name of the group to which the instance belongs. The group name can contain only letters, digits, and underscores (\_).
         self.group_name = group_name  # type: str
         # The ID of the instance for which you want to configure a whitelist. You can call the [GetLindormInstanceList](~~426069~~) operation to obtain the ID.
         self.instance_id = instance_id  # type: str
@@ -3279,9 +3450,9 @@ class UpdateInstanceIpWhiteListRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The IP addresses that you want to add to the whitelist. For example, if you add 192.168.0.0/24 to the whitelist, you can use all IP addresses within this CIDR block to access the Lindorm instance.
+        # The IP addresses or CIDR blocks that you want to add to the whitelist.
         # 
-        # > If you add 127.0.0.1 to the whitelist, all IP addresses cannot be used to access the Lindorm instance. Separate multiple IP addresses or CIDR blocks with commas (,).
+        # >  If you add 127.0.0.1 to the whitelist, all IP addresses cannot be used to access the Lindorm instance. If you add the CIDR block 192.168.0.0/24 to the whitelist, you can use all IP addresses in the CIDR block to access the Lindorm instance. Separate multiple IP addresses or CIDR blocks with commas (,).
         self.security_ip_list = security_ip_list  # type: str
         self.security_token = security_token  # type: str
 
