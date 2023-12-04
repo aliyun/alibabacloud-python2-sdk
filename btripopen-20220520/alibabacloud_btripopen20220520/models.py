@@ -63092,7 +63092,7 @@ class IsvUserSaveRequestUserList(TeaModel):
     def __init__(self, base_city_code=None, birthday=None, cert_list=None, depart_id=None, email=None, gender=None,
                  is_admin=None, job_no=None, leave_status=None, manager_user_id=None, phone=None, position=None,
                  position_level=None, real_name_en=None, third_depart_id=None, third_depart_id_list=None, user_id=None,
-                 user_name=None):
+                 user_name=None, user_nick=None):
         self.base_city_code = base_city_code  # type: str
         self.birthday = birthday  # type: str
         self.cert_list = cert_list  # type: list[IsvUserSaveRequestUserListCertList]
@@ -63111,6 +63111,7 @@ class IsvUserSaveRequestUserList(TeaModel):
         self.third_depart_id_list = third_depart_id_list  # type: list[str]
         self.user_id = user_id  # type: str
         self.user_name = user_name  # type: str
+        self.user_nick = user_nick  # type: str
 
     def validate(self):
         if self.cert_list:
@@ -63162,6 +63163,8 @@ class IsvUserSaveRequestUserList(TeaModel):
             result['user_id'] = self.user_id
         if self.user_name is not None:
             result['user_name'] = self.user_name
+        if self.user_nick is not None:
+            result['user_nick'] = self.user_nick
         return result
 
     def from_map(self, m=None):
@@ -63205,6 +63208,8 @@ class IsvUserSaveRequestUserList(TeaModel):
             self.user_id = m.get('user_id')
         if m.get('user_name') is not None:
             self.user_name = m.get('user_name')
+        if m.get('user_nick') is not None:
+            self.user_nick = m.get('user_nick')
         return self
 
 
