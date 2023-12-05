@@ -15626,6 +15626,143 @@ class LogMsaQueryResponse(TeaModel):
         return self
 
 
+class MTRSOCRServiceRequest(TeaModel):
+    def __init__(self, app_id=None, image_raw=None, mask=None, tenant_id=None, type=None, workspace_id=None):
+        self.app_id = app_id  # type: str
+        self.image_raw = image_raw  # type: str
+        self.mask = mask  # type: bool
+        self.tenant_id = tenant_id  # type: str
+        self.type = type  # type: str
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MTRSOCRServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.image_raw is not None:
+            result['ImageRaw'] = self.image_raw
+        if self.mask is not None:
+            result['Mask'] = self.mask
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('ImageRaw') is not None:
+            self.image_raw = m.get('ImageRaw')
+        if m.get('Mask') is not None:
+            self.mask = m.get('Mask')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        return self
+
+
+class MTRSOCRServiceResponseBody(TeaModel):
+    def __init__(self, code=None, msg=None, request_id=None, result=None, status=None, trace_id=None):
+        self.code = code  # type: str
+        self.msg = msg  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: str
+        self.status = status  # type: bool
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MTRSOCRServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.msg is not None:
+            result['Msg'] = self.msg
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Msg') is not None:
+            self.msg = m.get('Msg')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
+        return self
+
+
+class MTRSOCRServiceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: MTRSOCRServiceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(MTRSOCRServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = MTRSOCRServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class OpenApiAddActiveCodeRequest(TeaModel):
     def __init__(self, app_id=None, mpaas_mqcp_open_api_add_active_code_req_json_str=None, tenant_id=None,
                  workspace_id=None):
@@ -25593,12 +25730,14 @@ class UpdateMpaasAppInfoResponse(TeaModel):
 
 
 class UploadBitcodeToMsaRequest(TeaModel):
-    def __init__(self, app_id=None, bitcode=None, code_version=None, license=None, tenant_id=None, workspace_id=None):
+    def __init__(self, app_id=None, bitcode=None, code_version=None, license=None, tenant_id=None, type=None,
+                 workspace_id=None):
         self.app_id = app_id  # type: str
         self.bitcode = bitcode  # type: str
         self.code_version = code_version  # type: str
         self.license = license  # type: str
         self.tenant_id = tenant_id  # type: str
+        self.type = type  # type: str
         self.workspace_id = workspace_id  # type: str
 
     def validate(self):
@@ -25620,6 +25759,8 @@ class UploadBitcodeToMsaRequest(TeaModel):
             result['License'] = self.license
         if self.tenant_id is not None:
             result['TenantId'] = self.tenant_id
+        if self.type is not None:
+            result['Type'] = self.type
         if self.workspace_id is not None:
             result['WorkspaceId'] = self.workspace_id
         return result
@@ -25636,6 +25777,8 @@ class UploadBitcodeToMsaRequest(TeaModel):
             self.license = m.get('License')
         if m.get('TenantId') is not None:
             self.tenant_id = m.get('TenantId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         if m.get('WorkspaceId') is not None:
             self.workspace_id = m.get('WorkspaceId')
         return self
