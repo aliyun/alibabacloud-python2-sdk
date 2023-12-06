@@ -1391,7 +1391,8 @@ class JobItem(TeaModel):
 class JobSettings(TeaModel):
     def __init__(self, advanced_settings=None, business_user_id=None, caller=None, driver=None,
                  enable_error_monitoring_in_aimaster=None, enable_oss_append=None, enable_rdma=None, enable_tide_resource=None,
-                 error_monitoring_args=None, oversold_type=None, pipeline_id=None, tags=None):
+                 error_monitoring_args=None, job_reserved_minutes=None, job_reserved_policy=None, oversold_type=None, pipeline_id=None,
+                 tags=None):
         self.advanced_settings = advanced_settings  # type: dict[str, any]
         self.business_user_id = business_user_id  # type: str
         self.caller = caller  # type: str
@@ -1401,6 +1402,8 @@ class JobSettings(TeaModel):
         self.enable_rdma = enable_rdma  # type: bool
         self.enable_tide_resource = enable_tide_resource  # type: bool
         self.error_monitoring_args = error_monitoring_args  # type: str
+        self.job_reserved_minutes = job_reserved_minutes  # type: int
+        self.job_reserved_policy = job_reserved_policy  # type: str
         self.oversold_type = oversold_type  # type: str
         self.pipeline_id = pipeline_id  # type: str
         self.tags = tags  # type: dict[str, str]
@@ -1432,6 +1435,10 @@ class JobSettings(TeaModel):
             result['EnableTideResource'] = self.enable_tide_resource
         if self.error_monitoring_args is not None:
             result['ErrorMonitoringArgs'] = self.error_monitoring_args
+        if self.job_reserved_minutes is not None:
+            result['JobReservedMinutes'] = self.job_reserved_minutes
+        if self.job_reserved_policy is not None:
+            result['JobReservedPolicy'] = self.job_reserved_policy
         if self.oversold_type is not None:
             result['OversoldType'] = self.oversold_type
         if self.pipeline_id is not None:
@@ -1460,6 +1467,10 @@ class JobSettings(TeaModel):
             self.enable_tide_resource = m.get('EnableTideResource')
         if m.get('ErrorMonitoringArgs') is not None:
             self.error_monitoring_args = m.get('ErrorMonitoringArgs')
+        if m.get('JobReservedMinutes') is not None:
+            self.job_reserved_minutes = m.get('JobReservedMinutes')
+        if m.get('JobReservedPolicy') is not None:
+            self.job_reserved_policy = m.get('JobReservedPolicy')
         if m.get('OversoldType') is not None:
             self.oversold_type = m.get('OversoldType')
         if m.get('PipelineId') is not None:
