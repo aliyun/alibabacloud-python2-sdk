@@ -1418,10 +1418,11 @@ class OrderResult(TeaModel):
 
 
 class Product(TeaModel):
-    def __init__(self, can_sell=None, category_chain=None, category_leaf_id=None, desc_path=None,
+    def __init__(self, brand_name=None, can_sell=None, category_chain=None, category_leaf_id=None, desc_path=None,
                  division_code=None, fuzzy_quantity=None, images=None, pic_url=None, product_id=None, product_specs=None,
                  product_status=None, product_type=None, properties=None, quantity=None, request_id=None, shop_id=None, skus=None,
                  sold_quantity=None, tax_code=None, tax_rate=None, title=None):
+        self.brand_name = brand_name  # type: str
         self.can_sell = can_sell  # type: bool
         self.category_chain = category_chain  # type: list[Category]
         self.category_leaf_id = category_leaf_id  # type: long
@@ -1468,6 +1469,8 @@ class Product(TeaModel):
             return _map
 
         result = dict()
+        if self.brand_name is not None:
+            result['brandName'] = self.brand_name
         if self.can_sell is not None:
             result['canSell'] = self.can_sell
         result['categoryChain'] = []
@@ -1522,6 +1525,8 @@ class Product(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('brandName') is not None:
+            self.brand_name = m.get('brandName')
         if m.get('canSell') is not None:
             self.can_sell = m.get('canSell')
         self.category_chain = []
@@ -2849,9 +2854,10 @@ class ShopPageResult(TeaModel):
 
 
 class Sku(TeaModel):
-    def __init__(self, can_sell=None, division_code=None, fuzzy_quantity=None, mark_price=None, pic_url=None,
-                 platform_price=None, price=None, product_id=None, quantity=None, shop_id=None, sku_id=None, sku_specs=None,
-                 sku_specs_code=None, sku_status=None, title=None):
+    def __init__(self, barcode=None, can_sell=None, division_code=None, fuzzy_quantity=None, mark_price=None,
+                 pic_url=None, platform_price=None, price=None, product_id=None, quantity=None, shop_id=None, sku_id=None,
+                 sku_specs=None, sku_specs_code=None, sku_status=None, title=None):
+        self.barcode = barcode  # type: str
         self.can_sell = can_sell  # type: bool
         self.division_code = division_code  # type: str
         self.fuzzy_quantity = fuzzy_quantity  # type: str
@@ -2880,6 +2886,8 @@ class Sku(TeaModel):
             return _map
 
         result = dict()
+        if self.barcode is not None:
+            result['barcode'] = self.barcode
         if self.can_sell is not None:
             result['canSell'] = self.can_sell
         if self.division_code is not None:
@@ -2916,6 +2924,8 @@ class Sku(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('barcode') is not None:
+            self.barcode = m.get('barcode')
         if m.get('canSell') is not None:
             self.can_sell = m.get('canSell')
         if m.get('divisionCode') is not None:
