@@ -542,13 +542,17 @@ class FoundationVersionClusterEnginesPackageTools(TeaModel):
 
 
 class FoundationVersionClusterEnginesPackages(TeaModel):
-    def __init__(self, architecture=None, os=None, url=None):
+    def __init__(self, architecture=None, os=None, platforms=None, url=None):
         self.architecture = architecture  # type: str
         self.os = os  # type: str
+        self.platforms = platforms  # type: list[Platform]
         self.url = url  # type: str
 
     def validate(self):
-        pass
+        if self.platforms:
+            for k in self.platforms:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(FoundationVersionClusterEnginesPackages, self).to_map()
@@ -560,6 +564,10 @@ class FoundationVersionClusterEnginesPackages(TeaModel):
             result['architecture'] = self.architecture
         if self.os is not None:
             result['os'] = self.os
+        result['platforms'] = []
+        if self.platforms is not None:
+            for k in self.platforms:
+                result['platforms'].append(k.to_map() if k else None)
         if self.url is not None:
             result['url'] = self.url
         return result
@@ -570,6 +578,11 @@ class FoundationVersionClusterEnginesPackages(TeaModel):
             self.architecture = m.get('architecture')
         if m.get('os') is not None:
             self.os = m.get('os')
+        self.platforms = []
+        if m.get('platforms') is not None:
+            for k in m.get('platforms'):
+                temp_model = Platform()
+                self.platforms.append(temp_model.from_map(k))
         if m.get('url') is not None:
             self.url = m.get('url')
         return self
@@ -750,10 +763,66 @@ class FoundationVersionPackageTools(TeaModel):
         return self
 
 
+class FoundationVersionToolsSiteSurvey(TeaModel):
+    def __init__(self, cluster_checker_url=None, cluster_info_brief=None):
+        self.cluster_checker_url = cluster_checker_url  # type: str
+        self.cluster_info_brief = cluster_info_brief  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FoundationVersionToolsSiteSurvey, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_checker_url is not None:
+            result['clusterCheckerURL'] = self.cluster_checker_url
+        if self.cluster_info_brief is not None:
+            result['clusterInfoBrief'] = self.cluster_info_brief
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('clusterCheckerURL') is not None:
+            self.cluster_checker_url = m.get('clusterCheckerURL')
+        if m.get('clusterInfoBrief') is not None:
+            self.cluster_info_brief = m.get('clusterInfoBrief')
+        return self
+
+
+class FoundationVersionTools(TeaModel):
+    def __init__(self, site_survey=None):
+        self.site_survey = site_survey  # type: FoundationVersionToolsSiteSurvey
+
+    def validate(self):
+        if self.site_survey:
+            self.site_survey.validate()
+
+    def to_map(self):
+        _map = super(FoundationVersionTools, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.site_survey is not None:
+            result['siteSurvey'] = self.site_survey.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('siteSurvey') is not None:
+            temp_model = FoundationVersionToolsSiteSurvey()
+            self.site_survey = temp_model.from_map(m['siteSurvey'])
+        return self
+
+
 class FoundationVersion(TeaModel):
     def __init__(self, cluster_config_schema=None, cluster_engines=None, default_cluster_config=None,
-                 description=None, documents=None, driver=None, features=None, labels=None, name=None, package_tools=None,
-                 platforms=None, status=None, type=None, uid=None, version=None):
+                 description=None, documents=None, driver=None, features=None, is_default=None, labels=None, name=None,
+                 package_tools=None, platforms=None, spec_name=None, status=None, tools=None, type=None, uid=None,
+                 user_white_list=None, version=None):
         self.cluster_config_schema = cluster_config_schema  # type: str
         self.cluster_engines = cluster_engines  # type: list[FoundationVersionClusterEngines]
         self.default_cluster_config = default_cluster_config  # type: str
@@ -761,13 +830,17 @@ class FoundationVersion(TeaModel):
         self.documents = documents  # type: str
         self.driver = driver  # type: FoundationVersionDriver
         self.features = features  # type: list[str]
+        self.is_default = is_default  # type: bool
         self.labels = labels  # type: str
         self.name = name  # type: str
         self.package_tools = package_tools  # type: list[FoundationVersionPackageTools]
         self.platforms = platforms  # type: list[Platform]
+        self.spec_name = spec_name  # type: str
         self.status = status  # type: str
+        self.tools = tools  # type: FoundationVersionTools
         self.type = type  # type: str
         self.uid = uid  # type: str
+        self.user_white_list = user_white_list  # type: list[str]
         self.version = version  # type: str
 
     def validate(self):
@@ -785,6 +858,8 @@ class FoundationVersion(TeaModel):
             for k in self.platforms:
                 if k:
                     k.validate()
+        if self.tools:
+            self.tools.validate()
 
     def to_map(self):
         _map = super(FoundationVersion, self).to_map()
@@ -808,6 +883,8 @@ class FoundationVersion(TeaModel):
             result['driver'] = self.driver.to_map()
         if self.features is not None:
             result['features'] = self.features
+        if self.is_default is not None:
+            result['isDefault'] = self.is_default
         if self.labels is not None:
             result['labels'] = self.labels
         if self.name is not None:
@@ -820,12 +897,18 @@ class FoundationVersion(TeaModel):
         if self.platforms is not None:
             for k in self.platforms:
                 result['platforms'].append(k.to_map() if k else None)
+        if self.spec_name is not None:
+            result['specName'] = self.spec_name
         if self.status is not None:
             result['status'] = self.status
+        if self.tools is not None:
+            result['tools'] = self.tools.to_map()
         if self.type is not None:
             result['type'] = self.type
         if self.uid is not None:
             result['uid'] = self.uid
+        if self.user_white_list is not None:
+            result['userWhiteList'] = self.user_white_list
         if self.version is not None:
             result['version'] = self.version
         return result
@@ -850,6 +933,8 @@ class FoundationVersion(TeaModel):
             self.driver = temp_model.from_map(m['driver'])
         if m.get('features') is not None:
             self.features = m.get('features')
+        if m.get('isDefault') is not None:
+            self.is_default = m.get('isDefault')
         if m.get('labels') is not None:
             self.labels = m.get('labels')
         if m.get('name') is not None:
@@ -864,12 +949,19 @@ class FoundationVersion(TeaModel):
             for k in m.get('platforms'):
                 temp_model = Platform()
                 self.platforms.append(temp_model.from_map(k))
+        if m.get('specName') is not None:
+            self.spec_name = m.get('specName')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('tools') is not None:
+            temp_model = FoundationVersionTools()
+            self.tools = temp_model.from_map(m['tools'])
         if m.get('type') is not None:
             self.type = m.get('type')
         if m.get('uid') is not None:
             self.uid = m.get('uid')
+        if m.get('userWhiteList') is not None:
+            self.user_white_list = m.get('userWhiteList')
         if m.get('version') is not None:
             self.version = m.get('version')
         return self
@@ -1559,6 +1651,77 @@ class InstanceInfo(TeaModel):
         return self
 
 
+class LabelSelectorMatchExpressions(TeaModel):
+    def __init__(self, key=None, operator=None, values=None):
+        self.key = key  # type: str
+        self.operator = operator  # type: str
+        self.values = values  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(LabelSelectorMatchExpressions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.operator is not None:
+            result['operator'] = self.operator
+        if self.values is not None:
+            result['values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
+        if m.get('values') is not None:
+            self.values = m.get('values')
+        return self
+
+
+class LabelSelector(TeaModel):
+    def __init__(self, match_expressions=None, match_labels=None):
+        self.match_expressions = match_expressions  # type: list[LabelSelectorMatchExpressions]
+        self.match_labels = match_labels  # type: dict[str, str]
+
+    def validate(self):
+        if self.match_expressions:
+            for k in self.match_expressions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(LabelSelector, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['matchExpressions'] = []
+        if self.match_expressions is not None:
+            for k in self.match_expressions:
+                result['matchExpressions'].append(k.to_map() if k else None)
+        if self.match_labels is not None:
+            result['matchLabels'] = self.match_labels
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.match_expressions = []
+        if m.get('matchExpressions') is not None:
+            for k in m.get('matchExpressions'):
+                temp_model = LabelSelectorMatchExpressions()
+                self.match_expressions.append(temp_model.from_map(k))
+        if m.get('matchLabels') is not None:
+            self.match_labels = m.get('matchLabels')
+        return self
+
+
 class Platform(TeaModel):
     def __init__(self, architecture=None, os=None):
         self.architecture = architecture  # type: str
@@ -1588,19 +1751,71 @@ class Platform(TeaModel):
         return self
 
 
+class ProductComponentRelationDetailPolicyMultiCluster(TeaModel):
+    def __init__(self, target_clusters=None):
+        self.target_clusters = target_clusters  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ProductComponentRelationDetailPolicyMultiCluster, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.target_clusters is not None:
+            result['targetClusters'] = self.target_clusters
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('targetClusters') is not None:
+            self.target_clusters = m.get('targetClusters')
+        return self
+
+
+class ProductComponentRelationDetailPolicy(TeaModel):
+    def __init__(self, multi_cluster=None):
+        self.multi_cluster = multi_cluster  # type: ProductComponentRelationDetailPolicyMultiCluster
+
+    def validate(self):
+        if self.multi_cluster:
+            self.multi_cluster.validate()
+
+    def to_map(self):
+        _map = super(ProductComponentRelationDetailPolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.multi_cluster is not None:
+            result['multiCluster'] = self.multi_cluster.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('multiCluster') is not None:
+            temp_model = ProductComponentRelationDetailPolicyMultiCluster()
+            self.multi_cluster = temp_model.from_map(m['multiCluster'])
+        return self
+
+
 class ProductComponentRelationDetail(TeaModel):
     def __init__(self, app_version=None, category=None, class_=None, component_name=None,
-                 component_orchestration_values=None, component_uid=None, component_version_uid=None, created_at=None, description=None,
-                 documents=None, enable=None, images_mapping=None, namespace=None, orchestration_type=None,
-                 parent_component=None, parent_component_version_relation_uid=None, parent_component_version_uid=None,
-                 priority=None, product_version_uid=None, provider=None, public=None, readme=None, relation_uid=None,
-                 release_name=None, resources=None, sequence=None, singleton=None, source=None, version=None):
+                 component_orchestration_values=None, component_uid=None, component_version_spec_uid=None, component_version_spec_values=None,
+                 component_version_uid=None, created_at=None, description=None, documents=None, enable=None, images_mapping=None,
+                 namespace=None, orchestration_type=None, parent_component=None, parent_component_version_relation_uid=None,
+                 parent_component_version_uid=None, policy=None, priority=None, product_version_uid=None, provider=None, public=None, readme=None,
+                 relation_uid=None, release_name=None, resources=None, sequence=None, singleton=None, source=None, version=None):
         self.app_version = app_version  # type: str
         self.category = category  # type: str
         self.class_ = class_  # type: str
         self.component_name = component_name  # type: str
         self.component_orchestration_values = component_orchestration_values  # type: str
         self.component_uid = component_uid  # type: str
+        self.component_version_spec_uid = component_version_spec_uid  # type: str
+        self.component_version_spec_values = component_version_spec_values  # type: str
         self.component_version_uid = component_version_uid  # type: str
         self.created_at = created_at  # type: str
         self.description = description  # type: str
@@ -1612,6 +1827,7 @@ class ProductComponentRelationDetail(TeaModel):
         self.parent_component = parent_component  # type: bool
         self.parent_component_version_relation_uid = parent_component_version_relation_uid  # type: str
         self.parent_component_version_uid = parent_component_version_uid  # type: str
+        self.policy = policy  # type: ProductComponentRelationDetailPolicy
         self.priority = priority  # type: int
         self.product_version_uid = product_version_uid  # type: str
         self.provider = provider  # type: str
@@ -1626,7 +1842,8 @@ class ProductComponentRelationDetail(TeaModel):
         self.version = version  # type: str
 
     def validate(self):
-        pass
+        if self.policy:
+            self.policy.validate()
 
     def to_map(self):
         _map = super(ProductComponentRelationDetail, self).to_map()
@@ -1646,6 +1863,10 @@ class ProductComponentRelationDetail(TeaModel):
             result['componentOrchestrationValues'] = self.component_orchestration_values
         if self.component_uid is not None:
             result['componentUID'] = self.component_uid
+        if self.component_version_spec_uid is not None:
+            result['componentVersionSpecUID'] = self.component_version_spec_uid
+        if self.component_version_spec_values is not None:
+            result['componentVersionSpecValues'] = self.component_version_spec_values
         if self.component_version_uid is not None:
             result['componentVersionUID'] = self.component_version_uid
         if self.created_at is not None:
@@ -1668,6 +1889,8 @@ class ProductComponentRelationDetail(TeaModel):
             result['parentComponentVersionRelationUID'] = self.parent_component_version_relation_uid
         if self.parent_component_version_uid is not None:
             result['parentComponentVersionUID'] = self.parent_component_version_uid
+        if self.policy is not None:
+            result['policy'] = self.policy.to_map()
         if self.priority is not None:
             result['priority'] = self.priority
         if self.product_version_uid is not None:
@@ -1708,6 +1931,10 @@ class ProductComponentRelationDetail(TeaModel):
             self.component_orchestration_values = m.get('componentOrchestrationValues')
         if m.get('componentUID') is not None:
             self.component_uid = m.get('componentUID')
+        if m.get('componentVersionSpecUID') is not None:
+            self.component_version_spec_uid = m.get('componentVersionSpecUID')
+        if m.get('componentVersionSpecValues') is not None:
+            self.component_version_spec_values = m.get('componentVersionSpecValues')
         if m.get('componentVersionUID') is not None:
             self.component_version_uid = m.get('componentVersionUID')
         if m.get('createdAt') is not None:
@@ -1730,6 +1957,9 @@ class ProductComponentRelationDetail(TeaModel):
             self.parent_component_version_relation_uid = m.get('parentComponentVersionRelationUID')
         if m.get('parentComponentVersionUID') is not None:
             self.parent_component_version_uid = m.get('parentComponentVersionUID')
+        if m.get('policy') is not None:
+            temp_model = ProductComponentRelationDetailPolicy()
+            self.policy = temp_model.from_map(m['policy'])
         if m.get('priority') is not None:
             self.priority = m.get('priority')
         if m.get('productVersionUID') is not None:
@@ -2408,7 +2638,9 @@ class AddEnvironmentProductVersionsResponse(TeaModel):
 
 
 class AddProductComponentVersionRequest(TeaModel):
-    def __init__(self, release_name=None):
+    def __init__(self, component_version_spec_uid=None, component_version_spec_values=None, release_name=None):
+        self.component_version_spec_uid = component_version_spec_uid  # type: str
+        self.component_version_spec_values = component_version_spec_values  # type: str
         self.release_name = release_name  # type: str
 
     def validate(self):
@@ -2420,12 +2652,20 @@ class AddProductComponentVersionRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.component_version_spec_uid is not None:
+            result['componentVersionSpecUID'] = self.component_version_spec_uid
+        if self.component_version_spec_values is not None:
+            result['componentVersionSpecValues'] = self.component_version_spec_values
         if self.release_name is not None:
             result['releaseName'] = self.release_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('componentVersionSpecUID') is not None:
+            self.component_version_spec_uid = m.get('componentVersionSpecUID')
+        if m.get('componentVersionSpecValues') is not None:
+            self.component_version_spec_values = m.get('componentVersionSpecValues')
         if m.get('releaseName') is not None:
             self.release_name = m.get('releaseName')
         return self
@@ -3071,6 +3311,674 @@ class BatchAddProductVersionConfigResponse(TeaModel):
         return self
 
 
+class CreateDeliverableRequestFoundation(TeaModel):
+    def __init__(self, cluster_config=None, foundation_reference_uid=None, foundation_version=None,
+                 foundation_version_uid=None, reusable=None):
+        self.cluster_config = cluster_config  # type: str
+        self.foundation_reference_uid = foundation_reference_uid  # type: str
+        self.foundation_version = foundation_version  # type: str
+        self.foundation_version_uid = foundation_version_uid  # type: str
+        self.reusable = reusable  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeliverableRequestFoundation, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_config is not None:
+            result['clusterConfig'] = self.cluster_config
+        if self.foundation_reference_uid is not None:
+            result['foundationReferenceUID'] = self.foundation_reference_uid
+        if self.foundation_version is not None:
+            result['foundationVersion'] = self.foundation_version
+        if self.foundation_version_uid is not None:
+            result['foundationVersionUID'] = self.foundation_version_uid
+        if self.reusable is not None:
+            result['reusable'] = self.reusable
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('clusterConfig') is not None:
+            self.cluster_config = m.get('clusterConfig')
+        if m.get('foundationReferenceUID') is not None:
+            self.foundation_reference_uid = m.get('foundationReferenceUID')
+        if m.get('foundationVersion') is not None:
+            self.foundation_version = m.get('foundationVersion')
+        if m.get('foundationVersionUID') is not None:
+            self.foundation_version_uid = m.get('foundationVersionUID')
+        if m.get('reusable') is not None:
+            self.reusable = m.get('reusable')
+        return self
+
+
+class CreateDeliverableRequestProducts(TeaModel):
+    def __init__(self, namespace=None, product_name=None, product_type=None, product_uid=None, product_version=None,
+                 product_version_spec_name=None, product_version_spec_uid=None, product_version_uid=None):
+        self.namespace = namespace  # type: str
+        self.product_name = product_name  # type: str
+        self.product_type = product_type  # type: str
+        self.product_uid = product_uid  # type: str
+        self.product_version = product_version  # type: str
+        self.product_version_spec_name = product_version_spec_name  # type: str
+        self.product_version_spec_uid = product_version_spec_uid  # type: str
+        self.product_version_uid = product_version_uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeliverableRequestProducts, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.namespace is not None:
+            result['namespace'] = self.namespace
+        if self.product_name is not None:
+            result['productName'] = self.product_name
+        if self.product_type is not None:
+            result['productType'] = self.product_type
+        if self.product_uid is not None:
+            result['productUID'] = self.product_uid
+        if self.product_version is not None:
+            result['productVersion'] = self.product_version
+        if self.product_version_spec_name is not None:
+            result['productVersionSpecName'] = self.product_version_spec_name
+        if self.product_version_spec_uid is not None:
+            result['productVersionSpecUID'] = self.product_version_spec_uid
+        if self.product_version_uid is not None:
+            result['productVersionUID'] = self.product_version_uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('namespace') is not None:
+            self.namespace = m.get('namespace')
+        if m.get('productName') is not None:
+            self.product_name = m.get('productName')
+        if m.get('productType') is not None:
+            self.product_type = m.get('productType')
+        if m.get('productUID') is not None:
+            self.product_uid = m.get('productUID')
+        if m.get('productVersion') is not None:
+            self.product_version = m.get('productVersion')
+        if m.get('productVersionSpecName') is not None:
+            self.product_version_spec_name = m.get('productVersionSpecName')
+        if m.get('productVersionSpecUID') is not None:
+            self.product_version_spec_uid = m.get('productVersionSpecUID')
+        if m.get('productVersionUID') is not None:
+            self.product_version_uid = m.get('productVersionUID')
+        return self
+
+
+class CreateDeliverableRequest(TeaModel):
+    def __init__(self, foundation=None, products=None):
+        self.foundation = foundation  # type: CreateDeliverableRequestFoundation
+        self.products = products  # type: list[CreateDeliverableRequestProducts]
+
+    def validate(self):
+        if self.foundation:
+            self.foundation.validate()
+        if self.products:
+            for k in self.products:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateDeliverableRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.foundation is not None:
+            result['foundation'] = self.foundation.to_map()
+        result['products'] = []
+        if self.products is not None:
+            for k in self.products:
+                result['products'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('foundation') is not None:
+            temp_model = CreateDeliverableRequestFoundation()
+            self.foundation = temp_model.from_map(m['foundation'])
+        self.products = []
+        if m.get('products') is not None:
+            for k in m.get('products'):
+                temp_model = CreateDeliverableRequestProducts()
+                self.products.append(temp_model.from_map(k))
+        return self
+
+
+class CreateDeliverableResponseBodyData(TeaModel):
+    def __init__(self, uid=None):
+        self.uid = uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeliverableResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.uid is not None:
+            result['uid'] = self.uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('uid') is not None:
+            self.uid = m.get('uid')
+        return self
+
+
+class CreateDeliverableResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, msg=None):
+        self.code = code  # type: str
+        self.data = data  # type: CreateDeliverableResponseBodyData
+        self.msg = msg  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CreateDeliverableResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        if self.msg is not None:
+            result['msg'] = self.msg
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('data') is not None:
+            temp_model = CreateDeliverableResponseBodyData()
+            self.data = temp_model.from_map(m['data'])
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        return self
+
+
+class CreateDeliverableResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateDeliverableResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDeliverableResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateDeliverableResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateDeliveryInstanceRequestFoundation(TeaModel):
+    def __init__(self, cluster_config=None, foundation_reference_uid=None, foundation_version=None,
+                 foundation_version_uid=None, reusable=None):
+        self.cluster_config = cluster_config  # type: str
+        self.foundation_reference_uid = foundation_reference_uid  # type: str
+        self.foundation_version = foundation_version  # type: str
+        self.foundation_version_uid = foundation_version_uid  # type: str
+        self.reusable = reusable  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeliveryInstanceRequestFoundation, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_config is not None:
+            result['clusterConfig'] = self.cluster_config
+        if self.foundation_reference_uid is not None:
+            result['foundationReferenceUID'] = self.foundation_reference_uid
+        if self.foundation_version is not None:
+            result['foundationVersion'] = self.foundation_version
+        if self.foundation_version_uid is not None:
+            result['foundationVersionUID'] = self.foundation_version_uid
+        if self.reusable is not None:
+            result['reusable'] = self.reusable
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('clusterConfig') is not None:
+            self.cluster_config = m.get('clusterConfig')
+        if m.get('foundationReferenceUID') is not None:
+            self.foundation_reference_uid = m.get('foundationReferenceUID')
+        if m.get('foundationVersion') is not None:
+            self.foundation_version = m.get('foundationVersion')
+        if m.get('foundationVersionUID') is not None:
+            self.foundation_version_uid = m.get('foundationVersionUID')
+        if m.get('reusable') is not None:
+            self.reusable = m.get('reusable')
+        return self
+
+
+class CreateDeliveryInstanceRequestProducts(TeaModel):
+    def __init__(self, namespace=None, order=None, product_name=None, product_type=None, product_uid=None,
+                 product_version=None, product_version_spec_name=None, product_version_spec_uid=None, product_version_uid=None):
+        self.namespace = namespace  # type: str
+        self.order = order  # type: str
+        self.product_name = product_name  # type: str
+        self.product_type = product_type  # type: str
+        self.product_uid = product_uid  # type: str
+        self.product_version = product_version  # type: str
+        self.product_version_spec_name = product_version_spec_name  # type: str
+        self.product_version_spec_uid = product_version_spec_uid  # type: str
+        self.product_version_uid = product_version_uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeliveryInstanceRequestProducts, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.namespace is not None:
+            result['namespace'] = self.namespace
+        if self.order is not None:
+            result['order'] = self.order
+        if self.product_name is not None:
+            result['productName'] = self.product_name
+        if self.product_type is not None:
+            result['productType'] = self.product_type
+        if self.product_uid is not None:
+            result['productUID'] = self.product_uid
+        if self.product_version is not None:
+            result['productVersion'] = self.product_version
+        if self.product_version_spec_name is not None:
+            result['productVersionSpecName'] = self.product_version_spec_name
+        if self.product_version_spec_uid is not None:
+            result['productVersionSpecUID'] = self.product_version_spec_uid
+        if self.product_version_uid is not None:
+            result['productVersionUID'] = self.product_version_uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('namespace') is not None:
+            self.namespace = m.get('namespace')
+        if m.get('order') is not None:
+            self.order = m.get('order')
+        if m.get('productName') is not None:
+            self.product_name = m.get('productName')
+        if m.get('productType') is not None:
+            self.product_type = m.get('productType')
+        if m.get('productUID') is not None:
+            self.product_uid = m.get('productUID')
+        if m.get('productVersion') is not None:
+            self.product_version = m.get('productVersion')
+        if m.get('productVersionSpecName') is not None:
+            self.product_version_spec_name = m.get('productVersionSpecName')
+        if m.get('productVersionSpecUID') is not None:
+            self.product_version_spec_uid = m.get('productVersionSpecUID')
+        if m.get('productVersionUID') is not None:
+            self.product_version_uid = m.get('productVersionUID')
+        return self
+
+
+class CreateDeliveryInstanceRequest(TeaModel):
+    def __init__(self, cluster_uid=None, deliverable_config_uid=None, deliverable_uid=None, env_uid=None,
+                 foundation=None, products=None, template_uid=None):
+        self.cluster_uid = cluster_uid  # type: str
+        self.deliverable_config_uid = deliverable_config_uid  # type: str
+        self.deliverable_uid = deliverable_uid  # type: str
+        self.env_uid = env_uid  # type: str
+        self.foundation = foundation  # type: CreateDeliveryInstanceRequestFoundation
+        self.products = products  # type: list[CreateDeliveryInstanceRequestProducts]
+        self.template_uid = template_uid  # type: str
+
+    def validate(self):
+        if self.foundation:
+            self.foundation.validate()
+        if self.products:
+            for k in self.products:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateDeliveryInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_uid is not None:
+            result['clusterUID'] = self.cluster_uid
+        if self.deliverable_config_uid is not None:
+            result['deliverableConfigUID'] = self.deliverable_config_uid
+        if self.deliverable_uid is not None:
+            result['deliverableUID'] = self.deliverable_uid
+        if self.env_uid is not None:
+            result['envUID'] = self.env_uid
+        if self.foundation is not None:
+            result['foundation'] = self.foundation.to_map()
+        result['products'] = []
+        if self.products is not None:
+            for k in self.products:
+                result['products'].append(k.to_map() if k else None)
+        if self.template_uid is not None:
+            result['templateUID'] = self.template_uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('clusterUID') is not None:
+            self.cluster_uid = m.get('clusterUID')
+        if m.get('deliverableConfigUID') is not None:
+            self.deliverable_config_uid = m.get('deliverableConfigUID')
+        if m.get('deliverableUID') is not None:
+            self.deliverable_uid = m.get('deliverableUID')
+        if m.get('envUID') is not None:
+            self.env_uid = m.get('envUID')
+        if m.get('foundation') is not None:
+            temp_model = CreateDeliveryInstanceRequestFoundation()
+            self.foundation = temp_model.from_map(m['foundation'])
+        self.products = []
+        if m.get('products') is not None:
+            for k in m.get('products'):
+                temp_model = CreateDeliveryInstanceRequestProducts()
+                self.products.append(temp_model.from_map(k))
+        if m.get('templateUID') is not None:
+            self.template_uid = m.get('templateUID')
+        return self
+
+
+class CreateDeliveryInstanceResponseBodyData(TeaModel):
+    def __init__(self, uid=None):
+        self.uid = uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeliveryInstanceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.uid is not None:
+            result['uid'] = self.uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('uid') is not None:
+            self.uid = m.get('uid')
+        return self
+
+
+class CreateDeliveryInstanceResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, msg=None):
+        self.code = code  # type: str
+        self.data = data  # type: CreateDeliveryInstanceResponseBodyData
+        self.msg = msg  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CreateDeliveryInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        if self.msg is not None:
+            result['msg'] = self.msg
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('data') is not None:
+            temp_model = CreateDeliveryInstanceResponseBodyData()
+            self.data = temp_model.from_map(m['data'])
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        return self
+
+
+class CreateDeliveryInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateDeliveryInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDeliveryInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateDeliveryInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateDeliveryPackageRequest(TeaModel):
+    def __init__(self, deliverable_uid=None, delivery_instance_uid=None, origin_deliverable_uid=None,
+                 package_content_type=None, package_type=None, platform=None):
+        self.deliverable_uid = deliverable_uid  # type: str
+        self.delivery_instance_uid = delivery_instance_uid  # type: str
+        self.origin_deliverable_uid = origin_deliverable_uid  # type: str
+        self.package_content_type = package_content_type  # type: str
+        self.package_type = package_type  # type: str
+        self.platform = platform  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeliveryPackageRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deliverable_uid is not None:
+            result['deliverableUID'] = self.deliverable_uid
+        if self.delivery_instance_uid is not None:
+            result['deliveryInstanceUID'] = self.delivery_instance_uid
+        if self.origin_deliverable_uid is not None:
+            result['originDeliverableUID'] = self.origin_deliverable_uid
+        if self.package_content_type is not None:
+            result['packageContentType'] = self.package_content_type
+        if self.package_type is not None:
+            result['packageType'] = self.package_type
+        if self.platform is not None:
+            result['platform'] = self.platform
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('deliverableUID') is not None:
+            self.deliverable_uid = m.get('deliverableUID')
+        if m.get('deliveryInstanceUID') is not None:
+            self.delivery_instance_uid = m.get('deliveryInstanceUID')
+        if m.get('originDeliverableUID') is not None:
+            self.origin_deliverable_uid = m.get('originDeliverableUID')
+        if m.get('packageContentType') is not None:
+            self.package_content_type = m.get('packageContentType')
+        if m.get('packageType') is not None:
+            self.package_type = m.get('packageType')
+        if m.get('platform') is not None:
+            self.platform = m.get('platform')
+        return self
+
+
+class CreateDeliveryPackageResponseBodyData(TeaModel):
+    def __init__(self, uid=None):
+        self.uid = uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDeliveryPackageResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.uid is not None:
+            result['uid'] = self.uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('uid') is not None:
+            self.uid = m.get('uid')
+        return self
+
+
+class CreateDeliveryPackageResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, msg=None):
+        self.code = code  # type: str
+        self.data = data  # type: CreateDeliveryPackageResponseBodyData
+        self.msg = msg  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CreateDeliveryPackageResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        if self.msg is not None:
+            result['msg'] = self.msg
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('data') is not None:
+            temp_model = CreateDeliveryPackageResponseBodyData()
+            self.data = temp_model.from_map(m['data'])
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        return self
+
+
+class CreateDeliveryPackageResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateDeliveryPackageResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDeliveryPackageResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateDeliveryPackageResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateEnvironmentHeaders(TeaModel):
     def __init__(self, common_headers=None, client_token=None):
         self.common_headers = common_headers  # type: dict[str, str]
@@ -3130,9 +4038,11 @@ class CreateEnvironmentRequestPlatform(TeaModel):
 
 
 class CreateEnvironmentRequest(TeaModel):
-    def __init__(self, description=None, location=None, name=None, platform=None, platform_list=None,
-                 product_version_uid=None, type=None, vendor_config=None, vendor_type=None):
+    def __init__(self, annotations=None, description=None, expired_at=None, location=None, name=None, platform=None,
+                 platform_list=None, product_version_uid=None, type=None, vendor_config=None, vendor_type=None):
+        self.annotations = annotations  # type: str
         self.description = description  # type: str
+        self.expired_at = expired_at  # type: str
         self.location = location  # type: str
         self.name = name  # type: str
         self.platform = platform  # type: CreateEnvironmentRequestPlatform
@@ -3156,8 +4066,12 @@ class CreateEnvironmentRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.annotations is not None:
+            result['annotations'] = self.annotations
         if self.description is not None:
             result['description'] = self.description
+        if self.expired_at is not None:
+            result['expiredAt'] = self.expired_at
         if self.location is not None:
             result['location'] = self.location
         if self.name is not None:
@@ -3180,8 +4094,12 @@ class CreateEnvironmentRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('annotations') is not None:
+            self.annotations = m.get('annotations')
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('expiredAt') is not None:
+            self.expired_at = m.get('expiredAt')
         if m.get('location') is not None:
             self.location = m.get('location')
         if m.get('name') is not None:
@@ -3408,11 +4326,12 @@ class CreateEnvironmentLicenseRequestLicenseQuota(TeaModel):
 
 
 class CreateEnvironmentLicenseRequest(TeaModel):
-    def __init__(self, company_name=None, contact=None, description=None, license_quota=None,
+    def __init__(self, company_name=None, contact=None, description=None, expire_time=None, license_quota=None,
                  machine_fingerprint=None, name=None, product_version_uid=None, scenario=None, scope=None, type=None):
         self.company_name = company_name  # type: str
         self.contact = contact  # type: str
         self.description = description  # type: str
+        self.expire_time = expire_time  # type: str
         self.license_quota = license_quota  # type: CreateEnvironmentLicenseRequestLicenseQuota
         self.machine_fingerprint = machine_fingerprint  # type: str
         self.name = name  # type: str
@@ -3437,6 +4356,8 @@ class CreateEnvironmentLicenseRequest(TeaModel):
             result['contact'] = self.contact
         if self.description is not None:
             result['description'] = self.description
+        if self.expire_time is not None:
+            result['expireTime'] = self.expire_time
         if self.license_quota is not None:
             result['licenseQuota'] = self.license_quota.to_map()
         if self.machine_fingerprint is not None:
@@ -3461,6 +4382,8 @@ class CreateEnvironmentLicenseRequest(TeaModel):
             self.contact = m.get('contact')
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('expireTime') is not None:
+            self.expire_time = m.get('expireTime')
         if m.get('licenseQuota') is not None:
             temp_model = CreateEnvironmentLicenseRequestLicenseQuota()
             self.license_quota = temp_model.from_map(m['licenseQuota'])
@@ -3578,13 +4501,92 @@ class CreateEnvironmentLicenseResponse(TeaModel):
         return self
 
 
-class CreateFoundationReferenceRequest(TeaModel):
-    def __init__(self, cluster_config=None, foundation_version_uid=None):
-        self.cluster_config = cluster_config  # type: str
-        self.foundation_version_uid = foundation_version_uid  # type: str
+class CreateFoundationReferenceRequestComponentConfigs(TeaModel):
+    def __init__(self, component_version_uid=None, orchestration_values=None):
+        self.component_version_uid = component_version_uid  # type: str
+        self.orchestration_values = orchestration_values  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(CreateFoundationReferenceRequestComponentConfigs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.component_version_uid is not None:
+            result['componentVersionUID'] = self.component_version_uid
+        if self.orchestration_values is not None:
+            result['orchestrationValues'] = self.orchestration_values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('componentVersionUID') is not None:
+            self.component_version_uid = m.get('componentVersionUID')
+        if m.get('orchestrationValues') is not None:
+            self.orchestration_values = m.get('orchestrationValues')
+        return self
+
+
+class CreateFoundationReferenceRequestFoundationReferenceConfigs(TeaModel):
+    def __init__(self, component_release_name=None, config_type=None, name=None, value=None):
+        self.component_release_name = component_release_name  # type: str
+        self.config_type = config_type  # type: str
+        self.name = name  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateFoundationReferenceRequestFoundationReferenceConfigs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.component_release_name is not None:
+            result['componentReleaseName'] = self.component_release_name
+        if self.config_type is not None:
+            result['configType'] = self.config_type
+        if self.name is not None:
+            result['name'] = self.name
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('componentReleaseName') is not None:
+            self.component_release_name = m.get('componentReleaseName')
+        if m.get('configType') is not None:
+            self.config_type = m.get('configType')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class CreateFoundationReferenceRequest(TeaModel):
+    def __init__(self, cluster_config=None, component_configs=None, foundation_reference_configs=None,
+                 foundation_version_uid=None, origin_foundation_reference_uid=None):
+        self.cluster_config = cluster_config  # type: str
+        self.component_configs = component_configs  # type: list[CreateFoundationReferenceRequestComponentConfigs]
+        self.foundation_reference_configs = foundation_reference_configs  # type: list[CreateFoundationReferenceRequestFoundationReferenceConfigs]
+        self.foundation_version_uid = foundation_version_uid  # type: str
+        self.origin_foundation_reference_uid = origin_foundation_reference_uid  # type: str
+
+    def validate(self):
+        if self.component_configs:
+            for k in self.component_configs:
+                if k:
+                    k.validate()
+        if self.foundation_reference_configs:
+            for k in self.foundation_reference_configs:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateFoundationReferenceRequest, self).to_map()
@@ -3594,16 +4596,38 @@ class CreateFoundationReferenceRequest(TeaModel):
         result = dict()
         if self.cluster_config is not None:
             result['clusterConfig'] = self.cluster_config
+        result['componentConfigs'] = []
+        if self.component_configs is not None:
+            for k in self.component_configs:
+                result['componentConfigs'].append(k.to_map() if k else None)
+        result['foundationReferenceConfigs'] = []
+        if self.foundation_reference_configs is not None:
+            for k in self.foundation_reference_configs:
+                result['foundationReferenceConfigs'].append(k.to_map() if k else None)
         if self.foundation_version_uid is not None:
             result['foundationVersionUID'] = self.foundation_version_uid
+        if self.origin_foundation_reference_uid is not None:
+            result['originFoundationReferenceUID'] = self.origin_foundation_reference_uid
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('clusterConfig') is not None:
             self.cluster_config = m.get('clusterConfig')
+        self.component_configs = []
+        if m.get('componentConfigs') is not None:
+            for k in m.get('componentConfigs'):
+                temp_model = CreateFoundationReferenceRequestComponentConfigs()
+                self.component_configs.append(temp_model.from_map(k))
+        self.foundation_reference_configs = []
+        if m.get('foundationReferenceConfigs') is not None:
+            for k in m.get('foundationReferenceConfigs'):
+                temp_model = CreateFoundationReferenceRequestFoundationReferenceConfigs()
+                self.foundation_reference_configs.append(temp_model.from_map(k))
         if m.get('foundationVersionUID') is not None:
             self.foundation_version_uid = m.get('foundationVersionUID')
+        if m.get('originFoundationReferenceUID') is not None:
+            self.origin_foundation_reference_uid = m.get('originFoundationReferenceUID')
         return self
 
 
@@ -3737,13 +4761,14 @@ class CreateProductHeaders(TeaModel):
 
 class CreateProductRequest(TeaModel):
     def __init__(self, categories=None, description=None, display_name=None, foundation_version_uid=None,
-                 product_name=None, vendor=None):
+                 product_name=None, vendor=None, without_product_version=None):
         self.categories = categories  # type: list[str]
         self.description = description  # type: str
         self.display_name = display_name  # type: str
         self.foundation_version_uid = foundation_version_uid  # type: str
         self.product_name = product_name  # type: str
         self.vendor = vendor  # type: str
+        self.without_product_version = without_product_version  # type: bool
 
     def validate(self):
         pass
@@ -3766,6 +4791,8 @@ class CreateProductRequest(TeaModel):
             result['productName'] = self.product_name
         if self.vendor is not None:
             result['vendor'] = self.vendor
+        if self.without_product_version is not None:
+            result['withoutProductVersion'] = self.without_product_version
         return result
 
     def from_map(self, m=None):
@@ -3782,6 +4809,8 @@ class CreateProductRequest(TeaModel):
             self.product_name = m.get('productName')
         if m.get('vendor') is not None:
             self.vendor = m.get('vendor')
+        if m.get('withoutProductVersion') is not None:
+            self.without_product_version = m.get('withoutProductVersion')
         return self
 
 
@@ -3886,13 +4915,14 @@ class CreateProductResponse(TeaModel):
 
 class CreateProductDeploymentRequest(TeaModel):
     def __init__(self, environment_uid=None, namespace=None, old_product_version_uid=None, package_config=None,
-                 package_uid=None, product_version_uid=None):
+                 package_uid=None, product_version_uid=None, timeout=None):
         self.environment_uid = environment_uid  # type: str
         self.namespace = namespace  # type: str
         self.old_product_version_uid = old_product_version_uid  # type: str
         self.package_config = package_config  # type: str
         self.package_uid = package_uid  # type: str
         self.product_version_uid = product_version_uid  # type: str
+        self.timeout = timeout  # type: long
 
     def validate(self):
         pass
@@ -3915,6 +4945,8 @@ class CreateProductDeploymentRequest(TeaModel):
             result['packageUID'] = self.package_uid
         if self.product_version_uid is not None:
             result['productVersionUID'] = self.product_version_uid
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
         return result
 
     def from_map(self, m=None):
@@ -3931,6 +4963,8 @@ class CreateProductDeploymentRequest(TeaModel):
             self.package_uid = m.get('packageUID')
         if m.get('productVersionUID') is not None:
             self.product_version_uid = m.get('productVersionUID')
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
         return self
 
 
@@ -4034,8 +5068,10 @@ class CreateProductDeploymentResponse(TeaModel):
 
 
 class CreateProductVersionRequest(TeaModel):
-    def __init__(self, base_product_version_uid=None):
+    def __init__(self, base_product_version_uid=None, version=None, without_base_product_version=None):
         self.base_product_version_uid = base_product_version_uid  # type: str
+        self.version = version  # type: str
+        self.without_base_product_version = without_base_product_version  # type: bool
 
     def validate(self):
         pass
@@ -4048,12 +5084,20 @@ class CreateProductVersionRequest(TeaModel):
         result = dict()
         if self.base_product_version_uid is not None:
             result['baseProductVersionUID'] = self.base_product_version_uid
+        if self.version is not None:
+            result['version'] = self.version
+        if self.without_base_product_version is not None:
+            result['withoutBaseProductVersion'] = self.without_base_product_version
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('baseProductVersionUID') is not None:
             self.base_product_version_uid = m.get('baseProductVersionUID')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        if m.get('withoutBaseProductVersion') is not None:
+            self.without_base_product_version = m.get('withoutBaseProductVersion')
         return self
 
 
@@ -5001,9 +6045,10 @@ class DeleteProductVersionConfigResponse(TeaModel):
 
 
 class GenerateProductInstanceDeploymentConfigRequest(TeaModel):
-    def __init__(self, environment_uid=None, package_uid=None, product_version_uid=None,
+    def __init__(self, environment_uid=None, package_content_type=None, package_uid=None, product_version_uid=None,
                  product_version_uidlist=None):
         self.environment_uid = environment_uid  # type: str
+        self.package_content_type = package_content_type  # type: str
         self.package_uid = package_uid  # type: str
         self.product_version_uid = product_version_uid  # type: str
         self.product_version_uidlist = product_version_uidlist  # type: list[str]
@@ -5019,6 +6064,8 @@ class GenerateProductInstanceDeploymentConfigRequest(TeaModel):
         result = dict()
         if self.environment_uid is not None:
             result['environmentUID'] = self.environment_uid
+        if self.package_content_type is not None:
+            result['packageContentType'] = self.package_content_type
         if self.package_uid is not None:
             result['packageUID'] = self.package_uid
         if self.product_version_uid is not None:
@@ -5031,6 +6078,8 @@ class GenerateProductInstanceDeploymentConfigRequest(TeaModel):
         m = m or dict()
         if m.get('environmentUID') is not None:
             self.environment_uid = m.get('environmentUID')
+        if m.get('packageContentType') is not None:
+            self.package_content_type = m.get('packageContentType')
         if m.get('packageUID') is not None:
             self.package_uid = m.get('packageUID')
         if m.get('productVersionUID') is not None:
@@ -5496,6 +6545,366 @@ class GetComponentVersionResponse(TeaModel):
         return self
 
 
+class GetDeliverableResponseBodyDataFoundation(TeaModel):
+    def __init__(self, cluster_config=None, foundation_reference_uid=None, foundation_version=None,
+                 foundation_version_uid=None):
+        self.cluster_config = cluster_config  # type: str
+        self.foundation_reference_uid = foundation_reference_uid  # type: str
+        self.foundation_version = foundation_version  # type: str
+        self.foundation_version_uid = foundation_version_uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDeliverableResponseBodyDataFoundation, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_config is not None:
+            result['clusterConfig'] = self.cluster_config
+        if self.foundation_reference_uid is not None:
+            result['foundationReferenceUID'] = self.foundation_reference_uid
+        if self.foundation_version is not None:
+            result['foundationVersion'] = self.foundation_version
+        if self.foundation_version_uid is not None:
+            result['foundationVersionUID'] = self.foundation_version_uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('clusterConfig') is not None:
+            self.cluster_config = m.get('clusterConfig')
+        if m.get('foundationReferenceUID') is not None:
+            self.foundation_reference_uid = m.get('foundationReferenceUID')
+        if m.get('foundationVersion') is not None:
+            self.foundation_version = m.get('foundationVersion')
+        if m.get('foundationVersionUID') is not None:
+            self.foundation_version_uid = m.get('foundationVersionUID')
+        return self
+
+
+class GetDeliverableResponseBodyDataProducts(TeaModel):
+    def __init__(self, namespace=None, product_name=None, product_type=None, product_uid=None, product_version=None,
+                 product_version_spec_name=None, product_version_spec_uid=None, product_version_uid=None):
+        self.namespace = namespace  # type: str
+        self.product_name = product_name  # type: str
+        self.product_type = product_type  # type: str
+        self.product_uid = product_uid  # type: str
+        self.product_version = product_version  # type: str
+        self.product_version_spec_name = product_version_spec_name  # type: str
+        self.product_version_spec_uid = product_version_spec_uid  # type: str
+        self.product_version_uid = product_version_uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDeliverableResponseBodyDataProducts, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.namespace is not None:
+            result['namespace'] = self.namespace
+        if self.product_name is not None:
+            result['productName'] = self.product_name
+        if self.product_type is not None:
+            result['productType'] = self.product_type
+        if self.product_uid is not None:
+            result['productUID'] = self.product_uid
+        if self.product_version is not None:
+            result['productVersion'] = self.product_version
+        if self.product_version_spec_name is not None:
+            result['productVersionSpecName'] = self.product_version_spec_name
+        if self.product_version_spec_uid is not None:
+            result['productVersionSpecUID'] = self.product_version_spec_uid
+        if self.product_version_uid is not None:
+            result['productVersionUID'] = self.product_version_uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('namespace') is not None:
+            self.namespace = m.get('namespace')
+        if m.get('productName') is not None:
+            self.product_name = m.get('productName')
+        if m.get('productType') is not None:
+            self.product_type = m.get('productType')
+        if m.get('productUID') is not None:
+            self.product_uid = m.get('productUID')
+        if m.get('productVersion') is not None:
+            self.product_version = m.get('productVersion')
+        if m.get('productVersionSpecName') is not None:
+            self.product_version_spec_name = m.get('productVersionSpecName')
+        if m.get('productVersionSpecUID') is not None:
+            self.product_version_spec_uid = m.get('productVersionSpecUID')
+        if m.get('productVersionUID') is not None:
+            self.product_version_uid = m.get('productVersionUID')
+        return self
+
+
+class GetDeliverableResponseBodyData(TeaModel):
+    def __init__(self, foundation=None, products=None, uid=None):
+        self.foundation = foundation  # type: GetDeliverableResponseBodyDataFoundation
+        self.products = products  # type: list[GetDeliverableResponseBodyDataProducts]
+        self.uid = uid  # type: str
+
+    def validate(self):
+        if self.foundation:
+            self.foundation.validate()
+        if self.products:
+            for k in self.products:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetDeliverableResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.foundation is not None:
+            result['foundation'] = self.foundation.to_map()
+        result['products'] = []
+        if self.products is not None:
+            for k in self.products:
+                result['products'].append(k.to_map() if k else None)
+        if self.uid is not None:
+            result['uid'] = self.uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('foundation') is not None:
+            temp_model = GetDeliverableResponseBodyDataFoundation()
+            self.foundation = temp_model.from_map(m['foundation'])
+        self.products = []
+        if m.get('products') is not None:
+            for k in m.get('products'):
+                temp_model = GetDeliverableResponseBodyDataProducts()
+                self.products.append(temp_model.from_map(k))
+        if m.get('uid') is not None:
+            self.uid = m.get('uid')
+        return self
+
+
+class GetDeliverableResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, msg=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetDeliverableResponseBodyData
+        self.msg = msg  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetDeliverableResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        if self.msg is not None:
+            result['msg'] = self.msg
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('data') is not None:
+            temp_model = GetDeliverableResponseBodyData()
+            self.data = temp_model.from_map(m['data'])
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        return self
+
+
+class GetDeliverableResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetDeliverableResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetDeliverableResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetDeliverableResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetDeliveryPackageResponseBodyData(TeaModel):
+    def __init__(self, deliverable_uid=None, origin_deliverable_uid=None, package_content_type=None,
+                 package_size=None, package_status=None, package_type=None, package_uid=None, package_url=None, platform=None):
+        self.deliverable_uid = deliverable_uid  # type: str
+        self.origin_deliverable_uid = origin_deliverable_uid  # type: str
+        self.package_content_type = package_content_type  # type: str
+        self.package_size = package_size  # type: str
+        self.package_status = package_status  # type: str
+        self.package_type = package_type  # type: str
+        self.package_uid = package_uid  # type: str
+        self.package_url = package_url  # type: str
+        self.platform = platform  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDeliveryPackageResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deliverable_uid is not None:
+            result['deliverableUID'] = self.deliverable_uid
+        if self.origin_deliverable_uid is not None:
+            result['originDeliverableUID'] = self.origin_deliverable_uid
+        if self.package_content_type is not None:
+            result['packageContentType'] = self.package_content_type
+        if self.package_size is not None:
+            result['packageSize'] = self.package_size
+        if self.package_status is not None:
+            result['packageStatus'] = self.package_status
+        if self.package_type is not None:
+            result['packageType'] = self.package_type
+        if self.package_uid is not None:
+            result['packageUID'] = self.package_uid
+        if self.package_url is not None:
+            result['packageURL'] = self.package_url
+        if self.platform is not None:
+            result['platform'] = self.platform
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('deliverableUID') is not None:
+            self.deliverable_uid = m.get('deliverableUID')
+        if m.get('originDeliverableUID') is not None:
+            self.origin_deliverable_uid = m.get('originDeliverableUID')
+        if m.get('packageContentType') is not None:
+            self.package_content_type = m.get('packageContentType')
+        if m.get('packageSize') is not None:
+            self.package_size = m.get('packageSize')
+        if m.get('packageStatus') is not None:
+            self.package_status = m.get('packageStatus')
+        if m.get('packageType') is not None:
+            self.package_type = m.get('packageType')
+        if m.get('packageUID') is not None:
+            self.package_uid = m.get('packageUID')
+        if m.get('packageURL') is not None:
+            self.package_url = m.get('packageURL')
+        if m.get('platform') is not None:
+            self.platform = m.get('platform')
+        return self
+
+
+class GetDeliveryPackageResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, msg=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetDeliveryPackageResponseBodyData
+        self.msg = msg  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetDeliveryPackageResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        if self.msg is not None:
+            result['msg'] = self.msg
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('data') is not None:
+            temp_model = GetDeliveryPackageResponseBodyData()
+            self.data = temp_model.from_map(m['data'])
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        return self
+
+
+class GetDeliveryPackageResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetDeliveryPackageResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetDeliveryPackageResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetDeliveryPackageResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetEnvironmentRequestOptions(TeaModel):
     def __init__(self, with_site_survey_report=None):
         self.with_site_survey_report = with_site_survey_report  # type: bool
@@ -5748,15 +7157,17 @@ class GetEnvironmentResponseBodyDataSiteSurveyReport(TeaModel):
 
 class GetEnvironmentResponseBodyData(TeaModel):
     def __init__(self, advanced_configs=None, cluster_id=None, cluster_uid=None, created_at=None, description=None,
-                 foundation_version=None, foundation_version_uid=None, instance_list=None, instance_status=None, location=None,
-                 name=None, old_product_version=None, old_product_version_uid=None, platform=None, platform_list=None,
-                 platform_status=None, product_name=None, product_version=None, site_survey_report=None, uid=None,
-                 vendor_config=None, vendor_type=None):
+                 expired_at=None, foundation_type=None, foundation_version=None, foundation_version_uid=None,
+                 instance_list=None, instance_status=None, location=None, name=None, old_product_version=None,
+                 old_product_version_uid=None, platform=None, platform_list=None, platform_status=None, product_name=None,
+                 product_version=None, site_survey_report=None, uid=None, vendor_config=None, vendor_type=None):
         self.advanced_configs = advanced_configs  # type: GetEnvironmentResponseBodyDataAdvancedConfigs
         self.cluster_id = cluster_id  # type: str
         self.cluster_uid = cluster_uid  # type: str
         self.created_at = created_at  # type: str
         self.description = description  # type: str
+        self.expired_at = expired_at  # type: str
+        self.foundation_type = foundation_type  # type: str
         self.foundation_version = foundation_version  # type: str
         self.foundation_version_uid = foundation_version_uid  # type: str
         self.instance_list = instance_list  # type: list[InstanceInfo]
@@ -5807,6 +7218,10 @@ class GetEnvironmentResponseBodyData(TeaModel):
             result['createdAt'] = self.created_at
         if self.description is not None:
             result['description'] = self.description
+        if self.expired_at is not None:
+            result['expiredAt'] = self.expired_at
+        if self.foundation_type is not None:
+            result['foundationType'] = self.foundation_type
         if self.foundation_version is not None:
             result['foundationVersion'] = self.foundation_version
         if self.foundation_version_uid is not None:
@@ -5860,6 +7275,10 @@ class GetEnvironmentResponseBodyData(TeaModel):
             self.created_at = m.get('createdAt')
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('expiredAt') is not None:
+            self.expired_at = m.get('expiredAt')
+        if m.get('foundationType') is not None:
+            self.foundation_type = m.get('foundationType')
         if m.get('foundationVersion') is not None:
             self.foundation_version = m.get('foundationVersion')
         if m.get('foundationVersionUID') is not None:
@@ -5976,6 +7395,154 @@ class GetEnvironmentResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetEnvironmentResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetEnvironmentDeliveryInstanceRequest(TeaModel):
+    def __init__(self, cluster_uid=None, env_uid=None):
+        self.cluster_uid = cluster_uid  # type: str
+        self.env_uid = env_uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetEnvironmentDeliveryInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_uid is not None:
+            result['clusterUID'] = self.cluster_uid
+        if self.env_uid is not None:
+            result['envUID'] = self.env_uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('clusterUID') is not None:
+            self.cluster_uid = m.get('clusterUID')
+        if m.get('envUID') is not None:
+            self.env_uid = m.get('envUID')
+        return self
+
+
+class GetEnvironmentDeliveryInstanceResponseBodyData(TeaModel):
+    def __init__(self, cluster_uid=None, deliverable_config_uid=None, deliverable_uid=None, env_uid=None, uid=None):
+        self.cluster_uid = cluster_uid  # type: str
+        self.deliverable_config_uid = deliverable_config_uid  # type: str
+        self.deliverable_uid = deliverable_uid  # type: str
+        self.env_uid = env_uid  # type: str
+        self.uid = uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetEnvironmentDeliveryInstanceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_uid is not None:
+            result['clusterUID'] = self.cluster_uid
+        if self.deliverable_config_uid is not None:
+            result['deliverableConfigUID'] = self.deliverable_config_uid
+        if self.deliverable_uid is not None:
+            result['deliverableUID'] = self.deliverable_uid
+        if self.env_uid is not None:
+            result['envUID'] = self.env_uid
+        if self.uid is not None:
+            result['uid'] = self.uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('clusterUID') is not None:
+            self.cluster_uid = m.get('clusterUID')
+        if m.get('deliverableConfigUID') is not None:
+            self.deliverable_config_uid = m.get('deliverableConfigUID')
+        if m.get('deliverableUID') is not None:
+            self.deliverable_uid = m.get('deliverableUID')
+        if m.get('envUID') is not None:
+            self.env_uid = m.get('envUID')
+        if m.get('uid') is not None:
+            self.uid = m.get('uid')
+        return self
+
+
+class GetEnvironmentDeliveryInstanceResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, msg=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetEnvironmentDeliveryInstanceResponseBodyData
+        self.msg = msg  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetEnvironmentDeliveryInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        if self.msg is not None:
+            result['msg'] = self.msg
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('data') is not None:
+            temp_model = GetEnvironmentDeliveryInstanceResponseBodyData()
+            self.data = temp_model.from_map(m['data'])
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        return self
+
+
+class GetEnvironmentDeliveryInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetEnvironmentDeliveryInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetEnvironmentDeliveryInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetEnvironmentDeliveryInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -6209,6 +7776,7 @@ class GetEnvironmentLicenseResponseBodyData(TeaModel):
         self.product_version_uid = product_version_uid  # type: str
         self.reject_reason = reject_reason  # type: str
         self.scope = scope  # type: str
+        # kubernetes secret yaml。
         self.secret_yaml = secret_yaml  # type: str
         self.status = status  # type: str
         self.type = type  # type: str
@@ -6668,17 +8236,20 @@ class GetFoundationVersionResponseBodyDataSiteSurveyTool(TeaModel):
 
 
 class GetFoundationVersionResponseBodyData(TeaModel):
-    def __init__(self, description=None, features=None, labels=None, name=None, platforms=None,
-                 site_survey_tool=None, status=None, type=None, uid=None, version=None):
+    def __init__(self, description=None, features=None, is_default=None, labels=None, name=None, platforms=None,
+                 site_survey_tool=None, spec_name=None, status=None, type=None, uid=None, version=None):
         self.description = description  # type: str
         self.features = features  # type: list[str]
+        self.is_default = is_default  # type: bool
         self.labels = labels  # type: str
         self.name = name  # type: str
         self.platforms = platforms  # type: list[Platform]
         self.site_survey_tool = site_survey_tool  # type: GetFoundationVersionResponseBodyDataSiteSurveyTool
+        self.spec_name = spec_name  # type: str
         self.status = status  # type: str
         self.type = type  # type: str
         self.uid = uid  # type: str
+        # version
         self.version = version  # type: str
 
     def validate(self):
@@ -6699,6 +8270,8 @@ class GetFoundationVersionResponseBodyData(TeaModel):
             result['description'] = self.description
         if self.features is not None:
             result['features'] = self.features
+        if self.is_default is not None:
+            result['isDefault'] = self.is_default
         if self.labels is not None:
             result['labels'] = self.labels
         if self.name is not None:
@@ -6709,6 +8282,8 @@ class GetFoundationVersionResponseBodyData(TeaModel):
                 result['platforms'].append(k.to_map() if k else None)
         if self.site_survey_tool is not None:
             result['siteSurveyTool'] = self.site_survey_tool.to_map()
+        if self.spec_name is not None:
+            result['specName'] = self.spec_name
         if self.status is not None:
             result['status'] = self.status
         if self.type is not None:
@@ -6725,6 +8300,8 @@ class GetFoundationVersionResponseBodyData(TeaModel):
             self.description = m.get('description')
         if m.get('features') is not None:
             self.features = m.get('features')
+        if m.get('isDefault') is not None:
+            self.is_default = m.get('isDefault')
         if m.get('labels') is not None:
             self.labels = m.get('labels')
         if m.get('name') is not None:
@@ -6737,6 +8314,8 @@ class GetFoundationVersionResponseBodyData(TeaModel):
         if m.get('siteSurveyTool') is not None:
             temp_model = GetFoundationVersionResponseBodyDataSiteSurveyTool()
             self.site_survey_tool = temp_model.from_map(m['siteSurveyTool'])
+        if m.get('specName') is not None:
+            self.spec_name = m.get('specName')
         if m.get('status') is not None:
             self.status = m.get('status')
         if m.get('type') is not None:
@@ -7020,12 +8599,13 @@ class GetProductResponse(TeaModel):
 
 
 class GetProductComponentVersionResponseBodyData(TeaModel):
-    def __init__(self, app_version=None, component_description=None, component_name=None, component_uid=None,
-                 component_version_description=None, component_version_uid=None, enable=None, namespace=None, orchestration_values=None,
-                 parent_component=None, parent_component_version_relation_uid=None, parent_component_version_uid=None,
-                 product_version_uid=None, relation_uid=None, release_name=None, resources=None, sequence=None, values=None,
-                 version=None):
+    def __init__(self, app_version=None, category=None, component_description=None, component_name=None,
+                 component_uid=None, component_version_description=None, component_version_uid=None, enable=None, namespace=None,
+                 orchestration_values=None, parent_component=None, parent_component_version_relation_uid=None,
+                 parent_component_version_uid=None, product_version_uid=None, relation_uid=None, release_name=None, resources=None,
+                 sequence=None, source=None, values=None, version=None):
         self.app_version = app_version  # type: str
+        self.category = category  # type: str
         self.component_description = component_description  # type: str
         self.component_name = component_name  # type: str
         self.component_uid = component_uid  # type: str
@@ -7042,6 +8622,7 @@ class GetProductComponentVersionResponseBodyData(TeaModel):
         self.release_name = release_name  # type: str
         self.resources = resources  # type: str
         self.sequence = sequence  # type: int
+        self.source = source  # type: str
         self.values = values  # type: str
         self.version = version  # type: str
 
@@ -7056,6 +8637,8 @@ class GetProductComponentVersionResponseBodyData(TeaModel):
         result = dict()
         if self.app_version is not None:
             result['appVersion'] = self.app_version
+        if self.category is not None:
+            result['category'] = self.category
         if self.component_description is not None:
             result['componentDescription'] = self.component_description
         if self.component_name is not None:
@@ -7088,6 +8671,8 @@ class GetProductComponentVersionResponseBodyData(TeaModel):
             result['resources'] = self.resources
         if self.sequence is not None:
             result['sequence'] = self.sequence
+        if self.source is not None:
+            result['source'] = self.source
         if self.values is not None:
             result['values'] = self.values
         if self.version is not None:
@@ -7098,6 +8683,8 @@ class GetProductComponentVersionResponseBodyData(TeaModel):
         m = m or dict()
         if m.get('appVersion') is not None:
             self.app_version = m.get('appVersion')
+        if m.get('category') is not None:
+            self.category = m.get('category')
         if m.get('componentDescription') is not None:
             self.component_description = m.get('componentDescription')
         if m.get('componentName') is not None:
@@ -7130,6 +8717,8 @@ class GetProductComponentVersionResponseBodyData(TeaModel):
             self.resources = m.get('resources')
         if m.get('sequence') is not None:
             self.sequence = m.get('sequence')
+        if m.get('source') is not None:
+            self.source = m.get('source')
         if m.get('values') is not None:
             self.values = m.get('values')
         if m.get('version') is not None:
@@ -7466,7 +9055,7 @@ class GetProductVersionResponseBodyDataExtendedResources(TeaModel):
 class GetProductVersionResponseBodyData(TeaModel):
     def __init__(self, continuous_integration=None, description=None, documentations=None, extended_resources=None,
                  foundation_version_uid=None, package_url=None, platforms=None, product_name=None, product_uid=None, provider=None,
-                 uid=None, version=None):
+                 timeout=None, uid=None, version=None):
         self.continuous_integration = continuous_integration  # type: bool
         self.description = description  # type: str
         self.documentations = documentations  # type: list[GetProductVersionResponseBodyDataDocumentations]
@@ -7477,6 +9066,7 @@ class GetProductVersionResponseBodyData(TeaModel):
         self.product_name = product_name  # type: str
         self.product_uid = product_uid  # type: str
         self.provider = provider  # type: str
+        self.timeout = timeout  # type: long
         self.uid = uid  # type: str
         self.version = version  # type: str
 
@@ -7526,6 +9116,8 @@ class GetProductVersionResponseBodyData(TeaModel):
             result['productUID'] = self.product_uid
         if self.provider is not None:
             result['provider'] = self.provider
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
         if self.uid is not None:
             result['uid'] = self.uid
         if self.version is not None:
@@ -7563,6 +9155,8 @@ class GetProductVersionResponseBodyData(TeaModel):
             self.product_uid = m.get('productUID')
         if m.get('provider') is not None:
             self.provider = m.get('provider')
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
         if m.get('uid') is not None:
             self.uid = m.get('uid')
         if m.get('version') is not None:
@@ -8877,10 +10471,11 @@ class ListComponentVersionsRequestPlatforms(TeaModel):
 
 
 class ListComponentVersionsRequest(TeaModel):
-    def __init__(self, page_num=None, page_size=None, platforms=None):
+    def __init__(self, page_num=None, page_size=None, platforms=None, version=None):
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
         self.platforms = platforms  # type: list[ListComponentVersionsRequestPlatforms]
+        self.version = version  # type: str
 
     def validate(self):
         if self.platforms:
@@ -8902,6 +10497,8 @@ class ListComponentVersionsRequest(TeaModel):
         if self.platforms is not None:
             for k in self.platforms:
                 result['platforms'].append(k.to_map() if k else None)
+        if self.version is not None:
+            result['version'] = self.version
         return result
 
     def from_map(self, m=None):
@@ -8915,14 +10512,17 @@ class ListComponentVersionsRequest(TeaModel):
             for k in m.get('platforms'):
                 temp_model = ListComponentVersionsRequestPlatforms()
                 self.platforms.append(temp_model.from_map(k))
+        if m.get('version') is not None:
+            self.version = m.get('version')
         return self
 
 
 class ListComponentVersionsShrinkRequest(TeaModel):
-    def __init__(self, page_num=None, page_size=None, platforms_shrink=None):
+    def __init__(self, page_num=None, page_size=None, platforms_shrink=None, version=None):
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
         self.platforms_shrink = platforms_shrink  # type: str
+        self.version = version  # type: str
 
     def validate(self):
         pass
@@ -8939,6 +10539,8 @@ class ListComponentVersionsShrinkRequest(TeaModel):
             result['pageSize'] = self.page_size
         if self.platforms_shrink is not None:
             result['platforms'] = self.platforms_shrink
+        if self.version is not None:
+            result['version'] = self.version
         return result
 
     def from_map(self, m=None):
@@ -8949,6 +10551,8 @@ class ListComponentVersionsShrinkRequest(TeaModel):
             self.page_size = m.get('pageSize')
         if m.get('platforms') is not None:
             self.platforms_shrink = m.get('platforms')
+        if m.get('version') is not None:
+            self.version = m.get('version')
         return self
 
 
@@ -9428,6 +11032,380 @@ class ListComponentsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListComponentsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListDeliveryInstanceChangeRecordsResponseBodyDataEnvNodeInfo(TeaModel):
+    def __init__(self, capacity=None, cpu=None, identifier=None, label=None, memory=None, name=None, private_ip=None,
+                 taints=None):
+        self.capacity = capacity  # type: str
+        self.cpu = cpu  # type: str
+        self.identifier = identifier  # type: str
+        self.label = label  # type: dict[str, any]
+        self.memory = memory  # type: str
+        self.name = name  # type: str
+        self.private_ip = private_ip  # type: str
+        self.taints = taints  # type: dict[str, any]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeliveryInstanceChangeRecordsResponseBodyDataEnvNodeInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.capacity is not None:
+            result['capacity'] = self.capacity
+        if self.cpu is not None:
+            result['cpu'] = self.cpu
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.label is not None:
+            result['label'] = self.label
+        if self.memory is not None:
+            result['memory'] = self.memory
+        if self.name is not None:
+            result['name'] = self.name
+        if self.private_ip is not None:
+            result['privateIP'] = self.private_ip
+        if self.taints is not None:
+            result['taints'] = self.taints
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('capacity') is not None:
+            self.capacity = m.get('capacity')
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('label') is not None:
+            self.label = m.get('label')
+        if m.get('memory') is not None:
+            self.memory = m.get('memory')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('privateIP') is not None:
+            self.private_ip = m.get('privateIP')
+        if m.get('taints') is not None:
+            self.taints = m.get('taints')
+        return self
+
+
+class ListDeliveryInstanceChangeRecordsResponseBodyData(TeaModel):
+    def __init__(self, deliverable_uid=None, env_change_records=None, env_node_info=None, env_package_config=None,
+                 origin_deliverable_uid=None, uid=None):
+        self.deliverable_uid = deliverable_uid  # type: str
+        self.env_change_records = env_change_records  # type: dict[str, any]
+        self.env_node_info = env_node_info  # type: list[ListDeliveryInstanceChangeRecordsResponseBodyDataEnvNodeInfo]
+        self.env_package_config = env_package_config  # type: str
+        self.origin_deliverable_uid = origin_deliverable_uid  # type: str
+        self.uid = uid  # type: str
+
+    def validate(self):
+        if self.env_node_info:
+            for k in self.env_node_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDeliveryInstanceChangeRecordsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deliverable_uid is not None:
+            result['deliverableUID'] = self.deliverable_uid
+        if self.env_change_records is not None:
+            result['envChangeRecords'] = self.env_change_records
+        result['envNodeInfo'] = []
+        if self.env_node_info is not None:
+            for k in self.env_node_info:
+                result['envNodeInfo'].append(k.to_map() if k else None)
+        if self.env_package_config is not None:
+            result['envPackageConfig'] = self.env_package_config
+        if self.origin_deliverable_uid is not None:
+            result['originDeliverableUID'] = self.origin_deliverable_uid
+        if self.uid is not None:
+            result['uid'] = self.uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('deliverableUID') is not None:
+            self.deliverable_uid = m.get('deliverableUID')
+        if m.get('envChangeRecords') is not None:
+            self.env_change_records = m.get('envChangeRecords')
+        self.env_node_info = []
+        if m.get('envNodeInfo') is not None:
+            for k in m.get('envNodeInfo'):
+                temp_model = ListDeliveryInstanceChangeRecordsResponseBodyDataEnvNodeInfo()
+                self.env_node_info.append(temp_model.from_map(k))
+        if m.get('envPackageConfig') is not None:
+            self.env_package_config = m.get('envPackageConfig')
+        if m.get('originDeliverableUID') is not None:
+            self.origin_deliverable_uid = m.get('originDeliverableUID')
+        if m.get('uid') is not None:
+            self.uid = m.get('uid')
+        return self
+
+
+class ListDeliveryInstanceChangeRecordsResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, msg=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[ListDeliveryInstanceChangeRecordsResponseBodyData]
+        self.msg = msg  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDeliveryInstanceChangeRecordsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        if self.msg is not None:
+            result['msg'] = self.msg
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = ListDeliveryInstanceChangeRecordsResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        return self
+
+
+class ListDeliveryInstanceChangeRecordsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListDeliveryInstanceChangeRecordsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDeliveryInstanceChangeRecordsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListDeliveryInstanceChangeRecordsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListDeliveryPackageRequest(TeaModel):
+    def __init__(self, deliverable_uid=None, platform=None):
+        self.deliverable_uid = deliverable_uid  # type: str
+        self.platform = platform  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeliveryPackageRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deliverable_uid is not None:
+            result['deliverableUID'] = self.deliverable_uid
+        if self.platform is not None:
+            result['platform'] = self.platform
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('deliverableUID') is not None:
+            self.deliverable_uid = m.get('deliverableUID')
+        if m.get('platform') is not None:
+            self.platform = m.get('platform')
+        return self
+
+
+class ListDeliveryPackageResponseBodyData(TeaModel):
+    def __init__(self, deliverable_uid=None, origin_deliverable_uid=None, package_content_type=None,
+                 package_size=None, package_status=None, package_type=None, package_uid=None, package_url=None, platform=None):
+        self.deliverable_uid = deliverable_uid  # type: str
+        self.origin_deliverable_uid = origin_deliverable_uid  # type: str
+        self.package_content_type = package_content_type  # type: str
+        self.package_size = package_size  # type: str
+        self.package_status = package_status  # type: str
+        self.package_type = package_type  # type: str
+        self.package_uid = package_uid  # type: str
+        self.package_url = package_url  # type: str
+        self.platform = platform  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeliveryPackageResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deliverable_uid is not None:
+            result['deliverableUID'] = self.deliverable_uid
+        if self.origin_deliverable_uid is not None:
+            result['originDeliverableUID'] = self.origin_deliverable_uid
+        if self.package_content_type is not None:
+            result['packageContentType'] = self.package_content_type
+        if self.package_size is not None:
+            result['packageSize'] = self.package_size
+        if self.package_status is not None:
+            result['packageStatus'] = self.package_status
+        if self.package_type is not None:
+            result['packageType'] = self.package_type
+        if self.package_uid is not None:
+            result['packageUID'] = self.package_uid
+        if self.package_url is not None:
+            result['packageURL'] = self.package_url
+        if self.platform is not None:
+            result['platform'] = self.platform
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('deliverableUID') is not None:
+            self.deliverable_uid = m.get('deliverableUID')
+        if m.get('originDeliverableUID') is not None:
+            self.origin_deliverable_uid = m.get('originDeliverableUID')
+        if m.get('packageContentType') is not None:
+            self.package_content_type = m.get('packageContentType')
+        if m.get('packageSize') is not None:
+            self.package_size = m.get('packageSize')
+        if m.get('packageStatus') is not None:
+            self.package_status = m.get('packageStatus')
+        if m.get('packageType') is not None:
+            self.package_type = m.get('packageType')
+        if m.get('packageUID') is not None:
+            self.package_uid = m.get('packageUID')
+        if m.get('packageURL') is not None:
+            self.package_url = m.get('packageURL')
+        if m.get('platform') is not None:
+            self.platform = m.get('platform')
+        return self
+
+
+class ListDeliveryPackageResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, msg=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[ListDeliveryPackageResponseBodyData]
+        self.msg = msg  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDeliveryPackageResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        if self.msg is not None:
+            result['msg'] = self.msg
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = ListDeliveryPackageResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        return self
+
+
+class ListDeliveryPackageResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListDeliveryPackageResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDeliveryPackageResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListDeliveryPackageResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -10145,9 +12123,10 @@ class ListEnvironmentTunnelsResponse(TeaModel):
 
 
 class ListEnvironmentsRequest(TeaModel):
-    def __init__(self, cluster_uid=None, foundation_type=None, fuzzy=None, instance_status=None, name=None,
-                 page_num=None, page_size=None, type=None, vendor_type=None):
+    def __init__(self, cluster_uid=None, endpoint=None, foundation_type=None, fuzzy=None, instance_status=None,
+                 name=None, page_num=None, page_size=None, type=None, vendor_type=None):
         self.cluster_uid = cluster_uid  # type: str
+        self.endpoint = endpoint  # type: str
         self.foundation_type = foundation_type  # type: str
         self.fuzzy = fuzzy  # type: str
         self.instance_status = instance_status  # type: str
@@ -10168,6 +12147,8 @@ class ListEnvironmentsRequest(TeaModel):
         result = dict()
         if self.cluster_uid is not None:
             result['clusterUID'] = self.cluster_uid
+        if self.endpoint is not None:
+            result['endpoint'] = self.endpoint
         if self.foundation_type is not None:
             result['foundationType'] = self.foundation_type
         if self.fuzzy is not None:
@@ -10190,6 +12171,8 @@ class ListEnvironmentsRequest(TeaModel):
         m = m or dict()
         if m.get('clusterUID') is not None:
             self.cluster_uid = m.get('clusterUID')
+        if m.get('endpoint') is not None:
+            self.endpoint = m.get('endpoint')
         if m.get('foundationType') is not None:
             self.foundation_type = m.get('foundationType')
         if m.get('fuzzy') is not None:
@@ -10239,15 +12222,18 @@ class ListEnvironmentsResponseBodyDataListPlatform(TeaModel):
 
 
 class ListEnvironmentsResponseBodyDataList(TeaModel):
-    def __init__(self, created_at=None, description=None, location=None, name=None, platform=None,
-                 platform_list=None, product_name=None, product_version=None, product_version_uid=None, uid=None,
-                 vendor_type=None):
+    def __init__(self, created_at=None, description=None, expire_at=None, instance_status=None, location=None,
+                 name=None, platform=None, platform_list=None, platform_status=None, product_name=None,
+                 product_version=None, product_version_uid=None, uid=None, vendor_type=None):
         self.created_at = created_at  # type: str
         self.description = description  # type: str
+        self.expire_at = expire_at  # type: str
+        self.instance_status = instance_status  # type: str
         self.location = location  # type: str
         self.name = name  # type: str
         self.platform = platform  # type: ListEnvironmentsResponseBodyDataListPlatform
         self.platform_list = platform_list  # type: list[Platform]
+        self.platform_status = platform_status  # type: str
         self.product_name = product_name  # type: str
         self.product_version = product_version  # type: str
         self.product_version_uid = product_version_uid  # type: str
@@ -10272,6 +12258,10 @@ class ListEnvironmentsResponseBodyDataList(TeaModel):
             result['createdAt'] = self.created_at
         if self.description is not None:
             result['description'] = self.description
+        if self.expire_at is not None:
+            result['expireAt'] = self.expire_at
+        if self.instance_status is not None:
+            result['instanceStatus'] = self.instance_status
         if self.location is not None:
             result['location'] = self.location
         if self.name is not None:
@@ -10282,6 +12272,8 @@ class ListEnvironmentsResponseBodyDataList(TeaModel):
         if self.platform_list is not None:
             for k in self.platform_list:
                 result['platformList'].append(k.to_map() if k else None)
+        if self.platform_status is not None:
+            result['platformStatus'] = self.platform_status
         if self.product_name is not None:
             result['productName'] = self.product_name
         if self.product_version is not None:
@@ -10300,6 +12292,10 @@ class ListEnvironmentsResponseBodyDataList(TeaModel):
             self.created_at = m.get('createdAt')
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('expireAt') is not None:
+            self.expire_at = m.get('expireAt')
+        if m.get('instanceStatus') is not None:
+            self.instance_status = m.get('instanceStatus')
         if m.get('location') is not None:
             self.location = m.get('location')
         if m.get('name') is not None:
@@ -10312,6 +12308,8 @@ class ListEnvironmentsResponseBodyDataList(TeaModel):
             for k in m.get('platformList'):
                 temp_model = Platform()
                 self.platform_list.append(temp_model.from_map(k))
+        if m.get('platformStatus') is not None:
+            self.platform_status = m.get('platformStatus')
         if m.get('productName') is not None:
             self.product_name = m.get('productName')
         if m.get('productVersion') is not None:
@@ -10447,6 +12445,35 @@ class ListEnvironmentsResponse(TeaModel):
         return self
 
 
+class ListFoundationComponentVersionsRequest(TeaModel):
+    def __init__(self, only_enabled=None, parent_component_relation_uid=None):
+        self.only_enabled = only_enabled  # type: bool
+        self.parent_component_relation_uid = parent_component_relation_uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListFoundationComponentVersionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.only_enabled is not None:
+            result['onlyEnabled'] = self.only_enabled
+        if self.parent_component_relation_uid is not None:
+            result['parentComponentRelationUID'] = self.parent_component_relation_uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('onlyEnabled') is not None:
+            self.only_enabled = m.get('onlyEnabled')
+        if m.get('parentComponentRelationUID') is not None:
+            self.parent_component_relation_uid = m.get('parentComponentRelationUID')
+        return self
+
+
 class ListFoundationComponentVersionsResponseBodyData(TeaModel):
     def __init__(self, list=None, page_num=None, page_size=None, total=None):
         self.list = list  # type: list[ComponentVersion]
@@ -10571,10 +12598,11 @@ class ListFoundationComponentVersionsResponse(TeaModel):
 
 class ListFoundationReferenceComponentsRequest(TeaModel):
     def __init__(self, foundation_reference_uid=None, foundation_version_uid=None, only_enabled=None,
-                 product_version_uid=None):
+                 parent_component_reference_uid=None, product_version_uid=None):
         self.foundation_reference_uid = foundation_reference_uid  # type: str
         self.foundation_version_uid = foundation_version_uid  # type: str
         self.only_enabled = only_enabled  # type: bool
+        self.parent_component_reference_uid = parent_component_reference_uid  # type: str
         self.product_version_uid = product_version_uid  # type: str
 
     def validate(self):
@@ -10592,6 +12620,8 @@ class ListFoundationReferenceComponentsRequest(TeaModel):
             result['foundationVersionUID'] = self.foundation_version_uid
         if self.only_enabled is not None:
             result['onlyEnabled'] = self.only_enabled
+        if self.parent_component_reference_uid is not None:
+            result['parentComponentReferenceUID'] = self.parent_component_reference_uid
         if self.product_version_uid is not None:
             result['productVersionUID'] = self.product_version_uid
         return result
@@ -10604,6 +12634,8 @@ class ListFoundationReferenceComponentsRequest(TeaModel):
             self.foundation_version_uid = m.get('foundationVersionUID')
         if m.get('onlyEnabled') is not None:
             self.only_enabled = m.get('onlyEnabled')
+        if m.get('parentComponentReferenceUID') is not None:
+            self.parent_component_reference_uid = m.get('parentComponentReferenceUID')
         if m.get('productVersionUID') is not None:
             self.product_version_uid = m.get('productVersionUID')
         return self
@@ -10691,10 +12723,15 @@ class ListFoundationReferenceComponentsResponse(TeaModel):
 
 
 class ListFoundationVersionsRequest(TeaModel):
-    def __init__(self, sort_direct=None, sort_key=None, type=None):
+    def __init__(self, only_default=None, page_num=None, page_size=None, sort_direct=None, sort_key=None, type=None,
+                 version=None):
+        self.only_default = only_default  # type: bool
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
         self.sort_direct = sort_direct  # type: str
         self.sort_key = sort_key  # type: str
         self.type = type  # type: str
+        self.version = version  # type: str
 
     def validate(self):
         pass
@@ -10705,22 +12742,38 @@ class ListFoundationVersionsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.only_default is not None:
+            result['onlyDefault'] = self.only_default
+        if self.page_num is not None:
+            result['pageNum'] = self.page_num
+        if self.page_size is not None:
+            result['pageSize'] = self.page_size
         if self.sort_direct is not None:
             result['sortDirect'] = self.sort_direct
         if self.sort_key is not None:
             result['sortKey'] = self.sort_key
         if self.type is not None:
             result['type'] = self.type
+        if self.version is not None:
+            result['version'] = self.version
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('onlyDefault') is not None:
+            self.only_default = m.get('onlyDefault')
+        if m.get('pageNum') is not None:
+            self.page_num = m.get('pageNum')
+        if m.get('pageSize') is not None:
+            self.page_size = m.get('pageSize')
         if m.get('sortDirect') is not None:
             self.sort_direct = m.get('sortDirect')
         if m.get('sortKey') is not None:
             self.sort_key = m.get('sortKey')
         if m.get('type') is not None:
             self.type = m.get('type')
+        if m.get('version') is not None:
+            self.version = m.get('version')
         return self
 
 
@@ -10832,10 +12885,12 @@ class ListFoundationVersionsResponse(TeaModel):
 
 
 class ListProductComponentVersionsRequest(TeaModel):
-    def __init__(self, category=None, page_num=None, page_size=None, sort_direct=None, sort_key=None):
+    def __init__(self, category=None, page_num=None, page_size=None, release_name=None, sort_direct=None,
+                 sort_key=None):
         self.category = category  # type: str
         self.page_num = page_num  # type: str
         self.page_size = page_size  # type: str
+        self.release_name = release_name  # type: str
         self.sort_direct = sort_direct  # type: str
         self.sort_key = sort_key  # type: str
 
@@ -10854,6 +12909,8 @@ class ListProductComponentVersionsRequest(TeaModel):
             result['pageNum'] = self.page_num
         if self.page_size is not None:
             result['pageSize'] = self.page_size
+        if self.release_name is not None:
+            result['releaseName'] = self.release_name
         if self.sort_direct is not None:
             result['sortDirect'] = self.sort_direct
         if self.sort_key is not None:
@@ -10868,6 +12925,8 @@ class ListProductComponentVersionsRequest(TeaModel):
             self.page_num = m.get('pageNum')
         if m.get('pageSize') is not None:
             self.page_size = m.get('pageSize')
+        if m.get('releaseName') is not None:
+            self.release_name = m.get('releaseName')
         if m.get('sortDirect') is not None:
             self.sort_direct = m.get('sortDirect')
         if m.get('sortKey') is not None:
@@ -11706,12 +13765,15 @@ class ListProductFoundationReferencesResponse(TeaModel):
 
 
 class ListProductInstanceConfigsRequest(TeaModel):
-    def __init__(self, environment_uid=None, page_num=None, page_size=None, param_type=None,
-                 product_version_uid=None):
+    def __init__(self, component_release_name=None, environment_uid=None, fuzzy=None, page_num=None, page_size=None,
+                 param_type=None, parameter=None, product_version_uid=None):
+        self.component_release_name = component_release_name  # type: str
         self.environment_uid = environment_uid  # type: str
+        self.fuzzy = fuzzy  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
         self.param_type = param_type  # type: str
+        self.parameter = parameter  # type: str
         self.product_version_uid = product_version_uid  # type: str
 
     def validate(self):
@@ -11723,28 +13785,40 @@ class ListProductInstanceConfigsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.component_release_name is not None:
+            result['componentReleaseName'] = self.component_release_name
         if self.environment_uid is not None:
             result['environmentUID'] = self.environment_uid
+        if self.fuzzy is not None:
+            result['fuzzy'] = self.fuzzy
         if self.page_num is not None:
             result['pageNum'] = self.page_num
         if self.page_size is not None:
             result['pageSize'] = self.page_size
         if self.param_type is not None:
             result['paramType'] = self.param_type
+        if self.parameter is not None:
+            result['parameter'] = self.parameter
         if self.product_version_uid is not None:
             result['productVersionUID'] = self.product_version_uid
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('componentReleaseName') is not None:
+            self.component_release_name = m.get('componentReleaseName')
         if m.get('environmentUID') is not None:
             self.environment_uid = m.get('environmentUID')
+        if m.get('fuzzy') is not None:
+            self.fuzzy = m.get('fuzzy')
         if m.get('pageNum') is not None:
             self.page_num = m.get('pageNum')
         if m.get('pageSize') is not None:
             self.page_size = m.get('pageSize')
         if m.get('paramType') is not None:
             self.param_type = m.get('paramType')
+        if m.get('parameter') is not None:
+            self.parameter = m.get('parameter')
         if m.get('productVersionUID') is not None:
             self.product_version_uid = m.get('productVersionUID')
         return self
@@ -12017,8 +14091,8 @@ class ListProductInstancesRequest(TeaModel):
     def __init__(self, env_uid=None, options=None, page_num=None, page_size=None, product_version_uid=None):
         self.env_uid = env_uid  # type: str
         self.options = options  # type: ListProductInstancesRequestOptions
-        self.page_num = page_num  # type: str
-        self.page_size = page_size  # type: str
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
         self.product_version_uid = product_version_uid  # type: str
 
     def validate(self):
@@ -12063,8 +14137,8 @@ class ListProductInstancesShrinkRequest(TeaModel):
     def __init__(self, env_uid=None, options_shrink=None, page_num=None, page_size=None, product_version_uid=None):
         self.env_uid = env_uid  # type: str
         self.options_shrink = options_shrink  # type: str
-        self.page_num = page_num  # type: str
-        self.page_size = page_size  # type: str
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
         self.product_version_uid = product_version_uid  # type: str
 
     def validate(self):
@@ -12104,13 +14178,19 @@ class ListProductInstancesShrinkRequest(TeaModel):
 
 
 class ListProductInstancesResponseBodyDataList(TeaModel):
-    def __init__(self, continuous_deployment=None, product_name=None, product_version=None,
-                 product_version_uid=None, status=None, uid=None):
+    def __init__(self, cluster_uid=None, continuous_deployment=None, namespace=None, product_name=None,
+                 product_uid=None, product_version=None, product_version_spec_uid=None, product_version_uid=None, status=None,
+                 timeout=None, uid=None):
+        self.cluster_uid = cluster_uid  # type: str
         self.continuous_deployment = continuous_deployment  # type: bool
+        self.namespace = namespace  # type: str
         self.product_name = product_name  # type: str
+        self.product_uid = product_uid  # type: str
         self.product_version = product_version  # type: str
+        self.product_version_spec_uid = product_version_spec_uid  # type: str
         self.product_version_uid = product_version_uid  # type: str
         self.status = status  # type: str
+        self.timeout = timeout  # type: long
         self.uid = uid  # type: str
 
     def validate(self):
@@ -12122,40 +14202,63 @@ class ListProductInstancesResponseBodyDataList(TeaModel):
             return _map
 
         result = dict()
+        if self.cluster_uid is not None:
+            result['clusterUID'] = self.cluster_uid
         if self.continuous_deployment is not None:
             result['continuousDeployment'] = self.continuous_deployment
+        if self.namespace is not None:
+            result['namespace'] = self.namespace
         if self.product_name is not None:
             result['productName'] = self.product_name
+        if self.product_uid is not None:
+            result['productUID'] = self.product_uid
         if self.product_version is not None:
             result['productVersion'] = self.product_version
+        if self.product_version_spec_uid is not None:
+            result['productVersionSpecUID'] = self.product_version_spec_uid
         if self.product_version_uid is not None:
             result['productVersionUID'] = self.product_version_uid
         if self.status is not None:
             result['status'] = self.status
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
         if self.uid is not None:
             result['uid'] = self.uid
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('clusterUID') is not None:
+            self.cluster_uid = m.get('clusterUID')
         if m.get('continuousDeployment') is not None:
             self.continuous_deployment = m.get('continuousDeployment')
+        if m.get('namespace') is not None:
+            self.namespace = m.get('namespace')
         if m.get('productName') is not None:
             self.product_name = m.get('productName')
+        if m.get('productUID') is not None:
+            self.product_uid = m.get('productUID')
         if m.get('productVersion') is not None:
             self.product_version = m.get('productVersion')
+        if m.get('productVersionSpecUID') is not None:
+            self.product_version_spec_uid = m.get('productVersionSpecUID')
         if m.get('productVersionUID') is not None:
             self.product_version_uid = m.get('productVersionUID')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
         if m.get('uid') is not None:
             self.uid = m.get('uid')
         return self
 
 
 class ListProductInstancesResponseBodyData(TeaModel):
-    def __init__(self, list=None):
+    def __init__(self, list=None, page_num=None, page_size=None, total=None):
         self.list = list  # type: list[ListProductInstancesResponseBodyDataList]
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.total = total  # type: int
 
     def validate(self):
         if self.list:
@@ -12173,6 +14276,12 @@ class ListProductInstancesResponseBodyData(TeaModel):
         if self.list is not None:
             for k in self.list:
                 result['list'].append(k.to_map() if k else None)
+        if self.page_num is not None:
+            result['pageNum'] = self.page_num
+        if self.page_size is not None:
+            result['pageSize'] = self.page_size
+        if self.total is not None:
+            result['total'] = self.total
         return result
 
     def from_map(self, m=None):
@@ -12182,12 +14291,20 @@ class ListProductInstancesResponseBodyData(TeaModel):
             for k in m.get('list'):
                 temp_model = ListProductInstancesResponseBodyDataList()
                 self.list.append(temp_model.from_map(k))
+        if m.get('pageNum') is not None:
+            self.page_num = m.get('pageNum')
+        if m.get('pageSize') is not None:
+            self.page_size = m.get('pageSize')
+        if m.get('total') is not None:
+            self.total = m.get('total')
         return self
 
 
 class ListProductInstancesResponseBody(TeaModel):
-    def __init__(self, data=None):
+    def __init__(self, code=None, data=None, msg=None):
+        self.code = code  # type: str
         self.data = data  # type: ListProductInstancesResponseBodyData
+        self.msg = msg  # type: str
 
     def validate(self):
         if self.data:
@@ -12199,15 +14316,23 @@ class ListProductInstancesResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['code'] = self.code
         if self.data is not None:
             result['data'] = self.data.to_map()
+        if self.msg is not None:
+            result['msg'] = self.msg
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
         if m.get('data') is not None:
             temp_model = ListProductInstancesResponseBodyData()
             self.data = temp_model.from_map(m['data'])
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
         return self
 
 
@@ -12251,8 +14376,11 @@ class ListProductInstancesResponse(TeaModel):
 
 
 class ListProductVersionConfigsRequest(TeaModel):
-    def __init__(self, config_type=None, page_num=None, page_size=None, parameter=None, scope=None):
+    def __init__(self, component_release_name=None, config_type=None, fuzzy=None, page_num=None, page_size=None,
+                 parameter=None, scope=None):
+        self.component_release_name = component_release_name  # type: str
         self.config_type = config_type  # type: str
+        self.fuzzy = fuzzy  # type: str
         self.page_num = page_num  # type: str
         self.page_size = page_size  # type: str
         self.parameter = parameter  # type: str
@@ -12267,8 +14395,12 @@ class ListProductVersionConfigsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.component_release_name is not None:
+            result['componentReleaseName'] = self.component_release_name
         if self.config_type is not None:
             result['configType'] = self.config_type
+        if self.fuzzy is not None:
+            result['fuzzy'] = self.fuzzy
         if self.page_num is not None:
             result['pageNum'] = self.page_num
         if self.page_size is not None:
@@ -12281,8 +14413,12 @@ class ListProductVersionConfigsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('componentReleaseName') is not None:
+            self.component_release_name = m.get('componentReleaseName')
         if m.get('configType') is not None:
             self.config_type = m.get('configType')
+        if m.get('fuzzy') is not None:
+            self.fuzzy = m.get('fuzzy')
         if m.get('pageNum') is not None:
             self.page_num = m.get('pageNum')
         if m.get('pageSize') is not None:
@@ -12297,7 +14433,7 @@ class ListProductVersionConfigsRequest(TeaModel):
 class ListProductVersionConfigsResponseBodyDataList(TeaModel):
     def __init__(self, component_name=None, component_release_name=None, component_version_uid=None,
                  description=None, name=None, parent_component_name=None, parent_component_release_name=None,
-                 parent_component_version_uid=None, product_version_uid=None, uid=None, value=None):
+                 parent_component_version_uid=None, product_version_uid=None, scope=None, uid=None, value=None, value_type=None):
         self.component_name = component_name  # type: str
         self.component_release_name = component_release_name  # type: str
         self.component_version_uid = component_version_uid  # type: str
@@ -12307,8 +14443,10 @@ class ListProductVersionConfigsResponseBodyDataList(TeaModel):
         self.parent_component_release_name = parent_component_release_name  # type: str
         self.parent_component_version_uid = parent_component_version_uid  # type: str
         self.product_version_uid = product_version_uid  # type: str
+        self.scope = scope  # type: str
         self.uid = uid  # type: str
         self.value = value  # type: str
+        self.value_type = value_type  # type: str
 
     def validate(self):
         pass
@@ -12337,10 +14475,14 @@ class ListProductVersionConfigsResponseBodyDataList(TeaModel):
             result['parentComponentVersionUID'] = self.parent_component_version_uid
         if self.product_version_uid is not None:
             result['productVersionUID'] = self.product_version_uid
+        if self.scope is not None:
+            result['scope'] = self.scope
         if self.uid is not None:
             result['uid'] = self.uid
         if self.value is not None:
             result['value'] = self.value
+        if self.value_type is not None:
+            result['valueType'] = self.value_type
         return result
 
     def from_map(self, m=None):
@@ -12363,10 +14505,14 @@ class ListProductVersionConfigsResponseBodyDataList(TeaModel):
             self.parent_component_version_uid = m.get('parentComponentVersionUID')
         if m.get('productVersionUID') is not None:
             self.product_version_uid = m.get('productVersionUID')
+        if m.get('scope') is not None:
+            self.scope = m.get('scope')
         if m.get('uid') is not None:
             self.uid = m.get('uid')
         if m.get('value') is not None:
             self.value = m.get('value')
+        if m.get('valueType') is not None:
+            self.value_type = m.get('valueType')
         return self
 
 
@@ -12521,9 +14667,39 @@ class ListProductVersionsRequestPlatforms(TeaModel):
         return self
 
 
+class ListProductVersionsRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListProductVersionsRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
 class ListProductVersionsRequest(TeaModel):
-    def __init__(self, page_num=None, page_size=None, platforms=None, product_name=None, product_uid=None,
-                 released=None, supported_foundation_types=None, version=None):
+    def __init__(self, fuzzy=None, page_num=None, page_size=None, platforms=None, product_name=None,
+                 product_uid=None, released=None, supported_foundation_types=None, tag=None, version=None):
+        self.fuzzy = fuzzy  # type: str
         self.page_num = page_num  # type: str
         self.page_size = page_size  # type: str
         self.platforms = platforms  # type: list[ListProductVersionsRequestPlatforms]
@@ -12531,6 +14707,7 @@ class ListProductVersionsRequest(TeaModel):
         self.product_uid = product_uid  # type: str
         self.released = released  # type: bool
         self.supported_foundation_types = supported_foundation_types  # type: list[str]
+        self.tag = tag  # type: ListProductVersionsRequestTag
         self.version = version  # type: str
 
     def validate(self):
@@ -12538,6 +14715,8 @@ class ListProductVersionsRequest(TeaModel):
             for k in self.platforms:
                 if k:
                     k.validate()
+        if self.tag:
+            self.tag.validate()
 
     def to_map(self):
         _map = super(ListProductVersionsRequest, self).to_map()
@@ -12545,6 +14724,8 @@ class ListProductVersionsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.fuzzy is not None:
+            result['fuzzy'] = self.fuzzy
         if self.page_num is not None:
             result['pageNum'] = self.page_num
         if self.page_size is not None:
@@ -12561,12 +14742,16 @@ class ListProductVersionsRequest(TeaModel):
             result['released'] = self.released
         if self.supported_foundation_types is not None:
             result['supportedFoundationTypes'] = self.supported_foundation_types
+        if self.tag is not None:
+            result['tag'] = self.tag.to_map()
         if self.version is not None:
             result['version'] = self.version
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('fuzzy') is not None:
+            self.fuzzy = m.get('fuzzy')
         if m.get('pageNum') is not None:
             self.page_num = m.get('pageNum')
         if m.get('pageSize') is not None:
@@ -12584,14 +14769,18 @@ class ListProductVersionsRequest(TeaModel):
             self.released = m.get('released')
         if m.get('supportedFoundationTypes') is not None:
             self.supported_foundation_types = m.get('supportedFoundationTypes')
+        if m.get('tag') is not None:
+            temp_model = ListProductVersionsRequestTag()
+            self.tag = temp_model.from_map(m['tag'])
         if m.get('version') is not None:
             self.version = m.get('version')
         return self
 
 
 class ListProductVersionsShrinkRequest(TeaModel):
-    def __init__(self, page_num=None, page_size=None, platforms_shrink=None, product_name=None, product_uid=None,
-                 released=None, supported_foundation_types_shrink=None, version=None):
+    def __init__(self, fuzzy=None, page_num=None, page_size=None, platforms_shrink=None, product_name=None,
+                 product_uid=None, released=None, supported_foundation_types_shrink=None, tag_shrink=None, version=None):
+        self.fuzzy = fuzzy  # type: str
         self.page_num = page_num  # type: str
         self.page_size = page_size  # type: str
         self.platforms_shrink = platforms_shrink  # type: str
@@ -12599,6 +14788,7 @@ class ListProductVersionsShrinkRequest(TeaModel):
         self.product_uid = product_uid  # type: str
         self.released = released  # type: bool
         self.supported_foundation_types_shrink = supported_foundation_types_shrink  # type: str
+        self.tag_shrink = tag_shrink  # type: str
         self.version = version  # type: str
 
     def validate(self):
@@ -12610,6 +14800,8 @@ class ListProductVersionsShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.fuzzy is not None:
+            result['fuzzy'] = self.fuzzy
         if self.page_num is not None:
             result['pageNum'] = self.page_num
         if self.page_size is not None:
@@ -12624,12 +14816,16 @@ class ListProductVersionsShrinkRequest(TeaModel):
             result['released'] = self.released
         if self.supported_foundation_types_shrink is not None:
             result['supportedFoundationTypes'] = self.supported_foundation_types_shrink
+        if self.tag_shrink is not None:
+            result['tag'] = self.tag_shrink
         if self.version is not None:
             result['version'] = self.version
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('fuzzy') is not None:
+            self.fuzzy = m.get('fuzzy')
         if m.get('pageNum') is not None:
             self.page_num = m.get('pageNum')
         if m.get('pageSize') is not None:
@@ -12644,6 +14840,8 @@ class ListProductVersionsShrinkRequest(TeaModel):
             self.released = m.get('released')
         if m.get('supportedFoundationTypes') is not None:
             self.supported_foundation_types_shrink = m.get('supportedFoundationTypes')
+        if m.get('tag') is not None:
+            self.tag_shrink = m.get('tag')
         if m.get('version') is not None:
             self.version = m.get('version')
         return self
@@ -12683,21 +14881,56 @@ class ListProductVersionsResponseBodyDataListAnnotations(TeaModel):
         return self
 
 
+class ListProductVersionsResponseBodyDataListTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListProductVersionsResponseBodyDataListTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
 class ListProductVersionsResponseBodyDataList(TeaModel):
     def __init__(self, annotations=None, description=None, package_url=None, product_name=None, product_uid=None,
-                 provider=None, uid=None, version=None):
+                 provider=None, released_at=None, tags=None, uid=None, version=None):
         self.annotations = annotations  # type: ListProductVersionsResponseBodyDataListAnnotations
         self.description = description  # type: str
         self.package_url = package_url  # type: str
         self.product_name = product_name  # type: str
         self.product_uid = product_uid  # type: str
         self.provider = provider  # type: str
+        self.released_at = released_at  # type: str
+        self.tags = tags  # type: list[ListProductVersionsResponseBodyDataListTags]
         self.uid = uid  # type: str
         self.version = version  # type: str
 
     def validate(self):
         if self.annotations:
             self.annotations.validate()
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ListProductVersionsResponseBodyDataList, self).to_map()
@@ -12717,6 +14950,12 @@ class ListProductVersionsResponseBodyDataList(TeaModel):
             result['productUID'] = self.product_uid
         if self.provider is not None:
             result['provider'] = self.provider
+        if self.released_at is not None:
+            result['releasedAt'] = self.released_at
+        result['tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['tags'].append(k.to_map() if k else None)
         if self.uid is not None:
             result['uid'] = self.uid
         if self.version is not None:
@@ -12738,6 +14977,13 @@ class ListProductVersionsResponseBodyDataList(TeaModel):
             self.product_uid = m.get('productUID')
         if m.get('provider') is not None:
             self.provider = m.get('provider')
+        if m.get('releasedAt') is not None:
+            self.released_at = m.get('releasedAt')
+        self.tags = []
+        if m.get('tags') is not None:
+            for k in m.get('tags'):
+                temp_model = ListProductVersionsResponseBodyDataListTags()
+                self.tags.append(temp_model.from_map(k))
         if m.get('uid') is not None:
             self.uid = m.get('uid')
         if m.get('version') is not None:
@@ -12868,7 +15114,8 @@ class ListProductVersionsResponse(TeaModel):
 
 
 class ListProductsRequest(TeaModel):
-    def __init__(self, fuzzy=None, name=None, page_num=None, page_size=None):
+    def __init__(self, description=None, fuzzy=None, name=None, page_num=None, page_size=None):
+        self.description = description  # type: str
         self.fuzzy = fuzzy  # type: str
         self.name = name  # type: str
         self.page_num = page_num  # type: int
@@ -12883,6 +15130,8 @@ class ListProductsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.description is not None:
+            result['description'] = self.description
         if self.fuzzy is not None:
             result['fuzzy'] = self.fuzzy
         if self.name is not None:
@@ -12895,6 +15144,8 @@ class ListProductsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('description') is not None:
+            self.description = m.get('description')
         if m.get('fuzzy') is not None:
             self.fuzzy = m.get('fuzzy')
         if m.get('name') is not None:
@@ -13708,6 +15959,326 @@ class SetEnvironmentFoundationReferenceResponse(TeaModel):
         return self
 
 
+class UpdateDeliverableRequestFoundation(TeaModel):
+    def __init__(self, cluster_config=None, foundation_reference_uid=None, foundation_version=None,
+                 foundation_version_uid=None, reusable=None):
+        self.cluster_config = cluster_config  # type: str
+        self.foundation_reference_uid = foundation_reference_uid  # type: str
+        self.foundation_version = foundation_version  # type: str
+        self.foundation_version_uid = foundation_version_uid  # type: str
+        self.reusable = reusable  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDeliverableRequestFoundation, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_config is not None:
+            result['clusterConfig'] = self.cluster_config
+        if self.foundation_reference_uid is not None:
+            result['foundationReferenceUID'] = self.foundation_reference_uid
+        if self.foundation_version is not None:
+            result['foundationVersion'] = self.foundation_version
+        if self.foundation_version_uid is not None:
+            result['foundationVersionUID'] = self.foundation_version_uid
+        if self.reusable is not None:
+            result['reusable'] = self.reusable
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('clusterConfig') is not None:
+            self.cluster_config = m.get('clusterConfig')
+        if m.get('foundationReferenceUID') is not None:
+            self.foundation_reference_uid = m.get('foundationReferenceUID')
+        if m.get('foundationVersion') is not None:
+            self.foundation_version = m.get('foundationVersion')
+        if m.get('foundationVersionUID') is not None:
+            self.foundation_version_uid = m.get('foundationVersionUID')
+        if m.get('reusable') is not None:
+            self.reusable = m.get('reusable')
+        return self
+
+
+class UpdateDeliverableRequestProducts(TeaModel):
+    def __init__(self, namespace=None, product_name=None, product_type=None, product_uid=None, product_version=None,
+                 product_version_spec_name=None, product_version_spec_uid=None, product_version_uid=None):
+        self.namespace = namespace  # type: str
+        self.product_name = product_name  # type: str
+        self.product_type = product_type  # type: str
+        self.product_uid = product_uid  # type: str
+        self.product_version = product_version  # type: str
+        self.product_version_spec_name = product_version_spec_name  # type: str
+        self.product_version_spec_uid = product_version_spec_uid  # type: str
+        self.product_version_uid = product_version_uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDeliverableRequestProducts, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.namespace is not None:
+            result['namespace'] = self.namespace
+        if self.product_name is not None:
+            result['productName'] = self.product_name
+        if self.product_type is not None:
+            result['productType'] = self.product_type
+        if self.product_uid is not None:
+            result['productUID'] = self.product_uid
+        if self.product_version is not None:
+            result['productVersion'] = self.product_version
+        if self.product_version_spec_name is not None:
+            result['productVersionSpecName'] = self.product_version_spec_name
+        if self.product_version_spec_uid is not None:
+            result['productVersionSpecUID'] = self.product_version_spec_uid
+        if self.product_version_uid is not None:
+            result['productVersionUID'] = self.product_version_uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('namespace') is not None:
+            self.namespace = m.get('namespace')
+        if m.get('productName') is not None:
+            self.product_name = m.get('productName')
+        if m.get('productType') is not None:
+            self.product_type = m.get('productType')
+        if m.get('productUID') is not None:
+            self.product_uid = m.get('productUID')
+        if m.get('productVersion') is not None:
+            self.product_version = m.get('productVersion')
+        if m.get('productVersionSpecName') is not None:
+            self.product_version_spec_name = m.get('productVersionSpecName')
+        if m.get('productVersionSpecUID') is not None:
+            self.product_version_spec_uid = m.get('productVersionSpecUID')
+        if m.get('productVersionUID') is not None:
+            self.product_version_uid = m.get('productVersionUID')
+        return self
+
+
+class UpdateDeliverableRequest(TeaModel):
+    def __init__(self, foundation=None, products=None, status=None):
+        self.foundation = foundation  # type: UpdateDeliverableRequestFoundation
+        self.products = products  # type: list[UpdateDeliverableRequestProducts]
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.foundation:
+            self.foundation.validate()
+        if self.products:
+            for k in self.products:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateDeliverableRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.foundation is not None:
+            result['foundation'] = self.foundation.to_map()
+        result['products'] = []
+        if self.products is not None:
+            for k in self.products:
+                result['products'].append(k.to_map() if k else None)
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('foundation') is not None:
+            temp_model = UpdateDeliverableRequestFoundation()
+            self.foundation = temp_model.from_map(m['foundation'])
+        self.products = []
+        if m.get('products') is not None:
+            for k in m.get('products'):
+                temp_model = UpdateDeliverableRequestProducts()
+                self.products.append(temp_model.from_map(k))
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class UpdateDeliverableResponseBody(TeaModel):
+    def __init__(self, code=None, msg=None):
+        self.code = code  # type: str
+        self.msg = msg  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDeliverableResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.msg is not None:
+            result['msg'] = self.msg
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        return self
+
+
+class UpdateDeliverableResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateDeliverableResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateDeliverableResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateDeliverableResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateDeliveryInstanceRequest(TeaModel):
+    def __init__(self, deliverable_config_uid=None, deliverable_uid=None, desc=None):
+        self.deliverable_config_uid = deliverable_config_uid  # type: str
+        self.deliverable_uid = deliverable_uid  # type: str
+        self.desc = desc  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDeliveryInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deliverable_config_uid is not None:
+            result['deliverableConfigUID'] = self.deliverable_config_uid
+        if self.deliverable_uid is not None:
+            result['deliverableUID'] = self.deliverable_uid
+        if self.desc is not None:
+            result['desc'] = self.desc
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('deliverableConfigUID') is not None:
+            self.deliverable_config_uid = m.get('deliverableConfigUID')
+        if m.get('deliverableUID') is not None:
+            self.deliverable_uid = m.get('deliverableUID')
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        return self
+
+
+class UpdateDeliveryInstanceResponseBody(TeaModel):
+    def __init__(self, code=None, msg=None):
+        self.code = code  # type: str
+        self.msg = msg  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDeliveryInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.msg is not None:
+            result['msg'] = self.msg
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        return self
+
+
+class UpdateDeliveryInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateDeliveryInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateDeliveryInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateDeliveryInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateEnvironmentRequestAdvancedConfigs(TeaModel):
     def __init__(self, enable_deploy_simulation=None, enable_site_survey=None):
         self.enable_deploy_simulation = enable_deploy_simulation  # type: bool
@@ -14471,13 +17042,17 @@ class UpdateProductComponentVersionRequestPolicy(TeaModel):
 
 
 class UpdateProductComponentVersionRequest(TeaModel):
-    def __init__(self, component_orchestration_values=None, enable=None, new_component_version_uid=None,
-                 policy=None, release_name=None):
+    def __init__(self, component_orchestration_values=None, component_specification_uid=None,
+                 component_specification_values=None, enable=None, new_component_version_uid=None, policy=None, release_name=None,
+                 unset_component_version_spec=None):
         self.component_orchestration_values = component_orchestration_values  # type: str
+        self.component_specification_uid = component_specification_uid  # type: str
+        self.component_specification_values = component_specification_values  # type: str
         self.enable = enable  # type: bool
         self.new_component_version_uid = new_component_version_uid  # type: str
         self.policy = policy  # type: UpdateProductComponentVersionRequestPolicy
         self.release_name = release_name  # type: str
+        self.unset_component_version_spec = unset_component_version_spec  # type: bool
 
     def validate(self):
         if self.policy:
@@ -14491,6 +17066,10 @@ class UpdateProductComponentVersionRequest(TeaModel):
         result = dict()
         if self.component_orchestration_values is not None:
             result['componentOrchestrationValues'] = self.component_orchestration_values
+        if self.component_specification_uid is not None:
+            result['componentSpecificationUid'] = self.component_specification_uid
+        if self.component_specification_values is not None:
+            result['componentSpecificationValues'] = self.component_specification_values
         if self.enable is not None:
             result['enable'] = self.enable
         if self.new_component_version_uid is not None:
@@ -14499,12 +17078,18 @@ class UpdateProductComponentVersionRequest(TeaModel):
             result['policy'] = self.policy.to_map()
         if self.release_name is not None:
             result['releaseName'] = self.release_name
+        if self.unset_component_version_spec is not None:
+            result['unsetComponentVersionSpec'] = self.unset_component_version_spec
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('componentOrchestrationValues') is not None:
             self.component_orchestration_values = m.get('componentOrchestrationValues')
+        if m.get('componentSpecificationUid') is not None:
+            self.component_specification_uid = m.get('componentSpecificationUid')
+        if m.get('componentSpecificationValues') is not None:
+            self.component_specification_values = m.get('componentSpecificationValues')
         if m.get('enable') is not None:
             self.enable = m.get('enable')
         if m.get('newComponentVersionUID') is not None:
@@ -14514,6 +17099,8 @@ class UpdateProductComponentVersionRequest(TeaModel):
             self.policy = temp_model.from_map(m['policy'])
         if m.get('releaseName') is not None:
             self.release_name = m.get('releaseName')
+        if m.get('unsetComponentVersionSpec') is not None:
+            self.unset_component_version_spec = m.get('unsetComponentVersionSpec')
         return self
 
 
@@ -14709,9 +17296,13 @@ class UpdateProductFoundationVersionResponse(TeaModel):
 
 
 class UpdateProductVersionRequest(TeaModel):
-    def __init__(self, continuous_integration=None, description=None, version=None):
+    def __init__(self, action=None, continuous_integration=None, description=None, entry=None, timeout=None,
+                 version=None):
+        self.action = action  # type: str
         self.continuous_integration = continuous_integration  # type: bool
         self.description = description  # type: str
+        self.entry = entry  # type: str
+        self.timeout = timeout  # type: long
         self.version = version  # type: str
 
     def validate(self):
@@ -14723,20 +17314,32 @@ class UpdateProductVersionRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.action is not None:
+            result['action'] = self.action
         if self.continuous_integration is not None:
             result['continuousIntegration'] = self.continuous_integration
         if self.description is not None:
             result['description'] = self.description
+        if self.entry is not None:
+            result['entry'] = self.entry
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
         if self.version is not None:
             result['version'] = self.version
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('action') is not None:
+            self.action = m.get('action')
         if m.get('continuousIntegration') is not None:
             self.continuous_integration = m.get('continuousIntegration')
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('entry') is not None:
+            self.entry = m.get('entry')
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
         if m.get('version') is not None:
             self.version = m.get('version')
         return self

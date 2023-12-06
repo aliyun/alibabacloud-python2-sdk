@@ -31,11 +31,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def add_environment_nodes(self, uid, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.add_environment_nodes_with_options(uid, request, headers, runtime)
-
     def add_environment_nodes_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -89,10 +84,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def add_environment_product_versions(self, uid, request):
+    def add_environment_nodes(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.add_environment_product_versions_with_options(uid, request, headers, runtime)
+        return self.add_environment_nodes_with_options(uid, request, headers, runtime)
 
     def add_environment_product_versions_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -121,14 +116,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def add_product_component_version(self, uid, component_version_uid, request):
+    def add_environment_product_versions(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.add_product_component_version_with_options(uid, component_version_uid, request, headers, runtime)
+        return self.add_environment_product_versions_with_options(uid, request, headers, runtime)
 
     def add_product_component_version_with_options(self, uid, component_version_uid, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.component_version_spec_uid):
+            body['componentVersionSpecUID'] = request.component_version_spec_uid
+        if not UtilClient.is_unset(request.component_version_spec_values):
+            body['componentVersionSpecValues'] = request.component_version_spec_values
         if not UtilClient.is_unset(request.release_name):
             body['releaseName'] = request.release_name
         req = open_api_models.OpenApiRequest(
@@ -151,10 +150,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def add_product_version_config(self, uid, request):
+    def add_product_component_version(self, uid, component_version_uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.add_product_version_config_with_options(uid, request, headers, runtime)
+        return self.add_product_component_version_with_options(uid, component_version_uid, request, headers, runtime)
 
     def add_product_version_config_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -197,10 +196,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def add_resource_snapshot(self, request):
+    def add_product_version_config(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.add_resource_snapshot_with_options(request, headers, runtime)
+        return self.add_product_version_config_with_options(uid, request, headers, runtime)
 
     def add_resource_snapshot_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -233,10 +232,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_add_environment_nodes(self, uid, request):
+    def add_resource_snapshot(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_add_environment_nodes_with_options(uid, request, headers, runtime)
+        return self.add_resource_snapshot_with_options(request, headers, runtime)
 
     def batch_add_environment_nodes_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -265,10 +264,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_add_product_version_config(self, uid, request):
+    def batch_add_environment_nodes(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_add_product_version_config_with_options(uid, request, headers, runtime)
+        return self.batch_add_environment_nodes_with_options(uid, request, headers, runtime)
 
     def batch_add_product_version_config_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -295,16 +294,134 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_environment(self, request):
+    def batch_add_product_version_config(self, uid, request):
         runtime = util_models.RuntimeOptions()
-        headers = adp_20210720_models.CreateEnvironmentHeaders()
-        return self.create_environment_with_options(request, headers, runtime)
+        headers = {}
+        return self.batch_add_product_version_config_with_options(uid, request, headers, runtime)
+
+    def create_deliverable_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.foundation):
+            body['foundation'] = request.foundation
+        if not UtilClient.is_unset(request.products):
+            body['products'] = request.products
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDeliverable',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/delivery/deliverables',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.CreateDeliverableResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_deliverable(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_deliverable_with_options(request, headers, runtime)
+
+    def create_delivery_instance_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cluster_uid):
+            body['clusterUID'] = request.cluster_uid
+        if not UtilClient.is_unset(request.deliverable_config_uid):
+            body['deliverableConfigUID'] = request.deliverable_config_uid
+        if not UtilClient.is_unset(request.deliverable_uid):
+            body['deliverableUID'] = request.deliverable_uid
+        if not UtilClient.is_unset(request.env_uid):
+            body['envUID'] = request.env_uid
+        if not UtilClient.is_unset(request.foundation):
+            body['foundation'] = request.foundation
+        if not UtilClient.is_unset(request.products):
+            body['products'] = request.products
+        if not UtilClient.is_unset(request.template_uid):
+            body['templateUID'] = request.template_uid
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDeliveryInstance',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/delivery/delivery-instances',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.CreateDeliveryInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_delivery_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_delivery_instance_with_options(request, headers, runtime)
+
+    def create_delivery_package_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.deliverable_uid):
+            body['deliverableUID'] = request.deliverable_uid
+        if not UtilClient.is_unset(request.delivery_instance_uid):
+            body['deliveryInstanceUID'] = request.delivery_instance_uid
+        if not UtilClient.is_unset(request.origin_deliverable_uid):
+            body['originDeliverableUID'] = request.origin_deliverable_uid
+        if not UtilClient.is_unset(request.package_content_type):
+            body['packageContentType'] = request.package_content_type
+        if not UtilClient.is_unset(request.package_type):
+            body['packageType'] = request.package_type
+        if not UtilClient.is_unset(request.platform):
+            body['platform'] = request.platform
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDeliveryPackage',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/delivery/delivery-packages',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.CreateDeliveryPackageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_delivery_package(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_delivery_package_with_options(request, headers, runtime)
 
     def create_environment_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.annotations):
+            body['annotations'] = request.annotations
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
+        if not UtilClient.is_unset(request.expired_at):
+            body['expiredAt'] = request.expired_at
         if not UtilClient.is_unset(request.location):
             body['location'] = request.location
         if not UtilClient.is_unset(request.name):
@@ -346,10 +463,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_environment_license(self, uid, request):
+    def create_environment(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_environment_license_with_options(uid, request, headers, runtime)
+        headers = adp_20210720_models.CreateEnvironmentHeaders()
+        return self.create_environment_with_options(request, headers, runtime)
 
     def create_environment_license_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -360,6 +477,8 @@ class Client(OpenApiClient):
             body['contact'] = request.contact
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
+        if not UtilClient.is_unset(request.expire_time):
+            body['expireTime'] = request.expire_time
         if not UtilClient.is_unset(request.license_quota):
             body['licenseQuota'] = request.license_quota
         if not UtilClient.is_unset(request.machine_fingerprint):
@@ -394,18 +513,24 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_foundation_reference(self, request):
+    def create_environment_license(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_foundation_reference_with_options(request, headers, runtime)
+        return self.create_environment_license_with_options(uid, request, headers, runtime)
 
     def create_foundation_reference_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.cluster_config):
             body['clusterConfig'] = request.cluster_config
+        if not UtilClient.is_unset(request.component_configs):
+            body['componentConfigs'] = request.component_configs
+        if not UtilClient.is_unset(request.foundation_reference_configs):
+            body['foundationReferenceConfigs'] = request.foundation_reference_configs
         if not UtilClient.is_unset(request.foundation_version_uid):
             body['foundationVersionUID'] = request.foundation_version_uid
+        if not UtilClient.is_unset(request.origin_foundation_reference_uid):
+            body['originFoundationReferenceUID'] = request.origin_foundation_reference_uid
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -426,10 +551,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_product(self, request):
+    def create_foundation_reference(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = adp_20210720_models.CreateProductHeaders()
-        return self.create_product_with_options(request, headers, runtime)
+        headers = {}
+        return self.create_foundation_reference_with_options(request, headers, runtime)
 
     def create_product_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -446,6 +571,8 @@ class Client(OpenApiClient):
             body['productName'] = request.product_name
         if not UtilClient.is_unset(request.vendor):
             body['vendor'] = request.vendor
+        if not UtilClient.is_unset(request.without_product_version):
+            body['withoutProductVersion'] = request.without_product_version
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -471,10 +598,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_product_deployment(self, request):
+    def create_product(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_product_deployment_with_options(request, headers, runtime)
+        headers = adp_20210720_models.CreateProductHeaders()
+        return self.create_product_with_options(request, headers, runtime)
 
     def create_product_deployment_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -491,6 +618,8 @@ class Client(OpenApiClient):
             body['packageUID'] = request.package_uid
         if not UtilClient.is_unset(request.product_version_uid):
             body['productVersionUID'] = request.product_version_uid
+        if not UtilClient.is_unset(request.timeout):
+            body['timeout'] = request.timeout
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -511,19 +640,25 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_product_version(self, uid, request):
+    def create_product_deployment(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_product_version_with_options(uid, request, headers, runtime)
+        return self.create_product_deployment_with_options(request, headers, runtime)
 
     def create_product_version_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.base_product_version_uid):
             query['baseProductVersionUID'] = request.base_product_version_uid
+        body = {}
+        if not UtilClient.is_unset(request.version):
+            body['version'] = request.version
+        if not UtilClient.is_unset(request.without_base_product_version):
+            body['withoutBaseProductVersion'] = request.without_base_product_version
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateProductVersion',
@@ -541,12 +676,25 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_product_version_package(self, uid, request):
+    def create_product_version(self, uid, request):
         runtime = util_models.RuntimeOptions()
-        headers = adp_20210720_models.CreateProductVersionPackageHeaders()
-        return self.create_product_version_package_with_options(uid, request, headers, runtime)
+        headers = {}
+        return self.create_product_version_with_options(uid, request, headers, runtime)
 
     def create_product_version_package_with_options(self, uid, request, headers, runtime):
+        """
+        @deprecated
+        
+
+        @param request: CreateProductVersionPackageRequest
+
+        @param headers: CreateProductVersionPackageHeaders
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateProductVersionPackageResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_engine_type):
@@ -590,10 +738,19 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_environment(self, uid):
+    def create_product_version_package(self, uid, request):
+        """
+        @deprecated
+        
+
+        @param request: CreateProductVersionPackageRequest
+
+        @return: CreateProductVersionPackageResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.delete_environment_with_options(uid, headers, runtime)
+        headers = adp_20210720_models.CreateProductVersionPackageHeaders()
+        return self.create_product_version_package_with_options(uid, request, headers, runtime)
 
     def delete_environment_with_options(self, uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -615,10 +772,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_environment_license(self, uid, license_uid):
+    def delete_environment(self, uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_environment_license_with_options(uid, license_uid, headers, runtime)
+        return self.delete_environment_with_options(uid, headers, runtime)
 
     def delete_environment_license_with_options(self, uid, license_uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -640,10 +797,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_environment_node(self, uid, node_uid):
+    def delete_environment_license(self, uid, license_uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_environment_node_with_options(uid, node_uid, headers, runtime)
+        return self.delete_environment_license_with_options(uid, license_uid, headers, runtime)
 
     def delete_environment_node_with_options(self, uid, node_uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -665,10 +822,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_environment_product_version(self, uid, product_version_uid):
+    def delete_environment_node(self, uid, node_uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_environment_product_version_with_options(uid, product_version_uid, headers, runtime)
+        return self.delete_environment_node_with_options(uid, node_uid, headers, runtime)
 
     def delete_environment_product_version_with_options(self, uid, product_version_uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -690,10 +847,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_product(self, uid):
+    def delete_environment_product_version(self, uid, product_version_uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_product_with_options(uid, headers, runtime)
+        return self.delete_environment_product_version_with_options(uid, product_version_uid, headers, runtime)
 
     def delete_product_with_options(self, uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -715,10 +872,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_product_component_version(self, uid, relation_uid):
+    def delete_product(self, uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_product_component_version_with_options(uid, relation_uid, headers, runtime)
+        return self.delete_product_with_options(uid, headers, runtime)
 
     def delete_product_component_version_with_options(self, uid, relation_uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -740,10 +897,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_product_instance_config(self, config_uid, request):
+    def delete_product_component_version(self, uid, relation_uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_product_instance_config_with_options(config_uid, request, headers, runtime)
+        return self.delete_product_component_version_with_options(uid, relation_uid, headers, runtime)
 
     def delete_product_instance_config_with_options(self, config_uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -772,10 +929,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_product_version(self, uid):
+    def delete_product_instance_config(self, config_uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_product_version_with_options(uid, headers, runtime)
+        return self.delete_product_instance_config_with_options(config_uid, request, headers, runtime)
 
     def delete_product_version_with_options(self, uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -797,10 +954,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_product_version_config(self, uid, config_uid):
+    def delete_product_version(self, uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_product_version_config_with_options(uid, config_uid, headers, runtime)
+        return self.delete_product_version_with_options(uid, headers, runtime)
 
     def delete_product_version_config_with_options(self, uid, config_uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -822,16 +979,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def generate_product_instance_deployment_config(self, request):
+    def delete_product_version_config(self, uid, config_uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.generate_product_instance_deployment_config_with_options(request, headers, runtime)
+        return self.delete_product_version_config_with_options(uid, config_uid, headers, runtime)
 
     def generate_product_instance_deployment_config_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.environment_uid):
             body['environmentUID'] = request.environment_uid
+        if not UtilClient.is_unset(request.package_content_type):
+            body['packageContentType'] = request.package_content_type
         if not UtilClient.is_unset(request.package_uid):
             body['packageUID'] = request.package_uid
         if not UtilClient.is_unset(request.product_version_uid):
@@ -858,10 +1017,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_component(self, uid):
+    def generate_product_instance_deployment_config(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_component_with_options(uid, headers, runtime)
+        return self.generate_product_instance_deployment_config_with_options(request, headers, runtime)
 
     def get_component_with_options(self, uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -883,10 +1042,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_component_version(self, uid, version_uid, request):
+    def get_component(self, uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_component_version_with_options(uid, version_uid, request, headers, runtime)
+        return self.get_component_with_options(uid, headers, runtime)
 
     def get_component_version_with_options(self, uid, version_uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -913,17 +1072,67 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_environment(self, uid, request):
+    def get_component_version(self, uid, version_uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_environment_with_options(uid, request, headers, runtime)
+        return self.get_component_version_with_options(uid, version_uid, request, headers, runtime)
+
+    def get_deliverable_with_options(self, uid, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetDeliverable',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/delivery/deliverables/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.GetDeliverableResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_deliverable(self, uid):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_deliverable_with_options(uid, headers, runtime)
+
+    def get_delivery_package_with_options(self, uid, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetDeliveryPackage',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/delivery/delivery-packages/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.GetDeliveryPackageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_delivery_package(self, uid):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_delivery_package_with_options(uid, headers, runtime)
 
     def get_environment_with_options(self, uid, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = adp_20210720_models.GetEnvironmentShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.options):
-            request.options_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.options), 'options', 'json')
+            request.options_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.options, 'options', 'json')
         query = {}
         if not UtilClient.is_unset(request.options_shrink):
             query['options'] = request.options_shrink
@@ -947,17 +1156,49 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_environment_license(self, uid, license_uid, request):
+    def get_environment(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_environment_license_with_options(uid, license_uid, request, headers, runtime)
+        return self.get_environment_with_options(uid, request, headers, runtime)
+
+    def get_environment_delivery_instance_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_uid):
+            query['clusterUID'] = request.cluster_uid
+        if not UtilClient.is_unset(request.env_uid):
+            query['envUID'] = request.env_uid
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetEnvironmentDeliveryInstance',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/delivery/delivery-instances',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.GetEnvironmentDeliveryInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_environment_delivery_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_environment_delivery_instance_with_options(request, headers, runtime)
 
     def get_environment_license_with_options(self, uid, license_uid, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = adp_20210720_models.GetEnvironmentLicenseShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.options):
-            request.options_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.options), 'options', 'json')
+            request.options_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.options, 'options', 'json')
         query = {}
         if not UtilClient.is_unset(request.options_shrink):
             query['options'] = request.options_shrink
@@ -981,10 +1222,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_environment_node(self, uid, node_uid):
+    def get_environment_license(self, uid, license_uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_environment_node_with_options(uid, node_uid, headers, runtime)
+        return self.get_environment_license_with_options(uid, license_uid, request, headers, runtime)
 
     def get_environment_node_with_options(self, uid, node_uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1006,10 +1247,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_foundation_component_reference(self, component_reference_uid, uid):
+    def get_environment_node(self, uid, node_uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_foundation_component_reference_with_options(component_reference_uid, uid, headers, runtime)
+        return self.get_environment_node_with_options(uid, node_uid, headers, runtime)
 
     def get_foundation_component_reference_with_options(self, component_reference_uid, uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1031,10 +1272,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_foundation_reference(self, uid):
+    def get_foundation_component_reference(self, component_reference_uid, uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_foundation_reference_with_options(uid, headers, runtime)
+        return self.get_foundation_component_reference_with_options(component_reference_uid, uid, headers, runtime)
 
     def get_foundation_reference_with_options(self, uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1056,10 +1297,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_foundation_version(self, uid):
+    def get_foundation_reference(self, uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_foundation_version_with_options(uid, headers, runtime)
+        return self.get_foundation_reference_with_options(uid, headers, runtime)
 
     def get_foundation_version_with_options(self, uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1081,10 +1322,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_product(self, uid, request):
+    def get_foundation_version(self, uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_product_with_options(uid, request, headers, runtime)
+        return self.get_foundation_version_with_options(uid, headers, runtime)
 
     def get_product_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1111,10 +1352,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_product_component_version(self, relation_uid, uid):
+    def get_product(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_product_component_version_with_options(relation_uid, uid, headers, runtime)
+        return self.get_product_with_options(uid, request, headers, runtime)
 
     def get_product_component_version_with_options(self, relation_uid, uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1136,10 +1377,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_product_deployment(self, deployment_uid, request):
+    def get_product_component_version(self, relation_uid, uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_product_deployment_with_options(deployment_uid, request, headers, runtime)
+        return self.get_product_component_version_with_options(relation_uid, uid, headers, runtime)
 
     def get_product_deployment_with_options(self, deployment_uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1170,10 +1411,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_product_version(self, uid, request):
+    def get_product_deployment(self, deployment_uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_product_version_with_options(uid, request, headers, runtime)
+        return self.get_product_deployment_with_options(deployment_uid, request, headers, runtime)
 
     def get_product_version_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1202,10 +1443,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_product_version_differences(self, uid, version_uid, request):
+    def get_product_version(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_product_version_differences_with_options(uid, version_uid, request, headers, runtime)
+        return self.get_product_version_with_options(uid, request, headers, runtime)
 
     def get_product_version_differences_with_options(self, uid, version_uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1232,10 +1473,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_product_version_package(self, uid, request):
+    def get_product_version_differences(self, uid, version_uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_product_version_package_with_options(uid, request, headers, runtime)
+        return self.get_product_version_differences_with_options(uid, version_uid, request, headers, runtime)
 
     def get_product_version_package_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1276,10 +1517,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_resource_snapshot(self, request):
+    def get_product_version_package(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_resource_snapshot_with_options(request, headers, runtime)
+        return self.get_product_version_package_with_options(uid, request, headers, runtime)
 
     def get_resource_snapshot_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1308,10 +1549,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_workflow_status(self, request):
+    def get_resource_snapshot(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_workflow_status_with_options(request, headers, runtime)
+        return self.get_resource_snapshot_with_options(request, headers, runtime)
 
     def get_workflow_status_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1340,10 +1581,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def init_environment_resource(self, uid, request):
+    def get_workflow_status(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.init_environment_resource_with_options(uid, request, headers, runtime)
+        return self.get_workflow_status_with_options(request, headers, runtime)
 
     def init_environment_resource_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1374,10 +1615,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_component_versions(self, uid, request):
+    def init_environment_resource(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_component_versions_with_options(uid, request, headers, runtime)
+        return self.init_environment_resource_with_options(uid, request, headers, runtime)
 
     def list_component_versions_with_options(self, uid, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1392,6 +1633,8 @@ class Client(OpenApiClient):
             query['pageSize'] = request.page_size
         if not UtilClient.is_unset(request.platforms_shrink):
             query['platforms'] = request.platforms_shrink
+        if not UtilClient.is_unset(request.version):
+            query['version'] = request.version
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1412,10 +1655,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_components(self, request):
+    def list_component_versions(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_components_with_options(request, headers, runtime)
+        return self.list_component_versions_with_options(uid, request, headers, runtime)
 
     def list_components_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1452,10 +1695,67 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_environment_licenses(self, uid, request):
+    def list_components(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_environment_licenses_with_options(uid, request, headers, runtime)
+        return self.list_components_with_options(request, headers, runtime)
+
+    def list_delivery_instance_change_records_with_options(self, uid, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListDeliveryInstanceChangeRecords',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/delivery/delivery-instances/%s/delivery-records' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.ListDeliveryInstanceChangeRecordsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_delivery_instance_change_records(self, uid):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_delivery_instance_change_records_with_options(uid, headers, runtime)
+
+    def list_delivery_package_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.deliverable_uid):
+            query['deliverableUID'] = request.deliverable_uid
+        if not UtilClient.is_unset(request.platform):
+            query['platform'] = request.platform
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDeliveryPackage',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/delivery/delivery-packages',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.ListDeliveryPackageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_delivery_package(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_delivery_package_with_options(request, headers, runtime)
 
     def list_environment_licenses_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1488,10 +1788,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_environment_nodes(self, uid, request):
+    def list_environment_licenses(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_environment_nodes_with_options(uid, request, headers, runtime)
+        return self.list_environment_licenses_with_options(uid, request, headers, runtime)
 
     def list_environment_nodes_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1520,10 +1820,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_environment_tunnels(self, uid):
+    def list_environment_nodes(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_environment_tunnels_with_options(uid, headers, runtime)
+        return self.list_environment_nodes_with_options(uid, request, headers, runtime)
 
     def list_environment_tunnels_with_options(self, uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1545,16 +1845,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_environments(self, request):
+    def list_environment_tunnels(self, uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_environments_with_options(request, headers, runtime)
+        return self.list_environment_tunnels_with_options(uid, headers, runtime)
 
     def list_environments_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_uid):
             query['clusterUID'] = request.cluster_uid
+        if not UtilClient.is_unset(request.endpoint):
+            query['endpoint'] = request.endpoint
         if not UtilClient.is_unset(request.foundation_type):
             query['foundationType'] = request.foundation_type
         if not UtilClient.is_unset(request.fuzzy):
@@ -1591,14 +1893,21 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_foundation_component_versions(self, uid):
+    def list_environments(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_foundation_component_versions_with_options(uid, headers, runtime)
+        return self.list_environments_with_options(request, headers, runtime)
 
-    def list_foundation_component_versions_with_options(self, uid, headers, runtime):
+    def list_foundation_component_versions_with_options(self, uid, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.only_enabled):
+            query['onlyEnabled'] = request.only_enabled
+        if not UtilClient.is_unset(request.parent_component_relation_uid):
+            query['parentComponentRelationUID'] = request.parent_component_relation_uid
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListFoundationComponentVersions',
@@ -1616,10 +1925,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_foundation_reference_components(self, request):
+    def list_foundation_component_versions(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_foundation_reference_components_with_options(request, headers, runtime)
+        return self.list_foundation_component_versions_with_options(uid, request, headers, runtime)
 
     def list_foundation_reference_components_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1630,6 +1939,8 @@ class Client(OpenApiClient):
             query['foundationVersionUID'] = request.foundation_version_uid
         if not UtilClient.is_unset(request.only_enabled):
             query['onlyEnabled'] = request.only_enabled
+        if not UtilClient.is_unset(request.parent_component_reference_uid):
+            query['parentComponentReferenceUID'] = request.parent_component_reference_uid
         if not UtilClient.is_unset(request.product_version_uid):
             query['productVersionUID'] = request.product_version_uid
         req = open_api_models.OpenApiRequest(
@@ -1652,20 +1963,28 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_foundation_versions(self, request):
+    def list_foundation_reference_components(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_foundation_versions_with_options(request, headers, runtime)
+        return self.list_foundation_reference_components_with_options(request, headers, runtime)
 
     def list_foundation_versions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.only_default):
+            query['onlyDefault'] = request.only_default
+        if not UtilClient.is_unset(request.page_num):
+            query['pageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['pageSize'] = request.page_size
         if not UtilClient.is_unset(request.sort_direct):
             query['sortDirect'] = request.sort_direct
         if not UtilClient.is_unset(request.sort_key):
             query['sortKey'] = request.sort_key
         if not UtilClient.is_unset(request.type):
             query['type'] = request.type
+        if not UtilClient.is_unset(request.version):
+            query['version'] = request.version
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1686,10 +2005,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_product_component_versions(self, uid, request):
+    def list_foundation_versions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_product_component_versions_with_options(uid, request, headers, runtime)
+        return self.list_foundation_versions_with_options(request, headers, runtime)
 
     def list_product_component_versions_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1700,6 +2019,8 @@ class Client(OpenApiClient):
             query['pageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
             query['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.release_name):
+            query['releaseName'] = request.release_name
         if not UtilClient.is_unset(request.sort_direct):
             query['sortDirect'] = request.sort_direct
         if not UtilClient.is_unset(request.sort_key):
@@ -1724,10 +2045,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_product_deployments(self, request):
+    def list_product_component_versions(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_product_deployments_with_options(request, headers, runtime)
+        return self.list_product_component_versions_with_options(uid, request, headers, runtime)
 
     def list_product_deployments_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1760,17 +2081,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_product_environments(self, uid, request):
+    def list_product_deployments(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_product_environments_with_options(uid, request, headers, runtime)
+        return self.list_product_deployments_with_options(request, headers, runtime)
 
     def list_product_environments_with_options(self, uid, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = adp_20210720_models.ListProductEnvironmentsShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.options):
-            request.options_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.options), 'options', 'json')
+            request.options_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.options, 'options', 'json')
         if not UtilClient.is_unset(tmp_req.platforms):
             request.platforms_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.platforms, 'platforms', 'json')
         query = {}
@@ -1806,12 +2127,24 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_product_foundation_references(self, uid):
+    def list_product_environments(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_product_foundation_references_with_options(uid, headers, runtime)
+        return self.list_product_environments_with_options(uid, request, headers, runtime)
 
     def list_product_foundation_references_with_options(self, uid, headers, runtime):
+        """
+        @deprecated
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListProductFoundationReferencesResponse
+        Deprecated
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1831,22 +2164,35 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_product_instance_configs(self, request):
+    def list_product_foundation_references(self, uid):
+        """
+        @deprecated
+        
+
+        @return: ListProductFoundationReferencesResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_product_instance_configs_with_options(request, headers, runtime)
+        return self.list_product_foundation_references_with_options(uid, headers, runtime)
 
     def list_product_instance_configs_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.component_release_name):
+            query['componentReleaseName'] = request.component_release_name
         if not UtilClient.is_unset(request.environment_uid):
             query['environmentUID'] = request.environment_uid
+        if not UtilClient.is_unset(request.fuzzy):
+            query['fuzzy'] = request.fuzzy
         if not UtilClient.is_unset(request.page_num):
             query['pageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
             query['pageSize'] = request.page_size
         if not UtilClient.is_unset(request.param_type):
             query['paramType'] = request.param_type
+        if not UtilClient.is_unset(request.parameter):
+            query['parameter'] = request.parameter
         if not UtilClient.is_unset(request.product_version_uid):
             query['productVersionUID'] = request.product_version_uid
         req = open_api_models.OpenApiRequest(
@@ -1869,17 +2215,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_product_instances(self, request):
+    def list_product_instance_configs(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_product_instances_with_options(request, headers, runtime)
+        return self.list_product_instance_configs_with_options(request, headers, runtime)
 
     def list_product_instances_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = adp_20210720_models.ListProductInstancesShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.options):
-            request.options_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.options), 'options', 'json')
+            request.options_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.options, 'options', 'json')
         query = {}
         if not UtilClient.is_unset(request.env_uid):
             query['envUID'] = request.env_uid
@@ -1911,16 +2257,20 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_product_version_configs(self, uid, request):
+    def list_product_instances(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_product_version_configs_with_options(uid, request, headers, runtime)
+        return self.list_product_instances_with_options(request, headers, runtime)
 
     def list_product_version_configs_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.component_release_name):
+            query['componentReleaseName'] = request.component_release_name
         if not UtilClient.is_unset(request.config_type):
             query['configType'] = request.config_type
+        if not UtilClient.is_unset(request.fuzzy):
+            query['fuzzy'] = request.fuzzy
         if not UtilClient.is_unset(request.page_num):
             query['pageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
@@ -1949,10 +2299,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_product_versions(self, request):
+    def list_product_version_configs(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_product_versions_with_options(request, headers, runtime)
+        return self.list_product_version_configs_with_options(uid, request, headers, runtime)
 
     def list_product_versions_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1962,7 +2312,11 @@ class Client(OpenApiClient):
             request.platforms_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.platforms, 'platforms', 'json')
         if not UtilClient.is_unset(tmp_req.supported_foundation_types):
             request.supported_foundation_types_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.supported_foundation_types, 'supportedFoundationTypes', 'json')
+        if not UtilClient.is_unset(tmp_req.tag):
+            request.tag_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tag, 'tag', 'json')
         query = {}
+        if not UtilClient.is_unset(request.fuzzy):
+            query['fuzzy'] = request.fuzzy
         if not UtilClient.is_unset(request.page_num):
             query['pageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
@@ -1977,6 +2331,8 @@ class Client(OpenApiClient):
             query['released'] = request.released
         if not UtilClient.is_unset(request.supported_foundation_types_shrink):
             query['supportedFoundationTypes'] = request.supported_foundation_types_shrink
+        if not UtilClient.is_unset(request.tag_shrink):
+            query['tag'] = request.tag_shrink
         if not UtilClient.is_unset(request.version):
             query['version'] = request.version
         req = open_api_models.OpenApiRequest(
@@ -1999,14 +2355,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_products(self, request):
+    def list_product_versions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_products_with_options(request, headers, runtime)
+        return self.list_product_versions_with_options(request, headers, runtime)
 
     def list_products_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.description):
+            query['description'] = request.description
         if not UtilClient.is_unset(request.fuzzy):
             query['fuzzy'] = request.fuzzy
         if not UtilClient.is_unset(request.name):
@@ -2035,10 +2393,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_workflow_task_logs(self, step_name, task_name, request):
+    def list_products(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_workflow_task_logs_with_options(step_name, task_name, request, headers, runtime)
+        return self.list_products_with_options(request, headers, runtime)
 
     def list_workflow_task_logs_with_options(self, step_name, task_name, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -2079,10 +2437,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def put_environment_tunnel(self, uid, request):
+    def list_workflow_task_logs(self, step_name, task_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_environment_tunnel_with_options(uid, request, headers, runtime)
+        return self.list_workflow_task_logs_with_options(step_name, task_name, request, headers, runtime)
 
     def put_environment_tunnel_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2111,10 +2469,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def put_product_instance_config(self, request):
+    def put_environment_tunnel(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_product_instance_config_with_options(request, headers, runtime)
+        return self.put_environment_tunnel_with_options(uid, request, headers, runtime)
 
     def put_product_instance_config_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2165,10 +2523,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def set_environment_foundation_reference(self, uid, foundation_reference_uid):
+    def put_product_instance_config(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.set_environment_foundation_reference_with_options(uid, foundation_reference_uid, headers, runtime)
+        return self.put_product_instance_config_with_options(request, headers, runtime)
 
     def set_environment_foundation_reference_with_options(self, uid, foundation_reference_uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2190,10 +2548,78 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_environment(self, uid, request):
+    def set_environment_foundation_reference(self, uid, foundation_reference_uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_environment_with_options(uid, request, headers, runtime)
+        return self.set_environment_foundation_reference_with_options(uid, foundation_reference_uid, headers, runtime)
+
+    def update_deliverable_with_options(self, uid, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.foundation):
+            body['foundation'] = request.foundation
+        if not UtilClient.is_unset(request.products):
+            body['products'] = request.products
+        if not UtilClient.is_unset(request.status):
+            body['status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateDeliverable',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/delivery/deliverables/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.UpdateDeliverableResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_deliverable(self, uid, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_deliverable_with_options(uid, request, headers, runtime)
+
+    def update_delivery_instance_with_options(self, uid, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.deliverable_config_uid):
+            body['deliverableConfigUID'] = request.deliverable_config_uid
+        if not UtilClient.is_unset(request.deliverable_uid):
+            body['deliverableUID'] = request.deliverable_uid
+        if not UtilClient.is_unset(request.desc):
+            body['desc'] = request.desc
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateDeliveryInstance',
+            version='2021-07-20',
+            protocol='HTTPS',
+            pathname='/api/v2/delivery/delivery-instances/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adp_20210720_models.UpdateDeliveryInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_delivery_instance(self, uid, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_delivery_instance_with_options(uid, request, headers, runtime)
 
     def update_environment_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2226,10 +2652,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_environment_node(self, uid, node_uid, request):
+    def update_environment(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_environment_node_with_options(uid, node_uid, request, headers, runtime)
+        return self.update_environment_with_options(uid, request, headers, runtime)
 
     def update_environment_node_with_options(self, uid, node_uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2268,10 +2694,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_environment_product_version(self, uid, request):
+    def update_environment_node(self, uid, node_uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_environment_product_version_with_options(uid, request, headers, runtime)
+        return self.update_environment_node_with_options(uid, node_uid, request, headers, runtime)
 
     def update_environment_product_version_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2304,10 +2730,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_foundation_component_reference(self, uid, component_reference_uid, request):
+    def update_environment_product_version(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_foundation_component_reference_with_options(uid, component_reference_uid, request, headers, runtime)
+        return self.update_environment_product_version_with_options(uid, request, headers, runtime)
 
     def update_foundation_component_reference_with_options(self, uid, component_reference_uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2336,10 +2762,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_foundation_reference(self, uid, request):
+    def update_foundation_component_reference(self, uid, component_reference_uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_foundation_reference_with_options(uid, request, headers, runtime)
+        return self.update_foundation_component_reference_with_options(uid, component_reference_uid, request, headers, runtime)
 
     def update_foundation_reference_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2366,10 +2792,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_product(self, uid, request):
+    def update_foundation_reference(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_product_with_options(uid, request, headers, runtime)
+        return self.update_foundation_reference_with_options(uid, request, headers, runtime)
 
     def update_product_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2402,16 +2828,20 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_product_component_version(self, uid, relation_uid, request):
+    def update_product(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_product_component_version_with_options(uid, relation_uid, request, headers, runtime)
+        return self.update_product_with_options(uid, request, headers, runtime)
 
     def update_product_component_version_with_options(self, uid, relation_uid, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.component_orchestration_values):
             body['componentOrchestrationValues'] = request.component_orchestration_values
+        if not UtilClient.is_unset(request.component_specification_uid):
+            body['componentSpecificationUid'] = request.component_specification_uid
+        if not UtilClient.is_unset(request.component_specification_values):
+            body['componentSpecificationValues'] = request.component_specification_values
         if not UtilClient.is_unset(request.enable):
             body['enable'] = request.enable
         if not UtilClient.is_unset(request.new_component_version_uid):
@@ -2420,6 +2850,8 @@ class Client(OpenApiClient):
             body['policy'] = request.policy
         if not UtilClient.is_unset(request.release_name):
             body['releaseName'] = request.release_name
+        if not UtilClient.is_unset(request.unset_component_version_spec):
+            body['unsetComponentVersionSpec'] = request.unset_component_version_spec
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -2440,12 +2872,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_product_foundation_version(self, uid, request):
+    def update_product_component_version(self, uid, relation_uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_product_foundation_version_with_options(uid, request, headers, runtime)
+        return self.update_product_component_version_with_options(uid, relation_uid, request, headers, runtime)
 
     def update_product_foundation_version_with_options(self, uid, request, headers, runtime):
+        """
+        @deprecated
+        
+
+        @param request: UpdateProductFoundationVersionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateProductFoundationVersionResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.foundation_version_uid):
@@ -2470,22 +2916,39 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_product_version(self, uid, request):
+    def update_product_foundation_version(self, uid, request):
+        """
+        @deprecated
+        
+
+        @param request: UpdateProductFoundationVersionRequest
+
+        @return: UpdateProductFoundationVersionResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_product_version_with_options(uid, request, headers, runtime)
+        return self.update_product_foundation_version_with_options(uid, request, headers, runtime)
 
     def update_product_version_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.action):
+            query['action'] = request.action
         body = {}
         if not UtilClient.is_unset(request.continuous_integration):
             body['continuousIntegration'] = request.continuous_integration
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
+        if not UtilClient.is_unset(request.entry):
+            body['entry'] = request.entry
+        if not UtilClient.is_unset(request.timeout):
+            body['timeout'] = request.timeout
         if not UtilClient.is_unset(request.version):
             body['version'] = request.version
         req = open_api_models.OpenApiRequest(
             headers=headers,
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -2504,10 +2967,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_product_version_config(self, uid, config_uid, request):
+    def update_product_version(self, uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_product_version_config_with_options(uid, config_uid, request, headers, runtime)
+        return self.update_product_version_with_options(uid, request, headers, runtime)
 
     def update_product_version_config_with_options(self, uid, config_uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2544,10 +3007,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def validate_environment_tunnel(self, uid, request):
+    def update_product_version_config(self, uid, config_uid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.validate_environment_tunnel_with_options(uid, request, headers, runtime)
+        return self.update_product_version_config_with_options(uid, config_uid, request, headers, runtime)
 
     def validate_environment_tunnel_with_options(self, uid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2575,3 +3038,8 @@ class Client(OpenApiClient):
             adp_20210720_models.ValidateEnvironmentTunnelResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def validate_environment_tunnel(self, uid, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.validate_environment_tunnel_with_options(uid, request, headers, runtime)
