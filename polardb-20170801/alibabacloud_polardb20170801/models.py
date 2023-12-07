@@ -7927,7 +7927,7 @@ class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
     def __init__(self, added_cpu_cores=None, cpu_cores=None, creation_time=None, dbnode_class=None, dbnode_id=None,
                  dbnode_role=None, dbnode_status=None, failover_priority=None, hot_replica_mode=None, imci_switch=None,
                  master_id=None, max_connections=None, max_iops=None, memory_size=None, scc_mode=None, server_weight=None,
-                 serverless_type=None, zone_id=None):
+                 serverless_type=None, sub_cluster=None, zone_id=None):
         # The number of CPU cores for compute node scale-out within seconds.
         self.added_cpu_cores = added_cpu_cores  # type: str
         self.cpu_cores = cpu_cores  # type: str
@@ -7988,6 +7988,7 @@ class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
         # 
         # > This parameter is supported only for serverless clusters.
         self.serverless_type = serverless_type  # type: str
+        self.sub_cluster = sub_cluster  # type: str
         # The ID of the zone.
         self.zone_id = zone_id  # type: str
 
@@ -8034,6 +8035,8 @@ class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
             result['ServerWeight'] = self.server_weight
         if self.serverless_type is not None:
             result['ServerlessType'] = self.serverless_type
+        if self.sub_cluster is not None:
+            result['SubCluster'] = self.sub_cluster
         if self.zone_id is not None:
             result['ZoneId'] = self.zone_id
         return result
@@ -8074,6 +8077,8 @@ class DescribeDBClusterAttributeResponseBodyDBNodes(TeaModel):
             self.server_weight = m.get('ServerWeight')
         if m.get('ServerlessType') is not None:
             self.serverless_type = m.get('ServerlessType')
+        if m.get('SubCluster') is not None:
+            self.sub_cluster = m.get('SubCluster')
         if m.get('ZoneId') is not None:
             self.zone_id = m.get('ZoneId')
         return self
@@ -14026,6 +14031,125 @@ class DescribeDBProxyPerformanceResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDBProxyPerformanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDasConfigRequest(TeaModel):
+    def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDasConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class DescribeDasConfigResponseBody(TeaModel):
+    def __init__(self, request_id=None, storage_auto_scale=None, storage_upper_bound=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.storage_auto_scale = storage_auto_scale  # type: str
+        self.storage_upper_bound = storage_upper_bound  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDasConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.storage_auto_scale is not None:
+            result['StorageAutoScale'] = self.storage_auto_scale
+        if self.storage_upper_bound is not None:
+            result['StorageUpperBound'] = self.storage_upper_bound
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StorageAutoScale') is not None:
+            self.storage_auto_scale = m.get('StorageAutoScale')
+        if m.get('StorageUpperBound') is not None:
+            self.storage_upper_bound = m.get('StorageUpperBound')
+        return self
+
+
+class DescribeDasConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDasConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDasConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDasConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -20501,7 +20625,7 @@ class EvaluateRegionResourceResponse(TeaModel):
 
 class FailoverDBClusterRequest(TeaModel):
     def __init__(self, client_token=None, dbcluster_id=None, owner_account=None, owner_id=None,
-                 resource_owner_account=None, resource_owner_id=None, target_dbnode_id=None):
+                 resource_owner_account=None, resource_owner_id=None, roll_back_for_disaster=None, target_dbnode_id=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. The token is case-sensitive.
         self.client_token = client_token  # type: str
         # The ID of the cluster.
@@ -20510,6 +20634,7 @@ class FailoverDBClusterRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.roll_back_for_disaster = roll_back_for_disaster  # type: bool
         # The ID of the read-only node that you want to promote to the primary node. You can call the [DescribeDBClusters](~~98094~~) operation to query node information, such as node IDs.
         # 
         # > *   If you leave this parameter empty, the system selects one or more available read-only nodes that have the highest failover priority as candidate primary nodes. If the failover to the first read-only node fails due to network issues, abnormal replication status, or other reasons, the system attempts to fail over your applications to the next read-only node until the failover is successful.
@@ -20537,6 +20662,8 @@ class FailoverDBClusterRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.roll_back_for_disaster is not None:
+            result['RollBackForDisaster'] = self.roll_back_for_disaster
         if self.target_dbnode_id is not None:
             result['TargetDBNodeId'] = self.target_dbnode_id
         return result
@@ -20555,6 +20682,8 @@ class FailoverDBClusterRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('RollBackForDisaster') is not None:
+            self.roll_back_for_disaster = m.get('RollBackForDisaster')
         if m.get('TargetDBNodeId') is not None:
             self.target_dbnode_id = m.get('TargetDBNodeId')
         return self
@@ -23460,38 +23589,37 @@ class ModifyDBClusterPrimaryZoneRequest(TeaModel):
         # *   false: scheduled task
         # *   true: immediate task
         self.from_time_service = from_time_service  # type: bool
+        # Specifies whether to switch back over to the original primary zone. Valid values: true: Switch over back to the original primary zone. false: Do not switch back over to the original primary zone. If this parameter is set to false, the primary zone of the cluster is changed to the specified destination zone.
         self.is_switch_over_for_disaster = is_switch_over_for_disaster  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The latest start time to run the task. Specify the time in the `YYYY-MM-DDThh:mm:ssZ` format. The time must be in UTC.
+        # The latest start time to switch the primary zone within the scheduled time period. Specify the time in the ISO 8601 standard in the `YYYY-MM-DDThh:mm:ssZ` format. The time must be in UTC.
         # 
         # > 
         # 
-        # *   The value of this parameter must be at least 30 minutes later than the value of the PlannedStartTime parameter.
+        # *   The latest start time must be at least 30 minutes later than the earliest start time.
         # 
-        # *   By default, if you specify the `PlannedStartTime` parameter but do not specify the PlannedEndTime parameter, the latest start time of the task is set to a value that is calculated by using the following formula: `Value of the PlannedEndTime parameter + 30 minutes`. For example, if you set the `PlannedStartTime` parameter to `2021-01-14T09:00:00Z` and you do not specify the PlannedEndTime parameter, the latest start time of the task is set to `2021-01-14T09:30:00Z`.
+        # *   If you specify the `PlannedStartTime` parameter but do not specify the PlannedEndTime parameter, the latest start time of the task is set to a value that is calculated by `the value of the PlannedEndTime parameter + 30 minutes` by default. For example, if you set the `PlannedStartTime` parameter to `2021-01-14T09:00:00Z` and you do not specify the PlannedEndTime parameter, the latest start time of the task is set to `2021-01-14T09:30:00Z`.
         self.planned_end_time = planned_end_time  # type: str
-        # The earliest time to switch the primary zone within the scheduled time period. Specify the parameter in the `YYYY-MM-DDThh:mm:ssZ` format. The time must be in UTC.
+        # The earliest start time to switch the primary zone within the scheduled time period. Specify the time in the ISO 8601 standard in the `YYYY-MM-DDThh:mm:ssZ` format. The time must be in UTC.
         # 
         # > 
         # 
-        # *   The earliest start time of the task can be a point in time within the next 24 hours. For example, if the current time is `2021-01-14T09:00:00Z`, you can specify a point in the time range from `2021-01-14T09:00:00Z` to `2021-01-15T09:00:00Z`.
+        # *   The earliest start time of the task can be a point in time within the next 24 hours. For example, if the current time is `2021-01-14T09:00:00Z`, you can specify a point in time that ranges from `2021-01-14T09:00:00Z` to `2021-01-15T09:00:00Z`.
         # 
-        # *   If this parameter is empty, the primary zone is immediately switched.
+        # *   If you left this parameter empty, the primary zone is immediately switched.
         self.planned_start_time = planned_start_time  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The virtual private cloud (VPC) ID of the destination primary zone.
         self.vpcid = vpcid  # type: str
-        # The vSwitch ID of in the destination primary zone.
+        # The ID of vSwitch in the destination primary zone.
         # 
         # > 
         # 
-        # *   This parameter is required for a PolarDB for Oracle or PolarDB for PostgreSQL cluster.
+        # *   For a PolarDB for Oracle or PolarDB for PostgreSQL cluster, this parameter is required.
         # 
-        # *   For a PolarDB for MySQL cluster:
-        # 
-        #     *   This parameter is optional if no vSwitches have been created in the destination zone. The default vSwitch is used.
-        #     *   This parameter is required if a vSwitch has been created in the destination zone.
+        # *   For a PolarDB for MySQL cluster: - This parameter is optional if no vSwitches have been created in the destination zone. The default vSwitch is used. - This parameter is required if a vSwitch has been created in the destination zone.
         self.v_switch_id = v_switch_id  # type: str
         # The ID of the destination primary zone.
         # 
