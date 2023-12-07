@@ -9201,7 +9201,7 @@ class CreateParameterGroupResponse(TeaModel):
 class CreatePostgresExtensionsRequest(TeaModel):
     def __init__(self, account_name=None, client_token=None, dbinstance_id=None, dbnames=None, extensions=None,
                  owner_account=None, owner_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
-                 source_database=None):
+                 risk_confirmed=None, source_database=None):
         # The account of the user who owns the extension. Only privileged accounts are supported.
         self.account_name = account_name  # type: str
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the generated token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
@@ -9218,6 +9218,7 @@ class CreatePostgresExtensionsRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.risk_confirmed = risk_confirmed  # type: bool
         # The source database from which you want to synchronize the extension to the destination database. If you do not specify the **Extensions** parameter, you must specify this parameter.
         self.source_database = source_database  # type: str
 
@@ -9250,6 +9251,8 @@ class CreatePostgresExtensionsRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.risk_confirmed is not None:
+            result['RiskConfirmed'] = self.risk_confirmed
         if self.source_database is not None:
             result['SourceDatabase'] = self.source_database
         return result
@@ -9276,6 +9279,8 @@ class CreatePostgresExtensionsRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('RiskConfirmed') is not None:
+            self.risk_confirmed = m.get('RiskConfirmed')
         if m.get('SourceDatabase') is not None:
             self.source_database = m.get('SourceDatabase')
         return self
@@ -27965,9 +27970,9 @@ class DescribeDBMiniEngineVersionsRequest(TeaModel):
 
 
 class DescribeDBMiniEngineVersionsResponseBodyMinorVersionItems(TeaModel):
-    def __init__(self, community_minor_version=None, engine=None, engine_version=None, expire_status=None,
-                 is_hotfix_version=None, minor_version=None, node_type=None, release_note=None, release_type=None, status_desc=None,
-                 tag=None):
+    def __init__(self, community_minor_version=None, engine=None, engine_version=None, expire_date=None,
+                 expire_status=None, is_hotfix_version=None, minor_version=None, node_type=None, release_note=None,
+                 release_type=None, status_desc=None, tag=None):
         # The PostgreSQL version to which the minor engine version corresponds. For more information, see [Release notes for AliPG](~~126002~~).
         # 
         # >  This parameter is available only for instances that run **PostgreSQL**.
@@ -27976,6 +27981,7 @@ class DescribeDBMiniEngineVersionsResponseBodyMinorVersionItems(TeaModel):
         self.engine = engine  # type: str
         # The database engine version that corresponds to the minor engine version.
         self.engine_version = engine_version  # type: str
+        self.expire_date = expire_date  # type: str
         # The expiration status of the minor engine version. Valid values:
         # 
         # *   **vaild**\
@@ -28030,6 +28036,8 @@ class DescribeDBMiniEngineVersionsResponseBodyMinorVersionItems(TeaModel):
             result['Engine'] = self.engine
         if self.engine_version is not None:
             result['EngineVersion'] = self.engine_version
+        if self.expire_date is not None:
+            result['ExpireDate'] = self.expire_date
         if self.expire_status is not None:
             result['ExpireStatus'] = self.expire_status
         if self.is_hotfix_version is not None:
@@ -28056,6 +28064,8 @@ class DescribeDBMiniEngineVersionsResponseBodyMinorVersionItems(TeaModel):
             self.engine = m.get('Engine')
         if m.get('EngineVersion') is not None:
             self.engine_version = m.get('EngineVersion')
+        if m.get('ExpireDate') is not None:
+            self.expire_date = m.get('ExpireDate')
         if m.get('ExpireStatus') is not None:
             self.expire_status = m.get('ExpireStatus')
         if m.get('IsHotfixVersion') is not None:

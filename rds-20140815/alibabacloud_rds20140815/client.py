@@ -3058,6 +3058,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.risk_confirmed):
+            query['RiskConfirmed'] = request.risk_confirmed
         if not UtilClient.is_unset(request.source_database):
             query['SourceDatabase'] = request.source_database
         req = open_api_models.OpenApiRequest(
