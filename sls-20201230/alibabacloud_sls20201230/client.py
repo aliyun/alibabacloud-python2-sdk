@@ -1453,7 +1453,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.DeleteProjectPolicyResponse(),
@@ -3792,7 +3792,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.PutProjectPolicyResponse(),
