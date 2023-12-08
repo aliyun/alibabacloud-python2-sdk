@@ -2228,10 +2228,14 @@ class Client(OpenApiClient):
     def create_oss_bucket_scan_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.all_key_prefix):
+            query['AllKeyPrefix'] = request.all_key_prefix
         if not UtilClient.is_unset(request.bucket_name_list):
             query['BucketNameList'] = request.bucket_name_list
         if not UtilClient.is_unset(request.exclude_key_suffix_list):
             query['ExcludeKeySuffixList'] = request.exclude_key_suffix_list
+        if not UtilClient.is_unset(request.key_prefix_list):
+            query['KeyPrefixList'] = request.key_prefix_list
         if not UtilClient.is_unset(request.key_suffix_list):
             query['KeySuffixList'] = request.key_suffix_list
         if not UtilClient.is_unset(request.scan_mode):
@@ -2262,14 +2266,20 @@ class Client(OpenApiClient):
     def create_oss_scan_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.all_key_prefix):
+            query['AllKeyPrefix'] = request.all_key_prefix
         if not UtilClient.is_unset(request.bucket_name_list):
             query['BucketNameList'] = request.bucket_name_list
         if not UtilClient.is_unset(request.enable):
             query['Enable'] = request.enable
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.key_prefix_list):
+            query['KeyPrefixList'] = request.key_prefix_list
         if not UtilClient.is_unset(request.key_suffix_list):
             query['KeySuffixList'] = request.key_suffix_list
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
         if not UtilClient.is_unset(request.scan_day_list):
             query['ScanDayList'] = request.scan_day_list
         if not UtilClient.is_unset(request.start_time):
@@ -4818,6 +4828,8 @@ class Client(OpenApiClient):
     def describe_check_warning_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.check_id):
+            query['CheckId'] = request.check_id
         if not UtilClient.is_unset(request.check_warning_id):
             query['CheckWarningId'] = request.check_warning_id
         if not UtilClient.is_unset(request.lang):
@@ -4826,6 +4838,8 @@ class Client(OpenApiClient):
             query['ResourceDirectoryAccountId'] = request.resource_directory_account_id
         if not UtilClient.is_unset(request.source_ip):
             query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.uuid):
+            query['Uuid'] = request.uuid
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -14519,8 +14533,16 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_oss_bucket_scan_statistic_with_options(request, runtime)
 
-    def get_oss_scan_config_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
+    def get_oss_scan_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.bucket_name):
+            query['BucketName'] = request.bucket_name
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
         params = open_api_models.Params(
             action='GetOssScanConfig',
             version='2018-12-03',
@@ -14537,9 +14559,9 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_oss_scan_config(self):
+    def get_oss_scan_config(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.get_oss_scan_config_with_options(runtime)
+        return self.get_oss_scan_config_with_options(request, runtime)
 
     def get_property_schedule_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -15036,6 +15058,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.check_and_risk_type_list):
             query['CheckAndRiskTypeList'] = request.check_and_risk_type_list
+        if not UtilClient.is_unset(request.check_ids):
+            query['CheckIds'] = request.check_ids
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
         if not UtilClient.is_unset(request.reason):
@@ -15868,6 +15892,8 @@ class Client(OpenApiClient):
             query['Source'] = request.source
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
+        if not UtilClient.is_unset(request.uuid_list):
+            query['UuidList'] = request.uuid_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -16046,6 +16072,10 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.risk_id):
             query['RiskId'] = request.risk_id
+        if not UtilClient.is_unset(request.show_checks):
+            query['ShowChecks'] = request.show_checks
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
         if not UtilClient.is_unset(request.uuid):
             query['Uuid'] = request.uuid
         req = open_api_models.OpenApiRequest(
@@ -23080,14 +23110,22 @@ class Client(OpenApiClient):
     def update_oss_scan_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.all_key_prefix):
+            query['AllKeyPrefix'] = request.all_key_prefix
         if not UtilClient.is_unset(request.bucket_name_list):
             query['BucketNameList'] = request.bucket_name_list
         if not UtilClient.is_unset(request.enable):
             query['Enable'] = request.enable
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.key_prefix_list):
+            query['KeyPrefixList'] = request.key_prefix_list
         if not UtilClient.is_unset(request.key_suffix_list):
             query['KeySuffixList'] = request.key_suffix_list
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
         if not UtilClient.is_unset(request.scan_day_list):
             query['ScanDayList'] = request.scan_day_list
         if not UtilClient.is_unset(request.start_time):
