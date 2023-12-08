@@ -96,6 +96,8 @@ class Client(OpenApiClient):
             query['Protocol'] = request.protocol
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.source_id):
             query['SourceId'] = request.source_id
         if not UtilClient.is_unset(request.source_ip_address):
@@ -161,8 +163,6 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.audit_param):
-            query['AuditParam'] = request.audit_param
         if not UtilClient.is_unset(request.network_path_id):
             query['NetworkPathId'] = request.network_path_id
         if not UtilClient.is_unset(request.region_id):
