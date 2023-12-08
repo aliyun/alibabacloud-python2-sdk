@@ -1174,6 +1174,88 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_audit_log_records_with_options(request, runtime)
 
+    def describe_backup_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeBackupPolicy',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DescribeBackupPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_backup_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_backup_policy_with_options(request, runtime)
+
+    def describe_backups_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeBackups',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DescribeBackupsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_backups(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_backups_with_options(request, runtime)
+
     def describe_cluster_access_white_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1232,6 +1314,60 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_cluster_net_info_with_options(request, runtime)
 
+    def describe_cluster_resource_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeClusterResourceDetail',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DescribeClusterResourceDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cluster_resource_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cluster_resource_detail_with_options(request, runtime)
+
+    def describe_cluster_resource_usage_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeClusterResourceUsage',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DescribeClusterResourceUsageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cluster_resource_usage(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cluster_resource_usage_with_options(request, runtime)
+
     def describe_columns_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1265,6 +1401,40 @@ class Client(OpenApiClient):
     def describe_columns(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_columns_with_options(request, runtime)
+
+    def describe_compute_resource_usage_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.resource_group_name):
+            query['ResourceGroupName'] = request.resource_group_name
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeComputeResourceUsage',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DescribeComputeResourceUsageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_compute_resource_usage(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_compute_resource_usage_with_options(request, runtime)
 
     def describe_dbcluster_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1794,6 +1964,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_enabled_privileges_with_options(request, runtime)
 
+    def describe_job_resource_usage_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeJobResourceUsage',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DescribeJobResourceUsageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_job_resource_usage(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_job_resource_usage_with_options(request, runtime)
+
     def describe_pattern_performance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2077,6 +2279,38 @@ class Client(OpenApiClient):
     def describe_sql_pattern(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_sql_pattern_with_options(request, runtime)
+
+    def describe_storage_resource_usage_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeStorageResourceUsage',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DescribeStorageResourceUsageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_storage_resource_usage(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_storage_resource_usage_with_options(request, runtime)
 
     def describe_table_access_count_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3270,6 +3504,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_spark_template_file_ids_with_options(request, runtime)
 
+    def load_sample_data_set_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='LoadSampleDataSet',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.LoadSampleDataSetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def load_sample_data_set(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.load_sample_data_set_with_options(request, runtime)
+
     def modify_account_description_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3379,6 +3641,52 @@ class Client(OpenApiClient):
     def modify_audit_log_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_audit_log_config_with_options(request, runtime)
+
+    def modify_backup_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_retention_period):
+            query['BackupRetentionPeriod'] = request.backup_retention_period
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.enable_backup_log):
+            query['EnableBackupLog'] = request.enable_backup_log
+        if not UtilClient.is_unset(request.log_backup_retention_period):
+            query['LogBackupRetentionPeriod'] = request.log_backup_retention_period
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.preferred_backup_period):
+            query['PreferredBackupPeriod'] = request.preferred_backup_period
+        if not UtilClient.is_unset(request.preferred_backup_time):
+            query['PreferredBackupTime'] = request.preferred_backup_time
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyBackupPolicy',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.ModifyBackupPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_backup_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_backup_policy_with_options(request, runtime)
 
     def modify_cluster_access_white_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
