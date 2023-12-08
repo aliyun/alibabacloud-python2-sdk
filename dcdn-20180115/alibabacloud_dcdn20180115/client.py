@@ -604,8 +604,8 @@ class Client(OpenApiClient):
 
     def batch_set_dcdn_domain_configs_with_options(self, request, runtime):
         """
-        >    You can specify up to 50 domain names in each request.
-        >*   You can call this operation up to 30 times per second per account.
+        You can specify up to 50 domain names in each request. Separate multiple domain names with commas (,).
+        *   You can call this operation up to 30 times per second per account.
         
 
         @param request: BatchSetDcdnDomainConfigsRequest
@@ -647,8 +647,8 @@ class Client(OpenApiClient):
 
     def batch_set_dcdn_domain_configs(self, request):
         """
-        >    You can specify up to 50 domain names in each request.
-        >*   You can call this operation up to 30 times per second per account.
+        You can specify up to 50 domain names in each request. Separate multiple domain names with commas (,).
+        *   You can call this operation up to 30 times per second per account.
         
 
         @param request: BatchSetDcdnDomainConfigsRequest
@@ -1084,9 +1084,10 @@ class Client(OpenApiClient):
 
     def create_dcdn_sub_task_with_options(self, request, runtime):
         """
-        >
-        *   This operation allows you to customize an operations report for a specific domain name. You can view the statistics about the domain name in the report.
-        *   You can call this operation up to three times per second per account.
+        *\
+        ****\
+        *\
+        *\
         
 
         @param request: CreateDcdnSubTaskRequest
@@ -1122,9 +1123,10 @@ class Client(OpenApiClient):
 
     def create_dcdn_sub_task(self, request):
         """
-        >
-        *   This operation allows you to customize an operations report for a specific domain name. You can view the statistics about the domain name in the report.
-        *   You can call this operation up to three times per second per account.
+        *\
+        ****\
+        *\
+        *\
         
 
         @param request: CreateDcdnSubTaskRequest
@@ -1222,10 +1224,9 @@ class Client(OpenApiClient):
 
     def create_routine_with_options(self, tmp_req, runtime):
         """
-        >
-        *   The parameters must comply with the rules of EnvConf. The description of a routine cannot exceed 50 characters in length.
-        *   You can only specify the production and staging environments when you call this operation.
-        *   You can call this operation up to 100 times per second.
+        >    The parameters must comply with the rules of EnvConf. The description of a routine cannot exceed 50 characters in length.
+        >*   You can only specify the production and staging environments when you call this operation.
+        >*   You can call this operation up to 100 times per second per account.
         
 
         @param tmp_req: CreateRoutineRequest
@@ -1267,10 +1268,9 @@ class Client(OpenApiClient):
 
     def create_routine(self, request):
         """
-        >
-        *   The parameters must comply with the rules of EnvConf. The description of a routine cannot exceed 50 characters in length.
-        *   You can only specify the production and staging environments when you call this operation.
-        *   You can call this operation up to 100 times per second.
+        >    The parameters must comply with the rules of EnvConf. The description of a routine cannot exceed 50 characters in length.
+        >*   You can only specify the production and staging environments when you call this operation.
+        >*   You can call this operation up to 100 times per second per account.
         
 
         @param request: CreateRoutineRequest
@@ -2464,8 +2464,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_deliver_list_with_options(self, request, runtime):
         """
-        *\
-        **You can call this operation up to three times per second.
+        >You can call this operation up to three times per second.
         
 
         @param request: DescribeDcdnDeliverListRequest
@@ -2499,8 +2498,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_deliver_list(self, request):
         """
-        *\
-        **You can call this operation up to three times per second.
+        >You can call this operation up to three times per second.
         
 
         @param request: DescribeDcdnDeliverListRequest
@@ -5970,8 +5968,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_refresh_tasks_with_options(self, request, runtime):
         """
-        >
-        *   You can query the refresh or prefetch tasks by ID or URL.
+        You can query the refresh or prefetch tasks by ID or URL.
         *   You can set both **TaskId** and **ObjectPath** in a request. If you do not set **TaskId** or **ObjectPath**, the data in the last 3 days on the first page is returned. By default, a maximum of 20 entries can be displayed on each page.
         *   If you specify **DomainName** or **Status**, you must also specify **ObjectType**.
         *   You can call this operation up to 10 times per second per account.
@@ -6028,8 +6025,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_refresh_tasks(self, request):
         """
-        >
-        *   You can query the refresh or prefetch tasks by ID or URL.
+        You can query the refresh or prefetch tasks by ID or URL.
         *   You can set both **TaskId** and **ObjectPath** in a request. If you do not set **TaskId** or **ObjectPath**, the data in the last 3 days on the first page is returned. By default, a maximum of 20 entries can be displayed on each page.
         *   If you specify **DomainName** or **Status**, you must also specify **ObjectType**.
         *   You can call this operation up to 10 times per second per account.
@@ -10504,7 +10500,7 @@ class Client(OpenApiClient):
 
     def update_dcdn_deliver_task_with_options(self, request, runtime):
         """
-        The parameters that specify the time interval at which the tracking task sends operations reports. The settings must be escaped in JSON.
+        > You can call this operation up to three times per second per account.
         
 
         @param request: UpdateDcdnDeliverTaskRequest
@@ -10548,7 +10544,7 @@ class Client(OpenApiClient):
 
     def update_dcdn_deliver_task(self, request):
         """
-        The parameters that specify the time interval at which the tracking task sends operations reports. The settings must be escaped in JSON.
+        > You can call this operation up to three times per second per account.
         
 
         @param request: UpdateDcdnDeliverTaskRequest

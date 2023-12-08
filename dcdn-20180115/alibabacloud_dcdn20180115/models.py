@@ -1184,7 +1184,7 @@ class BatchSetDcdnDomainCertificateRequest(TeaModel):
         self.sslpri = sslpri  # type: str
         # Specifies whether to enable the HTTPS certificate. Valid values:
         # 
-        # *   \*\*on\*\*: enables the HTTPS certificate.
+        # *   **on**: enables the HTTPS certificate.
         # *   **off**: does not enable the HTTPS certificate.
         # 
         # This is the default value.
@@ -1316,25 +1316,26 @@ class BatchSetDcdnDomainConfigsRequest(TeaModel):
         # The features that you want to configure. Format:
         # 
         # *   **functionName**: The name of the feature. Separate multiple values with commas (,). For more information, see [A list of features](~~410622~~).
+        # 
         # *   **argName**: The feature parameters for **functionName**.
         # *   **argValue**: The parameter values set for **functionName**.
         # 
-        # <!---->
-        # 
-        #     [
-        #      {
-        #        "functionArgs": [
-        #         {
-        #          "argName": "Parameter A", 
-        #          "argValue": "Value of parameter A"
-        #         }, 
-        #       {
+        # ````[
+        #  {
+        #    "functionArgs": [
+        #     {
+        #      "argName": "Parameter A", 
+        #      "argValue": Value of parameter A"
+        #     }, 
+        #   {
         #     "argName": "Parameter B", 
-        #     "argValue": "Value of parameter B"     }
-        #      ], 
-        #      "functionName": "Feature name"
-        #         }
-        #     ]
+        #     "argValue": "Value of Parameter B"
+        #      }
+        #  ], 
+        #  "functionName": "Feature name"
+        #     }
+        # ]```
+        # ````
         self.functions = functions  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -1378,11 +1379,11 @@ class BatchSetDcdnDomainConfigsRequest(TeaModel):
 
 class BatchSetDcdnDomainConfigsResponseBodyDomainConfigListDomainConfigModel(TeaModel):
     def __init__(self, config_id=None, domain_name=None, function_name=None):
-        # The ID of the configuration. If 0 is returned, the configuration failed and you need reconfigure this configuration.
+        # 配置ID，如果返回为0，则表示该条配置未配置成功，需要重新配置。
         self.config_id = config_id  # type: long
-        # The domain name.
+        # 域名。
         self.domain_name = domain_name  # type: str
-        # The feature name.
+        # 功能名称。
         self.function_name = function_name  # type: str
 
     def validate(self):
@@ -1447,7 +1448,7 @@ class BatchSetDcdnDomainConfigsResponseBodyDomainConfigList(TeaModel):
 
 class BatchSetDcdnDomainConfigsResponseBody(TeaModel):
     def __init__(self, domain_config_list=None, request_id=None):
-        # The list of domain configurations.
+        # 域名配置清单。
         self.domain_config_list = domain_config_list  # type: BatchSetDcdnDomainConfigsResponseBodyDomainConfigList
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -2504,26 +2505,24 @@ class CreateDcdnSLSRealTimeLogDeliveryResponse(TeaModel):
 
 class CreateDcdnSubTaskRequest(TeaModel):
     def __init__(self, domain_name=None, report_ids=None):
-        # The domain names to be tracked. Separate multiple domain names with commas (,). You can specify up to 500 domain names. If you want to specify more than 500 domain names, [submit a ticket](https://workorder-intl.console.aliyun.com/?spm=5176.2020520001.aliyun_topbar.18.dbd44bd3e4f845#/ticket/createIndex).
+        # [](https://workorder-intl.console.aliyun.com/?spm=5176.2020520001.aliyun_topbar.18.dbd44bd3e4f845#/ticket/createIndex)
         # 
         # **\
         # 
-        # **If you do not specify a domain name, the custom operations reports are created for all domain names that belong to your Alibaba Cloud account.
+        # ****\
         self.domain_name = domain_name  # type: str
-        # The IDs of the metrics that you want to include in the report. Separate multiple IDs with commas (,). Valid values:
-        # 
-        # *   **2**: Popular URLs by Request
-        # *   **4**: Popular URLs by Traffic
-        # *   **6**: Popular Referer by Request
-        # *   **8**: Popular Referer by Traffic
-        # *   **10**: Popular Back-to-origin URLs by Request
-        # *   **12**: Popular Back-to-origin URLs by Traffic
-        # *   **14**: Top Client IPs by Request
-        # *   **16**: Top Client IPs by Traffic
-        # *   **18**: Popular Domain Names by Traffic
-        # *   **20**: PV/UV
-        # *   **22**: Visit Distribution by Region
-        # *   **24**: Distribution of ISPs
+        # *   ****\
+        # *   ****\
+        # *   ****\
+        # *   ****\
+        # *   ****\
+        # *   ****\
+        # *   ****\
+        # *   ****\
+        # *   ****\
+        # *   ****\
+        # *   ****\
+        # *   ****\
         self.report_ids = report_ids  # type: str
 
     def validate(self):
@@ -2552,7 +2551,6 @@ class CreateDcdnSubTaskRequest(TeaModel):
 
 class CreateDcdnSubTaskResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10356,15 +10354,200 @@ class DescribeDcdnDomainLogExTtlRequest(TeaModel):
         return self
 
 
-class DescribeDcdnDomainLogExTtlResponseBody(TeaModel):
-    def __init__(self, max_results=None, next_token=None, request_id=None, total_count=None):
-        self.max_results = max_results  # type: int
-        self.next_token = next_token  # type: str
-        self.request_id = request_id  # type: str
-        self.total_count = total_count  # type: int
+class DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetailLogInfosLogInfoDetail(TeaModel):
+    def __init__(self, end_time=None, log_name=None, log_path=None, log_size=None, start_time=None):
+        self.end_time = end_time  # type: str
+        self.log_name = log_name  # type: str
+        self.log_path = log_path  # type: str
+        self.log_size = log_size  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetailLogInfosLogInfoDetail, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.log_name is not None:
+            result['LogName'] = self.log_name
+        if self.log_path is not None:
+            result['LogPath'] = self.log_path
+        if self.log_size is not None:
+            result['LogSize'] = self.log_size
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('LogName') is not None:
+            self.log_name = m.get('LogName')
+        if m.get('LogPath') is not None:
+            self.log_path = m.get('LogPath')
+        if m.get('LogSize') is not None:
+            self.log_size = m.get('LogSize')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetailLogInfos(TeaModel):
+    def __init__(self, log_info_detail=None):
+        self.log_info_detail = log_info_detail  # type: list[DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetailLogInfosLogInfoDetail]
+
+    def validate(self):
+        if self.log_info_detail:
+            for k in self.log_info_detail:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetailLogInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['LogInfoDetail'] = []
+        if self.log_info_detail is not None:
+            for k in self.log_info_detail:
+                result['LogInfoDetail'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.log_info_detail = []
+        if m.get('LogInfoDetail') is not None:
+            for k in m.get('LogInfoDetail'):
+                temp_model = DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetailLogInfosLogInfoDetail()
+                self.log_info_detail.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetailPageInfos(TeaModel):
+    def __init__(self, page_index=None, page_size=None, total=None):
+        self.page_index = page_index  # type: long
+        self.page_size = page_size  # type: long
+        self.total = total  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetailPageInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetail(TeaModel):
+    def __init__(self, domain_name=None, log_count=None, log_infos=None, page_infos=None):
+        self.domain_name = domain_name  # type: str
+        self.log_count = log_count  # type: long
+        self.log_infos = log_infos  # type: DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetailLogInfos
+        self.page_infos = page_infos  # type: DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetailPageInfos
+
+    def validate(self):
+        if self.log_infos:
+            self.log_infos.validate()
+        if self.page_infos:
+            self.page_infos.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetail, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.log_count is not None:
+            result['LogCount'] = self.log_count
+        if self.log_infos is not None:
+            result['LogInfos'] = self.log_infos.to_map()
+        if self.page_infos is not None:
+            result['PageInfos'] = self.page_infos.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('LogCount') is not None:
+            self.log_count = m.get('LogCount')
+        if m.get('LogInfos') is not None:
+            temp_model = DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetailLogInfos()
+            self.log_infos = temp_model.from_map(m['LogInfos'])
+        if m.get('PageInfos') is not None:
+            temp_model = DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetailPageInfos()
+            self.page_infos = temp_model.from_map(m['PageInfos'])
+        return self
+
+
+class DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetails(TeaModel):
+    def __init__(self, domain_log_detail=None):
+        self.domain_log_detail = domain_log_detail  # type: list[DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetail]
+
+    def validate(self):
+        if self.domain_log_detail:
+            for k in self.domain_log_detail:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetails, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DomainLogDetail'] = []
+        if self.domain_log_detail is not None:
+            for k in self.domain_log_detail:
+                result['DomainLogDetail'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.domain_log_detail = []
+        if m.get('DomainLogDetail') is not None:
+            for k in m.get('DomainLogDetail'):
+                temp_model = DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetailsDomainLogDetail()
+                self.domain_log_detail.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDcdnDomainLogExTtlResponseBody(TeaModel):
+    def __init__(self, domain_log_details=None, request_id=None):
+        self.domain_log_details = domain_log_details  # type: DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetails
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.domain_log_details:
+            self.domain_log_details.validate()
 
     def to_map(self):
         _map = super(DescribeDcdnDomainLogExTtlResponseBody, self).to_map()
@@ -10372,26 +10555,19 @@ class DescribeDcdnDomainLogExTtlResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.max_results is not None:
-            result['MaxResults'] = self.max_results
-        if self.next_token is not None:
-            result['NextToken'] = self.next_token
+        if self.domain_log_details is not None:
+            result['DomainLogDetails'] = self.domain_log_details.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('MaxResults') is not None:
-            self.max_results = m.get('MaxResults')
-        if m.get('NextToken') is not None:
-            self.next_token = m.get('NextToken')
+        if m.get('DomainLogDetails') is not None:
+            temp_model = DescribeDcdnDomainLogExTtlResponseBodyDomainLogDetails()
+            self.domain_log_details = temp_model.from_map(m['DomainLogDetails'])
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -16664,7 +16840,7 @@ class DescribeDcdnDomainWebsocketTrafficDataRequest(TeaModel):
         self.end_time = end_time  # type: str
         # The time granularity for a query. Unit: seconds.
         # 
-        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Operation Description**.
         self.interval = interval  # type: str
         # The name of the ISP.
         # 
@@ -20417,11 +20593,10 @@ class DescribeDcdnRefreshTasksRequest(TeaModel):
         self.end_time = end_time  # type: str
         # The path of the object. The path is used as a condition for exact matching.
         self.object_path = object_path  # type: str
-        # The type of the task. Valid values:
+        # The type of the task.
         # 
         # *   **file**: URL-based refresh
         # *   **directory**: directory-based refresh
-        # *   **regex**: regular expression-based refresh
         # *   **preload**: URL-based prefetch
         # 
         # If you set **DomainName** or **Status**, you must also set this parameter.
@@ -20434,7 +20609,7 @@ class DescribeDcdnRefreshTasksRequest(TeaModel):
         self.security_token = security_token  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
-        # The status of the task. Valid values:
+        # The status of the task.
         # 
         # *   **Complete**: The task is complete.
         # *   **Refreshing**: The task is in progress.
@@ -20516,22 +20691,21 @@ class DescribeDcdnRefreshTasksResponseBodyTasksTask(TeaModel):
         self.description = description  # type: str
         # The URL of the object refreshed.
         self.object_path = object_path  # type: str
-        # The type of the task. Valid values:
+        # The type of the task.
         # 
         # *   **file**: URL-based refresh
         # *   **path**: directory-based refresh
-        # *   **regex**: regular expression-based refresh
         # *   **preload**: URL-based prefetch
         self.object_type = object_type  # type: str
         # The progress of the task in percentage.
         self.process = process  # type: str
-        # The status of the auxiliary media asset.
+        # The status of the task.
         # 
         # *   **Complete**: The task is complete.
         # *   **Refreshing**: The task is in progress.
         # *   **Failed**: The task failed.
         self.status = status  # type: str
-        # The task ID.
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -20612,13 +20786,13 @@ class DescribeDcdnRefreshTasksResponseBodyTasks(TeaModel):
 
 class DescribeDcdnRefreshTasksResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, tasks=None, total_count=None):
-        # The number of the returned page.
+        # The page number of the returned page.
         self.page_number = page_number  # type: long
         # The number of entries returned per page.
         self.page_size = page_size  # type: long
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The tasks.
+        # Details about tasks.
         self.tasks = tasks  # type: DescribeDcdnRefreshTasksResponseBodyTasks
         # The number of tasks.
         self.total_count = total_count  # type: long
@@ -26604,9 +26778,7 @@ class DescribeDcdnWafFilterInfoRequest(TeaModel):
         # *   custom_acl: custom protection
         # *   whitelist: IP address whitelist
         # 
-        # **\
-        # 
-        # **If you do not specify this parameter, all types are returned.
+        # >If you do not specify this parameter, all types are returned.
         self.defense_scenes = defense_scenes  # type: str
         # The language of the returned information. Valid values:
         # 
@@ -28100,7 +28272,7 @@ class DescribeDcdnWafPolicyResponseBodyPolicy(TeaModel):
         # *   default
         # *   custom
         self.policy_type = policy_type  # type: str
-        # The protection rule configurations that are defined in the protection policy. The configurations only support bot management. For more information, see [BatchCreateDcdnWafRules](~~BatchCreateDcdnWafRules~~).
+        # The protection rule configurations corresponding to the protection policy. The configurations only support Bot management. For more information, see [BatchCreateDcdnWafRules](~~BatchCreateDcdnWafRules~~).
         self.rule_configs = rule_configs  # type: str
         # The number of protection rules in the protection policy.
         self.rule_count = rule_count  # type: long
@@ -35821,17 +35993,17 @@ class UntagDcdnResourcesResponse(TeaModel):
 
 class UpdateDcdnDeliverTaskRequest(TeaModel):
     def __init__(self, deliver=None, deliver_id=None, domain_name=None, name=None, reports=None, schedule=None):
-        # The ID of the request.
+        # The method that is used to send operations reports. Operations reports are sent to you only by email. The settings need to be escaped in JSON.
         self.deliver = deliver  # type: str
-        # Domain Subscription
+        # The ID of the tracking task that you want to update.
         self.deliver_id = deliver_id  # type: long
-        # {"schedName":"subscription task name","description":"description","crontab":"000**?","frequency":"d","status":"enable","effectiveFrom": "2020-09-17T00:00:00Z","effectiveEnd":"2020-11-17T00:00:00Z"}
+        # The domain names from which the tracking task collects data. Separate domain names with commas (,). If you do not specify a domain name, the task collects data from all domain names that belong to your Alibaba Cloud account.
         self.domain_name = domain_name  # type: str
         # The name of the tracking task.
         self.name = name  # type: str
-        # The operations reports that are tracked by the task. The data must be escaped in JSON.
+        # The operations reports that are tracked by the task. The data needs to be escaped in JSON.
         self.reports = reports  # type: str
-        # The method that is used to send operations reports. Operations reports are sent to you only by email. The settings must be escaped in JSON.
+        # The parameters that specify the time interval at which the tracking task sends operations reports. The settings need to be escaped in JSON.
         self.schedule = schedule  # type: str
 
     def validate(self):
@@ -35876,7 +36048,7 @@ class UpdateDcdnDeliverTaskRequest(TeaModel):
 
 class UpdateDcdnDeliverTaskResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Updates a tracking task by task ID.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
