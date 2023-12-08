@@ -1,3 +1,6 @@
+2023-12-08 Version: 2.0.8
+- Generated python2 2020-01-16 for DAS.
+
 2022-01-27 Version: 2.0.7
 - Supported query optimize open API.
 

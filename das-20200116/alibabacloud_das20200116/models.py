@@ -3,22 +3,181 @@
 from Tea.model import TeaModel
 
 
+class DataResultValue(TeaModel):
+    def __init__(self, sql_id=None, instance_id=None, count=None):
+        # The SQL ID.
+        self.sql_id = sql_id  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The number of failed executions.
+        self.count = count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DataResultValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sql_id is not None:
+            result['sqlId'] = self.sql_id
+        if self.instance_id is not None:
+            result['instanceId'] = self.instance_id
+        if self.count is not None:
+            result['count'] = self.count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('sqlId') is not None:
+            self.sql_id = m.get('sqlId')
+        if m.get('instanceId') is not None:
+            self.instance_id = m.get('instanceId')
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        return self
+
+
+class DataSessionStatClientStatsValue(TeaModel):
+    def __init__(self, active_count=None, total_count=None):
+        # The number of clients whose IP addresses are active.
+        self.active_count = active_count  # type: long
+        # The total number of IP addresses of clients.
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DataSessionStatClientStatsValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active_count is not None:
+            result['ActiveCount'] = self.active_count
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActiveCount') is not None:
+            self.active_count = m.get('ActiveCount')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DataSessionStatDbStatsValue(TeaModel):
+    def __init__(self, active_count=None, total_count=None):
+        # The number of active namespaces.
+        self.active_count = active_count  # type: long
+        # The total number of namespaces.
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DataSessionStatDbStatsValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active_count is not None:
+            result['ActiveCount'] = self.active_count
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActiveCount') is not None:
+            self.active_count = m.get('ActiveCount')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DataValue(TeaModel):
+    def __init__(self, timestamp=None, value=None):
+        # The timestamp. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.timestamp = timestamp  # type: str
+        # The value of the metric.
+        self.value = value  # type: any
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DataValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class AddHDMInstanceRequest(TeaModel):
     def __init__(self, engine=None, flush_account=None, instance_alias=None, instance_area=None, instance_id=None,
                  ip=None, network_type=None, password=None, port=None, region=None, username=None, vpc_id=None,
                  context=None):
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**\
+        # *   **PostgreSQL**\
+        # *   **SQLServer**\
+        # *   **PolarDBMySQL**\
+        # *   **PolarDBPostgreSQL**\
+        # *   **Redis**\
+        # *   **MongoDB**\
+        # *   **PolarDBOracle**\
+        # *   **PolarDBX**\
         self.engine = engine  # type: str
+        # The reserved parameter.
         self.flush_account = flush_account  # type: str
+        # The name of the instance.
         self.instance_alias = instance_alias  # type: str
+        # The type of the instance on which the database is deployed. Valid values:
+        # 
+        # *   **RDS**: an Alibaba Cloud database instance.
+        # *   **ECS**: an Elastic Compute Service (ECS) instance on which a self-managed database is deployed.
+        # *   **IDC**: a self-managed database instance that is not deployed on Alibaba Cloud.
+        # 
+        # >  IDC refers to your data center.
         self.instance_area = instance_area  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The endpoint that is used to access the instance over internal networks.
         self.ip = ip  # type: str
+        # The network type of the instance.
         self.network_type = network_type  # type: str
+        # The password for the username.
         self.password = password  # type: str
+        # The port that is used to access the instance over internal networks.
         self.port = port  # type: str
+        # The ID of the region in which the instance resides.
         self.region = region  # type: str
+        # The username that is used to log on to the database.
         self.username = username  # type: str
+        # The virtual private cloud (VPC) ID.
         self.vpc_id = vpc_id  # type: str
+        # The reserved parameter.
         self.context = context  # type: str
 
     def validate(self):
@@ -92,17 +251,29 @@ class AddHDMInstanceRequest(TeaModel):
 class AddHDMInstanceResponseBodyData(TeaModel):
     def __init__(self, caller_uid=None, code=None, error=None, instance_id=None, ip=None, owner_id=None, port=None,
                  role=None, tenant_id=None, token=None, uuid=None, vpc_id=None):
+        # The user ID of the caller.
         self.caller_uid = caller_uid  # type: str
+        # The HTTP status code returned.
         self.code = code  # type: int
+        # The error message returned if the request failed.
         self.error = error  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The endpoint of the instance.
         self.ip = ip  # type: str
+        # The ID of the instance owner.
         self.owner_id = owner_id  # type: str
+        # The port number of the instance that you want to access.
         self.port = port  # type: int
+        # The role of the current API caller.
         self.role = role  # type: str
+        # The tenant ID.
         self.tenant_id = tenant_id  # type: str
+        # The client token that is used to ensure the idempotence of the request.
         self.token = token  # type: str
+        # The unique identifier of the instance.
         self.uuid = uuid  # type: str
+        # The VPC ID.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -171,11 +342,22 @@ class AddHDMInstanceResponseBodyData(TeaModel):
 
 class AddHDMInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None, synchro=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information, including the error codes and the number of entries that are returned.
         self.data = data  # type: AddHDMInstanceResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
+        # The reserved parameter.
         self.synchro = synchro  # type: str
 
     def validate(self):
@@ -221,12 +403,14 @@ class AddHDMInstanceResponseBody(TeaModel):
 
 
 class AddHDMInstanceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AddHDMInstanceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -239,6 +423,8 @@ class AddHDMInstanceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -247,6 +433,8 @@ class AddHDMInstanceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AddHDMInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -257,17 +445,29 @@ class CreateAdamBenchTaskRequest(TeaModel):
     def __init__(self, description=None, dst_instance_id=None, dst_super_account=None, dst_super_password=None,
                  rate=None, request_duration=None, request_start_time=None, src_engine=None, src_engine_version=None,
                  src_max_qps=None, src_mean_qps=None, src_sql_oss_addr=None):
+        # The description of the stress testing task.
         self.description = description  # type: str
+        # The ID of the destination instance. The instance must be an ApsaraDB RDS for MySQL instance or a PolarDB for MySQL instance. You can call the [GetInstanceInspections](~~202857~~) operation to query the ID.
         self.dst_instance_id = dst_instance_id  # type: str
+        # The name of the privileged account for the destination instance.
         self.dst_super_account = dst_super_account  # type: str
+        # The password of the privileged account for the destination instance.
         self.dst_super_password = dst_super_password  # type: str
+        # The rate at which the traffic captured from the source database instance is replayed on the destination database instance. Valid values: 1 to 30. Default value: 1.
         self.rate = rate  # type: int
+        # The duration of the stress testing task for which the traffic is captured from the source instance. Unit: milliseconds.
         self.request_duration = request_duration  # type: long
+        # The start time of the stress testing task. Specify the time in the UNIX timestamp format. Unit: milliseconds.
         self.request_start_time = request_start_time  # type: long
+        # The database engine that the source database instance runs.
         self.src_engine = src_engine  # type: str
+        # The version of the database engine that the source database instance runs.
         self.src_engine_version = src_engine_version  # type: str
+        # The maximum number of queries per second (QPS) within the time period during which traffic on the source database instance is captured. The value must be accurate to two decimal places.
         self.src_max_qps = src_max_qps  # type: float
+        # The average QPS within the time period in which traffic on the source database instance is captured. The value must be accurate to two decimal places.
         self.src_mean_qps = src_mean_qps  # type: float
+        # The URL of the Object Storage Service (OSS) folder in which the archived objects for SQL statements that run on the source database instance are stored. You can obtain the URL after you upload the archived files to OSS.
         self.src_sql_oss_addr = src_sql_oss_addr  # type: str
 
     def validate(self):
@@ -336,10 +536,20 @@ class CreateAdamBenchTaskRequest(TeaModel):
 
 class CreateAdamBenchTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information, including the error codes and the number of entries that are returned.
         self.data = data  # type: str
+        # The returned message.
+        # 
+        # > If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -379,12 +589,14 @@ class CreateAdamBenchTaskResponseBody(TeaModel):
 
 
 class CreateAdamBenchTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateAdamBenchTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -397,6 +609,8 @@ class CreateAdamBenchTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -405,6 +619,8 @@ class CreateAdamBenchTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateAdamBenchTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -412,10 +628,20 @@ class CreateAdamBenchTaskResponse(TeaModel):
 
 
 class CreateCacheAnalysisJobRequest(TeaModel):
-    def __init__(self, backup_set_id=None, instance_id=None, node_id=None):
+    def __init__(self, backup_set_id=None, instance_id=None, node_id=None, separators=None):
+        # The ID of the backup file. You can call the [DescribeBackups](~~61081~~) operation to query the ID.
+        # 
+        # *   If you need to specify multiple backup file IDs, separate them with commas (,). For example, you can set this parameter to `12345,67890`.
+        # *   If you do not specify this parameter, the system automatically backs up the task and performs cache analysis on the backup file.
         self.backup_set_id = backup_set_id  # type: str
+        # The ID of the ApsaraDB for Redis instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the data node on the instance. You can specify this parameter to query the monitoring information about the specified node.
+        # 
+        # >  If you specify the BackupSetId parameter, the system ignores the NodeId parameter. You can call the [DescribeLogicInstanceTopology](~~94665~~) operation to query the node ID.
         self.node_id = node_id  # type: str
+        # The delimiters used to identify the prefixes of keys. You do not need to specify this parameter if one or more of the following default delimiters are used: `: ; , _ - + @ = | #`
+        self.separators = separators  # type: str
 
     def validate(self):
         pass
@@ -432,6 +658,8 @@ class CreateCacheAnalysisJobRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.node_id is not None:
             result['NodeId'] = self.node_id
+        if self.separators is not None:
+            result['Separators'] = self.separators
         return result
 
     def from_map(self, m=None):
@@ -442,19 +670,29 @@ class CreateCacheAnalysisJobRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
+        if m.get('Separators') is not None:
+            self.separators = m.get('Separators')
         return self
 
 
 class CreateCacheAnalysisJobResponseBodyDataBigKeysKeyInfo(TeaModel):
     def __init__(self, bytes=None, count=None, db=None, encoding=None, expiration_time_millis=None, key=None,
                  node_id=None, type=None):
+        # The number of bytes that are occupied by the key.
         self.bytes = bytes  # type: long
+        # The number of elements in the key.
         self.count = count  # type: long
+        # The name of the database.
         self.db = db  # type: int
+        # The data type of the key.
         self.encoding = encoding  # type: str
+        # The expiration period of the key. Unit: milliseconds. A value of 0 indicates that the key does not expire.
         self.expiration_time_millis = expiration_time_millis  # type: long
+        # The name of the key.
         self.key = key  # type: str
+        # The ID of the data node on the instance.
         self.node_id = node_id  # type: str
+        # The data type of the ApsaraDB for Redis instance.
         self.type = type  # type: str
 
     def validate(self):
@@ -539,11 +777,26 @@ class CreateCacheAnalysisJobResponseBodyDataBigKeys(TeaModel):
 
 class CreateCacheAnalysisJobResponseBodyData(TeaModel):
     def __init__(self, big_keys=None, instance_id=None, job_id=None, message=None, node_id=None, task_state=None):
+        # The number of elements in the key.
         self.big_keys = big_keys  # type: CreateCacheAnalysisJobResponseBodyDataBigKeys
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The ID of the cache analysis task.
+        # 
+        # >  This parameter can be used to query a specific cache analysis task. When you call the CreateCacheAnalysisJob operation, it takes some time to create a cache analysis task. As a result, the analysis results cannot be immediately returned. You can call the [DescribeCacheAnalysisJob](~~180983~~) operation to query the analysis results of the specified cache analysis task.
         self.job_id = job_id  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The ID of the data node on the instance.
         self.node_id = node_id  # type: str
+        # The state of the cache analysis task. Valid values:
+        # 
+        # *   **BACKUP**: The data is being backed up.
+        # *   **ANALYZING**: The data is being analyzed.
+        # *   **FINISHED**: The data is analyzed.
+        # *   **FAILED**: An error occurred.
         self.task_state = task_state  # type: str
 
     def validate(self):
@@ -590,10 +843,20 @@ class CreateCacheAnalysisJobResponseBodyData(TeaModel):
 
 class CreateCacheAnalysisJobResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information.
         self.data = data  # type: CreateCacheAnalysisJobResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -635,12 +898,14 @@ class CreateCacheAnalysisJobResponseBody(TeaModel):
 
 
 class CreateCacheAnalysisJobResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateCacheAnalysisJobResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -653,6 +918,8 @@ class CreateCacheAnalysisJobResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -661,6 +928,8 @@ class CreateCacheAnalysisJobResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateCacheAnalysisJobResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -674,32 +943,97 @@ class CreateCloudBenchTasksRequest(TeaModel):
                  gateway_vpc_ip=None, rate=None, request_duration=None, request_end_time=None, request_start_time=None,
                  smart_pressure_time=None, src_instance_id=None, src_public_ip=None, src_super_account=None, src_super_password=None,
                  task_type=None, work_dir=None):
+        # The total number of stress testing tasks that you want to create. Valid values: **0** to **30**. Default value: **1**.
         self.amount = amount  # type: str
+        # The ID of the backup set. You can call the [DescribeBackups](~~26273~~) operation to query the ID of the backup set.
         self.backup_id = backup_id  # type: str
+        # The time when the backup starts. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.backup_time = backup_time  # type: str
+        # The type of the stress testing client. Valid values:
+        # 
+        # *   **ECS**: indicates that you must create the [DBGateway](~~64905~~).
+        # *   **DAS_ECS**: indicates that DAS automatically purchases and deploys an Elastic Compute Service (ECS) instance for stress testing.
         self.client_type = client_type  # type: str
+        # The description of the stress testing task.
         self.description = description  # type: str
+        # The endpoint of the destination instance. The specified endpoint must be the endpoint of an ApsaraDB RDS for MySQL instance or a PolarDB for MySQL instance.
+        # 
+        # >  This parameter takes effect only if you set **DstType** to **ConnectionString**.
         self.dst_connection_string = dst_connection_string  # type: str
+        # The ID of the destination instance. The instance must be an ApsaraDB RDS for MySQL instance or a PolarDB for MySQL instance. You can call the [GetInstanceInspections](~~202857~~) operation to query the ID.
+        # 
+        # >  This parameter must be specified if you set **DstType** to **Instance**.
         self.dst_instance_id = dst_instance_id  # type: str
+        # The port number of the instance that you want to access.
+        # 
+        # >  This parameter takes effect only if you set **DstType** to **ConnectionString**.
         self.dst_port = dst_port  # type: str
+        # The name of the privileged account for the destination instance.
         self.dst_super_account = dst_super_account  # type: str
+        # The password of the privileged account for the destination instance.
         self.dst_super_password = dst_super_password  # type: str
+        # The type of the identifier that is used to indicate the destination instance. Valid values:
+        # 
+        # *   **Instance**: the instance ID. This is the default value.
+        # *   **ConnectionString**: the endpoint of the instance.
         self.dst_type = dst_type  # type: str
+        # The specification of the Data Transmission Service (DTS) migration task. You can call the [DescribeCloudbenchTask](~~230669~~) operation to query the specification.
+        # 
+        # >  You must migrate the basic data in the source instance to the destination instance before you start a stress testing task. When you create a DTS migration task, you must specify this parameter.
         self.dts_job_class = dts_job_class  # type: str
+        # The ID of the DTS migration task. You can call the [ConfigureDtsJob](~~208399~~) operation to query the ID.
+        # 
+        # >  After a DTS migration task is created in the DTS console, you must specify this parameter.
         self.dts_job_id = dts_job_id  # type: str
+        # The state that specifies the last operation that is performed for the stress testing task. Valid values:
+        # 
+        # *   **WAIT_TARGET**: prepares the destination instance
+        # *   **WAIT_DBGATEWAY**: prepares the DBGateway
+        # *   **WAIT_SQL**: prepares the full SQL statistics
+        # *   **WAIT_LOGIC**: prepares to replay the traffic
+        # 
+        # >  When the state of a stress testing task changes to the state that is specified by the EndState parameter, the stress testing task becomes completed.
         self.end_state = end_state  # type: str
+        # The ID of the virtual private cloud (VPC) in which the database gateway (DBGateway) is deployed.
+        # 
+        # >  This parameter must be specified if you set **ClientType** to **ECS**.
         self.gateway_vpc_id = gateway_vpc_id  # type: str
+        # The IP address or domain name of the DBGateway.
+        # 
+        # >  This parameter must be specified if you set **ClientType** to **ECS**.
         self.gateway_vpc_ip = gateway_vpc_ip  # type: str
+        # The rate at which the traffic captured from the source instance is replayed on the destination instance. The value must be a positive integer. Valid values: **1** to **30**. Default value: **1**.
         self.rate = rate  # type: str
+        # The duration of the stress testing task for which the traffic is captured from the source instance. Unit: milliseconds.
         self.request_duration = request_duration  # type: str
+        # The time when the stress testing task ends. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.request_end_time = request_end_time  # type: str
+        # The time when the stress testing task starts. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.request_start_time = request_start_time  # type: str
+        # The duration within which the traffic generation stressing test takes effect. Unit: milliseconds.
+        # 
+        # >  This parameter must be specified if you set **TaskType** to **smart pressure test**.
         self.smart_pressure_time = smart_pressure_time  # type: str
+        # The ID of the source instance. The instance must be an ApsaraDB RDS for MySQL instance or a PolarDB for MySQL instance. You can call the [GetInstanceInspections](~~202857~~) operation to query the ID.
+        # 
+        # >  This parameter must be specified if you set **DstType** to **Instance**.
         self.src_instance_id = src_instance_id  # type: str
+        # The reserved parameter.
         self.src_public_ip = src_public_ip  # type: str
+        # The name of the privileged account for the source instance. Set the value to **admin**.
+        # 
+        # >  This parameter must be specified if you set **DstType** to **Instance**.
         self.src_super_account = src_super_account  # type: str
+        # The password of the privileged account for the source instance.
+        # 
+        # >  This parameter must be specified if you set **DstType** to **Instance**.
         self.src_super_password = src_super_password  # type: str
+        # The type of the stress testing task. Valid values:
+        # 
+        # *   **pressure test** (default): A task of this type replays the traffic that is captured from the source instance on the destination instance at the maximum playback rate that is supported by the destination instance.
+        # *   **smart pressure test**: A task of this type analyzes the traffic that is captured from the source instance over a short period of time and generates traffic on the destination instance for continuous stress testing. The business model based on which the traffic is generated on the destination instance and the traffic distribution are consistent with those on the source instance. Stress testing tasks of this type can help you reduce the amount of time that is consumed to collect data from the source instance and reduce storage costs and performance overheads.
         self.task_type = task_type  # type: str
+        # The temporary directory generated for stress testing.
         self.work_dir = work_dir  # type: str
 
     def validate(self):
@@ -852,10 +1186,20 @@ class CreateCloudBenchTasksResponseBodyData(TeaModel):
 
 class CreateCloudBenchTasksResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information.
         self.data = data  # type: CreateCloudBenchTasksResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -897,12 +1241,14 @@ class CreateCloudBenchTasksResponseBody(TeaModel):
 
 
 class CreateCloudBenchTasksResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateCloudBenchTasksResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -915,6 +1261,8 @@ class CreateCloudBenchTasksResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -923,6 +1271,8 @@ class CreateCloudBenchTasksResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateCloudBenchTasksResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -931,8 +1281,13 @@ class CreateCloudBenchTasksResponse(TeaModel):
 
 class CreateDiagnosticReportRequest(TeaModel):
     def __init__(self, dbinstance_id=None, end_time=None, start_time=None):
+        # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The end of the time range to create the diagnostic report. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The start time must be later than the end time.
         self.end_time = end_time  # type: str
+        # The beginning of the time range to create the diagnostic report. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -965,10 +1320,20 @@ class CreateDiagnosticReportRequest(TeaModel):
 
 class CreateDiagnosticReportResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The data returned.
         self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -1008,12 +1373,14 @@ class CreateDiagnosticReportResponseBody(TeaModel):
 
 
 class CreateDiagnosticReportResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateDiagnosticReportResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1026,6 +1393,8 @@ class CreateDiagnosticReportResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1034,17 +1403,485 @@ class CreateDiagnosticReportResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateDiagnosticReportResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class CreateKillInstanceSessionTaskRequest(TeaModel):
+    def __init__(self, db_user=None, db_user_password=None, ignored_users=None, instance_id=None,
+                 kill_all_sessions=None, node_id=None, session_ids=None):
+        # The database account that has the permissions to terminate sessions.
+        self.db_user = db_user  # type: str
+        # The password of the database account.
+        self.db_user_password = db_user_password  # type: str
+        # The account whose sessions do not need to be terminated.
+        # 
+        # >  Set this parameter to a JSON array. Separate database accounts with commas (,). Example: \[\"Database account 1\",\"Database account 2\"].
+        self.ignored_users = ignored_users  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # Specifies whether to terminate all sessions.
+        # 
+        # *   **true**\
+        # *   **false**\
+        # 
+        # >  If you set this parameter to **true**, sessions of the accounts that are specified by **IgnoredUsers**, sessions of internal O\&M accounts of Alibaba Cloud, and **Binlog Dump** sessions are not terminated.
+        self.kill_all_sessions = kill_all_sessions  # type: bool
+        # The node ID.
+        # 
+        # >  This parameter must be specified if the database instance is a PolarDB for MySQL cluster. If you do not specify a node ID and set **KillAllSessions** to **true**, the system traverses all nodes in the PolarDB for MySQL cluster and terminates the active sessions on each node.
+        self.node_id = node_id  # type: str
+        # The IDs of sessions that need to be terminated.
+        # 
+        # >  Set this parameter to a JSON array. Separate session IDs with commas (,). Example: \[\"Session ID1\",\"Session ID2\"]. If **KillAllSessions** is set to **true**, this parameter does not take effect.
+        self.session_ids = session_ids  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateKillInstanceSessionTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.db_user is not None:
+            result['DbUser'] = self.db_user
+        if self.db_user_password is not None:
+            result['DbUserPassword'] = self.db_user_password
+        if self.ignored_users is not None:
+            result['IgnoredUsers'] = self.ignored_users
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.kill_all_sessions is not None:
+            result['KillAllSessions'] = self.kill_all_sessions
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.session_ids is not None:
+            result['SessionIds'] = self.session_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DbUser') is not None:
+            self.db_user = m.get('DbUser')
+        if m.get('DbUserPassword') is not None:
+            self.db_user_password = m.get('DbUserPassword')
+        if m.get('IgnoredUsers') is not None:
+            self.ignored_users = m.get('IgnoredUsers')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('KillAllSessions') is not None:
+            self.kill_all_sessions = m.get('KillAllSessions')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('SessionIds') is not None:
+            self.session_ids = m.get('SessionIds')
+        return self
+
+
+class CreateKillInstanceSessionTaskResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The ID of the task that terminated the sessions.
+        # 
+        # >  If the sessions of a PolarDB for MySQL cluster were terminated, **NodeId** is left empty, and **KillAllSessions** is set to **true**, the task IDs are returned based on the number of nodes. Example: \["f77d535b45405bd462b21caa3ee8\*\*\*\*", "e93ab549abb081eb5dcd5396a29b\*\*\*\*"].
+        self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateKillInstanceSessionTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateKillInstanceSessionTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateKillInstanceSessionTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateKillInstanceSessionTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateKillInstanceSessionTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateKillInstanceSessionTaskWithMaintainUserRequest(TeaModel):
+    def __init__(self, ignored_users=None, instance_id=None, kill_all_sessions=None, node_id=None, session_ids=None):
+        self.ignored_users = ignored_users  # type: str
+        self.instance_id = instance_id  # type: str
+        self.kill_all_sessions = kill_all_sessions  # type: bool
+        self.node_id = node_id  # type: str
+        self.session_ids = session_ids  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateKillInstanceSessionTaskWithMaintainUserRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ignored_users is not None:
+            result['IgnoredUsers'] = self.ignored_users
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.kill_all_sessions is not None:
+            result['KillAllSessions'] = self.kill_all_sessions
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.session_ids is not None:
+            result['SessionIds'] = self.session_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IgnoredUsers') is not None:
+            self.ignored_users = m.get('IgnoredUsers')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('KillAllSessions') is not None:
+            self.kill_all_sessions = m.get('KillAllSessions')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('SessionIds') is not None:
+            self.session_ids = m.get('SessionIds')
+        return self
+
+
+class CreateKillInstanceSessionTaskWithMaintainUserResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: long
+        self.data = data  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateKillInstanceSessionTaskWithMaintainUserResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateKillInstanceSessionTaskWithMaintainUserResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateKillInstanceSessionTaskWithMaintainUserResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateKillInstanceSessionTaskWithMaintainUserResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateKillInstanceSessionTaskWithMaintainUserResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateQueryOptimizeTagRequest(TeaModel):
+    def __init__(self, comments=None, engine=None, instance_id=None, sql_ids=None, status=None, tags=None):
+        # The remarks.
+        # 
+        # The remarks can be 1 to 300 characters in length.
+        self.comments = comments  # type: str
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**: ApsaraDB RDS for MySQL
+        # *   **PolarDBMySQL**: PolarDB for MySQL
+        # *   **PostgreSQL**: ApsaraDB RDS for PostgreSQL
+        self.engine = engine  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The SQL template IDs. You can call the [GetQueryOptimizeExecErrorStats](~~405261~~) operation to obtain the SQL template ID. Separate multiple SQL template IDs with commas (,).
+        self.sql_ids = sql_ids  # type: str
+        # The status of **Tags**. Valid values:
+        # 
+        # *   **0**: removes all tags added to the SQL templates that are specified by **SqlIds** and leaves **Tags** empty.
+        # *   **1**: adds the tags specified by **Tags** to the SQL templates that are specified by **SqlIds**.
+        self.status = status  # type: int
+        # The SQL tags. Separate multiple SQL tags with commas (,). Valid values:
+        # 
+        # *   **DAS_IMPORTANT**: The SQL template is important.
+        # *   **DAS_NOT_IMPORTANT**: The SQL template is unimportant.
+        # *   **USER_IGNORE**: The scheduling of the SQL template does not need to be optimized.
+        # *   **DAS_IN_PLAN**: The scheduling of the SQL template needs to be optimized.
+        self.tags = tags  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateQueryOptimizeTagRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.comments is not None:
+            result['Comments'] = self.comments
+        if self.engine is not None:
+            result['Engine'] = self.engine
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.sql_ids is not None:
+            result['SqlIds'] = self.sql_ids
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.tags is not None:
+            result['Tags'] = self.tags
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Comments') is not None:
+            self.comments = m.get('Comments')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('SqlIds') is not None:
+            self.sql_ids = m.get('SqlIds')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
+        return self
+
+
+class CreateQueryOptimizeTagResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # Indicates whether the tags were added to the SQL templates.
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.data = data  # type: bool
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateQueryOptimizeTagResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateQueryOptimizeTagResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateQueryOptimizeTagResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateQueryOptimizeTagResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateQueryOptimizeTagResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateRequestDiagnosisRequest(TeaModel):
     def __init__(self, database=None, instance_id=None, node_id=None, sql=None):
+        # The name of the database.
         self.database = database  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  This parameter must be specified for PolarDB for MySQL, PolarDB for PostgreSQL (Compatible with Oracle), and ApsaraDB for MongoDB instances.
         self.node_id = node_id  # type: str
+        # The SQL statement that you want to diagnose.
         self.sql = sql  # type: str
 
     def validate(self):
@@ -1081,10 +1918,20 @@ class CreateRequestDiagnosisRequest(TeaModel):
 
 class CreateRequestDiagnosisResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The diagnostics ID, which is the unique identifier of the diagnosis. This parameter can be used to query the result of the diagnosis.
         self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -1124,12 +1971,14 @@ class CreateRequestDiagnosisResponseBody(TeaModel):
 
 
 class CreateRequestDiagnosisResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateRequestDiagnosisResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1142,6 +1991,8 @@ class CreateRequestDiagnosisResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1150,14 +2001,175 @@ class CreateRequestDiagnosisResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateRequestDiagnosisResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class CreateStorageAnalysisTaskRequest(TeaModel):
+    def __init__(self, db_name=None, instance_id=None, node_id=None, table_name=None):
+        self.db_name = db_name  # type: str
+        self.instance_id = instance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.table_name = table_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateStorageAnalysisTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.db_name is not None:
+            result['DbName'] = self.db_name
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DbName') is not None:
+            self.db_name = m.get('DbName')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        return self
+
+
+class CreateStorageAnalysisTaskResponseBodyData(TeaModel):
+    def __init__(self, create_task_success=None, error_message=None, task_id=None):
+        self.create_task_success = create_task_success  # type: bool
+        self.error_message = error_message  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateStorageAnalysisTaskResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_task_success is not None:
+            result['CreateTaskSuccess'] = self.create_task_success
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTaskSuccess') is not None:
+            self.create_task_success = m.get('CreateTaskSuccess')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class CreateStorageAnalysisTaskResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: long
+        self.data = data  # type: CreateStorageAnalysisTaskResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CreateStorageAnalysisTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = CreateStorageAnalysisTaskResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateStorageAnalysisTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateStorageAnalysisTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateStorageAnalysisTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateStorageAnalysisTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteCloudBenchTaskRequest(TeaModel):
     def __init__(self, task_id=None):
+        # The ID of the stress testing task. You can call the [DescribeCloudBenchTasks](~~230670~~) operation to query the ID.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -1182,10 +2194,20 @@ class DeleteCloudBenchTaskRequest(TeaModel):
 
 class DeleteCloudBenchTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The reserved parameter.
         self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -1225,12 +2247,14 @@ class DeleteCloudBenchTaskResponseBody(TeaModel):
 
 
 class DeleteCloudBenchTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteCloudBenchTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1243,6 +2267,8 @@ class DeleteCloudBenchTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1251,15 +2277,975 @@ class DeleteCloudBenchTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteCloudBenchTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class DeleteStopGatewayRequest(TeaModel):
+    def __init__(self, gateway_id=None):
+        # The ID that can uniquely identify the DBGateway. You can obtain the DBGateway ID by calling the [DescribeCloudbenchTask](~~230669~~) operation. The DBGateway ID is the value of the **ClientGatewayId** field in the response.
+        self.gateway_id = gateway_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteStopGatewayRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        return self
+
+
+class DeleteStopGatewayResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The result of the DeleteStopGateway operation. Valid values:
+        # 
+        # *   **0**: The metadata of the DBGateway is deleted.
+        # *   **-1**: A system error occurs.
+        # *   **-2**: The DBGateway does not exist.
+        # *   **-3**: The DBGateway is not stopped and the metadata cannot be deleted.
+        # *   **-4**: The metadata of the DBGateway fails to be deleted.
+        self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteStopGatewayResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteStopGatewayResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteStopGatewayResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteStopGatewayResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteStopGatewayResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeAutoScalingConfigRequest(TeaModel):
+    def __init__(self, instance_id=None):
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class DescribeAutoScalingConfigResponseBodyDataBandwidth(TeaModel):
+    def __init__(self, bandwidth_usage_lower_threshold=None, bandwidth_usage_upper_threshold=None, downgrade=None,
+                 observation_window_size=None, upgrade=None):
+        # The average bandwidth usage threshold that triggers automatic bandwidth downgrade. Unit: %.
+        self.bandwidth_usage_lower_threshold = bandwidth_usage_lower_threshold  # type: int
+        # The average bandwidth usage threshold that triggers automatic bandwidth adjustment. Unit: %.
+        self.bandwidth_usage_upper_threshold = bandwidth_usage_upper_threshold  # type: int
+        # Indicates whether the automatic bandwidth downgrade feature is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.downgrade = downgrade  # type: bool
+        # The observation window of the automatic bandwidth adjustment feature. The return value consists of a numeric value and a time unit suffix. Valid values of the time unit suffix:
+        # 
+        # *   **s**: seconds.
+        # *   **m**: minutes.
+        # *   **h**: hours.
+        # *   **d**: days.
+        # 
+        # >  A value of **5m** indicates 5 minutes.
+        self.observation_window_size = observation_window_size  # type: str
+        # Indicates whether the automatic bandwidth adjustment feature is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.upgrade = upgrade  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingConfigResponseBodyDataBandwidth, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bandwidth_usage_lower_threshold is not None:
+            result['BandwidthUsageLowerThreshold'] = self.bandwidth_usage_lower_threshold
+        if self.bandwidth_usage_upper_threshold is not None:
+            result['BandwidthUsageUpperThreshold'] = self.bandwidth_usage_upper_threshold
+        if self.downgrade is not None:
+            result['Downgrade'] = self.downgrade
+        if self.observation_window_size is not None:
+            result['ObservationWindowSize'] = self.observation_window_size
+        if self.upgrade is not None:
+            result['Upgrade'] = self.upgrade
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BandwidthUsageLowerThreshold') is not None:
+            self.bandwidth_usage_lower_threshold = m.get('BandwidthUsageLowerThreshold')
+        if m.get('BandwidthUsageUpperThreshold') is not None:
+            self.bandwidth_usage_upper_threshold = m.get('BandwidthUsageUpperThreshold')
+        if m.get('Downgrade') is not None:
+            self.downgrade = m.get('Downgrade')
+        if m.get('ObservationWindowSize') is not None:
+            self.observation_window_size = m.get('ObservationWindowSize')
+        if m.get('Upgrade') is not None:
+            self.upgrade = m.get('Upgrade')
+        return self
+
+
+class DescribeAutoScalingConfigResponseBodyDataResource(TeaModel):
+    def __init__(self, cpu_step=None, cpu_usage_upper_threshold=None, downgrade_observation_window_size=None,
+                 enable=None, upgrade_observation_window_size=None):
+        # The scale-out step size of CPU.
+        self.cpu_step = cpu_step  # type: int
+        # The average CPU utilization threshold that triggers automatic scale-out of local resources. Unit: %.
+        self.cpu_usage_upper_threshold = cpu_usage_upper_threshold  # type: int
+        # The observation window of the automatic scale-in feature for local resources. The return value consists of a numeric value and a time unit suffix. Valid values of the time unit suffix:
+        # 
+        # *   **s**: seconds.
+        # *   **m**: minutes.
+        # *   **h**: hours.
+        # *   **d**: days.
+        # 
+        # >  A value of **5m** indicates 5 minutes.
+        self.downgrade_observation_window_size = downgrade_observation_window_size  # type: str
+        # Indicates whether the auto scaling feature is enabled for local resources. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.enable = enable  # type: bool
+        # The observation window of the automatic scale-out feature for local resources. The return value consists of a numeric value and a time unit suffix. Valid values of the time unit suffix:
+        # 
+        # *   **s**: seconds.
+        # *   **m**: minutes.
+        # *   **h**: hours.
+        # *   **d**: days.
+        # 
+        # >  A value of **5m** indicates 5 minutes.
+        self.upgrade_observation_window_size = upgrade_observation_window_size  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingConfigResponseBodyDataResource, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cpu_step is not None:
+            result['CpuStep'] = self.cpu_step
+        if self.cpu_usage_upper_threshold is not None:
+            result['CpuUsageUpperThreshold'] = self.cpu_usage_upper_threshold
+        if self.downgrade_observation_window_size is not None:
+            result['DowngradeObservationWindowSize'] = self.downgrade_observation_window_size
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.upgrade_observation_window_size is not None:
+            result['UpgradeObservationWindowSize'] = self.upgrade_observation_window_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CpuStep') is not None:
+            self.cpu_step = m.get('CpuStep')
+        if m.get('CpuUsageUpperThreshold') is not None:
+            self.cpu_usage_upper_threshold = m.get('CpuUsageUpperThreshold')
+        if m.get('DowngradeObservationWindowSize') is not None:
+            self.downgrade_observation_window_size = m.get('DowngradeObservationWindowSize')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('UpgradeObservationWindowSize') is not None:
+            self.upgrade_observation_window_size = m.get('UpgradeObservationWindowSize')
+        return self
+
+
+class DescribeAutoScalingConfigResponseBodyDataShard(TeaModel):
+    def __init__(self, downgrade=None, downgrade_observation_window_size=None, max_shards=None,
+                 mem_usage_lower_threshold=None, mem_usage_upper_threshold=None, min_shards=None, upgrade=None,
+                 upgrade_observation_window_size=None):
+        # Indicates whether the feature of automatically removing shards is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.downgrade = downgrade  # type: bool
+        # The observation window of the feature of automatically removing shards. The return value consists of a numeric value and a time unit suffix. Valid values of the time unit suffix:
+        # 
+        # *   **s**: seconds.
+        # *   **m**: minutes.
+        # *   **h**: hours.
+        # *   **d**: days.
+        # 
+        # >  A value of **1d** indicates one day.
+        self.downgrade_observation_window_size = downgrade_observation_window_size  # type: str
+        # The maximum number of shards in the instance.
+        self.max_shards = max_shards  # type: int
+        # The average memory usage threshold that triggers automatic removal of shards. Unit: %.
+        self.mem_usage_lower_threshold = mem_usage_lower_threshold  # type: int
+        # The average memory usage threshold that triggers automatic adding of shards. Unit: %.
+        self.mem_usage_upper_threshold = mem_usage_upper_threshold  # type: int
+        # The minimum number of shards in the instance.
+        self.min_shards = min_shards  # type: int
+        # Indicates whether the feature of automatically adding shards is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.upgrade = upgrade  # type: bool
+        # The observation window of the feature of automatically adding shards. The return value consists of a numeric value and a time unit suffix. Valid values of the time unit suffix:
+        # 
+        # *   **s**: seconds.
+        # *   **m**: minutes.
+        # *   **h**: hours.
+        # *   **d**: days.
+        # 
+        # >  A value of **5m** indicates 5 minutes.
+        self.upgrade_observation_window_size = upgrade_observation_window_size  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingConfigResponseBodyDataShard, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.downgrade is not None:
+            result['Downgrade'] = self.downgrade
+        if self.downgrade_observation_window_size is not None:
+            result['DowngradeObservationWindowSize'] = self.downgrade_observation_window_size
+        if self.max_shards is not None:
+            result['MaxShards'] = self.max_shards
+        if self.mem_usage_lower_threshold is not None:
+            result['MemUsageLowerThreshold'] = self.mem_usage_lower_threshold
+        if self.mem_usage_upper_threshold is not None:
+            result['MemUsageUpperThreshold'] = self.mem_usage_upper_threshold
+        if self.min_shards is not None:
+            result['MinShards'] = self.min_shards
+        if self.upgrade is not None:
+            result['Upgrade'] = self.upgrade
+        if self.upgrade_observation_window_size is not None:
+            result['UpgradeObservationWindowSize'] = self.upgrade_observation_window_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Downgrade') is not None:
+            self.downgrade = m.get('Downgrade')
+        if m.get('DowngradeObservationWindowSize') is not None:
+            self.downgrade_observation_window_size = m.get('DowngradeObservationWindowSize')
+        if m.get('MaxShards') is not None:
+            self.max_shards = m.get('MaxShards')
+        if m.get('MemUsageLowerThreshold') is not None:
+            self.mem_usage_lower_threshold = m.get('MemUsageLowerThreshold')
+        if m.get('MemUsageUpperThreshold') is not None:
+            self.mem_usage_upper_threshold = m.get('MemUsageUpperThreshold')
+        if m.get('MinShards') is not None:
+            self.min_shards = m.get('MinShards')
+        if m.get('Upgrade') is not None:
+            self.upgrade = m.get('Upgrade')
+        if m.get('UpgradeObservationWindowSize') is not None:
+            self.upgrade_observation_window_size = m.get('UpgradeObservationWindowSize')
+        return self
+
+
+class DescribeAutoScalingConfigResponseBodyDataSpec(TeaModel):
+    def __init__(self, cool_down_time=None, cpu_usage_upper_threshold=None, downgrade=None,
+                 max_read_only_nodes=None, max_spec=None, mem_usage_upper_threshold=None, observation_window_size=None, upgrade=None):
+        # The quiescent period. The return value consists of a numeric value and a time unit suffix. Valid values of the time unit suffix:
+        # 
+        # *   **s**: seconds.
+        # *   **m**: minutes.
+        # *   **h**: hours.
+        # *   **d**: days.
+        # 
+        # >  A value of **5m** indicates 5 minutes.
+        self.cool_down_time = cool_down_time  # type: str
+        # The average CPU utilization threshold that triggers automatic specification scale-up. Unit: %.
+        self.cpu_usage_upper_threshold = cpu_usage_upper_threshold  # type: int
+        # Indicates whether the automatic specification scale-down feature is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.downgrade = downgrade  # type: bool
+        # The maximum number of read-only nodes of the instance.
+        self.max_read_only_nodes = max_read_only_nodes  # type: int
+        # The maximum specifications to which the database instance can be upgraded. For more information about the specifications of each type of supported database instances, see the following topics:
+        # 
+        # *   PolarDB for MySQL Cluster Edition instances: [Specifications of compute nodes](~~102542~~).
+        # *   ApsaraDB RDS for MySQL High-availability Edition instances that use standard SSDs or enhanced SSDs (ESSDs): [Specifications](~~276974~~).
+        self.max_spec = max_spec  # type: str
+        # The average memory usage threshold that triggers automatic specification scale-up. Unit: %.
+        self.mem_usage_upper_threshold = mem_usage_upper_threshold  # type: int
+        # The observation window. The return value consists of a numeric value and a time unit suffix. Valid values of the time unit suffix:
+        # 
+        # *   **s**: seconds.
+        # *   **m**: minutes.
+        # *   **h**: hours.
+        # *   **d**: days.
+        # 
+        # >  A value of **5m** indicates 5 minutes.
+        self.observation_window_size = observation_window_size  # type: str
+        # Indicates whether the automatic specification scale-up feature is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.upgrade = upgrade  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingConfigResponseBodyDataSpec, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cool_down_time is not None:
+            result['CoolDownTime'] = self.cool_down_time
+        if self.cpu_usage_upper_threshold is not None:
+            result['CpuUsageUpperThreshold'] = self.cpu_usage_upper_threshold
+        if self.downgrade is not None:
+            result['Downgrade'] = self.downgrade
+        if self.max_read_only_nodes is not None:
+            result['MaxReadOnlyNodes'] = self.max_read_only_nodes
+        if self.max_spec is not None:
+            result['MaxSpec'] = self.max_spec
+        if self.mem_usage_upper_threshold is not None:
+            result['MemUsageUpperThreshold'] = self.mem_usage_upper_threshold
+        if self.observation_window_size is not None:
+            result['ObservationWindowSize'] = self.observation_window_size
+        if self.upgrade is not None:
+            result['Upgrade'] = self.upgrade
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CoolDownTime') is not None:
+            self.cool_down_time = m.get('CoolDownTime')
+        if m.get('CpuUsageUpperThreshold') is not None:
+            self.cpu_usage_upper_threshold = m.get('CpuUsageUpperThreshold')
+        if m.get('Downgrade') is not None:
+            self.downgrade = m.get('Downgrade')
+        if m.get('MaxReadOnlyNodes') is not None:
+            self.max_read_only_nodes = m.get('MaxReadOnlyNodes')
+        if m.get('MaxSpec') is not None:
+            self.max_spec = m.get('MaxSpec')
+        if m.get('MemUsageUpperThreshold') is not None:
+            self.mem_usage_upper_threshold = m.get('MemUsageUpperThreshold')
+        if m.get('ObservationWindowSize') is not None:
+            self.observation_window_size = m.get('ObservationWindowSize')
+        if m.get('Upgrade') is not None:
+            self.upgrade = m.get('Upgrade')
+        return self
+
+
+class DescribeAutoScalingConfigResponseBodyDataStorage(TeaModel):
+    def __init__(self, disk_usage_upper_threshold=None, max_storage=None, upgrade=None):
+        # The average storage usage threshold that triggers automatic storage expansion. Unit: %.
+        self.disk_usage_upper_threshold = disk_usage_upper_threshold  # type: int
+        # The maximum storage size. Unit: GB.
+        self.max_storage = max_storage  # type: int
+        # Indicates whether the automatic storage expansion feature is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.upgrade = upgrade  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingConfigResponseBodyDataStorage, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.disk_usage_upper_threshold is not None:
+            result['DiskUsageUpperThreshold'] = self.disk_usage_upper_threshold
+        if self.max_storage is not None:
+            result['MaxStorage'] = self.max_storage
+        if self.upgrade is not None:
+            result['Upgrade'] = self.upgrade
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DiskUsageUpperThreshold') is not None:
+            self.disk_usage_upper_threshold = m.get('DiskUsageUpperThreshold')
+        if m.get('MaxStorage') is not None:
+            self.max_storage = m.get('MaxStorage')
+        if m.get('Upgrade') is not None:
+            self.upgrade = m.get('Upgrade')
+        return self
+
+
+class DescribeAutoScalingConfigResponseBodyData(TeaModel):
+    def __init__(self, bandwidth=None, resource=None, shard=None, spec=None, storage=None):
+        # The configurations of the automatic bandwidth adjustment feature.
+        self.bandwidth = bandwidth  # type: DescribeAutoScalingConfigResponseBodyDataBandwidth
+        # The configurations of the auto scaling feature for local resources.
+        self.resource = resource  # type: DescribeAutoScalingConfigResponseBodyDataResource
+        # The configurations of the auto scaling feature for shards.
+        self.shard = shard  # type: DescribeAutoScalingConfigResponseBodyDataShard
+        # The configurations of the auto scaling feature for specifications.
+        self.spec = spec  # type: DescribeAutoScalingConfigResponseBodyDataSpec
+        # The configurations of the automatic storage expansion feature.
+        self.storage = storage  # type: DescribeAutoScalingConfigResponseBodyDataStorage
+
+    def validate(self):
+        if self.bandwidth:
+            self.bandwidth.validate()
+        if self.resource:
+            self.resource.validate()
+        if self.shard:
+            self.shard.validate()
+        if self.spec:
+            self.spec.validate()
+        if self.storage:
+            self.storage.validate()
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingConfigResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth.to_map()
+        if self.resource is not None:
+            result['Resource'] = self.resource.to_map()
+        if self.shard is not None:
+            result['Shard'] = self.shard.to_map()
+        if self.spec is not None:
+            result['Spec'] = self.spec.to_map()
+        if self.storage is not None:
+            result['Storage'] = self.storage.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Bandwidth') is not None:
+            temp_model = DescribeAutoScalingConfigResponseBodyDataBandwidth()
+            self.bandwidth = temp_model.from_map(m['Bandwidth'])
+        if m.get('Resource') is not None:
+            temp_model = DescribeAutoScalingConfigResponseBodyDataResource()
+            self.resource = temp_model.from_map(m['Resource'])
+        if m.get('Shard') is not None:
+            temp_model = DescribeAutoScalingConfigResponseBodyDataShard()
+            self.shard = temp_model.from_map(m['Shard'])
+        if m.get('Spec') is not None:
+            temp_model = DescribeAutoScalingConfigResponseBodyDataSpec()
+            self.spec = temp_model.from_map(m['Spec'])
+        if m.get('Storage') is not None:
+            temp_model = DescribeAutoScalingConfigResponseBodyDataStorage()
+            self.storage = temp_model.from_map(m['Storage'])
+        return self
+
+
+class DescribeAutoScalingConfigResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The configurations of the auto scaling feature.
+        self.data = data  # type: DescribeAutoScalingConfigResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribeAutoScalingConfigResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeAutoScalingConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeAutoScalingConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeAutoScalingConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeAutoScalingHistoryRequest(TeaModel):
+    def __init__(self, auto_scaling_task_type=None, end_time=None, instance_id=None, start_time=None):
+        # The type of the auto scaling task that you want to query. Set the value to **SPEC**, which indicates that you can query the history of only automatic performance scaling tasks.
+        self.auto_scaling_task_type = auto_scaling_task_type  # type: str
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # > The end time must be later than the start time.
+        self.end_time = end_time  # type: long
+        # The instance ID.
+        # 
+        # > Only ApsaraDB RDS for MySQL instances are supported.
+        self.instance_id = instance_id  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # > The maximum time range that can be specified is 45 days.
+        self.start_time = start_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingHistoryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_scaling_task_type is not None:
+            result['AutoScalingTaskType'] = self.auto_scaling_task_type
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AutoScalingTaskType') is not None:
+            self.auto_scaling_task_type = m.get('AutoScalingTaskType')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class DescribeAutoScalingHistoryResponseBodyDataSpecHistory(TeaModel):
+    def __init__(self, error_code=None, origin_core=None, origin_instance_class=None, origin_memory=None,
+                 scale_type=None, target_core=None, target_instance_class=None, target_memory=None, task_excute_status=None,
+                 task_time=None):
+        # The error code returned by the scaling task. Valid values:
+        # 
+        # *   **Insufficient_Balance**: The account has insufficient balance or an unpaid order.
+        # *   **REACH_SPEC_UPPERBOUND**: The instance type reaches the upper limit.
+        # *   **Control_Error_Timeout_Msg**: The management task timed out.
+        # *   **Invoke_Rds_Api_Error_Msg**: Failed to call the ApsaraDB RDS API.
+        self.error_code = error_code  # type: str
+        # The original number of CPU cores of the instance.
+        self.origin_core = origin_core  # type: int
+        # The original instance type.
+        self.origin_instance_class = origin_instance_class  # type: str
+        # The original memory size of the instance. Unit: GB.
+        self.origin_memory = origin_memory  # type: float
+        # The type of the automatic performance scaling task. Valid values:
+        # 
+        # *   **SCALE_UP**: automatic instance type scale-up task.
+        # *   **SCALE_DOWN**: automatic instance type scale-down task.
+        self.scale_type = scale_type  # type: str
+        # The destination number of CPU cores of the instance.
+        self.target_core = target_core  # type: int
+        # The destination instance type.
+        self.target_instance_class = target_instance_class  # type: str
+        # The destination memory size of the instance. Unit: GB.
+        self.target_memory = target_memory  # type: float
+        # The status of the task. Valid values:
+        # 
+        # *   **true**: The task was successful.
+        # *   **false**: The task failed.
+        self.task_excute_status = task_excute_status  # type: bool
+        # The time when the task was run. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.task_time = task_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingHistoryResponseBodyDataSpecHistory, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.origin_core is not None:
+            result['OriginCore'] = self.origin_core
+        if self.origin_instance_class is not None:
+            result['OriginInstanceClass'] = self.origin_instance_class
+        if self.origin_memory is not None:
+            result['OriginMemory'] = self.origin_memory
+        if self.scale_type is not None:
+            result['ScaleType'] = self.scale_type
+        if self.target_core is not None:
+            result['TargetCore'] = self.target_core
+        if self.target_instance_class is not None:
+            result['TargetInstanceClass'] = self.target_instance_class
+        if self.target_memory is not None:
+            result['TargetMemory'] = self.target_memory
+        if self.task_excute_status is not None:
+            result['TaskExcuteStatus'] = self.task_excute_status
+        if self.task_time is not None:
+            result['TaskTime'] = self.task_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('OriginCore') is not None:
+            self.origin_core = m.get('OriginCore')
+        if m.get('OriginInstanceClass') is not None:
+            self.origin_instance_class = m.get('OriginInstanceClass')
+        if m.get('OriginMemory') is not None:
+            self.origin_memory = m.get('OriginMemory')
+        if m.get('ScaleType') is not None:
+            self.scale_type = m.get('ScaleType')
+        if m.get('TargetCore') is not None:
+            self.target_core = m.get('TargetCore')
+        if m.get('TargetInstanceClass') is not None:
+            self.target_instance_class = m.get('TargetInstanceClass')
+        if m.get('TargetMemory') is not None:
+            self.target_memory = m.get('TargetMemory')
+        if m.get('TaskExcuteStatus') is not None:
+            self.task_excute_status = m.get('TaskExcuteStatus')
+        if m.get('TaskTime') is not None:
+            self.task_time = m.get('TaskTime')
+        return self
+
+
+class DescribeAutoScalingHistoryResponseBodyData(TeaModel):
+    def __init__(self, bandwidth=None, instance_id=None, resource=None, shard=None, spec_history=None, storage=None):
+        # The history of automatic bandwidth scaling of ApsaraDB for Redis instances. This feature is not supported.
+        self.bandwidth = bandwidth  # type: list[dict[str, any]]
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The history of resource scale-out of ApsaraDB for Redis instances. This feature is not supported.
+        self.resource = resource  # type: list[dict[str, any]]
+        # The history of automatic shard scale-out of ApsaraDB for Redis instances. This feature is not supported.
+        self.shard = shard  # type: list[dict[str, any]]
+        # The history of automatic performance scaling.
+        self.spec_history = spec_history  # type: list[DescribeAutoScalingHistoryResponseBodyDataSpecHistory]
+        # The history of storage expansion. This feature is not supported.
+        self.storage = storage  # type: list[dict[str, any]]
+
+    def validate(self):
+        if self.spec_history:
+            for k in self.spec_history:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingHistoryResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.resource is not None:
+            result['Resource'] = self.resource
+        if self.shard is not None:
+            result['Shard'] = self.shard
+        result['SpecHistory'] = []
+        if self.spec_history is not None:
+            for k in self.spec_history:
+                result['SpecHistory'].append(k.to_map() if k else None)
+        if self.storage is not None:
+            result['Storage'] = self.storage
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Resource') is not None:
+            self.resource = m.get('Resource')
+        if m.get('Shard') is not None:
+            self.shard = m.get('Shard')
+        self.spec_history = []
+        if m.get('SpecHistory') is not None:
+            for k in m.get('SpecHistory'):
+                temp_model = DescribeAutoScalingHistoryResponseBodyDataSpecHistory()
+                self.spec_history.append(temp_model.from_map(k))
+        if m.get('Storage') is not None:
+            self.storage = m.get('Storage')
+        return self
+
+
+class DescribeAutoScalingHistoryResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned. The status code 200 indicates that the request was successful.
+        self.code = code  # type: str
+        # The history of auto scaling.
+        self.data = data  # type: DescribeAutoScalingHistoryResponseBodyData
+        # The returned message.
+        # 
+        # > If the request was successful, **Successful** is returned. Otherwise, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingHistoryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribeAutoScalingHistoryResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeAutoScalingHistoryResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeAutoScalingHistoryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeAutoScalingHistoryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeAutoScalingHistoryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeCacheAnalysisJobRequest(TeaModel):
     def __init__(self, instance_id=None, job_id=None):
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the cache analysis task. You can obtain the task ID from the response parameters of the [CreateCacheAnalysisJob](~~180982~~) operation.
         self.job_id = job_id  # type: str
 
     def validate(self):
@@ -1289,13 +3275,21 @@ class DescribeCacheAnalysisJobRequest(TeaModel):
 class DescribeCacheAnalysisJobResponseBodyDataBigKeysKeyInfo(TeaModel):
     def __init__(self, bytes=None, count=None, db=None, encoding=None, expiration_time_millis=None, key=None,
                  node_id=None, type=None):
+        # The number of bytes that are occupied by the key.
         self.bytes = bytes  # type: long
+        # The number of elements in the key.
         self.count = count  # type: long
+        # The name of the database.
         self.db = db  # type: int
+        # The data type of the key.
         self.encoding = encoding  # type: str
+        # The expiration period of the key. Unit: milliseconds. A value of 0 indicates that the key does not expire.
         self.expiration_time_millis = expiration_time_millis  # type: long
+        # The name of the key.
         self.key = key  # type: str
+        # The ID of the data node on the instance.
         self.node_id = node_id  # type: str
+        # The data type of the instance.
         self.type = type  # type: str
 
     def validate(self):
@@ -1378,12 +3372,117 @@ class DescribeCacheAnalysisJobResponseBodyDataBigKeys(TeaModel):
         return self
 
 
+class DescribeCacheAnalysisJobResponseBodyDataBigKeysOfNumKeyInfo(TeaModel):
+    def __init__(self, bytes=None, count=None, db=None, encoding=None, expiration_time_millis=None, key=None,
+                 node_id=None, type=None):
+        # The number of bytes that are occupied by the key.
+        self.bytes = bytes  # type: long
+        # The number of elements in the key.
+        self.count = count  # type: long
+        # The name of the database.
+        self.db = db  # type: int
+        # The data type of the key.
+        self.encoding = encoding  # type: str
+        # The expiration period of the key. Unit: milliseconds. A value of 0 indicates that the key does not expire.
+        self.expiration_time_millis = expiration_time_millis  # type: long
+        # The name of the key.
+        self.key = key  # type: str
+        # The ID of the data node on the instance.
+        self.node_id = node_id  # type: str
+        # The data type of the instance.
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCacheAnalysisJobResponseBodyDataBigKeysOfNumKeyInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bytes is not None:
+            result['Bytes'] = self.bytes
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.db is not None:
+            result['Db'] = self.db
+        if self.encoding is not None:
+            result['Encoding'] = self.encoding
+        if self.expiration_time_millis is not None:
+            result['ExpirationTimeMillis'] = self.expiration_time_millis
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Bytes') is not None:
+            self.bytes = m.get('Bytes')
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('Db') is not None:
+            self.db = m.get('Db')
+        if m.get('Encoding') is not None:
+            self.encoding = m.get('Encoding')
+        if m.get('ExpirationTimeMillis') is not None:
+            self.expiration_time_millis = m.get('ExpirationTimeMillis')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeCacheAnalysisJobResponseBodyDataBigKeysOfNum(TeaModel):
+    def __init__(self, key_info=None):
+        self.key_info = key_info  # type: list[DescribeCacheAnalysisJobResponseBodyDataBigKeysOfNumKeyInfo]
+
+    def validate(self):
+        if self.key_info:
+            for k in self.key_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeCacheAnalysisJobResponseBodyDataBigKeysOfNum, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['KeyInfo'] = []
+        if self.key_info is not None:
+            for k in self.key_info:
+                result['KeyInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.key_info = []
+        if m.get('KeyInfo') is not None:
+            for k in m.get('KeyInfo'):
+                temp_model = DescribeCacheAnalysisJobResponseBodyDataBigKeysOfNumKeyInfo()
+                self.key_info.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeCacheAnalysisJobResponseBodyDataKeyPrefixesPrefix(TeaModel):
     def __init__(self, bytes=None, count=None, key_num=None, prefix=None, type=None):
+        # The number of bytes that are occupied by the key.
         self.bytes = bytes  # type: long
+        # The number of elements in the key.
         self.count = count  # type: long
+        # The number of keys that contain the prefix.
         self.key_num = key_num  # type: long
+        # The prefix of the key.
         self.prefix = prefix  # type: str
+        # The data type of the instance.
         self.type = type  # type: str
 
     def validate(self):
@@ -1454,22 +3553,248 @@ class DescribeCacheAnalysisJobResponseBodyDataKeyPrefixes(TeaModel):
         return self
 
 
-class DescribeCacheAnalysisJobResponseBodyData(TeaModel):
-    def __init__(self, big_keys=None, instance_id=None, job_id=None, key_prefixes=None, message=None, node_id=None,
-                 task_state=None):
-        self.big_keys = big_keys  # type: DescribeCacheAnalysisJobResponseBodyDataBigKeys
-        self.instance_id = instance_id  # type: str
-        self.job_id = job_id  # type: str
-        self.key_prefixes = key_prefixes  # type: DescribeCacheAnalysisJobResponseBodyDataKeyPrefixes
-        self.message = message  # type: str
+class DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfBytesKeyInfo(TeaModel):
+    def __init__(self, bytes=None, count=None, db=None, encoding=None, expiration_time_millis=None, key=None,
+                 node_id=None, type=None):
+        # The number of bytes that are occupied by the key.
+        self.bytes = bytes  # type: long
+        # The number of elements in the key.
+        self.count = count  # type: long
+        # The name of the database.
+        self.db = db  # type: int
+        # The data type of the key.
+        self.encoding = encoding  # type: str
+        # The expiration period of the key. Unit: milliseconds. A value of 0 indicates that the key does not expire.
+        self.expiration_time_millis = expiration_time_millis  # type: long
+        # The name of the key.
+        self.key = key  # type: str
+        # The ID of the data node on the instance.
         self.node_id = node_id  # type: str
+        # The data type of the instance.
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfBytesKeyInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bytes is not None:
+            result['Bytes'] = self.bytes
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.db is not None:
+            result['Db'] = self.db
+        if self.encoding is not None:
+            result['Encoding'] = self.encoding
+        if self.expiration_time_millis is not None:
+            result['ExpirationTimeMillis'] = self.expiration_time_millis
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Bytes') is not None:
+            self.bytes = m.get('Bytes')
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('Db') is not None:
+            self.db = m.get('Db')
+        if m.get('Encoding') is not None:
+            self.encoding = m.get('Encoding')
+        if m.get('ExpirationTimeMillis') is not None:
+            self.expiration_time_millis = m.get('ExpirationTimeMillis')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfBytes(TeaModel):
+    def __init__(self, key_info=None):
+        self.key_info = key_info  # type: list[DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfBytesKeyInfo]
+
+    def validate(self):
+        if self.key_info:
+            for k in self.key_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfBytes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['KeyInfo'] = []
+        if self.key_info is not None:
+            for k in self.key_info:
+                result['KeyInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.key_info = []
+        if m.get('KeyInfo') is not None:
+            for k in m.get('KeyInfo'):
+                temp_model = DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfBytesKeyInfo()
+                self.key_info.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfNumKeyInfo(TeaModel):
+    def __init__(self, bytes=None, count=None, db=None, encoding=None, expiration_time_millis=None, key=None,
+                 node_id=None, type=None):
+        # The number of bytes that are occupied by the key.
+        self.bytes = bytes  # type: long
+        # The number of elements in the key.
+        self.count = count  # type: long
+        # The name of the database.
+        self.db = db  # type: int
+        # The data type of the key.
+        self.encoding = encoding  # type: str
+        # The expiration period of the key. Unit: milliseconds. A value of 0 indicates that the key does not expire.
+        self.expiration_time_millis = expiration_time_millis  # type: long
+        # The name of the key.
+        self.key = key  # type: str
+        # The ID of the data node on the instance.
+        self.node_id = node_id  # type: str
+        # The data type of the instance.
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfNumKeyInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bytes is not None:
+            result['Bytes'] = self.bytes
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.db is not None:
+            result['Db'] = self.db
+        if self.encoding is not None:
+            result['Encoding'] = self.encoding
+        if self.expiration_time_millis is not None:
+            result['ExpirationTimeMillis'] = self.expiration_time_millis
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Bytes') is not None:
+            self.bytes = m.get('Bytes')
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('Db') is not None:
+            self.db = m.get('Db')
+        if m.get('Encoding') is not None:
+            self.encoding = m.get('Encoding')
+        if m.get('ExpirationTimeMillis') is not None:
+            self.expiration_time_millis = m.get('ExpirationTimeMillis')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfNum(TeaModel):
+    def __init__(self, key_info=None):
+        self.key_info = key_info  # type: list[DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfNumKeyInfo]
+
+    def validate(self):
+        if self.key_info:
+            for k in self.key_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfNum, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['KeyInfo'] = []
+        if self.key_info is not None:
+            for k in self.key_info:
+                result['KeyInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.key_info = []
+        if m.get('KeyInfo') is not None:
+            for k in m.get('KeyInfo'):
+                temp_model = DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfNumKeyInfo()
+                self.key_info.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeCacheAnalysisJobResponseBodyData(TeaModel):
+    def __init__(self, big_keys=None, big_keys_of_num=None, instance_id=None, job_id=None, key_prefixes=None,
+                 message=None, node_id=None, task_state=None, unex_big_keys_of_bytes=None, unex_big_keys_of_num=None):
+        # The details of the large keys. The returned large keys are sorted in descending order based on the number of bytes occupied by the keys.
+        self.big_keys = big_keys  # type: DescribeCacheAnalysisJobResponseBodyDataBigKeys
+        # The details of the large keys. The returned large keys are sorted in descending order based on the number of keys.
+        self.big_keys_of_num = big_keys_of_num  # type: DescribeCacheAnalysisJobResponseBodyDataBigKeysOfNum
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The ID of the cache analysis task.
+        self.job_id = job_id  # type: str
+        # The prefixes of the keys.
+        self.key_prefixes = key_prefixes  # type: DescribeCacheAnalysisJobResponseBodyDataKeyPrefixes
+        # The message that is returned for the request.
+        # 
+        # >  If the request is successful, **Successful** is returned. If the request fails, an error message that contains information such as an error code is returned.
+        self.message = message  # type: str
+        # The ID of the data node on the instance.
+        self.node_id = node_id  # type: str
+        # The state of the cache analysis task. Valid values:
+        # 
+        # *   **BACKUP**: The data is being backed up.
+        # *   **ANALYZING**: The data is being analyzed.
+        # *   **FINISHED**: The data is analyzed.
+        # *   **FAILED**: An error occurred.
         self.task_state = task_state  # type: str
+        # The details of permanent keys. The returned keys are sorted in descending order based on the number of bytes occupied by the keys.
+        self.unex_big_keys_of_bytes = unex_big_keys_of_bytes  # type: DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfBytes
+        # The details of permanent keys. The returned keys are sorted in descending order based on the number of keys.
+        self.unex_big_keys_of_num = unex_big_keys_of_num  # type: DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfNum
 
     def validate(self):
         if self.big_keys:
             self.big_keys.validate()
+        if self.big_keys_of_num:
+            self.big_keys_of_num.validate()
         if self.key_prefixes:
             self.key_prefixes.validate()
+        if self.unex_big_keys_of_bytes:
+            self.unex_big_keys_of_bytes.validate()
+        if self.unex_big_keys_of_num:
+            self.unex_big_keys_of_num.validate()
 
     def to_map(self):
         _map = super(DescribeCacheAnalysisJobResponseBodyData, self).to_map()
@@ -1479,6 +3804,8 @@ class DescribeCacheAnalysisJobResponseBodyData(TeaModel):
         result = dict()
         if self.big_keys is not None:
             result['BigKeys'] = self.big_keys.to_map()
+        if self.big_keys_of_num is not None:
+            result['BigKeysOfNum'] = self.big_keys_of_num.to_map()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.job_id is not None:
@@ -1491,6 +3818,10 @@ class DescribeCacheAnalysisJobResponseBodyData(TeaModel):
             result['NodeId'] = self.node_id
         if self.task_state is not None:
             result['TaskState'] = self.task_state
+        if self.unex_big_keys_of_bytes is not None:
+            result['UnexBigKeysOfBytes'] = self.unex_big_keys_of_bytes.to_map()
+        if self.unex_big_keys_of_num is not None:
+            result['UnexBigKeysOfNum'] = self.unex_big_keys_of_num.to_map()
         return result
 
     def from_map(self, m=None):
@@ -1498,6 +3829,9 @@ class DescribeCacheAnalysisJobResponseBodyData(TeaModel):
         if m.get('BigKeys') is not None:
             temp_model = DescribeCacheAnalysisJobResponseBodyDataBigKeys()
             self.big_keys = temp_model.from_map(m['BigKeys'])
+        if m.get('BigKeysOfNum') is not None:
+            temp_model = DescribeCacheAnalysisJobResponseBodyDataBigKeysOfNum()
+            self.big_keys_of_num = temp_model.from_map(m['BigKeysOfNum'])
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('JobId') is not None:
@@ -1511,15 +3845,31 @@ class DescribeCacheAnalysisJobResponseBodyData(TeaModel):
             self.node_id = m.get('NodeId')
         if m.get('TaskState') is not None:
             self.task_state = m.get('TaskState')
+        if m.get('UnexBigKeysOfBytes') is not None:
+            temp_model = DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfBytes()
+            self.unex_big_keys_of_bytes = temp_model.from_map(m['UnexBigKeysOfBytes'])
+        if m.get('UnexBigKeysOfNum') is not None:
+            temp_model = DescribeCacheAnalysisJobResponseBodyDataUnexBigKeysOfNum()
+            self.unex_big_keys_of_num = temp_model.from_map(m['UnexBigKeysOfNum'])
         return self
 
 
 class DescribeCacheAnalysisJobResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The details of the task.
         self.data = data  # type: DescribeCacheAnalysisJobResponseBodyData
+        # The message that is returned for the request.
+        # 
+        # >  If the request is successful, **Successful** is returned. If the request fails, an error message that contains information such as an error code is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -1561,12 +3911,14 @@ class DescribeCacheAnalysisJobResponseBody(TeaModel):
 
 
 class DescribeCacheAnalysisJobResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeCacheAnalysisJobResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1579,6 +3931,8 @@ class DescribeCacheAnalysisJobResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1587,6 +3941,8 @@ class DescribeCacheAnalysisJobResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeCacheAnalysisJobResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1595,10 +3951,17 @@ class DescribeCacheAnalysisJobResponse(TeaModel):
 
 class DescribeCacheAnalysisJobsRequest(TeaModel):
     def __init__(self, end_time=None, instance_id=None, page_no=None, page_size=None, start_time=None):
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time.
         self.end_time = end_time  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The page number. The value must be an integer that is greater than 0. Default value: 1.
         self.page_no = page_no  # type: str
+        # The number of entries per page. Default value: 10.
         self.page_size = page_size  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -1640,13 +4003,21 @@ class DescribeCacheAnalysisJobsRequest(TeaModel):
 class DescribeCacheAnalysisJobsResponseBodyDataListCacheAnalysisJobBigKeysKeyInfo(TeaModel):
     def __init__(self, bytes=None, count=None, db=None, encoding=None, expiration_time_millis=None, key=None,
                  node_id=None, type=None):
+        # The number of bytes that are occupied by the key.
         self.bytes = bytes  # type: long
+        # The number of elements in the key.
         self.count = count  # type: long
+        # The name of the database.
         self.db = db  # type: int
+        # The data type of the key.
         self.encoding = encoding  # type: str
+        # The expiration period of the key. Unit: milliseconds. A value of 0 indicates that the key does not expire.
         self.expiration_time_millis = expiration_time_millis  # type: long
+        # The name of the key.
         self.key = key  # type: str
+        # The ID of the data node on the instance.
         self.node_id = node_id  # type: str
+        # The data type of the instance.
         self.type = type  # type: str
 
     def validate(self):
@@ -1731,11 +4102,26 @@ class DescribeCacheAnalysisJobsResponseBodyDataListCacheAnalysisJobBigKeys(TeaMo
 
 class DescribeCacheAnalysisJobsResponseBodyDataListCacheAnalysisJob(TeaModel):
     def __init__(self, big_keys=None, instance_id=None, job_id=None, message=None, node_id=None, task_state=None):
+        # The details about the large keys.
+        # 
+        # > The sub-parameters of this parameter and the content of the sub-parameters are not returned. To query the detailed information about the cache analysis tasks, call the [DescribeCacheAnalysisJob](~~443012~~) operation.
         self.big_keys = big_keys  # type: DescribeCacheAnalysisJobsResponseBodyDataListCacheAnalysisJobBigKeys
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The ID of the cache analysis task.
         self.job_id = job_id  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The ID of the data node on the instance.
         self.node_id = node_id  # type: str
+        # The state of the cache analysis task. Valid values:
+        # 
+        # * **BACKUP**: The data is being backed up.
+        # * **ANALYZING**: The data is being analyzed.
+        # * **FINISHED**: The data is analyzed.
+        # * **FAILED**: An error occurred.
         self.task_state = task_state  # type: str
 
     def validate(self):
@@ -1814,10 +4200,15 @@ class DescribeCacheAnalysisJobsResponseBodyDataList(TeaModel):
 
 class DescribeCacheAnalysisJobsResponseBodyData(TeaModel):
     def __init__(self, extra=None, list=None, page_no=None, page_size=None, total=None):
+        # The reserved parameter.
         self.extra = extra  # type: str
+        # The ID of the data node on the instance.
         self.list = list  # type: DescribeCacheAnalysisJobsResponseBodyDataList
+        # The page number. The value must be an integer that is greater than 0. Default value: 1.
         self.page_no = page_no  # type: long
+        # The number of entries per page. Default value: 10.
         self.page_size = page_size  # type: long
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -1860,10 +4251,20 @@ class DescribeCacheAnalysisJobsResponseBodyData(TeaModel):
 
 class DescribeCacheAnalysisJobsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The list of cache analysis tasks.
         self.data = data  # type: DescribeCacheAnalysisJobsResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -1905,12 +4306,14 @@ class DescribeCacheAnalysisJobsResponseBody(TeaModel):
 
 
 class DescribeCacheAnalysisJobsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeCacheAnalysisJobsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1923,6 +4326,8 @@ class DescribeCacheAnalysisJobsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1931,6 +4336,8 @@ class DescribeCacheAnalysisJobsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeCacheAnalysisJobsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1939,11 +4346,27 @@ class DescribeCacheAnalysisJobsResponse(TeaModel):
 
 class DescribeCloudBenchTasksRequest(TeaModel):
     def __init__(self, end_time=None, page_no=None, page_size=None, start_time=None, status=None, task_type=None):
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time.
         self.end_time = end_time  # type: str
+        # The page number. The value must be a positive integer. Default value: 1.
         self.page_no = page_no  # type: str
+        # The number of entries per page. The value must be a positive integer. Default value: 10.
         self.page_size = page_size  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: str
+        # The status of the stress testing task. Valid values:
+        # 
+        # *   **SUCCESS**: The task is successful.
+        # *   **IGNORED**: The task is ignored.
+        # *   **RUNNING**: The task is running.
+        # *   **EXCEPTION**: The task is abnormal.
         self.status = status  # type: str
+        # The type of the stress testing task. Valid values:
+        # 
+        # *   **pressure test** (default): A task of this type replays the traffic that is captured from the source instance on the destination instance at the maximum playback rate that is supported by the destination instance.
+        # *   **smart pressure test**: A task of this type analyzes the traffic that is captured from the source instance over a short period of time and generates traffic on the destination instance for continuous stress testing. The business model based on which the traffic is generated on the destination instance and the traffic distribution are consistent with those on the source instance. Stress testing tasks of this type can help you reduce the amount of time that is consumed to collect data from the source instance and reduce storage costs and performance overheads.
         self.task_type = task_type  # type: str
 
     def validate(self):
@@ -1995,46 +4418,182 @@ class DescribeCloudBenchTasksResponseBodyDataListCloudbenchTasks(TeaModel):
                  smart_pressure_time=None, source=None, sql_complete_reuse=None, src_instance_area=None, src_instance_uuid=None,
                  src_public_ip=None, state=None, status=None, table_schema=None, task_id=None, task_type=None, topic=None,
                  user_id=None, version=None, work_dir=None):
+        # The archiving task ID.
         self.archive_job_id = archive_job_id  # type: str
+        # The name of the table that was archived to Object Storage Service (OSS).
         self.archive_oss_table_name = archive_oss_table_name  # type: str
+        # The archiving status of the file that stores the analysis result of full SQL statistics. Valid values:
+        # 
+        # * **0**: The file archiving is not started.
+        # * **1**: The file is archived.
+        # * **2**: An error occurred.
+        # * **3**: The file is being archived.
+        # * **4**: The archived file does not need to be downloaded.
         self.archive_state = archive_state  # type: int
+        # The ID of the backup set. You can call the [DescribeBackups](~~26273~~) operation to query the ID of the backup set.
         self.backup_id = backup_id  # type: str
+        # The backup type. Valid values:
+        # 
+        # * **TIMESTAMP**: Data is restored to the state at a specific point in time.
+        # * **BACKUPID**: Data is restored from a backup set that is identified by an ID.
         self.backup_type = backup_type  # type: str
+        # The substep in the stress testing task. Valid values:
+        # 
+        # * **NEW**: Initialize the stress testing task.
+        # * **WAIT_BUY_ECS**: Purchase an ECS instance.
+        # * **WAIT_START_ECS**: Start the ECS instance.
+        # * **WAIT_INSTALL_JDK**: Install the Java Development Kit (JDK).
+        # * **WAIT_INSTALL_DBGATEWAY**: Install the database gateway (DBGateway).
+        # * **ADD_SECURITY_IPS_STEP**: Configure the whitelist of the security group.
+        # * **ARCHIVIE**: Archive the file that stores the analysis results of full SQL statistics.
+        # * **DOWNLOAD**: Download the file that stores the analysis result of full SQL statistics.
+        # * **PROCEED**: Preprocess the file that stores the analysis result of full SQL statistics.
+        # * **PRE_LOAD**: Preload the file that stores the analysis result of full SQL statistics.
+        # * **VALIDATE**: Verify the functionality of stress testing.
+        # * **PRESSURE**: Start the stress testing task.
         self.bench_step = bench_step  # type: str
+        # The status that indicates the substep performed for the stress testing task. Valid values:
+        # 
+        # * **NEW**: The task is being initialized.
+        # * **RUNNING**: The task is running.
+        # * **FAILED**: The task failed.
+        # * **FINISHED**: The task is complete.
+        # * **Terminated**: The task is terminated.
+        # * **Deleted**: The task is deleted.
         self.bench_step_status = bench_step_status  # type: str
+        # The DBGateway ID of the stress testing client.
         self.client_gateway_id = client_gateway_id  # type: str
+        # The type of the stress testing client. Valid values:
+        # 
+        # * **ECS**: indicates that you must prepare the DBGateway.
+        # * **DAS_ECS**: indicates that DAS automatically purchases and deploys an ECS instance for stress testing.
         self.client_type = client_type  # type: str
+        # The description of the stress testing task.
         self.description = description  # type: str
+        # The UUID of the destination instance.
         self.dst_instance_uuid = dst_instance_uuid  # type: str
+        # The reserved parameter.
         self.dst_ip = dst_ip  # type: str
+        # The port number of the destination instance.
         self.dst_port = dst_port  # type: int
+        # The type of the identifier that is used to indicate the destination instance. Valid values:
+        # 
+        # * **Instance** (default): the instance ID.
+        # * **ConnectionString**: the endpoint of the instance.
         self.dst_type = dst_type  # type: str
+        # The specification of the DTS instance.
+        # 
+        # > For more information about the specifications of DTS instances and the test performance of each instance, see [Specifications of data migration instances](~~26606~~).
         self.dts_job_class = dts_job_class  # type: str
+        # The ID of the DTS migration task.
         self.dts_job_id = dts_job_id  # type: str
+        # The name of the Data Transmission Service (DTS) migration task.
         self.dts_job_name = dts_job_name  # type: str
+        # The status of the DTS migration task. Valid values:
+        # 
+        # * **NOT_STARTED**: The task is not started.
+        # * **PRE_CHECKING**: The task is in precheck.
+        # * **PRE_CHECK_FAILED**: The precheck failed.
+        # * **CHECKING**: The task is being checked.
+        # * **MIGRATING**: The data is being migrated.
+        # * **CATCHED**: The data is migrated from the source instance to the destination instance.
+        # * **SUSPENDING**: The task is suspended.
+        # * **MIGRATION_FAILED**: The data failed to be migrated.
+        # * **FINISHED**: The task is complete.
+        # * **INITIALIZING**: The synchronization is being initialized.
+        # * **INITIALIZE_FAILED**: The synchronization failed to be initialized.
+        # * **SYNCHRONIZING**: The data is being synchronized.
+        # * **MODIFYING**: The roles of the instances are being changed.
+        # * **SWITCHING**: The roles of the instances are being switched.
+        # * **FAILED**: The task failed.
         self.dts_job_state = dts_job_state  # type: int
+        # The status of the DTS migration task. Valid values:
+        # 
+        # * **NOT_STARTED**: The task is not started.
+        # * **PRE_CHECKING**: The task is in precheck.
+        # * **PRE_CHECK_FAILED**: The precheck failed.
+        # * **CHECKING**: The task is being checked.
+        # * **MIGRATING**: The data is being migrated.
+        # * **CATCHED**: The data is migrated from the source instance to the destination instance.
+        # * **SUSPENDING**: The task is suspended.
+        # * **MIGRATION_FAILED**: The data failed to be migrated.
+        # * **FINISHED**: The task is complete.
+        # * **INITIALIZING**: The synchronization is being initialized.
+        # * **INITIALIZE_FAILED**: The synchronization failed to be initialized.
+        # * **SYNCHRONIZING**: The data is being synchronized.
+        # * **MODIFYING**: The roles of the instances are being changed.
+        # * **SWITCHING**: The roles of the instances are being switched.
+        # * **FAILED**: The task failed.
         self.dts_job_status = dts_job_status  # type: str
+        # The ID of the Elastic Compute Service (ECS) instance.
         self.ecs_instance_id = ecs_instance_id  # type: str
+        # The state that indicates the last operation performed for the stress testing task. Valid values:
+        # 
+        # * **WAIT_TARGET**: prepares the destination instance.
+        # * **WAIT_DBGATEWAY**: prepares the DBGateway.
+        # * **WAIT_SQL**: prepares the full SQL statistics.
+        # * **WAIT_LOGIC**: prepares to replay the traffic.
+        # 
+        # > When the state of a stress testing task changes to the state that is specified by the EndState parameter, the stress testing task is complete.
         self.end_state = end_state  # type: str
+        # The error code returned for the substep of the stress testing task.
         self.error_code = error_code  # type: str
+        # The error message returned if the task failed.
         self.error_message = error_message  # type: str
+        # The additional information.
         self.external = external  # type: str
+        # The rate at which the stress testing task replayed the traffic. This value is a positive integer. Valid values: **0** to **30**. Default value: **1**.
         self.rate = rate  # type: int
+        # The duration of the stress testing task. Unit: millisecond.
         self.request_duration = request_duration  # type: long
+        # The duration of the stress testing task of the smart pressure test type. Unit: millisecond.
         self.smart_pressure_time = smart_pressure_time  # type: int
+        # The source of the task. Valid values:
+        # 
+        # * **DAS**\
+        # * **OPEN_API**\
         self.source = source  # type: str
+        # The reused information about the analysis result of full SQL statistics.
         self.sql_complete_reuse = sql_complete_reuse  # type: str
+        # The database engine of the source instance. Valid values:
         self.src_instance_area = src_instance_area  # type: str
+        # The UUID of the source instance.
         self.src_instance_uuid = src_instance_uuid  # type: str
+        # The reserved parameter.
         self.src_public_ip = src_public_ip  # type: str
+        # The state that indicates the operation performed for the stress testing task. Valid values:
+        # 
+        # * **WAIT_TARGET**: prepares the destination instance.
+        # * **WAIT_DBGATEWAY**: prepares the DBGateway.
+        # * **WAIT_SQL**: prepares the full SQL statistics.
+        # * **WAIT_LOGIC**: prepares to replay the traffic.
         self.state = state  # type: str
+        # The status of the stress testing task. Valid values:
+        # 
+        # * **SUCCESS**: The task was successful.
+        # * **IGNORED**: The task was ignored.
+        # * **RUNNING**: The task is running.
+        # * **EXCEPTION**: The task is abnormal.
         self.status = status  # type: str
+        # The name of the table that is used for stress testing.
         self.table_schema = table_schema  # type: str
+        # The task ID.
         self.task_id = task_id  # type: str
+        # The type of the stress testing task. Valid values:
+        # 
+        # * **pressure test** (default): A task of this type replays the traffic that is captured from the source instance on the destination instance at the maximum playback rate that is supported by the destination instance.
+        # * **smart pressure test**: A task of this type analyzes the traffic that is captured from the source instance over a short period of time and generates traffic on the destination instance for continuous stress testing. The business model based on which the traffic is generated on the destination instance and the traffic distribution are consistent with those on the source instance. Stress testing tasks of this type can help you reduce the amount of time that is consumed to collect data from the source instance and reduce storage costs and performance overheads.
         self.task_type = task_type  # type: str
+        # The topic that contains the consumed data. This topic is a topic in Message Queue for Apache Kafka.
         self.topic = topic  # type: str
+        # The Alibaba Cloud account ID.
         self.user_id = user_id  # type: str
+        # The version of the stress testing task. Valid values:
+        # 
+        # * **V2.0**\
+        # * **V3.0**\
         self.version = version  # type: str
+        # The path of the temporary directory that is generated for stress testing.
         self.work_dir = work_dir  # type: str
 
     def validate(self):
@@ -2251,10 +4810,15 @@ class DescribeCloudBenchTasksResponseBodyDataList(TeaModel):
 
 class DescribeCloudBenchTasksResponseBodyData(TeaModel):
     def __init__(self, extra=None, list=None, page_no=None, page_size=None, total=None):
+        # The reserved parameter.
         self.extra = extra  # type: str
+        # The detailed information of the stress testing task.
         self.list = list  # type: DescribeCloudBenchTasksResponseBodyDataList
+        # The page number.
         self.page_no = page_no  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -2297,10 +4861,20 @@ class DescribeCloudBenchTasksResponseBodyData(TeaModel):
 
 class DescribeCloudBenchTasksResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information, including the error codes and the number of entries that are returned.
         self.data = data  # type: DescribeCloudBenchTasksResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -2342,12 +4916,14 @@ class DescribeCloudBenchTasksResponseBody(TeaModel):
 
 
 class DescribeCloudBenchTasksResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeCloudBenchTasksResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2360,6 +4936,8 @@ class DescribeCloudBenchTasksResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2368,6 +4946,8 @@ class DescribeCloudBenchTasksResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeCloudBenchTasksResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2376,6 +4956,7 @@ class DescribeCloudBenchTasksResponse(TeaModel):
 
 class DescribeCloudbenchTaskRequest(TeaModel):
     def __init__(self, task_id=None):
+        # The ID of the stress testing task. You can call the [DescribeCloudBenchTasks](~~230670~~) operation to query the ID.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -2407,46 +4988,180 @@ class DescribeCloudbenchTaskResponseBodyData(TeaModel):
                  smart_pressure_time=None, source=None, sql_complete_reuse=None, src_instance_area=None, src_instance_uuid=None,
                  src_public_ip=None, state=None, status=None, table_schema=None, task_id=None, task_type=None, topic=None,
                  user_id=None, version=None, work_dir=None):
+        # The ID of the archiving task.
         self.archive_job_id = archive_job_id  # type: str
+        # The name of the table that was archived to Object Storage Service (OSS).
         self.archive_oss_table_name = archive_oss_table_name  # type: str
+        # The archiving state of the file that stores the analysis result of full SQL statistics. Valid values:
+        # 
+        # *   **0**: The file archiving is not started.
+        # *   **1**: The file is archived.
+        # *   **2**: An error occurred.
+        # *   **3**: The file is being archived.
+        # *   **4**: The archived file does not need to be downloaded.
         self.archive_state = archive_state  # type: int
+        # The ID of the backup set. You can call the [DescribeBackups](~~26273~~) operation to query the ID of the backup set.
         self.backup_id = backup_id  # type: str
+        # The backup type. Valid values:
+        # 
+        # *   **TIMESTAMP**\
+        # *   **BACKUPID**\
         self.backup_type = backup_type  # type: str
+        # The substep in the stress testing task. Valid values:
+        # 
+        # *   **NEW**: initializes the stress testing task.
+        # *   **WAIT_BUY_ECS**: purchases an ECS instance.
+        # *   **WAIT_START_ECS**: starts an ECS instance.
+        # *   **WAIT_INSTALL_JDK**: installs the Java Development Kit (JDK).
+        # *   **WAIT_INSTALL_DBGATEWAY**: installs the database gateway (DBGateway).
+        # *   **ADD_SECURITY_IPS_STEP**: configure a security group whitelist.
+        # *   **ARCHIVE**: archives the full SQL statistics.
+        # *   **DOWNLOAD**: downloads the file that stores the analysis result of full SQL statistics.
+        # *   **PROCEED**: preprocesses the file that stores the analysis result of full SQL statistics.
+        # *   **PRE_LOAD**: preloads the file that stores the analysis result of full SQL statistics.
+        # *   **VALIDATE**: verifies the functionality of stress testing.
+        # *   **PRESSURE**: starts the stress testing task.
         self.bench_step = bench_step  # type: str
+        # The status that indicates the substep performed on the stress testing task. Valid values:
+        # 
+        # *   **NEW**: The task is being initialized.
+        # *   **RUNNING**: The task is running.
+        # *   **FAILED**: The task failed.
+        # *   **FINISHED**: The task is complete.
+        # *   **Terminated**: The task is terminated.
+        # *   **Deleted**: The task is deleted.
         self.bench_step_status = bench_step_status  # type: str
+        # The DBGateway ID of the stress testing client.
         self.client_gateway_id = client_gateway_id  # type: str
+        # The type of the stress testing client. Valid values:
+        # 
+        # *   **ECS**: indicates that you must create the [DBGateway](~~64905~~).
+        # *   **DAS_ECS**: indicates that DAS automatically purchases and deploys an ECS instance for stress testing.
         self.client_type = client_type  # type: str
+        # The description of the stress testing task.
         self.description = description  # type: str
+        # The UUID of the destination instance.
         self.dst_instance_uuid = dst_instance_uuid  # type: str
+        # The reserved parameter.
         self.dst_ip = dst_ip  # type: str
+        # The port number of the destination instance.
         self.dst_port = dst_port  # type: int
+        # The type of the identifier that is used to indicate the destination instance. Valid values:
+        # 
+        # *   **Instance** (default): the instance ID.
+        # *   **ConnectionString**: the endpoint of the instance.
         self.dst_type = dst_type  # type: str
+        # The specification of the DTS task.
         self.dts_job_class = dts_job_class  # type: str
+        # The ID of the DTS migration task.
         self.dts_job_id = dts_job_id  # type: str
+        # The name of the Data Transmission Service (DTS) task.
         self.dts_job_name = dts_job_name  # type: str
+        # The state of the DTS task. Valid values:
+        # 
+        # *   **NOT_STARTED**: The task is not started.
+        # *   **PRE_CHECKING**: The task is in precheck.
+        # *   **PRE_CHECK_FAILED**: The precheck failed.
+        # *   **CHECKING**: The task is being checked.
+        # *   **MIGRATING**: The data is being migrated.
+        # *   **CATCHED**: The data is migrated from the source instance to the destination instance.
+        # *   **SUSPENDING**: The task is suspended.
+        # *   **MIGRATION_FAILED**: The data failed to be migrated.
+        # *   **FINISHED**: The task is complete.
+        # *   **INITIALIZING**: The synchronization is being initialized.
+        # *   **INITIALIZE_FAILED**: The synchronization failed to be initialized.
+        # *   **SYNCHRONIZING**: The data is being synchronized.
+        # *   **MODIFYING**: The objects to be synchronized are being changed.
+        # *   **SWITCHING**: The roles of the instances are being switched.
+        # *   **FAILED**: The task failed.
         self.dts_job_state = dts_job_state  # type: int
+        # The state of the DTS task. Valid values:
+        # 
+        # *   **NOT_STARTED**: The task is not started.
+        # *   **PRE_CHECKING**: The task is in precheck.
+        # *   **PRE_CHECK_FAILED**: The precheck failed.
+        # *   **CHECKING**: The task is being checked.
+        # *   **MIGRATING**: The data is being migrated.
+        # *   **CATCHED**: The data is migrated from the source instance to the destination instance.
+        # *   **SUSPENDING**: The task is suspended.
+        # *   **MIGRATION_FAILED**: The data failed to be migrated.
+        # *   **FINISHED**: The task is complete.
+        # *   **INITIALIZING**: The synchronization is being initialized.
+        # *   **INITIALIZE_FAILED**: The synchronization failed to be initialized.
+        # *   **SYNCHRONIZING**: The data is being synchronized.
+        # *   **MODIFYING**: The objects to be synchronized are being changed.
+        # *   **SWITCHING**: The roles of the instances are being switched.
+        # *   **FAILED**: The task failed.
         self.dts_job_status = dts_job_status  # type: str
+        # The ID of the Elastic Compute Service (ECS) instance.
         self.ecs_instance_id = ecs_instance_id  # type: str
+        # The state that specifies the last operation that is performed for the stress testing task. Valid values:
+        # 
+        # *   **WAIT_TARGET**: prepares the destination instance.
+        # *   **WAIT_DBGATEWAY**: prepares the DBGateway.
+        # *   **WAIT_SQL**: prepares the full SQL statistics.
+        # *   **WAIT_LOGIC**: prepares to replay the traffic.
+        # 
+        # >  When the state of a stress testing task changes to the state that is specified by the EndState parameter, the stress testing task becomes completed.
         self.end_state = end_state  # type: str
+        # The error code returned for the substep of the stress testing task.
         self.error_code = error_code  # type: str
+        # The error message returned if the request failed.
         self.error_message = error_message  # type: str
+        # The additional information.
         self.external = external  # type: str
+        # The rate at which the stress testing task replayed the traffic. The value is a positive integer. Valid values:**1** to **30**. Default value: **1**.
         self.rate = rate  # type: long
+        # The duration of the stress testing task for which traffic was captured from the source instance.
         self.request_duration = request_duration  # type: long
+        # The duration of the stress testing task for which the traffic was generated on the destination instance. Unit: milliseconds.
         self.smart_pressure_time = smart_pressure_time  # type: int
+        # The source of the task. Valid values:
+        # 
+        # *   **DAS**\
+        # *   **OPEN_API**\
         self.source = source  # type: str
+        # The reuse information about the analysis result of full SQL statistics.
         self.sql_complete_reuse = sql_complete_reuse  # type: str
+        # The database type of the source instance. Valid values:
         self.src_instance_area = src_instance_area  # type: str
+        # The UUID of the source instance.
         self.src_instance_uuid = src_instance_uuid  # type: str
+        # The reserved parameter.
         self.src_public_ip = src_public_ip  # type: str
+        # The state that indicates the operation performed for the stress testing task. Valid values:
+        # 
+        # *   **WAIT_TARGET**: prepares the destination instance.
+        # *   **WAIT_DBGATEWAY**: prepares the DBGateway.
+        # *   **WAIT_SQL**: prepares the full SQL statistics.
+        # *   **WAIT_LOGIC**: prepares to replay the traffic.
         self.state = state  # type: str
+        # The state of the stress testing task. Valid values:
+        # 
+        # *   **SUCCESS**: The task is successful.
+        # *   **IGNORED**: The task is ignored.
+        # *   **RUNNING**: The task is running.
+        # *   **EXCEPTION**: An error occurred.
         self.status = status  # type: str
+        # The name of the table that is used for stress testing.
         self.table_schema = table_schema  # type: str
+        # The task ID.
         self.task_id = task_id  # type: str
+        # The type of the stress testing task. Valid values:
+        # 
+        # *   **pressure test** (default): A task of this type replays the traffic that is captured from the source instance on the destination instance at the maximum playback rate that is supported by the destination instance.
+        # *   **smart pressure test**: A task of this type analyzes the traffic that is captured from the source instance over a short period of time and generates traffic on the destination instance for continuous stress testing. The business model based on which the traffic is generated on the destination instance and the traffic distribution are consistent with those on the source instance. Stress testing tasks of this type can help you reduce the amount of time that is consumed to collect data from the source instance and reduce storage costs and performance overheads.
         self.task_type = task_type  # type: str
+        # The topic that contains the consumed data. This topic is a topic in Message Queue for Apache Kafka.
         self.topic = topic  # type: str
+        # The ID of the Alibaba Cloud account.
         self.user_id = user_id  # type: str
+        # The version of the stress testing task. Valid values:
+        # 
+        # *   **V2.0**\
+        # *   **V3.0**\
         self.version = version  # type: str
+        # The temporary directory generated for stress testing.
         self.work_dir = work_dir  # type: str
 
     def validate(self):
@@ -2631,10 +5346,20 @@ class DescribeCloudbenchTaskResponseBodyData(TeaModel):
 
 class DescribeCloudbenchTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information, including the error codes and the number of entries that are returned.
         self.data = data  # type: DescribeCloudbenchTaskResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -2676,12 +5401,14 @@ class DescribeCloudbenchTaskResponseBody(TeaModel):
 
 
 class DescribeCloudbenchTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeCloudbenchTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2694,6 +5421,8 @@ class DescribeCloudbenchTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2702,6 +5431,8 @@ class DescribeCloudbenchTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeCloudbenchTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2710,6 +5441,7 @@ class DescribeCloudbenchTaskResponse(TeaModel):
 
 class DescribeCloudbenchTaskConfigRequest(TeaModel):
     def __init__(self, task_id=None):
+        # The task ID. You can call the [DescribeCloudBenchTasks](~~230670~~) operation to query the task ID.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -2737,22 +5469,39 @@ class DescribeCloudbenchTaskConfigResponseBodyData(TeaModel):
                  meta_file_name=None, meta_file_on_oss=None, meta_file_path=None, parse_cmd=None, parse_file_path=None,
                  rocks_db_path=None, sql_file_name=None, sql_file_on_oss=None, sql_file_path=None, task_id=None, user_id=None,
                  work_dir=None):
+        # The path in which the files are archived.
         self.archive_folder = archive_folder  # type: str
+        # The command that was run to start the stress testing task.
         self.bench_cmd = bench_cmd  # type: str
+        # The path to the JAR file that is used for stress testing.
         self.client_jar_path = client_jar_path  # type: str
+        # The path to the JAR file that is stored in OSS. The JAR file is used for stress testing.
         self.jar_on_oss = jar_on_oss  # type: str
+        # The command that was run to preload the file that stores the analysis result of full SQL statistics.
         self.load_cmd = load_cmd  # type: str
+        # The name of the metadata file.
         self.meta_file_name = meta_file_name  # type: str
+        # The name of the metadata file stored in Object Storage Service (OSS).
         self.meta_file_on_oss = meta_file_on_oss  # type: str
+        # The path to the metadata file.
         self.meta_file_path = meta_file_path  # type: str
+        # The command that was run to parse the file that stores the analysis result of full SQL statistics.
         self.parse_cmd = parse_cmd  # type: str
+        # The path to the file that is parsed. The file stores the analysis result of full SQL statistics.
         self.parse_file_path = parse_file_path  # type: str
+        # The location where the RocksDB storage system is deployed in the stress testing client.
         self.rocks_db_path = rocks_db_path  # type: str
+        # The name of the file that stores the analysis result of full SQL statistics.
         self.sql_file_name = sql_file_name  # type: str
+        # The name of the file that stores the analysis result of full SQL statistics and that is stored in OSS.
         self.sql_file_on_oss = sql_file_on_oss  # type: str
+        # The path to the file that stores the analysis result of full SQL statistics.
         self.sql_file_path = sql_file_path  # type: str
+        # The task ID.
         self.task_id = task_id  # type: str
+        # The Alibaba Cloud account ID.
         self.user_id = user_id  # type: str
+        # The path of the temporary directory that is generated for stress testing.
         self.work_dir = work_dir  # type: str
 
     def validate(self):
@@ -2841,10 +5590,20 @@ class DescribeCloudbenchTaskConfigResponseBodyData(TeaModel):
 
 class DescribeCloudbenchTaskConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information, including the error codes and the number of entries that are returned.
         self.data = data  # type: DescribeCloudbenchTaskConfigResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -2886,12 +5645,14 @@ class DescribeCloudbenchTaskConfigResponseBody(TeaModel):
 
 
 class DescribeCloudbenchTaskConfigResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeCloudbenchTaskConfigResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2904,6 +5665,8 @@ class DescribeCloudbenchTaskConfigResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2912,6 +5675,8 @@ class DescribeCloudbenchTaskConfigResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeCloudbenchTaskConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2920,10 +5685,17 @@ class DescribeCloudbenchTaskConfigResponse(TeaModel):
 
 class DescribeDiagnosticReportListRequest(TeaModel):
     def __init__(self, dbinstance_id=None, end_time=None, page_no=None, page_size=None, start_time=None):
+        # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time.
         self.end_time = end_time  # type: str
+        # The page number. The value must be a positive integer. Default value: 1.
         self.page_no = page_no  # type: str
+        # The number of entries per page. Default value: 10.
         self.page_size = page_size  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -2964,11 +5736,28 @@ class DescribeDiagnosticReportListRequest(TeaModel):
 
 class DescribeDiagnosticReportListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None, synchro=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The information of the diagnostics reports. Valid values:
+        # 
+        # *   **total**: the number of diagnostics reports.
+        # *   **score**: the health score.
+        # *   **diagnosticTime**: the time when the diagnostics report was generated. The time is displayed in UTC.
+        # *   **startTime**: the start time of the query. The time is displayed in UTC.
+        # *   **endTime**: the end time of the query. The time is displayed in UTC.
         self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
+        # The reserved parameter.
         self.synchro = synchro  # type: str
 
     def validate(self):
@@ -3012,12 +5801,14 @@ class DescribeDiagnosticReportListResponseBody(TeaModel):
 
 
 class DescribeDiagnosticReportListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeDiagnosticReportListResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3030,6 +5821,8 @@ class DescribeDiagnosticReportListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3038,6 +5831,8 @@ class DescribeDiagnosticReportListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDiagnosticReportListResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3046,8 +5841,11 @@ class DescribeDiagnosticReportListResponse(TeaModel):
 
 class DescribeHotBigKeysRequest(TeaModel):
     def __init__(self, console_context=None, instance_id=None, node_id=None):
+        # The reserved parameter.
         self.console_context = console_context  # type: str
+        # The ID of the ApsaraDB for Redis instance. You can call the [DescribeInstances](~~60933~~) operation to query the ID.
         self.instance_id = instance_id  # type: str
+        # The ID of the data shard on the ApsaraDB for Redis instance. You can call the [DescribeRoleZoneInfo](~~190794~~) operation to query the ID.
         self.node_id = node_id  # type: str
 
     def validate(self):
@@ -3080,10 +5878,15 @@ class DescribeHotBigKeysRequest(TeaModel):
 
 class DescribeHotBigKeysResponseBodyDataBigKeysBigKey(TeaModel):
     def __init__(self, db=None, key=None, key_type=None, node_id=None, size=None):
+        # The database in which the key is stored.
         self.db = db  # type: int
+        # The key.
         self.key = key  # type: str
+        # The type of the key.
         self.key_type = key_type  # type: str
+        # The ID of the data shard on the ApsaraDB for Redis instance.
         self.node_id = node_id  # type: str
+        # The number of elements in the key.
         self.size = size  # type: long
 
     def validate(self):
@@ -3156,11 +5959,17 @@ class DescribeHotBigKeysResponseBodyDataBigKeys(TeaModel):
 
 class DescribeHotBigKeysResponseBodyDataHotKeysHotKey(TeaModel):
     def __init__(self, db=None, hot=None, key=None, key_type=None, lfu=None, node_id=None):
+        # The database in which the key is stored.
         self.db = db  # type: int
+        # The frequency at which the key is accessed, which indicates the queries per second (QPS) of the key.
         self.hot = hot  # type: str
+        # The key.
         self.key = key  # type: str
+        # The type of the key.
         self.key_type = key_type  # type: str
+        # The statistical value that is calculated based on the least frequently used (LFU) caching algorithm.
         self.lfu = lfu  # type: int
+        # The ID of the data shard on the ApsaraDB for Redis instance.
         self.node_id = node_id  # type: str
 
     def validate(self):
@@ -3237,9 +6046,13 @@ class DescribeHotBigKeysResponseBodyDataHotKeys(TeaModel):
 
 class DescribeHotBigKeysResponseBodyData(TeaModel):
     def __init__(self, big_key_msg=None, big_keys=None, hot_key_msg=None, hot_keys=None):
+        # The reason why the large key failed to be queried.
         self.big_key_msg = big_key_msg  # type: str
+        # The list of large keys.
         self.big_keys = big_keys  # type: DescribeHotBigKeysResponseBodyDataBigKeys
+        # The reason why the hot key failed to be queried.
         self.hot_key_msg = hot_key_msg  # type: str
+        # The list of hot keys.
         self.hot_keys = hot_keys  # type: DescribeHotBigKeysResponseBodyDataHotKeys
 
     def validate(self):
@@ -3281,10 +6094,18 @@ class DescribeHotBigKeysResponseBodyData(TeaModel):
 
 class DescribeHotBigKeysResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The list of hot keys and large keys.
         self.data = data  # type: DescribeHotBigKeysResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -3326,12 +6147,14 @@ class DescribeHotBigKeysResponseBody(TeaModel):
 
 
 class DescribeHotBigKeysResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeHotBigKeysResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3344,6 +6167,8 @@ class DescribeHotBigKeysResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3352,6 +6177,8 @@ class DescribeHotBigKeysResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeHotBigKeysResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3360,7 +6187,9 @@ class DescribeHotBigKeysResponse(TeaModel):
 
 class DescribeHotKeysRequest(TeaModel):
     def __init__(self, instance_id=None, node_id=None):
+        # The ID of the ApsaraDB for Redis instance. You can call the [DescribeInstances](~~60933~~) operation to query the instance ID.
         self.instance_id = instance_id  # type: str
+        # The ID of the data shard on the ApsaraDB for Redis instance. You can call the [DescribeRoleZoneInfo](~~190794~~) operation to query the data shard ID.
         self.node_id = node_id  # type: str
 
     def validate(self):
@@ -3389,10 +6218,15 @@ class DescribeHotKeysRequest(TeaModel):
 
 class DescribeHotKeysResponseBodyDataHotKey(TeaModel):
     def __init__(self, db=None, hot=None, key=None, key_type=None, size=None):
+        # The database in which the key is stored.
         self.db = db  # type: int
+        # The frequency at which the key is accessed, which indicates the queries per second (QPS) of the key.
         self.hot = hot  # type: str
+        # The name of the key.
         self.key = key  # type: str
+        # The type of the key.
         self.key_type = key_type  # type: str
+        # The number of elements in the key.
         self.size = size  # type: long
 
     def validate(self):
@@ -3465,10 +6299,20 @@ class DescribeHotKeysResponseBodyData(TeaModel):
 
 class DescribeHotKeysResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The details of the hot keys.
         self.data = data  # type: DescribeHotKeysResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -3510,12 +6354,14 @@ class DescribeHotKeysResponseBody(TeaModel):
 
 
 class DescribeHotKeysResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeHotKeysResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3528,6 +6374,8 @@ class DescribeHotKeysResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3536,18 +6384,154 @@ class DescribeHotKeysResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeHotKeysResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class DescribeInstanceDasProRequest(TeaModel):
+    def __init__(self, instance_id=None):
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInstanceDasProRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class DescribeInstanceDasProResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # Indicates whether DAS Professional Edition is enabled for the database instance.
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.data = data  # type: bool
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeInstanceDasProResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeInstanceDasProResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeInstanceDasProResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeInstanceDasProResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeInstanceDasProResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeTopBigKeysRequest(TeaModel):
     def __init__(self, console_context=None, end_time=None, instance_id=None, node_id=None, start_time=None):
+        # The reserved parameter.
         self.console_context = console_context  # type: str
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # > 
+        # 
+        # *   The end time must be later than the start time.
+        # 
+        # *   Only data within the last four days can be queried.
+        # 
+        # *   The maximum interval between the **start time** and the** end time** is 3 hours.
         self.end_time = end_time  # type: str
+        # The ID of the ApsaraDB for Redis instance. You can call the [DescribeInstances](~~60933~~) operation to query the ID.
         self.instance_id = instance_id  # type: str
+        # The ID of the data shard on the ApsaraDB for Redis instance. You can call the [DescribeRoleZoneInfo](~~190794~~) operation to query the ID.
         self.node_id = node_id  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -3588,10 +6572,15 @@ class DescribeTopBigKeysRequest(TeaModel):
 
 class DescribeTopBigKeysResponseBodyDataBigKey(TeaModel):
     def __init__(self, db=None, key=None, key_type=None, node_id=None, size=None):
+        # The database in which the key is stored.
         self.db = db  # type: int
+        # The key.
         self.key = key  # type: str
+        # The type of the key.
         self.key_type = key_type  # type: str
+        # The ID of the data shard on the ApsaraDB for Redis instance.
         self.node_id = node_id  # type: str
+        # The number of elements in the key.
         self.size = size  # type: long
 
     def validate(self):
@@ -3664,10 +6653,20 @@ class DescribeTopBigKeysResponseBodyData(TeaModel):
 
 class DescribeTopBigKeysResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information about the large keys.
+        # 
+        # > This parameter is left empty If no large keys exist within the specified time range.
         self.data = data  # type: DescribeTopBigKeysResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -3709,12 +6708,14 @@ class DescribeTopBigKeysResponseBody(TeaModel):
 
 
 class DescribeTopBigKeysResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeTopBigKeysResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3727,6 +6728,8 @@ class DescribeTopBigKeysResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3735,6 +6738,8 @@ class DescribeTopBigKeysResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeTopBigKeysResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3743,10 +6748,23 @@ class DescribeTopBigKeysResponse(TeaModel):
 
 class DescribeTopHotKeysRequest(TeaModel):
     def __init__(self, console_context=None, end_time=None, instance_id=None, node_id=None, start_time=None):
+        # The reserved parameter.
         self.console_context = console_context  # type: str
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # > 
+        # 
+        # *   The end time must be later than the start time.
+        # 
+        # *   Only data within the last four days can be queried.
+        # 
+        # *   The maximum interval between the **start time** and the** end time** is 3 hours.
         self.end_time = end_time  # type: str
+        # The ID of the ApsaraDB for Redis instance. You can call the [DescribeInstances](~~60933~~) operation to query the ID.
         self.instance_id = instance_id  # type: str
+        # The ID of the data shard on the ApsaraDB for Redis instance. You can call the [DescribeRoleZoneInfo](~~190794~~) operation to query the ID.
         self.node_id = node_id  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -3787,11 +6805,17 @@ class DescribeTopHotKeysRequest(TeaModel):
 
 class DescribeTopHotKeysResponseBodyDataHotKey(TeaModel):
     def __init__(self, db=None, hot=None, key=None, key_type=None, lfu=None, node_id=None):
+        # The database in which the key is stored.
         self.db = db  # type: int
+        # The frequency at which the key is accessed, which indicates the QPS of the key.
         self.hot = hot  # type: str
+        # The key.
         self.key = key  # type: str
+        # The type of the key.
         self.key_type = key_type  # type: str
+        # The statistical value that is calculated based on the least frequently used (LFU) caching algorithm.
         self.lfu = lfu  # type: int
+        # The ID of the data shard on the ApsaraDB for Redis instance.
         self.node_id = node_id  # type: str
 
     def validate(self):
@@ -3868,10 +6892,18 @@ class DescribeTopHotKeysResponseBodyData(TeaModel):
 
 class DescribeTopHotKeysResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information about the hot keys.
         self.data = data  # type: DescribeTopHotKeysResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -3913,12 +6945,14 @@ class DescribeTopHotKeysResponseBody(TeaModel):
 
 
 class DescribeTopHotKeysResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeTopHotKeysResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3931,6 +6965,8 @@ class DescribeTopHotKeysResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3939,6 +6975,8 @@ class DescribeTopHotKeysResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeTopHotKeysResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3947,7 +6985,11 @@ class DescribeTopHotKeysResponse(TeaModel):
 
 class DisableAllSqlConcurrencyControlRulesRequest(TeaModel):
     def __init__(self, console_context=None, instance_id=None):
+        # The reserved parameter.
         self.console_context = console_context  # type: str
+        # The instance ID.
+        # 
+        # >  You must specify this parameter only if your database instance is an ApsaraDB RDS for MySQL instance or a PolarDB for MySQL cluster.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -3976,10 +7018,20 @@ class DisableAllSqlConcurrencyControlRulesRequest(TeaModel):
 
 class DisableAllSqlConcurrencyControlRulesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The reserved parameter.
         self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message that contains information such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -4019,12 +7071,14 @@ class DisableAllSqlConcurrencyControlRulesResponseBody(TeaModel):
 
 
 class DisableAllSqlConcurrencyControlRulesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DisableAllSqlConcurrencyControlRulesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4037,6 +7091,8 @@ class DisableAllSqlConcurrencyControlRulesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4045,16 +7101,831 @@ class DisableAllSqlConcurrencyControlRulesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DisableAllSqlConcurrencyControlRulesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class DisableAutoResourceOptimizeRulesRequest(TeaModel):
+    def __init__(self, console_context=None, instance_ids=None):
+        # The reserved parameter.
+        self.console_context = console_context  # type: str
+        # The database instance ID.
+        # 
+        # >  Set this parameter to a JSON array that consists of multiple instance IDs. Separate instance IDs with commas (,). Example: `[\"Instance ID1\", \"Instance ID2\"]`.
+        self.instance_ids = instance_ids  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableAutoResourceOptimizeRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.console_context is not None:
+            result['ConsoleContext'] = self.console_context
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConsoleContext') is not None:
+            self.console_context = m.get('ConsoleContext')
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        return self
+
+
+class DisableAutoResourceOptimizeRulesResponseBodyDataConfigFailInstanceList(TeaModel):
+    def __init__(self, config_success=None, error_message=None, instance_id=None):
+        # Indicates whether the automatic tablespace fragment recycling feature is disabled. Valid values:
+        # 
+        # * **true**\
+        # 
+        # * **false**\
+        self.config_success = config_success  # type: bool
+        # The error message returned if the request failed.
+        self.error_message = error_message  # type: str
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableAutoResourceOptimizeRulesResponseBodyDataConfigFailInstanceList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_success is not None:
+            result['ConfigSuccess'] = self.config_success
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigSuccess') is not None:
+            self.config_success = m.get('ConfigSuccess')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class DisableAutoResourceOptimizeRulesResponseBodyDataConfigSuccessInstanceList(TeaModel):
+    def __init__(self, config_success=None, instance_id=None):
+        # Indicates whether the automatic tablespace fragment recycling feature is disabled. Valid values:
+        # 
+        # * **true**\
+        # 
+        # * **false**\
+        self.config_success = config_success  # type: bool
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableAutoResourceOptimizeRulesResponseBodyDataConfigSuccessInstanceList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_success is not None:
+            result['ConfigSuccess'] = self.config_success
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigSuccess') is not None:
+            self.config_success = m.get('ConfigSuccess')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class DisableAutoResourceOptimizeRulesResponseBodyData(TeaModel):
+    def __init__(self, config_fail_instance_count=None, config_fail_instance_list=None,
+                 config_success_instance_count=None, config_success_instance_list=None, total_instance_count=None):
+        # The number of database instances for which the automatic tablespace fragment recycling feature failed to be disabled.
+        self.config_fail_instance_count = config_fail_instance_count  # type: long
+        # The list of database instances for which the automatic tablespace fragment recycling feature failed to be disabled.
+        self.config_fail_instance_list = config_fail_instance_list  # type: list[DisableAutoResourceOptimizeRulesResponseBodyDataConfigFailInstanceList]
+        # The number of database instances for which the automatic tablespace fragment recycling feature is disabled.
+        self.config_success_instance_count = config_success_instance_count  # type: long
+        # The list of database instances for which the automatic tablespace fragment recycling feature is disabled.
+        self.config_success_instance_list = config_success_instance_list  # type: list[DisableAutoResourceOptimizeRulesResponseBodyDataConfigSuccessInstanceList]
+        # The total number of database instances.
+        self.total_instance_count = total_instance_count  # type: long
+
+    def validate(self):
+        if self.config_fail_instance_list:
+            for k in self.config_fail_instance_list:
+                if k:
+                    k.validate()
+        if self.config_success_instance_list:
+            for k in self.config_success_instance_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DisableAutoResourceOptimizeRulesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_fail_instance_count is not None:
+            result['ConfigFailInstanceCount'] = self.config_fail_instance_count
+        result['ConfigFailInstanceList'] = []
+        if self.config_fail_instance_list is not None:
+            for k in self.config_fail_instance_list:
+                result['ConfigFailInstanceList'].append(k.to_map() if k else None)
+        if self.config_success_instance_count is not None:
+            result['ConfigSuccessInstanceCount'] = self.config_success_instance_count
+        result['ConfigSuccessInstanceList'] = []
+        if self.config_success_instance_list is not None:
+            for k in self.config_success_instance_list:
+                result['ConfigSuccessInstanceList'].append(k.to_map() if k else None)
+        if self.total_instance_count is not None:
+            result['TotalInstanceCount'] = self.total_instance_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigFailInstanceCount') is not None:
+            self.config_fail_instance_count = m.get('ConfigFailInstanceCount')
+        self.config_fail_instance_list = []
+        if m.get('ConfigFailInstanceList') is not None:
+            for k in m.get('ConfigFailInstanceList'):
+                temp_model = DisableAutoResourceOptimizeRulesResponseBodyDataConfigFailInstanceList()
+                self.config_fail_instance_list.append(temp_model.from_map(k))
+        if m.get('ConfigSuccessInstanceCount') is not None:
+            self.config_success_instance_count = m.get('ConfigSuccessInstanceCount')
+        self.config_success_instance_list = []
+        if m.get('ConfigSuccessInstanceList') is not None:
+            for k in m.get('ConfigSuccessInstanceList'):
+                temp_model = DisableAutoResourceOptimizeRulesResponseBodyDataConfigSuccessInstanceList()
+                self.config_success_instance_list.append(temp_model.from_map(k))
+        if m.get('TotalInstanceCount') is not None:
+            self.total_instance_count = m.get('TotalInstanceCount')
+        return self
+
+
+class DisableAutoResourceOptimizeRulesResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The data returned.
+        self.data = data  # type: DisableAutoResourceOptimizeRulesResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DisableAutoResourceOptimizeRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DisableAutoResourceOptimizeRulesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DisableAutoResourceOptimizeRulesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DisableAutoResourceOptimizeRulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DisableAutoResourceOptimizeRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DisableAutoResourceOptimizeRulesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DisableAutoThrottleRulesRequest(TeaModel):
+    def __init__(self, console_context=None, instance_ids=None):
+        # The reserved parameter.
+        self.console_context = console_context  # type: str
+        # The database instance IDs.
+        # 
+        # >  Set this parameter to a JSON array that consists of multiple instance IDs. Separate instance IDs with commas (,). Example: `[\"Instance ID1\",\"Instance ID2\"]`.
+        self.instance_ids = instance_ids  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableAutoThrottleRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.console_context is not None:
+            result['ConsoleContext'] = self.console_context
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConsoleContext') is not None:
+            self.console_context = m.get('ConsoleContext')
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        return self
+
+
+class DisableAutoThrottleRulesResponseBodyDataConfigFailInstanceList(TeaModel):
+    def __init__(self, config_success=None, error_message=None, instance_id=None):
+        # Indicates whether the automatic SQL throttling feature is disabled. Valid values:
+        # 
+        # * **true**\
+        # 
+        # * **false**\
+        self.config_success = config_success  # type: bool
+        # The error message returned.
+        self.error_message = error_message  # type: str
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableAutoThrottleRulesResponseBodyDataConfigFailInstanceList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_success is not None:
+            result['ConfigSuccess'] = self.config_success
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigSuccess') is not None:
+            self.config_success = m.get('ConfigSuccess')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class DisableAutoThrottleRulesResponseBodyDataConfigSuccessInstanceList(TeaModel):
+    def __init__(self, config_success=None, instance_id=None):
+        # Indicates whether the automatic SQL throttling feature is disabled. Valid values:
+        # 
+        # * **true**\
+        # 
+        # * **false**\
+        self.config_success = config_success  # type: bool
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableAutoThrottleRulesResponseBodyDataConfigSuccessInstanceList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_success is not None:
+            result['ConfigSuccess'] = self.config_success
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigSuccess') is not None:
+            self.config_success = m.get('ConfigSuccess')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class DisableAutoThrottleRulesResponseBodyData(TeaModel):
+    def __init__(self, config_fail_instance_count=None, config_fail_instance_list=None,
+                 config_success_instance_count=None, config_success_instance_list=None, total_instance_count=None):
+        # The number of database instances for which the automatic SQL throttling feature failed to be disabled.
+        self.config_fail_instance_count = config_fail_instance_count  # type: long
+        # The database instances for which the automatic SQL throttling feature failed to be disabled.
+        self.config_fail_instance_list = config_fail_instance_list  # type: list[DisableAutoThrottleRulesResponseBodyDataConfigFailInstanceList]
+        # The number of database instances for which the automatic SQL throttling feature is disabled.
+        self.config_success_instance_count = config_success_instance_count  # type: long
+        # The database instances for which the automatic SQL throttling feature is disabled.
+        self.config_success_instance_list = config_success_instance_list  # type: list[DisableAutoThrottleRulesResponseBodyDataConfigSuccessInstanceList]
+        # The total number of database instances.
+        self.total_instance_count = total_instance_count  # type: long
+
+    def validate(self):
+        if self.config_fail_instance_list:
+            for k in self.config_fail_instance_list:
+                if k:
+                    k.validate()
+        if self.config_success_instance_list:
+            for k in self.config_success_instance_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DisableAutoThrottleRulesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_fail_instance_count is not None:
+            result['ConfigFailInstanceCount'] = self.config_fail_instance_count
+        result['ConfigFailInstanceList'] = []
+        if self.config_fail_instance_list is not None:
+            for k in self.config_fail_instance_list:
+                result['ConfigFailInstanceList'].append(k.to_map() if k else None)
+        if self.config_success_instance_count is not None:
+            result['ConfigSuccessInstanceCount'] = self.config_success_instance_count
+        result['ConfigSuccessInstanceList'] = []
+        if self.config_success_instance_list is not None:
+            for k in self.config_success_instance_list:
+                result['ConfigSuccessInstanceList'].append(k.to_map() if k else None)
+        if self.total_instance_count is not None:
+            result['TotalInstanceCount'] = self.total_instance_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigFailInstanceCount') is not None:
+            self.config_fail_instance_count = m.get('ConfigFailInstanceCount')
+        self.config_fail_instance_list = []
+        if m.get('ConfigFailInstanceList') is not None:
+            for k in m.get('ConfigFailInstanceList'):
+                temp_model = DisableAutoThrottleRulesResponseBodyDataConfigFailInstanceList()
+                self.config_fail_instance_list.append(temp_model.from_map(k))
+        if m.get('ConfigSuccessInstanceCount') is not None:
+            self.config_success_instance_count = m.get('ConfigSuccessInstanceCount')
+        self.config_success_instance_list = []
+        if m.get('ConfigSuccessInstanceList') is not None:
+            for k in m.get('ConfigSuccessInstanceList'):
+                temp_model = DisableAutoThrottleRulesResponseBodyDataConfigSuccessInstanceList()
+                self.config_success_instance_list.append(temp_model.from_map(k))
+        if m.get('TotalInstanceCount') is not None:
+            self.total_instance_count = m.get('TotalInstanceCount')
+        return self
+
+
+class DisableAutoThrottleRulesResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The returned data.
+        self.data = data  # type: DisableAutoThrottleRulesResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DisableAutoThrottleRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DisableAutoThrottleRulesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DisableAutoThrottleRulesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DisableAutoThrottleRulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DisableAutoThrottleRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DisableAutoThrottleRulesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DisableDasProRequest(TeaModel):
+    def __init__(self, instance_id=None, user_id=None):
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+        # The ID of the Alibaba Cloud account that is used to create the database instance.
+        # 
+        # >  This parameter is optional. The system can automatically obtain the account ID based on the value of InstanceId that you set when you call this operation.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableDasProRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class DisableDasProResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None, synchro=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The reserved parameter.
+        self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
+        self.success = success  # type: str
+        # The reserved parameter.
+        self.synchro = synchro  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableDasProResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.synchro is not None:
+            result['Synchro'] = self.synchro
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Synchro') is not None:
+            self.synchro = m.get('Synchro')
+        return self
+
+
+class DisableDasProResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DisableDasProResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DisableDasProResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DisableDasProResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DisableInstanceDasConfigRequest(TeaModel):
+    def __init__(self, engine=None, instance_id=None, scale_type=None):
+        # The database engine. Set the value to Redis.
+        self.engine = engine  # type: str
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+        # The type of auto scaling. Valid values:
+        # 
+        # *   **specScale**: The specifications of a database instance are automatically scaled up or down.
+        # *   **shardScale**: The number of shards for a database instance is automatically increased or decreased.
+        # *   **bandwidthScale**: The bandwidth of a database instance is automatically increased or decreased.
+        self.scale_type = scale_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableInstanceDasConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.engine is not None:
+            result['Engine'] = self.engine
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.scale_type is not None:
+            result['ScaleType'] = self.scale_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('ScaleType') is not None:
+            self.scale_type = m.get('ScaleType')
+        return self
+
+
+class DisableInstanceDasConfigResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The result of disabling the auto scaling feature for the database instance.
+        self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableInstanceDasConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DisableInstanceDasConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DisableInstanceDasConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DisableInstanceDasConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DisableInstanceDasConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DisableSqlConcurrencyControlRequest(TeaModel):
     def __init__(self, console_context=None, instance_id=None, item_id=None):
+        # The reserved parameter.
         self.console_context = console_context  # type: str
+        # The instance ID.
+        # 
+        # >  The database instance must be an ApsaraDB RDS for MySQL instance or a PolarDB for MySQL cluster.
         self.instance_id = instance_id  # type: str
+        # The ID of the throttling rule that is applied to the instance. You can call the [GetRunningSqlConcurrencyControlRules](~~223538~~) operation to query the ID.
         self.item_id = item_id  # type: long
 
     def validate(self):
@@ -4087,10 +7958,20 @@ class DisableSqlConcurrencyControlRequest(TeaModel):
 
 class DisableSqlConcurrencyControlResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information, including the error codes and the number of entries that are returned.
         self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -4130,12 +8011,14 @@ class DisableSqlConcurrencyControlResponseBody(TeaModel):
 
 
 class DisableSqlConcurrencyControlResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DisableSqlConcurrencyControlResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4148,6 +8031,8 @@ class DisableSqlConcurrencyControlResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4156,8 +8041,154 @@ class DisableSqlConcurrencyControlResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DisableSqlConcurrencyControlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class EnableDasProRequest(TeaModel):
+    def __init__(self, instance_id=None, sql_retention=None, user_id=None):
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+        # The storage duration of SQL Explorer data. Unit: day. Default value: **30**. Valid values:
+        # 
+        # *   **30**\
+        # *   **180**\
+        # *   **365**\
+        # *   **1095**\
+        # *   **1825**\
+        self.sql_retention = sql_retention  # type: int
+        # The ID of the Alibaba Cloud account that is used to create the database instance.
+        # 
+        # >  This parameter is optional. The system can automatically obtain the account ID based on the value of InstanceId when you call this operation.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableDasProRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.sql_retention is not None:
+            result['SqlRetention'] = self.sql_retention
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('SqlRetention') is not None:
+            self.sql_retention = m.get('SqlRetention')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class EnableDasProResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None, synchro=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The reserved parameter.
+        self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message that contains information such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+        # The reserved parameter.
+        self.synchro = synchro  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableDasProResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.synchro is not None:
+            result['Synchro'] = self.synchro
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Synchro') is not None:
+            self.synchro = m.get('Synchro')
+        return self
+
+
+class EnableDasProResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: EnableDasProResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(EnableDasProResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = EnableDasProResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -4165,11 +8196,29 @@ class DisableSqlConcurrencyControlResponse(TeaModel):
 class EnableSqlConcurrencyControlRequest(TeaModel):
     def __init__(self, concurrency_control_time=None, console_context=None, instance_id=None, max_concurrency=None,
                  sql_keywords=None, sql_type=None):
+        # The duration within which the SQL throttling rule takes effect. Unit: seconds.
+        # 
+        # >  The throttling rule takes effect only within this duration.
         self.concurrency_control_time = concurrency_control_time  # type: long
+        # The reserved parameter.
         self.console_context = console_context  # type: str
+        # The instance ID.
+        # 
+        # >  You must specify the instance ID only if your database instance is an ApsaraDB RDS for MySQL instance or a PolarDB for MySQL cluster.
         self.instance_id = instance_id  # type: str
+        # The maximum number of concurrent SQL statements. Set this parameter to a positive integer.
+        # 
+        # >  When the number of concurrent SQL statements that contain the specified keywords reaches this upper limit, the throttling rule is triggered.
         self.max_concurrency = max_concurrency  # type: long
+        # The keywords that are used to identify the SQL statements that need to be throttled.
+        # 
+        # >  If you specify multiple SQL keywords, separate them with tildes (~). If the number of concurrent SQL statements that contain all the specified SQL keywords reaches the specified upper limit, the throttling rule is triggered.
         self.sql_keywords = sql_keywords  # type: str
+        # The type of the SQL statements. Valid values:
+        # 
+        # *   **SELECT**\
+        # *   **UPDATE**\
+        # *   **DELETE**\
         self.sql_type = sql_type  # type: str
 
     def validate(self):
@@ -4214,10 +8263,20 @@ class EnableSqlConcurrencyControlRequest(TeaModel):
 
 class EnableSqlConcurrencyControlResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information, including the error codes and the number of entries that are returned.
         self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -4257,12 +8316,14 @@ class EnableSqlConcurrencyControlResponseBody(TeaModel):
 
 
 class EnableSqlConcurrencyControlResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: EnableSqlConcurrencyControlResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4275,6 +8336,8 @@ class EnableSqlConcurrencyControlResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4283,6 +8346,8 @@ class EnableSqlConcurrencyControlResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = EnableSqlConcurrencyControlResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4290,13 +8355,23 @@ class EnableSqlConcurrencyControlResponse(TeaModel):
 
 
 class GetAsyncErrorRequestListByCodeRequest(TeaModel):
-    def __init__(self, console_context=None, end=None, error_code=None, instance_id=None, node_id=None, start=None):
-        self.console_context = console_context  # type: str
-        self.end = end  # type: str
+    def __init__(self, end=None, error_code=None, instance_id=None, node_id=None, start=None):
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time. The interval between the start time and the end time cannot exceed 24 hours.
+        self.end = end  # type: long
+        # The error code. You can call the [GetAsyncErrorRequestStatByCode](~~409804~~) operation to query the MySQL error codes that may be generated in the SQL Explorer results of an instance.
         self.error_code = error_code  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  This parameter must be specified if the database instance is a PolarDB for MySQL cluster.
         self.node_id = node_id  # type: str
-        self.start = start  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The start time must be within the storage duration of the SQL Explorer feature of the database instance, and can be up to 90 days earlier than the current time.
+        self.start = start  # type: long
 
     def validate(self):
         pass
@@ -4307,8 +8382,6 @@ class GetAsyncErrorRequestListByCodeRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.console_context is not None:
-            result['ConsoleContext'] = self.console_context
         if self.end is not None:
             result['End'] = self.end
         if self.error_code is not None:
@@ -4323,8 +8396,6 @@ class GetAsyncErrorRequestListByCodeRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ConsoleContext') is not None:
-            self.console_context = m.get('ConsoleContext')
         if m.get('End') is not None:
             self.end = m.get('End')
         if m.get('ErrorCode') is not None:
@@ -4338,16 +8409,141 @@ class GetAsyncErrorRequestListByCodeRequest(TeaModel):
         return self
 
 
-class GetAsyncErrorRequestListByCodeResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.data = data  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: str
+class GetAsyncErrorRequestListByCodeResponseBodyDataResult(TeaModel):
+    def __init__(self, instance_id=None, sql_id=None):
+        # The instance ID
+        self.instance_id = instance_id  # type: str
+        # SQL ID.
+        self.sql_id = sql_id  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(GetAsyncErrorRequestListByCodeResponseBodyDataResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['instanceId'] = self.instance_id
+        if self.sql_id is not None:
+            result['sqlId'] = self.sql_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('instanceId') is not None:
+            self.instance_id = m.get('instanceId')
+        if m.get('sqlId') is not None:
+            self.sql_id = m.get('sqlId')
+        return self
+
+
+class GetAsyncErrorRequestListByCodeResponseBodyData(TeaModel):
+    def __init__(self, complete=None, fail=None, is_finish=None, result=None, result_id=None, state=None,
+                 timestamp=None):
+        # Indicates whether the asynchronous request was complete.
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.complete = complete  # type: bool
+        # Indicates whether the asynchronous request failed. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.fail = fail  # type: bool
+        # Indicates whether the asynchronous request was complete. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.is_finish = is_finish  # type: bool
+        # The instance ID.
+        self.result = result  # type: list[GetAsyncErrorRequestListByCodeResponseBodyDataResult]
+        # The ID of the asynchronous request.
+        self.result_id = result_id  # type: str
+        # The state of the asynchronous request. Valid values:
+        # 
+        # *   **RUNNING**\
+        # *   **SUCCESS**\
+        # *   **FAIL**\
+        self.state = state  # type: str
+        # The time when the asynchronous request was made. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.timestamp = timestamp  # type: long
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetAsyncErrorRequestListByCodeResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.complete is not None:
+            result['complete'] = self.complete
+        if self.fail is not None:
+            result['fail'] = self.fail
+        if self.is_finish is not None:
+            result['isFinish'] = self.is_finish
+        result['result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['result'].append(k.to_map() if k else None)
+        if self.result_id is not None:
+            result['resultId'] = self.result_id
+        if self.state is not None:
+            result['state'] = self.state
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('complete') is not None:
+            self.complete = m.get('complete')
+        if m.get('fail') is not None:
+            self.fail = m.get('fail')
+        if m.get('isFinish') is not None:
+            self.is_finish = m.get('isFinish')
+        self.result = []
+        if m.get('result') is not None:
+            for k in m.get('result'):
+                temp_model = GetAsyncErrorRequestListByCodeResponseBodyDataResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('resultId') is not None:
+            self.result_id = m.get('resultId')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
+class GetAsyncErrorRequestListByCodeResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The data returned.
+        self.data = data  # type: GetAsyncErrorRequestListByCodeResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
 
     def to_map(self):
         _map = super(GetAsyncErrorRequestListByCodeResponseBody, self).to_map()
@@ -4358,7 +8554,7 @@ class GetAsyncErrorRequestListByCodeResponseBody(TeaModel):
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
-            result['Data'] = self.data
+            result['Data'] = self.data.to_map()
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -4372,7 +8568,8 @@ class GetAsyncErrorRequestListByCodeResponseBody(TeaModel):
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
-            self.data = m.get('Data')
+            temp_model = GetAsyncErrorRequestListByCodeResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -4383,12 +8580,14 @@ class GetAsyncErrorRequestListByCodeResponseBody(TeaModel):
 
 
 class GetAsyncErrorRequestListByCodeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetAsyncErrorRequestListByCodeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4401,6 +8600,8 @@ class GetAsyncErrorRequestListByCodeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4409,6 +8610,8 @@ class GetAsyncErrorRequestListByCodeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetAsyncErrorRequestListByCodeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4416,15 +8619,23 @@ class GetAsyncErrorRequestListByCodeResponse(TeaModel):
 
 
 class GetAsyncErrorRequestStatByCodeRequest(TeaModel):
-    def __init__(self, console_context=None, db_name=None, end=None, instance_id=None, node_id=None, role=None,
-                 start=None):
-        self.console_context = console_context  # type: str
+    def __init__(self, db_name=None, end=None, instance_id=None, node_id=None, start=None):
+        # The name of a database.
         self.db_name = db_name  # type: str
-        self.end = end  # type: str
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time. The interval between the start time and the end time cannot exceed 24 hours.
+        self.end = end  # type: long
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  This parameter must be specified for PolarDB for MySQL clusters.
         self.node_id = node_id  # type: str
-        self.role = role  # type: str
-        self.start = start  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The start time must be within the storage duration of the SQL Explorer feature of the database instance and can be up to 90 days earlier than the current time.
+        self.start = start  # type: long
 
     def validate(self):
         pass
@@ -4435,8 +8646,6 @@ class GetAsyncErrorRequestStatByCodeRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.console_context is not None:
-            result['ConsoleContext'] = self.console_context
         if self.db_name is not None:
             result['DbName'] = self.db_name
         if self.end is not None:
@@ -4445,16 +8654,12 @@ class GetAsyncErrorRequestStatByCodeRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.node_id is not None:
             result['NodeId'] = self.node_id
-        if self.role is not None:
-            result['Role'] = self.role
         if self.start is not None:
             result['Start'] = self.start
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ConsoleContext') is not None:
-            self.console_context = m.get('ConsoleContext')
         if m.get('DbName') is not None:
             self.db_name = m.get('DbName')
         if m.get('End') is not None:
@@ -4463,23 +8668,152 @@ class GetAsyncErrorRequestStatByCodeRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
-        if m.get('Role') is not None:
-            self.role = m.get('Role')
         if m.get('Start') is not None:
             self.start = m.get('Start')
         return self
 
 
-class GetAsyncErrorRequestStatByCodeResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.data = data  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: str
+class GetAsyncErrorRequestStatByCodeResponseBodyDataResult(TeaModel):
+    def __init__(self, count=None, error_code=None, instance_id=None):
+        # The number of SQL queries corresponding to the error code.
+        self.count = count  # type: int
+        # The error code returned if the request failed.
+        self.error_code = error_code  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(GetAsyncErrorRequestStatByCodeResponseBodyDataResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['count'] = self.count
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.instance_id is not None:
+            result['instanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('instanceId') is not None:
+            self.instance_id = m.get('instanceId')
+        return self
+
+
+class GetAsyncErrorRequestStatByCodeResponseBodyData(TeaModel):
+    def __init__(self, complete=None, fail=None, is_finish=None, result=None, result_id=None, state=None,
+                 timestamp=None):
+        # Indicates whether the asynchronous request was complete.
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.complete = complete  # type: bool
+        # Indicates whether the asynchronous request failed. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.fail = fail  # type: bool
+        # Indicates whether the asynchronous request was complete. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.is_finish = is_finish  # type: bool
+        # The number of SQL queries corresponding to the error code.
+        self.result = result  # type: list[GetAsyncErrorRequestStatByCodeResponseBodyDataResult]
+        # The ID of the asynchronous request.
+        self.result_id = result_id  # type: str
+        # The state of the asynchronous request. Valid values:
+        # 
+        # *   **RUNNING**\
+        # *   **SUCCESS**\
+        # *   **FAIL**\
+        self.state = state  # type: str
+        # The time when the asynchronous request was made. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.timestamp = timestamp  # type: long
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetAsyncErrorRequestStatByCodeResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.complete is not None:
+            result['complete'] = self.complete
+        if self.fail is not None:
+            result['fail'] = self.fail
+        if self.is_finish is not None:
+            result['isFinish'] = self.is_finish
+        result['result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['result'].append(k.to_map() if k else None)
+        if self.result_id is not None:
+            result['resultId'] = self.result_id
+        if self.state is not None:
+            result['state'] = self.state
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('complete') is not None:
+            self.complete = m.get('complete')
+        if m.get('fail') is not None:
+            self.fail = m.get('fail')
+        if m.get('isFinish') is not None:
+            self.is_finish = m.get('isFinish')
+        self.result = []
+        if m.get('result') is not None:
+            for k in m.get('result'):
+                temp_model = GetAsyncErrorRequestStatByCodeResponseBodyDataResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('resultId') is not None:
+            self.result_id = m.get('resultId')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
+class GetAsyncErrorRequestStatByCodeResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The data returned.
+        self.data = data  # type: GetAsyncErrorRequestStatByCodeResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
 
     def to_map(self):
         _map = super(GetAsyncErrorRequestStatByCodeResponseBody, self).to_map()
@@ -4490,7 +8824,7 @@ class GetAsyncErrorRequestStatByCodeResponseBody(TeaModel):
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
-            result['Data'] = self.data
+            result['Data'] = self.data.to_map()
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -4504,7 +8838,8 @@ class GetAsyncErrorRequestStatByCodeResponseBody(TeaModel):
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
-            self.data = m.get('Data')
+            temp_model = GetAsyncErrorRequestStatByCodeResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -4515,12 +8850,14 @@ class GetAsyncErrorRequestStatByCodeResponseBody(TeaModel):
 
 
 class GetAsyncErrorRequestStatByCodeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetAsyncErrorRequestStatByCodeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4533,6 +8870,8 @@ class GetAsyncErrorRequestStatByCodeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4541,6 +8880,8 @@ class GetAsyncErrorRequestStatByCodeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetAsyncErrorRequestStatByCodeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4548,16 +8889,25 @@ class GetAsyncErrorRequestStatByCodeResponse(TeaModel):
 
 
 class GetAsyncErrorRequestStatResultRequest(TeaModel):
-    def __init__(self, console_context=None, db_name=None, end=None, instance_id=None, node_id=None, role=None,
-                 sql_id_list=None, start=None):
-        self.console_context = console_context  # type: str
+    def __init__(self, db_name=None, end=None, instance_id=None, node_id=None, sql_id_list=None, start=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
-        self.end = end  # type: str
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time. The interval between the start time and the end time cannot exceed 24 hours.
+        self.end = end  # type: long
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  This parameter must be specified for PolarDB for MySQL instances.
         self.node_id = node_id  # type: str
-        self.role = role  # type: str
+        # The ID of the SQL template. Separate multiple SQL IDs with commas (,). You can call the [GetAsyncErrorRequestListByCode](~~410746~~) operation to query the ID of the SQL query for which MySQL error code is returned.
         self.sql_id_list = sql_id_list  # type: str
-        self.start = start  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The beginning of the time range to query must be within the storage duration of the database instance and can be up to 90 days earlier than the current time.
+        self.start = start  # type: long
 
     def validate(self):
         pass
@@ -4568,8 +8918,6 @@ class GetAsyncErrorRequestStatResultRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.console_context is not None:
-            result['ConsoleContext'] = self.console_context
         if self.db_name is not None:
             result['DbName'] = self.db_name
         if self.end is not None:
@@ -4578,8 +8926,6 @@ class GetAsyncErrorRequestStatResultRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.node_id is not None:
             result['NodeId'] = self.node_id
-        if self.role is not None:
-            result['Role'] = self.role
         if self.sql_id_list is not None:
             result['SqlIdList'] = self.sql_id_list
         if self.start is not None:
@@ -4588,8 +8934,6 @@ class GetAsyncErrorRequestStatResultRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ConsoleContext') is not None:
-            self.console_context = m.get('ConsoleContext')
         if m.get('DbName') is not None:
             self.db_name = m.get('DbName')
         if m.get('End') is not None:
@@ -4598,8 +8942,6 @@ class GetAsyncErrorRequestStatResultRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
-        if m.get('Role') is not None:
-            self.role = m.get('Role')
         if m.get('SqlIdList') is not None:
             self.sql_id_list = m.get('SqlIdList')
         if m.get('Start') is not None:
@@ -4607,16 +8949,113 @@ class GetAsyncErrorRequestStatResultRequest(TeaModel):
         return self
 
 
-class GetAsyncErrorRequestStatResultResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.data = data  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: str
+class GetAsyncErrorRequestStatResultResponseBodyData(TeaModel):
+    def __init__(self, complete=None, fail=None, is_finish=None, result=None, result_id=None, state=None,
+                 timestamp=None):
+        # Indicates whether the asynchronous request was complete.
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.complete = complete  # type: bool
+        # Indicates whether the request failed. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.fail = fail  # type: bool
+        # Indicates whether the asynchronous request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.is_finish = is_finish  # type: bool
+        # The returned data of the asynchronous request.
+        self.result = result  # type: list[dict[str, DataResultValue]]
+        # The ID of the asynchronous request.
+        self.result_id = result_id  # type: str
+        # The state of the asynchronous request. Valid values:
+        # 
+        # *   **RUNNING**: The asynchronous request is running.
+        # *   **SUCCESS**: The asynchronous request is successful.
+        # *   **FAIL**: The asynchronous request fails.
+        self.state = state  # type: str
+        # The time when the asynchronous request was made. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.timestamp = timestamp  # type: long
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(GetAsyncErrorRequestStatResultResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.complete is not None:
+            result['complete'] = self.complete
+        if self.fail is not None:
+            result['fail'] = self.fail
+        if self.is_finish is not None:
+            result['isFinish'] = self.is_finish
+        result['result'] = []
+        if self.result is not None:
+            for k in self.result:
+                d1 = {}
+                for k1 ,v1 in k.items():
+                    d1[k1] = v1.to_map()
+                result['result'].append(d1)
+        if self.result_id is not None:
+            result['resultId'] = self.result_id
+        if self.state is not None:
+            result['state'] = self.state
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('complete') is not None:
+            self.complete = m.get('complete')
+        if m.get('fail') is not None:
+            self.fail = m.get('fail')
+        if m.get('isFinish') is not None:
+            self.is_finish = m.get('isFinish')
+        self.result = []
+        if m.get('result') is not None:
+            for k in m.get('result'):
+                d1 = {}
+                for k1 ,v1 in k.items():
+                    temp_model = DataResultValue()
+                    d1[k1] = temp_model.from_map(v1)
+                self.result.append(d1)
+        if m.get('resultId') is not None:
+            self.result_id = m.get('resultId')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
+class GetAsyncErrorRequestStatResultResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The data returned.
+        self.data = data  # type: GetAsyncErrorRequestStatResultResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
 
     def to_map(self):
         _map = super(GetAsyncErrorRequestStatResultResponseBody, self).to_map()
@@ -4627,7 +9066,7 @@ class GetAsyncErrorRequestStatResultResponseBody(TeaModel):
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
-            result['Data'] = self.data
+            result['Data'] = self.data.to_map()
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -4641,7 +9080,8 @@ class GetAsyncErrorRequestStatResultResponseBody(TeaModel):
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
-            self.data = m.get('Data')
+            temp_model = GetAsyncErrorRequestStatResultResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -4652,12 +9092,14 @@ class GetAsyncErrorRequestStatResultResponseBody(TeaModel):
 
 
 class GetAsyncErrorRequestStatResultResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetAsyncErrorRequestStatResultResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4670,6 +9112,8 @@ class GetAsyncErrorRequestStatResultResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4678,75 +9122,170 @@ class GetAsyncErrorRequestStatResultResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetAsyncErrorRequestStatResultResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class GetAutoResourceOptimizeConfigRequest(TeaModel):
-    def __init__(self, access_key=None, instance_id=None, signature=None, uid=None, user_id=None, context=None):
-        self.access_key = access_key  # type: str
+class GetAutoIncrementUsageStatisticRequest(TeaModel):
+    def __init__(self, db_names=None, instance_id=None, ratio_filter=None, real_time=None):
+        self.db_names = db_names  # type: str
         self.instance_id = instance_id  # type: str
-        self.signature = signature  # type: str
-        self.uid = uid  # type: str
-        self.user_id = user_id  # type: str
-        self.context = context  # type: str
+        self.ratio_filter = ratio_filter  # type: float
+        self.real_time = real_time  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(GetAutoResourceOptimizeConfigRequest, self).to_map()
+        _map = super(GetAutoIncrementUsageStatisticRequest, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.access_key is not None:
-            result['AccessKey'] = self.access_key
+        if self.db_names is not None:
+            result['DbNames'] = self.db_names
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.signature is not None:
-            result['Signature'] = self.signature
-        if self.uid is not None:
-            result['Uid'] = self.uid
-        if self.user_id is not None:
-            result['UserId'] = self.user_id
-        if self.context is not None:
-            result['__context'] = self.context
+        if self.ratio_filter is not None:
+            result['RatioFilter'] = self.ratio_filter
+        if self.real_time is not None:
+            result['RealTime'] = self.real_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('AccessKey') is not None:
-            self.access_key = m.get('AccessKey')
+        if m.get('DbNames') is not None:
+            self.db_names = m.get('DbNames')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('Signature') is not None:
-            self.signature = m.get('Signature')
-        if m.get('Uid') is not None:
-            self.uid = m.get('Uid')
-        if m.get('UserId') is not None:
-            self.user_id = m.get('UserId')
-        if m.get('__context') is not None:
-            self.context = m.get('__context')
+        if m.get('RatioFilter') is not None:
+            self.ratio_filter = m.get('RatioFilter')
+        if m.get('RealTime') is not None:
+            self.real_time = m.get('RealTime')
         return self
 
 
-class GetAutoResourceOptimizeConfigResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None, synchro=None):
-        self.code = code  # type: str
-        self.data = data  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: str
-        self.synchro = synchro  # type: str
+class GetAutoIncrementUsageStatisticResponseBodyDataAutoIncrementUsageList(TeaModel):
+    def __init__(self, auto_increment_current_value=None, auto_increment_ratio=None, column_name=None,
+                 db_name=None, maximum_value=None, table_name=None):
+        self.auto_increment_current_value = auto_increment_current_value  # type: long
+        self.auto_increment_ratio = auto_increment_ratio  # type: float
+        self.column_name = column_name  # type: str
+        self.db_name = db_name  # type: str
+        self.maximum_value = maximum_value  # type: long
+        self.table_name = table_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(GetAutoResourceOptimizeConfigResponseBody, self).to_map()
+        _map = super(GetAutoIncrementUsageStatisticResponseBodyDataAutoIncrementUsageList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_increment_current_value is not None:
+            result['AutoIncrementCurrentValue'] = self.auto_increment_current_value
+        if self.auto_increment_ratio is not None:
+            result['AutoIncrementRatio'] = self.auto_increment_ratio
+        if self.column_name is not None:
+            result['ColumnName'] = self.column_name
+        if self.db_name is not None:
+            result['DbName'] = self.db_name
+        if self.maximum_value is not None:
+            result['MaximumValue'] = self.maximum_value
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AutoIncrementCurrentValue') is not None:
+            self.auto_increment_current_value = m.get('AutoIncrementCurrentValue')
+        if m.get('AutoIncrementRatio') is not None:
+            self.auto_increment_ratio = m.get('AutoIncrementRatio')
+        if m.get('ColumnName') is not None:
+            self.column_name = m.get('ColumnName')
+        if m.get('DbName') is not None:
+            self.db_name = m.get('DbName')
+        if m.get('MaximumValue') is not None:
+            self.maximum_value = m.get('MaximumValue')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        return self
+
+
+class GetAutoIncrementUsageStatisticResponseBodyData(TeaModel):
+    def __init__(self, auto_increment_usage_list=None, error_info=None, finish=None, task_status=None,
+                 timestamp=None):
+        self.auto_increment_usage_list = auto_increment_usage_list  # type: list[GetAutoIncrementUsageStatisticResponseBodyDataAutoIncrementUsageList]
+        self.error_info = error_info  # type: str
+        self.finish = finish  # type: bool
+        self.task_status = task_status  # type: str
+        self.timestamp = timestamp  # type: long
+
+    def validate(self):
+        if self.auto_increment_usage_list:
+            for k in self.auto_increment_usage_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetAutoIncrementUsageStatisticResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AutoIncrementUsageList'] = []
+        if self.auto_increment_usage_list is not None:
+            for k in self.auto_increment_usage_list:
+                result['AutoIncrementUsageList'].append(k.to_map() if k else None)
+        if self.error_info is not None:
+            result['ErrorInfo'] = self.error_info
+        if self.finish is not None:
+            result['Finish'] = self.finish
+        if self.task_status is not None:
+            result['TaskStatus'] = self.task_status
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.auto_increment_usage_list = []
+        if m.get('AutoIncrementUsageList') is not None:
+            for k in m.get('AutoIncrementUsageList'):
+                temp_model = GetAutoIncrementUsageStatisticResponseBodyDataAutoIncrementUsageList()
+                self.auto_increment_usage_list.append(temp_model.from_map(k))
+        if m.get('ErrorInfo') is not None:
+            self.error_info = m.get('ErrorInfo')
+        if m.get('Finish') is not None:
+            self.finish = m.get('Finish')
+        if m.get('TaskStatus') is not None:
+            self.task_status = m.get('TaskStatus')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        return self
+
+
+class GetAutoIncrementUsageStatisticResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: long
+        self.data = data  # type: GetAutoIncrementUsageStatisticResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetAutoIncrementUsageStatisticResponseBody, self).to_map()
         if _map is not None:
             return _map
 
@@ -4754,15 +9293,13 @@ class GetAutoResourceOptimizeConfigResponseBody(TeaModel):
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
-            result['Data'] = self.data
+            result['Data'] = self.data.to_map()
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.success is not None:
             result['Success'] = self.success
-        if self.synchro is not None:
-            result['Synchro'] = self.synchro
         return result
 
     def from_map(self, m=None):
@@ -4770,37 +9307,40 @@ class GetAutoResourceOptimizeConfigResponseBody(TeaModel):
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
-            self.data = m.get('Data')
+            temp_model = GetAutoIncrementUsageStatisticResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('Success') is not None:
             self.success = m.get('Success')
-        if m.get('Synchro') is not None:
-            self.synchro = m.get('Synchro')
         return self
 
 
-class GetAutoResourceOptimizeConfigResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+class GetAutoIncrementUsageStatisticResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: GetAutoResourceOptimizeConfigResponseBody
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetAutoIncrementUsageStatisticResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
     def to_map(self):
-        _map = super(GetAutoResourceOptimizeConfigResponse, self).to_map()
+        _map = super(GetAutoIncrementUsageStatisticResponse, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4809,16 +9349,862 @@ class GetAutoResourceOptimizeConfigResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
-            temp_model = GetAutoResourceOptimizeConfigResponseBody()
+            temp_model = GetAutoIncrementUsageStatisticResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetAutoResourceOptimizeRulesRequest(TeaModel):
+    def __init__(self, console_context=None, instance_ids=None):
+        # The reserved parameter.
+        self.console_context = console_context  # type: str
+        # The database instance IDs.
+        # 
+        # *   Set this parameter to a JSON array that consists of multiple instance IDs. Separate instance IDs with commas (,). Example: `[\"Instance ID1\",\"Instance ID2\"]`.
+        # 
+        # *   By default, if you leave this parameter empty, all database instances for which the automatic fragment recycling feature has been enabled within the current Alibaba Cloud account are returned. The following types of database instances are returned:
+        # 
+        #     *   Database instances for which the automatic fragment recycling feature is currently enabled.
+        #     *   Database instances for which the automatic fragment recycling feature was once enabled but is currently disabled, including those for which DAS Professional Edition has been disabled but excluding those that have been released.
+        self.instance_ids = instance_ids  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAutoResourceOptimizeRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.console_context is not None:
+            result['ConsoleContext'] = self.console_context
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConsoleContext') is not None:
+            self.console_context = m.get('ConsoleContext')
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        return self
+
+
+class GetAutoResourceOptimizeRulesResponseBodyDataEnableAutoResourceOptimizeList(TeaModel):
+    def __init__(self, auto_defragment=None, das_pro_on=None, instance_id=None, table_fragmentation_ratio=None,
+                 table_space_size=None, user_id=None):
+        # Indicates whether the automatic fragment recycling feature is enabled. Valid values:
+        # 
+        # * **true**\
+        # * **false**\
+        self.auto_defragment = auto_defragment  # type: bool
+        # Indicates whether DAS Professional Edition is enabled. Valid values:
+        # 
+        # * **true**\
+        # * **false**\
+        self.das_pro_on = das_pro_on  # type: bool
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+        # The fragmentation rate of a single physical table for which the automatic fragment recycling feature is enabled.
+        self.table_fragmentation_ratio = table_fragmentation_ratio  # type: float
+        # The minimum storage usage of a single physical table for which the automatic fragment recycling feature is enabled. Unit: GB.
+        self.table_space_size = table_space_size  # type: float
+        # The ID of the Alibaba Cloud account that is used to create the database instance.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAutoResourceOptimizeRulesResponseBodyDataEnableAutoResourceOptimizeList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_defragment is not None:
+            result['AutoDefragment'] = self.auto_defragment
+        if self.das_pro_on is not None:
+            result['DasProOn'] = self.das_pro_on
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.table_fragmentation_ratio is not None:
+            result['TableFragmentationRatio'] = self.table_fragmentation_ratio
+        if self.table_space_size is not None:
+            result['TableSpaceSize'] = self.table_space_size
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AutoDefragment') is not None:
+            self.auto_defragment = m.get('AutoDefragment')
+        if m.get('DasProOn') is not None:
+            self.das_pro_on = m.get('DasProOn')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('TableFragmentationRatio') is not None:
+            self.table_fragmentation_ratio = m.get('TableFragmentationRatio')
+        if m.get('TableSpaceSize') is not None:
+            self.table_space_size = m.get('TableSpaceSize')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class GetAutoResourceOptimizeRulesResponseBodyDataHasEnableRuleButNotDasProList(TeaModel):
+    def __init__(self, auto_defragment=None, das_pro_on=None, instance_id=None, table_fragmentation_ratio=None,
+                 table_space_size=None, user_id=None):
+        # Indicates whether the automatic fragment recycling feature is enabled. Valid values:
+        # 
+        # * **true**\
+        # * **false**\
+        self.auto_defragment = auto_defragment  # type: bool
+        # Indicates whether DAS Professional Edition is enabled. Valid values:
+        # 
+        # * **true**\
+        # * **false**\
+        self.das_pro_on = das_pro_on  # type: bool
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+        # The fragmentation rate of a single physical table for which the automatic fragment recycling feature is enabled.
+        self.table_fragmentation_ratio = table_fragmentation_ratio  # type: float
+        # The minimum storage usage of a single physical table for which the automatic fragment recycling feature is enabled. Unit: GB.
+        self.table_space_size = table_space_size  # type: float
+        # The ID of the Alibaba Cloud account that is used to create the database instance.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAutoResourceOptimizeRulesResponseBodyDataHasEnableRuleButNotDasProList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_defragment is not None:
+            result['AutoDefragment'] = self.auto_defragment
+        if self.das_pro_on is not None:
+            result['DasProOn'] = self.das_pro_on
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.table_fragmentation_ratio is not None:
+            result['TableFragmentationRatio'] = self.table_fragmentation_ratio
+        if self.table_space_size is not None:
+            result['TableSpaceSize'] = self.table_space_size
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AutoDefragment') is not None:
+            self.auto_defragment = m.get('AutoDefragment')
+        if m.get('DasProOn') is not None:
+            self.das_pro_on = m.get('DasProOn')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('TableFragmentationRatio') is not None:
+            self.table_fragmentation_ratio = m.get('TableFragmentationRatio')
+        if m.get('TableSpaceSize') is not None:
+            self.table_space_size = m.get('TableSpaceSize')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class GetAutoResourceOptimizeRulesResponseBodyDataTurnOffAutoResourceOptimizeList(TeaModel):
+    def __init__(self, auto_defragment=None, das_pro_on=None, instance_id=None, table_fragmentation_ratio=None,
+                 table_space_size=None, user_id=None):
+        # Indicates whether the automatic fragment recycling feature is enabled. Valid values:
+        # 
+        # * **true**\
+        # * **false**\
+        self.auto_defragment = auto_defragment  # type: bool
+        # Indicates whether DAS Professional Edition is enabled. Valid values:
+        # 
+        # * **true**\
+        # * **false**\
+        self.das_pro_on = das_pro_on  # type: bool
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+        # The fragmentation rate of a single physical table for which the automatic fragment recycling feature is enabled.
+        self.table_fragmentation_ratio = table_fragmentation_ratio  # type: float
+        # Indicates whether the automatic fragment recycling feature is enabled. Valid values:
+        # 
+        # true
+        # false
+        self.table_space_size = table_space_size  # type: float
+        # The ID of the Alibaba Cloud account that is used to create the database instance.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAutoResourceOptimizeRulesResponseBodyDataTurnOffAutoResourceOptimizeList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_defragment is not None:
+            result['AutoDefragment'] = self.auto_defragment
+        if self.das_pro_on is not None:
+            result['DasProOn'] = self.das_pro_on
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.table_fragmentation_ratio is not None:
+            result['TableFragmentationRatio'] = self.table_fragmentation_ratio
+        if self.table_space_size is not None:
+            result['TableSpaceSize'] = self.table_space_size
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AutoDefragment') is not None:
+            self.auto_defragment = m.get('AutoDefragment')
+        if m.get('DasProOn') is not None:
+            self.das_pro_on = m.get('DasProOn')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('TableFragmentationRatio') is not None:
+            self.table_fragmentation_ratio = m.get('TableFragmentationRatio')
+        if m.get('TableSpaceSize') is not None:
+            self.table_space_size = m.get('TableSpaceSize')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class GetAutoResourceOptimizeRulesResponseBodyData(TeaModel):
+    def __init__(self, enable_auto_resource_optimize_count=None, enable_auto_resource_optimize_list=None,
+                 has_enable_rule_but_not_das_pro_count=None, has_enable_rule_but_not_das_pro_list=None,
+                 never_enable_auto_resource_optimize_or_released_instance_count=None, never_enable_auto_resource_optimize_or_released_instance_id_list=None,
+                 total_auto_resource_optimize_rules_count=None, turn_off_auto_resource_optimize_count=None, turn_off_auto_resource_optimize_list=None):
+        # The number of database instances for which the automatic fragment recycling feature is currently enabled.
+        self.enable_auto_resource_optimize_count = enable_auto_resource_optimize_count  # type: long
+        # The database instances for which the automatic fragment recycling feature is currently enabled.
+        self.enable_auto_resource_optimize_list = enable_auto_resource_optimize_list  # type: list[GetAutoResourceOptimizeRulesResponseBodyDataEnableAutoResourceOptimizeList]
+        # The number of database instances for which the automatic fragment recycling feature is enabled and DAS Professional Edition is disabled.
+        self.has_enable_rule_but_not_das_pro_count = has_enable_rule_but_not_das_pro_count  # type: long
+        # The database instances for which the automatic fragment recycling feature is enabled and DAS Professional Edition is disabled.
+        # 
+        # > This type of database instance does not perform automatic fragment recycling tasks until DAS Professional Edition is enabled for the instances again.
+        self.has_enable_rule_but_not_das_pro_list = has_enable_rule_but_not_das_pro_list  # type: list[GetAutoResourceOptimizeRulesResponseBodyDataHasEnableRuleButNotDasProList]
+        # The number of database instances that do not exist or for which the automatic fragment recycling feature has never been enabled.
+        # 
+        # >  If a database instance does not exist, the instance has been released or the specified instance ID is invalid.
+        self.never_enable_auto_resource_optimize_or_released_instance_count = never_enable_auto_resource_optimize_or_released_instance_count  # type: long
+        # The database instances that do not exist or for which the automatic fragment recycling feature has never been enabled.
+        self.never_enable_auto_resource_optimize_or_released_instance_id_list = never_enable_auto_resource_optimize_or_released_instance_id_list  # type: list[str]
+        # The number of database instances for which the automatic fragment recycling feature has been enabled.
+        self.total_auto_resource_optimize_rules_count = total_auto_resource_optimize_rules_count  # type: long
+        # The number of database instances for which the automatic fragment recycling feature was once enabled but is currently disabled.
+        self.turn_off_auto_resource_optimize_count = turn_off_auto_resource_optimize_count  # type: long
+        # The database instances for which the automatic fragment recycling feature was once enabled but is currently disabled.
+        self.turn_off_auto_resource_optimize_list = turn_off_auto_resource_optimize_list  # type: list[GetAutoResourceOptimizeRulesResponseBodyDataTurnOffAutoResourceOptimizeList]
+
+    def validate(self):
+        if self.enable_auto_resource_optimize_list:
+            for k in self.enable_auto_resource_optimize_list:
+                if k:
+                    k.validate()
+        if self.has_enable_rule_but_not_das_pro_list:
+            for k in self.has_enable_rule_but_not_das_pro_list:
+                if k:
+                    k.validate()
+        if self.turn_off_auto_resource_optimize_list:
+            for k in self.turn_off_auto_resource_optimize_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetAutoResourceOptimizeRulesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enable_auto_resource_optimize_count is not None:
+            result['EnableAutoResourceOptimizeCount'] = self.enable_auto_resource_optimize_count
+        result['EnableAutoResourceOptimizeList'] = []
+        if self.enable_auto_resource_optimize_list is not None:
+            for k in self.enable_auto_resource_optimize_list:
+                result['EnableAutoResourceOptimizeList'].append(k.to_map() if k else None)
+        if self.has_enable_rule_but_not_das_pro_count is not None:
+            result['HasEnableRuleButNotDasProCount'] = self.has_enable_rule_but_not_das_pro_count
+        result['HasEnableRuleButNotDasProList'] = []
+        if self.has_enable_rule_but_not_das_pro_list is not None:
+            for k in self.has_enable_rule_but_not_das_pro_list:
+                result['HasEnableRuleButNotDasProList'].append(k.to_map() if k else None)
+        if self.never_enable_auto_resource_optimize_or_released_instance_count is not None:
+            result['NeverEnableAutoResourceOptimizeOrReleasedInstanceCount'] = self.never_enable_auto_resource_optimize_or_released_instance_count
+        if self.never_enable_auto_resource_optimize_or_released_instance_id_list is not None:
+            result['NeverEnableAutoResourceOptimizeOrReleasedInstanceIdList'] = self.never_enable_auto_resource_optimize_or_released_instance_id_list
+        if self.total_auto_resource_optimize_rules_count is not None:
+            result['TotalAutoResourceOptimizeRulesCount'] = self.total_auto_resource_optimize_rules_count
+        if self.turn_off_auto_resource_optimize_count is not None:
+            result['TurnOffAutoResourceOptimizeCount'] = self.turn_off_auto_resource_optimize_count
+        result['TurnOffAutoResourceOptimizeList'] = []
+        if self.turn_off_auto_resource_optimize_list is not None:
+            for k in self.turn_off_auto_resource_optimize_list:
+                result['TurnOffAutoResourceOptimizeList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnableAutoResourceOptimizeCount') is not None:
+            self.enable_auto_resource_optimize_count = m.get('EnableAutoResourceOptimizeCount')
+        self.enable_auto_resource_optimize_list = []
+        if m.get('EnableAutoResourceOptimizeList') is not None:
+            for k in m.get('EnableAutoResourceOptimizeList'):
+                temp_model = GetAutoResourceOptimizeRulesResponseBodyDataEnableAutoResourceOptimizeList()
+                self.enable_auto_resource_optimize_list.append(temp_model.from_map(k))
+        if m.get('HasEnableRuleButNotDasProCount') is not None:
+            self.has_enable_rule_but_not_das_pro_count = m.get('HasEnableRuleButNotDasProCount')
+        self.has_enable_rule_but_not_das_pro_list = []
+        if m.get('HasEnableRuleButNotDasProList') is not None:
+            for k in m.get('HasEnableRuleButNotDasProList'):
+                temp_model = GetAutoResourceOptimizeRulesResponseBodyDataHasEnableRuleButNotDasProList()
+                self.has_enable_rule_but_not_das_pro_list.append(temp_model.from_map(k))
+        if m.get('NeverEnableAutoResourceOptimizeOrReleasedInstanceCount') is not None:
+            self.never_enable_auto_resource_optimize_or_released_instance_count = m.get('NeverEnableAutoResourceOptimizeOrReleasedInstanceCount')
+        if m.get('NeverEnableAutoResourceOptimizeOrReleasedInstanceIdList') is not None:
+            self.never_enable_auto_resource_optimize_or_released_instance_id_list = m.get('NeverEnableAutoResourceOptimizeOrReleasedInstanceIdList')
+        if m.get('TotalAutoResourceOptimizeRulesCount') is not None:
+            self.total_auto_resource_optimize_rules_count = m.get('TotalAutoResourceOptimizeRulesCount')
+        if m.get('TurnOffAutoResourceOptimizeCount') is not None:
+            self.turn_off_auto_resource_optimize_count = m.get('TurnOffAutoResourceOptimizeCount')
+        self.turn_off_auto_resource_optimize_list = []
+        if m.get('TurnOffAutoResourceOptimizeList') is not None:
+            for k in m.get('TurnOffAutoResourceOptimizeList'):
+                temp_model = GetAutoResourceOptimizeRulesResponseBodyDataTurnOffAutoResourceOptimizeList()
+                self.turn_off_auto_resource_optimize_list.append(temp_model.from_map(k))
+        return self
+
+
+class GetAutoResourceOptimizeRulesResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The data returned.
+        self.data = data  # type: GetAutoResourceOptimizeRulesResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetAutoResourceOptimizeRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetAutoResourceOptimizeRulesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetAutoResourceOptimizeRulesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetAutoResourceOptimizeRulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetAutoResourceOptimizeRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetAutoResourceOptimizeRulesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetAutoThrottleRulesRequest(TeaModel):
+    def __init__(self, console_context=None, instance_ids=None):
+        # The reserved parameter.
+        self.console_context = console_context  # type: str
+        # The database instance IDs.
+        # 
+        # *   Set this parameter to a JSON array that consists of multiple instance IDs. Separate instance IDs with commas (,). Example: `[\"Instance ID1\",\"Instance ID2\"]`.
+        # 
+        # *   By default, if you do not specify the database instance IDs, all database instances for which the automatic SQL throttling feature is enabled within the current Alibaba Cloud account are returned. The following types of database instances are returned:
+        # 
+        #     *   Database instances for which the automatic SQL throttling feature is currently enabled.
+        #     *   Database instances for which the automatic SQL throttling feature was once enabled but is currently disabled. Released database instances are not included.
+        self.instance_ids = instance_ids  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAutoThrottleRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.console_context is not None:
+            result['ConsoleContext'] = self.console_context
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConsoleContext') is not None:
+            self.console_context = m.get('ConsoleContext')
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        return self
+
+
+class GetAutoThrottleRulesResponseBodyDataEnableAutoThrottleList(TeaModel):
+    def __init__(self, abnormal_duration=None, active_sessions=None, allow_throttle_end_time=None,
+                 allow_throttle_start_time=None, auto_kill_session=None, cpu_session_relation=None, cpu_usage=None, instance_id=None,
+                 max_throttle_time=None, user_id=None, visible=None):
+        # The maximum period of time during which an exception occurs when automatic SQL throttling is triggered. Unit: minutes.
+        self.abnormal_duration = abnormal_duration  # type: float
+        # The maximum number of active sessions.
+        self.active_sessions = active_sessions  # type: long
+        # The end time of the throttling window. The value of this parameter is in UTC.
+        self.allow_throttle_end_time = allow_throttle_end_time  # type: str
+        # The start time of the throttling window. The value of this parameter is in UTC.
+        self.allow_throttle_start_time = allow_throttle_start_time  # type: str
+        # Indicates whether abnormal SQL statements in execution are terminated at a time. Valid values:
+        # 
+        # > Abnormal SQL statements use the same template as the SQL statements that need to be throttled.
+        # 
+        # * **true**\
+        # * **false**\
+        self.auto_kill_session = auto_kill_session  # type: bool
+        # The logical relationship between the CPU utilization threshold and the maximum number of active sessions. Valid values:
+        # 
+        # * **AND**\
+        # * **OR**\
+        self.cpu_session_relation = cpu_session_relation  # type: str
+        # The CPU utilization threshold.
+        self.cpu_usage = cpu_usage  # type: float
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+        # The maximum throttling duration. Unit: minutes.
+        self.max_throttle_time = max_throttle_time  # type: float
+        # The ID of the Alibaba Cloud account that is used to create the database instance.
+        self.user_id = user_id  # type: str
+        # Indicates whether the automatic SQL throttling feature is enabled. Valid values:
+        # 
+        # * **true**\
+        # * **false**\
+        self.visible = visible  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAutoThrottleRulesResponseBodyDataEnableAutoThrottleList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.abnormal_duration is not None:
+            result['AbnormalDuration'] = self.abnormal_duration
+        if self.active_sessions is not None:
+            result['ActiveSessions'] = self.active_sessions
+        if self.allow_throttle_end_time is not None:
+            result['AllowThrottleEndTime'] = self.allow_throttle_end_time
+        if self.allow_throttle_start_time is not None:
+            result['AllowThrottleStartTime'] = self.allow_throttle_start_time
+        if self.auto_kill_session is not None:
+            result['AutoKillSession'] = self.auto_kill_session
+        if self.cpu_session_relation is not None:
+            result['CpuSessionRelation'] = self.cpu_session_relation
+        if self.cpu_usage is not None:
+            result['CpuUsage'] = self.cpu_usage
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.max_throttle_time is not None:
+            result['MaxThrottleTime'] = self.max_throttle_time
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        if self.visible is not None:
+            result['Visible'] = self.visible
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AbnormalDuration') is not None:
+            self.abnormal_duration = m.get('AbnormalDuration')
+        if m.get('ActiveSessions') is not None:
+            self.active_sessions = m.get('ActiveSessions')
+        if m.get('AllowThrottleEndTime') is not None:
+            self.allow_throttle_end_time = m.get('AllowThrottleEndTime')
+        if m.get('AllowThrottleStartTime') is not None:
+            self.allow_throttle_start_time = m.get('AllowThrottleStartTime')
+        if m.get('AutoKillSession') is not None:
+            self.auto_kill_session = m.get('AutoKillSession')
+        if m.get('CpuSessionRelation') is not None:
+            self.cpu_session_relation = m.get('CpuSessionRelation')
+        if m.get('CpuUsage') is not None:
+            self.cpu_usage = m.get('CpuUsage')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('MaxThrottleTime') is not None:
+            self.max_throttle_time = m.get('MaxThrottleTime')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        if m.get('Visible') is not None:
+            self.visible = m.get('Visible')
+        return self
+
+
+class GetAutoThrottleRulesResponseBodyDataTurnOffAutoThrottleList(TeaModel):
+    def __init__(self, abnormal_duration=None, active_sessions=None, allow_throttle_end_time=None,
+                 allow_throttle_start_time=None, auto_kill_session=None, cpu_session_relation=None, cpu_usage=None, instance_id=None,
+                 max_throttle_time=None, user_id=None, visible=None):
+        # The maximum period of time during which the automatic SQL throttling feature is triggered. Unit: minutes.
+        self.abnormal_duration = abnormal_duration  # type: float
+        # The maximum number of active sessions.
+        self.active_sessions = active_sessions  # type: long
+        # The end time of the throttling window. The value of this parameter is in UTC.
+        self.allow_throttle_end_time = allow_throttle_end_time  # type: str
+        # The start time of the throttling window. The value of this parameter is in UTC.
+        self.allow_throttle_start_time = allow_throttle_start_time  # type: str
+        # Indicates whether abnormal SQL statements in execution are terminated at a time. Valid values:
+        # 
+        # > Abnormal SQL statements use the same template as the SQL statements that need to be throttled.
+        # 
+        # * **true**\
+        # * **false**\
+        self.auto_kill_session = auto_kill_session  # type: bool
+        # The logical relationship between the CPU utilization threshold and the maximum number of active sessions. Valid values:
+        # 
+        # * **AND**\
+        # * **OR**\
+        self.cpu_session_relation = cpu_session_relation  # type: str
+        # The CPU utilization threshold.
+        self.cpu_usage = cpu_usage  # type: float
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+        # The maximum throttling duration. Unit: minutes.
+        self.max_throttle_time = max_throttle_time  # type: float
+        # The ID of the Alibaba Cloud account that is used to create the database instance.
+        self.user_id = user_id  # type: str
+        # Indicates whether the automatic SQL throttling feature is enabled. Valid values:
+        # 
+        # * **true**\
+        # * **false**\
+        self.visible = visible  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAutoThrottleRulesResponseBodyDataTurnOffAutoThrottleList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.abnormal_duration is not None:
+            result['AbnormalDuration'] = self.abnormal_duration
+        if self.active_sessions is not None:
+            result['ActiveSessions'] = self.active_sessions
+        if self.allow_throttle_end_time is not None:
+            result['AllowThrottleEndTime'] = self.allow_throttle_end_time
+        if self.allow_throttle_start_time is not None:
+            result['AllowThrottleStartTime'] = self.allow_throttle_start_time
+        if self.auto_kill_session is not None:
+            result['AutoKillSession'] = self.auto_kill_session
+        if self.cpu_session_relation is not None:
+            result['CpuSessionRelation'] = self.cpu_session_relation
+        if self.cpu_usage is not None:
+            result['CpuUsage'] = self.cpu_usage
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.max_throttle_time is not None:
+            result['MaxThrottleTime'] = self.max_throttle_time
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        if self.visible is not None:
+            result['Visible'] = self.visible
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AbnormalDuration') is not None:
+            self.abnormal_duration = m.get('AbnormalDuration')
+        if m.get('ActiveSessions') is not None:
+            self.active_sessions = m.get('ActiveSessions')
+        if m.get('AllowThrottleEndTime') is not None:
+            self.allow_throttle_end_time = m.get('AllowThrottleEndTime')
+        if m.get('AllowThrottleStartTime') is not None:
+            self.allow_throttle_start_time = m.get('AllowThrottleStartTime')
+        if m.get('AutoKillSession') is not None:
+            self.auto_kill_session = m.get('AutoKillSession')
+        if m.get('CpuSessionRelation') is not None:
+            self.cpu_session_relation = m.get('CpuSessionRelation')
+        if m.get('CpuUsage') is not None:
+            self.cpu_usage = m.get('CpuUsage')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('MaxThrottleTime') is not None:
+            self.max_throttle_time = m.get('MaxThrottleTime')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        if m.get('Visible') is not None:
+            self.visible = m.get('Visible')
+        return self
+
+
+class GetAutoThrottleRulesResponseBodyData(TeaModel):
+    def __init__(self, enable_auto_throttle_count=None, enable_auto_throttle_list=None,
+                 never_enable_auto_throttle_or_released_instance_count=None, never_enable_auto_throttle_or_released_instance_id_list=None,
+                 total_auto_throttle_rules_count=None, turn_off_auto_throttle_count=None, turn_off_auto_throttle_list=None):
+        # The number of database instances for which the automatic SQL throttling feature is currently enabled.
+        self.enable_auto_throttle_count = enable_auto_throttle_count  # type: long
+        # The database instances for which the automatic SQL throttling feature is currently enabled.
+        self.enable_auto_throttle_list = enable_auto_throttle_list  # type: list[GetAutoThrottleRulesResponseBodyDataEnableAutoThrottleList]
+        # The number of database instances that do not exist or for which the automatic SQL throttling feature has never been enabled.
+        # 
+        # >  If a database instance does not exist, the instance has been released or the specified instance ID is invalid.
+        self.never_enable_auto_throttle_or_released_instance_count = never_enable_auto_throttle_or_released_instance_count  # type: long
+        # The number of database instances that do not exist or for which the automatic SQL throttling feature has never been enabled.
+        # 
+        # >  If a database instance does not exist, the instance has been released or the specified instance ID is invalid.
+        self.never_enable_auto_throttle_or_released_instance_id_list = never_enable_auto_throttle_or_released_instance_id_list  # type: list[str]
+        # The number of databases for which the automatic SQL throttling feature has been enabled.
+        self.total_auto_throttle_rules_count = total_auto_throttle_rules_count  # type: long
+        # The number of database instances for which the automatic SQL throttling feature was once enabled but is currently disabled.
+        self.turn_off_auto_throttle_count = turn_off_auto_throttle_count  # type: long
+        # The database instances for which the automatic SQL throttling feature was once enabled but is currently disabled.
+        self.turn_off_auto_throttle_list = turn_off_auto_throttle_list  # type: list[GetAutoThrottleRulesResponseBodyDataTurnOffAutoThrottleList]
+
+    def validate(self):
+        if self.enable_auto_throttle_list:
+            for k in self.enable_auto_throttle_list:
+                if k:
+                    k.validate()
+        if self.turn_off_auto_throttle_list:
+            for k in self.turn_off_auto_throttle_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetAutoThrottleRulesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enable_auto_throttle_count is not None:
+            result['EnableAutoThrottleCount'] = self.enable_auto_throttle_count
+        result['EnableAutoThrottleList'] = []
+        if self.enable_auto_throttle_list is not None:
+            for k in self.enable_auto_throttle_list:
+                result['EnableAutoThrottleList'].append(k.to_map() if k else None)
+        if self.never_enable_auto_throttle_or_released_instance_count is not None:
+            result['NeverEnableAutoThrottleOrReleasedInstanceCount'] = self.never_enable_auto_throttle_or_released_instance_count
+        if self.never_enable_auto_throttle_or_released_instance_id_list is not None:
+            result['NeverEnableAutoThrottleOrReleasedInstanceIdList'] = self.never_enable_auto_throttle_or_released_instance_id_list
+        if self.total_auto_throttle_rules_count is not None:
+            result['TotalAutoThrottleRulesCount'] = self.total_auto_throttle_rules_count
+        if self.turn_off_auto_throttle_count is not None:
+            result['TurnOffAutoThrottleCount'] = self.turn_off_auto_throttle_count
+        result['TurnOffAutoThrottleList'] = []
+        if self.turn_off_auto_throttle_list is not None:
+            for k in self.turn_off_auto_throttle_list:
+                result['TurnOffAutoThrottleList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnableAutoThrottleCount') is not None:
+            self.enable_auto_throttle_count = m.get('EnableAutoThrottleCount')
+        self.enable_auto_throttle_list = []
+        if m.get('EnableAutoThrottleList') is not None:
+            for k in m.get('EnableAutoThrottleList'):
+                temp_model = GetAutoThrottleRulesResponseBodyDataEnableAutoThrottleList()
+                self.enable_auto_throttle_list.append(temp_model.from_map(k))
+        if m.get('NeverEnableAutoThrottleOrReleasedInstanceCount') is not None:
+            self.never_enable_auto_throttle_or_released_instance_count = m.get('NeverEnableAutoThrottleOrReleasedInstanceCount')
+        if m.get('NeverEnableAutoThrottleOrReleasedInstanceIdList') is not None:
+            self.never_enable_auto_throttle_or_released_instance_id_list = m.get('NeverEnableAutoThrottleOrReleasedInstanceIdList')
+        if m.get('TotalAutoThrottleRulesCount') is not None:
+            self.total_auto_throttle_rules_count = m.get('TotalAutoThrottleRulesCount')
+        if m.get('TurnOffAutoThrottleCount') is not None:
+            self.turn_off_auto_throttle_count = m.get('TurnOffAutoThrottleCount')
+        self.turn_off_auto_throttle_list = []
+        if m.get('TurnOffAutoThrottleList') is not None:
+            for k in m.get('TurnOffAutoThrottleList'):
+                temp_model = GetAutoThrottleRulesResponseBodyDataTurnOffAutoThrottleList()
+                self.turn_off_auto_throttle_list.append(temp_model.from_map(k))
+        return self
+
+
+class GetAutoThrottleRulesResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The returned data.
+        self.data = data  # type: GetAutoThrottleRulesResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message that contains information such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetAutoThrottleRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetAutoThrottleRulesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetAutoThrottleRulesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetAutoThrottleRulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetAutoThrottleRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetAutoThrottleRulesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
 class GetAutonomousNotifyEventContentRequest(TeaModel):
     def __init__(self, instance_id=None, span_id=None, context=None):
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The unique identifier of the event. You can call the [GetAutonomousNotifyEventsInRange](~~288371~~) operation to query the unique identifier returned by the SpanId response parameter.
         self.span_id = span_id  # type: str
+        # The reserved parameter.
         self.context = context  # type: str
 
     def validate(self):
@@ -4851,10 +10237,20 @@ class GetAutonomousNotifyEventContentRequest(TeaModel):
 
 class GetAutonomousNotifyEventContentResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The details of the notification events.
         self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -4894,12 +10290,14 @@ class GetAutonomousNotifyEventContentResponseBody(TeaModel):
 
 
 class GetAutonomousNotifyEventContentResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetAutonomousNotifyEventContentResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4912,6 +10310,8 @@ class GetAutonomousNotifyEventContentResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4920,6 +10320,8 @@ class GetAutonomousNotifyEventContentResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetAutonomousNotifyEventContentResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4929,15 +10331,39 @@ class GetAutonomousNotifyEventContentResponse(TeaModel):
 class GetAutonomousNotifyEventsInRangeRequest(TeaModel):
     def __init__(self, end_time=None, event_context=None, instance_id=None, level=None, min_level=None, node_id=None,
                  page_offset=None, page_size=None, start_time=None, context=None):
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time.
         self.end_time = end_time  # type: str
+        # The reserved parameter.
         self.event_context = event_context  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The urgency level of the events. If you specify this parameter, the MinLevel parameter does not take effect. Valid values:
+        # 
+        # *   **Notice**: events for which the system sends notifications.
+        # *   **Optimization**: events that need to be optimized.
+        # *   **Warn**: events for which the system sends warnings.
+        # *   **Critical**: critical events.
         self.level = level  # type: str
+        # The minimum urgency level of the events. Valid values:
+        # 
+        # *   **Notice**: events for which the system sends notifications.
+        # *   **Optimization**: events that need to be optimized.
+        # *   **Warn**: events for which the system sends warnings.
+        # *   **Critical**: critical events.
         self.min_level = min_level  # type: str
+        # The ID of the node in a PolarDB for MySQL cluster. You can call the [DescribeDBClusters](~~98094~~) operation to query the node ID returned by the DBNodeId response parameter.
+        # 
+        # >  You must specify the node ID if your database instance is a PolarDB for MySQL cluster.
         self.node_id = node_id  # type: str
+        # The page number. The value must be a positive integer. Default value: 1.
         self.page_offset = page_offset  # type: str
+        # The number of entries per page.
         self.page_size = page_size  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: str
+        # The reserved parameter.
         self.context = context  # type: str
 
     def validate(self):
@@ -5022,10 +10448,15 @@ class GetAutonomousNotifyEventsInRangeResponseBodyDataList(TeaModel):
 
 class GetAutonomousNotifyEventsInRangeResponseBodyData(TeaModel):
     def __init__(self, extra=None, list=None, page_no=None, page_size=None, total=None):
+        # The reserved parameter.
         self.extra = extra  # type: str
+        # The detailed information, including the error codes and the number of entries that are returned.
         self.list = list  # type: GetAutonomousNotifyEventsInRangeResponseBodyDataList
+        # The page number.
         self.page_no = page_no  # type: long
+        # The number of entries per page.
         self.page_size = page_size  # type: long
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -5068,10 +10499,20 @@ class GetAutonomousNotifyEventsInRangeResponseBodyData(TeaModel):
 
 class GetAutonomousNotifyEventsInRangeResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information, including the error codes and the number of entries that are returned.
         self.data = data  # type: GetAutonomousNotifyEventsInRangeResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -5113,12 +10554,14 @@ class GetAutonomousNotifyEventsInRangeResponseBody(TeaModel):
 
 
 class GetAutonomousNotifyEventsInRangeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetAutonomousNotifyEventsInRangeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5131,6 +10574,8 @@ class GetAutonomousNotifyEventsInRangeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5139,8 +10584,975 @@ class GetAutonomousNotifyEventsInRangeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetAutonomousNotifyEventsInRangeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetDBInstanceConnectivityDiagnosisRequest(TeaModel):
+    def __init__(self, instance_id=None, src_ip=None):
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The source IP address.
+        self.src_ip = src_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDBInstanceConnectivityDiagnosisRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.src_ip is not None:
+            result['SrcIp'] = self.src_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('SrcIp') is not None:
+            self.src_ip = m.get('SrcIp')
+        return self
+
+
+class GetDBInstanceConnectivityDiagnosisResponseBodyData(TeaModel):
+    def __init__(self, conn_check_error_code=None, conn_check_error_message=None, fail_type=None, instance_id=None,
+                 success=None):
+        # The exception detection items:
+        # 
+        # *   **SRC_IP_NOT_IN_USER_WHITELIST**: The source IP address is not added to the whitelist of the user.
+        # *   **VIP_NOT_EXISTS**: The Application Load Balancer (ALB) instance corresponding to the virtual IP address (VIP) does not exist.
+        # *   **RS_NOT_EXISTS**: The resource sharing (RS) is not properly mounted.
+        # *   **VIP_TUNNEL_ID_NOT_CONSISTENT**: The tunnel ID used by the VIP of the virtual private cloud (VPC) type is different from the tunnel ID of the VPC.
+        # *   **VIP_VPC_CLOUD_INSTANCE_NOT_EXISTS**: The VIP of the VPC type does not exist.
+        # *   **VIP_IS_NOT_NGLB**: The NGLB mode is disabled for the VIP.
+        # *   **CUSTINS_NOT_ASSOCIATE_ECS_SECURITY_GROUP**: No security group is associated with the instance.
+        # *   **SRC_IP_NOT_IN_USER_WHITELIST**: The source IP address is not added to the whitelist of the user.
+        # *   **SRC_IP_NOT_IN_ADMIN_WHITELIST**: The source IP address is not added to the whitelist of the instance.
+        # *   **SRC_IP_NOT_IN_ECS_SECURITY_GROUP**: The source IP address is not added to the security group that is associated with the instance.
+        # *   **VPC_INSTANCE_IP_NOT_WORKING_STATUS**: The IP address in the VPC is in an abnormal state.
+        self.conn_check_error_code = conn_check_error_code  # type: str
+        # The details of the exception detection.
+        self.conn_check_error_message = conn_check_error_message  # type: str
+        # The type of the exception:
+        # 
+        # *   **0**: an exception that can be handled by the user.
+        # *   **1**: an exception that can be handled by a technical engineer.
+        self.fail_type = fail_type  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # Indicates whether the connectivity test was passed:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDBInstanceConnectivityDiagnosisResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.conn_check_error_code is not None:
+            result['connCheckErrorCode'] = self.conn_check_error_code
+        if self.conn_check_error_message is not None:
+            result['connCheckErrorMessage'] = self.conn_check_error_message
+        if self.fail_type is not None:
+            result['failType'] = self.fail_type
+        if self.instance_id is not None:
+            result['instanceId'] = self.instance_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('connCheckErrorCode') is not None:
+            self.conn_check_error_code = m.get('connCheckErrorCode')
+        if m.get('connCheckErrorMessage') is not None:
+            self.conn_check_error_message = m.get('connCheckErrorMessage')
+        if m.get('failType') is not None:
+            self.fail_type = m.get('failType')
+        if m.get('instanceId') is not None:
+            self.instance_id = m.get('instanceId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class GetDBInstanceConnectivityDiagnosisResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The detailed information.
+        self.data = data  # type: GetDBInstanceConnectivityDiagnosisResponseBodyData
+        # The returned message.
+        # 
+        # > If the request was successful, **Successful** is returned. Otherwise, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetDBInstanceConnectivityDiagnosisResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetDBInstanceConnectivityDiagnosisResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetDBInstanceConnectivityDiagnosisResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetDBInstanceConnectivityDiagnosisResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetDBInstanceConnectivityDiagnosisResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetDBInstanceConnectivityDiagnosisResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetDasProServiceUsageRequest(TeaModel):
+    def __init__(self, instance_id=None, user_id=None):
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+        # The ID of the Alibaba Cloud account that is used to create the database instance.
+        # 
+        # >  This parameter is optional. The system can automatically obtain the account ID based on the value of InstanceId when you call this operation.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDasProServiceUsageRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class GetDasProServiceUsageResponseBodyData(TeaModel):
+    def __init__(self, commodity_instance_id=None, engine=None, expire_time=None, instance_alias=None,
+                 instance_id=None, ip=None, is_spare=None, migration_predict_remaining_time=None, port=None, region=None,
+                 service_unit_id=None, sql_retention=None, start_time=None, storage_free_quota_in_mb=None, storage_used=None,
+                 user_id=None, vpc_id=None):
+        # The ID of the DAS Professional Edition instance.
+        self.commodity_instance_id = commodity_instance_id  # type: str
+        # The type of the database engine.
+        self.engine = engine  # type: str
+        # The point of time when DAS Professional Edition for the database instance expires. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.expire_time = expire_time  # type: long
+        # The name of the database instance.
+        self.instance_alias = instance_alias  # type: str
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+        # The endpoint of the database instance.
+        self.ip = ip  # type: str
+        # Indicates whether DAS Professional Edition for the database instance has expired. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.is_spare = is_spare  # type: bool
+        # The estimated remaining time for migrating the data generated by the SQL Explorer and Audit feature from the previous version to the new version. Unit: milliseconds.
+        # 
+        # >  This parameter is returned only when the SQL Explorer and Audit feature is migrated from the previous version to the new version.
+        self.migration_predict_remaining_time = migration_predict_remaining_time  # type: long
+        # The port number that is used to connect to the database instance.
+        self.port = port  # type: int
+        # The region in which the database instance resides.
+        self.region = region  # type: str
+        # The service unit ID.
+        self.service_unit_id = service_unit_id  # type: str
+        # The storage duration of SQL Explorer data. Unit: days.
+        self.sql_retention = sql_retention  # type: str
+        # The time when DAS Professional Edition was enabled for the database instance. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.start_time = start_time  # type: long
+        # The SQL Explorer storage space that is offered free-of-charge. Unit: MB.
+        self.storage_free_quota_in_mb = storage_free_quota_in_mb  # type: float
+        # The storage usage of SQL Explorer of the database instance. Unit: bytes.
+        self.storage_used = storage_used  # type: long
+        # The ID of the Alibaba Cloud account that is used to create the database instance.
+        self.user_id = user_id  # type: str
+        # The virtual private cloud (VPC) ID.
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDasProServiceUsageResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_instance_id is not None:
+            result['commodityInstanceId'] = self.commodity_instance_id
+        if self.engine is not None:
+            result['engine'] = self.engine
+        if self.expire_time is not None:
+            result['expireTime'] = self.expire_time
+        if self.instance_alias is not None:
+            result['instanceAlias'] = self.instance_alias
+        if self.instance_id is not None:
+            result['instanceId'] = self.instance_id
+        if self.ip is not None:
+            result['ip'] = self.ip
+        if self.is_spare is not None:
+            result['isSpare'] = self.is_spare
+        if self.migration_predict_remaining_time is not None:
+            result['migrationPredictRemainingTime'] = self.migration_predict_remaining_time
+        if self.port is not None:
+            result['port'] = self.port
+        if self.region is not None:
+            result['region'] = self.region
+        if self.service_unit_id is not None:
+            result['serviceUnitId'] = self.service_unit_id
+        if self.sql_retention is not None:
+            result['sqlRetention'] = self.sql_retention
+        if self.start_time is not None:
+            result['startTime'] = self.start_time
+        if self.storage_free_quota_in_mb is not None:
+            result['storageFreeQuotaInMB'] = self.storage_free_quota_in_mb
+        if self.storage_used is not None:
+            result['storageUsed'] = self.storage_used
+        if self.user_id is not None:
+            result['userId'] = self.user_id
+        if self.vpc_id is not None:
+            result['vpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commodityInstanceId') is not None:
+            self.commodity_instance_id = m.get('commodityInstanceId')
+        if m.get('engine') is not None:
+            self.engine = m.get('engine')
+        if m.get('expireTime') is not None:
+            self.expire_time = m.get('expireTime')
+        if m.get('instanceAlias') is not None:
+            self.instance_alias = m.get('instanceAlias')
+        if m.get('instanceId') is not None:
+            self.instance_id = m.get('instanceId')
+        if m.get('ip') is not None:
+            self.ip = m.get('ip')
+        if m.get('isSpare') is not None:
+            self.is_spare = m.get('isSpare')
+        if m.get('migrationPredictRemainingTime') is not None:
+            self.migration_predict_remaining_time = m.get('migrationPredictRemainingTime')
+        if m.get('port') is not None:
+            self.port = m.get('port')
+        if m.get('region') is not None:
+            self.region = m.get('region')
+        if m.get('serviceUnitId') is not None:
+            self.service_unit_id = m.get('serviceUnitId')
+        if m.get('sqlRetention') is not None:
+            self.sql_retention = m.get('sqlRetention')
+        if m.get('startTime') is not None:
+            self.start_time = m.get('startTime')
+        if m.get('storageFreeQuotaInMB') is not None:
+            self.storage_free_quota_in_mb = m.get('storageFreeQuotaInMB')
+        if m.get('storageUsed') is not None:
+            self.storage_used = m.get('storageUsed')
+        if m.get('userId') is not None:
+            self.user_id = m.get('userId')
+        if m.get('vpcId') is not None:
+            self.vpc_id = m.get('vpcId')
+        return self
+
+
+class GetDasProServiceUsageResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The data returned.
+        self.data = data  # type: GetDasProServiceUsageResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetDasProServiceUsageResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetDasProServiceUsageResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetDasProServiceUsageResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetDasProServiceUsageResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetDasProServiceUsageResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetDasProServiceUsageResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetDasSQLLogHotDataRequest(TeaModel):
+    def __init__(self, account_name=None, child_dbinstance_ids=None, dbname=None, end=None, fail=None,
+                 host_address=None, instance_id=None, logical_operator=None, max_latancy=None, max_records_per_page=None,
+                 max_rows=None, max_scan_rows=None, max_spill_cnt=None, min_latancy=None, min_rows=None, min_scan_rows=None,
+                 min_spill_cnt=None, page_numbers=None, query_keyword=None, role=None, sort_key=None, sort_method=None,
+                 sql_type=None, start=None, state=None, thread_id=None, trace_id=None, transaction_id=None):
+        # The account of the database.
+        # 
+        # >  You can specify multiple database accounts that are separated by spaces. Example: `user1 user2 user3`.
+        self.account_name = account_name  # type: str
+        # The node ID.
+        # 
+        # >  This parameter must be specified if the database instance is a PolarDB for MySQL cluster.
+        self.child_dbinstance_ids = child_dbinstance_ids  # type: str
+        # The name of the database.
+        # 
+        # >  You can specify multiple database names that are separated by spaces. Example: `DB1 DB2 DB3`.
+        self.dbname = dbname  # type: str
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time. The interval between the start time and the end time cannot exceed 24 hours.
+        self.end = end  # type: long
+        # The error code of SQL execution. You can call the [GetAsyncErrorRequestStatByCode](~~409804~~) operation to query MySQL error codes in SQL Explorer data.
+        self.fail = fail  # type: str
+        # The IP address of the client.
+        # 
+        # >  You can specify multiple IP addresses that are separated by spaces. Example: `IP1 IP2 IP3`.
+        self.host_address = host_address  # type: str
+        # The ID of the database instance.
+        self.instance_id = instance_id  # type: str
+        # The logical relationship among multiple keywords.
+        # 
+        # *   **or**\
+        # *   **and**\
+        self.logical_operator = logical_operator  # type: str
+        # The maximum execution duration. Unit: microseconds. You can specify this parameter to query the SQL statements whose execution duration is smaller than the value of this parameter.
+        self.max_latancy = max_latancy  # type: long
+        # The maximum number of entries per page.
+        self.max_records_per_page = max_records_per_page  # type: long
+        # The reserved parameter. This parameter is not supported.
+        self.max_rows = max_rows  # type: long
+        # The maximum number of scanned rows. You can specify this parameter to query the SQL statements that scan a smaller number of rows than the value of this parameter.
+        self.max_scan_rows = max_scan_rows  # type: long
+        # The reserved parameter. This parameter is not supported.
+        self.max_spill_cnt = max_spill_cnt  # type: long
+        # The minimum execution duration. Unit: microseconds. You can specify this parameter to query the SQL statements whose execution duration is greater than or equal to the value of this parameter.
+        self.min_latancy = min_latancy  # type: long
+        # The reserved parameter. This parameter is not supported.
+        self.min_rows = min_rows  # type: long
+        # The minimum number of scanned rows. You can specify this parameter to query the SQL statements that scan a larger or an equal number of rows than the value of this parameter.
+        self.min_scan_rows = min_scan_rows  # type: long
+        # The reserved parameter. This parameter is not supported.
+        self.min_spill_cnt = min_spill_cnt  # type: long
+        # The page number. Pages start from page 1. Default value: 1.
+        self.page_numbers = page_numbers  # type: long
+        # The keyword that is used for the query.
+        # 
+        # >  The keyword must be at least four characters in length. You can specify multiple keywords that are separated by spaces. Fuzzy queries are not supported.
+        self.query_keyword = query_keyword  # type: str
+        # The reserved parameter. This parameter is not supported.
+        self.role = role  # type: str
+        # The basis on which you want to sort the query results.
+        # 
+        # *   **SCAN_ROWS**: the number of scanned rows.
+        # *   **UPDATE_ROWS**: the number of updated rows.
+        # *   **CONSUME**: the time consumed.
+        # *   **ORIGIN_TIME**: the execution duration.
+        self.sort_key = sort_key  # type: str
+        # The order in which you want to sort the query results.
+        # 
+        # *   **ase**: ascending order.
+        # *   **desc**: descending order.
+        self.sort_method = sort_method  # type: str
+        # The type of the SQL statement. Valid values:
+        # 
+        # *   **SELECT**\
+        # *   **UPDATE**\
+        # *   **DELETE**\
+        self.sql_type = sql_type  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  You can query only the data that is generated after the new SQL Explorer and Audit feature is enabled. The start time can be up to seven days earlier than the current time.
+        self.start = start  # type: long
+        # The execution results. You can specify **0** to query the SQL statements that are successfully executed. You can also specify an error code to query the corresponding SQL statements that fail to be executed.
+        self.state = state  # type: str
+        # The thread ID.
+        # 
+        # >  You can specify multiple thread IDs that are separated by spaces. Example: `Thread ID1 Thread ID2 Thread ID3`.
+        self.thread_id = thread_id  # type: str
+        # The reserved parameter. This parameter is not supported.
+        self.trace_id = trace_id  # type: str
+        # The transaction ID.
+        self.transaction_id = transaction_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDasSQLLogHotDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        if self.child_dbinstance_ids is not None:
+            result['ChildDBInstanceIDs'] = self.child_dbinstance_ids
+        if self.dbname is not None:
+            result['DBName'] = self.dbname
+        if self.end is not None:
+            result['End'] = self.end
+        if self.fail is not None:
+            result['Fail'] = self.fail
+        if self.host_address is not None:
+            result['HostAddress'] = self.host_address
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.logical_operator is not None:
+            result['LogicalOperator'] = self.logical_operator
+        if self.max_latancy is not None:
+            result['MaxLatancy'] = self.max_latancy
+        if self.max_records_per_page is not None:
+            result['MaxRecordsPerPage'] = self.max_records_per_page
+        if self.max_rows is not None:
+            result['MaxRows'] = self.max_rows
+        if self.max_scan_rows is not None:
+            result['MaxScanRows'] = self.max_scan_rows
+        if self.max_spill_cnt is not None:
+            result['MaxSpillCnt'] = self.max_spill_cnt
+        if self.min_latancy is not None:
+            result['MinLatancy'] = self.min_latancy
+        if self.min_rows is not None:
+            result['MinRows'] = self.min_rows
+        if self.min_scan_rows is not None:
+            result['MinScanRows'] = self.min_scan_rows
+        if self.min_spill_cnt is not None:
+            result['MinSpillCnt'] = self.min_spill_cnt
+        if self.page_numbers is not None:
+            result['PageNumbers'] = self.page_numbers
+        if self.query_keyword is not None:
+            result['QueryKeyword'] = self.query_keyword
+        if self.role is not None:
+            result['Role'] = self.role
+        if self.sort_key is not None:
+            result['SortKey'] = self.sort_key
+        if self.sort_method is not None:
+            result['SortMethod'] = self.sort_method
+        if self.sql_type is not None:
+            result['SqlType'] = self.sql_type
+        if self.start is not None:
+            result['Start'] = self.start
+        if self.state is not None:
+            result['State'] = self.state
+        if self.thread_id is not None:
+            result['ThreadID'] = self.thread_id
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
+        if self.transaction_id is not None:
+            result['TransactionId'] = self.transaction_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        if m.get('ChildDBInstanceIDs') is not None:
+            self.child_dbinstance_ids = m.get('ChildDBInstanceIDs')
+        if m.get('DBName') is not None:
+            self.dbname = m.get('DBName')
+        if m.get('End') is not None:
+            self.end = m.get('End')
+        if m.get('Fail') is not None:
+            self.fail = m.get('Fail')
+        if m.get('HostAddress') is not None:
+            self.host_address = m.get('HostAddress')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('LogicalOperator') is not None:
+            self.logical_operator = m.get('LogicalOperator')
+        if m.get('MaxLatancy') is not None:
+            self.max_latancy = m.get('MaxLatancy')
+        if m.get('MaxRecordsPerPage') is not None:
+            self.max_records_per_page = m.get('MaxRecordsPerPage')
+        if m.get('MaxRows') is not None:
+            self.max_rows = m.get('MaxRows')
+        if m.get('MaxScanRows') is not None:
+            self.max_scan_rows = m.get('MaxScanRows')
+        if m.get('MaxSpillCnt') is not None:
+            self.max_spill_cnt = m.get('MaxSpillCnt')
+        if m.get('MinLatancy') is not None:
+            self.min_latancy = m.get('MinLatancy')
+        if m.get('MinRows') is not None:
+            self.min_rows = m.get('MinRows')
+        if m.get('MinScanRows') is not None:
+            self.min_scan_rows = m.get('MinScanRows')
+        if m.get('MinSpillCnt') is not None:
+            self.min_spill_cnt = m.get('MinSpillCnt')
+        if m.get('PageNumbers') is not None:
+            self.page_numbers = m.get('PageNumbers')
+        if m.get('QueryKeyword') is not None:
+            self.query_keyword = m.get('QueryKeyword')
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
+        if m.get('SortKey') is not None:
+            self.sort_key = m.get('SortKey')
+        if m.get('SortMethod') is not None:
+            self.sort_method = m.get('SortMethod')
+        if m.get('SqlType') is not None:
+            self.sql_type = m.get('SqlType')
+        if m.get('Start') is not None:
+            self.start = m.get('Start')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('ThreadID') is not None:
+            self.thread_id = m.get('ThreadID')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
+        if m.get('TransactionId') is not None:
+            self.transaction_id = m.get('TransactionId')
+        return self
+
+
+class GetDasSQLLogHotDataResponseBodyDataList(TeaModel):
+    def __init__(self, account_name=None, dbname=None, execute_time=None, ext=None, host_address=None, latancy=None,
+                 lock_time=None, logic_read=None, origin_time=None, physic_async_read=None, physic_sync_read=None,
+                 return_rows=None, sqltext=None, scan_rows=None, sql_type=None, state=None, thread_id=None, transaction_id=None,
+                 update_rows=None):
+        # The account of the database.
+        self.account_name = account_name  # type: str
+        # The name of the database.
+        self.dbname = dbname  # type: str
+        # The execution time. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
+        self.execute_time = execute_time  # type: str
+        # The extended information. This parameter is a reserved parameter.
+        self.ext = ext  # type: str
+        # The IP address of the client.
+        self.host_address = host_address  # type: str
+        # The execution duration. Unit: microseconds.
+        self.latancy = latancy  # type: long
+        # The lock wait duration. Unit: microseconds.
+        self.lock_time = lock_time  # type: long
+        # The number of logical reads.
+        self.logic_read = logic_read  # type: long
+        # The execution time. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
+        self.origin_time = origin_time  # type: str
+        # The number of physical asynchronous reads.
+        self.physic_async_read = physic_async_read  # type: long
+        # The number of physical synchronous reads.
+        self.physic_sync_read = physic_sync_read  # type: long
+        # The number of rows returned.
+        self.return_rows = return_rows  # type: long
+        # The content of the SQL statement.
+        self.sqltext = sqltext  # type: str
+        # The number of rows scanned by the SQL statement.
+        self.scan_rows = scan_rows  # type: long
+        # The type of the SQL statement. Valid values:
+        # 
+        # * **SELECT**\
+        # * **UPDATE**\
+        # * **DELETE**\
+        self.sql_type = sql_type  # type: str
+        # The execution result. If a **0** is returned, the SQL statement was successfully executed. If an error code is returned, the SQL statement failed to be executed.
+        self.state = state  # type: str
+        # The thread ID.
+        self.thread_id = thread_id  # type: long
+        # The transaction ID.
+        self.transaction_id = transaction_id  # type: str
+        # The number of updated rows.
+        self.update_rows = update_rows  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDasSQLLogHotDataResponseBodyDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        if self.dbname is not None:
+            result['DBName'] = self.dbname
+        if self.execute_time is not None:
+            result['ExecuteTime'] = self.execute_time
+        if self.ext is not None:
+            result['Ext'] = self.ext
+        if self.host_address is not None:
+            result['HostAddress'] = self.host_address
+        if self.latancy is not None:
+            result['Latancy'] = self.latancy
+        if self.lock_time is not None:
+            result['LockTime'] = self.lock_time
+        if self.logic_read is not None:
+            result['LogicRead'] = self.logic_read
+        if self.origin_time is not None:
+            result['OriginTime'] = self.origin_time
+        if self.physic_async_read is not None:
+            result['PhysicAsyncRead'] = self.physic_async_read
+        if self.physic_sync_read is not None:
+            result['PhysicSyncRead'] = self.physic_sync_read
+        if self.return_rows is not None:
+            result['ReturnRows'] = self.return_rows
+        if self.sqltext is not None:
+            result['SQLText'] = self.sqltext
+        if self.scan_rows is not None:
+            result['ScanRows'] = self.scan_rows
+        if self.sql_type is not None:
+            result['SqlType'] = self.sql_type
+        if self.state is not None:
+            result['State'] = self.state
+        if self.thread_id is not None:
+            result['ThreadID'] = self.thread_id
+        if self.transaction_id is not None:
+            result['TransactionId'] = self.transaction_id
+        if self.update_rows is not None:
+            result['UpdateRows'] = self.update_rows
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        if m.get('DBName') is not None:
+            self.dbname = m.get('DBName')
+        if m.get('ExecuteTime') is not None:
+            self.execute_time = m.get('ExecuteTime')
+        if m.get('Ext') is not None:
+            self.ext = m.get('Ext')
+        if m.get('HostAddress') is not None:
+            self.host_address = m.get('HostAddress')
+        if m.get('Latancy') is not None:
+            self.latancy = m.get('Latancy')
+        if m.get('LockTime') is not None:
+            self.lock_time = m.get('LockTime')
+        if m.get('LogicRead') is not None:
+            self.logic_read = m.get('LogicRead')
+        if m.get('OriginTime') is not None:
+            self.origin_time = m.get('OriginTime')
+        if m.get('PhysicAsyncRead') is not None:
+            self.physic_async_read = m.get('PhysicAsyncRead')
+        if m.get('PhysicSyncRead') is not None:
+            self.physic_sync_read = m.get('PhysicSyncRead')
+        if m.get('ReturnRows') is not None:
+            self.return_rows = m.get('ReturnRows')
+        if m.get('SQLText') is not None:
+            self.sqltext = m.get('SQLText')
+        if m.get('ScanRows') is not None:
+            self.scan_rows = m.get('ScanRows')
+        if m.get('SqlType') is not None:
+            self.sql_type = m.get('SqlType')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('ThreadID') is not None:
+            self.thread_id = m.get('ThreadID')
+        if m.get('TransactionId') is not None:
+            self.transaction_id = m.get('TransactionId')
+        if m.get('UpdateRows') is not None:
+            self.update_rows = m.get('UpdateRows')
+        return self
+
+
+class GetDasSQLLogHotDataResponseBodyData(TeaModel):
+    def __init__(self, extra=None, list=None, page_no=None, page_size=None, total=None):
+        # The reserved parameter.
+        self.extra = extra  # type: any
+        # The details of the data returned.
+        self.list = list  # type: list[GetDasSQLLogHotDataResponseBodyDataList]
+        # The page number.
+        self.page_no = page_no  # type: long
+        # The number of entries per page.
+        self.page_size = page_size  # type: long
+        # The total number of entries returned.
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetDasSQLLogHotDataResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.extra is not None:
+            result['Extra'] = self.extra
+        result['List'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['List'].append(k.to_map() if k else None)
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Extra') is not None:
+            self.extra = m.get('Extra')
+        self.list = []
+        if m.get('List') is not None:
+            for k in m.get('List'):
+                temp_model = GetDasSQLLogHotDataResponseBodyDataList()
+                self.list.append(temp_model.from_map(k))
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class GetDasSQLLogHotDataResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The data returned.
+        self.data = data  # type: GetDasSQLLogHotDataResponseBodyData
+        # The returned message.
+        # 
+        # > If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetDasSQLLogHotDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetDasSQLLogHotDataResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetDasSQLLogHotDataResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetDasSQLLogHotDataResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetDasSQLLogHotDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetDasSQLLogHotDataResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5312,12 +11724,14 @@ class GetEndpointSwitchTaskResponseBody(TeaModel):
 
 
 class GetEndpointSwitchTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetEndpointSwitchTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5330,6 +11744,8 @@ class GetEndpointSwitchTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5338,6 +11754,8 @@ class GetEndpointSwitchTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetEndpointSwitchTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5345,16 +11763,25 @@ class GetEndpointSwitchTaskResponse(TeaModel):
 
 
 class GetErrorRequestSampleRequest(TeaModel):
-    def __init__(self, console_context=None, db_name=None, end=None, instance_id=None, node_id=None, role=None,
-                 sql_id=None, start=None):
-        self.console_context = console_context  # type: str
+    def __init__(self, db_name=None, end=None, instance_id=None, node_id=None, sql_id=None, start=None):
+        # The name of the database.
         self.db_name = db_name  # type: str
-        self.end = end  # type: str
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time. The interval cannot exceed 24 hours.
+        self.end = end  # type: long
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  You must specify the node ID if your database instance is a PolarDB for MySQL cluster.
         self.node_id = node_id  # type: str
-        self.role = role  # type: str
+        # The SQL query ID. You can call the [GetAsyncErrorRequestListByCode](~~410746~~) operation to query the ID of the SQL query for which MySQL error code is returned.
         self.sql_id = sql_id  # type: str
-        self.start = start  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The start time must be within the storage duration of the SQL Explorer feature of the database instance, and can be up to 90 days earlier than the current time.
+        self.start = start  # type: long
 
     def validate(self):
         pass
@@ -5365,8 +11792,6 @@ class GetErrorRequestSampleRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.console_context is not None:
-            result['ConsoleContext'] = self.console_context
         if self.db_name is not None:
             result['DbName'] = self.db_name
         if self.end is not None:
@@ -5375,8 +11800,6 @@ class GetErrorRequestSampleRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.node_id is not None:
             result['NodeId'] = self.node_id
-        if self.role is not None:
-            result['Role'] = self.role
         if self.sql_id is not None:
             result['SqlId'] = self.sql_id
         if self.start is not None:
@@ -5385,8 +11808,6 @@ class GetErrorRequestSampleRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ConsoleContext') is not None:
-            self.console_context = m.get('ConsoleContext')
         if m.get('DbName') is not None:
             self.db_name = m.get('DbName')
         if m.get('End') is not None:
@@ -5395,8 +11816,6 @@ class GetErrorRequestSampleRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
-        if m.get('Role') is not None:
-            self.role = m.get('Role')
         if m.get('SqlId') is not None:
             self.sql_id = m.get('SqlId')
         if m.get('Start') is not None:
@@ -5404,16 +11823,103 @@ class GetErrorRequestSampleRequest(TeaModel):
         return self
 
 
-class GetErrorRequestSampleResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.data = data  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: str
+class GetErrorRequestSampleResponseBodyData(TeaModel):
+    def __init__(self, database=None, error_code=None, instance_id=None, origin_host=None, sql=None, sql_id=None,
+                 tables=None, timestamp=None, user=None):
+        # The database name.
+        self.database = database  # type: str
+        # The error code that is returned.
+        self.error_code = error_code  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The IP address of the client that executes the SQL statement.
+        self.origin_host = origin_host  # type: str
+        # The SQL statement.
+        self.sql = sql  # type: str
+        # The SQL query ID.
+        self.sql_id = sql_id  # type: str
+        # The table information.
+        self.tables = tables  # type: list[str]
+        # The time when the SQL query was executed. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.timestamp = timestamp  # type: long
+        # The username of the account that is used to log on to the database.
+        self.user = user  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(GetErrorRequestSampleResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.database is not None:
+            result['database'] = self.database
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.instance_id is not None:
+            result['instanceId'] = self.instance_id
+        if self.origin_host is not None:
+            result['originHost'] = self.origin_host
+        if self.sql is not None:
+            result['sql'] = self.sql
+        if self.sql_id is not None:
+            result['sqlId'] = self.sql_id
+        if self.tables is not None:
+            result['tables'] = self.tables
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        if self.user is not None:
+            result['user'] = self.user
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('database') is not None:
+            self.database = m.get('database')
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('instanceId') is not None:
+            self.instance_id = m.get('instanceId')
+        if m.get('originHost') is not None:
+            self.origin_host = m.get('originHost')
+        if m.get('sql') is not None:
+            self.sql = m.get('sql')
+        if m.get('sqlId') is not None:
+            self.sql_id = m.get('sqlId')
+        if m.get('tables') is not None:
+            self.tables = m.get('tables')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        if m.get('user') is not None:
+            self.user = m.get('user')
+        return self
+
+
+class GetErrorRequestSampleResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The returned data.
+        self.data = data  # type: list[GetErrorRequestSampleResponseBodyData]
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(GetErrorRequestSampleResponseBody, self).to_map()
@@ -5423,8 +11929,387 @@ class GetErrorRequestSampleResponseBody(TeaModel):
         result = dict()
         if self.code is not None:
             result['Code'] = self.code
+        result['Data'] = []
         if self.data is not None:
-            result['Data'] = self.data
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = GetErrorRequestSampleResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetErrorRequestSampleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetErrorRequestSampleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetErrorRequestSampleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetErrorRequestSampleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetEventSubscriptionRequest(TeaModel):
+    def __init__(self, instance_id=None):
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetEventSubscriptionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class GetEventSubscriptionResponseBodyDataContactGroups(TeaModel):
+    def __init__(self, contacts=None, description=None, name=None, user_id=None):
+        # The members of the alert contact group.
+        self.contacts = contacts  # type: str
+        # The description of the alert contact group.
+        self.description = description  # type: str
+        # The name of the alert contact group.
+        self.name = name  # type: str
+        # The user ID.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetEventSubscriptionResponseBodyDataContactGroups, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contacts is not None:
+            result['contacts'] = self.contacts
+        if self.description is not None:
+            result['description'] = self.description
+        if self.name is not None:
+            result['name'] = self.name
+        if self.user_id is not None:
+            result['userId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('contacts') is not None:
+            self.contacts = m.get('contacts')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('userId') is not None:
+            self.user_id = m.get('userId')
+        return self
+
+
+class GetEventSubscriptionResponseBodyDataContacts(TeaModel):
+    def __init__(self, dingtalk_hook=None, email=None, groups=None, is_cms_reduplicated=None, name=None, phone=None,
+                 user_id=None):
+        # The webhook URL of the DingTalk chatbot.
+        self.dingtalk_hook = dingtalk_hook  # type: str
+        # The email address of the alert contact.
+        self.email = email  # type: str
+        # The contact groups to which the alert contact belongs.
+        self.groups = groups  # type: list[str]
+        # Indicates whether the alert contact name is the same as the contact name on CloudMonitor.
+        # 
+        # * **true**\
+        # * **false**\
+        self.is_cms_reduplicated = is_cms_reduplicated  # type: bool
+        # The name of the alert contact.
+        self.name = name  # type: str
+        # The mobile number of the alert contact.
+        self.phone = phone  # type: str
+        # The user ID.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetEventSubscriptionResponseBodyDataContacts, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dingtalk_hook is not None:
+            result['dingtalkHook'] = self.dingtalk_hook
+        if self.email is not None:
+            result['email'] = self.email
+        if self.groups is not None:
+            result['groups'] = self.groups
+        if self.is_cms_reduplicated is not None:
+            result['isCmsReduplicated'] = self.is_cms_reduplicated
+        if self.name is not None:
+            result['name'] = self.name
+        if self.phone is not None:
+            result['phone'] = self.phone
+        if self.user_id is not None:
+            result['userId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('dingtalkHook') is not None:
+            self.dingtalk_hook = m.get('dingtalkHook')
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('groups') is not None:
+            self.groups = m.get('groups')
+        if m.get('isCmsReduplicated') is not None:
+            self.is_cms_reduplicated = m.get('isCmsReduplicated')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        if m.get('userId') is not None:
+            self.user_id = m.get('userId')
+        return self
+
+
+class GetEventSubscriptionResponseBodyData(TeaModel):
+    def __init__(self, active=None, channel_type=None, contact_group_name=None, contact_groups=None,
+                 contact_name=None, contacts=None, event_context=None, event_send_group=None, gmt_create=None, gmt_modified=None,
+                 id=None, instance_id=None, lang=None, level=None, min_interval=None, user_id=None):
+        # Indicates whether the event subscription feature is enabled. Valid values:
+        # 
+        # *   **0**: The event subscription feature is disabled.
+        # *   **1**: The event subscription feature is enabled.
+        self.active = active  # type: int
+        # The notification method. Valid values:
+        # 
+        # *   **hdm_alarm_sms**: text message.
+        # *   **dingtalk**: DingTalk chatbot.
+        # *   **hdm_alarm_sms_and_email**: text message and email.
+        # *   **hdm_alarm_sms,dingtalk**: text message and DingTalk chatbot.
+        self.channel_type = channel_type  # type: str
+        # The name of the contact group that receives alert notifications. Multiple names are separated by commas (,).
+        self.contact_group_name = contact_group_name  # type: str
+        # The alert contact groups.
+        self.contact_groups = contact_groups  # type: list[GetEventSubscriptionResponseBodyDataContactGroups]
+        # The name of the subscriber who receives alert notifications. Multiple names are separated by commas (,).
+        self.contact_name = contact_name  # type: str
+        # The user ID.
+        self.contacts = contacts  # type: list[GetEventSubscriptionResponseBodyDataContacts]
+        # The supported event scenarios. Only **AllContext** may be returned, which indicates that all scenarios are supported.
+        self.event_context = event_context  # type: str
+        # The supported event scenarios in which event subscription can be sent.
+        self.event_send_group = event_send_group  # type: list[str]
+        # The time when event subscription was enabled. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.gmt_create = gmt_create  # type: long
+        # The time when the event subscription settings were most recently modified. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.gmt_modified = gmt_modified  # type: long
+        # The primary key ID of the database.
+        self.id = id  # type: long
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The language of event notifications. Only **zh-CN** may be returned, which indicates that event notifications are sent in Chinese.
+        self.lang = lang  # type: str
+        # The risk level of the events that trigger notifications. Valid values:
+        # 
+        # *   **Notice**\
+        # *   **Optimization**\
+        # *   **Warn**\
+        # *   **Critical**\
+        self.level = level  # type: str
+        # The minimum interval between event notifications. Unit: seconds.
+        self.min_interval = min_interval  # type: str
+        # The user ID.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        if self.contact_groups:
+            for k in self.contact_groups:
+                if k:
+                    k.validate()
+        if self.contacts:
+            for k in self.contacts:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetEventSubscriptionResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active is not None:
+            result['active'] = self.active
+        if self.channel_type is not None:
+            result['channelType'] = self.channel_type
+        if self.contact_group_name is not None:
+            result['contactGroupName'] = self.contact_group_name
+        result['contactGroups'] = []
+        if self.contact_groups is not None:
+            for k in self.contact_groups:
+                result['contactGroups'].append(k.to_map() if k else None)
+        if self.contact_name is not None:
+            result['contactName'] = self.contact_name
+        result['contacts'] = []
+        if self.contacts is not None:
+            for k in self.contacts:
+                result['contacts'].append(k.to_map() if k else None)
+        if self.event_context is not None:
+            result['eventContext'] = self.event_context
+        if self.event_send_group is not None:
+            result['eventSendGroup'] = self.event_send_group
+        if self.gmt_create is not None:
+            result['gmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmtModified'] = self.gmt_modified
+        if self.id is not None:
+            result['id'] = self.id
+        if self.instance_id is not None:
+            result['instanceId'] = self.instance_id
+        if self.lang is not None:
+            result['lang'] = self.lang
+        if self.level is not None:
+            result['level'] = self.level
+        if self.min_interval is not None:
+            result['minInterval'] = self.min_interval
+        if self.user_id is not None:
+            result['userId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('active') is not None:
+            self.active = m.get('active')
+        if m.get('channelType') is not None:
+            self.channel_type = m.get('channelType')
+        if m.get('contactGroupName') is not None:
+            self.contact_group_name = m.get('contactGroupName')
+        self.contact_groups = []
+        if m.get('contactGroups') is not None:
+            for k in m.get('contactGroups'):
+                temp_model = GetEventSubscriptionResponseBodyDataContactGroups()
+                self.contact_groups.append(temp_model.from_map(k))
+        if m.get('contactName') is not None:
+            self.contact_name = m.get('contactName')
+        self.contacts = []
+        if m.get('contacts') is not None:
+            for k in m.get('contacts'):
+                temp_model = GetEventSubscriptionResponseBodyDataContacts()
+                self.contacts.append(temp_model.from_map(k))
+        if m.get('eventContext') is not None:
+            self.event_context = m.get('eventContext')
+        if m.get('eventSendGroup') is not None:
+            self.event_send_group = m.get('eventSendGroup')
+        if m.get('gmtCreate') is not None:
+            self.gmt_create = m.get('gmtCreate')
+        if m.get('gmtModified') is not None:
+            self.gmt_modified = m.get('gmtModified')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('instanceId') is not None:
+            self.instance_id = m.get('instanceId')
+        if m.get('lang') is not None:
+            self.lang = m.get('lang')
+        if m.get('level') is not None:
+            self.level = m.get('level')
+        if m.get('minInterval') is not None:
+            self.min_interval = m.get('minInterval')
+        if m.get('userId') is not None:
+            self.user_id = m.get('userId')
+        return self
+
+
+class GetEventSubscriptionResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The data returned.
+        self.data = data  # type: GetEventSubscriptionResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetEventSubscriptionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -5438,7 +12323,8 @@ class GetErrorRequestSampleResponseBody(TeaModel):
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
-            self.data = m.get('Data')
+            temp_model = GetEventSubscriptionResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -5448,25 +12334,29 @@ class GetErrorRequestSampleResponseBody(TeaModel):
         return self
 
 
-class GetErrorRequestSampleResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+class GetEventSubscriptionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: GetErrorRequestSampleResponseBody
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetEventSubscriptionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
     def to_map(self):
-        _map = super(GetErrorRequestSampleResponse, self).to_map()
+        _map = super(GetEventSubscriptionResponse, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5475,8 +12365,1331 @@ class GetErrorRequestSampleResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
-            temp_model = GetErrorRequestSampleResponseBody()
+            temp_model = GetEventSubscriptionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetFullRequestOriginStatByInstanceIdRequest(TeaModel):
+    def __init__(self, asc=None, end=None, instance_id=None, node_id=None, order_by=None, page_no=None,
+                 page_size=None, role=None, sql_type=None, start=None, user_id=None):
+        # Specifies whether to sort the results in ascending order. By default, the results are not sorted in ascending order.
+        self.asc = asc  # type: bool
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time. The interval between the start time and the end time cannot exceed 24 hours.
+        self.end = end  # type: long
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  This parameter must be specified if the database instance is a PolarDB for MySQL cluster.
+        self.node_id = node_id  # type: str
+        # The field by which the results to be returned are sorted. Default value: **count**. Valid values:
+        # 
+        # *   **count**: the number of executions.
+        # *   **avgRt**: the average execution duration.
+        # *   **rtRate**: the execution duration percentage.
+        # *   **rowsExamined**: the total number of scanned rows.
+        # *   **avgRowsExamined**: the average number of scanned rows.
+        # *   **avgRowsReturned**: the average number of returned rows.
+        self.order_by = order_by  # type: str
+        # The page number. Pages start from page 1. Default value: 1.
+        self.page_no = page_no  # type: int
+        # The number of entries per page. Default value: 20.
+        self.page_size = page_size  # type: int
+        # The role of the PolarDB-X 2.0 node. Valid values:
+        # 
+        # *   **polarx_cn**: compute node.
+        # *   **polarx_en**: data node.
+        self.role = role  # type: str
+        # The type of the SQL statement. Valid values: **SELECT**, **INSERT**, **UPDATE**, **DELETE**, **LOGIN**, **LOGOUT**, **MERGE**, **ALTER**, **CREATEINDEX**, **DROPINDEX**, **CREATE**, **DROP**, **SET**, **DESC**, **REPLACE**, **CALL**, **BEGIN**, **DESCRIBE**, **ROLLBACK**, **FLUSH**, **USE**, **SHOW**, **START**, **COMMIT**, and **RENAME**.
+        # 
+        # >  If the database instance is an ApsaraDB RDS for MySQL instance, a PolarDB for MySQL cluster, or a PolarDB-X 2.0 instance, the statistics can be collected based on the SQL statement type.
+        self.sql_type = sql_type  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The start time must be within the storage duration of the SQL Explorer of the database instance, and can be up to 90 days earlier than the current time.
+        self.start = start  # type: long
+        # The ID of the Alibaba Cloud account that is used to create the database instance.
+        # 
+        # >  This parameter is optional. The system can automatically obtain the account ID based on the value of InstanceId when you call this operation.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFullRequestOriginStatByInstanceIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.asc is not None:
+            result['Asc'] = self.asc
+        if self.end is not None:
+            result['End'] = self.end
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.role is not None:
+            result['Role'] = self.role
+        if self.sql_type is not None:
+            result['SqlType'] = self.sql_type
+        if self.start is not None:
+            result['Start'] = self.start
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Asc') is not None:
+            self.asc = m.get('Asc')
+        if m.get('End') is not None:
+            self.end = m.get('End')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
+        if m.get('SqlType') is not None:
+            self.sql_type = m.get('SqlType')
+        if m.get('Start') is not None:
+            self.start = m.get('Start')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class GetFullRequestOriginStatByInstanceIdResponseBodyDataList(TeaModel):
+    def __init__(self, avg_examined_rows=None, avg_fetch_rows=None, avg_lock_wait_time=None, avg_logical_read=None,
+                 avg_physical_async_read=None, avg_physical_sync_read=None, avg_returned_rows=None, avg_rows=None, avg_rt=None,
+                 avg_sql_count=None, avg_updated_rows=None, count=None, count_rate=None, database=None, error_count=None,
+                 examined_rows=None, fetch_rows=None, ip=None, key=None, lock_wait_time=None, logical_read=None, origin_host=None,
+                 physical_async_read=None, physical_sync_read=None, port=None, rows=None, rt_greater_than_one_second_count=None,
+                 rt_rate=None, sql_count=None, sum_updated_rows=None, version=None, vpc_id=None):
+        # The average number of scanned rows.
+        # 
+        # > This parameter is returned only for ApsaraDB RDS for MySQL, ApsaraDB RDS for PostgreSQL, and PolarDB for MySQL databases.
+        self.avg_examined_rows = avg_examined_rows  # type: float
+        # The average number of rows that are fetched from data nodes by compute nodes on the PolarDB-X 2.0 instance.
+        self.avg_fetch_rows = avg_fetch_rows  # type: long
+        # The average lock wait duration. Unit: seconds.
+        self.avg_lock_wait_time = avg_lock_wait_time  # type: float
+        # The average number of logical reads.
+        self.avg_logical_read = avg_logical_read  # type: float
+        # The average number of physical asynchronous reads.
+        self.avg_physical_async_read = avg_physical_async_read  # type: long
+        # The average number of physical synchronous reads.
+        self.avg_physical_sync_read = avg_physical_sync_read  # type: float
+        # The average number of returned rows.
+        self.avg_returned_rows = avg_returned_rows  # type: float
+        # The average number of rows.
+        self.avg_rows = avg_rows  # type: long
+        # The average execution duration.
+        self.avg_rt = avg_rt  # type: float
+        # The average number of SQL statements.
+        self.avg_sql_count = avg_sql_count  # type: long
+        # The average number of updated rows.
+        # 
+        # > This parameter is returned only for ApsaraDB RDS for MySQL and PolarDB-X 2.0 databases.
+        self.avg_updated_rows = avg_updated_rows  # type: float
+        # The total number of executions.
+        self.count = count  # type: long
+        # The percentage of the total number of executions.
+        self.count_rate = count_rate  # type: float
+        # The name of the database.
+        self.database = database  # type: str
+        # The number of failed executions.
+        self.error_count = error_count  # type: long
+        # The total number of scanned rows.
+        # 
+        # > This parameter is returned only for ApsaraDB RDS for MySQL, ApsaraDB RDS for PostgreSQL, and PolarDB for MySQL databases.
+        self.examined_rows = examined_rows  # type: long
+        # The number of rows that are fetched from data nodes by compute nodes on the PolarDB-X 2.0 instance.
+        self.fetch_rows = fetch_rows  # type: long
+        # The network address of the database instance.
+        self.ip = ip  # type: str
+        # The IP address of the client that executes the SQL statement.
+        self.key = key  # type: str
+        # The lock wait duration. Unit: seconds.
+        self.lock_wait_time = lock_wait_time  # type: float
+        # The number of logical reads.
+        self.logical_read = logical_read  # type: long
+        # The IP address of the client that executes the SQL statement.
+        self.origin_host = origin_host  # type: str
+        # The number of physical asynchronous reads.
+        self.physical_async_read = physical_async_read  # type: long
+        # The number of physical synchronous reads.
+        self.physical_sync_read = physical_sync_read  # type: long
+        # The port number that is used to connect to the database instance.
+        self.port = port  # type: long
+        # The total number of rows updated or returned by the compute nodes of the PolarDB-X 2.0 instance.
+        self.rows = rows  # type: long
+        # The number of SQL statements that take longer than 1 second to execute.
+        self.rt_greater_than_one_second_count = rt_greater_than_one_second_count  # type: long
+        # The execution duration percentage.
+        self.rt_rate = rt_rate  # type: float
+        # The number of SQL statements.
+        self.sql_count = sql_count  # type: long
+        # The total number of updated rows.
+        self.sum_updated_rows = sum_updated_rows  # type: long
+        # The version number.
+        self.version = version  # type: long
+        # The virtual private cloud (VPC) ID.
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFullRequestOriginStatByInstanceIdResponseBodyDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.avg_examined_rows is not None:
+            result['AvgExaminedRows'] = self.avg_examined_rows
+        if self.avg_fetch_rows is not None:
+            result['AvgFetchRows'] = self.avg_fetch_rows
+        if self.avg_lock_wait_time is not None:
+            result['AvgLockWaitTime'] = self.avg_lock_wait_time
+        if self.avg_logical_read is not None:
+            result['AvgLogicalRead'] = self.avg_logical_read
+        if self.avg_physical_async_read is not None:
+            result['AvgPhysicalAsyncRead'] = self.avg_physical_async_read
+        if self.avg_physical_sync_read is not None:
+            result['AvgPhysicalSyncRead'] = self.avg_physical_sync_read
+        if self.avg_returned_rows is not None:
+            result['AvgReturnedRows'] = self.avg_returned_rows
+        if self.avg_rows is not None:
+            result['AvgRows'] = self.avg_rows
+        if self.avg_rt is not None:
+            result['AvgRt'] = self.avg_rt
+        if self.avg_sql_count is not None:
+            result['AvgSqlCount'] = self.avg_sql_count
+        if self.avg_updated_rows is not None:
+            result['AvgUpdatedRows'] = self.avg_updated_rows
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.count_rate is not None:
+            result['CountRate'] = self.count_rate
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.error_count is not None:
+            result['ErrorCount'] = self.error_count
+        if self.examined_rows is not None:
+            result['ExaminedRows'] = self.examined_rows
+        if self.fetch_rows is not None:
+            result['FetchRows'] = self.fetch_rows
+        if self.ip is not None:
+            result['Ip'] = self.ip
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.lock_wait_time is not None:
+            result['LockWaitTime'] = self.lock_wait_time
+        if self.logical_read is not None:
+            result['LogicalRead'] = self.logical_read
+        if self.origin_host is not None:
+            result['OriginHost'] = self.origin_host
+        if self.physical_async_read is not None:
+            result['PhysicalAsyncRead'] = self.physical_async_read
+        if self.physical_sync_read is not None:
+            result['PhysicalSyncRead'] = self.physical_sync_read
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.rows is not None:
+            result['Rows'] = self.rows
+        if self.rt_greater_than_one_second_count is not None:
+            result['RtGreaterThanOneSecondCount'] = self.rt_greater_than_one_second_count
+        if self.rt_rate is not None:
+            result['RtRate'] = self.rt_rate
+        if self.sql_count is not None:
+            result['SqlCount'] = self.sql_count
+        if self.sum_updated_rows is not None:
+            result['SumUpdatedRows'] = self.sum_updated_rows
+        if self.version is not None:
+            result['Version'] = self.version
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AvgExaminedRows') is not None:
+            self.avg_examined_rows = m.get('AvgExaminedRows')
+        if m.get('AvgFetchRows') is not None:
+            self.avg_fetch_rows = m.get('AvgFetchRows')
+        if m.get('AvgLockWaitTime') is not None:
+            self.avg_lock_wait_time = m.get('AvgLockWaitTime')
+        if m.get('AvgLogicalRead') is not None:
+            self.avg_logical_read = m.get('AvgLogicalRead')
+        if m.get('AvgPhysicalAsyncRead') is not None:
+            self.avg_physical_async_read = m.get('AvgPhysicalAsyncRead')
+        if m.get('AvgPhysicalSyncRead') is not None:
+            self.avg_physical_sync_read = m.get('AvgPhysicalSyncRead')
+        if m.get('AvgReturnedRows') is not None:
+            self.avg_returned_rows = m.get('AvgReturnedRows')
+        if m.get('AvgRows') is not None:
+            self.avg_rows = m.get('AvgRows')
+        if m.get('AvgRt') is not None:
+            self.avg_rt = m.get('AvgRt')
+        if m.get('AvgSqlCount') is not None:
+            self.avg_sql_count = m.get('AvgSqlCount')
+        if m.get('AvgUpdatedRows') is not None:
+            self.avg_updated_rows = m.get('AvgUpdatedRows')
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('CountRate') is not None:
+            self.count_rate = m.get('CountRate')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('ErrorCount') is not None:
+            self.error_count = m.get('ErrorCount')
+        if m.get('ExaminedRows') is not None:
+            self.examined_rows = m.get('ExaminedRows')
+        if m.get('FetchRows') is not None:
+            self.fetch_rows = m.get('FetchRows')
+        if m.get('Ip') is not None:
+            self.ip = m.get('Ip')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('LockWaitTime') is not None:
+            self.lock_wait_time = m.get('LockWaitTime')
+        if m.get('LogicalRead') is not None:
+            self.logical_read = m.get('LogicalRead')
+        if m.get('OriginHost') is not None:
+            self.origin_host = m.get('OriginHost')
+        if m.get('PhysicalAsyncRead') is not None:
+            self.physical_async_read = m.get('PhysicalAsyncRead')
+        if m.get('PhysicalSyncRead') is not None:
+            self.physical_sync_read = m.get('PhysicalSyncRead')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('Rows') is not None:
+            self.rows = m.get('Rows')
+        if m.get('RtGreaterThanOneSecondCount') is not None:
+            self.rt_greater_than_one_second_count = m.get('RtGreaterThanOneSecondCount')
+        if m.get('RtRate') is not None:
+            self.rt_rate = m.get('RtRate')
+        if m.get('SqlCount') is not None:
+            self.sql_count = m.get('SqlCount')
+        if m.get('SumUpdatedRows') is not None:
+            self.sum_updated_rows = m.get('SumUpdatedRows')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        return self
+
+
+class GetFullRequestOriginStatByInstanceIdResponseBodyData(TeaModel):
+    def __init__(self, list=None, total=None):
+        # The details of the full request data.
+        self.list = list  # type: list[GetFullRequestOriginStatByInstanceIdResponseBodyDataList]
+        # The total number of entries returned.
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetFullRequestOriginStatByInstanceIdResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['List'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['List'].append(k.to_map() if k else None)
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.list = []
+        if m.get('List') is not None:
+            for k in m.get('List'):
+                temp_model = GetFullRequestOriginStatByInstanceIdResponseBodyDataList()
+                self.list.append(temp_model.from_map(k))
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class GetFullRequestOriginStatByInstanceIdResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The data returned.
+        self.data = data  # type: GetFullRequestOriginStatByInstanceIdResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetFullRequestOriginStatByInstanceIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetFullRequestOriginStatByInstanceIdResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetFullRequestOriginStatByInstanceIdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetFullRequestOriginStatByInstanceIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetFullRequestOriginStatByInstanceIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetFullRequestOriginStatByInstanceIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetFullRequestSampleByInstanceIdRequest(TeaModel):
+    def __init__(self, end=None, instance_id=None, role=None, sql_id=None, start=None, user_id=None):
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time. The interval between the start time and the end time must be equal to or greater than 1 hour.
+        self.end = end  # type: long
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The role of the PolarDB-X 2.0 node. Valid values:
+        # 
+        # *   **polarx_cn**: compute node.
+        # *   **polarx_en**: data node.
+        self.role = role  # type: str
+        # The SQL statement ID.
+        self.sql_id = sql_id  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The start time must be within the storage duration of the SQL Explorer feature of the database instance, and can be up to 90 days earlier than the current time.
+        self.start = start  # type: long
+        # The ID of the Alibaba Cloud account that is used to create the database instance.
+        # 
+        # >  This parameter is optional. The system can automatically obtain the account ID based on the value of InstanceId when you call this operation.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFullRequestSampleByInstanceIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end is not None:
+            result['End'] = self.end
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.role is not None:
+            result['Role'] = self.role
+        if self.sql_id is not None:
+            result['SqlId'] = self.sql_id
+        if self.start is not None:
+            result['Start'] = self.start
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('End') is not None:
+            self.end = m.get('End')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
+        if m.get('SqlId') is not None:
+            self.sql_id = m.get('SqlId')
+        if m.get('Start') is not None:
+            self.start = m.get('Start')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class GetFullRequestSampleByInstanceIdResponseBodyData(TeaModel):
+    def __init__(self, database=None, frows=None, lock_wait_time=None, logical_read=None, origin_host=None,
+                 physical_async_read=None, physical_sync_read=None, rows=None, rows_examined=None, rows_returned=None, rt=None,
+                 scan_rows=None, scnt=None, sql=None, sql_id=None, sql_type=None, timestamp=None, update_rows=None, user=None):
+        # The name of the database.
+        self.database = database  # type: str
+        # The number of rows fetched by PolarDB-X 2.0 compute nodes.
+        self.frows = frows  # type: long
+        # The lock wait duration. Unit: seconds.
+        self.lock_wait_time = lock_wait_time  # type: float
+        # The number of logical reads.
+        self.logical_read = logical_read  # type: float
+        # The source IP address.
+        self.origin_host = origin_host  # type: str
+        # The number of physical asynchronous reads.
+        self.physical_async_read = physical_async_read  # type: float
+        # The number of physical synchronous reads.
+        self.physical_sync_read = physical_sync_read  # type: float
+        # The number of rows updated or returned on PolarDB-X 2.0 compute nodes.
+        self.rows = rows  # type: long
+        # The total number of scanned rows.
+        # 
+        # > This parameter is returned only for ApsaraDB RDS for MySQL, ApsaraDB RDS for PostgreSQL, and PolarDB for MySQL databases.
+        self.rows_examined = rows_examined  # type: long
+        # The number of rows returned by the SQL statement.
+        self.rows_returned = rows_returned  # type: long
+        # The amount of time consumed to execute the SQL statement. Unit: seconds.
+        self.rt = rt  # type: float
+        # The number of scanned rows.
+        self.scan_rows = scan_rows  # type: long
+        # The number of requests sent from PolarDB-X 2.0 compute nodes to data nodes.
+        self.scnt = scnt  # type: long
+        # The sample SQL statement.
+        self.sql = sql  # type: str
+        # The SQL statement ID.
+        self.sql_id = sql_id  # type: str
+        # The type of the SQL statement. Valid values: **SELECT**, **INSERT**, **UPDATE**, **DELETE**, **LOGIN**, **LOGOUT**, **MERGE**, **ALTER**, **CREATEINDEX**, **DROPINDEX**, **CREATE**, **DROP**, **SET**, **DESC**, **REPLACE**, **CALL**, **BEGIN**, **DESCRIBE**, **ROLLBACK**, **FLUSH**, **USE**, **SHOW**, **START**, **COMMIT**, and **RENAME**.
+        self.sql_type = sql_type  # type: str
+        # The time when the SQL statement was executed. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.timestamp = timestamp  # type: long
+        # The number of updated rows.
+        self.update_rows = update_rows  # type: long
+        # The name of the user who executes the SQL statement.
+        self.user = user  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFullRequestSampleByInstanceIdResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.frows is not None:
+            result['Frows'] = self.frows
+        if self.lock_wait_time is not None:
+            result['LockWaitTime'] = self.lock_wait_time
+        if self.logical_read is not None:
+            result['LogicalRead'] = self.logical_read
+        if self.origin_host is not None:
+            result['OriginHost'] = self.origin_host
+        if self.physical_async_read is not None:
+            result['PhysicalAsyncRead'] = self.physical_async_read
+        if self.physical_sync_read is not None:
+            result['PhysicalSyncRead'] = self.physical_sync_read
+        if self.rows is not None:
+            result['Rows'] = self.rows
+        if self.rows_examined is not None:
+            result['RowsExamined'] = self.rows_examined
+        if self.rows_returned is not None:
+            result['RowsReturned'] = self.rows_returned
+        if self.rt is not None:
+            result['Rt'] = self.rt
+        if self.scan_rows is not None:
+            result['ScanRows'] = self.scan_rows
+        if self.scnt is not None:
+            result['Scnt'] = self.scnt
+        if self.sql is not None:
+            result['Sql'] = self.sql
+        if self.sql_id is not None:
+            result['SqlId'] = self.sql_id
+        if self.sql_type is not None:
+            result['SqlType'] = self.sql_type
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        if self.update_rows is not None:
+            result['UpdateRows'] = self.update_rows
+        if self.user is not None:
+            result['User'] = self.user
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('Frows') is not None:
+            self.frows = m.get('Frows')
+        if m.get('LockWaitTime') is not None:
+            self.lock_wait_time = m.get('LockWaitTime')
+        if m.get('LogicalRead') is not None:
+            self.logical_read = m.get('LogicalRead')
+        if m.get('OriginHost') is not None:
+            self.origin_host = m.get('OriginHost')
+        if m.get('PhysicalAsyncRead') is not None:
+            self.physical_async_read = m.get('PhysicalAsyncRead')
+        if m.get('PhysicalSyncRead') is not None:
+            self.physical_sync_read = m.get('PhysicalSyncRead')
+        if m.get('Rows') is not None:
+            self.rows = m.get('Rows')
+        if m.get('RowsExamined') is not None:
+            self.rows_examined = m.get('RowsExamined')
+        if m.get('RowsReturned') is not None:
+            self.rows_returned = m.get('RowsReturned')
+        if m.get('Rt') is not None:
+            self.rt = m.get('Rt')
+        if m.get('ScanRows') is not None:
+            self.scan_rows = m.get('ScanRows')
+        if m.get('Scnt') is not None:
+            self.scnt = m.get('Scnt')
+        if m.get('Sql') is not None:
+            self.sql = m.get('Sql')
+        if m.get('SqlId') is not None:
+            self.sql_id = m.get('SqlId')
+        if m.get('SqlType') is not None:
+            self.sql_type = m.get('SqlType')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        if m.get('UpdateRows') is not None:
+            self.update_rows = m.get('UpdateRows')
+        if m.get('User') is not None:
+            self.user = m.get('User')
+        return self
+
+
+class GetFullRequestSampleByInstanceIdResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The returned data.
+        self.data = data  # type: list[GetFullRequestSampleByInstanceIdResponseBodyData]
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message that contains information such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetFullRequestSampleByInstanceIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = GetFullRequestSampleByInstanceIdResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetFullRequestSampleByInstanceIdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetFullRequestSampleByInstanceIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetFullRequestSampleByInstanceIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetFullRequestSampleByInstanceIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetFullRequestStatResultByInstanceIdRequest(TeaModel):
+    def __init__(self, asc=None, db_name=None, end=None, instance_id=None, keyword=None, node_id=None, order_by=None,
+                 origin_host=None, page_no=None, page_size=None, role=None, sql_id=None, sql_type=None, start=None, user_id=None):
+        # Specifies whether to sort the results in ascending order. By default, the results are not sorted in ascending order.
+        self.asc = asc  # type: bool
+        # The name of the database.
+        self.db_name = db_name  # type: str
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time. The interval cannot exceed one day.
+        self.end = end  # type: long
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The keywords that are used for query.
+        self.keyword = keyword  # type: str
+        # The node ID.
+        # 
+        # >  You must specify the node ID if your database instance is a PolarDB for MySQL cluster.
+        self.node_id = node_id  # type: str
+        # The field by which to sort the returned entries. Default value: **count**. Valid values:
+        # 
+        # *   **count**: the number of executions.
+        # *   **avgRt**: the average execution duration.
+        # *   **rtRate**: the execution duration percentage.
+        # *   **rowsExamined**: the total number of scanned rows.
+        # *   **avgRowsExamined**: the average number of scanned rows.
+        # *   **avgRowsReturned**: the average number of returned rows.
+        self.order_by = order_by  # type: str
+        # The IP address of the client that executes the SQL statement.
+        # 
+        # >  This parameter is optional. If this parameter is specified, the full request statistics of the specified IP address are collected. If this parameter is left empty, the full request statistics of the entire database instance are collected.
+        self.origin_host = origin_host  # type: str
+        # The page number. Pages start from page 1. Default value: 1.
+        self.page_no = page_no  # type: int
+        # The number of entries per page. Default value: 20.
+        self.page_size = page_size  # type: int
+        # The role of the PolarDB-X 2.0 node. Valid values:
+        # 
+        # *   **polarx_cn**: compute node
+        # *   **polarx_en**: data node
+        self.role = role  # type: str
+        # The SQL ID.
+        # 
+        # >  If this parameter is specified, the full request statistics of the specified SQL query are collected. If this parameter is left empty, the full request statistics of the entire database instance are collected.
+        self.sql_id = sql_id  # type: str
+        # The type of the SQL statement. Valid values: **SELECT**, **INSERT**, **UPDATE**, **DELETE**, **LOGIN**, **LOGOUT**, **MERGE**, **ALTER**, **CREATEINDEX**, **DROPINDEX**, **CREATE**, **DROP**, **SET**, **DESC**, **REPLACE**, **CALL**, **BEGIN**, **DESCRIBE**, **ROLLBACK**, **FLUSH**, **USE**, **SHOW**, **START**, **COMMIT**, and **RENAME**.
+        # 
+        # >  If your database instance is an ApsaraDB RDS for MySQL instance, a PolarDB for MySQL cluster, or a PolarDB-X 2.0 instance, the statistics can be collected based on the SQL statement type.
+        self.sql_type = sql_type  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The start time can be up to 90 days earlier than the current time.
+        self.start = start  # type: long
+        # The ID of the Alibaba Cloud account that was used to create the database instance.
+        # 
+        # >  This parameter is optional. The system can automatically obtain the Alibaba Cloud account ID based on the value of InstanceId when you call the GetFullRequestOriginStatByInstanceId operation.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFullRequestStatResultByInstanceIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.asc is not None:
+            result['Asc'] = self.asc
+        if self.db_name is not None:
+            result['DbName'] = self.db_name
+        if self.end is not None:
+            result['End'] = self.end
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
+        if self.origin_host is not None:
+            result['OriginHost'] = self.origin_host
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.role is not None:
+            result['Role'] = self.role
+        if self.sql_id is not None:
+            result['SqlId'] = self.sql_id
+        if self.sql_type is not None:
+            result['SqlType'] = self.sql_type
+        if self.start is not None:
+            result['Start'] = self.start
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Asc') is not None:
+            self.asc = m.get('Asc')
+        if m.get('DbName') is not None:
+            self.db_name = m.get('DbName')
+        if m.get('End') is not None:
+            self.end = m.get('End')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
+        if m.get('OriginHost') is not None:
+            self.origin_host = m.get('OriginHost')
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
+        if m.get('SqlId') is not None:
+            self.sql_id = m.get('SqlId')
+        if m.get('SqlType') is not None:
+            self.sql_type = m.get('SqlType')
+        if m.get('Start') is not None:
+            self.start = m.get('Start')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class GetFullRequestStatResultByInstanceIdResponseBodyDataResultList(TeaModel):
+    def __init__(self, avg_examined_rows=None, avg_fetch_rows=None, avg_lock_wait_time=None, avg_logical_read=None,
+                 avg_physical_async_read=None, avg_physical_sync_read=None, avg_returned_rows=None, avg_rt=None, avg_sql_count=None,
+                 avg_updated_rows=None, count=None, count_rate=None, database=None, error_count=None, examined_rows=None,
+                 fetch_rows=None, ip=None, lock_wait_time=None, logical_read=None, physical_async_read=None,
+                 physical_sync_read=None, port=None, psql=None, rows=None, rt_greater_than_one_second_count=None, rt_rate=None,
+                 sql_count=None, sql_id=None, sum_updated_rows=None, tables=None, version=None, vpc_id=None):
+        # The average number of scanned rows.
+        # 
+        # > This parameter is returned only for ApsaraDB RDS for MySQL, ApsaraDB RDS for PostgreSQL, and PolarDB for MySQL databases.
+        self.avg_examined_rows = avg_examined_rows  # type: float
+        # The average number of rows that are fetched by compute nodes from data nodes on the PolarDB-X 2.0 instance.
+        self.avg_fetch_rows = avg_fetch_rows  # type: long
+        # The average lock wait latency. Unit: seconds.
+        self.avg_lock_wait_time = avg_lock_wait_time  # type: float
+        # The average number of logical reads.
+        self.avg_logical_read = avg_logical_read  # type: float
+        # The average number of physical asynchronous reads.
+        self.avg_physical_async_read = avg_physical_async_read  # type: long
+        # The average number of physical synchronous reads.
+        self.avg_physical_sync_read = avg_physical_sync_read  # type: long
+        # The average number of returned rows.
+        self.avg_returned_rows = avg_returned_rows  # type: float
+        # The average execution duration.
+        self.avg_rt = avg_rt  # type: float
+        # The average number of SQL statements.
+        self.avg_sql_count = avg_sql_count  # type: long
+        # The average number of updated rows.
+        # 
+        #  > This parameter is returned only for ApsaraDB RDS for MySQL and PolarDB-X 2.0 databases.
+        self.avg_updated_rows = avg_updated_rows  # type: long
+        # The total number of executions.
+        self.count = count  # type: long
+        # The percentage of the total number of executions.
+        self.count_rate = count_rate  # type: float
+        # The name of the database.
+        self.database = database  # type: str
+        # The number of failed executions.
+        self.error_count = error_count  # type: long
+        # The total number of scanned rows.
+        # 
+        # > This parameter is returned only for ApsaraDB RDS for MySQL, ApsaraDB RDS for PostgreSQL, and PolarDB for MySQL databases.
+        self.examined_rows = examined_rows  # type: long
+        # The number of rows that are fetched by compute nodes from data nodes on the PolarDB-X 2.0 instance.
+        self.fetch_rows = fetch_rows  # type: long
+        # The IP address of the database instance.
+        self.ip = ip  # type: str
+        # The lock wait latency. Unit: seconds.
+        self.lock_wait_time = lock_wait_time  # type: float
+        # The number of logical reads.
+        self.logical_read = logical_read  # type: long
+        # The number of physical asynchronous reads.
+        self.physical_async_read = physical_async_read  # type: long
+        # The number of physical synchronous reads.
+        self.physical_sync_read = physical_sync_read  # type: long
+        # The port number that is used to connect to the database instance.
+        self.port = port  # type: long
+        # The SQL template.
+        self.psql = psql  # type: str
+        # The total number of rows updated or returned by the compute nodes of the PolarDB-X 2.0 instance.
+        self.rows = rows  # type: long
+        # The number of SQL statements that take longer than 1 second to execute.
+        self.rt_greater_than_one_second_count = rt_greater_than_one_second_count  # type: long
+        # The execution duration percentage.
+        self.rt_rate = rt_rate  # type: float
+        # The number of SQL statements.
+        self.sql_count = sql_count  # type: long
+        # The SQL ID.
+        self.sql_id = sql_id  # type: str
+        # The total number of updated rows.
+        self.sum_updated_rows = sum_updated_rows  # type: long
+        # The names of tables in the database.
+        self.tables = tables  # type: list[str]
+        # The version number.
+        self.version = version  # type: long
+        # The virtual private cloud (VPC) ID.
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFullRequestStatResultByInstanceIdResponseBodyDataResultList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.avg_examined_rows is not None:
+            result['AvgExaminedRows'] = self.avg_examined_rows
+        if self.avg_fetch_rows is not None:
+            result['AvgFetchRows'] = self.avg_fetch_rows
+        if self.avg_lock_wait_time is not None:
+            result['AvgLockWaitTime'] = self.avg_lock_wait_time
+        if self.avg_logical_read is not None:
+            result['AvgLogicalRead'] = self.avg_logical_read
+        if self.avg_physical_async_read is not None:
+            result['AvgPhysicalAsyncRead'] = self.avg_physical_async_read
+        if self.avg_physical_sync_read is not None:
+            result['AvgPhysicalSyncRead'] = self.avg_physical_sync_read
+        if self.avg_returned_rows is not None:
+            result['AvgReturnedRows'] = self.avg_returned_rows
+        if self.avg_rt is not None:
+            result['AvgRt'] = self.avg_rt
+        if self.avg_sql_count is not None:
+            result['AvgSqlCount'] = self.avg_sql_count
+        if self.avg_updated_rows is not None:
+            result['AvgUpdatedRows'] = self.avg_updated_rows
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.count_rate is not None:
+            result['CountRate'] = self.count_rate
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.error_count is not None:
+            result['ErrorCount'] = self.error_count
+        if self.examined_rows is not None:
+            result['ExaminedRows'] = self.examined_rows
+        if self.fetch_rows is not None:
+            result['FetchRows'] = self.fetch_rows
+        if self.ip is not None:
+            result['Ip'] = self.ip
+        if self.lock_wait_time is not None:
+            result['LockWaitTime'] = self.lock_wait_time
+        if self.logical_read is not None:
+            result['LogicalRead'] = self.logical_read
+        if self.physical_async_read is not None:
+            result['PhysicalAsyncRead'] = self.physical_async_read
+        if self.physical_sync_read is not None:
+            result['PhysicalSyncRead'] = self.physical_sync_read
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.psql is not None:
+            result['Psql'] = self.psql
+        if self.rows is not None:
+            result['Rows'] = self.rows
+        if self.rt_greater_than_one_second_count is not None:
+            result['RtGreaterThanOneSecondCount'] = self.rt_greater_than_one_second_count
+        if self.rt_rate is not None:
+            result['RtRate'] = self.rt_rate
+        if self.sql_count is not None:
+            result['SqlCount'] = self.sql_count
+        if self.sql_id is not None:
+            result['SqlId'] = self.sql_id
+        if self.sum_updated_rows is not None:
+            result['SumUpdatedRows'] = self.sum_updated_rows
+        if self.tables is not None:
+            result['Tables'] = self.tables
+        if self.version is not None:
+            result['Version'] = self.version
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AvgExaminedRows') is not None:
+            self.avg_examined_rows = m.get('AvgExaminedRows')
+        if m.get('AvgFetchRows') is not None:
+            self.avg_fetch_rows = m.get('AvgFetchRows')
+        if m.get('AvgLockWaitTime') is not None:
+            self.avg_lock_wait_time = m.get('AvgLockWaitTime')
+        if m.get('AvgLogicalRead') is not None:
+            self.avg_logical_read = m.get('AvgLogicalRead')
+        if m.get('AvgPhysicalAsyncRead') is not None:
+            self.avg_physical_async_read = m.get('AvgPhysicalAsyncRead')
+        if m.get('AvgPhysicalSyncRead') is not None:
+            self.avg_physical_sync_read = m.get('AvgPhysicalSyncRead')
+        if m.get('AvgReturnedRows') is not None:
+            self.avg_returned_rows = m.get('AvgReturnedRows')
+        if m.get('AvgRt') is not None:
+            self.avg_rt = m.get('AvgRt')
+        if m.get('AvgSqlCount') is not None:
+            self.avg_sql_count = m.get('AvgSqlCount')
+        if m.get('AvgUpdatedRows') is not None:
+            self.avg_updated_rows = m.get('AvgUpdatedRows')
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('CountRate') is not None:
+            self.count_rate = m.get('CountRate')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('ErrorCount') is not None:
+            self.error_count = m.get('ErrorCount')
+        if m.get('ExaminedRows') is not None:
+            self.examined_rows = m.get('ExaminedRows')
+        if m.get('FetchRows') is not None:
+            self.fetch_rows = m.get('FetchRows')
+        if m.get('Ip') is not None:
+            self.ip = m.get('Ip')
+        if m.get('LockWaitTime') is not None:
+            self.lock_wait_time = m.get('LockWaitTime')
+        if m.get('LogicalRead') is not None:
+            self.logical_read = m.get('LogicalRead')
+        if m.get('PhysicalAsyncRead') is not None:
+            self.physical_async_read = m.get('PhysicalAsyncRead')
+        if m.get('PhysicalSyncRead') is not None:
+            self.physical_sync_read = m.get('PhysicalSyncRead')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('Psql') is not None:
+            self.psql = m.get('Psql')
+        if m.get('Rows') is not None:
+            self.rows = m.get('Rows')
+        if m.get('RtGreaterThanOneSecondCount') is not None:
+            self.rt_greater_than_one_second_count = m.get('RtGreaterThanOneSecondCount')
+        if m.get('RtRate') is not None:
+            self.rt_rate = m.get('RtRate')
+        if m.get('SqlCount') is not None:
+            self.sql_count = m.get('SqlCount')
+        if m.get('SqlId') is not None:
+            self.sql_id = m.get('SqlId')
+        if m.get('SumUpdatedRows') is not None:
+            self.sum_updated_rows = m.get('SumUpdatedRows')
+        if m.get('Tables') is not None:
+            self.tables = m.get('Tables')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        return self
+
+
+class GetFullRequestStatResultByInstanceIdResponseBodyDataResult(TeaModel):
+    def __init__(self, list=None, total=None):
+        # The full request data.
+        self.list = list  # type: list[GetFullRequestStatResultByInstanceIdResponseBodyDataResultList]
+        # The total number of entries returned.
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetFullRequestStatResultByInstanceIdResponseBodyDataResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['List'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['List'].append(k.to_map() if k else None)
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.list = []
+        if m.get('List') is not None:
+            for k in m.get('List'):
+                temp_model = GetFullRequestStatResultByInstanceIdResponseBodyDataResultList()
+                self.list.append(temp_model.from_map(k))
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class GetFullRequestStatResultByInstanceIdResponseBodyData(TeaModel):
+    def __init__(self, fail=None, is_finish=None, result=None, result_id=None, state=None, timestamp=None):
+        # Indicates whether the asynchronous request failed. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.fail = fail  # type: bool
+        # Indicates whether the asynchronous request was complete. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.is_finish = is_finish  # type: bool
+        # The returned full request data.
+        self.result = result  # type: GetFullRequestStatResultByInstanceIdResponseBodyDataResult
+        # The request ID.
+        self.result_id = result_id  # type: str
+        # The state of the asynchronous request. Valid values:
+        # 
+        # *   **RUNNING**\
+        # *   **SUCCESS**\
+        # *   **FAIL**\
+        self.state = state  # type: str
+        # The time when the asynchronous request was sent. The value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.timestamp = timestamp  # type: long
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(GetFullRequestStatResultByInstanceIdResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fail is not None:
+            result['Fail'] = self.fail
+        if self.is_finish is not None:
+            result['IsFinish'] = self.is_finish
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.result_id is not None:
+            result['ResultId'] = self.result_id
+        if self.state is not None:
+            result['State'] = self.state
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Fail') is not None:
+            self.fail = m.get('Fail')
+        if m.get('IsFinish') is not None:
+            self.is_finish = m.get('IsFinish')
+        if m.get('Result') is not None:
+            temp_model = GetFullRequestStatResultByInstanceIdResponseBodyDataResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('ResultId') is not None:
+            self.result_id = m.get('ResultId')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        return self
+
+
+class GetFullRequestStatResultByInstanceIdResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The returned data.
+        self.data = data  # type: GetFullRequestStatResultByInstanceIdResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message that contains information such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetFullRequestStatResultByInstanceIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetFullRequestStatResultByInstanceIdResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetFullRequestStatResultByInstanceIdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetFullRequestStatResultByInstanceIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetFullRequestStatResultByInstanceIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetFullRequestStatResultByInstanceIdResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5705,12 +13918,14 @@ class GetHDMAliyunResourceSyncResultResponseBody(TeaModel):
 
 
 class GetHDMAliyunResourceSyncResultResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetHDMAliyunResourceSyncResultResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5723,6 +13938,8 @@ class GetHDMAliyunResourceSyncResultResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5731,6 +13948,8 @@ class GetHDMAliyunResourceSyncResultResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetHDMAliyunResourceSyncResultResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5956,12 +14175,14 @@ class GetHDMLastAliyunResourceSyncResultResponseBody(TeaModel):
 
 
 class GetHDMLastAliyunResourceSyncResultResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetHDMLastAliyunResourceSyncResultResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5974,6 +14195,8 @@ class GetHDMLastAliyunResourceSyncResultResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5982,6 +14205,8 @@ class GetHDMLastAliyunResourceSyncResultResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetHDMLastAliyunResourceSyncResultResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5989,14 +14214,39 @@ class GetHDMLastAliyunResourceSyncResultResponse(TeaModel):
 
 
 class GetInstanceInspectionsRequest(TeaModel):
-    def __init__(self, end_time=None, engine=None, instance_area=None, page_no=None, page_size=None, search_map=None,
-                 start_time=None):
+    def __init__(self, end_time=None, engine=None, instance_area=None, page_no=None, page_size=None,
+                 resource_group_id=None, search_map=None, start_time=None):
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time.
         self.end_time = end_time  # type: str
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**\
+        # *   **Redis**\
+        # *   **PolarDBMySQL**\
         self.engine = engine  # type: str
+        # The type of the instance on which the database is deployed. Valid values:
+        # 
+        # *   **RDS**: an Alibaba Cloud database instance.
+        # *   **ECS**: an ECS instance on which a self-managed database is deployed.
+        # *   **IDC**: a self-managed database instance that is not deployed on Alibaba Cloud.
+        # 
+        # >  The value IDC specifies that the instance is deployed in a data center.
         self.instance_area = instance_area  # type: str
+        # The page number. The value must be a positive integer. Default value: 1.
         self.page_no = page_no  # type: str
+        # The number of entries per page. Default value: 10.
         self.page_size = page_size  # type: str
+        # The resource group ID.
+        self.resource_group_id = resource_group_id  # type: str
+        # The filter condition, which can be specified in one of the following formats:
+        # 
+        # *   Specify the ID of a single instance in the {"InstanceId":"Instance ID"} format.
+        # *   Specify the IDs of multiple instances in the {"InstanceIds":\["Instance ID1","Instance ID2"]} format. Separate the instance IDs with commas (,).
+        # *   Specify the region in which the instance resides in the {"region":"Region of the instance"} format.
         self.search_map = search_map  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -6018,6 +14268,8 @@ class GetInstanceInspectionsRequest(TeaModel):
             result['PageNo'] = self.page_no
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.search_map is not None:
             result['SearchMap'] = self.search_map
         if self.start_time is not None:
@@ -6036,6 +14288,8 @@ class GetInstanceInspectionsRequest(TeaModel):
             self.page_no = m.get('PageNo')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SearchMap') is not None:
             self.search_map = m.get('SearchMap')
         if m.get('StartTime') is not None:
@@ -6043,48 +14297,163 @@ class GetInstanceInspectionsRequest(TeaModel):
         return self
 
 
-class GetInstanceInspectionsResponseBodyDataListBaseInspectionInstance(TeaModel):
-    def __init__(self, account_id=None, engine=None, engine_version=None, instance_area=None, instance_class=None,
-                 instance_id=None, network_type=None, node_id=None, region=None, uuid=None, vpc_id=None):
+class GetInstanceInspectionsResponseBodyDataListAutoFunction(TeaModel):
+    def __init__(self, auto_index=None, auto_limited_sql=None, auto_resource_optimize=None, auto_scale=None,
+                 event_subscription=None):
+        # Indicates whether the feature of automatically creating and deleting indexes is enabled. Valid values:
+        # 
+        # * **0**: disabled.
+        # * **1**: enabled.
+        # * **2**: not supported.
+        self.auto_index = auto_index  # type: int
+        # Indicates whether the automatic throttling feature is enabled. Valid values:
+        # 
+        # * **0**: disabled.
+        # * **1**: enabled.
+        # * **2**: not supported.
+        self.auto_limited_sql = auto_limited_sql  # type: int
+        # Indicates whether automatic reclamation of fragments is enabled. Valid values:
+        # 
+        # * **0**: disabled.
+        # * **1**: enabled.
+        # * **2**: not supported.
+        self.auto_resource_optimize = auto_resource_optimize  # type: int
+        # Indicates whether the auto scaling feature is enabled. Valid values:
+        # 
+        # * **0**: disabled.
+        # * **1**: enabled.
+        # * **2**: not supported.
+        self.auto_scale = auto_scale  # type: int
+        # Indicates whether the event subscription feature is enabled. Valid values:
+        # 
+        # * **0**: disabled.
+        # * **1**: enabled.
+        # * **2**: not supported.
+        self.event_subscription = event_subscription  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInstanceInspectionsResponseBodyDataListAutoFunction, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_index is not None:
+            result['AutoIndex'] = self.auto_index
+        if self.auto_limited_sql is not None:
+            result['AutoLimitedSql'] = self.auto_limited_sql
+        if self.auto_resource_optimize is not None:
+            result['AutoResourceOptimize'] = self.auto_resource_optimize
+        if self.auto_scale is not None:
+            result['AutoScale'] = self.auto_scale
+        if self.event_subscription is not None:
+            result['EventSubscription'] = self.event_subscription
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AutoIndex') is not None:
+            self.auto_index = m.get('AutoIndex')
+        if m.get('AutoLimitedSql') is not None:
+            self.auto_limited_sql = m.get('AutoLimitedSql')
+        if m.get('AutoResourceOptimize') is not None:
+            self.auto_resource_optimize = m.get('AutoResourceOptimize')
+        if m.get('AutoScale') is not None:
+            self.auto_scale = m.get('AutoScale')
+        if m.get('EventSubscription') is not None:
+            self.event_subscription = m.get('EventSubscription')
+        return self
+
+
+class GetInstanceInspectionsResponseBodyDataListInstance(TeaModel):
+    def __init__(self, account_id=None, category=None, cpu=None, engine=None, engine_version=None,
+                 instance_alias=None, instance_area=None, instance_class=None, instance_id=None, memory=None, network_type=None,
+                 node_id=None, region=None, storage=None, uuid=None, vpc_id=None):
+        # The account ID. You can obtain the account ID on the **Security Settings** page in the Alibaba Cloud **account management center**.
         self.account_id = account_id  # type: str
+        # The connection mode of the instance. Valid values:
+        # 
+        # * **standard**: standard mode.
+        # * **safe**: database proxy mode.
+        self.category = category  # type: str
+        # The CPU specification of the instance. For example, if a value of 8 is returned, the instance has eight CPU cores.
+        self.cpu = cpu  # type: str
+        # The database engine. Valid values:
+        # 
+        # * **MySQL**\
+        # * **Redis**\
+        # * **PolarDBMySQL**\
         self.engine = engine  # type: str
+        # The version number of the database engine.
         self.engine_version = engine_version  # type: str
+        # The name of the instance.
+        self.instance_alias = instance_alias  # type: str
+        # The type of the instance on which the database is deployed. Valid values:
+        # 
+        # * **RDS**: an Alibaba Cloud database instance.
+        # * **ECS**: an ECS instance on which a self-managed database is deployed.
+        # * **IDC**: a self-managed database instance that is not deployed on Alibaba Cloud.
+        # 
+        # > The value IDC indicates that the instance is deployed in a data center.
         self.instance_area = instance_area  # type: str
+        # The instance type.
         self.instance_class = instance_class  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The memory capacity of the database that is deployed on the instance. Unit: MB.
+        self.memory = memory  # type: int
+        # The network type of the instance.
         self.network_type = network_type  # type: str
+        # The ID of the node on the instance.
         self.node_id = node_id  # type: str
+        # The ID of the region in which the instance resides.
         self.region = region  # type: str
+        # The storage space of the instance. Unit: GB.
+        self.storage = storage  # type: int
+        # The unique identifier of the instance.
         self.uuid = uuid  # type: str
+        # The ID of the virtual private cloud (VPC) in which the instance is deployed.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(GetInstanceInspectionsResponseBodyDataListBaseInspectionInstance, self).to_map()
+        _map = super(GetInstanceInspectionsResponseBodyDataListInstance, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
         if self.account_id is not None:
             result['AccountId'] = self.account_id
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.cpu is not None:
+            result['Cpu'] = self.cpu
         if self.engine is not None:
             result['Engine'] = self.engine
         if self.engine_version is not None:
             result['EngineVersion'] = self.engine_version
+        if self.instance_alias is not None:
+            result['InstanceAlias'] = self.instance_alias
         if self.instance_area is not None:
             result['InstanceArea'] = self.instance_area
         if self.instance_class is not None:
             result['InstanceClass'] = self.instance_class
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.memory is not None:
+            result['Memory'] = self.memory
         if self.network_type is not None:
             result['NetworkType'] = self.network_type
         if self.node_id is not None:
             result['NodeId'] = self.node_id
         if self.region is not None:
             result['Region'] = self.region
+        if self.storage is not None:
+            result['Storage'] = self.storage
         if self.uuid is not None:
             result['Uuid'] = self.uuid
         if self.vpc_id is not None:
@@ -6095,22 +14464,32 @@ class GetInstanceInspectionsResponseBodyDataListBaseInspectionInstance(TeaModel)
         m = m or dict()
         if m.get('AccountId') is not None:
             self.account_id = m.get('AccountId')
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('Cpu') is not None:
+            self.cpu = m.get('Cpu')
         if m.get('Engine') is not None:
             self.engine = m.get('Engine')
         if m.get('EngineVersion') is not None:
             self.engine_version = m.get('EngineVersion')
+        if m.get('InstanceAlias') is not None:
+            self.instance_alias = m.get('InstanceAlias')
         if m.get('InstanceArea') is not None:
             self.instance_area = m.get('InstanceArea')
         if m.get('InstanceClass') is not None:
             self.instance_class = m.get('InstanceClass')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('Memory') is not None:
+            self.memory = m.get('Memory')
         if m.get('NetworkType') is not None:
             self.network_type = m.get('NetworkType')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
         if m.get('Region') is not None:
             self.region = m.get('Region')
+        if m.get('Storage') is not None:
+            self.storage = m.get('Storage')
         if m.get('Uuid') is not None:
             self.uuid = m.get('Uuid')
         if m.get('VpcId') is not None:
@@ -6118,29 +14497,63 @@ class GetInstanceInspectionsResponseBodyDataListBaseInspectionInstance(TeaModel)
         return self
 
 
-class GetInstanceInspectionsResponseBodyDataListBaseInspection(TeaModel):
-    def __init__(self, data=None, end_time=None, gmt_create=None, instance=None, score=None, score_map=None,
-                 start_time=None):
+class GetInstanceInspectionsResponseBodyDataList(TeaModel):
+    def __init__(self, auto_function=None, data=None, enable_das_pro=None, end_time=None, gmt_create=None,
+                 instance=None, score=None, score_map=None, start_time=None, state=None, task_type=None):
+        # Indicates whether the autonomy service is enabled.
+        self.auto_function = auto_function  # type: GetInstanceInspectionsResponseBodyDataListAutoFunction
+        # The returned data.
         self.data = data  # type: dict[str, any]
+        # Indicates whether DAS Professional Edition is enabled. Valid values:
+        # 
+        # * **0**: disabled.
+        # * **1**: enabled.
+        # * **2**: not supported.
+        self.enable_das_pro = enable_das_pro  # type: int
+        # The end time of the inspection and scoring task. The value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: long
+        # The time when the task was created. The value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.gmt_create = gmt_create  # type: long
-        self.instance = instance  # type: GetInstanceInspectionsResponseBodyDataListBaseInspectionInstance
+        # The details of the instance.
+        self.instance = instance  # type: GetInstanceInspectionsResponseBodyDataListInstance
+        # The inspection scores of the instance.
         self.score = score  # type: int
+        # The scores that are deducted for the instance.
         self.score_map = score_map  # type: dict[str, any]
+        # The start time of the inspection and scoring task. The value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: long
+        # The state of the inspection and scoring task. Valid values:
+        # 
+        # * **0**: The task is waiting for execution.
+        # * **1**: The task is in progress.
+        # * **2**: The task is complete.
+        self.state = state  # type: int
+        # The mode in which the inspection and scoring task was initiated. Valid values:
+        # 
+        # * **0**: automatic mode
+        # * **1**: manual mode
+        self.task_type = task_type  # type: int
 
     def validate(self):
+        if self.auto_function:
+            self.auto_function.validate()
         if self.instance:
             self.instance.validate()
 
     def to_map(self):
-        _map = super(GetInstanceInspectionsResponseBodyDataListBaseInspection, self).to_map()
+        _map = super(GetInstanceInspectionsResponseBodyDataList, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
+        if self.auto_function is not None:
+            result['AutoFunction'] = self.auto_function.to_map()
         if self.data is not None:
             result['Data'] = self.data
+        if self.enable_das_pro is not None:
+            result['EnableDasPro'] = self.enable_das_pro
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.gmt_create is not None:
@@ -6153,18 +14566,27 @@ class GetInstanceInspectionsResponseBodyDataListBaseInspection(TeaModel):
             result['ScoreMap'] = self.score_map
         if self.start_time is not None:
             result['StartTime'] = self.start_time
+        if self.state is not None:
+            result['State'] = self.state
+        if self.task_type is not None:
+            result['TaskType'] = self.task_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AutoFunction') is not None:
+            temp_model = GetInstanceInspectionsResponseBodyDataListAutoFunction()
+            self.auto_function = temp_model.from_map(m['AutoFunction'])
         if m.get('Data') is not None:
             self.data = m.get('Data')
+        if m.get('EnableDasPro') is not None:
+            self.enable_das_pro = m.get('EnableDasPro')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
         if m.get('Instance') is not None:
-            temp_model = GetInstanceInspectionsResponseBodyDataListBaseInspectionInstance()
+            temp_model = GetInstanceInspectionsResponseBodyDataListInstance()
             self.instance = temp_model.from_map(m['Instance'])
         if m.get('Score') is not None:
             self.score = m.get('Score')
@@ -6172,51 +14594,32 @@ class GetInstanceInspectionsResponseBodyDataListBaseInspection(TeaModel):
             self.score_map = m.get('ScoreMap')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
-        return self
-
-
-class GetInstanceInspectionsResponseBodyDataList(TeaModel):
-    def __init__(self, base_inspection=None):
-        self.base_inspection = base_inspection  # type: list[GetInstanceInspectionsResponseBodyDataListBaseInspection]
-
-    def validate(self):
-        if self.base_inspection:
-            for k in self.base_inspection:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(GetInstanceInspectionsResponseBodyDataList, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['BaseInspection'] = []
-        if self.base_inspection is not None:
-            for k in self.base_inspection:
-                result['BaseInspection'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.base_inspection = []
-        if m.get('BaseInspection') is not None:
-            for k in m.get('BaseInspection'):
-                temp_model = GetInstanceInspectionsResponseBodyDataListBaseInspection()
-                self.base_inspection.append(temp_model.from_map(k))
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('TaskType') is not None:
+            self.task_type = m.get('TaskType')
         return self
 
 
 class GetInstanceInspectionsResponseBodyData(TeaModel):
     def __init__(self, list=None, page_no=None, page_size=None, total=None):
-        self.list = list  # type: GetInstanceInspectionsResponseBodyDataList
+        # The mode in which the inspection and scoring task was initiated. Valid values:
+        # 
+        # *   **0**: automatic mode
+        # *   **1**: manual mode
+        self.list = list  # type: list[GetInstanceInspectionsResponseBodyDataList]
+        # The page number. The value returned is a positive integer. Default value: 1.
         self.page_no = page_no  # type: long
+        # The number of entries per page. Default value: 10.
         self.page_size = page_size  # type: long
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
         if self.list:
-            self.list.validate()
+            for k in self.list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(GetInstanceInspectionsResponseBodyData, self).to_map()
@@ -6224,8 +14627,10 @@ class GetInstanceInspectionsResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        result['List'] = []
         if self.list is not None:
-            result['List'] = self.list.to_map()
+            for k in self.list:
+                result['List'].append(k.to_map() if k else None)
         if self.page_no is not None:
             result['PageNo'] = self.page_no
         if self.page_size is not None:
@@ -6236,9 +14641,11 @@ class GetInstanceInspectionsResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.list = []
         if m.get('List') is not None:
-            temp_model = GetInstanceInspectionsResponseBodyDataList()
-            self.list = temp_model.from_map(m['List'])
+            for k in m.get('List'):
+                temp_model = GetInstanceInspectionsResponseBodyDataList()
+                self.list.append(temp_model.from_map(k))
         if m.get('PageNo') is not None:
             self.page_no = m.get('PageNo')
         if m.get('PageSize') is not None:
@@ -6250,10 +14657,20 @@ class GetInstanceInspectionsResponseBodyData(TeaModel):
 
 class GetInstanceInspectionsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The inspection and scoring results.
         self.data = data  # type: GetInstanceInspectionsResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -6295,12 +14712,14 @@ class GetInstanceInspectionsResponseBody(TeaModel):
 
 
 class GetInstanceInspectionsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetInstanceInspectionsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6313,6 +14732,8 @@ class GetInstanceInspectionsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6321,30 +14742,2946 @@ class GetInstanceInspectionsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetInstanceInspectionsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class GetInstanceSqlOptimizeStatisticRequest(TeaModel):
+    def __init__(self, end_time=None, filter_enable=None, instance_id=None, node_id=None, start_time=None,
+                 threshold=None, use_merging=None):
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.end_time = end_time  # type: str
+        # Specifies whether to filter instances for which DAS Professional Edition is enabled. Valid values:
+        # 
+        # *   **true**: filters instances for which DAS Professional Edition is enabled.
+        # *   **false**: does not filter instances for which DAS Professional Edition is enabled.
+        # 
+        # >  If you set the value to **true**, only database instances for which DAS Professional Edition is disabled are queried. If you set the value to **false**, all database instances are queried.
+        self.filter_enable = filter_enable  # type: str
+        # The database instance ID.
+        # 
+        # >  The database instance must be an ApsaraDB RDS for MySQL instance or a PolarDB for MySQL cluster.
+        self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  This parameter must be specified if the database instance is an ApsaraDB RDS for MySQL Cluster Edition instance or a PolarDB for MySQL cluster.
+        self.node_id = node_id  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.start_time = start_time  # type: str
+        # The duration threshold for automatic SQL optimization events. After this parameter is specified, the system collects statistics on automatic SQL optimization events whose duration does not exceed the specified threshold.
+        # 
+        # >  This parameter is a reserved parameter and does not take effect.
+        self.threshold = threshold  # type: str
+        # Specifies whether to merge automatic SQL optimization events. Valid values:
+        # 
+        # *   **true**: merges automatic SQL optimization events.
+        # *   **false**: does not merge automatic SQL optimization events.
+        # 
+        # >  This parameter is a reserved parameter and does not take effect.
+        self.use_merging = use_merging  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInstanceSqlOptimizeStatisticRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.filter_enable is not None:
+            result['FilterEnable'] = self.filter_enable
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.threshold is not None:
+            result['Threshold'] = self.threshold
+        if self.use_merging is not None:
+            result['UseMerging'] = self.use_merging
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('FilterEnable') is not None:
+            self.filter_enable = m.get('FilterEnable')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Threshold') is not None:
+            self.threshold = m.get('Threshold')
+        if m.get('UseMerging') is not None:
+            self.use_merging = m.get('UseMerging')
+        return self
+
+
+class GetInstanceSqlOptimizeStatisticResponseBodyData(TeaModel):
+    def __init__(self, count=None, improvement=None):
+        # The total number of automatic SQL optimization events.
+        self.count = count  # type: int
+        # The multiple of the maximum improvement for returned automatic SQL optimization events.
+        self.improvement = improvement  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInstanceSqlOptimizeStatisticResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['count'] = self.count
+        if self.improvement is not None:
+            result['improvement'] = self.improvement
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        if m.get('improvement') is not None:
+            self.improvement = m.get('improvement')
+        return self
+
+
+class GetInstanceSqlOptimizeStatisticResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The details of the automatic SQL optimization events.
+        self.data = data  # type: GetInstanceSqlOptimizeStatisticResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
+        self.success = success  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetInstanceSqlOptimizeStatisticResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetInstanceSqlOptimizeStatisticResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetInstanceSqlOptimizeStatisticResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetInstanceSqlOptimizeStatisticResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetInstanceSqlOptimizeStatisticResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetInstanceSqlOptimizeStatisticResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetKillInstanceSessionTaskResultRequest(TeaModel):
+    def __init__(self, instance_id=None, node_id=None, task_id=None):
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  You must specify this parameter if your database instance is a PolarDB for MySQL cluster.
+        self.node_id = node_id  # type: str
+        # The task ID. You can obtain the task ID from the response parameters of the [CreateKillInstanceSessionTask](~~609246~~) operation.
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetKillInstanceSessionTaskResultRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class GetKillInstanceSessionTaskResultResponseBodyDataResult(TeaModel):
+    def __init__(self, active=None, command=None, db=None, host=None, id=None, info=None, reason=None, state=None,
+                 task_id=None, time=None, user=None):
+        # Indicates whether the session is active.
+        # 
+        # > If the type of the command is Query or Execute and the session in the transaction is not terminated, the session is active.
+        self.active = active  # type: bool
+        # The type of the command executed in the session.
+        self.command = command  # type: str
+        # The name of the database.
+        self.db = db  # type: str
+        # The IP address and port number of the host that initiated the session.
+        self.host = host  # type: str
+        # The session ID.
+        self.id = id  # type: long
+        # The SQL statement executed in the session.
+        self.info = info  # type: str
+        # The description of the session when the session was terminated.
+        # 
+        # *   **SESSION_KILLED**: The session is terminated.
+        # *   **SESSION_EXPIRED**: The session has expired.
+        # *   **SESSION_NO_PERMISSION**: The account used to terminate the session has insufficient permissions.
+        # *   **SESSION_ACCOUNT_ERROR**: The account or password used to terminate the session is invalid.
+        # *   **SESSION_IGNORED_USER**: The session of the account does not need to be terminated.
+        # *   **SESSION_INTERNAL_USER_OR_COMMAND**: The session is a session initiated by or a command run by an Alibaba Cloud O\&M account.
+        # *   **SESSION_KILL_TASK_TIMEOUT**: Timeout occurs when the session is terminated.
+        # *   **SESSION_OTHER_ERROR**: Other errors occurred.
+        self.reason = reason  # type: str
+        # The status of the session.
+        self.state = state  # type: str
+        # The ID of the subtask that terminates the session.
+        self.task_id = task_id  # type: str
+        # The execution duration. Unit: seconds.
+        self.time = time  # type: long
+        # The account of the database.
+        self.user = user  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetKillInstanceSessionTaskResultResponseBodyDataResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active is not None:
+            result['Active'] = self.active
+        if self.command is not None:
+            result['Command'] = self.command
+        if self.db is not None:
+            result['Db'] = self.db
+        if self.host is not None:
+            result['Host'] = self.host
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.info is not None:
+            result['Info'] = self.info
+        if self.reason is not None:
+            result['Reason'] = self.reason
+        if self.state is not None:
+            result['State'] = self.state
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.time is not None:
+            result['Time'] = self.time
+        if self.user is not None:
+            result['User'] = self.user
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Active') is not None:
+            self.active = m.get('Active')
+        if m.get('Command') is not None:
+            self.command = m.get('Command')
+        if m.get('Db') is not None:
+            self.db = m.get('Db')
+        if m.get('Host') is not None:
+            self.host = m.get('Host')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Info') is not None:
+            self.info = m.get('Info')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        if m.get('User') is not None:
+            self.user = m.get('User')
+        return self
+
+
+class GetKillInstanceSessionTaskResultResponseBodyData(TeaModel):
+    def __init__(self, ignored_user_session_count=None, instance_id=None, kill_fail_count=None,
+                 kill_success_count=None, node_id=None, result=None, sessions=None, task_id=None, task_state=None, user_id=None):
+        # The number of ignored sessions, including sessions of the accounts that are specified by IgnoredUsers, sessions of internal O\&M accounts of Alibaba Cloud, and **Binlog Dump** sessions.
+        self.ignored_user_session_count = ignored_user_session_count  # type: long
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The number of sessions that failed to be terminated.
+        self.kill_fail_count = kill_fail_count  # type: long
+        # The number of sessions that were terminated.
+        self.kill_success_count = kill_success_count  # type: long
+        # The node ID.
+        # 
+        # >  This parameter is returned only if the instance is a PolarDB for MySQL cluster.
+        self.node_id = node_id  # type: str
+        # The details of the task that terminated sessions.
+        self.result = result  # type: list[GetKillInstanceSessionTaskResultResponseBodyDataResult]
+        # The session IDs.
+        # 
+        # >  If all sessions are terminated, the IDs of all sessions on the instance or node are returned.
+        self.sessions = sessions  # type: list[long]
+        # The task ID.
+        self.task_id = task_id  # type: str
+        # The state of the task that terminates sessions.
+        # 
+        # *   **RUNNING**: The task is in progress.
+        # *   **SUCCESS**: The task is successful.
+        # *   **FAILURE**: The task failed.
+        # *   **ERROR**: Other errors occur.
+        self.task_state = task_state  # type: str
+        # The ID of the Alibaba Cloud account.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetKillInstanceSessionTaskResultResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ignored_user_session_count is not None:
+            result['IgnoredUserSessionCount'] = self.ignored_user_session_count
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.kill_fail_count is not None:
+            result['KillFailCount'] = self.kill_fail_count
+        if self.kill_success_count is not None:
+            result['KillSuccessCount'] = self.kill_success_count
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        if self.sessions is not None:
+            result['Sessions'] = self.sessions
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.task_state is not None:
+            result['TaskState'] = self.task_state
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IgnoredUserSessionCount') is not None:
+            self.ignored_user_session_count = m.get('IgnoredUserSessionCount')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('KillFailCount') is not None:
+            self.kill_fail_count = m.get('KillFailCount')
+        if m.get('KillSuccessCount') is not None:
+            self.kill_success_count = m.get('KillSuccessCount')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = GetKillInstanceSessionTaskResultResponseBodyDataResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('Sessions') is not None:
+            self.sessions = m.get('Sessions')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('TaskState') is not None:
+            self.task_state = m.get('TaskState')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class GetKillInstanceSessionTaskResultResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The data returned.
+        self.data = data  # type: GetKillInstanceSessionTaskResultResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetKillInstanceSessionTaskResultResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetKillInstanceSessionTaskResultResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetKillInstanceSessionTaskResultResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetKillInstanceSessionTaskResultResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetKillInstanceSessionTaskResultResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetKillInstanceSessionTaskResultResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetMongoDBCurrentOpRequest(TeaModel):
+    def __init__(self, filter_doc=None, instance_id=None, node_id=None, role=None):
+        # The `db.currentOp()` command that is used to filter sessions. For more information, see [db.currentOp()](https://docs.mongodb.com/manual/reference/method/db.currentOp/) of MongoDB Documentation.
+        self.filter_doc = filter_doc  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  If you do not specify a node ID, the sessions of the primary node are queried by default.
+        self.node_id = node_id  # type: str
+        # A reserved parameter. You do not need to specify the parameter.
+        self.role = role  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMongoDBCurrentOpRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.filter_doc is not None:
+            result['FilterDoc'] = self.filter_doc
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.role is not None:
+            result['Role'] = self.role
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FilterDoc') is not None:
+            self.filter_doc = m.get('FilterDoc')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
+        return self
+
+
+class GetMongoDBCurrentOpResponseBodyDataSessionList(TeaModel):
+    def __init__(self, active=None, client=None, command=None, connection_id=None, desc=None, driver=None, host=None,
+                 kill_pending=None, ns=None, op=None, op_id=None, os_arch=None, os_name=None, os_type=None, plan_summary=None,
+                 platform=None, secs_running=None, shard=None):
+        # Indicates whether the operation is active. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.active = active  # type: bool
+        # The IP address of the client.
+        self.client = client  # type: str
+        # The document that contains the complete command object associated with the operation.
+        self.command = command  # type: str
+        # The connection ID.
+        self.connection_id = connection_id  # type: long
+        # The description of the connection.
+        self.desc = desc  # type: str
+        # The driver for MongoDB.
+        self.driver = driver  # type: str
+        # The host.
+        self.host = host  # type: str
+        # Indicates whether the operation is marked as terminated.
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.kill_pending = kill_pending  # type: bool
+        # The namespace.
+        self.ns = ns  # type: str
+        # The type of the operation.
+        self.op = op  # type: str
+        # The operation ID.
+        self.op_id = op_id  # type: str
+        # The architecture of the operating system.
+        self.os_arch = os_arch  # type: str
+        # The name of the operating system.
+        self.os_name = os_name  # type: str
+        # The type of the operating system.
+        self.os_type = os_type  # type: str
+        # The description of the execution plan.
+        self.plan_summary = plan_summary  # type: str
+        # The platform.
+        self.platform = platform  # type: str
+        # The duration of the operation. Unit: seconds.
+        self.secs_running = secs_running  # type: long
+        # The ID of the data shard.
+        # 
+        # >  This parameter is returned for sharded cluster instances.
+        self.shard = shard  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMongoDBCurrentOpResponseBodyDataSessionList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active is not None:
+            result['Active'] = self.active
+        if self.client is not None:
+            result['Client'] = self.client
+        if self.command is not None:
+            result['Command'] = self.command
+        if self.connection_id is not None:
+            result['ConnectionId'] = self.connection_id
+        if self.desc is not None:
+            result['Desc'] = self.desc
+        if self.driver is not None:
+            result['Driver'] = self.driver
+        if self.host is not None:
+            result['Host'] = self.host
+        if self.kill_pending is not None:
+            result['KillPending'] = self.kill_pending
+        if self.ns is not None:
+            result['Ns'] = self.ns
+        if self.op is not None:
+            result['Op'] = self.op
+        if self.op_id is not None:
+            result['OpId'] = self.op_id
+        if self.os_arch is not None:
+            result['OsArch'] = self.os_arch
+        if self.os_name is not None:
+            result['OsName'] = self.os_name
+        if self.os_type is not None:
+            result['OsType'] = self.os_type
+        if self.plan_summary is not None:
+            result['PlanSummary'] = self.plan_summary
+        if self.platform is not None:
+            result['Platform'] = self.platform
+        if self.secs_running is not None:
+            result['SecsRunning'] = self.secs_running
+        if self.shard is not None:
+            result['Shard'] = self.shard
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Active') is not None:
+            self.active = m.get('Active')
+        if m.get('Client') is not None:
+            self.client = m.get('Client')
+        if m.get('Command') is not None:
+            self.command = m.get('Command')
+        if m.get('ConnectionId') is not None:
+            self.connection_id = m.get('ConnectionId')
+        if m.get('Desc') is not None:
+            self.desc = m.get('Desc')
+        if m.get('Driver') is not None:
+            self.driver = m.get('Driver')
+        if m.get('Host') is not None:
+            self.host = m.get('Host')
+        if m.get('KillPending') is not None:
+            self.kill_pending = m.get('KillPending')
+        if m.get('Ns') is not None:
+            self.ns = m.get('Ns')
+        if m.get('Op') is not None:
+            self.op = m.get('Op')
+        if m.get('OpId') is not None:
+            self.op_id = m.get('OpId')
+        if m.get('OsArch') is not None:
+            self.os_arch = m.get('OsArch')
+        if m.get('OsName') is not None:
+            self.os_name = m.get('OsName')
+        if m.get('OsType') is not None:
+            self.os_type = m.get('OsType')
+        if m.get('PlanSummary') is not None:
+            self.plan_summary = m.get('PlanSummary')
+        if m.get('Platform') is not None:
+            self.platform = m.get('Platform')
+        if m.get('SecsRunning') is not None:
+            self.secs_running = m.get('SecsRunning')
+        if m.get('Shard') is not None:
+            self.shard = m.get('Shard')
+        return self
+
+
+class GetMongoDBCurrentOpResponseBodyDataSessionStat(TeaModel):
+    def __init__(self, active_count=None, client_stats=None, db_stats=None, longest_secs_running=None,
+                 total_count=None):
+        # The number of active sessions.
+        self.active_count = active_count  # type: long
+        # The statistics on the IP addresses of the clients.
+        self.client_stats = client_stats  # type: dict[str, DataSessionStatClientStatsValue]
+        # The statistics on the namespaces.
+        self.db_stats = db_stats  # type: dict[str, DataSessionStatDbStatsValue]
+        # The longest duration of a session. Unit: seconds.
+        self.longest_secs_running = longest_secs_running  # type: long
+        # The total number of sessions.
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.client_stats:
+            for v in self.client_stats.values():
+                if v:
+                    v.validate()
+        if self.db_stats:
+            for v in self.db_stats.values():
+                if v:
+                    v.validate()
+
+    def to_map(self):
+        _map = super(GetMongoDBCurrentOpResponseBodyDataSessionStat, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active_count is not None:
+            result['ActiveCount'] = self.active_count
+        result['ClientStats'] = {}
+        if self.client_stats is not None:
+            for k, v in self.client_stats.items():
+                result['ClientStats'][k] = v.to_map()
+        result['DbStats'] = {}
+        if self.db_stats is not None:
+            for k, v in self.db_stats.items():
+                result['DbStats'][k] = v.to_map()
+        if self.longest_secs_running is not None:
+            result['LongestSecsRunning'] = self.longest_secs_running
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActiveCount') is not None:
+            self.active_count = m.get('ActiveCount')
+        self.client_stats = {}
+        if m.get('ClientStats') is not None:
+            for k, v in m.get('ClientStats').items():
+                temp_model = DataSessionStatClientStatsValue()
+                self.client_stats[k] = temp_model.from_map(v)
+        self.db_stats = {}
+        if m.get('DbStats') is not None:
+            for k, v in m.get('DbStats').items():
+                temp_model = DataSessionStatDbStatsValue()
+                self.db_stats[k] = temp_model.from_map(v)
+        if m.get('LongestSecsRunning') is not None:
+            self.longest_secs_running = m.get('LongestSecsRunning')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class GetMongoDBCurrentOpResponseBodyData(TeaModel):
+    def __init__(self, session_list=None, session_stat=None, timestamp=None):
+        # The sessions.
+        self.session_list = session_list  # type: list[GetMongoDBCurrentOpResponseBodyDataSessionList]
+        # The statistics on the sessions.
+        self.session_stat = session_stat  # type: GetMongoDBCurrentOpResponseBodyDataSessionStat
+        # The time when the database sessions were returned. The value is in the UNIX timestamp format. Unit: milliseconds.
+        self.timestamp = timestamp  # type: long
+
+    def validate(self):
+        if self.session_list:
+            for k in self.session_list:
+                if k:
+                    k.validate()
+        if self.session_stat:
+            self.session_stat.validate()
+
+    def to_map(self):
+        _map = super(GetMongoDBCurrentOpResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['SessionList'] = []
+        if self.session_list is not None:
+            for k in self.session_list:
+                result['SessionList'].append(k.to_map() if k else None)
+        if self.session_stat is not None:
+            result['SessionStat'] = self.session_stat.to_map()
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.session_list = []
+        if m.get('SessionList') is not None:
+            for k in m.get('SessionList'):
+                temp_model = GetMongoDBCurrentOpResponseBodyDataSessionList()
+                self.session_list.append(temp_model.from_map(k))
+        if m.get('SessionStat') is not None:
+            temp_model = GetMongoDBCurrentOpResponseBodyDataSessionStat()
+            self.session_stat = temp_model.from_map(m['SessionStat'])
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        return self
+
+
+class GetMongoDBCurrentOpResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The response code.
+        self.code = code  # type: long
+        # The details of the sessions.
+        self.data = data  # type: GetMongoDBCurrentOpResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. Otherwise, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetMongoDBCurrentOpResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetMongoDBCurrentOpResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetMongoDBCurrentOpResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetMongoDBCurrentOpResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetMongoDBCurrentOpResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetMongoDBCurrentOpResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetMySQLAllSessionAsyncRequest(TeaModel):
+    def __init__(self, instance_id=None, node_id=None, result_id=None):
+        # The instance ID.
+        # 
+        # >  Only ApsaraDB RDS for MySQL, PolarDB for MySQL, and PolarDB-X 2.0 instances are supported.
+        self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  You must specify this parameter for PolarDB for MySQL clusters. If you do not specify a node ID, the session data of the primary node is returned by default.
+        self.node_id = node_id  # type: str
+        # The ID of the asynchronous request.
+        # 
+        # >  You can leave this parameter empty when you call the operation to initiate the request for the first time, and use the value of this parameter contained in the response to the first request for subsequent requests.
+        self.result_id = result_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMySQLAllSessionAsyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.result_id is not None:
+            result['ResultId'] = self.result_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('ResultId') is not None:
+            self.result_id = m.get('ResultId')
+        return self
+
+
+class GetMySQLAllSessionAsyncResponseBodyDataSessionDataClientStats(TeaModel):
+    def __init__(self, active_count=None, key=None, thread_id_list=None, total_count=None, user_list=None):
+        # The number of active sessions that belong to the client IP address.
+        # 
+        # >  If the type of the command executed in the session is Query or Execute and the session in the transaction is not terminated, the session is active.
+        self.active_count = active_count  # type: long
+        # The IP address of the client.
+        self.key = key  # type: str
+        # The IDs of the sessions that belong to the client IP address.
+        self.thread_id_list = thread_id_list  # type: list[long]
+        # The total number of sessions that belong to the client IP address.
+        self.total_count = total_count  # type: long
+        # The database accounts to which the sessions belong.
+        self.user_list = user_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMySQLAllSessionAsyncResponseBodyDataSessionDataClientStats, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active_count is not None:
+            result['ActiveCount'] = self.active_count
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.thread_id_list is not None:
+            result['ThreadIdList'] = self.thread_id_list
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        if self.user_list is not None:
+            result['UserList'] = self.user_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActiveCount') is not None:
+            self.active_count = m.get('ActiveCount')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('ThreadIdList') is not None:
+            self.thread_id_list = m.get('ThreadIdList')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        if m.get('UserList') is not None:
+            self.user_list = m.get('UserList')
+        return self
+
+
+class GetMySQLAllSessionAsyncResponseBodyDataSessionDataDbStats(TeaModel):
+    def __init__(self, active_count=None, key=None, thread_id_list=None, total_count=None, user_list=None):
+        # The number of active sessions of the database.
+        # 
+        # >  If the type of the command executed in the session is Query or Execute and the session in the transaction is not terminated, the session is active.
+        self.active_count = active_count  # type: long
+        # The database name.
+        self.key = key  # type: str
+        # The IDs of the sessions of the database.
+        self.thread_id_list = thread_id_list  # type: list[long]
+        # The total number of sessions of the database.
+        self.total_count = total_count  # type: long
+        # The database accounts to which the sessions belong.
+        self.user_list = user_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMySQLAllSessionAsyncResponseBodyDataSessionDataDbStats, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active_count is not None:
+            result['ActiveCount'] = self.active_count
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.thread_id_list is not None:
+            result['ThreadIdList'] = self.thread_id_list
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        if self.user_list is not None:
+            result['UserList'] = self.user_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActiveCount') is not None:
+            self.active_count = m.get('ActiveCount')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('ThreadIdList') is not None:
+            self.thread_id_list = m.get('ThreadIdList')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        if m.get('UserList') is not None:
+            self.user_list = m.get('UserList')
+        return self
+
+
+class GetMySQLAllSessionAsyncResponseBodyDataSessionDataSessionList(TeaModel):
+    def __init__(self, client=None, command=None, db_name=None, session_id=None, sql_template_id=None, sql_text=None,
+                 state=None, time=None, trx_duration=None, trx_id=None, user=None, user_client_alias=None):
+        # The IP address of the client.
+        self.client = client  # type: str
+        # The type of the command executed in the session.
+        self.command = command  # type: str
+        # The database name.
+        self.db_name = db_name  # type: str
+        # The session ID.
+        self.session_id = session_id  # type: long
+        # The SQL template ID.
+        # 
+        # >  This parameter is returned only when you use a PolarDB-X 2.0 instance.
+        self.sql_template_id = sql_template_id  # type: str
+        # The SQL statement executed in the session.
+        self.sql_text = sql_text  # type: str
+        # The status of the session.
+        self.state = state  # type: str
+        # The execution duration of the session. Unit: seconds.
+        self.time = time  # type: long
+        # The duration of the transaction. Unit: seconds.
+        self.trx_duration = trx_duration  # type: long
+        # The ID of the transaction to which the session belongs.
+        self.trx_id = trx_id  # type: str
+        # The username of the database account.
+        self.user = user  # type: str
+        # The alias of the IP address of the client.
+        self.user_client_alias = user_client_alias  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMySQLAllSessionAsyncResponseBodyDataSessionDataSessionList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client is not None:
+            result['Client'] = self.client
+        if self.command is not None:
+            result['Command'] = self.command
+        if self.db_name is not None:
+            result['DbName'] = self.db_name
+        if self.session_id is not None:
+            result['SessionId'] = self.session_id
+        if self.sql_template_id is not None:
+            result['SqlTemplateId'] = self.sql_template_id
+        if self.sql_text is not None:
+            result['SqlText'] = self.sql_text
+        if self.state is not None:
+            result['State'] = self.state
+        if self.time is not None:
+            result['Time'] = self.time
+        if self.trx_duration is not None:
+            result['TrxDuration'] = self.trx_duration
+        if self.trx_id is not None:
+            result['TrxId'] = self.trx_id
+        if self.user is not None:
+            result['User'] = self.user
+        if self.user_client_alias is not None:
+            result['UserClientAlias'] = self.user_client_alias
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Client') is not None:
+            self.client = m.get('Client')
+        if m.get('Command') is not None:
+            self.command = m.get('Command')
+        if m.get('DbName') is not None:
+            self.db_name = m.get('DbName')
+        if m.get('SessionId') is not None:
+            self.session_id = m.get('SessionId')
+        if m.get('SqlTemplateId') is not None:
+            self.sql_template_id = m.get('SqlTemplateId')
+        if m.get('SqlText') is not None:
+            self.sql_text = m.get('SqlText')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        if m.get('TrxDuration') is not None:
+            self.trx_duration = m.get('TrxDuration')
+        if m.get('TrxId') is not None:
+            self.trx_id = m.get('TrxId')
+        if m.get('User') is not None:
+            self.user = m.get('User')
+        if m.get('UserClientAlias') is not None:
+            self.user_client_alias = m.get('UserClientAlias')
+        return self
+
+
+class GetMySQLAllSessionAsyncResponseBodyDataSessionDataUserStats(TeaModel):
+    def __init__(self, active_count=None, key=None, thread_id_list=None, total_count=None, user_list=None):
+        # The number of active sessions within the account.
+        # 
+        # >  If the type of the command executed in the session is Query or Execute and the session in the transaction is not terminated, the session is active.
+        self.active_count = active_count  # type: long
+        # The database account.
+        self.key = key  # type: str
+        # The IDs of the sessions within the account.
+        self.thread_id_list = thread_id_list  # type: list[long]
+        # The total number of sessions within the account.
+        self.total_count = total_count  # type: long
+        # The database accounts to which the sessions belong.
+        self.user_list = user_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetMySQLAllSessionAsyncResponseBodyDataSessionDataUserStats, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active_count is not None:
+            result['ActiveCount'] = self.active_count
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.thread_id_list is not None:
+            result['ThreadIdList'] = self.thread_id_list
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        if self.user_list is not None:
+            result['UserList'] = self.user_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActiveCount') is not None:
+            self.active_count = m.get('ActiveCount')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('ThreadIdList') is not None:
+            self.thread_id_list = m.get('ThreadIdList')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        if m.get('UserList') is not None:
+            self.user_list = m.get('UserList')
+        return self
+
+
+class GetMySQLAllSessionAsyncResponseBodyDataSessionData(TeaModel):
+    def __init__(self, active_session_count=None, client_stats=None, db_stats=None, max_active_time=None,
+                 session_list=None, time_stamp=None, total_session_count=None, user_stats=None):
+        # The total number of active sessions.
+        self.active_session_count = active_session_count  # type: long
+        # The sessions that are counted by client IP address.
+        self.client_stats = client_stats  # type: list[GetMySQLAllSessionAsyncResponseBodyDataSessionDataClientStats]
+        # The sessions that are counted by database.
+        self.db_stats = db_stats  # type: list[GetMySQLAllSessionAsyncResponseBodyDataSessionDataDbStats]
+        # The maximum execution duration of an active session. Unit: seconds.
+        self.max_active_time = max_active_time  # type: long
+        # The sessions.
+        self.session_list = session_list  # type: list[GetMySQLAllSessionAsyncResponseBodyDataSessionDataSessionList]
+        # The time when the session was queried. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.time_stamp = time_stamp  # type: long
+        # The total number of sessions.
+        self.total_session_count = total_session_count  # type: long
+        # The sessions that are counted by database account.
+        self.user_stats = user_stats  # type: list[GetMySQLAllSessionAsyncResponseBodyDataSessionDataUserStats]
+
+    def validate(self):
+        if self.client_stats:
+            for k in self.client_stats:
+                if k:
+                    k.validate()
+        if self.db_stats:
+            for k in self.db_stats:
+                if k:
+                    k.validate()
+        if self.session_list:
+            for k in self.session_list:
+                if k:
+                    k.validate()
+        if self.user_stats:
+            for k in self.user_stats:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetMySQLAllSessionAsyncResponseBodyDataSessionData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active_session_count is not None:
+            result['ActiveSessionCount'] = self.active_session_count
+        result['ClientStats'] = []
+        if self.client_stats is not None:
+            for k in self.client_stats:
+                result['ClientStats'].append(k.to_map() if k else None)
+        result['DbStats'] = []
+        if self.db_stats is not None:
+            for k in self.db_stats:
+                result['DbStats'].append(k.to_map() if k else None)
+        if self.max_active_time is not None:
+            result['MaxActiveTime'] = self.max_active_time
+        result['SessionList'] = []
+        if self.session_list is not None:
+            for k in self.session_list:
+                result['SessionList'].append(k.to_map() if k else None)
+        if self.time_stamp is not None:
+            result['TimeStamp'] = self.time_stamp
+        if self.total_session_count is not None:
+            result['TotalSessionCount'] = self.total_session_count
+        result['UserStats'] = []
+        if self.user_stats is not None:
+            for k in self.user_stats:
+                result['UserStats'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActiveSessionCount') is not None:
+            self.active_session_count = m.get('ActiveSessionCount')
+        self.client_stats = []
+        if m.get('ClientStats') is not None:
+            for k in m.get('ClientStats'):
+                temp_model = GetMySQLAllSessionAsyncResponseBodyDataSessionDataClientStats()
+                self.client_stats.append(temp_model.from_map(k))
+        self.db_stats = []
+        if m.get('DbStats') is not None:
+            for k in m.get('DbStats'):
+                temp_model = GetMySQLAllSessionAsyncResponseBodyDataSessionDataDbStats()
+                self.db_stats.append(temp_model.from_map(k))
+        if m.get('MaxActiveTime') is not None:
+            self.max_active_time = m.get('MaxActiveTime')
+        self.session_list = []
+        if m.get('SessionList') is not None:
+            for k in m.get('SessionList'):
+                temp_model = GetMySQLAllSessionAsyncResponseBodyDataSessionDataSessionList()
+                self.session_list.append(temp_model.from_map(k))
+        if m.get('TimeStamp') is not None:
+            self.time_stamp = m.get('TimeStamp')
+        if m.get('TotalSessionCount') is not None:
+            self.total_session_count = m.get('TotalSessionCount')
+        self.user_stats = []
+        if m.get('UserStats') is not None:
+            for k in m.get('UserStats'):
+                temp_model = GetMySQLAllSessionAsyncResponseBodyDataSessionDataUserStats()
+                self.user_stats.append(temp_model.from_map(k))
+        return self
+
+
+class GetMySQLAllSessionAsyncResponseBodyData(TeaModel):
+    def __init__(self, complete=None, fail=None, is_finish=None, result_id=None, session_data=None, state=None,
+                 timestamp=None):
+        # Indicates whether the asynchronous request was complete. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.complete = complete  # type: bool
+        # Indicates whether the asynchronous request failed. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.fail = fail  # type: bool
+        # Indicates whether the asynchronous request was complete. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.is_finish = is_finish  # type: bool
+        # The ID of the asynchronous request.
+        self.result_id = result_id  # type: str
+        # The session data.
+        self.session_data = session_data  # type: GetMySQLAllSessionAsyncResponseBodyDataSessionData
+        # The state of the asynchronous request. Valid values:
+        # 
+        # *   **RUNNING**\
+        # *   **SUCCESS**\
+        # *   **FAIL**\
+        self.state = state  # type: str
+        # The time when the asynchronous request was made. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.timestamp = timestamp  # type: long
+
+    def validate(self):
+        if self.session_data:
+            self.session_data.validate()
+
+    def to_map(self):
+        _map = super(GetMySQLAllSessionAsyncResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.complete is not None:
+            result['Complete'] = self.complete
+        if self.fail is not None:
+            result['Fail'] = self.fail
+        if self.is_finish is not None:
+            result['IsFinish'] = self.is_finish
+        if self.result_id is not None:
+            result['ResultId'] = self.result_id
+        if self.session_data is not None:
+            result['SessionData'] = self.session_data.to_map()
+        if self.state is not None:
+            result['State'] = self.state
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Complete') is not None:
+            self.complete = m.get('Complete')
+        if m.get('Fail') is not None:
+            self.fail = m.get('Fail')
+        if m.get('IsFinish') is not None:
+            self.is_finish = m.get('IsFinish')
+        if m.get('ResultId') is not None:
+            self.result_id = m.get('ResultId')
+        if m.get('SessionData') is not None:
+            temp_model = GetMySQLAllSessionAsyncResponseBodyDataSessionData()
+            self.session_data = temp_model.from_map(m['SessionData'])
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        return self
+
+
+class GetMySQLAllSessionAsyncResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The data returned.
+        self.data = data  # type: GetMySQLAllSessionAsyncResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetMySQLAllSessionAsyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetMySQLAllSessionAsyncResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetMySQLAllSessionAsyncResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetMySQLAllSessionAsyncResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetMySQLAllSessionAsyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetMySQLAllSessionAsyncResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetPartitionsHeatmapRequest(TeaModel):
+    def __init__(self, console_context=None, instance_id=None, time_range=None, type=None):
+        # The reserved parameter.
+        self.console_context = console_context  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The time range to be queried. Valid values:
+        # 
+        # *   **LAST_ONE_HOURS**: the last hour.
+        # *   **LAST_SIX_HOURS**: the last six hours.
+        # *   **LAST_ONE_DAYS**: the last day.
+        # *   **LAST_THREE_DAYS**: the last three days.
+        # *   **LAST_SEVEN_DAYS**: the last seven days.
+        self.time_range = time_range  # type: str
+        # The type of the data to be queried. Valid values:
+        # 
+        # *   **READ_ROWS**: the read rows.
+        # *   **WRITTEN_ROWS**: the written rows.
+        # *   **READ_WRITTEN_ROWS**: the read and written rows.
+        # *   **UPDATE_ROWS**: the updated rows.
+        # *   **INSERTED_ROWS**: the inserted rows.
+        # *   **DELETED_ROWS**: the deleted rows.
+        # *   **READ_ROWS_WITH_DN**: the read rows returned from a data node.
+        # *   **WRITTEN_ROWS_WITH_DN**: the written rows returned from a data node.
+        # *   **READ_WRITTEN_ROWS_WITH_DN**: the read and written rows returned from a data node.
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPartitionsHeatmapRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.console_context is not None:
+            result['ConsoleContext'] = self.console_context
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.time_range is not None:
+            result['TimeRange'] = self.time_range
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConsoleContext') is not None:
+            self.console_context = m.get('ConsoleContext')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('TimeRange') is not None:
+            self.time_range = m.get('TimeRange')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class GetPartitionsHeatmapResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The hot data of the PolarDB-X 2.0 instance. The data is returned in JSON format.
+        self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message that contains information such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPartitionsHeatmapResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetPartitionsHeatmapResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetPartitionsHeatmapResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetPartitionsHeatmapResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetPartitionsHeatmapResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetPfsMetricTrendsRequest(TeaModel):
+    def __init__(self, end_time=None, instance_id=None, metric=None, node_id=None, start_time=None):
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time. You can view the data of up to seven days in the previous 30 days.
+        self.end_time = end_time  # type: long
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The metric whose trend you want to query. Valid values:
+        # 
+        # *   **count**: the number of executions.
+        # *   **avgRt**: the average execution duration.
+        # *   **rtRate**: the execution duration percentage.
+        # *   **rowsExamined**: the total number of scanned rows.
+        self.metric = metric  # type: str
+        # The node ID.
+        # 
+        # >  You must specify this parameter for an ApsaraDB RDS for MySQL cluster instance and a PolarDB for MySQL cluster.
+        self.node_id = node_id  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.start_time = start_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPfsMetricTrendsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.metric is not None:
+            result['Metric'] = self.metric
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Metric') is not None:
+            self.metric = m.get('Metric')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class GetPfsMetricTrendsResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The data returned.
+        self.data = data  # type: dict[str, list[DataValue]]
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for v in self.data.values():
+                for k1 in v:
+                    if k1:
+                        k1.validate()
+
+    def to_map(self):
+        _map = super(GetPfsMetricTrendsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = {}
+        if self.data is not None:
+            for k, v in self.data.items():
+                l1 = []
+                for k1 in v:
+                    l1.append(k1.to_map() if k1 else None)
+                result['data'][k] = l1
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = {}
+        if m.get('Data') is not None:
+            for k, v in m.get('Data').items():
+                l1 = []
+                for k1 in v:
+                    temp_model = DataValue()
+                    l1.append(temp_model.from_map(k1))
+                self.data['k'] = l1
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetPfsMetricTrendsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetPfsMetricTrendsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetPfsMetricTrendsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetPfsMetricTrendsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetPfsSqlSampleRequest(TeaModel):
+    def __init__(self, end_time=None, instance_id=None, node_id=None, sql_id=None, start_time=None):
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time. You can query the data of up to seven days within the last month.
+        self.end_time = end_time  # type: long
+        # The instance ID.
+        # 
+        # >  Only ApsaraDB RDS for MySQL instances and PolarDB for MySQL clusters are supported.
+        self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  This parameter must be specified for ApsaraDB RDS for MySQL Cluster Edition instances and PolarDB for MySQL clusters.
+        self.node_id = node_id  # type: str
+        # The SQL ID.
+        self.sql_id = sql_id  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.start_time = start_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPfsSqlSampleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.sql_id is not None:
+            result['SqlId'] = self.sql_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('SqlId') is not None:
+            self.sql_id = m.get('SqlId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class GetPfsSqlSampleResponseBodyData(TeaModel):
+    def __init__(self, create_tmp_disk_tables=None, create_tmp_tables=None, db=None, end_event_id=None, errors=None,
+                 event_id=None, event_name=None, instance_id=None, latency=None, lock_latency=None, logic_id=None,
+                 no_good_index_used=None, no_index_used=None, node_id=None, rows_affected=None, rows_examined=None, rows_sent=None,
+                 select_full_join=None, select_full_range_join=None, select_range=None, select_range_check=None, select_scan=None,
+                 sort_merge_passes=None, sort_range=None, sort_rows=None, sort_scan=None, sql=None, sql_id=None, thread_id=None,
+                 timestamp=None, user_id=None, warnings=None):
+        # The number of internal on-disk temporary tables that were created when the SQL statement was executed.
+        self.create_tmp_disk_tables = create_tmp_disk_tables  # type: int
+        # The number of internal temporary tables that were created when the SQL statement was executed.
+        self.create_tmp_tables = create_tmp_tables  # type: int
+        # The name of the database.
+        self.db = db  # type: str
+        # The end ID of the event. By default, the value of this parameter is NULL when the event starts and is changed to the event ID when the event ends.
+        self.end_event_id = end_event_id  # type: int
+        # The number of errors returned for the SQL statement.
+        self.errors = errors  # type: int
+        # The event ID.
+        self.event_id = event_id  # type: int
+        # The name of the event.
+        self.event_name = event_name  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The execution duration. Unit: millisecond.
+        self.latency = latency  # type: float
+        # The lock wait duration. Unit: millisecond.
+        self.lock_latency = lock_latency  # type: float
+        # The logical database ID.
+        self.logic_id = logic_id  # type: str
+        # Indicates whether the server failed to find an index that can be used for the SQL statement. Valid values:
+        # 
+        # * **1:** yes.
+        # * **0:** no.
+        self.no_good_index_used = no_good_index_used  # type: int
+        # Indicates whether table scans were performed when indexes were not used. Valid values:
+        # 
+        # * **1:** yes.
+        # * **0:** no.
+        self.no_index_used = no_index_used  # type: int
+        # The node ID.
+        # 
+        # > This parameter is returned only for ApsaraDB RDS for MySQL Cluster Edition instances and PolarDB for MySQL clusters.
+        self.node_id = node_id  # type: str
+        # The number of rows affected by the SQL statement.
+        self.rows_affected = rows_affected  # type: int
+        # The number of rows scanned by the SQL statement.
+        self.rows_examined = rows_examined  # type: int
+        # The number of rows returned by the SQL statement.
+        self.rows_sent = rows_sent  # type: int
+        # The number of joins that are used to perform table scans without using indexes.
+        # 
+        # > This parameter is used to count the number of joins that did not use indexes. If the value of this parameter is not 0, check the table indexes.
+        self.select_full_join = select_full_join  # type: int
+        # The number of joins that used ranges on referenced tables.
+        self.select_full_range_join = select_full_range_join  # type: int
+        # The number of joins that used ranges on the first table.
+        self.select_range = select_range  # type: int
+        # The number of joins that did not have key values. The keys and values were checked for each row of data.
+        # 
+        # >  This parameter is used to count the number of joins that did not use indexes. If the value of this parameter is not 0, check the table indexes.
+        self.select_range_check = select_range_check  # type: int
+        # The number of scans.
+        self.select_scan = select_scan  # type: int
+        # The number of merges that the sorting algorithm must perform.
+        self.sort_merge_passes = sort_merge_passes  # type: int
+        # The number of times the data was sorted by using ranges.
+        self.sort_range = sort_range  # type: int
+        # The number of sorted rows.
+        self.sort_rows = sort_rows  # type: int
+        # The number of sorts that were performed during table scans.
+        self.sort_scan = sort_scan  # type: int
+        # The SQL sample.
+        self.sql = sql  # type: str
+        # The SQL ID.
+        self.sql_id = sql_id  # type: str
+        # The thread ID.
+        self.thread_id = thread_id  # type: int
+        # The time when the SQL statement was executed. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.timestamp = timestamp  # type: long
+        # The user ID.
+        self.user_id = user_id  # type: str
+        # The number of warnings returned for the SQL statement.
+        self.warnings = warnings  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPfsSqlSampleResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_tmp_disk_tables is not None:
+            result['CreateTmpDiskTables'] = self.create_tmp_disk_tables
+        if self.create_tmp_tables is not None:
+            result['CreateTmpTables'] = self.create_tmp_tables
+        if self.db is not None:
+            result['Db'] = self.db
+        if self.end_event_id is not None:
+            result['EndEventId'] = self.end_event_id
+        if self.errors is not None:
+            result['Errors'] = self.errors
+        if self.event_id is not None:
+            result['EventId'] = self.event_id
+        if self.event_name is not None:
+            result['EventName'] = self.event_name
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.latency is not None:
+            result['Latency'] = self.latency
+        if self.lock_latency is not None:
+            result['LockLatency'] = self.lock_latency
+        if self.logic_id is not None:
+            result['LogicId'] = self.logic_id
+        if self.no_good_index_used is not None:
+            result['NoGoodIndexUsed'] = self.no_good_index_used
+        if self.no_index_used is not None:
+            result['NoIndexUsed'] = self.no_index_used
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.rows_affected is not None:
+            result['RowsAffected'] = self.rows_affected
+        if self.rows_examined is not None:
+            result['RowsExamined'] = self.rows_examined
+        if self.rows_sent is not None:
+            result['RowsSent'] = self.rows_sent
+        if self.select_full_join is not None:
+            result['SelectFullJoin'] = self.select_full_join
+        if self.select_full_range_join is not None:
+            result['SelectFullRangeJoin'] = self.select_full_range_join
+        if self.select_range is not None:
+            result['SelectRange'] = self.select_range
+        if self.select_range_check is not None:
+            result['SelectRangeCheck'] = self.select_range_check
+        if self.select_scan is not None:
+            result['SelectScan'] = self.select_scan
+        if self.sort_merge_passes is not None:
+            result['SortMergePasses'] = self.sort_merge_passes
+        if self.sort_range is not None:
+            result['SortRange'] = self.sort_range
+        if self.sort_rows is not None:
+            result['SortRows'] = self.sort_rows
+        if self.sort_scan is not None:
+            result['SortScan'] = self.sort_scan
+        if self.sql is not None:
+            result['Sql'] = self.sql
+        if self.sql_id is not None:
+            result['SqlId'] = self.sql_id
+        if self.thread_id is not None:
+            result['ThreadId'] = self.thread_id
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        if self.warnings is not None:
+            result['Warnings'] = self.warnings
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTmpDiskTables') is not None:
+            self.create_tmp_disk_tables = m.get('CreateTmpDiskTables')
+        if m.get('CreateTmpTables') is not None:
+            self.create_tmp_tables = m.get('CreateTmpTables')
+        if m.get('Db') is not None:
+            self.db = m.get('Db')
+        if m.get('EndEventId') is not None:
+            self.end_event_id = m.get('EndEventId')
+        if m.get('Errors') is not None:
+            self.errors = m.get('Errors')
+        if m.get('EventId') is not None:
+            self.event_id = m.get('EventId')
+        if m.get('EventName') is not None:
+            self.event_name = m.get('EventName')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Latency') is not None:
+            self.latency = m.get('Latency')
+        if m.get('LockLatency') is not None:
+            self.lock_latency = m.get('LockLatency')
+        if m.get('LogicId') is not None:
+            self.logic_id = m.get('LogicId')
+        if m.get('NoGoodIndexUsed') is not None:
+            self.no_good_index_used = m.get('NoGoodIndexUsed')
+        if m.get('NoIndexUsed') is not None:
+            self.no_index_used = m.get('NoIndexUsed')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('RowsAffected') is not None:
+            self.rows_affected = m.get('RowsAffected')
+        if m.get('RowsExamined') is not None:
+            self.rows_examined = m.get('RowsExamined')
+        if m.get('RowsSent') is not None:
+            self.rows_sent = m.get('RowsSent')
+        if m.get('SelectFullJoin') is not None:
+            self.select_full_join = m.get('SelectFullJoin')
+        if m.get('SelectFullRangeJoin') is not None:
+            self.select_full_range_join = m.get('SelectFullRangeJoin')
+        if m.get('SelectRange') is not None:
+            self.select_range = m.get('SelectRange')
+        if m.get('SelectRangeCheck') is not None:
+            self.select_range_check = m.get('SelectRangeCheck')
+        if m.get('SelectScan') is not None:
+            self.select_scan = m.get('SelectScan')
+        if m.get('SortMergePasses') is not None:
+            self.sort_merge_passes = m.get('SortMergePasses')
+        if m.get('SortRange') is not None:
+            self.sort_range = m.get('SortRange')
+        if m.get('SortRows') is not None:
+            self.sort_rows = m.get('SortRows')
+        if m.get('SortScan') is not None:
+            self.sort_scan = m.get('SortScan')
+        if m.get('Sql') is not None:
+            self.sql = m.get('Sql')
+        if m.get('SqlId') is not None:
+            self.sql_id = m.get('SqlId')
+        if m.get('ThreadId') is not None:
+            self.thread_id = m.get('ThreadId')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        if m.get('Warnings') is not None:
+            self.warnings = m.get('Warnings')
+        return self
+
+
+class GetPfsSqlSampleResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The queried SQL sample data.
+        self.data = data  # type: list[GetPfsSqlSampleResponseBodyData]
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetPfsSqlSampleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = GetPfsSqlSampleResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetPfsSqlSampleResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetPfsSqlSampleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetPfsSqlSampleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetPfsSqlSampleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetPfsSqlSummariesRequest(TeaModel):
+    def __init__(self, asc=None, end_time=None, instance_id=None, keywords=None, node_id=None, order_by=None,
+                 page_no=None, page_size=None, sql_id=None, start_time=None):
+        # Specifies whether to sort the returned entries in ascending order. Default value: **false**. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.asc = asc  # type: bool
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time. You can view the data of up to seven days within the last month.
+        self.end_time = end_time  # type: long
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The keywords of the SQL template. Separate multiple keywords with spaces.
+        self.keywords = keywords  # type: str
+        # The node ID.
+        # 
+        # >  This parameter must be specified if the database instance is an ApsaraDB RDS for MySQL Cluster Edition instance or a PolarDB for MySQL cluster.
+        self.node_id = node_id  # type: str
+        # The field by which to sort the returned entries. Default value: **count**.
+        # 
+        # *   **count**: the number of executions.
+        # *   **avgRt**: the average execution duration.
+        # *   **rtRate**: the execution duration percentage.
+        # *   **rowsExamined**: the total number of scanned rows.
+        # *   **avgRowsExamined**: the average number of scanned rows.
+        # *   **avgRowsReturned**: the average number of returned rows.
+        self.order_by = order_by  # type: str
+        # The page number. Pages start from page 1. Default value: 1.
+        self.page_no = page_no  # type: int
+        # The number of entries per page. Default value: 10. Valid values: 1 to 100.
+        self.page_size = page_size  # type: int
+        # The SQL ID.
+        # 
+        # >  If this parameter is specified, the full request statistics of the specified SQL query are collected. If this parameter is left empty, the full request statistics of the entire database instance are collected.
+        self.sql_id = sql_id  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.start_time = start_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPfsSqlSummariesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.asc is not None:
+            result['Asc'] = self.asc
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.keywords is not None:
+            result['Keywords'] = self.keywords
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.sql_id is not None:
+            result['SqlId'] = self.sql_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Asc') is not None:
+            self.asc = m.get('Asc')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Keywords') is not None:
+            self.keywords = m.get('Keywords')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('SqlId') is not None:
+            self.sql_id = m.get('SqlId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class GetPfsSqlSummariesResponseBodyDataList(TeaModel):
+    def __init__(self, avg_latency=None, count=None, count_rate=None, cpu_rate=None, cpu_time=None,
+                 data_read_time=None, data_reads=None, data_write_time=None, data_writes=None, db=None, elapsed_time=None,
+                 err_count=None, first_time=None, full_scan=None, id=None, instance_id=None, last_time=None,
+                 lock_latency_avg=None, logic_id=None, logic_reads=None, max_latency=None, mutex_spins=None, mutex_waits=None,
+                 node_id=None, physical_async_reads=None, physical_reads=None, psql=None, redo_writes=None,
+                 rows_affected=None, rows_affected_avg=None, rows_examined=None, rows_examined_avg=None, rows_send_avg=None,
+                 rows_sent=None, rows_sent_avg=None, rows_sorted=None, rt_rate=None, rwlock_os_waits=None,
+                 rwlock_spin_rounds=None, rwlock_spin_waits=None, select_full_join_avg=None, select_full_range_join_avg=None,
+                 select_range_avg=None, select_scan_avg=None, semisync_delay_time=None, server_lock_time=None,
+                 sort_merge_passes=None, sort_range_avg=None, sort_rows_avg=None, sort_scan_avg=None, sql_id=None, sql_type=None,
+                 tables=None, timer_wait_avg=None, timestamp=None, tmp_disk_tables=None, tmp_disk_tables_avg=None,
+                 tmp_tables=None, tmp_tables_avg=None, total_latency=None, transaction_lock_time=None, user_id=None,
+                 warn_count=None):
+        # The average execution latency. Unit: millisecond.
+        self.avg_latency = avg_latency  # type: float
+        # The total number of executions.
+        self.count = count  # type: long
+        # The percentage of the number of executions.
+        self.count_rate = count_rate  # type: float
+        # The ratio of the CPU execution duration to the total execution duration of the SQL statement.
+        self.cpu_rate = cpu_rate  # type: float
+        # The CPU execution duration. Unit: millisecond.
+        self.cpu_time = cpu_time  # type: float
+        # The data read duration. Unit: millisecond.
+        self.data_read_time = data_read_time  # type: float
+        # The number of nodes from which data can be read.
+        self.data_reads = data_reads  # type: int
+        # The data write duration. Unit: millisecond.
+        self.data_write_time = data_write_time  # type: float
+        # The number of nodes to which data can be written.
+        self.data_writes = data_writes  # type: int
+        # The name of the database.
+        self.db = db  # type: str
+        # The execution duration. Unit: millisecond.
+        self.elapsed_time = elapsed_time  # type: float
+        # The number of errors.
+        self.err_count = err_count  # type: long
+        # The time when the SQL statement was executed for the first time. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.first_time = first_time  # type: long
+        # Indicates whether full table scan was enabled. Valid values:
+        # 
+        # * **true**\
+        # * **false**\
+        self.full_scan = full_scan  # type: bool
+        # The primary key ID.
+        self.id = id  # type: long
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The time when the SQL statement was last modified. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.last_time = last_time  # type: long
+        # The average lock wait latency. Unit: millisecond.
+        self.lock_latency_avg = lock_latency_avg  # type: float
+        # The logical database ID.
+        self.logic_id = logic_id  # type: long
+        # The number of logical nodes.
+        self.logic_reads = logic_reads  # type: long
+        # The maximum execution latency. Unit: millisecond.
+        self.max_latency = max_latency  # type: float
+        # The number of mutex spins.
+        self.mutex_spins = mutex_spins  # type: int
+        # The number of mutex waits.
+        self.mutex_waits = mutex_waits  # type: int
+        # The node ID.
+        # 
+        # > This parameter is returned only if the database instance is an ApsaraDB RDS for MySQL Cluster Edition instance or a PolarDB for MySQL cluster.
+        self.node_id = node_id  # type: str
+        # The number of physical asynchronous nodes.
+        self.physical_async_reads = physical_async_reads  # type: long
+        # The number of physical nodes.
+        self.physical_reads = physical_reads  # type: long
+        # The SQL template.
+        self.psql = psql  # type: str
+        # The number of redo nodes.
+        self.redo_writes = redo_writes  # type: long
+        # The number of rows that are affected by the SQL statement.
+        self.rows_affected = rows_affected  # type: long
+        # The average number of rows affected by the SQL statement.
+        self.rows_affected_avg = rows_affected_avg  # type: float
+        # The total number of scanned rows.
+        self.rows_examined = rows_examined  # type: long
+        # The average number of scanned rows.
+        self.rows_examined_avg = rows_examined_avg  # type: float
+        # The average number of returned rows.
+        self.rows_send_avg = rows_send_avg  # type: float
+        # The number of rows returned by the SQL statement.
+        self.rows_sent = rows_sent  # type: long
+        # The average number of rows returned for the SQL statement.
+        self.rows_sent_avg = rows_sent_avg  # type: float
+        # The number of sorted rows.
+        self.rows_sorted = rows_sorted  # type: long
+        # The execution duration percentage.
+        self.rt_rate = rt_rate  # type: float
+        # Indicates whether read/write splitting was enabled. Valid values:
+        # 
+        # * **0:** Read/write splitting was disabled.
+        # * **1:** Read/write splitting was enabled.
+        self.rwlock_os_waits = rwlock_os_waits  # type: int
+        # The read/write splitting parameters.
+        self.rwlock_spin_rounds = rwlock_spin_rounds  # type: int
+        # Indices whether multi-index scanning was enabled. Valid values:
+        # 
+        # * **0:** Multi-index scanning was disabled.
+        # * **1:** Multi-index scanning was enabled.
+        self.rwlock_spin_waits = rwlock_spin_waits  # type: int
+        # The average number of joins that performed table scans without using indexes.
+        # 
+        # > If the value of this parameter is not 0, check the table indexes.
+        self.select_full_join_avg = select_full_join_avg  # type: float
+        # The average number of joins that selected a range.
+        self.select_full_range_join_avg = select_full_range_join_avg  # type: float
+        # The average selected range.
+        self.select_range_avg = select_range_avg  # type: float
+        # The average number of scanned rows.
+        self.select_scan_avg = select_scan_avg  # type: float
+        # The semi-synchronous replication latency. Unit: millisecond.
+        self.semisync_delay_time = semisync_delay_time  # type: float
+        # The amount of time consumed for locking the server. Unit: millisecond.
+        self.server_lock_time = server_lock_time  # type: float
+        # The number of merges that the sorting algorithm must perform.
+        self.sort_merge_passes = sort_merge_passes  # type: long
+        # The average number of sorts that were performed by using a range.
+        self.sort_range_avg = sort_range_avg  # type: float
+        # The average number of sorted rows.
+        self.sort_rows_avg = sort_rows_avg  # type: float
+        # The average number of sorts that were performed during table scans.
+        self.sort_scan_avg = sort_scan_avg  # type: float
+        # The SQL template ID.
+        self.sql_id = sql_id  # type: str
+        # The type of the SQL statement. Valid values:
+        # 
+        # * **SELECT**\
+        # * **UPDATE**\
+        # * **DELETE**\
+        self.sql_type = sql_type  # type: str
+        # The names of tables in the database.
+        self.tables = tables  # type: list[str]
+        # The reserved parameter.
+        self.timer_wait_avg = timer_wait_avg  # type: float
+        # The data timestamp. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.timestamp = timestamp  # type: long
+        # The number of on-disk temporary tables.
+        self.tmp_disk_tables = tmp_disk_tables  # type: long
+        # The average number of on-disk temporary tables.
+        self.tmp_disk_tables_avg = tmp_disk_tables_avg  # type: float
+        # The number of temporary tables.
+        self.tmp_tables = tmp_tables  # type: long
+        # The average number of temporary tables.
+        self.tmp_tables_avg = tmp_tables_avg  # type: float
+        # The execution latency. Unit: millisecond.
+        self.total_latency = total_latency  # type: float
+        # The amount of time consumed for locking the storage transaction. Unit: millisecond.
+        self.transaction_lock_time = transaction_lock_time  # type: float
+        # The user ID.
+        self.user_id = user_id  # type: str
+        # The number of warnings.
+        self.warn_count = warn_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPfsSqlSummariesResponseBodyDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.avg_latency is not None:
+            result['AvgLatency'] = self.avg_latency
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.count_rate is not None:
+            result['CountRate'] = self.count_rate
+        if self.cpu_rate is not None:
+            result['CpuRate'] = self.cpu_rate
+        if self.cpu_time is not None:
+            result['CpuTime'] = self.cpu_time
+        if self.data_read_time is not None:
+            result['DataReadTime'] = self.data_read_time
+        if self.data_reads is not None:
+            result['DataReads'] = self.data_reads
+        if self.data_write_time is not None:
+            result['DataWriteTime'] = self.data_write_time
+        if self.data_writes is not None:
+            result['DataWrites'] = self.data_writes
+        if self.db is not None:
+            result['Db'] = self.db
+        if self.elapsed_time is not None:
+            result['ElapsedTime'] = self.elapsed_time
+        if self.err_count is not None:
+            result['ErrCount'] = self.err_count
+        if self.first_time is not None:
+            result['FirstTime'] = self.first_time
+        if self.full_scan is not None:
+            result['FullScan'] = self.full_scan
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.last_time is not None:
+            result['LastTime'] = self.last_time
+        if self.lock_latency_avg is not None:
+            result['LockLatencyAvg'] = self.lock_latency_avg
+        if self.logic_id is not None:
+            result['LogicId'] = self.logic_id
+        if self.logic_reads is not None:
+            result['LogicReads'] = self.logic_reads
+        if self.max_latency is not None:
+            result['MaxLatency'] = self.max_latency
+        if self.mutex_spins is not None:
+            result['MutexSpins'] = self.mutex_spins
+        if self.mutex_waits is not None:
+            result['MutexWaits'] = self.mutex_waits
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.physical_async_reads is not None:
+            result['PhysicalAsyncReads'] = self.physical_async_reads
+        if self.physical_reads is not None:
+            result['PhysicalReads'] = self.physical_reads
+        if self.psql is not None:
+            result['Psql'] = self.psql
+        if self.redo_writes is not None:
+            result['RedoWrites'] = self.redo_writes
+        if self.rows_affected is not None:
+            result['RowsAffected'] = self.rows_affected
+        if self.rows_affected_avg is not None:
+            result['RowsAffectedAvg'] = self.rows_affected_avg
+        if self.rows_examined is not None:
+            result['RowsExamined'] = self.rows_examined
+        if self.rows_examined_avg is not None:
+            result['RowsExaminedAvg'] = self.rows_examined_avg
+        if self.rows_send_avg is not None:
+            result['RowsSendAvg'] = self.rows_send_avg
+        if self.rows_sent is not None:
+            result['RowsSent'] = self.rows_sent
+        if self.rows_sent_avg is not None:
+            result['RowsSentAvg'] = self.rows_sent_avg
+        if self.rows_sorted is not None:
+            result['RowsSorted'] = self.rows_sorted
+        if self.rt_rate is not None:
+            result['RtRate'] = self.rt_rate
+        if self.rwlock_os_waits is not None:
+            result['RwlockOsWaits'] = self.rwlock_os_waits
+        if self.rwlock_spin_rounds is not None:
+            result['RwlockSpinRounds'] = self.rwlock_spin_rounds
+        if self.rwlock_spin_waits is not None:
+            result['RwlockSpinWaits'] = self.rwlock_spin_waits
+        if self.select_full_join_avg is not None:
+            result['SelectFullJoinAvg'] = self.select_full_join_avg
+        if self.select_full_range_join_avg is not None:
+            result['SelectFullRangeJoinAvg'] = self.select_full_range_join_avg
+        if self.select_range_avg is not None:
+            result['SelectRangeAvg'] = self.select_range_avg
+        if self.select_scan_avg is not None:
+            result['SelectScanAvg'] = self.select_scan_avg
+        if self.semisync_delay_time is not None:
+            result['SemisyncDelayTime'] = self.semisync_delay_time
+        if self.server_lock_time is not None:
+            result['ServerLockTime'] = self.server_lock_time
+        if self.sort_merge_passes is not None:
+            result['SortMergePasses'] = self.sort_merge_passes
+        if self.sort_range_avg is not None:
+            result['SortRangeAvg'] = self.sort_range_avg
+        if self.sort_rows_avg is not None:
+            result['SortRowsAvg'] = self.sort_rows_avg
+        if self.sort_scan_avg is not None:
+            result['SortScanAvg'] = self.sort_scan_avg
+        if self.sql_id is not None:
+            result['SqlId'] = self.sql_id
+        if self.sql_type is not None:
+            result['SqlType'] = self.sql_type
+        if self.tables is not None:
+            result['Tables'] = self.tables
+        if self.timer_wait_avg is not None:
+            result['TimerWaitAvg'] = self.timer_wait_avg
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        if self.tmp_disk_tables is not None:
+            result['TmpDiskTables'] = self.tmp_disk_tables
+        if self.tmp_disk_tables_avg is not None:
+            result['TmpDiskTablesAvg'] = self.tmp_disk_tables_avg
+        if self.tmp_tables is not None:
+            result['TmpTables'] = self.tmp_tables
+        if self.tmp_tables_avg is not None:
+            result['TmpTablesAvg'] = self.tmp_tables_avg
+        if self.total_latency is not None:
+            result['TotalLatency'] = self.total_latency
+        if self.transaction_lock_time is not None:
+            result['TransactionLockTime'] = self.transaction_lock_time
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        if self.warn_count is not None:
+            result['WarnCount'] = self.warn_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AvgLatency') is not None:
+            self.avg_latency = m.get('AvgLatency')
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('CountRate') is not None:
+            self.count_rate = m.get('CountRate')
+        if m.get('CpuRate') is not None:
+            self.cpu_rate = m.get('CpuRate')
+        if m.get('CpuTime') is not None:
+            self.cpu_time = m.get('CpuTime')
+        if m.get('DataReadTime') is not None:
+            self.data_read_time = m.get('DataReadTime')
+        if m.get('DataReads') is not None:
+            self.data_reads = m.get('DataReads')
+        if m.get('DataWriteTime') is not None:
+            self.data_write_time = m.get('DataWriteTime')
+        if m.get('DataWrites') is not None:
+            self.data_writes = m.get('DataWrites')
+        if m.get('Db') is not None:
+            self.db = m.get('Db')
+        if m.get('ElapsedTime') is not None:
+            self.elapsed_time = m.get('ElapsedTime')
+        if m.get('ErrCount') is not None:
+            self.err_count = m.get('ErrCount')
+        if m.get('FirstTime') is not None:
+            self.first_time = m.get('FirstTime')
+        if m.get('FullScan') is not None:
+            self.full_scan = m.get('FullScan')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('LastTime') is not None:
+            self.last_time = m.get('LastTime')
+        if m.get('LockLatencyAvg') is not None:
+            self.lock_latency_avg = m.get('LockLatencyAvg')
+        if m.get('LogicId') is not None:
+            self.logic_id = m.get('LogicId')
+        if m.get('LogicReads') is not None:
+            self.logic_reads = m.get('LogicReads')
+        if m.get('MaxLatency') is not None:
+            self.max_latency = m.get('MaxLatency')
+        if m.get('MutexSpins') is not None:
+            self.mutex_spins = m.get('MutexSpins')
+        if m.get('MutexWaits') is not None:
+            self.mutex_waits = m.get('MutexWaits')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('PhysicalAsyncReads') is not None:
+            self.physical_async_reads = m.get('PhysicalAsyncReads')
+        if m.get('PhysicalReads') is not None:
+            self.physical_reads = m.get('PhysicalReads')
+        if m.get('Psql') is not None:
+            self.psql = m.get('Psql')
+        if m.get('RedoWrites') is not None:
+            self.redo_writes = m.get('RedoWrites')
+        if m.get('RowsAffected') is not None:
+            self.rows_affected = m.get('RowsAffected')
+        if m.get('RowsAffectedAvg') is not None:
+            self.rows_affected_avg = m.get('RowsAffectedAvg')
+        if m.get('RowsExamined') is not None:
+            self.rows_examined = m.get('RowsExamined')
+        if m.get('RowsExaminedAvg') is not None:
+            self.rows_examined_avg = m.get('RowsExaminedAvg')
+        if m.get('RowsSendAvg') is not None:
+            self.rows_send_avg = m.get('RowsSendAvg')
+        if m.get('RowsSent') is not None:
+            self.rows_sent = m.get('RowsSent')
+        if m.get('RowsSentAvg') is not None:
+            self.rows_sent_avg = m.get('RowsSentAvg')
+        if m.get('RowsSorted') is not None:
+            self.rows_sorted = m.get('RowsSorted')
+        if m.get('RtRate') is not None:
+            self.rt_rate = m.get('RtRate')
+        if m.get('RwlockOsWaits') is not None:
+            self.rwlock_os_waits = m.get('RwlockOsWaits')
+        if m.get('RwlockSpinRounds') is not None:
+            self.rwlock_spin_rounds = m.get('RwlockSpinRounds')
+        if m.get('RwlockSpinWaits') is not None:
+            self.rwlock_spin_waits = m.get('RwlockSpinWaits')
+        if m.get('SelectFullJoinAvg') is not None:
+            self.select_full_join_avg = m.get('SelectFullJoinAvg')
+        if m.get('SelectFullRangeJoinAvg') is not None:
+            self.select_full_range_join_avg = m.get('SelectFullRangeJoinAvg')
+        if m.get('SelectRangeAvg') is not None:
+            self.select_range_avg = m.get('SelectRangeAvg')
+        if m.get('SelectScanAvg') is not None:
+            self.select_scan_avg = m.get('SelectScanAvg')
+        if m.get('SemisyncDelayTime') is not None:
+            self.semisync_delay_time = m.get('SemisyncDelayTime')
+        if m.get('ServerLockTime') is not None:
+            self.server_lock_time = m.get('ServerLockTime')
+        if m.get('SortMergePasses') is not None:
+            self.sort_merge_passes = m.get('SortMergePasses')
+        if m.get('SortRangeAvg') is not None:
+            self.sort_range_avg = m.get('SortRangeAvg')
+        if m.get('SortRowsAvg') is not None:
+            self.sort_rows_avg = m.get('SortRowsAvg')
+        if m.get('SortScanAvg') is not None:
+            self.sort_scan_avg = m.get('SortScanAvg')
+        if m.get('SqlId') is not None:
+            self.sql_id = m.get('SqlId')
+        if m.get('SqlType') is not None:
+            self.sql_type = m.get('SqlType')
+        if m.get('Tables') is not None:
+            self.tables = m.get('Tables')
+        if m.get('TimerWaitAvg') is not None:
+            self.timer_wait_avg = m.get('TimerWaitAvg')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        if m.get('TmpDiskTables') is not None:
+            self.tmp_disk_tables = m.get('TmpDiskTables')
+        if m.get('TmpDiskTablesAvg') is not None:
+            self.tmp_disk_tables_avg = m.get('TmpDiskTablesAvg')
+        if m.get('TmpTables') is not None:
+            self.tmp_tables = m.get('TmpTables')
+        if m.get('TmpTablesAvg') is not None:
+            self.tmp_tables_avg = m.get('TmpTablesAvg')
+        if m.get('TotalLatency') is not None:
+            self.total_latency = m.get('TotalLatency')
+        if m.get('TransactionLockTime') is not None:
+            self.transaction_lock_time = m.get('TransactionLockTime')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        if m.get('WarnCount') is not None:
+            self.warn_count = m.get('WarnCount')
+        return self
+
+
+class GetPfsSqlSummariesResponseBodyData(TeaModel):
+    def __init__(self, extra=None, list=None, page_no=None, page_size=None, total=None):
+        # The reserved parameter.
+        self.extra = extra  # type: any
+        # The detailed information.
+        self.list = list  # type: list[GetPfsSqlSummariesResponseBodyDataList]
+        # The page number.
+        self.page_no = page_no  # type: long
+        # The number of entries per page.
+        self.page_size = page_size  # type: long
+        # The total number of entries returned.
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetPfsSqlSummariesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.extra is not None:
+            result['Extra'] = self.extra
+        result['List'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['List'].append(k.to_map() if k else None)
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Extra') is not None:
+            self.extra = m.get('Extra')
+        self.list = []
+        if m.get('List') is not None:
+            for k in m.get('List'):
+                temp_model = GetPfsSqlSummariesResponseBodyDataList()
+                self.list.append(temp_model.from_map(k))
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class GetPfsSqlSummariesResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The data returned.
+        self.data = data  # type: GetPfsSqlSummariesResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetPfsSqlSummariesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetPfsSqlSummariesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetPfsSqlSummariesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetPfsSqlSummariesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetPfsSqlSummariesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetPfsSqlSummariesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetQueryOptimizeDataStatsRequest(TeaModel):
     def __init__(self, asc=None, db_names=None, engine=None, instance_ids=None, keywords=None, logical_operator=None,
-                 only_optimized_sql=None, order_by=None, page_no=None, page_size=None, rules=None, sql_ids=None, tag_names=None,
-                 time=None):
+                 only_optimized_sql=None, order_by=None, page_no=None, page_size=None, region=None, rules=None, sql_ids=None,
+                 tag_names=None, time=None, user=None):
+        # Specifies whether to sort the returned entries in ascending order. Default value: **true**. Valid values:
+        # 
+        # *   **true**: sorts the returned entries in ascending order.
+        # *   **false**: does not sort the returned entries in ascending order.
         self.asc = asc  # type: str
+        # The name of the database to be queried.
         self.db_names = db_names  # type: str
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**\
+        # *   **PolarDBMySQL**\
+        # *   **PostgreSQL**\
         self.engine = engine  # type: str
+        # The instance IDs. Separate multiple IDs with commas (,).
         self.instance_ids = instance_ids  # type: str
+        # The keywords of the SQL template. Separate multiple keywords with spaces.
         self.keywords = keywords  # type: str
+        # The logical relationship between multiple keywords. Valid values:
+        # 
+        # *   **or**\
+        # *   **and**\
         self.logical_operator = logical_operator  # type: str
+        # Specifies whether to query only SQL templates that need to be optimized. Default value: **false**. Valid values:
+        # 
+        # *   **true**: queries only SQL templates that need to be optimized.
+        # *   **false**: does not query only SQL statements that need to be optimized.
         self.only_optimized_sql = only_optimized_sql  # type: str
+        # The field by which to sort the returned entries. Default value: **count**. Valid values:
+        # 
+        # *   **count**: the number of executions.
+        # *   **maxQueryTime**: the longest execution time.
+        # *   **avgQueryTime**: the average execution time.
+        # *   **maxLockTime**: the longest lock wait time.
+        # *   **avgLockTime**: the longest lock wait time.
+        # *   **maxRowsExamined**: the largest number of scanned rows.
+        # *   **avgRowsExamined**: the average number of scanned rows.
+        # *   **maxRowsSent**: the largest number of returned rows.
+        # *   **avgRowsSent**: the average number of returned rows.
         self.order_by = order_by  # type: str
+        # The page number. Pages start from page 1. Default value: 1.
         self.page_no = page_no  # type: str
+        # The number of entries per page. Default value: 10.
         self.page_size = page_size  # type: str
+        # The region in which the instance resides. Valid values:
+        # 
+        # *   **cn-china**: Chinese mainland
+        # *   **cn-hongkong**: China (Hong Kong)
+        # *   **ap-southeast-1**: Singapore
+        # 
+        # This parameter takes effect only if **InstanceIds** is left empty. If you leave **InstanceIds** empty, the system obtains data from the region set by **Region**. By default, Region is set to **cn-china**. If you specify **InstanceIds**, **Region** does not take effect and the system obtains data from the region in which the first specified instance resides.****\
+        # 
+        # >  Set this parameter to **cn-china** for the instances that are created in the regions in the Chinese mainland.
+        self.region = region  # type: str
+        # The tags that are used to filter SQL templates. Separate multiple tags with commas (,). For more information, see [Query governance](~~290038~~).
         self.rules = rules  # type: str
+        # The SQL template ID. You can query the ID of a template by calling the [GetQueryOptimizeExecErrorStats](~~405235~~) operation.
         self.sql_ids = sql_ids  # type: str
+        # The reserved parameter.
         self.tag_names = tag_names  # type: str
+        # The time range to query. Specify the time in the UNIX timestamp format. Unit: milliseconds.
         self.time = time  # type: str
+        # The account of the database to be queried.
+        self.user = user  # type: str
 
     def validate(self):
         pass
@@ -6375,6 +17712,8 @@ class GetQueryOptimizeDataStatsRequest(TeaModel):
             result['PageNo'] = self.page_no
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.region is not None:
+            result['Region'] = self.region
         if self.rules is not None:
             result['Rules'] = self.rules
         if self.sql_ids is not None:
@@ -6383,6 +17722,8 @@ class GetQueryOptimizeDataStatsRequest(TeaModel):
             result['TagNames'] = self.tag_names
         if self.time is not None:
             result['Time'] = self.time
+        if self.user is not None:
+            result['User'] = self.user
         return result
 
     def from_map(self, m=None):
@@ -6407,6 +17748,8 @@ class GetQueryOptimizeDataStatsRequest(TeaModel):
             self.page_no = m.get('PageNo')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
         if m.get('Rules') is not None:
             self.rules = m.get('Rules')
         if m.get('SqlIds') is not None:
@@ -6415,12 +17758,19 @@ class GetQueryOptimizeDataStatsRequest(TeaModel):
             self.tag_names = m.get('TagNames')
         if m.get('Time') is not None:
             self.time = m.get('Time')
+        if m.get('User') is not None:
+            self.user = m.get('User')
         return self
 
 
 class GetQueryOptimizeDataStatsResponseBodyDataListRuleList(TeaModel):
     def __init__(self, name=None, type=None):
+        # The rule name.
         self.name = name  # type: str
+        # The type of the rule. Valid values:
+        # 
+        # * **Predefined**\
+        # * **UserDefined**\
         self.type = type  # type: str
 
     def validate(self):
@@ -6451,25 +17801,49 @@ class GetQueryOptimizeDataStatsResponseBodyDataList(TeaModel):
     def __init__(self, avg_lock_time=None, avg_query_time=None, avg_rows_affected=None, avg_rows_examined=None,
                  avg_rows_sent=None, count=None, dbname=None, instance_id=None, max_lock_time=None, max_query_time=None,
                  max_rows_affected=None, max_rows_examined=None, max_rows_sent=None, psql=None, rule_list=None, sql_id=None,
-                 sql_sample=None, sql_type=None):
+                 sql_sample=None, sql_type=None, user=None):
+        # The average lock wait time. Unit: seconds.
         self.avg_lock_time = avg_lock_time  # type: float
+        # The average query execution time. Unit: seconds.
         self.avg_query_time = avg_query_time  # type: float
+        # The average number of rows affected by the SQL statement.
+        # 
+        # > A value of -1 indicates that this parameter is not collected.
         self.avg_rows_affected = avg_rows_affected  # type: float
+        # The average number of scanned rows.
         self.avg_rows_examined = avg_rows_examined  # type: float
+        # The average number of returned rows.
         self.avg_rows_sent = avg_rows_sent  # type: float
+        # The number of times that the SQL template is executed.
         self.count = count  # type: int
+        # The name of the database to which the SQL template belongs.
         self.dbname = dbname  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The longest lock wait time. Unit: seconds.
         self.max_lock_time = max_lock_time  # type: float
+        # The longest query execution time. Unit: seconds.
         self.max_query_time = max_query_time  # type: float
+        # The largest number of rows affected by the SQL template.
+        # 
+        # > A value of -1 indicates that this parameter is not collected.
         self.max_rows_affected = max_rows_affected  # type: long
+        # The largest number of scanned rows.
         self.max_rows_examined = max_rows_examined  # type: long
+        # The largest number of returned rows.
         self.max_rows_sent = max_rows_sent  # type: long
+        # The SQL template.
         self.psql = psql  # type: str
+        # The information about the rules.
         self.rule_list = rule_list  # type: list[GetQueryOptimizeDataStatsResponseBodyDataListRuleList]
+        # The SQL template ID.
         self.sql_id = sql_id  # type: str
+        # The sample query that took the longest time to execute.
         self.sql_sample = sql_sample  # type: str
+        # The type of the SQL statement.
         self.sql_type = sql_type  # type: str
+        # The account of the database.
+        self.user = user  # type: str
 
     def validate(self):
         if self.rule_list:
@@ -6521,6 +17895,8 @@ class GetQueryOptimizeDataStatsResponseBodyDataList(TeaModel):
             result['SqlSample'] = self.sql_sample
         if self.sql_type is not None:
             result['SqlType'] = self.sql_type
+        if self.user is not None:
+            result['User'] = self.user
         return result
 
     def from_map(self, m=None):
@@ -6564,15 +17940,22 @@ class GetQueryOptimizeDataStatsResponseBodyDataList(TeaModel):
             self.sql_sample = m.get('SqlSample')
         if m.get('SqlType') is not None:
             self.sql_type = m.get('SqlType')
+        if m.get('User') is not None:
+            self.user = m.get('User')
         return self
 
 
 class GetQueryOptimizeDataStatsResponseBodyData(TeaModel):
     def __init__(self, extra=None, list=None, page_no=None, page_size=None, total=None):
+        # The reserved parameter.
         self.extra = extra  # type: str
+        # The information about the SQL templates.
         self.list = list  # type: list[GetQueryOptimizeDataStatsResponseBodyDataList]
+        # The reserved parameter.
         self.page_no = page_no  # type: int
+        # The reserved parameter.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -6621,10 +18004,18 @@ class GetQueryOptimizeDataStatsResponseBodyData(TeaModel):
 
 class GetQueryOptimizeDataStatsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The data returned.
         self.data = data  # type: GetQueryOptimizeDataStatsResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -6666,12 +18057,14 @@ class GetQueryOptimizeDataStatsResponseBody(TeaModel):
 
 
 class GetQueryOptimizeDataStatsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetQueryOptimizeDataStatsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6684,6 +18077,8 @@ class GetQueryOptimizeDataStatsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6692,6 +18087,8 @@ class GetQueryOptimizeDataStatsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetQueryOptimizeDataStatsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6699,11 +18096,33 @@ class GetQueryOptimizeDataStatsResponse(TeaModel):
 
 
 class GetQueryOptimizeDataTopRequest(TeaModel):
-    def __init__(self, engine=None, instance_ids=None, tag_names=None, time=None, type=None):
+    def __init__(self, engine=None, instance_ids=None, region=None, tag_names=None, time=None, type=None):
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**\
+        # *   **PolarDBMySQL**\
+        # *   **PostgreSQL**\
         self.engine = engine  # type: str
+        # The instance IDs. Separate multiple IDs with commas (,).
         self.instance_ids = instance_ids  # type: str
+        # The region in which the instance resides. Valid values:
+        # 
+        # *   **cn-china**: Chinese mainland
+        # *   **cn-hongkong**: China (Hong Kong)
+        # *   **ap-southeast-1**: Singapore
+        # 
+        # This parameter takes effect only if **InstanceIds** is left empty. If you leave **InstanceIds** empty, the system obtains data from the region set by **Region**. By default, Region is set to **cn-china**. If you specify **InstanceIds**, **Region** does not take effect and the system obtains data from the region in which the first specified instance resides.****\
+        # 
+        # >  Set this parameter to **cn-china** for all your instances that reside in the regions in the Chinese mainland.
+        self.region = region  # type: str
+        # The reserved parameter.
         self.tag_names = tag_names  # type: str
+        # The time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.time = time  # type: str
+        # The type of instances that you want to query. Valid values:
+        # 
+        # *   **RED**: the best-performing instances
+        # *   **BLACK**: the worst-performing instances
         self.type = type  # type: str
 
     def validate(self):
@@ -6719,6 +18138,8 @@ class GetQueryOptimizeDataTopRequest(TeaModel):
             result['Engine'] = self.engine
         if self.instance_ids is not None:
             result['InstanceIds'] = self.instance_ids
+        if self.region is not None:
+            result['Region'] = self.region
         if self.tag_names is not None:
             result['TagNames'] = self.tag_names
         if self.time is not None:
@@ -6733,6 +18154,8 @@ class GetQueryOptimizeDataTopRequest(TeaModel):
             self.engine = m.get('Engine')
         if m.get('InstanceIds') is not None:
             self.instance_ids = m.get('InstanceIds')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
         if m.get('TagNames') is not None:
             self.tag_names = m.get('TagNames')
         if m.get('Time') is not None:
@@ -6744,8 +18167,14 @@ class GetQueryOptimizeDataTopRequest(TeaModel):
 
 class GetQueryOptimizeDataTopResponseBodyDataList(TeaModel):
     def __init__(self, instance_id=None, type=None, value=None):
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The metric name. Valid values:
+        # 
+        # * **sqlExecuteCount**: the number of slow SQL executions.
+        # * **optimizedSqlExecuteCount**: the number of slow SQL executions that need to be optimized.
         self.type = type  # type: str
+        # The metric value.
         self.value = value  # type: float
 
     def validate(self):
@@ -6778,10 +18207,15 @@ class GetQueryOptimizeDataTopResponseBodyDataList(TeaModel):
 
 class GetQueryOptimizeDataTopResponseBodyData(TeaModel):
     def __init__(self, extra=None, list=None, page_no=None, page_size=None, total=None):
+        # The reserved parameter.
         self.extra = extra  # type: str
+        # The information about the instances.
         self.list = list  # type: list[GetQueryOptimizeDataTopResponseBodyDataList]
+        # The reserved parameter.
         self.page_no = page_no  # type: int
+        # The reserved parameter.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -6830,10 +18264,18 @@ class GetQueryOptimizeDataTopResponseBodyData(TeaModel):
 
 class GetQueryOptimizeDataTopResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information.
         self.data = data  # type: GetQueryOptimizeDataTopResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -6875,12 +18317,14 @@ class GetQueryOptimizeDataTopResponseBody(TeaModel):
 
 
 class GetQueryOptimizeDataTopResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetQueryOptimizeDataTopResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6893,6 +18337,8 @@ class GetQueryOptimizeDataTopResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6901,6 +18347,8 @@ class GetQueryOptimizeDataTopResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetQueryOptimizeDataTopResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6908,11 +18356,34 @@ class GetQueryOptimizeDataTopResponse(TeaModel):
 
 
 class GetQueryOptimizeDataTrendRequest(TeaModel):
-    def __init__(self, end=None, engine=None, instance_ids=None, start=None, tag_names=None):
+    def __init__(self, end=None, engine=None, instance_ids=None, region=None, start=None, tag_names=None):
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The end time must be later than the start time, but not later than 00:00:00 (UTC+8) on the current day.
         self.end = end  # type: str
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**\
+        # *   **PolarDBMySQL**\
+        # *   **PostgreSQL**\
         self.engine = engine  # type: str
+        # The instance IDs. Separate multiple IDs with commas (,).
         self.instance_ids = instance_ids  # type: str
+        # The region in which the instance resides. Valid values:
+        # 
+        # *   **cn-china**: Chinese mainland.
+        # *   **cn-hongkong**: China (Hong Kong).
+        # *   **ap-southeast-1**: Singapore.
+        # 
+        # This parameter takes effect only if **InstanceIds** is left empty. If you leave **InstanceIds** empty, the system obtains data from the region specified by **Region**. By default, Region is set to **cn-china**. If you specify **InstanceIds**, **Region** does not take effect and the system obtains data from the region in which the first specified instance resides.****\
+        # 
+        # >  If your instances reside in the regions inside the Chinese mainland, set this parameter to **cn-china**.
+        self.region = region  # type: str
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  You can specify a start time up to two months earlier than the current time.
         self.start = start  # type: str
+        # The reserved parameter.
         self.tag_names = tag_names  # type: str
 
     def validate(self):
@@ -6930,6 +18401,8 @@ class GetQueryOptimizeDataTrendRequest(TeaModel):
             result['Engine'] = self.engine
         if self.instance_ids is not None:
             result['InstanceIds'] = self.instance_ids
+        if self.region is not None:
+            result['Region'] = self.region
         if self.start is not None:
             result['Start'] = self.start
         if self.tag_names is not None:
@@ -6944,6 +18417,8 @@ class GetQueryOptimizeDataTrendRequest(TeaModel):
             self.engine = m.get('Engine')
         if m.get('InstanceIds') is not None:
             self.instance_ids = m.get('InstanceIds')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
         if m.get('Start') is not None:
             self.start = m.get('Start')
         if m.get('TagNames') is not None:
@@ -6953,8 +18428,20 @@ class GetQueryOptimizeDataTrendRequest(TeaModel):
 
 class GetQueryOptimizeDataTrendResponseBodyDataList(TeaModel):
     def __init__(self, kpi=None, timestamp=None, value=None):
+        # The name of the metric. Valid values:
+        # 
+        # * **sqlExecuteCount**: the number of executions of slow SQL queries.
+        # * **sqlExecuteCountDiff**: the difference in the number of executions of slow SQL queries compared to the previous day.
+        # * **sqlCount**: the number of slow SQL templates.
+        # * **sqlCountDiff**: the difference in the number of slow SQL templates compared to the previous day.
+        # * **optimizedSqlExecuteCount**: the number of optimizable executions of slow SQL queries.
+        # * **optimizedSqlExecuteCountDiff**: the difference in the number of optimizable executions of slow SQL queries compared to the previous day.
+        # * **optimizedSqlCount**: the number of optimizable slow SQL templates.
+        # * **optimizedSqlCountDiff**: the difference in the number of optimizable slow SQL templates compared to the previous day.
         self.kpi = kpi  # type: str
+        # The data timestamp. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.timestamp = timestamp  # type: long
+        # The value of the metric.
         self.value = value  # type: float
 
     def validate(self):
@@ -6987,10 +18474,15 @@ class GetQueryOptimizeDataTrendResponseBodyDataList(TeaModel):
 
 class GetQueryOptimizeDataTrendResponseBodyData(TeaModel):
     def __init__(self, extra=None, list=None, page_no=None, page_size=None, total=None):
+        # The reserved parameter.
         self.extra = extra  # type: str
+        # The details of the trend data.
         self.list = list  # type: list[GetQueryOptimizeDataTrendResponseBodyDataList]
+        # The reserved parameter.
         self.page_no = page_no  # type: int
+        # The reserved parameter.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -7039,10 +18531,18 @@ class GetQueryOptimizeDataTrendResponseBodyData(TeaModel):
 
 class GetQueryOptimizeDataTrendResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information.
         self.data = data  # type: GetQueryOptimizeDataTrendResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -7084,12 +18584,14 @@ class GetQueryOptimizeDataTrendResponseBody(TeaModel):
 
 
 class GetQueryOptimizeDataTrendResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetQueryOptimizeDataTrendResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7102,6 +18604,8 @@ class GetQueryOptimizeDataTrendResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7110,6 +18614,8 @@ class GetQueryOptimizeDataTrendResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetQueryOptimizeDataTrendResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7118,9 +18624,17 @@ class GetQueryOptimizeDataTrendResponse(TeaModel):
 
 class GetQueryOptimizeExecErrorSampleRequest(TeaModel):
     def __init__(self, engine=None, instance_id=None, sql_id=None, time=None):
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**\
+        # *   **PolarDBMySQL**\
+        # *   **PostgreSQL**\
         self.engine = engine  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The SQL template ID. You can call the [GetQueryOptimizeExecErrorStats](~~405235~~) operation to obtain the SQL template ID.
         self.sql_id = sql_id  # type: str
+        # The date to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.time = time  # type: str
 
     def validate(self):
@@ -7158,12 +18672,19 @@ class GetQueryOptimizeExecErrorSampleRequest(TeaModel):
 class GetQueryOptimizeExecErrorSampleResponseBodyDataList(TeaModel):
     def __init__(self, dbname=None, error_code=None, orig_host=None, sql_id=None, sql_text=None, timestamp=None,
                  user=None):
+        # The name of the database.
         self.dbname = dbname  # type: str
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The IP address of the client that executes the SQL statement.
         self.orig_host = orig_host  # type: str
+        # The SQL template ID.
         self.sql_id = sql_id  # type: str
+        # The content of the SQL statement that failed to be executed.
         self.sql_text = sql_text  # type: str
+        # The point in time when the failed SQL statement was executed. The value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.timestamp = timestamp  # type: long
+        # The username of the client that executes the SQL statement.
         self.user = user  # type: str
 
     def validate(self):
@@ -7212,10 +18733,15 @@ class GetQueryOptimizeExecErrorSampleResponseBodyDataList(TeaModel):
 
 class GetQueryOptimizeExecErrorSampleResponseBodyData(TeaModel):
     def __init__(self, extra=None, list=None, page_no=None, page_size=None, total=None):
+        # A reserved parameter.
         self.extra = extra  # type: str
+        # The queried data.
         self.list = list  # type: list[GetQueryOptimizeExecErrorSampleResponseBodyDataList]
+        # A reserved parameter.
         self.page_no = page_no  # type: int
+        # A reserved parameter.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -7264,10 +18790,18 @@ class GetQueryOptimizeExecErrorSampleResponseBodyData(TeaModel):
 
 class GetQueryOptimizeExecErrorSampleResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information.
         self.data = data  # type: GetQueryOptimizeExecErrorSampleResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -7309,12 +18843,14 @@ class GetQueryOptimizeExecErrorSampleResponseBody(TeaModel):
 
 
 class GetQueryOptimizeExecErrorSampleResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetQueryOptimizeExecErrorSampleResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7327,6 +18863,8 @@ class GetQueryOptimizeExecErrorSampleResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7335,6 +18873,8 @@ class GetQueryOptimizeExecErrorSampleResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetQueryOptimizeExecErrorSampleResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7343,16 +18883,46 @@ class GetQueryOptimizeExecErrorSampleResponse(TeaModel):
 
 class GetQueryOptimizeExecErrorStatsRequest(TeaModel):
     def __init__(self, asc=None, db_names=None, engine=None, instance_ids=None, keywords=None, logical_operator=None,
-                 order_by=None, page_no=None, page_size=None, time=None):
+                 order_by=None, page_no=None, page_size=None, region=None, time=None):
+        # Specifies whether to sort the returned entries in ascending order. Default value: **true**. Valid values:
+        # 
+        # *   **true**: sorts the returned entries in ascending order.
+        # *   **false**: does not sort the returned entries in ascending order.
         self.asc = asc  # type: str
+        # The name of the database to be queried.
         self.db_names = db_names  # type: str
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**\
+        # *   **PolarDBMySQL**\
+        # *   **PostgreSQL**\
         self.engine = engine  # type: str
+        # The instance IDs. Separate multiple IDs with commas (,).
         self.instance_ids = instance_ids  # type: str
+        # The keywords of the SQL template. Separate multiple keywords with spaces.
         self.keywords = keywords  # type: str
+        # The logical relationship between multiple keywords. Valid values:
+        # 
+        # *   **or**\
+        # *   **and**\
         self.logical_operator = logical_operator  # type: str
+        # The field by which to sort the returned entries. Only error_count is supported, which specifies that the entries are sorted based on the number of failed executions.
         self.order_by = order_by  # type: str
+        # The page number. Pages start from page 1. Default value: 1.
         self.page_no = page_no  # type: str
+        # The number of entries per page. Default value: 10.
         self.page_size = page_size  # type: str
+        # The region in which the instance resides. Valid values:
+        # 
+        # *   **cn-china**: Chinese mainland
+        # *   **cn-hongkong**: China (Hong Kong)
+        # *   **ap-southeast-1**: Singapore
+        # 
+        # This parameter takes effect only if **InstanceIds** is left empty. If you leave **InstanceIds** empty, the system obtains data from the region set by **Region**. By default, Region is set to **cn-china**. If you specify **InstanceIds**, **Region** does not take effect and the system obtains data from the region in which the first specified instance resides.****\
+        # 
+        # >  Set this parameter to **cn-china** for the instances that are created in the regions in the Chinese mainland.
+        self.region = region  # type: str
+        # The time range to query. Specify the time in the UNIX timestamp format. Unit: milliseconds.
         self.time = time  # type: str
 
     def validate(self):
@@ -7382,6 +18952,8 @@ class GetQueryOptimizeExecErrorStatsRequest(TeaModel):
             result['PageNo'] = self.page_no
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.region is not None:
+            result['Region'] = self.region
         if self.time is not None:
             result['Time'] = self.time
         return result
@@ -7406,6 +18978,8 @@ class GetQueryOptimizeExecErrorStatsRequest(TeaModel):
             self.page_no = m.get('PageNo')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
         if m.get('Time') is not None:
             self.time = m.get('Time')
         return self
@@ -7414,12 +18988,19 @@ class GetQueryOptimizeExecErrorStatsRequest(TeaModel):
 class GetQueryOptimizeExecErrorStatsResponseBodyDataList(TeaModel):
     def __init__(self, dbname=None, error_code=None, error_count=None, instance_id=None, instance_name=None,
                  sql_id=None, sql_text=None):
+        # The name of the database.
         self.dbname = dbname  # type: str
+        # The error code returned if the request failed.
         self.error_code = error_code  # type: str
+        # The number of errors.
         self.error_count = error_count  # type: long
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The alias of the database instance.
         self.instance_name = instance_name  # type: str
+        # The SQL template ID.
         self.sql_id = sql_id  # type: str
+        # The content of the SQL template.
         self.sql_text = sql_text  # type: str
 
     def validate(self):
@@ -7468,10 +19049,15 @@ class GetQueryOptimizeExecErrorStatsResponseBodyDataList(TeaModel):
 
 class GetQueryOptimizeExecErrorStatsResponseBodyData(TeaModel):
     def __init__(self, extra=None, list=None, page_no=None, page_size=None, total=None):
+        # The reserved parameter.
         self.extra = extra  # type: str
+        # The information about the SQL templates that failed to execute.
         self.list = list  # type: list[GetQueryOptimizeExecErrorStatsResponseBodyDataList]
+        # The page number.
         self.page_no = page_no  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -7520,10 +19106,18 @@ class GetQueryOptimizeExecErrorStatsResponseBodyData(TeaModel):
 
 class GetQueryOptimizeExecErrorStatsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information, including the error codes and the number of entries that are returned.
         self.data = data  # type: GetQueryOptimizeExecErrorStatsResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -7565,12 +19159,14 @@ class GetQueryOptimizeExecErrorStatsResponseBody(TeaModel):
 
 
 class GetQueryOptimizeExecErrorStatsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetQueryOptimizeExecErrorStatsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7583,6 +19179,8 @@ class GetQueryOptimizeExecErrorStatsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7591,6 +19189,8 @@ class GetQueryOptimizeExecErrorStatsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetQueryOptimizeExecErrorStatsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7598,9 +19198,26 @@ class GetQueryOptimizeExecErrorStatsResponse(TeaModel):
 
 
 class GetQueryOptimizeRuleListRequest(TeaModel):
-    def __init__(self, engine=None, instance_ids=None, tag_names=None):
+    def __init__(self, engine=None, instance_ids=None, region=None, tag_names=None):
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**\
+        # *   **PolarDBMySQL**\
+        # *   **PostgreSQL**\
         self.engine = engine  # type: str
+        # The instance IDs. Separate multiple IDs with commas (,).
         self.instance_ids = instance_ids  # type: str
+        # The region in which the instance resides. Valid values:
+        # 
+        # *   **cn-china**: Chinese mainland
+        # *   **cn-hongkong**: China (Hong Kong)
+        # *   **ap-southeast-1**: Singapore
+        # 
+        # This parameter takes effect only if **InstanceIds** is left empty. If you leave **InstanceIds** empty, the system obtains data from the region set by **Region**. By default, Region is set to **cn-china**. If you specify **InstanceIds**, **Region** does not take effect and the system obtains data from the region in which the first specified instance resides.****\
+        # 
+        # >  If your instances reside in the regions in the Chinese mainland, set this parameter to **cn-china**.
+        self.region = region  # type: str
+        # A reserved parameter.
         self.tag_names = tag_names  # type: str
 
     def validate(self):
@@ -7616,6 +19233,8 @@ class GetQueryOptimizeRuleListRequest(TeaModel):
             result['Engine'] = self.engine
         if self.instance_ids is not None:
             result['InstanceIds'] = self.instance_ids
+        if self.region is not None:
+            result['Region'] = self.region
         if self.tag_names is not None:
             result['TagNames'] = self.tag_names
         return result
@@ -7626,6 +19245,8 @@ class GetQueryOptimizeRuleListRequest(TeaModel):
             self.engine = m.get('Engine')
         if m.get('InstanceIds') is not None:
             self.instance_ids = m.get('InstanceIds')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
         if m.get('TagNames') is not None:
             self.tag_names = m.get('TagNames')
         return self
@@ -7633,8 +19254,11 @@ class GetQueryOptimizeRuleListRequest(TeaModel):
 
 class GetQueryOptimizeRuleListResponseBodyDataList(TeaModel):
     def __init__(self, name=None, rule_id=None, type=None):
+        # The name of the tag.
         self.name = name  # type: str
+        # A reserved parameter.
         self.rule_id = rule_id  # type: str
+        # The type of the tag. **Predefined** is returned, which indicates that the tag is added by the system.
         self.type = type  # type: str
 
     def validate(self):
@@ -7667,10 +19291,15 @@ class GetQueryOptimizeRuleListResponseBodyDataList(TeaModel):
 
 class GetQueryOptimizeRuleListResponseBodyData(TeaModel):
     def __init__(self, extra=None, list=None, page_no=None, page_size=None, total=None):
+        # A reserved parameter.
         self.extra = extra  # type: str
+        # The information about tags.
         self.list = list  # type: list[GetQueryOptimizeRuleListResponseBodyDataList]
+        # A reserved parameter.
         self.page_no = page_no  # type: int
+        # A reserved parameter.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -7719,10 +19348,18 @@ class GetQueryOptimizeRuleListResponseBodyData(TeaModel):
 
 class GetQueryOptimizeRuleListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information.
         self.data = data  # type: GetQueryOptimizeRuleListResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -7764,12 +19401,14 @@ class GetQueryOptimizeRuleListResponseBody(TeaModel):
 
 
 class GetQueryOptimizeRuleListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetQueryOptimizeRuleListResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7782,6 +19421,8 @@ class GetQueryOptimizeRuleListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7790,16 +19431,268 @@ class GetQueryOptimizeRuleListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetQueryOptimizeRuleListResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class GetQueryOptimizeSolutionRequest(TeaModel):
-    def __init__(self, engine=None, rule_ids=None, sql_id=None):
+class GetQueryOptimizeShareUrlRequest(TeaModel):
+    def __init__(self, asc=None, db_names=None, engine=None, instance_ids=None, keywords=None, logical_operator=None,
+                 only_optimized_sql=None, order_by=None, page_no=None, page_size=None, region=None, rules=None, sql_ids=None,
+                 tag_names=None, time=None, user=None):
+        # Specifies whether to sort the returned entries in ascending order. Default value: **true**. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.asc = asc  # type: bool
+        # The name of the database to be queried.
+        self.db_names = db_names  # type: str
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**: ApsaraDB RDS for MySQL
+        # *   **PolarDBMySQL**: PolarDB for MySQL
+        # *   **PostgreSQL**: ApsaraDB RDS for PostgreSQL
         self.engine = engine  # type: str
+        # The instance IDs. Separate multiple IDs with commas (,).
+        self.instance_ids = instance_ids  # type: str
+        # The keywords of the SQL template. Separate multiple keywords with spaces.
+        self.keywords = keywords  # type: str
+        # The logical relationship between multiple keywords. Valid values:
+        # 
+        # *   **or**\
+        # *   **and**\
+        self.logical_operator = logical_operator  # type: str
+        # Specifies whether to query only SQL templates that need to be optimized. Default value: **false**. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.only_optimized_sql = only_optimized_sql  # type: bool
+        # The field by which to sort the returned entries. Default value: **count**. Valid values:
+        # 
+        # *   **count**: the number of executions.
+        # *   **maxQueryTime**: the longest execution duration.
+        # *   **avgQueryTime**: the average execution duration.
+        # *   **maxLockTime**: the longest lock wait duration.
+        # *   **avgLockTime**: the average lock wait duration.
+        # *   **maxRowsExamined**: the largest number of scanned rows.
+        # *   **avgRowsExamined**: the average number of scanned rows.
+        # *   **maxRowsSent**: the largest number of returned rows.
+        # *   **avgRowsSent**: the average number of returned rows.
+        self.order_by = order_by  # type: str
+        # The page number. Pages start from page 1. Default value: 1.
+        self.page_no = page_no  # type: int
+        # The number of entries per page. Default value: 10.
+        self.page_size = page_size  # type: int
+        # The region in which the instance resides. Valid values:
+        # 
+        # *   **cn-china**: Chinese mainland
+        # *   **cn-hongkong**: China (Hong Kong)
+        # *   **ap-southeast-1**: Singapore
+        # 
+        # This parameter takes effect only if **InstanceIds** is left empty. If you leave **InstanceIds** empty, the system obtains data from the region set by **Region**. By default, Region is set to **cn-china**. If you specify **InstanceIds**, **Region** does not take effect and the system obtains data from the region in which the first specified instance resides.****\
+        # 
+        # >  If your instances reside in the regions in the Chinese mainland, set this parameter to **cn-china**.
+        self.region = region  # type: str
+        # The tags that are used to filter SQL templates. Separate multiple tags with commas (,). For more information, see [Query governance](~~290038~~).
+        self.rules = rules  # type: str
+        # The SQL template IDs. You can call the [GetQueryOptimizeExecErrorStats](~~405261~~) operation to obtain the SQL template IDs.
+        self.sql_ids = sql_ids  # type: str
+        # A reserved parameter.
+        self.tag_names = tag_names  # type: str
+        # The date to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.time = time  # type: long
+        # The account of the database to be queried.
+        self.user = user  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetQueryOptimizeShareUrlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.asc is not None:
+            result['Asc'] = self.asc
+        if self.db_names is not None:
+            result['DbNames'] = self.db_names
+        if self.engine is not None:
+            result['Engine'] = self.engine
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        if self.keywords is not None:
+            result['Keywords'] = self.keywords
+        if self.logical_operator is not None:
+            result['LogicalOperator'] = self.logical_operator
+        if self.only_optimized_sql is not None:
+            result['OnlyOptimizedSql'] = self.only_optimized_sql
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.rules is not None:
+            result['Rules'] = self.rules
+        if self.sql_ids is not None:
+            result['SqlIds'] = self.sql_ids
+        if self.tag_names is not None:
+            result['TagNames'] = self.tag_names
+        if self.time is not None:
+            result['Time'] = self.time
+        if self.user is not None:
+            result['User'] = self.user
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Asc') is not None:
+            self.asc = m.get('Asc')
+        if m.get('DbNames') is not None:
+            self.db_names = m.get('DbNames')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        if m.get('Keywords') is not None:
+            self.keywords = m.get('Keywords')
+        if m.get('LogicalOperator') is not None:
+            self.logical_operator = m.get('LogicalOperator')
+        if m.get('OnlyOptimizedSql') is not None:
+            self.only_optimized_sql = m.get('OnlyOptimizedSql')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('Rules') is not None:
+            self.rules = m.get('Rules')
+        if m.get('SqlIds') is not None:
+            self.sql_ids = m.get('SqlIds')
+        if m.get('TagNames') is not None:
+            self.tag_names = m.get('TagNames')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        if m.get('User') is not None:
+            self.user = m.get('User')
+        return self
+
+
+class GetQueryOptimizeShareUrlResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The share URL.
+        self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message that contains information such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetQueryOptimizeShareUrlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetQueryOptimizeShareUrlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetQueryOptimizeShareUrlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetQueryOptimizeShareUrlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetQueryOptimizeShareUrlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetQueryOptimizeSolutionRequest(TeaModel):
+    def __init__(self, engine=None, instance_id=None, rule_ids=None, sql_id=None):
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**\
+        # *   **PolarDBMySQL**\
+        # *   **PostgreSQL**\
+        self.engine = engine  # type: str
+        # The instance ID. You can call the [GetQueryOptimizeDataStats](~~405261~~) operation to query the instance ID.
+        self.instance_id = instance_id  # type: str
+        # The tag ID. For more information, see [Query governance](~~290038~~).
         self.rule_ids = rule_ids  # type: str
+        # The SQL template ID. You can call the [GetQueryOptimizeDataStats](~~405261~~) operation to query the SQL template ID.
         self.sql_id = sql_id  # type: str
 
     def validate(self):
@@ -7813,6 +19706,8 @@ class GetQueryOptimizeSolutionRequest(TeaModel):
         result = dict()
         if self.engine is not None:
             result['Engine'] = self.engine
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
         if self.rule_ids is not None:
             result['RuleIds'] = self.rule_ids
         if self.sql_id is not None:
@@ -7823,6 +19718,8 @@ class GetQueryOptimizeSolutionRequest(TeaModel):
         m = m or dict()
         if m.get('Engine') is not None:
             self.engine = m.get('Engine')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
         if m.get('RuleIds') is not None:
             self.rule_ids = m.get('RuleIds')
         if m.get('SqlId') is not None:
@@ -7832,9 +19729,16 @@ class GetQueryOptimizeSolutionRequest(TeaModel):
 
 class GetQueryOptimizeSolutionResponseBodyDataList(TeaModel):
     def __init__(self, level=None, rule_id=None, solution=None, solution_ext=None):
+        # The severity level. Valid values:
+        # 
+        # * **INFO**\
+        # * **WARN**\
         self.level = level  # type: str
+        # The tag ID.
         self.rule_id = rule_id  # type: str
+        # The suggestion.
         self.solution = solution  # type: str
+        # The reserved parameter.
         self.solution_ext = solution_ext  # type: str
 
     def validate(self):
@@ -7871,10 +19775,15 @@ class GetQueryOptimizeSolutionResponseBodyDataList(TeaModel):
 
 class GetQueryOptimizeSolutionResponseBodyData(TeaModel):
     def __init__(self, extra=None, list=None, page_no=None, page_size=None, total=None):
+        # The reserved parameter.
         self.extra = extra  # type: str
+        # The optimization suggestions.
         self.list = list  # type: list[GetQueryOptimizeSolutionResponseBodyDataList]
+        # The reserved parameter.
         self.page_no = page_no  # type: int
+        # The reserved parameter.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -7923,10 +19832,18 @@ class GetQueryOptimizeSolutionResponseBodyData(TeaModel):
 
 class GetQueryOptimizeSolutionResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The data returned.
         self.data = data  # type: GetQueryOptimizeSolutionResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -7968,12 +19885,14 @@ class GetQueryOptimizeSolutionResponseBody(TeaModel):
 
 
 class GetQueryOptimizeSolutionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetQueryOptimizeSolutionResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7986,6 +19905,8 @@ class GetQueryOptimizeSolutionResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7994,20 +19915,590 @@ class GetQueryOptimizeSolutionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetQueryOptimizeSolutionResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class GetQueryOptimizeTagRequest(TeaModel):
+    def __init__(self, engine=None, instance_id=None, sql_id=None):
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**: ApsaraDB RDS for MySQL
+        # *   **PolarDBMySQL**: PolarDB for MySQL
+        # *   **PostgreSQL**: ApsaraDB RDS for PostgreSQL
+        self.engine = engine  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The SQL template ID. You can call the [GetQueryOptimizeDataStats](~~405261~~) operation to query the SQL template ID.
+        self.sql_id = sql_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetQueryOptimizeTagRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.engine is not None:
+            result['Engine'] = self.engine
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.sql_id is not None:
+            result['SqlId'] = self.sql_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('SqlId') is not None:
+            self.sql_id = m.get('SqlId')
+        return self
+
+
+class GetQueryOptimizeTagResponseBodyData(TeaModel):
+    def __init__(self, comments=None, sql_id=None, tags=None):
+        # The remarks.
+        self.comments = comments  # type: str
+        # The SQL template ID.
+        self.sql_id = sql_id  # type: str
+        # The SQL tags. Multiple tags are separated by commas (,).
+        self.tags = tags  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetQueryOptimizeTagResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.comments is not None:
+            result['Comments'] = self.comments
+        if self.sql_id is not None:
+            result['SqlId'] = self.sql_id
+        if self.tags is not None:
+            result['Tags'] = self.tags
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Comments') is not None:
+            self.comments = m.get('Comments')
+        if m.get('SqlId') is not None:
+            self.sql_id = m.get('SqlId')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
+        return self
+
+
+class GetQueryOptimizeTagResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The returned SQL tag data.
+        self.data = data  # type: GetQueryOptimizeTagResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetQueryOptimizeTagResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetQueryOptimizeTagResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetQueryOptimizeTagResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetQueryOptimizeTagResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetQueryOptimizeTagResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetQueryOptimizeTagResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetRedisAllSessionRequest(TeaModel):
+    def __init__(self, console_context=None, instance_id=None):
+        # The reserved parameter.
+        self.console_context = console_context  # type: str
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetRedisAllSessionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.console_context is not None:
+            result['ConsoleContext'] = self.console_context
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConsoleContext') is not None:
+            self.console_context = m.get('ConsoleContext')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class GetRedisAllSessionResponseBodyDataSessions(TeaModel):
+    def __init__(self, addr=None, age=None, client=None, client_desc=None, cmd=None, db=None, events=None, fd=None,
+                 flags=None, id=None, idle=None, multi=None, name=None, node_id=None, obl=None, oll=None, omem=None,
+                 psub=None, qbuf=None, qbuf_free=None, sub=None):
+        # The IP address and port number of the client.
+        self.addr = addr  # type: str
+        # The connection duration of the session. Unit: seconds.
+        self.age = age  # type: str
+        # The IP address of the client.
+        self.client = client  # type: str
+        # The alias of the client.
+        self.client_desc = client_desc  # type: str
+        # The command that was last run.
+        self.cmd = cmd  # type: str
+        # The ID of the database that the client is using.
+        self.db = db  # type: long
+        # The file descriptor event. Valid values:
+        # 
+        # *   **r**: Client sockets are readable in the event loop.
+        # *   **w**: Client sockets are writable in the event loop.
+        self.events = events  # type: str
+        # The file descriptor that is used by sockets.
+        self.fd = fd  # type: long
+        # The client flag. Valid values:
+        # 
+        # *   **A**: The connection needs to be closed at the earliest opportunity.
+        # *   **b**: The client is waiting for blocked events.
+        # *   **c**: The connection is closed after all replies are written.
+        # *   **d**: The monitored keys have been modified, and the `EXEC` command is about to fail.
+        # *   **i**: The client is waiting for VM I/O operations. This value is no longer used.
+        # *   **M**: The client is the primary node.
+        # *   **N**: No special flags are configured.
+        # *   **O**: The client is in monitor mode.
+        # *   **r**: The client is a cluster node in read-only mode.
+        # *   **S**: The client is a replica node in normal mode.
+        # *   **u**: The client is not blocked.
+        # *   **U**: The client is connected by using UNIX domain sockets.
+        # *   **x**: The client is executing a transaction.
+        self.flags = flags  # type: str
+        # The client ID.
+        self.id = id  # type: long
+        # The duration during which the session is in the idle state. Unit: seconds.
+        self.idle = idle  # type: long
+        # The number of commands in `MULTI` or `EXEC`.
+        self.multi = multi  # type: long
+        # The name of the client.
+        self.name = name  # type: str
+        # The node ID.
+        self.node_id = node_id  # type: str
+        # The size of the fixed output buffer. Unit: bytes.
+        self.obl = obl  # type: long
+        # The number of objects contained in the output list.
+        self.oll = oll  # type: long
+        # The size of the output buffer. Unit: bytes.
+        self.omem = omem  # type: long
+        # The number of subscriptions that match the pattern.
+        self.psub = psub  # type: long
+        # The size of the input buffer. Unit: bytes.
+        self.qbuf = qbuf  # type: long
+        # The remaining size of the input buffer. Unit: bytes.
+        self.qbuf_free = qbuf_free  # type: long
+        # The number of subscribed channels.
+        self.sub = sub  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetRedisAllSessionResponseBodyDataSessions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.addr is not None:
+            result['Addr'] = self.addr
+        if self.age is not None:
+            result['Age'] = self.age
+        if self.client is not None:
+            result['Client'] = self.client
+        if self.client_desc is not None:
+            result['ClientDesc'] = self.client_desc
+        if self.cmd is not None:
+            result['Cmd'] = self.cmd
+        if self.db is not None:
+            result['Db'] = self.db
+        if self.events is not None:
+            result['Events'] = self.events
+        if self.fd is not None:
+            result['Fd'] = self.fd
+        if self.flags is not None:
+            result['Flags'] = self.flags
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.idle is not None:
+            result['Idle'] = self.idle
+        if self.multi is not None:
+            result['Multi'] = self.multi
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.obl is not None:
+            result['Obl'] = self.obl
+        if self.oll is not None:
+            result['Oll'] = self.oll
+        if self.omem is not None:
+            result['Omem'] = self.omem
+        if self.psub is not None:
+            result['Psub'] = self.psub
+        if self.qbuf is not None:
+            result['Qbuf'] = self.qbuf
+        if self.qbuf_free is not None:
+            result['QbufFree'] = self.qbuf_free
+        if self.sub is not None:
+            result['Sub'] = self.sub
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Addr') is not None:
+            self.addr = m.get('Addr')
+        if m.get('Age') is not None:
+            self.age = m.get('Age')
+        if m.get('Client') is not None:
+            self.client = m.get('Client')
+        if m.get('ClientDesc') is not None:
+            self.client_desc = m.get('ClientDesc')
+        if m.get('Cmd') is not None:
+            self.cmd = m.get('Cmd')
+        if m.get('Db') is not None:
+            self.db = m.get('Db')
+        if m.get('Events') is not None:
+            self.events = m.get('Events')
+        if m.get('Fd') is not None:
+            self.fd = m.get('Fd')
+        if m.get('Flags') is not None:
+            self.flags = m.get('Flags')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Idle') is not None:
+            self.idle = m.get('Idle')
+        if m.get('Multi') is not None:
+            self.multi = m.get('Multi')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('Obl') is not None:
+            self.obl = m.get('Obl')
+        if m.get('Oll') is not None:
+            self.oll = m.get('Oll')
+        if m.get('Omem') is not None:
+            self.omem = m.get('Omem')
+        if m.get('Psub') is not None:
+            self.psub = m.get('Psub')
+        if m.get('Qbuf') is not None:
+            self.qbuf = m.get('Qbuf')
+        if m.get('QbufFree') is not None:
+            self.qbuf_free = m.get('QbufFree')
+        if m.get('Sub') is not None:
+            self.sub = m.get('Sub')
+        return self
+
+
+class GetRedisAllSessionResponseBodyDataSourceStats(TeaModel):
+    def __init__(self, count=None, ids=None, key=None):
+        # The total number of sessions from the access source.
+        self.count = count  # type: str
+        # The client IDs.
+        self.ids = ids  # type: list[long]
+        # The access source.
+        self.key = key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetRedisAllSessionResponseBodyDataSourceStats, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.ids is not None:
+            result['Ids'] = self.ids
+        if self.key is not None:
+            result['Key'] = self.key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('Ids') is not None:
+            self.ids = m.get('Ids')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        return self
+
+
+class GetRedisAllSessionResponseBodyData(TeaModel):
+    def __init__(self, sessions=None, source_stats=None, timestamp=None, total=None):
+        # The information about the sessions.
+        self.sessions = sessions  # type: list[GetRedisAllSessionResponseBodyDataSessions]
+        # The statistics on the access source.
+        self.source_stats = source_stats  # type: list[GetRedisAllSessionResponseBodyDataSourceStats]
+        # The time when the instance sessions were returned. The value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.timestamp = timestamp  # type: long
+        # The total number of sessions.
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.sessions:
+            for k in self.sessions:
+                if k:
+                    k.validate()
+        if self.source_stats:
+            for k in self.source_stats:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetRedisAllSessionResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Sessions'] = []
+        if self.sessions is not None:
+            for k in self.sessions:
+                result['Sessions'].append(k.to_map() if k else None)
+        result['SourceStats'] = []
+        if self.source_stats is not None:
+            for k in self.source_stats:
+                result['SourceStats'].append(k.to_map() if k else None)
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.sessions = []
+        if m.get('Sessions') is not None:
+            for k in m.get('Sessions'):
+                temp_model = GetRedisAllSessionResponseBodyDataSessions()
+                self.sessions.append(temp_model.from_map(k))
+        self.source_stats = []
+        if m.get('SourceStats') is not None:
+            for k in m.get('SourceStats'):
+                temp_model = GetRedisAllSessionResponseBodyDataSourceStats()
+                self.source_stats.append(temp_model.from_map(k))
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class GetRedisAllSessionResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The session data.
+        self.data = data  # type: GetRedisAllSessionResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetRedisAllSessionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetRedisAllSessionResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetRedisAllSessionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetRedisAllSessionResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetRedisAllSessionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetRedisAllSessionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetRequestDiagnosisPageRequest(TeaModel):
     def __init__(self, end_time=None, instance_id=None, node_id=None, page_no=None, page_size=None, start_time=None):
-        self.end_time = end_time  # type: str
+        # The end of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.end_time = end_time  # type: long
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The node ID.
+        # 
+        # >  You must specify the node ID if your database instance is a PolarDB for MySQL, PolarDB for PostgreSQL (Compatible with Oracle), or ApsaraDB for MongoDB instance.
         self.node_id = node_id  # type: str
-        self.page_no = page_no  # type: str
-        self.page_size = page_size  # type: str
-        self.start_time = start_time  # type: str
+        # The page number. The value must be a positive integer. Default value: 1.
+        self.page_no = page_no  # type: int
+        # The number of entries per page. The value must be a positive integer. Default value: 10.
+        self.page_size = page_size  # type: int
+        # The beginning of the time range to query. Set this parameter to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.start_time = start_time  # type: long
 
     def validate(self):
         pass
@@ -8052,16 +20543,75 @@ class GetRequestDiagnosisPageRequest(TeaModel):
 class GetRequestDiagnosisPageResponseBodyDataList(TeaModel):
     def __init__(self, account_id=None, db_schema=None, engine=None, gmt_create=None, gmt_modified=None,
                  message_id=None, param=None, result=None, sql_id=None, state=None, uuid=None):
+        # The user ID.
         self.account_id = account_id  # type: str
+        # The name of the database.
         self.db_schema = db_schema  # type: str
+        # The database engine. Valid values:
+        # 
+        # * **MySQL**\
+        # * **PostgreSQL**\
+        # * **SQLServer**\
+        # * **PolarDBMySQL**\
+        # * **PolarDBOracle**\
+        # * **MongoDB**\
         self.engine = engine  # type: str
+        # The time when the SQL diagnostics task was created. The value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.gmt_create = gmt_create  # type: str
+        # The time when the SQL diagnostics task was modified. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.gmt_modified = gmt_modified  # type: str
+        # The unique ID of the diagnostics task.
         self.message_id = message_id  # type: str
+        # Additional information.
         self.param = param  # type: str
+        # The result of the SQL diagnostics task. The result includes the following information:
+        # 
+        # * **endTime**: the end time of the SQL diagnostics task.
+        # * **errorCode**: indicates whether the SQL diagnostics task is complete. Valid values:
+        #   * **0001**: The SQL diagnostics task is complete.
+        #   * **0003**: The SQL diagnostics task failed.
+        # 
+        # * **errorMessage**: the error message.
+        # * **estimateCost**: the estimated cost.
+        #   * **cpu**: the estimated CPU utilization of the index.
+        #   * **io**: the estimated I/O usage of the index.
+        #   * **rows**: the estimated values of the rows returned for the index.
+        # * **improvement**: the performance improvement ratio.
+        # * **indexAdvices**: the index recommendations, which include the following information:
+        #   * **columns**: the index columns.
+        #   * **ddlAddIndex**: the DDL statement for the index.
+        #   * **indexName**: the name of the index.
+        #   * **schemaName**: the name of the database.
+        #   * **tableName**: the name of the table.
+        #   * **unique**: indicates whether the index is unique.
+        # 
+        # * **ip**: the IP address of the instance.
+        # * **messageId**: the ID of the diagnostics task.
+        # * **port**: the port used to connect to the instance.
+        # * **sqlTag**: the SQL tag.
+        # * **startTime**: the start time of the SQL diagnostics task.
+        # * **success**: indicates whether the request was successful.
+        # * **support**: indicates whether the SQL statement can be diagnosed. Valid values:
+        #   * **true**: The SQL statement can be diagnosed.
+        #   * **false**: The SQL statement cannot be diagnosed.
+        # 
+        # * **tuningAdvices**: the SQL rewrite suggestions.
         self.result = result  # type: str
+        # The SQL template ID.
         self.sql_id = sql_id  # type: str
+        # The status of the diagnostics task. Valid values:
+        # 
+        # * **0**: The diagnostics task is in progress.
+        # 
+        # * **1**: A diagnostics error occurred.
+        # 
+        # * **2**: The diagnostics task is complete.
+        # 
+        # * **3**: An SQL error occurred.
+        # 
+        # * **4**: An engine error occurred.
         self.state = state  # type: int
+        # The unique ID of the diagnostics instance.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -8126,10 +20676,15 @@ class GetRequestDiagnosisPageResponseBodyDataList(TeaModel):
 
 class GetRequestDiagnosisPageResponseBodyData(TeaModel):
     def __init__(self, extra=None, list=None, page_no=None, page_size=None, total=None):
+        # Additional information.
         self.extra = extra  # type: str
+        # The SQL diagnostics records returned.
         self.list = list  # type: list[GetRequestDiagnosisPageResponseBodyDataList]
+        # The page number. The value must be a positive integer. Default value: 1.
         self.page_no = page_no  # type: long
+        # The number of entries per page. The value must be a positive integer. Default value: 10.
         self.page_size = page_size  # type: long
+        # The total number of returned entries.
         self.total = total  # type: long
 
     def validate(self):
@@ -8178,10 +20733,20 @@ class GetRequestDiagnosisPageResponseBodyData(TeaModel):
 
 class GetRequestDiagnosisPageResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: GetRequestDiagnosisPageResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message that contains information such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -8223,12 +20788,14 @@ class GetRequestDiagnosisPageResponseBody(TeaModel):
 
 
 class GetRequestDiagnosisPageResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetRequestDiagnosisPageResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8241,6 +20808,8 @@ class GetRequestDiagnosisPageResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8249,6 +20818,8 @@ class GetRequestDiagnosisPageResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetRequestDiagnosisPageResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8256,10 +20827,23 @@ class GetRequestDiagnosisPageResponse(TeaModel):
 
 
 class GetRequestDiagnosisResultRequest(TeaModel):
-    def __init__(self, instance_id=None, message_id=None, node_id=None):
+    def __init__(self, instance_id=None, message_id=None, node_id=None, source=None, sql_id=None):
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The unique ID of the diagnostics task. You can call the [CreateRequestDiagnosis](~~341609~~) operation to query the diagnostics task ID.
         self.message_id = message_id  # type: str
+        # The node ID.
+        # 
+        # >  You must specify the node ID if your database instance is a PolarDB for MySQL cluster, a PolarDB for PostgreSQL (compatible with Oracle) instance, or an ApsaraDB for MongoDB database.
         self.node_id = node_id  # type: str
+        # The source of the task.
+        # 
+        # >  This parameter is required if you call this operation in the DAS console. You do not need to specify this parameter when you call this operation.
+        self.source = source  # type: str
+        # The SQL template ID.
+        # 
+        # >  This parameter is required if you call this operation in the DAS console. You do not need to specify this parameter when you call this operation.
+        self.sql_id = sql_id  # type: str
 
     def validate(self):
         pass
@@ -8276,6 +20860,10 @@ class GetRequestDiagnosisResultRequest(TeaModel):
             result['MessageId'] = self.message_id
         if self.node_id is not None:
             result['NodeId'] = self.node_id
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.sql_id is not None:
+            result['SqlId'] = self.sql_id
         return result
 
     def from_map(self, m=None):
@@ -8286,22 +20874,95 @@ class GetRequestDiagnosisResultRequest(TeaModel):
             self.message_id = m.get('MessageId')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('SqlId') is not None:
+            self.sql_id = m.get('SqlId')
         return self
 
 
 class GetRequestDiagnosisResultResponseBodyData(TeaModel):
     def __init__(self, account_id=None, db_schema=None, engine=None, gmt_create=None, gmt_modified=None,
                  message_id=None, param=None, result=None, sql_id=None, state=None, uuid=None):
+        # The user ID.
         self.account_id = account_id  # type: str
+        # The name of the database.
         self.db_schema = db_schema  # type: str
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**\
+        # *   **PostgreSQL**\
+        # *   **SQLServer**\
+        # *   **PolarDBMySQL**\
+        # *   **PolarDBOracle**\
+        # *   **MongoDB**\
         self.engine = engine  # type: str
+        # The time when the SQL diagnostics task was created. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.gmt_create = gmt_create  # type: str
+        # The time when the SQL diagnostics task was modified. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.gmt_modified = gmt_modified  # type: str
+        # The unique ID of the diagnostics task.
         self.message_id = message_id  # type: str
+        # The additional information.
         self.param = param  # type: str
+        # The result of the SQL diagnostics task. The result includes the following information:
+        # 
+        # *   **endTime**: the end time of the SQL diagnostics task.
+        # 
+        # *   **errorCode**: the error code.
+        # 
+        #     *   **0001**: The SQL diagnostics task is complete.
+        #     *   **0003**: The SQL diagnostics task failed.
+        # 
+        # *   **errorMessage**: the error message.
+        # 
+        # *   **estimateCost**: the estimated cost.
+        # 
+        #     *   **cpu**: the estimated CPU utilization of the index.
+        #     *   **io**: the estimated I/O usage of the index.
+        #     *   **rows**: the estimated values of the rows returned for the index.
+        # 
+        # *   **improvement**: the performance improvement ratio.
+        # 
+        # *   **indexAdvices**: the index recommendations, which include the following information:
+        # 
+        #     *   **columns**: the index columns.
+        #     *   **ddlAddIndex**: the DDL statement for the index.
+        #     *   **indexName**: the name of the index.
+        #     *   **schemaName**: the name of the database.
+        #     *   **tableName**: the name of the table.
+        #     *   **unique**: indicates whether the index is unique.
+        # 
+        # *   **ip**: the IP address of the instance.
+        # 
+        # *   **messageId**: the ID of the diagnostics task.
+        # 
+        # *   **port**: the port used to connect to the instance.
+        # 
+        # *   **sqlTag**: the SQL tag.
+        # 
+        # *   **startTime**: the start time of the SQL diagnostics task.
+        # 
+        # *   **success**: indicates whether the request was successful.
+        # 
+        # *   **support**: indicates whether the SQL statement can be diagnosed. Valid values:
+        # 
+        #     *   **true**\
+        #     *   **false**\
+        # 
+        # *   **tuningAdvices** : the SQL rewrite suggestions.
         self.result = result  # type: str
+        # The SQL template ID.
         self.sql_id = sql_id  # type: str
+        # The state of the diagnostics task. Valid values:
+        # 
+        # *   **0**: The diagnostics task is in progress.
+        # *   **1**: A diagnostics error occurred.
+        # *   **2**: The diagnostics task is complete.
+        # *   **3**: An SQL error occurred.
+        # *   **4**: An engine error occurred.
         self.state = state  # type: int
+        # The unique ID of the diagnostics instance.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -8366,10 +21027,20 @@ class GetRequestDiagnosisResultResponseBodyData(TeaModel):
 
 class GetRequestDiagnosisResultResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The returned data.
         self.data = data  # type: GetRequestDiagnosisResultResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -8411,12 +21082,14 @@ class GetRequestDiagnosisResultResponseBody(TeaModel):
 
 
 class GetRequestDiagnosisResultResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetRequestDiagnosisResultResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8429,6 +21102,8 @@ class GetRequestDiagnosisResultResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8437,169 +21112,25 @@ class GetRequestDiagnosisResultResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetRequestDiagnosisResultResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class GetResourceOptimizeHistoryListRequest(TeaModel):
-    def __init__(self, access_key=None, end_time=None, instance_id=None, page=None, page_size=None, signature=None,
-                 start_time=None, uid=None, user_id=None, context=None):
-        self.access_key = access_key  # type: str
-        self.end_time = end_time  # type: str
-        self.instance_id = instance_id  # type: str
-        self.page = page  # type: int
-        self.page_size = page_size  # type: int
-        self.signature = signature  # type: str
-        self.start_time = start_time  # type: str
-        self.uid = uid  # type: str
-        self.user_id = user_id  # type: str
-        self.context = context  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetResourceOptimizeHistoryListRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.access_key is not None:
-            result['AccessKey'] = self.access_key
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.page is not None:
-            result['Page'] = self.page
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.signature is not None:
-            result['Signature'] = self.signature
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.uid is not None:
-            result['Uid'] = self.uid
-        if self.user_id is not None:
-            result['UserId'] = self.user_id
-        if self.context is not None:
-            result['__context'] = self.context
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AccessKey') is not None:
-            self.access_key = m.get('AccessKey')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('Page') is not None:
-            self.page = m.get('Page')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('Signature') is not None:
-            self.signature = m.get('Signature')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('Uid') is not None:
-            self.uid = m.get('Uid')
-        if m.get('UserId') is not None:
-            self.user_id = m.get('UserId')
-        if m.get('__context') is not None:
-            self.context = m.get('__context')
-        return self
-
-
-class GetResourceOptimizeHistoryListResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None, synchro=None):
-        self.code = code  # type: str
-        self.data = data  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: str
-        self.synchro = synchro  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetResourceOptimizeHistoryListResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        if self.synchro is not None:
-            result['Synchro'] = self.synchro
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        if m.get('Synchro') is not None:
-            self.synchro = m.get('Synchro')
-        return self
-
-
-class GetResourceOptimizeHistoryListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: GetResourceOptimizeHistoryListResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetResourceOptimizeHistoryListResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = GetResourceOptimizeHistoryListResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class GetRunningSqlConcurrencyControlRulesRequest(TeaModel):
     def __init__(self, console_context=None, instance_id=None, page_no=None, page_size=None):
+        # The reserved parameter.
         self.console_context = console_context  # type: str
+        # The instance ID.
+        # 
+        # >  You must specify this parameter only if your database instance is an ApsaraDB RDS for MySQL instance or a PolarDB for MySQL cluster.
         self.instance_id = instance_id  # type: str
+        # The page number. The value must be a positive integer. Default value: 1.
         self.page_no = page_no  # type: long
+        # The number of entries per page. The value must be a positive integer. Default value: 10.
         self.page_size = page_size  # type: long
 
     def validate(self):
@@ -8637,15 +21168,35 @@ class GetRunningSqlConcurrencyControlRulesRequest(TeaModel):
 class GetRunningSqlConcurrencyControlRulesResponseBodyDataListRunningRules(TeaModel):
     def __init__(self, concurrency_control_time=None, instance_id=None, item_id=None, keywords_hash=None,
                  max_concurrency=None, sql_keywords=None, sql_type=None, start_time=None, status=None, user_id=None):
+        # The duration within which the SQL throttling rule takes effect. Unit: seconds.
+        # 
+        # > The throttling rule takes effect only within this duration.
         self.concurrency_control_time = concurrency_control_time  # type: long
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The ID of the throttling rule that is applied to the instance.
         self.item_id = item_id  # type: long
+        # The hash value of the SQL keywords. The hash value is calculated based on the SQL keywords that are contained in the SQL statements to which the throttling rule is applied.
         self.keywords_hash = keywords_hash  # type: str
+        # The maximum number of concurrent SQL statements. The value is a positive integer.
+        # 
+        # > If the number of concurrent SQL statements that contain the specified keywords reaches this upper limit, the throttling rule is triggered.
         self.max_concurrency = max_concurrency  # type: str
+        # The keywords contained in the SQL statements to which the throttling rule was applied.
+        # 
+        # > SQL keywords are separated by tildes (~). If the number of concurrent SQL statements that contain all the specified SQL keywords reaches the specified upper limit, the throttling rule is triggered.
         self.sql_keywords = sql_keywords  # type: str
+        # The type of the SQL statements. Valid values:
+        # 
+        # * **SELECT**\
+        # * **UPDATE**\
+        # * **DELETE**\
         self.sql_type = sql_type  # type: str
+        # The time when the throttling rule started to take effect. The value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: long
+        # The status of the throttling rule. The value of **Open** indicates that the throttling rule is in effect.
         self.status = status  # type: str
+        # The Alibaba Cloud account ID.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -8738,7 +21289,9 @@ class GetRunningSqlConcurrencyControlRulesResponseBodyDataList(TeaModel):
 
 class GetRunningSqlConcurrencyControlRulesResponseBodyData(TeaModel):
     def __init__(self, list=None, total=None):
+        # The returned data.
         self.list = list  # type: GetRunningSqlConcurrencyControlRulesResponseBodyDataList
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -8769,10 +21322,20 @@ class GetRunningSqlConcurrencyControlRulesResponseBodyData(TeaModel):
 
 class GetRunningSqlConcurrencyControlRulesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information, including the error codes and the number of entries that are returned.
         self.data = data  # type: GetRunningSqlConcurrencyControlRulesResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -8814,12 +21377,14 @@ class GetRunningSqlConcurrencyControlRulesResponseBody(TeaModel):
 
 
 class GetRunningSqlConcurrencyControlRulesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetRunningSqlConcurrencyControlRulesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8832,6 +21397,8 @@ class GetRunningSqlConcurrencyControlRulesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8840,6 +21407,8 @@ class GetRunningSqlConcurrencyControlRulesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetRunningSqlConcurrencyControlRulesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8848,8 +21417,11 @@ class GetRunningSqlConcurrencyControlRulesResponse(TeaModel):
 
 class GetSqlConcurrencyControlKeywordsFromSqlTextRequest(TeaModel):
     def __init__(self, console_context=None, instance_id=None, sql_text=None):
+        # The reserved parameter.
         self.console_context = console_context  # type: str
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The SQL statement based on which a throttling keyword string is to be generated.
         self.sql_text = sql_text  # type: str
 
     def validate(self):
@@ -8882,10 +21454,20 @@ class GetSqlConcurrencyControlKeywordsFromSqlTextRequest(TeaModel):
 
 class GetSqlConcurrencyControlKeywordsFromSqlTextResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The throttling keyword string that was generated based on the SQL statement.
         self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -8925,12 +21507,14 @@ class GetSqlConcurrencyControlKeywordsFromSqlTextResponseBody(TeaModel):
 
 
 class GetSqlConcurrencyControlKeywordsFromSqlTextResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetSqlConcurrencyControlKeywordsFromSqlTextResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8943,6 +21527,8 @@ class GetSqlConcurrencyControlKeywordsFromSqlTextResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8951,6 +21537,8 @@ class GetSqlConcurrencyControlKeywordsFromSqlTextResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetSqlConcurrencyControlKeywordsFromSqlTextResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8959,9 +21547,15 @@ class GetSqlConcurrencyControlKeywordsFromSqlTextResponse(TeaModel):
 
 class GetSqlConcurrencyControlRulesHistoryRequest(TeaModel):
     def __init__(self, console_context=None, instance_id=None, page_no=None, page_size=None):
+        # The reserved parameter.
         self.console_context = console_context  # type: str
+        # The instance ID.
+        # 
+        # >  Only ApsaraDB RDS for MySQL instances and PolarDB for MySQL clusters are supported.
         self.instance_id = instance_id  # type: str
+        # The page number. The value must be an integer that is greater than 0. Default value: 1.
         self.page_no = page_no  # type: long
+        # The number of entries per page. The value must be an integer that is greater than 0. Default value: 10.
         self.page_size = page_size  # type: long
 
     def validate(self):
@@ -8999,15 +21593,38 @@ class GetSqlConcurrencyControlRulesHistoryRequest(TeaModel):
 class GetSqlConcurrencyControlRulesHistoryResponseBodyDataListRules(TeaModel):
     def __init__(self, concurrency_control_time=None, instance_id=None, item_id=None, keywords_hash=None,
                  max_concurrency=None, sql_keywords=None, sql_type=None, start_time=None, status=None, user_id=None):
+        # The duration within which the SQL throttling rule takes effect. Unit: seconds.
+        # 
+        # >  The throttling rule takes effect only within this duration.
         self.concurrency_control_time = concurrency_control_time  # type: long
+        # The instance ID.
         self.instance_id = instance_id  # type: str
+        # The ID of the throttling rule that is applied to the instance.
         self.item_id = item_id  # type: long
+        # The hash value of the SQL keywords. The SQL keywords are contained in the SQL statements to which the throttling rule is applied.
         self.keywords_hash = keywords_hash  # type: str
+        # The maximum number of concurrent SQL statements. Set this parameter to a positive integer.
+        # 
+        # >  When the number of concurrent SQL statements that contain the specified keywords reaches this upper limit, the throttling rule is triggered.
         self.max_concurrency = max_concurrency  # type: long
+        # The keywords that are used to identify the SQL statements that need to be throttled.
+        # 
+        # > SQL keywords are separated with tildes (~). When the number of concurrent SQL statements that contain all the specified SQL keywords reaches the specified upper limit, the throttling rule is triggered.
         self.sql_keywords = sql_keywords  # type: str
+        # The type of the SQL statements. Valid values:
+        # 
+        # * **SELECT**\
+        # * **UPDATE**\
+        # * **DELETE**\
         self.sql_type = sql_type  # type: str
+        # The beginning of the time range to query. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: long
+        # The state of the throttling rule. Valid values:
+        # 
+        # * **Open**: The throttling rule is in effect.
+        # * **Closed**: The throttling rule was in effect.
         self.status = status  # type: str
+        # The user ID.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -9100,7 +21717,9 @@ class GetSqlConcurrencyControlRulesHistoryResponseBodyDataList(TeaModel):
 
 class GetSqlConcurrencyControlRulesHistoryResponseBodyData(TeaModel):
     def __init__(self, list=None, total=None):
+        # The list of the queried throttling rules.
         self.list = list  # type: GetSqlConcurrencyControlRulesHistoryResponseBodyDataList
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -9131,10 +21750,20 @@ class GetSqlConcurrencyControlRulesHistoryResponseBodyData(TeaModel):
 
 class GetSqlConcurrencyControlRulesHistoryResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information, including the error codes and the number of entries that are returned.
         self.data = data  # type: GetSqlConcurrencyControlRulesHistoryResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -9176,12 +21805,14 @@ class GetSqlConcurrencyControlRulesHistoryResponseBody(TeaModel):
 
 
 class GetSqlConcurrencyControlRulesHistoryResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetSqlConcurrencyControlRulesHistoryResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9194,6 +21825,8 @@ class GetSqlConcurrencyControlRulesHistoryResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9202,6 +21835,8 @@ class GetSqlConcurrencyControlRulesHistoryResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetSqlConcurrencyControlRulesHistoryResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9209,11 +21844,37 @@ class GetSqlConcurrencyControlRulesHistoryResponse(TeaModel):
 
 
 class GetSqlOptimizeAdviceRequest(TeaModel):
-    def __init__(self, console_context=None, end_dt=None, engine=None, instance_ids=None, start_dt=None):
+    def __init__(self, console_context=None, end_dt=None, engine=None, instance_ids=None, region=None, start_dt=None):
+        # The reserved parameter.
         self.console_context = console_context  # type: str
+        # The end date of the time range to query. Specify the date in the *yyyyMMdd* format. The time must be in UTC.
+        # 
+        # *   The default value of this parameter is one day before the current day.
+        # *   The value must be earlier than the current day. The interval between the start date and the end date cannot exceed 30 days.
         self.end_dt = end_dt  # type: str
+        # The database engine. Valid values:
+        # 
+        # *   **MySQL**: ApsaraDB RDS for MySQL.
+        # *   **PolarDBMySQL**: PolarDB for MySQL.
         self.engine = engine  # type: str
+        # The instance ID.
+        # 
+        # >  You must specify the instance ID only if your database instance is an ApsaraDB RDS for MySQL instance or a PolarDB for MySQL cluster.
         self.instance_ids = instance_ids  # type: str
+        # The region in which the instance resides. Valid values:
+        # 
+        # *   **cn-china**: Chinese mainland.
+        # *   **cn-hongkong**: China (Hong Kong).
+        # *   **ap-southeast-1**: Singapore.
+        # 
+        # This parameter takes effect only if **InstanceIds** is left empty. If you leave **InstanceIds** empty, the system obtains data from the region specified by **Region**. By default, Region is set to **cn-china**. If you specify **InstanceIds**, **Region** does not take effect, and the system obtains data from the region in which the first specified instance resides.****\
+        # 
+        # >  If your instances reside in the regions inside the Chinese mainland, set this parameter to **cn-china**.
+        self.region = region  # type: str
+        # The start date of the time range to query. Specify the date in the *yyyyMMdd* format. The time must be in UTC.
+        # 
+        # *   The default value of this parameter is one day before the current day.
+        # *   The value must be earlier than the current day.
         self.start_dt = start_dt  # type: str
 
     def validate(self):
@@ -9233,6 +21894,8 @@ class GetSqlOptimizeAdviceRequest(TeaModel):
             result['Engine'] = self.engine
         if self.instance_ids is not None:
             result['InstanceIds'] = self.instance_ids
+        if self.region is not None:
+            result['Region'] = self.region
         if self.start_dt is not None:
             result['StartDt'] = self.start_dt
         return result
@@ -9247,6 +21910,8 @@ class GetSqlOptimizeAdviceRequest(TeaModel):
             self.engine = m.get('Engine')
         if m.get('InstanceIds') is not None:
             self.instance_ids = m.get('InstanceIds')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
         if m.get('StartDt') is not None:
             self.start_dt = m.get('StartDt')
         return self
@@ -9255,11 +21920,28 @@ class GetSqlOptimizeAdviceRequest(TeaModel):
 class GetSqlOptimizeAdviceResponseBodyData(TeaModel):
     def __init__(self, create_time=None, download_url=None, expire_time=None, status=None, status_code=None,
                  task_id=None):
+        # The time when the task was created. The value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.create_time = create_time  # type: str
+        # The URL that is used to download the file.
         self.download_url = download_url  # type: str
+        # The time when the file expires. The value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  The file expires three days after the task is created.
         self.expire_time = expire_time  # type: str
+        # The status of the task. Valid values:
+        # 
+        # *   **INIT**: The task is being initialized.
+        # *   **RUNNING**: The task is running.
+        # *   **FINISH**: The task is complete.
+        # *   **FAILED**: The task failed.
         self.status = status  # type: str
+        # The status code of the task. Valid values:
+        # 
+        # *   **NO_DATA**: No data is returned.
+        # *   **INTERNAL_ERROR**: An internal error occurred.
+        # *   **SUCCESS**: The task is successful.
         self.status_code = status_code  # type: str
+        # The task ID.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -9304,10 +21986,20 @@ class GetSqlOptimizeAdviceResponseBodyData(TeaModel):
 
 class GetSqlOptimizeAdviceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information, including the error codes and the number of entries that are returned.
         self.data = data  # type: GetSqlOptimizeAdviceResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, Successful is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -9349,12 +22041,14 @@ class GetSqlOptimizeAdviceResponseBody(TeaModel):
 
 
 class GetSqlOptimizeAdviceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetSqlOptimizeAdviceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9367,6 +22061,8 @@ class GetSqlOptimizeAdviceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9375,14 +22071,1125 @@ class GetSqlOptimizeAdviceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetSqlOptimizeAdviceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class GetStorageAnalysisResultRequest(TeaModel):
+    def __init__(self, instance_id=None, node_id=None, task_id=None):
+        self.instance_id = instance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetStorageAnalysisResultRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class GetStorageAnalysisResultResponseBodyDataStorageAnalysisResultNeedOptimizeItemList(TeaModel):
+    def __init__(self, associated_data=None, db_name=None, optimize_advice=None, optimize_item_name=None,
+                 table_name=None):
+        self.associated_data = associated_data  # type: str
+        self.db_name = db_name  # type: str
+        self.optimize_advice = optimize_advice  # type: str
+        self.optimize_item_name = optimize_item_name  # type: str
+        self.table_name = table_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetStorageAnalysisResultResponseBodyDataStorageAnalysisResultNeedOptimizeItemList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.associated_data is not None:
+            result['AssociatedData'] = self.associated_data
+        if self.db_name is not None:
+            result['DbName'] = self.db_name
+        if self.optimize_advice is not None:
+            result['OptimizeAdvice'] = self.optimize_advice
+        if self.optimize_item_name is not None:
+            result['OptimizeItemName'] = self.optimize_item_name
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AssociatedData') is not None:
+            self.associated_data = m.get('AssociatedData')
+        if m.get('DbName') is not None:
+            self.db_name = m.get('DbName')
+        if m.get('OptimizeAdvice') is not None:
+            self.optimize_advice = m.get('OptimizeAdvice')
+        if m.get('OptimizeItemName') is not None:
+            self.optimize_item_name = m.get('OptimizeItemName')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        return self
+
+
+class GetStorageAnalysisResultResponseBodyDataStorageAnalysisResultTableStats(TeaModel):
+    def __init__(self, avg_row_length=None, data_free=None, data_size=None, db_name=None, engine=None,
+                 index_size=None, phy_total_size=None, physical_file_size=None, table_name=None, table_rows=None,
+                 table_type=None, total_size=None):
+        self.avg_row_length = avg_row_length  # type: long
+        self.data_free = data_free  # type: long
+        self.data_size = data_size  # type: long
+        self.db_name = db_name  # type: str
+        self.engine = engine  # type: str
+        self.index_size = index_size  # type: long
+        self.phy_total_size = phy_total_size  # type: long
+        self.physical_file_size = physical_file_size  # type: long
+        self.table_name = table_name  # type: str
+        self.table_rows = table_rows  # type: long
+        self.table_type = table_type  # type: str
+        self.total_size = total_size  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetStorageAnalysisResultResponseBodyDataStorageAnalysisResultTableStats, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.avg_row_length is not None:
+            result['AvgRowLength'] = self.avg_row_length
+        if self.data_free is not None:
+            result['DataFree'] = self.data_free
+        if self.data_size is not None:
+            result['DataSize'] = self.data_size
+        if self.db_name is not None:
+            result['DbName'] = self.db_name
+        if self.engine is not None:
+            result['Engine'] = self.engine
+        if self.index_size is not None:
+            result['IndexSize'] = self.index_size
+        if self.phy_total_size is not None:
+            result['PhyTotalSize'] = self.phy_total_size
+        if self.physical_file_size is not None:
+            result['PhysicalFileSize'] = self.physical_file_size
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        if self.table_rows is not None:
+            result['TableRows'] = self.table_rows
+        if self.table_type is not None:
+            result['TableType'] = self.table_type
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AvgRowLength') is not None:
+            self.avg_row_length = m.get('AvgRowLength')
+        if m.get('DataFree') is not None:
+            self.data_free = m.get('DataFree')
+        if m.get('DataSize') is not None:
+            self.data_size = m.get('DataSize')
+        if m.get('DbName') is not None:
+            self.db_name = m.get('DbName')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('IndexSize') is not None:
+            self.index_size = m.get('IndexSize')
+        if m.get('PhyTotalSize') is not None:
+            self.phy_total_size = m.get('PhyTotalSize')
+        if m.get('PhysicalFileSize') is not None:
+            self.physical_file_size = m.get('PhysicalFileSize')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        if m.get('TableRows') is not None:
+            self.table_rows = m.get('TableRows')
+        if m.get('TableType') is not None:
+            self.table_type = m.get('TableType')
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        return self
+
+
+class GetStorageAnalysisResultResponseBodyDataStorageAnalysisResult(TeaModel):
+    def __init__(self, analysis_error_type=None, analysis_success=None, daily_increment=None,
+                 estimate_available_days=None, need_optimize_item_list=None, table_stats=None, total_free_storage_size=None,
+                 total_storage_size=None, total_used_storage_size=None):
+        self.analysis_error_type = analysis_error_type  # type: str
+        self.analysis_success = analysis_success  # type: bool
+        self.daily_increment = daily_increment  # type: long
+        self.estimate_available_days = estimate_available_days  # type: long
+        self.need_optimize_item_list = need_optimize_item_list  # type: list[GetStorageAnalysisResultResponseBodyDataStorageAnalysisResultNeedOptimizeItemList]
+        self.table_stats = table_stats  # type: list[GetStorageAnalysisResultResponseBodyDataStorageAnalysisResultTableStats]
+        self.total_free_storage_size = total_free_storage_size  # type: long
+        self.total_storage_size = total_storage_size  # type: long
+        self.total_used_storage_size = total_used_storage_size  # type: long
+
+    def validate(self):
+        if self.need_optimize_item_list:
+            for k in self.need_optimize_item_list:
+                if k:
+                    k.validate()
+        if self.table_stats:
+            for k in self.table_stats:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetStorageAnalysisResultResponseBodyDataStorageAnalysisResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.analysis_error_type is not None:
+            result['AnalysisErrorType'] = self.analysis_error_type
+        if self.analysis_success is not None:
+            result['AnalysisSuccess'] = self.analysis_success
+        if self.daily_increment is not None:
+            result['DailyIncrement'] = self.daily_increment
+        if self.estimate_available_days is not None:
+            result['EstimateAvailableDays'] = self.estimate_available_days
+        result['NeedOptimizeItemList'] = []
+        if self.need_optimize_item_list is not None:
+            for k in self.need_optimize_item_list:
+                result['NeedOptimizeItemList'].append(k.to_map() if k else None)
+        result['TableStats'] = []
+        if self.table_stats is not None:
+            for k in self.table_stats:
+                result['TableStats'].append(k.to_map() if k else None)
+        if self.total_free_storage_size is not None:
+            result['TotalFreeStorageSize'] = self.total_free_storage_size
+        if self.total_storage_size is not None:
+            result['TotalStorageSize'] = self.total_storage_size
+        if self.total_used_storage_size is not None:
+            result['TotalUsedStorageSize'] = self.total_used_storage_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AnalysisErrorType') is not None:
+            self.analysis_error_type = m.get('AnalysisErrorType')
+        if m.get('AnalysisSuccess') is not None:
+            self.analysis_success = m.get('AnalysisSuccess')
+        if m.get('DailyIncrement') is not None:
+            self.daily_increment = m.get('DailyIncrement')
+        if m.get('EstimateAvailableDays') is not None:
+            self.estimate_available_days = m.get('EstimateAvailableDays')
+        self.need_optimize_item_list = []
+        if m.get('NeedOptimizeItemList') is not None:
+            for k in m.get('NeedOptimizeItemList'):
+                temp_model = GetStorageAnalysisResultResponseBodyDataStorageAnalysisResultNeedOptimizeItemList()
+                self.need_optimize_item_list.append(temp_model.from_map(k))
+        self.table_stats = []
+        if m.get('TableStats') is not None:
+            for k in m.get('TableStats'):
+                temp_model = GetStorageAnalysisResultResponseBodyDataStorageAnalysisResultTableStats()
+                self.table_stats.append(temp_model.from_map(k))
+        if m.get('TotalFreeStorageSize') is not None:
+            self.total_free_storage_size = m.get('TotalFreeStorageSize')
+        if m.get('TotalStorageSize') is not None:
+            self.total_storage_size = m.get('TotalStorageSize')
+        if m.get('TotalUsedStorageSize') is not None:
+            self.total_used_storage_size = m.get('TotalUsedStorageSize')
+        return self
+
+
+class GetStorageAnalysisResultResponseBodyData(TeaModel):
+    def __init__(self, analyzed_db_count=None, storage_analysis_result=None, task_finish=None, task_id=None,
+                 task_progress=None, task_state=None, task_success=None, total_db_count=None):
+        self.analyzed_db_count = analyzed_db_count  # type: long
+        self.storage_analysis_result = storage_analysis_result  # type: GetStorageAnalysisResultResponseBodyDataStorageAnalysisResult
+        self.task_finish = task_finish  # type: bool
+        self.task_id = task_id  # type: str
+        self.task_progress = task_progress  # type: long
+        self.task_state = task_state  # type: str
+        self.task_success = task_success  # type: bool
+        self.total_db_count = total_db_count  # type: long
+
+    def validate(self):
+        if self.storage_analysis_result:
+            self.storage_analysis_result.validate()
+
+    def to_map(self):
+        _map = super(GetStorageAnalysisResultResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.analyzed_db_count is not None:
+            result['AnalyzedDbCount'] = self.analyzed_db_count
+        if self.storage_analysis_result is not None:
+            result['StorageAnalysisResult'] = self.storage_analysis_result.to_map()
+        if self.task_finish is not None:
+            result['TaskFinish'] = self.task_finish
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.task_progress is not None:
+            result['TaskProgress'] = self.task_progress
+        if self.task_state is not None:
+            result['TaskState'] = self.task_state
+        if self.task_success is not None:
+            result['TaskSuccess'] = self.task_success
+        if self.total_db_count is not None:
+            result['TotalDbCount'] = self.total_db_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AnalyzedDbCount') is not None:
+            self.analyzed_db_count = m.get('AnalyzedDbCount')
+        if m.get('StorageAnalysisResult') is not None:
+            temp_model = GetStorageAnalysisResultResponseBodyDataStorageAnalysisResult()
+            self.storage_analysis_result = temp_model.from_map(m['StorageAnalysisResult'])
+        if m.get('TaskFinish') is not None:
+            self.task_finish = m.get('TaskFinish')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('TaskProgress') is not None:
+            self.task_progress = m.get('TaskProgress')
+        if m.get('TaskState') is not None:
+            self.task_state = m.get('TaskState')
+        if m.get('TaskSuccess') is not None:
+            self.task_success = m.get('TaskSuccess')
+        if m.get('TotalDbCount') is not None:
+            self.total_db_count = m.get('TotalDbCount')
+        return self
+
+
+class GetStorageAnalysisResultResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: long
+        self.data = data  # type: GetStorageAnalysisResultResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetStorageAnalysisResultResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetStorageAnalysisResultResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetStorageAnalysisResultResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetStorageAnalysisResultResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetStorageAnalysisResultResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetStorageAnalysisResultResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class KillInstanceAllSessionRequest(TeaModel):
+    def __init__(self, console_context=None, instance_id=None):
+        # The reserved parameter.
+        self.console_context = console_context  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(KillInstanceAllSessionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.console_context is not None:
+            result['ConsoleContext'] = self.console_context
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConsoleContext') is not None:
+            self.console_context = m.get('ConsoleContext')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class KillInstanceAllSessionResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The reserved parameter.
+        self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(KillInstanceAllSessionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class KillInstanceAllSessionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: KillInstanceAllSessionResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(KillInstanceAllSessionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = KillInstanceAllSessionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyAutoScalingConfigRequestBandwidth(TeaModel):
+    def __init__(self, apply=None, bandwidth_usage_lower_threshold=None, bandwidth_usage_upper_threshold=None,
+                 downgrade=None, observation_window_size=None, upgrade=None):
+        # Specifies whether to apply the **Bandwidth** configuration of the automatic bandwidth adjustment feature. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.apply = apply  # type: bool
+        # The average bandwidth usage threshold that triggers automatic bandwidth downgrade. Unit: %. Valid values:
+        # 
+        # *   **10**\
+        # *   **20**\
+        # *   **30**\
+        self.bandwidth_usage_lower_threshold = bandwidth_usage_lower_threshold  # type: int
+        # The average bandwidth usage threshold that triggers automatic bandwidth upgrade. Unit: %. Valid values:
+        # 
+        # *   **50**\
+        # *   **60**\
+        # *   **70**\
+        # *   **80**\
+        # *   **90**\
+        # *   **95**\
+        self.bandwidth_usage_upper_threshold = bandwidth_usage_upper_threshold  # type: int
+        # Specifies whether to enable the automatic bandwidth downgrade feature. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.downgrade = downgrade  # type: bool
+        # The observation window of the automatic bandwidth upgrade feature. The value of this parameter consists of a numeric value and a time unit suffix. The **m** time unit suffix specifies the minute. Valid values:
+        # 
+        # *   **1m**\
+        # *   **5m**\
+        # *   **10m**\
+        # *   **15m**\
+        # *   **30m**\
+        self.observation_window_size = observation_window_size  # type: str
+        # Specifies whether to enable the automatic bandwidth upgrade feature. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.upgrade = upgrade  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyAutoScalingConfigRequestBandwidth, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apply is not None:
+            result['Apply'] = self.apply
+        if self.bandwidth_usage_lower_threshold is not None:
+            result['BandwidthUsageLowerThreshold'] = self.bandwidth_usage_lower_threshold
+        if self.bandwidth_usage_upper_threshold is not None:
+            result['BandwidthUsageUpperThreshold'] = self.bandwidth_usage_upper_threshold
+        if self.downgrade is not None:
+            result['Downgrade'] = self.downgrade
+        if self.observation_window_size is not None:
+            result['ObservationWindowSize'] = self.observation_window_size
+        if self.upgrade is not None:
+            result['Upgrade'] = self.upgrade
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Apply') is not None:
+            self.apply = m.get('Apply')
+        if m.get('BandwidthUsageLowerThreshold') is not None:
+            self.bandwidth_usage_lower_threshold = m.get('BandwidthUsageLowerThreshold')
+        if m.get('BandwidthUsageUpperThreshold') is not None:
+            self.bandwidth_usage_upper_threshold = m.get('BandwidthUsageUpperThreshold')
+        if m.get('Downgrade') is not None:
+            self.downgrade = m.get('Downgrade')
+        if m.get('ObservationWindowSize') is not None:
+            self.observation_window_size = m.get('ObservationWindowSize')
+        if m.get('Upgrade') is not None:
+            self.upgrade = m.get('Upgrade')
+        return self
+
+
+class ModifyAutoScalingConfigRequestResource(TeaModel):
+    def __init__(self, apply=None, cpu_usage_upper_threshold=None, downgrade_observation_window_size=None,
+                 enable=None, upgrade_observation_window_size=None):
+        # Specifies whether to apply the **Resource** configuration of the auto scaling feature for resources. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.apply = apply  # type: bool
+        # The average CPU utilization threshold that triggers automatic scale-out of resources. Unit: %. Valid values:
+        # 
+        # *   **70**\
+        # *   **80**\
+        # *   **90**\
+        self.cpu_usage_upper_threshold = cpu_usage_upper_threshold  # type: int
+        # The observation window of the automatic resource scale-in feature. The value of this parameter consists of a numeric value and a time unit suffix. The **m** time unit suffix specifies the minute. Valid values:
+        # 
+        # *   **1m**\
+        # *   **3m**\
+        # *   **5m**\
+        # *   **10m**\
+        # *   **20m**\
+        # *   **30m**\
+        self.downgrade_observation_window_size = downgrade_observation_window_size  # type: str
+        # Specifies whether to enable the auto scaling feature for resources. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.enable = enable  # type: bool
+        # The observation window of the automatic resource scale-out feature. The value of this parameter consists of a numeric value and a time unit suffix. The **m** time unit suffix specifies the minute. Valid values:
+        # 
+        # *   **1m**\
+        # *   **3m**\
+        # *   **5m**\
+        # *   **10m**\
+        # *   **20m**\
+        # *   **30m**\
+        self.upgrade_observation_window_size = upgrade_observation_window_size  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyAutoScalingConfigRequestResource, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apply is not None:
+            result['Apply'] = self.apply
+        if self.cpu_usage_upper_threshold is not None:
+            result['CpuUsageUpperThreshold'] = self.cpu_usage_upper_threshold
+        if self.downgrade_observation_window_size is not None:
+            result['DowngradeObservationWindowSize'] = self.downgrade_observation_window_size
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.upgrade_observation_window_size is not None:
+            result['UpgradeObservationWindowSize'] = self.upgrade_observation_window_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Apply') is not None:
+            self.apply = m.get('Apply')
+        if m.get('CpuUsageUpperThreshold') is not None:
+            self.cpu_usage_upper_threshold = m.get('CpuUsageUpperThreshold')
+        if m.get('DowngradeObservationWindowSize') is not None:
+            self.downgrade_observation_window_size = m.get('DowngradeObservationWindowSize')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('UpgradeObservationWindowSize') is not None:
+            self.upgrade_observation_window_size = m.get('UpgradeObservationWindowSize')
+        return self
+
+
+class ModifyAutoScalingConfigRequestShard(TeaModel):
+    def __init__(self, apply=None, downgrade=None, downgrade_observation_window_size=None, max_shards=None,
+                 mem_usage_lower_threshold=None, mem_usage_upper_threshold=None, min_shards=None, upgrade=None,
+                 upgrade_observation_window_size=None):
+        # Specifies whether to apply the **Shard** configuration of the auto scaling feature for shards. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        # 
+        # >  The auto scaling feature for shards is available only for ApsaraDB for Redis Community Edition instances that use cloud disks on the China site (aliyun.com).
+        self.apply = apply  # type: bool
+        # Specifies whether to enable the feature of automatically removing shards. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        # 
+        # >  The feature of automatically removing shards is in canary release.
+        self.downgrade = downgrade  # type: bool
+        # The observation window of the feature of automatically removing shards. The value of this parameter consists of a numeric value and a time unit suffix. The **h** time unit suffix specifies the hour. The **d** time unit suffix specifies the day. Valid values:
+        # 
+        # *   **1h**\
+        # *   **2h**\
+        # *   **3h**\
+        # *   **1d**\
+        # *   **7d**\
+        self.downgrade_observation_window_size = downgrade_observation_window_size  # type: str
+        # The maximum number of shards in the instance. The value must be a positive integer. Valid values: 4 to 32.
+        self.max_shards = max_shards  # type: int
+        # The average memory usage threshold that triggers automatic removal of shards. Unit: %. Valid values:
+        # 
+        # *   **10**\
+        # *   **20**\
+        # *   **30**\
+        self.mem_usage_lower_threshold = mem_usage_lower_threshold  # type: int
+        # The average memory usage threshold that triggers automatic adding of shards. Unit: %. Valid values:
+        # 
+        # *   **50**\
+        # *   **60**\
+        # *   **70**\
+        # *   **80**\
+        # *   **90**\
+        self.mem_usage_upper_threshold = mem_usage_upper_threshold  # type: int
+        # The minimum number of shards in the instance. The value must be a positive integer. Valid values: 4 to 32.
+        self.min_shards = min_shards  # type: int
+        # Specifies whether to enable the feature of automatically adding shards. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.upgrade = upgrade  # type: bool
+        # The observation window of the feature of automatically adding shards. The value of this parameter consists of a numeric value and a time unit suffix. The **m** time unit suffix specifies the minute. Valid values:
+        # 
+        # *   **5m**\
+        # *   **10m**\
+        # *   **15m**\
+        # *   **30m**\
+        self.upgrade_observation_window_size = upgrade_observation_window_size  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyAutoScalingConfigRequestShard, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apply is not None:
+            result['Apply'] = self.apply
+        if self.downgrade is not None:
+            result['Downgrade'] = self.downgrade
+        if self.downgrade_observation_window_size is not None:
+            result['DowngradeObservationWindowSize'] = self.downgrade_observation_window_size
+        if self.max_shards is not None:
+            result['MaxShards'] = self.max_shards
+        if self.mem_usage_lower_threshold is not None:
+            result['MemUsageLowerThreshold'] = self.mem_usage_lower_threshold
+        if self.mem_usage_upper_threshold is not None:
+            result['MemUsageUpperThreshold'] = self.mem_usage_upper_threshold
+        if self.min_shards is not None:
+            result['MinShards'] = self.min_shards
+        if self.upgrade is not None:
+            result['Upgrade'] = self.upgrade
+        if self.upgrade_observation_window_size is not None:
+            result['UpgradeObservationWindowSize'] = self.upgrade_observation_window_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Apply') is not None:
+            self.apply = m.get('Apply')
+        if m.get('Downgrade') is not None:
+            self.downgrade = m.get('Downgrade')
+        if m.get('DowngradeObservationWindowSize') is not None:
+            self.downgrade_observation_window_size = m.get('DowngradeObservationWindowSize')
+        if m.get('MaxShards') is not None:
+            self.max_shards = m.get('MaxShards')
+        if m.get('MemUsageLowerThreshold') is not None:
+            self.mem_usage_lower_threshold = m.get('MemUsageLowerThreshold')
+        if m.get('MemUsageUpperThreshold') is not None:
+            self.mem_usage_upper_threshold = m.get('MemUsageUpperThreshold')
+        if m.get('MinShards') is not None:
+            self.min_shards = m.get('MinShards')
+        if m.get('Upgrade') is not None:
+            self.upgrade = m.get('Upgrade')
+        if m.get('UpgradeObservationWindowSize') is not None:
+            self.upgrade_observation_window_size = m.get('UpgradeObservationWindowSize')
+        return self
+
+
+class ModifyAutoScalingConfigRequestSpec(TeaModel):
+    def __init__(self, apply=None, cool_down_time=None, cpu_usage_upper_threshold=None, downgrade=None,
+                 max_read_only_nodes=None, max_spec=None, mem_usage_upper_threshold=None, observation_window_size=None, upgrade=None):
+        # Specifies whether to apply the **Spec** configuration of the auto scaling feature for specifications. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.apply = apply  # type: bool
+        # The quiescent period. The value of this parameter consists of a numeric value and a time unit suffix. The **m** time unit suffix specifies the minute, the **h** time unit suffix specifies the hour, and the **d** time suffix unit specifies the day.
+        # 
+        # *   Valid values for PolarDB for MySQL Cluster Edition instances: **5m**, **10m**, **30m**, **1h**, **2h**, **3h**, **1d**, and **7d**.
+        # *   Valid values for ApsaraDB RDS for MySQL High-availability Edition instances that use standard SSDs or ESSDs: **5m**, **10m**, **30m**, **1h**, **2h**, **3h**, **1d**, and **7d**.
+        self.cool_down_time = cool_down_time  # type: str
+        # The average CPU utilization threshold that triggers automatic specification scale-up. Unit: %. Valid values:
+        # 
+        # *   **50**\
+        # *   **60**\
+        # *   **70**\
+        # *   **80**\
+        # *   **90**\
+        # 
+        # >  This parameter must be specified if the database instance is a PolarDB for MySQL Cluster Edition instance or an ApsaraDB RDS for MySQL High-availability Edition instance that uses standard SSDs or ESSDs.
+        self.cpu_usage_upper_threshold = cpu_usage_upper_threshold  # type: int
+        # Specifies whether to enable the automatic specification scale-down feature. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        # 
+        # >  This parameter must be specified if the database instance is a PolarDB for MySQL Cluster Edition instance or an ApsaraDB RDS for MySQL High-availability Edition instance that uses standard SSDs or ESSDs.
+        self.downgrade = downgrade  # type: bool
+        # The maximum number of read-only nodes of the instance.
+        # 
+        # >  This parameter must be specified if the database instance is a PolarDB for MySQL Cluster Edition instance.
+        self.max_read_only_nodes = max_read_only_nodes  # type: int
+        # The maximum specifications to which the database instance can be upgraded. The database instance can be upgraded only to a database instance of the same edition with higher specifications. For information about the specifications of different database instances, refer to the following topics:
+        # 
+        # *   PolarDB for MySQL Cluster Edition instances: [Specifications of compute nodes](~~102542~~).
+        # *   ApsaraDB RDS for MySQL High-availability Edition instances that use standard SSDs or ESSDs: [Specifications](~~276974~~).
+        self.max_spec = max_spec  # type: str
+        # The average memory usage threshold that triggers automatic specification scale-up. Unit: %. Valid values:
+        # 
+        # *   **50**\
+        # *   **60**\
+        # *   **70**\
+        # *   **80**\
+        # *   **90**\
+        # 
+        # >  This parameter must be specified if the database instance is an ApsaraDB for Redis Community Edition instance that uses cloud disks on the China site (aliyun.com).
+        self.mem_usage_upper_threshold = mem_usage_upper_threshold  # type: int
+        # The observation window. The value of this parameter consists of a numeric value and a time unit suffix. The **m** time unit suffix specifies the minute and the **h** time unit suffix specifies the hour.
+        # 
+        # *   Valid values for PolarDB for MySQL Cluster Edition instances: **5m**, **10m**, **15m**, and **30m**.
+        # *   Valid values for ApsaraDB RDS for MySQL High-availability Edition instances that use standard SSDs or ESSDs: **5m**, **20m**, **30m**, **40m**, and **1h**.
+        # *   Valid values for ApsaraDB for Redis Community Edition instances that use cloud disks: **5m**, **10m**, **15m**, and **30m**.
+        self.observation_window_size = observation_window_size  # type: str
+        # Specifies whether to enable the automatic specification scale-up feature. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.upgrade = upgrade  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyAutoScalingConfigRequestSpec, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apply is not None:
+            result['Apply'] = self.apply
+        if self.cool_down_time is not None:
+            result['CoolDownTime'] = self.cool_down_time
+        if self.cpu_usage_upper_threshold is not None:
+            result['CpuUsageUpperThreshold'] = self.cpu_usage_upper_threshold
+        if self.downgrade is not None:
+            result['Downgrade'] = self.downgrade
+        if self.max_read_only_nodes is not None:
+            result['MaxReadOnlyNodes'] = self.max_read_only_nodes
+        if self.max_spec is not None:
+            result['MaxSpec'] = self.max_spec
+        if self.mem_usage_upper_threshold is not None:
+            result['MemUsageUpperThreshold'] = self.mem_usage_upper_threshold
+        if self.observation_window_size is not None:
+            result['ObservationWindowSize'] = self.observation_window_size
+        if self.upgrade is not None:
+            result['Upgrade'] = self.upgrade
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Apply') is not None:
+            self.apply = m.get('Apply')
+        if m.get('CoolDownTime') is not None:
+            self.cool_down_time = m.get('CoolDownTime')
+        if m.get('CpuUsageUpperThreshold') is not None:
+            self.cpu_usage_upper_threshold = m.get('CpuUsageUpperThreshold')
+        if m.get('Downgrade') is not None:
+            self.downgrade = m.get('Downgrade')
+        if m.get('MaxReadOnlyNodes') is not None:
+            self.max_read_only_nodes = m.get('MaxReadOnlyNodes')
+        if m.get('MaxSpec') is not None:
+            self.max_spec = m.get('MaxSpec')
+        if m.get('MemUsageUpperThreshold') is not None:
+            self.mem_usage_upper_threshold = m.get('MemUsageUpperThreshold')
+        if m.get('ObservationWindowSize') is not None:
+            self.observation_window_size = m.get('ObservationWindowSize')
+        if m.get('Upgrade') is not None:
+            self.upgrade = m.get('Upgrade')
+        return self
+
+
+class ModifyAutoScalingConfigRequestStorage(TeaModel):
+    def __init__(self, apply=None, disk_usage_upper_threshold=None, max_storage=None, upgrade=None):
+        # Specifies whether to apply the **Storage** configuration of the automatic storage expansion feature. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.apply = apply  # type: bool
+        # The average storage usage threshold that triggers automatic storage expansion. Unit: %. Valid values:
+        # 
+        # *   **50**\
+        # *   **60**\
+        # *   **70**\
+        # *   **80**\
+        # *   **90**\
+        self.disk_usage_upper_threshold = disk_usage_upper_threshold  # type: int
+        # The maximum storage size of the database instance. The value must be greater than or equal to the total storage size of the instance. Valid values of different types of instances:
+        # 
+        # *   If the ApsaraDB for RDS instance uses ESSDs, the value of this parameter can be set to 32000, in GB.
+        # *   If the ApsaraDB for RDS instance uses standard SSDs, the value of this parameter can be set to 6000, in GB.
+        # 
+        # >  The ApsaraDB RDS for MySQL instances that use standard SSDs are discontinued. We recommend that you [upgrade the storage type of an ApsaraDB RDS for MySQL instance from standard SSDs to ESSDs](~~314678~~).
+        self.max_storage = max_storage  # type: int
+        # Specifies whether to enable the automatic storage expansion feature. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.upgrade = upgrade  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyAutoScalingConfigRequestStorage, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apply is not None:
+            result['Apply'] = self.apply
+        if self.disk_usage_upper_threshold is not None:
+            result['DiskUsageUpperThreshold'] = self.disk_usage_upper_threshold
+        if self.max_storage is not None:
+            result['MaxStorage'] = self.max_storage
+        if self.upgrade is not None:
+            result['Upgrade'] = self.upgrade
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Apply') is not None:
+            self.apply = m.get('Apply')
+        if m.get('DiskUsageUpperThreshold') is not None:
+            self.disk_usage_upper_threshold = m.get('DiskUsageUpperThreshold')
+        if m.get('MaxStorage') is not None:
+            self.max_storage = m.get('MaxStorage')
+        if m.get('Upgrade') is not None:
+            self.upgrade = m.get('Upgrade')
+        return self
+
+
+class ModifyAutoScalingConfigRequest(TeaModel):
+    def __init__(self, bandwidth=None, instance_id=None, resource=None, shard=None, spec=None, storage=None):
+        # The configuration item of the automatic bandwidth adjustment feature.
+        self.bandwidth = bandwidth  # type: ModifyAutoScalingConfigRequestBandwidth
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The configuration item of the auto scaling feature for resources.
+        self.resource = resource  # type: ModifyAutoScalingConfigRequestResource
+        # The configuration item of the auto scaling feature for shards.
+        self.shard = shard  # type: ModifyAutoScalingConfigRequestShard
+        # The configuration item of the auto scaling feature for specifications.
+        self.spec = spec  # type: ModifyAutoScalingConfigRequestSpec
+        # The configuration item of the automatic storage expansion feature.
+        self.storage = storage  # type: ModifyAutoScalingConfigRequestStorage
+
+    def validate(self):
+        if self.bandwidth:
+            self.bandwidth.validate()
+        if self.resource:
+            self.resource.validate()
+        if self.shard:
+            self.shard.validate()
+        if self.spec:
+            self.spec.validate()
+        if self.storage:
+            self.storage.validate()
+
+    def to_map(self):
+        _map = super(ModifyAutoScalingConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth.to_map()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.resource is not None:
+            result['Resource'] = self.resource.to_map()
+        if self.shard is not None:
+            result['Shard'] = self.shard.to_map()
+        if self.spec is not None:
+            result['Spec'] = self.spec.to_map()
+        if self.storage is not None:
+            result['Storage'] = self.storage.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Bandwidth') is not None:
+            temp_model = ModifyAutoScalingConfigRequestBandwidth()
+            self.bandwidth = temp_model.from_map(m['Bandwidth'])
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Resource') is not None:
+            temp_model = ModifyAutoScalingConfigRequestResource()
+            self.resource = temp_model.from_map(m['Resource'])
+        if m.get('Shard') is not None:
+            temp_model = ModifyAutoScalingConfigRequestShard()
+            self.shard = temp_model.from_map(m['Shard'])
+        if m.get('Spec') is not None:
+            temp_model = ModifyAutoScalingConfigRequestSpec()
+            self.spec = temp_model.from_map(m['Spec'])
+        if m.get('Storage') is not None:
+            temp_model = ModifyAutoScalingConfigRequestStorage()
+            self.storage = temp_model.from_map(m['Storage'])
+        return self
+
+
+class ModifyAutoScalingConfigResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyAutoScalingConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ModifyAutoScalingConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyAutoScalingConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyAutoScalingConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyAutoScalingConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class RunCloudBenchTaskRequest(TeaModel):
     def __init__(self, task_id=None):
+        # The stress testing task ID. You can call the [DescribeCloudBenchTasks](~~230670~~) operation to query the task ID.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -9407,11 +23214,30 @@ class RunCloudBenchTaskRequest(TeaModel):
 
 class RunCloudBenchTaskResponseBodyDataPreCheckItem(TeaModel):
     def __init__(self, code=None, details=None, message=None, name=None, order=None, status=None):
+        # The HTTP status code returned.
         self.code = code  # type: int
+        # The detailed information of the check item.
         self.details = details  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The name of the check item. Valid values:
+        # 
+        # * **SqlArchiveStatusChecker**: checks whether SQL Explorer is available.
+        # * **BenchClientEnvChecker**: checks whether the runtime environment for programs on the stress testing client is available.
+        # * **SpecChecker**: checks whether the destination instance type and the instance type of the stress testing client support this API operation.
+        # * **SourceInstanceChecker**: checks whether the account of the source instance is available and whether the source instance is connected to the destination instance.
+        # * **BenchTargetChecker**: checks whether the account of the destination instance is available and whether the source instance is connected to the destination instance.
         self.name = name  # type: str
+        # The sequence number of the check item. Valid values: **0** to **10**.
         self.order = order  # type: int
+        # The status of the task. Valid values:
+        # 
+        # *   **SUCCESS**: The task is successful.
+        # *   **IGNORED**: The task is ignored.
+        # *   **RUNNING**: The task is running.
+        # *   **EXCEPTION**: An error occurred.
         self.status = status  # type: str
 
     def validate(self):
@@ -9488,10 +23314,20 @@ class RunCloudBenchTaskResponseBodyData(TeaModel):
 
 class RunCloudBenchTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The detailed information, including the error codes and the number of returned entries.
         self.data = data  # type: RunCloudBenchTaskResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -9533,12 +23369,14 @@ class RunCloudBenchTaskResponseBody(TeaModel):
 
 
 class RunCloudBenchTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RunCloudBenchTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9551,6 +23389,8 @@ class RunCloudBenchTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9559,14 +23399,344 @@ class RunCloudBenchTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RunCloudBenchTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class SetEventSubscriptionRequest(TeaModel):
+    def __init__(self, active=None, channel_type=None, contact_group_name=None, contact_name=None,
+                 dispatch_rule=None, event_context=None, instance_id=None, lang=None, level=None, min_interval=None, severity=None):
+        # Specifies whether to enable the event subscription feature. Valid values:
+        # 
+        # *   **0**: disables the event subscription feature.
+        # *   **1**: enables the event subscription feature.
+        self.active = active  # type: str
+        # The notification method. Valid values:
+        # 
+        # *   **hdm_alarm_sms**: text message.
+        # *   **dingtalk**: DingTalk chatbot.
+        # *   **hdm_alarm_sms_and_email**: text message and email.
+        # *   **hdm_alarm_sms,dingtalk**: text message and DingTalk chatbot.
+        self.channel_type = channel_type  # type: str
+        # The name of the contact group that receives alert notifications. Separate multiple names with commas (,).
+        self.contact_group_name = contact_group_name  # type: str
+        # The name of the contact who receives alert notifications. Separate multiple names with commas (,).
+        self.contact_name = contact_name  # type: str
+        # The notification rules based on the event type. If you leave this parameter empty, the values of **MinInterval** and **ChannelType** prevail.
+        # 
+        # Specify this parameter in the following format: `{"silenced": {"Event type 1":Specifies whether to enable adaptive silence, "Event type 2":Specify whether to enable adaptive silence},"min_interval": {"Event type 1":Minimum interval between event notifications, "Event type 2":Minimum interval between event notifications},"alert_type": {"Event type 1":"Notification method", "Event type 2":"Notification method"}}`.
+        # 
+        # *   **silenced**: specifies whether to enable adaptive silence. After you enable adaptive silence, the interval between consecutive alert notifications for an event is the greater one of the minimum interval specified by **min_interval** and one third of the event duration. Valid values:
+        # 
+        #     *   1: enables adaptive silence.
+        #     *   2: disables adaptive silence.
+        # 
+        # *   **min_interval**: the minimum interval between event notifications. Unit: seconds.
+        # 
+        # *   **alert_type**: the notification method. Valid values:
+        # 
+        #     *   **hdm_alarm_sms**: text message.
+        #     *   **dingtalk**: DingTalk chatbot.
+        #     *   **hdm_alarm_sms_and_email**: text message and email.
+        #     *   **hdm_alarm_sms,dingtalk**: text message and DingTalk chatbot.
+        self.dispatch_rule = dispatch_rule  # type: str
+        # The supported event scenarios. You can set the value to **AllContext**, which indicates that all scenarios are supported.
+        self.event_context = event_context  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The language of event notifications. You can set the value to **zh-CN**, which indicates that event notifications are sent in Chinese.
+        self.lang = lang  # type: str
+        # The risk level of the events. Valid values:
+        # 
+        # *   **Notice**: events that trigger notifications, including events at the **Notice**, **Optimization**, **Warn**, and **Critical** levels.
+        # *   **Optimization**: events that trigger optimizations, including events at the **Optimization**, **Warn**, and **Critical** levels.
+        # *   **Warn**: events that trigger warnings, including events at the **Warn** and **Critical** levels.
+        # *   **Critical**: events that trigger critical warnings.****\
+        # 
+        # The following content describes the events at each level in detail:
+        # 
+        # *   Notice: events that are related to database exceptions for which no suggestions are generated.
+        # *   Optimization: events for which optimization suggestions are generated based on the status of the database.
+        # *   Warn: events that may affect the running of the database.
+        # *   Critical: events that affect the running of the database.
+        self.level = level  # type: str
+        # The minimum interval between consecutive event notifications. Unit: seconds.
+        self.min_interval = min_interval  # type: str
+        # The alert severity based on the event type.
+        # 
+        # Specify this parameter in the following format: `{"Event type 1":"Alert severity", "Event type 2":"Alert severity"}`.
+        # 
+        # Valid values of event types:
+        # 
+        # *   **AutoScale**: auto scaling event.
+        # *   **SQLThrottle**: throttling event.
+        # *   **TimeSeriesAbnormal**: event for detecting time series anomalies.
+        # *   **SQLOptimize**: SQL optimization event.
+        # *   **ResourceOptimize**: storage optimization event.
+        # 
+        # Valid values of alert severities:
+        # 
+        # *   **info**\
+        # *   **noticed**\
+        # *   **warning**\
+        # *   **critical**\
+        self.severity = severity  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetEventSubscriptionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active is not None:
+            result['Active'] = self.active
+        if self.channel_type is not None:
+            result['ChannelType'] = self.channel_type
+        if self.contact_group_name is not None:
+            result['ContactGroupName'] = self.contact_group_name
+        if self.contact_name is not None:
+            result['ContactName'] = self.contact_name
+        if self.dispatch_rule is not None:
+            result['DispatchRule'] = self.dispatch_rule
+        if self.event_context is not None:
+            result['EventContext'] = self.event_context
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.level is not None:
+            result['Level'] = self.level
+        if self.min_interval is not None:
+            result['MinInterval'] = self.min_interval
+        if self.severity is not None:
+            result['Severity'] = self.severity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Active') is not None:
+            self.active = m.get('Active')
+        if m.get('ChannelType') is not None:
+            self.channel_type = m.get('ChannelType')
+        if m.get('ContactGroupName') is not None:
+            self.contact_group_name = m.get('ContactGroupName')
+        if m.get('ContactName') is not None:
+            self.contact_name = m.get('ContactName')
+        if m.get('DispatchRule') is not None:
+            self.dispatch_rule = m.get('DispatchRule')
+        if m.get('EventContext') is not None:
+            self.event_context = m.get('EventContext')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('Level') is not None:
+            self.level = m.get('Level')
+        if m.get('MinInterval') is not None:
+            self.min_interval = m.get('MinInterval')
+        if m.get('Severity') is not None:
+            self.severity = m.get('Severity')
+        return self
+
+
+class SetEventSubscriptionResponseBodyData(TeaModel):
+    def __init__(self, active=None, channel_type=None, contact_group_name=None, contact_name=None,
+                 event_context=None, instance_id=None, lang=None, level=None, min_interval=None, user_id=None):
+        # Indicates whether the event subscription feature is enabled. Valid values:
+        # 
+        # *   **0**: The event subscription feature is disabled.
+        # *   **1**: The event subscription feature is enabled.
+        self.active = active  # type: int
+        # The notification method. Valid values:
+        # 
+        # *   **hdm_alarm_sms**: text message.
+        # *   **dingtalk**: DingTalk chatbot.
+        # *   **hdm_alarm_sms_and_email**: text message and email.
+        # *   **hdm_alarm_sms,dingtalk**: text message and DingTalk chatbot.
+        self.channel_type = channel_type  # type: str
+        # The name of the contact group that receives alert notifications. Multiple names are separated by commas (,).
+        self.contact_group_name = contact_group_name  # type: str
+        # The name of the contact who receives alert notifications. Multiple names are separated by commas (,).
+        self.contact_name = contact_name  # type: str
+        # The supported event scenarios. Only **AllContext** is returned for this parameter, which indicates that all scenarios are supported.
+        self.event_context = event_context  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The language of event notifications. Only **zh-CN** is returned for this parameter, which indicates that event notifications are sent in Chinese.
+        self.lang = lang  # type: str
+        # The risk level of the events. Valid values:
+        # 
+        # *   **Notice**\
+        # *   **Optimization**\
+        # *   **Warn**\
+        # *   **Critical**\
+        self.level = level  # type: str
+        # The minimum interval between consecutive event notifications. Unit: seconds.
+        self.min_interval = min_interval  # type: int
+        # The user ID.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetEventSubscriptionResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.active is not None:
+            result['active'] = self.active
+        if self.channel_type is not None:
+            result['channelType'] = self.channel_type
+        if self.contact_group_name is not None:
+            result['contactGroupName'] = self.contact_group_name
+        if self.contact_name is not None:
+            result['contactName'] = self.contact_name
+        if self.event_context is not None:
+            result['eventContext'] = self.event_context
+        if self.instance_id is not None:
+            result['instanceId'] = self.instance_id
+        if self.lang is not None:
+            result['lang'] = self.lang
+        if self.level is not None:
+            result['level'] = self.level
+        if self.min_interval is not None:
+            result['minInterval'] = self.min_interval
+        if self.user_id is not None:
+            result['userId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('active') is not None:
+            self.active = m.get('active')
+        if m.get('channelType') is not None:
+            self.channel_type = m.get('channelType')
+        if m.get('contactGroupName') is not None:
+            self.contact_group_name = m.get('contactGroupName')
+        if m.get('contactName') is not None:
+            self.contact_name = m.get('contactName')
+        if m.get('eventContext') is not None:
+            self.event_context = m.get('eventContext')
+        if m.get('instanceId') is not None:
+            self.instance_id = m.get('instanceId')
+        if m.get('lang') is not None:
+            self.lang = m.get('lang')
+        if m.get('level') is not None:
+            self.level = m.get('level')
+        if m.get('minInterval') is not None:
+            self.min_interval = m.get('minInterval')
+        if m.get('userId') is not None:
+            self.user_id = m.get('userId')
+        return self
+
+
+class SetEventSubscriptionResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The detailed information.
+        self.data = data  # type: SetEventSubscriptionResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(SetEventSubscriptionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = SetEventSubscriptionResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SetEventSubscriptionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SetEventSubscriptionResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetEventSubscriptionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SetEventSubscriptionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class StopCloudBenchTaskRequest(TeaModel):
     def __init__(self, task_id=None):
+        # The stress testing task ID. You can call the [DescribeCloudBenchTasks](~~230670~~) operation to query the task ID.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -9591,10 +23761,20 @@ class StopCloudBenchTaskRequest(TeaModel):
 
 class StopCloudBenchTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
         self.code = code  # type: str
+        # The reserved parameter.
         self.data = data  # type: str
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: str
 
     def validate(self):
@@ -9634,12 +23814,14 @@ class StopCloudBenchTaskResponseBody(TeaModel):
 
 
 class StopCloudBenchTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: StopCloudBenchTaskResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9652,6 +23834,8 @@ class StopCloudBenchTaskResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9660,155 +23844,10 @@ class StopCloudBenchTaskResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StopCloudBenchTaskResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class StopOrRollbackOptimizeTaskRequest(TeaModel):
-    def __init__(self, access_key=None, instance_id=None, signature=None, stop_or_rollback=None, task_type=None,
-                 task_uuid=None, uid=None, user_id=None, context=None):
-        self.access_key = access_key  # type: str
-        self.instance_id = instance_id  # type: str
-        self.signature = signature  # type: str
-        self.stop_or_rollback = stop_or_rollback  # type: str
-        self.task_type = task_type  # type: str
-        self.task_uuid = task_uuid  # type: str
-        self.uid = uid  # type: str
-        self.user_id = user_id  # type: str
-        self.context = context  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(StopOrRollbackOptimizeTaskRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.access_key is not None:
-            result['AccessKey'] = self.access_key
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.signature is not None:
-            result['Signature'] = self.signature
-        if self.stop_or_rollback is not None:
-            result['StopOrRollback'] = self.stop_or_rollback
-        if self.task_type is not None:
-            result['TaskType'] = self.task_type
-        if self.task_uuid is not None:
-            result['TaskUuid'] = self.task_uuid
-        if self.uid is not None:
-            result['Uid'] = self.uid
-        if self.user_id is not None:
-            result['UserId'] = self.user_id
-        if self.context is not None:
-            result['__context'] = self.context
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AccessKey') is not None:
-            self.access_key = m.get('AccessKey')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('Signature') is not None:
-            self.signature = m.get('Signature')
-        if m.get('StopOrRollback') is not None:
-            self.stop_or_rollback = m.get('StopOrRollback')
-        if m.get('TaskType') is not None:
-            self.task_type = m.get('TaskType')
-        if m.get('TaskUuid') is not None:
-            self.task_uuid = m.get('TaskUuid')
-        if m.get('Uid') is not None:
-            self.uid = m.get('Uid')
-        if m.get('UserId') is not None:
-            self.user_id = m.get('UserId')
-        if m.get('__context') is not None:
-            self.context = m.get('__context')
-        return self
-
-
-class StopOrRollbackOptimizeTaskResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None, synchro=None):
-        self.code = code  # type: str
-        self.data = data  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: str
-        self.synchro = synchro  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(StopOrRollbackOptimizeTaskResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        if self.synchro is not None:
-            result['Synchro'] = self.synchro
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        if m.get('Synchro') is not None:
-            self.synchro = m.get('Synchro')
-        return self
-
-
-class StopOrRollbackOptimizeTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: StopOrRollbackOptimizeTaskResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(StopOrRollbackOptimizeTaskResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = StopOrRollbackOptimizeTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -9933,12 +23972,14 @@ class SyncHDMAliyunResourceResponseBody(TeaModel):
 
 
 class SyncHDMAliyunResourceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: SyncHDMAliyunResourceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9951,6 +23992,8 @@ class SyncHDMAliyunResourceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9959,227 +24002,314 @@ class SyncHDMAliyunResourceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SyncHDMAliyunResourceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class TurnOffAutoResourceOptimizeRequest(TeaModel):
-    def __init__(self, access_key=None, instance_id=None, signature=None, uid=None, user_id=None, context=None):
-        self.access_key = access_key  # type: str
-        self.instance_id = instance_id  # type: str
-        self.signature = signature  # type: str
-        self.uid = uid  # type: str
-        self.user_id = user_id  # type: str
-        self.context = context  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(TurnOffAutoResourceOptimizeRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.access_key is not None:
-            result['AccessKey'] = self.access_key
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.signature is not None:
-            result['Signature'] = self.signature
-        if self.uid is not None:
-            result['Uid'] = self.uid
-        if self.user_id is not None:
-            result['UserId'] = self.user_id
-        if self.context is not None:
-            result['__context'] = self.context
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AccessKey') is not None:
-            self.access_key = m.get('AccessKey')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('Signature') is not None:
-            self.signature = m.get('Signature')
-        if m.get('Uid') is not None:
-            self.uid = m.get('Uid')
-        if m.get('UserId') is not None:
-            self.user_id = m.get('UserId')
-        if m.get('__context') is not None:
-            self.context = m.get('__context')
-        return self
-
-
-class TurnOffAutoResourceOptimizeResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None, synchro=None):
-        self.code = code  # type: str
-        self.data = data  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: str
-        self.synchro = synchro  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(TurnOffAutoResourceOptimizeResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        if self.synchro is not None:
-            result['Synchro'] = self.synchro
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        if m.get('Synchro') is not None:
-            self.synchro = m.get('Synchro')
-        return self
-
-
-class TurnOffAutoResourceOptimizeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: TurnOffAutoResourceOptimizeResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(TurnOffAutoResourceOptimizeResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = TurnOffAutoResourceOptimizeResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class UpdateAutoResourceOptimizeConfigRequest(TeaModel):
-    def __init__(self, access_key=None, auto_defragment=None, auto_duplicate_index_delete=None, instance_id=None,
-                 signature=None, table_fragmentation_ratio=None, table_space_size=None, uid=None, user_id=None, context=None):
-        self.access_key = access_key  # type: str
-        self.auto_defragment = auto_defragment  # type: int
-        self.auto_duplicate_index_delete = auto_duplicate_index_delete  # type: int
-        self.instance_id = instance_id  # type: str
-        self.signature = signature  # type: str
+class UpdateAutoResourceOptimizeRulesAsyncRequest(TeaModel):
+    def __init__(self, console_context=None, instance_ids=None, result_id=None, table_fragmentation_ratio=None,
+                 table_space_size=None):
+        # The reserved parameter.
+        self.console_context = console_context  # type: str
+        # The database instance IDs.
+        # 
+        # >  Set this parameter to a JSON array that consists of multiple instance IDs. Separate instance IDs with commas (,). Example: `[\"Instance ID1\", \"Instance ID2\"]`.
+        self.instance_ids = instance_ids  # type: str
+        # The ID of the asynchronous request.
+        # 
+        # >  You can leave this parameter empty when you call the operation to initiate the request for the first time, and use the value of this parameter contained in the response to the first request for subsequent requests.
+        self.result_id = result_id  # type: str
+        # The fragmentation rate that triggers automatic fragment recycling of a single physical table. Valid values: **0.10** to **0.99**.
         self.table_fragmentation_ratio = table_fragmentation_ratio  # type: float
+        # The minimum storage usage that triggers automatic fragment recycling of a single physical table. Valid values: **5** to **100**. Unit: GB.
         self.table_space_size = table_space_size  # type: float
-        self.uid = uid  # type: str
-        self.user_id = user_id  # type: str
-        self.context = context  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(UpdateAutoResourceOptimizeConfigRequest, self).to_map()
+        _map = super(UpdateAutoResourceOptimizeRulesAsyncRequest, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.access_key is not None:
-            result['AccessKey'] = self.access_key
-        if self.auto_defragment is not None:
-            result['AutoDefragment'] = self.auto_defragment
-        if self.auto_duplicate_index_delete is not None:
-            result['AutoDuplicateIndexDelete'] = self.auto_duplicate_index_delete
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.signature is not None:
-            result['Signature'] = self.signature
+        if self.console_context is not None:
+            result['ConsoleContext'] = self.console_context
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        if self.result_id is not None:
+            result['ResultId'] = self.result_id
         if self.table_fragmentation_ratio is not None:
             result['TableFragmentationRatio'] = self.table_fragmentation_ratio
         if self.table_space_size is not None:
             result['TableSpaceSize'] = self.table_space_size
-        if self.uid is not None:
-            result['Uid'] = self.uid
-        if self.user_id is not None:
-            result['UserId'] = self.user_id
-        if self.context is not None:
-            result['__context'] = self.context
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('AccessKey') is not None:
-            self.access_key = m.get('AccessKey')
-        if m.get('AutoDefragment') is not None:
-            self.auto_defragment = m.get('AutoDefragment')
-        if m.get('AutoDuplicateIndexDelete') is not None:
-            self.auto_duplicate_index_delete = m.get('AutoDuplicateIndexDelete')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('Signature') is not None:
-            self.signature = m.get('Signature')
+        if m.get('ConsoleContext') is not None:
+            self.console_context = m.get('ConsoleContext')
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        if m.get('ResultId') is not None:
+            self.result_id = m.get('ResultId')
         if m.get('TableFragmentationRatio') is not None:
             self.table_fragmentation_ratio = m.get('TableFragmentationRatio')
         if m.get('TableSpaceSize') is not None:
             self.table_space_size = m.get('TableSpaceSize')
-        if m.get('Uid') is not None:
-            self.uid = m.get('Uid')
-        if m.get('UserId') is not None:
-            self.user_id = m.get('UserId')
-        if m.get('__context') is not None:
-            self.context = m.get('__context')
         return self
 
 
-class UpdateAutoResourceOptimizeConfigResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None, success=None, synchro=None):
-        self.code = code  # type: str
-        self.data = data  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.success = success  # type: str
-        self.synchro = synchro  # type: str
+class UpdateAutoResourceOptimizeRulesAsyncResponseBodyDataConfigResponseConfigFailInstanceList(TeaModel):
+    def __init__(self, config_success=None, error_message=None, instance_id=None):
+        # Indicates whether the parameters are configured. Valid values:
+        # 
+        # * **true**\
+        # 
+        # * **false**\
+        self.config_success = config_success  # type: bool
+        # The error message returned.
+        self.error_message = error_message  # type: str
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(UpdateAutoResourceOptimizeConfigResponseBody, self).to_map()
+        _map = super(UpdateAutoResourceOptimizeRulesAsyncResponseBodyDataConfigResponseConfigFailInstanceList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_success is not None:
+            result['ConfigSuccess'] = self.config_success
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigSuccess') is not None:
+            self.config_success = m.get('ConfigSuccess')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class UpdateAutoResourceOptimizeRulesAsyncResponseBodyDataConfigResponseConfigSuccessInstanceList(TeaModel):
+    def __init__(self, config_success=None, instance_id=None):
+        # Indicates whether the parameters are configured. Valid values:
+        # 
+        # * **true**\
+        # 
+        # * **false**\
+        self.config_success = config_success  # type: bool
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAutoResourceOptimizeRulesAsyncResponseBodyDataConfigResponseConfigSuccessInstanceList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_success is not None:
+            result['ConfigSuccess'] = self.config_success
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigSuccess') is not None:
+            self.config_success = m.get('ConfigSuccess')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class UpdateAutoResourceOptimizeRulesAsyncResponseBodyDataConfigResponse(TeaModel):
+    def __init__(self, config_fail_instance_count=None, config_fail_instance_list=None,
+                 config_success_instance_count=None, config_success_instance_list=None, total_instance_count=None):
+        # The number of database instances for which the parameters failed to be configured.
+        self.config_fail_instance_count = config_fail_instance_count  # type: long
+        # The database instances for which the parameters failed to be configured.
+        self.config_fail_instance_list = config_fail_instance_list  # type: list[UpdateAutoResourceOptimizeRulesAsyncResponseBodyDataConfigResponseConfigFailInstanceList]
+        # The number of database instances for which the parameters are configured.
+        self.config_success_instance_count = config_success_instance_count  # type: long
+        # The database instances for which the parameters are configured.
+        self.config_success_instance_list = config_success_instance_list  # type: list[UpdateAutoResourceOptimizeRulesAsyncResponseBodyDataConfigResponseConfigSuccessInstanceList]
+        # The total number of database instances.
+        self.total_instance_count = total_instance_count  # type: long
+
+    def validate(self):
+        if self.config_fail_instance_list:
+            for k in self.config_fail_instance_list:
+                if k:
+                    k.validate()
+        if self.config_success_instance_list:
+            for k in self.config_success_instance_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateAutoResourceOptimizeRulesAsyncResponseBodyDataConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_fail_instance_count is not None:
+            result['ConfigFailInstanceCount'] = self.config_fail_instance_count
+        result['ConfigFailInstanceList'] = []
+        if self.config_fail_instance_list is not None:
+            for k in self.config_fail_instance_list:
+                result['ConfigFailInstanceList'].append(k.to_map() if k else None)
+        if self.config_success_instance_count is not None:
+            result['ConfigSuccessInstanceCount'] = self.config_success_instance_count
+        result['ConfigSuccessInstanceList'] = []
+        if self.config_success_instance_list is not None:
+            for k in self.config_success_instance_list:
+                result['ConfigSuccessInstanceList'].append(k.to_map() if k else None)
+        if self.total_instance_count is not None:
+            result['TotalInstanceCount'] = self.total_instance_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigFailInstanceCount') is not None:
+            self.config_fail_instance_count = m.get('ConfigFailInstanceCount')
+        self.config_fail_instance_list = []
+        if m.get('ConfigFailInstanceList') is not None:
+            for k in m.get('ConfigFailInstanceList'):
+                temp_model = UpdateAutoResourceOptimizeRulesAsyncResponseBodyDataConfigResponseConfigFailInstanceList()
+                self.config_fail_instance_list.append(temp_model.from_map(k))
+        if m.get('ConfigSuccessInstanceCount') is not None:
+            self.config_success_instance_count = m.get('ConfigSuccessInstanceCount')
+        self.config_success_instance_list = []
+        if m.get('ConfigSuccessInstanceList') is not None:
+            for k in m.get('ConfigSuccessInstanceList'):
+                temp_model = UpdateAutoResourceOptimizeRulesAsyncResponseBodyDataConfigResponseConfigSuccessInstanceList()
+                self.config_success_instance_list.append(temp_model.from_map(k))
+        if m.get('TotalInstanceCount') is not None:
+            self.total_instance_count = m.get('TotalInstanceCount')
+        return self
+
+
+class UpdateAutoResourceOptimizeRulesAsyncResponseBodyData(TeaModel):
+    def __init__(self, complete=None, config_response=None, fail=None, is_finish=None, result_id=None, state=None,
+                 timestamp=None):
+        # Indicates whether the asynchronous request was complete. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.complete = complete  # type: bool
+        # The returned data of the configuration.
+        # 
+        # >  The data is returned only if the value of isFinish is **true**. This value indicates that the asynchronous request is complete.
+        self.config_response = config_response  # type: UpdateAutoResourceOptimizeRulesAsyncResponseBodyDataConfigResponse
+        # Indicates whether the asynchronous request failed. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.fail = fail  # type: bool
+        # Indicates whether the asynchronous request was complete. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.is_finish = is_finish  # type: bool
+        # The ID of the asynchronous request.
+        self.result_id = result_id  # type: str
+        # The state of the asynchronous request. Valid values:
+        # 
+        # *   **RUNNING**\
+        # *   **SUCCESS**\
+        # *   **FAIL**\
+        self.state = state  # type: str
+        # The time when the asynchronous request was made. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.timestamp = timestamp  # type: long
+
+    def validate(self):
+        if self.config_response:
+            self.config_response.validate()
+
+    def to_map(self):
+        _map = super(UpdateAutoResourceOptimizeRulesAsyncResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.complete is not None:
+            result['Complete'] = self.complete
+        if self.config_response is not None:
+            result['ConfigResponse'] = self.config_response.to_map()
+        if self.fail is not None:
+            result['Fail'] = self.fail
+        if self.is_finish is not None:
+            result['IsFinish'] = self.is_finish
+        if self.result_id is not None:
+            result['ResultId'] = self.result_id
+        if self.state is not None:
+            result['State'] = self.state
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Complete') is not None:
+            self.complete = m.get('Complete')
+        if m.get('ConfigResponse') is not None:
+            temp_model = UpdateAutoResourceOptimizeRulesAsyncResponseBodyDataConfigResponse()
+            self.config_response = temp_model.from_map(m['ConfigResponse'])
+        if m.get('Fail') is not None:
+            self.fail = m.get('Fail')
+        if m.get('IsFinish') is not None:
+            self.is_finish = m.get('IsFinish')
+        if m.get('ResultId') is not None:
+            self.result_id = m.get('ResultId')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        return self
+
+
+class UpdateAutoResourceOptimizeRulesAsyncResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The data returned.
+        self.data = data  # type: UpdateAutoResourceOptimizeRulesAsyncResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(UpdateAutoResourceOptimizeRulesAsyncResponseBody, self).to_map()
         if _map is not None:
             return _map
 
@@ -10187,15 +24317,13 @@ class UpdateAutoResourceOptimizeConfigResponseBody(TeaModel):
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
-            result['Data'] = self.data
+            result['Data'] = self.data.to_map()
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.success is not None:
             result['Success'] = self.success
-        if self.synchro is not None:
-            result['Synchro'] = self.synchro
         return result
 
     def from_map(self, m=None):
@@ -10203,37 +24331,40 @@ class UpdateAutoResourceOptimizeConfigResponseBody(TeaModel):
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
-            self.data = m.get('Data')
+            temp_model = UpdateAutoResourceOptimizeRulesAsyncResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('Success') is not None:
             self.success = m.get('Success')
-        if m.get('Synchro') is not None:
-            self.synchro = m.get('Synchro')
         return self
 
 
-class UpdateAutoResourceOptimizeConfigResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+class UpdateAutoResourceOptimizeRulesAsyncResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: UpdateAutoResourceOptimizeConfigResponseBody
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateAutoResourceOptimizeRulesAsyncResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
     def to_map(self):
-        _map = super(UpdateAutoResourceOptimizeConfigResponse, self).to_map()
+        _map = super(UpdateAutoResourceOptimizeRulesAsyncResponse, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10242,8 +24373,604 @@ class UpdateAutoResourceOptimizeConfigResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
-            temp_model = UpdateAutoResourceOptimizeConfigResponseBody()
+            temp_model = UpdateAutoResourceOptimizeRulesAsyncResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateAutoSqlOptimizeStatusRequest(TeaModel):
+    def __init__(self, instances=None, status=None):
+        # The database instance IDs. Separate multiple IDs with commas (,).
+        # 
+        # >  You can specify up to 50 instance IDs.
+        self.instances = instances  # type: str
+        # The status of the automatic SQL optimization feature. Valid values:
+        # 
+        # *   **0**: The automatic SQL optimization feature is disabled.
+        # *   **1**: **SQL diagnosis and automatic index creation** is specified.
+        # *   **3**: **SQL diagnosis only** is specified.
+        self.status = status  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAutoSqlOptimizeStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instances is not None:
+            result['Instances'] = self.instances
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Instances') is not None:
+            self.instances = m.get('Instances')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class UpdateAutoSqlOptimizeStatusResponseBodyData(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, success=None):
+        # The error code. Valid values:
+        # 
+        # *   **-1001**: indicates that the specified parameter is invalid.
+        # *   **-91029**: indicates that a system error occurred.
+        self.error_code = error_code  # type: str
+        # The error message.
+        self.error_msg = error_msg  # type: str
+        # Indicates whether the request initiated to configure the automatic SQL optimization feature was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAutoSqlOptimizeStatusResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpdateAutoSqlOptimizeStatusResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: str
+        # The returned data.
+        self.data = data  # type: UpdateAutoSqlOptimizeStatusResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(UpdateAutoSqlOptimizeStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = UpdateAutoSqlOptimizeStatusResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpdateAutoSqlOptimizeStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateAutoSqlOptimizeStatusResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateAutoSqlOptimizeStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateAutoSqlOptimizeStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateAutoThrottleRulesAsyncRequest(TeaModel):
+    def __init__(self, abnormal_duration=None, active_sessions=None, allow_throttle_end_time=None,
+                 allow_throttle_start_time=None, auto_kill_session=None, console_context=None, cpu_session_relation=None, cpu_usage=None,
+                 instance_ids=None, max_throttle_time=None, result_id=None):
+        # The duration threshold for triggering automatic SQL throttling. Set this parameter to a positive integer that is greater than or equal to 2. Unit: minutes.
+        self.abnormal_duration = abnormal_duration  # type: float
+        # The maximum number of active sessions.
+        # 
+        # *   Specify an integer that is greater than or equal to 16 when the CPU utilization threshold and the maximum number of active sessions are in the **OR** relationship.
+        # *   Specify an integer that is greater than or equal to 2 when the CPU utilization threshold and the maximum number of active sessions are in the **AND** relationship.
+        self.active_sessions = active_sessions  # type: long
+        # The end time of the throttling window. The time must be in UTC.
+        self.allow_throttle_end_time = allow_throttle_end_time  # type: str
+        # The start time of the throttling window. The time must be in UTC.
+        self.allow_throttle_start_time = allow_throttle_start_time  # type: str
+        # Specifies whether to terminate abnormal SQL statements in execution at the same time. Valid values:
+        # 
+        # >  Abnormal SQL statements use the same template as the SQL statements that need to be throttled.
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.auto_kill_session = auto_kill_session  # type: bool
+        # The reserved parameter.
+        self.console_context = console_context  # type: str
+        # The logical relationship between the CPU utilization threshold and the maximum number of active sessions. Valid values:
+        # 
+        # *   **AND**\
+        # *   **OR**\
+        self.cpu_session_relation = cpu_session_relation  # type: str
+        # The CPU utilization threshold, in percentages. Valid values: 70 to 100.
+        self.cpu_usage = cpu_usage  # type: float
+        # The database instance IDs.
+        # 
+        # >  Set this parameter to a JSON array that consists of multiple instance IDs. Separate instance IDs with commas (,). Example: `[\"Instance ID1\", \"Instance ID2\"]`.
+        self.instance_ids = instance_ids  # type: str
+        # The maximum throttling duration. Set this parameter to a positive integer. Unit: minutes.
+        self.max_throttle_time = max_throttle_time  # type: float
+        # The ID of the asynchronous request.
+        # 
+        # >  You can leave this parameter empty when you call the operation to initiate the request for the first time, and use the value of this parameter contained in the response to the first request for subsequent requests.
+        self.result_id = result_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAutoThrottleRulesAsyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.abnormal_duration is not None:
+            result['AbnormalDuration'] = self.abnormal_duration
+        if self.active_sessions is not None:
+            result['ActiveSessions'] = self.active_sessions
+        if self.allow_throttle_end_time is not None:
+            result['AllowThrottleEndTime'] = self.allow_throttle_end_time
+        if self.allow_throttle_start_time is not None:
+            result['AllowThrottleStartTime'] = self.allow_throttle_start_time
+        if self.auto_kill_session is not None:
+            result['AutoKillSession'] = self.auto_kill_session
+        if self.console_context is not None:
+            result['ConsoleContext'] = self.console_context
+        if self.cpu_session_relation is not None:
+            result['CpuSessionRelation'] = self.cpu_session_relation
+        if self.cpu_usage is not None:
+            result['CpuUsage'] = self.cpu_usage
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        if self.max_throttle_time is not None:
+            result['MaxThrottleTime'] = self.max_throttle_time
+        if self.result_id is not None:
+            result['ResultId'] = self.result_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AbnormalDuration') is not None:
+            self.abnormal_duration = m.get('AbnormalDuration')
+        if m.get('ActiveSessions') is not None:
+            self.active_sessions = m.get('ActiveSessions')
+        if m.get('AllowThrottleEndTime') is not None:
+            self.allow_throttle_end_time = m.get('AllowThrottleEndTime')
+        if m.get('AllowThrottleStartTime') is not None:
+            self.allow_throttle_start_time = m.get('AllowThrottleStartTime')
+        if m.get('AutoKillSession') is not None:
+            self.auto_kill_session = m.get('AutoKillSession')
+        if m.get('ConsoleContext') is not None:
+            self.console_context = m.get('ConsoleContext')
+        if m.get('CpuSessionRelation') is not None:
+            self.cpu_session_relation = m.get('CpuSessionRelation')
+        if m.get('CpuUsage') is not None:
+            self.cpu_usage = m.get('CpuUsage')
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        if m.get('MaxThrottleTime') is not None:
+            self.max_throttle_time = m.get('MaxThrottleTime')
+        if m.get('ResultId') is not None:
+            self.result_id = m.get('ResultId')
+        return self
+
+
+class UpdateAutoThrottleRulesAsyncResponseBodyDataConfigResponseConfigFailInstanceList(TeaModel):
+    def __init__(self, config_success=None, error_message=None, instance_id=None):
+        # Indicates whether the parameters are configured. Valid values:
+        # 
+        # * **true**\
+        # 
+        # * **false**\
+        self.config_success = config_success  # type: bool
+        # The error message returned.
+        self.error_message = error_message  # type: str
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAutoThrottleRulesAsyncResponseBodyDataConfigResponseConfigFailInstanceList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_success is not None:
+            result['ConfigSuccess'] = self.config_success
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigSuccess') is not None:
+            self.config_success = m.get('ConfigSuccess')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class UpdateAutoThrottleRulesAsyncResponseBodyDataConfigResponseConfigSuccessInstanceList(TeaModel):
+    def __init__(self, config_success=None, instance_id=None):
+        # Indicates whether the parameters are configured. Valid values:
+        # 
+        # * **true**\
+        # 
+        # * **false**\
+        self.config_success = config_success  # type: bool
+        # The database instance ID.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAutoThrottleRulesAsyncResponseBodyDataConfigResponseConfigSuccessInstanceList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_success is not None:
+            result['ConfigSuccess'] = self.config_success
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigSuccess') is not None:
+            self.config_success = m.get('ConfigSuccess')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class UpdateAutoThrottleRulesAsyncResponseBodyDataConfigResponse(TeaModel):
+    def __init__(self, config_fail_instance_count=None, config_fail_instance_list=None,
+                 config_success_instance_count=None, config_success_instance_list=None, total_instance_count=None):
+        # The number of database instances for which the parameters failed to be configured.
+        self.config_fail_instance_count = config_fail_instance_count  # type: long
+        # The database instances for which the parameters failed to be configured.
+        self.config_fail_instance_list = config_fail_instance_list  # type: list[UpdateAutoThrottleRulesAsyncResponseBodyDataConfigResponseConfigFailInstanceList]
+        # The number of database instances for which the parameters are configured.
+        self.config_success_instance_count = config_success_instance_count  # type: long
+        # The database instances for which the parameters are configured.
+        self.config_success_instance_list = config_success_instance_list  # type: list[UpdateAutoThrottleRulesAsyncResponseBodyDataConfigResponseConfigSuccessInstanceList]
+        # The total number of database instances.
+        self.total_instance_count = total_instance_count  # type: long
+
+    def validate(self):
+        if self.config_fail_instance_list:
+            for k in self.config_fail_instance_list:
+                if k:
+                    k.validate()
+        if self.config_success_instance_list:
+            for k in self.config_success_instance_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateAutoThrottleRulesAsyncResponseBodyDataConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_fail_instance_count is not None:
+            result['ConfigFailInstanceCount'] = self.config_fail_instance_count
+        result['ConfigFailInstanceList'] = []
+        if self.config_fail_instance_list is not None:
+            for k in self.config_fail_instance_list:
+                result['ConfigFailInstanceList'].append(k.to_map() if k else None)
+        if self.config_success_instance_count is not None:
+            result['ConfigSuccessInstanceCount'] = self.config_success_instance_count
+        result['ConfigSuccessInstanceList'] = []
+        if self.config_success_instance_list is not None:
+            for k in self.config_success_instance_list:
+                result['ConfigSuccessInstanceList'].append(k.to_map() if k else None)
+        if self.total_instance_count is not None:
+            result['TotalInstanceCount'] = self.total_instance_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigFailInstanceCount') is not None:
+            self.config_fail_instance_count = m.get('ConfigFailInstanceCount')
+        self.config_fail_instance_list = []
+        if m.get('ConfigFailInstanceList') is not None:
+            for k in m.get('ConfigFailInstanceList'):
+                temp_model = UpdateAutoThrottleRulesAsyncResponseBodyDataConfigResponseConfigFailInstanceList()
+                self.config_fail_instance_list.append(temp_model.from_map(k))
+        if m.get('ConfigSuccessInstanceCount') is not None:
+            self.config_success_instance_count = m.get('ConfigSuccessInstanceCount')
+        self.config_success_instance_list = []
+        if m.get('ConfigSuccessInstanceList') is not None:
+            for k in m.get('ConfigSuccessInstanceList'):
+                temp_model = UpdateAutoThrottleRulesAsyncResponseBodyDataConfigResponseConfigSuccessInstanceList()
+                self.config_success_instance_list.append(temp_model.from_map(k))
+        if m.get('TotalInstanceCount') is not None:
+            self.total_instance_count = m.get('TotalInstanceCount')
+        return self
+
+
+class UpdateAutoThrottleRulesAsyncResponseBodyData(TeaModel):
+    def __init__(self, complete=None, config_response=None, fail=None, is_finish=None, result_id=None, state=None,
+                 timestamp=None):
+        # Indicates whether the asynchronous request was complete. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.complete = complete  # type: bool
+        # The returned data of the configuration.
+        # 
+        # >  The data is returned only if the value of isFinish is **true**. This value indicates that the asynchronous request is complete.
+        self.config_response = config_response  # type: UpdateAutoThrottleRulesAsyncResponseBodyDataConfigResponse
+        # Indicates whether the asynchronous request failed. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.fail = fail  # type: bool
+        # Indicates whether the asynchronous request was complete. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.is_finish = is_finish  # type: bool
+        # The ID of the asynchronous request.
+        self.result_id = result_id  # type: str
+        # The state of the asynchronous request. Valid values:
+        # 
+        # *   **RUNNING**\
+        # *   **SUCCESS**\
+        # *   **FAIL**\
+        self.state = state  # type: str
+        # The time when the asynchronous request was made. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        self.timestamp = timestamp  # type: long
+
+    def validate(self):
+        if self.config_response:
+            self.config_response.validate()
+
+    def to_map(self):
+        _map = super(UpdateAutoThrottleRulesAsyncResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.complete is not None:
+            result['Complete'] = self.complete
+        if self.config_response is not None:
+            result['ConfigResponse'] = self.config_response.to_map()
+        if self.fail is not None:
+            result['Fail'] = self.fail
+        if self.is_finish is not None:
+            result['IsFinish'] = self.is_finish
+        if self.result_id is not None:
+            result['ResultId'] = self.result_id
+        if self.state is not None:
+            result['State'] = self.state
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Complete') is not None:
+            self.complete = m.get('Complete')
+        if m.get('ConfigResponse') is not None:
+            temp_model = UpdateAutoThrottleRulesAsyncResponseBodyDataConfigResponse()
+            self.config_response = temp_model.from_map(m['ConfigResponse'])
+        if m.get('Fail') is not None:
+            self.fail = m.get('Fail')
+        if m.get('IsFinish') is not None:
+            self.is_finish = m.get('IsFinish')
+        if m.get('ResultId') is not None:
+            self.result_id = m.get('ResultId')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        return self
+
+
+class UpdateAutoThrottleRulesAsyncResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code returned.
+        self.code = code  # type: long
+        # The data returned.
+        self.data = data  # type: UpdateAutoThrottleRulesAsyncResponseBodyData
+        # The returned message.
+        # 
+        # >  If the request was successful, **Successful** is returned. If the request failed, an error message such as an error code is returned.
+        self.message = message  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(UpdateAutoThrottleRulesAsyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = UpdateAutoThrottleRulesAsyncResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpdateAutoThrottleRulesAsyncResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateAutoThrottleRulesAsyncResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateAutoThrottleRulesAsyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateAutoThrottleRulesAsyncResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
