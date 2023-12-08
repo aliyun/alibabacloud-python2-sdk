@@ -376,6 +376,7 @@ class CreateApplicationRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the service.
         self.service_id = service_id  # type: str
         # The tags.
         self.tags = tags  # type: dict[str, any]
@@ -445,6 +446,7 @@ class CreateApplicationShrinkRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the service.
         self.service_id = service_id  # type: str
         # The tags.
         self.tags_shrink = tags_shrink  # type: str
@@ -936,7 +938,7 @@ class CreateOpsItemRequest(TeaModel):
         # 
         #     <!-- -->
         self.severity = severity  # type: str
-        # The list of solutions.
+        # The solutions.
         self.solutions = solutions  # type: str
         # The source business.
         self.source = source  # type: str
@@ -1111,7 +1113,7 @@ class CreateOpsItemShrinkRequest(TeaModel):
         # 
         #     <!-- -->
         self.severity = severity  # type: str
-        # The list of solutions.
+        # The solutions.
         self.solutions = solutions  # type: str
         # The source business.
         self.source = source  # type: str
@@ -1192,35 +1194,35 @@ class CreateOpsItemResponseBodyOpsItem(TeaModel):
     def __init__(self, attributes=None, category=None, create_date=None, created_by=None, description=None,
                  last_modified_by=None, ops_item_id=None, priority=None, resource_group_id=None, resources=None, severity=None,
                  solutions=None, source=None, status=None, tags=None, title=None, update_date=None):
-        # The information about the properties of the O\&M item.
+        # The attributes of the O\&M item.
         self.attributes = attributes  # type: str
-        # The category.
+        # The category of the O\&M item.
         self.category = category  # type: str
         # The time when the O\&M item was created.
         self.create_date = create_date  # type: str
-        # The user who created the OpsItem.
+        # The user who created the O\&M item.
         self.created_by = created_by  # type: str
-        # The description.
+        # The description of the O\&M item.
         self.description = description  # type: str
-        # The user who modified the O\&M item.
+        # The user who last modified the O\&M item.
         self.last_modified_by = last_modified_by  # type: str
         # The ID of the O\&M item.
         self.ops_item_id = ops_item_id  # type: str
-        # The priority.
+        # The priority of the O\&M item.
         self.priority = priority  # type: int
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
-        # The ARN of the associated resource.
+        # The ARNs of the associated resources.
         self.resources = resources  # type: str
-        # The severity level.
+        # The severity level of the O\&M item.
         self.severity = severity  # type: str
-        # The solution.
+        # The solutions.
         self.solutions = solutions  # type: str
-        # The source business.
+        # The source business of the O\&M item.
         self.source = source  # type: str
-        # The status.
+        # The state of the O\&M item.
         self.status = status  # type: str
-        # The tags.
+        # The tags of the O\&M item.
         self.tags = tags  # type: dict[str, any]
         # The title of the O\&M item.
         self.title = title  # type: str
@@ -1313,9 +1315,9 @@ class CreateOpsItemResponseBodyOpsItem(TeaModel):
 
 class CreateOpsItemResponseBody(TeaModel):
     def __init__(self, ops_item=None, request_id=None):
-        # The O\&M item.
+        # The information about the O\&M item.
         self.ops_item = ops_item  # type: CreateOpsItemResponseBodyOpsItem
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4198,6 +4200,217 @@ class DeployApplicationGroupResponse(TeaModel):
         return self
 
 
+class DescribeApplicationGroupBillRequest(TeaModel):
+    def __init__(self, application_name=None, billing_cycle=None, max_results=None, name=None, next_token=None,
+                 region_id=None, resource_type=None):
+        self.application_name = application_name  # type: str
+        self.billing_cycle = billing_cycle  # type: str
+        self.max_results = max_results  # type: int
+        self.name = name  # type: str
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_type = resource_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeApplicationGroupBillRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application_name is not None:
+            result['ApplicationName'] = self.application_name
+        if self.billing_cycle is not None:
+            result['BillingCycle'] = self.billing_cycle
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApplicationName') is not None:
+            self.application_name = m.get('ApplicationName')
+        if m.get('BillingCycle') is not None:
+            self.billing_cycle = m.get('BillingCycle')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        return self
+
+
+class DescribeApplicationGroupBillResponseBodyApplicationGroupConsume(TeaModel):
+    def __init__(self, amount=None, creation_time=None, currency=None, instance_id=None, instance_name=None,
+                 instance_type=None, optimization=None, peak_type=None, performance=None, status=None):
+        self.amount = amount  # type: float
+        self.creation_time = creation_time  # type: str
+        self.currency = currency  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.instance_type = instance_type  # type: str
+        self.optimization = optimization  # type: str
+        self.peak_type = peak_type  # type: str
+        self.performance = performance  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeApplicationGroupBillResponseBodyApplicationGroupConsume, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['Amount'] = self.amount
+        if self.creation_time is not None:
+            result['CreationTime'] = self.creation_time
+        if self.currency is not None:
+            result['Currency'] = self.currency
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.optimization is not None:
+            result['Optimization'] = self.optimization
+        if self.peak_type is not None:
+            result['PeakType'] = self.peak_type
+        if self.performance is not None:
+            result['Performance'] = self.performance
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Amount') is not None:
+            self.amount = m.get('Amount')
+        if m.get('CreationTime') is not None:
+            self.creation_time = m.get('CreationTime')
+        if m.get('Currency') is not None:
+            self.currency = m.get('Currency')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('Optimization') is not None:
+            self.optimization = m.get('Optimization')
+        if m.get('PeakType') is not None:
+            self.peak_type = m.get('PeakType')
+        if m.get('Performance') is not None:
+            self.performance = m.get('Performance')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DescribeApplicationGroupBillResponseBody(TeaModel):
+    def __init__(self, application_group_consume=None, max_results=None, next_token=None, request_id=None):
+        self.application_group_consume = application_group_consume  # type: list[DescribeApplicationGroupBillResponseBodyApplicationGroupConsume]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.application_group_consume:
+            for k in self.application_group_consume:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeApplicationGroupBillResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ApplicationGroupConsume'] = []
+        if self.application_group_consume is not None:
+            for k in self.application_group_consume:
+                result['ApplicationGroupConsume'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.application_group_consume = []
+        if m.get('ApplicationGroupConsume') is not None:
+            for k in m.get('ApplicationGroupConsume'):
+                temp_model = DescribeApplicationGroupBillResponseBodyApplicationGroupConsume()
+                self.application_group_consume.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeApplicationGroupBillResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeApplicationGroupBillResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeApplicationGroupBillResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeApplicationGroupBillResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeRegionsRequest(TeaModel):
     def __init__(self, accept_language=None, region_id=None):
         # The supported natural language. Valid values:
@@ -4348,11 +4561,13 @@ class DescribeRegionsResponse(TeaModel):
 
 
 class GenerateExecutionPolicyRequest(TeaModel):
-    def __init__(self, ram_role=None, region_id=None, template_name=None, template_version=None):
+    def __init__(self, ram_role=None, region_id=None, template_content=None, template_name=None,
+                 template_version=None):
         # The RAM role.
         self.ram_role = ram_role  # type: str
         # The ID of the region.
         self.region_id = region_id  # type: str
+        self.template_content = template_content  # type: str
         # The name of the template.
         self.template_name = template_name  # type: str
         # The version of the template. The default value is the latest version of the template.
@@ -4371,6 +4586,8 @@ class GenerateExecutionPolicyRequest(TeaModel):
             result['RamRole'] = self.ram_role
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.template_content is not None:
+            result['TemplateContent'] = self.template_content
         if self.template_name is not None:
             result['TemplateName'] = self.template_name
         if self.template_version is not None:
@@ -4383,6 +4600,8 @@ class GenerateExecutionPolicyRequest(TeaModel):
             self.ram_role = m.get('RamRole')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('TemplateContent') is not None:
+            self.template_content = m.get('TemplateContent')
         if m.get('TemplateName') is not None:
             self.template_name = m.get('TemplateName')
         if m.get('TemplateVersion') is not None:
@@ -4499,8 +4718,11 @@ class GetApplicationRequest(TeaModel):
 
 class GetApplicationResponseBodyApplicationAlarmConfig(TeaModel):
     def __init__(self, contact_groups=None, health_check_url=None, template_ids=None):
+        # The alert contact list.
         self.contact_groups = contact_groups  # type: list[str]
+        # The health check URL of the application.
         self.health_check_url = health_check_url  # type: str
+        # The ID of the alert template.
         self.template_ids = template_ids  # type: list[str]
 
     def validate(self):
@@ -4534,7 +4756,35 @@ class GetApplicationResponseBodyApplicationAlarmConfig(TeaModel):
 class GetApplicationResponseBodyApplication(TeaModel):
     def __init__(self, alarm_config=None, application_type=None, create_date=None, description=None, name=None,
                  resource_group_id=None, service_id=None, tags=None, update_date=None):
+        # The configurations of application alerts.
         self.alarm_config = alarm_config  # type: GetApplicationResponseBodyApplicationAlarmConfig
+        # The type of the application.
+        # 
+        # Valid values:
+        # 
+        # *   ComputeNest
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Custom
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   DingTalk
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.application_type = application_type  # type: str
         # The time when the application was created.
         self.create_date = create_date  # type: str
@@ -4544,6 +4794,7 @@ class GetApplicationResponseBodyApplication(TeaModel):
         self.name = name  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the service.
         self.service_id = service_id  # type: str
         # The tags.
         self.tags = tags  # type: dict[str, any]
@@ -5367,7 +5618,7 @@ class GetOpsItemResponseBodyOpsItem(TeaModel):
         self.dedup_string = dedup_string  # type: str
         # The description.
         self.description = description  # type: str
-        # The user who modified the O\&M item.
+        # The user who last modified the O\&M item.
         self.last_modified_by = last_modified_by  # type: str
         # The O\&M item ID.
         self.ops_item_id = ops_item_id  # type: str
@@ -11191,7 +11442,7 @@ class ListPatchBaselinesRequest(TeaModel):
         self.operation_system = operation_system  # type: str
         # The ID of the region.
         self.region_id = region_id  # type: str
-        # The resource group ID.
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The share type of the template. Valid values:
         # 
@@ -11298,7 +11549,7 @@ class ListPatchBaselinesShrinkRequest(TeaModel):
         self.operation_system = operation_system  # type: str
         # The ID of the region.
         self.region_id = region_id  # type: str
-        # The resource group ID.
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The share type of the template. Valid values:
         # 
@@ -11423,13 +11674,13 @@ class ListPatchBaselinesResponseBodyPatchBaselines(TeaModel):
         self.name = name  # type: str
         # The type of the operating system.
         self.operation_system = operation_system  # type: str
-        # The resource group ID.
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The share type of the patch baseline.
         self.share_type = share_type  # type: str
-        # The patch source configurations.
+        # The configurations of patch sources.
         self.sources = sources  # type: list[str]
-        # The tags.
+        # The tags of the patch baseline.
         self.tags = tags  # type: list[ListPatchBaselinesResponseBodyPatchBaselinesTags]
         # The user who last updated the patch baseline.
         self.updated_by = updated_by  # type: str
@@ -13766,8 +14017,9 @@ class ListTemplateVersionsResponse(TeaModel):
 
 class ListTemplatesRequest(TeaModel):
     def __init__(self, category=None, created_by=None, created_date_after=None, created_date_before=None,
-                 has_trigger=None, max_results=None, next_token=None, region_id=None, resource_group_id=None, share_type=None,
-                 sort_field=None, sort_order=None, tags=None, template_format=None, template_name=None, template_type=None):
+                 has_trigger=None, is_favorite=None, max_results=None, next_token=None, region_id=None, resource_group_id=None,
+                 share_type=None, sort_field=None, sort_order=None, tags=None, template_format=None, template_name=None,
+                 template_type=None):
         # The type of the template. Valid values include TimerTrigger, EventTrigger, AlarmTrigger, and Other.
         self.category = category  # type: str
         # The creator of the template.
@@ -13785,6 +14037,7 @@ class ListTemplatesRequest(TeaModel):
         self.created_date_before = created_date_before  # type: str
         # Specifies whether to query the template that is configured with a trigger.
         self.has_trigger = has_trigger  # type: bool
+        self.is_favorite = is_favorite  # type: bool
         # The number of entries to return on each page. Valid values: 20 to 100. Default value: 50.
         self.max_results = max_results  # type: int
         # The token that is used to retrieve the next page of results.
@@ -13804,6 +14057,7 @@ class ListTemplatesRequest(TeaModel):
         # *   **Popularity**: The system sorts the returned templates based on the popularity of the template.
         # *   **TemplateName**: The system sorts the returned templates based on the name of the template.
         # *   **CreatedDate**: The system sorts the returned templates based on the creation time of the template.
+        # *   **UpdateDate**: The system sorts the returned templates based on the update time of the template.
         self.sort_field = sort_field  # type: str
         # The order in which you want to sort the results. Valid values:
         # 
@@ -13867,6 +14121,8 @@ class ListTemplatesRequest(TeaModel):
             result['CreatedDateBefore'] = self.created_date_before
         if self.has_trigger is not None:
             result['HasTrigger'] = self.has_trigger
+        if self.is_favorite is not None:
+            result['IsFavorite'] = self.is_favorite
         if self.max_results is not None:
             result['MaxResults'] = self.max_results
         if self.next_token is not None:
@@ -13903,6 +14159,8 @@ class ListTemplatesRequest(TeaModel):
             self.created_date_before = m.get('CreatedDateBefore')
         if m.get('HasTrigger') is not None:
             self.has_trigger = m.get('HasTrigger')
+        if m.get('IsFavorite') is not None:
+            self.is_favorite = m.get('IsFavorite')
         if m.get('MaxResults') is not None:
             self.max_results = m.get('MaxResults')
         if m.get('NextToken') is not None:
@@ -13930,8 +14188,8 @@ class ListTemplatesRequest(TeaModel):
 
 class ListTemplatesShrinkRequest(TeaModel):
     def __init__(self, category=None, created_by=None, created_date_after=None, created_date_before=None,
-                 has_trigger=None, max_results=None, next_token=None, region_id=None, resource_group_id=None, share_type=None,
-                 sort_field=None, sort_order=None, tags_shrink=None, template_format=None, template_name=None,
+                 has_trigger=None, is_favorite=None, max_results=None, next_token=None, region_id=None, resource_group_id=None,
+                 share_type=None, sort_field=None, sort_order=None, tags_shrink=None, template_format=None, template_name=None,
                  template_type=None):
         # The type of the template. Valid values include TimerTrigger, EventTrigger, AlarmTrigger, and Other.
         self.category = category  # type: str
@@ -13950,6 +14208,7 @@ class ListTemplatesShrinkRequest(TeaModel):
         self.created_date_before = created_date_before  # type: str
         # Specifies whether to query the template that is configured with a trigger.
         self.has_trigger = has_trigger  # type: bool
+        self.is_favorite = is_favorite  # type: bool
         # The number of entries to return on each page. Valid values: 20 to 100. Default value: 50.
         self.max_results = max_results  # type: int
         # The token that is used to retrieve the next page of results.
@@ -13969,6 +14228,7 @@ class ListTemplatesShrinkRequest(TeaModel):
         # *   **Popularity**: The system sorts the returned templates based on the popularity of the template.
         # *   **TemplateName**: The system sorts the returned templates based on the name of the template.
         # *   **CreatedDate**: The system sorts the returned templates based on the creation time of the template.
+        # *   **UpdateDate**: The system sorts the returned templates based on the update time of the template.
         self.sort_field = sort_field  # type: str
         # The order in which you want to sort the results. Valid values:
         # 
@@ -14032,6 +14292,8 @@ class ListTemplatesShrinkRequest(TeaModel):
             result['CreatedDateBefore'] = self.created_date_before
         if self.has_trigger is not None:
             result['HasTrigger'] = self.has_trigger
+        if self.is_favorite is not None:
+            result['IsFavorite'] = self.is_favorite
         if self.max_results is not None:
             result['MaxResults'] = self.max_results
         if self.next_token is not None:
@@ -14068,6 +14330,8 @@ class ListTemplatesShrinkRequest(TeaModel):
             self.created_date_before = m.get('CreatedDateBefore')
         if m.get('HasTrigger') is not None:
             self.has_trigger = m.get('HasTrigger')
+        if m.get('IsFavorite') is not None:
+            self.is_favorite = m.get('IsFavorite')
         if m.get('MaxResults') is not None:
             self.max_results = m.get('MaxResults')
         if m.get('NextToken') is not None:
@@ -14094,12 +14358,13 @@ class ListTemplatesShrinkRequest(TeaModel):
 
 
 class ListTemplatesResponseBodyTemplates(TeaModel):
-    def __init__(self, category=None, created_by=None, created_date=None, description=None, has_trigger=None,
-                 hash=None, popularity=None, resource_group_id=None, share_type=None, tags=None, template_format=None,
-                 template_id=None, template_name=None, template_type=None, template_version=None, total_execution_count=None,
-                 updated_by=None, updated_date=None):
+    def __init__(self, category=None, constraints=None, created_by=None, created_date=None, description=None,
+                 has_trigger=None, hash=None, is_favorite=None, popularity=None, publisher=None, resource_group_id=None,
+                 share_type=None, tags=None, template_format=None, template_id=None, template_name=None, template_type=None,
+                 template_version=None, total_execution_count=None, updated_by=None, updated_date=None):
         # The type of the template.
         self.category = category  # type: str
+        self.constraints = constraints  # type: str
         # The user who created the template.
         self.created_by = created_by  # type: str
         # The time when the template was created.
@@ -14110,10 +14375,12 @@ class ListTemplatesResponseBodyTemplates(TeaModel):
         self.has_trigger = has_trigger  # type: bool
         # The SHA-256 value of the template content.
         self.hash = hash  # type: str
+        self.is_favorite = is_favorite  # type: bool
         # The popularity of the public template. Valid values: **1-10**. A greater value indicates higher popularity. If the **ShareType** parameter is set to **Private**, the value of this parameter is `-1`.
         # 
         # **Notes** This parameter is valid only if the value of the **ShareType** parameter is set to **Public**.
         self.popularity = popularity  # type: int
+        self.publisher = publisher  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The share type of the template. The share type of the template that you create is **Private**. Valid values:
@@ -14152,6 +14419,8 @@ class ListTemplatesResponseBodyTemplates(TeaModel):
         result = dict()
         if self.category is not None:
             result['Category'] = self.category
+        if self.constraints is not None:
+            result['Constraints'] = self.constraints
         if self.created_by is not None:
             result['CreatedBy'] = self.created_by
         if self.created_date is not None:
@@ -14162,8 +14431,12 @@ class ListTemplatesResponseBodyTemplates(TeaModel):
             result['HasTrigger'] = self.has_trigger
         if self.hash is not None:
             result['Hash'] = self.hash
+        if self.is_favorite is not None:
+            result['IsFavorite'] = self.is_favorite
         if self.popularity is not None:
             result['Popularity'] = self.popularity
+        if self.publisher is not None:
+            result['Publisher'] = self.publisher
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.share_type is not None:
@@ -14192,6 +14465,8 @@ class ListTemplatesResponseBodyTemplates(TeaModel):
         m = m or dict()
         if m.get('Category') is not None:
             self.category = m.get('Category')
+        if m.get('Constraints') is not None:
+            self.constraints = m.get('Constraints')
         if m.get('CreatedBy') is not None:
             self.created_by = m.get('CreatedBy')
         if m.get('CreatedDate') is not None:
@@ -14202,8 +14477,12 @@ class ListTemplatesResponseBodyTemplates(TeaModel):
             self.has_trigger = m.get('HasTrigger')
         if m.get('Hash') is not None:
             self.hash = m.get('Hash')
+        if m.get('IsFavorite') is not None:
+            self.is_favorite = m.get('IsFavorite')
         if m.get('Popularity') is not None:
             self.popularity = m.get('Popularity')
+        if m.get('Publisher') is not None:
+            self.publisher = m.get('Publisher')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ShareType') is not None:
@@ -16507,7 +16786,7 @@ class UpdateExecutionRequest(TeaModel):
         self.parameters = parameters  # type: str
         # The ID of the region.
         self.region_id = region_id  # type: str
-        # The resource group ID.
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The tags of the execution.
         self.tags = tags  # type: str
@@ -16644,7 +16923,7 @@ class UpdateOpsItemRequest(TeaModel):
         self.resources = resources  # type: str
         # The severity level.
         self.severity = severity  # type: str
-        # The list of solutions.
+        # The solutions.
         self.solutions = solutions  # type: str
         # The source business.
         self.source = source  # type: str
@@ -16755,7 +17034,7 @@ class UpdateOpsItemShrinkRequest(TeaModel):
         self.resources = resources  # type: str
         # The severity level.
         self.severity = severity  # type: str
-        # The list of solutions.
+        # The solutions.
         self.solutions = solutions  # type: str
         # The source business.
         self.source = source  # type: str
@@ -16846,7 +17125,7 @@ class UpdateOpsItemResponseBodyOpsItem(TeaModel):
     def __init__(self, attributes=None, category=None, create_date=None, created_by=None, description=None,
                  last_modified_by=None, ops_item_id=None, priority=None, resource_group_id=None, resources=None, severity=None,
                  solutions=None, source=None, status=None, tags=None, title=None, update_date=None):
-        # The information about the properties of the O\&M item.
+        # The attributes of the O\&M item.
         self.attributes = attributes  # type: str
         # The category.
         self.category = category  # type: str
@@ -16868,7 +17147,7 @@ class UpdateOpsItemResponseBodyOpsItem(TeaModel):
         self.resources = resources  # type: list[str]
         # The severity level.
         self.severity = severity  # type: str
-        # The list of solutions.
+        # The solutions.
         self.solutions = solutions  # type: list[str]
         # The source business.
         self.source = source  # type: str
@@ -16967,7 +17246,7 @@ class UpdateOpsItemResponseBodyOpsItem(TeaModel):
 
 class UpdateOpsItemResponseBody(TeaModel):
     def __init__(self, ops_item=None, request_id=None):
-        # The O\&M item.
+        # The information about the O\&M item.
         self.ops_item = ops_item  # type: UpdateOpsItemResponseBodyOpsItem
         # The request ID.
         self.request_id = request_id  # type: str
