@@ -955,11 +955,12 @@ class GetPackageResponseBodyDataAllowedProjectList(TeaModel):
 
 
 class GetPackageResponseBodyDataResourceListFunction(TeaModel):
-    def __init__(self, actions=None, name=None):
+    def __init__(self, actions=None, name=None, schema_name=None):
         # The operations that were performed on the function.
         self.actions = actions  # type: list[str]
         # The name of the function.
         self.name = name  # type: str
+        self.schema_name = schema_name  # type: str
 
     def validate(self):
         pass
@@ -974,6 +975,8 @@ class GetPackageResponseBodyDataResourceListFunction(TeaModel):
             result['actions'] = self.actions
         if self.name is not None:
             result['name'] = self.name
+        if self.schema_name is not None:
+            result['schemaName'] = self.schema_name
         return result
 
     def from_map(self, m=None):
@@ -982,15 +985,18 @@ class GetPackageResponseBodyDataResourceListFunction(TeaModel):
             self.actions = m.get('actions')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('schemaName') is not None:
+            self.schema_name = m.get('schemaName')
         return self
 
 
 class GetPackageResponseBodyDataResourceListResource(TeaModel):
-    def __init__(self, actions=None, name=None):
+    def __init__(self, actions=None, name=None, schema_name=None):
         # The operations that were performed on the resource.
         self.actions = actions  # type: list[str]
         # The name of the resource.
         self.name = name  # type: str
+        self.schema_name = schema_name  # type: str
 
     def validate(self):
         pass
@@ -1005,6 +1011,8 @@ class GetPackageResponseBodyDataResourceListResource(TeaModel):
             result['actions'] = self.actions
         if self.name is not None:
             result['name'] = self.name
+        if self.schema_name is not None:
+            result['schemaName'] = self.schema_name
         return result
 
     def from_map(self, m=None):
@@ -1013,15 +1021,18 @@ class GetPackageResponseBodyDataResourceListResource(TeaModel):
             self.actions = m.get('actions')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('schemaName') is not None:
+            self.schema_name = m.get('schemaName')
         return self
 
 
 class GetPackageResponseBodyDataResourceListTable(TeaModel):
-    def __init__(self, actions=None, name=None):
+    def __init__(self, actions=None, name=None, schema_name=None):
         # The operations that were performed on the table.
         self.actions = actions  # type: list[str]
         # The name of the table.
         self.name = name  # type: str
+        self.schema_name = schema_name  # type: str
 
     def validate(self):
         pass
@@ -1036,6 +1047,8 @@ class GetPackageResponseBodyDataResourceListTable(TeaModel):
             result['actions'] = self.actions
         if self.name is not None:
             result['name'] = self.name
+        if self.schema_name is not None:
+            result['schemaName'] = self.schema_name
         return result
 
     def from_map(self, m=None):
@@ -1044,6 +1057,8 @@ class GetPackageResponseBodyDataResourceListTable(TeaModel):
             self.actions = m.get('actions')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('schemaName') is not None:
+            self.schema_name = m.get('schemaName')
         return self
 
 
@@ -1153,9 +1168,12 @@ class GetPackageResponseBodyData(TeaModel):
 
 
 class GetPackageResponseBody(TeaModel):
-    def __init__(self, data=None, request_id=None):
+    def __init__(self, data=None, error_code=None, error_msg=None, http_code=None, request_id=None):
         # The returned data.
         self.data = data  # type: GetPackageResponseBodyData
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        self.http_code = http_code  # type: int
         # The ID of the request.
         self.request_id = request_id  # type: str
 
@@ -1171,6 +1189,12 @@ class GetPackageResponseBody(TeaModel):
         result = dict()
         if self.data is not None:
             result['data'] = self.data.to_map()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        if self.http_code is not None:
+            result['httpCode'] = self.http_code
         if self.request_id is not None:
             result['requestId'] = self.request_id
         return result
@@ -1180,6 +1204,12 @@ class GetPackageResponseBody(TeaModel):
         if m.get('data') is not None:
             temp_model = GetPackageResponseBodyData()
             self.data = temp_model.from_map(m['data'])
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        if m.get('httpCode') is not None:
+            self.http_code = m.get('httpCode')
         if m.get('requestId') is not None:
             self.request_id = m.get('requestId')
         return self
@@ -1618,7 +1648,7 @@ class GetProjectResponseBodyDataSecurityProperties(TeaModel):
 class GetProjectResponseBodyData(TeaModel):
     def __init__(self, comment=None, cost_storage=None, default_quota=None, ip_white_list=None, name=None,
                  owner=None, product_type=None, properties=None, sale_tag=None, security_properties=None, status=None,
-                 type=None):
+                 super_admins=None, type=None):
         # The comment of the project.
         self.comment = comment  # type: str
         # The storage usage.
@@ -1641,6 +1671,7 @@ class GetProjectResponseBodyData(TeaModel):
         self.security_properties = security_properties  # type: GetProjectResponseBodyDataSecurityProperties
         # The status of the project. Valid values: -**AVAILABLE**: The project was available. -**READONLY**: The project was read only. -**FROZEN**: The project was frozen. -**DELETING**: The project was being deleted.
         self.status = status  # type: str
+        self.super_admins = super_admins  # type: list[str]
         # The type of the project. Valid values: -**managed**: The project is an internal project. -**external**: The project is an external project.
         self.type = type  # type: str
 
@@ -1682,6 +1713,8 @@ class GetProjectResponseBodyData(TeaModel):
             result['securityProperties'] = self.security_properties.to_map()
         if self.status is not None:
             result['status'] = self.status
+        if self.super_admins is not None:
+            result['superAdmins'] = self.super_admins
         if self.type is not None:
             result['type'] = self.type
         return result
@@ -1714,6 +1747,8 @@ class GetProjectResponseBodyData(TeaModel):
             self.security_properties = temp_model.from_map(m['securityProperties'])
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('superAdmins') is not None:
+            self.super_admins = m.get('superAdmins')
         if m.get('type') is not None:
             self.type = m.get('type')
         return self
@@ -3693,11 +3728,12 @@ class GetQuotaScheduleResponse(TeaModel):
 
 
 class GetRoleAclResponseBodyDataFunction(TeaModel):
-    def __init__(self, actions=None, name=None):
+    def __init__(self, actions=None, name=None, schema_name=None):
         # The operations that were performed on the function.
         self.actions = actions  # type: list[str]
         # The name of the function.
         self.name = name  # type: str
+        self.schema_name = schema_name  # type: str
 
     def validate(self):
         pass
@@ -3712,6 +3748,8 @@ class GetRoleAclResponseBodyDataFunction(TeaModel):
             result['actions'] = self.actions
         if self.name is not None:
             result['name'] = self.name
+        if self.schema_name is not None:
+            result['schemaName'] = self.schema_name
         return result
 
     def from_map(self, m=None):
@@ -3720,15 +3758,18 @@ class GetRoleAclResponseBodyDataFunction(TeaModel):
             self.actions = m.get('actions')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('schemaName') is not None:
+            self.schema_name = m.get('schemaName')
         return self
 
 
 class GetRoleAclResponseBodyDataInstance(TeaModel):
-    def __init__(self, actions=None, name=None):
+    def __init__(self, actions=None, name=None, schema_name=None):
         # The operations that were performed on the instance.
         self.actions = actions  # type: list[str]
         # The name of the instance.
         self.name = name  # type: str
+        self.schema_name = schema_name  # type: str
 
     def validate(self):
         pass
@@ -3743,6 +3784,8 @@ class GetRoleAclResponseBodyDataInstance(TeaModel):
             result['actions'] = self.actions
         if self.name is not None:
             result['name'] = self.name
+        if self.schema_name is not None:
+            result['schemaName'] = self.schema_name
         return result
 
     def from_map(self, m=None):
@@ -3751,15 +3794,18 @@ class GetRoleAclResponseBodyDataInstance(TeaModel):
             self.actions = m.get('actions')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('schemaName') is not None:
+            self.schema_name = m.get('schemaName')
         return self
 
 
 class GetRoleAclResponseBodyDataPackage(TeaModel):
-    def __init__(self, actions=None, name=None):
+    def __init__(self, actions=None, name=None, schema_name=None):
         # The operations that were performed on the package.
         self.actions = actions  # type: list[str]
         # The name of the package.
         self.name = name  # type: str
+        self.schema_name = schema_name  # type: str
 
     def validate(self):
         pass
@@ -3774,6 +3820,8 @@ class GetRoleAclResponseBodyDataPackage(TeaModel):
             result['actions'] = self.actions
         if self.name is not None:
             result['name'] = self.name
+        if self.schema_name is not None:
+            result['schemaName'] = self.schema_name
         return result
 
     def from_map(self, m=None):
@@ -3782,15 +3830,18 @@ class GetRoleAclResponseBodyDataPackage(TeaModel):
             self.actions = m.get('actions')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('schemaName') is not None:
+            self.schema_name = m.get('schemaName')
         return self
 
 
 class GetRoleAclResponseBodyDataProject(TeaModel):
-    def __init__(self, actions=None, name=None):
+    def __init__(self, actions=None, name=None, schema_name=None):
         # The operations that were performed on the project.
         self.actions = actions  # type: list[str]
         # The name of the MaxCompute project.
         self.name = name  # type: str
+        self.schema_name = schema_name  # type: str
 
     def validate(self):
         pass
@@ -3805,6 +3856,8 @@ class GetRoleAclResponseBodyDataProject(TeaModel):
             result['actions'] = self.actions
         if self.name is not None:
             result['name'] = self.name
+        if self.schema_name is not None:
+            result['schemaName'] = self.schema_name
         return result
 
     def from_map(self, m=None):
@@ -3813,15 +3866,18 @@ class GetRoleAclResponseBodyDataProject(TeaModel):
             self.actions = m.get('actions')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('schemaName') is not None:
+            self.schema_name = m.get('schemaName')
         return self
 
 
 class GetRoleAclResponseBodyDataResource(TeaModel):
-    def __init__(self, actions=None, name=None):
+    def __init__(self, actions=None, name=None, schema_name=None):
         # The operations that were performed on the resource.
         self.actions = actions  # type: list[str]
         # The name of the resource.
         self.name = name  # type: str
+        self.schema_name = schema_name  # type: str
 
     def validate(self):
         pass
@@ -3836,6 +3892,8 @@ class GetRoleAclResponseBodyDataResource(TeaModel):
             result['actions'] = self.actions
         if self.name is not None:
             result['name'] = self.name
+        if self.schema_name is not None:
+            result['schemaName'] = self.schema_name
         return result
 
     def from_map(self, m=None):
@@ -3844,15 +3902,18 @@ class GetRoleAclResponseBodyDataResource(TeaModel):
             self.actions = m.get('actions')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('schemaName') is not None:
+            self.schema_name = m.get('schemaName')
         return self
 
 
 class GetRoleAclResponseBodyDataTable(TeaModel):
-    def __init__(self, actions=None, name=None):
+    def __init__(self, actions=None, name=None, schema_name=None):
         # The operations that were performed on the table.
         self.actions = actions  # type: list[str]
         # The name of the table.
         self.name = name  # type: str
+        self.schema_name = schema_name  # type: str
 
     def validate(self):
         pass
@@ -3867,6 +3928,8 @@ class GetRoleAclResponseBodyDataTable(TeaModel):
             result['actions'] = self.actions
         if self.name is not None:
             result['name'] = self.name
+        if self.schema_name is not None:
+            result['schemaName'] = self.schema_name
         return result
 
     def from_map(self, m=None):
@@ -3875,6 +3938,8 @@ class GetRoleAclResponseBodyDataTable(TeaModel):
             self.actions = m.get('actions')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('schemaName') is not None:
+            self.schema_name = m.get('schemaName')
         return self
 
 
@@ -3987,9 +4052,12 @@ class GetRoleAclResponseBodyData(TeaModel):
 
 
 class GetRoleAclResponseBody(TeaModel):
-    def __init__(self, data=None, request_id=None):
+    def __init__(self, data=None, error_code=None, error_msg=None, http_code=None, request_id=None):
         # The returned data.
         self.data = data  # type: GetRoleAclResponseBodyData
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        self.http_code = http_code  # type: int
         # The ID of the request.
         self.request_id = request_id  # type: str
 
@@ -4005,6 +4073,12 @@ class GetRoleAclResponseBody(TeaModel):
         result = dict()
         if self.data is not None:
             result['data'] = self.data.to_map()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        if self.http_code is not None:
+            result['httpCode'] = self.http_code
         if self.request_id is not None:
             result['requestId'] = self.request_id
         return result
@@ -4014,6 +4088,12 @@ class GetRoleAclResponseBody(TeaModel):
         if m.get('data') is not None:
             temp_model = GetRoleAclResponseBodyData()
             self.data = temp_model.from_map(m['data'])
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        if m.get('httpCode') is not None:
+            self.http_code = m.get('httpCode')
         if m.get('requestId') is not None:
             self.request_id = m.get('requestId')
         return self
@@ -5332,6 +5412,7 @@ class ListProjectUsersResponse(TeaModel):
 class ListProjectsRequest(TeaModel):
     def __init__(self, list_system_catalog=None, marker=None, max_item=None, prefix=None, quota_name=None,
                  quota_nick_name=None, region=None, sale_tags=None, tenant_id=None, type=None):
+        # The flag to choose whether list the specific catalog - system_catalog.
         self.list_system_catalog = list_system_catalog  # type: bool
         # The maximum number of entries to return on each page.
         self.marker = marker  # type: str
@@ -5777,6 +5858,7 @@ class ListProjectsResponseBodyDataProjects(TeaModel):
         self.security_properties = security_properties  # type: ListProjectsResponseBodyDataProjectsSecurityProperties
         # The status of the project. Valid values: -AVAILABLE: The project is available. -READONLY: The project is read only. -FROZEN: The project is frozen. -DELETING: The project is being deleted.
         self.status = status  # type: str
+        # Indicates whether the current project support the three-tier model
         self.three_tier_model = three_tier_model  # type: bool
         # The project type. Valid values: -managed: The project is an internal project. -external: The project is an external project.
         self.type = type  # type: str
