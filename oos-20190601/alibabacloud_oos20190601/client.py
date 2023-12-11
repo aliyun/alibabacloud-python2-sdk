@@ -541,6 +541,8 @@ class Client(OpenApiClient):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.retain_resource):
+            query['RetainResource'] = request.retain_resource
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -573,6 +575,8 @@ class Client(OpenApiClient):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.retain_resource):
+            query['RetainResource'] = request.retain_resource
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )

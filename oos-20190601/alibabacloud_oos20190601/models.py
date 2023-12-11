@@ -3204,7 +3204,7 @@ class CreateTemplateResponse(TeaModel):
 
 
 class DeleteApplicationRequest(TeaModel):
-    def __init__(self, force=None, name=None, region_id=None):
+    def __init__(self, force=None, name=None, region_id=None, retain_resource=None):
         # Specifies whether to forcibly delete the application. Valid values:
         # 
         # *   true
@@ -3214,6 +3214,7 @@ class DeleteApplicationRequest(TeaModel):
         self.name = name  # type: str
         # The region ID. Set the value to cn-hangzhou.
         self.region_id = region_id  # type: str
+        self.retain_resource = retain_resource  # type: bool
 
     def validate(self):
         pass
@@ -3230,6 +3231,8 @@ class DeleteApplicationRequest(TeaModel):
             result['Name'] = self.name
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.retain_resource is not None:
+            result['RetainResource'] = self.retain_resource
         return result
 
     def from_map(self, m=None):
@@ -3240,6 +3243,8 @@ class DeleteApplicationRequest(TeaModel):
             self.name = m.get('Name')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RetainResource') is not None:
+            self.retain_resource = m.get('RetainResource')
         return self
 
 
@@ -3308,13 +3313,14 @@ class DeleteApplicationResponse(TeaModel):
 
 
 class DeleteApplicationGroupRequest(TeaModel):
-    def __init__(self, application_name=None, name=None, region_id=None):
+    def __init__(self, application_name=None, name=None, region_id=None, retain_resource=None):
         # The name of the application.
         self.application_name = application_name  # type: str
         # The name of the application group.
         self.name = name  # type: str
         # The ID of the region. Set the value to cn-hangzhou.
         self.region_id = region_id  # type: str
+        self.retain_resource = retain_resource  # type: bool
 
     def validate(self):
         pass
@@ -3331,6 +3337,8 @@ class DeleteApplicationGroupRequest(TeaModel):
             result['Name'] = self.name
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.retain_resource is not None:
+            result['RetainResource'] = self.retain_resource
         return result
 
     def from_map(self, m=None):
@@ -3341,6 +3349,8 @@ class DeleteApplicationGroupRequest(TeaModel):
             self.name = m.get('Name')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RetainResource') is not None:
+            self.retain_resource = m.get('RetainResource')
         return self
 
 
