@@ -22799,7 +22799,8 @@ class GetInstanceStatusCountResponse(TeaModel):
 
 
 class GetInstanceStatusStatisticRequest(TeaModel):
-    def __init__(self, biz_date=None, dag_type=None, project_env=None, project_id=None, scheduler_type=None):
+    def __init__(self, biz_date=None, dag_type=None, project_env=None, project_id=None, scheduler_period=None,
+                 scheduler_type=None):
         # The date on which the numbers of instances in different states are obtained. Specify the date in the yyyy-MM-dd format.
         self.biz_date = biz_date  # type: str
         # The type of the directed acyclic graph (DAG). Valid values:
@@ -22813,6 +22814,7 @@ class GetInstanceStatusStatisticRequest(TeaModel):
         self.project_env = project_env  # type: str
         # The ID of the DataWorks workspace. You can log on to the DataWorks console and go to the Workspace Management page to obtain the workspace ID.
         self.project_id = project_id  # type: long
+        self.scheduler_period = scheduler_period  # type: str
         # The scheduling type of the node. Valid values:
         # 
         # *   NORMAL: auto triggered node
@@ -22838,6 +22840,8 @@ class GetInstanceStatusStatisticRequest(TeaModel):
             result['ProjectEnv'] = self.project_env
         if self.project_id is not None:
             result['ProjectId'] = self.project_id
+        if self.scheduler_period is not None:
+            result['SchedulerPeriod'] = self.scheduler_period
         if self.scheduler_type is not None:
             result['SchedulerType'] = self.scheduler_type
         return result
@@ -22852,6 +22856,8 @@ class GetInstanceStatusStatisticRequest(TeaModel):
             self.project_env = m.get('ProjectEnv')
         if m.get('ProjectId') is not None:
             self.project_id = m.get('ProjectId')
+        if m.get('SchedulerPeriod') is not None:
+            self.scheduler_period = m.get('SchedulerPeriod')
         if m.get('SchedulerType') is not None:
             self.scheduler_type = m.get('SchedulerType')
         return self
@@ -40644,7 +40650,7 @@ class ListEnabledExtensionsForProjectRequest(TeaModel):
 
 class ListEnabledExtensionsForProjectResponseBodyExtensions(TeaModel):
     def __init__(self, create_user=None, extension_code=None, extension_desc=None, extension_name=None,
-                 gmt_create=None, gmt_modified=None, modify_user=None, owner=None, parameter_setting=None, tenant_id=None):
+                 modify_user=None, owner=None, parameter_setting=None, tenant_id=None):
         # The modifier of the extension.
         self.create_user = create_user  # type: str
         # The name of the extension.
@@ -40653,9 +40659,6 @@ class ListEnabledExtensionsForProjectResponseBodyExtensions(TeaModel):
         self.extension_desc = extension_desc  # type: str
         # The ID of the tenant.
         self.extension_name = extension_name  # type: str
-        # The timestamp when extension was modified.
-        self.gmt_create = gmt_create  # type: long
-        self.gmt_modified = gmt_modified  # type: long
         # The description of the extension.
         self.modify_user = modify_user  # type: str
         # The parameter settings of the extension. For more information, see [Configure extension parameters](~~405354~~).
@@ -40682,10 +40685,6 @@ class ListEnabledExtensionsForProjectResponseBodyExtensions(TeaModel):
             result['ExtensionDesc'] = self.extension_desc
         if self.extension_name is not None:
             result['ExtensionName'] = self.extension_name
-        if self.gmt_create is not None:
-            result['GmtCreate'] = self.gmt_create
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
         if self.modify_user is not None:
             result['ModifyUser'] = self.modify_user
         if self.owner is not None:
@@ -40706,10 +40705,6 @@ class ListEnabledExtensionsForProjectResponseBodyExtensions(TeaModel):
             self.extension_desc = m.get('ExtensionDesc')
         if m.get('ExtensionName') is not None:
             self.extension_name = m.get('ExtensionName')
-        if m.get('GmtCreate') is not None:
-            self.gmt_create = m.get('GmtCreate')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
         if m.get('ModifyUser') is not None:
             self.modify_user = m.get('ModifyUser')
         if m.get('Owner') is not None:
@@ -43311,8 +43306,8 @@ class ListInstanceHistoryResponse(TeaModel):
 
 class ListInstancesRequest(TeaModel):
     def __init__(self, begin_bizdate=None, biz_name=None, bizdate=None, dag_id=None, end_bizdate=None, node_id=None,
-                 node_name=None, owner=None, page_number=None, page_size=None, program_type=None, project_env=None,
-                 project_id=None, status=None):
+                 node_name=None, order_by=None, owner=None, page_number=None, page_size=None, program_type=None,
+                 project_env=None, project_id=None, status=None):
         # The parameters related to the node.
         self.begin_bizdate = begin_bizdate  # type: str
         # The ID of the instance.
@@ -43330,6 +43325,7 @@ class ListInstancesRequest(TeaModel):
         self.node_id = node_id  # type: long
         # Indicates whether the node can be rerun.
         self.node_name = node_name  # type: str
+        self.order_by = order_by  # type: str
         # The connection string.
         self.owner = owner  # type: str
         # The operation that you want to perform.
@@ -43368,6 +43364,8 @@ class ListInstancesRequest(TeaModel):
             result['NodeId'] = self.node_id
         if self.node_name is not None:
             result['NodeName'] = self.node_name
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
         if self.owner is not None:
             result['Owner'] = self.owner
         if self.page_number is not None:
@@ -43400,6 +43398,8 @@ class ListInstancesRequest(TeaModel):
             self.node_id = m.get('NodeId')
         if m.get('NodeName') is not None:
             self.node_name = m.get('NodeName')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
         if m.get('Owner') is not None:
             self.owner = m.get('Owner')
         if m.get('PageNumber') is not None:
