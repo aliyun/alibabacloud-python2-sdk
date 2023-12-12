@@ -8075,11 +8075,13 @@ class DescribeSynDbTablesResponse(TeaModel):
 
 
 class DescribeSynDbsRequest(TeaModel):
-    def __init__(self, db_cluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
-                 resource_owner_id=None):
+    def __init__(self, db_cluster_id=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
+                 resource_owner_account=None, resource_owner_id=None):
         self.db_cluster_id = db_cluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -8098,6 +8100,10 @@ class DescribeSynDbsRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -8112,6 +8118,10 @@ class DescribeSynDbsRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
