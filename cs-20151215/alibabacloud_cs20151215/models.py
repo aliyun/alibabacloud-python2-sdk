@@ -1647,6 +1647,69 @@ class CancelComponentUpgradeResponse(TeaModel):
         return self
 
 
+class CancelOperationPlanResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelOperationPlanResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        return self
+
+
+class CancelOperationPlanResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CancelOperationPlanResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CancelOperationPlanResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CancelOperationPlanResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CancelTaskResponse(TeaModel):
     def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
@@ -1974,14 +2037,14 @@ class CreateClusterRequestWorkerDataDisks(TeaModel):
     def __init__(self, category=None, encrypted=None, performance_level=None, size=None):
         # The data disk type.
         self.category = category  # type: str
-        # Specifies whether to encrypt the data disks. Valid values:
+        # Specifies whether to encrypt a data disk. Valid values:
         # 
         # *   `true`: encrypts a data disk.
         # *   `false`: does not encrypt a data disk.
         # 
         # Default value: `false`.
         self.encrypted = encrypted  # type: str
-        # The PL of a data disk. This parameter takes effect only for ESSDs. You can specify a higher PL if you increase the size of a data disk. For more information, see [ESSDs](~~122389~~).
+        # The performance level (PL) of a data disk. This parameter takes effect only on ESSDs. You can specify a higher PL if you increase the size of a data disk. For more information, see [ESSDs](~~122389~~).
         self.performance_level = performance_level  # type: str
         # The size of the data disk. Valid values: 40 to 32767.
         self.size = size  # type: str
@@ -2039,7 +2102,7 @@ class CreateClusterRequest(TeaModel):
                  worker_period=None, worker_period_unit=None, worker_system_disk_category=None,
                  worker_system_disk_performance_level=None, worker_system_disk_size=None, worker_system_disk_snapshot_policy_id=None,
                  worker_vswitch_ids=None, zone_id=None):
-        # 注册集群 API Server SLB 访问控制列表。
+        # The network access control list (ACL) of the SLB instance associated with the API server if the cluster is a registered cluster.
         self.access_control_list = access_control_list  # type: list[str]
         # The components that you want to install in the cluster. When you create a cluster, you can set the `addons` parameter to install specific components.
         # 
@@ -2048,24 +2111,24 @@ class CreateClusterRequest(TeaModel):
         # *   Specify the Flannel plug-in in the following format: \[{"name":"flannel","config":""}].
         # *   Specify the Terway plug-in in the following format: \[{"name": "terway-eniip","config": ""}].
         # 
-        # **Volume plug-in**: required. The `csi` and `flexvolume` volume plug-ins are supported.
+        # **Volume plug-in**: required. The `CSI` and `FlexVolume` volume plug-ins are supported.
         # 
         # *   Specify the `CSI` plug-in in the following format: \[{"name":"csi-plugin","config": ""},{"name": "csi-provisioner","config": ""}].
-        # *   Specify the `FlexVolume plug-in` in the following format: \[{"name": "flexvolume","config": ""}].
+        # *   Specify the `FlexVolume` plug-in in the following format: \[{"name": "flexvolume","config": ""}].
         # 
-        # **Simple Log Service component**: optional. We recommend that you enable Simple Log Service. If Log Service is disabled, you cannot use the cluster auditing feature.
+        # **Simple Log Service component**: optional. We recommend that you enable Simple Log Service. If Simple Log Service is disabled, you cannot use the cluster auditing feature.
         # 
         # *   Use an existing `Simple Log Service project`: \[{"name": "logtail-ds","config": "{"IngressDashboardEnabled":"true","sls_project_name":"your_sls_project_name"}"}].
         # *   To create a `Simple Log Service project`, specify the component in the following format: \[{"name": "logtail-ds","config": "{"IngressDashboardEnabled":"true"}"}].
         # 
-        # **Ingress controller**`: optional. By default, the nginx-ingress-controller component is installed in ACK dedicated clusters.`
+        # **Ingress controller**: optional. By default, the `nginx-ingress-controller` component is installed in ACK dedicated clusters.
         # 
         # *   To install nginx-ingress-controller and enable Internet access, specify the Ingress controller in the following format: \[{"name":"nginx-ingress-controller","config":"{"IngressSlbNetworkType":"internet"}"}].
         # *   If you do not want to install nginx-ingress-controller, specify the component in the following format: \[{"name": "nginx-ingress-controller","config": "","disabled": true}].
         # 
-        # **Event center**: Optional. By default, the event center feature is enabled.
+        # **Event center**: optional. By default, the event center feature is enabled.
         # 
-        # You can use Kubernetes event centers to store and query events, and configure alert rules. You can use the Logstores that are associated with Kubernetes event centers for free within 90 days. For more information, see [Create and use a Kubernetes event center](https://help.aliyun.com/document_detail/150476.html#task-2389213).
+        # You can use Kubernetes event centers to store and query events, and configure alert rules. You can use the Logstores that are associated with Kubernetes event centers for free within 90 days. For more information, see [Create and use an event center](https://help.aliyun.com/document_detail/150476.html#task-2389213).
         # 
         # Enable the ack-node-problem-detector component in the following format: \[{"name":"ack-node-problem-detector","config":"{"sls_project_name":"your_sls_project_name"}"}].
         self.addons = addons  # type: list[Addon]
@@ -2097,35 +2160,35 @@ class CreateClusterRequest(TeaModel):
         self.cluster_domain = cluster_domain  # type: str
         # The type of ACK managed cluster. Valid values:
         # 
-        # *   `ack.pro.small`: ACK Pro clusters
-        # *   `ack.standard`: ACK Basic clusters
+        # *   `ack.pro.small`: ACK Pro cluster.
+        # *   `ack.standard`: ACK Basic cluster.
         # 
-        # Default value: `ack.standard`. If you leave this property empty, an ACK Basic cluster is created.
+        # Default value: `ack.standard`. If you leave this property empty, an ACK Basic cluster.is created.
         # 
-        # For more information, see [Introduction to ACK managed clusters](https://help.aliyun.com/document_detail/173290.html).
+        # For more information, see [Overview of ACK Pro clusters](https://help.aliyun.com/document_detail/173290.html).
         self.cluster_spec = cluster_spec  # type: str
-        # The type of the cluster. Valid values:
+        # The cluster type. Valid values:
         # 
-        # *   `Kubernetes`: ACK dedicated clusters
-        # *   `ManagedKubernetes`: ACK managed clusters or ACK Edge clusters
-        # *   `Ask`: ACK Serverless Basic clusters
-        # *   `ExternalKubernetes`: external clusters that are registered to ACK
+        # *   `Kubernetes`: ACK dedicated cluster.
+        # *   `ManagedKubernetes`: ACK Basic cluster or ACK Edge cluster.
+        # *   `Ask`: ACK Serverless Basic cluster.
+        # *   `ExternalKubernetes`: external cluster that is registered to ACK.
         self.cluster_type = cluster_type  # type: str
         # The CIDR block of pods. You can specify 10.0.0.0/8, 172.16-31.0.0/12-16, 192.168.0.0/16, or their subnets as the CIDR block of pods. The CIDR block of pods cannot overlap with the CIDR block of the VPC in which the cluster is deployed and the CIDR blocks of existing clusters in the VPC. You cannot modify the pod CIDR block after the cluster is created.
         # 
         # For more information about subnetting for ACK clusters, see [Plan CIDR blocks for an ACK cluster that is deployed in a VPC](~~86500~~).
         # 
-        # > If the cluster uses Flannel, this parameter is required.
+        # >  This parameter is required if the cluster uses the Flannel plug-in.
         self.container_cidr = container_cidr  # type: str
         # The list of control plane components for which you want to enable log collection.
         # 
         # By default, the logs of kube-apiserver, kube-controller-manager, and kube-scheduler are collected.
         self.controlplane_log_components = controlplane_log_components  # type: list[str]
-        # The Simple Log Service project that is used to store the log of control plane components. You can use an existing project or create one. If you choose to create a Simple Log Service project, the created project is named in the `k8s-log-{ClusterID}` format.
+        # The Simple Log Service project that is used to store the logs of control plane components. You can use an existing project or create one. If you choose to create a Simple Log Service project, the created project is named in the `k8s-log-{ClusterID}` format.
         self.controlplane_log_project = controlplane_log_project  # type: str
         # The retention period of control plane logs in days.
         self.controlplane_log_ttl = controlplane_log_ttl  # type: str
-        # The CPU management policy. The following policies are supported if the Kubernetes version of the cluster is 1.12.6 or later.
+        # The CPU management policy of the nodes in a node pool. The following policies are supported if the Kubernetes version of the cluster is 1.12.6 or later.
         # 
         # *   `static`: allows pods with specific resource characteristics on the node to be granted enhanced CPU affinity and exclusivity.
         # *   `none`: specifies that the default CPU affinity is used.
@@ -2143,8 +2206,8 @@ class CreateClusterRequest(TeaModel):
         self.deletion_protection = deletion_protection  # type: bool
         # Specifies whether to perform a rollback if the cluster fails to be created. Valid values:
         # 
-        # *   `true`: performs a rollback if the system fails to create the cluster
-        # *   `false`: does not perform a rollback if the system fails to create the cluster
+        # *   `true`: performs a rollback if the system fails to create the cluster.
+        # *   `false`: does not perform a rollback if the system fails to create the cluster.
         # 
         # Default value: `true`.
         self.disable_rollback = disable_rollback  # type: bool
@@ -2152,7 +2215,7 @@ class CreateClusterRequest(TeaModel):
         self.enable_rrsa = enable_rrsa  # type: bool
         # The ID of a key that is managed by Key Management Service (KMS). The key is used to encrypt data disks. For more information, see [KMS](~~28935~~).
         # 
-        # > This feature supports only ACK Pro clusters.
+        # >  This feature supports only ACK Pro clusters.
         self.encryption_provider_key = encryption_provider_key  # type: str
         # Specifies whether to enable Internet access for the cluster. You can use an elastic IP address (EIP) to expose the API server. This way, you can access the cluster over the Internet.
         # 
@@ -2189,15 +2252,15 @@ class CreateClusterRequest(TeaModel):
         # 
         # Default value: `CentOS`.
         self.image_type = image_type  # type: str
-        # The list of existing Elastic Compute Service (ECS) instances that are specified as worker nodes for the cluster.
+        # The list of existing ECS instances that are specified as worker nodes for the cluster.
         # 
-        # > This parameter is required when you create worker nodes on existing ECS instances.
+        # >  This parameter is required when you create worker nodes on existing ECS instances.
         self.instances = instances  # type: list[str]
         # The cluster IP stack.
         self.ip_stack = ip_stack  # type: str
         # Specifies whether to create an advanced security group. This parameter takes effect only if `security_group_id` is left empty.
         # 
-        # > To use a basic security group, make sure that the sum of the number of cluster nodes and the number of pods that use Terway does not exceed 2,000. Therefore, if the cluster uses Terway, we recommend that you use an advanced security group.
+        # >  To use a basic security group, make sure that the sum of the number of nodes in the cluster and the number of pods that use Terway does not exceed 2,000. Therefore, if the cluster uses Terway, we recommend that you use an advanced security group.
         # 
         # *   `true`: creates an advanced security group.
         # *   `false`: does not create an advanced security group.
@@ -2232,7 +2295,7 @@ class CreateClusterRequest(TeaModel):
         self.logging_type = logging_type  # type: str
         # The password for SSH logon. You must set this parameter or the `key_pair` parameter. The password must be 8 to 30 characters in length, and must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters.
         self.login_password = login_password  # type: str
-        # Specifies whether to enable auto-renewal for master nodes. This parameter takes effect and is required only if `master_instance_charge_type` is set to `PrePaid`.
+        # Specifies whether to enable auto-renewal for master nodes. This parameter takes effect only if `master_instance_charge_type` is set to `PrePaid`. Valid values:
         # 
         # *   `true`: enables auto-renewal.
         # *   `false`: disables auto-renewal.
@@ -2266,17 +2329,17 @@ class CreateClusterRequest(TeaModel):
         self.master_period = master_period  # type: long
         # The billing cycle of master nodes. This parameter is required if master_instance_charge_type is set to `PrePaid`.
         # 
-        # Set the value to `Month`. Resources are billed only on a monthly basis.
+        # Set the value to `Month`. Master nodes are billed only on a monthly basis.
         self.master_period_unit = master_period_unit  # type: str
         # The type of system disk that you want to use for master nodes. Valid values:
         # 
         # *   `cloud_efficiency`: ultra disk.
         # *   `cloud_ssd`: standard SSD.
-        # *   `cloud_essd`: enhanced SSD (ESSD).
+        # *   `cloud_essd`: ESSD.
         # 
         # Default value: `cloud_ssd`. The default value may vary in different zones.
         self.master_system_disk_category = master_system_disk_category  # type: str
-        # The performance level (PL) of the system disk that you want to use for master nodes. This parameter takes effect only for ESSDs. For more information about the relationship between disk PLs and disk sizes, see [ESSDs](~~122389~~).
+        # The performance level (PL) of the system disk that you want to use for master nodes. This parameter takes effect only for enhanced SSDs. For more information about the relationship between disk PLs and disk sizes, see [ESSDs](~~122389~~).
         self.master_system_disk_performance_level = master_system_disk_performance_level  # type: str
         # The size of the system disk that you want to use for master nodes. Valid values: 40 to 500. Unit: GiB.
         # 
@@ -2288,9 +2351,9 @@ class CreateClusterRequest(TeaModel):
         # 
         # The number of vSwitches must be the same as that specified in `master_count` and the same as those specified in `master_vswitch_ids`.
         self.master_vswitch_ids = master_vswitch_ids  # type: list[str]
-        # The name of the cluster.
+        # The cluster name.
         # 
-        # The name must be 1 to 63 characters in length and can contain digits, letters, and hyphens (-). The name cannot start with a hyphen (-).
+        # The name must be 1 to 63 characters in length, and can contain digits, letters, and hyphens (-). The name cannot start with a hyphen (-).
         self.name = name  # type: str
         # Specifies whether to create a NAT gateway and configure Source Network Address Translation (SNAT) rules when the system creates the ACK Serverless cluster. Valid values:
         # 
@@ -2299,7 +2362,7 @@ class CreateClusterRequest(TeaModel):
         # 
         # Default value: `false`.
         self.nat_gateway = nat_gateway  # type: bool
-        # The maximum number of IP addresses that can be assigned to nodes. This number is determined by the node CIDR block. This parameter takes effect only if the cluster uses Flannel.
+        # The maximum number of IP addresses that can be assigned to nodes. This number is determined by the node CIDR block. This parameter takes effect only if the cluster uses Flannel as the network plug-in.
         # 
         # Default value: `26`.
         self.node_cidr_mask = node_cidr_mask  # type: str
@@ -2316,7 +2379,7 @@ class CreateClusterRequest(TeaModel):
         # 
         # Default value: `30000-32767`.
         self.node_port_range = node_port_range  # type: str
-        # 节点池列表。
+        # The list of node pools.
         self.nodepools = nodepools  # type: list[Nodepool]
         # The number of worker nodes. Valid values: 0 to 100.
         self.num_of_nodes = num_of_nodes  # type: long
@@ -2342,9 +2405,9 @@ class CreateClusterRequest(TeaModel):
         # 
         # Default value: `CentOS`.
         self.platform = platform  # type: str
-        # The list of pod vSwiches. You need to specify at least one pod vSwitch for each node vSwitch and the pod vSwitches must not be the same as the node vSwitches (`vswitch`). We recommend that you specify pod vSwitches whose mask lengths are no greater than 19.
+        # The list of pod vSwitches. You need to specify at least one pod vSwitch for each node vSwitch and the pod vSwitches must not be the same as the node vSwitches (`vswitch`). We recommend that you specify pod vSwitches whose mask lengths are no greater than 19.
         # 
-        # > When the cluster uses Terway, the `pod_vswitch_ids` parameter is required.
+        # >  The `pod_vswitch_ids` parameter is required if the cluster uses Terway as the network plug-in.
         self.pod_vswitch_ids = pod_vswitch_ids  # type: list[str]
         # The identifier that indicates whether the cluster is an ACK Edge cluster. To create an ACK Edge cluster, you must set this parameter to `Edge`.
         # 
@@ -2353,20 +2416,20 @@ class CreateClusterRequest(TeaModel):
         self.profile = profile  # type: str
         # The kube-proxy mode. Valid values:
         # 
-        # *   `iptables`: iptables is a kube-proxy mode. It uses iptables rules to conduct Service discovery and load balancing. The performance of this mode is limited by the size of the cluster. This mode is suitable for clusters that run a small number of Services.
-        # *   `ipvs`: a high-performance kube-proxy mode. It uses Linux IP Virtual Server (IPVS) to conduct Service discovery and load balancing. This mode is suitable for clusters that run a large number of Services. We recommend that you use this mode in scenarios where high-performance load balancing is required.
+        # *   `iptables`: iptables is a mature and stable kube-proxy mode. It uses iptables rules to conduct service discovery and load balancing. The performance of this mode is restricted by the size of the Kubernetes cluster. This mode is suitable for Kubernetes clusters that manage a small number of Services.
+        # *   `ipvs`: IPVS is a high-performance kube-proxy mode. It uses Linux Virtual Server (LVS) to conduct service discovery and load balancing. This mode is suitable for clusters that manage a large number of Services. We recommend that you use this mode in scenarios where high-performance load balancing is required.
         # 
         # Default value: `ipvs`.
         self.proxy_mode = proxy_mode  # type: str
         # The list of ApsaraDB RDS instances. Select the ApsaraDB RDS instances that you want to add to the whitelist. We recommend that you add the CIDR block of pods and CIDR block of nodes to the ApsaraDB RDS instances in the ApsaraDB RDS console. When you set the ApsaraDB RDS instances, you cannot scale out the number of nodes because the instances are not in the Running state.
         self.rds_instances = rds_instances  # type: list[str]
-        # The region ID of the cluster.
+        # The ID of the region in which you want to deploy the cluster.
         self.region_id = region_id  # type: str
-        # The ID of the resource group to which the cluster belongs. You can use this parameter to isolate different clusters.
+        # The ID of the resource group to which the cluster belongs. You can use resource groups to isolate clusters.
         self.resource_group_id = resource_group_id  # type: str
         # The container runtime. The default container runtime is Docker. containerd and Sandboxed-Container are also supported.
         # 
-        # For more information about how to select a proper container runtime, see [How to select between Docker and Sandboxed-Container](https://help.aliyun.com/document_detail/160313.html).
+        # For more information about how to select a proper container runtime, see [Comparison of Docker, containerd, and Sandboxed-Container](https://help.aliyun.com/document_detail/160313.html).
         self.runtime = runtime  # type: Runtime
         # The ID of an existing security group. You need to choose between this parameter and the `is_enterprise_security_group` parameter. Cluster nodes are automatically added to the security group.
         self.security_group_id = security_group_id  # type: str
@@ -2380,7 +2443,7 @@ class CreateClusterRequest(TeaModel):
         self.service_cidr = service_cidr  # type: str
         # The type of service discovery that is implemented in the `ACK Serverless` cluster.
         # 
-        # *   `CoreDNS`:a standard service discovery plug-in provided by open source Kubernetes. To use the Domain Name System (DNS) resolution, you must provision pods. By default, two elastic container instances are used. The specification of each instance is 0.25 CPU cores and 512 MiB of memory.
+        # *   `CoreDNS`: a standard service discovery plug-in provided by open source Kubernetes. To use the Domain Name System (DNS) resolution, you must provision pods. By default, two elastic container instances are used. The specification of each instance is 0.25 CPU cores and 512 MiB of memory.
         # *   `PrivateZone`: a DNS resolution service provided by Alibaba Cloud. You must activate Alibaba Cloud DNS PrivateZone before you can use it for service discovery.
         # 
         # By default, this parameter is not specified.
@@ -2390,16 +2453,16 @@ class CreateClusterRequest(TeaModel):
         # *   `true`: automatically creates a NAT gateway and configures SNAT rules. Set this parameter to `true` if nodes and applications in the cluster need to access the Internet.
         # *   `false`: does not create a NAT gateway or configure SNAT rules. In this case, nodes and applications in the cluster cannot access the Internet.
         # 
-        # > If this feature is disabled when you create the cluster, you can manually enable this feature after you create the cluster. For more information, see [Manually create a NAT gateway and configure SNAT rules](~~178480~~).
+        # >  If this feature is disabled when you create the cluster, you can also manually enable this feature after you create the cluster. For more information, see [Manually create a NAT gateway and configure SNAT rules](~~178480~~).
         # 
         # Default value: `true`.
         self.snat_entry = snat_entry  # type: bool
-        # Reinforcement based on Multi-Level Protection Scheme (MLPS). For more information, see [ACK reinforcement based on MLPS](~~196148~~).
+        # Reinforcement based on classified protection. For more information, see [ACK reinforcement based on classified protection](~~196148~~).
         # 
         # Valid values:
         # 
-        # *   `true`: enables reinforcement based on MLPS.
-        # *   `false`: disables reinforcement based on MLPS.
+        # *   `true`: enables reinforcement based on classified protection.
+        # *   `false`: disables reinforcement based on classified protection.
         # 
         # Default value: `false`.
         self.soc_enabled = soc_enabled  # type: bool
@@ -2410,12 +2473,12 @@ class CreateClusterRequest(TeaModel):
         # 
         # Default value: `false`.
         self.ssh_flags = ssh_flags  # type: bool
-        # The labels that you want to add to nodes. You must add labels based on the following rules:
+        # The labels that you want to add to nodes. You must add tags based on the following rules:
         # 
         # *   Each label is a case-sensitive key-value pair. You can add up to 20 labels.
         # *   A key must be unique and cannot exceed 64 characters in length. A value can be empty and cannot exceed 128 characters in length. Keys and values cannot start with aliyun, acs:, https://, or http://. For more information, see [Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
         self.tags = tags  # type: list[Tag]
-        # The taints that you want to add to nodes. Taints are added to nodes to prevent pods from being scheduled to inappropriate nodes. However, tolerations allow pods to be scheduled to nodes with matching taints. For more information, see [taint-and-toleration](https://kubernetes.io/zh/docs/concepts/scheduling-eviction/taint-and-toleration/).
+        # The taints of the nodes in the node pool. Taints are added to nodes to prevent pods from being scheduled to inappropriate nodes. However, tolerations allow pods to be scheduled to nodes with matching taints. For more information, see [Taints and Tolerations](https://kubernetes.io/zh/docs/concepts/scheduling-eviction/taint-and-toleration/).
         self.taints = taints  # type: list[Taint]
         # Specifies the timeout period of cluster creation. Unit: minutes.
         # 
@@ -2427,7 +2490,7 @@ class CreateClusterRequest(TeaModel):
         self.user_ca = user_ca  # type: str
         # The user data of nodes.
         self.user_data = user_data  # type: str
-        # The virtual private cloud (VPC) in which you want to deploy the cluster. You must specify a VPC when you create the cluster.
+        # The virtual private cloud (VPC) in which you want to deploy the cluster. This parameter is required.
         self.vpcid = vpcid  # type: str
         # The vSwitches that are specified for nodes in the cluster. This parameter is required when you create a managed Kubernetes cluster that does not contain nodes.
         self.vswitch_ids = vswitch_ids  # type: list[str]
@@ -2463,7 +2526,7 @@ class CreateClusterRequest(TeaModel):
         # 
         # Set the value to `Month`. Worker nodes are billed only on a monthly basis.
         self.worker_period_unit = worker_period_unit  # type: str
-        # The category of the system disk that you attach to the worker node. For more information, see [Elastic Block Storage overview](~~63136~~).
+        # The category of the system disk that you attach to the worker node. For more information, see [Elastic Block Storage devices](~~63136~~).
         # 
         # Valid values:
         # 
@@ -2483,7 +2546,7 @@ class CreateClusterRequest(TeaModel):
         self.worker_system_disk_performance_level = worker_system_disk_performance_level  # type: str
         # The size of the system disk that you want to use for worker nodes. Unit: GiB.
         # 
-        # Valid values: 40 to 500
+        # Valid values: 40 to 500.
         # 
         # The value of this parameter must be at least 40 and no less than the image size.
         # 
@@ -2493,7 +2556,7 @@ class CreateClusterRequest(TeaModel):
         self.worker_system_disk_snapshot_policy_id = worker_system_disk_snapshot_policy_id  # type: str
         # The list of vSwitches that are specified for nodes. Each node is allocated a vSwitch.
         # 
-        # The ` worker_vswitch_ids  `parameter is optional but the `vswitch_ids` parameter is required when you create an ACK managed cluster that does not contain nodes.
+        # The `worker_vswitch_ids` parameter is optional but the `vswitch_ids` parameter is required when you create an ACK managed cluster that does not contain nodes.
         self.worker_vswitch_ids = worker_vswitch_ids  # type: list[str]
         # The ID of the zone in which the cluster is deployed. This parameter takes effect in only ACK Serverless clusters.
         # 
@@ -15320,6 +15383,130 @@ class FixNodePoolVulsResponse(TeaModel):
         return self
 
 
+class GetClusterAddonInstanceResponseBodyLogging(TeaModel):
+    def __init__(self, capable=None, enabled=None, log_project=None, logstore=None):
+        self.capable = capable  # type: bool
+        self.enabled = enabled  # type: bool
+        self.log_project = log_project  # type: str
+        self.logstore = logstore  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetClusterAddonInstanceResponseBodyLogging, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.capable is not None:
+            result['capable'] = self.capable
+        if self.enabled is not None:
+            result['enabled'] = self.enabled
+        if self.log_project is not None:
+            result['log_project'] = self.log_project
+        if self.logstore is not None:
+            result['logstore'] = self.logstore
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('capable') is not None:
+            self.capable = m.get('capable')
+        if m.get('enabled') is not None:
+            self.enabled = m.get('enabled')
+        if m.get('log_project') is not None:
+            self.log_project = m.get('log_project')
+        if m.get('logstore') is not None:
+            self.logstore = m.get('logstore')
+        return self
+
+
+class GetClusterAddonInstanceResponseBody(TeaModel):
+    def __init__(self, config=None, logging=None, name=None, state=None, version=None):
+        self.config = config  # type: str
+        self.logging = logging  # type: GetClusterAddonInstanceResponseBodyLogging
+        self.name = name  # type: str
+        self.state = state  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        if self.logging:
+            self.logging.validate()
+
+    def to_map(self):
+        _map = super(GetClusterAddonInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config is not None:
+            result['config'] = self.config
+        if self.logging is not None:
+            result['logging'] = self.logging.to_map()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.state is not None:
+            result['state'] = self.state
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('config') is not None:
+            self.config = m.get('config')
+        if m.get('logging') is not None:
+            temp_model = GetClusterAddonInstanceResponseBodyLogging()
+            self.logging = temp_model.from_map(m['logging'])
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        return self
+
+
+class GetClusterAddonInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetClusterAddonInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetClusterAddonInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetClusterAddonInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetClusterCheckResponseBody(TeaModel):
     def __init__(self, check_id=None, check_items=None, created_at=None, finished_at=None, message=None, status=None,
                  type=None):
@@ -15953,6 +16140,292 @@ class InstallClusterAddonsResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
+        return self
+
+
+class ListAddonsRequest(TeaModel):
+    def __init__(self, cluster_id=None, cluster_spec=None, cluster_type=None, cluster_version=None, profile=None,
+                 region_id=None):
+        self.cluster_id = cluster_id  # type: str
+        self.cluster_spec = cluster_spec  # type: str
+        self.cluster_type = cluster_type  # type: str
+        self.cluster_version = cluster_version  # type: str
+        self.profile = profile  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAddonsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['cluster_id'] = self.cluster_id
+        if self.cluster_spec is not None:
+            result['cluster_spec'] = self.cluster_spec
+        if self.cluster_type is not None:
+            result['cluster_type'] = self.cluster_type
+        if self.cluster_version is not None:
+            result['cluster_version'] = self.cluster_version
+        if self.profile is not None:
+            result['profile'] = self.profile
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cluster_id') is not None:
+            self.cluster_id = m.get('cluster_id')
+        if m.get('cluster_spec') is not None:
+            self.cluster_spec = m.get('cluster_spec')
+        if m.get('cluster_type') is not None:
+            self.cluster_type = m.get('cluster_type')
+        if m.get('cluster_version') is not None:
+            self.cluster_version = m.get('cluster_version')
+        if m.get('profile') is not None:
+            self.profile = m.get('profile')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        return self
+
+
+class ListAddonsResponseBodyAddons(TeaModel):
+    def __init__(self, architecture=None, category=None, config_schema=None, install_by_default=None, managed=None,
+                 name=None, supported_actions=None, version=None):
+        self.architecture = architecture  # type: list[str]
+        self.category = category  # type: str
+        self.config_schema = config_schema  # type: str
+        self.install_by_default = install_by_default  # type: bool
+        self.managed = managed  # type: bool
+        self.name = name  # type: str
+        self.supported_actions = supported_actions  # type: list[str]
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAddonsResponseBodyAddons, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.architecture is not None:
+            result['architecture'] = self.architecture
+        if self.category is not None:
+            result['category'] = self.category
+        if self.config_schema is not None:
+            result['config_schema'] = self.config_schema
+        if self.install_by_default is not None:
+            result['install_by_default'] = self.install_by_default
+        if self.managed is not None:
+            result['managed'] = self.managed
+        if self.name is not None:
+            result['name'] = self.name
+        if self.supported_actions is not None:
+            result['supported_actions'] = self.supported_actions
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('architecture') is not None:
+            self.architecture = m.get('architecture')
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('config_schema') is not None:
+            self.config_schema = m.get('config_schema')
+        if m.get('install_by_default') is not None:
+            self.install_by_default = m.get('install_by_default')
+        if m.get('managed') is not None:
+            self.managed = m.get('managed')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('supported_actions') is not None:
+            self.supported_actions = m.get('supported_actions')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        return self
+
+
+class ListAddonsResponseBody(TeaModel):
+    def __init__(self, addons=None):
+        self.addons = addons  # type: list[ListAddonsResponseBodyAddons]
+
+    def validate(self):
+        if self.addons:
+            for k in self.addons:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListAddonsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['addons'] = []
+        if self.addons is not None:
+            for k in self.addons:
+                result['addons'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.addons = []
+        if m.get('addons') is not None:
+            for k in m.get('addons'):
+                temp_model = ListAddonsResponseBodyAddons()
+                self.addons.append(temp_model.from_map(k))
+        return self
+
+
+class ListAddonsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListAddonsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListAddonsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListAddonsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListClusterAddonInstancesResponseBodyAddons(TeaModel):
+    def __init__(self, name=None, state=None, version=None):
+        self.name = name  # type: str
+        self.state = state  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListClusterAddonInstancesResponseBodyAddons, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.state is not None:
+            result['state'] = self.state
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        return self
+
+
+class ListClusterAddonInstancesResponseBody(TeaModel):
+    def __init__(self, addons=None):
+        self.addons = addons  # type: list[ListClusterAddonInstancesResponseBodyAddons]
+
+    def validate(self):
+        if self.addons:
+            for k in self.addons:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListClusterAddonInstancesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['addons'] = []
+        if self.addons is not None:
+            for k in self.addons:
+                result['addons'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.addons = []
+        if m.get('addons') is not None:
+            for k in m.get('addons'):
+                temp_model = ListClusterAddonInstancesResponseBodyAddons()
+                self.addons.append(temp_model.from_map(k))
+        return self
+
+
+class ListClusterAddonInstancesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListClusterAddonInstancesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListClusterAddonInstancesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListClusterAddonInstancesResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 

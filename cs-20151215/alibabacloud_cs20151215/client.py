@@ -204,6 +204,31 @@ class Client(OpenApiClient):
         headers = {}
         return self.cancel_component_upgrade_with_options(cluster_id, component_id, headers, runtime)
 
+    def cancel_operation_plan_with_options(self, plan_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='CancelOperationPlan',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/operation/plans/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(plan_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.CancelOperationPlanResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def cancel_operation_plan(self, plan_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_operation_plan_with_options(plan_id, headers, runtime)
+
     def cancel_task_with_options(self, task_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
@@ -2561,6 +2586,31 @@ class Client(OpenApiClient):
         headers = {}
         return self.fix_node_pool_vuls_with_options(cluster_id, nodepool_id, request, headers, runtime)
 
+    def get_cluster_addon_instance_with_options(self, cluster_id, instance_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetClusterAddonInstance',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%s/addon_instances/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.GetClusterAddonInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_cluster_addon_instance(self, cluster_id, instance_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_cluster_addon_instance_with_options(cluster_id, instance_name, headers, runtime)
+
     def get_cluster_check_with_options(self, cluster_id, check_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
@@ -2727,6 +2777,71 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.install_cluster_addons_with_options(cluster_id, request, headers, runtime)
+
+    def list_addons_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['cluster_id'] = request.cluster_id
+        if not UtilClient.is_unset(request.cluster_spec):
+            query['cluster_spec'] = request.cluster_spec
+        if not UtilClient.is_unset(request.cluster_type):
+            query['cluster_type'] = request.cluster_type
+        if not UtilClient.is_unset(request.cluster_version):
+            query['cluster_version'] = request.cluster_version
+        if not UtilClient.is_unset(request.profile):
+            query['profile'] = request.profile
+        if not UtilClient.is_unset(request.region_id):
+            query['region_id'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAddons',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/addons',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.ListAddonsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_addons(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_addons_with_options(request, headers, runtime)
+
+    def list_cluster_addon_instances_with_options(self, cluster_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListClusterAddonInstances',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%s/addon_instances' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.ListClusterAddonInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_cluster_addon_instances(self, cluster_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_cluster_addon_instances_with_options(cluster_id, headers, runtime)
 
     def list_cluster_checks_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
