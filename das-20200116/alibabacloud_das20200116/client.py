@@ -2385,6 +2385,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_autonomous_notify_events_in_range_with_options(request, runtime)
 
+    def get_blocking_detail_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.db_name_list):
+            query['DbNameList'] = request.db_name_list
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.query_hash):
+            query['QueryHash'] = request.query_hash
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetBlockingDetailList',
+            version='2020-01-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            das20200116_models.GetBlockingDetailListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_blocking_detail_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_blocking_detail_list_with_options(request, runtime)
+
     def get_dbinstance_connectivity_diagnosis_with_options(self, request, runtime):
         """
         Before you call this operation, take note of the following items:
@@ -2600,6 +2640,44 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.get_das_sqllog_hot_data_with_options(request, runtime)
+
+    def get_dead_lock_detail_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.db_name_list):
+            query['DbNameList'] = request.db_name_list
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDeadLockDetailList',
+            version='2020-01-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            das20200116_models.GetDeadLockDetailListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_dead_lock_detail_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_dead_lock_detail_list_with_options(request, runtime)
 
     def get_endpoint_switch_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3118,6 +3196,62 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.get_instance_inspections_with_options(request, runtime)
+
+    def get_instance_missing_index_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.avg_total_user_cost):
+            query['AvgTotalUserCost'] = request.avg_total_user_cost
+        if not UtilClient.is_unset(request.avg_user_impact):
+            query['AvgUserImpact'] = request.avg_user_impact
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.index_count):
+            query['IndexCount'] = request.index_count
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.object_name):
+            query['ObjectName'] = request.object_name
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.reserved_pages):
+            query['ReservedPages'] = request.reserved_pages
+        if not UtilClient.is_unset(request.reserved_size):
+            query['ReservedSize'] = request.reserved_size
+        if not UtilClient.is_unset(request.row_count):
+            query['RowCount'] = request.row_count
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.unique_compiles):
+            query['UniqueCompiles'] = request.unique_compiles
+        if not UtilClient.is_unset(request.user_scans):
+            query['UserScans'] = request.user_scans
+        if not UtilClient.is_unset(request.user_seeks):
+            query['UserSeeks'] = request.user_seeks
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetInstanceMissingIndexList',
+            version='2020-01-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            das20200116_models.GetInstanceMissingIndexListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_instance_missing_index_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_instance_missing_index_list_with_options(request, runtime)
 
     def get_instance_sql_optimize_statistic_with_options(self, request, runtime):
         """
