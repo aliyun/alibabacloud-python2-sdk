@@ -4784,7 +4784,7 @@ class DescribeInstanceAmortizedCostByConsumePeriodResponse(TeaModel):
 class DescribeInstanceBillRequest(TeaModel):
     def __init__(self, bill_owner_id=None, billing_cycle=None, billing_date=None, granularity=None,
                  instance_id=None, is_billing_item=None, is_hide_zero_charge=None, max_results=None, next_token=None,
-                 owner_id=None, product_code=None, product_type=None, subscription_type=None):
+                 owner_id=None, pip_code=None, product_code=None, product_type=None, subscription_type=None):
         # The ID of the member. If you specify this parameter, the bills of the member are queried. If you do not specify this parameter, the bills of the current account are queried by default.
         self.bill_owner_id = bill_owner_id  # type: long
         # The billing cycle. Specify the parameter in the YYYY-MM format.
@@ -4818,6 +4818,7 @@ class DescribeInstanceBillRequest(TeaModel):
         # The token that is used to indicate the position where the results for the current call start. The parameter must be left empty or set to the value of the NextToken parameter that is returned from the last call. Otherwise, an error is returned. If the parameter is left empty, data is queried from the first item.
         self.next_token = next_token  # type: str
         self.owner_id = owner_id  # type: long
+        self.pip_code = pip_code  # type: str
         # The code of the service.
         self.product_code = product_code  # type: str
         # The type of the service.
@@ -4857,6 +4858,8 @@ class DescribeInstanceBillRequest(TeaModel):
             result['NextToken'] = self.next_token
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.pip_code is not None:
+            result['PipCode'] = self.pip_code
         if self.product_code is not None:
             result['ProductCode'] = self.product_code
         if self.product_type is not None:
@@ -4887,6 +4890,8 @@ class DescribeInstanceBillRequest(TeaModel):
             self.next_token = m.get('NextToken')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('PipCode') is not None:
+            self.pip_code = m.get('PipCode')
         if m.get('ProductCode') is not None:
             self.product_code = m.get('ProductCode')
         if m.get('ProductType') is not None:
@@ -13787,7 +13792,7 @@ class ModifyInstanceResponse(TeaModel):
 
 class QueryAccountBalanceResponseBodyData(TeaModel):
     def __init__(self, available_amount=None, available_cash_amount=None, credit_amount=None, currency=None,
-                 mybank_credit_amount=None):
+                 mybank_credit_amount=None, quota_limit=None):
         # The available balance of the account.
         self.available_amount = available_amount  # type: str
         # The available balance in cash.
@@ -13802,6 +13807,7 @@ class QueryAccountBalanceResponseBodyData(TeaModel):
         self.currency = currency  # type: str
         # The credit line controlled by MYbank.
         self.mybank_credit_amount = mybank_credit_amount  # type: str
+        self.quota_limit = quota_limit  # type: str
 
     def validate(self):
         pass
@@ -13822,6 +13828,8 @@ class QueryAccountBalanceResponseBodyData(TeaModel):
             result['Currency'] = self.currency
         if self.mybank_credit_amount is not None:
             result['MybankCreditAmount'] = self.mybank_credit_amount
+        if self.quota_limit is not None:
+            result['QuotaLimit'] = self.quota_limit
         return result
 
     def from_map(self, m=None):
@@ -13836,6 +13844,8 @@ class QueryAccountBalanceResponseBodyData(TeaModel):
             self.currency = m.get('Currency')
         if m.get('MybankCreditAmount') is not None:
             self.mybank_credit_amount = m.get('MybankCreditAmount')
+        if m.get('QuotaLimit') is not None:
+            self.quota_limit = m.get('QuotaLimit')
         return self
 
 
@@ -23667,11 +23677,14 @@ class QuerySavingsPlansDeductLogRequest(TeaModel):
 
 
 class QuerySavingsPlansDeductLogResponseBodyDataItems(TeaModel):
-    def __init__(self, bill_module=None, deduct_commodity=None, deduct_fee=None, deduct_instance_id=None,
-                 deduct_rate=None, discount_rate=None, end_time=None, instance_id=None, owner_id=None, savings_type=None,
-                 start_time=None, user_id=None):
+    def __init__(self, bill_module=None, billing_cycle=None, billing_official_price=None, deduct_commodity=None,
+                 deduct_fee=None, deduct_instance_id=None, deduct_rate=None, deducted_official_price=None, discount_rate=None,
+                 end_time=None, instance_id=None, instance_spec=None, instance_type_family=None, owner_id=None, region=None,
+                 savings_type=None, start_time=None, user_id=None):
         # The billable item for which the fee is deducted.
         self.bill_module = bill_module  # type: str
+        self.billing_cycle = billing_cycle  # type: str
+        self.billing_official_price = billing_official_price  # type: str
         # The service for which the fee is deducted.
         self.deduct_commodity = deduct_commodity  # type: str
         # The deducted amount.
@@ -23680,13 +23693,17 @@ class QuerySavingsPlansDeductLogResponseBodyDataItems(TeaModel):
         self.deduct_instance_id = deduct_instance_id  # type: str
         # The deduction rate.
         self.deduct_rate = deduct_rate  # type: str
+        self.deducted_official_price = deducted_official_price  # type: str
         # The discount used for the current deduction.
         self.discount_rate = discount_rate  # type: str
         # The end of the billing cycle for which the fee is deducted.
         self.end_time = end_time  # type: str
         # The ID of the savings plan instance.
         self.instance_id = instance_id  # type: str
+        self.instance_spec = instance_spec  # type: str
+        self.instance_type_family = instance_type_family  # type: str
         self.owner_id = owner_id  # type: long
+        self.region = region  # type: str
         # The type of the savings plan. Valid values:
         # 
         # *   universal: general-purpose
@@ -23708,6 +23725,10 @@ class QuerySavingsPlansDeductLogResponseBodyDataItems(TeaModel):
         result = dict()
         if self.bill_module is not None:
             result['BillModule'] = self.bill_module
+        if self.billing_cycle is not None:
+            result['BillingCycle'] = self.billing_cycle
+        if self.billing_official_price is not None:
+            result['BillingOfficialPrice'] = self.billing_official_price
         if self.deduct_commodity is not None:
             result['DeductCommodity'] = self.deduct_commodity
         if self.deduct_fee is not None:
@@ -23716,14 +23737,22 @@ class QuerySavingsPlansDeductLogResponseBodyDataItems(TeaModel):
             result['DeductInstanceId'] = self.deduct_instance_id
         if self.deduct_rate is not None:
             result['DeductRate'] = self.deduct_rate
+        if self.deducted_official_price is not None:
+            result['DeductedOfficialPrice'] = self.deducted_official_price
         if self.discount_rate is not None:
             result['DiscountRate'] = self.discount_rate
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.instance_spec is not None:
+            result['InstanceSpec'] = self.instance_spec
+        if self.instance_type_family is not None:
+            result['InstanceTypeFamily'] = self.instance_type_family
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.region is not None:
+            result['Region'] = self.region
         if self.savings_type is not None:
             result['SavingsType'] = self.savings_type
         if self.start_time is not None:
@@ -23736,6 +23765,10 @@ class QuerySavingsPlansDeductLogResponseBodyDataItems(TeaModel):
         m = m or dict()
         if m.get('BillModule') is not None:
             self.bill_module = m.get('BillModule')
+        if m.get('BillingCycle') is not None:
+            self.billing_cycle = m.get('BillingCycle')
+        if m.get('BillingOfficialPrice') is not None:
+            self.billing_official_price = m.get('BillingOfficialPrice')
         if m.get('DeductCommodity') is not None:
             self.deduct_commodity = m.get('DeductCommodity')
         if m.get('DeductFee') is not None:
@@ -23744,14 +23777,22 @@ class QuerySavingsPlansDeductLogResponseBodyDataItems(TeaModel):
             self.deduct_instance_id = m.get('DeductInstanceId')
         if m.get('DeductRate') is not None:
             self.deduct_rate = m.get('DeductRate')
+        if m.get('DeductedOfficialPrice') is not None:
+            self.deducted_official_price = m.get('DeductedOfficialPrice')
         if m.get('DiscountRate') is not None:
             self.discount_rate = m.get('DiscountRate')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('InstanceSpec') is not None:
+            self.instance_spec = m.get('InstanceSpec')
+        if m.get('InstanceTypeFamily') is not None:
+            self.instance_type_family = m.get('InstanceTypeFamily')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
         if m.get('SavingsType') is not None:
             self.savings_type = m.get('SavingsType')
         if m.get('StartTime') is not None:

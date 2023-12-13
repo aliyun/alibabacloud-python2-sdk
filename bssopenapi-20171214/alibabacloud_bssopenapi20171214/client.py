@@ -943,6 +943,8 @@ class Client(OpenApiClient):
             query['NextToken'] = request.next_token
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pip_code):
+            query['PipCode'] = request.pip_code
         if not UtilClient.is_unset(request.product_code):
             query['ProductCode'] = request.product_code
         if not UtilClient.is_unset(request.product_type):
