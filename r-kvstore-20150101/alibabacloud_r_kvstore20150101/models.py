@@ -983,6 +983,11 @@ class CreateGlobalDistributeCacheRequest(TeaModel):
                  resource_owner_id=None, security_token=None, seed_sub_instance_id=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the resource group.
+        # 
+        # **\
+        # 
+        # **Description** You can query resource group IDs by using the ApsaraDB for Redis console or by calling the [ListResourceGroups](~~158855~~) operation. For more information, see [View basic information of a resource group](~~151181~~).
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -1438,6 +1443,7 @@ class CreateInstanceRequest(TeaModel):
         self.node_type = node_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # Parameter template ID.
         self.param_group_id = param_group_id  # type: str
         # The password that is used to connect to the instance. The password must be 8 to 32 characters in length and must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and specific special characters. These special characters include `! @ # $ % ^ & * ( ) _ + - =`
         self.password = password  # type: str
@@ -6935,6 +6941,197 @@ class DescribeDBInstanceNetInfoResponse(TeaModel):
         return self
 
 
+class DescribeDBNodeDirectVipInfoRequest(TeaModel):
+    def __init__(self, instance_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
+        self.instance_id = instance_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDBNodeDirectVipInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class DescribeDBNodeDirectVipInfoResponseBodyDirectVipInfoVipInfo(TeaModel):
+    def __init__(self, net_type=None, node_id=None, port=None, vip=None):
+        self.net_type = net_type  # type: str
+        self.node_id = node_id  # type: str
+        self.port = port  # type: str
+        self.vip = vip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDBNodeDirectVipInfoResponseBodyDirectVipInfoVipInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.net_type is not None:
+            result['NetType'] = self.net_type
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.vip is not None:
+            result['Vip'] = self.vip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NetType') is not None:
+            self.net_type = m.get('NetType')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('Vip') is not None:
+            self.vip = m.get('Vip')
+        return self
+
+
+class DescribeDBNodeDirectVipInfoResponseBodyDirectVipInfo(TeaModel):
+    def __init__(self, vip_info=None):
+        self.vip_info = vip_info  # type: list[DescribeDBNodeDirectVipInfoResponseBodyDirectVipInfoVipInfo]
+
+    def validate(self):
+        if self.vip_info:
+            for k in self.vip_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDBNodeDirectVipInfoResponseBodyDirectVipInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['VipInfo'] = []
+        if self.vip_info is not None:
+            for k in self.vip_info:
+                result['VipInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.vip_info = []
+        if m.get('VipInfo') is not None:
+            for k in m.get('VipInfo'):
+                temp_model = DescribeDBNodeDirectVipInfoResponseBodyDirectVipInfoVipInfo()
+                self.vip_info.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDBNodeDirectVipInfoResponseBody(TeaModel):
+    def __init__(self, direct_vip_info=None, instance_id=None, request_id=None):
+        self.direct_vip_info = direct_vip_info  # type: DescribeDBNodeDirectVipInfoResponseBodyDirectVipInfo
+        self.instance_id = instance_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.direct_vip_info:
+            self.direct_vip_info.validate()
+
+    def to_map(self):
+        _map = super(DescribeDBNodeDirectVipInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.direct_vip_info is not None:
+            result['DirectVipInfo'] = self.direct_vip_info.to_map()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DirectVipInfo') is not None:
+            temp_model = DescribeDBNodeDirectVipInfoResponseBodyDirectVipInfo()
+            self.direct_vip_info = temp_model.from_map(m['DirectVipInfo'])
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDBNodeDirectVipInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDBNodeDirectVipInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDBNodeDirectVipInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDBNodeDirectVipInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDedicatedClusterInstanceListRequest(TeaModel):
     def __init__(self, cluster_id=None, dedicated_host_name=None, engine=None, engine_version=None,
                  instance_id=None, instance_net_type=None, instance_status=None, owner_account=None, owner_id=None,
@@ -7777,7 +7974,7 @@ class DescribeEncryptionKeyListResponse(TeaModel):
 class DescribeEngineVersionRequest(TeaModel):
     def __init__(self, instance_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, security_token=None):
-        # The instance ID. You can call the [DescribeInstances](~~60933~~) operation to query the ID of the instance.
+        # The ID of the instance. You can call the [DescribeInstances](~~60933~~) operation to query instance IDs.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -7827,10 +8024,15 @@ class DescribeEngineVersionRequest(TeaModel):
 
 class DescribeEngineVersionResponseBodyDBLatestMinorVersionVersionReleaseReleaseInfoReleaseInfoList(TeaModel):
     def __init__(self, create_time=None, level=None, release_note=None, release_note_en=None, release_version=None):
+        # 实例的创建时间。
         self.create_time = create_time  # type: str
+        # 重要等级。
         self.level = level  # type: str
+        # 版本发布说明。
         self.release_note = release_note  # type: str
+        # 可升级的版本英文描述。
         self.release_note_en = release_note_en  # type: str
+        # EMR发行版。
         self.release_version = release_version  # type: str
 
     def validate(self):
@@ -7903,7 +8105,12 @@ class DescribeEngineVersionResponseBodyDBLatestMinorVersionVersionReleaseRelease
 
 class DescribeEngineVersionResponseBodyDBLatestMinorVersionVersionRelease(TeaModel):
     def __init__(self, release_info=None, version_changes_level=None):
+        # 小版本信息。
         self.release_info = release_info  # type: DescribeEngineVersionResponseBodyDBLatestMinorVersionVersionReleaseReleaseInfo
+        # 版本升级的重要性（推荐升级程度），取值：
+        # * 0：一般重要
+        # * 1：比较重要
+        # * 2：非常重要
         self.version_changes_level = version_changes_level  # type: str
 
     def validate(self):
@@ -7934,8 +8141,14 @@ class DescribeEngineVersionResponseBodyDBLatestMinorVersionVersionRelease(TeaMod
 
 class DescribeEngineVersionResponseBodyDBLatestMinorVersion(TeaModel):
     def __init__(self, level=None, minor_version=None, version_release=None):
+        # 版本变更的重要性，取值：
+        # * **0**：一般重要
+        # * **1**：比较重要
+        # * **2**：非常重要
         self.level = level  # type: str
+        # 版本号。
         self.minor_version = minor_version  # type: str
+        # 从实例当前小版本到最新小版本的版本演进路线，与版本文档一致，可以直接至版本说明文档查看更详细的信息。
         self.version_release = version_release  # type: DescribeEngineVersionResponseBodyDBLatestMinorVersionVersionRelease
 
     def validate(self):
@@ -7970,10 +8183,18 @@ class DescribeEngineVersionResponseBodyDBLatestMinorVersion(TeaModel):
 
 class DescribeEngineVersionResponseBodyProxyLatestMinorVersionVersionReleaseReleaseInfoReleaseInfoList(TeaModel):
     def __init__(self, create_time=None, level=None, release_note=None, release_note_en=None, release_version=None):
+        # 版本的发布时间。
         self.create_time = create_time  # type: str
+        # 版本变更的重要性，取值：
+        # * **0**：一般重要
+        # * **1**：比较重要
+        # * **2**：非常重要
         self.level = level  # type: str
+        # 版本的变更说明。
         self.release_note = release_note  # type: str
+        # 可升级的版本英文描述。
         self.release_note_en = release_note_en  # type: str
+        # EMR发行版。
         self.release_version = release_version  # type: str
 
     def validate(self):
@@ -8046,7 +8267,12 @@ class DescribeEngineVersionResponseBodyProxyLatestMinorVersionVersionReleaseRele
 
 class DescribeEngineVersionResponseBodyProxyLatestMinorVersionVersionRelease(TeaModel):
     def __init__(self, release_info=None, version_changes_level=None):
+        # 小版本信息。
         self.release_info = release_info  # type: DescribeEngineVersionResponseBodyProxyLatestMinorVersionVersionReleaseReleaseInfo
+        # 版本升级的重要性（推荐升级程度），取值：
+        # * 0：一般重要
+        # * 1：比较重要
+        # * 2：非常重要
         self.version_changes_level = version_changes_level  # type: str
 
     def validate(self):
@@ -8077,8 +8303,14 @@ class DescribeEngineVersionResponseBodyProxyLatestMinorVersionVersionRelease(Tea
 
 class DescribeEngineVersionResponseBodyProxyLatestMinorVersion(TeaModel):
     def __init__(self, level=None, minor_version=None, version_release=None):
+        # 版本变更的重要性，取值：
+        # * **0**：一般重要
+        # * **1**：比较重要
+        # * **2**：非常重要
         self.level = level  # type: str
+        # 版本号。
         self.minor_version = minor_version  # type: str
+        # 从实例当前小版本到最新小版本的版本演进路线，与版本文档一致，可以直接至版本说明文档查看更详细的信息。
         self.version_release = version_release  # type: DescribeEngineVersionResponseBodyProxyLatestMinorVersionVersionRelease
 
     def validate(self):
@@ -8116,51 +8348,54 @@ class DescribeEngineVersionResponseBody(TeaModel):
                  enable_upgrade_minor_version=None, engine=None, is_auto_upgrade_open=None, is_latest_version=None, is_new_sslmode=None,
                  is_redis_compatible_version=None, is_sslenable=None, major_version=None, minor_version=None, proxy_latest_minor_version=None,
                  proxy_minor_version=None, proxy_version_release=None, request_id=None):
+        # 该实例当前可升级至最新的小版本信息。
         self.dblatest_minor_version = dblatest_minor_version  # type: DescribeEngineVersionResponseBodyDBLatestMinorVersion
         # The release notes for the minor version of the instance, including the release date, minor version number, release type such as new feature, and description.
         self.dbversion_release = dbversion_release  # type: str
-        # Indicates whether the instance major version can be upgraded. Valid values:
+        # Indicates whether the major version can be upgraded for the instance. Valid values:
         # 
         # *   **true**: The major version can be upgraded.
         # *   **false**: The major version is the latest version and cannot be upgraded.
         # 
-        # > To upgrade the major version, call the [ModifyInstanceMajorVersion](~~95259~~) operation.
+        # >  To upgrade the major version, call the [ModifyInstanceMajorVersion](~~95259~~) operation.
         self.enable_upgrade_major_version = enable_upgrade_major_version  # type: bool
-        # Indicates whether the instance minor version can be updated. Valid values:
+        # Indicates whether the minor version can be updated for the instance. Valid values:
         # 
         # *   **true**: The minor version can be updated.
         # *   **false**: The minor version is the latest version and cannot be updated.
         # 
-        # > To update the minor version, call the [ModifyInstanceMinorVersion](~~129381~~) operation.
+        # >  To update the minor version, call the [ModifyInstanceMinorVersion](~~129381~~) operation.
         self.enable_upgrade_minor_version = enable_upgrade_minor_version  # type: bool
         # The database engine of the instance. Valid values: **redis** and **memcache**.
         self.engine = engine  # type: str
+        # 是否打开了小版本升级。
         self.is_auto_upgrade_open = is_auto_upgrade_open  # type: str
-        # Indicates whether the instance uses the latest minor version. Valid values:
+        # Indicates whether the instance minor version is the latest version. Valid values:
         # 
-        # *   **true**\
-        # *   **false**\
+        # *   **true**: The instance minor version is the latest version.
+        # *   **false**: The instance minor version is not the latest version.
         self.is_latest_version = is_latest_version  # type: bool
-        # Indicates whether the instance supports the new SSL encryption feature.
+        # 是否支持新版 ssl。
         self.is_new_sslmode = is_new_sslmode  # type: str
-        # Indicates whether the instance runs a Redis version.
+        # Indicates whether the instance supports the new SSL encryption feature.
         self.is_redis_compatible_version = is_redis_compatible_version  # type: str
-        # Indicate whether the instance has the SSL encryption feature enabled.
+        # 是否打开了小版本升级。
         self.is_sslenable = is_sslenable  # type: str
         # The major version of the instance.
         self.major_version = major_version  # type: str
         # The minor version of the instance.
         self.minor_version = minor_version  # type: str
+        # 该Proxy节点当前可升级至最新的小版本信息。
         self.proxy_latest_minor_version = proxy_latest_minor_version  # type: DescribeEngineVersionResponseBodyProxyLatestMinorVersion
         # The minor version of proxy nodes.
         # 
-        # > This parameter is returned only for cluster and read/write splitting instances.
+        # >  This parameter is returned only for cluster and read/write splitting instances.
         self.proxy_minor_version = proxy_minor_version  # type: str
         # The release notes for the minor version of proxy nodes. The release notes include the release date, minor version number, release type such as new feature, and description.
         # 
-        # > This parameter is returned only for cluster and read/write splitting instances.
+        # >  This parameter is returned only for cluster and read/write splitting instances.
         self.proxy_version_release = proxy_version_release  # type: str
-        # The request ID.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8290,18 +8525,18 @@ class DescribeEngineVersionResponse(TeaModel):
 class DescribeGlobalDistributeCacheRequest(TeaModel):
     def __init__(self, global_instance_id=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
                  resource_owner_account=None, resource_owner_id=None, security_token=None, sub_instance_id=None):
-        # Details of the child instances.
+        # The ID of the distributed instance.
         self.global_instance_id = global_instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The number of the page to return. The value must be an integer that is greater than **0**. Default value: **1**.
         self.page_number = page_number  # type: str
-        # The number of entries to return on each page.
+        # The number of entries to return each page.
         self.page_size = page_size  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
-        # The ID of the distributed instance.
+        # The ID of the child instance that is attached to the distributed instance.
         self.sub_instance_id = sub_instance_id  # type: str
 
     def validate(self):
@@ -8359,10 +8594,37 @@ class DescribeGlobalDistributeCacheRequest(TeaModel):
 class DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCachesSubInstances(TeaModel):
     def __init__(self, global_instance_id=None, instance_class=None, instance_id=None, instance_status=None,
                  region_id=None):
+        # The ID of the distributed instance.
         self.global_instance_id = global_instance_id  # type: str
+        # The instance type of the child instance. For more information, see the following topics:
+        # 
+        # *   [Standard DRAM-based instances](~~145228~~)
+        # *   [Cluster DRAM-based instances](~~150458~~)
+        # *   [Read/write splitting DRAM-based instances](~~150459~~)
         self.instance_class = instance_class  # type: str
+        # The ID of the child instance.
         self.instance_id = instance_id  # type: str
+        # The state of the child instance. Valid values:
+        # 
+        # *   **Normal**: The instance is normal.
+        # *   **Creating**: The instance is being created.
+        # *   **Changing**: The configurations of the instance are being changed.
+        # *   **Inactive**: The instance is disabled.
+        # *   **Flushing**: The instance is being released.
+        # *   **Released**: The instance is released.
+        # *   **Transforming**: The billing method of the instance is changing.
+        # *   **Unavailable**: The instance is suspended.
+        # *   **Error**: The instance failed to be created.
+        # *   **Migrating**: The instance is being migrated.
+        # *   **BackupRecovering**: The instance is being restored from a backup.
+        # *   **MinorVersionUpgrading**: The minor version of the instance is being updated.
+        # *   **NetworkModifying**: The network type of the instance is being changed.
+        # *   **SSLModifying**: The SSL certificate of the instance is being changed.
+        # *   **MajorVersionUpgrading**: The major version of the instance is being upgraded. The instance remains available during the upgrade.
+        # 
+        # >  For more information about instance states, see [Instance states and impacts](~~200740~~).
         self.instance_status = instance_status  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -8403,15 +8665,15 @@ class DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCachesSubInstance
 
 class DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCaches(TeaModel):
     def __init__(self, global_instance_id=None, status=None, sub_instances=None):
+        # The ID of the distributed instance.
+        self.global_instance_id = global_instance_id  # type: str
         # The state of the distributed instance. Valid values:
         # 
         # *   **Normal**: The instance is normal.
         # *   **Changing**: The configurations of the instance are being changed.
         # *   **Creating**: The instance is being created.
-        self.global_instance_id = global_instance_id  # type: str
-        # The ID of the distributed instance.
         self.status = status  # type: str
-        # The ID of the request.
+        # Details of the child instances.
         self.sub_instances = sub_instances  # type: list[DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCachesSubInstances]
 
     def validate(self):
@@ -8457,15 +8719,11 @@ class DescribeGlobalDistributeCacheResponseBody(TeaModel):
         self.global_distribute_caches = global_distribute_caches  # type: list[DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCaches]
         # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # The instance type of the child instance. For more information, see the following topics:
-        # 
-        # *   [Standard DRAM-based instances](~~145228~~)
-        # *   [Cluster DRAM-based instances](~~150458~~)
-        # *   [Read/write splitting DRAM-based instances](~~150459~~)
-        self.page_size = page_size  # type: int
-        # The ID of the child instance that is attached to the distributed instance.
-        self.request_id = request_id  # type: str
         # The number of entries returned per page.
+        self.page_size = page_size  # type: int
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_record_count = total_record_count  # type: int
 
     def validate(self):
@@ -9483,9 +9741,9 @@ class DescribeInstanceAttributeRequest(TeaModel):
 
 class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttributeTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of the tag.
+        # The tag key.
         self.key = key  # type: str
-        # The value of the tag.
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -9561,7 +9819,7 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel
         # *   **standard**: standard architecture
         # *   **rwsplit**: read/write splitting architecture
         self.architecture_type = architecture_type  # type: str
-        # The retention period of audit logs. Unit: days. A value of 0 indicates that the audit log feature is disabled. For more information about how to enable the audit log feature, see [Enable the new audit log feature](~~102015~~).
+        # The retention period of audit logs. Unit: day. A value of 0 indicates that the audit log feature is disabled. For more information, see [Enable the audit log feature](~~102015~~).
         self.audit_log_retention = audit_log_retention  # type: str
         # The availability metric of the current month.
         self.availability_value = availability_value  # type: str
@@ -9569,7 +9827,7 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel
         # 
         # > 
         # 
-        # *   This parameter is returned only when the data flashback feature is enabled for the instance. For more information, see [Use data flashback to restore data by point in time](~~148479~~).
+        # *   This parameter is returned only if the [data flashback](~~148479~~) feature is enabled for the instance.
         # 
         # *   When you call the [RestoreInstance](~~61083~~) operation to implement data flashback, you can obtain the earliest point in time for data flashback from the return value of this parameter and set the **RestoreTime** parameter to this point in time.
         self.backup_log_start_time = backup_log_start_time  # type: str
@@ -9584,7 +9842,7 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel
         self.charge_type = charge_type  # type: str
         # This parameter is returned only when the instance is in a cloud box.
         self.cloud_type = cloud_type  # type: str
-        # The parameter settings of the instance in the JSON format. For more information, see [Modify the parameters of an ApsaraDB for Redis instance](~~43885~~).
+        # The parameter configurations of the instance in the JSON format. For more information, see [Parameter descriptions](~~43885~~). You can use the [DescribeAuditLogConfig](~~473830~~) operation to query audit log configurations.
         self.config = config  # type: str
         # The internal endpoint of the instance.
         self.connection_domain = connection_domain  # type: str
@@ -9596,27 +9854,27 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel
         self.end_time = end_time  # type: str
         # The database engine of the instance. The return value is **Redis**.
         self.engine = engine  # type: str
-        # The database engine version of the instance. Valid values: **2.8**, **4.0**, **5.0**, and **6.0**.
+        # The database engine version of the instance. Valid values: **2.8**, **4.0**, and **5.0**.
         self.engine_version = engine_version  # type: str
         # The ID of the distributed instance to which the instance belongs.
         # 
-        # > This parameter is returned only when the instance is a child instance of a distributed instance.
+        # >  This parameter is returned only if the ApsaraDB for Redis instance is a child instance of a distributed instance.
         self.global_instance_id = global_instance_id  # type: str
         # Indicates whether your Alibaba Cloud account has pending orders for renewal and configuration change. Valid values:
         # 
-        # *   **true**: Your Alibaba Cloud account has pending orders.
-        # *   **false**: Your Alibaba Cloud account does not have pending orders.
+        # *   **true**\
+        # *   **false**\
         self.has_renew_change_order = has_renew_change_order  # type: str
         # The instance type of the instance. For more information, see [Instance types](~~107984~~).
         self.instance_class = instance_class  # type: str
-        # The ID of the instance.
+        # The instance ID.
         self.instance_id = instance_id  # type: str
-        # The name of the instance.
+        # The instance name.
         self.instance_name = instance_name  # type: str
         # Indicates whether the release protection feature is enabled for the instance. Valid values:
         # 
-        # *   **true**: Release protection is enabled.
-        # *   **false**: Release protection is disabled.
+        # *   **true**\
+        # *   **false**\
         self.instance_release_protection = instance_release_protection  # type: bool
         # The state of the instance. Valid values:
         # 
@@ -9627,7 +9885,7 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel
         # *   **Flushing**: The instance is being released.
         # *   **Released**: The instance is released.
         # *   **Transforming**: The billing method of the instance is being changed.
-        # *   **Unavailable**: The instance is suspended.
+        # *   **Unavailable**: The instance is unavailable.
         # *   **Error**: The instance failed to be created.
         # *   **Migrating**: The instance is being migrated.
         # *   **BackupRecovering**: The instance is being restored from a backup.
@@ -9636,7 +9894,7 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel
         # *   **SSLModifying**: The SSL certificate of the instance is being changed.
         # *   **MajorVersionUpgrading**: The major version of the instance is being upgraded. The instance remains accessible during the upgrade.
         # 
-        # > For more information about instance states, see [Instance states and impacts](~~200740~~).
+        # >  For more information about instance states, see [Instance states and impacts](~~200740~~).
         self.instance_status = instance_status  # type: str
         # The database engine of the instance. Valid values:
         # 
@@ -9644,21 +9902,20 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel
         # *   **Redis**\
         # *   **Memcache**\
         self.instance_type = instance_type  # type: str
-        # Whether the instance order has been completed is used to determine whether the modify instance specifications order has reached its final state. The return value is:
+        # Indicates whether the order for instance configuration change has reached the final state. Valid values:
         # 
-        # * **true**: The modify instance specifications operation has been completed or has not been made.
-        # 
-        # * **false**: Changing specifications, the order is not yet completed.
+        # *   **true**: The configuration change has been completed or has not been performed.
+        # *   **false**: The configurations of the instance are being changed.
         self.is_order_completed = is_order_completed  # type: bool
         # Indicates whether the instance is managed by ApsaraDB RDS. Valid values:
         # 
-        # *   **true**: The instance is managed by ApsaraDB RDS.
-        # *   **false**: The instance is not managed by ApsaraDB RDS.
+        # *   **true**\
+        # *   **false**\
         self.is_rds = is_rds  # type: bool
-        # Does the instance support enabling transparent data encryption (TDE) function? Return value:
+        # Indicates whether the transparent data encryption (TDE) feature is supported for the instance. Valid values:
         # 
-        # * **true**: Supported, only supported for local disk, memory type Tair instance version. 
-        # * **false**: Not Supported.
+        # *   **true**: This feature is supported. This feature is available only for [DRAM-based](~~443827~~) instances that use local disks.
+        # *   **false**: This feature is not supported.
         self.is_support_tde = is_support_tde  # type: bool
         # The end time of the maintenance window. The time is in the *HH:mmZ* format. The time is displayed in UTC.
         self.maintain_end_time = maintain_end_time  # type: str
@@ -9666,24 +9923,24 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel
         self.maintain_start_time = maintain_start_time  # type: str
         # The network type of the instance. Valid values:
         # 
-        # *   **CLASSIC**: classic network
-        # *   **VPC**: VPC
+        # *   **CLASSIC**\
+        # *   **VPC**\
         self.network_type = network_type  # type: str
         # The node type. Valid values:
         # 
         # *   **double**: The instance contains a master node and a replica node.
         # *   **single**: The instance contains only a master node. This node type is phrased out.
         self.node_type = node_type  # type: str
-        # The plan type of the instance. Valid values:
+        # The plan type. Valid values:
         # 
         # *   **standard**: standard plan.
         # *   **customized**: custom plan. This plan type is phased out.
         self.package_type = package_type  # type: str
-        # The port number of the instance.
+        # The port number that is used to connect to the instance.
         self.port = port  # type: long
         # The private IP address of the instance.
         # 
-        # > This parameter is not returned when the instance is deployed in the classic network.
+        # >  This parameter is not returned when the instance is deployed in the classic network.
         self.private_ip = private_ip  # type: str
         # The expected maximum queries per second (QPS).
         self.qps = qps  # type: long
@@ -9691,45 +9948,47 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel
         self.read_only_count = read_only_count  # type: int
         # If the instance is a cluster instance that uses cloud disks, this parameter indicates the instance type of each shard. In this case, the InstanceClass parameter indicates a virtual instance type.
         # 
-        # > To query the costs of this instance type, specify the returned instance type for this parameter for the [DescribePrice](~~95612~~) operation and call the operation.
+        # >  You can call the [DescribePrice](~~95612~~) operation to query the price of the instance type that is returned by this parameter.
         self.real_instance_class = real_instance_class  # type: str
-        # The region ID of the instance.
+        # The region ID.
         self.region_id = region_id  # type: str
         # The ID of the node.
         self.replica_id = replica_id  # type: str
         # The architecture of the instance. Valid values:
         # 
-        # *   **master-slave**: standard master-replica architecture.
-        # *   **cluster**: cluster architecture, which includes read/write splitting instances and cluster instances.
+        # *   **master-slave**: the standard mater-replica architecture.
+        # *   **cluster**: the cluster architecture, which includes the read/write splitting instances and cluster instances.
         self.replication_mode = replication_mode  # type: str
         # The ID of the resource group to which the instance belongs.
         self.resource_group_id = resource_group_id  # type: str
-        # The ID of the secondary zone.
+        # The secondary zone ID of the instance.
         # 
-        # > This parameter is returned only when the instance has a secondary zone ID.
+        # >  This parameter is returned only if the instance has a secondary zone ID.
         self.secondary_zone_id = secondary_zone_id  # type: str
-        # The IP addresses contained in a whitelist of the instance.
+        # The IP address whitelist.
         self.security_iplist = security_iplist  # type: str
-        # The number of shards. This parameter is available only for instances that are purchased on the China site (aliyun.com).
-        # 
-        # This parameter is returned only when the instance is a [cluster instance](~~52228~~) that uses cloud disks.
+        # The number of shards. This parameter is available only for ApsaraDB for Redis instances that are purchased on the China site (aliyun.com).
         self.shard_count = shard_count  # type: int
+        # The storage space of cloud disks. Valid values vary based on the instance specifications. For more information, see [ESSD-based instances](~~443846~~).
+        # 
+        # > This parameter is available and required only if the **InstanceType** parameter is set to **tair_essd**.
         self.storage = storage  # type: str
+        # The type of the storage.
         self.storage_type = storage_type  # type: str
-        # Details of the tags.
+        # The details of the tags.
         self.tags = tags  # type: DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttributeTags
-        # The ID of the vSwitch.
+        # The vSwitch ID.
         self.v_switch_id = v_switch_id  # type: str
         # The VPC authentication mode. Valid values:
         # 
         # *   **Open**: enables password authentication.
         # *   **Close**: disables password authentication and enables password-free access. For more information, see [Enable password-free access](~~85168~~).
         self.vpc_auth_mode = vpc_auth_mode  # type: str
-        # The ID of the VPC.
+        # The ID of the instance that is deployed in the VPC.
         self.vpc_cloud_instance_id = vpc_cloud_instance_id  # type: str
         # The ID of the virtual private cloud (VPC).
         self.vpc_id = vpc_id  # type: str
-        # The zone ID of the instance.
+        # The zone ID.
         self.zone_id = zone_id  # type: str
         # The deployment type of the instance. Valid values:
         # 
@@ -9997,7 +10256,7 @@ class DescribeInstanceAttributeResponseBodyInstances(TeaModel):
 
 class DescribeInstanceAttributeResponseBody(TeaModel):
     def __init__(self, instances=None, request_id=None):
-        # Details of the instances.
+        # Details of the instance.
         self.instances = instances  # type: DescribeInstanceAttributeResponseBodyInstances
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -14040,7 +14299,7 @@ class DescribePriceResponse(TeaModel):
 class DescribeRegionsRequest(TeaModel):
     def __init__(self, accept_language=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, security_token=None):
-        # The diaplay language of the **LocalName** parameter value. Valid values:
+        # The display language of the **LocalName** parameter value. Valid values:
         # 
         # *   **zh-CN**: Chinese
         # *   **en-US**: English
@@ -14275,21 +14534,21 @@ class DescribeRegionsResponse(TeaModel):
 class DescribeRoleZoneInfoRequest(TeaModel):
     def __init__(self, instance_id=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
                  query_type=None, resource_owner_account=None, resource_owner_id=None, security_token=None):
-        # The number of the page to return. The value must be an integer that is greater than **0** and less than or equal to the maximum value supported by the integer data type. Default value: **1**.
+        # The ID of the instance. You can call the [DescribeInstances](~~60933~~) operation to query instance IDs.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return. The value must be an integer that is greater than **0**. Default value: **1**.
+        # The number of the page to return. The value must be an integer that is greater than **0** and less than or equal to the maximum value supported by the integer data type. Default value: **1**.
         self.page_number = page_number  # type: int
         # The number of entries to return on each page. Valid values: **10**, **20**, and **50**. Default value: **10**.
         self.page_size = page_size  # type: int
-        # The type of the node to query. Default value: 1. Valid values:
+        # The type of node to query. Default value: 1. Valid values:
         # 
         # *   **0**: proxy node
         # 
         #     **\
         # 
-        #     **Note**This parameter is supported only for cluster and read/write splitting instances.
+        #     **Note** This parameter is supported only for cluster and read/write splitting instances.
         # 
         # *   **1**: data node
         self.query_type = query_type  # type: int
@@ -14353,35 +14612,51 @@ class DescribeRoleZoneInfoResponseBodyNodeNodeInfo(TeaModel):
     def __init__(self, current_band_width=None, current_minor_version=None, custins_id=None,
                  default_band_width=None, ins_name=None, ins_type=None, is_latest_version=None, is_open_band_width_service=None,
                  node_id=None, node_type=None, role=None, zone_id=None):
-        # The number of the returned page.
-        self.current_band_width = current_band_width  # type: long
-        # The number of entries to return on each page. Valid values: **10**, **20**, and **50**. Default value: **10**.
-        self.current_minor_version = current_minor_version  # type: str
-        self.custins_id = custins_id  # type: str
-        # The node type. Valid values:
+        # The current bandwidth of the node, which consists of the default bandwidth and the increased bandwidth. Unit: MB/s.
         # 
-        # *   **db**: data node.
-        # *   **proxy**: proxy node.
-        # *   **normal**: regular node. This value is returned when the instance runs in the standard architecture.
+        # > 
+        # 
+        # *   You can call the [EnableAdditionalBandwidth](~~206173~~) operation to specify the increased bandwidth.
+        # *   You can also use this parameter to calculate the increased bandwidth. For example, if the default bandwidth of the node is 96 MB/s and the returned value of this parameter is 100, the increased bandwidth is 4 MB/s.
+        self.current_band_width = current_band_width  # type: long
+        # The minor version of the node.
+        self.current_minor_version = current_minor_version  # type: str
+        # The ID of the data shard.
+        self.custins_id = custins_id  # type: str
+        # The default bandwidth of the node. Unit: MB/s.
         self.default_band_width = default_band_width  # type: long
+        # The ID of the node.
+        self.ins_name = ins_name  # type: str
+        # Indicates whether the node is a read replica. If the node is a read replica, **3** is returned.
+        # 
+        # >  If the node is not a read replica, no value is returned.
+        self.ins_type = ins_type  # type: int
         # Indicates whether the minor version is the latest version. Valid values:
         # 
         # *   **0**: The minor version is not the latest version.
         # *   **1**: The minor version is the latest version.
         # 
         # >  To update the minor version, call the [ModifyInstanceMinorVersion](~~129381~~) operation.
-        self.ins_name = ins_name  # type: str
-        # Details about each node in an ApsaraDB for Redis instance.
-        self.ins_type = ins_type  # type: int
-        # The number of entries returned per page.
         self.is_latest_version = is_latest_version  # type: int
-        # DescribeRoleZoneInfo
+        # Indicates whether the bandwidth of the node is increased. Valid values:
+        # 
+        # *   **true**: The bandwidth of the node is not increased.
+        # *   **false**: The bandwidth of the node is increased.
         self.is_open_band_width_service = is_open_band_width_service  # type: bool
+        # This parameter is used only for internal maintenance of ApsaraDB for Redis instances.
         self.node_id = node_id  # type: str
-        # The ID of the request.
+        # The node type. Valid values:
+        # 
+        # *   **db**: data node.
+        # *   **proxy**: proxy node.
+        # *   **normal**: regular node. This value is returned when the instance runs in the standard architecture.
         self.node_type = node_type  # type: str
+        # The role of the node. Valid values:
+        # 
+        # *   **master**: master node
+        # *   **slave**: replica node
         self.role = role  # type: str
-        # Queries information about the type, minor version, and bandwidth of specific nodes in an ApsaraDB for Redis instance, and zones where the nodes are deployed.
+        # The ID of the zone.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -14482,23 +14757,15 @@ class DescribeRoleZoneInfoResponseBodyNode(TeaModel):
 
 class DescribeRoleZoneInfoResponseBody(TeaModel):
     def __init__(self, node=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The role of the node. Valid values:
-        # 
-        # *   **master**: master node
-        # *   **slave**: replica node
+        # Details about each node in an ApsaraDB for Redis instance.
         self.node = node  # type: DescribeRoleZoneInfoResponseBodyNode
-        # The ID of the instance. You can call the [DescribeInstances](~~60933~~) operation to query instance IDs.
+        # The number of the returned page.
         self.page_number = page_number  # type: int
-        # Indicates whether the bandwidth of the node is increased. Valid values:
-        # 
-        # *   **true**: The bandwidth of the node is not increased.
-        # *   **false**: The bandwidth of the node is increased.
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # This parameter is used only for internal maintenance of ApsaraDB for Redis instances.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether the node is a read replica. If the node is a read replica, **3** is returned.
-        # 
-        # >  If the node is not a read replica, no value is returned.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -15643,22 +15910,29 @@ class DescribeTasksRequest(TeaModel):
     def __init__(self, end_time=None, instance_id=None, owner_account=None, owner_id=None, page_number=None,
                  page_size=None, resource_owner_account=None, resource_owner_id=None, security_token=None, start_time=None,
                  status=None):
-        # 2020-11-26T01:00Z
+        # The end of the time range to query. Specify the time in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC.
         self.end_time = end_time  # type: str
-        # The identifier of the task.
+        # The ID of the instance. You can call the [DescribeInstances](~~60933~~) operation to query instance IDs.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return. The value must be an integer that is greater than **0**. Default value: **1**.
+        # The number of the page to return. The value must be an integer that is greater than **0** and does not exceed the maximum value of the Integer data type. Default value: **1**.
         self.page_number = page_number  # type: int
         # The number of entries to return on each page. Valid values: **30**, **50**, and **100**. Default value: **30**.
         self.page_size = page_size  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
-        # The end of the time range to query. Specify the time in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC.
+        # The beginning of the time range to query. Specify the time in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC.
         self.start_time = start_time  # type: str
-        # The total number of entries.
+        # The status of the task. Separate multiple values with commas (,). Valid values:
+        # 
+        # *   **0**: The task is pending.
+        # *   **1**: The task is running.
+        # *   **2**: The task is complete.
+        # *   **4**: The task is closed.
+        # *   **7**: The task is paused.
+        # *   **8**: The task is interrupted.
         self.status = status  # type: str
 
     def validate(self):
@@ -15726,22 +16000,36 @@ class DescribeTasksResponseBodyItems(TeaModel):
                  status=None, step_progress_info=None, steps_info=None, task_action=None, task_id=None):
         # The beginning time of the task. The time follows the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.begin_time = begin_time  # type: str
-        # The ID of the request.
-        self.current_step_name = current_step_name  # type: str
-        # The beginning of the time range to query. Specify the time in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC.
-        self.finish_time = finish_time  # type: str
-        # The number of entries returned on each page.
-        self.progress = progress  # type: float
-        # 2
-        self.remain = remain  # type: int
-        # 1
-        self.status = status  # type: str
-        # The end time of the task. The time follows the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
-        self.step_progress_info = step_progress_info  # type: str
-        # The page number of the returned page.
-        self.steps_info = steps_info  # type: str
-        self.task_action = task_action  # type: str
         # The name of the subtask.
+        self.current_step_name = current_step_name  # type: str
+        # The end time of the task. The time follows the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        self.finish_time = finish_time  # type: str
+        # The progress of the task. Unit: %.
+        self.progress = progress  # type: float
+        # The estimated remaining duration of the task. Unit: seconds.
+        # 
+        # >  If the task is not running, this parameter is not returned or the returned value is **0**.
+        self.remain = remain  # type: int
+        # The status of the task. Valid values:
+        # 
+        # *   **0**: The task is pending.
+        # *   **1**: The task is running.
+        # *   **2**: The task is complete.
+        # *   **4**: The task is closed.
+        # *   **7**: The task is paused.
+        # *   **8**: The task is interrupted.
+        self.status = status  # type: str
+        # The progress of the subtask.
+        # 
+        # >  If the subtask does not exist, this parameter is not returned.
+        self.step_progress_info = step_progress_info  # type: str
+        # The information about the subtask in the JSON format. This includes the expected remaining duration (**remain**), the name of the subtask (**name**), and the task progress (**progress**).
+        # 
+        # >  If the subtask does not exist, this parameter is not returned.
+        self.steps_info = steps_info  # type: str
+        # The identifier of the task.
+        self.task_action = task_action  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -15802,26 +16090,15 @@ class DescribeTasksResponseBodyItems(TeaModel):
 
 class DescribeTasksResponseBody(TeaModel):
     def __init__(self, items=None, page_number=None, page_size=None, request_id=None, total_record_count=None):
-        # The estimated remaining duration of the task. Unit: seconds.
-        # 
-        # >  If the task is not running, this parameter is not returned or the returned value is **0**.
+        # The details of the task.
         self.items = items  # type: list[DescribeTasksResponseBodyItems]
-        # The ID of the instance. You can call the [DescribeInstances](~~60933~~) operation to query instance IDs.
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # 30
+        # The number of entries returned on each page.
         self.page_size = page_size  # type: int
-        # The status of the task. Separate multiple values with commas (,). Valid values:
-        # 
-        # *   **0**: The task is pending.
-        # *   **1**: The task is running.
-        # *   **2**: The task is complete.
-        # *   **4**: The task is closed.
-        # *   **7**: The task is paused.
-        # *   **8**: The task is interrupted.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The information about the subtask in the JSON format. This includes the expected remaining duration (**remain**), the name of the subtask (**name**), and the task progress (**progress**).
-        # 
-        # >  If the subtask does not exist, this parameter is not returned.
+        # The total number of entries.
         self.total_record_count = total_record_count  # type: int
 
     def validate(self):
@@ -15910,6 +16187,9 @@ class DescribeTasksResponse(TeaModel):
 class DescribeZonesRequest(TeaModel):
     def __init__(self, accept_language=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_token=None):
+        # The display language of the response. Default value: zh-CN. Valid values:
+        # * **zh-C**N: Chinese
+        # * **en-US**: English
         self.accept_language = accept_language  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -17205,7 +17485,9 @@ class ListTagResourcesResponse(TeaModel):
 class LockDBInstanceWriteRequest(TeaModel):
     def __init__(self, dbinstance_id=None, lock_reason=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_token=None):
+        # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The reason why write operations on the instance are locked.
         self.lock_reason = lock_reason  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -17259,9 +17541,13 @@ class LockDBInstanceWriteRequest(TeaModel):
 
 class LockDBInstanceWriteResponseBody(TeaModel):
     def __init__(self, dbinstance_name=None, lock_reason=None, request_id=None, task_id=None):
+        # The instance ID.
         self.dbinstance_name = dbinstance_name  # type: str
+        # The reason why write operations on the instance are locked.
         self.lock_reason = lock_reason  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The task ID.
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -18023,10 +18309,12 @@ class ModifyBackupPolicyRequest(TeaModel):
                  security_token=None):
         # Enables or disables the data flashback feature for the instance. Valid values:
         # 
-        # *   **1**: enables the data flashback feature. Before you can use data flashback, you must make sure that AOF persistence is enabled for the instance (`appendonly` set to `yes`).
+        # *   **1**: enables the data flashback feature. You must also enable AOF persistence by setting `appendonly` to `yes` in the parameter settings of the instance. Then, you can use the data flashback feature.
         # *   **0** (default): disables the data flashback feature.
         # 
-        # > This parameter is available only for Tair DRAM-based and persistent memory-optimized instances. For more information, see [Data flashback](~~443784~~).
+        # **\
+        # 
+        # **Description** This parameter is available only for ApsaraDB for Redis Enhanced Edition (Tair) DRAM-based and persistent memory-optimized instances. For more information, see [Data flashback](~~443784~~).
         self.enable_backup_log = enable_backup_log  # type: int
         # The ID of the instance.
         self.instance_id = instance_id  # type: str
@@ -18319,12 +18607,23 @@ class ModifyGlobalSecurityIPGroupRequest(TeaModel):
     def __init__(self, gip_list=None, global_ig_name=None, global_security_group_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
                  security_token=None):
+        # The IP address in the whitelist template.
+        # 
+        # >  Multiple IP addresses are separated by commas (,). You can create up to 1,000 IP addresses or CIDR blocks for all IP whitelists.
         self.gip_list = gip_list  # type: str
+        # The name of the IP whitelist template. The name must meet the following requirements:
+        # 
+        # *   The name can contain lowercase letters, digits, and underscores (\_).
+        # *   The name must start with a letter and end with a letter or digit.
+        # *   The name must be 2 to 120 characters in length.
         self.global_ig_name = global_ig_name  # type: str
+        # The ID of the IP whitelist template.
         self.global_security_group_id = global_security_group_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -18388,6 +18687,7 @@ class ModifyGlobalSecurityIPGroupRequest(TeaModel):
 
 class ModifyGlobalSecurityIPGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -18986,9 +19286,11 @@ class ModifyInstanceAutoRenewalAttributeResponse(TeaModel):
 class ModifyInstanceConfigRequest(TeaModel):
     def __init__(self, config=None, instance_id=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_token=None):
-        # The configuration parameters of the instance in the JSON format.
+        # The instance parameter settings that you want to modify. Specify this parameter in the JSON format. The new value of a parameter overwrites the original value.
         # 
-        # > For more information, see [Supported parameters](~~259681~~).
+        # **\
+        # 
+        # **Description** For more information, see [Supported parameters](~~259681~~).
         self.config = config  # type: str
         # The ID of the instance.
         self.instance_id = instance_id  # type: str
@@ -20014,9 +20316,10 @@ class ModifyInstanceSpecRequest(TeaModel):
         # *   **Immediately**: The configurations are immediately changed.
         # *   **MaintainTime**: The configurations are changed within the maintenance window. You can call the [ModifyInstanceMaintainTime](~~61000~~) operation to change the maintenance window.
         self.effective_time = effective_time  # type: str
-        # 是否开启强制传输，取值：
-        # - **false**（默认）：在变配前，系统会检查实例当前的内核小版本，若内核版本过低则会报错，您需要升级内核小版本后重试。
-        # - **true**：跳过检查项，直接执行变配操作。
+        # Specifies whether to enable forced transmission during a configuration change. Valid values:
+        # 
+        # *   **false** (default): Before the configuration change, the system checks the minor version of the instance. If the minor version of the instance is outdated, an error is reported. You must update the minor version of the instance and try again.
+        # *   **true**: The system skips the version check and directly performs the configuration change.
         self.force_trans = force_trans  # type: bool
         # Specifies whether to forcefully change the configurations of the instance. Default value: true. Valid values:
         # 
@@ -20390,7 +20693,9 @@ class ModifyInstanceVpcAuthModeRequest(TeaModel):
         # *   **Open**: disables password-free access.
         # *   **Close**: enables password-free access.
         # 
-        # > The default value is **Open**.
+        # **\
+        # 
+        # **Description** Default value: **Open**.
         self.vpc_auth_mode = vpc_auth_mode  # type: str
 
     def validate(self):

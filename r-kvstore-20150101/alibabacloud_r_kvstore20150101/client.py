@@ -1945,6 +1945,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_net_info_with_options(request, runtime)
 
+    def describe_dbnode_direct_vip_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBNodeDirectVipInfo',
+            version='2015-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            r_kvstore_20150101_models.DescribeDBNodeDirectVipInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbnode_direct_vip_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbnode_direct_vip_info_with_options(request, runtime)
+
     def describe_dedicated_cluster_instance_list_with_options(self, request, runtime):
         """
         > If you want to query the information about ApsaraDB for Redis instances that are not deployed in a dedicated cluster, call the [DescribeInstanceAttribute](~~60996~~) operation.
@@ -2140,6 +2176,17 @@ class Client(OpenApiClient):
         return self.describe_encryption_key_list_with_options(request, runtime)
 
     def describe_engine_version_with_options(self, request, runtime):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=R-kvstore\\&api=DescribeEngineVersion\\&type=RPC\\&version=2015-01-01)
+        
+
+        @param request: DescribeEngineVersionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeEngineVersionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -2174,10 +2221,30 @@ class Client(OpenApiClient):
         )
 
     def describe_engine_version(self, request):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=R-kvstore\\&api=DescribeEngineVersion\\&type=RPC\\&version=2015-01-01)
+        
+
+        @param request: DescribeEngineVersionRequest
+
+        @return: DescribeEngineVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_engine_version_with_options(request, runtime)
 
     def describe_global_distribute_cache_with_options(self, request, runtime):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=R-kvstore\\&api=DescribeGlobalDistributeCache\\&type=RPC\\&version=2015-01-01)
+        
+
+        @param request: DescribeGlobalDistributeCacheRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeGlobalDistributeCacheResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.global_instance_id):
@@ -2218,6 +2285,15 @@ class Client(OpenApiClient):
         )
 
     def describe_global_distribute_cache(self, request):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=R-kvstore\\&api=DescribeGlobalDistributeCache\\&type=RPC\\&version=2015-01-01)
+        
+
+        @param request: DescribeGlobalDistributeCacheRequest
+
+        @return: DescribeGlobalDistributeCacheResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_global_distribute_cache_with_options(request, runtime)
 
@@ -3270,6 +3346,17 @@ class Client(OpenApiClient):
         return self.describe_regions_with_options(request, runtime)
 
     def describe_role_zone_info_with_options(self, request, runtime):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=R-kvstore\\&api=DescribeRoleZoneInfo\\&type=RPC\\&version=2015-01-01)
+        
+
+        @param request: DescribeRoleZoneInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeRoleZoneInfoResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -3310,6 +3397,15 @@ class Client(OpenApiClient):
         )
 
     def describe_role_zone_info(self, request):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=R-kvstore\\&api=DescribeRoleZoneInfo\\&type=RPC\\&version=2015-01-01)
+        
+
+        @param request: DescribeRoleZoneInfoRequest
+
+        @return: DescribeRoleZoneInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_role_zone_info_with_options(request, runtime)
 
@@ -3547,7 +3643,7 @@ class Client(OpenApiClient):
 
     def describe_tasks_with_options(self, request, runtime):
         """
-        The progress of the task. Unit: %.
+        You can call this operation to query the progress of a task when you perform time-consuming operations. You can also log on to the ApsaraDB for Redis console and click the Tasks icon in the upper-right corner of the *Instance Information** page to view the progress of the current task.
         
 
         @param request: DescribeTasksRequest
@@ -3601,7 +3697,7 @@ class Client(OpenApiClient):
 
     def describe_tasks(self, request):
         """
-        The progress of the task. Unit: %.
+        You can call this operation to query the progress of a task when you perform time-consuming operations. You can also log on to the ApsaraDB for Redis console and click the Tasks icon in the upper-right corner of the *Instance Information** page to view the progress of the current task.
         
 
         @param request: DescribeTasksRequest
