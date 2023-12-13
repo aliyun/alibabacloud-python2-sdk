@@ -392,6 +392,8 @@ class Client(OpenApiClient):
             body['TagKeyScope'] = request.tag_key_scope
         if not UtilClient.is_unset(request.tag_value_scope):
             body['TagValueScope'] = request.tag_value_scope
+        if not UtilClient.is_unset(request.template_content):
+            body['TemplateContent'] = request.template_content
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -760,6 +762,8 @@ class Client(OpenApiClient):
             body['TagKeyScope'] = request.tag_key_scope
         if not UtilClient.is_unset(request.tag_value_scope):
             body['TagValueScope'] = request.tag_value_scope
+        if not UtilClient.is_unset(request.template_content):
+            body['TemplateContent'] = request.template_content
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )

@@ -1317,7 +1317,8 @@ class CreateAggregateCompliancePackRequestConfigRules(TeaModel):
 class CreateAggregateCompliancePackRequest(TeaModel):
     def __init__(self, aggregator_id=None, client_token=None, compliance_pack_name=None,
                  compliance_pack_template_id=None, config_rules=None, default_enable=None, description=None, exclude_resource_ids_scope=None,
-                 region_ids_scope=None, resource_group_ids_scope=None, risk_level=None, tag_key_scope=None, tag_value_scope=None):
+                 region_ids_scope=None, resource_group_ids_scope=None, risk_level=None, tag_key_scope=None, tag_value_scope=None,
+                 template_content=None):
         # The ID of the account group.
         # 
         # For more information about how to obtain the ID of an account group, see [ListAggregators](~~255797~~).
@@ -1357,6 +1358,7 @@ class CreateAggregateCompliancePackRequest(TeaModel):
         # 
         # >  You must configure the TagValueScope parameter together with the TagKeyScope parameter.
         self.tag_value_scope = tag_value_scope  # type: str
+        self.template_content = template_content  # type: str
 
     def validate(self):
         if self.config_rules:
@@ -1398,6 +1400,8 @@ class CreateAggregateCompliancePackRequest(TeaModel):
             result['TagKeyScope'] = self.tag_key_scope
         if self.tag_value_scope is not None:
             result['TagValueScope'] = self.tag_value_scope
+        if self.template_content is not None:
+            result['TemplateContent'] = self.template_content
         return result
 
     def from_map(self, m=None):
@@ -1431,6 +1435,8 @@ class CreateAggregateCompliancePackRequest(TeaModel):
             self.tag_key_scope = m.get('TagKeyScope')
         if m.get('TagValueScope') is not None:
             self.tag_value_scope = m.get('TagValueScope')
+        if m.get('TemplateContent') is not None:
+            self.template_content = m.get('TemplateContent')
         return self
 
 
@@ -1438,7 +1444,7 @@ class CreateAggregateCompliancePackShrinkRequest(TeaModel):
     def __init__(self, aggregator_id=None, client_token=None, compliance_pack_name=None,
                  compliance_pack_template_id=None, config_rules_shrink=None, default_enable=None, description=None,
                  exclude_resource_ids_scope=None, region_ids_scope=None, resource_group_ids_scope=None, risk_level=None, tag_key_scope=None,
-                 tag_value_scope=None):
+                 tag_value_scope=None, template_content=None):
         # The ID of the account group.
         # 
         # For more information about how to obtain the ID of an account group, see [ListAggregators](~~255797~~).
@@ -1478,6 +1484,7 @@ class CreateAggregateCompliancePackShrinkRequest(TeaModel):
         # 
         # >  You must configure the TagValueScope parameter together with the TagKeyScope parameter.
         self.tag_value_scope = tag_value_scope  # type: str
+        self.template_content = template_content  # type: str
 
     def validate(self):
         pass
@@ -1514,6 +1521,8 @@ class CreateAggregateCompliancePackShrinkRequest(TeaModel):
             result['TagKeyScope'] = self.tag_key_scope
         if self.tag_value_scope is not None:
             result['TagValueScope'] = self.tag_value_scope
+        if self.template_content is not None:
+            result['TemplateContent'] = self.template_content
         return result
 
     def from_map(self, m=None):
@@ -1544,6 +1553,8 @@ class CreateAggregateCompliancePackShrinkRequest(TeaModel):
             self.tag_key_scope = m.get('TagKeyScope')
         if m.get('TagValueScope') is not None:
             self.tag_value_scope = m.get('TagValueScope')
+        if m.get('TemplateContent') is not None:
+            self.template_content = m.get('TemplateContent')
         return self
 
 
@@ -2784,7 +2795,8 @@ class CreateCompliancePackRequestConfigRules(TeaModel):
 class CreateCompliancePackRequest(TeaModel):
     def __init__(self, client_token=None, compliance_pack_name=None, compliance_pack_template_id=None,
                  config_rules=None, default_enable=None, description=None, exclude_resource_ids_scope=None,
-                 region_ids_scope=None, resource_group_ids_scope=None, risk_level=None, tag_key_scope=None, tag_value_scope=None):
+                 region_ids_scope=None, resource_group_ids_scope=None, risk_level=None, tag_key_scope=None, tag_value_scope=None,
+                 template_content=None):
         # The client token that you want to use to ensure the idempotency of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.``
         self.client_token = client_token  # type: str
         # The name of the compliance package.
@@ -2820,6 +2832,7 @@ class CreateCompliancePackRequest(TeaModel):
         # 
         # >  You must configure the TagValueScope parameter together with the TagKeyScope parameter.
         self.tag_value_scope = tag_value_scope  # type: str
+        self.template_content = template_content  # type: str
 
     def validate(self):
         if self.config_rules:
@@ -2859,6 +2872,8 @@ class CreateCompliancePackRequest(TeaModel):
             result['TagKeyScope'] = self.tag_key_scope
         if self.tag_value_scope is not None:
             result['TagValueScope'] = self.tag_value_scope
+        if self.template_content is not None:
+            result['TemplateContent'] = self.template_content
         return result
 
     def from_map(self, m=None):
@@ -2890,13 +2905,16 @@ class CreateCompliancePackRequest(TeaModel):
             self.tag_key_scope = m.get('TagKeyScope')
         if m.get('TagValueScope') is not None:
             self.tag_value_scope = m.get('TagValueScope')
+        if m.get('TemplateContent') is not None:
+            self.template_content = m.get('TemplateContent')
         return self
 
 
 class CreateCompliancePackShrinkRequest(TeaModel):
     def __init__(self, client_token=None, compliance_pack_name=None, compliance_pack_template_id=None,
                  config_rules_shrink=None, default_enable=None, description=None, exclude_resource_ids_scope=None,
-                 region_ids_scope=None, resource_group_ids_scope=None, risk_level=None, tag_key_scope=None, tag_value_scope=None):
+                 region_ids_scope=None, resource_group_ids_scope=None, risk_level=None, tag_key_scope=None, tag_value_scope=None,
+                 template_content=None):
         # The client token that you want to use to ensure the idempotency of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.``
         self.client_token = client_token  # type: str
         # The name of the compliance package.
@@ -2932,6 +2950,7 @@ class CreateCompliancePackShrinkRequest(TeaModel):
         # 
         # >  You must configure the TagValueScope parameter together with the TagKeyScope parameter.
         self.tag_value_scope = tag_value_scope  # type: str
+        self.template_content = template_content  # type: str
 
     def validate(self):
         pass
@@ -2966,6 +2985,8 @@ class CreateCompliancePackShrinkRequest(TeaModel):
             result['TagKeyScope'] = self.tag_key_scope
         if self.tag_value_scope is not None:
             result['TagValueScope'] = self.tag_value_scope
+        if self.template_content is not None:
+            result['TemplateContent'] = self.template_content
         return result
 
     def from_map(self, m=None):
@@ -2994,6 +3015,8 @@ class CreateCompliancePackShrinkRequest(TeaModel):
             self.tag_key_scope = m.get('TagKeyScope')
         if m.get('TagValueScope') is not None:
             self.tag_value_scope = m.get('TagValueScope')
+        if m.get('TemplateContent') is not None:
+            self.template_content = m.get('TemplateContent')
         return self
 
 
@@ -8008,7 +8031,7 @@ class GetAggregateCompliancePackResponseBodyCompliancePackScope(TeaModel):
 class GetAggregateCompliancePackResponseBodyCompliancePack(TeaModel):
     def __init__(self, account_id=None, aggregator_id=None, compliance_pack_id=None, compliance_pack_name=None,
                  compliance_pack_template_id=None, config_rules=None, create_timestamp=None, description=None, risk_level=None, scope=None,
-                 status=None):
+                 status=None, template_content=None):
         # The ID of the management account to which the compliance package belongs.
         self.account_id = account_id  # type: long
         # The ID of the account group.
@@ -8038,6 +8061,7 @@ class GetAggregateCompliancePackResponseBodyCompliancePack(TeaModel):
         # *   ACTIVE: The compliance package was normal.
         # *   CREATING: The compliance package was being created.
         self.status = status  # type: str
+        self.template_content = template_content  # type: str
 
     def validate(self):
         if self.config_rules:
@@ -8077,6 +8101,8 @@ class GetAggregateCompliancePackResponseBodyCompliancePack(TeaModel):
             result['Scope'] = self.scope.to_map()
         if self.status is not None:
             result['Status'] = self.status
+        if self.template_content is not None:
+            result['TemplateContent'] = self.template_content
         return result
 
     def from_map(self, m=None):
@@ -8107,6 +8133,8 @@ class GetAggregateCompliancePackResponseBodyCompliancePack(TeaModel):
             self.scope = temp_model.from_map(m['Scope'])
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('TemplateContent') is not None:
+            self.template_content = m.get('TemplateContent')
         return self
 
 
@@ -12583,7 +12611,7 @@ class GetCompliancePackResponseBodyCompliancePackScope(TeaModel):
 class GetCompliancePackResponseBodyCompliancePack(TeaModel):
     def __init__(self, account_id=None, compliance_pack_id=None, compliance_pack_name=None,
                  compliance_pack_template_id=None, config_rules=None, create_timestamp=None, description=None, risk_level=None, scope=None,
-                 status=None):
+                 status=None, template_content=None):
         # The ID of the Alibaba Cloud account to which the compliance package belongs.
         self.account_id = account_id  # type: long
         # The ID of the compliance package.
@@ -12611,6 +12639,7 @@ class GetCompliancePackResponseBodyCompliancePack(TeaModel):
         # *   ACTIVE: The compliance package is normal.
         # *   CREATING: The compliance package is being created.
         self.status = status  # type: str
+        self.template_content = template_content  # type: str
 
     def validate(self):
         if self.config_rules:
@@ -12648,6 +12677,8 @@ class GetCompliancePackResponseBodyCompliancePack(TeaModel):
             result['Scope'] = self.scope.to_map()
         if self.status is not None:
             result['Status'] = self.status
+        if self.template_content is not None:
+            result['TemplateContent'] = self.template_content
         return result
 
     def from_map(self, m=None):
@@ -12676,6 +12707,8 @@ class GetCompliancePackResponseBodyCompliancePack(TeaModel):
             self.scope = temp_model.from_map(m['Scope'])
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('TemplateContent') is not None:
+            self.template_content = m.get('TemplateContent')
         return self
 
 
