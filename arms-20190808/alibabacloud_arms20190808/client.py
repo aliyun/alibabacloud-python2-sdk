@@ -3472,6 +3472,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_app_api_by_page_with_options(request, runtime)
 
+    def get_app_jvmconfig_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAppJVMConfig',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.GetAppJVMConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_app_jvmconfig(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_app_jvmconfig_with_options(request, runtime)
+
     def get_auth_token_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
