@@ -30,6 +30,154 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def add_data_source_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.account_id):
+            body['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.data_source_instance_name):
+            body['DataSourceInstanceName'] = request.data_source_instance_name
+        if not UtilClient.is_unset(request.data_source_instance_params):
+            body['DataSourceInstanceParams'] = request.data_source_instance_params
+        if not UtilClient.is_unset(request.data_source_instance_remark):
+            body['DataSourceInstanceRemark'] = request.data_source_instance_remark
+        if not UtilClient.is_unset(request.data_source_type):
+            body['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AddDataSource',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.AddDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_data_source(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_data_source_with_options(request, runtime)
+
+    def add_data_source_log_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.account_id):
+            body['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.data_source_instance_id):
+            body['DataSourceInstanceId'] = request.data_source_instance_id
+        if not UtilClient.is_unset(request.data_source_instance_logs):
+            body['DataSourceInstanceLogs'] = request.data_source_instance_logs
+        if not UtilClient.is_unset(request.log_code):
+            body['LogCode'] = request.log_code
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AddDataSourceLog',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.AddDataSourceLogResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_data_source_log(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_data_source_log_with_options(request, runtime)
+
+    def add_user_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.added_user_id):
+            body['AddedUserId'] = request.added_user_id
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AddUser',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.AddUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_user_with_options(request, runtime)
+
+    def add_user_source_log_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.deleted):
+            body['Deleted'] = request.deleted
+        if not UtilClient.is_unset(request.dis_play_line):
+            body['DisPlayLine'] = request.dis_play_line
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.source_log_code):
+            body['SourceLogCode'] = request.source_log_code
+        if not UtilClient.is_unset(request.source_log_info):
+            body['SourceLogInfo'] = request.source_log_info
+        if not UtilClient.is_unset(request.source_prod_code):
+            body['SourceProdCode'] = request.source_prod_code
+        if not UtilClient.is_unset(request.sub_user_id):
+            body['SubUserId'] = request.sub_user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AddUserSourceLogConfig',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.AddUserSourceLogConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_user_source_log_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_user_source_log_config_with_options(request, runtime)
+
     def batch_job_check_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -89,6 +237,42 @@ class Client(OpenApiClient):
     def batch_job_submit(self, request):
         runtime = util_models.RuntimeOptions()
         return self.batch_job_submit_with_options(request, runtime)
+
+    def bind_account_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.access_id):
+            body['AccessId'] = request.access_id
+        if not UtilClient.is_unset(request.account_id):
+            body['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.account_name):
+            body['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='BindAccount',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.BindAccountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def bind_account(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.bind_account_with_options(request, runtime)
 
     def close_delivery_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -152,6 +336,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_automate_response_config_with_options(request, runtime)
 
+    def delete_bind_account_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.access_id):
+            body['AccessId'] = request.access_id
+        if not UtilClient.is_unset(request.account_id):
+            body['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.bind_id):
+            body['BindId'] = request.bind_id
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteBindAccount',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.DeleteBindAccountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_bind_account(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_bind_account_with_options(request, runtime)
+
     def delete_customize_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -182,6 +402,76 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_customize_rule_with_options(request, runtime)
 
+    def delete_data_source_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.account_id):
+            body['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.data_source_instance_id):
+            body['DataSourceInstanceId'] = request.data_source_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataSource',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.DeleteDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_data_source(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_data_source_with_options(request, runtime)
+
+    def delete_data_source_log_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.account_id):
+            body['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.data_source_instance_id):
+            body['DataSourceInstanceId'] = request.data_source_instance_id
+        if not UtilClient.is_unset(request.log_instance_id):
+            body['LogInstanceId'] = request.log_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataSourceLog',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.DeleteDataSourceLogResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_data_source_log(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_data_source_log_with_options(request, runtime)
+
     def delete_quick_query_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -211,6 +501,36 @@ class Client(OpenApiClient):
     def delete_quick_query(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_quick_query_with_options(request, runtime)
+
+    def delete_user_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.added_user_id):
+            body['AddedUserId'] = request.added_user_id
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteUser',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.DeleteUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_user_with_options(request, runtime)
 
     def delete_white_rule_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -618,6 +938,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_attack_time_line_with_options(request, runtime)
 
+    def describe_auth_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeAuth',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.DescribeAuthResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_auth(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_auth_with_options(request, runtime)
+
     def describe_automate_response_config_counter_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -854,6 +1202,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_cloud_siem_events_with_options(request, runtime)
 
+    def describe_cs_imported_prod_status_by_user_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.source_log_prod):
+            body['SourceLogProd'] = request.source_log_prod
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeCsImportedProdStatusByUser',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.DescribeCsImportedProdStatusByUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cs_imported_prod_status_by_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cs_imported_prod_status_by_user_with_options(request, runtime)
+
     def describe_customize_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -971,6 +1351,72 @@ class Client(OpenApiClient):
     def describe_customize_rule_test_histogram(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_customize_rule_test_histogram_with_options(request, runtime)
+
+    def describe_data_source_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.account_id):
+            body['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.data_source_instance_id):
+            body['DataSourceInstanceId'] = request.data_source_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeDataSourceInstance',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.DescribeDataSourceInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_data_source_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_data_source_instance_with_options(request, runtime)
+
+    def describe_data_source_parameters_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.data_source_type):
+            body['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeDataSourceParameters',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.DescribeDataSourceParametersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_data_source_parameters(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_data_source_parameters_with_options(request, runtime)
 
     def describe_dispose_and_playbook_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1137,6 +1583,34 @@ class Client(OpenApiClient):
     def describe_event_dispose(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_event_dispose_with_options(request, runtime)
+
+    def describe_imported_log_count_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeImportedLogCount',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.DescribeImportedLogCountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_imported_log_count(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_imported_log_count_with_options(request, runtime)
 
     def describe_job_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1316,6 +1790,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_operators_with_options(request, runtime)
 
+    def describe_prod_count_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeProdCount',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.DescribeProdCountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_prod_count(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_prod_count_with_options(request, runtime)
+
     def describe_scope_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1344,6 +1846,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_scope_users_with_options(request, runtime)
 
+    def describe_service_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeServiceStatus',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.DescribeServiceStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_service_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_service_status_with_options(request, runtime)
+
     def describe_storage_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1371,6 +1901,36 @@ class Client(OpenApiClient):
     def describe_storage(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_storage_with_options(request, runtime)
+
+    def describe_user_buy_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.sub_user_id):
+            body['SubUserId'] = request.sub_user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeUserBuyStatus',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.DescribeUserBuyStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_user_buy_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_user_buy_status_with_options(request, runtime)
 
     def describe_waf_scope_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1511,6 +2071,62 @@ class Client(OpenApiClient):
     def do_self_delegate(self, request):
         runtime = util_models.RuntimeOptions()
         return self.do_self_delegate_with_options(request, runtime)
+
+    def enable_access_for_cloud_siem_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='EnableAccessForCloudSiem',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.EnableAccessForCloudSiemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_access_for_cloud_siem(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_access_for_cloud_siem_with_options(request, runtime)
+
+    def enable_service_for_cloud_siem_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='EnableServiceForCloudSiem',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.EnableServiceForCloudSiemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_service_for_cloud_siem(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_service_for_cloud_siem_with_options(request, runtime)
 
     def get_capacity_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1674,6 +2290,98 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_storage_with_options(request, runtime)
 
+    def list_account_access_id_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListAccountAccessId',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ListAccountAccessIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_account_access_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_account_access_id_with_options(request, runtime)
+
+    def list_accounts_by_log_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.log_codes):
+            body['LogCodes'] = request.log_codes
+        if not UtilClient.is_unset(request.prod_code):
+            body['ProdCode'] = request.prod_code
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListAccountsByLog',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ListAccountsByLogResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_accounts_by_log(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_accounts_by_log_with_options(request, runtime)
+
+    def list_all_prods_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListAllProds',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ListAllProdsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_all_prods(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_all_prods_with_options(request, runtime)
+
     def list_automate_response_configs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1719,6 +2427,68 @@ class Client(OpenApiClient):
     def list_automate_response_configs(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_automate_response_configs_with_options(request, runtime)
+
+    def list_bind_account_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListBindAccount',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ListBindAccountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_bind_account(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_bind_account_with_options(request, runtime)
+
+    def list_bind_data_sources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.account_id):
+            body['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListBindDataSources',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ListBindDataSourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_bind_data_sources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_bind_data_sources_with_options(request, runtime)
 
     def list_cloud_siem_customize_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1850,6 +2620,70 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_customize_rule_test_result_with_options(request, runtime)
 
+    def list_data_source_logs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.account_id):
+            body['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.data_source_instance_id):
+            body['DataSourceInstanceId'] = request.data_source_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListDataSourceLogs',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ListDataSourceLogsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_data_source_logs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_data_source_logs_with_options(request, runtime)
+
+    def list_data_source_types_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListDataSourceTypes',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ListDataSourceTypesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_data_source_types(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_data_source_types_with_options(request, runtime)
+
     def list_delivery_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1932,6 +2766,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_dispose_strategy_with_options(request, runtime)
 
+    def list_imported_logs_by_prod_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.prod_code):
+            body['ProdCode'] = request.prod_code
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListImportedLogsByProd',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ListImportedLogsByProdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_imported_logs_by_prod(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_imported_logs_by_prod_with_options(request, runtime)
+
     def list_operation_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1959,6 +2825,40 @@ class Client(OpenApiClient):
     def list_operation(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_operation_with_options(request, runtime)
+
+    def list_project_log_stores_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.source_log_code):
+            body['SourceLogCode'] = request.source_log_code
+        if not UtilClient.is_unset(request.source_prod_code):
+            body['SourceProdCode'] = request.source_prod_code
+        if not UtilClient.is_unset(request.sub_user_id):
+            body['SubUserId'] = request.sub_user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListProjectLogStores',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ListProjectLogStoresResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_project_log_stores(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_project_log_stores_with_options(request, runtime)
 
     def list_quick_query_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1991,6 +2891,218 @@ class Client(OpenApiClient):
     def list_quick_query(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_quick_query_with_options(request, runtime)
+
+    def list_rd_users_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListRdUsers',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ListRdUsersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_rd_users(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_rd_users_with_options(request, runtime)
+
+    def list_user_prod_logs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.source_log_code):
+            body['SourceLogCode'] = request.source_log_code
+        if not UtilClient.is_unset(request.source_prod_code):
+            body['SourceProdCode'] = request.source_prod_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListUserProdLogs',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ListUserProdLogsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_user_prod_logs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_user_prod_logs_with_options(request, runtime)
+
+    def list_users_by_prod_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.source_prod_code):
+            body['SourceProdCode'] = request.source_prod_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListUsersByProd',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ListUsersByProdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_users_by_prod(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_users_by_prod_with_options(request, runtime)
+
+    def modify_bind_account_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.access_id):
+            body['AccessId'] = request.access_id
+        if not UtilClient.is_unset(request.account_id):
+            body['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.account_name):
+            body['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.bind_id):
+            body['BindId'] = request.bind_id
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyBindAccount',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ModifyBindAccountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_bind_account(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_bind_account_with_options(request, runtime)
+
+    def modify_data_source_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.account_id):
+            body['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.data_source_instance_id):
+            body['DataSourceInstanceId'] = request.data_source_instance_id
+        if not UtilClient.is_unset(request.data_source_instance_name):
+            body['DataSourceInstanceName'] = request.data_source_instance_name
+        if not UtilClient.is_unset(request.data_source_instance_params):
+            body['DataSourceInstanceParams'] = request.data_source_instance_params
+        if not UtilClient.is_unset(request.data_source_instance_remark):
+            body['DataSourceInstanceRemark'] = request.data_source_instance_remark
+        if not UtilClient.is_unset(request.data_source_type):
+            body['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyDataSource',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ModifyDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_data_source(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_data_source_with_options(request, runtime)
+
+    def modify_data_source_log_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.account_id):
+            body['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.data_source_instance_id):
+            body['DataSourceInstanceId'] = request.data_source_instance_id
+        if not UtilClient.is_unset(request.data_source_instance_logs):
+            body['DataSourceInstanceLogs'] = request.data_source_instance_logs
+        if not UtilClient.is_unset(request.data_source_type):
+            body['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.log_code):
+            body['LogCode'] = request.log_code
+        if not UtilClient.is_unset(request.log_instance_id):
+            body['LogInstanceId'] = request.log_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyDataSourceLog',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.ModifyDataSourceLogResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_data_source_log(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_data_source_log_with_options(request, runtime)
 
     def open_delivery_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2415,6 +3527,74 @@ class Client(OpenApiClient):
     def show_quick_analysis(self, request):
         runtime = util_models.RuntimeOptions()
         return self.show_quick_analysis_with_options(request, runtime)
+
+    def submit_import_log_tasks_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.accounts):
+            body['Accounts'] = request.accounts
+        if not UtilClient.is_unset(request.auto_imported):
+            body['AutoImported'] = request.auto_imported
+        if not UtilClient.is_unset(request.cloud_code):
+            body['CloudCode'] = request.cloud_code
+        if not UtilClient.is_unset(request.log_codes):
+            body['LogCodes'] = request.log_codes
+        if not UtilClient.is_unset(request.prod_code):
+            body['ProdCode'] = request.prod_code
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SubmitImportLogTasks',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.SubmitImportLogTasksResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def submit_import_log_tasks(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.submit_import_log_tasks_with_options(request, runtime)
+
+    def submit_jobs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.json_param):
+            body['JsonParam'] = request.json_param
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SubmitJobs',
+            version='2022-06-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_siem_20220616_models.SubmitJobsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def submit_jobs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.submit_jobs_with_options(request, runtime)
 
     def update_automate_response_config_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)

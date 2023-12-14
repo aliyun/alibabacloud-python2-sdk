@@ -5,7 +5,9 @@ from Tea.model import TeaModel
 
 class DataProductListLogMapValueExtraParameters(TeaModel):
     def __init__(self, key=None, value=None):
+        # The ID of the extended parameter.
         self.key = key  # type: str
+        # The value of the extended parameter.
         self.value = value  # type: str
 
     def validate(self):
@@ -35,13 +37,27 @@ class DataProductListLogMapValueExtraParameters(TeaModel):
 class DataProductListLogMapValue(TeaModel):
     def __init__(self, log_code=None, log_name=None, log_name_en=None, log_name_key=None, status=None,
                  can_operate_or_not=None, topic=None, extra_parameters=None):
+        # The code of the log.
         self.log_code = log_code  # type: str
+        # This parameter is deprecated.
         self.log_name = log_name  # type: str
+        # This parameter is deprecated.
         self.log_name_en = log_name_en  # type: str
+        # The language code of the log that is used to indicate the language in which the log is displayed.
         self.log_name_key = log_name_key  # type: str
+        # The status of the log delivery. Valid values:
+        # 
+        # *   true: The logs are being delivered.
+        # *   false: The log delivery feature is disabled.
         self.status = status  # type: bool
+        # Indicates whether the log delivery feature can be enabled or disabled. The feature can be enabled or disabled only by the administrator of the threat analysis feature. Valid values:
+        # 
+        # *   true
+        # *   false
         self.can_operate_or_not = can_operate_or_not  # type: bool
+        # The topic of the log in the Logstore. The value is an index field in the Logstore that can be used to distinguish different logs.
         self.topic = topic  # type: str
+        # The extended parameter.
         self.extra_parameters = extra_parameters  # type: list[DataProductListLogMapValueExtraParameters]
 
     def validate(self):
@@ -97,6 +113,591 @@ class DataProductListLogMapValue(TeaModel):
             for k in m.get('ExtraParameters'):
                 temp_model = DataProductListLogMapValueExtraParameters()
                 self.extra_parameters.append(temp_model.from_map(k))
+        return self
+
+
+class AddDataSourceRequest(TeaModel):
+    def __init__(self, account_id=None, cloud_code=None, data_source_instance_name=None,
+                 data_source_instance_params=None, data_source_instance_remark=None, data_source_type=None, region_id=None):
+        self.account_id = account_id  # type: str
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_instance_name = data_source_instance_name  # type: str
+        self.data_source_instance_params = data_source_instance_params  # type: str
+        self.data_source_instance_remark = data_source_instance_remark  # type: str
+        self.data_source_type = data_source_type  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_instance_name is not None:
+            result['DataSourceInstanceName'] = self.data_source_instance_name
+        if self.data_source_instance_params is not None:
+            result['DataSourceInstanceParams'] = self.data_source_instance_params
+        if self.data_source_instance_remark is not None:
+            result['DataSourceInstanceRemark'] = self.data_source_instance_remark
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceInstanceName') is not None:
+            self.data_source_instance_name = m.get('DataSourceInstanceName')
+        if m.get('DataSourceInstanceParams') is not None:
+            self.data_source_instance_params = m.get('DataSourceInstanceParams')
+        if m.get('DataSourceInstanceRemark') is not None:
+            self.data_source_instance_remark = m.get('DataSourceInstanceRemark')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class AddDataSourceResponseBodyData(TeaModel):
+    def __init__(self, count=None, data_source_instance_id=None):
+        self.count = count  # type: int
+        self.data_source_instance_id = data_source_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddDataSourceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.data_source_instance_id is not None:
+            result['DataSourceInstanceId'] = self.data_source_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('DataSourceInstanceId') is not None:
+            self.data_source_instance_id = m.get('DataSourceInstanceId')
+        return self
+
+
+class AddDataSourceResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: AddDataSourceResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(AddDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = AddDataSourceResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class AddDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AddDataSourceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AddDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AddDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class AddDataSourceLogRequest(TeaModel):
+    def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None,
+                 data_source_instance_logs=None, log_code=None, region_id=None):
+        self.account_id = account_id  # type: str
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_instance_id = data_source_instance_id  # type: str
+        self.data_source_instance_logs = data_source_instance_logs  # type: str
+        self.log_code = log_code  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddDataSourceLogRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_instance_id is not None:
+            result['DataSourceInstanceId'] = self.data_source_instance_id
+        if self.data_source_instance_logs is not None:
+            result['DataSourceInstanceLogs'] = self.data_source_instance_logs
+        if self.log_code is not None:
+            result['LogCode'] = self.log_code
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceInstanceId') is not None:
+            self.data_source_instance_id = m.get('DataSourceInstanceId')
+        if m.get('DataSourceInstanceLogs') is not None:
+            self.data_source_instance_logs = m.get('DataSourceInstanceLogs')
+        if m.get('LogCode') is not None:
+            self.log_code = m.get('LogCode')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class AddDataSourceLogResponseBodyData(TeaModel):
+    def __init__(self, count=None, log_instance_id=None):
+        self.count = count  # type: int
+        self.log_instance_id = log_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddDataSourceLogResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.log_instance_id is not None:
+            result['LogInstanceId'] = self.log_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('LogInstanceId') is not None:
+            self.log_instance_id = m.get('LogInstanceId')
+        return self
+
+
+class AddDataSourceLogResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: AddDataSourceLogResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(AddDataSourceLogResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = AddDataSourceLogResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class AddDataSourceLogResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AddDataSourceLogResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AddDataSourceLogResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AddDataSourceLogResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class AddUserRequest(TeaModel):
+    def __init__(self, added_user_id=None, region_id=None):
+        self.added_user_id = added_user_id  # type: long
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddUserRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.added_user_id is not None:
+            result['AddedUserId'] = self.added_user_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AddedUserId') is not None:
+            self.added_user_id = m.get('AddedUserId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class AddUserResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddUserResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class AddUserResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AddUserResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AddUserResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AddUserResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class AddUserSourceLogConfigRequest(TeaModel):
+    def __init__(self, deleted=None, dis_play_line=None, region_id=None, source_log_code=None, source_log_info=None,
+                 source_prod_code=None, sub_user_id=None):
+        self.deleted = deleted  # type: int
+        self.dis_play_line = dis_play_line  # type: str
+        self.region_id = region_id  # type: str
+        self.source_log_code = source_log_code  # type: str
+        self.source_log_info = source_log_info  # type: str
+        self.source_prod_code = source_prod_code  # type: str
+        self.sub_user_id = sub_user_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddUserSourceLogConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.deleted is not None:
+            result['Deleted'] = self.deleted
+        if self.dis_play_line is not None:
+            result['DisPlayLine'] = self.dis_play_line
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.source_log_code is not None:
+            result['SourceLogCode'] = self.source_log_code
+        if self.source_log_info is not None:
+            result['SourceLogInfo'] = self.source_log_info
+        if self.source_prod_code is not None:
+            result['SourceProdCode'] = self.source_prod_code
+        if self.sub_user_id is not None:
+            result['SubUserId'] = self.sub_user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Deleted') is not None:
+            self.deleted = m.get('Deleted')
+        if m.get('DisPlayLine') is not None:
+            self.dis_play_line = m.get('DisPlayLine')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SourceLogCode') is not None:
+            self.source_log_code = m.get('SourceLogCode')
+        if m.get('SourceLogInfo') is not None:
+            self.source_log_info = m.get('SourceLogInfo')
+        if m.get('SourceProdCode') is not None:
+            self.source_prod_code = m.get('SourceProdCode')
+        if m.get('SubUserId') is not None:
+            self.sub_user_id = m.get('SubUserId')
+        return self
+
+
+class AddUserSourceLogConfigResponseBodyData(TeaModel):
+    def __init__(self, diplay_line=None, displayed=None, imported=None, main_user_id=None, source_log_code=None,
+                 source_prod_code=None, sub_user_id=None, sub_user_name=None):
+        self.diplay_line = diplay_line  # type: str
+        self.displayed = displayed  # type: bool
+        self.imported = imported  # type: bool
+        self.main_user_id = main_user_id  # type: long
+        self.source_log_code = source_log_code  # type: str
+        self.source_prod_code = source_prod_code  # type: str
+        self.sub_user_id = sub_user_id  # type: long
+        self.sub_user_name = sub_user_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddUserSourceLogConfigResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.diplay_line is not None:
+            result['DiplayLine'] = self.diplay_line
+        if self.displayed is not None:
+            result['Displayed'] = self.displayed
+        if self.imported is not None:
+            result['Imported'] = self.imported
+        if self.main_user_id is not None:
+            result['MainUserId'] = self.main_user_id
+        if self.source_log_code is not None:
+            result['SourceLogCode'] = self.source_log_code
+        if self.source_prod_code is not None:
+            result['SourceProdCode'] = self.source_prod_code
+        if self.sub_user_id is not None:
+            result['SubUserId'] = self.sub_user_id
+        if self.sub_user_name is not None:
+            result['SubUserName'] = self.sub_user_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DiplayLine') is not None:
+            self.diplay_line = m.get('DiplayLine')
+        if m.get('Displayed') is not None:
+            self.displayed = m.get('Displayed')
+        if m.get('Imported') is not None:
+            self.imported = m.get('Imported')
+        if m.get('MainUserId') is not None:
+            self.main_user_id = m.get('MainUserId')
+        if m.get('SourceLogCode') is not None:
+            self.source_log_code = m.get('SourceLogCode')
+        if m.get('SourceProdCode') is not None:
+            self.source_prod_code = m.get('SourceProdCode')
+        if m.get('SubUserId') is not None:
+            self.sub_user_id = m.get('SubUserId')
+        if m.get('SubUserName') is not None:
+            self.sub_user_name = m.get('SubUserName')
+        return self
+
+
+class AddUserSourceLogConfigResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: AddUserSourceLogConfigResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(AddUserSourceLogConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = AddUserSourceLogConfigResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class AddUserSourceLogConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AddUserSourceLogConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AddUserSourceLogConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AddUserSourceLogConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
@@ -696,10 +1297,178 @@ class BatchJobSubmitResponse(TeaModel):
         return self
 
 
+class BindAccountRequest(TeaModel):
+    def __init__(self, access_id=None, account_id=None, account_name=None, cloud_code=None, region_id=None):
+        self.access_id = access_id  # type: str
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.cloud_code = cloud_code  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindAccountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_id is not None:
+            result['AccessId'] = self.access_id
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessId') is not None:
+            self.access_id = m.get('AccessId')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class BindAccountResponseBodyData(TeaModel):
+    def __init__(self, count=None):
+        self.count = count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindAccountResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        return self
+
+
+class BindAccountResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: BindAccountResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(BindAccountResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = BindAccountResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class BindAccountResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: BindAccountResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BindAccountResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = BindAccountResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CloseDeliveryRequest(TeaModel):
     def __init__(self, log_code=None, product_code=None, region_id=None):
+        # The log code of the cloud service, such as the code of the process log for Security Center. You can obtain the log code from the response of the ListDelivery operation.
         self.log_code = log_code  # type: str
+        # The code of the cloud service. Valid values:
+        # 
+        # *   qcloud_waf
+        # *   qlcoud_cfw
+        # *   hcloud_waf
+        # *   hcloud_cfw
+        # *   ddos
+        # *   sas
+        # *   cfw
+        # *   config
+        # *   csk
+        # *   fc
+        # *   rds
+        # *   nas
+        # *   apigateway
+        # *   cdn
+        # *   mongodb
+        # *   eip
+        # *   slb
+        # *   vpc
+        # *   actiontrail
+        # *   waf
+        # *   bastionhost
+        # *   oss
+        # *   polardb
         self.product_code = product_code  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -731,16 +1500,14 @@ class CloseDeliveryRequest(TeaModel):
 
 
 class CloseDeliveryResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # Indicates whether the threat analysis feature was disabled. Valid values:
+        # 
+        # *   true
+        # *   false
         self.data = data  # type: bool
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -751,42 +1518,18 @@ class CloseDeliveryResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -831,7 +1574,12 @@ class CloseDeliveryResponse(TeaModel):
 
 class DeleteAutomateResponseConfigRequest(TeaModel):
     def __init__(self, id=None, region_id=None):
+        # The ID of the rule.
         self.id = id  # type: long
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -860,10 +1608,18 @@ class DeleteAutomateResponseConfigRequest(TeaModel):
 
 class DeleteAutomateResponseConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -941,9 +1697,149 @@ class DeleteAutomateResponseConfigResponse(TeaModel):
         return self
 
 
+class DeleteBindAccountRequest(TeaModel):
+    def __init__(self, access_id=None, account_id=None, bind_id=None, cloud_code=None, region_id=None):
+        self.access_id = access_id  # type: str
+        self.account_id = account_id  # type: str
+        self.bind_id = bind_id  # type: long
+        self.cloud_code = cloud_code  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteBindAccountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_id is not None:
+            result['AccessId'] = self.access_id
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.bind_id is not None:
+            result['BindId'] = self.bind_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessId') is not None:
+            self.access_id = m.get('AccessId')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('BindId') is not None:
+            self.bind_id = m.get('BindId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteBindAccountResponseBodyData(TeaModel):
+    def __init__(self, count=None):
+        self.count = count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteBindAccountResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        return self
+
+
+class DeleteBindAccountResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: DeleteBindAccountResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DeleteBindAccountResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = DeleteBindAccountResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteBindAccountResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteBindAccountResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteBindAccountResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteBindAccountResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteCustomizeRuleRequest(TeaModel):
     def __init__(self, region_id=None, rule_id=None):
+        # The region in which the service is deployed.
         self.region_id = region_id  # type: str
+        # The ID of the rule.
         self.rule_id = rule_id  # type: long
 
     def validate(self):
@@ -972,10 +1868,18 @@ class DeleteCustomizeRuleRequest(TeaModel):
 
 class DeleteCustomizeRuleResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code that is returned.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: int
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -1053,9 +1957,291 @@ class DeleteCustomizeRuleResponse(TeaModel):
         return self
 
 
+class DeleteDataSourceRequest(TeaModel):
+    def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None, region_id=None):
+        self.account_id = account_id  # type: str
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_instance_id = data_source_instance_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_instance_id is not None:
+            result['DataSourceInstanceId'] = self.data_source_instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceInstanceId') is not None:
+            self.data_source_instance_id = m.get('DataSourceInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteDataSourceResponseBodyData(TeaModel):
+    def __init__(self, count=None):
+        self.count = count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDataSourceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        return self
+
+
+class DeleteDataSourceResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: DeleteDataSourceResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DeleteDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = DeleteDataSourceResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteDataSourceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteDataSourceLogRequest(TeaModel):
+    def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None, log_instance_id=None,
+                 region_id=None):
+        self.account_id = account_id  # type: str
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_instance_id = data_source_instance_id  # type: str
+        self.log_instance_id = log_instance_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDataSourceLogRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_instance_id is not None:
+            result['DataSourceInstanceId'] = self.data_source_instance_id
+        if self.log_instance_id is not None:
+            result['LogInstanceId'] = self.log_instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceInstanceId') is not None:
+            self.data_source_instance_id = m.get('DataSourceInstanceId')
+        if m.get('LogInstanceId') is not None:
+            self.log_instance_id = m.get('LogInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteDataSourceLogResponseBodyData(TeaModel):
+    def __init__(self, count=None, log_instance_id=None):
+        self.count = count  # type: int
+        self.log_instance_id = log_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDataSourceLogResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.log_instance_id is not None:
+            result['LogInstanceId'] = self.log_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('LogInstanceId') is not None:
+            self.log_instance_id = m.get('LogInstanceId')
+        return self
+
+
+class DeleteDataSourceLogResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: DeleteDataSourceLogResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DeleteDataSourceLogResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = DeleteDataSourceLogResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteDataSourceLogResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteDataSourceLogResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDataSourceLogResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteDataSourceLogResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteQuickQueryRequest(TeaModel):
     def __init__(self, region_id=None, search_name=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
+        # The name of the saved search.
         self.search_name = search_name  # type: str
 
     def validate(self):
@@ -1083,16 +2269,14 @@ class DeleteQuickQueryRequest(TeaModel):
 
 
 class DeleteQuickQueryResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # Indicates whether the saved search is deleted. Valid values:
+        # 
+        # *   true
+        # *   false
         self.data = data  # type: bool
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -1103,42 +2287,18 @@ class DeleteQuickQueryResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -1181,9 +2341,111 @@ class DeleteQuickQueryResponse(TeaModel):
         return self
 
 
+class DeleteUserRequest(TeaModel):
+    def __init__(self, added_user_id=None, region_id=None):
+        self.added_user_id = added_user_id  # type: long
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteUserRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.added_user_id is not None:
+            result['AddedUserId'] = self.added_user_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AddedUserId') is not None:
+            self.added_user_id = m.get('AddedUserId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteUserResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteUserResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteUserResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteUserResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteUserResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteUserResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteWhiteRuleListRequest(TeaModel):
     def __init__(self, id=None, region_id=None):
+        # The unique ID of the whitelist rule.
         self.id = id  # type: long
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1212,10 +2474,18 @@ class DeleteWhiteRuleListRequest(TeaModel):
 
 class DeleteWhiteRuleListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: any
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -1295,6 +2565,10 @@ class DeleteWhiteRuleListResponse(TeaModel):
 
 class DescribeAggregateFunctionRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1319,7 +2593,9 @@ class DescribeAggregateFunctionRequest(TeaModel):
 
 class DescribeAggregateFunctionResponseBodyData(TeaModel):
     def __init__(self, function=None, function_name=None):
+        # The aggregate function.
         self.function = function  # type: str
+        # The display name of the aggregate function.
         self.function_name = function_name  # type: str
 
     def validate(self):
@@ -1348,10 +2624,18 @@ class DescribeAggregateFunctionResponseBodyData(TeaModel):
 
 class DescribeAggregateFunctionResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeAggregateFunctionResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -1656,7 +2940,12 @@ class DescribeAlertSceneResponse(TeaModel):
 
 class DescribeAlertSceneByEventRequest(TeaModel):
     def __init__(self, incident_uuid=None, region_id=None):
+        # The ID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1685,9 +2974,13 @@ class DescribeAlertSceneByEventRequest(TeaModel):
 
 class DescribeAlertSceneByEventResponseBodyDataTargets(TeaModel):
     def __init__(self, name=None, type=None, value=None, values=None):
+        # The display name of the entity attribute field that can be added to the whitelist.
         self.name = name  # type: str
+        # The entity attribute field that can be added to the whitelist.
         self.type = type  # type: str
+        # The right operand that is displayed by default in the whitelist rule.
         self.value = value  # type: str
+        # The supported right operands of the whitelist rule.
         self.values = values  # type: list[str]
 
     def validate(self):
@@ -1725,12 +3018,19 @@ class DescribeAlertSceneByEventResponseBodyDataTargets(TeaModel):
 class DescribeAlertSceneByEventResponseBodyData(TeaModel):
     def __init__(self, alert_name=None, alert_name_id=None, alert_tile=None, alert_tile_id=None, alert_type=None,
                  alert_type_id=None, targets=None):
+        # The alert name. The display name of the alert name varies based on the language of the system, such as Chinese and English.
         self.alert_name = alert_name  # type: str
+        # The ID of the alert name.
         self.alert_name_id = alert_name_id  # type: str
+        # The alert title. The display name of the alert title varies based on the language of the system, such as Chinese and English.
         self.alert_tile = alert_tile  # type: str
+        # The ID of the alert title.
         self.alert_tile_id = alert_tile_id  # type: str
+        # The alert type. The display name of the alert type varies based on the language of the system, such as Chinese and English.
         self.alert_type = alert_type  # type: str
+        # The ID of the alert type.
         self.alert_type_id = alert_type_id  # type: str
+        # The objects that can be added to the whitelist.
         self.targets = targets  # type: list[DescribeAlertSceneByEventResponseBodyDataTargets]
 
     def validate(self):
@@ -1787,10 +3087,18 @@ class DescribeAlertSceneByEventResponseBodyData(TeaModel):
 
 class DescribeAlertSceneByEventResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeAlertSceneByEventResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -1878,9 +3186,20 @@ class DescribeAlertSceneByEventResponse(TeaModel):
 
 class DescribeAlertSourceRequest(TeaModel):
     def __init__(self, end_time=None, level=None, region_id=None, start_time=None):
+        # The end of the time range to query. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The risk levels. The value is a JSON array. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.level = level  # type: list[str]
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -1917,7 +3236,9 @@ class DescribeAlertSourceRequest(TeaModel):
 
 class DescribeAlertSourceResponseBodyData(TeaModel):
     def __init__(self, source=None, source_name=None):
+        # The internal code of the alert data source.
         self.source = source  # type: str
+        # The name of the alert data source.
         self.source_name = source_name  # type: str
 
     def validate(self):
@@ -1946,10 +3267,18 @@ class DescribeAlertSourceResponseBodyData(TeaModel):
 
 class DescribeAlertSourceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeAlertSourceResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -2037,7 +3366,12 @@ class DescribeAlertSourceResponse(TeaModel):
 
 class DescribeAlertSourceWithEventRequest(TeaModel):
     def __init__(self, incident_uuid=None, region_id=None):
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2066,7 +3400,9 @@ class DescribeAlertSourceWithEventRequest(TeaModel):
 
 class DescribeAlertSourceWithEventResponseBodyData(TeaModel):
     def __init__(self, source=None, source_name=None):
+        # The internal code of the alert data source.
         self.source = source  # type: str
+        # The name of the alert data source.
         self.source_name = source_name  # type: str
 
     def validate(self):
@@ -2095,10 +3431,18 @@ class DescribeAlertSourceWithEventResponseBodyData(TeaModel):
 
 class DescribeAlertSourceWithEventResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeAlertSourceWithEventResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -2186,6 +3530,10 @@ class DescribeAlertSourceWithEventResponse(TeaModel):
 
 class DescribeAlertTypeRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2210,7 +3558,9 @@ class DescribeAlertTypeRequest(TeaModel):
 
 class DescribeAlertTypeResponseBodyData(TeaModel):
     def __init__(self, alert_type=None, alert_type_mds=None):
+        # The type of the risk.
         self.alert_type = alert_type  # type: str
+        # The internal code of the risk type.
         self.alert_type_mds = alert_type_mds  # type: str
 
     def validate(self):
@@ -2239,10 +3589,18 @@ class DescribeAlertTypeResponseBodyData(TeaModel):
 
 class DescribeAlertTypeResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeAlertTypeResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -2331,16 +3689,37 @@ class DescribeAlertTypeResponse(TeaModel):
 class DescribeAlertsRequest(TeaModel):
     def __init__(self, alert_title=None, alert_uuid=None, current_page=None, end_time=None, is_defend=None,
                  level=None, page_size=None, region_id=None, source=None, start_time=None, sub_user_id=None):
+        # The title of the alert.
         self.alert_title = alert_title  # type: str
+        # The UUID of the alert.
         self.alert_uuid = alert_uuid  # type: str
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The end of the time range to query. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # Specifies whether an attack is defended. Valid values:
+        # 
+        # *   0: detected.
+        # *   1: blocked.
         self.is_defend = is_defend  # type: str
+        # The risk level. The value is a JSON array. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.level = level  # type: list[str]
+        # The number of entries per page. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The source of the alert.
         self.source = source  # type: str
+        # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
+        # The ID of the Alibaba Cloud account within which the alert is generated.
         self.sub_user_id = sub_user_id  # type: str
 
     def validate(self):
@@ -2405,8 +3784,11 @@ class DescribeAlertsRequest(TeaModel):
 
 class DescribeAlertsResponseBodyDataPageInfo(TeaModel):
     def __init__(self, current_page=None, page_size=None, total_count=None):
+        # The current page number.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -2439,8 +3821,11 @@ class DescribeAlertsResponseBodyDataPageInfo(TeaModel):
 
 class DescribeAlertsResponseBodyDataResponseDataAlertInfoList(TeaModel):
     def __init__(self, key=None, key_name=None, values=None):
+        # The attribute key.
         self.key = key  # type: str
+        # The name of the key.
         self.key_name = key_name  # type: str
+        # The value of the key.
         self.values = values  # type: str
 
     def validate(self):
@@ -2478,37 +3863,80 @@ class DescribeAlertsResponseBodyDataResponseData(TeaModel):
                  alert_type_code=None, alert_type_en=None, alert_uuid=None, asset_list=None, att_ck=None, cloud_code=None,
                  end_time=None, gmt_create=None, gmt_modified=None, id=None, incident_uuid=None, is_defend=None,
                  log_time=None, log_uuid=None, main_user_id=None, occur_time=None, start_time=None, sub_user_id=None):
+        # The description of the alert.
         self.alert_desc = alert_desc  # type: str
+        # The internal code of the alert description.
         self.alert_desc_code = alert_desc_code  # type: str
+        # The description of the alert in English.
         self.alert_desc_en = alert_desc_en  # type: str
+        # The details of the alert.
         self.alert_detail = alert_detail  # type: str
+        # The displayed details of the alert.
         self.alert_info_list = alert_info_list  # type: list[DescribeAlertsResponseBodyDataResponseDataAlertInfoList]
+        # The threat level. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.alert_level = alert_level  # type: str
+        # The name of the alert.
         self.alert_name = alert_name  # type: str
+        # The internal code of the alert name.
         self.alert_name_code = alert_name_code  # type: str
+        # The name of the alert in English.
         self.alert_name_en = alert_name_en  # type: str
+        # The service for which the alert associated with the event is generated.
         self.alert_src_prod = alert_src_prod  # type: str
+        # The sub-module of ther alert source.
         self.alert_src_prod_module = alert_src_prod_module  # type: str
+        # The title of the alert.
         self.alert_title = alert_title  # type: str
+        # The title of the alert in English.
         self.alert_title_en = alert_title_en  # type: str
+        # The alert type.
         self.alert_type = alert_type  # type: str
+        # The internal code of the alert type.
         self.alert_type_code = alert_type_code  # type: str
+        # The type of the alert in English.
         self.alert_type_en = alert_type_en  # type: str
+        # The UUID of the alert.
         self.alert_uuid = alert_uuid  # type: str
+        # The details of the asset.
         self.asset_list = asset_list  # type: str
+        # The tag of the ATT\&CK attack.
         self.att_ck = att_ck  # type: str
+        # The cloud code. Valid values:
+        # 
+        # *   aliyun: Alibaba Cloud
+        # *   qcloud: Tencent Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The time when the alert was closed.
         self.end_time = end_time  # type: str
+        # The time when the alert was received.
         self.gmt_create = gmt_create  # type: str
+        # The time when the alert was last updated.
         self.gmt_modified = gmt_modified  # type: str
+        # The unique ID of the alert.
         self.id = id  # type: long
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # Indicates whether an attack is defended. Valid values:
+        # 
+        # *   0: detected.
+        # *   1: blocked.
         self.is_defend = is_defend  # type: str
+        # The time when the alert was recorded.
         self.log_time = log_time  # type: str
+        # The UUID of the alert log.
         self.log_uuid = log_uuid  # type: str
+        # The ID of the Alibaba Cloud account that is associated with the alert in SIEM.
         self.main_user_id = main_user_id  # type: long
+        # The time when the alert is triggered.
         self.occur_time = occur_time  # type: str
+        # The time at which the alert was first generated.
         self.start_time = start_time  # type: str
+        # The ID of the Alibaba Cloud account within which the alert is generated.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -2665,7 +4093,9 @@ class DescribeAlertsResponseBodyDataResponseData(TeaModel):
 
 class DescribeAlertsResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
+        # The pagination information.
         self.page_info = page_info  # type: DescribeAlertsResponseBodyDataPageInfo
+        # The detailed data.
         self.response_data = response_data  # type: list[DescribeAlertsResponseBodyDataResponseData]
 
     def validate(self):
@@ -2705,10 +4135,18 @@ class DescribeAlertsResponseBodyData(TeaModel):
 
 class DescribeAlertsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeAlertsResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -2790,8 +4228,14 @@ class DescribeAlertsResponse(TeaModel):
 
 class DescribeAlertsCountRequest(TeaModel):
     def __init__(self, end_time=None, region_id=None, start_time=None):
+        # The end of the time range to query. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -2824,10 +4268,15 @@ class DescribeAlertsCountRequest(TeaModel):
 
 class DescribeAlertsCountResponseBodyData(TeaModel):
     def __init__(self, all=None, high=None, low=None, medium=None, product_num=None):
+        # The total number of alerts.
         self.all = all  # type: long
+        # The number of high-risk alerts.
         self.high = high  # type: long
+        # The number of low-risk alerts.
         self.low = low  # type: long
+        # The number of medium-risk alerts.
         self.medium = medium  # type: long
+        # The number of connected services.
         self.product_num = product_num  # type: int
 
     def validate(self):
@@ -2868,10 +4317,18 @@ class DescribeAlertsCountResponseBodyData(TeaModel):
 
 class DescribeAlertsCountResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeAlertsCountResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -2954,11 +4411,20 @@ class DescribeAlertsCountResponse(TeaModel):
 class DescribeAlertsWithEntityRequest(TeaModel):
     def __init__(self, current_page=None, entity_id=None, incident_uuid=None, page_size=None, region_id=None,
                  sophon_task_id=None):
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The ID of the entity.
         self.entity_id = entity_id  # type: long
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The number of entries per page. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The ID of the SOAR handing policy.
         self.sophon_task_id = sophon_task_id  # type: str
 
     def validate(self):
@@ -3003,8 +4469,11 @@ class DescribeAlertsWithEntityRequest(TeaModel):
 
 class DescribeAlertsWithEntityResponseBodyDataPageInfo(TeaModel):
     def __init__(self, current_page=None, page_size=None, total_count=None):
+        # The current page number.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -3037,8 +4506,11 @@ class DescribeAlertsWithEntityResponseBodyDataPageInfo(TeaModel):
 
 class DescribeAlertsWithEntityResponseBodyDataResponseDataAlertInfoList(TeaModel):
     def __init__(self, key=None, key_name=None, values=None):
+        # The attribute key.
         self.key = key  # type: str
+        # The name of the key.
         self.key_name = key_name  # type: str
+        # The value of the key.
         self.values = values  # type: str
 
     def validate(self):
@@ -3076,37 +4548,80 @@ class DescribeAlertsWithEntityResponseBodyDataResponseData(TeaModel):
                  alert_type_code=None, alert_type_en=None, alert_uuid=None, asset_list=None, att_ck=None, cloud_code=None,
                  end_time=None, gmt_create=None, gmt_modified=None, id=None, incident_uuid=None, is_defend=None,
                  log_time=None, log_uuid=None, main_user_id=None, occur_time=None, start_time=None, sub_user_id=None):
+        # The description of the alert.
         self.alert_desc = alert_desc  # type: str
+        # The internal code of the alert description.
         self.alert_desc_code = alert_desc_code  # type: str
+        # The alert description in English.
         self.alert_desc_en = alert_desc_en  # type: str
+        # The details of the alert.
         self.alert_detail = alert_detail  # type: str
+        # The displayed details of the alert.
         self.alert_info_list = alert_info_list  # type: list[DescribeAlertsWithEntityResponseBodyDataResponseDataAlertInfoList]
+        # The risk level. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.alert_level = alert_level  # type: str
+        # The name of the alert.
         self.alert_name = alert_name  # type: str
+        # The internal code of the alert name.
         self.alert_name_code = alert_name_code  # type: str
+        # The name of the alert.
         self.alert_name_en = alert_name_en  # type: str
+        # The source of the alert.
         self.alert_src_prod = alert_src_prod  # type: str
+        # The sub-module of the alert source.
         self.alert_src_prod_module = alert_src_prod_module  # type: str
+        # The title of the alert.
         self.alert_title = alert_title  # type: str
+        # The alert title in English.
         self.alert_title_en = alert_title_en  # type: str
+        # The type of the alert.
         self.alert_type = alert_type  # type: str
+        # The internal code of the alert type.
         self.alert_type_code = alert_type_code  # type: str
+        # The alert type in English.
         self.alert_type_en = alert_type_en  # type: str
+        # The UUID of the alert.
         self.alert_uuid = alert_uuid  # type: str
+        # The details of the asset.
         self.asset_list = asset_list  # type: str
+        # The tag of the ATT\&CK attack.
         self.att_ck = att_ck  # type: str
+        # The cloud code. Valid values:
+        # 
+        # *   aliyun: Alibaba Cloud
+        # *   qcloud: Tencent Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The time when the alert was closed.
         self.end_time = end_time  # type: str
+        # The time when the alert was received.
         self.gmt_create = gmt_create  # type: str
+        # The time when the alert was last updated.
         self.gmt_modified = gmt_modified  # type: str
+        # The unique ID of the alert.
         self.id = id  # type: long
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # Specifies whether an attack is defended. Valid values:
+        # 
+        # *   0: detected
+        # *   1: blocked
         self.is_defend = is_defend  # type: str
+        # The time when the alert was recorded.
         self.log_time = log_time  # type: str
+        # The UUID of the alert log.
         self.log_uuid = log_uuid  # type: str
+        # The ID of the Alibaba Cloud account that is associated with the alert in SIEM.
         self.main_user_id = main_user_id  # type: long
+        # The time when the alert was triggered.
         self.occur_time = occur_time  # type: str
+        # The time at which the alert was first generated.
         self.start_time = start_time  # type: str
+        # The ID of the Alibaba Cloud account within which the alert is generated.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -3263,7 +4778,9 @@ class DescribeAlertsWithEntityResponseBodyDataResponseData(TeaModel):
 
 class DescribeAlertsWithEntityResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
+        # The pagination information.
         self.page_info = page_info  # type: DescribeAlertsWithEntityResponseBodyDataPageInfo
+        # The detailed data.
         self.response_data = response_data  # type: list[DescribeAlertsWithEntityResponseBodyDataResponseData]
 
     def validate(self):
@@ -3303,10 +4820,18 @@ class DescribeAlertsWithEntityResponseBodyData(TeaModel):
 
 class DescribeAlertsWithEntityResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeAlertsWithEntityResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -3389,14 +4914,33 @@ class DescribeAlertsWithEntityResponse(TeaModel):
 class DescribeAlertsWithEventRequest(TeaModel):
     def __init__(self, alert_title=None, current_page=None, incident_uuid=None, is_defend=None, level=None,
                  page_size=None, region_id=None, source=None, sub_user_id=None):
+        # The title of the alert.
         self.alert_title = alert_title  # type: str
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The ID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # Specifies whether an attack is defended. Valid values:
+        # 
+        # *   0: detected
+        # *   1: blocked
         self.is_defend = is_defend  # type: str
+        # The risk levels. The value is a JSON array. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.level = level  # type: list[str]
+        # The number of entries per page. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The data source of the alert.
         self.source = source  # type: str
+        # The ID of the account within which the alert is generated.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -3453,8 +4997,11 @@ class DescribeAlertsWithEventRequest(TeaModel):
 
 class DescribeAlertsWithEventResponseBodyDataPageInfo(TeaModel):
     def __init__(self, current_page=None, page_size=None, total_count=None):
+        # The current page number.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -3487,8 +5034,11 @@ class DescribeAlertsWithEventResponseBodyDataPageInfo(TeaModel):
 
 class DescribeAlertsWithEventResponseBodyDataResponseDataAlertInfoList(TeaModel):
     def __init__(self, key=None, key_name=None, values=None):
+        # The attribute key.
         self.key = key  # type: str
+        # The name of the key.
         self.key_name = key_name  # type: str
+        # The value of the key.
         self.values = values  # type: str
 
     def validate(self):
@@ -3526,37 +5076,80 @@ class DescribeAlertsWithEventResponseBodyDataResponseData(TeaModel):
                  alert_type_code=None, alert_type_en=None, alert_uuid=None, asset_list=None, att_ck=None, cloud_code=None,
                  end_time=None, gmt_create=None, gmt_modified=None, id=None, incident_uuid=None, is_defend=None,
                  log_time=None, log_uuid=None, main_user_id=None, occur_time=None, start_time=None, sub_user_id=None):
+        # The description of the alert.
         self.alert_desc = alert_desc  # type: str
+        # The internal code of the alert description.
         self.alert_desc_code = alert_desc_code  # type: str
+        # The alert description in English.
         self.alert_desc_en = alert_desc_en  # type: str
+        # The details of the alert.
         self.alert_detail = alert_detail  # type: str
+        # The displayed details of the alert.
         self.alert_info_list = alert_info_list  # type: list[DescribeAlertsWithEventResponseBodyDataResponseDataAlertInfoList]
+        # The risk level. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.alert_level = alert_level  # type: str
+        # The name of the alert.
         self.alert_name = alert_name  # type: str
+        # The internal code of the alert name.
         self.alert_name_code = alert_name_code  # type: str
+        # The alert name in English.
         self.alert_name_en = alert_name_en  # type: str
+        # The source of the alert.
         self.alert_src_prod = alert_src_prod  # type: str
+        # The sub-module of the alert source.
         self.alert_src_prod_module = alert_src_prod_module  # type: str
+        # The title of the alert.
         self.alert_title = alert_title  # type: str
+        # The alert title in English.
         self.alert_title_en = alert_title_en  # type: str
+        # The type of the alert.
         self.alert_type = alert_type  # type: str
+        # The internal code of the alert type.
         self.alert_type_code = alert_type_code  # type: str
+        # The alert type in English.
         self.alert_type_en = alert_type_en  # type: str
+        # The UUID of the alert.
         self.alert_uuid = alert_uuid  # type: str
+        # The details of the asset.
         self.asset_list = asset_list  # type: str
+        # The tag of the ATT\&CK attack.
         self.att_ck = att_ck  # type: str
+        # The cloud code. Valid values:
+        # 
+        # *   aliyun: Alibaba Cloud
+        # *   qcloud: Tencent Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The time when the alert was closed.
         self.end_time = end_time  # type: str
+        # The time when the alert was received.
         self.gmt_create = gmt_create  # type: str
+        # The time when the alert was last updated.
         self.gmt_modified = gmt_modified  # type: str
+        # The unique ID of the alert.
         self.id = id  # type: long
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # Indicates whether an attack is defended. Valid values:
+        # 
+        # *   0: detected
+        # *   1: blocked
         self.is_defend = is_defend  # type: str
+        # The time when the alert was recorded.
         self.log_time = log_time  # type: str
+        # The UUID of the alert log.
         self.log_uuid = log_uuid  # type: str
+        # The ID of the Alibaba Cloud account that is associated with the alert in SIEM.
         self.main_user_id = main_user_id  # type: long
+        # The time when the alert was triggered.
         self.occur_time = occur_time  # type: str
+        # The time at which the alert was first generated.
         self.start_time = start_time  # type: str
+        # The ID of the Alibaba Cloud account within which the alert is generated.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -3713,7 +5306,9 @@ class DescribeAlertsWithEventResponseBodyDataResponseData(TeaModel):
 
 class DescribeAlertsWithEventResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
+        # The pagination information.
         self.page_info = page_info  # type: DescribeAlertsWithEventResponseBodyDataPageInfo
+        # The detailed data.
         self.response_data = response_data  # type: list[DescribeAlertsWithEventResponseBodyDataResponseData]
 
     def validate(self):
@@ -3753,10 +5348,18 @@ class DescribeAlertsWithEventResponseBodyData(TeaModel):
 
 class DescribeAlertsWithEventResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeAlertsWithEventResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -3838,10 +5441,18 @@ class DescribeAlertsWithEventResponse(TeaModel):
 
 class DescribeAttackTimeLineRequest(TeaModel):
     def __init__(self, asset_name=None, end_time=None, incident_uuid=None, region_id=None, start_time=None):
+        # The name of the asset.
         self.asset_name = asset_name  # type: str
+        # The end of the time range to query. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The ID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -3885,25 +5496,53 @@ class DescribeAttackTimeLineResponseBodyData(TeaModel):
                  alert_src_prod=None, alert_src_prod_module=None, alert_time=None, alert_title=None, alert_title_en=None,
                  alert_type=None, alert_type_code=None, alert_type_en=None, alert_uuid=None, asset_id=None, asset_list=None,
                  asset_name=None, att_ck=None, cloud_code=None, incident_uuid=None, log_time=None):
+        # The risk level. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.alert_level = alert_level  # type: str
+        # The alert name in English.
         self.alert_name = alert_name  # type: str
+        # The internal code of the alert name.
         self.alert_name_code = alert_name_code  # type: str
+        # The alert name in English.
         self.alert_name_en = alert_name_en  # type: str
+        # The source of the alert.
         self.alert_src_prod = alert_src_prod  # type: str
+        # The sub-module of the alert source.
         self.alert_src_prod_module = alert_src_prod_module  # type: str
+        # The time when the alert was triggered.
         self.alert_time = alert_time  # type: long
+        # The title of the alert.
         self.alert_title = alert_title  # type: str
+        # The alert title in English.
         self.alert_title_en = alert_title_en  # type: str
+        # The type of the alert.
         self.alert_type = alert_type  # type: str
+        # The internal code of the alert type.
         self.alert_type_code = alert_type_code  # type: str
+        # The alert type in English.
         self.alert_type_en = alert_type_en  # type: str
+        # The UUID of the alert
         self.alert_uuid = alert_uuid  # type: str
+        # The logical ID of the asset.
         self.asset_id = asset_id  # type: str
+        # The details of the asset.
         self.asset_list = asset_list  # type: str
+        # The name of the asset.
         self.asset_name = asset_name  # type: str
+        # The tag of the ATT\&CK attack.
         self.att_ck = att_ck  # type: str
+        # The cloud code. Valid values:
+        # 
+        # *   aliyun: Alibaba Cloud
+        # *   qcloud: Tencent Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The time when the alert was recorded.
         self.log_time = log_time  # type: str
 
     def validate(self):
@@ -4004,10 +5643,18 @@ class DescribeAttackTimeLineResponseBodyData(TeaModel):
 
 class DescribeAttackTimeLineResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeAttackTimeLineResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -4093,8 +5740,104 @@ class DescribeAttackTimeLineResponse(TeaModel):
         return self
 
 
+class DescribeAuthRequest(TeaModel):
+    def __init__(self, region_id=None):
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAuthRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeAuthResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAuthResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeAuthResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeAuthResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeAuthResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeAuthResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeAutomateResponseConfigCounterRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -4119,7 +5862,9 @@ class DescribeAutomateResponseConfigCounterRequest(TeaModel):
 
 class DescribeAutomateResponseConfigCounterResponseBodyData(TeaModel):
     def __init__(self, all=None, online=None):
+        # The total number of rules.
         self.all = all  # type: long
+        # The number of enabled rules.
         self.online = online  # type: long
 
     def validate(self):
@@ -4148,10 +5893,18 @@ class DescribeAutomateResponseConfigCounterResponseBodyData(TeaModel):
 
 class DescribeAutomateResponseConfigCounterResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeAutomateResponseConfigCounterResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -4233,7 +5986,15 @@ class DescribeAutomateResponseConfigCounterResponse(TeaModel):
 
 class DescribeAutomateResponseConfigFeatureRequest(TeaModel):
     def __init__(self, auto_response_type=None, region_id=None):
+        # The type of the automated response rule. Valid values:
+        # 
+        # *   event
+        # *   alert
         self.auto_response_type = auto_response_type  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -4262,7 +6023,9 @@ class DescribeAutomateResponseConfigFeatureRequest(TeaModel):
 
 class DescribeAutomateResponseConfigFeatureResponseBodyDataRightValueEnums(TeaModel):
     def __init__(self, value=None, value_mds=None):
+        # The enumerated value of the right operand.
         self.value = value  # type: str
+        # The internal code of the enumerated value.
         self.value_mds = value_mds  # type: str
 
     def validate(self):
@@ -4292,13 +6055,24 @@ class DescribeAutomateResponseConfigFeatureResponseBodyDataRightValueEnums(TeaMo
 class DescribeAutomateResponseConfigFeatureResponseBodyDataSupportOperators(TeaModel):
     def __init__(self, has_right_value=None, index=None, operator=None, operator_desc_cn=None,
                  operator_desc_en=None, operator_name=None, support_data_type=None, support_tag=None):
+        # Indicates whether the right operand is required. Valid values:
+        # 
+        # *   true
+        # *   false
         self.has_right_value = has_right_value  # type: bool
+        # The position of the operator in the operator list.
         self.index = index  # type: int
+        # The operator.
         self.operator = operator  # type: str
+        # The description of the operator in Chinese.
         self.operator_desc_cn = operator_desc_cn  # type: str
+        # The description of the operator in English.
         self.operator_desc_en = operator_desc_en  # type: str
+        # The display name of the operator.
         self.operator_name = operator_name  # type: str
+        # The data types that are supported by the current operator. The data types are separated by commas (,).
         self.support_data_type = support_data_type  # type: str
+        # The scenarios that are supported by the operator. Multiple scenarios are separated by commas (,), such as aggregation scenarios. This parameter is empty by default.
         self.support_tag = support_tag  # type: list[str]
 
     def validate(self):
@@ -4351,9 +6125,13 @@ class DescribeAutomateResponseConfigFeatureResponseBodyDataSupportOperators(TeaM
 
 class DescribeAutomateResponseConfigFeatureResponseBodyData(TeaModel):
     def __init__(self, data_type=None, feature=None, right_value_enums=None, support_operators=None):
+        # The data type of the condition field in the automated response rule.
         self.data_type = data_type  # type: str
+        # The name of the condition field in the automated response rule.
         self.feature = feature  # type: str
+        # The enumerated values of the right operand for the field.
         self.right_value_enums = right_value_enums  # type: list[DescribeAutomateResponseConfigFeatureResponseBodyDataRightValueEnums]
+        # The operators that are supported for the condition field.
         self.support_operators = support_operators  # type: list[DescribeAutomateResponseConfigFeatureResponseBodyDataSupportOperators]
 
     def validate(self):
@@ -4407,10 +6185,18 @@ class DescribeAutomateResponseConfigFeatureResponseBodyData(TeaModel):
 
 class DescribeAutomateResponseConfigFeatureResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeAutomateResponseConfigFeatureResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -4498,8 +6284,21 @@ class DescribeAutomateResponseConfigFeatureResponse(TeaModel):
 
 class DescribeAutomateResponseConfigPlayBooksRequest(TeaModel):
     def __init__(self, auto_response_type=None, entity_type=None, region_id=None):
+        # The type of the automated response rule. Valid values:
+        # 
+        # *   event
+        # *   alert
         self.auto_response_type = auto_response_type  # type: str
+        # The entity type of the playbook. Valid values:
+        # 
+        # *   ip
+        # *   process
+        # *   file
         self.entity_type = entity_type  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -4532,10 +6331,19 @@ class DescribeAutomateResponseConfigPlayBooksRequest(TeaModel):
 
 class DescribeAutomateResponseConfigPlayBooksResponseBodyData(TeaModel):
     def __init__(self, description=None, display_name=None, name=None, param_type=None, uuid=None):
+        # The description of the playbook.
         self.description = description  # type: str
+        # The display name of the playbook.
         self.display_name = display_name  # type: str
+        # The unique identifier name of the playbook.
         self.name = name  # type: str
+        # The input parameter template of the playbook. Valid values:
+        # 
+        # *   template-ip: IP address
+        # *   template-process: process
+        # *   template-filee: file
         self.param_type = param_type  # type: str
+        # The UUID of the playbook.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -4576,10 +6384,18 @@ class DescribeAutomateResponseConfigPlayBooksResponseBodyData(TeaModel):
 
 class DescribeAutomateResponseConfigPlayBooksResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeAutomateResponseConfigPlayBooksResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -4667,10 +6483,25 @@ class DescribeAutomateResponseConfigPlayBooksResponse(TeaModel):
 
 class DescribeCloudSiemAssetsRequest(TeaModel):
     def __init__(self, asset_type=None, current_page=None, incident_uuid=None, page_size=None, region_id=None):
+        # The type of the asset. Valid values:
+        # 
+        # *   ip
+        # *   domain
+        # *   url
+        # *   process
+        # *   file
+        # *   host
         self.asset_type = asset_type  # type: str
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The number of entries per page. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -4711,8 +6542,11 @@ class DescribeCloudSiemAssetsRequest(TeaModel):
 
 class DescribeCloudSiemAssetsResponseBodyDataPageInfo(TeaModel):
     def __init__(self, current_page=None, page_size=None, total_count=None):
+        # The current page number.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -4745,8 +6579,11 @@ class DescribeCloudSiemAssetsResponseBodyDataPageInfo(TeaModel):
 
 class DescribeCloudSiemAssetsResponseBodyDataResponseDataAssetInfo(TeaModel):
     def __init__(self, key=None, key_name=None, values=None):
+        # The attribute key.
         self.key = key  # type: str
+        # The name of the key.
         self.key_name = key_name  # type: str
+        # The value of the key.
         self.values = values  # type: str
 
     def validate(self):
@@ -4781,17 +6618,40 @@ class DescribeCloudSiemAssetsResponseBodyDataResponseData(TeaModel):
     def __init__(self, alert_uuid=None, aliuid=None, asset_id=None, asset_info=None, asset_name=None,
                  asset_type=None, cloud_code=None, gmt_create=None, gmt_modified=None, id=None, incident_uuid=None,
                  sub_user_id=None):
+        # The UUID of the alert associated with the event.
         self.alert_uuid = alert_uuid  # type: str
+        # The ID of the Alibaba Cloud account in SIEM.
         self.aliuid = aliuid  # type: long
+        # The logical ID of the asset.
         self.asset_id = asset_id  # type: str
+        # The display information of the asset is in the JSON format.
         self.asset_info = asset_info  # type: list[DescribeCloudSiemAssetsResponseBodyDataResponseDataAssetInfo]
+        # The name of the asset.
         self.asset_name = asset_name  # type: str
+        # The type of the asset. Valid values:
+        # 
+        # *   ip
+        # *   domain
+        # *   url
+        # *   process
+        # *   file
+        # *   host
         self.asset_type = asset_type  # type: str
+        # The cloud code of the entity. Valid values:
+        # 
+        # *   aliyun: Alibaba Cloud
+        # *   qcloud: Tencent Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The time when the asset was synchronized.
         self.gmt_create = gmt_create  # type: str
+        # The time when the asset was last updated.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the asset.
         self.id = id  # type: long
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The ID of the associated account to which the asset belongs.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -4868,7 +6728,9 @@ class DescribeCloudSiemAssetsResponseBodyDataResponseData(TeaModel):
 
 class DescribeCloudSiemAssetsResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
+        # The pagination information.
         self.page_info = page_info  # type: DescribeCloudSiemAssetsResponseBodyDataPageInfo
+        # The detailed data.
         self.response_data = response_data  # type: list[DescribeCloudSiemAssetsResponseBodyDataResponseData]
 
     def validate(self):
@@ -4908,10 +6770,18 @@ class DescribeCloudSiemAssetsResponseBodyData(TeaModel):
 
 class DescribeCloudSiemAssetsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeCloudSiemAssetsResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -4993,7 +6863,12 @@ class DescribeCloudSiemAssetsResponse(TeaModel):
 
 class DescribeCloudSiemAssetsCounterRequest(TeaModel):
     def __init__(self, incident_uuid=None, region_id=None):
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5022,7 +6897,16 @@ class DescribeCloudSiemAssetsCounterRequest(TeaModel):
 
 class DescribeCloudSiemAssetsCounterResponseBodyData(TeaModel):
     def __init__(self, asset_num=None, asset_type=None):
+        # The number of assets.
         self.asset_num = asset_num  # type: int
+        # The type of the asset. Valid values:
+        # 
+        # *   ip
+        # *   domain
+        # *   url
+        # *   process
+        # *   file
+        # *   host
         self.asset_type = asset_type  # type: str
 
     def validate(self):
@@ -5051,10 +6935,18 @@ class DescribeCloudSiemAssetsCounterResponseBodyData(TeaModel):
 
 class DescribeCloudSiemAssetsCounterResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeCloudSiemAssetsCounterResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -5142,7 +7034,12 @@ class DescribeCloudSiemAssetsCounterResponse(TeaModel):
 
 class DescribeCloudSiemEventDetailRequest(TeaModel):
     def __init__(self, incident_uuid=None, region_id=None):
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5174,22 +7071,48 @@ class DescribeCloudSiemEventDetailResponseBodyData(TeaModel):
                  description=None, description_en=None, ext_content=None, gmt_create=None, gmt_modified=None,
                  incident_name=None, incident_name_en=None, incident_uuid=None, remark=None, status=None, threat_level=None,
                  threat_score=None):
+        # The number of alerts that are associated with the event.
         self.alert_num = alert_num  # type: int
+        # The ID of the Alibaba Cloud account to which the event belongs.
         self.aliuid = aliuid  # type: long
+        # The number of assets that are associated with the event.
         self.asset_num = asset_num  # type: int
+        # The tags of the ATT\&CK attacks.
         self.att_ck_labels = att_ck_labels  # type: list[str]
+        # The source of the alert.
         self.data_sources = data_sources  # type: list[str]
+        # The description of the event.
         self.description = description  # type: str
+        # The description of the event in English.
         self.description_en = description_en  # type: str
+        # The extended information of the event in the JSON format.
         self.ext_content = ext_content  # type: str
+        # The time when the event occurred.
         self.gmt_create = gmt_create  # type: str
+        # The time when the event was last updated.
         self.gmt_modified = gmt_modified  # type: str
+        # The name of the event.
         self.incident_name = incident_name  # type: str
+        # The name of the event in English.
         self.incident_name_en = incident_name_en  # type: str
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The remarks of the event.
         self.remark = remark  # type: str
+        # The status of the event. Valid values:
+        # 
+        # *   0: not handled
+        # *   1: handing
+        # *   5: handling failed
+        # *   10: handled
         self.status = status  # type: int
+        # The risk level. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.threat_level = threat_level  # type: str
+        # The risk score of the event. The score ranges from 0 to 100. A higher score indicates a higher risk level.
         self.threat_score = threat_score  # type: float
 
     def validate(self):
@@ -5278,10 +7201,18 @@ class DescribeCloudSiemEventDetailResponseBodyData(TeaModel):
 
 class DescribeCloudSiemEventDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeCloudSiemEventDetailResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -5365,17 +7296,47 @@ class DescribeCloudSiemEventsRequest(TeaModel):
     def __init__(self, asset_id=None, current_page=None, end_time=None, event_name=None, incident_uuid=None,
                  order=None, order_field=None, page_size=None, region_id=None, start_time=None, status=None,
                  thread_level=None):
+        # The ID of the asset that is associated with the event.
         self.asset_id = asset_id  # type: str
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The end of the time range to query. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The name of the event.
         self.event_name = event_name  # type: str
+        # The ID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The sort order. Valid values:
+        # 
+        # *   desc: descending order
+        # *   asc: ascending order
         self.order = order  # type: str
+        # The sort field. Valid values:
+        # 
+        # *   GmtModified: sorts the events by creation time. This is the default value.
+        # *   ThreatScore: sorts the events by risk score.
         self.order_field = order_field  # type: str
+        # The number of entries per page. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
+        # The status of the event. Valid values:
+        # 
+        # *   0: unhandled
+        # *   1: handling
+        # *   5: handling failed
+        # *   10: handled
         self.status = status  # type: int
+        # The risk levels of the events. The value is a JSON array. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.thread_level = thread_level  # type: list[str]
 
     def validate(self):
@@ -5444,8 +7405,11 @@ class DescribeCloudSiemEventsRequest(TeaModel):
 
 class DescribeCloudSiemEventsResponseBodyDataPageInfo(TeaModel):
     def __init__(self, current_page=None, page_size=None, total_count=None):
+        # The current page number.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -5481,22 +7445,48 @@ class DescribeCloudSiemEventsResponseBodyDataResponseData(TeaModel):
                  description=None, description_en=None, ext_content=None, gmt_create=None, gmt_modified=None,
                  incident_name=None, incident_name_en=None, incident_uuid=None, remark=None, status=None, threat_level=None,
                  threat_score=None):
+        # The number of alerts that are associated with the event.
         self.alert_num = alert_num  # type: int
+        # The ID of the Alibaba Cloud account to which the event belongs.
         self.aliuid = aliuid  # type: long
+        # The number of assets that are associated with the event.
         self.asset_num = asset_num  # type: int
+        # The tags of the ATT\&CK attack.
         self.att_ck_labels = att_ck_labels  # type: list[str]
+        # The sources of the alert.
         self.data_sources = data_sources  # type: list[str]
+        # The description of the event.
         self.description = description  # type: str
+        # The event description in English.
         self.description_en = description_en  # type: str
+        # The extended event information in the JSON format.
         self.ext_content = ext_content  # type: str
+        # The time when the event occurred.
         self.gmt_create = gmt_create  # type: str
+        # The time when the event was last updated.
         self.gmt_modified = gmt_modified  # type: str
+        # The name of the event.
         self.incident_name = incident_name  # type: str
+        # The event name in English.
         self.incident_name_en = incident_name_en  # type: str
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The remarks of the event.
         self.remark = remark  # type: str
+        # The status of the event. Valid values:
+        # 
+        # *   0: unhandled
+        # *   1: handling
+        # *   5: handling failed
+        # *   10: handled
         self.status = status  # type: int
+        # The risk level. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.threat_level = threat_level  # type: str
+        # The risk score of the event. Valid values: 0 to 100. A higher value indicates a higher risk level.
         self.threat_score = threat_score  # type: float
 
     def validate(self):
@@ -5585,7 +7575,9 @@ class DescribeCloudSiemEventsResponseBodyDataResponseData(TeaModel):
 
 class DescribeCloudSiemEventsResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
+        # The pagination information.
         self.page_info = page_info  # type: DescribeCloudSiemEventsResponseBodyDataPageInfo
+        # The detailed data.
         self.response_data = response_data  # type: list[DescribeCloudSiemEventsResponseBodyDataResponseData]
 
     def validate(self):
@@ -5625,10 +7617,18 @@ class DescribeCloudSiemEventsResponseBodyData(TeaModel):
 
 class DescribeCloudSiemEventsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeCloudSiemEventsResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -5708,9 +7708,116 @@ class DescribeCloudSiemEventsResponse(TeaModel):
         return self
 
 
+class DescribeCsImportedProdStatusByUserRequest(TeaModel):
+    def __init__(self, region_id=None, source_log_prod=None, user_id=None):
+        self.region_id = region_id  # type: str
+        self.source_log_prod = source_log_prod  # type: str
+        self.user_id = user_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCsImportedProdStatusByUserRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.source_log_prod is not None:
+            result['SourceLogProd'] = self.source_log_prod
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SourceLogProd') is not None:
+            self.source_log_prod = m.get('SourceLogProd')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class DescribeCsImportedProdStatusByUserResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCsImportedProdStatusByUserResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeCsImportedProdStatusByUserResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeCsImportedProdStatusByUserResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeCsImportedProdStatusByUserResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeCsImportedProdStatusByUserResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeCustomizeRuleRequest(TeaModel):
     def __init__(self, region_id=None, rule_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The ID of the rule.
         self.rule_id = rule_id  # type: long
 
     def validate(self):
@@ -5742,27 +7849,69 @@ class DescribeCustomizeRuleResponseBodyData(TeaModel):
                  event_transfer_switch=None, event_transfer_type=None, gmt_create=None, gmt_modified=None, id=None, log_source=None,
                  log_source_mds=None, log_type=None, log_type_mds=None, query_cycle=None, rule_condition=None, rule_desc=None,
                  rule_group=None, rule_name=None, rule_threshold=None, rule_type=None, status=None, threat_level=None):
+        # The risk type.
         self.alert_type = alert_type  # type: str
+        # The internal code of the risk type.
         self.alert_type_mds = alert_type_mds  # type: str
+        # The ID of the Alibaba Cloud account in SIEM.
         self.aliuid = aliuid  # type: long
+        # The extended information about event generation. If the value of eventTransferType is allToSingle, the value of this parameter indicates the length and unit of the alert aggregation window. The HTML escape characters are reversed.
         self.event_transfer_ext = event_transfer_ext  # type: str
+        # Indicates whether the alert generates an event. Valid values:
+        # 
+        # *   0: no
+        # *   1: yes
         self.event_transfer_switch = event_transfer_switch  # type: int
+        # The event generation method. Valid values:
+        # 
+        # *   default: The default method is used.
+        # *   singleToSingle: The system generates an event for each alert.
+        # *   allToSingle: The system generates an event for alerts within a period of time.
         self.event_transfer_type = event_transfer_type  # type: str
+        # The time when the custom rule was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the custom rule was last updated.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the custom rule.
         self.id = id  # type: long
+        # The log source of the rule.
         self.log_source = log_source  # type: str
+        # The internal code of the log source.
         self.log_source_mds = log_source_mds  # type: str
+        # The log type of the rule.
         self.log_type = log_type  # type: str
+        # The internal code of the log type.
         self.log_type_mds = log_type_mds  # type: str
+        # The window length of the rule. The HTML escape characters are reversed.
         self.query_cycle = query_cycle  # type: str
+        # The query condition of the rule. The value is in the JSON format. The HTML escape characters are reversed.
         self.rule_condition = rule_condition  # type: str
+        # The description of the rule.
         self.rule_desc = rule_desc  # type: str
+        # The log aggregation field. The value is in the JSON format. The HTML escape characters are reversed.
         self.rule_group = rule_group  # type: str
+        # The name of the rule.
         self.rule_name = rule_name  # type: str
+        # The threshold configuration of the rule. The value is in the JSON format. The HTML escape characters are reversed.
         self.rule_threshold = rule_threshold  # type: str
+        # The type of the rule. Valid values:
+        # 
+        # *   predefine
+        # *   customize
         self.rule_type = rule_type  # type: str
+        # The rule status. Valid values:
+        # 
+        # *   0: The rule is in the initial state.
+        # *   10: The simulation data is tested.
+        # *   15: The business data is being tested.
+        # *   20: The business data test ends.
+        # *   100: The rule takes effect.
         self.status = status  # type: int
+        # The risk level. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.threat_level = threat_level  # type: str
 
     def validate(self):
@@ -5871,10 +8020,18 @@ class DescribeCustomizeRuleResponseBodyData(TeaModel):
 
 class DescribeCustomizeRuleResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeCustomizeRuleResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -5956,6 +8113,10 @@ class DescribeCustomizeRuleResponse(TeaModel):
 
 class DescribeCustomizeRuleCountRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The data management center of the threat analysis feature. Specify this parameter based on the region in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5980,9 +8141,13 @@ class DescribeCustomizeRuleCountRequest(TeaModel):
 
 class DescribeCustomizeRuleCountResponseBodyData(TeaModel):
     def __init__(self, high_rule_num=None, in_use_rule_num=None, low_rule_num=None, medium_rule_num=None):
+        # The number of rules that are used to identify high-risk threats.
         self.high_rule_num = high_rule_num  # type: int
+        # The total number of rules.
         self.in_use_rule_num = in_use_rule_num  # type: int
+        # The number of rules that are used to identify low-risk threats.
         self.low_rule_num = low_rule_num  # type: int
+        # The number of rules that are used to identify medium-risk threats.
         self.medium_rule_num = medium_rule_num  # type: int
 
     def validate(self):
@@ -6019,10 +8184,18 @@ class DescribeCustomizeRuleCountResponseBodyData(TeaModel):
 
 class DescribeCustomizeRuleCountResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code that is returned.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeCustomizeRuleCountResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -6104,7 +8277,12 @@ class DescribeCustomizeRuleCountResponse(TeaModel):
 
 class DescribeCustomizeRuleTestRequest(TeaModel):
     def __init__(self, id=None, region_id=None):
+        # The ID of the rule.
         self.id = id  # type: long
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -6133,8 +8311,17 @@ class DescribeCustomizeRuleTestRequest(TeaModel):
 
 class DescribeCustomizeRuleTestResponseBodyData(TeaModel):
     def __init__(self, id=None, simulate_data=None, status=None):
+        # The ID of the rule.
         self.id = id  # type: long
+        # The historical data that is used in the simulation test.
         self.simulate_data = simulate_data  # type: str
+        # The status of the rule. Valid values:
+        # 
+        # *   0: The rule is in the initial state.
+        # *   10: The simulation data is tested.
+        # *   15: The business data is being tested.
+        # *   20: The business data test ends.
+        # *   100: The rule takes effect.
         self.status = status  # type: int
 
     def validate(self):
@@ -6167,10 +8354,18 @@ class DescribeCustomizeRuleTestResponseBodyData(TeaModel):
 
 class DescribeCustomizeRuleTestResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeCustomizeRuleTestResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -6252,7 +8447,12 @@ class DescribeCustomizeRuleTestResponse(TeaModel):
 
 class DescribeCustomizeRuleTestHistogramRequest(TeaModel):
     def __init__(self, id=None, region_id=None):
+        # The ID of the rule.
         self.id = id  # type: long
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -6281,8 +8481,11 @@ class DescribeCustomizeRuleTestHistogramRequest(TeaModel):
 
 class DescribeCustomizeRuleTestHistogramResponseBodyData(TeaModel):
     def __init__(self, count=None, from_=None, to=None):
+        # The number of alerts that are generated in the query time range.
         self.count = count  # type: long
+        # The start of the time range for querying alerts. The value is a UNIX timestamp. Unit: seconds.
         self.from_ = from_  # type: long
+        # The end of the time range for querying alerts. The value is a UNIX timestamp. Unit: seconds.
         self.to = to  # type: long
 
     def validate(self):
@@ -6315,10 +8518,18 @@ class DescribeCustomizeRuleTestHistogramResponseBodyData(TeaModel):
 
 class DescribeCustomizeRuleTestHistogramResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeCustomizeRuleTestHistogramResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -6404,12 +8615,448 @@ class DescribeCustomizeRuleTestHistogramResponse(TeaModel):
         return self
 
 
+class DescribeDataSourceInstanceRequest(TeaModel):
+    def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None, region_id=None):
+        self.account_id = account_id  # type: str
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_instance_id = data_source_instance_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDataSourceInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_instance_id is not None:
+            result['DataSourceInstanceId'] = self.data_source_instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceInstanceId') is not None:
+            self.data_source_instance_id = m.get('DataSourceInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeDataSourceInstanceResponseBodyDataDataSourceInstanceParams(TeaModel):
+    def __init__(self, para_code=None, para_value=None):
+        self.para_code = para_code  # type: str
+        self.para_value = para_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDataSourceInstanceResponseBodyDataDataSourceInstanceParams, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.para_code is not None:
+            result['ParaCode'] = self.para_code
+        if self.para_value is not None:
+            result['ParaValue'] = self.para_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ParaCode') is not None:
+            self.para_code = m.get('ParaCode')
+        if m.get('ParaValue') is not None:
+            self.para_value = m.get('ParaValue')
+        return self
+
+
+class DescribeDataSourceInstanceResponseBodyData(TeaModel):
+    def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None,
+                 data_source_instance_params=None):
+        self.account_id = account_id  # type: str
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_instance_id = data_source_instance_id  # type: str
+        self.data_source_instance_params = data_source_instance_params  # type: list[DescribeDataSourceInstanceResponseBodyDataDataSourceInstanceParams]
+
+    def validate(self):
+        if self.data_source_instance_params:
+            for k in self.data_source_instance_params:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDataSourceInstanceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_instance_id is not None:
+            result['DataSourceInstanceId'] = self.data_source_instance_id
+        result['DataSourceInstanceParams'] = []
+        if self.data_source_instance_params is not None:
+            for k in self.data_source_instance_params:
+                result['DataSourceInstanceParams'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceInstanceId') is not None:
+            self.data_source_instance_id = m.get('DataSourceInstanceId')
+        self.data_source_instance_params = []
+        if m.get('DataSourceInstanceParams') is not None:
+            for k in m.get('DataSourceInstanceParams'):
+                temp_model = DescribeDataSourceInstanceResponseBodyDataDataSourceInstanceParams()
+                self.data_source_instance_params.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDataSourceInstanceResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: DescribeDataSourceInstanceResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeDataSourceInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = DescribeDataSourceInstanceResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDataSourceInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDataSourceInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDataSourceInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDataSourceInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDataSourceParametersRequest(TeaModel):
+    def __init__(self, cloud_code=None, data_source_type=None, region_id=None):
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_type = data_source_type  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDataSourceParametersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeDataSourceParametersResponseBodyDataParamValue(TeaModel):
+    def __init__(self, label=None, value=None):
+        self.label = label  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDataSourceParametersResponseBodyDataParamValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.label is not None:
+            result['Label'] = self.label
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Label') is not None:
+            self.label = m.get('Label')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeDataSourceParametersResponseBodyData(TeaModel):
+    def __init__(self, can_editted=None, cloud_code=None, data_source_type=None, default_value=None, disabled=None,
+                 format_check=None, hit=None, para_code=None, para_level=None, para_name=None, para_type=None, param_value=None,
+                 required=None, title=None):
+        self.can_editted = can_editted  # type: int
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_type = data_source_type  # type: str
+        self.default_value = default_value  # type: str
+        self.disabled = disabled  # type: bool
+        self.format_check = format_check  # type: str
+        self.hit = hit  # type: str
+        self.para_code = para_code  # type: str
+        self.para_level = para_level  # type: int
+        self.para_name = para_name  # type: str
+        self.para_type = para_type  # type: str
+        self.param_value = param_value  # type: list[DescribeDataSourceParametersResponseBodyDataParamValue]
+        self.required = required  # type: int
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.param_value:
+            for k in self.param_value:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDataSourceParametersResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.can_editted is not None:
+            result['CanEditted'] = self.can_editted
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.default_value is not None:
+            result['DefaultValue'] = self.default_value
+        if self.disabled is not None:
+            result['Disabled'] = self.disabled
+        if self.format_check is not None:
+            result['FormatCheck'] = self.format_check
+        if self.hit is not None:
+            result['Hit'] = self.hit
+        if self.para_code is not None:
+            result['ParaCode'] = self.para_code
+        if self.para_level is not None:
+            result['ParaLevel'] = self.para_level
+        if self.para_name is not None:
+            result['ParaName'] = self.para_name
+        if self.para_type is not None:
+            result['ParaType'] = self.para_type
+        result['ParamValue'] = []
+        if self.param_value is not None:
+            for k in self.param_value:
+                result['ParamValue'].append(k.to_map() if k else None)
+        if self.required is not None:
+            result['Required'] = self.required
+        if self.title is not None:
+            result['Title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CanEditted') is not None:
+            self.can_editted = m.get('CanEditted')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('DefaultValue') is not None:
+            self.default_value = m.get('DefaultValue')
+        if m.get('Disabled') is not None:
+            self.disabled = m.get('Disabled')
+        if m.get('FormatCheck') is not None:
+            self.format_check = m.get('FormatCheck')
+        if m.get('Hit') is not None:
+            self.hit = m.get('Hit')
+        if m.get('ParaCode') is not None:
+            self.para_code = m.get('ParaCode')
+        if m.get('ParaLevel') is not None:
+            self.para_level = m.get('ParaLevel')
+        if m.get('ParaName') is not None:
+            self.para_name = m.get('ParaName')
+        if m.get('ParaType') is not None:
+            self.para_type = m.get('ParaType')
+        self.param_value = []
+        if m.get('ParamValue') is not None:
+            for k in m.get('ParamValue'):
+                temp_model = DescribeDataSourceParametersResponseBodyDataParamValue()
+                self.param_value.append(temp_model.from_map(k))
+        if m.get('Required') is not None:
+            self.required = m.get('Required')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        return self
+
+
+class DescribeDataSourceParametersResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: list[DescribeDataSourceParametersResponseBodyData]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDataSourceParametersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = DescribeDataSourceParametersResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDataSourceParametersResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDataSourceParametersResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDataSourceParametersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDataSourceParametersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDisposeAndPlaybookRequest(TeaModel):
     def __init__(self, current_page=None, entity_type=None, incident_uuid=None, page_size=None, region_id=None):
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The entity type. Valid values:
+        # 
+        # *   ip: IP address
+        # *   process: process
+        # *   file: file
         self.entity_type = entity_type  # type: str
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The number of entries to return on each page. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The data management center of the threat analysis feature. Specify this parameter based on the region in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -6450,8 +9097,11 @@ class DescribeDisposeAndPlaybookRequest(TeaModel):
 
 class DescribeDisposeAndPlaybookResponseBodyDataPageInfo(TeaModel):
     def __init__(self, current_page=None, page_size=None, total_count=None):
+        # The current page number.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -6485,12 +9135,25 @@ class DescribeDisposeAndPlaybookResponseBodyDataPageInfo(TeaModel):
 class DescribeDisposeAndPlaybookResponseBodyDataResponseDataPlaybookList(TeaModel):
     def __init__(self, description=None, display_name=None, name=None, op_code=None, op_level=None, task_config=None,
                  waf_playbook=None):
+        # The playbook description.
         self.description = description  # type: str
+        # The display name of the playbook.
         self.display_name = display_name  # type: str
+        # The playbook name, which is the unique identifier of the playbook.
         self.name = name  # type: str
+        # The opcode of the playbook, which corresponds to the opcode of the playbook recommended for entity handling.
         self.op_code = op_code  # type: str
+        # Indicates whether quick event handling is selected by default. Valid values:
+        # 
+        # *   2: Quick event handling is selected.
+        # *   1: Quick event handling is displayed but not selected.
         self.op_level = op_level  # type: str
+        # The opcode configuration.
         self.task_config = task_config  # type: str
+        # Indicates whether the playbook is intended for Web Application Firewall (WAF). Valid values:
+        # 
+        # *   true
+        # *   false
         self.waf_playbook = waf_playbook  # type: bool
 
     def validate(self):
@@ -6540,13 +9203,21 @@ class DescribeDisposeAndPlaybookResponseBodyDataResponseDataPlaybookList(TeaMode
 class DescribeDisposeAndPlaybookResponseBodyDataResponseData(TeaModel):
     def __init__(self, alert_num=None, dispose=None, entity_id=None, entity_info=None, opcode_map=None,
                  opcode_set=None, playbook_list=None, scope=None):
+        # The number of alerts that are associated with the entity.
         self.alert_num = alert_num  # type: int
+        # The object for handling.
         self.dispose = dispose  # type: str
+        # The entity ID
         self.entity_id = entity_id  # type: long
+        # The entity information.
         self.entity_info = entity_info  # type: dict[str, any]
+        # The key-value pairs each of which consists of opcode and oplevel.
         self.opcode_map = opcode_map  # type: dict[str, str]
+        # An array consisting of the codes of playbooks that are recommended for entity handling.
         self.opcode_set = opcode_set  # type: list[str]
+        # The playbooks that can handle the entity.
         self.playbook_list = playbook_list  # type: list[DescribeDisposeAndPlaybookResponseBodyDataResponseDataPlaybookList]
+        # An array consisting of the IDs of the users who can handle objects.
         self.scope = scope  # type: list[any]
 
     def validate(self):
@@ -6607,7 +9278,9 @@ class DescribeDisposeAndPlaybookResponseBodyDataResponseData(TeaModel):
 
 class DescribeDisposeAndPlaybookResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
+        # The pagination information.
         self.page_info = page_info  # type: DescribeDisposeAndPlaybookResponseBodyDataPageInfo
+        # The detailed data
         self.response_data = response_data  # type: list[DescribeDisposeAndPlaybookResponseBodyDataResponseData]
 
     def validate(self):
@@ -6647,10 +9320,18 @@ class DescribeDisposeAndPlaybookResponseBodyData(TeaModel):
 
 class DescribeDisposeAndPlaybookResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code that is returned.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeDisposeAndPlaybookResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -6732,8 +9413,14 @@ class DescribeDisposeAndPlaybookResponse(TeaModel):
 
 class DescribeDisposeStrategyPlaybookRequest(TeaModel):
     def __init__(self, end_time=None, region_id=None, start_time=None):
+        # The end of the time range to query. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The data management center of the threat analysis feature. Specify this parameter based on the region in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -6766,7 +9453,9 @@ class DescribeDisposeStrategyPlaybookRequest(TeaModel):
 
 class DescribeDisposeStrategyPlaybookResponseBodyData(TeaModel):
     def __init__(self, playbook_name=None, playbook_uuid=None):
+        # The playbook name, which is the unique identifier of the playbook.
         self.playbook_name = playbook_name  # type: str
+        # The UUID of the playbook.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -6795,10 +9484,18 @@ class DescribeDisposeStrategyPlaybookResponseBodyData(TeaModel):
 
 class DescribeDisposeStrategyPlaybookResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code that is returned.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeDisposeStrategyPlaybookResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -6887,10 +9584,18 @@ class DescribeDisposeStrategyPlaybookResponse(TeaModel):
 class DescribeEntityInfoRequest(TeaModel):
     def __init__(self, entity_id=None, entity_identity=None, incident_uuid=None, region_id=None,
                  sophon_task_id=None):
+        # The logical ID of the entity.
         self.entity_id = entity_id  # type: long
+        # The feature value of the entity. Fuzzy match is supported.
         self.entity_identity = entity_identity  # type: str
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The ID of the SOAR handling policy.
         self.sophon_task_id = sophon_task_id  # type: str
 
     def validate(self):
@@ -6931,9 +9636,20 @@ class DescribeEntityInfoRequest(TeaModel):
 
 class DescribeEntityInfoResponseBodyData(TeaModel):
     def __init__(self, entity_id=None, entity_info=None, entity_type=None, tip_info=None):
+        # The logical ID of the entity.
         self.entity_id = entity_id  # type: long
+        # The information about the entry.
         self.entity_info = entity_info  # type: dict[str, any]
+        # The type of the entity. Valid values:
+        # 
+        # *   ip
+        # *   domain
+        # *   url
+        # *   process
+        # *   file
+        # *   host
         self.entity_type = entity_type  # type: str
+        # The information about the risk Intelligence.
         self.tip_info = tip_info  # type: dict[str, any]
 
     def validate(self):
@@ -6970,10 +9686,18 @@ class DescribeEntityInfoResponseBodyData(TeaModel):
 
 class DescribeEntityInfoResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeEntityInfoResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -7055,6 +9779,10 @@ class DescribeEntityInfoResponse(TeaModel):
 
 class DescribeEventCountByThreatLevelRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7080,10 +9808,15 @@ class DescribeEventCountByThreatLevelRequest(TeaModel):
 class DescribeEventCountByThreatLevelResponseBodyData(TeaModel):
     def __init__(self, event_num=None, high_level_event_num=None, low_level_event_num=None,
                  medium_level_event_num=None, undeal_event_num=None):
+        # The total number of events.
         self.event_num = event_num  # type: long
+        # The number of high-risk events.
         self.high_level_event_num = high_level_event_num  # type: long
+        # The number of low-risk events.
         self.low_level_event_num = low_level_event_num  # type: long
+        # The number of medium-risk events.
         self.medium_level_event_num = medium_level_event_num  # type: long
+        # The number of unhandled events.
         self.undeal_event_num = undeal_event_num  # type: long
 
     def validate(self):
@@ -7124,10 +9857,18 @@ class DescribeEventCountByThreatLevelResponseBodyData(TeaModel):
 
 class DescribeEventCountByThreatLevelResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeEventCountByThreatLevelResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -7209,9 +9950,16 @@ class DescribeEventCountByThreatLevelResponse(TeaModel):
 
 class DescribeEventDisposeRequest(TeaModel):
     def __init__(self, current_page=None, incident_uuid=None, page_size=None, region_id=None):
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The number of entries to return on each page. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The data management center of the threat analysis feature. Specify this parameter based on the region in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7249,13 +9997,27 @@ class DescribeEventDisposeRequest(TeaModel):
 class DescribeEventDisposeResponseBodyDataReceiverInfo(TeaModel):
     def __init__(self, channel=None, gmt_create=None, gmt_modified=None, id=None, incident_uuid=None,
                  message_title=None, receiver=None, status=None):
+        # The channel of the contact information. Valid values:
+        # 
+        # *   message
+        # *   mail
         self.channel = channel  # type: str
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
+        # The modification time.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the recipient who receives the event handling result.
         self.id = id  # type: long
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The message title.
         self.message_title = message_title  # type: str
+        # The contact information of the recipient.
         self.receiver = receiver  # type: str
+        # Indicates whether the message is sent. Valid values:
+        # 
+        # *   0: not sent
+        # *   1: sent
         self.status = status  # type: int
 
     def validate(self):
@@ -7308,9 +10070,18 @@ class DescribeEventDisposeResponseBodyDataReceiverInfo(TeaModel):
 
 class DescribeEventDisposeResponseBodyData(TeaModel):
     def __init__(self, event_dispose=None, receiver_info=None, remark=None, status=None):
+        # An array consisting of JSON objects that are configured for event handling.
         self.event_dispose = event_dispose  # type: list[any]
+        # The JSON object that is configured for an alert recipient.
         self.receiver_info = receiver_info  # type: DescribeEventDisposeResponseBodyDataReceiverInfo
+        # The description of the event.
         self.remark = remark  # type: str
+        # The status of the event. Valid values:
+        # 
+        # *   0: not handled
+        # *   1: handing
+        # *   5: handling failed
+        # *   10: handled
         self.status = status  # type: int
 
     def validate(self):
@@ -7349,10 +10120,18 @@ class DescribeEventDisposeResponseBodyData(TeaModel):
 
 class DescribeEventDisposeResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code that is returned.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeEventDisposeResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -7428,6 +10207,134 @@ class DescribeEventDisposeResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeEventDisposeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeImportedLogCountRequest(TeaModel):
+    def __init__(self, region_id=None):
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImportedLogCountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeImportedLogCountResponseBodyData(TeaModel):
+    def __init__(self, imported_log_count=None, total_log_count=None, un_imported_log_count=None):
+        self.imported_log_count = imported_log_count  # type: int
+        self.total_log_count = total_log_count  # type: int
+        self.un_imported_log_count = un_imported_log_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImportedLogCountResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.imported_log_count is not None:
+            result['ImportedLogCount'] = self.imported_log_count
+        if self.total_log_count is not None:
+            result['TotalLogCount'] = self.total_log_count
+        if self.un_imported_log_count is not None:
+            result['UnImportedLogCount'] = self.un_imported_log_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ImportedLogCount') is not None:
+            self.imported_log_count = m.get('ImportedLogCount')
+        if m.get('TotalLogCount') is not None:
+            self.total_log_count = m.get('TotalLogCount')
+        if m.get('UnImportedLogCount') is not None:
+            self.un_imported_log_count = m.get('UnImportedLogCount')
+        return self
+
+
+class DescribeImportedLogCountResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: DescribeImportedLogCountResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeImportedLogCountResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = DescribeImportedLogCountResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeImportedLogCountResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeImportedLogCountResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeImportedLogCountResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeImportedLogCountResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -7740,8 +10647,14 @@ class DescribeJobStatusResponse(TeaModel):
 
 class DescribeLogFieldsRequest(TeaModel):
     def __init__(self, log_source=None, log_type=None, region_id=None):
+        # The log source of the rule.
         self.log_source = log_source  # type: str
+        # The log type of the rule.
         self.log_type = log_type  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7774,10 +10687,18 @@ class DescribeLogFieldsRequest(TeaModel):
 
 class DescribeLogFieldsResponseBodyData(TeaModel):
     def __init__(self, activity_name=None, field_desc=None, field_name=None, field_type=None, log_code=None):
+        # The type of the log to which the field belongs.
         self.activity_name = activity_name  # type: str
+        # The internal code of the field description.
         self.field_desc = field_desc  # type: str
+        # The name of the field.
         self.field_name = field_name  # type: str
+        # The data type of the field. Valid values:
+        # 
+        # *   varchar
+        # *   bigint
         self.field_type = field_type  # type: str
+        # The log source to which the field belongs.
         self.log_code = log_code  # type: str
 
     def validate(self):
@@ -7818,10 +10739,18 @@ class DescribeLogFieldsResponseBodyData(TeaModel):
 
 class DescribeLogFieldsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeLogFieldsResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -7909,7 +10838,12 @@ class DescribeLogFieldsResponse(TeaModel):
 
 class DescribeLogSourceRequest(TeaModel):
     def __init__(self, log_type=None, region_id=None):
+        # The log type of the rule.
         self.log_type = log_type  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7938,7 +10872,9 @@ class DescribeLogSourceRequest(TeaModel):
 
 class DescribeLogSourceResponseBodyData(TeaModel):
     def __init__(self, log_source=None, log_source_name=None):
+        # The log source of the rule.
         self.log_source = log_source  # type: str
+        # The internal code of the log source.
         self.log_source_name = log_source_name  # type: str
 
     def validate(self):
@@ -7967,10 +10903,18 @@ class DescribeLogSourceResponseBodyData(TeaModel):
 
 class DescribeLogSourceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeLogSourceResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -8058,6 +11002,10 @@ class DescribeLogSourceResponse(TeaModel):
 
 class DescribeLogStoreRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -8083,12 +11031,28 @@ class DescribeLogStoreRequest(TeaModel):
 class DescribeLogStoreResponseBodyData(TeaModel):
     def __init__(self, append_meta=None, auto_split=None, enable_tracking=None, log_store_name=None,
                  max_split_shard=None, shard_count=None, ttl=None):
+        # Indicates whether the following time points are added after the log arrives: the time points when the public IP address of the client and the log arrive. Valid values:
+        # 
+        # *   true
+        # *   false
         self.append_meta = append_meta  # type: bool
+        # Indicates whether the automatic sharding feature is enabled. Valid values:
+        # 
+        # *   true
+        # *   false
         self.auto_split = auto_split  # type: bool
+        # Indicates whether the web tracking feature is enabled to collect user information from browsers, iOS applications, or Android applications. Valid values:
+        # 
+        # *   true
+        # *   false
         self.enable_tracking = enable_tracking  # type: bool
+        # The name of the Logstore in Simple Log Service.
         self.log_store_name = log_store_name  # type: str
+        # The maximum number of shards that can be generated by using the automatic sharding feature.
         self.max_split_shard = max_split_shard  # type: int
+        # The number of shards in Log Service.
         self.shard_count = shard_count  # type: int
+        # The retention period of data. Unit: day.
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -8136,16 +11100,11 @@ class DescribeLogStoreResponseBodyData(TeaModel):
 
 
 class DescribeLogStoreResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # The response of the threat analysis feature.
         self.data = data  # type: DescribeLogStoreResponseBodyData
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         if self.data:
@@ -8157,43 +11116,19 @@ class DescribeLogStoreResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data.to_map()
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             temp_model = DescribeLogStoreResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -8238,6 +11173,10 @@ class DescribeLogStoreResponse(TeaModel):
 
 class DescribeLogTypeRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -8262,7 +11201,9 @@ class DescribeLogTypeRequest(TeaModel):
 
 class DescribeLogTypeResponseBodyData(TeaModel):
     def __init__(self, log_type=None, log_type_name=None):
+        # The log type of the rule.
         self.log_type = log_type  # type: str
+        # The internal code of the log type.
         self.log_type_name = log_type_name  # type: str
 
     def validate(self):
@@ -8291,10 +11232,18 @@ class DescribeLogTypeResponseBodyData(TeaModel):
 
 class DescribeLogTypeResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeLogTypeResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -8382,7 +11331,15 @@ class DescribeLogTypeResponse(TeaModel):
 
 class DescribeOperatorsRequest(TeaModel):
     def __init__(self, region_id=None, scene_type=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The type of the scenario in which the operator is used. Valid values:
+        # 
+        # *   If you do not specify this parameter, the default scenario is used.
+        # *   AGGREGATE: AGGREGATE scenario.
         self.scene_type = scene_type  # type: str
 
     def validate(self):
@@ -8412,12 +11369,19 @@ class DescribeOperatorsRequest(TeaModel):
 class DescribeOperatorsResponseBodyData(TeaModel):
     def __init__(self, index=None, operator=None, operator_desc_cn=None, operator_desc_en=None, operator_name=None,
                  support_data_type=None, support_tag=None):
+        # The position of the operator in the operator list.
         self.index = index  # type: int
+        # The operator.
         self.operator = operator  # type: str
+        # The description of the operator in Chinese.
         self.operator_desc_cn = operator_desc_cn  # type: str
+        # The description of the operator in English.
         self.operator_desc_en = operator_desc_en  # type: str
+        # The display name of the operator.
         self.operator_name = operator_name  # type: str
+        # The data types that are supported by the current operator. The data types are separated by commas (,).
         self.support_data_type = support_data_type  # type: str
+        # The scenarios that are supported by the operator. Multiple scenarios are separated by commas (,), such as AGGREGATE scenarios. This parameter is empty by default.
         self.support_tag = support_tag  # type: list[str]
 
     def validate(self):
@@ -8466,10 +11430,18 @@ class DescribeOperatorsResponseBodyData(TeaModel):
 
 class DescribeOperatorsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeOperatorsResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -8555,8 +11527,140 @@ class DescribeOperatorsResponse(TeaModel):
         return self
 
 
+class DescribeProdCountRequest(TeaModel):
+    def __init__(self, region_id=None):
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeProdCountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeProdCountResponseBodyData(TeaModel):
+    def __init__(self, aliyun_prod_count=None, hcloud_prod_count=None, qcloud_prod_count=None):
+        self.aliyun_prod_count = aliyun_prod_count  # type: int
+        self.hcloud_prod_count = hcloud_prod_count  # type: int
+        self.qcloud_prod_count = qcloud_prod_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeProdCountResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aliyun_prod_count is not None:
+            result['AliyunProdCount'] = self.aliyun_prod_count
+        if self.hcloud_prod_count is not None:
+            result['HcloudProdCount'] = self.hcloud_prod_count
+        if self.qcloud_prod_count is not None:
+            result['QcloudProdCount'] = self.qcloud_prod_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliyunProdCount') is not None:
+            self.aliyun_prod_count = m.get('AliyunProdCount')
+        if m.get('HcloudProdCount') is not None:
+            self.hcloud_prod_count = m.get('HcloudProdCount')
+        if m.get('QcloudProdCount') is not None:
+            self.qcloud_prod_count = m.get('QcloudProdCount')
+        return self
+
+
+class DescribeProdCountResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: DescribeProdCountResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeProdCountResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = DescribeProdCountResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeProdCountResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeProdCountResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeProdCountResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeProdCountResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeScopeUsersRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The data management center of the threat analysis feature. Specify this parameter based on the region in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -8581,9 +11685,13 @@ class DescribeScopeUsersRequest(TeaModel):
 
 class DescribeScopeUsersResponseBodyData(TeaModel):
     def __init__(self, ali_uid=None, domains=None, instance_id=None, user_name=None):
+        # The ID of the security information and event management (SIEM) user.
         self.ali_uid = ali_uid  # type: long
+        # An array consisting of the domain names that are protected by the WAF instance.
         self.domains = domains  # type: list[str]
+        # The ID of the Web Application Firewall (WAF) instance.
         self.instance_id = instance_id  # type: str
+        # The username.
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -8620,10 +11728,18 @@ class DescribeScopeUsersResponseBodyData(TeaModel):
 
 class DescribeScopeUsersResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code that is returned.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeScopeUsersResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -8709,8 +11825,104 @@ class DescribeScopeUsersResponse(TeaModel):
         return self
 
 
+class DescribeServiceStatusRequest(TeaModel):
+    def __init__(self, region_id=None):
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeServiceStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeServiceStatusResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeServiceStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeServiceStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeServiceStatusResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeServiceStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeServiceStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeStorageRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -8734,16 +11946,14 @@ class DescribeStorageRequest(TeaModel):
 
 
 class DescribeStorageResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # Indicates whether the projects and Logstores that are created for the threat analysis feature exist in Simple Log Service. Valid values:
+        # 
+        # *   true
+        # *   false
         self.data = data  # type: bool
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -8754,42 +11964,18 @@ class DescribeStorageResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -8832,9 +12018,189 @@ class DescribeStorageResponse(TeaModel):
         return self
 
 
+class DescribeUserBuyStatusRequest(TeaModel):
+    def __init__(self, region_id=None, sub_user_id=None):
+        self.region_id = region_id  # type: str
+        self.sub_user_id = sub_user_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeUserBuyStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.sub_user_id is not None:
+            result['SubUserId'] = self.sub_user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SubUserId') is not None:
+            self.sub_user_id = m.get('SubUserId')
+        return self
+
+
+class DescribeUserBuyStatusResponseBodyData(TeaModel):
+    def __init__(self, can_buy=None, capacity=None, duration_days=None, end_time=None, main_user_id=None,
+                 main_user_name=None, master_user_id=None, master_user_name=None, sas_instance_id=None, sub_user_id=None,
+                 sub_user_name=None):
+        self.can_buy = can_buy  # type: bool
+        self.capacity = capacity  # type: int
+        self.duration_days = duration_days  # type: long
+        self.end_time = end_time  # type: long
+        self.main_user_id = main_user_id  # type: long
+        self.main_user_name = main_user_name  # type: str
+        self.master_user_id = master_user_id  # type: long
+        self.master_user_name = master_user_name  # type: str
+        self.sas_instance_id = sas_instance_id  # type: str
+        self.sub_user_id = sub_user_id  # type: long
+        self.sub_user_name = sub_user_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeUserBuyStatusResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.can_buy is not None:
+            result['CanBuy'] = self.can_buy
+        if self.capacity is not None:
+            result['Capacity'] = self.capacity
+        if self.duration_days is not None:
+            result['DurationDays'] = self.duration_days
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.main_user_id is not None:
+            result['MainUserId'] = self.main_user_id
+        if self.main_user_name is not None:
+            result['MainUserName'] = self.main_user_name
+        if self.master_user_id is not None:
+            result['MasterUserId'] = self.master_user_id
+        if self.master_user_name is not None:
+            result['MasterUserName'] = self.master_user_name
+        if self.sas_instance_id is not None:
+            result['SasInstanceId'] = self.sas_instance_id
+        if self.sub_user_id is not None:
+            result['SubUserId'] = self.sub_user_id
+        if self.sub_user_name is not None:
+            result['SubUserName'] = self.sub_user_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CanBuy') is not None:
+            self.can_buy = m.get('CanBuy')
+        if m.get('Capacity') is not None:
+            self.capacity = m.get('Capacity')
+        if m.get('DurationDays') is not None:
+            self.duration_days = m.get('DurationDays')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('MainUserId') is not None:
+            self.main_user_id = m.get('MainUserId')
+        if m.get('MainUserName') is not None:
+            self.main_user_name = m.get('MainUserName')
+        if m.get('MasterUserId') is not None:
+            self.master_user_id = m.get('MasterUserId')
+        if m.get('MasterUserName') is not None:
+            self.master_user_name = m.get('MasterUserName')
+        if m.get('SasInstanceId') is not None:
+            self.sas_instance_id = m.get('SasInstanceId')
+        if m.get('SubUserId') is not None:
+            self.sub_user_id = m.get('SubUserId')
+        if m.get('SubUserName') is not None:
+            self.sub_user_name = m.get('SubUserName')
+        return self
+
+
+class DescribeUserBuyStatusResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: DescribeUserBuyStatusResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeUserBuyStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = DescribeUserBuyStatusResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeUserBuyStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeUserBuyStatusResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeUserBuyStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeUserBuyStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeWafScopeRequest(TeaModel):
     def __init__(self, entity_id=None, region_id=None):
+        # The ID of the entity.
         self.entity_id = entity_id  # type: long
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -8863,8 +12229,11 @@ class DescribeWafScopeRequest(TeaModel):
 
 class DescribeWafScopeResponseBodyData(TeaModel):
     def __init__(self, aliuid=None, domains=None, instance_id=None):
+        # The ID of the Alibaba Cloud account in SIEM.
         self.aliuid = aliuid  # type: long
+        # The domain names that are protected by the WAF instance.
         self.domains = domains  # type: list[str]
+        # The ID of the WAF instance.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -8897,10 +12266,18 @@ class DescribeWafScopeResponseBodyData(TeaModel):
 
 class DescribeWafScopeResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeWafScopeResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -9459,12 +12836,22 @@ class DescribeWhiteRuleListResponse(TeaModel):
 
 class DoQuickFieldRequest(TeaModel):
     def __init__(self, from_=None, index=None, page=None, region_id=None, reverse=None, size=None, to=None):
+        # The time when the quick analysis starts. This value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.from_ = from_  # type: int
+        # The index field.
         self.index = index  # type: str
+        # The number of pages to return. Default value: 1.
         self.page = page  # type: int
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
+        # The sorting of the query and analysis results. By default, the results are sorted in descending order.
         self.reverse = reverse  # type: bool
+        # The number of entries per page. Default value: 10.
         self.size = size  # type: int
+        # The time when the quick analysis ends. This value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.to = to  # type: int
 
     def validate(self):
@@ -9514,16 +12901,30 @@ class DoQuickFieldRequest(TeaModel):
 class DoQuickFieldResponseBodyData(TeaModel):
     def __init__(self, agg_queryd=None, complete_or_not=None, count=None, has_sql=None, keys=None, limited=None,
                  logs=None, pquery=None, processed_rows=None, query_mode=None, where_query=None):
+        # This parameter is deprecated.
         self.agg_queryd = agg_queryd  # type: str
+        # Indicates whether the quick analysis was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.complete_or_not = complete_or_not  # type: bool
+        # The number of entries returned.
         self.count = count  # type: int
+        # This parameter is deprecated.
         self.has_sql = has_sql  # type: bool
+        # This parameter is deprecated.
         self.keys = keys  # type: list[str]
+        # This parameter is deprecated.
         self.limited = limited  # type: long
+        # The logs queried by using the quick analysis feature.
         self.logs = logs  # type: list[any]
+        # This parameter is deprecated.
         self.pquery = pquery  # type: str
+        # The number of entries queried.
         self.processed_rows = processed_rows  # type: long
+        # This parameter is deprecated.
         self.query_mode = query_mode  # type: int
+        # This parameter is deprecated.
         self.where_query = where_query  # type: str
 
     def validate(self):
@@ -9587,16 +12988,11 @@ class DoQuickFieldResponseBodyData(TeaModel):
 
 
 class DoQuickFieldResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # The response of the quick analysis.
         self.data = data  # type: DoQuickFieldResponseBodyData
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         if self.data:
@@ -9608,43 +13004,19 @@ class DoQuickFieldResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data.to_map()
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             temp_model = DoQuickFieldResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -9689,8 +13061,17 @@ class DoQuickFieldResponse(TeaModel):
 
 class DoSelfDelegateRequest(TeaModel):
     def __init__(self, ali_uid=None, delegate_or_not=None, region_id=None):
+        # The Alibaba Cloud account of an ordinary member of the threat analysis feature.
         self.ali_uid = ali_uid  # type: long
+        # Specifies whether to use a delegated administrator account. Valid values:
+        # 
+        # *   1: use a delegated administrator account.
+        # *   0: do not use a delegated administrator account.
         self.delegate_or_not = delegate_or_not  # type: int
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9722,16 +13103,14 @@ class DoSelfDelegateRequest(TeaModel):
 
 
 class DoSelfDelegateResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # Indicates whether a regular member is authorized. Valid values:
+        # 
+        # *   true: The member is authorized.
+        # *   false: The authorization is canceled.
         self.data = data  # type: bool
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -9742,42 +13121,18 @@ class DoSelfDelegateResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -9820,8 +13175,196 @@ class DoSelfDelegateResponse(TeaModel):
         return self
 
 
+class EnableAccessForCloudSiemRequest(TeaModel):
+    def __init__(self, region_id=None):
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableAccessForCloudSiemRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class EnableAccessForCloudSiemResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableAccessForCloudSiemResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class EnableAccessForCloudSiemResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: EnableAccessForCloudSiemResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(EnableAccessForCloudSiemResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = EnableAccessForCloudSiemResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class EnableServiceForCloudSiemRequest(TeaModel):
+    def __init__(self, region_id=None):
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableServiceForCloudSiemRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class EnableServiceForCloudSiemResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableServiceForCloudSiemResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class EnableServiceForCloudSiemResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: EnableServiceForCloudSiemResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(EnableServiceForCloudSiemResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = EnableServiceForCloudSiemResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetCapacityRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9846,8 +13389,14 @@ class GetCapacityRequest(TeaModel):
 
 class GetCapacityResponseBodyData(TeaModel):
     def __init__(self, exist_log_store=None, preserved_capacity=None, used_capacity=None):
+        # Indicates whether the Logstores for the threat analysis feature exist on the user side. Valid values:
+        # 
+        # *   true: The logs are in the normal state. The log analysis feature is available.
+        # *   false: The logs are being cleared. The log analysis feature is unavailable.
         self.exist_log_store = exist_log_store  # type: bool
+        # The purchased storage capacity of the threat analysis feature. Unit: GB.
         self.preserved_capacity = preserved_capacity  # type: long
+        # The billable storage capacity of the threat analysis feature. Unit: GB.
         self.used_capacity = used_capacity  # type: float
 
     def validate(self):
@@ -9879,16 +13428,11 @@ class GetCapacityResponseBodyData(TeaModel):
 
 
 class GetCapacityResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # The information about the storage capacity.
         self.data = data  # type: GetCapacityResponseBodyData
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         if self.data:
@@ -9900,43 +13444,19 @@ class GetCapacityResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data.to_map()
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             temp_model = GetCapacityResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -9981,9 +13501,16 @@ class GetCapacityResponse(TeaModel):
 
 class GetHistogramsRequest(TeaModel):
     def __init__(self, from_=None, query=None, region_id=None, to=None):
+        # The start time of the subinterval. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC. The time range that is specified in this operation is a left-closed, right-open interval. The interval includes the start time specified by the from parameter, but does not include the end time specified by the to parameter. If you specify the same value for the from and to parameters, the interval is invalid, and an error message is returned.
         self.from_ = from_  # type: int
+        # The SQL statement. Only search statements are supported. Analytic statements are not supported. For more information about the syntax and limits of search statements, see [Log search overview](https://help.aliyun.com/zh/sls/user-guide/search-syntax?spm=a2c4g.11186623.0.i2#concept-tnd-1jq-zdb).
         self.query = query  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
+        # The end time of the subinterval. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC. The time range that is specified in this operation is a left-closed, right-open interval. The interval includes the start time specified by the from parameter, but does not include the end time specified by the to parameter. If you specify the same value for the from and to parameters, the interval is invalid, and an error message is returned.
         self.to = to  # type: int
 
     def validate(self):
@@ -10020,9 +13547,16 @@ class GetHistogramsRequest(TeaModel):
 
 class GetHistogramsResponseBodyDataHistograms(TeaModel):
     def __init__(self, completed_or_not=None, count=None, from_=None, to=None):
+        # Indicates whether the query results within the subinterval is complete. Valid values:
+        # 
+        # *   true: The query is complete and the returned result is complete.
+        # *   false: The query is complete but the returned result is incomplete. You must repeat the request to obtain the complete result.
         self.completed_or_not = completed_or_not  # type: bool
+        # The number of logs within the subinterval.
         self.count = count  # type: long
+        # The start time of the subinterval. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.from_ = from_  # type: int
+        # The end time of the subinterval. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.to = to  # type: int
 
     def validate(self):
@@ -10059,8 +13593,11 @@ class GetHistogramsResponseBodyDataHistograms(TeaModel):
 
 class GetHistogramsResponseBodyData(TeaModel):
     def __init__(self, histograms=None, server=None, total_count=None):
+        # The distribution of logs.
         self.histograms = histograms  # type: list[GetHistogramsResponseBodyDataHistograms]
+        # The name of the server.
         self.server = server  # type: str
+        # The number of logs that are generated within the subinterval.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -10100,16 +13637,11 @@ class GetHistogramsResponseBodyData(TeaModel):
 
 
 class GetHistogramsResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # The data of the charts.
         self.data = data  # type: GetHistogramsResponseBodyData
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         if self.data:
@@ -10121,43 +13653,19 @@ class GetHistogramsResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data.to_map()
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             temp_model = GetHistogramsResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -10203,13 +13711,27 @@ class GetHistogramsResponse(TeaModel):
 class GetLogsRequest(TeaModel):
     def __init__(self, from_=None, page_index=None, page_size=None, query=None, region_id=None, reverse_or_not=None,
                  to=None, total=None):
+        # The time when the query starts. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.from_ = from_  # type: int
+        # The page number. Pages start from page 1.
         self.page_index = page_index  # type: int
+        # The number of entries per page. Valid values: 0 to 100.
         self.page_size = page_size  # type: int
+        # The search statement or the analytic statement. For more information, see [Log search overview](https://help.aliyun.com/zh/sls/user-guide/log-analysis-overview?spm=a2c4g.11186623.0.i1#t13103.html) and [Log analysis overview](https://help.aliyun.com/zh/sls/user-guide/search-syntax?spm=a2c4g.11186623.0.i0#concept-tnd-1jq-zdb).
         self.query = query  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
+        # Specifies whether to sort the results of the log query by time in minutes in descending order. Default value: true. Valid values:
+        # 
+        # *   true
+        # *   false
         self.reverse_or_not = reverse_or_not  # type: bool
+        # The time when the query ends. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.to = to  # type: int
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
@@ -10262,8 +13784,11 @@ class GetLogsRequest(TeaModel):
 
 class GetLogsResponseBodyDataPageInfo(TeaModel):
     def __init__(self, current_page=None, page_size=None, total_count=None):
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -10296,11 +13821,23 @@ class GetLogsResponseBodyDataPageInfo(TeaModel):
 
 class GetLogsResponseBodyDataResponseData(TeaModel):
     def __init__(self, complete_or_not=None, cost=None, count=None, has_sql=None, keys=None, lines=None):
+        # The status of the log query. Valid values:
+        # 
+        # *   true: The query is complete and the returned result is complete.
+        # *   false: The query is complete but the returned result is incomplete. You must resend the request to obtain the complete result.
         self.complete_or_not = complete_or_not  # type: bool
+        # The time period of the log query. Unit: milliseconds.
         self.cost = cost  # type: long
+        # The number of entries returned.
         self.count = count  # type: int
+        # Indicated whether an analytic statement is contained. Valid values:
+        # 
+        # *   true
+        # *   false
         self.has_sql = has_sql  # type: bool
+        # The index fields of the logs.
         self.keys = keys  # type: list[str]
+        # The raw data generated in the query.
         self.lines = lines  # type: list[any]
 
     def validate(self):
@@ -10345,7 +13882,9 @@ class GetLogsResponseBodyDataResponseData(TeaModel):
 
 class GetLogsResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
+        # The result on the current page.
         self.page_info = page_info  # type: GetLogsResponseBodyDataPageInfo
+        # The log.
         self.response_data = response_data  # type: GetLogsResponseBodyDataResponseData
 
     def validate(self):
@@ -10379,10 +13918,18 @@ class GetLogsResponseBodyData(TeaModel):
 
 class GetLogsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The results of the log query.
         self.data = data  # type: GetLogsResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -10464,7 +14011,12 @@ class GetLogsResponse(TeaModel):
 
 class GetQuickQueryRequest(TeaModel):
     def __init__(self, region_id=None, search_name=None):
+        # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
+        # The name of the saved search.
         self.search_name = search_name  # type: str
 
     def validate(self):
@@ -10492,16 +14044,11 @@ class GetQuickQueryRequest(TeaModel):
 
 
 class GetQuickQueryResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # The query statement.
         self.data = data  # type: str
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -10512,42 +14059,18 @@ class GetQuickQueryResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -10592,6 +14115,10 @@ class GetQuickQueryResponse(TeaModel):
 
 class GetStorageRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -10616,9 +14143,19 @@ class GetStorageRequest(TeaModel):
 
 class GetStorageResponseBodyData(TeaModel):
     def __init__(self, can_operate=None, display_region=None, region=None, ttl=None):
+        # Indicates whether the storage region can be changed for once. Default value: false Valid values:
+        # 
+        # *   true
+        # *   false
         self.can_operate = can_operate  # type: bool
+        # Indicates whether the storage region can be changed. Default value: false Valid values:
+        # 
+        # *   true
+        # *   false
         self.display_region = display_region  # type: bool
+        # The region in which the logs are stored. Default value: cn-shanghai. Valid values: cn-shanghai for the China site and ap-southeast-1 for the international site.
         self.region = region  # type: str
+        # The storage period of logs. Unit: day. Default value: 180. Valid values: 30 to 3000.
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -10654,16 +14191,11 @@ class GetStorageResponseBodyData(TeaModel):
 
 
 class GetStorageResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # The information about the storage.
         self.data = data  # type: GetStorageResponseBodyData
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         if self.data:
@@ -10675,43 +14207,19 @@ class GetStorageResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data.to_map()
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             temp_model = GetStorageResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -10754,18 +14262,572 @@ class GetStorageResponse(TeaModel):
         return self
 
 
+class ListAccountAccessIdRequest(TeaModel):
+    def __init__(self, cloud_code=None, region_id=None):
+        self.cloud_code = cloud_code  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAccountAccessIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListAccountAccessIdResponseBodyData(TeaModel):
+    def __init__(self, access_id=None, access_id_md_5=None, account_id=None, account_str=None, bound=None,
+                 cloud_code=None, sub_user_id=None):
+        self.access_id = access_id  # type: str
+        self.access_id_md_5 = access_id_md_5  # type: str
+        self.account_id = account_id  # type: str
+        self.account_str = account_str  # type: str
+        self.bound = bound  # type: int
+        self.cloud_code = cloud_code  # type: str
+        self.sub_user_id = sub_user_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAccountAccessIdResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_id is not None:
+            result['AccessId'] = self.access_id
+        if self.access_id_md_5 is not None:
+            result['AccessIdMd5'] = self.access_id_md_5
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.account_str is not None:
+            result['AccountStr'] = self.account_str
+        if self.bound is not None:
+            result['Bound'] = self.bound
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.sub_user_id is not None:
+            result['SubUserId'] = self.sub_user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessId') is not None:
+            self.access_id = m.get('AccessId')
+        if m.get('AccessIdMd5') is not None:
+            self.access_id_md_5 = m.get('AccessIdMd5')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AccountStr') is not None:
+            self.account_str = m.get('AccountStr')
+        if m.get('Bound') is not None:
+            self.bound = m.get('Bound')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('SubUserId') is not None:
+            self.sub_user_id = m.get('SubUserId')
+        return self
+
+
+class ListAccountAccessIdResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: list[ListAccountAccessIdResponseBodyData]
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListAccountAccessIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListAccountAccessIdResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListAccountAccessIdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListAccountAccessIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListAccountAccessIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListAccountAccessIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListAccountsByLogRequest(TeaModel):
+    def __init__(self, cloud_code=None, log_codes=None, prod_code=None, region_id=None):
+        self.cloud_code = cloud_code  # type: str
+        self.log_codes = log_codes  # type: list[str]
+        self.prod_code = prod_code  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAccountsByLogRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.log_codes is not None:
+            result['LogCodes'] = self.log_codes
+        if self.prod_code is not None:
+            result['ProdCode'] = self.prod_code
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('LogCodes') is not None:
+            self.log_codes = m.get('LogCodes')
+        if m.get('ProdCode') is not None:
+            self.prod_code = m.get('ProdCode')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListAccountsByLogResponseBodyData(TeaModel):
+    def __init__(self, account_id=None, account_name=None, imported=None, log_code=None, main_user_id=None,
+                 prod_code=None, sub_user_id=None):
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.imported = imported  # type: int
+        self.log_code = log_code  # type: str
+        self.main_user_id = main_user_id  # type: long
+        self.prod_code = prod_code  # type: str
+        self.sub_user_id = sub_user_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAccountsByLogResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        if self.imported is not None:
+            result['Imported'] = self.imported
+        if self.log_code is not None:
+            result['LogCode'] = self.log_code
+        if self.main_user_id is not None:
+            result['MainUserId'] = self.main_user_id
+        if self.prod_code is not None:
+            result['ProdCode'] = self.prod_code
+        if self.sub_user_id is not None:
+            result['SubUserId'] = self.sub_user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        if m.get('Imported') is not None:
+            self.imported = m.get('Imported')
+        if m.get('LogCode') is not None:
+            self.log_code = m.get('LogCode')
+        if m.get('MainUserId') is not None:
+            self.main_user_id = m.get('MainUserId')
+        if m.get('ProdCode') is not None:
+            self.prod_code = m.get('ProdCode')
+        if m.get('SubUserId') is not None:
+            self.sub_user_id = m.get('SubUserId')
+        return self
+
+
+class ListAccountsByLogResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: list[ListAccountsByLogResponseBodyData]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListAccountsByLogResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListAccountsByLogResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListAccountsByLogResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListAccountsByLogResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListAccountsByLogResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListAccountsByLogResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListAllProdsRequest(TeaModel):
+    def __init__(self, region_id=None):
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAllProdsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListAllProdsResponseBodyDataProdList(TeaModel):
+    def __init__(self, cloud_code=None, imported_log_count=None, modify_time=None, prod_code=None,
+                 total_log_count=None):
+        self.cloud_code = cloud_code  # type: str
+        self.imported_log_count = imported_log_count  # type: int
+        self.modify_time = modify_time  # type: str
+        self.prod_code = prod_code  # type: str
+        self.total_log_count = total_log_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAllProdsResponseBodyDataProdList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.imported_log_count is not None:
+            result['ImportedLogCount'] = self.imported_log_count
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.prod_code is not None:
+            result['ProdCode'] = self.prod_code
+        if self.total_log_count is not None:
+            result['TotalLogCount'] = self.total_log_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('ImportedLogCount') is not None:
+            self.imported_log_count = m.get('ImportedLogCount')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('ProdCode') is not None:
+            self.prod_code = m.get('ProdCode')
+        if m.get('TotalLogCount') is not None:
+            self.total_log_count = m.get('TotalLogCount')
+        return self
+
+
+class ListAllProdsResponseBodyData(TeaModel):
+    def __init__(self, current_page=None, page_size=None, prod_list=None, total_count=None):
+        self.current_page = current_page  # type: int
+        self.page_size = page_size  # type: int
+        self.prod_list = prod_list  # type: list[ListAllProdsResponseBodyDataProdList]
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.prod_list:
+            for k in self.prod_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListAllProdsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        result['ProdList'] = []
+        if self.prod_list is not None:
+            for k in self.prod_list:
+                result['ProdList'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        self.prod_list = []
+        if m.get('ProdList') is not None:
+            for k in m.get('ProdList'):
+                temp_model = ListAllProdsResponseBodyDataProdList()
+                self.prod_list.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListAllProdsResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: ListAllProdsResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListAllProdsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = ListAllProdsResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListAllProdsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListAllProdsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListAllProdsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListAllProdsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListAutomateResponseConfigsRequest(TeaModel):
     def __init__(self, action_type=None, auto_response_type=None, current_page=None, id=None, page_size=None,
                  playbook_uuid=None, region_id=None, rule_name=None, status=None, sub_user_id=None):
+        # The type of the handling action. Valid values:
+        # 
+        # *   doPlaybook: runs a playbook.
+        # *   changeEventStatus: changes the status of an event.
+        # *   changeThreatLevel: changes the risk level of an event.
         self.action_type = action_type  # type: str
+        # The type of the automated response rule. Valid values:
+        # 
+        # *   event
+        # *   alert
         self.auto_response_type = auto_response_type  # type: str
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The ID of the automated response rule.
         self.id = id  # type: long
+        # The number of entries per page. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The UUID of the playbook.
         self.playbook_uuid = playbook_uuid  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The name of the automated response rule.
         self.rule_name = rule_name  # type: str
+        # The status of the rule. Valid values:
+        # 
+        # *   0: disabled
+        # *   100: enabled
         self.status = status  # type: int
+        # The ID of the user who created the rule.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -10826,8 +14888,11 @@ class ListAutomateResponseConfigsRequest(TeaModel):
 
 class ListAutomateResponseConfigsResponseBodyDataPageInfo(TeaModel):
     def __init__(self, current_page=None, page_size=None, total_count=None):
+        # The current page number.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -10861,16 +14926,37 @@ class ListAutomateResponseConfigsResponseBodyDataPageInfo(TeaModel):
 class ListAutomateResponseConfigsResponseBodyDataResponseData(TeaModel):
     def __init__(self, action_config=None, action_type=None, aliuid=None, auto_response_type=None,
                  execution_condition=None, gmt_create=None, gmt_modified=None, id=None, rule_name=None, status=None, sub_user_id=None):
+        # The configuration of the action that is performed after the rule is hit. The value is in JSON format.
         self.action_config = action_config  # type: str
+        # The type of the handling action. Multiple types are separated by commas (,). Valid values:
+        # 
+        # *   doPlaybook: runs a playbook.
+        # *   changeEventStatus: changes the status of an event.
+        # *   changeThreatLevel: changes the risk level of an event.
         self.action_type = action_type  # type: str
+        # The ID of the Alibaba Cloud account that is associated with the rule in SIEM.
         self.aliuid = aliuid  # type: long
+        # The type of the automated response rule. Valid values:
+        # 
+        # *   event
+        # *   alert
         self.auto_response_type = auto_response_type  # type: str
+        # The trigger condition of the rule. The value is in the JSON format.
         self.execution_condition = execution_condition  # type: str
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
+        # The update time.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the automated response rule.
         self.id = id  # type: long
+        # The name of the automated response rule.
         self.rule_name = rule_name  # type: str
+        # The status of the rule. Valid values:
+        # 
+        # *   0: disabled
+        # *   100: enabled
         self.status = status  # type: int
+        # The ID of the user who created the rule.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -10935,7 +15021,9 @@ class ListAutomateResponseConfigsResponseBodyDataResponseData(TeaModel):
 
 class ListAutomateResponseConfigsResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
+        # The pagination information.
         self.page_info = page_info  # type: ListAutomateResponseConfigsResponseBodyDataPageInfo
+        # The detailed data.
         self.response_data = response_data  # type: list[ListAutomateResponseConfigsResponseBodyDataResponseData]
 
     def validate(self):
@@ -10975,10 +15063,18 @@ class ListAutomateResponseConfigsResponseBodyData(TeaModel):
 
 class ListAutomateResponseConfigsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: ListAutomateResponseConfigsResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -11058,19 +15154,386 @@ class ListAutomateResponseConfigsResponse(TeaModel):
         return self
 
 
+class ListBindAccountRequest(TeaModel):
+    def __init__(self, cloud_code=None, region_id=None):
+        self.cloud_code = cloud_code  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListBindAccountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListBindAccountResponseBodyData(TeaModel):
+    def __init__(self, access_id=None, account_id=None, account_name=None, bind_id=None, cloud_code=None,
+                 create_user=None, data_source_count=None, modify_time=None):
+        self.access_id = access_id  # type: str
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.bind_id = bind_id  # type: long
+        self.cloud_code = cloud_code  # type: str
+        self.create_user = create_user  # type: str
+        self.data_source_count = data_source_count  # type: long
+        self.modify_time = modify_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListBindAccountResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_id is not None:
+            result['AccessId'] = self.access_id
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        if self.bind_id is not None:
+            result['BindId'] = self.bind_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.create_user is not None:
+            result['CreateUser'] = self.create_user
+        if self.data_source_count is not None:
+            result['DataSourceCount'] = self.data_source_count
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessId') is not None:
+            self.access_id = m.get('AccessId')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        if m.get('BindId') is not None:
+            self.bind_id = m.get('BindId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('CreateUser') is not None:
+            self.create_user = m.get('CreateUser')
+        if m.get('DataSourceCount') is not None:
+            self.data_source_count = m.get('DataSourceCount')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        return self
+
+
+class ListBindAccountResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: list[ListBindAccountResponseBodyData]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListBindAccountResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListBindAccountResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListBindAccountResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListBindAccountResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListBindAccountResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListBindAccountResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListBindDataSourcesRequest(TeaModel):
+    def __init__(self, account_id=None, cloud_code=None, region_id=None):
+        self.account_id = account_id  # type: str
+        self.cloud_code = cloud_code  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListBindDataSourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListBindDataSourcesResponseBodyData(TeaModel):
+    def __init__(self, account_id=None, account_name=None, cloud_code=None, data_source_instance_id=None,
+                 data_source_name=None, data_source_remark=None, data_source_type=None, log_count=None, task_count=None):
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_instance_id = data_source_instance_id  # type: str
+        self.data_source_name = data_source_name  # type: str
+        self.data_source_remark = data_source_remark  # type: str
+        self.data_source_type = data_source_type  # type: str
+        self.log_count = log_count  # type: int
+        self.task_count = task_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListBindDataSourcesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_instance_id is not None:
+            result['DataSourceInstanceId'] = self.data_source_instance_id
+        if self.data_source_name is not None:
+            result['DataSourceName'] = self.data_source_name
+        if self.data_source_remark is not None:
+            result['DataSourceRemark'] = self.data_source_remark
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.log_count is not None:
+            result['LogCount'] = self.log_count
+        if self.task_count is not None:
+            result['TaskCount'] = self.task_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceInstanceId') is not None:
+            self.data_source_instance_id = m.get('DataSourceInstanceId')
+        if m.get('DataSourceName') is not None:
+            self.data_source_name = m.get('DataSourceName')
+        if m.get('DataSourceRemark') is not None:
+            self.data_source_remark = m.get('DataSourceRemark')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('LogCount') is not None:
+            self.log_count = m.get('LogCount')
+        if m.get('TaskCount') is not None:
+            self.task_count = m.get('TaskCount')
+        return self
+
+
+class ListBindDataSourcesResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: list[ListBindDataSourcesResponseBodyData]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListBindDataSourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListBindDataSourcesResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListBindDataSourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListBindDataSourcesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListBindDataSourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListBindDataSourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListCloudSiemCustomizeRulesRequest(TeaModel):
     def __init__(self, alert_type=None, current_page=None, end_time=None, id=None, page_size=None, region_id=None,
                  rule_name=None, rule_type=None, start_time=None, status=None, threat_level=None):
+        # The alert type.
         self.alert_type = alert_type  # type: str
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The end of the time range to query. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The ID of the custom rule.
         self.id = id  # type: str
+        # The number of entries per page. The value can be up to 100.
         self.page_size = page_size  # type: int
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The name of the rule. The name can contain letters, digits, underscores (\_), and periods (.).
         self.rule_name = rule_name  # type: str
+        # The type of the rule. Valid values:
+        # 
+        # *   predefine
+        # *   customize
         self.rule_type = rule_type  # type: str
+        # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
+        # The status of the rule. Valid values:
+        # 
+        # *   0: The rule is in the initial state.
+        # *   10: The simulation data is tested.
+        # *   15: The business data is being tested.
+        # *   20: The business data test ends.
+        # *   100: The rule takes effect.
         self.status = status  # type: int
+        # The risk level. The value is a JSON array. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.threat_level = threat_level  # type: list[str]
 
     def validate(self):
@@ -11135,8 +15598,11 @@ class ListCloudSiemCustomizeRulesRequest(TeaModel):
 
 class ListCloudSiemCustomizeRulesResponseBodyDataPageInfo(TeaModel):
     def __init__(self, current_page=None, page_size=None, total_count=None):
+        # The current page number.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -11172,27 +15638,69 @@ class ListCloudSiemCustomizeRulesResponseBodyDataResponseData(TeaModel):
                  event_transfer_switch=None, event_transfer_type=None, gmt_create=None, gmt_modified=None, id=None, log_source=None,
                  log_source_mds=None, log_type=None, log_type_mds=None, query_cycle=None, rule_condition=None, rule_desc=None,
                  rule_group=None, rule_name=None, rule_threshold=None, rule_type=None, status=None, threat_level=None):
+        # The type of the risk.
         self.alert_type = alert_type  # type: str
+        # The internal code of the risk type.
         self.alert_type_mds = alert_type_mds  # type: str
+        # The ID of the Alibaba Cloud account in SIEM.
         self.aliuid = aliuid  # type: long
+        # The extended information about event generation. If the value of eventTransferType is allToSingle, the value of this parameter indicates the length and unit of the alert aggregation window. The HTML escape characters are reversed.
         self.event_transfer_ext = event_transfer_ext  # type: str
+        # Indicates whether the system generates an event for the alert. Valid values:
+        # 
+        # *   0: no.
+        # *   1: yes.
         self.event_transfer_switch = event_transfer_switch  # type: int
+        # The event generation method. Valid values:
+        # 
+        # *   default: The default method is used.
+        # *   singleToSingle: The system generates an event for each alert.
+        # *   allToSingle: The system generates an event for alerts within a period of time.
         self.event_transfer_type = event_transfer_type  # type: str
+        # The time when the custom rule was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the custom rule was last updated.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the custom rule.
         self.id = id  # type: long
+        # The log source of the rule.
         self.log_source = log_source  # type: str
+        # The internal code of the log source.
         self.log_source_mds = log_source_mds  # type: str
+        # The log type of the rule.
         self.log_type = log_type  # type: str
+        # The internal code of the log type.
         self.log_type_mds = log_type_mds  # type: str
+        # The window length of the rule. The HTML escape characters are reversed.
         self.query_cycle = query_cycle  # type: str
+        # The query condition of the rule in the JSON format. The HTML escape characters are reversed.
         self.rule_condition = rule_condition  # type: str
+        # The description of the rule.
         self.rule_desc = rule_desc  # type: str
+        # The log aggregation field of the rule. The value is a JSON string. The HTML escape characters are reversed.
         self.rule_group = rule_group  # type: str
+        # The name of the rule.
         self.rule_name = rule_name  # type: str
+        # The threshold configurations of the rule in the JSON format. The HTML escape characters are reversed.
         self.rule_threshold = rule_threshold  # type: str
+        # The type of the rule. Valid values:
+        # 
+        # *   predefine
+        # *   customize
         self.rule_type = rule_type  # type: str
+        # The rule status. Valid values:
+        # 
+        # *   0: The rule is in the initial state.
+        # *   10: The simulation data is tested.
+        # *   15: The business data is being tested.
+        # *   20: The business data test ends.
+        # *   100: The rule takes effect.
         self.status = status  # type: int
+        # The threat level. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.threat_level = threat_level  # type: str
 
     def validate(self):
@@ -11301,7 +15809,9 @@ class ListCloudSiemCustomizeRulesResponseBodyDataResponseData(TeaModel):
 
 class ListCloudSiemCustomizeRulesResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
+        # The pagination information.
         self.page_info = page_info  # type: ListCloudSiemCustomizeRulesResponseBodyDataPageInfo
+        # The detailed data.
         self.response_data = response_data  # type: list[ListCloudSiemCustomizeRulesResponseBodyDataResponseData]
 
     def validate(self):
@@ -11341,10 +15851,18 @@ class ListCloudSiemCustomizeRulesResponseBodyData(TeaModel):
 
 class ListCloudSiemCustomizeRulesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: ListCloudSiemCustomizeRulesResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -11427,16 +15945,43 @@ class ListCloudSiemCustomizeRulesResponse(TeaModel):
 class ListCloudSiemPredefinedRulesRequest(TeaModel):
     def __init__(self, alert_type=None, current_page=None, end_time=None, id=None, page_size=None, region_id=None,
                  rule_name=None, rule_type=None, start_time=None, status=None, threat_level=None):
+        # The alert type.
         self.alert_type = alert_type  # type: str
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The end of the time range to query. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The ID of the rule.
         self.id = id  # type: str
+        # The number of entries per page. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The name of the rule. The name can contain letters, digits, underscores (\_), and periods (.).
         self.rule_name = rule_name  # type: str
+        # The type of the rule. Valid values:
+        # 
+        # *   predefine
+        # *   customize
         self.rule_type = rule_type  # type: str
+        # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
+        # The status of the rule. Valid values:
+        # 
+        # *   0: The rule is in the initial state.
+        # *   10: The simulation data is tested.
+        # *   15: The business data is being tested.
+        # *   20: The business data test ends.
+        # *   100: The rule takes effect.
         self.status = status  # type: int
+        # The risk level. The value is a JSON array. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.threat_level = threat_level  # type: list[str]
 
     def validate(self):
@@ -11501,8 +16046,11 @@ class ListCloudSiemPredefinedRulesRequest(TeaModel):
 
 class ListCloudSiemPredefinedRulesResponseBodyDataPageInfo(TeaModel):
     def __init__(self, current_page=None, page_size=None, total_count=None):
+        # The current page number.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -11536,15 +16084,32 @@ class ListCloudSiemPredefinedRulesResponseBodyDataPageInfo(TeaModel):
 class ListCloudSiemPredefinedRulesResponseBodyDataResponseData(TeaModel):
     def __init__(self, alert_type=None, gmt_create=None, gmt_modified=None, id=None, rule_desc_mds=None,
                  rule_name=None, rule_name_mds=None, source=None, status=None, threat_level=None):
+        # The type of the risk.
         self.alert_type = alert_type  # type: str
+        # The time when the rule was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the rule was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the predefined rule.
         self.id = id  # type: long
+        # The internal code of the rule description.
         self.rule_desc_mds = rule_desc_mds  # type: str
+        # The name of the rule.
         self.rule_name = rule_name  # type: str
+        # The internal code of the rule name.
         self.rule_name_mds = rule_name_mds  # type: str
+        # The log source of the rule.
         self.source = source  # type: str
+        # The status of the predefined rule. Valid values:
+        # 
+        # *   0: The rule is in the initial state.
+        # *   100: The rule takes effect.
         self.status = status  # type: int
+        # The threat level. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.threat_level = threat_level  # type: str
 
     def validate(self):
@@ -11605,7 +16170,9 @@ class ListCloudSiemPredefinedRulesResponseBodyDataResponseData(TeaModel):
 
 class ListCloudSiemPredefinedRulesResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
+        # The pagination information.
         self.page_info = page_info  # type: ListCloudSiemPredefinedRulesResponseBodyDataPageInfo
+        # The detailed data.
         self.response_data = response_data  # type: list[ListCloudSiemPredefinedRulesResponseBodyDataResponseData]
 
     def validate(self):
@@ -11645,10 +16212,18 @@ class ListCloudSiemPredefinedRulesResponseBodyData(TeaModel):
 
 class ListCloudSiemPredefinedRulesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: ListCloudSiemPredefinedRulesResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -11730,9 +16305,16 @@ class ListCloudSiemPredefinedRulesResponse(TeaModel):
 
 class ListCustomizeRuleTestResultRequest(TeaModel):
     def __init__(self, current_page=None, id=None, page_size=None, region_id=None):
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The ID of the rule.
         self.id = id  # type: long
+        # The number of entries per page. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -11769,8 +16351,11 @@ class ListCustomizeRuleTestResultRequest(TeaModel):
 
 class ListCustomizeRuleTestResultResponseBodyDataPageInfo(TeaModel):
     def __init__(self, current_page=None, page_size=None, total_count=None):
+        # The current page number.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -11805,20 +16390,42 @@ class ListCustomizeRuleTestResultResponseBodyDataResponseData(TeaModel):
     def __init__(self, alert_desc=None, alert_detail=None, alert_src_prod=None, alert_src_prod_module=None,
                  att_ck=None, event_name=None, event_type=None, level=None, log_source=None, log_time=None, log_type=None,
                  main_user_id=None, online_status=None, sub_user_id=None, uuid=None):
+        # The description of the alert.
         self.alert_desc = alert_desc  # type: str
+        # The alert details in the JSON format.
         self.alert_detail = alert_detail  # type: str
+        # The source of the alert.
         self.alert_src_prod = alert_src_prod  # type: str
+        # The sub-module of the source.
         self.alert_src_prod_module = alert_src_prod_module  # type: str
+        # The tag of the ATT\&CK attack.
         self.att_ck = att_ck  # type: str
+        # The name of the alert, which corresponds to the name of the custom rule.
         self.event_name = event_name  # type: str
+        # The risk type, which indicates the alert type.
         self.event_type = event_type  # type: str
+        # The risk level. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.level = level  # type: str
+        # The log source of the rule.
         self.log_source = log_source  # type: str
+        # The time when the alert was recorded.
         self.log_time = log_time  # type: str
+        # The log type of the rule.
         self.log_type = log_type  # type: str
+        # The ID of the Alibaba Cloud account that is associated with the alert in SIEM.
         self.main_user_id = main_user_id  # type: str
+        # The status of the alert data. Valid values:
+        # 
+        # *   test: business test data
+        # *   online: online data
         self.online_status = online_status  # type: str
+        # The ID of the Alibaba Cloud account within which the alert is generated.
         self.sub_user_id = sub_user_id  # type: str
+        # The UUID of the alert.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -11899,7 +16506,9 @@ class ListCustomizeRuleTestResultResponseBodyDataResponseData(TeaModel):
 
 class ListCustomizeRuleTestResultResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
+        # The pagination information.
         self.page_info = page_info  # type: ListCustomizeRuleTestResultResponseBodyDataPageInfo
+        # The detailed data.
         self.response_data = response_data  # type: list[ListCustomizeRuleTestResultResponseBodyDataResponseData]
 
     def validate(self):
@@ -11939,10 +16548,18 @@ class ListCustomizeRuleTestResultResponseBodyData(TeaModel):
 
 class ListCustomizeRuleTestResultResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: ListCustomizeRuleTestResultResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -12022,8 +16639,399 @@ class ListCustomizeRuleTestResultResponse(TeaModel):
         return self
 
 
+class ListDataSourceLogsRequest(TeaModel):
+    def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None, region_id=None):
+        self.account_id = account_id  # type: str
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_instance_id = data_source_instance_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDataSourceLogsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_instance_id is not None:
+            result['DataSourceInstanceId'] = self.data_source_instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceInstanceId') is not None:
+            self.data_source_instance_id = m.get('DataSourceInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListDataSourceLogsResponseBodyDataDataSourceInstanceLogsLogParams(TeaModel):
+    def __init__(self, para_code=None, para_value=None):
+        self.para_code = para_code  # type: str
+        self.para_value = para_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDataSourceLogsResponseBodyDataDataSourceInstanceLogsLogParams, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.para_code is not None:
+            result['ParaCode'] = self.para_code
+        if self.para_value is not None:
+            result['ParaValue'] = self.para_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ParaCode') is not None:
+            self.para_code = m.get('ParaCode')
+        if m.get('ParaValue') is not None:
+            self.para_value = m.get('ParaValue')
+        return self
+
+
+class ListDataSourceLogsResponseBodyDataDataSourceInstanceLogs(TeaModel):
+    def __init__(self, log_code=None, log_instance_id=None, log_mds_code=None, log_params=None, task_status=None):
+        self.log_code = log_code  # type: str
+        self.log_instance_id = log_instance_id  # type: str
+        self.log_mds_code = log_mds_code  # type: str
+        self.log_params = log_params  # type: list[ListDataSourceLogsResponseBodyDataDataSourceInstanceLogsLogParams]
+        self.task_status = task_status  # type: int
+
+    def validate(self):
+        if self.log_params:
+            for k in self.log_params:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDataSourceLogsResponseBodyDataDataSourceInstanceLogs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.log_code is not None:
+            result['LogCode'] = self.log_code
+        if self.log_instance_id is not None:
+            result['LogInstanceId'] = self.log_instance_id
+        if self.log_mds_code is not None:
+            result['LogMdsCode'] = self.log_mds_code
+        result['LogParams'] = []
+        if self.log_params is not None:
+            for k in self.log_params:
+                result['LogParams'].append(k.to_map() if k else None)
+        if self.task_status is not None:
+            result['TaskStatus'] = self.task_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LogCode') is not None:
+            self.log_code = m.get('LogCode')
+        if m.get('LogInstanceId') is not None:
+            self.log_instance_id = m.get('LogInstanceId')
+        if m.get('LogMdsCode') is not None:
+            self.log_mds_code = m.get('LogMdsCode')
+        self.log_params = []
+        if m.get('LogParams') is not None:
+            for k in m.get('LogParams'):
+                temp_model = ListDataSourceLogsResponseBodyDataDataSourceInstanceLogsLogParams()
+                self.log_params.append(temp_model.from_map(k))
+        if m.get('TaskStatus') is not None:
+            self.task_status = m.get('TaskStatus')
+        return self
+
+
+class ListDataSourceLogsResponseBodyData(TeaModel):
+    def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None,
+                 data_source_instance_logs=None, data_source_instance_name=None, data_source_instance_remark=None, sub_user_id=None):
+        self.account_id = account_id  # type: str
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_instance_id = data_source_instance_id  # type: str
+        self.data_source_instance_logs = data_source_instance_logs  # type: list[ListDataSourceLogsResponseBodyDataDataSourceInstanceLogs]
+        self.data_source_instance_name = data_source_instance_name  # type: str
+        self.data_source_instance_remark = data_source_instance_remark  # type: str
+        self.sub_user_id = sub_user_id  # type: long
+
+    def validate(self):
+        if self.data_source_instance_logs:
+            for k in self.data_source_instance_logs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDataSourceLogsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_instance_id is not None:
+            result['DataSourceInstanceId'] = self.data_source_instance_id
+        result['DataSourceInstanceLogs'] = []
+        if self.data_source_instance_logs is not None:
+            for k in self.data_source_instance_logs:
+                result['DataSourceInstanceLogs'].append(k.to_map() if k else None)
+        if self.data_source_instance_name is not None:
+            result['DataSourceInstanceName'] = self.data_source_instance_name
+        if self.data_source_instance_remark is not None:
+            result['DataSourceInstanceRemark'] = self.data_source_instance_remark
+        if self.sub_user_id is not None:
+            result['SubUserId'] = self.sub_user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceInstanceId') is not None:
+            self.data_source_instance_id = m.get('DataSourceInstanceId')
+        self.data_source_instance_logs = []
+        if m.get('DataSourceInstanceLogs') is not None:
+            for k in m.get('DataSourceInstanceLogs'):
+                temp_model = ListDataSourceLogsResponseBodyDataDataSourceInstanceLogs()
+                self.data_source_instance_logs.append(temp_model.from_map(k))
+        if m.get('DataSourceInstanceName') is not None:
+            self.data_source_instance_name = m.get('DataSourceInstanceName')
+        if m.get('DataSourceInstanceRemark') is not None:
+            self.data_source_instance_remark = m.get('DataSourceInstanceRemark')
+        if m.get('SubUserId') is not None:
+            self.sub_user_id = m.get('SubUserId')
+        return self
+
+
+class ListDataSourceLogsResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: ListDataSourceLogsResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ListDataSourceLogsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = ListDataSourceLogsResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListDataSourceLogsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListDataSourceLogsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDataSourceLogsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListDataSourceLogsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListDataSourceTypesRequest(TeaModel):
+    def __init__(self, cloud_code=None, region_id=None):
+        self.cloud_code = cloud_code  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDataSourceTypesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListDataSourceTypesResponseBodyData(TeaModel):
+    def __init__(self, cloud_code=None, data_source_type=None):
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_type = data_source_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDataSourceTypesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        return self
+
+
+class ListDataSourceTypesResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: list[ListDataSourceTypesResponseBodyData]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDataSourceTypesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListDataSourceTypesResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListDataSourceTypesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListDataSourceTypesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDataSourceTypesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListDataSourceTypesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListDeliveryRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -12048,7 +17056,9 @@ class ListDeliveryRequest(TeaModel):
 
 class ListDeliveryResponseBodyDataProductListLogListExtraParameters(TeaModel):
     def __init__(self, key=None, value=None):
+        # The ID of the extended parameter.
         self.key = key  # type: str
+        # The value of the extended parameter.
         self.value = value  # type: str
 
     def validate(self):
@@ -12078,13 +17088,27 @@ class ListDeliveryResponseBodyDataProductListLogListExtraParameters(TeaModel):
 class ListDeliveryResponseBodyDataProductListLogList(TeaModel):
     def __init__(self, can_operate_or_not=None, extra_parameters=None, log_code=None, log_name=None,
                  log_name_en=None, log_name_key=None, status=None, topic=None):
+        # Indicates whether the log delivery feature can be enabled or disabled. The feature can be enabled or disabled only by the administrator of the threat analysis feature. Valid values:
+        # 
+        # *   true
+        # *   false
         self.can_operate_or_not = can_operate_or_not  # type: bool
+        # The extended parameter.
         self.extra_parameters = extra_parameters  # type: list[ListDeliveryResponseBodyDataProductListLogListExtraParameters]
+        # The code of the log.
         self.log_code = log_code  # type: str
+        # This parameter is deprecated.
         self.log_name = log_name  # type: str
+        # This parameter is deprecated.
         self.log_name_en = log_name_en  # type: str
+        # The language code of the log that is used to indicate the language in which the log is displayed.
         self.log_name_key = log_name_key  # type: str
+        # The status of the log delivery. Valid values:
+        # 
+        # *   true: The logs are being delivered.
+        # *   false: The log delivery feature is disabled.
         self.status = status  # type: bool
+        # The topic of the log in the Logstore. The value is an index field in the Logstore that can be used to distinguish different logs.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -12145,9 +17169,37 @@ class ListDeliveryResponseBodyDataProductListLogList(TeaModel):
 
 class ListDeliveryResponseBodyDataProductList(TeaModel):
     def __init__(self, log_list=None, log_map=None, product_code=None, product_name=None):
+        # The logs of the cloud services.
         self.log_list = log_list  # type: list[ListDeliveryResponseBodyDataProductListLogList]
+        # The log group. For example, in Security Center, the logs of hosts and networks are stored in different groups. Key indicates the group information, and value indicates the logs in the group.
         self.log_map = log_map  # type: dict[str, list[DataProductListLogMapValue]]
+        # The code of the cloud service. Valid values:
+        # 
+        # *   qcloud_waf
+        # *   qlcoud_cfw
+        # *   hcloud_waf
+        # *   hcloud_cfw
+        # *   ddos
+        # *   sas
+        # *   cfw
+        # *   config
+        # *   csk
+        # *   fc
+        # *   rds
+        # *   nas
+        # *   apigateway
+        # *   cdn
+        # *   mongodb
+        # *   eip
+        # *   slb
+        # *   vpc
+        # *   actiontrail
+        # *   waf
+        # *   bastionhost
+        # *   oss
+        # *   polardb
         self.product_code = product_code  # type: str
+        # This parameter is deprecated.
         self.product_name = product_name  # type: str
 
     def validate(self):
@@ -12209,11 +17261,20 @@ class ListDeliveryResponseBodyDataProductList(TeaModel):
 class ListDeliveryResponseBodyData(TeaModel):
     def __init__(self, dashboard_url=None, display_switch_or_not=None, log_store_name=None, product_list=None,
                  project_name=None, search_url=None):
+        # The URL that is displayed in charts.
         self.dashboard_url = dashboard_url  # type: str
+        # Indicates whether the log delivery switch is displayed. Default value: true. Valid values:
+        # 
+        # *   true
+        # *   false
         self.display_switch_or_not = display_switch_or_not  # type: bool
+        # The name of the Logstore for the threat analysis feature on the user side. The value is in the cloud_siem format.
         self.log_store_name = log_store_name  # type: str
+        # The cloud services.
         self.product_list = product_list  # type: list[ListDeliveryResponseBodyDataProductList]
+        # The name of the project for the threat analysis feature in Simple Log service on the user side. The value is in the aliyun-cloudsiem-data-${aliUid}-${region} format.
         self.project_name = project_name  # type: str
+        # The URL that is used for log analysis.
         self.search_url = search_url  # type: str
 
     def validate(self):
@@ -12265,16 +17326,11 @@ class ListDeliveryResponseBodyData(TeaModel):
 
 
 class ListDeliveryResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # The response parameters.
         self.data = data  # type: ListDeliveryResponseBodyData
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         if self.data:
@@ -12286,43 +17342,19 @@ class ListDeliveryResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data.to_map()
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             temp_model = ListDeliveryResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -12369,19 +17401,56 @@ class ListDisposeStrategyRequest(TeaModel):
     def __init__(self, current_page=None, effective_status=None, end_time=None, entity_identity=None,
                  entity_type=None, order=None, order_field=None, page_size=None, playbook_name=None, playbook_types=None,
                  playbook_uuid=None, region_id=None, sophon_task_id=None, start_time=None):
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The status of the policy. Valid values:
+        # 
+        # *   0: invalid
+        # *   1: valid
         self.effective_status = effective_status  # type: int
+        # The end of the time range to query. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The feature value of the entity. Fuzzy match is supported.
         self.entity_identity = entity_identity  # type: str
+        # The entity type of the playbook. Valid values:
+        # 
+        # *   ip
+        # *   process
+        # *   file
         self.entity_type = entity_type  # type: str
+        # The sort order. Valid values:
+        # 
+        # *   desc: descending order.
+        # *   asc: ascending order.
         self.order = order  # type: str
+        # The sort field. Valid values:
+        # 
+        # *   GmtModified: sorts the policies by update time.
+        # *   GmtCreate: sorts the policies by creation time.
+        # *   FinishTime: sorts the policies by end time.
         self.order_field = order_field  # type: str
+        # The number of entries per page. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The name of the playbook, which is the unique identifier of the playbook.
         self.playbook_name = playbook_name  # type: str
+        # The type of the playbook. Valid values:
+        # 
+        # *   system: user-triggered playbook
+        # *   custom: event-triggered playbook
+        # *   custom_alert: alert-triggered playbook
+        # *   soar-manual: user-run playbook
+        # *   soar-mdr: MDR-run playbook
         self.playbook_types = playbook_types  # type: str
+        # The UUID of the playbook.
         self.playbook_uuid = playbook_uuid  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The ID of the SOAR handling policy.
         self.sophon_task_id = sophon_task_id  # type: str
+        # The beginning of the time range to query. Unit: milliseconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -12458,8 +17527,11 @@ class ListDisposeStrategyRequest(TeaModel):
 
 class ListDisposeStrategyResponseBodyDataPageInfo(TeaModel):
     def __init__(self, current_page=None, page_size=None, total_count=None):
+        # The current page number.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -12495,26 +17567,65 @@ class ListDisposeStrategyResponseBodyDataResponseData(TeaModel):
                  entity_type=None, error_message=None, finish_time=None, gmt_create=None, gmt_modified=None, id=None,
                  incident_name=None, incident_uuid=None, playbook_name=None, playbook_type=None, playbook_uuid=None, scope=None,
                  sophon_task_id=None, status=None, sub_aliuid=None, task_param=None):
+        # The UUID of the alert.
         self.alert_uuid = alert_uuid  # type: str
+        # The ID of the Alibaba Cloud account that is associated with the policy in SIEM.
         self.aliuid = aliuid  # type: long
+        # The status of the policy. Valid values:
+        # 
+        # *   0: invalid
+        # *   1: valid
         self.effective_status = effective_status  # type: int
+        # The details of the entity. The value is a JSON array.
         self.entity = entity  # type: list[any]
+        # The ID of the entity.
         self.entity_id = entity_id  # type: long
+        # The type of the entity. Valid values:
+        # 
+        # *   ip
+        # *   process
+        # *   file
         self.entity_type = entity_type  # type: str
+        # The summary information about the failed task.
         self.error_message = error_message  # type: str
+        # The end time of the task.
         self.finish_time = finish_time  # type: str
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
+        # The update time.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the policy.
         self.id = id  # type: long
+        # The name of the event.
         self.incident_name = incident_name  # type: str
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The name of the playbook, which is the unique identifier of the playbook.
         self.playbook_name = playbook_name  # type: str
+        # The type of the playbook. Valid values:
+        # 
+        # *   system: user-triggered playbook
+        # *   custom: event-triggered playbook
+        # *   custom_alert: alert-triggered playbook
+        # *   soar-manual: user-run playbook
+        # *   soar-mdr: MDR-run playbook
         self.playbook_type = playbook_type  # type: str
+        # The UUID of the playbook.
         self.playbook_uuid = playbook_uuid  # type: str
+        # The scope of the policy.
         self.scope = scope  # type: list[any]
+        # The ID of the SOAR handling policy.
         self.sophon_task_id = sophon_task_id  # type: str
+        # The running status of the playbook. Valid values:
+        # 
+        # *   200: successful
+        # *   10: deleted
+        # *   5: failed
+        # *   0: initial
         self.status = status  # type: int
+        # The ID of the Alibaba account that is used to configure the policy.
         self.sub_aliuid = sub_aliuid  # type: long
+        # The parameters that are used to trigger the playbook. The value is in the JSON format.
         self.task_param = task_param  # type: str
 
     def validate(self):
@@ -12619,7 +17730,9 @@ class ListDisposeStrategyResponseBodyDataResponseData(TeaModel):
 
 class ListDisposeStrategyResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
+        # The pagination information.
         self.page_info = page_info  # type: ListDisposeStrategyResponseBodyDataPageInfo
+        # The detailed data.
         self.response_data = response_data  # type: list[ListDisposeStrategyResponseBodyDataResponseData]
 
     def validate(self):
@@ -12659,10 +17772,18 @@ class ListDisposeStrategyResponseBodyData(TeaModel):
 
 class ListDisposeStrategyResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: ListDisposeStrategyResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -12742,8 +17863,192 @@ class ListDisposeStrategyResponse(TeaModel):
         return self
 
 
+class ListImportedLogsByProdRequest(TeaModel):
+    def __init__(self, cloud_code=None, prod_code=None, region_id=None):
+        self.cloud_code = cloud_code  # type: str
+        self.prod_code = prod_code  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListImportedLogsByProdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.prod_code is not None:
+            result['ProdCode'] = self.prod_code
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('ProdCode') is not None:
+            self.prod_code = m.get('ProdCode')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListImportedLogsByProdResponseBodyData(TeaModel):
+    def __init__(self, auto_imported=None, cloud_code=None, imported=None, imported_user_count=None, log_code=None,
+                 log_mds_code=None, modify_time=None, prod_code=None, total_user_count=None, un_imported_user_count=None):
+        self.auto_imported = auto_imported  # type: int
+        self.cloud_code = cloud_code  # type: str
+        self.imported = imported  # type: int
+        self.imported_user_count = imported_user_count  # type: int
+        self.log_code = log_code  # type: str
+        self.log_mds_code = log_mds_code  # type: str
+        self.modify_time = modify_time  # type: str
+        self.prod_code = prod_code  # type: str
+        self.total_user_count = total_user_count  # type: int
+        self.un_imported_user_count = un_imported_user_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListImportedLogsByProdResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_imported is not None:
+            result['AutoImported'] = self.auto_imported
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.imported is not None:
+            result['Imported'] = self.imported
+        if self.imported_user_count is not None:
+            result['ImportedUserCount'] = self.imported_user_count
+        if self.log_code is not None:
+            result['LogCode'] = self.log_code
+        if self.log_mds_code is not None:
+            result['LogMdsCode'] = self.log_mds_code
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.prod_code is not None:
+            result['ProdCode'] = self.prod_code
+        if self.total_user_count is not None:
+            result['TotalUserCount'] = self.total_user_count
+        if self.un_imported_user_count is not None:
+            result['UnImportedUserCount'] = self.un_imported_user_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AutoImported') is not None:
+            self.auto_imported = m.get('AutoImported')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('Imported') is not None:
+            self.imported = m.get('Imported')
+        if m.get('ImportedUserCount') is not None:
+            self.imported_user_count = m.get('ImportedUserCount')
+        if m.get('LogCode') is not None:
+            self.log_code = m.get('LogCode')
+        if m.get('LogMdsCode') is not None:
+            self.log_mds_code = m.get('LogMdsCode')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('ProdCode') is not None:
+            self.prod_code = m.get('ProdCode')
+        if m.get('TotalUserCount') is not None:
+            self.total_user_count = m.get('TotalUserCount')
+        if m.get('UnImportedUserCount') is not None:
+            self.un_imported_user_count = m.get('UnImportedUserCount')
+        return self
+
+
+class ListImportedLogsByProdResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: list[ListImportedLogsByProdResponseBodyData]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListImportedLogsByProdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListImportedLogsByProdResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListImportedLogsByProdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListImportedLogsByProdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListImportedLogsByProdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListImportedLogsByProdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListOperationRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -12768,7 +18073,12 @@ class ListOperationRequest(TeaModel):
 
 class ListOperationResponseBodyData(TeaModel):
     def __init__(self, admin_or_not=None, operation_list=None):
+        # Indicates whether the user is an administrator. Valid values:
+        # 
+        # *   true
+        # *   false
         self.admin_or_not = admin_or_not  # type: bool
+        # The resources on which the permissions are granted.
         self.operation_list = operation_list  # type: list[str]
 
     def validate(self):
@@ -12796,16 +18106,11 @@ class ListOperationResponseBodyData(TeaModel):
 
 
 class ListOperationResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # The response parameters.
         self.data = data  # type: ListOperationResponseBodyData
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         if self.data:
@@ -12817,43 +18122,19 @@ class ListOperationResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data.to_map()
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             temp_model = ListOperationResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -12896,10 +18177,191 @@ class ListOperationResponse(TeaModel):
         return self
 
 
+class ListProjectLogStoresRequest(TeaModel):
+    def __init__(self, region_id=None, source_log_code=None, source_prod_code=None, sub_user_id=None):
+        self.region_id = region_id  # type: str
+        self.source_log_code = source_log_code  # type: str
+        self.source_prod_code = source_prod_code  # type: str
+        self.sub_user_id = sub_user_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListProjectLogStoresRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.source_log_code is not None:
+            result['SourceLogCode'] = self.source_log_code
+        if self.source_prod_code is not None:
+            result['SourceProdCode'] = self.source_prod_code
+        if self.sub_user_id is not None:
+            result['SubUserId'] = self.sub_user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SourceLogCode') is not None:
+            self.source_log_code = m.get('SourceLogCode')
+        if m.get('SourceProdCode') is not None:
+            self.source_prod_code = m.get('SourceProdCode')
+        if m.get('SubUserId') is not None:
+            self.sub_user_id = m.get('SubUserId')
+        return self
+
+
+class ListProjectLogStoresResponseBodyData(TeaModel):
+    def __init__(self, end_point=None, local_name=None, log_store=None, main_user_id=None, project=None,
+                 region_id=None, sub_user_id=None, sub_user_name=None):
+        self.end_point = end_point  # type: str
+        self.local_name = local_name  # type: str
+        self.log_store = log_store  # type: str
+        self.main_user_id = main_user_id  # type: long
+        self.project = project  # type: str
+        self.region_id = region_id  # type: str
+        self.sub_user_id = sub_user_id  # type: long
+        self.sub_user_name = sub_user_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListProjectLogStoresResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_point is not None:
+            result['EndPoint'] = self.end_point
+        if self.local_name is not None:
+            result['LocalName'] = self.local_name
+        if self.log_store is not None:
+            result['LogStore'] = self.log_store
+        if self.main_user_id is not None:
+            result['MainUserId'] = self.main_user_id
+        if self.project is not None:
+            result['Project'] = self.project
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.sub_user_id is not None:
+            result['SubUserId'] = self.sub_user_id
+        if self.sub_user_name is not None:
+            result['SubUserName'] = self.sub_user_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndPoint') is not None:
+            self.end_point = m.get('EndPoint')
+        if m.get('LocalName') is not None:
+            self.local_name = m.get('LocalName')
+        if m.get('LogStore') is not None:
+            self.log_store = m.get('LogStore')
+        if m.get('MainUserId') is not None:
+            self.main_user_id = m.get('MainUserId')
+        if m.get('Project') is not None:
+            self.project = m.get('Project')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SubUserId') is not None:
+            self.sub_user_id = m.get('SubUserId')
+        if m.get('SubUserName') is not None:
+            self.sub_user_name = m.get('SubUserName')
+        return self
+
+
+class ListProjectLogStoresResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: list[ListProjectLogStoresResponseBodyData]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListProjectLogStoresResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListProjectLogStoresResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListProjectLogStoresResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListProjectLogStoresResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListProjectLogStoresResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListProjectLogStoresResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListQuickQueryRequest(TeaModel):
     def __init__(self, offset=None, page_size=None, region_id=None):
+        # The line from which the query starts. Default value: 0.
         self.offset = offset  # type: int
+        # The number of entries per page. Valid values: 1 to 500.
         self.page_size = page_size  # type: int
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -12932,8 +18394,11 @@ class ListQuickQueryRequest(TeaModel):
 
 class ListQuickQueryResponseBodyDataQuickQueryList(TeaModel):
     def __init__(self, display_name=None, query=None, search_name=None):
+        # The alias of the saved search.
         self.display_name = display_name  # type: str
+        # The query statement corresponding to the saved search.
         self.query = query  # type: str
+        # The name of the saved search.
         self.search_name = search_name  # type: str
 
     def validate(self):
@@ -12966,8 +18431,11 @@ class ListQuickQueryResponseBodyDataQuickQueryList(TeaModel):
 
 class ListQuickQueryResponseBodyData(TeaModel):
     def __init__(self, count=None, quick_query_list=None, total=None):
+        # The number of saved searches per page.
         self.count = count  # type: int
+        # The saved search.
         self.quick_query_list = quick_query_list  # type: list[ListQuickQueryResponseBodyDataQuickQueryList]
+        # The total number of saved searches that meet the query conditions.
         self.total = total  # type: int
 
     def validate(self):
@@ -13007,16 +18475,11 @@ class ListQuickQueryResponseBodyData(TeaModel):
 
 
 class ListQuickQueryResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # The response parameters.
         self.data = data  # type: ListQuickQueryResponseBodyData
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         if self.data:
@@ -13028,43 +18491,19 @@ class ListQuickQueryResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data.to_map()
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             temp_model = ListQuickQueryResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -13107,10 +18546,1003 @@ class ListQuickQueryResponse(TeaModel):
         return self
 
 
+class ListRdUsersRequest(TeaModel):
+    def __init__(self, region_id=None):
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListRdUsersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListRdUsersResponseBodyData(TeaModel):
+    def __init__(self, delegated_or_not=None, joined=None, joined_time=None, main_user_id=None, sub_user_id=None,
+                 sub_user_name=None):
+        self.delegated_or_not = delegated_or_not  # type: bool
+        self.joined = joined  # type: bool
+        self.joined_time = joined_time  # type: str
+        self.main_user_id = main_user_id  # type: long
+        self.sub_user_id = sub_user_id  # type: long
+        self.sub_user_name = sub_user_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListRdUsersResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.delegated_or_not is not None:
+            result['DelegatedOrNot'] = self.delegated_or_not
+        if self.joined is not None:
+            result['Joined'] = self.joined
+        if self.joined_time is not None:
+            result['JoinedTime'] = self.joined_time
+        if self.main_user_id is not None:
+            result['MainUserId'] = self.main_user_id
+        if self.sub_user_id is not None:
+            result['SubUserId'] = self.sub_user_id
+        if self.sub_user_name is not None:
+            result['SubUserName'] = self.sub_user_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DelegatedOrNot') is not None:
+            self.delegated_or_not = m.get('DelegatedOrNot')
+        if m.get('Joined') is not None:
+            self.joined = m.get('Joined')
+        if m.get('JoinedTime') is not None:
+            self.joined_time = m.get('JoinedTime')
+        if m.get('MainUserId') is not None:
+            self.main_user_id = m.get('MainUserId')
+        if m.get('SubUserId') is not None:
+            self.sub_user_id = m.get('SubUserId')
+        if m.get('SubUserName') is not None:
+            self.sub_user_name = m.get('SubUserName')
+        return self
+
+
+class ListRdUsersResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: list[ListRdUsersResponseBodyData]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListRdUsersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListRdUsersResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListRdUsersResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListRdUsersResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListRdUsersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListRdUsersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListUserProdLogsRequest(TeaModel):
+    def __init__(self, region_id=None, source_log_code=None, source_prod_code=None):
+        self.region_id = region_id  # type: str
+        self.source_log_code = source_log_code  # type: str
+        self.source_prod_code = source_prod_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserProdLogsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.source_log_code is not None:
+            result['SourceLogCode'] = self.source_log_code
+        if self.source_prod_code is not None:
+            result['SourceProdCode'] = self.source_prod_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SourceLogCode') is not None:
+            self.source_log_code = m.get('SourceLogCode')
+        if m.get('SourceProdCode') is not None:
+            self.source_prod_code = m.get('SourceProdCode')
+        return self
+
+
+class ListUserProdLogsResponseBodyData(TeaModel):
+    def __init__(self, display_line=None, displayed=None, imported=None, is_deleted=None, main_user_id=None,
+                 source_log_code=None, source_log_info=None, source_prod_code=None, sub_user_id=None, sub_user_name=None):
+        self.display_line = display_line  # type: str
+        self.displayed = displayed  # type: bool
+        self.imported = imported  # type: bool
+        self.is_deleted = is_deleted  # type: int
+        self.main_user_id = main_user_id  # type: long
+        self.source_log_code = source_log_code  # type: str
+        self.source_log_info = source_log_info  # type: str
+        self.source_prod_code = source_prod_code  # type: str
+        self.sub_user_id = sub_user_id  # type: long
+        self.sub_user_name = sub_user_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserProdLogsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.display_line is not None:
+            result['DisplayLine'] = self.display_line
+        if self.displayed is not None:
+            result['Displayed'] = self.displayed
+        if self.imported is not None:
+            result['Imported'] = self.imported
+        if self.is_deleted is not None:
+            result['IsDeleted'] = self.is_deleted
+        if self.main_user_id is not None:
+            result['MainUserId'] = self.main_user_id
+        if self.source_log_code is not None:
+            result['SourceLogCode'] = self.source_log_code
+        if self.source_log_info is not None:
+            result['SourceLogInfo'] = self.source_log_info
+        if self.source_prod_code is not None:
+            result['SourceProdCode'] = self.source_prod_code
+        if self.sub_user_id is not None:
+            result['SubUserId'] = self.sub_user_id
+        if self.sub_user_name is not None:
+            result['SubUserName'] = self.sub_user_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DisplayLine') is not None:
+            self.display_line = m.get('DisplayLine')
+        if m.get('Displayed') is not None:
+            self.displayed = m.get('Displayed')
+        if m.get('Imported') is not None:
+            self.imported = m.get('Imported')
+        if m.get('IsDeleted') is not None:
+            self.is_deleted = m.get('IsDeleted')
+        if m.get('MainUserId') is not None:
+            self.main_user_id = m.get('MainUserId')
+        if m.get('SourceLogCode') is not None:
+            self.source_log_code = m.get('SourceLogCode')
+        if m.get('SourceLogInfo') is not None:
+            self.source_log_info = m.get('SourceLogInfo')
+        if m.get('SourceProdCode') is not None:
+            self.source_prod_code = m.get('SourceProdCode')
+        if m.get('SubUserId') is not None:
+            self.sub_user_id = m.get('SubUserId')
+        if m.get('SubUserName') is not None:
+            self.sub_user_name = m.get('SubUserName')
+        return self
+
+
+class ListUserProdLogsResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: list[ListUserProdLogsResponseBodyData]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListUserProdLogsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListUserProdLogsResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListUserProdLogsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListUserProdLogsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListUserProdLogsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListUserProdLogsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListUsersByProdRequest(TeaModel):
+    def __init__(self, region_id=None, source_prod_code=None):
+        self.region_id = region_id  # type: str
+        self.source_prod_code = source_prod_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUsersByProdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.source_prod_code is not None:
+            result['SourceProdCode'] = self.source_prod_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SourceProdCode') is not None:
+            self.source_prod_code = m.get('SourceProdCode')
+        return self
+
+
+class ListUsersByProdResponseBodyData(TeaModel):
+    def __init__(self, cloud_code=None, imported=None, log_mds_code=None, main_user_id=None, source_log_code=None,
+                 source_log_name=None, source_prod_code=None, sub_user_id=None, sub_user_name=None):
+        self.cloud_code = cloud_code  # type: str
+        self.imported = imported  # type: bool
+        self.log_mds_code = log_mds_code  # type: str
+        self.main_user_id = main_user_id  # type: long
+        self.source_log_code = source_log_code  # type: str
+        self.source_log_name = source_log_name  # type: str
+        self.source_prod_code = source_prod_code  # type: str
+        self.sub_user_id = sub_user_id  # type: long
+        self.sub_user_name = sub_user_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUsersByProdResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.imported is not None:
+            result['Imported'] = self.imported
+        if self.log_mds_code is not None:
+            result['LogMdsCode'] = self.log_mds_code
+        if self.main_user_id is not None:
+            result['MainUserId'] = self.main_user_id
+        if self.source_log_code is not None:
+            result['SourceLogCode'] = self.source_log_code
+        if self.source_log_name is not None:
+            result['SourceLogName'] = self.source_log_name
+        if self.source_prod_code is not None:
+            result['SourceProdCode'] = self.source_prod_code
+        if self.sub_user_id is not None:
+            result['SubUserId'] = self.sub_user_id
+        if self.sub_user_name is not None:
+            result['SubUserName'] = self.sub_user_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('Imported') is not None:
+            self.imported = m.get('Imported')
+        if m.get('LogMdsCode') is not None:
+            self.log_mds_code = m.get('LogMdsCode')
+        if m.get('MainUserId') is not None:
+            self.main_user_id = m.get('MainUserId')
+        if m.get('SourceLogCode') is not None:
+            self.source_log_code = m.get('SourceLogCode')
+        if m.get('SourceLogName') is not None:
+            self.source_log_name = m.get('SourceLogName')
+        if m.get('SourceProdCode') is not None:
+            self.source_prod_code = m.get('SourceProdCode')
+        if m.get('SubUserId') is not None:
+            self.sub_user_id = m.get('SubUserId')
+        if m.get('SubUserName') is not None:
+            self.sub_user_name = m.get('SubUserName')
+        return self
+
+
+class ListUsersByProdResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: list[ListUsersByProdResponseBodyData]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListUsersByProdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListUsersByProdResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListUsersByProdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListUsersByProdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListUsersByProdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListUsersByProdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyBindAccountRequest(TeaModel):
+    def __init__(self, access_id=None, account_id=None, account_name=None, bind_id=None, cloud_code=None,
+                 region_id=None):
+        self.access_id = access_id  # type: str
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.bind_id = bind_id  # type: long
+        self.cloud_code = cloud_code  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyBindAccountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_id is not None:
+            result['AccessId'] = self.access_id
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        if self.bind_id is not None:
+            result['BindId'] = self.bind_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessId') is not None:
+            self.access_id = m.get('AccessId')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        if m.get('BindId') is not None:
+            self.bind_id = m.get('BindId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ModifyBindAccountResponseBodyData(TeaModel):
+    def __init__(self, count=None):
+        self.count = count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyBindAccountResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        return self
+
+
+class ModifyBindAccountResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: ModifyBindAccountResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ModifyBindAccountResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = ModifyBindAccountResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyBindAccountResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyBindAccountResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyBindAccountResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyBindAccountResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyDataSourceRequest(TeaModel):
+    def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None,
+                 data_source_instance_name=None, data_source_instance_params=None, data_source_instance_remark=None, data_source_type=None,
+                 region_id=None):
+        self.account_id = account_id  # type: str
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_instance_id = data_source_instance_id  # type: str
+        self.data_source_instance_name = data_source_instance_name  # type: str
+        self.data_source_instance_params = data_source_instance_params  # type: str
+        self.data_source_instance_remark = data_source_instance_remark  # type: str
+        self.data_source_type = data_source_type  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_instance_id is not None:
+            result['DataSourceInstanceId'] = self.data_source_instance_id
+        if self.data_source_instance_name is not None:
+            result['DataSourceInstanceName'] = self.data_source_instance_name
+        if self.data_source_instance_params is not None:
+            result['DataSourceInstanceParams'] = self.data_source_instance_params
+        if self.data_source_instance_remark is not None:
+            result['DataSourceInstanceRemark'] = self.data_source_instance_remark
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceInstanceId') is not None:
+            self.data_source_instance_id = m.get('DataSourceInstanceId')
+        if m.get('DataSourceInstanceName') is not None:
+            self.data_source_instance_name = m.get('DataSourceInstanceName')
+        if m.get('DataSourceInstanceParams') is not None:
+            self.data_source_instance_params = m.get('DataSourceInstanceParams')
+        if m.get('DataSourceInstanceRemark') is not None:
+            self.data_source_instance_remark = m.get('DataSourceInstanceRemark')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ModifyDataSourceResponseBodyData(TeaModel):
+    def __init__(self, count=None, data_source_instance_id=None):
+        self.count = count  # type: int
+        self.data_source_instance_id = data_source_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDataSourceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.data_source_instance_id is not None:
+            result['DataSourceInstanceId'] = self.data_source_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('DataSourceInstanceId') is not None:
+            self.data_source_instance_id = m.get('DataSourceInstanceId')
+        return self
+
+
+class ModifyDataSourceResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: ModifyDataSourceResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ModifyDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = ModifyDataSourceResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyDataSourceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyDataSourceLogRequest(TeaModel):
+    def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None,
+                 data_source_instance_logs=None, data_source_type=None, log_code=None, log_instance_id=None, region_id=None):
+        self.account_id = account_id  # type: str
+        self.cloud_code = cloud_code  # type: str
+        self.data_source_instance_id = data_source_instance_id  # type: str
+        self.data_source_instance_logs = data_source_instance_logs  # type: str
+        self.data_source_type = data_source_type  # type: str
+        self.log_code = log_code  # type: str
+        self.log_instance_id = log_instance_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDataSourceLogRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.data_source_instance_id is not None:
+            result['DataSourceInstanceId'] = self.data_source_instance_id
+        if self.data_source_instance_logs is not None:
+            result['DataSourceInstanceLogs'] = self.data_source_instance_logs
+        if self.data_source_type is not None:
+            result['DataSourceType'] = self.data_source_type
+        if self.log_code is not None:
+            result['LogCode'] = self.log_code
+        if self.log_instance_id is not None:
+            result['LogInstanceId'] = self.log_instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('DataSourceInstanceId') is not None:
+            self.data_source_instance_id = m.get('DataSourceInstanceId')
+        if m.get('DataSourceInstanceLogs') is not None:
+            self.data_source_instance_logs = m.get('DataSourceInstanceLogs')
+        if m.get('DataSourceType') is not None:
+            self.data_source_type = m.get('DataSourceType')
+        if m.get('LogCode') is not None:
+            self.log_code = m.get('LogCode')
+        if m.get('LogInstanceId') is not None:
+            self.log_instance_id = m.get('LogInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ModifyDataSourceLogResponseBodyData(TeaModel):
+    def __init__(self, count=None, log_instance_id=None):
+        self.count = count  # type: int
+        self.log_instance_id = log_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDataSourceLogResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.log_instance_id is not None:
+            result['LogInstanceId'] = self.log_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('LogInstanceId') is not None:
+            self.log_instance_id = m.get('LogInstanceId')
+        return self
+
+
+class ModifyDataSourceLogResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: ModifyDataSourceLogResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(ModifyDataSourceLogResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = ModifyDataSourceLogResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyDataSourceLogResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyDataSourceLogResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyDataSourceLogResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyDataSourceLogResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class OpenDeliveryRequest(TeaModel):
     def __init__(self, log_code=None, product_code=None, region_id=None):
+        # The log code of the cloud service, such as the code of the process log for Security Center. If you leave this parameter empty, operations are performed on all logs of the cloud service.
         self.log_code = log_code  # type: str
+        # The code of the cloud service. Valid values:
+        # 
+        # *   qcloud_waf
+        # *   qlcoud_cfw
+        # *   hcloud_waf
+        # *   hcloud_cfw
+        # *   ddos
+        # *   sas
+        # *   cfw
+        # *   config
+        # *   csk
+        # *   fc
+        # *   rds
+        # *   nas
+        # *   apigateway
+        # *   cdn
+        # *   mongodb
+        # *   eip
+        # *   slb
+        # *   vpc
+        # *   actiontrail
+        # *   waf
+        # *   bastionhost
+        # *   oss
+        # *   polardb
         self.product_code = product_code  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -13142,16 +19574,14 @@ class OpenDeliveryRequest(TeaModel):
 
 
 class OpenDeliveryResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # Indicates whether the log delivery feature is enabled. Valid values:
+        # 
+        # *   true
+        # *   false
         self.data = data  # type: bool
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -13162,42 +19592,18 @@ class OpenDeliveryResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -13243,13 +19649,31 @@ class OpenDeliveryResponse(TeaModel):
 class PostAutomateResponseConfigRequest(TeaModel):
     def __init__(self, action_config=None, action_type=None, auto_response_type=None, execution_condition=None,
                  id=None, region_id=None, rule_name=None, sub_user_id=None):
+        # The configuration of the action that is performed after the rule is hit. The value is in JSON format.
         self.action_config = action_config  # type: str
+        # The action that is performed after the rule is hit. Separate multiple values with commas (,). Valid values:
+        # 
+        # *   doPlaybook: Execute a playbook.
+        # *   changeEventStatus: Change the event status.
+        # *   changeThreatLevel: Change the threat level of the event.
         self.action_type = action_type  # type: str
+        # The rule type. Valid values:
+        # 
+        # *   event
+        # *   alert
         self.auto_response_type = auto_response_type  # type: str
+        # The trigger condition of the rule. The value is in JSON format.
         self.execution_condition = execution_condition  # type: str
+        # The rule ID.
         self.id = id  # type: long
+        # The data management center of the threat analysis feature. Specify this parameter based on the region in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The rule name.
         self.rule_name = rule_name  # type: str
+        # The ID of the user who created the rule.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -13302,10 +19726,18 @@ class PostAutomateResponseConfigRequest(TeaModel):
 
 class PostAutomateResponseConfigResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code that is returned.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -13388,23 +19820,55 @@ class PostCustomizeRuleRequest(TeaModel):
                  event_transfer_type=None, id=None, log_source=None, log_source_mds=None, log_type=None, log_type_mds=None,
                  query_cycle=None, region_id=None, rule_condition=None, rule_desc=None, rule_group=None, rule_name=None,
                  rule_threshold=None, threat_level=None):
+        # The risk type.
         self.alert_type = alert_type  # type: str
+        # The internal code of the risk type.
         self.alert_type_mds = alert_type_mds  # type: str
+        # The extended information about event generation. If eventTransferType is set to allToSingle, the value of this parameter indicates the length and unit of the alert aggregation window.
         self.event_transfer_ext = event_transfer_ext  # type: str
+        # Specifies whether to convert an alert to an event. Valid values:
+        # 
+        # *   0: no
+        # *   1: yes
         self.event_transfer_switch = event_transfer_switch  # type: int
+        # The event generation method. Valid values:
+        # 
+        # *   default: The default method is used.
+        # *   singleToSingle: The system generates an event for each alert.
+        # *   allToSingle: The system generates an event for alerts within a period of time.
         self.event_transfer_type = event_transfer_type  # type: str
+        # The ID of the rule.
         self.id = id  # type: long
+        # The log source of the rule.
         self.log_source = log_source  # type: str
+        # The internal code of the log source.
         self.log_source_mds = log_source_mds  # type: str
+        # The log type of the rule.
         self.log_type = log_type  # type: str
+        # The internal code of the log type.
         self.log_type_mds = log_type_mds  # type: str
+        # The window length of the rule.
         self.query_cycle = query_cycle  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The query condition of the rule. The value is in the JSON format.
         self.rule_condition = rule_condition  # type: str
+        # The description of the rule.
         self.rule_desc = rule_desc  # type: str
+        # The log aggregation field of the rule. The value is a JSON string.
         self.rule_group = rule_group  # type: str
+        # The name of the rule.
         self.rule_name = rule_name  # type: str
+        # The threshold configuration of the rule. The value is in the JSON format.
         self.rule_threshold = rule_threshold  # type: str
+        # The risk level. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.threat_level = threat_level  # type: str
 
     def validate(self):
@@ -13500,27 +19964,69 @@ class PostCustomizeRuleResponseBodyData(TeaModel):
                  event_transfer_switch=None, event_transfer_type=None, gmt_create=None, gmt_modified=None, id=None, log_source=None,
                  log_source_mds=None, log_type=None, log_type_mds=None, query_cycle=None, rule_condition=None, rule_desc=None,
                  rule_group=None, rule_name=None, rule_threshold=None, rule_type=None, status=None, threat_level=None):
+        # The risk type.
         self.alert_type = alert_type  # type: str
+        # The internal code of the risk type.
         self.alert_type_mds = alert_type_mds  # type: str
+        # The ID of the Alibaba Cloud account that is used to purchase the threat analysis feature.
         self.aliuid = aliuid  # type: long
+        # The extended information about event generation. If eventTransferType is set to allToSingle, the value of this parameter indicates the length and unit of the alert aggregation window. The HTML escape characters are reversed.
         self.event_transfer_ext = event_transfer_ext  # type: str
+        # Indicates whether the system generates an event for the alert. Valid values:
+        # 
+        # *   0: no
+        # *   1: yes
         self.event_transfer_switch = event_transfer_switch  # type: int
+        # The event generation method. Valid values:
+        # 
+        # *   default: The default method is used.
+        # *   singleToSingle: The system generates an event for each alert.
+        # *   allToSingle: The system generates an event for alerts within a period of time.
         self.event_transfer_type = event_transfer_type  # type: str
+        # The time when the custom rule was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the custom rule was last updated.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the custom rule.
         self.id = id  # type: long
+        # The log source of the rule.
         self.log_source = log_source  # type: str
+        # The internal code of the log source.
         self.log_source_mds = log_source_mds  # type: str
+        # The log type of the rule.
         self.log_type = log_type  # type: str
+        # The internal code of the log type.
         self.log_type_mds = log_type_mds  # type: str
+        # The window length of the rule. The HTML escape characters are reversed.
         self.query_cycle = query_cycle  # type: str
+        # The query condition of the rule. The value is in the JSON format. The HTML escape characters are reversed.
         self.rule_condition = rule_condition  # type: str
+        # The description of the rule.
         self.rule_desc = rule_desc  # type: str
+        # The log aggregation field of the rule. The value is a JSON string. The HTML escape characters are reversed.
         self.rule_group = rule_group  # type: str
+        # The name of the rule.
         self.rule_name = rule_name  # type: str
+        # The threshold configuration of the rule. The value is in the JSON format. The HTML escape characters are reversed.
         self.rule_threshold = rule_threshold  # type: str
+        # The type of the rule. Valid values:
+        # 
+        # *   predefine
+        # *   customize
         self.rule_type = rule_type  # type: str
+        # The rule status. Valid values:
+        # 
+        # *   0: The rule is in the initial state.
+        # *   10: The simulation data is tested.
+        # *   15: The business data is being tested.
+        # *   20: The business data test ends.
+        # *   100: The rule takes effect.
         self.status = status  # type: int
+        # The risk level. Valid values:
+        # 
+        # *   serious: high
+        # *   suspicious: medium
+        # *   remind: low
         self.threat_level = threat_level  # type: str
 
     def validate(self):
@@ -13629,10 +20135,18 @@ class PostCustomizeRuleResponseBodyData(TeaModel):
 
 class PostCustomizeRuleResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: PostCustomizeRuleResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -13714,9 +20228,19 @@ class PostCustomizeRuleResponse(TeaModel):
 
 class PostCustomizeRuleTestRequest(TeaModel):
     def __init__(self, id=None, region_id=None, simulated_data=None, test_type=None):
+        # The ID of the rule.
         self.id = id  # type: long
+        # The data management center of the threat analysis feature. Specify this parameter based on the region in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The simulation data for the testing. This parameter is available only when TestType is set to simulate.
         self.simulated_data = simulated_data  # type: str
+        # The testing type. Valid values:
+        # 
+        # *   simulate: simulation data test
+        # *   business: business data test
         self.test_type = test_type  # type: str
 
     def validate(self):
@@ -13753,10 +20277,18 @@ class PostCustomizeRuleTestRequest(TeaModel):
 
 class PostCustomizeRuleTestResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code that is returned.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: any
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -13837,11 +20369,25 @@ class PostCustomizeRuleTestResponse(TeaModel):
 class PostEventDisposeAndWhiteruleListRequest(TeaModel):
     def __init__(self, event_dispose=None, incident_uuid=None, receiver_info=None, region_id=None, remark=None,
                  status=None):
+        # The configuration of event handling. The value is a JSON object.
         self.event_dispose = event_dispose  # type: str
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The configuration of the alert recipient. The value is a JSON object.
         self.receiver_info = receiver_info  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The remarks of the event.
         self.remark = remark  # type: str
+        # The status of the event. Valid values:
+        # 
+        # *   0: unhandled
+        # *   1: handing
+        # *   5: handling failed
+        # *   10: handled
         self.status = status  # type: int
 
     def validate(self):
@@ -13886,10 +20432,18 @@ class PostEventDisposeAndWhiteruleListRequest(TeaModel):
 
 class PostEventDisposeAndWhiteruleListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -13969,8 +20523,14 @@ class PostEventDisposeAndWhiteruleListResponse(TeaModel):
 
 class PostEventWhiteruleListRequest(TeaModel):
     def __init__(self, incident_uuid=None, region_id=None, whiterule_list=None):
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The alert whitelist rule. The value is a JSON object.
         self.whiterule_list = whiterule_list  # type: str
 
     def validate(self):
@@ -14003,10 +20563,18 @@ class PostEventWhiteruleListRequest(TeaModel):
 
 class PostEventWhiteruleListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -14086,7 +20654,12 @@ class PostEventWhiteruleListResponse(TeaModel):
 
 class PostFinishCustomizeRuleTestRequest(TeaModel):
     def __init__(self, id=None, region_id=None):
+        # The ID of the rule.
         self.id = id  # type: long
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14115,10 +20688,18 @@ class PostFinishCustomizeRuleTestRequest(TeaModel):
 
 class PostFinishCustomizeRuleTestResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: any
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -14198,9 +20779,22 @@ class PostFinishCustomizeRuleTestResponse(TeaModel):
 
 class PostRuleStatusChangeRequest(TeaModel):
     def __init__(self, ids=None, in_use=None, region_id=None, rule_type=None):
+        # The rule IDs. The value is a JSON array.
         self.ids = ids  # type: str
+        # Specifies whether to enable the rule. Valid values:
+        # 
+        # *   true
+        # *   false
         self.in_use = in_use  # type: bool
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The type of the rule. Valid values:
+        # 
+        # *   predefine
+        # *   customize
         self.rule_type = rule_type  # type: str
 
     def validate(self):
@@ -14237,10 +20831,18 @@ class PostRuleStatusChangeRequest(TeaModel):
 
 class PostRuleStatusChangeResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: any
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -14320,6 +20922,10 @@ class PostRuleStatusChangeResponse(TeaModel):
 
 class RestoreCapacityRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14343,16 +20949,14 @@ class RestoreCapacityRequest(TeaModel):
 
 
 class RestoreCapacityResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # Indicates whether the release command has been sent. Valid values:
+        # 
+        # *   true: The command has been sent and the storage space is being released.
+        # *   false: The command failed to be sent.
         self.data = data  # type: bool
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -14363,42 +20967,18 @@ class RestoreCapacityResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -14443,8 +21023,14 @@ class RestoreCapacityResponse(TeaModel):
 
 class SaveQuickQueryRequest(TeaModel):
     def __init__(self, display_name=None, query=None, region_id=None):
+        # The name of the saved search.
         self.display_name = display_name  # type: str
+        # The query statement.
         self.query = query  # type: str
+        # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14476,16 +21062,14 @@ class SaveQuickQueryRequest(TeaModel):
 
 
 class SaveQuickQueryResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # Indicates whether the query statement is saved as a saved search. Valid values:
+        # 
+        # *   true
+        # *   false
         self.data = data  # type: bool
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -14496,42 +21080,18 @@ class SaveQuickQueryResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -14576,8 +21136,14 @@ class SaveQuickQueryResponse(TeaModel):
 
 class SetStorageRequest(TeaModel):
     def __init__(self, region=None, region_id=None, ttl=None):
+        # The storage region of logs. By default, the region of the data management center is used and cannot be changed. cn-shanghai is used for the China data management center, and ap-southeast-1 is used for the Outside China data management center. To change the region, contact the technical support of threat analysis.
         self.region = region  # type: str
+        # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
+        # The storage duration of logs. Default value: 180. Minimum value: 30. Maximum value: 3000. Unit: days.
         self.ttl = ttl  # type: int
 
     def validate(self):
@@ -14609,16 +21175,14 @@ class SetStorageRequest(TeaModel):
 
 
 class SetStorageResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # Indicates whether the settings are saved. Valid values:
+        # 
+        # *   true
+        # *   false
         self.data = data  # type: bool
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -14629,42 +21193,18 @@ class SetStorageResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -14709,6 +21249,10 @@ class SetStorageResponse(TeaModel):
 
 class ShowQuickAnalysisRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in the Chinese mainland or in the China (Hong Kong) region.
+        # *   ap-southeast-1: Your assets reside in regions outside the Chinese mainland, excluding the China (Hong Kong) region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14733,6 +21277,7 @@ class ShowQuickAnalysisRequest(TeaModel):
 
 class ShowQuickAnalysisResponseBodyData(TeaModel):
     def __init__(self, index_list=None):
+        # The index fields of the logs.
         self.index_list = index_list  # type: list[str]
 
     def validate(self):
@@ -14756,16 +21301,11 @@ class ShowQuickAnalysisResponseBodyData(TeaModel):
 
 
 class ShowQuickAnalysisResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dy_code=None, dy_message=None, err_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: int
+    def __init__(self, data=None, request_id=None):
+        # The index fields.
         self.data = data  # type: ShowQuickAnalysisResponseBodyData
-        self.dy_code = dy_code  # type: str
-        self.dy_message = dy_message  # type: str
-        self.err_code = err_code  # type: str
-        self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         if self.data:
@@ -14777,43 +21317,19 @@ class ShowQuickAnalysisResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data.to_map()
-        if self.dy_code is not None:
-            result['DyCode'] = self.dy_code
-        if self.dy_message is not None:
-            result['DyMessage'] = self.dy_message
-        if self.err_code is not None:
-            result['ErrCode'] = self.err_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Data') is not None:
             temp_model = ShowQuickAnalysisResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('DyCode') is not None:
-            self.dy_code = m.get('DyCode')
-        if m.get('DyMessage') is not None:
-            self.dy_message = m.get('DyMessage')
-        if m.get('ErrCode') is not None:
-            self.err_code = m.get('ErrCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -14856,10 +21372,260 @@ class ShowQuickAnalysisResponse(TeaModel):
         return self
 
 
+class SubmitImportLogTasksRequest(TeaModel):
+    def __init__(self, accounts=None, auto_imported=None, cloud_code=None, log_codes=None, prod_code=None,
+                 region_id=None):
+        self.accounts = accounts  # type: str
+        self.auto_imported = auto_imported  # type: int
+        self.cloud_code = cloud_code  # type: str
+        self.log_codes = log_codes  # type: str
+        self.prod_code = prod_code  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitImportLogTasksRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accounts is not None:
+            result['Accounts'] = self.accounts
+        if self.auto_imported is not None:
+            result['AutoImported'] = self.auto_imported
+        if self.cloud_code is not None:
+            result['CloudCode'] = self.cloud_code
+        if self.log_codes is not None:
+            result['LogCodes'] = self.log_codes
+        if self.prod_code is not None:
+            result['ProdCode'] = self.prod_code
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Accounts') is not None:
+            self.accounts = m.get('Accounts')
+        if m.get('AutoImported') is not None:
+            self.auto_imported = m.get('AutoImported')
+        if m.get('CloudCode') is not None:
+            self.cloud_code = m.get('CloudCode')
+        if m.get('LogCodes') is not None:
+            self.log_codes = m.get('LogCodes')
+        if m.get('ProdCode') is not None:
+            self.prod_code = m.get('ProdCode')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class SubmitImportLogTasksResponseBodyData(TeaModel):
+    def __init__(self, count=None):
+        self.count = count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitImportLogTasksResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        return self
+
+
+class SubmitImportLogTasksResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: SubmitImportLogTasksResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(SubmitImportLogTasksResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = SubmitImportLogTasksResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SubmitImportLogTasksResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SubmitImportLogTasksResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SubmitImportLogTasksResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SubmitImportLogTasksResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SubmitJobsRequest(TeaModel):
+    def __init__(self, json_param=None, region_id=None):
+        self.json_param = json_param  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitJobsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.json_param is not None:
+            result['JsonParam'] = self.json_param
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JsonParam') is not None:
+            self.json_param = m.get('JsonParam')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class SubmitJobsResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: int
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitJobsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SubmitJobsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SubmitJobsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SubmitJobsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SubmitJobsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateAutomateResponseConfigStatusRequest(TeaModel):
     def __init__(self, ids=None, in_use=None, region_id=None):
+        # The IDs of the automatic response rules. The value is a JSON array.
         self.ids = ids  # type: str
+        # Specifies whether the rule is enabled. Valid values:
+        # 
+        # *   true
+        # *   false
         self.in_use = in_use  # type: bool
+        # The data management center of the threat analysis feature. Specify this parameter based on the region in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14892,10 +21658,18 @@ class UpdateAutomateResponseConfigStatusRequest(TeaModel):
 
 class UpdateAutomateResponseConfigStatusResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code that is returned.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -14975,9 +21749,16 @@ class UpdateAutomateResponseConfigStatusResponse(TeaModel):
 
 class UpdateWhiteRuleListRequest(TeaModel):
     def __init__(self, expression=None, incident_uuid=None, region_id=None, white_rule_id=None):
+        # The alert whitelist rule. The value is a JSON object.
         self.expression = expression  # type: str
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The unique ID of the whitelist rule.
         self.white_rule_id = white_rule_id  # type: long
 
     def validate(self):
@@ -15014,10 +21795,18 @@ class UpdateWhiteRuleListRequest(TeaModel):
 
 class UpdateWhiteRuleListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: any
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
