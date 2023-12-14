@@ -5012,8 +5012,12 @@ class SubmitAudioTo2DAvatarVideoTaskRequestApp(TeaModel):
 
 
 class SubmitAudioTo2DAvatarVideoTaskRequestAvatarInfo(TeaModel):
-    def __init__(self, code=None):
+    def __init__(self, code=None, height=None, width=None, x=None, y=None):
         self.code = code  # type: str
+        self.height = height  # type: int
+        self.width = width  # type: int
+        self.x = x  # type: int
+        self.y = y  # type: int
 
     def validate(self):
         pass
@@ -5026,12 +5030,28 @@ class SubmitAudioTo2DAvatarVideoTaskRequestAvatarInfo(TeaModel):
         result = dict()
         if self.code is not None:
             result['Code'] = self.code
+        if self.height is not None:
+            result['Height'] = self.height
+        if self.width is not None:
+            result['Width'] = self.width
+        if self.x is not None:
+            result['X'] = self.x
+        if self.y is not None:
+            result['Y'] = self.y
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Code') is not None:
             self.code = m.get('Code')
+        if m.get('Height') is not None:
+            self.height = m.get('Height')
+        if m.get('Width') is not None:
+            self.width = m.get('Width')
+        if m.get('X') is not None:
+            self.x = m.get('X')
+        if m.get('Y') is not None:
+            self.y = m.get('Y')
         return self
 
 
@@ -5980,8 +6000,12 @@ class SubmitTextTo2DAvatarVideoTaskRequestAudioInfo(TeaModel):
 
 
 class SubmitTextTo2DAvatarVideoTaskRequestAvatarInfo(TeaModel):
-    def __init__(self, code=None):
+    def __init__(self, code=None, height=None, width=None, x=None, y=None):
         self.code = code  # type: str
+        self.height = height  # type: int
+        self.width = width  # type: int
+        self.x = x  # type: int
+        self.y = y  # type: int
 
     def validate(self):
         pass
@@ -5994,12 +6018,28 @@ class SubmitTextTo2DAvatarVideoTaskRequestAvatarInfo(TeaModel):
         result = dict()
         if self.code is not None:
             result['Code'] = self.code
+        if self.height is not None:
+            result['Height'] = self.height
+        if self.width is not None:
+            result['Width'] = self.width
+        if self.x is not None:
+            result['X'] = self.x
+        if self.y is not None:
+            result['Y'] = self.y
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Code') is not None:
             self.code = m.get('Code')
+        if m.get('Height') is not None:
+            self.height = m.get('Height')
+        if m.get('Width') is not None:
+            self.width = m.get('Width')
+        if m.get('X') is not None:
+            self.x = m.get('X')
+        if m.get('Y') is not None:
+            self.y = m.get('Y')
         return self
 
 
