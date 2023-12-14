@@ -1036,10 +1036,8 @@ class CreateApplicationRequest(TeaModel):
         # *   true
         # *   false
         # 
-        # > 
-        # 
-        # *   For applications of the WebApp and ServerApp types, this parameter is automatically set to true and cannot be changed.
-        # *   For applications of the NativeApp type, this parameter can be set to true or false. If you do not set this parameter, false is used. Applications of the NativeApp type run in untrusted environments and the secrets of these applications are not protected. Therefore, we recommend that you do not set this parameter to true unless otherwise specified. For more information, see [Use an application of the NativeApp type to log on to Alibaba Cloud](~~93697~~).
+        # >- For applications of the WebApp and ServerApp types, this parameter is automatically set to true and cannot be changed.
+        # >- For applications of the NativeApp type, this parameter can be set to true or false. If you do not set this parameter, false is used. Applications of the NativeApp type run in untrusted environments and the secrets of these applications are not protected. Therefore, we recommend that you do not set this parameter to true unless otherwise specified. For more information, see [Use an application of the NativeApp type to log on to Alibaba Cloud](~~93697~~).
         self.secret_required = secret_required  # type: bool
 
     def validate(self):
@@ -2150,7 +2148,7 @@ class CreateUserRequestTag(TeaModel):
         self.key = key  # type: str
         # The value of tag N.
         # 
-        # Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be a up to128 characters in length and cannot contain `http://` or `https://`. The tag value cannot start with `acs:`.
+        # Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`. The tag value cannot start with `acs:`.
         self.value = value  # type: str
 
     def validate(self):
@@ -2200,7 +2198,7 @@ class CreateUserRequest(TeaModel):
         self.mobile_phone = mobile_phone  # type: str
         # The tag value.
         # 
-        # Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be a up to128 characters in length and cannot contain `http://` or `https://`. The tag value cannot start with `acs:`.
+        # Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`. The tag value cannot start with `acs:`.
         self.tag = tag  # type: list[CreateUserRequestTag]
         # The logon name of the RAM user.
         # 
