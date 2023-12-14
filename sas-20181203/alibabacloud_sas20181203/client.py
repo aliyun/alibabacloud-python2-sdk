@@ -3437,6 +3437,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_opa_strategy_new_with_options(request, runtime)
 
+    def delete_oss_scan_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteOssScanConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DeleteOssScanConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_oss_scan_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_oss_scan_config_with_options(request, runtime)
+
     def delete_private_registry_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -17194,6 +17222,16 @@ class Client(OpenApiClient):
         return self.list_interception_target_page_with_options(request, runtime)
 
     def list_k8s_access_info_with_options(self, request, runtime):
+        """
+        You can use this operation to query the access information about Kubernetes clusters.
+        
+
+        @param request: ListK8sAccessInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListK8sAccessInfoResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.aliyun_yundun_gateway_api_name):
@@ -17224,6 +17262,14 @@ class Client(OpenApiClient):
         )
 
     def list_k8s_access_info(self, request):
+        """
+        You can use this operation to query the access information about Kubernetes clusters.
+        
+
+        @param request: ListK8sAccessInfoRequest
+
+        @return: ListK8sAccessInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_k8s_access_info_with_options(request, runtime)
 
@@ -17416,6 +17462,32 @@ class Client(OpenApiClient):
     def list_oss_bucket_scan_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_oss_bucket_scan_info_with_options(request, runtime)
+
+    def list_oss_scan_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListOssScanConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListOssScanConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_oss_scan_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_oss_scan_config_with_options(request, runtime)
 
     def list_plugin_for_uuid_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -21789,6 +21861,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.remove_check_result_white_list_with_options(request, runtime)
 
+    def reset_honeypot_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.honeypot_id):
+            query['HoneypotId'] = request.honeypot_id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ResetHoneypot',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ResetHoneypotResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def reset_honeypot(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.reset_honeypot_with_options(request, runtime)
+
     def retry_agentless_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -22168,6 +22270,36 @@ class Client(OpenApiClient):
     def start_discover_database_task(self):
         runtime = util_models.RuntimeOptions()
         return self.start_discover_database_task_with_options(runtime)
+
+    def start_honeypot_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.honeypot_id):
+            query['HoneypotId'] = request.honeypot_id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartHoneypot',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.StartHoneypotResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def start_honeypot(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.start_honeypot_with_options(request, runtime)
 
     def start_pre_check_database_with_options(self, request, runtime):
         UtilClient.validate_model(request)
