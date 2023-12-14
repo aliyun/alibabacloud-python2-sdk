@@ -19,6 +19,7 @@ class Client(OpenApiClient):
     """
     def __init__(self, config):
         super(Client, self).__init__(config)
+        self._signature_algorithm = 'v2'
         self._endpoint_rule = ''
         self.check_config(config)
         self._endpoint = self.get_endpoint('um-test', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
