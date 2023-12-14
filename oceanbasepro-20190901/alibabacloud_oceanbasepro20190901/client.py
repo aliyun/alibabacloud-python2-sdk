@@ -3368,6 +3368,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_instance_tags_with_options(request, runtime)
 
+    def modify_instance_temporary_capacity_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.disk_size):
+            body['DiskSize'] = request.disk_size
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyInstanceTemporaryCapacity',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.ModifyInstanceTemporaryCapacityResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_instance_temporary_capacity(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_instance_temporary_capacity_with_options(request, runtime)
+
     def modify_parameters_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
