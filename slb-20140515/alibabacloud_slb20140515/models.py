@@ -1690,7 +1690,8 @@ class CreateLoadBalancerHTTPListenerRequest(TeaModel):
                  listener_forward=None, listener_port=None, load_balancer_id=None, owner_account=None, owner_id=None, region_id=None,
                  request_timeout=None, resource_owner_account=None, resource_owner_id=None, scheduler=None, sticky_session=None,
                  sticky_session_type=None, tag=None, unhealthy_threshold=None, vserver_group_id=None, xforwarded_for=None,
-                 xforwarded_for__slbid=None, xforwarded_for__slbip=None, xforwarded_for_proto=None):
+                 xforwarded_for__client_src_port=None, xforwarded_for__slbid=None, xforwarded_for__slbip=None, xforwarded_for__slbport=None,
+                 xforwarded_for_proto=None):
         # The ID of the network ACL that is associated with the listener.
         # 
         # >  If **AclStatus** is set to **on**, this parameter is required.
@@ -1870,6 +1871,7 @@ class CreateLoadBalancerHTTPListenerRequest(TeaModel):
         # *   **on** (default): yes
         # *   **off**: no
         self.xforwarded_for = xforwarded_for  # type: str
+        self.xforwarded_for__client_src_port = xforwarded_for__client_src_port  # type: str
         # Specifies whether to use the `SLB-ID` header to retrieve the ID of the CLB instance. Valid values:
         # 
         # *   **on**: yes
@@ -1880,6 +1882,7 @@ class CreateLoadBalancerHTTPListenerRequest(TeaModel):
         # *   **on**: yes
         # *   **off** (default): no
         self.xforwarded_for__slbip = xforwarded_for__slbip  # type: str
+        self.xforwarded_for__slbport = xforwarded_for__slbport  # type: str
         # Specifies whether to use the `X-Forwarded-Proto` header to retrieve the listening protocol. Valid values:
         # 
         # *   **on**: yes
@@ -1972,10 +1975,14 @@ class CreateLoadBalancerHTTPListenerRequest(TeaModel):
             result['VServerGroupId'] = self.vserver_group_id
         if self.xforwarded_for is not None:
             result['XForwardedFor'] = self.xforwarded_for
+        if self.xforwarded_for__client_src_port is not None:
+            result['XForwardedFor_ClientSrcPort'] = self.xforwarded_for__client_src_port
         if self.xforwarded_for__slbid is not None:
             result['XForwardedFor_SLBID'] = self.xforwarded_for__slbid
         if self.xforwarded_for__slbip is not None:
             result['XForwardedFor_SLBIP'] = self.xforwarded_for__slbip
+        if self.xforwarded_for__slbport is not None:
+            result['XForwardedFor_SLBPORT'] = self.xforwarded_for__slbport
         if self.xforwarded_for_proto is not None:
             result['XForwardedFor_proto'] = self.xforwarded_for_proto
         return result
@@ -2057,10 +2064,14 @@ class CreateLoadBalancerHTTPListenerRequest(TeaModel):
             self.vserver_group_id = m.get('VServerGroupId')
         if m.get('XForwardedFor') is not None:
             self.xforwarded_for = m.get('XForwardedFor')
+        if m.get('XForwardedFor_ClientSrcPort') is not None:
+            self.xforwarded_for__client_src_port = m.get('XForwardedFor_ClientSrcPort')
         if m.get('XForwardedFor_SLBID') is not None:
             self.xforwarded_for__slbid = m.get('XForwardedFor_SLBID')
         if m.get('XForwardedFor_SLBIP') is not None:
             self.xforwarded_for__slbip = m.get('XForwardedFor_SLBIP')
+        if m.get('XForwardedFor_SLBPORT') is not None:
+            self.xforwarded_for__slbport = m.get('XForwardedFor_SLBPORT')
         if m.get('XForwardedFor_proto') is not None:
             self.xforwarded_for_proto = m.get('XForwardedFor_proto')
         return self
@@ -2170,7 +2181,8 @@ class CreateLoadBalancerHTTPSListenerRequest(TeaModel):
                  owner_id=None, region_id=None, request_timeout=None, resource_owner_account=None, resource_owner_id=None,
                  scheduler=None, server_certificate_id=None, sticky_session=None, sticky_session_type=None,
                  tlscipher_policy=None, tag=None, unhealthy_threshold=None, vserver_group_id=None, xforwarded_for=None,
-                 xforwarded_for__slbid=None, xforwarded_for__slbip=None, xforwarded_for_proto=None):
+                 xforwarded_for__client_src_port=None, xforwarded_for__slbid=None, xforwarded_for__slbip=None, xforwarded_for__slbport=None,
+                 xforwarded_for_proto=None):
         # The ID of the network access control list (ACL) that is associated with the listener.
         # 
         # >  If **AclStatus** is set to **on**, this parameter is required.
@@ -2382,6 +2394,7 @@ class CreateLoadBalancerHTTPSListenerRequest(TeaModel):
         # *   **on**: yes
         # *   **off**: no
         self.xforwarded_for = xforwarded_for  # type: str
+        self.xforwarded_for__client_src_port = xforwarded_for__client_src_port  # type: str
         # Specifies whether to use the `SLB-ID` header to retrieve the ID of the CLB instance. Valid values:
         # 
         # *   **on**: yes
@@ -2392,6 +2405,7 @@ class CreateLoadBalancerHTTPSListenerRequest(TeaModel):
         # *   **on**: yes
         # *   **off**: no
         self.xforwarded_for__slbip = xforwarded_for__slbip  # type: str
+        self.xforwarded_for__slbport = xforwarded_for__slbport  # type: str
         # Specifies whether to use the `X-Forwarded-Proto` header to retrieve the listener protocol. Valid values:
         # 
         # *   **on**: yes
@@ -2488,10 +2502,14 @@ class CreateLoadBalancerHTTPSListenerRequest(TeaModel):
             result['VServerGroupId'] = self.vserver_group_id
         if self.xforwarded_for is not None:
             result['XForwardedFor'] = self.xforwarded_for
+        if self.xforwarded_for__client_src_port is not None:
+            result['XForwardedFor_ClientSrcPort'] = self.xforwarded_for__client_src_port
         if self.xforwarded_for__slbid is not None:
             result['XForwardedFor_SLBID'] = self.xforwarded_for__slbid
         if self.xforwarded_for__slbip is not None:
             result['XForwardedFor_SLBIP'] = self.xforwarded_for__slbip
+        if self.xforwarded_for__slbport is not None:
+            result['XForwardedFor_SLBPORT'] = self.xforwarded_for__slbport
         if self.xforwarded_for_proto is not None:
             result['XForwardedFor_proto'] = self.xforwarded_for_proto
         return result
@@ -2577,10 +2595,14 @@ class CreateLoadBalancerHTTPSListenerRequest(TeaModel):
             self.vserver_group_id = m.get('VServerGroupId')
         if m.get('XForwardedFor') is not None:
             self.xforwarded_for = m.get('XForwardedFor')
+        if m.get('XForwardedFor_ClientSrcPort') is not None:
+            self.xforwarded_for__client_src_port = m.get('XForwardedFor_ClientSrcPort')
         if m.get('XForwardedFor_SLBID') is not None:
             self.xforwarded_for__slbid = m.get('XForwardedFor_SLBID')
         if m.get('XForwardedFor_SLBIP') is not None:
             self.xforwarded_for__slbip = m.get('XForwardedFor_SLBIP')
+        if m.get('XForwardedFor_SLBPORT') is not None:
+            self.xforwarded_for__slbport = m.get('XForwardedFor_SLBPORT')
         if m.get('XForwardedFor_proto') is not None:
             self.xforwarded_for_proto = m.get('XForwardedFor_proto')
         return self
@@ -3396,7 +3418,12 @@ class CreateLoadBalancerUDPListenerResponse(TeaModel):
 
 class CreateMasterSlaveServerGroupRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # 资源标签键。N的取值范围：**1**~**20**。一旦输入该值，则不允许为空字符串。
+        # 
+        # 最多支持64个字符，不能以`aliyun`和`acs:`开头，不能包含`http://`或者`https://`。
         self.key = key  # type: str
+        # 资源的标签值。N的取值范围：**1~20**。一旦输入该值，可以为空字符串。
+        # 最多支持128个字符，不能以`aliyun`和`acs:`开头，不能包含`http://`或者`https://`。
         self.value = value  # type: str
 
     def validate(self):
@@ -3427,56 +3454,60 @@ class CreateMasterSlaveServerGroupRequest(TeaModel):
     def __init__(self, load_balancer_id=None, master_slave_backend_servers=None,
                  master_slave_server_group_name=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None, tag=None):
-        # The ID of the Classic Load Balancer (CLB) instance.
+        # The ID of the SLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
-        # The list of backend servers in the primary/secondary server group.
+        # The backend servers in the primary/secondary server group.
         # 
         # The value of this parameter must be a STRING list in the JSON format. You can specify up to 20 elements in each request.
         # 
-        # *   **ServerId**: This parameter is required. Specify the ID of the backend server. This parameter must be of the STRING type.
+        # *   **ServerId**: Required. Specify the ID of the backend server. The value must be of the STRING type.
         # 
-        # *   **Port**: This parameter is required. Specify the port that is used by the backend server. This parameter must be of the INTEGER type. Valid values: **1** to **65535**.
+        # *   **Port**: Required. Specify the port that is used by the backend server. The value must be of the INTEGER type. Valid values: **1** to **65535**.
         # 
-        # *   **Weight**: This parameter is required. Specify the weight of the backend server. This parameter must be of the INTEGER type. Valid values: **0** to **100**.
+        # *   **Weight**: Required. Specify the weight of the backend server. The value must be of the INTEGER type. Valid values: **0** to **100**.
         # 
-        # *   **Description**: This parameter is optional. Specify the description of the backend server. This parameter must be of the STRING type. The description must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.),and underscores (\_).
+        # *   \*\*Description \*\*: Optional. The description of the backend server. The value must be of the STRING type. The description must be 1 to 80 characters in length, and can contain letters, digits, hyphens (-), forward slashes (/), periods (.), and underscores (\_).
         # 
-        # *   **ServerType**: Specify the type of the backend server. This parameter must be of the STRING type. Valid values:
+        # *   **ServerType**: the type of the backend server. The value must be of the STRING type. Valid values:
         # 
-        #     *   **Master**: primary server
+        #     *   **Master**\
         # 
-        #     <!---->
+        # *   **Slave**\
         # 
-        #     *   **Slave**: secondary server
+        # *   **Type**: the service type of backend server. The value must be of the STRING type. Valid values:
         # 
-        # *   **Type**: Specify the type of backend server. This parameter must be of the STRING type. Valid values:
+        #     *   **ecs**\
+        #     *   **eni**\
         # 
-        #     *   **ecs**: an ECS instance
-        #     *   **eni**: an elastic network interface (ENI)
+        # *   **ServerIp**\
         # 
-        # *   **ServerIp**: the IP address of the ECS instance or ENI
+        # A primary/secondary server group can contain up to two backend servers.
         # 
-        # A primary/secondary server group can contain at most two backend servers.
-        # 
-        # If you do not set this parameter, an empty primary/secondary server group is created.
+        # If you do not specify this parameter, an empty primary/secondary server group is created.
         # 
         # Examples:
         # 
-        # *   ECS: `[{ "ServerId": "i-xxxxxxxxx", "Weight": "100", "Type": "ecs", "Port":"82","ServerType":"Master","Description":"test-112" }, { "ServerId": "i-xxxxxxxxx", "Weight": "100", "Type": "ecs", "Port":"84","ServerType":"Slave","Description":"test-112" }]`
+        # *   ECS instances:
         # 
-        # <!---->
+        # `[{ "ServerId": "i-xxxxxxxxx", "Weight": "100", "Type": "ecs", "Port":"82","ServerType":"Master","Description":"test-112" }, { "ServerId": "i-xxxxxxxxx", "Weight": "100", "Type": "ecs", "Port":"84","ServerType":"Slave","Description":"test-112" }]`
         # 
-        # *   ENI: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "Port":"80","ServerType":"Master","Description":"test-112" }, { "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","ServerType":"Slave","Description":"test-112" }]`
-        # *   ENI with multiple IP addresses: `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni","ServerIp": "192.168.**.**", "Port":"80","ServerType":"Master","Description":"test-112" }, { "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni","ServerIp": "192.168.**.**", "Port":"80","ServerType":"Slave","Description":"test-112" }]`
+        # *   ENIs:
+        # 
+        #     `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "Port":"80","ServerType":"Master","Description":"test-112" }, { "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni", "ServerIp": "192.168.**.**", "Port":"80","ServerType":"Slave","Description":"test-112" }]`
+        # 
+        # *   IP addresses of ENIs:
+        # 
+        #     `[{ "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni","ServerIp": "192.168.**.**", "Port":"80","ServerType":"Master","Description":"test-112" }, { "ServerId": "eni-xxxxxxxxx", "Weight": "100", "Type": "eni","ServerIp": "192.168.**.**", "Port":"80","ServerType":"Slave","Description":"test-112" }]`
         self.master_slave_backend_servers = master_slave_backend_servers  # type: str
         # The name of the primary/secondary server group.
         self.master_slave_server_group_name = master_slave_server_group_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the region where the CLB instance is deployed.
+        # The ID of the region where the Server Load Balancer (SLB) instance is deployed.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # 标签列表。
         self.tag = tag  # type: list[CreateMasterSlaveServerGroupRequestTag]
 
     def validate(self):
@@ -3543,7 +3574,7 @@ class CreateMasterSlaveServerGroupResponseBodyMasterSlaveBackendServersMasterSla
     def __init__(self, description=None, port=None, server_id=None, server_type=None, type=None, weight=None):
         # The description of the primary/secondary server group.
         self.description = description  # type: str
-        # The port number used by the backend server.
+        # The port that is used by the backend server.
         self.port = port  # type: int
         # The ID of the ECS instance or ENI that is added.
         self.server_id = server_id  # type: str
@@ -3551,10 +3582,10 @@ class CreateMasterSlaveServerGroupResponseBodyMasterSlaveBackendServersMasterSla
         # 
         # Valid values: **Master** and **Slave**.
         self.server_type = server_type  # type: str
-        # The type of the backend server. Valid values:
+        # The service type of the backend server. Valid values:
         # 
-        # *   **ecs**: an ECS instance
-        # *   **eni**: an ENI
+        # *   **ecs**\
+        # *   **eni**\
         self.type = type  # type: str
         # The weight of the backend server.
         self.weight = weight  # type: int
@@ -3633,11 +3664,11 @@ class CreateMasterSlaveServerGroupResponseBodyMasterSlaveBackendServers(TeaModel
 
 class CreateMasterSlaveServerGroupResponseBody(TeaModel):
     def __init__(self, master_slave_backend_servers=None, master_slave_server_group_id=None, request_id=None):
-        # The list of backend servers in the primary/secondary server group.
+        # The backend servers in the primary/secondary server group.
         self.master_slave_backend_servers = master_slave_backend_servers  # type: CreateMasterSlaveServerGroupResponseBodyMasterSlaveBackendServers
-        # The ID of the primary/secondary server group.
+        # The primary/secondary server group ID.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4773,11 +4804,11 @@ class DeleteCACertificateResponse(TeaModel):
 class DeleteDomainExtensionRequest(TeaModel):
     def __init__(self, domain_extension_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The ID of the domain name extension to be deleted.
+        # The ID of the additional domain name that you want to delete.
         self.domain_extension_id = domain_extension_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the region to which the SLB instance belongs.
+        # The region ID of the Server Load Balancer (SLB) instance.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -4824,7 +4855,7 @@ class DeleteDomainExtensionRequest(TeaModel):
 
 class DeleteDomainExtensionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9209,8 +9240,8 @@ class DescribeLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
                  health_check_method=None, health_check_timeout=None, health_check_uri=None, healthy_threshold=None, idle_timeout=None,
                  listener_forward=None, listener_port=None, load_balancer_id=None, request_id=None, request_timeout=None, rules=None,
                  scheduler=None, security_status=None, status=None, sticky_session=None, sticky_session_type=None, tags=None,
-                 unhealthy_threshold=None, vserver_group_id=None, xforwarded_for=None, xforwarded_for__slbid=None,
-                 xforwarded_for__slbip=None, xforwarded_for_proto=None):
+                 unhealthy_threshold=None, vserver_group_id=None, xforwarded_for=None, xforwarded_for__client_src_port=None,
+                 xforwarded_for__slbid=None, xforwarded_for__slbip=None, xforwarded_for__slbport=None, xforwarded_for_proto=None):
         # The ID of the network ACL that is associated with a listener.
         # 
         # > This parameter is returned when **AclStatus** is set to **on**.
@@ -9351,6 +9382,7 @@ class DescribeLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
         # *   **on**\
         # *   **off**\
         self.xforwarded_for = xforwarded_for  # type: str
+        self.xforwarded_for__client_src_port = xforwarded_for__client_src_port  # type: str
         # Indicates whether the `SLB-ID` header is used to retrieve the ID of the CLB instance. Valid values:
         # 
         # *   **on**\
@@ -9361,6 +9393,7 @@ class DescribeLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
         # *   **on**\
         # *   **off**\
         self.xforwarded_for__slbip = xforwarded_for__slbip  # type: str
+        self.xforwarded_for__slbport = xforwarded_for__slbport  # type: str
         # Indicates whether the `X-Forwarded-Proto` header is used to retrieve the listener protocol. Valid values:
         # 
         # *   **on**\
@@ -9449,10 +9482,14 @@ class DescribeLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
             result['VServerGroupId'] = self.vserver_group_id
         if self.xforwarded_for is not None:
             result['XForwardedFor'] = self.xforwarded_for
+        if self.xforwarded_for__client_src_port is not None:
+            result['XForwardedFor_ClientSrcPort'] = self.xforwarded_for__client_src_port
         if self.xforwarded_for__slbid is not None:
             result['XForwardedFor_SLBID'] = self.xforwarded_for__slbid
         if self.xforwarded_for__slbip is not None:
             result['XForwardedFor_SLBIP'] = self.xforwarded_for__slbip
+        if self.xforwarded_for__slbport is not None:
+            result['XForwardedFor_SLBPORT'] = self.xforwarded_for__slbport
         if self.xforwarded_for_proto is not None:
             result['XForwardedFor_proto'] = self.xforwarded_for_proto
         return result
@@ -9531,10 +9568,14 @@ class DescribeLoadBalancerHTTPListenerAttributeResponseBody(TeaModel):
             self.vserver_group_id = m.get('VServerGroupId')
         if m.get('XForwardedFor') is not None:
             self.xforwarded_for = m.get('XForwardedFor')
+        if m.get('XForwardedFor_ClientSrcPort') is not None:
+            self.xforwarded_for__client_src_port = m.get('XForwardedFor_ClientSrcPort')
         if m.get('XForwardedFor_SLBID') is not None:
             self.xforwarded_for__slbid = m.get('XForwardedFor_SLBID')
         if m.get('XForwardedFor_SLBIP') is not None:
             self.xforwarded_for__slbip = m.get('XForwardedFor_SLBIP')
+        if m.get('XForwardedFor_SLBPORT') is not None:
+            self.xforwarded_for__slbport = m.get('XForwardedFor_SLBPORT')
         if m.get('XForwardedFor_proto') is not None:
             self.xforwarded_for_proto = m.get('XForwardedFor_proto')
         return self
@@ -10328,12 +10369,13 @@ class DescribeLoadBalancerHTTPSListenerAttributeResponse(TeaModel):
 
 class DescribeLoadBalancerListenersRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # 资源的标签键。N的取值范围：**1~20**。一旦输入该值，则不允许为空字符串。
+        # The key of the tag. You can specify up to 20 tag keys. The tag key cannot be an empty string.
         # 
-        # 最多支持64个字符，不能以`aliyun`和`acs:`开头，不能包含`http://`或者`https://`。
+        # The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
         self.key = key  # type: str
-        # 资源的标签值。N的取值范围：**1~20**。一旦输入该值，可以为空字符串。
-        # 最多支持128个字符，不能以`aliyun`和`acs:`开头，不能包含`http://`或者`https://`。
+        # The tag value. Valid values of N: **1 to 20**. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. The tag value cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -10364,7 +10406,9 @@ class DescribeLoadBalancerListenersRequest(TeaModel):
     def __init__(self, description=None, listener_port=None, listener_protocol=None, load_balancer_id=None,
                  max_results=None, next_token=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, tag=None):
+        # The description of the listener.
         self.description = description  # type: str
+        # The frontend port that is used by the CLB instance.
         self.listener_port = listener_port  # type: int
         # The protocol used by the listener. Valid values:
         # 
@@ -10375,9 +10419,9 @@ class DescribeLoadBalancerListenersRequest(TeaModel):
         self.listener_protocol = listener_protocol  # type: str
         # The ID of the CLB instance. You can specify at most 10 IDs.
         self.load_balancer_id = load_balancer_id  # type: list[str]
-        # The number of entries to return on each page.
+        # The number of entries per page.
         # 
-        # Valid values: **1** to **100**. If you do not specify a value, the default value **20** is used.
+        # Valid values: **1** to **100**. If you do not specify this parameter, the default value **20** is used.
         self.max_results = max_results  # type: int
         # The token that is used for the next query. Valid values:
         # 
@@ -10394,7 +10438,7 @@ class DescribeLoadBalancerListenersRequest(TeaModel):
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # 标签列表。
+        # The tags.
         self.tag = tag  # type: list[DescribeLoadBalancerListenersRequestTag]
 
     def validate(self):
@@ -11161,9 +11205,11 @@ class DescribeLoadBalancerListenersResponseBodyListenersTCPListenerConfig(TeaMod
 
 class DescribeLoadBalancerListenersResponseBodyListenersTags(TeaModel):
     def __init__(self, tag_key=None, tag_value=None):
-        # 资源的标签键。
+        # The tag key.
         self.tag_key = tag_key  # type: str
-        # 资源的标签值。
+        # The tag value.
+        # 
+        # For more information about how to obtain a tag value, see [DescribeTagKeyList](~~145557~~).
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -11350,7 +11396,7 @@ class DescribeLoadBalancerListenersResponseBodyListeners(TeaModel):
         self.status = status  # type: str
         # The configuration of the TCP listener.
         self.tcplistener_config = tcplistener_config  # type: DescribeLoadBalancerListenersResponseBodyListenersTCPListenerConfig
-        # 标签列表。
+        # The tags.
         self.tags = tags  # type: list[DescribeLoadBalancerListenersResponseBodyListenersTags]
         # The configuration of the UDP listener.
         self.udplistener_config = udplistener_config  # type: DescribeLoadBalancerListenersResponseBodyListenersUDPListenerConfig
@@ -13303,13 +13349,11 @@ class DescribeMasterSlaveServerGroupAttributeResponse(TeaModel):
 
 class DescribeMasterSlaveServerGroupsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The tag key. You can specify at most 20 tag keys.
+        # The key of tag N. Valid values of N: **1 to 20**. The tag key cannot be an empty string.
         # 
-        # The tag key cannot be an empty string. The tag key must be 1 to 64 characters in length and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        # The tag key can be up to 64 characters in length, and cannot contain `http://` or `https://`. The tag key cannot start with `aliyun` or `acs:`.
         self.key = key  # type: str
-        # The tag value. You can specify at most 20 tag values. The tag value cannot be an empty string.
-        # 
-        # The tag value must be 1 to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        # The value of tag N. Valid values of N: **1 to 20**. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`. The tag value cannot start with `aliyun` and `acs:`.
         self.value = value  # type: str
 
     def validate(self):
@@ -13339,17 +13383,18 @@ class DescribeMasterSlaveServerGroupsRequestTag(TeaModel):
 class DescribeMasterSlaveServerGroupsRequest(TeaModel):
     def __init__(self, description=None, include_listener=None, load_balancer_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, tag=None):
+        # The description of the primary/secondary server group.
         self.description = description  # type: str
         # Specifies whether to return information about the associated listeners. Valid values:
         # 
-        # *   **true**: returns information about the associated listeners.
-        # *   **false**: does not return information about the associated listeners.
+        # *   **true**\
+        # *   **false**\
         self.include_listener = include_listener  # type: bool
-        # The ID of the CLB instance.
+        # The CLB instance ID.
         self.load_balancer_id = load_balancer_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the Classic Load Balancer (CLB) instance.
+        # The region ID of the CLB instance.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -13418,9 +13463,9 @@ class DescribeMasterSlaveServerGroupsRequest(TeaModel):
 
 class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupAssociatedObjectsListenersListener(TeaModel):
     def __init__(self, port=None, protocol=None):
-        # The listening port.
+        # The listener port.
         self.port = port  # type: int
-        # The listening protocol.
+        # The listener protocol.
         self.protocol = protocol  # type: str
 
     def validate(self):
@@ -13481,7 +13526,7 @@ class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSl
 
 class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupAssociatedObjects(TeaModel):
     def __init__(self, listeners=None):
-        # The list of listeners.
+        # The listeners.
         self.listeners = listeners  # type: DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupAssociatedObjectsListeners
 
     def validate(self):
@@ -13508,9 +13553,9 @@ class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSl
 
 class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupTagsTag(TeaModel):
     def __init__(self, tag_key=None, tag_value=None):
-        # The tag keys.
+        # The tag key.
         self.tag_key = tag_key  # type: str
-        # The tag values.
+        # The tag value.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -13574,13 +13619,13 @@ class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSl
                  master_slave_server_group_name=None, tags=None):
         # The associated resources.
         self.associated_objects = associated_objects  # type: DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupAssociatedObjects
-        # The time when the CLB instance was created. The time follows the `YYYY-MM-DDThh:mm:ssZ` format.
+        # The time when the CLB instance was created. Specify the time in the `YYYY-MM-DDThh:mm:ssZ` format.
         self.create_time = create_time  # type: str
         # The ID of the primary/secondary server group.
         self.master_slave_server_group_id = master_slave_server_group_id  # type: str
         # The name of the primary/secondary server group.
         self.master_slave_server_group_name = master_slave_server_group_name  # type: str
-        # The tag key.
+        # The tags to add to the resource.
         self.tags = tags  # type: DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroupsMasterSlaveServerGroupTags
 
     def validate(self):
@@ -13658,9 +13703,9 @@ class DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroups(TeaMode
 
 class DescribeMasterSlaveServerGroupsResponseBody(TeaModel):
     def __init__(self, master_slave_server_groups=None, request_id=None):
-        # The list of backend servers in the primary/secondary server group.
+        # The primary/secondary server groups.
         self.master_slave_server_groups = master_slave_server_groups  # type: DescribeMasterSlaveServerGroupsResponseBodyMasterSlaveServerGroups
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20180,8 +20225,8 @@ class SetLoadBalancerHTTPListenerAttributeRequest(TeaModel):
                  health_check_uri=None, healthy_threshold=None, idle_timeout=None, listener_port=None, load_balancer_id=None,
                  owner_account=None, owner_id=None, region_id=None, request_timeout=None, resource_owner_account=None,
                  resource_owner_id=None, scheduler=None, sticky_session=None, sticky_session_type=None, unhealthy_threshold=None,
-                 vserver_group=None, vserver_group_id=None, xforwarded_for=None, xforwarded_for__slbid=None,
-                 xforwarded_for__slbip=None, xforwarded_for_proto=None):
+                 vserver_group=None, vserver_group_id=None, xforwarded_for=None, xforwarded_for__client_src_port=None,
+                 xforwarded_for__slbid=None, xforwarded_for__slbip=None, xforwarded_for__slbport=None, xforwarded_for_proto=None):
         # The ID of the access control list (ACL) that is associated with the listener.
         # 
         # > This parameter is required when **AclStatus** is set to **on**.
@@ -20340,6 +20385,7 @@ class SetLoadBalancerHTTPListenerAttributeRequest(TeaModel):
         # *   **on** (default)
         # *   **off**\
         self.xforwarded_for = xforwarded_for  # type: str
+        self.xforwarded_for__client_src_port = xforwarded_for__client_src_port  # type: str
         # Specifies whether to use the `SLB-ID` header to retrieve the ID of the CLB instance. Valid values:
         # 
         # *   **on**\
@@ -20350,6 +20396,7 @@ class SetLoadBalancerHTTPListenerAttributeRequest(TeaModel):
         # *   **on**\
         # *   **off**\
         self.xforwarded_for__slbip = xforwarded_for__slbip  # type: str
+        self.xforwarded_for__slbport = xforwarded_for__slbport  # type: str
         # Specifies whether to use the `X-Forwarded-Proto` header to retrieve the listener protocol. Valid values:
         # 
         # *   **on**\
@@ -20431,10 +20478,14 @@ class SetLoadBalancerHTTPListenerAttributeRequest(TeaModel):
             result['VServerGroupId'] = self.vserver_group_id
         if self.xforwarded_for is not None:
             result['XForwardedFor'] = self.xforwarded_for
+        if self.xforwarded_for__client_src_port is not None:
+            result['XForwardedFor_ClientSrcPort'] = self.xforwarded_for__client_src_port
         if self.xforwarded_for__slbid is not None:
             result['XForwardedFor_SLBID'] = self.xforwarded_for__slbid
         if self.xforwarded_for__slbip is not None:
             result['XForwardedFor_SLBIP'] = self.xforwarded_for__slbip
+        if self.xforwarded_for__slbport is not None:
+            result['XForwardedFor_SLBPORT'] = self.xforwarded_for__slbport
         if self.xforwarded_for_proto is not None:
             result['XForwardedFor_proto'] = self.xforwarded_for_proto
         return result
@@ -20507,10 +20558,14 @@ class SetLoadBalancerHTTPListenerAttributeRequest(TeaModel):
             self.vserver_group_id = m.get('VServerGroupId')
         if m.get('XForwardedFor') is not None:
             self.xforwarded_for = m.get('XForwardedFor')
+        if m.get('XForwardedFor_ClientSrcPort') is not None:
+            self.xforwarded_for__client_src_port = m.get('XForwardedFor_ClientSrcPort')
         if m.get('XForwardedFor_SLBID') is not None:
             self.xforwarded_for__slbid = m.get('XForwardedFor_SLBID')
         if m.get('XForwardedFor_SLBIP') is not None:
             self.xforwarded_for__slbip = m.get('XForwardedFor_SLBIP')
+        if m.get('XForwardedFor_SLBPORT') is not None:
+            self.xforwarded_for__slbport = m.get('XForwardedFor_SLBPORT')
         if m.get('XForwardedFor_proto') is not None:
             self.xforwarded_for_proto = m.get('XForwardedFor_proto')
         return self
@@ -20588,8 +20643,9 @@ class SetLoadBalancerHTTPSListenerAttributeRequest(TeaModel):
                  listener_port=None, load_balancer_id=None, owner_account=None, owner_id=None, region_id=None,
                  request_timeout=None, resource_owner_account=None, resource_owner_id=None, scheduler=None,
                  server_certificate_id=None, sticky_session=None, sticky_session_type=None, tlscipher_policy=None,
-                 unhealthy_threshold=None, vserver_group=None, vserver_group_id=None, xforwarded_for=None, xforwarded_for__slbid=None,
-                 xforwarded_for__slbip=None, xforwarded_for_proto=None):
+                 unhealthy_threshold=None, vserver_group=None, vserver_group_id=None, xforwarded_for=None,
+                 xforwarded_for__client_src_port=None, xforwarded_for__slbid=None, xforwarded_for__slbip=None, xforwarded_for__slbport=None,
+                 xforwarded_for_proto=None):
         # The ID of the network access control list (ACL) that you want to associate with the listener.
         # 
         # If **AclStatus** is set to **on**, this parameter is required.
@@ -20797,6 +20853,7 @@ class SetLoadBalancerHTTPSListenerAttributeRequest(TeaModel):
         # *   **on**: yes
         # *   **off**: no
         self.xforwarded_for = xforwarded_for  # type: str
+        self.xforwarded_for__client_src_port = xforwarded_for__client_src_port  # type: str
         # Specifies whether to use the `SLB-ID` header to retrieve the ID of the CLB instance. Valid values:
         # 
         # *   **on**: yes
@@ -20807,6 +20864,7 @@ class SetLoadBalancerHTTPSListenerAttributeRequest(TeaModel):
         # *   **on**: yes
         # *   **off**: no
         self.xforwarded_for__slbip = xforwarded_for__slbip  # type: str
+        self.xforwarded_for__slbport = xforwarded_for__slbport  # type: str
         # Specifies whether to use the `X-Forwarded-Proto` header to retrieve the listener protocol. Valid values:
         # 
         # *   **on**: yes
@@ -20896,10 +20954,14 @@ class SetLoadBalancerHTTPSListenerAttributeRequest(TeaModel):
             result['VServerGroupId'] = self.vserver_group_id
         if self.xforwarded_for is not None:
             result['XForwardedFor'] = self.xforwarded_for
+        if self.xforwarded_for__client_src_port is not None:
+            result['XForwardedFor_ClientSrcPort'] = self.xforwarded_for__client_src_port
         if self.xforwarded_for__slbid is not None:
             result['XForwardedFor_SLBID'] = self.xforwarded_for__slbid
         if self.xforwarded_for__slbip is not None:
             result['XForwardedFor_SLBIP'] = self.xforwarded_for__slbip
+        if self.xforwarded_for__slbport is not None:
+            result['XForwardedFor_SLBPORT'] = self.xforwarded_for__slbport
         if self.xforwarded_for_proto is not None:
             result['XForwardedFor_proto'] = self.xforwarded_for_proto
         return result
@@ -20980,10 +21042,14 @@ class SetLoadBalancerHTTPSListenerAttributeRequest(TeaModel):
             self.vserver_group_id = m.get('VServerGroupId')
         if m.get('XForwardedFor') is not None:
             self.xforwarded_for = m.get('XForwardedFor')
+        if m.get('XForwardedFor_ClientSrcPort') is not None:
+            self.xforwarded_for__client_src_port = m.get('XForwardedFor_ClientSrcPort')
         if m.get('XForwardedFor_SLBID') is not None:
             self.xforwarded_for__slbid = m.get('XForwardedFor_SLBID')
         if m.get('XForwardedFor_SLBIP') is not None:
             self.xforwarded_for__slbip = m.get('XForwardedFor_SLBIP')
+        if m.get('XForwardedFor_SLBPORT') is not None:
+            self.xforwarded_for__slbport = m.get('XForwardedFor_SLBPORT')
         if m.get('XForwardedFor_proto') is not None:
             self.xforwarded_for_proto = m.get('XForwardedFor_proto')
         return self
@@ -21194,7 +21260,11 @@ class SetLoadBalancerModificationProtectionResponse(TeaModel):
 class SetLoadBalancerNameRequest(TeaModel):
     def __init__(self, load_balancer_id=None, load_balancer_name=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The ID of the CLB instance.
         self.load_balancer_id = load_balancer_id  # type: str
+        # The new name of the CLB instance.
+        # 
+        # The name must be 1 to 80 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). It must start with a letter.
         self.load_balancer_name = load_balancer_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -21251,6 +21321,7 @@ class SetLoadBalancerNameRequest(TeaModel):
 
 class SetLoadBalancerNameResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
