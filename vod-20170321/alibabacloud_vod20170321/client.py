@@ -6883,19 +6883,23 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.submit_preprocess_jobs_with_options(request, runtime)
 
-    def submit_snapshot_job_with_options(self, request, runtime):
+    def submit_snapshot_job_with_options(self, tmp_req, runtime):
         """
         >    Only snapshots in the JPG format are generated.
         > *   After a snapshot job is complete, ApsaraVideo VOD sends a [SnapshotComplete](~~57337~~) event notification that contains EventType=SnapshotComplete and SubType=SpecifiedTime.
         
 
-        @param request: SubmitSnapshotJobRequest
+        @param tmp_req: SubmitSnapshotJobRequest
 
         @param runtime: runtime options for this request RuntimeOptions
 
         @return: SubmitSnapshotJobResponse
         """
-        UtilClient.validate_model(request)
+        UtilClient.validate_model(tmp_req)
+        request = vod_20170321_models.SubmitSnapshotJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.specified_offset_times):
+            request.specified_offset_times_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.specified_offset_times, 'SpecifiedOffsetTimes', 'json')
         query = {}
         if not UtilClient.is_unset(request.count):
             query['Count'] = request.count
@@ -6907,6 +6911,8 @@ class Client(OpenApiClient):
             query['SnapshotTemplateId'] = request.snapshot_template_id
         if not UtilClient.is_unset(request.specified_offset_time):
             query['SpecifiedOffsetTime'] = request.specified_offset_time
+        if not UtilClient.is_unset(request.specified_offset_times_shrink):
+            query['SpecifiedOffsetTimes'] = request.specified_offset_times_shrink
         if not UtilClient.is_unset(request.sprite_snapshot_config):
             query['SpriteSnapshotConfig'] = request.sprite_snapshot_config
         if not UtilClient.is_unset(request.user_data):

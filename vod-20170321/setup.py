@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_vod20170321_py2.
 
-Created on 13/12/2023
+Created on 15/12/2023
 
 @author: Alibaba Cloud SDK
 """
