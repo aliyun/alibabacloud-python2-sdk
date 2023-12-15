@@ -491,8 +491,8 @@ class Client(OpenApiClient):
     def create_api_with_options(self, request, runtime):
         """
         This operation is intended for API providers.
-        *   The name of each API within the same group must be unique.
-        *   Each request path within the same group must be unique.
+        *   The name of an API must be unique within an API group.
+        *   A request path must be unique within an API group.
         *   The QPS limit on this operation is 50 per user.
         
 
@@ -536,6 +536,8 @@ class Client(OpenApiClient):
             query['SecurityToken'] = request.security_token
         if not UtilClient.is_unset(request.service_config):
             query['ServiceConfig'] = request.service_config
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.visibility):
             query['Visibility'] = request.visibility
         if not UtilClient.is_unset(request.web_socket_api_type):
@@ -582,8 +584,8 @@ class Client(OpenApiClient):
     def create_api(self, request):
         """
         This operation is intended for API providers.
-        *   The name of each API within the same group must be unique.
-        *   Each request path within the same group must be unique.
+        *   The name of an API must be unique within an API group.
+        *   A request path must be unique within an API group.
         *   The QPS limit on this operation is 50 per user.
         
 
@@ -769,10 +771,14 @@ class Client(OpenApiClient):
             query['BackendType'] = request.backend_type
         if not UtilClient.is_unset(request.create_event_bridge_service_linked_role):
             query['CreateEventBridgeServiceLinkedRole'] = request.create_event_bridge_service_linked_role
+        if not UtilClient.is_unset(request.create_slr):
+            query['CreateSlr'] = request.create_slr
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -843,6 +849,8 @@ class Client(OpenApiClient):
             query['DatasetType'] = request.dataset_type
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1102,6 +1110,8 @@ class Client(OpenApiClient):
             query['ModelName'] = request.model_name
         if not UtilClient.is_unset(request.schema):
             query['Schema'] = request.schema
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3997,6 +4007,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4131,6 +4143,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4220,7 +4234,7 @@ class Client(OpenApiClient):
 
     def describe_deployed_apis_with_options(self, request, runtime):
         """
-        This API is intended for API providers.
+        This operation is intended for API callers.
         
 
         @param request: DescribeDeployedApisRequest
@@ -4274,7 +4288,7 @@ class Client(OpenApiClient):
 
     def describe_deployed_apis(self, request):
         """
-        This API is intended for API providers.
+        This operation is intended for API callers.
         
 
         @param request: DescribeDeployedApisRequest
@@ -5055,6 +5069,8 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5845,6 +5861,8 @@ class Client(OpenApiClient):
             query['Port'] = request.port
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.vpc_access_id):
             query['VpcAccessId'] = request.vpc_access_id
         if not UtilClient.is_unset(request.vpc_id):
@@ -6545,6 +6563,42 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.modify_api_group_with_options(request, runtime)
+
+    def modify_api_group_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.remark):
+            query['Remark'] = request.remark
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.target_instance_id):
+            query['TargetInstanceId'] = request.target_instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyApiGroupInstance',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.ModifyApiGroupInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_api_group_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_api_group_instance_with_options(request, runtime)
 
     def modify_api_group_network_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -8671,6 +8725,8 @@ class Client(OpenApiClient):
             query['Port'] = request.port
         if not UtilClient.is_unset(request.security_token):
             query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.vpc_id):
             query['VpcId'] = request.vpc_id
         if not UtilClient.is_unset(request.vpc_target_host_name):
