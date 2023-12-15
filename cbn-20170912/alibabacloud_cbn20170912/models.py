@@ -1227,9 +1227,17 @@ class CheckTransitRouterServiceResponse(TeaModel):
 
 class CreateCenRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # CreateCen
+        # The tag keys of the resources.
+        # 
+        # The tag keys cannot be an empty string. The tag keys can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        # 
+        # You can specify at most 20 tag keys.
         self.key = key  # type: str
-        # WB656982
+        # The tag values of the resources.
+        # 
+        # The tag values can be 0 to 128 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        # 
+        # Each tag key has a unique tag value. You can specify at most 20 tag values in each call.
         self.value = value  # type: str
 
     def validate(self):
@@ -1259,23 +1267,29 @@ class CreateCenRequestTag(TeaModel):
 class CreateCenRequest(TeaModel):
     def __init__(self, client_token=None, description=None, name=None, owner_account=None, owner_id=None,
                  protection_level=None, resource_owner_account=None, resource_owner_id=None, tag=None):
-        # The tag keys of the resources.
+        # The client token that is used to ensure the idempotence of the request.
         # 
-        # The tag keys cannot be an empty string. The tag keys can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. ClientToken can contain only ASCII characters.
         # 
-        # You can specify at most 20 tag keys.
+        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
         self.client_token = client_token  # type: str
-        # The operation that you want to perform. Set the value to **CreateCen**.
+        # The description of the CEN instance.
+        # 
+        # The description must be 2 to 256 characters in length. It must start with a letter and cannot start with `http://` or `https://`.
         self.description = description  # type: str
-        # The ID of the request.
+        # The name of the CEN instance.
+        # 
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter and cannot start with `http://` or `https://`.
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The tags.
+        # The level of CIDR block overlapping.
+        # 
+        # Set the value to **REDUCED** (default). This value specifies that CIDR blocks can overlap but cannot be the same.
         self.protection_level = protection_level  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # Creates a Cloud Enterprise Network (CEN) instance.
+        # The tags.
         self.tag = tag  # type: list[CreateCenRequestTag]
 
     def validate(self):
@@ -1340,7 +1354,9 @@ class CreateCenRequest(TeaModel):
 
 class CreateCenResponseBody(TeaModel):
     def __init__(self, cen_id=None, request_id=None):
+        # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2375,37 +2391,43 @@ class CreateCenRouteMapRequest(TeaModel):
                  prepend_as_path=None, priority=None, resource_owner_account=None, resource_owner_id=None, route_types=None,
                  source_child_instance_types=None, source_instance_ids=None, source_instance_ids_reverse_match=None, source_region_ids=None,
                  source_route_table_ids=None, transit_router_route_table_id=None, transmit_direction=None):
-        # The ID of the CEN instance.
-        self.as_path_match_mode = as_path_match_mode  # type: str
-        # The type of source network instance.
-        self.cen_id = cen_id  # type: str
-        # The ID of the source region.
-        self.cen_region_id = cen_region_id  # type: str
-        # The ID of the source network instance.
-        self.cidr_match_mode = cidr_match_mode  # type: str
-        # The prefix list.
-        self.community_match_mode = community_match_mode  # type: str
-        # The AS path.
-        self.community_operate_mode = community_operate_mode  # type: str
-        # The priority of the routing policy. Valid values: **1** to **100**. A smaller value indicates a higher priority.
+        # The match method that is used to match routes against the AS paths. Valid values:
         # 
-        # >  You cannot specify the same priority for routing policies that apply in the same region and direction. The system matches routes against the match conditions of routing policies in descending order of priority. A smaller value indicates a higher priority. You must set the priorities to proper values.
-        self.description = description  # type: str
+        # *   **Include**: fuzzy match. A route meets the match condition if the AS path of the route overlaps with the AS paths specified in the match condition.
+        # *   **Complete**: exact match. A route is a match only if the AS path of the route is the same as an AS path specified in the match condition.
+        self.as_path_match_mode = as_path_match_mode  # type: str
+        # The ID of the CEN instance.
+        self.cen_id = cen_id  # type: str
+        # The ID of the region in which the routing policy is applied.
+        # 
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
+        self.cen_region_id = cen_region_id  # type: str
+        # The match method that is used to match routes against the prefix list. Valid values:
+        # 
+        # *   **Include**: fuzzy match. A route is a match if the route prefix is included in the match conditions.
+        # 
+        #     For example, if you set the match condition to 10.10.0.0/16 and fuzzy match is enabled, the route whose prefix is 10.10.1.0/24 is a match.
+        # 
+        # *   **Complete**: exact match. A route is a match only if the route prefix is the same as the prefix specified in the match condition.
+        # 
+        #     For example, if you set the match condition to 10.10.0.0/16 and exact match is enabled, a route is a match only if the prefix is 10.10.0.0/16.
+        self.cidr_match_mode = cidr_match_mode  # type: str
+        # The match method that is used to match routes based on the community. Valid values:
+        # 
+        # *   **Include**: fuzzy match. A route meets the match condition if the community of the route overlaps with the community specified in the match condition.
+        # *   **Complete**: exact match. A route meets the match condition only if the community of the route is the same as the community specified in the match condition.
+        self.community_match_mode = community_match_mode  # type: str
         # The action that is performed on the community. Valid values:
         # 
         # *   **Additive**: adds the community to the route.
         # *   **Replace**: replaces the original community of the route.
         # 
         # This parameter specifies the action to be performed when a route meets the match condition.
-        self.destination_child_instance_types = destination_child_instance_types  # type: list[str]
-        # The ID of the destination route table.
-        self.destination_cidr_blocks = destination_cidr_blocks  # type: list[str]
-        # The new priority of the route.
+        self.community_operate_mode = community_operate_mode  # type: str
+        # The description of the routing policy.
         # 
-        # Valid values: **1** to **100**. The default priority is **50**. A smaller value indicates a higher priority.
-        # 
-        # This parameter specifies the action to be performed when a route meets the match condition.
-        self.destination_instance_ids = destination_instance_ids  # type: list[str]
+        # The description must be 2 to 256 characters in length, and can contain letters, digits, hyphens (-), periods (.), and underscores (\_). It must start with a letter and cannot start with `http://` or `https://`.
+        self.description = description  # type: str
         # The types of destination network instance to which the routes belong. The following types of network instances are supported:
         # 
         # *   **VPC**: VPC
@@ -2416,114 +2438,157 @@ class CreateCenRouteMapRequest(TeaModel):
         # 
         # *   **VPN**: IPsec connection
         # 
-        #     **\
-        # 
-        #     **Note** This parameter does not take effect if the IPsec-VPN connection or SSL client is associated with a transit router through a VPN gateway and a VPC. This parameter takes effect only if the IPsec connection is directly connected to the transit router.
+        #     >This parameter does not take effect if the IPsec-VPN connection or SSL client is associated with a transit router through a VPN gateway and a VPC. This parameter takes effect only if the IPsec connection is directly connected to the transit router.
         # 
         # You can specify one or more network instance types.
         # 
-        # >  The destination network instance types are valid only if the routing policy is applied to scenarios where routes are advertised from the gateway in the current region to network instances in the current region.
-        self.destination_instance_ids_reverse_match = destination_instance_ids_reverse_match  # type: bool
+        # > The destination network instance types are valid only if the routing policy is applied to scenarios where routes are advertised from the gateway in the current region to network instances in the current region.
+        self.destination_child_instance_types = destination_child_instance_types  # type: list[str]
         # The prefix list against which routes are matched.
         # 
         # You must specify the IP addresses in CIDR notation. You can enter at most 32 CIDR blocks.
-        self.destination_route_table_ids = destination_route_table_ids  # type: list[str]
-        # The types of source network instance to which the routes belong. The following types of network instances are supported:
-        # 
-        # *   **VPC**: VPC
-        # *   **VBR**: VBR
-        # *   **CCN**: CCN instance
-        # *   **VPN**: VPN gateway or IPsec connection
-        #     *   If the IPsec-VPN connection or SSL client is associated with a VPN gateway, the VPC associated with the VPN gateway must be connected to a transit router, and the VPN gateway must use BGP dynamic routing. Otherwise, this parameter cannot take effect.
-        #     *   This parameter takes effect if the IPsec connection is directly connected to a transit router.
-        # 
-        # You can specify one or more network instance types.
-        self.map_result = map_result  # type: str
-        # Specifies whether to exclude the destination network instance IDs. Valid values:
-        # 
-        # *   **false** (default value): A route is a match if its destination network instance ID is in the list specified by **DestinationInstanceIds.N**.
-        # *   **true**: A route meets the match condition if its destination network instance ID is not in the list specified by **DestinationInstanceIds.N**.
-        self.match_address_type = match_address_type  # type: str
-        # The IDs of the source network instances to which the routes belong. The following network instance types are supported:
-        # 
-        # *   VPC
-        # *   VBR
-        # *   CCN instance
-        # *   SAG instance
-        # *   The ID of the IPsec connection.
-        # 
-        # You can enter at most 32 IDs.
-        self.match_asns = match_asns  # type: list[long]
-        # The community.
-        self.match_community_set = match_community_set  # type: list[str]
-        # The action to be performed on a route that meets all match conditions. Valid values:
-        # 
-        # *   **Permit**: the route is permitted.
-        # *   **Deny**: the route is denied.
-        self.next_priority = next_priority  # type: int
-        # The type of route to be matched against the match condition. The following route types are supported:
-        # 
-        # *   **System**: system routes that are automatically generated by the system.
-        # *   **Custom**: custom routes that are manually added.
-        # *   **BGP**: routes that are advertised over BGP.
-        # 
-        # You can specify multiple route types.
-        self.operate_community_set = operate_community_set  # type: list[str]
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The community against which routes are matched.
-        # 
-        # Specify the community in the format of n:m. Valid values of n and m: **1** to **65535**. Each community must comply with the RFC 1997 standard. The RFC 8092 standard that defines Border Gateway Protocol (BGP) large communities is not supported.
-        # 
-        # You can specify at most 32 communities.
-        # 
-        # >  If the configurations of the communities are incorrect, routes may fail to be advertised to your data center.
-        self.preference = preference  # type: int
-        # The ID of the source route table.
-        self.prepend_as_path = prepend_as_path  # type: list[long]
-        # The IDs of the source route tables from which routes are evaluated. You can enter at most 32 route table IDs.
-        self.priority = priority  # type: int
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the route table of the transit router.
-        # 
-        # If you do not specify a route table ID, the routing policy is automatically associated with the default route table of the transit router.
-        self.route_types = route_types  # type: list[str]
+        self.destination_cidr_blocks = destination_cidr_blocks  # type: list[str]
         # The IDs of the destination network instances to which the routes belong. The following network instance types are supported:
         # 
         # *   VPC
         # *   VBR
         # *   CCN instance
         # *   SAG instance
-        # *   The ID of the IPsec connection.
+        # *   The ID of the IPsec-VPN connection.
         # 
         # You can enter at most 32 IDs.
         # 
-        # >  The destination network instance IDs are valid only if the routing policy is applied to scenarios where routes are advertised from the gateway in the current region to network instances in the current region.
-        self.source_child_instance_types = source_child_instance_types  # type: list[str]
-        # The ID of the routing policy.
-        self.source_instance_ids = source_instance_ids  # type: list[str]
+        # > The destination instance IDs take effect only when Direction is set to Export from Regional Gateway and the destination instances are deployed in the current region.
+        self.destination_instance_ids = destination_instance_ids  # type: list[str]
+        # Specifies whether to exclude the destination network instance IDs. Valid values:
+        # 
+        # *   **false** (default value): A route is a match if its destination network instance ID is in the list specified by **DestinationInstanceIds.N**.
+        # *   **true**: A route meets the match condition if its destination network instance ID is not in the list specified by **DestinationInstanceIds.N**.
+        self.destination_instance_ids_reverse_match = destination_instance_ids_reverse_match  # type: bool
+        # The IDs of the destination route tables to which routes are evaluated. You can enter at most 32 route table IDs.
+        # 
+        # > The destination route table IDs take effect only when Direction is set to Export from Regional Gateway and the destination route tables belong to network instances deployed in the current region.
+        self.destination_route_table_ids = destination_route_table_ids  # type: list[str]
+        # The action to be performed on a route that meets all match conditions. Valid values:
+        # 
+        # *   **Permit**: the route is permitted.
+        # *   **Deny**: the route is denied.
+        self.map_result = map_result  # type: str
+        # The type of IP address in the match condition. Valid values:
+        # 
+        # *   **IPv4**: IPv4 address
+        # *   **IPv6**: IPv6 address
+        # 
+        # This parameter can be empty. If no value is specified, all types of IP address are a match.
+        self.match_address_type = match_address_type  # type: str
+        # The AS paths based on which routes are compared.
+        # 
+        # You can specify at most 32 AS numbers.
+        # 
+        # > Only the AS-SEQUENCE parameter is supported. The AS-SET, AS-CONFED-SEQUENCE, and AS-CONFED-SET parameters are not supported. In other words, only the AS number list is supported. Sets and sub-lists are not supported.
+        self.match_asns = match_asns  # type: list[long]
+        # The community set based on which routes are compared.
+        # 
+        # Specify the community in the format of n:m. Valid values of n and m: **1** to **65535**. Each community must comply with the RFC 1997 standard. The RFC 8092 standard that defines Border Gateway Protocol (BGP) large communities is not supported.
+        # 
+        # You can specify at most 32 communities.
+        # 
+        # > If the configurations of the communities are incorrect, routes may fail to be advertised to your data center.
+        self.match_community_set = match_community_set  # type: list[str]
+        # The priority of the routing policy that you want to associate with the current one.
+        # 
+        # *   This parameter takes effect only when the **MapResult** parameter is set to **Permit**. This way, the permitted route is matched against the next routing policy.
+        # *   The region and direction of the routing policy to be associated must be the same as those of the current routing policy.
+        # *   The priority of the next routing policy must be lower than the priority of the current routing policy.
+        self.next_priority = next_priority  # type: int
         # The community set on which actions are performed.
         # 
         # Specify the community in the format of n:m. Valid values of n and m: **1** to **65535**. Each community must comply with RFC 1997. The RFC 8092 standard that defines BGP large communities is not supported.
         # 
         # You can specify at most 32 communities.
         # 
-        # >  If the configurations of the communities are incorrect, routes may fail to be advertised to your data center.
-        self.source_instance_ids_reverse_match = source_instance_ids_reverse_match  # type: bool
-        # The priority of the routing policy that you want to associate with the current one.
+        # > If the configurations of the communities are incorrect, routes may fail to be advertised to your data center.
+        self.operate_community_set = operate_community_set  # type: list[str]
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The new priority of the route.
         # 
-        # *   This parameter takes effect only when the **MapResult** parameter is set to **Permit**. This way, the permitted route is matched against the next routing policy.
-        # *   The region and direction of the routing policy to be associated must be the same as those of the current routing policy.
-        # *   The priority of the next routing policy must be lower than the priority of the current routing policy.
-        self.source_region_ids = source_region_ids  # type: list[str]
-        # The ID of the region where the routing policy is applied.
+        # Valid values: **1** to **100**. The default priority is **50**. A smaller value indicates a higher priority.
+        # 
+        # This parameter specifies the action to be performed when a route meets the match condition.
+        self.preference = preference  # type: int
+        # The AS paths that are prepended by using an action statement when regional gateways receive or advertise routes.
+        # 
+        # The AS paths vary based on the direction in which the routing policy is applied:
+        # 
+        # *   If AS paths are prepended to a routing policy that is applied in the inbound direction, you must specify source network instance IDs and the source region in the match condition. In addition, the source region must be the same as the region where the routing policy is applied.
+        # *   If AS paths are prepended to a routing policy that is applied in the outbound direction, you must specify destination network instance IDs in the match condition.
+        # 
+        # This parameter specifies the action to be performed when a route meets the match condition. You can specify at most 32 AS numbers.
+        self.prepend_as_path = prepend_as_path  # type: list[long]
+        # The priority of the routing policy. Valid values: **1** to **100**. A smaller value indicates a higher priority.
+        # 
+        # > You cannot specify the same priority for routing policies that apply in the same region and direction. The system matches routes against the match conditions of routing policies in descending order of priority. A smaller value indicates a higher priority. You must set the priorities to proper values.
+        self.priority = priority  # type: int
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The type of route to be compared. Valid values: The following route types are supported:
+        # 
+        # *   **System**: system routes that are automatically generated by the system.
+        # *   **Custom**: custom routes that are manually added.
+        # *   **BGP**: routes that are advertised over BGP.
+        # 
+        # You can specify multiple route types.
+        self.route_types = route_types  # type: list[str]
+        # The types of source network instance to which the routes belong. The following types of network instances are supported:
+        # 
+        # *   **VPC**: VPC
+        # 
+        # *   **VBR**: VBR
+        # 
+        # *   **CCN**: CCN instance
+        # 
+        # *   **VPN**: VPN gateway or IPsec connection
+        # 
+        #     *   If the IPsec-VPN connection or SSL client is associated with a VPN gateway, the VPC associated with the VPN gateway must be connected to a transit router, and the VPN gateway must use BGP dynamic routing. Otherwise, this parameter cannot take effect.
+        #     *   This parameter takes effect if the IPsec connection is directly connected to a transit router.
+        # 
+        # You can specify one or more network instance types.
+        self.source_child_instance_types = source_child_instance_types  # type: list[str]
+        # The IDs of the source network instances to which the routes belong. The following network instance types are supported:
+        # 
+        # *   Virtual private cloud (VPC)
+        # *   Virtual border router (VBR)
+        # *   Cloud Connect Network (CCN) instance
+        # *   Smart Access Gateway (SAG) instance
+        # *   The ID of the IPsec-VPN connection.
+        # 
+        # You can enter at most 32 IDs.
+        self.source_instance_ids = source_instance_ids  # type: list[str]
+        # Specifies whether to exclude the source network instance IDs. Valid values:
+        # 
+        # *   **false** (default value): A route is a match if its source network instance ID is in the list specified by **SourceInstanceIds.N**.
+        # *   **true**: A route is a match if its source network instance ID is not in the list specified by **SourceInstanceIds.N**.
+        self.source_instance_ids_reverse_match = source_instance_ids_reverse_match  # type: bool
+        # The IDs of the source regions from which routes are evaluated. You can enter at most 32 region IDs.
         # 
         # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
+        self.source_region_ids = source_region_ids  # type: list[str]
+        # The IDs of the source route tables from which routes are evaluated. You can enter at most 32 route table IDs.
         self.source_route_table_ids = source_route_table_ids  # type: list[str]
-        # The type of destination network instance.
+        # The ID of the route table of the transit router.
+        # 
+        # If you do not specify a route table ID, the routing policy is automatically associated with the default route table of the transit router.
         self.transit_router_route_table_id = transit_router_route_table_id  # type: str
-        # The operation that you want to perform. Set the value to **CreateCenRouteMap**.
+        # The direction in which the routing policy is applied. Valid values:
+        # 
+        # *   **RegionIn**: Routes are advertised to the gateways in the regions that are connected by the CEN instance.
+        # 
+        #     For example, routes are advertised from network instances deployed in the current region or other regions to the gateway deployed in the current region.
+        # 
+        # *   **RegionOut**: Routes are advertised from the gateways in the regions that are connected by the CEN instance.
+        # 
+        #     For example, routes are advertised from the gateway deployed in the current region to network instances deployed in the same region, or to gateways deployed in other regions.
         self.transmit_direction = transmit_direction  # type: str
 
     def validate(self):
@@ -2676,7 +2741,9 @@ class CreateCenRouteMapRequest(TeaModel):
 
 class CreateCenRouteMapResponseBody(TeaModel):
     def __init__(self, request_id=None, route_map_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the routing policy.
         self.route_map_id = route_map_id  # type: str
 
     def validate(self):
@@ -3834,31 +3901,38 @@ class CreateTransitRouterCidrRequest(TeaModel):
     def __init__(self, cidr=None, client_token=None, description=None, dry_run=None, name=None, owner_account=None,
                  owner_id=None, publish_cidr_route=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None, transit_router_id=None):
-        # The operation that you want to perform. Set the value to **CreateTransitRouterCidr**.
+        # The CIDR block of the transit router.
         self.cidr = cidr  # type: str
-        # Specifies whether to allow the system to automatically add a route that points to the CIDR block to the route table of the transit router.
+        # The client token that is used to ensure the idempotence of the request.
         # 
-        # *   **true** (default): yes
+        # You can use the client to generate the value, but you must make sure that the value is unique among different requests. The client token can contain only ASCII characters.
         # 
-        #     A value of true specifies that after you create a private VPN connection and enable route learning for the connection, the system automatically adds a blackhole route to the route table of the transit router to which the VPN connection is attached. The destination CIDR block of the blackhole route is the CIDR block of the transit router. The CIDR block of the transit router refers to the CIDR block from which gateway IP addresses are allocated to IPsec-VPN connections. The blackhole route is advertised only to the route table of the virtual border router (VBR) that is connected to the transit router.
-        # 
-        # *   **false**: no
+        # >  If you do not set this parameter, ClientToken is set to the value of RequestId. The value of RequestId for each API request may be different.
         self.client_token = client_token  # type: str
-        # The name of the CIDR block.
-        # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
-        self.description = description  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        # The CIDR block that you want to create for the transit router.
-        self.name = name  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # The description of the CIDR block.
         # 
         # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
+        self.description = description  # type: str
+        # Specifies whether to perform a dry run. Valid values:
+        # 
+        # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and sends the request.
+        self.dry_run = dry_run  # type: bool
+        # The name of the CIDR block.
+        # 
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
+        self.name = name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # Specifies whether to allow the system to automatically add a route that points to the CIDR block to the route table of the transit router.
+        # - **true** (default): yes
+        # 
+        #   A value of true specifies that after you create a private VPN connection and enable route learning for the connection, the system automatically adds a blackhole route to the route table of the transit router to which the VPN connection is attached. 
+        # 
+        #   The blackhole route is advertised only to the route tables of virtual border routers (VBRs) that are connected to the transit router. 
+        # - **false**: no
         self.publish_cidr_route = publish_cidr_route  # type: bool
-        # The ID of the region where the transit router is deployed.
+        # The region ID of the transit router.
         # 
         # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
@@ -3933,7 +4007,9 @@ class CreateTransitRouterCidrRequest(TeaModel):
 
 class CreateTransitRouterCidrResponseBody(TeaModel):
     def __init__(self, request_id=None, transit_router_cidr_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the CIDR block.
         self.transit_router_cidr_id = transit_router_cidr_id  # type: str
 
     def validate(self):
@@ -4259,10 +4335,10 @@ class CreateTransitRouterPeerAttachmentRequestTag(TeaModel):
 
 class CreateTransitRouterPeerAttachmentRequest(TeaModel):
     def __init__(self, auto_publish_route_enabled=None, bandwidth=None, bandwidth_type=None,
-                 cen_bandwidth_package_id=None, cen_id=None, client_token=None, dry_run=None, owner_account=None, owner_id=None,
-                 peer_transit_router_id=None, peer_transit_router_region_id=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None, tag=None, transit_router_attachment_description=None, transit_router_attachment_name=None,
-                 transit_router_id=None):
+                 cen_bandwidth_package_id=None, cen_id=None, client_token=None, default_link_type=None, dry_run=None, owner_account=None,
+                 owner_id=None, peer_transit_router_id=None, peer_transit_router_region_id=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, tag=None, transit_router_attachment_description=None,
+                 transit_router_attachment_name=None, transit_router_id=None):
         # Specifies whether to enable the local Enterprise Edition transit router to automatically advertise the routes of the inter-region connection to the peer transit router. Valid values:
         # 
         # *   **false** (default): no
@@ -4286,6 +4362,7 @@ class CreateTransitRouterPeerAttachmentRequest(TeaModel):
         # 
         # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
         self.client_token = client_token  # type: str
+        self.default_link_type = default_link_type  # type: str
         # Specifies whether to perform a dry run. Default values:
         # 
         # *   **false** (default): performs a dry run and sends the request.
@@ -4342,6 +4419,8 @@ class CreateTransitRouterPeerAttachmentRequest(TeaModel):
             result['CenId'] = self.cen_id
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.default_link_type is not None:
+            result['DefaultLinkType'] = self.default_link_type
         if self.dry_run is not None:
             result['DryRun'] = self.dry_run
         if self.owner_account is not None:
@@ -4384,6 +4463,8 @@ class CreateTransitRouterPeerAttachmentRequest(TeaModel):
             self.cen_id = m.get('CenId')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('DefaultLinkType') is not None:
+            self.default_link_type = m.get('DefaultLinkType')
         if m.get('DryRun') is not None:
             self.dry_run = m.get('DryRun')
         if m.get('OwnerAccount') is not None:
@@ -4666,14 +4747,14 @@ class CreateTransitRouterRouteEntryRequest(TeaModel):
                  transit_router_route_entry_next_hop_type=None, transit_router_route_table_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can use the client to generate the value, but you must make sure that it is unique among different requests. ClientToken can contain only ASCII characters.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         # 
-        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** may be different for each API request.
+        # >  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** is different for each request.
         self.client_token = client_token  # type: str
-        # Specifies whether to perform a precheck to check information such as the permissions and instance status. Valid values:
+        # Specifies whether to perform only a dry run, without performing the actual request. Valid values:
         # 
-        # *   **false** (default): sends the request. If the request passes the precheck, the route entry is added.
-        # *   **true**: sends a precheck request but does not add the route. If you use this value, the system checks the required parameters and the request syntax. If the request fails to pass the precheck, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and performs the actual request.
+        # *   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -4681,7 +4762,7 @@ class CreateTransitRouterRouteEntryRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The description of the route.
         # 
-        # The description must be 0 to 256 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -.
+        # The description must be 0 to 256 characters in length, and can contain letters, digits, commas (,), periods (.), semicolons (;), forward slashes (/), at signs (@), underscores (\_), and hyphens (-).
         self.transit_router_route_entry_description = transit_router_route_entry_description  # type: str
         # The destination CIDR block of the route.
         self.transit_router_route_entry_destination_cidr_block = transit_router_route_entry_destination_cidr_block  # type: str
@@ -11887,6 +11968,20 @@ class DescribeCenPrivateZoneRoutesResponse(TeaModel):
 class DescribeCenRegionDomainRouteEntriesRequest(TeaModel):
     def __init__(self, cen_id=None, cen_region_id=None, owner_account=None, owner_id=None, page_number=None,
                  page_size=None, resource_owner_account=None, resource_owner_id=None, status=None):
+        # The ID of the CEN instance.
+        self.cen_id = cen_id  # type: str
+        # The ID of the region that you want to query.
+        # 
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
+        self.cen_region_id = cen_region_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The number of the page to return. Default value: **1**.
+        self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: **10**. Valid values: **1** to **50**.
+        self.page_size = page_size  # type: int
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
         # The status of the routes that you want to query. Valid values:
         # 
         # *   **Active** (default value): active routes
@@ -11894,23 +11989,6 @@ class DescribeCenRegionDomainRouteEntriesRequest(TeaModel):
         # *   **Rejected**: rejected routes
         # *   **Prohibited**: prohibited routes
         # *   **All**: all routes
-        self.cen_id = cen_id  # type: str
-        # The ID of the CEN instance.
-        self.cen_region_id = cen_region_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The ID of the region where the route map is applied.
-        self.page_number = page_number  # type: int
-        # Whether the route can be advertised to other regions. Valid values: 
-        # 
-        # - **Active**: The route can be advertised to other regions.
-        # - **Prohibited**: The route cannot be advertised to other regions.
-        self.page_size = page_size  # type: int
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the region that you want to query.
-        # 
-        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.status = status  # type: str
 
     def validate(self):
@@ -11991,9 +12069,9 @@ class DescribeCenRegionDomainRouteEntriesResponseBodyCenRouteEntriesCenRouteEntr
 
 class DescribeCenRegionDomainRouteEntriesResponseBodyCenRouteEntriesCenRouteEntryCenOutRouteMapRecordsCenOutRouteMapRecord(TeaModel):
     def __init__(self, region_id=None, route_map_id=None):
-        # 312501
+        # The ID of the region where the route map is applied.
         self.region_id = region_id  # type: str
-        # DescribeCenRegionDomainRouteEntries
+        # The ID of the route map.
         self.route_map_id = route_map_id  # type: str
 
     def validate(self):
@@ -12054,9 +12132,9 @@ class DescribeCenRegionDomainRouteEntriesResponseBodyCenRouteEntriesCenRouteEntr
 
 class DescribeCenRegionDomainRouteEntriesResponseBodyCenRouteEntriesCenRouteEntryCenRouteMapRecordsCenRouteMapRecord(TeaModel):
     def __init__(self, region_id=None, route_map_id=None):
-        # The ID of the request.
+        # The ID of the region where the route map is applied.
         self.region_id = region_id  # type: str
-        # The ID of the region where the network instance specified as the next hop in the route belongs.
+        # The ID of the route map.
         self.route_map_id = route_map_id  # type: str
 
     def validate(self):
@@ -12143,38 +12221,48 @@ class DescribeCenRegionDomainRouteEntriesResponseBodyCenRouteEntriesCenRouteEntr
     def __init__(self, as_paths=None, cen_out_route_map_records=None, cen_route_map_records=None, communities=None,
                  destination_cidr_block=None, next_hop_instance_id=None, next_hop_region_id=None, next_hop_type=None, preference=None,
                  status=None, to_other_region_status=None, type=None):
+        # The AS paths of the routes.
         self.as_paths = as_paths  # type: DescribeCenRegionDomainRouteEntriesResponseBodyCenRouteEntriesCenRouteEntryAsPaths
-        # Queries the routes of a Cloud Enterprise Network (CEN) instance in a specified region.
+        # The route maps that the routes match in the outbound direction.
         self.cen_out_route_map_records = cen_out_route_map_records  # type: DescribeCenRegionDomainRouteEntriesResponseBodyCenRouteEntriesCenRouteEntryCenOutRouteMapRecords
-        # The number of entries returned per page.
+        # The route maps that the routes match in the inbound direction.
         self.cen_route_map_records = cen_route_map_records  # type: DescribeCenRegionDomainRouteEntriesResponseBodyCenRouteEntriesCenRouteEntryCenRouteMapRecords
+        # The community attributes of the routes.
         self.communities = communities  # type: DescribeCenRegionDomainRouteEntriesResponseBodyCenRouteEntriesCenRouteEntryCommunities
-        # The number of entries to return on each page. Default value: **10**. Valid values: **1** to **50**.
+        # The destination CIDR block of the route.
         self.destination_cidr_block = destination_cidr_block  # type: str
-        # The priority of the route. 
-        # 
-        # > A smaller value indicates a higher priority.
+        # The ID of the instance specified as the next hop in the route.
         self.next_hop_instance_id = next_hop_instance_id  # type: str
+        # The ID of the region where the network instance specified as the next hop in the route belongs.
+        self.next_hop_region_id = next_hop_region_id  # type: str
         # The type of the network instance specified as the next hop in the route. 
         # 
         # - **VPC**\
         # - **VBR**\
         # - **CCN**\
         # - **local_service**: system route. No next hop is specified.
-        self.next_hop_region_id = next_hop_region_id  # type: str
+        self.next_hop_type = next_hop_type  # type: str
+        # The priority of the route. 
+        # 
+        # > A smaller value indicates a higher priority.
+        self.preference = preference  # type: int
+        # The status of the route. Valid values: 
+        # 
+        # - **Active**: The route is active.
+        # - **Candidate**: The route is a standby route.
+        # - **Rejected**: The route is rejected.
+        # - **Prohibited**: The route is prohibited.
+        self.status = status  # type: str
+        # Whether the route can be advertised to other regions. Valid values: 
+        # 
+        # - **Active**: The route can be advertised to other regions.
+        # - **Prohibited**: The route cannot be advertised to other regions.
+        self.to_other_region_status = to_other_region_status  # type: str
         # The type of the route. Valid values: 
         # 
         # - **CEN**: route that is advertised through CEN
         # - **Custom**: custom route
         # - **System**: system route
-        self.next_hop_type = next_hop_type  # type: str
-        # The page number of the returned page.
-        self.preference = preference  # type: int
-        # The AS paths of the routes.
-        self.status = status  # type: str
-        # The ID of the route map.
-        self.to_other_region_status = to_other_region_status  # type: str
-        # The destination CIDR block of the route.
         self.type = type  # type: str
 
     def validate(self):
@@ -12286,20 +12374,15 @@ class DescribeCenRegionDomainRouteEntriesResponseBodyCenRouteEntries(TeaModel):
 
 class DescribeCenRegionDomainRouteEntriesResponseBody(TeaModel):
     def __init__(self, cen_route_entries=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The status of the route. Valid values: 
-        # 
-        # - **Active**: The route is active.
-        # - **Candidate**: The route is a standby route.
-        # - **Rejected**: The route is rejected.
-        # - **Prohibited**: The route is prohibited.
+        # The array of routes.
         self.cen_route_entries = cen_route_entries  # type: DescribeCenRegionDomainRouteEntriesResponseBodyCenRouteEntries
-        # The route maps that the routes match in the outbound direction.
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # The ID of the route map.
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The number of the page to return. Default value: **1**.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The ID of the instance specified as the next hop in the route.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -13278,11 +13361,12 @@ class DescribeCenVbrHealthCheckRequest(TeaModel):
 
 
 class DescribeCenVbrHealthCheckResponseBodyVbrHealthChecksVbrHealthCheck(TeaModel):
-    def __init__(self, cen_id=None, health_check_interval=None, health_check_only=None,
+    def __init__(self, cen_id=None, description=None, health_check_interval=None, health_check_only=None,
                  health_check_source_ip=None, health_check_target_ip=None, healthy_threshold=None, vbr_instance_id=None,
                  vbr_instance_region_id=None):
         # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
+        self.description = description  # type: str
         # The time interval at which probe packets are sent during the health check. Unit: seconds.
         self.health_check_interval = health_check_interval  # type: int
         # Indicates whether probing is enabled. Valid values:
@@ -13317,6 +13401,8 @@ class DescribeCenVbrHealthCheckResponseBodyVbrHealthChecksVbrHealthCheck(TeaMode
         result = dict()
         if self.cen_id is not None:
             result['CenId'] = self.cen_id
+        if self.description is not None:
+            result['Description'] = self.description
         if self.health_check_interval is not None:
             result['HealthCheckInterval'] = self.health_check_interval
         if self.health_check_only is not None:
@@ -13337,6 +13423,8 @@ class DescribeCenVbrHealthCheckResponseBodyVbrHealthChecksVbrHealthCheck(TeaMode
         m = m or dict()
         if m.get('CenId') is not None:
             self.cen_id = m.get('CenId')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('HealthCheckInterval') is not None:
             self.health_check_interval = m.get('HealthCheckInterval')
         if m.get('HealthCheckOnly') is not None:
@@ -14146,9 +14234,17 @@ class DescribeChildInstanceRegionsResponse(TeaModel):
 
 class DescribeFlowlogsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The ID of the network instance connection.
+        # The tag key.
+        # 
+        # The tag key cannot be an empty string. The tag key can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        # 
+        # You can specify at most 20 tag keys.
         self.key = key  # type: str
-        # The response.
+        # The tag value.
+        # 
+        # The tag value can be 0 to 128 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        # 
+        # Each tag key must have a unique tag value. You can specify at most 20 tag values in each call.
         self.value = value  # type: str
 
     def validate(self):
@@ -14180,56 +14276,54 @@ class DescribeFlowlogsRequest(TeaModel):
                  log_store_name=None, owner_account=None, owner_id=None, page_number=None, page_size=None, project_name=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, status=None, tag=None,
                  transit_router_attachment_id=None):
-        # The name of the Logstore where the flow log is stored.
-        # 
-        # The name must be 3 to 63 characters in length, and can contain lowercase letters, digits, underscores (\_), and hyphens (-). It must start or end with a lowercase letter or a digit.
-        self.cen_id = cen_id  # type: str
-        # The name of the flow log.
-        # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
-        self.client_token = client_token  # type: str
-        # The name of the project where the flow log is stored.
-        # 
-        # The name must be 3 to 63 characters in length, and can contain lowercase letters, digits, and hyphens (-). It must start or end with a lowercase letter or a digit.
-        self.description = description  # type: str
         # The ID of the Cloud Enterprise Network (CEN) instance.
-        self.flow_log_id = flow_log_id  # type: str
+        self.cen_id = cen_id  # type: str
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among all requests. The token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, ClientToken is set to the value of RequestId. The value of RequestId for each API request may be different.
+        self.client_token = client_token  # type: str
         # The description of the flow log.
         # 
         # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
+        self.description = description  # type: str
+        # The ID of the flow log.
+        self.flow_log_id = flow_log_id  # type: str
+        # The name of the flow log.
+        # 
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
         self.flow_log_name = flow_log_name  # type: str
-        # The number of the page to return. Default value: **1**.
+        # The name of the Logstore where the flow log is stored.
+        # 
+        # The name must be 3 to 63 characters in length, and can contain lowercase letters, digits, underscores (\_), and hyphens (-). It must start or end with a lowercase letter or a digit.
         self.log_store_name = log_store_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The information about the tags.
-        # 
-        # You can specify at most 20 tags in each call.
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The tag key.
-        # 
-        # The tag key cannot be an empty string. The tag key can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
-        # 
-        # You can specify at most 20 tag keys.
+        # The number of entries to return on each page. Minimum value: **1**. Default value: **20**.
         self.page_size = page_size  # type: int
+        # The name of the project where the flow log is stored.
+        # 
+        # The name must be 3 to 63 characters in length, and can contain lowercase letters, digits, and hyphens (-). It must start or end with a lowercase letter or a digit.
+        self.project_name = project_name  # type: str
+        # The ID of the region where the flow log is deployed.
+        # 
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
         # The status of the flow log. Valid values:
         # 
         # *   **Active**: The flow log is enabled.
         # *   **Inactive**: The flow log is disabled.
-        self.project_name = project_name  # type: str
-        # The ID of the flow log.
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The number of entries to return on each page. Minimum value: **1**. Default value: **20**.
         self.status = status  # type: str
-        # The tag value.
+        # The information about the tags.
         # 
-        # The tag value can be 0 to 128 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
-        # 
-        # Each tag key must have a unique tag value. You can specify at most 20 tag values in each call.
+        # You can specify at most 20 tags in each call.
         self.tag = tag  # type: list[DescribeFlowlogsRequestTag]
-        # The number of entries returned per page.
+        # The ID of the network instance connection.
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
 
     def validate(self):
@@ -14326,7 +14420,9 @@ class DescribeFlowlogsRequest(TeaModel):
 
 class DescribeFlowlogsResponseBodyFlowLogsFlowLogTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -14389,28 +14485,34 @@ class DescribeFlowlogsResponseBodyFlowLogsFlowLog(TeaModel):
     def __init__(self, cen_id=None, creation_time=None, description=None, flow_log_id=None, flow_log_name=None,
                  interval=None, log_store_name=None, project_name=None, region_id=None, status=None, tags=None,
                  transit_router_attachment_id=None):
-        # The ID of the region where the flow log is deployed.
-        self.cen_id = cen_id  # type: str
-        # The description of the flow log.
-        self.creation_time = creation_time  # type: str
         # The ID of the CEN instance.
+        self.cen_id = cen_id  # type: str
+        # The time when the flow log was created.
+        # 
+        # The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ssZ format. The time is displayed in UTC.
+        self.creation_time = creation_time  # type: str
+        # The description of the flow log.
         self.description = description  # type: str
-        # The time window for collecting log data. Unit: seconds. Valid values: **60** and **600**. Default value: **600**.
-        self.flow_log_id = flow_log_id  # type: str
-        # The name of the project where the flow log is stored.
-        self.flow_log_name = flow_log_name  # type: str
-        # The tag value.
-        self.interval = interval  # type: long
         # The ID of the flow log.
-        self.log_store_name = log_store_name  # type: str
-        # The name of the Logstore where the flow log is stored.
-        self.project_name = project_name  # type: str
-        # The ID of the network instance connection.
-        self.region_id = region_id  # type: str
+        self.flow_log_id = flow_log_id  # type: str
         # The name of the flow log.
+        self.flow_log_name = flow_log_name  # type: str
+        # The time window for collecting log data. Unit: seconds. Valid values: **60** and **600**. Default value: **600**.
+        self.interval = interval  # type: long
+        # The name of the Logstore where the flow log is stored.
+        self.log_store_name = log_store_name  # type: str
+        # The name of the project where the flow log is stored.
+        self.project_name = project_name  # type: str
+        # The ID of the region where the flow log is deployed.
+        self.region_id = region_id  # type: str
+        # The status of the flow log. Valid values:
+        # 
+        # *   **Active**: The flow log is enabled.
+        # *   **Inactive**: The flow log is disabled.
         self.status = status  # type: str
-        self.tags = tags  # type: DescribeFlowlogsResponseBodyFlowLogsFlowLogTags
         # A list of tags.
+        self.tags = tags  # type: DescribeFlowlogsResponseBodyFlowLogsFlowLogTags
+        # The ID of the network instance connection.
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
 
     def validate(self):
@@ -14514,23 +14616,20 @@ class DescribeFlowlogsResponseBodyFlowLogs(TeaModel):
 class DescribeFlowlogsResponseBody(TeaModel):
     def __init__(self, flow_logs=None, page_number=None, page_size=None, request_id=None, success=None,
                  total_count=None):
-        # The status of the flow log. Valid values:
-        # 
-        # *   **Active**: The flow log is enabled.
-        # *   **Inactive**: The flow log is disabled.
+        # A list of flow logs.
         self.flow_logs = flow_logs  # type: DescribeFlowlogsResponseBodyFlowLogs
-        # The total number of entries returned.
+        # The page number of the returned page.
         self.page_number = page_number  # type: str
-        # The ID of the request.
+        # The number of entries returned per page.
         self.page_size = page_size  # type: str
+        # The ID of the request.
+        self.request_id = request_id  # type: str
         # Indicates whether the call is successful. Valid values:
         # 
         # *   **true**: yes
         # *   **false**: no
-        self.request_id = request_id  # type: str
-        # The information about the flow log.
         self.success = success  # type: str
-        # A list of flow logs.
+        # The total number of entries returned.
         self.total_count = total_count  # type: str
 
     def validate(self):
@@ -15991,27 +16090,25 @@ class DescribeRouteServicesInCenRequest(TeaModel):
     def __init__(self, access_region_id=None, cen_id=None, host=None, host_region_id=None, host_vpc_id=None,
                  owner_account=None, owner_id=None, page_number=None, page_size=None, resource_owner_account=None,
                  resource_owner_id=None):
-        # The operation that you want to perform. Set the value to **DescribeRouteServicesInCen**.
+        # The ID of the region where the cloud service is accessed.
         self.access_region_id = access_region_id  # type: str
-        # The information about the cloud services.
+        # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
-        # The description of the cloud service.
-        self.host = host  # type: str
-        # The status of the cloud service. Valid values:
+        # The service address of the cloud service.
         # 
-        # *   **Creating**: The cloud service is being created.
-        # *   **Active**: The cloud service is available.
-        # *   **Deleting**: The cloud service is being deleted.
-        self.host_region_id = host_region_id  # type: str
+        # You can enter a domain name, an IP address, or a CIDR block.
+        self.host = host  # type: str
         # The ID of the region where the cloud service is deployed.
         # 
         # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
+        self.host_region_id = host_region_id  # type: str
+        # The ID of the virtual private cloud (VPC) that is associated with the cloud service.
         self.host_vpc_id = host_vpc_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the virtual private cloud (VPC) that is associated with the cloud service.
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The ID of the CEN instance.
+        # The number of entries to return per page. Default value: **10**. Valid values: **1** to **50**.
         self.page_size = page_size  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -16103,21 +16200,25 @@ class DescribeRouteServicesInCenResponseBodyRouteServiceEntriesRouteServiceEntry
 class DescribeRouteServicesInCenResponseBodyRouteServiceEntriesRouteServiceEntry(TeaModel):
     def __init__(self, access_region_id=None, cen_id=None, cidrs=None, description=None, host=None,
                  host_region_id=None, host_vpc_id=None, status=None):
-        # Queries the cloud services that are configured on a Cloud Enterprise Network (CEN) instance.
+        # The ID of the region where the cloud service is accessed.
         self.access_region_id = access_region_id  # type: str
-        # The ID of the request.
+        # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
+        # The service addresses of the cloud service.
         self.cidrs = cidrs  # type: DescribeRouteServicesInCenResponseBodyRouteServiceEntriesRouteServiceEntryCidrs
-        # The service address of the cloud service.
+        # The description of the cloud service.
         self.description = description  # type: str
-        # The number of the returned page.
-        self.host = host  # type: str
-        self.host_region_id = host_region_id  # type: str
-        # The number of entries returned per page.
-        self.host_vpc_id = host_vpc_id  # type: str
         # The service address of the cloud service.
+        self.host = host  # type: str
+        # The ID of the region where the cloud service is deployed.
+        self.host_region_id = host_region_id  # type: str
+        # The ID of the VPC that is associated with the cloud service.
+        self.host_vpc_id = host_vpc_id  # type: str
+        # The status of the cloud service. Valid values:
         # 
-        # You can enter a domain name, an IP address, or a CIDR block.
+        # *   **Creating**: The cloud service is being created.
+        # *   **Active**: The cloud service is available.
+        # *   **Deleting**: The cloud service is being deleted.
         self.status = status  # type: str
 
     def validate(self):
@@ -16205,15 +16306,15 @@ class DescribeRouteServicesInCenResponseBodyRouteServiceEntries(TeaModel):
 class DescribeRouteServicesInCenResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, route_service_entries=None,
                  total_count=None):
-        # The number of the page to return. Default value: **1**.
+        # The number of the returned page.
         self.page_number = page_number  # type: int
-        # The ID of the region where the cloud service is deployed.
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the region where the cloud service is accessed.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The ID of the region where the cloud service is accessed.
+        # The information about the cloud services.
         self.route_service_entries = route_service_entries  # type: DescribeRouteServicesInCenResponseBodyRouteServiceEntries
-        # The ID of the VPC that is associated with the cloud service.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -19965,14 +20066,28 @@ class ListTransitRouterAvailableResourceResponse(TeaModel):
 class ListTransitRouterCidrRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, transit_router_cidr_id=None, transit_router_id=None):
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, ClientToken is set to the value of RequestId. The value of RequestId may be different for each request.
         self.client_token = client_token  # type: str
+        # Specifies whether only to precheck the API request. Valid values:
+        # 
+        # *   **true**: prechecks the request but does not query the CIDR block. The system checks the required parameters, the request format, and the service limits. If the request fails the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
+        # *   **false** (default): sends the request. After the request passes the check, the operation is performed.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the transit router is deployed.
+        # 
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the CIDR block.
         self.transit_router_cidr_id = transit_router_cidr_id  # type: str
+        # The ID of the transit router.
         self.transit_router_id = transit_router_id  # type: str
 
     def validate(self):
@@ -20030,12 +20145,31 @@ class ListTransitRouterCidrRequest(TeaModel):
 class ListTransitRouterCidrResponseBodyCidrLists(TeaModel):
     def __init__(self, cidr=None, description=None, family=None, name=None, publish_cidr_route=None,
                  transit_router_cidr_id=None, transit_router_id=None):
+        # The CIDR block of the transit router.
         self.cidr = cidr  # type: str
+        # The description of the CIDR block.
         self.description = description  # type: str
+        # The type of the CIDR block.
+        # 
+        # The value is set to **IPv4**, which indicates that the CIDR block is of the IPv4 type.
         self.family = family  # type: str
+        # The name of the CIDR block.
         self.name = name  # type: str
+        # Indicates whether the system is allowed to automatically add a route to the route table of the transit router.
+        # 
+        # - **true**: yes.
+        # 
+        #      A value of true indicates that if you create a private VPN connection and add a route learning policy for the VPC connection, the system automatically adds the following route to the route table of the transit router that is in route learning relationship with the VPN connection:
+        #       
+        #     A blackhole route whose destination CIDR block is the CIDR block of the transit router. The CIDR block of the transit router refers to the CIDR block from which gateway IP addresses are allocated to IPsec-VPN connections. 
+        #           
+        #    The blackhole route is advertised only to the route tables of VBRs that are connected to the transit router. 
+        # 
+        # - **false**: no.
         self.publish_cidr_route = publish_cidr_route  # type: bool
+        # The ID of the CIDR block.
         self.transit_router_cidr_id = transit_router_cidr_id  # type: str
+        # The ID of the transit router.
         self.transit_router_id = transit_router_id  # type: str
 
     def validate(self):
@@ -20084,7 +20218,9 @@ class ListTransitRouterCidrResponseBodyCidrLists(TeaModel):
 
 class ListTransitRouterCidrResponseBody(TeaModel):
     def __init__(self, cidr_lists=None, request_id=None):
+        # The CIDR blocks of the transit router.
         self.cidr_lists = cidr_lists  # type: list[ListTransitRouterCidrResponseBodyCidrLists]
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20192,7 +20328,7 @@ class ListTransitRouterCidrAllocationRequest(TeaModel):
         # 
         # *   If a value is specified for **MaxResults**, it indicates that you need to query results in batches. Valid values: **1** to **100**. We recommend that you set **MaxResults** to **20**.
         # 
-        #         The value of **MaxResults** in the response indicates the number of entries in the current batch.
+        #     The value of **MaxResults** in the response indicates the number of entries in the current batch.
         self.max_results = max_results  # type: int
         # The token that determines the start point of the query. Valid values:
         # 
@@ -21235,22 +21371,18 @@ class ListTransitRouterMulticastGroupsRequest(TeaModel):
         # *   **false**: no
         # *   **true**: yes
         # 
-        # > This parameter can be set together with the IsGroupMember parameter.
-        # 
-        # *   If you do not set IsGroupMember or IsGroupSource, both the multicast sources and members are queried.
-        # 
-        # *   If you set only one of them or both of them, the specified values prevail.
+        # >- This parameter can be set together with the IsGroupMember parameter.
+        # >- If you do not set IsGroupMember or IsGroupSource, both the multicast sources and members are queried.
+        # >- If you set only one of them or both of them, the specified values prevail.
         self.is_group_member = is_group_member  # type: bool
         # Specifies whether to query the multicast sources. Valid values:
         # 
         # *   **false**: no
         # *   **true**: yes
         # 
-        # > This parameter can be set together with the IsGroupMember parameter.
-        # 
-        # *   If you do not set IsGroupSource or IsGroupMember, both the multicast sources and members are queried.
-        # 
-        # *   If you set only one of them or both of them, the specified values prevail.
+        # >- This parameter can be set together with the IsGroupMember parameter.
+        # >- If you do not set IsGroupSource or IsGroupMember, both the multicast sources and members are queried.
+        # >- If you set only one of them or both of them, the specified values prevail.
         self.is_group_source = is_group_source  # type: bool
         # The number of entries to return on each page. Default value: **20**.
         self.max_results = max_results  # type: long
@@ -21758,10 +21890,10 @@ class ListTransitRouterPeerAttachmentsResponseBodyTransitRouterAttachmentsTags(T
 
 class ListTransitRouterPeerAttachmentsResponseBodyTransitRouterAttachments(TeaModel):
     def __init__(self, auto_publish_route_enabled=None, bandwidth=None, bandwidth_type=None,
-                 cen_bandwidth_package_id=None, cen_id=None, creation_time=None, geographic_span_id=None, peer_transit_router_id=None,
-                 peer_transit_router_owner_id=None, peer_transit_router_region_id=None, region_id=None, resource_type=None, status=None,
-                 tags=None, transit_router_attachment_description=None, transit_router_attachment_id=None,
-                 transit_router_attachment_name=None, transit_router_id=None):
+                 cen_bandwidth_package_id=None, cen_id=None, creation_time=None, default_link_type=None, geographic_span_id=None,
+                 peer_transit_router_id=None, peer_transit_router_owner_id=None, peer_transit_router_region_id=None, region_id=None,
+                 resource_type=None, status=None, tags=None, transit_router_attachment_description=None,
+                 transit_router_attachment_id=None, transit_router_attachment_name=None, transit_router_id=None):
         # Indicates whether the local Enterprise Edition transit router automatically advertises routes of the inter-region connection to the peer transit router. Valid values:
         # 
         # *   **false** (default): no
@@ -21786,6 +21918,7 @@ class ListTransitRouterPeerAttachmentsResponseBodyTransitRouterAttachments(TeaMo
         # 
         # The time follows the ISO8601 standard in the `YYYY-MM-DDThh:mmZ` format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
+        self.default_link_type = default_link_type  # type: str
         # The areas that are connected by the bandwidth plan.
         self.geographic_span_id = geographic_span_id  # type: str
         # The ID of the peer transit router.
@@ -21845,6 +21978,8 @@ class ListTransitRouterPeerAttachmentsResponseBodyTransitRouterAttachments(TeaMo
             result['CenId'] = self.cen_id
         if self.creation_time is not None:
             result['CreationTime'] = self.creation_time
+        if self.default_link_type is not None:
+            result['DefaultLinkType'] = self.default_link_type
         if self.geographic_span_id is not None:
             result['GeographicSpanId'] = self.geographic_span_id
         if self.peer_transit_router_id is not None:
@@ -21887,6 +22022,8 @@ class ListTransitRouterPeerAttachmentsResponseBodyTransitRouterAttachments(TeaMo
             self.cen_id = m.get('CenId')
         if m.get('CreationTime') is not None:
             self.creation_time = m.get('CreationTime')
+        if m.get('DefaultLinkType') is not None:
+            self.default_link_type = m.get('DefaultLinkType')
         if m.get('GeographicSpanId') is not None:
             self.geographic_span_id = m.get('GeographicSpanId')
         if m.get('PeerTransitRouterId') is not None:
@@ -22312,7 +22449,16 @@ class ListTransitRouterPrefixListAssociationResponse(TeaModel):
 
 class ListTransitRouterRouteEntriesRequestRouteFilter(TeaModel):
     def __init__(self, key=None, value=None):
+        # The match pattern for filtering CIDR blocks. Valid values:
+        # 
+        # *   **PrefixExactMatchCidrs**: exact matching.
+        # *   **LongestPrefixMatchCidrs**: longest prefix matching. The specified IP address and CIDR block are considered a match.
+        # *   **SubnetOfMatchCidrs**: subnet matching. The specified CIDR block is considered a match.
+        # *   **SupernetOfMatchCidrs**: supernet matching. The specified CIDR block is considered a match.
+        # 
+        # By default, the logical operator among filter conditions is **AND**. Information about a route entry is returned only if the route entry matches all filter conditions. Filter conditions must be unique.
         self.key = key  # type: str
+        # The filter value.
         self.value = value  # type: list[str]
 
     def validate(self):
@@ -22347,7 +22493,7 @@ class ListTransitRouterRouteEntriesRequest(TeaModel):
                  transit_router_route_entry_next_hop_resource_type=None, transit_router_route_entry_next_hop_type=None,
                  transit_router_route_entry_origin_resource_id=None, transit_router_route_entry_origin_resource_type=None,
                  transit_router_route_entry_status=None, transit_router_route_entry_type=None, transit_router_route_table_id=None):
-        # The number of entries to return on each page. Valid values: **1** to **100**. Default value: **20**.
+        # The number of entries per page. Valid values: **1** to **100**. Default value: **20**.
         self.max_results = max_results  # type: int
         # The pagination token that is used in the next request to retrieve a new page of results. Valid values:
         # 
@@ -22356,38 +22502,64 @@ class ListTransitRouterRouteEntriesRequest(TeaModel):
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The prefix list ID.
         self.prefix_list_id = prefix_list_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The filter conditions for route CIDR blocks.
         self.route_filter = route_filter  # type: list[ListTransitRouterRouteEntriesRequestRouteFilter]
-        # The destination CIDR block of the route.
+        # The destination CIDR block of the route. **This parameter is to be deprecated. We recommend that you use the RouteFilter parameter**.
         self.transit_router_route_entry_destination_cidr_block = transit_router_route_entry_destination_cidr_block  # type: str
-        # The route entry ID.
+        # The route ID.
         # 
-        # You can specify at most 20 route IDs in each call.
-        # 
-        # >  You can use only this parameter to query static routes.
+        # >  You can use this parameter to query only static routes in the specified route table. This parameter is incompatible with query conditions other than TransitRouterRouteEntryNames.
         self.transit_router_route_entry_ids = transit_router_route_entry_ids  # type: list[str]
         # The route name.
         # 
         # The name must be 0 to 128 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -.
         # 
-        # You can specify at most 20 route names in each call.
-        # 
-        # >  You can use only this parameter to query static routes.
+        # >  You can use this parameter to query only static routes in the specified route table. This parameter is incompatible with query conditions other than TransitRouterRouteEntryIds.
         self.transit_router_route_entry_names = transit_router_route_entry_names  # type: list[str]
+        # The ID of the network instance connection that you want to specify as the next hop.
         self.transit_router_route_entry_next_hop_id = transit_router_route_entry_next_hop_id  # type: str
+        # The next hop ID.
         self.transit_router_route_entry_next_hop_resource_id = transit_router_route_entry_next_hop_resource_id  # type: str
+        # The next hop type. Valid values:
+        # 
+        # *   **VPC**\
+        # *   **VBR**\
+        # *   **TR**\
+        # *   **VPN**\
         self.transit_router_route_entry_next_hop_resource_type = transit_router_route_entry_next_hop_resource_type  # type: str
+        # The next hop type. Valid values:
+        # 
+        # *   **BlackHole**: routes network traffic to a black hole.
+        # *   **Attachment**: routes network traffic to a network instance connection.
         self.transit_router_route_entry_next_hop_type = transit_router_route_entry_next_hop_type  # type: str
+        # The source instance ID.
         self.transit_router_route_entry_origin_resource_id = transit_router_route_entry_origin_resource_id  # type: str
+        # The source instance type. Valid values:
+        # 
+        # *   **VPC**\
+        # *   **VBR**\
+        # *   **TR**\
+        # *   **VPN**\
         self.transit_router_route_entry_origin_resource_type = transit_router_route_entry_origin_resource_type  # type: str
         # The status of the route. Valid values:
         # 
-        # *   **Creating**: The route is being created.
-        # *   **Active**: The route is available.
-        # *   **Deleting**: The route is being deleted.
+        # *   **All**\
+        # *   **Active** (default)
+        # *   **Rejected**\
+        # *   **Prohibited**\
+        # *   **Standby**\
+        # *   **Candidate**\
+        # 
+        # If you do not specify a value, routes in the active state are queried.
         self.transit_router_route_entry_status = transit_router_route_entry_status  # type: str
+        # The route type. Valid values:
+        # 
+        # *   **Propagated**: automatically learned by the route table.
+        # *   **Static**: static routes.
         self.transit_router_route_entry_type = transit_router_route_entry_type  # type: str
         # The ID of the route table of the Enterprise Edition transit router.
         self.transit_router_route_table_id = transit_router_route_table_id  # type: str
@@ -22499,11 +22671,31 @@ class ListTransitRouterRouteEntriesRequest(TeaModel):
 class ListTransitRouterRouteEntriesResponseBodyTransitRouterRouteEntriesPathAttributes(TeaModel):
     def __init__(self, as_paths=None, communities=None, origin_instance_id=None, origin_instance_type=None,
                  origin_route_type=None, preference=None):
+        # The route AS path.
         self.as_paths = as_paths  # type: list[str]
+        # The route community.
         self.communities = communities  # type: list[str]
+        # The source instance ID.
         self.origin_instance_id = origin_instance_id  # type: str
+        # The source instance type. Valid values:
+        # 
+        # *   **VPC**\
+        # *   **VBR**\
+        # *   **TR**\
+        # *   **VPN**\
+        # *   **CCN**\
         self.origin_instance_type = origin_instance_type  # type: str
+        # The route type. Valid values:
+        # 
+        # *   **System**\
+        # *   **Custom**\
+        # *   **static**\
+        # *   **BGP**\
+        # *   **BlackHole**\
         self.origin_route_type = origin_route_type  # type: str
+        # The route priority.
+        # 
+        # A smaller value indicates a higher priority.
         self.preference = preference  # type: int
 
     def validate(self):
@@ -22553,7 +22745,7 @@ class ListTransitRouterRouteEntriesResponseBodyTransitRouterRouteEntries(TeaMode
                  transit_router_route_entry_next_hop_resource_id=None, transit_router_route_entry_next_hop_resource_type=None,
                  transit_router_route_entry_next_hop_type=None, transit_router_route_entry_origin_resource_id=None,
                  transit_router_route_entry_origin_resource_type=None, transit_router_route_entry_status=None, transit_router_route_entry_type=None):
-        # The time when the route was created.
+        # The time when the route entry was created.
         # 
         # The time follows the ISO8601 standard in the YYYY-MM-DDThh:mmZ format. The time is displayed in UTC.
         # 
@@ -22564,15 +22756,17 @@ class ListTransitRouterRouteEntriesResponseBodyTransitRouterRouteEntries(TeaMode
         # *   **true**: The route can be managed. You can delete the route.
         # *   **false**: The route cannot be managed because it is automatically generated by the system.
         self.operational_mode = operational_mode  # type: bool
+        # The route attributes.
         self.path_attributes = path_attributes  # type: ListTransitRouterRouteEntriesResponseBodyTransitRouterRouteEntriesPathAttributes
+        # The prefix list ID.
         self.prefix_list_id = prefix_list_id  # type: str
-        # The tag of the route.
+        # The route tag.
         # 
-        # Only **PermitVbr** may be returned, which indicates that the route is advertised only to the route table of the virtual border router (VBR) that is connected to the transit router.
+        # Only **PermitVbr** may be returned, which indicates that the route is advertised only to the route tables of the virtual border routers (VBRs) that are connected to the transit router.
         # 
-        # >  This parameter is returned only for automatically learned routes.
+        # >  This parameter is returned only for routes whose CIDR blocks are automatically generated by the system.
         self.tag = tag  # type: str
-        # The description of the route.
+        # The route description.
         # 
         # >  This parameter is returned only for static routes.
         self.transit_router_route_entry_description = transit_router_route_entry_description  # type: str
@@ -22586,27 +22780,45 @@ class ListTransitRouterRouteEntriesResponseBodyTransitRouterRouteEntries(TeaMode
         # 
         # >  This parameter is returned only for static routes.
         self.transit_router_route_entry_name = transit_router_route_entry_name  # type: str
-        # The ID of the next hop.
+        # The next hop ID. This parameter is not returned if the route is a blackhole route.
         self.transit_router_route_entry_next_hop_id = transit_router_route_entry_next_hop_id  # type: str
+        # The next hop ID.
         self.transit_router_route_entry_next_hop_resource_id = transit_router_route_entry_next_hop_resource_id  # type: str
+        # The next hop type. Valid values:
+        # 
+        # *   **VPC**\
+        # *   **VBR**\
+        # *   **TR**\
+        # *   **VPN**\
         self.transit_router_route_entry_next_hop_resource_type = transit_router_route_entry_next_hop_resource_type  # type: str
-        # The type of next hop. Valid values:
+        # The next hop type. Valid values:
         # 
         # *   **BlackHole**: a blackhole route. Packets destined for the destination CIDR block of the route are dropped.
         # *   **Attachment**: a network instance connection. Packets destined for the destination CIDR block of the route are forwarded to the specified network instance connection.
         self.transit_router_route_entry_next_hop_type = transit_router_route_entry_next_hop_type  # type: str
+        # The source instance ID.
         self.transit_router_route_entry_origin_resource_id = transit_router_route_entry_origin_resource_id  # type: str
-        self.transit_router_route_entry_origin_resource_type = transit_router_route_entry_origin_resource_type  # type: str
-        # The status of the route. Valid values:
+        # The source instance type. Valid values:
         # 
-        # *   **Creating**: The route is being created.
-        # *   **Active**: The route is available.
-        # *   **Deleting**: The route is being deleted.
+        # *   **VPC**\
+        # *   **VBR**\
+        # *   **TR**\
+        # *   **VPN**\
+        self.transit_router_route_entry_origin_resource_type = transit_router_route_entry_origin_resource_type  # type: str
+        # The route status. Valid values:
+        # 
+        # *   **Active**\
+        # *   **Rejected**\
+        # *   **Prohibited**\
+        # *   **Standby**\
+        # *   **Candidate**\
+        # *   **Creating**\
+        # *   **Deleting**\
         self.transit_router_route_entry_status = transit_router_route_entry_status  # type: str
         # The type of the route. Valid values:
         # 
-        # *   **Static**: a static route
-        # *   **Propagated**: an automatically learned route
+        # *   **Static**: static routes.
+        # *   **Propagated**: automatically learned by the route table.
         self.transit_router_route_entry_type = transit_router_route_entry_type  # type: str
 
     def validate(self):
@@ -22698,18 +22910,18 @@ class ListTransitRouterRouteEntriesResponseBodyTransitRouterRouteEntries(TeaMode
 class ListTransitRouterRouteEntriesResponseBody(TeaModel):
     def __init__(self, max_results=None, next_token=None, request_id=None, total_count=None,
                  transit_router_route_entries=None):
-        # The number of entries returned per page.
+        # The number of entries per page.
         self.max_results = max_results  # type: int
-        # The returned value of NextToken is a pagination token, which can be used in the next request to retrieve a new page of results. Valid values:
+        # A pagination token. It can be used in the next request to retrieve a new page of results. Valid values:
         # 
-        # *   If the **NextToken** parameter is empty, no next page exists.
-        # *   If a value of **NextToken** was returned in the previous query, specify the value to obtain the next set of results.
+        # *   If **NextToken** is empty, no next page exists.
+        # *   If a value is returned for **NextToken**, the value is the token that determines the start point of the next query.
         self.next_token = next_token  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
         # The total number of entries returned.
         self.total_count = total_count  # type: int
-        # The queried routes.
+        # A list of route entries.
         self.transit_router_route_entries = transit_router_route_entries  # type: list[ListTransitRouterRouteEntriesResponseBodyTransitRouterRouteEntries]
 
     def validate(self):
@@ -25058,7 +25270,14 @@ class ListTransitRouterVpnAttachmentsResponse(TeaModel):
 
 class ListTransitRoutersRequestFeatureFilter(TeaModel):
     def __init__(self, key=None, value=None):
+        # The value of the field that is used to enable or disable a feature of the transit router. Supported fields:
+        # 
+        # *   **Multicast**: the multicast feature.
         self.key = key  # type: str
+        # The fields that are used to enable or disable the features of the transit router. The **Multicast** field supports only one value. Valid values:
+        # 
+        # *   **Enabled**: enables multicast.
+        # *   **Disabled**: disables multicast.
         self.value = value  # type: list[str]
 
     def validate(self):
@@ -25087,7 +25306,17 @@ class ListTransitRoutersRequestFeatureFilter(TeaModel):
 
 class ListTransitRoutersRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
+        # 
+        # The tag key cannot be an empty string. The tag key can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
+        # 
+        # You can specify at most 20 tag keys.
         self.key = key  # type: str
+        # The tag value.
+        # 
+        # The tag value can be 0 to 128 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        # 
+        # Each tag key must have a unique tag value. You can specify at most 20 tag values in each call.
         self.value = value  # type: str
 
     def validate(self):
@@ -25118,19 +25347,44 @@ class ListTransitRoutersRequest(TeaModel):
     def __init__(self, cen_id=None, feature_filter=None, owner_account=None, owner_id=None, page_number=None,
                  page_size=None, region_id=None, resource_owner_account=None, resource_owner_id=None, status=None, tag=None,
                  transit_router_id=None, transit_router_name=None, type=None):
+        # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
+        # The field that is used to enable or disable a feature of the transit router.
         self.feature_filter = feature_filter  # type: list[ListTransitRoutersRequestFeatureFilter]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: **1** to **50**. Default value: **10**.
         self.page_size = page_size  # type: int
+        # The ID of the region where the transit router is deployed.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The status of the transit router. Valid values:
+        # 
+        # *   **Creating**: The transit router is being created.
+        # *   **Active**: The transit router is available.
+        # *   **Modifying**: The transit router is being modified
+        # *   **Deleting**: The transit router is being deleted.
+        # *   **Upgrading**: The transit router is being upgraded.
         self.status = status  # type: str
+        # The information about the tags.
+        # 
+        # You can specify at most 20 tags in each call.
         self.tag = tag  # type: list[ListTransitRoutersRequestTag]
+        # The ID of the transit router.
         self.transit_router_id = transit_router_id  # type: str
+        # The name of the Enterprise Edition transit router.
+        # 
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
         self.transit_router_name = transit_router_name  # type: str
+        # The edition of the transit router. Valid values:
+        # 
+        # *   **Enterprise**: Enhance Edition
+        # *   **Basic**: Basic Edition
         self.type = type  # type: str
 
     def validate(self):
@@ -25224,7 +25478,9 @@ class ListTransitRoutersRequest(TeaModel):
 
 class ListTransitRoutersResponseBodyTransitRoutersTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -25253,10 +25509,23 @@ class ListTransitRoutersResponseBodyTransitRoutersTags(TeaModel):
 
 class ListTransitRoutersResponseBodyTransitRoutersTransitRouterCidrList(TeaModel):
     def __init__(self, cidr=None, description=None, name=None, publish_cidr_route=None, transit_router_cidr_id=None):
+        # The CIDR block of the transit router.
         self.cidr = cidr  # type: str
+        # The description of the CIDR block.
         self.description = description  # type: str
+        # The name of the CIDR block.
         self.name = name  # type: str
+        # Indicates whether the system is allowed to automatically add a route to the route table of the transit router. Valid values:
+        # 
+        # - **true**: yes
+        # 
+        #   A value of **true** indicates that after you create a private VPN connection and create a route learning correlation for the private VPC connection, the system automatically adds the following route to the route table of the transit router that is in route learning correlation with the private VPN connection: A blackhole route whose destination CIDR block is the CIDR block of the transit router. The CIDR block of the transit router refers to the CIDR block from which gateway IP addresses are allocated to IPsec-VPN connections. 
+        #          
+        #   The blackhole route is advertised only to the route tables of virtual border routers (VBRs) that are connected to the transit router. 
+        # 
+        # - **false**: no
         self.publish_cidr_route = publish_cidr_route  # type: bool
+        # The ID of the CIDR block.
         self.transit_router_cidr_id = transit_router_cidr_id  # type: str
 
     def validate(self):
@@ -25299,17 +25568,43 @@ class ListTransitRoutersResponseBodyTransitRouters(TeaModel):
     def __init__(self, ali_uid=None, cen_id=None, creation_time=None, region_id=None, status=None,
                  support_multicast=None, tags=None, transit_router_cidr_list=None, transit_router_description=None,
                  transit_router_id=None, transit_router_name=None, type=None):
+        # The ID of the Alibaba Cloud account to which the CEN instance belongs.
         self.ali_uid = ali_uid  # type: long
+        # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
+        # The time when the transit router was created.
+        # 
+        # The time follows the ISO8601 standard in the `YYYY-MM-DDThh:mmZ` format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
+        # The ID of the region where the transit router is deployed.
         self.region_id = region_id  # type: str
+        # The status of the transit router. Valid values:
+        # 
+        # *   **Creating**: The transit router is being created.
+        # *   **Active**: The transit router is available.
+        # *   **Modifying**: The transit router is being modified
+        # *   **Deleting**: The transit router is being deleted.
+        # *   **Upgrading**: The transit router is being upgraded.
         self.status = status  # type: str
+        # Indicates whether multicast is enabled for the transit router. Valid values:
+        # 
+        # *   **true**: enabled
+        # *   **false**: disabled
         self.support_multicast = support_multicast  # type: bool
+        # A list of tags.
         self.tags = tags  # type: list[ListTransitRoutersResponseBodyTransitRoutersTags]
+        # The CIDR blocks of the transit router.
         self.transit_router_cidr_list = transit_router_cidr_list  # type: list[ListTransitRoutersResponseBodyTransitRoutersTransitRouterCidrList]
+        # The description of the transit router.
         self.transit_router_description = transit_router_description  # type: str
+        # The ID of the transit router.
         self.transit_router_id = transit_router_id  # type: str
+        # The name of the transit router.
         self.transit_router_name = transit_router_name  # type: str
+        # The edition of the transit router. Valid values:
+        # 
+        # *   **Enterprise**: Enhance Edition
+        # *   **Basic**: Basic Edition
         self.type = type  # type: str
 
     def validate(self):
@@ -25395,10 +25690,15 @@ class ListTransitRoutersResponseBodyTransitRouters(TeaModel):
 
 class ListTransitRoutersResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None, transit_routers=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
+        # A list of transit routers.
         self.transit_routers = transit_routers  # type: list[ListTransitRoutersResponseBodyTransitRouters]
 
     def validate(self):
@@ -25871,35 +26171,61 @@ class ModifyCenRouteMapRequest(TeaModel):
                  prepend_as_path=None, priority=None, resource_owner_account=None, resource_owner_id=None, route_map_id=None,
                  route_types=None, source_child_instance_types=None, source_instance_ids=None,
                  source_instance_ids_reverse_match=None, source_region_ids=None, source_route_table_ids=None):
-        # The AS paths against which routes are matched.
-        # 
-        # > Only the AS-SEQUENCE parameter is supported. The AS-SET, AS-CONFED-SEQUENCE, and AS-CONFED-SET parameters are not supported. In other words, only the AS number list is supported. Sets and sub-lists are not supported.
-        self.as_path_match_mode = as_path_match_mode  # type: str
-        # The ID of the routing policy.
-        self.cen_id = cen_id  # type: str
-        # 22
-        self.cen_region_id = cen_region_id  # type: str
-        # vtb-adfg53c322v****\
-        self.cidr_match_mode = cidr_match_mode  # type: str
-        # The description of the routing policy.
-        # 
-        # The description cannot start with `http://` or `https://`. It must start with a letter and can contain letters, digits, hyphens (-), periods (.), and underscores (\_).
-        self.community_match_mode = community_match_mode  # type: str
         # The match method that is used to match routes against the AS paths. Valid values:
         # 
         # *   **Include**: fuzzy match. A route meets the match condition if the AS path of the route overlaps with the AS paths specified in the match condition.
         # *   **Complete**: exact match. A route is a match only if the AS path of the route is the same as an AS path specified in the match condition.
+        self.as_path_match_mode = as_path_match_mode  # type: str
+        # The ID of the CEN instance.
+        self.cen_id = cen_id  # type: str
+        # The ID of the region in which the routing policy is applied.
+        # 
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
+        self.cen_region_id = cen_region_id  # type: str
+        # The match method that is used to match routes against the prefix list. Valid values:
+        # 
+        # *   **Include**: fuzzy match. A route is a match if the route prefix is included in the match conditions.
+        # 
+        #     For example, if you set the match condition to 10.10.0.0/16 and fuzzy match is enabled, the route whose prefix is 10.10.1.0/24 is a match.
+        # 
+        # *   **Complete**: exact match. A route is a match only if the route prefix is the same as the prefix specified in the match condition.
+        # 
+        #     For example, if you set the match condition to 10.10.0.0/16 and exact match is enabled, a route is a match only if the prefix is 10.10.0.0/16.
+        self.cidr_match_mode = cidr_match_mode  # type: str
+        # The match method that is sed to match routes based on the community. Valid values:
+        # 
+        # *   **Include**: fuzzy match. A route meets the match condition if the community of the route overlaps with the community specified in the match condition.
+        # *   **Complete**: exact match. A route meets the match condition only if the community of the route is the same as the community specified in the match condition.
+        self.community_match_mode = community_match_mode  # type: str
+        # The action that is performed on the community. Valid values:
+        # 
+        # *   **Additive**: adds the community to the route.
+        # *   **Replace**: replaces the original community of the route.
+        # 
+        # This parameter specifies the action to be performed when a route meets the match condition.
         self.community_operate_mode = community_operate_mode  # type: str
-        # cn-beijing
+        # The description of the routing policy.
+        # 
+        # The description cannot start with `http://` or `https://`. It must start with a letter and can contain letters, digits, hyphens (-), periods (.), and underscores (\_).
         self.description = description  # type: str
-        # VPC
+        # The types of destination network instance to which the routes belong. The following types of network instances are supported:
+        # 
+        # *   **VPC**: VPC
+        # 
+        # *   **VBR**: VBR
+        # 
+        # *   **CCN**: CCN instance
+        # 
+        # *   **VPN**: IPsec connection
+        # 
+        #     > This parameter does not take effect if the IPsec-VPN connection or SSL client is associated with a transit router through a VPN gateway and a VPC. This parameter takes effect only if the IPsec connection is directly connected to the transit router.
+        # 
+        # The destination network instance types are valid only if the routing policy is applied to scenarios where routes are advertised from the gateway in the current region to network instances in the current region.
         self.destination_child_instance_types = destination_child_instance_types  # type: list[str]
-        # The ID of the request.
+        # The prefix list against which routes are matched.
+        # 
+        # You must specify the IP addresses in CIDR notation. You can enter at most 32 CIDR blocks.
         self.destination_cidr_blocks = destination_cidr_blocks  # type: list[str]
-        # vtb-acdbvtbr342cd****\
-        self.destination_instance_ids = destination_instance_ids  # type: list[str]
-        # System
-        self.destination_instance_ids_reverse_match = destination_instance_ids_reverse_match  # type: bool
         # The IDs of the destination network instances to which the routes belong. The following network instance types are supported:
         # 
         # *   VPC
@@ -25911,55 +26237,62 @@ class ModifyCenRouteMapRequest(TeaModel):
         # You can enter at most 32 IDs.
         # 
         # > The destination instance IDs take effect only when Direction is set to Export from Regional Gateway and the destination instances are deployed in the current region.
-        self.destination_route_table_ids = destination_route_table_ids  # type: list[str]
+        self.destination_instance_ids = destination_instance_ids  # type: list[str]
         # Specifies whether to exclude the destination network instance IDs. Valid values:
         # 
         # *   **false** (default value): A route is a match if its destination network instance ID is in the list specified by **DestinationInstanceIds.N**.
         # *   **true**: A route meets the match condition if its destination network instance ID is not in the list specified by **DestinationInstanceIds.N**.
-        self.map_result = map_result  # type: str
-        # cn-beijing
-        self.match_address_type = match_address_type  # type: str
-        # The ID of the CEN instance.
-        self.match_asns = match_asns  # type: list[int]
-        # The ID of the routing policy.
-        self.match_community_set = match_community_set  # type: list[str]
-        # 10.10.10.0/24
-        self.next_priority = next_priority  # type: int
+        self.destination_instance_ids_reverse_match = destination_instance_ids_reverse_match  # type: bool
+        # The IDs of the destination route tables to which the routes belong. You can enter at most 32 route table IDs.
+        # 
+        # > The destination route table IDs take effect only when Direction is set to Export from Regional Gateway and the destination route tables belong to network instances deployed in the current region.
+        self.destination_route_table_ids = destination_route_table_ids  # type: list[str]
         # The action to be performed on a route that meets all match conditions. Valid values:
         # 
         # *   **Permit**: the route is permitted.
         # *   **Deny**: the route is denied.
-        self.operate_community_set = operate_community_set  # type: list[str]
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
+        self.map_result = map_result  # type: str
+        # The type of IP address in the match condition. Valid values:
+        # 
+        # *   **IPv4**: IPv4 address
+        # *   **IPv6**: IPv6 address
+        # 
+        # This parameter can be empty. If no value is specified, all types of IP address are a match.
+        self.match_address_type = match_address_type  # type: str
+        # The AS paths against which routes are matched.
+        # 
+        # > Only the AS-SEQUENCE parameter is supported. The AS-SET, AS-CONFED-SEQUENCE, and AS-CONFED-SET parameters are not supported. In other words, only the AS number list is supported. Sets and sub-lists are not supported.
+        self.match_asns = match_asns  # type: list[int]
         # The community against which routes are matched.
         # 
         # Specify the community in the format of n:m. Valid values of n and m: **1** to **65535**. Each community must comply with the RFC 1997 standard. The RFC 8092 standard that defines BGP large communities is not supported.
         # 
         # You can specify at most 32 communities.
         # 
-        # **\
+        # > If the configurations of the communities are incorrect, routes may fail to be advertised to your data center.
+        self.match_community_set = match_community_set  # type: list[str]
+        # The priority of the routing policy that you want to associate with the current one.
         # 
-        # **If the configurations of the communities are incorrect, routes may fail to be advertised to your data center.
+        # *   This parameter takes effect only when the **MapResult** parameter is set to **Permit**. This way, the permitted route is matched against the next routing policy.
+        # *   The region and direction of the routing policy to be associated must be the same as those of the current routing policy.
+        # *   The priority of the routing policy to be associated must be lower than the priority of the current routing policy.
+        self.next_priority = next_priority  # type: int
+        # The community set on which actions are performed.
+        # 
+        # Specify the community in the format of n:m. Valid values of n and m: **1** to **65535**. Each community must comply with RFC 1997. The RFC 8092 standard that defines BGP large communities is not supported.
+        # 
+        # You can specify at most 32 communities.
+        # 
+        # > If the configurations of the communities are incorrect, routes may fail to be advertised to your data center.
+        self.operate_community_set = operate_community_set  # type: list[str]
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The new priority of the route.
+        # 
+        # Valid values: **1** to **100**. The default priority is **50**. A smaller value indicates a higher priority.
+        # 
+        # This parameter specifies the action to be performed when a route meets the match condition.
         self.preference = preference  # type: int
-        # The match method that is used to match routes against the prefix list. Valid values:
-        # 
-        # *   **Include**: fuzzy match. A route is a match if the route prefix is included in the match conditions.
-        # 
-        # For example, if you set the match condition to 10.10.0.0/16 and fuzzy match is enabled, the route whose prefix is 10.10.1.0/24 is a match.
-        # 
-        # *   **Complete**: exact match. A route is a match only if the route prefix is the same as the prefix specified in the match condition.
-        # 
-        # For example, if you set the match condition to 10.10.0.0/16 and exact match is enabled, a route is a match only if the prefix is 10.10.0.0/16.
-        self.prepend_as_path = prepend_as_path  # type: list[long]
-        # VPC
-        self.priority = priority  # type: int
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # vpc-avcdsg34ds****\
-        self.route_map_id = route_map_id  # type: str
-        # Modifies a routing policy of a Cloud Enterprise Network (CEN) instance.
-        self.route_types = route_types  # type: list[str]
         # The AS paths that are prepended by using an action statement when regional gateways receive or advertise routes.
         # 
         # The AS paths vary based on the direction in which the routing policy is applied:
@@ -25968,21 +26301,54 @@ class ModifyCenRouteMapRequest(TeaModel):
         # *   If AS paths are prepended to a routing policy that is applied in the outbound direction, you must specify destination network instance IDs in the match condition.
         # 
         # This parameter specifies the action to be performed when a route meets the match condition.
+        self.prepend_as_path = prepend_as_path  # type: list[long]
+        # The priority of the routing policy. Valid values: **1** to **100**. A smaller value indicates a higher priority.
+        # 
+        # > You cannot specify the same priority for routing policies that apply in the same region and direction. The system matches routes against the match conditions of routing policies in descending order of priority. A smaller value indicates a higher priority. You must set the priorities to proper values.
+        self.priority = priority  # type: int
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the routing policy.
+        self.route_map_id = route_map_id  # type: str
+        # The type of route to be matched against the match condition. The following route types are supported:
+        # 
+        # *   **System**: system routes that are automatically generated by the system.
+        # *   **Custom**: custom routes that are manually added.
+        # *   **BGP**: routes that are advertised over BGP.
+        self.route_types = route_types  # type: list[str]
+        # The types of source network instance to which the routes belong. The following types of network instances are supported:
+        # 
+        # *   **VPC**: VPC
+        # 
+        # *   **VBR**: VBR
+        # 
+        # *   **CCN**: CCN instance
+        # 
+        # *   **VPN** :VPN gateway or IPsec-VPN connection
+        # 
+        #     *   If the IPsec-VPN connection or SSL client is associated with a VPN gateway, the VPC associated with the VPN gateway must be connected to a transit router, and the VPN gateway must use Border Gateway Protocol (BGP) dynamic routing. Otherwise, this parameter cannot take effect.
+        #     *   This parameter takes effect if the IPsec connection is directly connected to a transit router.
         self.source_child_instance_types = source_child_instance_types  # type: list[str]
-        # 20
+        # The IDs of the source network instances to which the routes belong. The following network instance types are supported:
+        # 
+        # *   Virtual private cloud (VPC)
+        # *   Virtual border router (VBR)
+        # *   Cloud Connect Network (CCN) instance
+        # *   Smart Access Gateway (SAG) instance
+        # *   The ID of the IPsec-VPN connection.
+        # 
+        # You can enter at most 32 IDs.
         self.source_instance_ids = source_instance_ids  # type: list[str]
-        # The IDs of the destination route tables to which the routes belong. You can enter at most 32 route table IDs.
+        # Specifies whether to exclude the source network instance IDs. Valid values:
         # 
-        # > The destination route table IDs take effect only when Direction is set to Export from Regional Gateway and the destination route tables belong to network instances deployed in the current region.
+        # *   **false** (default value): A route is a match if its source network instance ID is in the list specified by **SourceInstanceIds.N**.
+        # *   **true**: A route is a match if its source network instance ID is not in the list specified by **SourceInstanceIds.N**.
         self.source_instance_ids_reverse_match = source_instance_ids_reverse_match  # type: bool
-        # The IDs of the source route tables to which the routes belong. You can enter at most 32 route table IDs.
+        # The IDs of the source regions to which the routes belong. You can enter at most 32 region IDs.
+        # 
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.source_region_ids = source_region_ids  # type: list[str]
-        # The action that is performed on the community. Valid values:
-        # 
-        # *   **Additive**: adds the community to the route.
-        # *   **Replace**: replaces the original community of the route.
-        # 
-        # This parameter specifies the action to be performed when a route meets the match condition.
+        # The IDs of the source route tables to which the routes belong. You can enter at most 32 route table IDs.
         self.source_route_table_ids = source_route_table_ids  # type: list[str]
 
     def validate(self):
@@ -26131,12 +26497,7 @@ class ModifyCenRouteMapRequest(TeaModel):
 
 class ModifyCenRouteMapResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The action that is performed on the community. Valid values:
-        # 
-        # *   **Additive**: adds the community to the route.
-        # *   **Replace**: replaces the original community of the route.
-        # 
-        # This parameter specifies the action to be performed when a route meets the match condition.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -26201,13 +26562,29 @@ class ModifyCenRouteMapResponse(TeaModel):
 class ModifyFlowLogAttributeRequest(TeaModel):
     def __init__(self, cen_id=None, client_token=None, description=None, flow_log_id=None, flow_log_name=None,
                  owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that the value is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, ClientToken is set to the value of RequestId. The value of RequestId for each API request may be different.
         self.client_token = client_token  # type: str
+        # The new description of the flow log.
+        # 
+        # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
         self.description = description  # type: str
+        # The ID of the flow log.
         self.flow_log_id = flow_log_id  # type: str
+        # The new name of the flow log.
+        # 
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
         self.flow_log_name = flow_log_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region where the flow log is deployed.
+        # 
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -26270,7 +26647,12 @@ class ModifyFlowLogAttributeRequest(TeaModel):
 
 class ModifyFlowLogAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the call is successful. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
         self.success = success  # type: str
 
     def validate(self):
@@ -26340,48 +26722,50 @@ class ModifyTransitRouterCidrRequest(TeaModel):
     def __init__(self, cidr=None, client_token=None, description=None, dry_run=None, name=None, owner_account=None,
                  owner_id=None, publish_cidr_route=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None, transit_router_cidr_id=None, transit_router_id=None):
-        # The ID of the region where the transit router is deployed.
-        # 
-        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
-        self.cidr = cidr  # type: str
-        # Specifies whether to allow the system to automatically add routes that point to the CIDR block to the route table of the transit router.
-        # 
-        # *   **true**: yes
-        # 
-        #     A value of true specifies that after you create a private VPN connection and enable route learning for the connection, the system automatically adds a blackhole route to the route table of the transit route to which the VPN connection is attached.
-        # 
-        #     The destination CIDR block of the blackhole route is the CIDR block of the transit router. The CIDR block of the transit router refers to the CIDR block from which gateway IP addresses are allocated to IPsec-VPN connections.
-        # 
-        #     The blackhole route is advertised only to the route table of the virtual border router (VBR) that is connected to the transit router.
-        # 
-        # *   **false**: no
-        self.client_token = client_token  # type: str
         # The new CIDR block of the transit router.
-        self.description = description  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        # The ID of the transit router CIDR block.
+        self.cidr = cidr  # type: str
+        # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can call [ListTransitRouterCidr](~~462772~~) to query the ID of a transit route CIDR block.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, ClientToken is set to the value of RequestId. The value of RequestId for each API request may be different.
+        self.client_token = client_token  # type: str
+        # The new description of the transit router CIDR block.
+        # 
+        # The description must be 1 to 256 characters in length.
+        self.description = description  # type: str
+        # Specifies whether to perform a dry run. Valid values:
+        # 
+        # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false**: performs a dry run and sends the request.
+        self.dry_run = dry_run  # type: bool
+        # The new name of the transit router CIDR block.
+        # 
+        # The name must be 1 to 128 characters in length.
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The operation that you want to perform. Set the value to **ModifyTransitRouterCidr**.
+        # Specifies whether to allow the system to automatically add a route that points to the CIDR block to the route table of the transit router.
+        # - **true**: yes
+        #   
+        #   A value of **true** specifies that after you create a private VPN connection and enable route learning for the connection, the system automatically adds the following blackhole route to the route table of the transit router to which the VPN connection is attached:
+        # 
+        #    The destination CIDR block of the blackhole route is the CIDR block of the transit router. The CIDR block of the transit router refers to the CIDR block from which gateway IP addresses are allocated to IPsec-VPN connections. 
+        # 
+        #     The blackhole route is advertised only to the route tables of virtual border routers (VBRs) that are connected to the transit router. 
+        # -  **false**: no
         self.publish_cidr_route = publish_cidr_route  # type: bool
-        # The ID of the transit router.
+        # The ID of the region where the transit router is deployed.
+        # 
+        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # Specifies whether only to precheck the request. Valid values:
+        # The ID of the CIDR block.
         # 
-        # *   **true**: checks the request but does not modify the CIDR block. The system checks the required parameters, the request format, and the service limits. If the request fails to pass the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
-        # *   **false**: sends the request. If the request passes the precheck, the CIDR block of the transit router is modified.
+        # You can call the [ListTransitRouterCidr](~~462772~~) operation to query the ID of a CIDR block.
         self.transit_router_cidr_id = transit_router_cidr_id  # type: str
-        # The client token that is used to ensure the idempotence of the request.
-        # 
-        # You can use the client to generate the value, but you must make sure that it is unique among different requests. ClientToken can contain only ASCII characters.
-        # 
-        # >  If you do not set this parameter, ClientToken is set to the value of RequestId. The value of RequestId for each API request may be different.
+        # The ID of the transit router.
         self.transit_router_id = transit_router_id  # type: str
 
     def validate(self):
@@ -26454,6 +26838,7 @@ class ModifyTransitRouterCidrRequest(TeaModel):
 
 class ModifyTransitRouterCidrResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29886,7 +30271,7 @@ class UpdateTransitRouterResponse(TeaModel):
 
 class UpdateTransitRouterPeerAttachmentAttributeRequest(TeaModel):
     def __init__(self, auto_publish_route_enabled=None, bandwidth=None, bandwidth_type=None,
-                 cen_bandwidth_package_id=None, client_token=None, dry_run=None, owner_account=None, owner_id=None,
+                 cen_bandwidth_package_id=None, client_token=None, default_link_type=None, dry_run=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, transit_router_attachment_description=None,
                  transit_router_attachment_id=None, transit_router_attachment_name=None):
         # Specifies whether to enable the local Enterprise Edition transit router to automatically advertise the routes of the inter-region connection to the peer transit router. Valid values:
@@ -29914,6 +30299,7 @@ class UpdateTransitRouterPeerAttachmentAttributeRequest(TeaModel):
         # 
         # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
         self.client_token = client_token  # type: str
+        self.default_link_type = default_link_type  # type: str
         # Specifies whether to perform a dry run to check information such as the permissions and the instance status. Default values:
         # 
         # *   **false** (default): performs a dry run and sends the request.
@@ -29953,6 +30339,8 @@ class UpdateTransitRouterPeerAttachmentAttributeRequest(TeaModel):
             result['CenBandwidthPackageId'] = self.cen_bandwidth_package_id
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.default_link_type is not None:
+            result['DefaultLinkType'] = self.default_link_type
         if self.dry_run is not None:
             result['DryRun'] = self.dry_run
         if self.owner_account is not None:
@@ -29983,6 +30371,8 @@ class UpdateTransitRouterPeerAttachmentAttributeRequest(TeaModel):
             self.cen_bandwidth_package_id = m.get('CenBandwidthPackageId')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('DefaultLinkType') is not None:
+            self.default_link_type = m.get('DefaultLinkType')
         if m.get('DryRun') is not None:
             self.dry_run = m.get('DryRun')
         if m.get('OwnerAccount') is not None:
@@ -30072,9 +30462,9 @@ class UpdateTransitRouterRouteEntryRequest(TeaModel):
                  transit_router_route_entry_id=None, transit_router_route_entry_name=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The client token can contain only ASCII characters.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         # 
-        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
+        # >  If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** is different for each request.
         self.client_token = client_token  # type: str
         # Specifies whether to perform a dry run. Default values:
         # 
@@ -30087,7 +30477,7 @@ class UpdateTransitRouterRouteEntryRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The new description of the route.
         # 
-        # The description must be 1 to 256 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -. You can also leave the description empty.
+        # The description must be 0 to 256 characters in length, and can contain letters, digits, commas (,), periods (.), semicolons (;), forward slashes (/), at signs (@), underscores (\_), and hyphens (-).
         self.transit_router_route_entry_description = transit_router_route_entry_description  # type: str
         # The ID of the route.
         self.transit_router_route_entry_id = transit_router_route_entry_id  # type: str
