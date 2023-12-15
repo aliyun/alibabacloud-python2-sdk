@@ -10175,6 +10175,200 @@ class ApplyQueryResponse(TeaModel):
         return self
 
 
+class BaseCityInfoSearchHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_access_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_access_token = x_acs_btrip_access_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BaseCityInfoSearchHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_access_token is not None:
+            result['x-acs-btrip-access-token'] = self.x_acs_btrip_access_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-access-token') is not None:
+            self.x_acs_btrip_access_token = m.get('x-acs-btrip-access-token')
+        return self
+
+
+class BaseCityInfoSearchRequest(TeaModel):
+    def __init__(self, keyword=None, region=None):
+        self.keyword = keyword  # type: str
+        self.region = region  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BaseCityInfoSearchRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.keyword is not None:
+            result['keyword'] = self.keyword
+        if self.region is not None:
+            result['region'] = self.region
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('keyword') is not None:
+            self.keyword = m.get('keyword')
+        if m.get('region') is not None:
+            self.region = m.get('region')
+        return self
+
+
+class BaseCityInfoSearchResponseBodyModule(TeaModel):
+    def __init__(self, code=None, name=None, name_tree=None, region=None):
+        self.code = code  # type: str
+        self.name = name  # type: str
+        self.name_tree = name_tree  # type: str
+        self.region = region  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BaseCityInfoSearchResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.name is not None:
+            result['name'] = self.name
+        if self.name_tree is not None:
+            result['nameTree'] = self.name_tree
+        if self.region is not None:
+            result['region'] = self.region
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('nameTree') is not None:
+            self.name_tree = m.get('nameTree')
+        if m.get('region') is not None:
+            self.region = m.get('region')
+        return self
+
+
+class BaseCityInfoSearchResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: list[BaseCityInfoSearchResponseBodyModule]
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            for k in self.module:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(BaseCityInfoSearchResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        result['module'] = []
+        if self.module is not None:
+            for k in self.module:
+                result['module'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        self.module = []
+        if m.get('module') is not None:
+            for k in m.get('module'):
+                temp_model = BaseCityInfoSearchResponseBodyModule()
+                self.module.append(temp_model.from_map(k))
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class BaseCityInfoSearchResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: BaseCityInfoSearchResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BaseCityInfoSearchResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = BaseCityInfoSearchResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class BtripBillInfoAdjustHeaders(TeaModel):
     def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
         self.common_headers = common_headers  # type: dict[str, str]
@@ -17452,27 +17646,29 @@ class FlightBillSettlementQueryRequest(TeaModel):
 
 
 class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
-    def __init__(self, advance_day=None, airline_corp_code=None, airline_corp_name=None, alipay_trade_no=None,
-                 apply_arr_city_code=None, apply_arr_city_name=None, apply_dep_city_code=None, apply_dep_city_name=None,
-                 apply_extend_field=None, apply_id=None, arr_airport_code=None, arr_city=None, arr_city_code=None, arr_date=None,
-                 arr_station=None, arr_time=None, bill_record_time=None, book_time=None, booker_id=None, booker_job_no=None,
-                 booker_name=None, btrip_coupon_fee=None, build_fee=None, business_trip_result=None, cabin=None,
-                 cabin_class=None, capital_direction=None, cascade_department=None, change_fee=None, change_result=None,
-                 corp_pay_order_fee=None, corp_settle_price=None, cost_center=None, cost_center_number=None, coupon=None,
-                 dep_airport_code=None, dep_city_code=None, department=None, department_id=None, dept_city=None, dept_date=None,
-                 dept_station=None, dept_time=None, discount=None, exceed_reason=None, fee_type=None, flight_no=None, index=None,
-                 ins_order_id=None, insurance_fee=None, insurance_number=None, invoice_title=None, item_type=None,
-                 itinerary_num=None, itinerary_price=None, mileage=None, most_difference_dept_time=None,
-                 most_difference_discount=None, most_difference_flight_no=None, most_difference_price=None, most_difference_reason=None,
-                 most_price=None, negotiation_coupon_fee=None, oil_fee=None, order_id=None, over_apply_id=None,
-                 person_settle_price=None, pre_book_tip=None, primary_id=None, project_code=None, project_name=None, refund_fee=None,
-                 refund_result=None, refund_upgrade_cost=None, remark=None, repeat_refund=None, seal_price=None, service_fee=None,
-                 settlement_fee=None, settlement_grant_fee=None, settlement_time=None, settlement_type=None, status=None,
-                 tax_rate=None, third_itinerary_id=None, ticket_id=None, trade=None, traveler_id=None, traveler_job_no=None,
-                 traveler_member_type_name=None, traveler_name=None, upgrade_cost=None, voucher_type=None, voyage_name=None):
+    def __init__(self, advance_day=None, airline_corp_code=None, airline_corp_name=None, alipay_id=None,
+                 alipay_trade_no=None, apply_arr_city_code=None, apply_arr_city_name=None, apply_dep_city_code=None,
+                 apply_dep_city_name=None, apply_extend_field=None, apply_id=None, arr_airport_code=None, arr_city=None,
+                 arr_city_code=None, arr_date=None, arr_station=None, arr_time=None, bill_record_time=None, book_time=None,
+                 booker_id=None, booker_job_no=None, booker_name=None, btrip_coupon_fee=None, build_fee=None,
+                 business_trip_result=None, cabin=None, cabin_class=None, capital_direction=None, cascade_department=None,
+                 change_fee=None, change_result=None, corp_pay_order_fee=None, corp_settle_price=None, cost_center=None,
+                 cost_center_number=None, coupon=None, dep_airport_code=None, dep_city_code=None, department=None, department_id=None,
+                 dept_city=None, dept_date=None, dept_station=None, dept_time=None, discount=None, exceed_reason=None,
+                 fee_type=None, flight_no=None, index=None, ins_order_id=None, insurance_fee=None, insurance_number=None,
+                 invoice_title=None, item_type=None, itinerary_num=None, itinerary_price=None, mileage=None,
+                 most_difference_dept_time=None, most_difference_discount=None, most_difference_flight_no=None, most_difference_price=None,
+                 most_difference_reason=None, most_price=None, negotiation_coupon_fee=None, oil_fee=None, order_id=None,
+                 over_apply_id=None, person_settle_price=None, pre_book_tip=None, primary_id=None, project_code=None,
+                 project_name=None, refund_fee=None, refund_result=None, refund_upgrade_cost=None, remark=None,
+                 repeat_refund=None, seal_price=None, service_fee=None, settlement_fee=None, settlement_grant_fee=None,
+                 settlement_time=None, settlement_type=None, status=None, tax_rate=None, third_itinerary_id=None, ticket_id=None,
+                 trade=None, traveler_id=None, traveler_job_no=None, traveler_member_type_name=None, traveler_name=None,
+                 upgrade_cost=None, voucher_type=None, voyage_name=None):
         self.advance_day = advance_day  # type: int
         self.airline_corp_code = airline_corp_code  # type: str
         self.airline_corp_name = airline_corp_name  # type: str
+        self.alipay_id = alipay_id  # type: str
         self.alipay_trade_no = alipay_trade_no  # type: str
         self.apply_arr_city_code = apply_arr_city_code  # type: str
         self.apply_arr_city_name = apply_arr_city_name  # type: str
@@ -17582,6 +17778,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['airline_corp_code'] = self.airline_corp_code
         if self.airline_corp_name is not None:
             result['airline_corp_name'] = self.airline_corp_name
+        if self.alipay_id is not None:
+            result['alipay_id'] = self.alipay_id
         if self.alipay_trade_no is not None:
             result['alipay_trade_no'] = self.alipay_trade_no
         if self.apply_arr_city_code is not None:
@@ -17774,6 +17972,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.airline_corp_code = m.get('airline_corp_code')
         if m.get('airline_corp_name') is not None:
             self.airline_corp_name = m.get('airline_corp_name')
+        if m.get('alipay_id') is not None:
+            self.alipay_id = m.get('alipay_id')
         if m.get('alipay_trade_no') is not None:
             self.alipay_trade_no = m.get('alipay_trade_no')
         if m.get('apply_arr_city_code') is not None:
@@ -71547,7 +71747,8 @@ class TrainOrderQueryV2ResponseBodyModuleChangeTicketInfoList(TeaModel):
                  change_seat_type_name=None, change_service_fee=None, change_train_no=None, change_train_type_name=None,
                  check_in_time=None, check_out_time=None, end_time=None, from_city_name=None, from_station_name=None,
                  gmt_create=None, gmt_modify=None, origin_ticket_no=None, out_ticket_status=None, segment_index=None,
-                 start_time=None, ticket_no=None, to_city_name=None, to_station_name=None, use_ticket=None, user_id=None):
+                 start_time=None, ticket_no=None, ticket_status=None, to_city_name=None, to_station_name=None, use_ticket=None,
+                 user_id=None):
         self.change_coach_no = change_coach_no  # type: str
         self.change_gap_fee = change_gap_fee  # type: float
         self.change_handling_fee = change_handling_fee  # type: float
@@ -71568,6 +71769,7 @@ class TrainOrderQueryV2ResponseBodyModuleChangeTicketInfoList(TeaModel):
         self.segment_index = segment_index  # type: int
         self.start_time = start_time  # type: str
         self.ticket_no = ticket_no  # type: str
+        self.ticket_status = ticket_status  # type: int
         self.to_city_name = to_city_name  # type: str
         self.to_station_name = to_station_name  # type: str
         self.use_ticket = use_ticket  # type: str
@@ -71622,6 +71824,8 @@ class TrainOrderQueryV2ResponseBodyModuleChangeTicketInfoList(TeaModel):
             result['start_time'] = self.start_time
         if self.ticket_no is not None:
             result['ticket_no'] = self.ticket_no
+        if self.ticket_status is not None:
+            result['ticket_status'] = self.ticket_status
         if self.to_city_name is not None:
             result['to_city_name'] = self.to_city_name
         if self.to_station_name is not None:
@@ -71674,6 +71878,8 @@ class TrainOrderQueryV2ResponseBodyModuleChangeTicketInfoList(TeaModel):
             self.start_time = m.get('start_time')
         if m.get('ticket_no') is not None:
             self.ticket_no = m.get('ticket_no')
+        if m.get('ticket_status') is not None:
+            self.ticket_status = m.get('ticket_status')
         if m.get('to_city_name') is not None:
             self.to_city_name = m.get('to_city_name')
         if m.get('to_station_name') is not None:
