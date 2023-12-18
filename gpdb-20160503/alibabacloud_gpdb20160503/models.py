@@ -578,7 +578,7 @@ class CreateDBInstanceRequestTag(TeaModel):
 class CreateDBInstanceRequest(TeaModel):
     def __init__(self, backup_id=None, client_token=None, create_sample_data=None, dbinstance_category=None,
                  dbinstance_class=None, dbinstance_description=None, dbinstance_group_count=None, dbinstance_mode=None,
-                 encryption_key=None, encryption_type=None, engine=None, engine_version=None, idle_time=None,
+                 enable_ssl=None, encryption_key=None, encryption_type=None, engine=None, engine_version=None, idle_time=None,
                  instance_network_type=None, instance_spec=None, master_cu=None, master_node_num=None, owner_id=None, pay_type=None,
                  period=None, private_ip_address=None, region_id=None, resource_group_id=None, security_iplist=None,
                  seg_disk_performance_level=None, seg_node_num=None, seg_storage_type=None, serverless_mode=None, serverless_resource=None,
@@ -622,6 +622,7 @@ class CreateDBInstanceRequest(TeaModel):
         # 
         # > This parameter must be specified.
         self.dbinstance_mode = dbinstance_mode  # type: str
+        self.enable_ssl = enable_ssl  # type: bool
         # The ID of the encryption key.
         # 
         # > If EncryptionType is set to CloudDisk, you must specify an encryption key that resides in the same region as the cloud disk that is specified by EncryptionType. Otherwise, leave this parameter empty.
@@ -825,6 +826,8 @@ class CreateDBInstanceRequest(TeaModel):
             result['DBInstanceGroupCount'] = self.dbinstance_group_count
         if self.dbinstance_mode is not None:
             result['DBInstanceMode'] = self.dbinstance_mode
+        if self.enable_ssl is not None:
+            result['EnableSSL'] = self.enable_ssl
         if self.encryption_key is not None:
             result['EncryptionKey'] = self.encryption_key
         if self.encryption_type is not None:
@@ -907,6 +910,8 @@ class CreateDBInstanceRequest(TeaModel):
             self.dbinstance_group_count = m.get('DBInstanceGroupCount')
         if m.get('DBInstanceMode') is not None:
             self.dbinstance_mode = m.get('DBInstanceMode')
+        if m.get('EnableSSL') is not None:
+            self.enable_ssl = m.get('EnableSSL')
         if m.get('EncryptionKey') is not None:
             self.encryption_key = m.get('EncryptionKey')
         if m.get('EncryptionType') is not None:

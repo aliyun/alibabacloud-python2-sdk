@@ -285,6 +285,8 @@ class Client(OpenApiClient):
             query['DBInstanceGroupCount'] = request.dbinstance_group_count
         if not UtilClient.is_unset(request.dbinstance_mode):
             query['DBInstanceMode'] = request.dbinstance_mode
+        if not UtilClient.is_unset(request.enable_ssl):
+            query['EnableSSL'] = request.enable_ssl
         if not UtilClient.is_unset(request.encryption_key):
             query['EncryptionKey'] = request.encryption_key
         if not UtilClient.is_unset(request.encryption_type):
