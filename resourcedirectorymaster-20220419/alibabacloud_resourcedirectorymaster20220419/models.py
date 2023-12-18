@@ -2672,6 +2672,7 @@ class DeregisterDelegatedAdministratorResponse(TeaModel):
 
 class DestroyResourceDirectoryResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3052,7 +3053,14 @@ class DisassociateMembersResponse(TeaModel):
 
 class EnableControlPolicyResponseBody(TeaModel):
     def __init__(self, enablement_status=None, request_id=None):
+        # The status of the Control Policy feature. Valid values:
+        # 
+        # *   Enabled: The feature is enabled.
+        # *   PendingEnable: The feature is being enabled.
+        # *   Disabled: The feature is disabled.
+        # *   PendingDisable: The feature is being disabled.
         self.enablement_status = enablement_status  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9434,6 +9442,7 @@ class MoveAccountResponse(TeaModel):
 
 class PrecheckForConsolidatedBillingAccountRequest(TeaModel):
     def __init__(self, billing_account_id=None):
+        # The ID of the management account or member to be used as a main financial account.
         self.billing_account_id = billing_account_id  # type: str
 
     def validate(self):
@@ -9458,7 +9467,9 @@ class PrecheckForConsolidatedBillingAccountRequest(TeaModel):
 
 class PrecheckForConsolidatedBillingAccountResponseBodyReasons(TeaModel):
     def __init__(self, code=None, message=None):
+        # The error code.
         self.code = code  # type: str
+        # The error message.
         self.message = message  # type: str
 
     def validate(self):
@@ -9487,8 +9498,14 @@ class PrecheckForConsolidatedBillingAccountResponseBodyReasons(TeaModel):
 
 class PrecheckForConsolidatedBillingAccountResponseBody(TeaModel):
     def __init__(self, reasons=None, request_id=None, result=None):
+        # The cause of the check failure.
         self.reasons = reasons  # type: list[PrecheckForConsolidatedBillingAccountResponseBodyReasons]
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the check was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.result = result  # type: bool
 
     def validate(self):
