@@ -3760,9 +3760,9 @@ class GetListenerAttributeRequest(TeaModel):
 class GetListenerAttributeResponseBodyProxyProtocolV2Config(TeaModel):
     def __init__(self, ppv_2private_link_ep_id_enabled=None, ppv_2private_link_eps_id_enabled=None,
                  ppv_2vpc_id_enabled=None):
-        self.ppv_2private_link_ep_id_enabled = ppv_2private_link_ep_id_enabled  # type: str
-        self.ppv_2private_link_eps_id_enabled = ppv_2private_link_eps_id_enabled  # type: str
-        self.ppv_2vpc_id_enabled = ppv_2vpc_id_enabled  # type: str
+        self.ppv_2private_link_ep_id_enabled = ppv_2private_link_ep_id_enabled  # type: bool
+        self.ppv_2private_link_eps_id_enabled = ppv_2private_link_eps_id_enabled  # type: bool
+        self.ppv_2vpc_id_enabled = ppv_2vpc_id_enabled  # type: bool
 
     def validate(self):
         pass
@@ -5367,9 +5367,9 @@ class ListListenersRequest(TeaModel):
 class ListListenersResponseBodyListenersProxyProtocolV2Config(TeaModel):
     def __init__(self, ppv_2private_link_ep_id_enabled=None, ppv_2private_link_eps_id_enabled=None,
                  ppv_2vpc_id_enabled=None):
-        self.ppv_2private_link_ep_id_enabled = ppv_2private_link_ep_id_enabled  # type: str
-        self.ppv_2private_link_eps_id_enabled = ppv_2private_link_eps_id_enabled  # type: str
-        self.ppv_2vpc_id_enabled = ppv_2vpc_id_enabled  # type: str
+        self.ppv_2private_link_ep_id_enabled = ppv_2private_link_ep_id_enabled  # type: bool
+        self.ppv_2private_link_eps_id_enabled = ppv_2private_link_eps_id_enabled  # type: bool
+        self.ppv_2vpc_id_enabled = ppv_2vpc_id_enabled  # type: bool
 
     def validate(self):
         pass
