@@ -50,6 +50,34 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def describe_image_moderation_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.req_id):
+            query['ReqId'] = request.req_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeImageModerationResult',
+            version='2022-03-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            green_20220302_models.DescribeImageModerationResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_image_moderation_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_image_moderation_result_with_options(request, runtime)
+
     def describe_image_result_ext_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -101,6 +129,36 @@ class Client(OpenApiClient):
     def describe_upload_token(self):
         runtime = util_models.RuntimeOptions()
         return self.describe_upload_token_with_options(runtime)
+
+    def image_async_moderation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.service):
+            query['Service'] = request.service
+        if not UtilClient.is_unset(request.service_parameters):
+            query['ServiceParameters'] = request.service_parameters
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ImageAsyncModeration',
+            version='2022-03-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            green_20220302_models.ImageAsyncModerationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def image_async_moderation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.image_async_moderation_with_options(request, runtime)
 
     def image_moderation_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -191,6 +249,36 @@ class Client(OpenApiClient):
     def video_moderation(self, request):
         runtime = util_models.RuntimeOptions()
         return self.video_moderation_with_options(request, runtime)
+
+    def video_moderation_cancel_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.service):
+            body['Service'] = request.service
+        if not UtilClient.is_unset(request.service_parameters):
+            body['ServiceParameters'] = request.service_parameters
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='VideoModerationCancel',
+            version='2022-03-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            green_20220302_models.VideoModerationCancelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def video_moderation_cancel(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.video_moderation_cancel_with_options(request, runtime)
 
     def video_moderation_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)

@@ -1,3 +1,6 @@
+2023-12-18 Version: 1.1.0
+- Add VideoModerationCancel API.
+
 2023-08-01 Version: 1.0.8
 - Add video moderation api.
 
