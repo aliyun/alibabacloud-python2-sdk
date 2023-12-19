@@ -673,6 +673,8 @@ class Client(OpenApiClient):
             request.ingress_options_request_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ingress_options_request, 'IngressOptionsRequest', 'json')
         if not UtilClient.is_unset(tmp_req.path_list):
             request.path_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.path_list, 'PathList', 'json')
+        if not UtilClient.is_unset(tmp_req.to_authorize_security_groups):
+            request.to_authorize_security_groups_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.to_authorize_security_groups, 'ToAuthorizeSecurityGroups', 'json')
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
@@ -690,6 +692,8 @@ class Client(OpenApiClient):
             query['PathList'] = request.path_list_shrink
         if not UtilClient.is_unset(request.source):
             query['Source'] = request.source
+        if not UtilClient.is_unset(request.to_authorize_security_groups_shrink):
+            query['ToAuthorizeSecurityGroups'] = request.to_authorize_security_groups_shrink
         if not UtilClient.is_unset(request.type):
             query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
@@ -916,6 +920,8 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource):
             query['Resource'] = request.resource
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
         if not UtilClient.is_unset(request.retry_timeout_ms):
             query['RetryTimeoutMs'] = request.retry_timeout_ms
         if not UtilClient.is_unset(request.stat_interval_ms):
@@ -1096,6 +1102,8 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource):
             query['Resource'] = request.resource
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
         if not UtilClient.is_unset(request.threshold):
             query['Threshold'] = request.threshold
         req = open_api_models.OpenApiRequest(
@@ -2234,6 +2242,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.cascading_delete):
+            query['CascadingDelete'] = request.cascading_delete
         if not UtilClient.is_unset(request.gateway_unique_id):
             query['GatewayUniqueId'] = request.gateway_unique_id
         if not UtilClient.is_unset(request.id):

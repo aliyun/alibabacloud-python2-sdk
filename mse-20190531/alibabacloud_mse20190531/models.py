@@ -3566,7 +3566,7 @@ class AddGatewayRouteResponseBody(TeaModel):
                  success=None):
         # The status code returned.
         self.code = code  # type: int
-        # The response data.
+        # The ID of the created route.
         self.data = data  # type: long
         # The error code that is returned.
         # 
@@ -5061,9 +5061,43 @@ class AddServiceSourceRequestIngressOptionsRequest(TeaModel):
         return self
 
 
+class AddServiceSourceRequestToAuthorizeSecurityGroups(TeaModel):
+    def __init__(self, description=None, port_range=None, security_group_id=None):
+        self.description = description  # type: str
+        self.port_range = port_range  # type: str
+        self.security_group_id = security_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddServiceSourceRequestToAuthorizeSecurityGroups, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.port_range is not None:
+            result['PortRange'] = self.port_range
+        if self.security_group_id is not None:
+            result['SecurityGroupId'] = self.security_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('PortRange') is not None:
+            self.port_range = m.get('PortRange')
+        if m.get('SecurityGroupId') is not None:
+            self.security_group_id = m.get('SecurityGroupId')
+        return self
+
+
 class AddServiceSourceRequest(TeaModel):
     def __init__(self, accept_language=None, address=None, gateway_unique_id=None, group_list=None,
-                 ingress_options_request=None, name=None, path_list=None, source=None, type=None):
+                 ingress_options_request=None, name=None, path_list=None, source=None, to_authorize_security_groups=None, type=None):
         # The language of the response. Valid values:
         # 
         # *   zh-CN (default): Chinese
@@ -5087,6 +5121,7 @@ class AddServiceSourceRequest(TeaModel):
         # *   K8s: ACK cluster
         # *   NACOS: MSE Nacos instance
         self.source = source  # type: str
+        self.to_authorize_security_groups = to_authorize_security_groups  # type: list[AddServiceSourceRequestToAuthorizeSecurityGroups]
         # The type of the service source.
         # 
         # *   K8s: Container Service for Kubernetes (ACK) cluster
@@ -5096,6 +5131,10 @@ class AddServiceSourceRequest(TeaModel):
     def validate(self):
         if self.ingress_options_request:
             self.ingress_options_request.validate()
+        if self.to_authorize_security_groups:
+            for k in self.to_authorize_security_groups:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(AddServiceSourceRequest, self).to_map()
@@ -5119,6 +5158,10 @@ class AddServiceSourceRequest(TeaModel):
             result['PathList'] = self.path_list
         if self.source is not None:
             result['Source'] = self.source
+        result['ToAuthorizeSecurityGroups'] = []
+        if self.to_authorize_security_groups is not None:
+            for k in self.to_authorize_security_groups:
+                result['ToAuthorizeSecurityGroups'].append(k.to_map() if k else None)
         if self.type is not None:
             result['Type'] = self.type
         return result
@@ -5142,6 +5185,11 @@ class AddServiceSourceRequest(TeaModel):
             self.path_list = m.get('PathList')
         if m.get('Source') is not None:
             self.source = m.get('Source')
+        self.to_authorize_security_groups = []
+        if m.get('ToAuthorizeSecurityGroups') is not None:
+            for k in m.get('ToAuthorizeSecurityGroups'):
+                temp_model = AddServiceSourceRequestToAuthorizeSecurityGroups()
+                self.to_authorize_security_groups.append(temp_model.from_map(k))
         if m.get('Type') is not None:
             self.type = m.get('Type')
         return self
@@ -5149,7 +5197,8 @@ class AddServiceSourceRequest(TeaModel):
 
 class AddServiceSourceShrinkRequest(TeaModel):
     def __init__(self, accept_language=None, address=None, gateway_unique_id=None, group_list_shrink=None,
-                 ingress_options_request_shrink=None, name=None, path_list_shrink=None, source=None, type=None):
+                 ingress_options_request_shrink=None, name=None, path_list_shrink=None, source=None, to_authorize_security_groups_shrink=None,
+                 type=None):
         # The language of the response. Valid values:
         # 
         # *   zh-CN (default): Chinese
@@ -5173,6 +5222,7 @@ class AddServiceSourceShrinkRequest(TeaModel):
         # *   K8s: ACK cluster
         # *   NACOS: MSE Nacos instance
         self.source = source  # type: str
+        self.to_authorize_security_groups_shrink = to_authorize_security_groups_shrink  # type: str
         # The type of the service source.
         # 
         # *   K8s: Container Service for Kubernetes (ACK) cluster
@@ -5204,6 +5254,8 @@ class AddServiceSourceShrinkRequest(TeaModel):
             result['PathList'] = self.path_list_shrink
         if self.source is not None:
             result['Source'] = self.source
+        if self.to_authorize_security_groups_shrink is not None:
+            result['ToAuthorizeSecurityGroups'] = self.to_authorize_security_groups_shrink
         if self.type is not None:
             result['Type'] = self.type
         return result
@@ -5226,6 +5278,8 @@ class AddServiceSourceShrinkRequest(TeaModel):
             self.path_list_shrink = m.get('PathList')
         if m.get('Source') is not None:
             self.source = m.get('Source')
+        if m.get('ToAuthorizeSecurityGroups') is not None:
+            self.to_authorize_security_groups_shrink = m.get('ToAuthorizeSecurityGroups')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         return self
@@ -6362,8 +6416,8 @@ class CreateApplicationResponse(TeaModel):
 class CreateCircuitBreakerRuleRequest(TeaModel):
     def __init__(self, accept_language=None, app_id=None, app_name=None, enable=None,
                  half_open_base_amount_per_step=None, half_open_recovery_step_num=None, max_allowed_rt_ms=None, min_request_amount=None,
-                 namespace=None, region_id=None, resource=None, retry_timeout_ms=None, stat_interval_ms=None, strategy=None,
-                 threshold=None):
+                 namespace=None, region_id=None, resource=None, resource_type=None, retry_timeout_ms=None,
+                 stat_interval_ms=None, strategy=None, threshold=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
@@ -6407,6 +6461,7 @@ class CreateCircuitBreakerRuleRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The name of the interface to which the rule applies. The interface name must be the same as the name on the interface details page in the console.
         self.resource = resource  # type: str
+        self.resource_type = resource_type  # type: int
         # The period in which circuit breaking is implemented. Unit: milliseconds. If circuit breaking is implemented on the requests for the route, the calls to all the requests for the route fail in the configured circuit breaking period. The value must be an integral multiple of 1,000. Default value: 10000. This value indicates 10 seconds.
         self.retry_timeout_ms = retry_timeout_ms  # type: int
         # The length of the time window. Unit: milliseconds. The valid range is from 1 second to 120 minutes. The default value is 20000. This value indicates 20 seconds.
@@ -6473,6 +6528,8 @@ class CreateCircuitBreakerRuleRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         if self.retry_timeout_ms is not None:
             result['RetryTimeoutMs'] = self.retry_timeout_ms
         if self.stat_interval_ms is not None:
@@ -6507,6 +6564,8 @@ class CreateCircuitBreakerRuleRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         if m.get('RetryTimeoutMs') is not None:
             self.retry_timeout_ms = m.get('RetryTimeoutMs')
         if m.get('StatIntervalMs') is not None:
@@ -7376,7 +7435,7 @@ class CreateEngineNamespaceResponse(TeaModel):
 
 class CreateFlowRuleRequest(TeaModel):
     def __init__(self, accept_language=None, app_id=None, app_name=None, control_behavior=None, enable=None,
-                 max_queueing_time_ms=None, namespace=None, region_id=None, resource=None, threshold=None):
+                 max_queueing_time_ms=None, namespace=None, region_id=None, resource=None, resource_type=None, threshold=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
@@ -7442,6 +7501,7 @@ class CreateFlowRuleRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The name of the API resource.
         self.resource = resource  # type: str
+        self.resource_type = resource_type  # type: int
         # The throttling threshold.
         self.threshold = threshold  # type: int
 
@@ -7472,6 +7532,8 @@ class CreateFlowRuleRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         if self.threshold is not None:
             result['Threshold'] = self.threshold
         return result
@@ -7496,6 +7558,8 @@ class CreateFlowRuleRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         if m.get('Threshold') is not None:
             self.threshold = m.get('Threshold')
         return self
@@ -8794,7 +8858,7 @@ class CreateOrUpdateSwimmingLaneRequest(TeaModel):
         self.namespace = namespace  # type: str
         # The ID of the region.
         self.region_id = region_id  # type: str
-        # The ID of the primary key. The value -1 specifies a request that is used to create a lane. A value greater than 0 specifies a request that is used to modify a lane.
+        # The tag.
         self.tag = tag  # type: str
 
     def validate(self):
@@ -9017,7 +9081,7 @@ class CreateOrUpdateSwimmingLaneShrinkRequest(TeaModel):
         self.namespace = namespace  # type: str
         # The ID of the region.
         self.region_id = region_id  # type: str
-        # The ID of the primary key. The value -1 specifies a request that is used to create a lane. A value greater than 0 specifies a request that is used to modify a lane.
+        # The tag.
         self.tag = tag  # type: str
 
     def validate(self):
@@ -9582,7 +9646,7 @@ class CreateOrUpdateSwimmingLaneGroupResponseBodyData(TeaModel):
 
 class CreateOrUpdateSwimmingLaneGroupResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, message=None, request_id=None, success=None):
-        # The details of the data.
+        # The response parameters.
         self.data = data  # type: CreateOrUpdateSwimmingLaneGroupResponseBodyData
         # The error code.
         self.error_code = error_code  # type: str
@@ -13154,12 +13218,13 @@ class DeleteNamespaceResponse(TeaModel):
 
 
 class DeleteSecurityGroupRuleRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, id=None):
+    def __init__(self, accept_language=None, cascading_delete=None, gateway_unique_id=None, id=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
         # *   en: English
         self.accept_language = accept_language  # type: str
+        self.cascading_delete = cascading_delete  # type: bool
         # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
         # The destination ID.
@@ -13176,6 +13241,8 @@ class DeleteSecurityGroupRuleRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.cascading_delete is not None:
+            result['CascadingDelete'] = self.cascading_delete
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.id is not None:
@@ -13186,6 +13253,8 @@ class DeleteSecurityGroupRuleRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('CascadingDelete') is not None:
+            self.cascading_delete = m.get('CascadingDelete')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Id') is not None:
@@ -16157,7 +16226,18 @@ class GetGatewayResponseBodyData(TeaModel):
         self.security_group = security_group  # type: str
         # The specifications of the gateway.
         self.spec = spec  # type: str
-        # The status of the gateway. Valid values: 0: The gateway is being created. 1: The gateway fails to be created. 2: The gateway is running. 3: The gateway is changing. 4: The gateway is scaling down. 6: The gateway is scaling up. 8: The gateway is being deleted. 10: The gateway is restarting. 11: The gateway is being rebuilt. 12: The gateway is updating. 13: The gateway fails to be updated.
+        # The status of the gateway. Valid values: 
+        # * 0: The gateway is being created. 
+        # * 1: The gateway fails to be created. 
+        # * 2: The gateway is running. 
+        # * 3: The gateway is changing. 
+        # * 4: The gateway is scaling down. 
+        # * 6: The gateway is scaling up. 
+        # * 8: The gateway is being deleted. 
+        # * 10: The gateway is restarting. 
+        # * 11: The gateway is being rebuilt. 
+        # * 12: The gateway is updating. 
+        # * 13: The gateway fails to be updated.
         self.status = status  # type: int
         # The description of the status.
         self.status_desc = status_desc  # type: str
@@ -21899,7 +21979,7 @@ class GetServiceListPageRequest(TeaModel):
         self.accept_language = accept_language  # type: str
         # The application ID.
         self.app_id = app_id  # type: str
-        # 应用名字。
+        # The application name.
         self.app_name = app_name  # type: str
         # The IP address from which the query is initiated.
         self.ip = ip  # type: str
@@ -25306,7 +25386,7 @@ class ListApplicationsWithTagRulesRequest(TeaModel):
         self.app_id = app_id  # type: str
         # The name of the application.
         self.app_name = app_name  # type: str
-        # The Microservices Engine (MSE) namespace to which the application belongs.
+        # The MSE namespace to which the application belongs.
         self.namespace = namespace  # type: str
         # The number of the page to return.
         self.page_number = page_number  # type: int
@@ -26520,8 +26600,8 @@ class ListCircuitBreakerRulesRequest(TeaModel):
 class ListCircuitBreakerRulesResponseBodyDataResult(TeaModel):
     def __init__(self, app_id=None, app_name=None, enable=None, fallback_object=None,
                  half_open_base_amount_per_step=None, half_open_recovery_step_num=None, max_allowed_rt_ms=None, min_request_amount=None,
-                 namespace=None, region_id=None, resource=None, retry_timeout_ms=None, rule_id=None, stat_interval_ms=None,
-                 strategy=None, threshold=None):
+                 namespace=None, region_id=None, resource=None, resource_type=None, retry_timeout_ms=None, rule_id=None,
+                 stat_interval_ms=None, strategy=None, threshold=None):
         # The ID of the application.
         self.app_id = app_id  # type: str
         # The name of the application.
@@ -26544,6 +26624,7 @@ class ListCircuitBreakerRulesResponseBodyDataResult(TeaModel):
         self.region_id = region_id  # type: str
         # The name of the interface to which the rule is applicable. The interface name must be the same as the name on the interface details page in the console.
         self.resource = resource  # type: str
+        self.resource_type = resource_type  # type: int
         # The period in which circuit breaking is implemented. Unit: milliseconds. If circuit breaking is implemented on the requests for the route, the calls to all the requests for the route fail in the configured circuit breaking period.
         self.retry_timeout_ms = retry_timeout_ms  # type: int
         # The ID of the rule.
@@ -26612,6 +26693,8 @@ class ListCircuitBreakerRulesResponseBodyDataResult(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         if self.retry_timeout_ms is not None:
             result['RetryTimeoutMs'] = self.retry_timeout_ms
         if self.rule_id is not None:
@@ -26648,6 +26731,8 @@ class ListCircuitBreakerRulesResponseBodyDataResult(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         if m.get('RetryTimeoutMs') is not None:
             self.retry_timeout_ms = m.get('RetryTimeoutMs')
         if m.get('RuleId') is not None:
@@ -29666,8 +29751,8 @@ class ListFlowRulesRequest(TeaModel):
 
 class ListFlowRulesResponseBodyDataResult(TeaModel):
     def __init__(self, app_id=None, app_name=None, control_behavior=None, enable=None, fallback_object=None,
-                 max_queueing_time_ms=None, metric_type=None, namespace=None, region_id=None, resource=None, rule_id=None, threshold=None,
-                 traffic_tags=None):
+                 max_queueing_time_ms=None, metric_type=None, namespace=None, region_id=None, resource=None, resource_type=None,
+                 rule_id=None, threshold=None, traffic_tags=None):
         # The ID of the application.
         self.app_id = app_id  # type: str
         # The name of the application.
@@ -29732,6 +29817,7 @@ class ListFlowRulesResponseBodyDataResult(TeaModel):
         self.region_id = region_id  # type: str
         # The name of the interface resource.
         self.resource = resource  # type: str
+        self.resource_type = resource_type  # type: int
         # The ID of the rule.
         self.rule_id = rule_id  # type: long
         # The throttling threshold.
@@ -29768,6 +29854,8 @@ class ListFlowRulesResponseBodyDataResult(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         if self.rule_id is not None:
             result['RuleId'] = self.rule_id
         if self.threshold is not None:
@@ -29798,6 +29886,8 @@ class ListFlowRulesResponseBodyDataResult(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         if m.get('RuleId') is not None:
             self.rule_id = m.get('RuleId')
         if m.get('Threshold') is not None:
@@ -36594,8 +36684,9 @@ class ListSecurityGroupRuleRequest(TeaModel):
 
 
 class ListSecurityGroupRuleResponseBodyData(TeaModel):
-    def __init__(self, description=None, gateway_id=None, gateway_unique_id=None, gmt_create=None,
+    def __init__(self, auth_cidrs=None, description=None, gateway_id=None, gateway_unique_id=None, gmt_create=None,
                  gmt_modified=None, id=None, ip_protocol=None, port_range=None, security_group_id=None):
+        self.auth_cidrs = auth_cidrs  # type: list[str]
         # The rule description.
         self.description = description  # type: str
         # The gateway ID.
@@ -36624,6 +36715,8 @@ class ListSecurityGroupRuleResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.auth_cidrs is not None:
+            result['AuthCidrs'] = self.auth_cidrs
         if self.description is not None:
             result['Description'] = self.description
         if self.gateway_id is not None:
@@ -36646,6 +36739,8 @@ class ListSecurityGroupRuleResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AuthCidrs') is not None:
+            self.auth_cidrs = m.get('AuthCidrs')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('GatewayId') is not None:
@@ -36783,7 +36878,7 @@ class ListServiceSourceRequest(TeaModel):
         self.gateway_unique_id = gateway_unique_id  # type: str
         # Specifies the type of the returned service source. If this parameter is not specified, service sources of all types are returned. Valid values:
         # 
-        # *   K8S
+        # *   K8s
         # *   MSE
         # *   MSE_ZK
         # *   SAE
@@ -37871,7 +37966,9 @@ class ListZnodeChildrenResponse(TeaModel):
 
 class ModifyGovernanceKubernetesClusterRequestNamespaceInfos(TeaModel):
     def __init__(self, mse_namespace=None, name=None):
+        # The microservice namespace.If you do not specify this parameter, Microservice Governance is not enabled for the namespace.
         self.mse_namespace = mse_namespace  # type: str
+        # The name of the Kubernetes namespace.
         self.name = name  # type: str
 
     def validate(self):
@@ -37907,8 +38004,9 @@ class ModifyGovernanceKubernetesClusterRequest(TeaModel):
         self.accept_language = accept_language  # type: str
         # The ID of the instance.
         self.cluster_id = cluster_id  # type: str
+        # The information about the namespace for which Microservices Engine(MSE) Microservices Governance is enabled.
         self.namespace_infos = namespace_infos  # type: list[ModifyGovernanceKubernetesClusterRequestNamespaceInfos]
-        # The region in which the cluster resides.
+        # The ID of the region in which the instance resides. The region is supported by MSE.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -37960,8 +38058,9 @@ class ModifyGovernanceKubernetesClusterShrinkRequest(TeaModel):
         self.accept_language = accept_language  # type: str
         # The ID of the instance.
         self.cluster_id = cluster_id  # type: str
+        # The information about the namespace for which Microservices Engine(MSE) Microservices Governance is enabled.
         self.namespace_infos_shrink = namespace_infos_shrink  # type: str
-        # The region in which the cluster resides.
+        # The ID of the region in which the instance resides. The region is supported by MSE.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -37998,9 +38097,9 @@ class ModifyGovernanceKubernetesClusterShrinkRequest(TeaModel):
 
 class ModifyGovernanceKubernetesClusterResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
-        # The status code returned.
+        # The response code returned.
         self.code = code  # type: int
-        # The details of the data.
+        # The deletion result.
         self.data = data  # type: bool
         # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
@@ -40627,7 +40726,9 @@ class QueryClusterInfoResponseBodyDataInstanceModels(TeaModel):
 
 class QueryClusterInfoResponseBodyDataMaintenancePeriod(TeaModel):
     def __init__(self, end_time=None, start_time=None):
+        # The start time of the O\&M time window.
         self.end_time = end_time  # type: str
+        # The end time of the O\&M time window.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -40691,9 +40792,9 @@ class QueryClusterInfoResponseBodyData(TeaModel):
         self.disk_capacity = disk_capacity  # type: long
         # A deprecated parameter.
         self.disk_type = disk_type  # type: str
-        # 弹性公网IP（EIP）的实例ID
+        # The ID of the instance that is associated with the Elastic IP Address (EIP).
         self.eip_instance_id = eip_instance_id  # type: str
-        # 到期时间（包年包月）
+        # The time when the subscription instance expires.
         self.end_date = end_date  # type: str
         # The zones to which the current cluster can be distributed.
         self.expect_zones = expect_zones  # type: list[str]
@@ -40721,6 +40822,7 @@ class QueryClusterInfoResponseBodyData(TeaModel):
         self.intranet_domain = intranet_domain  # type: str
         # The instance ports that are accessible over an internal network.
         self.intranet_port = intranet_port  # type: str
+        # The O\&M time window.
         self.maintenance_period = maintenance_period  # type: QueryClusterInfoResponseBodyDataMaintenancePeriod
         # A deprecated parameter.
         self.memory_capacity = memory_capacity  # type: long
@@ -40735,9 +40837,9 @@ class QueryClusterInfoResponseBodyData(TeaModel):
         self.pub_network_flow = pub_network_flow  # type: str
         # The ID of the region.
         self.region_id = region_id  # type: str
-        # ENI网络接入的安全组ID
+        # The ID of the security group to which the elastic network interface (ENI) is connected.
         self.security_group_id = security_group_id  # type: str
-        # ENI网络接入的安全组类型
+        # The type of the security group to which the ENI is connected.
         self.security_group_type = security_group_type  # type: str
         # The tag.
         self.tags = tags  # type: dict[str, any]
@@ -40939,7 +41041,7 @@ class QueryClusterInfoResponseBodyData(TeaModel):
 
 class QueryClusterInfoResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, message=None, request_id=None, success=None):
-        # The data returned.
+        # The details of the data.
         self.data = data  # type: QueryClusterInfoResponseBodyData
         # The error code returned if the request failed.
         self.error_code = error_code  # type: str
@@ -41348,6 +41450,7 @@ class QueryConfigResponseBodyData(TeaModel):
         # *   `true`: supported.
         # *   `false`: not supported.
         self.config_secret_supported = config_secret_supported  # type: bool
+        # Indicates whether the Nacos open source console is enabled.
         self.console_uienabled = console_uienabled  # type: bool
         # Indicates whether access port 8761 was enabled for Eureka. If this port is disabled, applications cannot use the Eureka protocol for service registration and discovery.
         self.eureka_supported = eureka_supported  # type: bool
@@ -45431,7 +45534,9 @@ class UpdateClusterRequest(TeaModel):
         self.cluster_alias_name = cluster_alias_name  # type: str
         # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The end time of the O\&M window.
         self.maintenance_end_time = maintenance_end_time  # type: str
+        # The start time of the O\&M window.
         self.maintenance_start_time = maintenance_start_time  # type: str
         # The extended request parameters in the JSON format.
         self.request_pars = request_pars  # type: str
@@ -49575,7 +49680,7 @@ class UpdateGatewayRouteHeaderOpRequest(TeaModel):
         self.gateway_id = gateway_id  # type: long
         # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
-        # The information about the header configuration policy.
+        # The description of user header settings.
         self.header_op_json = header_op_json  # type: str
         # The ID of the record.
         self.id = id  # type: long
