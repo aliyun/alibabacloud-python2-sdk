@@ -92,6 +92,9 @@ class CancelCertificateForPackageRequestResponse(TeaModel):
 
 class CancelOrderRequestRequest(TeaModel):
     def __init__(self, order_id=None):
+        # The ID of the certificate application order that you want to cancel.
+        # 
+        # >  After you call the [CreateCertificateForPackageRequest](~~204087~~), [CreateCertificateRequest](~~164105~~), or [CreateCertificateWithCsrRequest](~~178732~~) operation to submit a certificate application, you can obtain the ID of the certificate application order from the **OrderId** response parameter.
         self.order_id = order_id  # type: long
 
     def validate(self):
@@ -116,6 +119,7 @@ class CancelOrderRequestRequest(TeaModel):
 
 class CancelOrderRequestResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -180,13 +184,66 @@ class CancelOrderRequestResponse(TeaModel):
 class CreateCertificateForPackageRequestRequest(TeaModel):
     def __init__(self, company_name=None, csr=None, domain=None, email=None, phone=None, product_code=None,
                  username=None, validate_type=None):
+        # The company name of the certificate application.
+        # 
+        # > This parameter is available only when you apply for OV certificates. If you want to apply for an OV certificate, you must add a company profile to the **Information Management** module of the [Certificate Management Service console](https://yundun.console.aliyun.com/?p=cas#/). For more information, see [Manage company profiles](~~198289~~). If you want to apply for a DV certificate, you do not need to add a company profile.
+        # 
+        # If you specify a company name, the information about the company that is configured in the **Information Management** module is used. If you do not specify this parameter, the information about the most recent company that is added to the **Information Management** module is used.
         self.company_name = company_name  # type: str
+        # The content of the certificate signing request (CSR) file that is manually generated for the domain name by using OpenSSL or Keytool. The key algorithm in the CSR file must be Rivest-Shamir-Adleman (RSA) or elliptic-curve cryptography (ECC), and the key length of the RSA algorithm must be greater than or equal to 2,048 characters. For more information about how to create a CSR file, see [Create a CSR file](~~313297~~). If you do not specify this parameter, Certificate Management Service automatically creates a CSR file.
+        # 
+        # A CSR file contains the information about your server and company. When you apply for a certificate, you must submit the CSR file to the CA. The CA signs the CSR file by using the private key of the root certificate and generates a public key file to issue your certificate.
+        # 
+        # > 
+        # 
+        # The **CN** field in the CSR file specifies the domain name that you want to bind to the certificate. You must include the field in the parameter value.
         self.csr = csr  # type: str
+        # The domain name that you want to bind to the certificate. The domain name must meet the following requirements:
+        # 
+        # *   The domain name must be a single domain name or a wildcard domain name. Example: `*.aliyundoc.com`.
+        # *   You can specify multiple domain names. Separate multiple domain names with commas (,). You can specify a maximum of five domain names.
+        # *   If you specify multiple domain names, the domain names must be only single domain names or only wildcard domain names. You cannot specify both single domain names and wildcard domain names.
+        # 
+        # > 
+        # 
+        # If you want to bind multiple domain names to the certificate, you must specify this parameter. You must specify at least one of the Domain parameter and the **Csr** parameter. If you specify both the Domain parameter and the **Csr** parameter, the value of the **CN** field in the **Csr** parameter is used as the domain name that can be bound to the certificate.
         self.domain = domain  # type: str
+        # The email address of the applicant. After the CA receives your certificate application, the CA sends a verification email to the email address that you specify. You must log on to the mailbox, open the mail, and complete the verification of the domain name ownership based on the steps that are described in the email.
+        # 
+        # If you do not specify this parameter, the information about the most recent contact that is added to the **Information Management** module is used. For more information about how to add a contact to the **Information Management** module, see [Manage contacts](~~198262~~).
         self.email = email  # type: str
+        # The phone number of the applicant. CA staff can call the phone number to confirm the information in your certificate application.
+        # 
+        # If you do not specify this parameter, the information about the most recent contact that is added to the **Information Management** module is used. For more information about how to add a contact to the **Information Management** module, see [Manage contacts](~~198262~~).
         self.phone = phone  # type: str
+        # The specifications of the certificate. Valid values:
+        # 
+        # *   **digicert-free-1-free**: DigiCert single-domain domain validated (DV) certificate in 3 months free trial. This is the default value.
+        # *   **symantec-free-1-free**: DigiCert single-domain domain validated (DV) certificate in 1 year free trial.
+        # *   **symantec-dv-1-starter**: DigiCert wildcard DV certificate.
+        # *   **symantec-ov-1-personal**: DigiCert single-domain organization validated (OV) certificate.
+        # *   **symantec-ov-w-personal**: DigiCert wildcard OV certificate.
+        # *   **geotrust-dv-1-starter**: GeoTrust single-domain DV certificate.
+        # *   **geotrust-dv-w-starter**: GeoTrust wildcard DV certificate.
+        # *   **geotrust-ov-1-personal**: GeoTrust single-domain OV certificate.
+        # *   **geotrust-ov-w-personal**: GeoTrust wildcard OV certificate.
+        # *   **globalsign-dv-1-personal**: GlobalSign single-domain DV certificate.
+        # *   **globalsign-dv-w-advanced**: GlobalSign wildcard DV certificate.
+        # *   **globalsign-ov-1-personal**: GlobalSign single-domain OV certificate.
+        # *   **globalsign-ov-w-advanced**: GlobalSign wildcard OV certificate.
+        # *   **cfca-ov-1-personal**: China Financial Certification Authority (CFCA) single-domain OV certificate.
+        # *   **cfca-ev-w-advanced**: CFCA wildcard OV certificate.
         self.product_code = product_code  # type: str
+        # The name of the applicant.
+        # 
+        # If you do not specify this parameter, the information about the most recent contact that is added to the **Information Management** module is used. For more information about how to add a contact to the **Information Management** module, see [Manage contacts](~~198262~~).
         self.username = username  # type: str
+        # The verification method of the domain name ownership. Valid values:
+        # 
+        # *   **DNS**: DNS verification. If you use this method, you must add a TXT record to the DNS records of the domain name in the management platform of the domain name. You must have operation permissions on domain name resolution to verify the ownership of the domain name.
+        # *   **FILE**: file verification. If you use this method, you must create a specified file on the DNS server. You must have administrative rights on the DNS server to verify the ownership of the domain name.
+        # 
+        # For more information about the verification methods, see [Verify the ownership of a domain name](~~48016~~).
         self.validate_type = validate_type  # type: str
 
     def validate(self):
@@ -239,7 +296,11 @@ class CreateCertificateForPackageRequestRequest(TeaModel):
 
 class CreateCertificateForPackageRequestResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
+        # The ID of the certificate application order.
+        # 
+        # > You can use the ID to query the status of the certificate application order. For more information, see [DescribeCertificateState](~~455800~~).
         self.order_id = order_id  # type: long
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -307,11 +368,32 @@ class CreateCertificateForPackageRequestResponse(TeaModel):
 
 class CreateCertificateRequestRequest(TeaModel):
     def __init__(self, domain=None, email=None, phone=None, product_code=None, username=None, validate_type=None):
+        # The domain name that you want to bind to the certificate. You can specify only one domain name.
+        # 
+        # > The domain name must match the certificate specifications that you specify for the **ProductCode** parameter. If you apply for a single-domain certificate, you must specify a single domain name for this parameter. If you apply for a wildcard certificate, you must specify a wildcard domain name such as `*.aliyundoc.com` for this parameter.
         self.domain = domain  # type: str
+        # The email address of the applicant.
         self.email = email  # type: str
+        # The phone number of the applicant.
         self.phone = phone  # type: str
+        # The specifications of the certificate. Valid values:
+        # 
+        # *   **digicert-free-1-free**: DigiCert single-domain DV certificate in 3 months free trial. This is the default value.
+        # *   **symantec-free-1-free**: DigiCert single-domain DV certificate in 1 year free trial.
+        # *   **symantec-dv-1-starter**: DigiCert wildcard DV certificate.
+        # *   **geotrust-dv-1-starter**: GeoTrust single-domain DV certificate.
+        # *   **geotrust-dv-w-starter**: GeoTrust wildcard DV certificate.
+        # *   **globalsign-dv-1-personal**: GlobalSign single-domain DV certificate.
+        # *   **globalsign-dv-w-advanced**: GlobalSign wildcard DV certificate.
         self.product_code = product_code  # type: str
+        # The name of the applicant.
         self.username = username  # type: str
+        # The verification method of the domain name ownership. Valid values:
+        # 
+        # *   **DNS**: DNS verification. If you use this method, you must add a TXT record to the DNS records of the domain name in the management platform of the domain name. You must have operation permissions on domain name resolution to verify the ownership of the domain name.
+        # *   **FILE**: file verification. If you use this method, you must create a specified file on the DNS server. You must have administrative rights on the DNS server to verify the ownership of the domain name.
+        # 
+        # For more information about the verification methods, see [Verify the ownership of a domain name](~~48016~~).
         self.validate_type = validate_type  # type: str
 
     def validate(self):
@@ -356,7 +438,11 @@ class CreateCertificateRequestRequest(TeaModel):
 
 class CreateCertificateRequestResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
+        # The ID of the certificate application order.
+        # 
+        # > You can use the ID to query the status of the certificate application. For more information, see [DescribeCertificateState](~~455800~~).
         self.order_id = order_id  # type: long
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -424,11 +510,34 @@ class CreateCertificateRequestResponse(TeaModel):
 
 class CreateCertificateWithCsrRequestRequest(TeaModel):
     def __init__(self, csr=None, email=None, phone=None, product_code=None, username=None, validate_type=None):
+        # The content of the existing CSR file.\
+        # The key algorithm in the CSR file must be Rivest-Shamir-Adleman (RSA) or elliptic-curve cryptography (ECC), and the key length of the RSA algorithm must be greater than or equal to 2,048 characters. For more information about how to create a CSR file, see [How do I create a CSR file?](~~42218~~) You can also create a CSR in the [Certificate Management Service console](https://yundunnext.console.aliyun.com/?\&p=cas). For more information, see [Create a CSR](~~313297~~).\
+        # A CSR file contains the information about your server and company. When you apply for a certificate, you must submit the CSR file to the CA. The CA signs the CSR file by using the private key of the root certificate and generates a public key file to issue your certificate.
+        # 
+        # >  The **CN** field in the CSR file specifies the domain name that is bound to the certificate.
         self.csr = csr  # type: str
+        # The contact email address of the applicant.
         self.email = email  # type: str
+        # The phone number of the applicant.
         self.phone = phone  # type: str
+        # The specifications of the certificate. Valid values:
+        # 
+        # *   **digicert-free-1-free**: DigiCert single-domain DV certificate in 3 months free trial. This is the default value.
+        # *   **symantec-free-1-free**: DigiCert single-domain DV certificate in 1 year free trial.
+        # *   **symantec-dv-1-starter**: DigiCert wildcard DV certificate.
+        # *   **geotrust-dv-1-starter**: GeoTrust single-domain DV certificate.
+        # *   **geotrust-dv-w-starter**: GeoTrust wildcard DV certificate.
+        # *   **globalsign-dv-1-personal**: GlobalSign single-domain DV certificate.
+        # *   **globalsign-dv-w-advanced**: GlobalSign wildcard DV certificate.
         self.product_code = product_code  # type: str
+        # The name of the applicant.
         self.username = username  # type: str
+        # The method to verify the ownership of a domain name. Valid values:
+        # 
+        # *   **DNS**: DNS verification. If you use this method, you must add a TXT record to the DNS records of the domain name in the management platform of the domain name. You must have operation permissions on domain name resolution to verify the ownership of the domain name.
+        # *   **FILE**: file verification. If you use this method, you must create a specified file on the DNS server. You must have administrative rights on the DNS server to verify the ownership of the domain name.
+        # 
+        # For more information about the verification methods, see [Verify the ownership of a domain name](~~48016~~).
         self.validate_type = validate_type  # type: str
 
     def validate(self):
@@ -473,7 +582,11 @@ class CreateCertificateWithCsrRequestRequest(TeaModel):
 
 class CreateCertificateWithCsrRequestResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
+        # The ID of the certificate application order.
+        # 
+        # >  You can use the ID to query the status of the certificate application. For more information, see [DescribeCertificateState](~~164111~~).
         self.order_id = order_id  # type: long
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -848,6 +961,9 @@ class DecryptResponse(TeaModel):
 
 class DeleteCertificateRequestRequest(TeaModel):
     def __init__(self, order_id=None):
+        # The ID of the certificate application order that you want to delete.
+        # 
+        # >  After you call the [CreateCertificateForPackageRequest](~~455296~~), [CreateCertificateRequest](~~455292~~), or [CreateCertificateWithCsrRequest](~~455801~~) operation to submit a certificate application, you can obtain the ID of the certificate application order from the **OrderId** response parameter.
         self.order_id = order_id  # type: long
 
     def validate(self):
@@ -872,6 +988,7 @@ class DeleteCertificateRequestRequest(TeaModel):
 
 class DeleteCertificateRequestResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1022,6 +1139,7 @@ class DeletePCACertResponse(TeaModel):
 
 class DeleteUserCertificateRequest(TeaModel):
     def __init__(self, cert_id=None):
+        # The ID of the certificate.
         self.cert_id = cert_id  # type: long
 
     def validate(self):
@@ -1046,6 +1164,7 @@ class DeleteUserCertificateRequest(TeaModel):
 
 class DeleteUserCertificateResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1109,6 +1228,9 @@ class DeleteUserCertificateResponse(TeaModel):
 
 class DescribeCertificateStateRequest(TeaModel):
     def __init__(self, order_id=None):
+        # The ID of the certificate application order that you want to query.
+        # 
+        # > After you call the [CreateCertificateForPackageRequest](~~455296~~), [CreateCertificateRequest](~~455292~~), or [CreateCertificateWithCsrRequest](~~455801~~) operation to submit a certificate application, you can obtain the ID of the certificate application order from the **OrderId** response parameter.
         self.order_id = order_id  # type: long
 
     def validate(self):
@@ -1134,16 +1256,65 @@ class DescribeCertificateStateRequest(TeaModel):
 class DescribeCertificateStateResponseBody(TeaModel):
     def __init__(self, certificate=None, content=None, domain=None, private_key=None, record_domain=None,
                  record_type=None, record_value=None, request_id=None, type=None, uri=None, validate_type=None):
+        # The content of the certificate in the PEM format. For more information about the PEM format and how to convert certificate formats, see [What formats are used for mainstream digital certificates?](~~42214~~)
+        # 
+        # > This parameter is returned only when the value of the **Type** parameter is **certificate**. The value certificate indicates that the certificate is issued.
         self.certificate = certificate  # type: str
+        # The content that you need to write to the newly created file when you use the file verification method.
+        # 
+        # > This parameter is returned only when the value of the **Type** parameter is **domain\_verify** and the value of the **ValidateType** parameter is **FILE**. The value domain\_verify indicates that the verification of the domain name ownership is not complete, and the value FILE indicates that the file verification method is used.
         self.content = content  # type: str
+        # The domain name to be verified when you use the file verification method. You must connect to the DNS server of the domain name and create a file on the server. The file is specified by the **Uri** parameter.
+        # 
+        # > This parameter is returned only when the value of the **Type** parameter is **domain\_verify** and the value of the **ValidateType** parameter is **FILE**. The value domain\_verify indicates that the verification of the domain name ownership is not complete, and the value FILE indicates that the file verification method is used.
         self.domain = domain  # type: str
+        # The private key of the certificate in the PEM format. For more information about the PEM format and how to convert certificate formats, see [What formats are used for mainstream digital certificates?](~~42214~~)
+        # 
+        # > This parameter is returned only when the value of the **Type** parameter is **certificate**. The value certificate indicates that the certificate is issued.
         self.private_key = private_key  # type: str
+        # The DNS record that you need to manage when you use the DNS verification method.
+        # 
+        # > This parameter is returned only when the value of the **Type** parameter is **domain\_verify** and the value of the **ValidateType** parameter is **DNS**. The value domain\_verify indicates that the verification of the domain name ownership is not complete, and the value DNS indicates that the DNS verification method is used.
         self.record_domain = record_domain  # type: str
+        # The type of the DNS record that you need to add when you use the DNS verification method. Valid values:
+        # 
+        # *   **TXT**\
+        # *   **CNAME**\
+        # 
+        # > This parameter is returned only when the value of the **Type** parameter is **domain\_verify** and the value of the **ValidateType** parameter is **DNS**. The value domain\_verify indicates that the verification of the domain name ownership is not complete.
         self.record_type = record_type  # type: str
+        # You need to add a TXT record to the DNS records only when you use the DNS verification method.
+        # 
+        # > This parameter is returned only when the value of the **Type** parameter is **domain\_verify** and the value of the **ValidateType** parameter is **DNS**. The value domain\_verify indicates that the verification of the domain name ownership is not complete, and the value DNS indicates that the DNS verification method is used.
         self.record_value = record_value  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The status of the certificate application order. Valid values:
+        # 
+        # *   **domain_verify**: **pending review**, which indicates that you have not completed the verification of the domain name ownership after you submit the certificate application.
+        # 
+        #     > After you submit a certificate application, you must manually complete the verification of the domain name ownership. The CA reviews the certificate application only after the verification is complete. If you have not completed the verification of the domain name ownership, you can complete the verification based on the data returned by this operation.
+        # 
+        # *   **process**: **being reviewed**, which indicates that the certificate application is being reviewed by the CA.
+        # 
+        # *   **verify_fail**: **review failed**, which indicates that the certificate application failed to be reviewed.
+        # 
+        #     > If a certificate application fails to be reviewed, the information that you specified in the certificate application may be incorrect. We recommend that you call the [DeleteCertificateRequest](~~455294~~) operation to delete the certificate application order and resubmit a certificate application. After the order is deleted, the quota that is consumed for the order is released.
+        # 
+        # *   **certificate**: **issued**, which indicates that the certificate is issued.
+        # *   **payed**: **pending application**, which indicates that you have not submitted a certificate application.
+        # *   **unknow**: The status is **unknown**.
         self.type = type  # type: str
+        # The file that you need to create on the DNS server when you use the file verification method. **The value of this parameter contains the file path and file name.**\
+        # 
+        # > This parameter is returned only when the value of the **Type** parameter is **domain\_verify** and the value of the **ValidateType** parameter is **FILE**. The value domain\_verify indicates that the verification of the domain name ownership is not complete, and the value FILE indicates that the file verification method is used.
         self.uri = uri  # type: str
+        # The verification method of the domain name ownership. Valid values:
+        # 
+        # *   **DNS**: DNS verification. If you use this method, you must add a TXT record to the DNS records of the domain name in the management platform of the domain name.
+        # *   **FILE**: file verification. If you use this method, you must create a specified file on the DNS server.
+        # 
+        # > This parameter is returned only when the value of the **Type** parameter is **domain\_verify**. The value domain\_verify indicates that the verification of the domain name ownership is not complete.
         self.validate_type = validate_type  # type: str
 
     def validate(self):
@@ -1247,6 +1418,23 @@ class DescribeCertificateStateResponse(TeaModel):
 
 class DescribePackageStateRequest(TeaModel):
     def __init__(self, product_code=None):
+        # The specifications of the certificate resource plan. Valid values:
+        # 
+        # *   **digicert-free-1-free**: DigiCert single-domain DV certificate in 3 months free trial. This is the default value.
+        # *   **symantec-free-1-free**: DigiCert single-domain DV certificate in 1 year free trial.
+        # *   **symantec-dv-1-starter**: DigiCert wildcard DV certificate.
+        # *   **symantec-ov-1-personal**: DigiCert single-domain organization validated (OV) certificate.
+        # *   **symantec-ov-w-personal**: DigiCert wildcard OV certificate.
+        # *   **geotrust-dv-1-starter**: GeoTrust single-domain DV certificate.
+        # *   **geotrust-dv-w-starter**: GeoTrust wildcard DV certificate.
+        # *   **geotrust-ov-1-personal**: GeoTrust single-domain OV certificate.
+        # *   **geotrust-ov-w-personal**: GeoTrust wildcard OV certificate.
+        # *   **globalsign-dv-1-personal**: GlobalSign single-domain DV certificate.
+        # *   **globalsign-dv-w-advanced**: GlobalSign wildcard DV certificate.
+        # *   **globalsign-ov-1-personal**: GlobalSign single-domain OV certificate.
+        # *   **globalsign-ov-w-advanced**: GlobalSign wildcard OV certificate.
+        # *   **cfca-ov-1-personal**: China Financial Certification Authority (CFCA) single-domain OV certificate.
+        # *   **cfca-ev-w-advanced**: CFCA wildcard OV certificate.
         self.product_code = product_code  # type: str
 
     def validate(self):
@@ -1271,10 +1459,33 @@ class DescribePackageStateRequest(TeaModel):
 
 class DescribePackageStateResponseBody(TeaModel):
     def __init__(self, issued_count=None, product_code=None, request_id=None, total_count=None, used_count=None):
+        # The number of issued certificates of the specified specifications.
         self.issued_count = issued_count  # type: long
+        # The specifications of the certificate. Valid values:
+        # 
+        # *   **symantec-free-1-free**: DigiCert single-domain DV certificate in 3 months free trial.
+        # *   **symantec-free-1-free**: DigiCert single-domain DV certificate in 1 year free trial.
+        # *   **symantec-dv-1-starter**: DigiCert wildcard DV certificate.
+        # *   **symantec-ov-1-personal**: DigiCert single-domain OV certificate.
+        # *   **symantec-ov-w-personal**: DigiCert wildcard OV certificate.
+        # *   **geotrust-dv-1-starter**: GeoTrust single-domain DV certificate.
+        # *   **geotrust-dv-w-starter**: GeoTrust wildcard DV certificate.
+        # *   **geotrust-ov-1-personal**: GeoTrust single-domain OV certificate.
+        # *   **geotrust-ov-w-personal**: GeoTrust wildcard OV certificate.
+        # *   **globalsign-dv-1-personal**: GlobalSign single-domain DV certificate.
+        # *   **globalsign-dv-w-advanced**: GlobalSign wildcard DV certificate.
+        # *   **globalsign-ov-1-personal**: GlobalSign single-domain OV certificate.
+        # *   **globalsign-ov-w-advanced**: GlobalSign wildcard OV certificate.
+        # *   **cfca-ov-1-personal**: CFCA single-domain OV certificate.
+        # *   **cfca-ev-w-advanced**: CFCA wildcard OV certificate.
         self.product_code = product_code  # type: str
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The total number of purchased certificate resource plans of the specified specifications.
         self.total_count = total_count  # type: long
+        # The number of certificate applications that you submitted for certificates of the specified specifications.
+        # 
+        # > A successful call of the [CreateCertificateForPackageRequest](~~455296~~), [CreateCertificateRequest](~~455292~~), or [CreateCertificateWithCsrRequest](~~455801~~) operation is counted as one a certificate application, regardless of whether the certificate is issued.
         self.used_count = used_count  # type: long
 
     def validate(self):
@@ -1538,7 +1749,10 @@ class GetCertWarehouseQuotaResponse(TeaModel):
 
 
 class GetUserCertificateDetailRequest(TeaModel):
-    def __init__(self, cert_id=None):
+    def __init__(self, cert_filter=None, cert_id=None):
+        # 值为true时Cert、Key、EncryptCert、EncryptPrivateKey、SignCert、SignPrivateKey信息不返回，false时则返回，默认是false。
+        self.cert_filter = cert_filter  # type: bool
+        # The ID of the certificate.
         self.cert_id = cert_id  # type: long
 
     def validate(self):
@@ -1550,44 +1764,79 @@ class GetUserCertificateDetailRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.cert_filter is not None:
+            result['CertFilter'] = self.cert_filter
         if self.cert_id is not None:
             result['CertId'] = self.cert_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CertFilter') is not None:
+            self.cert_filter = m.get('CertFilter')
         if m.get('CertId') is not None:
             self.cert_id = m.get('CertId')
         return self
 
 
 class GetUserCertificateDetailResponseBody(TeaModel):
-    def __init__(self, buy_in_aliyun=None, cert=None, city=None, common=None, country=None, encrypt_cert=None,
-                 encrypt_private_key=None, end_date=None, expired=None, fingerprint=None, id=None, issuer=None, key=None, name=None,
-                 order_id=None, org_name=None, province=None, request_id=None, resource_group_id=None, sans=None,
-                 sign_cert=None, sign_private_key=None, start_date=None):
+    def __init__(self, algorithm=None, buy_in_aliyun=None, cert=None, city=None, common=None, country=None,
+                 encrypt_cert=None, encrypt_private_key=None, end_date=None, expired=None, fingerprint=None, id=None, issuer=None,
+                 key=None, name=None, order_id=None, org_name=None, province=None, request_id=None,
+                 resource_group_id=None, sans=None, sign_cert=None, sign_private_key=None, start_date=None):
+        # The algorithm.
+        self.algorithm = algorithm  # type: str
+        # Indicates whether the certificate was purchased from Alibaba Cloud. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
         self.buy_in_aliyun = buy_in_aliyun  # type: bool
+        # The content of the certificate.
         self.cert = cert  # type: str
+        # The city of the company or organization to which the certificate purchaser belongs.
         self.city = city  # type: str
+        # The parent domain name that is bound to the certificate.
         self.common = common  # type: str
+        # The country or region of the company or organization to which the certificate purchaser belongs.
         self.country = country  # type: str
+        # The content of the encryption certificate in PEM format.
         self.encrypt_cert = encrypt_cert  # type: str
+        # The private key of the encryption certificate in the PEM format.
         self.encrypt_private_key = encrypt_private_key  # type: str
+        # The expiration date of the certificate.
         self.end_date = end_date  # type: str
+        # Indicates whether the certificate has expired. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
         self.expired = expired  # type: bool
+        # The fingerprint of the certificate.
         self.fingerprint = fingerprint  # type: str
+        # The ID of the certificate.
         self.id = id  # type: long
+        # The certificate authority (CA) that issued the certificate.
         self.issuer = issuer  # type: str
+        # The private key.
         self.key = key  # type: str
+        # The name of the certificate.
         self.name = name  # type: str
+        # The ID of the certificate application order.
         self.order_id = order_id  # type: long
+        # The name of the company or organization to which the certificate purchaser belongs.
         self.org_name = org_name  # type: str
+        # The province of the company or organization to which the certificate purchaser belongs.
         self.province = province  # type: str
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The ID of the resource group to which the certificate belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # All domain names that are bound to the certificate.
         self.sans = sans  # type: str
+        # The content of the signing certificate in the PEM format.
         self.sign_cert = sign_cert  # type: str
+        # The private key of the signing certificate in the PEM format.
         self.sign_private_key = sign_private_key  # type: str
+        # The issuance date of the certificate.
         self.start_date = start_date  # type: str
 
     def validate(self):
@@ -1599,6 +1848,8 @@ class GetUserCertificateDetailResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.algorithm is not None:
+            result['Algorithm'] = self.algorithm
         if self.buy_in_aliyun is not None:
             result['BuyInAliyun'] = self.buy_in_aliyun
         if self.cert is not None:
@@ -1649,6 +1900,8 @@ class GetUserCertificateDetailResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Algorithm') is not None:
+            self.algorithm = m.get('Algorithm')
         if m.get('BuyInAliyun') is not None:
             self.buy_in_aliyun = m.get('BuyInAliyun')
         if m.get('Cert') is not None:
@@ -1738,13 +1991,30 @@ class GetUserCertificateDetailResponse(TeaModel):
 
 
 class ListCertRequest(TeaModel):
-    def __init__(self, current_page=None, key_word=None, show_size=None, source_type=None, status=None,
-                 warehouse_id=None):
+    def __init__(self, cert_type=None, current_page=None, key_word=None, show_size=None, source_type=None,
+                 status=None, warehouse_id=None):
+        # The type of the certificate.
+        # 
+        # *   **CA**: the CA certificate.
+        # *   **CERT**: a issued certificate.
+        self.cert_type = cert_type  # type: str
+        # The number of the page to return. Default value: 1.
         self.current_page = current_page  # type: long
+        # The keyword for the query. You can enter a name, domain name, or Subject Alternative Name (SAN) extension. Fuzzy match is supported.
         self.key_word = key_word  # type: str
+        # The number of entries to return on each page. Default value: 50.
         self.show_size = show_size  # type: long
+        # The source of the certificate. Valid values:
+        # 
+        # *   **upload**: uploaded certificate
+        # *   **aliyun**: Alibaba Cloud certificate
         self.source_type = source_type  # type: str
+        # The status of the certificate. Valid values:
+        # 
+        # *   **ISSUE**: issued
+        # *   **REVOKE**: revoked
         self.status = status  # type: str
+        # The ID of the certificate repository. You can call the [ListCertWarehouse](~~453246~~) operation to query the IDs of certificate repositories.
         self.warehouse_id = warehouse_id  # type: long
 
     def validate(self):
@@ -1756,6 +2026,8 @@ class ListCertRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.cert_type is not None:
+            result['CertType'] = self.cert_type
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
         if self.key_word is not None:
@@ -1772,6 +2044,8 @@ class ListCertRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CertType') is not None:
+            self.cert_type = m.get('CertType')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
         if m.get('KeyWord') is not None:
@@ -1788,18 +2062,43 @@ class ListCertRequest(TeaModel):
 
 
 class ListCertResponseBodyCertList(TeaModel):
-    def __init__(self, after_date=None, before_date=None, common_name=None, exist_private_key=None, identifier=None,
-                 issuer=None, sans=None, source_type=None, status=None, wh_id=None, wh_instance_id=None):
+    def __init__(self, after_date=None, before_date=None, cert_type=None, common_name=None, exist_private_key=None,
+                 identifier=None, issuer=None, sans=None, source_type=None, status=None, wh_id=None, wh_instance_id=None):
+        # The expiration time of the certificate. The value is a UNIX timestamp. Unit: milliseconds.
         self.after_date = after_date  # type: long
+        # The issuance time of the certificate. The value is a UNIX timestamp. Unit: milliseconds.
         self.before_date = before_date  # type: long
+        # The type of the certificate.
+        # 
+        # *   **CA**: the CA certificate.
+        # *   **CERT**: a issued certificate.
+        self.cert_type = cert_type  # type: str
+        # The domain name.
         self.common_name = common_name  # type: str
+        # Indicates whether the certificate contains a private key. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.exist_private_key = exist_private_key  # type: bool
+        # The unique identifier of the certificate.
         self.identifier = identifier  # type: str
+        # The issuer of the certificate.
         self.issuer = issuer  # type: str
+        # The domain names that are bound to the certificate. Multiple domain names are separated by commas.
         self.sans = sans  # type: str
+        # The source of the certificate. Valid values:
+        # 
+        # *   **upload**: uploaded certificate
+        # *   **aliyun**: Alibaba Cloud certificate
         self.source_type = source_type  # type: str
+        # The status of the certificate. Valid values:
+        # 
+        # *   **ISSUE**: issued
+        # *   **REVOKE**: revoked
         self.status = status  # type: str
+        # The ID of the certificate repository.
         self.wh_id = wh_id  # type: long
+        # The instance ID of the certificate repository.
         self.wh_instance_id = wh_instance_id  # type: str
 
     def validate(self):
@@ -1815,6 +2114,8 @@ class ListCertResponseBodyCertList(TeaModel):
             result['AfterDate'] = self.after_date
         if self.before_date is not None:
             result['BeforeDate'] = self.before_date
+        if self.cert_type is not None:
+            result['CertType'] = self.cert_type
         if self.common_name is not None:
             result['CommonName'] = self.common_name
         if self.exist_private_key is not None:
@@ -1841,6 +2142,8 @@ class ListCertResponseBodyCertList(TeaModel):
             self.after_date = m.get('AfterDate')
         if m.get('BeforeDate') is not None:
             self.before_date = m.get('BeforeDate')
+        if m.get('CertType') is not None:
+            self.cert_type = m.get('CertType')
         if m.get('CommonName') is not None:
             self.common_name = m.get('CommonName')
         if m.get('ExistPrivateKey') is not None:
@@ -1864,10 +2167,15 @@ class ListCertResponseBodyCertList(TeaModel):
 
 class ListCertResponseBody(TeaModel):
     def __init__(self, cert_list=None, current_page=None, request_id=None, show_size=None, total_count=None):
+        # An array that consists of the certificates.
         self.cert_list = cert_list  # type: list[ListCertResponseBodyCertList]
+        # The page number of the returned page. Default value: 1.
         self.current_page = current_page  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The number of entries returned per page. Default value: 50.
         self.show_size = show_size  # type: long
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -2152,11 +2460,31 @@ class ListCertWarehouseResponse(TeaModel):
 class ListUserCertificateOrderRequest(TeaModel):
     def __init__(self, current_page=None, keyword=None, order_type=None, resource_group_id=None, show_size=None,
                  status=None):
+        # The number of the page to return.
         self.current_page = current_page  # type: long
+        # The domain names that are bound or the ID of the order. Fuzzy match is supported.
         self.keyword = keyword  # type: str
+        # The type of the order. Valid values:
+        # 
+        # *   **CPACK**: virtual resource order. If you set OrderType to CPACK, only the information about orders that are generated to consume the certificate quota is returned.
+        # *   **BUY**: purchase order. If you set OrderType to BUY, only the information about purchase orders is returned. In most cases, this type of order can be ignored.
+        # *   **UPLOAD**: uploaded certificate. If you set OrderType to UPLOAD, only uploaded certificates are returned.
+        # *   **CERT**: certificate. If you set OrderType to CERT, both issued certificates and uploaded certificates are returned.
         self.order_type = order_type  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The number of entries to return on each page. Default value: 50.
         self.show_size = show_size  # type: long
+        # The certificate status of the order. Valid values:
+        # 
+        # *   **PAYED**: pending application. You can set Status to PAYED only if you set OrderType to CPACK or BUY.
+        # *   **CHECKING**: reviewing. You can set Status to CHECKING only if you set OrderType to CPACK or BUY.
+        # *   **CHECKED_FAIL**: review failed. You can set Status to CHECKED_FAIL only if you set OrderType to CPACK or BUY.
+        # *   **ISSUED**: issued.
+        # *   **WILLEXPIRED**: about to expire.
+        # *   **EXPIRED**: expired.
+        # *   **NOTACTIVATED**: not activated. You can set Status to NOTACTIVATED only if you set OrderType to CPACK or BUY.
+        # *   **REVOKED**: revoked. You can set Status to REVOKED only if you set OrderType to CPACK or BUY.
         self.status = status  # type: str
 
     def validate(self):
@@ -2206,41 +2534,103 @@ class ListUserCertificateOrderResponseBodyCertificateOrderList(TeaModel):
                  issuer=None, name=None, order_id=None, org_name=None, partner_order_id=None, product_code=None,
                  product_name=None, province=None, resource_group_id=None, root_brand=None, sans=None, serial_no=None, sha_2=None,
                  source_type=None, start_date=None, status=None, trustee_status=None, upload=None, wild_domain_count=None):
+        # The algorithm. This parameter is returned only if OrderType is set to CPACK or BUY.
         self.algorithm = algorithm  # type: str
+        # The ID of the Alibaba Cloud order. This parameter is returned only if OrderType is set to CPACK or BUY.
         self.aliyun_order_id = aliyun_order_id  # type: long
+        # The time at which the order was placed. Unit: milliseconds. This parameter is returned only if OrderType is set to CPACK or BUY.
         self.buy_date = buy_date  # type: long
+        # The time at which the certificate expires. Unit: milliseconds. This parameter is returned only if OrderType is set to CPACK or BUY.
         self.cert_end_time = cert_end_time  # type: long
+        # The time at which the certificate starts to take effect. Unit: milliseconds. This parameter is returned only if OrderType is set to CPACK or BUY.
         self.cert_start_time = cert_start_time  # type: long
+        # The type of the certificate. This parameter is returned only if OrderType is set to CPACK or BUY. Valid values:
+        # 
+        # *   **DV**: domain validated (DV) certificate
+        # *   **EV**: extended validation (EV) certificate
+        # *   **OV**: organization validated (OV) certificate
+        # *   **FREE**: free certificate
         self.cert_type = cert_type  # type: str
+        # The ID of the certificate. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.certificate_id = certificate_id  # type: long
+        # The city in which the organization is located. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.city = city  # type: str
+        # The parent domain name of the certificate. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.common_name = common_name  # type: str
+        # The code of the country in which the organization is located. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.country = country  # type: str
+        # The domain name. This parameter is returned only if OrderType is set to CPACK or BUY.
         self.domain = domain  # type: str
+        # The total number of domain names that can be bound to the certificate. This parameter is returned only if OrderType is set to CPACK or BUY.
         self.domain_count = domain_count  # type: long
+        # The type of the domain name. This parameter is returned only if OrderType is set to CPACK or BUY. Valid values:
+        # 
+        # *   **ONE**: single domain name
+        # *   **MULTIPLE**: multiple domain names
+        # *   **WILDCARD**: single wildcard domain name
+        # *   **M_WILDCARD**: multiple wildcard domain names
+        # *   **MIX**: hybrid domain name
         self.domain_type = domain_type  # type: str
+        # The time at which the certificate expires. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.end_date = end_date  # type: str
+        # Indicates whether the certificate expires. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.expired = expired  # type: bool
+        # The fingerprint of the certificate. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.fingerprint = fingerprint  # type: str
+        # The ID of the resource.
         self.instance_id = instance_id  # type: str
+        # The issuer of the certificate. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.issuer = issuer  # type: str
+        # The name of the certificate. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.name = name  # type: str
+        # The order ID. This parameter is returned only if OrderType is set to CPACK or BUY.
         self.order_id = order_id  # type: long
+        # The name of the organization that is associated with the certificate. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.org_name = org_name  # type: str
+        # The ID of the certificate authority (CA) order. This parameter is returned only if OrderType is set to CPACK or BUY.
         self.partner_order_id = partner_order_id  # type: str
+        # The specification ID of the order. This parameter is returned only if OrderType is set to CPACK or BUY.
         self.product_code = product_code  # type: str
+        # The specification name of the order. This parameter is returned only if OrderType is set to CPACK or BUY.
         self.product_name = product_name  # type: str
+        # The name of the province or autonomous region in which the organization is located. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.province = province  # type: str
+        # The ID of the resource group. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.resource_group_id = resource_group_id  # type: str
+        # The brand of the certificate. Valid values: WoSign, CFCA, DigiCert, and vTrus. This parameter is returned only if OrderType is set to CPACK or BUY.
         self.root_brand = root_brand  # type: str
+        # All domain names that are bound to the certificate. Multiple domain names are separated by commas (,). This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.sans = sans  # type: str
+        # The serial number of the certificate. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.serial_no = serial_no  # type: str
+        # The SHA-2 value of the certificate. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.sha_2 = sha_2  # type: str
+        # The type of the order. This parameter is returned only if OrderType is set to CPACK or BUY.
+        # 
+        # *   **cpack**: virtual resource order
+        # *   **buy**: purchase order
         self.source_type = source_type  # type: str
+        # The time at which the certificate starts to take effect. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.start_date = start_date  # type: str
+        # The certificate status of the order. This parameter is returned only if OrderType is set to CPACK or BUY.
+        # 
+        # *   **PAYED**: pending application
+        # *   **CHECKING**: reviewing
+        # *   **CHECKED_FAIL**: review failed
+        # *   **ISSUED**: issued
+        # *   **WILLEXPIRED**: about to expire
+        # *   **EXPIRED**: expired
+        # *   **NOTACTIVATED**: not activated
+        # *   **REVOKED**: revoked
         self.status = status  # type: str
+        # The hosting status of the certificate. This parameter is returned only if OrderType is set to CPACK or BUY.
+        # 
+        # *   **unTrustee**: not hosted
+        # *   **trustee**: hosted
         self.trustee_status = trustee_status  # type: str
+        # Indicates whether the certificate is an uploaded certificate. This parameter is returned only if OrderType is set to CERT or UPLOAD.
         self.upload = upload  # type: bool
+        # The number of wildcard domain names that can be bound to the certificate. This parameter is returned only if OrderType is set to CPACK or BUY.
         self.wild_domain_count = wild_domain_count  # type: long
 
     def validate(self):
@@ -2406,10 +2796,15 @@ class ListUserCertificateOrderResponseBodyCertificateOrderList(TeaModel):
 class ListUserCertificateOrderResponseBody(TeaModel):
     def __init__(self, certificate_order_list=None, current_page=None, request_id=None, show_size=None,
                  total_count=None):
+        # An array that consists of the information about the certificates and orders.
         self.certificate_order_list = certificate_order_list  # type: list[ListUserCertificateOrderResponseBodyCertificateOrderList]
+        # The page number of the returned page.
         self.current_page = current_page  # type: long
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The number of entries returned per page.
         self.show_size = show_size  # type: long
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -2497,7 +2892,17 @@ class ListUserCertificateOrderResponse(TeaModel):
 
 class RenewCertificateOrderForPackageRequestRequest(TeaModel):
     def __init__(self, csr=None, order_id=None):
+        # The content of the certificate signing request (CSR) file that is manually generated for the domain name by using OpenSSL or Keytool. The key algorithm in the CSR file must be Rivest-Shamir-Adleman (RSA) or elliptic-curve cryptography (ECC), and the key length of the RSA algorithm must be greater than or equal to 2,048 characters. For more information about how to create a CSR file, see [How do I create a CSR file?](~~42218~~)
+        # 
+        # If you do not specify this parameter, Certificate Management Service automatically generates a CSR file for the domain name in the certificate application order that you want to renew.
+        # 
+        # A CSR file contains the information about your server and company. When you apply for a certificate, you must submit the CSR file to the CA. The CA signs the CSR file by using the private key of the root certificate and generates a public key file to issue your certificate.
+        # 
+        # > The **CN** field in the CSR file specifies the domain name that is bound to the certificate.
         self.csr = csr  # type: str
+        # The ID of the certificate application order that you want to renew.
+        # 
+        # > After you call the [CreateCertificateForPackageRequest](~~455296~~), [CreateCertificateRequest](~~455292~~), or [CreateCertificateWithCsrRequest](~~455801~~) operation to submit a certificate application, you can obtain the ID of the certificate application order from the **OrderId** response parameter.
         self.order_id = order_id  # type: long
 
     def validate(self):
@@ -2526,7 +2931,11 @@ class RenewCertificateOrderForPackageRequestRequest(TeaModel):
 
 class RenewCertificateOrderForPackageRequestResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
+        # The ID of the certificate application order that is renewed.
+        # 
+        # > You can use the ID to query the status of the certificate application. For more information, see [DescribeCertificateState](~~455800~~).
         self.order_id = order_id  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2788,9 +3197,17 @@ class SignResponse(TeaModel):
 
 class UploadPCACertRequest(TeaModel):
     def __init__(self, cert=None, name=None, private_key=None, warehouse_id=None):
+        # <UploadPCACertResponse>
+        #     <RequestId>15C66C7B-671A-4297-9187-2C4477247A74</RequestId>
+        # </UploadPCACertResponse>
         self.cert = cert  # type: str
+        # UploadPCACert
         self.name = name  # type: str
+        # Uploads a private certificate to a certificate repository.
         self.private_key = private_key  # type: str
+        # {
+        #     "RequestId": "15C66C7B-671A-4297-9187-2C4477247A74"
+        # }
         self.warehouse_id = warehouse_id  # type: long
 
     def validate(self):
@@ -2896,13 +3313,23 @@ class UploadPCACertResponse(TeaModel):
 class UploadUserCertificateRequest(TeaModel):
     def __init__(self, cert=None, encrypt_cert=None, encrypt_private_key=None, key=None, name=None,
                  resource_group_id=None, sign_cert=None, sign_private_key=None):
+        # The content of the certificate in the PEM format.
         self.cert = cert  # type: str
+        # The content of the encryption certificate in PEM format.
         self.encrypt_cert = encrypt_cert  # type: str
+        # The private key of the encryption certificate in the PEM format.
         self.encrypt_private_key = encrypt_private_key  # type: str
+        # The private key of the certificate in the PEM format.
         self.key = key  # type: str
+        # The name of the certificate. The name can contain up to 128 characters in length. The name can contain all types of characters, such as letters, digits, and underscores (\_).
+        # 
+        # >  The name must be unique within an Alibaba Cloud account.
         self.name = name  # type: str
+        # the resource group id.
         self.resource_group_id = resource_group_id  # type: str
+        # The content of the signing certificate in the PEM format.
         self.sign_cert = sign_cert  # type: str
+        # The private key of the signing certificate in the PEM format.
         self.sign_private_key = sign_private_key  # type: str
 
     def validate(self):
@@ -2955,7 +3382,9 @@ class UploadUserCertificateRequest(TeaModel):
 
 class UploadUserCertificateResponseBody(TeaModel):
     def __init__(self, cert_id=None, request_id=None):
+        # The ID of the certificate.
         self.cert_id = cert_id  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):

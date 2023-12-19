@@ -23,7 +23,6 @@ class Client(OpenApiClient):
         self._endpoint_map = {
             'cn-hangzhou': 'cas.aliyuncs.com',
             'ap-northeast-2-pop': 'cas.aliyuncs.com',
-            'ap-southeast-1': 'cas.aliyuncs.com',
             'ap-southeast-3': 'cas.aliyuncs.com',
             'ap-southeast-5': 'cas.aliyuncs.com',
             'cn-beijing': 'cas.aliyuncs.com',
@@ -45,6 +44,7 @@ class Client(OpenApiClient):
             'cn-hongkong': 'cas.aliyuncs.com',
             'cn-hongkong-finance-pop': 'cas.aliyuncs.com',
             'cn-huhehaote': 'cas.aliyuncs.com',
+            'cn-huhehaote-nebula-1': 'cas.aliyuncs.com',
             'cn-north-2-gov-1': 'cas.aliyuncs.com',
             'cn-qingdao': 'cas.aliyuncs.com',
             'cn-qingdao-nebula': 'cas.aliyuncs.com',
@@ -60,7 +60,9 @@ class Client(OpenApiClient):
             'cn-shenzhen-st4-d01': 'cas.aliyuncs.com',
             'cn-shenzhen-su18-b01': 'cas.aliyuncs.com',
             'cn-wuhan': 'cas.aliyuncs.com',
+            'cn-wulanchabu': 'cas.aliyuncs.com',
             'cn-yushanfang': 'cas.aliyuncs.com',
+            'cn-zhangbei': 'cas.aliyuncs.com',
             'cn-zhangbei-na61-b01': 'cas.aliyuncs.com',
             'cn-zhangjiakou': 'cas.aliyuncs.com',
             'cn-zhangjiakou-na62-a01': 'cas.aliyuncs.com',
@@ -82,6 +84,16 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def cancel_certificate_for_package_request_with_options(self, request, runtime):
+        """
+        Revokes an issued certificate and cancels the application order of the certificate.
+        
+
+        @param request: CancelCertificateForPackageRequestRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelCertificateForPackageRequestResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.order_id):
@@ -106,10 +118,31 @@ class Client(OpenApiClient):
         )
 
     def cancel_certificate_for_package_request(self, request):
+        """
+        Revokes an issued certificate and cancels the application order of the certificate.
+        
+
+        @param request: CancelCertificateForPackageRequestRequest
+
+        @return: CancelCertificateForPackageRequestResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.cancel_certificate_for_package_request_with_options(request, runtime)
 
     def cancel_order_request_with_options(self, request, runtime):
+        """
+        You can call the CancelOrderRequest operation to cancel a certificate application order only in the following scenarios:
+        *   The order is in the **pending validation** state. You have submitted a certificate application but the verification of the domain name ownership is not complete.
+        *   The order is in the **being reviewed** state. You have submitted a certificate application and the verification of the domain name ownership is complete, but the certificate authority (CA) does not complete the review of the certificate application.
+        After a certificate application order is canceled, the status of the order changes to the **pending application** state. In this case, you can call the [DeleteCertificateRequest](~~164109~~) operation to delete the certificate application order. Then, the consumed certificate quota is returned to you.
+        
+
+        @param request: CancelOrderRequestRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelOrderRequestResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.order_id):
@@ -134,10 +167,33 @@ class Client(OpenApiClient):
         )
 
     def cancel_order_request(self, request):
+        """
+        You can call the CancelOrderRequest operation to cancel a certificate application order only in the following scenarios:
+        *   The order is in the **pending validation** state. You have submitted a certificate application but the verification of the domain name ownership is not complete.
+        *   The order is in the **being reviewed** state. You have submitted a certificate application and the verification of the domain name ownership is complete, but the certificate authority (CA) does not complete the review of the certificate application.
+        After a certificate application order is canceled, the status of the order changes to the **pending application** state. In this case, you can call the [DeleteCertificateRequest](~~164109~~) operation to delete the certificate application order. Then, the consumed certificate quota is returned to you.
+        
+
+        @param request: CancelOrderRequestRequest
+
+        @return: CancelOrderRequestResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.cancel_order_request_with_options(request, runtime)
 
     def create_certificate_for_package_request_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that you have purchased a certificate resource plan of the required specifications. For more information about how to purchase a certificate resource plan, see [Purchase a certificate resource plan](~~28542~~). You can call the [DescribePackageState](~~455800~~) operation to query the usage of certificate resource plans of specified specifications, including the total number of certificate resource plans that you purchase, the number of certificate applications that are submitted, and the number of certificates that are issued.
+        *   After you call this operation to submit a certificate application and the certificate is issued, the certificate quota provided by the resource plan that you purchased is consumed. When you call this operation, you can use the **ProductCode** parameter to specify the specifications of the certificate that you want to apply for.
+        *   After you call this operation to submit a certificate application, you also need to call the [DescribeCertificateState](~~455800~~) operation to obtain the information that is required to complete the verification of the domain name ownership, and complete the verification. If you use the DNS verification method, you must complete the verification in the management platform of the domain name. If you use the file verification method, you must complete the verification in the DNS server. Then, the certificate application order will be reviewed by the certificate authority (CA).
+        
+
+        @param request: CreateCertificateForPackageRequestRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateCertificateForPackageRequestResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.company_name):
@@ -176,10 +232,33 @@ class Client(OpenApiClient):
         )
 
     def create_certificate_for_package_request(self, request):
+        """
+        Before you call this operation, make sure that you have purchased a certificate resource plan of the required specifications. For more information about how to purchase a certificate resource plan, see [Purchase a certificate resource plan](~~28542~~). You can call the [DescribePackageState](~~455800~~) operation to query the usage of certificate resource plans of specified specifications, including the total number of certificate resource plans that you purchase, the number of certificate applications that are submitted, and the number of certificates that are issued.
+        *   After you call this operation to submit a certificate application and the certificate is issued, the certificate quota provided by the resource plan that you purchased is consumed. When you call this operation, you can use the **ProductCode** parameter to specify the specifications of the certificate that you want to apply for.
+        *   After you call this operation to submit a certificate application, you also need to call the [DescribeCertificateState](~~455800~~) operation to obtain the information that is required to complete the verification of the domain name ownership, and complete the verification. If you use the DNS verification method, you must complete the verification in the management platform of the domain name. If you use the file verification method, you must complete the verification in the DNS server. Then, the certificate application order will be reviewed by the certificate authority (CA).
+        
+
+        @param request: CreateCertificateForPackageRequestRequest
+
+        @return: CreateCertificateForPackageRequestResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_certificate_for_package_request_with_options(request, runtime)
 
     def create_certificate_request_with_options(self, request, runtime):
+        """
+        You can call this operation to apply for only DV certificates. If you want to apply for an organization validated (OV) or extended validation (EV) certificate, we recommend that you call the [CreateCertificateForPackageRequest](~~455296~~) operation. This operation allows you to apply for certificates of all specifications and specify the method to generate a certificate signing request (CSR) file.
+        *   Before you call this operation, make sure that you have purchased a certificate resource plan of the required specifications. For more information about how to purchase a certificate resource plan, see [Purchase a certificate resource plan](~~28542~~). You can call the [DescribePackageState](~~455803~~) operation to query the usage of certificate resource plans of specified specifications, including the total number of purchased certificate resource plans of the specified specifications, the number of times that certificate applications have been submitted, and the number of times that certificates have been issued.
+        *   When you call this operation, you can use the **ProductCode** parameter to specify the specifications of the certificate.
+        *   After you call this operation to submit a certificate application, Certificate Management Service automatically creates a CSR file for your application and consumes the certificate quota in the certificate resource plans of the specified specifications that you purchased. After you call this operation, you also need to call the [DescribeCertificateState](~~455800~~) operation to obtain the information that is required to complete domain name verification, and manually complete the verification. If you use the DNS verification method, you must complete the verification on the management platform of the domain name. If you use the file verification method, you must complete the verification on your DNS server. Then, the certificate authority (CA) will review your certificate application.
+        
+
+        @param request: CreateCertificateRequestRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateCertificateRequestResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain):
@@ -214,10 +293,34 @@ class Client(OpenApiClient):
         )
 
     def create_certificate_request(self, request):
+        """
+        You can call this operation to apply for only DV certificates. If you want to apply for an organization validated (OV) or extended validation (EV) certificate, we recommend that you call the [CreateCertificateForPackageRequest](~~455296~~) operation. This operation allows you to apply for certificates of all specifications and specify the method to generate a certificate signing request (CSR) file.
+        *   Before you call this operation, make sure that you have purchased a certificate resource plan of the required specifications. For more information about how to purchase a certificate resource plan, see [Purchase a certificate resource plan](~~28542~~). You can call the [DescribePackageState](~~455803~~) operation to query the usage of certificate resource plans of specified specifications, including the total number of purchased certificate resource plans of the specified specifications, the number of times that certificate applications have been submitted, and the number of times that certificates have been issued.
+        *   When you call this operation, you can use the **ProductCode** parameter to specify the specifications of the certificate.
+        *   After you call this operation to submit a certificate application, Certificate Management Service automatically creates a CSR file for your application and consumes the certificate quota in the certificate resource plans of the specified specifications that you purchased. After you call this operation, you also need to call the [DescribeCertificateState](~~455800~~) operation to obtain the information that is required to complete domain name verification, and manually complete the verification. If you use the DNS verification method, you must complete the verification on the management platform of the domain name. If you use the file verification method, you must complete the verification on your DNS server. Then, the certificate authority (CA) will review your certificate application.
+        
+
+        @param request: CreateCertificateRequestRequest
+
+        @return: CreateCertificateRequestResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_certificate_request_with_options(request, runtime)
 
     def create_certificate_with_csr_request_with_options(self, request, runtime):
+        """
+        You can call the CreateCertificateWithCsrRequest operation to apply only for DV certificates. We recommend that you call the [CreateCertificateForPackageRequest](~~455296~~) operation to submit a certificate application. This operation allows you to apply for certificates of all specifications and specify the method to generate a CSR file.
+        *   Before you call this operation, make sure that you have purchased a certificate resource plan of the required specifications. For more information about how to purchase a certificate resource plan, see [Purchase a certificate resource plan](~~28542~~). You can call the [DescribePackageState](~~164110~~) operation to query the usage of certificate resource plans of specified specifications. The usage information includes the total number of purchased certificate resource plans of the specified specifications, the number of times that certificate applications are submitted, and the number of times that certificates are issued.
+        *   When you call this operation, you can use the **ProductCode** parameter to specify the specifications of the certificate.
+        *   After you call this operation to submit a certificate application, the certificate quota of the required specifications that you purchased is consumed. After you call this operation, you also need to call the [DescribeCertificateState](~~164111~~) operation to obtain the information that is required to complete domain name verification, and manually complete the verification. If you use the DNS verification method, you must complete the verification on the management platform of the domain name. If you use the file verification method, you must complete the verification on your DNS server. The certificate authority (CA) starts to review your certificate application only after the domain name verification is complete.
+        
+
+        @param request: CreateCertificateWithCsrRequestRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateCertificateWithCsrRequestResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.csr):
@@ -252,6 +355,17 @@ class Client(OpenApiClient):
         )
 
     def create_certificate_with_csr_request(self, request):
+        """
+        You can call the CreateCertificateWithCsrRequest operation to apply only for DV certificates. We recommend that you call the [CreateCertificateForPackageRequest](~~455296~~) operation to submit a certificate application. This operation allows you to apply for certificates of all specifications and specify the method to generate a CSR file.
+        *   Before you call this operation, make sure that you have purchased a certificate resource plan of the required specifications. For more information about how to purchase a certificate resource plan, see [Purchase a certificate resource plan](~~28542~~). You can call the [DescribePackageState](~~164110~~) operation to query the usage of certificate resource plans of specified specifications. The usage information includes the total number of purchased certificate resource plans of the specified specifications, the number of times that certificate applications are submitted, and the number of times that certificates are issued.
+        *   When you call this operation, you can use the **ProductCode** parameter to specify the specifications of the certificate.
+        *   After you call this operation to submit a certificate application, the certificate quota of the required specifications that you purchased is consumed. After you call this operation, you also need to call the [DescribeCertificateState](~~164111~~) operation to obtain the information that is required to complete domain name verification, and manually complete the verification. If you use the DNS verification method, you must complete the verification on the management platform of the domain name. If you use the file verification method, you must complete the verification on your DNS server. The certificate authority (CA) starts to review your certificate application only after the domain name verification is complete.
+        
+
+        @param request: CreateCertificateWithCsrRequestRequest
+
+        @return: CreateCertificateWithCsrRequestResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_certificate_with_csr_request_with_options(request, runtime)
 
@@ -350,6 +464,18 @@ class Client(OpenApiClient):
         return self.decrypt_with_options(request, runtime)
 
     def delete_certificate_request_with_options(self, request, runtime):
+        """
+        You can call this operation to delete a certificate application order only in the following scenarios:
+        *   The status of the order is review failed. You have called the [DescribeCertificateState](~~455800~~)  operation to query the status of the certificate application order and the value of the **Type** parameter is **verify_fail**.
+        *   The status of the order is **pending application**. You have called the [CancelOrderRequest](~~455299~~) operation to cancel a certificate application order whose status is pending review or being reviewed. The status of the certificate application order that is canceled in this case changes to **pending application**.
+        
+
+        @param request: DeleteCertificateRequestRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteCertificateRequestResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.order_id):
@@ -374,6 +500,16 @@ class Client(OpenApiClient):
         )
 
     def delete_certificate_request(self, request):
+        """
+        You can call this operation to delete a certificate application order only in the following scenarios:
+        *   The status of the order is review failed. You have called the [DescribeCertificateState](~~455800~~)  operation to query the status of the certificate application order and the value of the **Type** parameter is **verify_fail**.
+        *   The status of the order is **pending application**. You have called the [CancelOrderRequest](~~455299~~) operation to cancel a certificate application order whose status is pending review or being reviewed. The status of the certificate application order that is canceled in this case changes to **pending application**.
+        
+
+        @param request: DeleteCertificateRequestRequest
+
+        @return: DeleteCertificateRequestResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_certificate_request_with_options(request, runtime)
 
@@ -406,6 +542,16 @@ class Client(OpenApiClient):
         return self.delete_pcacert_with_options(request, runtime)
 
     def delete_user_certificate_with_options(self, request, runtime):
+        """
+        You can call this operation up to 100 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DeleteUserCertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteUserCertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cert_id):
@@ -430,10 +576,29 @@ class Client(OpenApiClient):
         )
 
     def delete_user_certificate(self, request):
+        """
+        You can call this operation up to 100 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DeleteUserCertificateRequest
+
+        @return: DeleteUserCertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_user_certificate_with_options(request, runtime)
 
     def describe_certificate_state_with_options(self, request, runtime):
+        """
+        If you do not complete the verification of the domain name ownership after you submit a certificate application, you can call this operation to obtain the information that is required to complete the verification. You can complete the verification of the domain name ownership based on the data returned. If you use the DNS verification method, you must complete the verification on the management platform of the domain name. If you use the file verification method, you must complete the verification on the DNS server.
+        The certificate authority (CA) reviews your certificate application only after you complete the verification of the domain name ownership. After the CA approves your certificate application, the CA issues the certificate. If a certificate is issued, you can call this operation to obtain the CA certificate and private key of the certificate.
+        
+
+        @param request: DescribeCertificateStateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCertificateStateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.order_id):
@@ -458,6 +623,15 @@ class Client(OpenApiClient):
         )
 
     def describe_certificate_state(self, request):
+        """
+        If you do not complete the verification of the domain name ownership after you submit a certificate application, you can call this operation to obtain the information that is required to complete the verification. You can complete the verification of the domain name ownership based on the data returned. If you use the DNS verification method, you must complete the verification on the management platform of the domain name. If you use the file verification method, you must complete the verification on the DNS server.
+        The certificate authority (CA) reviews your certificate application only after you complete the verification of the domain name ownership. After the CA approves your certificate application, the CA issues the certificate. If a certificate is issued, you can call this operation to obtain the CA certificate and private key of the certificate.
+        
+
+        @param request: DescribeCertificateStateRequest
+
+        @return: DescribeCertificateStateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_certificate_state_with_options(request, runtime)
 
@@ -546,8 +720,20 @@ class Client(OpenApiClient):
         return self.get_cert_warehouse_quota_with_options(runtime)
 
     def get_user_certificate_detail_with_options(self, request, runtime):
+        """
+        You can call this operation up to 100 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetUserCertificateDetailRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetUserCertificateDetailResponse
+        """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cert_filter):
+            query['CertFilter'] = request.cert_filter
         if not UtilClient.is_unset(request.cert_id):
             query['CertId'] = request.cert_id
         req = open_api_models.OpenApiRequest(
@@ -570,12 +756,32 @@ class Client(OpenApiClient):
         )
 
     def get_user_certificate_detail(self, request):
+        """
+        You can call this operation up to 100 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetUserCertificateDetailRequest
+
+        @return: GetUserCertificateDetailResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_user_certificate_detail_with_options(request, runtime)
 
     def list_cert_with_options(self, request, runtime):
+        """
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ListCertRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListCertResponse
+        """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cert_type):
+            query['CertType'] = request.cert_type
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.key_word):
@@ -608,6 +814,14 @@ class Client(OpenApiClient):
         )
 
     def list_cert(self, request):
+        """
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ListCertRequest
+
+        @return: ListCertResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_cert_with_options(request, runtime)
 
@@ -648,6 +862,18 @@ class Client(OpenApiClient):
         return self.list_cert_warehouse_with_options(request, runtime)
 
     def list_user_certificate_order_with_options(self, request, runtime):
+        """
+        You can call the ListUserCertificateOrder operation to query the certificates or certificate orders of users. If you set OrderType to CERT or UPLOAD, certificates are returned. If you set OrderType to CPACK or BUY, certificate orders are returned.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ListUserCertificateOrderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListUserCertificateOrderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.current_page):
@@ -682,10 +908,31 @@ class Client(OpenApiClient):
         )
 
     def list_user_certificate_order(self, request):
+        """
+        You can call the ListUserCertificateOrder operation to query the certificates or certificate orders of users. If you set OrderType to CERT or UPLOAD, certificates are returned. If you set OrderType to CPACK or BUY, certificate orders are returned.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ListUserCertificateOrderRequest
+
+        @return: ListUserCertificateOrderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_user_certificate_order_with_options(request, runtime)
 
     def renew_certificate_order_for_package_request_with_options(self, request, runtime):
+        """
+        You can call this operation to submit a renewal application for a certificate only when the order of the certificate is in the expiring state. After the renewal is complete, a new certificate order whose status is pending application is generated. You must submit a certificate application for the new certificate order and install the new certificate after the new certificate is issued.
+        > You can call the [DescribeCertificateState](~~455800~~) operation to query the status of a certificate application order. If the value of the **Type** response parameter is **certificate**, the certificate is issued.
+        
+
+        @param request: RenewCertificateOrderForPackageRequestRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RenewCertificateOrderForPackageRequestResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.csr):
@@ -712,6 +959,15 @@ class Client(OpenApiClient):
         )
 
     def renew_certificate_order_for_package_request(self, request):
+        """
+        You can call this operation to submit a renewal application for a certificate only when the order of the certificate is in the expiring state. After the renewal is complete, a new certificate order whose status is pending application is generated. You must submit a certificate application for the new certificate order and install the new certificate after the new certificate is issued.
+        > You can call the [DescribeCertificateState](~~455800~~) operation to query the status of a certificate application order. If the value of the **Type** response parameter is **certificate**, the certificate is issued.
+        
+
+        @param request: RenewCertificateOrderForPackageRequestRequest
+
+        @return: RenewCertificateOrderForPackageRequestResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.renew_certificate_order_for_package_request_with_options(request, runtime)
 
@@ -778,6 +1034,16 @@ class Client(OpenApiClient):
         return self.sign_with_options(request, runtime)
 
     def upload_pcacert_with_options(self, request, runtime):
+        """
+        The unique identifier of the certificate.
+        
+
+        @param request: UploadPCACertRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UploadPCACertResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cert):
@@ -808,10 +1074,28 @@ class Client(OpenApiClient):
         )
 
     def upload_pcacert(self, request):
+        """
+        The unique identifier of the certificate.
+        
+
+        @param request: UploadPCACertRequest
+
+        @return: UploadPCACertResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upload_pcacert_with_options(request, runtime)
 
     def upload_user_certificate_with_options(self, request, runtime):
+        """
+        You can call this operation up to 100 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: UploadUserCertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UploadUserCertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cert):
@@ -850,6 +1134,14 @@ class Client(OpenApiClient):
         )
 
     def upload_user_certificate(self, request):
+        """
+        You can call this operation up to 100 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: UploadUserCertificateRequest
+
+        @return: UploadUserCertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upload_user_certificate_with_options(request, runtime)
 
