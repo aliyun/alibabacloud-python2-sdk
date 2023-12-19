@@ -1314,14 +1314,14 @@ class MassPushRequestPushTask(TeaModel):
                  android_notification_huawei_channel=None, android_notification_notify_id=None, android_notification_vivo_channel=None,
                  android_notification_xiaomi_channel=None, android_notify_type=None, android_open_type=None, android_open_url=None,
                  android_popup_activity=None, android_popup_body=None, android_popup_title=None, android_remind=None,
-                 android_render_style=None, android_target_user_type=None, android_vivo_push_mode=None, android_xiao_mi_activity=None,
-                 android_xiao_mi_notify_body=None, android_xiao_mi_notify_title=None, android_xiaomi_big_picture_url=None,
-                 android_xiaomi_image_url=None, body=None, device_type=None, expire_time=None, job_key=None, push_time=None, push_type=None,
-                 send_channels=None, send_speed=None, store_offline=None, target=None, target_value=None, title=None, trim=None,
-                 i_osapns_env=None, i_osbadge=None, i_osbadge_auto_increment=None, i_osext_parameters=None,
-                 i_osinterruption_level=None, i_osmusic=None, i_osmutable_content=None, i_osnotification_category=None,
-                 i_osnotification_collapse_id=None, i_osnotification_thread_id=None, i_osrelevance_score=None, i_osremind=None,
-                 i_osremind_body=None, i_ossilent_notification=None, i_ossubtitle=None):
+                 android_render_style=None, android_target_user_type=None, android_vivo_push_mode=None, android_vivo_receipt_id=None,
+                 android_xiao_mi_activity=None, android_xiao_mi_notify_body=None, android_xiao_mi_notify_title=None,
+                 android_xiaomi_big_picture_url=None, android_xiaomi_image_url=None, body=None, device_type=None, expire_time=None, job_key=None,
+                 push_time=None, push_type=None, send_channels=None, send_speed=None, store_offline=None, target=None,
+                 target_value=None, title=None, trim=None, i_osapns_env=None, i_osbadge=None, i_osbadge_auto_increment=None,
+                 i_osext_parameters=None, i_osinterruption_level=None, i_osmusic=None, i_osmutable_content=None,
+                 i_osnotification_category=None, i_osnotification_collapse_id=None, i_osnotification_thread_id=None,
+                 i_osrelevance_score=None, i_osremind=None, i_osremind_body=None, i_ossilent_notification=None, i_ossubtitle=None):
         self.android_activity = android_activity  # type: str
         self.android_big_body = android_big_body  # type: str
         self.android_big_picture_url = android_big_picture_url  # type: str
@@ -1355,6 +1355,7 @@ class MassPushRequestPushTask(TeaModel):
         self.android_render_style = android_render_style  # type: str
         self.android_target_user_type = android_target_user_type  # type: int
         self.android_vivo_push_mode = android_vivo_push_mode  # type: int
+        self.android_vivo_receipt_id = android_vivo_receipt_id  # type: str
         self.android_xiao_mi_activity = android_xiao_mi_activity  # type: str
         self.android_xiao_mi_notify_body = android_xiao_mi_notify_body  # type: str
         self.android_xiao_mi_notify_title = android_xiao_mi_notify_title  # type: str
@@ -1464,6 +1465,8 @@ class MassPushRequestPushTask(TeaModel):
             result['AndroidTargetUserType'] = self.android_target_user_type
         if self.android_vivo_push_mode is not None:
             result['AndroidVivoPushMode'] = self.android_vivo_push_mode
+        if self.android_vivo_receipt_id is not None:
+            result['AndroidVivoReceiptId'] = self.android_vivo_receipt_id
         if self.android_xiao_mi_activity is not None:
             result['AndroidXiaoMiActivity'] = self.android_xiao_mi_activity
         if self.android_xiao_mi_notify_body is not None:
@@ -1600,6 +1603,8 @@ class MassPushRequestPushTask(TeaModel):
             self.android_target_user_type = m.get('AndroidTargetUserType')
         if m.get('AndroidVivoPushMode') is not None:
             self.android_vivo_push_mode = m.get('AndroidVivoPushMode')
+        if m.get('AndroidVivoReceiptId') is not None:
+            self.android_vivo_receipt_id = m.get('AndroidVivoReceiptId')
         if m.get('AndroidXiaoMiActivity') is not None:
             self.android_xiao_mi_activity = m.get('AndroidXiaoMiActivity')
         if m.get('AndroidXiaoMiNotifyBody') is not None:
@@ -1810,15 +1815,16 @@ class PushRequest(TeaModel):
                  android_notification_huawei_channel=None, android_notification_notify_id=None, android_notification_vivo_channel=None,
                  android_notification_xiaomi_channel=None, android_notify_type=None, android_open_type=None, android_open_url=None,
                  android_popup_activity=None, android_popup_body=None, android_popup_title=None, android_remind=None,
-                 android_render_style=None, android_target_user_type=None, android_vivo_push_mode=None, android_xiao_mi_activity=None,
-                 android_xiao_mi_notify_body=None, android_xiao_mi_notify_title=None, android_xiaomi_big_picture_url=None,
-                 android_xiaomi_image_url=None, app_key=None, body=None, device_type=None, expire_time=None, job_key=None, push_time=None,
-                 push_type=None, send_channels=None, send_speed=None, sms_delay_secs=None, sms_params=None,
-                 sms_send_policy=None, sms_sign_name=None, sms_template_name=None, store_offline=None, target=None,
-                 target_value=None, title=None, trim=None, i_osapns_env=None, i_osbadge=None, i_osbadge_auto_increment=None,
-                 i_osext_parameters=None, i_osinterruption_level=None, i_osmusic=None, i_osmutable_content=None,
-                 i_osnotification_category=None, i_osnotification_collapse_id=None, i_osnotification_thread_id=None,
-                 i_osrelevance_score=None, i_osremind=None, i_osremind_body=None, i_ossilent_notification=None, i_ossubtitle=None):
+                 android_render_style=None, android_target_user_type=None, android_vivo_push_mode=None, android_vivo_receipt_id=None,
+                 android_xiao_mi_activity=None, android_xiao_mi_notify_body=None, android_xiao_mi_notify_title=None,
+                 android_xiaomi_big_picture_url=None, android_xiaomi_image_url=None, app_key=None, body=None, device_type=None, expire_time=None,
+                 job_key=None, push_time=None, push_type=None, send_channels=None, send_speed=None, sms_delay_secs=None,
+                 sms_params=None, sms_send_policy=None, sms_sign_name=None, sms_template_name=None, store_offline=None,
+                 target=None, target_value=None, title=None, trim=None, i_osapns_env=None, i_osbadge=None,
+                 i_osbadge_auto_increment=None, i_osext_parameters=None, i_osinterruption_level=None, i_osmusic=None,
+                 i_osmutable_content=None, i_osnotification_category=None, i_osnotification_collapse_id=None,
+                 i_osnotification_thread_id=None, i_osrelevance_score=None, i_osremind=None, i_osremind_body=None,
+                 i_ossilent_notification=None, i_ossubtitle=None):
         self.android_activity = android_activity  # type: str
         self.android_big_body = android_big_body  # type: str
         self.android_big_picture_url = android_big_picture_url  # type: str
@@ -1852,6 +1858,7 @@ class PushRequest(TeaModel):
         self.android_render_style = android_render_style  # type: int
         self.android_target_user_type = android_target_user_type  # type: int
         self.android_vivo_push_mode = android_vivo_push_mode  # type: int
+        self.android_vivo_receipt_id = android_vivo_receipt_id  # type: str
         self.android_xiao_mi_activity = android_xiao_mi_activity  # type: str
         self.android_xiao_mi_notify_body = android_xiao_mi_notify_body  # type: str
         self.android_xiao_mi_notify_title = android_xiao_mi_notify_title  # type: str
@@ -1967,6 +1974,8 @@ class PushRequest(TeaModel):
             result['AndroidTargetUserType'] = self.android_target_user_type
         if self.android_vivo_push_mode is not None:
             result['AndroidVivoPushMode'] = self.android_vivo_push_mode
+        if self.android_vivo_receipt_id is not None:
+            result['AndroidVivoReceiptId'] = self.android_vivo_receipt_id
         if self.android_xiao_mi_activity is not None:
             result['AndroidXiaoMiActivity'] = self.android_xiao_mi_activity
         if self.android_xiao_mi_notify_body is not None:
@@ -2115,6 +2124,8 @@ class PushRequest(TeaModel):
             self.android_target_user_type = m.get('AndroidTargetUserType')
         if m.get('AndroidVivoPushMode') is not None:
             self.android_vivo_push_mode = m.get('AndroidVivoPushMode')
+        if m.get('AndroidVivoReceiptId') is not None:
+            self.android_vivo_receipt_id = m.get('AndroidVivoReceiptId')
         if m.get('AndroidXiaoMiActivity') is not None:
             self.android_xiao_mi_activity = m.get('AndroidXiaoMiActivity')
         if m.get('AndroidXiaoMiNotifyBody') is not None:
