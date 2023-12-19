@@ -4936,10 +4936,10 @@ class Client(OpenApiClient):
 
     def create_snat_entry_with_options(self, request, runtime):
         """
-        You can call this operation to add SNAT entries to Internet NAT gateways and Virtual Private Cloud (VPC) NAT gateways. In this topic, a *NAT gateway** refers to both gateway types.
+        You can call this operation to add SNAT entries to Internet NAT gateways and Virtual Private Cloud (VPC) NAT gateways. In this topic, a *NAT** gateway refers to both gateway types.
         Before you call this operation, take note of the following limits:
         *   **CreateSnatEntry** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeSnatTableEntries](~~42677~~) operation to query the status of the task.
-        *   If the SNAT entry is in the **Pending** state, the system is adding the SNAT entry. You can only query the status of the SNAT entry, but cannot perform other operations.
+        *   If the SNAT entry is in the **Pending** state, the system is adding the SNAT entry. You can only query the status of the SNAT entry, and cannot perform other operations.
         *   If the SNAT entry is in the **Available** state, the SNAT entry is added.
         *   You cannot repeatedly call the **CreateSnatEntry** operation to add an SNAT entry to an SNAT table within the specified period of time.
         *   The vSwitch and Elastic Compute Service (ECS) instance specified in an SNAT entry must be created in the VPC where the NAT gateway is deployed.
@@ -5000,10 +5000,10 @@ class Client(OpenApiClient):
 
     def create_snat_entry(self, request):
         """
-        You can call this operation to add SNAT entries to Internet NAT gateways and Virtual Private Cloud (VPC) NAT gateways. In this topic, a *NAT gateway** refers to both gateway types.
+        You can call this operation to add SNAT entries to Internet NAT gateways and Virtual Private Cloud (VPC) NAT gateways. In this topic, a *NAT** gateway refers to both gateway types.
         Before you call this operation, take note of the following limits:
         *   **CreateSnatEntry** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeSnatTableEntries](~~42677~~) operation to query the status of the task.
-        *   If the SNAT entry is in the **Pending** state, the system is adding the SNAT entry. You can only query the status of the SNAT entry, but cannot perform other operations.
+        *   If the SNAT entry is in the **Pending** state, the system is adding the SNAT entry. You can only query the status of the SNAT entry, and cannot perform other operations.
         *   If the SNAT entry is in the **Available** state, the SNAT entry is added.
         *   You cannot repeatedly call the **CreateSnatEntry** operation to add an SNAT entry to an SNAT table within the specified period of time.
         *   The vSwitch and Elastic Compute Service (ECS) instance specified in an SNAT entry must be created in the VPC where the NAT gateway is deployed.
@@ -13123,6 +13123,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_vpn_gateway_with_options(request, runtime)
 
+    def describe_vpn_gateway_available_zones_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeVpnGatewayAvailableZones',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.DescribeVpnGatewayAvailableZonesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_vpn_gateway_available_zones(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_vpn_gateway_available_zones_with_options(request, runtime)
+
     def describe_vpn_gateways_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -13422,6 +13448,46 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.detach_dhcp_options_set_from_vpc_with_options(request, runtime)
+
+    def diagnose_vpn_connections_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tunnel_ids):
+            query['TunnelIds'] = request.tunnel_ids
+        if not UtilClient.is_unset(request.vpn_connection_ids):
+            query['VpnConnectionIds'] = request.vpn_connection_ids
+        if not UtilClient.is_unset(request.vpn_gateway_id):
+            query['VpnGatewayId'] = request.vpn_gateway_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DiagnoseVpnConnections',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.DiagnoseVpnConnectionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def diagnose_vpn_connections(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.diagnose_vpn_connections_with_options(request, runtime)
 
     def diagnose_vpn_gateway_with_options(self, request, runtime):
         """

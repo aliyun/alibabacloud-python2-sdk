@@ -10413,8 +10413,7 @@ class CreateNatGatewayRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # Specifies whether to enable the firewall feature. Valid values:
         # 
-        # *   **false** (default)
-        # *   **true**\
+        # *   **false** (default)><notice>This parameter is deprecated.></notice>
         self.security_protection_enabled = security_protection_enabled  # type: bool
         # Subscription Internet NAT gateways are no longer available for purchase. Ignore this parameter.
         self.spec = spec  # type: str
@@ -13729,11 +13728,9 @@ class CreateSnatEntryRequest(TeaModel):
         self.snat_entry_name = snat_entry_name  # type: str
         # *   The EIPs in the SNAT entry when you add an SNAT entry to an Internet NAT gateway. Separate EIPs with commas (,).
         # 
-        # **\
+        # >  If you specify multiple EIPs in the SNAT IP address pool, the service connection is allocated to multiple EIPs by using the hashing algorithm. The traffic of each EIP may be different. Therefore, we recommend that you associate the EIPs with an Internet Shared Bandwidth instance to prevent service interruptions caused by bandwidth exhaustion.
         # 
-        # **Description** If you specify multiple EIPs in the SNAT IP address pool, the service connection is allocated to multiple EIPs by using the hashing algorithm. The traffic of each EIP may be different. Therefore, we recommend that you associate the EIPs with an Internet Shared Bandwidth instance to prevent service interruptions caused by bandwidth exhaustion.
-        # 
-        # *   When you add an SNAT entry to a VPC NAT gateway, this parameter specifies the NAT IP address in the SNAT entry.
+        # *   When you add SNAT entries for a VPC NAT gateway, this parameter specifies the NAT IP addresses in the SNAT entry. Separate multiple NAT IP addresses with commas (,).
         self.snat_ip = snat_ip  # type: str
         # The ID of the SNAT table.
         self.snat_table_id = snat_table_id  # type: str
@@ -53329,6 +53326,171 @@ class DescribeVpnGatewayResponse(TeaModel):
         return self
 
 
+class DescribeVpnGatewayAvailableZonesRequest(TeaModel):
+    def __init__(self, accept_language=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, spec=None):
+        self.accept_language = accept_language  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.spec = spec  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeVpnGatewayAvailableZonesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.spec is not None:
+            result['Spec'] = self.spec
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('Spec') is not None:
+            self.spec = m.get('Spec')
+        return self
+
+
+class DescribeVpnGatewayAvailableZonesResponseBodyAvailableZoneIdList(TeaModel):
+    def __init__(self, zone_id=None, zone_name=None):
+        self.zone_id = zone_id  # type: str
+        self.zone_name = zone_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeVpnGatewayAvailableZonesResponseBodyAvailableZoneIdList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        if self.zone_name is not None:
+            result['ZoneName'] = self.zone_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        if m.get('ZoneName') is not None:
+            self.zone_name = m.get('ZoneName')
+        return self
+
+
+class DescribeVpnGatewayAvailableZonesResponseBody(TeaModel):
+    def __init__(self, available_zone_id_list=None, region_id=None, request_id=None):
+        self.available_zone_id_list = available_zone_id_list  # type: list[DescribeVpnGatewayAvailableZonesResponseBodyAvailableZoneIdList]
+        self.region_id = region_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.available_zone_id_list:
+            for k in self.available_zone_id_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeVpnGatewayAvailableZonesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AvailableZoneIdList'] = []
+        if self.available_zone_id_list is not None:
+            for k in self.available_zone_id_list:
+                result['AvailableZoneIdList'].append(k.to_map() if k else None)
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.available_zone_id_list = []
+        if m.get('AvailableZoneIdList') is not None:
+            for k in m.get('AvailableZoneIdList'):
+                temp_model = DescribeVpnGatewayAvailableZonesResponseBodyAvailableZoneIdList()
+                self.available_zone_id_list.append(temp_model.from_map(k))
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeVpnGatewayAvailableZonesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeVpnGatewayAvailableZonesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeVpnGatewayAvailableZonesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeVpnGatewayAvailableZonesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeVpnGatewaysRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         # The tag key. The tag key cannot be an empty string.
@@ -55148,6 +55310,217 @@ class DetachDhcpOptionsSetFromVpcResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DetachDhcpOptionsSetFromVpcResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DiagnoseVpnConnectionsRequest(TeaModel):
+    def __init__(self, page_number=None, page_size=None, region_id=None, resource_owner_id=None, tunnel_ids=None,
+                 vpn_connection_ids=None, vpn_gateway_id=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.region_id = region_id  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.tunnel_ids = tunnel_ids  # type: list[str]
+        self.vpn_connection_ids = vpn_connection_ids  # type: list[str]
+        self.vpn_gateway_id = vpn_gateway_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DiagnoseVpnConnectionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.tunnel_ids is not None:
+            result['TunnelIds'] = self.tunnel_ids
+        if self.vpn_connection_ids is not None:
+            result['VpnConnectionIds'] = self.vpn_connection_ids
+        if self.vpn_gateway_id is not None:
+            result['VpnGatewayId'] = self.vpn_gateway_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('TunnelIds') is not None:
+            self.tunnel_ids = m.get('TunnelIds')
+        if m.get('VpnConnectionIds') is not None:
+            self.vpn_connection_ids = m.get('VpnConnectionIds')
+        if m.get('VpnGatewayId') is not None:
+            self.vpn_gateway_id = m.get('VpnGatewayId')
+        return self
+
+
+class DiagnoseVpnConnectionsResponseBodyVpnConnections(TeaModel):
+    def __init__(self, failed_reason=None, failed_reason_code=None, failed_time=None, mismatch_local_param=None,
+                 mismatch_remote_param=None, severity=None, source_log=None, tunnel_id=None, vpn_connection_id=None):
+        self.failed_reason = failed_reason  # type: str
+        self.failed_reason_code = failed_reason_code  # type: str
+        self.failed_time = failed_time  # type: long
+        self.mismatch_local_param = mismatch_local_param  # type: str
+        self.mismatch_remote_param = mismatch_remote_param  # type: str
+        self.severity = severity  # type: str
+        self.source_log = source_log  # type: str
+        self.tunnel_id = tunnel_id  # type: str
+        self.vpn_connection_id = vpn_connection_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DiagnoseVpnConnectionsResponseBodyVpnConnections, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.failed_reason is not None:
+            result['FailedReason'] = self.failed_reason
+        if self.failed_reason_code is not None:
+            result['FailedReasonCode'] = self.failed_reason_code
+        if self.failed_time is not None:
+            result['FailedTime'] = self.failed_time
+        if self.mismatch_local_param is not None:
+            result['MismatchLocalParam'] = self.mismatch_local_param
+        if self.mismatch_remote_param is not None:
+            result['MismatchRemoteParam'] = self.mismatch_remote_param
+        if self.severity is not None:
+            result['Severity'] = self.severity
+        if self.source_log is not None:
+            result['SourceLog'] = self.source_log
+        if self.tunnel_id is not None:
+            result['TunnelId'] = self.tunnel_id
+        if self.vpn_connection_id is not None:
+            result['VpnConnectionId'] = self.vpn_connection_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FailedReason') is not None:
+            self.failed_reason = m.get('FailedReason')
+        if m.get('FailedReasonCode') is not None:
+            self.failed_reason_code = m.get('FailedReasonCode')
+        if m.get('FailedTime') is not None:
+            self.failed_time = m.get('FailedTime')
+        if m.get('MismatchLocalParam') is not None:
+            self.mismatch_local_param = m.get('MismatchLocalParam')
+        if m.get('MismatchRemoteParam') is not None:
+            self.mismatch_remote_param = m.get('MismatchRemoteParam')
+        if m.get('Severity') is not None:
+            self.severity = m.get('Severity')
+        if m.get('SourceLog') is not None:
+            self.source_log = m.get('SourceLog')
+        if m.get('TunnelId') is not None:
+            self.tunnel_id = m.get('TunnelId')
+        if m.get('VpnConnectionId') is not None:
+            self.vpn_connection_id = m.get('VpnConnectionId')
+        return self
+
+
+class DiagnoseVpnConnectionsResponseBody(TeaModel):
+    def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None, vpn_connections=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+        self.vpn_connections = vpn_connections  # type: list[DiagnoseVpnConnectionsResponseBodyVpnConnections]
+
+    def validate(self):
+        if self.vpn_connections:
+            for k in self.vpn_connections:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DiagnoseVpnConnectionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        result['VpnConnections'] = []
+        if self.vpn_connections is not None:
+            for k in self.vpn_connections:
+                result['VpnConnections'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        self.vpn_connections = []
+        if m.get('VpnConnections') is not None:
+            for k in m.get('VpnConnections'):
+                temp_model = DiagnoseVpnConnectionsResponseBodyVpnConnections()
+                self.vpn_connections.append(temp_model.from_map(k))
+        return self
+
+
+class DiagnoseVpnConnectionsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DiagnoseVpnConnectionsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DiagnoseVpnConnectionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DiagnoseVpnConnectionsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -65283,6 +65656,7 @@ class ListTrafficMirrorFiltersResponseBodyTrafficMirrorFilters(TeaModel):
     def __init__(self, creation_time=None, egress_rules=None, ingress_rules=None, resource_group_id=None, tags=None,
                  traffic_mirror_filter_description=None, traffic_mirror_filter_id=None, traffic_mirror_filter_name=None,
                  traffic_mirror_filter_status=None):
+        # The time when the filter is created.
         self.creation_time = creation_time  # type: str
         # The details about the outbound rules.
         self.egress_rules = egress_rules  # type: list[ListTrafficMirrorFiltersResponseBodyTrafficMirrorFiltersEgressRules]
@@ -65698,6 +66072,7 @@ class ListTrafficMirrorSessionsResponseBodyTrafficMirrorSessions(TeaModel):
                  traffic_mirror_session_description=None, traffic_mirror_session_id=None, traffic_mirror_session_name=None,
                  traffic_mirror_session_status=None, traffic_mirror_source_ids=None, traffic_mirror_target_id=None,
                  traffic_mirror_target_type=None, virtual_network_id=None):
+        # The time when the session is created.
         self.creation_time = creation_time  # type: str
         # Indicates whether the traffic mirror session was enabled.
         # 
@@ -81430,15 +81805,15 @@ class StopFailoverTestJobResponse(TeaModel):
 
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of the tag that is added to the resource. You can specify at most 20 tag keys. 
+        # The key of the tag that is added to the resource. You can specify at most 20 tag keys.
         # 
         # The key cannot exceed 128 characters in length. The key cannot start with `aliyun` or `acs:` and cannot contain `http://` or `https://`.
         # 
         # > When you call this operation, the **Tag.N.Key** parameter is required and cannot be an empty string.
         self.key = key  # type: str
-        # The value of the tag that is added to the resource. You can specify at most 20 tag values. 
+        # The value of the tag that is added to the resource. You can specify at most 20 tag values.
         # 
-        # The tag value cannot exceed 128 characters in length. The key cannot start with `aliyun` or `acs:`. The key cannot contain `http://` or `https://`.
+        # The tag value cannot exceed 128 characters in length. The value cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.
         # 
         # > When you call this operation, the **Tag.N.Value** parameter is required and can be an empty string.
         self.value = value  # type: str
@@ -81490,7 +81865,7 @@ class TagResourcesRequest(TeaModel):
         # *   **NATGATEWAY**: a NAT gateway
         # *   **COMMONBANDWIDTHPACKAGE**: an EIP bandwidth plan
         self.resource_type = resource_type  # type: str
-        # The tags.
+        # The tag information.
         self.tag = tag  # type: list[TagResourcesRequestTag]
 
     def validate(self):
