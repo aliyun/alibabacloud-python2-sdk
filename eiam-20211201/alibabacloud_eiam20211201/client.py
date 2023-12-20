@@ -2088,6 +2088,58 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_domains_with_options(request, runtime)
 
+    def list_eiam_instances_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_ids):
+            query['InstanceIds'] = request.instance_ids
+        if not UtilClient.is_unset(request.instance_region_id):
+            query['InstanceRegionId'] = request.instance_region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListEiamInstances',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.ListEiamInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_eiam_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_eiam_instances_with_options(request, runtime)
+
+    def list_eiam_regions_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='ListEiamRegions',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.ListEiamRegionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_eiam_regions(self):
+        runtime = util_models.RuntimeOptions()
+        return self.list_eiam_regions_with_options(runtime)
+
     def list_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
