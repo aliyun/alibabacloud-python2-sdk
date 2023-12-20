@@ -422,7 +422,10 @@ class Client(OpenApiClient):
 
     def delete_data_source_with_options(self, instance_id, data_source_name, headers, runtime):
         """
-        The result returned
+        ## Method
+        `DELETE`
+        ## URI
+        `/openapi/ha3/instances/{instanceId}/data-sources/{dataSourceName}`
         
 
         @type headers: dict
@@ -453,7 +456,10 @@ class Client(OpenApiClient):
 
     def delete_data_source(self, instance_id, data_source_name):
         """
-        The result returned
+        ## Method
+        `DELETE`
+        ## URI
+        `/openapi/ha3/instances/{instanceId}/data-sources/{dataSourceName}`
         
 
         @return: DeleteDataSourceResponse
@@ -1198,7 +1204,7 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_advance_configs_with_options(instance_id, request, headers, runtime)
 
-    def list_cluster_names_with_options(self, instance_id, headers, runtime):
+    def list_cluster_names_with_options(self, headers, runtime):
         """
         ### Sample requests
         ```java
@@ -1220,7 +1226,7 @@ class Client(OpenApiClient):
             action='ListClusterNames',
             version='2021-10-25',
             protocol='HTTPS',
-            pathname='/openapi/ha3/instances/%s/cluster-names' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)),
+            pathname='/openapi/ha3/cluster-names',
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1232,7 +1238,7 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_cluster_names(self, instance_id):
+    def list_cluster_names(self):
         """
         ### Sample requests
         ```java
@@ -1244,7 +1250,7 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_cluster_names_with_options(instance_id, headers, runtime)
+        return self.list_cluster_names_with_options(headers, runtime)
 
     def list_cluster_tasks_with_options(self, instance_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1406,6 +1412,22 @@ class Client(OpenApiClient):
         return self.list_data_sources_with_options(instance_id, headers, runtime)
 
     def list_date_source_generations_with_options(self, instance_id, data_source_name, request, headers, runtime):
+        """
+        ### Method
+        `GET`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}/data-sources/{dataSourceName}/generations?domainName={domainName}`
+        
+
+        @param request: ListDateSourceGenerationsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDateSourceGenerationsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -1433,6 +1455,17 @@ class Client(OpenApiClient):
         )
 
     def list_date_source_generations(self, instance_id, data_source_name, request):
+        """
+        ### Method
+        `GET`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}/data-sources/{dataSourceName}/generations?domainName={domainName}`
+        
+
+        @param request: ListDateSourceGenerationsRequest
+
+        @return: ListDateSourceGenerationsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_date_source_generations_with_options(instance_id, data_source_name, request, headers, runtime)
@@ -1766,7 +1799,10 @@ class Client(OpenApiClient):
 
     def modify_cluster_desc_with_options(self, instance_id, cluster_name, request, headers, runtime):
         """
-        The name of the cluster
+        ### Method
+        `PUT`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}/clusters/{clusterName}/desc`
         
 
         @param request: ModifyClusterDescRequest
@@ -1804,7 +1840,10 @@ class Client(OpenApiClient):
 
     def modify_cluster_desc(self, instance_id, cluster_name, request):
         """
-        The name of the cluster
+        ### Method
+        `PUT`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}/clusters/{clusterName}/desc`
         
 
         @param request: ModifyClusterDescRequest
@@ -2507,7 +2546,10 @@ class Client(OpenApiClient):
 
     def recover_index_with_options(self, instance_id, request, headers, runtime):
         """
-        The name of the index
+        ### Method
+        `POST`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}/recover-index`
         
 
         @param request: RecoverIndexRequest
@@ -2551,7 +2593,10 @@ class Client(OpenApiClient):
 
     def recover_index(self, instance_id, request):
         """
-        The name of the index
+        ### Method
+        `POST`
+        ### URI
+        `/openapi/ha3/instances/{instanceId}/recover-index`
         
 
         @param request: RecoverIndexRequest

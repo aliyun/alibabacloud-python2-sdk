@@ -1182,7 +1182,9 @@ class DeleteAdvanceConfigResponse(TeaModel):
 
 class DeleteDataSourceResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None):
+        # The ID of the request
         self.request_id = request_id  # type: str
+        # The result returned
         self.result = result  # type: dict[str, any]
 
     def validate(self):
@@ -6223,8 +6225,12 @@ class ListDataSourcesResponse(TeaModel):
 
 class ListDateSourceGenerationsRequest(TeaModel):
     def __init__(self, domain_name=None, valid_status=None):
+        # The data center where the data source is deployed.
         self.domain_name = domain_name  # type: str
-        # Obtains the data restoration version of a data source.
+        # The valid state of the data source. Valid values: true and false. The default value of this parameter is true.
+        # 
+        # 1.  true indicates that the generations that have not expired and of which the tasks have been executed are returned.
+        # 2.  false indicates that all generations are returned.
         self.valid_status = valid_status  # type: bool
 
     def validate(self):
@@ -6256,11 +6262,17 @@ class ListDateSourceGenerationsResponseBodyResult(TeaModel):
                  status=None, timestamp=None):
         # buildDeployId
         self.build_deploy_id = build_deploy_id  # type: int
+        # The time to start index building.
         self.create_time = create_time  # type: long
+        # The directory where the index file created by using the dump table is saved.
         self.data_dump_root = data_dump_root  # type: str
+        # The primary key of the generation.
         self.generation = generation  # type: long
+        # Key indicates the name of the index. value indicates the number of shards.
         self.partition = partition  # type: dict[str, int]
+        # The status.
         self.status = status  # type: str
+        # The timestamp when the offline indexing was initiated.
         self.timestamp = timestamp  # type: long
 
     def validate(self):
@@ -7851,6 +7863,7 @@ class ModifyAdvanceConfigFileResponse(TeaModel):
 
 class ModifyClusterDescRequest(TeaModel):
     def __init__(self, body=None):
+        # The parameters in the request body
         self.body = body  # type: dict[str, any]
 
     def validate(self):
@@ -7875,6 +7888,7 @@ class ModifyClusterDescRequest(TeaModel):
 
 class ModifyClusterDescResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None):
+        # The ID of the request
         self.request_id = request_id  # type: str
         # Map
         self.result = result  # type: dict[str, any]
@@ -8553,9 +8567,11 @@ class ModifyIndexPartitionResponse(TeaModel):
 
 class ModifyIndexVersionRequestBody(TeaModel):
     def __init__(self, build_deploy_id=None, index_name=None, version=None):
+        # The ID of the index deployed in offline mode.
         self.build_deploy_id = build_deploy_id  # type: str
-        # WB01240825
+        # The name of the index.
         self.index_name = index_name  # type: str
+        # The version of the index.
         self.version = version  # type: str
 
     def validate(self):
@@ -8588,37 +8604,7 @@ class ModifyIndexVersionRequestBody(TeaModel):
 
 class ModifyIndexVersionRequest(TeaModel):
     def __init__(self, body=None):
-        # ## Sample requests
-        # 
-        # ﻿
-        # 
-        #     PUT /openapi/ha3/instances/ha3_instance_nameclusters/test_cluster/index-version
-        # 
-        # ﻿
-        # 
-        #     [
-        #     ﻿
-        #       {
-        #     ﻿
-        #         "indexName": "index1",
-        #     ﻿
-        #         "version": "123456",
-        #     ﻿
-        #         "buildDeployId": "20201010"
-        #     ﻿
-        #       },
-        #     ﻿
-        #       {
-        #     ﻿
-        #         "indexName": "index1",
-        #     ﻿
-        #         "version": "123456",
-        #     ﻿
-        #         "buildDeployId": "20201010"
-        #     ﻿
-        #       }
-        #     ﻿
-        #     ]
+        # The keyword used to search for a version. Fuzzy match is supported.
         self.body = body  # type: list[ModifyIndexVersionRequestBody]
 
     def validate(self):
@@ -9246,9 +9232,11 @@ class RecoverIndexRequest(TeaModel):
     def __init__(self, build_deploy_id=None, data_source_name=None, generation=None, index_name=None):
         # buildDeployId
         self.build_deploy_id = build_deploy_id  # type: int
+        # The name of the data source
         self.data_source_name = data_source_name  # type: str
         # generation
         self.generation = generation  # type: str
+        # The name of the index
         self.index_name = index_name  # type: str
 
     def validate(self):
