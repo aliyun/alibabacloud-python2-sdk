@@ -11839,6 +11839,84 @@ class ListDeployConfigResponseBodyDataContainerCodePath(TeaModel):
         return self
 
 
+class ListDeployConfigResponseBodyDataContainerResourceLimit(TeaModel):
+    def __init__(self, cpu=None, gpu=None, memory=None, storage=None):
+        self.cpu = cpu  # type: str
+        self.gpu = gpu  # type: str
+        self.memory = memory  # type: str
+        self.storage = storage  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeployConfigResponseBodyDataContainerResourceLimit, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cpu is not None:
+            result['Cpu'] = self.cpu
+        if self.gpu is not None:
+            result['Gpu'] = self.gpu
+        if self.memory is not None:
+            result['Memory'] = self.memory
+        if self.storage is not None:
+            result['Storage'] = self.storage
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Cpu') is not None:
+            self.cpu = m.get('Cpu')
+        if m.get('Gpu') is not None:
+            self.gpu = m.get('Gpu')
+        if m.get('Memory') is not None:
+            self.memory = m.get('Memory')
+        if m.get('Storage') is not None:
+            self.storage = m.get('Storage')
+        return self
+
+
+class ListDeployConfigResponseBodyDataContainerResourceRequest(TeaModel):
+    def __init__(self, cpu=None, gpu=None, memory=None, storage=None):
+        self.cpu = cpu  # type: str
+        self.gpu = gpu  # type: str
+        self.memory = memory  # type: str
+        self.storage = storage  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeployConfigResponseBodyDataContainerResourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cpu is not None:
+            result['Cpu'] = self.cpu
+        if self.gpu is not None:
+            result['Gpu'] = self.gpu
+        if self.memory is not None:
+            result['Memory'] = self.memory
+        if self.storage is not None:
+            result['Storage'] = self.storage
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Cpu') is not None:
+            self.cpu = m.get('Cpu')
+        if m.get('Gpu') is not None:
+            self.gpu = m.get('Gpu')
+        if m.get('Memory') is not None:
+            self.memory = m.get('Memory')
+        if m.get('Storage') is not None:
+            self.storage = m.get('Storage')
+        return self
+
+
 class ListDeployConfigResponseBodyDataContainerYamlConf(TeaModel):
     def __init__(self, config_map=None, config_map_list=None, cron_job=None, deployment=None, secret_list=None,
                  stateful_set=None):
@@ -11890,10 +11968,12 @@ class ListDeployConfigResponseBodyDataContainerYamlConf(TeaModel):
 
 
 class ListDeployConfigResponseBodyData(TeaModel):
-    def __init__(self, app_id=None, container_code_path=None, container_yaml_conf=None, env_type=None, id=None,
-                 name=None):
+    def __init__(self, app_id=None, container_code_path=None, container_resource_limit=None,
+                 container_resource_request=None, container_yaml_conf=None, env_type=None, id=None, name=None):
         self.app_id = app_id  # type: long
         self.container_code_path = container_code_path  # type: ListDeployConfigResponseBodyDataContainerCodePath
+        self.container_resource_limit = container_resource_limit  # type: ListDeployConfigResponseBodyDataContainerResourceLimit
+        self.container_resource_request = container_resource_request  # type: ListDeployConfigResponseBodyDataContainerResourceRequest
         self.container_yaml_conf = container_yaml_conf  # type: ListDeployConfigResponseBodyDataContainerYamlConf
         self.env_type = env_type  # type: str
         self.id = id  # type: long
@@ -11902,6 +11982,10 @@ class ListDeployConfigResponseBodyData(TeaModel):
     def validate(self):
         if self.container_code_path:
             self.container_code_path.validate()
+        if self.container_resource_limit:
+            self.container_resource_limit.validate()
+        if self.container_resource_request:
+            self.container_resource_request.validate()
         if self.container_yaml_conf:
             self.container_yaml_conf.validate()
 
@@ -11915,6 +11999,10 @@ class ListDeployConfigResponseBodyData(TeaModel):
             result['AppId'] = self.app_id
         if self.container_code_path is not None:
             result['ContainerCodePath'] = self.container_code_path.to_map()
+        if self.container_resource_limit is not None:
+            result['ContainerResourceLimit'] = self.container_resource_limit.to_map()
+        if self.container_resource_request is not None:
+            result['ContainerResourceRequest'] = self.container_resource_request.to_map()
         if self.container_yaml_conf is not None:
             result['ContainerYamlConf'] = self.container_yaml_conf.to_map()
         if self.env_type is not None:
@@ -11932,6 +12020,12 @@ class ListDeployConfigResponseBodyData(TeaModel):
         if m.get('ContainerCodePath') is not None:
             temp_model = ListDeployConfigResponseBodyDataContainerCodePath()
             self.container_code_path = temp_model.from_map(m['ContainerCodePath'])
+        if m.get('ContainerResourceLimit') is not None:
+            temp_model = ListDeployConfigResponseBodyDataContainerResourceLimit()
+            self.container_resource_limit = temp_model.from_map(m['ContainerResourceLimit'])
+        if m.get('ContainerResourceRequest') is not None:
+            temp_model = ListDeployConfigResponseBodyDataContainerResourceRequest()
+            self.container_resource_request = temp_model.from_map(m['ContainerResourceRequest'])
         if m.get('ContainerYamlConf') is not None:
             temp_model = ListDeployConfigResponseBodyDataContainerYamlConf()
             self.container_yaml_conf = temp_model.from_map(m['ContainerYamlConf'])
