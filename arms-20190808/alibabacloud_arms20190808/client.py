@@ -6144,6 +6144,56 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_app_metadata_with_options(request, runtime)
 
+    def query_app_topology_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = arms20190808_models.QueryAppTopologyShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.filters):
+            request.filters_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.filters, 'Filters', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.app_type):
+            query['AppType'] = request.app_type
+        if not UtilClient.is_unset(request.db):
+            query['Db'] = request.db
+        if not UtilClient.is_unset(request.db_name):
+            query['DbName'] = request.db_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.filters_shrink):
+            query['Filters'] = request.filters_shrink
+        if not UtilClient.is_unset(request.pid):
+            query['Pid'] = request.pid
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.rpc):
+            query['Rpc'] = request.rpc
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryAppTopology',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.QueryAppTopologyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_app_topology(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_app_topology_with_options(request, runtime)
+
     def query_commercial_usage_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
