@@ -84,7 +84,7 @@ class CreateTaskRequestParametersMeetingAssistance(TeaModel):
 
 class CreateTaskRequestParametersSummarization(TeaModel):
     def __init__(self, types=None):
-        self.types = types  # type: dict[str, any]
+        self.types = types  # type: list[str]
 
     def validate(self):
         pass
@@ -220,7 +220,7 @@ class CreateTaskRequestParametersTranscription(TeaModel):
 class CreateTaskRequestParametersTranslation(TeaModel):
     def __init__(self, output_level=None, target_languages=None):
         self.output_level = output_level  # type: int
-        self.target_languages = target_languages  # type: dict[str, any]
+        self.target_languages = target_languages  # type: list[str]
 
     def validate(self):
         pass
