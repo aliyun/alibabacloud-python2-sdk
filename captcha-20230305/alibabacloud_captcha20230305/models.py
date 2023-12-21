@@ -138,8 +138,9 @@ class VerifyCaptchaResponse(TeaModel):
 
 
 class VerifyIntelligentCaptchaRequest(TeaModel):
-    def __init__(self, captcha_verify_param=None):
+    def __init__(self, captcha_verify_param=None, scene_id=None):
         self.captcha_verify_param = captcha_verify_param  # type: str
+        self.scene_id = scene_id  # type: str
 
     def validate(self):
         pass
@@ -152,17 +153,22 @@ class VerifyIntelligentCaptchaRequest(TeaModel):
         result = dict()
         if self.captcha_verify_param is not None:
             result['CaptchaVerifyParam'] = self.captcha_verify_param
+        if self.scene_id is not None:
+            result['SceneId'] = self.scene_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('CaptchaVerifyParam') is not None:
             self.captcha_verify_param = m.get('CaptchaVerifyParam')
+        if m.get('SceneId') is not None:
+            self.scene_id = m.get('SceneId')
         return self
 
 
 class VerifyIntelligentCaptchaResponseBodyResult(TeaModel):
-    def __init__(self, verify_result=None):
+    def __init__(self, verify_code=None, verify_result=None):
+        self.verify_code = verify_code  # type: str
         self.verify_result = verify_result  # type: bool
 
     def validate(self):
@@ -174,12 +180,16 @@ class VerifyIntelligentCaptchaResponseBodyResult(TeaModel):
             return _map
 
         result = dict()
+        if self.verify_code is not None:
+            result['VerifyCode'] = self.verify_code
         if self.verify_result is not None:
             result['VerifyResult'] = self.verify_result
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('VerifyCode') is not None:
+            self.verify_code = m.get('VerifyCode')
         if m.get('VerifyResult') is not None:
             self.verify_result = m.get('VerifyResult')
         return self
