@@ -1825,6 +1825,9 @@ class AllocateClusterPublicConnectionResponse(TeaModel):
 
 class AttachUserENIRequest(TeaModel):
     def __init__(self, dbcluster_id=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the information about all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region, including cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -1849,6 +1852,7 @@ class AttachUserENIRequest(TeaModel):
 
 class AttachUserENIResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2013,8 +2017,11 @@ class BindAccountResponse(TeaModel):
 
 class BindDBResourceGroupWithUserRequest(TeaModel):
     def __init__(self, dbcluster_id=None, group_name=None, group_user=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The name of the resource group.
         self.group_name = group_name  # type: str
+        # The name of the database account. It can be a standard account or a privileged account.
         self.group_user = group_user  # type: str
 
     def validate(self):
@@ -2047,7 +2054,7 @@ class BindDBResourceGroupWithUserRequest(TeaModel):
 
 class BindDBResourceGroupWithUserResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2217,6 +2224,7 @@ class CheckBindRamUserResponse(TeaModel):
 
 class CheckSampleDataSetRequest(TeaModel):
     def __init__(self, dbcluster_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -2241,7 +2249,14 @@ class CheckSampleDataSetRequest(TeaModel):
 
 class CheckSampleDataSetResponseBody(TeaModel):
     def __init__(self, request_id=None, status=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The state of the built-in dataset. Valid values:
+        # 
+        # *   **SUCCEED**: The dataset is loaded.
+        # *   **INIT**: The dataset is being loaded.
+        # *   **FAILED**: The dataset failed to be loaded.
+        # *   **UNINITIALIZED**: The dataset is not loaded.
         self.status = status  # type: str
 
     def validate(self):
@@ -6752,6 +6767,9 @@ class DescribeAuditLogRecordsResponse(TeaModel):
 class DescribeBackupPolicyRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The cluster ID.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the information about all AnalyticDB for MySQL clusters within a region, including cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -6797,11 +6815,28 @@ class DescribeBackupPolicyRequest(TeaModel):
 class DescribeBackupPolicyResponseBody(TeaModel):
     def __init__(self, backup_retention_period=None, enable_backup_log=None, log_backup_retention_period=None,
                  preferred_backup_period=None, preferred_backup_time=None, request_id=None):
+        # The number of days for which data backup files are retained.
         self.backup_retention_period = backup_retention_period  # type: int
+        # Indicates whether log backup is enabled. Valid values:
+        # 
+        # *   **Enable**\
+        # *   **Disable**\
         self.enable_backup_log = enable_backup_log  # type: str
+        # The number of days for which the log backup files are retained.
         self.log_backup_retention_period = log_backup_retention_period  # type: int
+        # The cycle based on which backups are performed. If more than one day of the week are specified, the days of the week are separated by commas (,). Valid value:
+        # 
+        # *   Monday
+        # *   Tuesday
+        # *   Wednesday
+        # *   Thursday
+        # *   Friday
+        # *   Saturday
+        # *   Sunday
         self.preferred_backup_period = preferred_backup_period  # type: str
+        # The data backup time. The time is in the HH:mmZ-HH:mmZ format. The time is displayed in UTC.
         self.preferred_backup_time = preferred_backup_time  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9326,6 +9361,9 @@ class DescribeDBClusterPerformanceResponse(TeaModel):
 
 class DescribeDBClusterStatusRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](~~143074~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9350,7 +9388,9 @@ class DescribeDBClusterStatusRequest(TeaModel):
 
 class DescribeDBClusterStatusResponseBody(TeaModel):
     def __init__(self, request_id=None, status=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The queried cluster states.
         self.status = status  # type: list[str]
 
     def validate(self):
@@ -9418,9 +9458,9 @@ class DescribeDBClusterStatusResponse(TeaModel):
 
 class DescribeDBClustersRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # 实例的标签键。
+        # The tag key.
         self.key = key  # type: str
-        # 实例的标签值。
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -9453,29 +9493,38 @@ class DescribeDBClustersRequest(TeaModel):
         # The description of the cluster.
         # 
         # *   The description cannot start with `http://` or `https://`.
-        # *   The description must be 2 to 256 characters in length.
+        # *   The description must be 2 to 256 characters in length
         self.dbcluster_description = dbcluster_description  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         # 
-        # If you do not specify this parameter, the information of all clusters that reside in the specified region is returned.
+        # If you do not specify this parameter, the information about all clusters that reside in the region is returned.
         self.dbcluster_ids = dbcluster_ids  # type: str
         # The state of the cluster. Valid values:
         # 
-        # *   **Preparing**: The cluster is being prepared.
-        # *   **Creating**: The cluster is being created.
-        # *   **Running**: The cluster is running.
-        # *   **Deleting**: The cluster is being deleted.
-        # *   **Restoring**: The cluster is being restored from a backup.
-        # *   **ClassChanging**: The cluster specifications are being changed.
-        # *   **NetAddressCreating**: A network connection is being created.
-        # *   **NetAddressDeleting**: A network connection is being deleted.
-        # *   **NetAddressModifying**: A network connection is being modified.
-        self.dbcluster_status = dbcluster_status  # type: str
-        # The number of the page to return. The value must be an integer that is greater than 0. Default value: **1**.
-        self.page_number = page_number  # type: int
-        # The number of entries to return on each page. Default value: 30. Valid values:
+        # *   **Preparing**\
         # 
-        # *   **30**\
+        # <!---->
+        # 
+        # *   **Creating**\
+        # *   **Running**\
+        # *   **Deleting**\
+        # 
+        # <!---->
+        # 
+        # *   **Restoring**\
+        # 
+        # <!---->
+        # 
+        # *   **ClassChanging**\
+        # *   **NetAddressCreating**\
+        # *   **NetAddressDeleting**\
+        # *   **NetAddressModifying**\
+        self.dbcluster_status = dbcluster_status  # type: str
+        # The page number. Pages start from page 1. Default value: **1**.
+        self.page_number = page_number  # type: int
+        # The number of entries per page. Valid values:
+        # 
+        # *   **30** (default)
         # *   **50**\
         # *   **100**\
         self.page_size = page_size  # type: int
@@ -9483,11 +9532,9 @@ class DescribeDBClustersRequest(TeaModel):
         # 
         # >  You can call the [DescribeRegions](~~454314~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The ID of the resource group.
-        # 
-        # If you do not specify this parameter, the information of all resource groups in the cluster is returned.
+        # The resource group ID. If you do not specify this parameter, the information about all resource groups in the cluster is returned.
         self.resource_group_id = resource_group_id  # type: str
-        # 实例的标签信息。
+        # The tags that are added to the cluster.
         self.tag = tag  # type: list[DescribeDBClustersRequestTag]
 
     def validate(self):
@@ -9548,10 +9595,11 @@ class DescribeDBClustersRequest(TeaModel):
 
 class DescribeDBClustersResponseBodyItemsDBClusterTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # 标签键。
-        # > 您可以调用[TagResources](~~179253~~)接口为目标集群创建标签。
+        # The tag key.
+        # 
+        # >  You can call the [TagResources](~~179253~~) operation to add tags to a cluster.
         self.key = key  # type: str
-        # 标签值。
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -9618,12 +9666,12 @@ class DescribeDBClustersResponseBodyItemsDBCluster(TeaModel):
                  tags=None, vpcid=None, v_switch_id=None, zone_id=None):
         # The billing method of the cluster. Valid values:
         # 
-        # *   **ads**: pay-as-you-go
-        # *   **ads_pre**: subscription
+        # *   **ads**: pay-as-you-go.
+        # *   **ads_pre**: subscription.
         self.commodity_code = commodity_code  # type: str
-        # The specifications of the reserved computing resources. Each ACU is equivalent to 1 core and 4 GB memory. Computing resources serve compute operations. The amount of computing resources is proportional to the query speed of the cluster. You can scale computing resources based on your needs.
+        # The specifications of reserved computing resources. Each ACU is equivalent to 1 core and 4 GB memory. Computing resources are used to compute data. The increase in the computing resources can accelerate queries. You can scale computing resources based on your business requirements.
         self.compute_resource = compute_resource  # type: str
-        # The public endpoint of the cluster.
+        # The public endpoint that is used to connect to the cluster.
         self.connection_string = connection_string  # type: str
         # The time when the cluster was created. The time follows the ISO 8601 standard in the *yyyy-mm-ddThh:mm:ssZ* format. The time is displayed in UTC.
         self.create_time = create_time  # type: str
@@ -9635,36 +9683,51 @@ class DescribeDBClustersResponseBodyItemsDBCluster(TeaModel):
         self.dbcluster_network_type = dbcluster_network_type  # type: str
         # The state of the cluster. Valid values:
         # 
-        # *   **Preparing**: The cluster is being prepared.
-        # *   **Creating**: The cluster is being created.
-        # *   **Running**: The cluster is running.
-        # *   **Deleting**: The cluster is being deleted.
-        # *   **Restoring**: The cluster is being restored from a backup.
-        # *   **ClassChanging**: The cluster specifications are being changed.
-        # *   **NetAddressCreating**: A network connection is being created.
-        # *   **NetAddressDeleting**: A network connection is being deleted.
-        # *   **NetAddressModifying**: A network connection is being modified.
+        # *   **Preparing**\
+        # 
+        # <!---->
+        # 
+        # *   **Creating**\
+        # *   **Running**\
+        # *   **Deleting**\
+        # 
+        # <!---->
+        # 
+        # *   **Restoring**\
+        # 
+        # <!---->
+        # 
+        # *   **ClassChanging**\
+        # *   **NetAddressCreating**\
+        # *   **NetAddressDeleting**\
+        # *   **NetAddressModifying**\
         self.dbcluster_status = dbcluster_status  # type: str
         # The type of the cluster. By default, **Common** is returned, which indicates a common cluster.
         self.dbcluster_type = dbcluster_type  # type: str
-        # The version of the AnalyticDB for MySQL Data Lakehouse Edition cluster. Only the version **5.0** is supported.
+        # The version of AnalyticDB for MySQL Data Lakehouse Edition. **5.0** is returned.
         self.dbversion = dbversion  # type: str
-        # The engine of the cluster. **AnalyticDB** is returned.
+        # The database engine of the cluster. **AnalyticDB** is returned.
         self.engine = engine  # type: str
         # The time when the cluster expired. The time follows the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time is displayed in UTC.
         # 
-        # > *   The expiration time is returned for a subscription cluster.
-        # > *   An empty string is returned for a pay-as-you-go cluster.
+        # > 
+        # 
+        # *   The expiration time is returned for a subscription cluster.
+        # 
+        # *   An empty string is returned for a pay-as-you-go cluster.
         self.expire_time = expire_time  # type: str
         # Indicates whether the subscription cluster has expired. Valid values:
         # 
-        # *   **true**: The cluster has expired.
-        # *   **false**: The cluster has not expired.
+        # *   **true**\
+        # *   **false**\
         # 
-        # > *   If the cluster has expired, the system locks or releases the cluster within a specific time period. We recommend that you renew expired clusters. For more information, see [Renewal policy](~~135246~~).
-        # > *  This parameter is not returned for pay-as-you-go clusters.
+        # > 
+        # 
+        # *   If the cluster has expired, the system locks or releases the cluster within a period of time. We recommend that you renew expired clusters. For more information, see [Renewal policy](~~135246~~).
+        # 
+        # *   This parameter is not returned for pay-as-you-go clusters.
         self.expired = expired  # type: str
-        # The lock state of the instance. Valid values:
+        # The lock state of the cluster. Valid values:
         # 
         # *   **Unlock**: The cluster is not locked.
         # *   **ManualLock**: The cluster is manually locked.
@@ -9672,28 +9735,28 @@ class DescribeDBClustersResponseBodyItemsDBCluster(TeaModel):
         self.lock_mode = lock_mode  # type: str
         # The reason why the cluster is locked.
         # 
-        # >  This parameter is returned only when the cluster is locked. The value is **instance_expire**.
+        # >  This parameter is returned only when the cluster was locked. **instance_expire** is returned.
         self.lock_reason = lock_reason  # type: str
         # The mode of the cluster. By default, **flexible** is returned, which indicates that the cluster is in elastic mode.
         self.mode = mode  # type: str
         # The billing method of the cluster. Valid values:
         # 
-        # *   **Postpaid**: pay-as-you-go
-        # *   **Prepaid**: subscription
+        # *   **Postpaid**: pay-as-you-go.
+        # *   **Prepaid**: subscription.
         self.pay_type = pay_type  # type: str
         # The port number that is used to connect to the cluster.
         self.port = port  # type: str
         # The region ID of the cluster.
         self.region_id = region_id  # type: str
-        # The remaining reserved computing resources that are available in the cluster. Each ACU is equivalent to 1 core and 4 GB memory.
+        # The amount of remaining reserved computing resources that are available in the cluster. Each ACU is equivalent to 1 core and 4 GB memory.
         self.reserved_acu = reserved_acu  # type: str
-        # The ID of the resource group.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The specifications of the reserved storage resources. Each AnalyticDB compute unit (ACU) is equivalent to 1 core and 4 GB memory. Storage resources serve read and write requests. The amount of storage resources is proportional to the read and write performance of the cluster.
+        # The specifications of reserved storage resources. Each AnalyticDB compute unit (ACU) is equivalent to 1 core and 4 GB memory. Storage resources are used to read and write data. The increase in the storage resources can improve the read and write performance of the cluster.
         self.storage_resource = storage_resource  # type: str
-        # 标签列表。
+        # The tags that are added to the cluster.
         self.tags = tags  # type: DescribeDBClustersResponseBodyItemsDBClusterTags
-        # The ID of the virtual private cloud (VPC).
+        # The virtual private cloud (VPC) ID of the cluster.
         self.vpcid = vpcid  # type: str
         # The vSwitch ID of the cluster.
         self.v_switch_id = v_switch_id  # type: str
@@ -9856,15 +9919,15 @@ class DescribeDBClustersResponseBodyItems(TeaModel):
 
 class DescribeDBClustersResponseBody(TeaModel):
     def __init__(self, items=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # Details of the clusters.
+        # The queried cluster.
         self.items = items  # type: DescribeDBClustersResponseBodyItems
-        # The page number of the returned page.
+        # The page number.
         self.page_number = page_number  # type: int
-        # The number of entries returned on each page.
+        # The number of entries per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The total number of entries.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -11882,6 +11945,8 @@ class DescribeElasticPlansResponse(TeaModel):
 
 class DescribeEnabledPrivilegesRequest(TeaModel):
     def __init__(self, account_name=None, dbcluster_id=None, region_id=None):
+        # 数据库账号名称。
+        # > 您可以调用[DescribeAccounts](~~612430~~)接口查看指定集群的数据库账号信息，包括账号名称。
         self.account_name = account_name  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
@@ -11951,7 +12016,7 @@ class DescribeEnabledPrivilegesResponseBodyData(TeaModel):
     def __init__(self, description=None, privileges=None, scope=None):
         # The description of the permission level.
         self.description = description  # type: str
-        # Details of the permissions.
+        # The queried permissions.
         self.privileges = privileges  # type: list[DescribeEnabledPrivilegesResponseBodyDataPrivileges]
         # The permission level.
         self.scope = scope  # type: str
@@ -11994,9 +12059,9 @@ class DescribeEnabledPrivilegesResponseBodyData(TeaModel):
 
 class DescribeEnabledPrivilegesResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # The permission levels and specific permissions.
+        # The queried permission level and permissions.
         self.data = data  # type: list[DescribeEnabledPrivilegesResponseBodyData]
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14575,7 +14640,11 @@ class DescribeTablesResponse(TeaModel):
 
 class DescribeUserQuotaRequest(TeaModel):
     def __init__(self, dbcluster_id=None, region_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The region ID of the cluster.
+        # 
+        # >  You can call the [DescribeRegions](~~454314~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14605,10 +14674,15 @@ class DescribeUserQuotaRequest(TeaModel):
 class DescribeUserQuotaResponseBody(TeaModel):
     def __init__(self, elastic_acu=None, request_id=None, reserverd_compte_acu=None, reserverd_storage_acu=None,
                  resource_group_count=None):
+        # The available elastic AnalyticDB compute units (ACUs).
         self.elastic_acu = elastic_acu  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The available reserved computing resources.
         self.reserverd_compte_acu = reserverd_compte_acu  # type: str
+        # The available reserved storage resources.
         self.reserverd_storage_acu = reserverd_storage_acu  # type: str
+        # The number of available resource groups.
         self.resource_group_count = resource_group_count  # type: str
 
     def validate(self):
@@ -15627,6 +15701,9 @@ class GetSparkAppInfoRequest(TeaModel):
         # 
         # >  You can call the [ListSparkApps](~~455888~~) operation to query the Spark application IDs.
         self.app_id = app_id  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~612397~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -19972,13 +20049,40 @@ class ModifyBackupPolicyRequest(TeaModel):
     def __init__(self, backup_retention_period=None, dbcluster_id=None, enable_backup_log=None,
                  log_backup_retention_period=None, owner_account=None, owner_id=None, preferred_backup_period=None, preferred_backup_time=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The number of days for which to retain full backup files. Valid values: 7 to 730.
+        # 
+        # >  If you do not specify this parameter, the default value 7 is used.
         self.backup_retention_period = backup_retention_period  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # Specifies whether to enable log backup. Valid values:
+        # 
+        # *   **Enable**\
+        # *   **Disable**\
+        # 
+        # >  If you do not specify this parameter, the default value Enable is used.
         self.enable_backup_log = enable_backup_log  # type: str
+        # The number of days for which to retain log backup files. Valid values: 7 to 730.
+        # 
+        # >  If you do not specify this parameter, the default value 7 is used.
         self.log_backup_retention_period = log_backup_retention_period  # type: int
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The days of the week on which to perform a full backup. Separate multiple values with commas (,). Valid values:
+        # 
+        # *   **Monday**\
+        # *   **Tuesday**\
+        # *   **Wednesday**\
+        # *   **Thursday**\
+        # *   **Friday**\
+        # *   **Saturday**\
+        # *   **Sunday**\
+        # 
+        # >  To ensure data security, we recommend that you specify at least two values.
         self.preferred_backup_period = preferred_backup_period  # type: str
+        # The start time to perform a full backup. Specify the time in the HH:mmZ-HH:mmZ format. The time must be in UTC.
+        # 
+        # >  The time range must be 1 hour.
         self.preferred_backup_time = preferred_backup_time  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -20041,6 +20145,7 @@ class ModifyBackupPolicyRequest(TeaModel):
 
 class ModifyBackupPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20353,7 +20458,7 @@ class ModifyClusterConnectionStringResponse(TeaModel):
 class ModifyDBClusterRequest(TeaModel):
     def __init__(self, compute_resource=None, dbcluster_id=None, enable_default_resource_pool=None,
                  owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, storage_resource=None):
-        # The amount of reserved computing resources. Unit: ACUs. Valid values: 0 to 4096. The value must be in increments of 16 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
+        # The reserved computing resources. Unit: ACUs. Valid values: 0 to 4096. The value must be in increments of 16 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
         # 
         # >  This parameter must be specified with a unit.
         self.compute_resource = compute_resource  # type: str
@@ -20373,7 +20478,7 @@ class ModifyDBClusterRequest(TeaModel):
         # >  You can call the [DescribeRegions](~~454314~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
-        # The amount of reserved storage resources. Unit: ACUs. Valid values: 0 to 2064. The value must be in increments of 24 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
+        # The reserved storage resources. Unit: ACUs. Valid values: 0 to 2064. The value must be in increments of 24 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
         # 
         # >  This parameter must be specified with a unit.
         self.storage_resource = storage_resource  # type: str
@@ -22248,8 +22353,11 @@ class UnbindAccountResponse(TeaModel):
 
 class UnbindDBResourceGroupWithUserRequest(TeaModel):
     def __init__(self, dbcluster_id=None, group_name=None, group_user=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The name of the resource group.
         self.group_name = group_name  # type: str
+        # The name of the database account.
         self.group_user = group_user  # type: str
 
     def validate(self):
@@ -22282,7 +22390,7 @@ class UnbindDBResourceGroupWithUserRequest(TeaModel):
 
 class UnbindDBResourceGroupWithUserResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
