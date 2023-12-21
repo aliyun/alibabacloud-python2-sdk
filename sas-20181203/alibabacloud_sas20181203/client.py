@@ -13088,6 +13088,8 @@ class Client(OpenApiClient):
             query['Lang'] = request.lang
         if not UtilClient.is_unset(request.resource_directory_account_id):
             query['ResourceDirectoryAccountId'] = request.resource_directory_account_id
+        if not UtilClient.is_unset(request.vendors):
+            query['Vendors'] = request.vendors
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -13287,8 +13289,14 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_cloud_asset_detail_with_options(request, runtime)
 
-    def get_cloud_asset_summary_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
+    def get_cloud_asset_summary_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.vendors):
+            query['Vendors'] = request.vendors
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
         params = open_api_models.Params(
             action='GetCloudAssetSummary',
             version='2018-12-03',
@@ -13305,9 +13313,9 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_cloud_asset_summary(self):
+    def get_cloud_asset_summary(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.get_cloud_asset_summary_with_options(runtime)
+        return self.get_cloud_asset_summary_with_options(request, runtime)
 
     def get_cluster_check_item_warning_statistics_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -20648,6 +20656,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.config):
             query['Config'] = request.config
+        if not UtilClient.is_unset(request.no_target_as_on):
+            query['NoTargetAsOn'] = request.no_target_as_on
         if not UtilClient.is_unset(request.source_ip):
             query['SourceIp'] = request.source_ip
         if not UtilClient.is_unset(request.type):
