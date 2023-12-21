@@ -3,6 +3,165 @@
 from Tea.model import TeaModel
 
 
+class CertNoTwoElementVerificationRequest(TeaModel):
+    def __init__(self, auth_code=None, cert_name=None, cert_no=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
+        self.auth_code = auth_code  # type: str
+        self.cert_name = cert_name  # type: str
+        self.cert_no = cert_no  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CertNoTwoElementVerificationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_code is not None:
+            result['AuthCode'] = self.auth_code
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
+        if self.cert_no is not None:
+            result['CertNo'] = self.cert_no
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthCode') is not None:
+            self.auth_code = m.get('AuthCode')
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
+        if m.get('CertNo') is not None:
+            self.cert_no = m.get('CertNo')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class CertNoTwoElementVerificationResponseBodyData(TeaModel):
+    def __init__(self, is_consistent=None):
+        self.is_consistent = is_consistent  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CertNoTwoElementVerificationResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_consistent is not None:
+            result['IsConsistent'] = self.is_consistent
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IsConsistent') is not None:
+            self.is_consistent = m.get('IsConsistent')
+        return self
+
+
+class CertNoTwoElementVerificationResponseBody(TeaModel):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        self.code = code  # type: str
+        self.data = data  # type: CertNoTwoElementVerificationResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CertNoTwoElementVerificationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = CertNoTwoElementVerificationResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CertNoTwoElementVerificationResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CertNoTwoElementVerificationResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CertNoTwoElementVerificationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CertNoTwoElementVerificationResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CompanyFourElementsVerificationRequest(TeaModel):
     def __init__(self, auth_code=None, ep_cert_name=None, ep_cert_no=None, legal_person_cert_name=None,
                  legal_person_cert_no=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
@@ -1283,6 +1442,190 @@ class DescribePhoneNumberAnalysisAIResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribePhoneNumberAnalysisAIResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribePhoneNumberAnalysisTransparentRequest(TeaModel):
+    def __init__(self, auth_code=None, input_number=None, ip=None, number_type=None, owner_id=None,
+                 resource_owner_account=None, resource_owner_id=None):
+        self.auth_code = auth_code  # type: str
+        self.input_number = input_number  # type: str
+        self.ip = ip  # type: str
+        self.number_type = number_type  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePhoneNumberAnalysisTransparentRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_code is not None:
+            result['AuthCode'] = self.auth_code
+        if self.input_number is not None:
+            result['InputNumber'] = self.input_number
+        if self.ip is not None:
+            result['Ip'] = self.ip
+        if self.number_type is not None:
+            result['NumberType'] = self.number_type
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthCode') is not None:
+            self.auth_code = m.get('AuthCode')
+        if m.get('InputNumber') is not None:
+            self.input_number = m.get('InputNumber')
+        if m.get('Ip') is not None:
+            self.ip = m.get('Ip')
+        if m.get('NumberType') is not None:
+            self.number_type = m.get('NumberType')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class DescribePhoneNumberAnalysisTransparentResponseBodyData(TeaModel):
+    def __init__(self, device_risk=None, ip_risk=None, score_1=None, score_2=None, score_3=None):
+        self.device_risk = device_risk  # type: str
+        self.ip_risk = ip_risk  # type: str
+        self.score_1 = score_1  # type: str
+        self.score_2 = score_2  # type: str
+        self.score_3 = score_3  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePhoneNumberAnalysisTransparentResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_risk is not None:
+            result['Device_risk'] = self.device_risk
+        if self.ip_risk is not None:
+            result['Ip_risk'] = self.ip_risk
+        if self.score_1 is not None:
+            result['Score1'] = self.score_1
+        if self.score_2 is not None:
+            result['Score2'] = self.score_2
+        if self.score_3 is not None:
+            result['Score3'] = self.score_3
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Device_risk') is not None:
+            self.device_risk = m.get('Device_risk')
+        if m.get('Ip_risk') is not None:
+            self.ip_risk = m.get('Ip_risk')
+        if m.get('Score1') is not None:
+            self.score_1 = m.get('Score1')
+        if m.get('Score2') is not None:
+            self.score_2 = m.get('Score2')
+        if m.get('Score3') is not None:
+            self.score_3 = m.get('Score3')
+        return self
+
+
+class DescribePhoneNumberAnalysisTransparentResponseBody(TeaModel):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        self.code = code  # type: str
+        self.data = data  # type: DescribePhoneNumberAnalysisTransparentResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribePhoneNumberAnalysisTransparentResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribePhoneNumberAnalysisTransparentResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribePhoneNumberAnalysisTransparentResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribePhoneNumberAnalysisTransparentResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribePhoneNumberAnalysisTransparentResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribePhoneNumberAnalysisTransparentResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
