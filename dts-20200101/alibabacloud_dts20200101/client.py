@@ -1191,6 +1191,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_migration_job_with_options(request, runtime)
 
+    def create_reverse_dts_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dts_job_id):
+            query['DtsJobId'] = request.dts_job_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateReverseDtsJob',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dts_20200101_models.CreateReverseDtsJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_reverse_dts_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_reverse_dts_job_with_options(request, runtime)
+
     def create_subscription_instance_with_options(self, request, runtime):
         """
         Before you call this operation, make sure that you fully understand the billing methods and [pricing](https://www.alibabacloud.com/zh/product/data-transmission-service/pricing) of Data Transmission Service (DTS).
@@ -3666,6 +3694,8 @@ class Client(OpenApiClient):
             query['DataSynchronization'] = request.data_synchronization
         if not UtilClient.is_unset(request.dts_instance_id):
             query['DtsInstanceId'] = request.dts_instance_id
+        if not UtilClient.is_unset(request.dts_job_id):
+            query['DtsJobId'] = request.dts_job_id
         if not UtilClient.is_unset(request.file_oss_url):
             query['FileOssUrl'] = request.file_oss_url
         if not UtilClient.is_unset(request.region_id):
@@ -3897,6 +3927,66 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.modify_dts_job_du_limit_with_options(request, runtime)
+
+    def modify_dts_job_endpoint_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_uid):
+            query['AliyunUid'] = request.aliyun_uid
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.dts_instance_id):
+            query['DtsInstanceId'] = request.dts_instance_id
+        if not UtilClient.is_unset(request.dts_job_id):
+            query['DtsJobId'] = request.dts_job_id
+        if not UtilClient.is_unset(request.endpoint):
+            query['Endpoint'] = request.endpoint
+        if not UtilClient.is_unset(request.endpoint_instance_id):
+            query['EndpointInstanceId'] = request.endpoint_instance_id
+        if not UtilClient.is_unset(request.endpoint_instance_type):
+            query['EndpointInstanceType'] = request.endpoint_instance_type
+        if not UtilClient.is_unset(request.endpoint_ip):
+            query['EndpointIp'] = request.endpoint_ip
+        if not UtilClient.is_unset(request.endpoint_port):
+            query['EndpointPort'] = request.endpoint_port
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.role_name):
+            query['RoleName'] = request.role_name
+        if not UtilClient.is_unset(request.shard_password):
+            query['ShardPassword'] = request.shard_password
+        if not UtilClient.is_unset(request.shard_username):
+            query['ShardUsername'] = request.shard_username
+        if not UtilClient.is_unset(request.synchronization_direction):
+            query['SynchronizationDirection'] = request.synchronization_direction
+        if not UtilClient.is_unset(request.username):
+            query['Username'] = request.username
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDtsJobEndpoint',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dts_20200101_models.ModifyDtsJobEndpointResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dts_job_endpoint(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dts_job_endpoint_with_options(request, runtime)
 
     def modify_dts_job_name_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4535,6 +4625,36 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.start_migration_job_with_options(request, runtime)
+
+    def start_reverse_writer_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.check_point):
+            query['CheckPoint'] = request.check_point
+        if not UtilClient.is_unset(request.dts_job_id):
+            query['DtsJobId'] = request.dts_job_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartReverseWriter',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dts_20200101_models.StartReverseWriterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def start_reverse_writer(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.start_reverse_writer_with_options(request, runtime)
 
     def start_subscription_instance_with_options(self, request, runtime):
         """
