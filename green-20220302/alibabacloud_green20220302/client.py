@@ -50,6 +50,36 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def describe_file_moderation_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.service):
+            body['Service'] = request.service
+        if not UtilClient.is_unset(request.service_parameters):
+            body['ServiceParameters'] = request.service_parameters
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeFileModerationResult',
+            version='2022-03-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            green_20220302_models.DescribeFileModerationResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_file_moderation_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_file_moderation_result_with_options(request, runtime)
+
     def describe_image_moderation_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -129,6 +159,36 @@ class Client(OpenApiClient):
     def describe_upload_token(self):
         runtime = util_models.RuntimeOptions()
         return self.describe_upload_token_with_options(runtime)
+
+    def file_moderation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.service):
+            body['Service'] = request.service
+        if not UtilClient.is_unset(request.service_parameters):
+            body['ServiceParameters'] = request.service_parameters
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='FileModeration',
+            version='2022-03-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            green_20220302_models.FileModerationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def file_moderation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.file_moderation_with_options(request, runtime)
 
     def image_async_moderation_with_options(self, request, runtime):
         UtilClient.validate_model(request)
