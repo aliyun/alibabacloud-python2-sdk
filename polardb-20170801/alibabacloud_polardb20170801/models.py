@@ -9603,7 +9603,7 @@ class DescribeDBClusterMigrationResponseBodyDBClusterEndpointListAddressItems(Te
 
 
 class DescribeDBClusterMigrationResponseBodyDBClusterEndpointList(TeaModel):
-    def __init__(self, address_items=None, dbendpoint_id=None, endpoint_type=None):
+    def __init__(self, address_items=None, dbendpoint_id=None, endpoint_type=None, read_write_mode=None):
         # Details about the endpoints.
         self.address_items = address_items  # type: list[DescribeDBClusterMigrationResponseBodyDBClusterEndpointListAddressItems]
         # The ID of the endpoint.
@@ -9614,6 +9614,7 @@ class DescribeDBClusterMigrationResponseBodyDBClusterEndpointList(TeaModel):
         # *   **Primary**: the primary endpoint
         # *   **Custom**: the custom cluster endpoint
         self.endpoint_type = endpoint_type  # type: str
+        self.read_write_mode = read_write_mode  # type: str
 
     def validate(self):
         if self.address_items:
@@ -9635,6 +9636,8 @@ class DescribeDBClusterMigrationResponseBodyDBClusterEndpointList(TeaModel):
             result['DBEndpointId'] = self.dbendpoint_id
         if self.endpoint_type is not None:
             result['EndpointType'] = self.endpoint_type
+        if self.read_write_mode is not None:
+            result['ReadWriteMode'] = self.read_write_mode
         return result
 
     def from_map(self, m=None):
@@ -9648,6 +9651,8 @@ class DescribeDBClusterMigrationResponseBodyDBClusterEndpointList(TeaModel):
             self.dbendpoint_id = m.get('DBEndpointId')
         if m.get('EndpointType') is not None:
             self.endpoint_type = m.get('EndpointType')
+        if m.get('ReadWriteMode') is not None:
+            self.read_write_mode = m.get('ReadWriteMode')
         return self
 
 
@@ -9721,9 +9726,10 @@ class DescribeDBClusterMigrationResponseBodyRdsEndpointListAddressItems(TeaModel
 
 
 class DescribeDBClusterMigrationResponseBodyRdsEndpointList(TeaModel):
-    def __init__(self, address_items=None, dbendpoint_id=None, endpoint_type=None):
+    def __init__(self, address_items=None, custins_type=None, dbendpoint_id=None, endpoint_type=None):
         # Details about the endpoints.
         self.address_items = address_items  # type: list[DescribeDBClusterMigrationResponseBodyRdsEndpointListAddressItems]
+        self.custins_type = custins_type  # type: str
         # The ID of the endpoint.
         self.dbendpoint_id = dbendpoint_id  # type: str
         # The type of the endpoint. Valid values:
@@ -9748,6 +9754,8 @@ class DescribeDBClusterMigrationResponseBodyRdsEndpointList(TeaModel):
         if self.address_items is not None:
             for k in self.address_items:
                 result['AddressItems'].append(k.to_map() if k else None)
+        if self.custins_type is not None:
+            result['CustinsType'] = self.custins_type
         if self.dbendpoint_id is not None:
             result['DBEndpointId'] = self.dbendpoint_id
         if self.endpoint_type is not None:
@@ -9761,6 +9769,8 @@ class DescribeDBClusterMigrationResponseBodyRdsEndpointList(TeaModel):
             for k in m.get('AddressItems'):
                 temp_model = DescribeDBClusterMigrationResponseBodyRdsEndpointListAddressItems()
                 self.address_items.append(temp_model.from_map(k))
+        if m.get('CustinsType') is not None:
+            self.custins_type = m.get('CustinsType')
         if m.get('DBEndpointId') is not None:
             self.dbendpoint_id = m.get('DBEndpointId')
         if m.get('EndpointType') is not None:
@@ -28053,7 +28063,6 @@ class TempModifyDBNodeRequest(TeaModel):
         self.modify_type = modify_type  # type: str
         # The type of operation performed on the cluster. Valid values:
         # 
-        # *   **Add**: add one or more nodes to the cluster.
         # *   **Modify**: temporarily upgrade the configuration of the cluster.
         self.operation_type = operation_type  # type: str
         self.owner_account = owner_account  # type: str
