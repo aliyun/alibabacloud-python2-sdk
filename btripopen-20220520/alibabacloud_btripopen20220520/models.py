@@ -71809,8 +71809,8 @@ class TrainOrderQueryV2ResponseBodyModuleChangeTicketInfoList(TeaModel):
                  change_seat_type_name=None, change_service_fee=None, change_train_no=None, change_train_type_name=None,
                  check_in_time=None, check_out_time=None, end_time=None, from_city_name=None, from_station_name=None,
                  gmt_create=None, gmt_modify=None, origin_ticket_no=None, out_ticket_status=None, segment_index=None,
-                 start_time=None, ticket_no=None, ticket_status=None, to_city_name=None, to_station_name=None, use_ticket=None,
-                 user_id=None):
+                 start_time=None, ticket_entrance=None, ticket_no=None, ticket_status=None, to_city_name=None,
+                 to_station_name=None, use_ticket=None, user_id=None):
         self.change_coach_no = change_coach_no  # type: str
         self.change_gap_fee = change_gap_fee  # type: float
         self.change_handling_fee = change_handling_fee  # type: float
@@ -71830,6 +71830,7 @@ class TrainOrderQueryV2ResponseBodyModuleChangeTicketInfoList(TeaModel):
         self.out_ticket_status = out_ticket_status  # type: str
         self.segment_index = segment_index  # type: int
         self.start_time = start_time  # type: str
+        self.ticket_entrance = ticket_entrance  # type: str
         self.ticket_no = ticket_no  # type: str
         self.ticket_status = ticket_status  # type: int
         self.to_city_name = to_city_name  # type: str
@@ -71884,6 +71885,8 @@ class TrainOrderQueryV2ResponseBodyModuleChangeTicketInfoList(TeaModel):
             result['segment_index'] = self.segment_index
         if self.start_time is not None:
             result['start_time'] = self.start_time
+        if self.ticket_entrance is not None:
+            result['ticket_entrance'] = self.ticket_entrance
         if self.ticket_no is not None:
             result['ticket_no'] = self.ticket_no
         if self.ticket_status is not None:
@@ -71938,6 +71941,8 @@ class TrainOrderQueryV2ResponseBodyModuleChangeTicketInfoList(TeaModel):
             self.segment_index = m.get('segment_index')
         if m.get('start_time') is not None:
             self.start_time = m.get('start_time')
+        if m.get('ticket_entrance') is not None:
+            self.ticket_entrance = m.get('ticket_entrance')
         if m.get('ticket_no') is not None:
             self.ticket_no = m.get('ticket_no')
         if m.get('ticket_status') is not None:
@@ -72294,8 +72299,8 @@ class TrainOrderQueryV2ResponseBodyModuleRefundTicketInfoList(TeaModel):
 class TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainInfoListTrainTicketInfos(TeaModel):
     def __init__(self, changed=None, check_in_time=None, check_out_time=None, coach_no=None, end_time=None,
                  gmt_create=None, gmt_modify=None, out_ticket_status=None, pay_type=None, seat_no=None, seat_type_name=None,
-                 segment_index=None, service_fee=None, start_time=None, ticket_no=None, ticket_price=None, ticket_status=None,
-                 train_type_name=None, use_ticket=None, user_id=None):
+                 segment_index=None, service_fee=None, start_time=None, ticket_entrance=None, ticket_no=None, ticket_price=None,
+                 ticket_status=None, train_type_name=None, use_ticket=None, user_id=None):
         self.changed = changed  # type: bool
         self.check_in_time = check_in_time  # type: str
         self.check_out_time = check_out_time  # type: str
@@ -72310,6 +72315,7 @@ class TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainInfoListTrainTicketI
         self.segment_index = segment_index  # type: int
         self.service_fee = service_fee  # type: float
         self.start_time = start_time  # type: str
+        self.ticket_entrance = ticket_entrance  # type: str
         self.ticket_no = ticket_no  # type: str
         self.ticket_price = ticket_price  # type: float
         self.ticket_status = ticket_status  # type: int
@@ -72354,6 +72360,8 @@ class TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainInfoListTrainTicketI
             result['service_fee'] = self.service_fee
         if self.start_time is not None:
             result['start_time'] = self.start_time
+        if self.ticket_entrance is not None:
+            result['ticket_entrance'] = self.ticket_entrance
         if self.ticket_no is not None:
             result['ticket_no'] = self.ticket_no
         if self.ticket_price is not None:
@@ -72398,6 +72406,8 @@ class TrainOrderQueryV2ResponseBodyModuleTrainOrderInfoTrainInfoListTrainTicketI
             self.service_fee = m.get('service_fee')
         if m.get('start_time') is not None:
             self.start_time = m.get('start_time')
+        if m.get('ticket_entrance') is not None:
+            self.ticket_entrance = m.get('ticket_entrance')
         if m.get('ticket_no') is not None:
             self.ticket_no = m.get('ticket_no')
         if m.get('ticket_price') is not None:
