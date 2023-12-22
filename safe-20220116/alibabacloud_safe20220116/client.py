@@ -51,8 +51,12 @@ class Client(OpenApiClient):
             body['Link'] = request.link
         if not UtilClient.is_unset(request.message):
             body['Message'] = request.message
+        if not UtilClient.is_unset(request.monitor_detail):
+            body['MonitorDetail'] = request.monitor_detail
         if not UtilClient.is_unset(request.region):
             body['Region'] = request.region
+        if not UtilClient.is_unset(request.request_id):
+            body['RequestId'] = request.request_id
         if not UtilClient.is_unset(request.source_key):
             body['SourceKey'] = request.source_key
         if not UtilClient.is_unset(request.source_system):

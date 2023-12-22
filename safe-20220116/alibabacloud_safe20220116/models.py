@@ -5,8 +5,8 @@ from Tea.model import TeaModel
 
 class CreateAlarmEventRequest(TeaModel):
     def __init__(self, alarm_id=None, alarm_timestamp=None, app_key=None, app_secret=None, attach=None,
-                 dynamic_alarm_id=None, impact=None, link=None, message=None, region=None, source_key=None, source_system=None,
-                 strategy=None, title=None, uid=None):
+                 dynamic_alarm_id=None, impact=None, link=None, message=None, monitor_detail=None, region=None, request_id=None,
+                 source_key=None, source_system=None, strategy=None, title=None, uid=None):
         self.alarm_id = alarm_id  # type: str
         self.alarm_timestamp = alarm_timestamp  # type: long
         self.app_key = app_key  # type: str
@@ -16,7 +16,9 @@ class CreateAlarmEventRequest(TeaModel):
         self.impact = impact  # type: str
         self.link = link  # type: str
         self.message = message  # type: str
+        self.monitor_detail = monitor_detail  # type: str
         self.region = region  # type: str
+        self.request_id = request_id  # type: str
         self.source_key = source_key  # type: str
         self.source_system = source_system  # type: str
         self.strategy = strategy  # type: str
@@ -50,8 +52,12 @@ class CreateAlarmEventRequest(TeaModel):
             result['Link'] = self.link
         if self.message is not None:
             result['Message'] = self.message
+        if self.monitor_detail is not None:
+            result['MonitorDetail'] = self.monitor_detail
         if self.region is not None:
             result['Region'] = self.region
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.source_key is not None:
             result['SourceKey'] = self.source_key
         if self.source_system is not None:
@@ -84,8 +90,12 @@ class CreateAlarmEventRequest(TeaModel):
             self.link = m.get('Link')
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        if m.get('MonitorDetail') is not None:
+            self.monitor_detail = m.get('MonitorDetail')
         if m.get('Region') is not None:
             self.region = m.get('Region')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('SourceKey') is not None:
             self.source_key = m.get('SourceKey')
         if m.get('SourceSystem') is not None:
