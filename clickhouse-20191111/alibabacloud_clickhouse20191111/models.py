@@ -6,7 +6,9 @@ from Tea.model import TeaModel
 class AllocateClusterPublicConnectionRequest(TeaModel):
     def __init__(self, connection_string_prefix=None, dbcluster_id=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The prefix of the endpoint that is used to connect to the database. Set the value to the cluster ID.
         self.connection_string_prefix = connection_string_prefix  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -55,6 +57,7 @@ class AllocateClusterPublicConnectionRequest(TeaModel):
 
 class AllocateClusterPublicConnectionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -120,17 +123,27 @@ class CheckClickhouseToRDSRequest(TeaModel):
     def __init__(self, ck_password=None, ck_user_name=None, clickhouse_port=None, db_cluster_id=None,
                  owner_account=None, owner_id=None, rds_id=None, rds_password=None, rds_port=None, rds_user_name=None,
                  rds_vpc_id=None, rds_vpc_url=None, resource_owner_account=None, resource_owner_id=None):
+        # The password of the account that is used to log on to the database in the ApsaraDB for ClickHouse cluster.
         self.ck_password = ck_password  # type: str
+        # The account that is used to log on to the database in the ApsaraDB for ClickHouse cluster.
         self.ck_user_name = ck_user_name  # type: str
+        # The port number of the ApsaraDB for ClickHouse cluster.
         self.clickhouse_port = clickhouse_port  # type: long
+        # The ID of the ApsaraDB for ClickHouse cluster.
         self.db_cluster_id = db_cluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the ApsaraDB RDS for MySQL instance.
         self.rds_id = rds_id  # type: str
+        # The password of the account that is used to log on to the database in the ApsaraDB RDS for MySQL instance.
         self.rds_password = rds_password  # type: str
+        # The port number of the ApsaraDB RDS for MySQL instance.
         self.rds_port = rds_port  # type: long
+        # The account that is used to log on to the database in the ApsaraDB RDS for MySQL instance.
         self.rds_user_name = rds_user_name  # type: str
+        # The ID of the VPC in which the ApsaraDB RDS for MySQL instance is deployed.
         self.rds_vpc_id = rds_vpc_id  # type: str
+        # The internal endpoint of the ApsaraDB RDS for MySQL instance.
         self.rds_vpc_url = rds_vpc_url  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -209,8 +222,15 @@ class CheckClickhouseToRDSRequest(TeaModel):
 
 class CheckClickhouseToRDSResponseBody(TeaModel):
     def __init__(self, error_code=None, request_id=None, status=None):
+        # *   When the value **true** is returned for the **Status** parameter, the system does not return the ErrorCode parameter.
+        # *   When the value **false** is returned for the **Status** parameter, the system returns for the ErrorCode parameter the reason why the ApsaraDB for ClickHouse cluster cannot be connected to the ApsaraDB RDS for MySQL instance.
         self.error_code = error_code  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the ApsaraDB for ClickHouse cluster can be connected to the ApsaraDB RDS for MySQL instance.
+        # 
+        # *   **true**: The ApsaraDB for ClickHouse cluster can be connected to the ApsaraDB RDS for MySQL instance.
+        # *   **false**: The ApsaraDB for ClickHouse cluster cannot be connected to the ApsaraDB RDS for MySQL instance.
         self.status = status  # type: bool
 
     def validate(self):
@@ -282,7 +302,9 @@ class CheckClickhouseToRDSResponse(TeaModel):
 
 class CheckModifyConfigNeedRestartRequest(TeaModel):
     def __init__(self, config=None, dbcluster_id=None):
+        # The configuration parameters whose settings are modified.
         self.config = config  # type: str
+        # The cluster ID. You can call the [DescribeDBClusters](~~170879~~) operation to query information about all the clusters that are deployed in a specific region. The information includes the cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -311,7 +333,12 @@ class CheckModifyConfigNeedRestartRequest(TeaModel):
 
 class CheckModifyConfigNeedRestartResponseBody(TeaModel):
     def __init__(self, need_restart=None, request_id=None):
+        # Indicates whether the cluster was restarted after you modified the configuration parameters. Valid values:
+        # 
+        # *   **true**: The cluster was restarted.
+        # *   **false**: The cluster was not restarted.
         self.need_restart = need_restart  # type: bool
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -380,9 +407,11 @@ class CheckModifyConfigNeedRestartResponse(TeaModel):
 class CheckMonitorAlertRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -429,8 +458,14 @@ class CheckMonitorAlertRequest(TeaModel):
 
 class CheckMonitorAlertResponseBody(TeaModel):
     def __init__(self, parameter=None, request_id=None, state=None):
+        # The parameters that are used to configure the monitoring and alerting feature.
         self.parameter = parameter  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the monitoring and alerting feature is enabled. Valid values:
+        # 
+        # *   **enable**: The monitoring and alerting feature is enabled.
+        # *   **disable**: The monitoring and alerting feature is disabled.
         self.state = state  # type: str
 
     def validate(self):
@@ -503,11 +538,19 @@ class CheckMonitorAlertResponse(TeaModel):
 class CheckScaleOutBalancedRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The total number of returned pages.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page. Valid values:
+        # 
+        # *   **30** (default)
+        # *   **50**\
+        # *   **100**\
         self.page_size = page_size  # type: int
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -562,9 +605,16 @@ class CheckScaleOutBalancedRequest(TeaModel):
 
 class CheckScaleOutBalancedResponseBodyTableDetailsTableDetail(TeaModel):
     def __init__(self, cluster=None, database=None, detail=None, table_name=None):
+        # The cluster. The value is fixed as **default**.
         self.cluster = cluster  # type: str
+        # The database name.
         self.database = database  # type: str
+        # The error details. Valid values:
+        # 
+        # *   **1**: The unique distributed table is missing.
+        # *   **2**: More than one distributed table exists for the local table.
         self.detail = detail  # type: int
+        # The name of the local table.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -634,12 +684,26 @@ class CheckScaleOutBalancedResponseBodyTableDetails(TeaModel):
 class CheckScaleOutBalancedResponseBody(TeaModel):
     def __init__(self, check_code=None, page_number=None, page_size=None, request_id=None, table_details=None,
                  time_duration=None, total_count=None):
+        # The check result. Valid values:
+        # 
+        # *   **400**: The cluster failed the check.
+        # *   **200**: The cluster passed the check.
         self.check_code = check_code  # type: str
+        # The total number of returned pages.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page. Valid values:
+        # 
+        # *   **30** (default)
+        # *   **50**\
+        # *   **100**\
         self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The error information returned for a check failure.
         self.table_details = table_details  # type: CheckScaleOutBalancedResponseBodyTableDetails
+        # The amount of time that is required for the migration and scale-out. Unit: minutes.
         self.time_duration = time_duration  # type: str
+        # The total number of entries that are returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -1604,9 +1668,11 @@ class CreateDBInstanceResponse(TeaModel):
 class CreateMonitorDataReportRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -1653,6 +1719,7 @@ class CreateMonitorDataReportRequest(TeaModel):
 
 class CreateMonitorDataReportResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1717,9 +1784,11 @@ class CreateMonitorDataReportResponse(TeaModel):
 class CreateOSSStorageRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -1766,6 +1835,7 @@ class CreateOSSStorageRequest(TeaModel):
 
 class CreateOSSStorageResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1830,10 +1900,13 @@ class CreateOSSStorageResponse(TeaModel):
 class CreatePortsForClickHouseRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, port_type=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The port type. Set the value to mysql_port.
         self.port_type = port_type  # type: str
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -1884,6 +1957,7 @@ class CreatePortsForClickHouseRequest(TeaModel):
 
 class CreatePortsForClickHouseResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1950,22 +2024,38 @@ class CreateRDSToClickhouseDbRequest(TeaModel):
                  limit_upper=None, owner_account=None, owner_id=None, rds_id=None, rds_password=None, rds_port=None,
                  rds_user_name=None, rds_vpc_id=None, rds_vpc_url=None, resource_owner_account=None, resource_owner_id=None,
                  skip_unsupported=None, syn_db_tables=None):
+        # The password of the account that is used to log on to the database in the ApsaraDB for ClickHouse cluster.
         self.ck_password = ck_password  # type: str
+        # The account that is used to log on to the database in the ApsaraDB for ClickHouse cluster.
         self.ck_user_name = ck_user_name  # type: str
+        # The port number of the ApsaraDB for ClickHouse cluster.
         self.clickhouse_port = clickhouse_port  # type: long
+        # The ID of the ApsaraDB for ClickHouse cluster.
         self.db_cluster_id = db_cluster_id  # type: str
+        # The maximum number of rows that can be synchronized per second.
         self.limit_upper = limit_upper  # type: long
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the ApsaraDB RDS for MySQL instance.
         self.rds_id = rds_id  # type: str
+        # The password of the account that is used to log on to the ApsaraDB RDS for MySQL instance.
         self.rds_password = rds_password  # type: str
+        # The port number of the ApsaraDB RDS for MySQL instance.
         self.rds_port = rds_port  # type: long
+        # The account that is used to log on to the database in the ApsaraDB RDS for MySQL instance.
         self.rds_user_name = rds_user_name  # type: str
+        # The ID of the virtual private cloud (VPC) to which the ApsaraDB RDS for MySQL instance belongs.
         self.rds_vpc_id = rds_vpc_id  # type: str
+        # The private endpoint of the ApsaraDB RDS for MySQL instance.
         self.rds_vpc_url = rds_vpc_url  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # Specifies whether to ignore the table schemas that do not support synchronization. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.skip_unsupported = skip_unsupported  # type: bool
+        # The tables whose data you want to synchronize.
         self.syn_db_tables = syn_db_tables  # type: str
 
     def validate(self):
@@ -2054,9 +2144,17 @@ class CreateRDSToClickhouseDbRequest(TeaModel):
 
 class CreateRDSToClickhouseDbResponseBody(TeaModel):
     def __init__(self, error_msg=None, repeated_dbs=None, request_id=None, status=None):
+        # If -1 is returned for the **Status** parameter, the cause of the creation failure is returned.
         self.error_msg = error_msg  # type: str
+        # Duplicate tables in the synchronization task.
         self.repeated_dbs = repeated_dbs  # type: list[str]
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the synchronization task was created. Valid values:
+        # 
+        # *   **1**: Created.
+        # *   **0**: Creation failed. The tables in the synchronization task are duplicate. The duplicate tables are returned for the **RepeatedDbs** parameter.
+        # *   **1**: Creation failed. The cause why the creation failed is returned for the **ErrorMsg** parameter.
         self.status = status  # type: long
 
     def validate(self):
@@ -2133,10 +2231,30 @@ class CreateRDSToClickhouseDbResponse(TeaModel):
 class CreateSQLAccountRequest(TeaModel):
     def __init__(self, account_description=None, account_name=None, account_password=None, account_type=None,
                  dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The description of the database account.
+        # 
+        # *   The description cannot start with http:// or https://.
+        # *   The description can be up to 256 characters in length or be an empty string.
         self.account_description = account_description  # type: str
+        # The name of the database account.
+        # 
+        # *   The name must be unique in the cluster.
+        # *   The name can contain lowercase letters, digits, or underscores (\_).
+        # *   The name must start with a lowercase letter and end with a lowercase letter or a digit.
+        # *   The name must be 2 to 64 characters in length.
         self.account_name = account_name  # type: str
+        # The password of the database account.
+        # 
+        # *   The password must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters.
+        # *   Special characters include ! @ # $ % ^ & \* ( ) \_ + - =\
+        # *   The password must be 8 to 32 characters in length.
         self.account_password = account_password  # type: str
+        # The type of the database account. Valid values:
+        # 
+        # *   **Super**: privileged account.
+        # *   **Normal**: standard account.
         self.account_type = account_type  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -2197,6 +2315,7 @@ class CreateSQLAccountRequest(TeaModel):
 
 class CreateSQLAccountResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2299,6 +2418,7 @@ class CreateServiceLinkedRoleRequest(TeaModel):
 
 class CreateServiceLinkedRoleResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2363,7 +2483,9 @@ class CreateServiceLinkedRoleResponse(TeaModel):
 class DeleteAccountRequest(TeaModel):
     def __init__(self, account_name=None, dbcluster_id=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The name of the database account.
         self.account_name = account_name  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -2412,6 +2534,7 @@ class DeleteAccountRequest(TeaModel):
 
 class DeleteAccountResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2476,6 +2599,7 @@ class DeleteAccountResponse(TeaModel):
 class DeleteDBClusterRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The ID of the pay-as-you-go ApsaraDB for ClickHouse cluster.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -2520,6 +2644,7 @@ class DeleteDBClusterRequest(TeaModel):
 
 class DeleteDBClusterResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2584,11 +2709,13 @@ class DeleteDBClusterResponse(TeaModel):
 class DeleteSyndbRequest(TeaModel):
     def __init__(self, db_cluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, syn_db=None):
+        # The cluster ID.
         self.db_cluster_id = db_cluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The name of the database in the ApsaraDB RDS for MySQL instance. The database is used for data synchronization.
         self.syn_db = syn_db  # type: str
 
     def validate(self):
@@ -2633,9 +2760,17 @@ class DeleteSyndbRequest(TeaModel):
 
 class DeleteSyndbResponseBody(TeaModel):
     def __init__(self, error_code=None, error_msg=None, request_id=None, status=None):
+        # The error code.
         self.error_code = error_code  # type: long
+        # *   If the value **true** is returned for the **Status** parameter, the system does not return the ErrorMsg parameter.
+        # *   If the value **false** is returned for the **Status** parameter, the system returns the deletion failure cause for the ErrorMsg parameter.
         self.error_msg = error_msg  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the database used for data synchronization was deleted. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.status = status  # type: bool
 
     def validate(self):
@@ -2712,10 +2847,13 @@ class DeleteSyndbResponse(TeaModel):
 class DescribeAccountAuthorityRequest(TeaModel):
     def __init__(self, account_name=None, dbcluster_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The name of the database account.
         self.account_name = account_name  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -2767,13 +2905,27 @@ class DescribeAccountAuthorityRequest(TeaModel):
 class DescribeAccountAuthorityResponseBody(TeaModel):
     def __init__(self, account_name=None, allow_databases=None, allow_dictionaries=None, ddl_authority=None,
                  dml_authority=None, request_id=None, total_databases=None, total_dictionaries=None):
+        # The name of the database account.
         self.account_name = account_name  # type: str
+        # Databases to which permissions have been granted.
         self.allow_databases = allow_databases  # type: list[str]
+        # Dictionaries to which permissions have been granted.
         self.allow_dictionaries = allow_dictionaries  # type: list[str]
+        # Indicates whether the database account has DDL permissions. Valid values:
+        # 
+        # *   **true**: has DDL permissions.
+        # *   **false**: does not have DDL permissions.
         self.ddl_authority = ddl_authority  # type: bool
+        # Indicates whether the database account has DML permissions. Valid values:
+        # 
+        # *   **all**\
+        # *   **readOnly,modify**\
         self.dml_authority = dml_authority  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # All databases.
         self.total_databases = total_databases  # type: list[str]
+        # All dictionaries.
         self.total_dictionaries = total_dictionaries  # type: list[str]
 
     def validate(self):
@@ -3088,12 +3240,15 @@ class DescribeAccountsResponse(TeaModel):
 class DescribeAllDataSourceRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, schema_name=None, table_name=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The database name.
         self.schema_name = schema_name  # type: str
+        # The table name.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -3143,12 +3298,25 @@ class DescribeAllDataSourceRequest(TeaModel):
 class DescribeAllDataSourceResponseBodyColumnsColumn(TeaModel):
     def __init__(self, auto_increment_column=None, column_name=None, dbcluster_id=None, primary_key=None,
                  schema_name=None, table_name=None, type=None):
+        # Indicates whether the column is an auto-increment column. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.auto_increment_column = auto_increment_column  # type: bool
+        # The column name.
         self.column_name = column_name  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # Indicates whether the column is the primary key of the table. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.primary_key = primary_key  # type: bool
+        # The database name.
         self.schema_name = schema_name  # type: str
+        # The table name.
         self.table_name = table_name  # type: str
+        # The type of the column.
         self.type = type  # type: str
 
     def validate(self):
@@ -3229,7 +3397,9 @@ class DescribeAllDataSourceResponseBodyColumns(TeaModel):
 
 class DescribeAllDataSourceResponseBodySchemasSchema(TeaModel):
     def __init__(self, dbcluster_id=None, schema_name=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The database name.
         self.schema_name = schema_name  # type: str
 
     def validate(self):
@@ -3290,8 +3460,11 @@ class DescribeAllDataSourceResponseBodySchemas(TeaModel):
 
 class DescribeAllDataSourceResponseBodyTablesTable(TeaModel):
     def __init__(self, dbcluster_id=None, schema_name=None, table_name=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The database name.
         self.schema_name = schema_name  # type: str
+        # The table name.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -3356,9 +3529,13 @@ class DescribeAllDataSourceResponseBodyTables(TeaModel):
 
 class DescribeAllDataSourceResponseBody(TeaModel):
     def __init__(self, columns=None, request_id=None, schemas=None, tables=None):
+        # The information about the columns.
         self.columns = columns  # type: DescribeAllDataSourceResponseBodyColumns
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The information about the databases.
         self.schemas = schemas  # type: DescribeAllDataSourceResponseBodySchemas
+        # The information about the tables.
         self.tables = tables  # type: DescribeAllDataSourceResponseBodyTables
 
     def validate(self):
@@ -3443,12 +3620,15 @@ class DescribeAllDataSourceResponse(TeaModel):
 class DescribeAllDataSourcesRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, schema_name=None, table_name=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The database name.
         self.schema_name = schema_name  # type: str
+        # The table name.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -3498,12 +3678,25 @@ class DescribeAllDataSourcesRequest(TeaModel):
 class DescribeAllDataSourcesResponseBodyColumnsColumn(TeaModel):
     def __init__(self, auto_increment_column=None, column_name=None, dbcluster_id=None, primary_key=None,
                  schema_name=None, table_name=None, type=None):
+        # Indicates whether the column is an auto-increment column. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.auto_increment_column = auto_increment_column  # type: bool
+        # The column name.
         self.column_name = column_name  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # Indicates whether the column is the primary key of the table. Valid values:
+        # 
+        # *   **true**: The column is the primary key of the table.
+        # *   **false**: The column is not the primary key of the table.
         self.primary_key = primary_key  # type: bool
+        # The database name.
         self.schema_name = schema_name  # type: str
+        # The table name.
         self.table_name = table_name  # type: str
+        # The column type.
         self.type = type  # type: str
 
     def validate(self):
@@ -3584,7 +3777,9 @@ class DescribeAllDataSourcesResponseBodyColumns(TeaModel):
 
 class DescribeAllDataSourcesResponseBodySchemasSchema(TeaModel):
     def __init__(self, dbcluster_id=None, schema_name=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The database name.
         self.schema_name = schema_name  # type: str
 
     def validate(self):
@@ -3645,8 +3840,11 @@ class DescribeAllDataSourcesResponseBodySchemas(TeaModel):
 
 class DescribeAllDataSourcesResponseBodyTablesTable(TeaModel):
     def __init__(self, dbcluster_id=None, schema_name=None, table_name=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The database name.
         self.schema_name = schema_name  # type: str
+        # The table name.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -3711,9 +3909,13 @@ class DescribeAllDataSourcesResponseBodyTables(TeaModel):
 
 class DescribeAllDataSourcesResponseBody(TeaModel):
     def __init__(self, columns=None, request_id=None, schemas=None, tables=None):
+        # Details of the columns.
         self.columns = columns  # type: DescribeAllDataSourcesResponseBodyColumns
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The information about the databases.
         self.schemas = schemas  # type: DescribeAllDataSourcesResponseBodySchemas
+        # The information about the tables.
         self.tables = tables  # type: DescribeAllDataSourcesResponseBodyTables
 
     def validate(self):
@@ -3798,6 +4000,7 @@ class DescribeAllDataSourcesResponse(TeaModel):
 class DescribeBackupPolicyRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -3843,11 +4046,28 @@ class DescribeBackupPolicyRequest(TeaModel):
 class DescribeBackupPolicyResponseBody(TeaModel):
     def __init__(self, backup_retention_period=None, backup_size=None, preferred_backup_period=None,
                  preferred_backup_time=None, request_id=None, switch=None):
+        # The retention period for the backup data. By default, the backup data is retained for seven days. Valid values: 7 to 730. Unit: day.
         self.backup_retention_period = backup_retention_period  # type: int
+        # The size of the backup data. Unit: MB.
         self.backup_size = backup_size  # type: str
+        # The day of a week when the system regularly backs up data. Valid values:
+        # 
+        # *   **Monday**\
+        # *   **Tuesday**\
+        # *   **Wednesday**\
+        # *   **Thursday**\
+        # *   **Friday**\
+        # *   **Saturday**\
+        # *   **Sunday**\
         self.preferred_backup_period = preferred_backup_period  # type: str
+        # The backup window. The time is displayed in Coordinated Universal Time (UTC).
         self.preferred_backup_time = preferred_backup_time  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the backup feature is enabled. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.switch = switch  # type: str
 
     def validate(self):
@@ -4164,12 +4384,15 @@ class DescribeBackupsResponse(TeaModel):
 class DescribeColumnsRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, schema_name=None, table_name=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The database name. You can call the [DescribeSchemas](~~350931~~) operation to query database names.
         self.schema_name = schema_name  # type: str
+        # The table name. You can call the [DescribeTables](~~350932~~) operation to query table names.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -4219,12 +4442,25 @@ class DescribeColumnsRequest(TeaModel):
 class DescribeColumnsResponseBodyItemsColumn(TeaModel):
     def __init__(self, auto_increment_column=None, column_name=None, dbcluster_id=None, primary_key=None,
                  schema_name=None, table_name=None, type=None):
+        # Indicates whether the column is an auto-increment column. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.auto_increment_column = auto_increment_column  # type: bool
+        # The column name.
         self.column_name = column_name  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # Indicates whether the column is the primary key of the table. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.primary_key = primary_key  # type: bool
+        # The database name.
         self.schema_name = schema_name  # type: str
+        # The table name.
         self.table_name = table_name  # type: str
+        # The column type.
         self.type = type  # type: str
 
     def validate(self):
@@ -4305,7 +4541,9 @@ class DescribeColumnsResponseBodyItems(TeaModel):
 
 class DescribeColumnsResponseBody(TeaModel):
     def __init__(self, items=None, request_id=None):
+        # Details of the columns.
         self.items = items  # type: DescribeColumnsResponseBodyItems
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4375,8 +4613,11 @@ class DescribeColumnsResponse(TeaModel):
 
 class DescribeConfigHistoryRequest(TeaModel):
     def __init__(self, dbcluster_id=None, end_time=None, start_time=None):
+        # The cluster ID. You can call the [DescribeDBClusters](~~170879~~) operation to query information about all the clusters that are deployed in a specific region. The information includes the cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.end_time = end_time  # type: str
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in Coordinated Universal Time (UTC).
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -4409,10 +4650,18 @@ class DescribeConfigHistoryRequest(TeaModel):
 
 class DescribeConfigHistoryResponseBodyConfigHistoryItems(TeaModel):
     def __init__(self, change_id=None, owner_id=None, reason=None, success=None, time=None):
+        # The ID of the change record.
         self.change_id = change_id  # type: str
+        # The user ID (UID) of the Alibaba Cloud account.
         self.owner_id = owner_id  # type: str
+        # The reason for the setting modification of the configuration parameters.
         self.reason = reason  # type: str
+        # Indicates whether the setting modification of the configuration parameters took effect. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
+        # The time when the values of the configuration parameters were changed. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.time = time  # type: str
 
     def validate(self):
@@ -4453,7 +4702,9 @@ class DescribeConfigHistoryResponseBodyConfigHistoryItems(TeaModel):
 
 class DescribeConfigHistoryResponseBody(TeaModel):
     def __init__(self, config_history_items=None, request_id=None):
+        # The change records of the configuration parameters.
         self.config_history_items = config_history_items  # type: list[DescribeConfigHistoryResponseBodyConfigHistoryItems]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4529,7 +4780,9 @@ class DescribeConfigHistoryResponse(TeaModel):
 
 class DescribeConfigVersionDifferenceRequest(TeaModel):
     def __init__(self, change_id=None, dbcluster_id=None):
+        # The ID of the change record. You can call the [DescribeConfigHistory](~~452209~~) operation to query the ID of the change record.
         self.change_id = change_id  # type: str
+        # The cluster ID. You can call the [DescribeDBClusters](~~170879~~) operation to query information about all the clusters that are deployed in a specific region. The information includes the cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -4558,8 +4811,11 @@ class DescribeConfigVersionDifferenceRequest(TeaModel):
 
 class DescribeConfigVersionDifferenceResponseBody(TeaModel):
     def __init__(self, new_config_xml=None, old_config_xml=None, request_id=None):
+        # The values of the configuration parameters after the values of the configuration parameters are changed.
         self.new_config_xml = new_config_xml  # type: str
+        # The values of the configuration parameters before the values of the configuration parameters are changed.
         self.old_config_xml = old_config_xml  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4632,6 +4888,7 @@ class DescribeConfigVersionDifferenceResponse(TeaModel):
 class DescribeDBClusterAccessWhiteListRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -4676,8 +4933,11 @@ class DescribeDBClusterAccessWhiteListRequest(TeaModel):
 
 class DescribeDBClusterAccessWhiteListResponseBodyDBClusterAccessWhiteListIPArray(TeaModel):
     def __init__(self, dbcluster_iparray_attribute=None, dbcluster_iparray_name=None, security_iplist=None):
+        # The attribute of the IP address whitelist.
         self.dbcluster_iparray_attribute = dbcluster_iparray_attribute  # type: str
+        # The name of the IP address whitelist.
         self.dbcluster_iparray_name = dbcluster_iparray_name  # type: str
+        # The IP addresses in the IP address whitelist.
         self.security_iplist = security_iplist  # type: str
 
     def validate(self):
@@ -4742,7 +5002,9 @@ class DescribeDBClusterAccessWhiteListResponseBodyDBClusterAccessWhiteList(TeaMo
 
 class DescribeDBClusterAccessWhiteListResponseBody(TeaModel):
     def __init__(self, dbcluster_access_white_list=None, request_id=None):
+        # The details about the IP address whitelist.
         self.dbcluster_access_white_list = dbcluster_access_white_list  # type: DescribeDBClusterAccessWhiteListResponseBodyDBClusterAccessWhiteList
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4813,6 +5075,7 @@ class DescribeDBClusterAccessWhiteListResponse(TeaModel):
 class DescribeDBClusterAttributeRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The cluster ID. You can call the [DescribeDBClusters](~~170879~~) operation to query information about all the clusters that are deployed in a specific region. The information includes the cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -4857,7 +5120,13 @@ class DescribeDBClusterAttributeRequest(TeaModel):
 
 class DescribeDBClusterAttributeResponseBodyDBClusterScaleOutStatus(TeaModel):
     def __init__(self, progress=None, ratio=None):
+        # The progress of the data migration task in percentage.
+        # 
+        # >  This parameter is returned only when the cluster is in the SCALING_OUT state.
         self.progress = progress  # type: str
+        # The progress of the data migration task. This value is displayed in the following format: Data volume that has been migrated/Total data volume.
+        # 
+        # >  This parameter is returned only when the cluster is in the SCALING_OUT state.
         self.ratio = ratio  # type: str
 
     def validate(self):
@@ -4886,7 +5155,9 @@ class DescribeDBClusterAttributeResponseBodyDBClusterScaleOutStatus(TeaModel):
 
 class DescribeDBClusterAttributeResponseBodyDBClusterTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag name.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -4956,55 +5227,183 @@ class DescribeDBClusterAttributeResponseBodyDBCluster(TeaModel):
                  resource_group_id=None, scale_out_status=None, storage_type=None, support_backup=None, support_https_port=None,
                  support_mysql_port=None, support_oss=None, tags=None, v_switch_id=None, vpc_cloud_instance_id=None, vpc_id=None,
                  vpc_ip_addr=None, zone_id=None, zone_id_vswitch_map=None, zookeeper_class=None):
+        # The ID of the Alibaba Cloud account.
         self.ali_uid = ali_uid  # type: str
         self.appointment_restart_time = appointment_restart_time  # type: str
+        # The site ID. Valid values:
+        # 
+        # *   **26842**: the China site (aliyun.com)
+        # *   **26888**: the international site (alibabacloud.com)
         self.bid = bid  # type: str
+        # The edition of the cluster. Valid values:
+        # 
+        # *   **Basic**: Single-replica Edition
+        # *   **HighAvailability**: Double-replica Edition
         self.category = category  # type: str
+        # The commodity code of the cluster.
         self.commodity_code = commodity_code  # type: str
+        # The VPC endpoint of the cluster.
         self.connection_string = connection_string  # type: str
+        # The version of the ApsaraDB for ClickHouse console that is used to manage the cluster. Valid values:
+        # 
+        # *   **v1**\
+        # *   **v2**\
         self.control_version = control_version  # type: str
+        # The time when the cluster was created. The value is in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.create_time = create_time  # type: str
+        # The description of the cluster.
         self.dbcluster_description = dbcluster_description  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The network type of the cluster. Only VPC is supported.
         self.dbcluster_network_type = dbcluster_network_type  # type: str
+        # The cluster state. Valid values:
+        # 
+        # *   **Preparing**: The cluster is being prepared.
+        # *   **Creating**: The cluster is being created.
+        # *   **Running**: The cluster is running.
+        # *   **Deleting**: The cluster is being deleted.
+        # *   **SCALING_OUT**: The storage capacity of the cluster is being expanded.
         self.dbcluster_status = dbcluster_status  # type: str
+        # The type of the cluster. Valid values:
+        # 
+        # *   **Common**: a common cluster
+        # *   **Readonly**: a read-only cluster
+        # *   **Guard**: a disaster recovery cluster
         self.dbcluster_type = dbcluster_type  # type: str
+        # The specifications of the cluster.
+        # 
+        # *   Valid values when the cluster is of Single-replica Edition:
+        # 
+        #     *   **S4-NEW**\
+        #     *   **S8**\
+        #     *   **S16**\
+        #     *   **S32**\
+        #     *   **S64**\
+        #     *   **S104**\
+        # 
+        # *   Valid values when the cluster is of Double-replica Edition:
+        # 
+        #     *   **C4-NEW**\
+        #     *   **C8**\
+        #     *   **C16**\
+        #     *   **C32**\
+        #     *   **C64**\
+        #     *   **C104**\
         self.dbnode_class = dbnode_class  # type: str
+        # The number of nodes.
+        # 
+        # *   Valid values when the cluster is of Single-replica Edition: 1 to 48.
+        # *   Valid values when the cluster is of Double-replica Edition: 1 to 24.
         self.dbnode_count = dbnode_count  # type: long
+        # The storage capacity of a single node of the cluster. Unit: GB.
+        # 
+        # Valid values: 100 to 32000.
+        # 
+        # >  This value is a multiple of 100.
         self.dbnode_storage = dbnode_storage  # type: long
+        # The Key Management Service (KMS) key that is used to encrypt data.
+        # 
+        # >  If the value of the EncryptionType parameter is off, an empty string is returned for this parameter.
         self.encryption_key = encryption_key  # type: str
+        # The encryption type. Valid values:
+        # 
+        # *   **CloudDisk**: Disk encryption is enabled.
+        # *   **off**: Data is not encrypted.
         self.encryption_type = encryption_type  # type: str
+        # The type of the database engine.
         self.engine = engine  # type: str
+        # The latest minor version to which the cluster can be updated.
         self.engine_latest_minor_version = engine_latest_minor_version  # type: str
+        # The current minor version.
         self.engine_minor_version = engine_minor_version  # type: str
+        # The engine version.
         self.engine_version = engine_version  # type: str
+        # The time when the cluster expired. The time is in the yyyy-MM-ddTHH:mm:ssZ format.
+        # 
+        # >  Pay-as-you-go clusters never expire. If the cluster is a pay-as-you-go cluster, an empty string is returned for this parameter.
         self.expire_time = expire_time  # type: str
         self.ext_storage_size = ext_storage_size  # type: int
         self.ext_storage_type = ext_storage_type  # type: str
+        # Indicates whether the cluster has expired. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.is_expired = is_expired  # type: str
+        # The lock mode of the cluster. Valid values:
+        # 
+        # *   **Unlock**: The cluster is not locked.
+        # *   **ManualLock**: The cluster is manually locked.
+        # *   **LockByExpiration**: The cluster is automatically locked due to cluster expiration.
+        # *   **LockByRestoration**: The cluster is automatically locked because the cluster is about to be rolled back.
+        # *   **LockByDiskQuota**: The cluster is automatically locked because the disk space is exhausted.
         self.lock_mode = lock_mode  # type: str
+        # The cause why the cluster was locked.
+        # 
+        # >  If the value of the LockMode parameter is Unlock, an empty string is returned for this parameter.
         self.lock_reason = lock_reason  # type: str
+        # The update type. If the value of the parameter is **false**, it indicates a manual update.
         self.maintain_auto_type = maintain_auto_type  # type: bool
+        # The maintenance window of the cluster. The value is in the HH:mmZ-HH:mmZ format. The time is displayed in UTC.
+        # 
+        # For example, if you set the maintenance window to 00:00Z-01:00Z, the cluster can be maintained from 08:00 (UTC+8) to 09:00 (UTC+8).
         self.maintain_time = maintain_time  # type: str
+        # The billing method of the cluster. Valid values:
+        # 
+        # *   **Postpaid**: indicates the pay-as-you-go billing method.
+        # *   **Prepaid**: indicates the subscription billing method.
         self.pay_type = pay_type  # type: str
+        # The HTTP port number.
         self.port = port  # type: int
+        # The public endpoint.
         self.public_connection_string = public_connection_string  # type: str
+        # The IP address that is used to connect to the cluster over the Internet.
         self.public_ip_addr = public_ip_addr  # type: str
+        # The TCP port number in the public endpoint.
         self.public_port = public_port  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        # The status of the data migration task.
         self.scale_out_status = scale_out_status  # type: DescribeDBClusterAttributeResponseBodyDBClusterScaleOutStatus
+        # The storage type of the cluster. Valid values:
+        # 
+        # *   **CloudESSD**: The cluster uses an enhanced SSD (ESSD) of performance level (PL) 1.
+        # *   **CloudESSD_PL2**: The cluster uses an ESSD of PL 2.
+        # *   **CloudESSD_PL3**: The cluster uses an ESSD of PL 3.
+        # *   **CloudEfficiency**: The cluster uses an ultra disk.
         self.storage_type = storage_type  # type: str
+        # Indicates whether data backup is supported. Valid values:
+        # 
+        # *   **1**: Data backup is supported.
+        # *   **2**: Data backup is not supported.
         self.support_backup = support_backup  # type: int
+        # Indicates whether the cluster supports an HTTP port. Valid values:
+        # 
+        # *   **true**: An HTTP port is supported.
+        # *   **false**: An HTTP port is not supported.
         self.support_https_port = support_https_port  # type: bool
+        # Indicates whether the cluster supports a MySQL port. Valid values:
+        # 
+        # *   **true**: A MySQL port is supported.
+        # *   **false**: A MySQL port is not supported.
         self.support_mysql_port = support_mysql_port  # type: bool
+        # Indicates whether tiered storage of hot data and cold data is supported. Valid values:
+        # 
+        # *   **1**: Tiered storage of hot data and cold data is supported.
+        # *   **2**: Tiered storage of hot data and cold data is not supported.
         self.support_oss = support_oss  # type: int
+        # The tags.
         self.tags = tags  # type: DescribeDBClusterAttributeResponseBodyDBClusterTags
+        # The vSwitch ID.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the VPC in which the cluster is deployed.
         self.vpc_cloud_instance_id = vpc_cloud_instance_id  # type: str
-        # VPC ID。
+        # The virtual private cloud (VPC) ID.
         self.vpc_id = vpc_id  # type: str
+        # The IP address that is used to connect to the cluster over the VPC.
         self.vpc_ip_addr = vpc_ip_addr  # type: str
+        # The zone ID.
         self.zone_id = zone_id  # type: str
         self.zone_id_vswitch_map = zone_id_vswitch_map  # type: dict[str, any]
         self.zookeeper_class = zookeeper_class  # type: str
@@ -5236,7 +5635,9 @@ class DescribeDBClusterAttributeResponseBodyDBCluster(TeaModel):
 
 class DescribeDBClusterAttributeResponseBody(TeaModel):
     def __init__(self, dbcluster=None, request_id=None):
+        # The information about the cluster.
         self.dbcluster = dbcluster  # type: DescribeDBClusterAttributeResponseBodyDBCluster
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5307,9 +5708,11 @@ class DescribeDBClusterAttributeResponse(TeaModel):
 class DescribeDBClusterConfigRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -5356,7 +5759,9 @@ class DescribeDBClusterConfigRequest(TeaModel):
 
 class DescribeDBClusterConfigResponseBody(TeaModel):
     def __init__(self, config=None, request_id=None):
+        # The information about the parameter settings of the cluster.
         self.config = config  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5424,7 +5829,9 @@ class DescribeDBClusterConfigResponse(TeaModel):
 
 class DescribeDBClusterConfigInXMLRequest(TeaModel):
     def __init__(self, dbcluster_id=None, region_id=None):
+        # The cluster ID. You can call the [DescribeDBClusters](~~170879~~) operation to query information about all the clusters that are deployed in a specific region. The information includes the cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5453,7 +5860,9 @@ class DescribeDBClusterConfigInXMLRequest(TeaModel):
 
 class DescribeDBClusterConfigInXMLResponseBody(TeaModel):
     def __init__(self, config=None, request_id=None):
+        # The values of the configuration parameters.
         self.config = config  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5522,6 +5931,7 @@ class DescribeDBClusterConfigInXMLResponse(TeaModel):
 class DescribeDBClusterNetInfoItemsRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -5567,14 +5977,30 @@ class DescribeDBClusterNetInfoItemsRequest(TeaModel):
 class DescribeDBClusterNetInfoItemsResponseBodyNetInfoItemsNetInfoItem(TeaModel):
     def __init__(self, connection_string=None, http_port=None, https_port=None, ipaddress=None, jdbc_port=None,
                  my_sqlport=None, net_type=None, v_switch_id=None, vpc_id=None):
+        # The endpoint that is used to connect to the database.
         self.connection_string = connection_string  # type: str
+        # The HTTP port number.
         self.http_port = http_port  # type: str
+        # The HTTPS port number.
         self.https_port = https_port  # type: str
+        # The IP address.
         self.ipaddress = ipaddress  # type: str
+        # The port number that is used in Java Database Connectivity (JDBC).
         self.jdbc_port = jdbc_port  # type: str
+        # The port of the MySQL instance.
         self.my_sqlport = my_sqlport  # type: str
+        # The network type of the endpoint. Valid values:
+        # 
+        # *   Public: public endpoint
+        # *   VPC: VPC
         self.net_type = net_type  # type: str
+        # The vSwitch ID.
+        # 
+        # >  If the value of the NetType parameter is set to Public, an empty string is returned.
         self.v_switch_id = v_switch_id  # type: str
+        # The virtual private cloud (VPC) ID.
+        # 
+        # >  If the value of the NetType parameter is set to Public, an empty string is returned.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -5663,9 +6089,16 @@ class DescribeDBClusterNetInfoItemsResponseBodyNetInfoItems(TeaModel):
 
 class DescribeDBClusterNetInfoItemsResponseBody(TeaModel):
     def __init__(self, cluster_network_type=None, enable_slb=None, net_info_items=None, request_id=None):
+        # The network type of the cluster. Only VPC is supported.
         self.cluster_network_type = cluster_network_type  # type: str
+        # Indicates whether Server Load Balancer (SLB) is activated in the VPC. Valid values:
+        # 
+        # *   true
+        # *   false
         self.enable_slb = enable_slb  # type: bool
+        # The network information about the cluster.
         self.net_info_items = net_info_items  # type: DescribeDBClusterNetInfoItemsResponseBodyNetInfoItems
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5744,13 +6177,57 @@ class DescribeDBClusterNetInfoItemsResponse(TeaModel):
 class DescribeDBClusterPerformanceRequest(TeaModel):
     def __init__(self, dbcluster_id=None, end_time=None, key=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, start_time=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mmZ format. The time must be in UTC.
+        # 
+        # >  The end time must be later than the start time. The interval cannot be more than 32 days.
         self.end_time = end_time  # type: str
+        # The performance metrics that you want to query. Separate multiple performance metrics with commas (,). You can query up to five performance metrics at a time. You can query the following performance metrics:
+        # 
+        # >  The **Key** parameter is required.
+        # 
+        # *   **CPU**:
+        # 
+        #     *   **CPU_USAGE**: the CPU utilization
+        # 
+        # *   **Memory**:
+        # 
+        #     *   **MEM_USAGE**: the memory usage
+        #     *   **MEM_USAGE_SIZE**: the used memory. Unit: MB
+        # 
+        # *   **Disk**:
+        # 
+        #     *   **DISK_USAGE**: the disk usage
+        #     *   **DISK_USAGE_SIZE**: the size of the used disks. Unit: MB
+        #     *   **IOPS**: the disk Input/Output Operations per Second (IOPS)
+        # 
+        # *   **Connection**:
+        # 
+        #     *   **CONN_USAGE**: the database connection usage
+        #     *   **CONN_USAGE_COUNT**: the number of database connections used
+        # 
+        # *   **Write**:
+        # 
+        #     *   **TPS**: the number of rows written per second
+        #     *   **INSERT_SIZE**: the amount of data written per second. Unit: MB
+        # 
+        # *   **Query**:
+        # 
+        #     *   **QPS**: the queries per second
+        #     *   **AVG_SEEK**: the average number of random seek calls
+        # 
+        # *   **WAIT**:
+        # 
+        #     *   **ZK_WAIT**: the average ZooKeeper wait time. Unit: ms
+        #     *   **IO_WAIT**: the average I/O wait time. Unit: ms
+        #     *   **CPU_WAIT**: the average CPU wait time. Unit: ms
         self.key = key  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mmZ format. The time must be in Coordinated Universal Time (UTC).
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -5803,6 +6280,7 @@ class DescribeDBClusterPerformanceRequest(TeaModel):
 
 class DescribeDBClusterPerformanceResponseBodyPerformancesSeriesValues(TeaModel):
     def __init__(self, point=None):
+        # The values of a metric.
         self.point = point  # type: list[str]
 
     def validate(self):
@@ -5827,7 +6305,9 @@ class DescribeDBClusterPerformanceResponseBodyPerformancesSeriesValues(TeaModel)
 
 class DescribeDBClusterPerformanceResponseBodyPerformancesSeries(TeaModel):
     def __init__(self, name=None, values=None):
+        # The name of the list of performance metric values.
         self.name = name  # type: str
+        # The values of the performance parameter. Each value of the performance parameter is collected at a point in time.
         self.values = values  # type: list[DescribeDBClusterPerformanceResponseBodyPerformancesSeriesValues]
 
     def validate(self):
@@ -5864,9 +6344,13 @@ class DescribeDBClusterPerformanceResponseBodyPerformancesSeries(TeaModel):
 
 class DescribeDBClusterPerformanceResponseBodyPerformances(TeaModel):
     def __init__(self, key=None, name=None, series=None, unit=None):
+        # The name of the performance metric.
         self.key = key  # type: str
+        # The name of the performance metric value.
         self.name = name  # type: str
+        # The queried performance pamaters.
         self.series = series  # type: list[DescribeDBClusterPerformanceResponseBodyPerformancesSeries]
+        # The unit of the performance metric.
         self.unit = unit  # type: str
 
     def validate(self):
@@ -5911,10 +6395,15 @@ class DescribeDBClusterPerformanceResponseBodyPerformances(TeaModel):
 
 class DescribeDBClusterPerformanceResponseBody(TeaModel):
     def __init__(self, dbcluster_id=None, end_time=None, performances=None, request_id=None, start_time=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end of the time range to query. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in Coordinated Universal Time (UTC).
         self.end_time = end_time  # type: str
+        # The values of the queried performance metrics of the cluster.
         self.performances = performances  # type: list[DescribeDBClusterPerformanceResponseBodyPerformances]
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The beginning of the time range to query. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -6002,7 +6491,9 @@ class DescribeDBClusterPerformanceResponse(TeaModel):
 
 class DescribeDBClustersRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag name.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -6033,17 +6524,37 @@ class DescribeDBClustersRequest(TeaModel):
     def __init__(self, dbcluster_description=None, dbcluster_ids=None, dbcluster_status=None, owner_account=None,
                  owner_id=None, page_number=None, page_size=None, region_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, tag=None):
+        # The description of the cluster.
         self.dbcluster_description = dbcluster_description  # type: str
+        # The cluster ID.
+        # 
+        # >  If you do not specify this parameter, the information about all clusters is queried.
         self.dbcluster_ids = dbcluster_ids  # type: str
+        # The state of the cluster. Valid values:
+        # 
+        # *   **Preparing**: The cluster is being prepared.
+        # *   **Creating**: The cluster is being created.
+        # *   **Running**: The cluster is running.
+        # *   **Deleting**: The cluster is being deleted.
+        # *   **SCALING_OUT**: The storage capacity of the cluster is being expanded.
         self.dbcluster_status = dbcluster_status  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page. Valid values:
+        # 
+        # *   **30** (default)
+        # *   **50**\
+        # *   **100**\
         self.page_size = page_size  # type: int
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the cluster belongs.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The tags.
         self.tag = tag  # type: list[DescribeDBClustersRequestTag]
 
     def validate(self):
@@ -6120,7 +6631,13 @@ class DescribeDBClustersRequest(TeaModel):
 
 class DescribeDBClustersResponseBodyDBClustersDBClusterScaleOutStatus(TeaModel):
     def __init__(self, progress=None, ratio=None):
+        # The progress of the data migration task in percentage.
+        # 
+        # >  This parameter is returned only when the cluster is in the SCALING_OUT state.
         self.progress = progress  # type: str
+        # The progress of the data migration task. This value is displayed in the following format: Data volume that has been migrated/Total data volume.
+        # 
+        # >  This parameter is returned only when the cluster is in the SCALING_OUT state.
         self.ratio = ratio  # type: str
 
     def validate(self):
@@ -6149,7 +6666,9 @@ class DescribeDBClustersResponseBodyDBClustersDBClusterScaleOutStatus(TeaModel):
 
 class DescribeDBClustersResponseBodyDBClustersDBClusterTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag name.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -6215,37 +6734,123 @@ class DescribeDBClustersResponseBodyDBClustersDBCluster(TeaModel):
                  expire_time=None, ext_storage_size=None, ext_storage_type=None, is_expired=None, lock_mode=None,
                  lock_reason=None, pay_type=None, port=None, region_id=None, resource_group_id=None, scale_out_status=None,
                  storage_type=None, tags=None, v_switch_id=None, vpc_cloud_instance_id=None, vpc_id=None, zone_id=None):
+        # The ID of the Alibaba Cloud account.
         self.ali_uid = ali_uid  # type: str
+        # The site ID. Valid values:
+        # 
+        # *   **26842**: the China site (aliyun.com)
+        # *   **26888**: the international site (alibabacloud.com)
         self.bid = bid  # type: str
+        # The edition of the cluster. Valid values:
+        # 
+        # *   **Basic**: Single-replica Edition
+        # *   **HighAvailability**: Double-replica Edition
         self.category = category  # type: str
+        # The commodity code of the cluster.
         self.commodity_code = commodity_code  # type: str
+        # The VPC endpoint of the cluster.
         self.connection_string = connection_string  # type: str
+        # The version number of the backend management system of ApsaraDB for ClickHouse. Valid values:
+        # 
+        # *   **v1**\
+        # *   **v2**\
         self.control_version = control_version  # type: str
+        # The time when the cluster was created. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format.
         self.create_time = create_time  # type: str
+        # The description of the cluster.
         self.dbcluster_description = dbcluster_description  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The network type of the cluster. Only VPC is supported.
         self.dbcluster_network_type = dbcluster_network_type  # type: str
+        # The state of the cluster. Valid values:
+        # 
+        # *   **Preparing**: The cluster is being prepared.
+        # *   **Creating**: The cluster is being created.
+        # *   **Running**: The cluster is running.
+        # *   **Deleting**: The cluster is being deleted.
+        # *   **SCALING_OUT**: The storage capacity of the cluster is being expanded.
         self.dbcluster_status = dbcluster_status  # type: str
+        # The specifications of the cluster.
+        # 
+        # *   Valid values when the cluster is of Single-replica Edition: -**S4**: 4 CPU cores and 16 GB of memory -**S8**: 8 CPU cores and 32 GB of memory
+        # 
+        #     *   **S16**: 16 CPU cores and 64 GB of memory
+        #     *   **S32**: 32 CPU cores and 128 GB of memory
+        #     *   **S64**: 64 CPU cores and 256 GB of memory
+        #     *   **S104**: 104 CPU cores and 384 GB of memory
+        # 
+        # *   Valid values when the cluster is of Double-replica Edition: -**C4**: 4 CPU cores and 16 GB of memory -**C8**: 8 CPU cores and 32 GB of memory -**C16**: 16 CPU cores and 64 GB of memory -**C32**: 32 CPU cores and 128 GB of memory -**C64**: 64 CPU cores and 256 GB of memory -**C104**: 104 CPU cores and 384 GB of memory
         self.dbnode_class = dbnode_class  # type: str
+        # The number of nodes.
+        # 
+        # *   Valid values when the cluster is of Single-replica Edition: 1 to 48.
+        # *   Valid values when the cluster is of Double-replica Edition: 1 to 24.
         self.dbnode_count = dbnode_count  # type: long
+        # The storage capacity of each node. Valid values: 100 to 32000. Unit: GB.
+        # 
+        # >  This value is a multiple of 100.
         self.dbnode_storage = dbnode_storage  # type: long
+        # The time when the cluster expired. The time is in the yyyy-MM-ddTHH:mm:ssZ format.
+        # 
+        # >  Pay-as-you-go clusters never expire. If the cluster is a pay-as-you-go cluster, an empty string is returned for this parameter.
         self.expire_time = expire_time  # type: str
+        # The extended storage space.
         self.ext_storage_size = ext_storage_size  # type: int
+        # The extended storage type. Valid values:
+        # 
+        # *   **CloudSSD**: standard SSD.
+        # *   **CloudESSD**: The cluster uses an enhanced SSD (ESSD) of performance level (PL) 1.
+        # *   **CloudESSD_PL2**: The cluster uses an ESSD of PL 2.
+        # *   **CloudESSD_PL3**: The cluster uses an ESSD of PL 3.
+        # *   **CloudEfficiency**: The cluster uses an ultra disk.
         self.ext_storage_type = ext_storage_type  # type: str
+        # Indicates whether the cluster has expired. Valid values:
+        # 
+        # *   **true**: The cluster has expired.
+        # *   **false**: The cluster has not expired.
         self.is_expired = is_expired  # type: str
+        # The lock mode of the cluster. Valid values:
+        # 
+        # *   **Unlock**: The cluster is not locked.
+        # *   **ManualLock**: The cluster is manually locked.
+        # *   **LockByExpiration**: The cluster is automatically locked due to cluster expiration.
+        # *   **LockByRestoration**: The cluster is automatically locked because the cluster is about to be rolled back.
+        # *   **LockByDiskQuota**: The cluster is automatically locked because the disk space is exhausted.
         self.lock_mode = lock_mode  # type: str
+        # The cause why the cluster was locked.
+        # 
+        # >  If the value of the LockMode parameter is Unlock, an empty string is returned for this parameter.
         self.lock_reason = lock_reason  # type: str
+        # The billing method of the cluster. Valid values:
+        # 
+        # *   **Postpaid**: The cluster uses the pay-as-you-go billing method.
+        # *   **Prepaid**: The cluster uses the subscription billing method.
         self.pay_type = pay_type  # type: str
+        # The HTTP port number.
         self.port = port  # type: int
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the cluster belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # The status of a data migration task.
         self.scale_out_status = scale_out_status  # type: DescribeDBClustersResponseBodyDBClustersDBClusterScaleOutStatus
+        # The storage type of the cluster. Valid values:
+        # 
+        # *   **CloudESSD**: The cluster uses an enhanced SSD (ESSD) of performance level (PL) 1.
+        # *   **CloudESSD_PL2**: The cluster uses an ESSD of PL 2.
+        # *   **CloudESSD_PL3**: The cluster uses an ESSD of PL 3.
+        # *   **CloudEfficiency**: The cluster uses an ultra disk.
         self.storage_type = storage_type  # type: str
+        # The tags.
         self.tags = tags  # type: DescribeDBClustersResponseBodyDBClustersDBClusterTags
+        # The vSwitch ID.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the VPC in which the cluster is deployed.
         self.vpc_cloud_instance_id = vpc_cloud_instance_id  # type: str
-        # VPC ID。
+        # The ID of the virtual private cloud (VPC) in which the cluster is deployed.
         self.vpc_id = vpc_id  # type: str
+        # The zone ID.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -6427,10 +7032,19 @@ class DescribeDBClustersResponseBodyDBClusters(TeaModel):
 
 class DescribeDBClustersResponseBody(TeaModel):
     def __init__(self, dbclusters=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The details of the clusters.
         self.dbclusters = dbclusters  # type: DescribeDBClustersResponseBodyDBClusters
+        # The total number of returned pages.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page. Valid values:
+        # 
+        # *   **30** (default)
+        # *   **50**\
+        # *   **100**\
         self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of entries that are returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -6513,9 +7127,11 @@ class DescribeDBClustersResponse(TeaModel):
 class DescribeDBConfigRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -6562,7 +7178,9 @@ class DescribeDBConfigRequest(TeaModel):
 
 class DescribeDBConfigResponseBody(TeaModel):
     def __init__(self, config=None, request_id=None):
+        # The configuration information about the cluster.
         self.config = config  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6631,9 +7249,11 @@ class DescribeDBConfigResponse(TeaModel):
 class DescribeOSSStorageRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -6680,10 +7300,22 @@ class DescribeOSSStorageRequest(TeaModel):
 
 class DescribeOSSStorageResponseBody(TeaModel):
     def __init__(self, cold_storage=None, policy=None, request_id=None, state=None, storage_usage=None):
+        # Indicates whether tiered storage of hot data and cold data is supported. Valid values:
+        # 
+        # *   **true**: Tiered storage of hot data and cold data is supported.
+        # *   **false**: Tiered storage of hot data and cold data is not supported.
         self.cold_storage = cold_storage  # type: bool
+        # The parameters for tiered storage of hot data and cold data.
         self.policy = policy  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The state of tiered storage of hot data and cold data. Valid values:
+        # 
+        # *   **CREATING**: Tiered storage of hot data and cold data is being enabled.
+        # *   **DISABLE**: Tiered storage of hot data and cold data is not enabled.
+        # *   **ENABLE**: Tiered storage of hot data and cold data is enabled.
         self.state = state  # type: str
+        # The space used for tiered storage of hot data and cold data. Unit: GB.
         self.storage_usage = storage_usage  # type: str
 
     def validate(self):
@@ -6765,16 +7397,29 @@ class DescribeProcessListRequest(TeaModel):
     def __init__(self, dbcluster_id=None, initial_query_id=None, initial_user=None, keyword=None, order=None,
                  owner_account=None, owner_id=None, page_number=None, page_size=None, query_duration_ms=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The cluster ID. You can call the [DescribeDBClusters](~~170879~~) operation to query information about all the clusters that are deployed in a specific region. The information includes the cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The ID of the query statement.
         self.initial_query_id = initial_query_id  # type: str
+        # The account that is used to log on to the database.
         self.initial_user = initial_user  # type: str
+        # The keyword that is used to query.
         self.keyword = keyword  # type: str
+        # The column by which the query results are sorted.
         self.order = order  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page. Valid values:
+        # 
+        # *   **30** (default)
+        # *   **50**\
+        # *   **100**\
         self.page_size = page_size  # type: int
+        # The minimum query duration. The minimum value is **1000**, and the default value is **1000**. Unit: milliseconds. Queries that last longer than this duration are returned in response parameters.
         self.query_duration_ms = query_duration_ms  # type: int
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -6850,11 +7495,17 @@ class DescribeProcessListRequest(TeaModel):
 class DescribeProcessListResponseBodyProcessListDataResultSet(TeaModel):
     def __init__(self, initial_address=None, initial_query_id=None, initial_user=None, query=None,
                  query_duration_ms=None, query_start_time=None):
+        # The IP address of the client that initiates the query.
         self.initial_address = initial_address  # type: str
+        # The query ID.
         self.initial_query_id = initial_query_id  # type: str
+        # The database account.
         self.initial_user = initial_user  # type: str
+        # The SQL statement that is executed in the query.
         self.query = query  # type: str
+        # The execution duration of the query. Unit: milliseconds.
         self.query_duration_ms = query_duration_ms  # type: str
+        # The beginning of the time range to query. The value is in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in Coordinated Universal Time (UTC).
         self.query_start_time = query_start_time  # type: str
 
     def validate(self):
@@ -6931,8 +7582,11 @@ class DescribeProcessListResponseBodyProcessListData(TeaModel):
 
 class DescribeProcessListResponseBodyProcessListStatistics(TeaModel):
     def __init__(self, bytes_read=None, elapsed_time=None, rows_read=None):
+        # The size of the data that was scanned. Unit: bytes.
         self.bytes_read = bytes_read  # type: int
+        # The average response time.
         self.elapsed_time = elapsed_time  # type: float
+        # The number of scanned rows.
         self.rows_read = rows_read  # type: int
 
     def validate(self):
@@ -6965,7 +7619,9 @@ class DescribeProcessListResponseBodyProcessListStatistics(TeaModel):
 
 class DescribeProcessListResponseBodyProcessListTableSchemaResultSet(TeaModel):
     def __init__(self, name=None, type=None):
+        # The column name.
         self.name = name  # type: str
+        # The column type.
         self.type = type  # type: str
 
     def validate(self):
@@ -7026,10 +7682,15 @@ class DescribeProcessListResponseBodyProcessListTableSchema(TeaModel):
 
 class DescribeProcessListResponseBodyProcessList(TeaModel):
     def __init__(self, data=None, rows=None, rows_before_limit_at_least=None, statistics=None, table_schema=None):
+        # The details of the query.
         self.data = data  # type: DescribeProcessListResponseBodyProcessListData
+        # The number of rows returned for the query.
         self.rows = rows  # type: str
+        # The number of entries returned per page.
         self.rows_before_limit_at_least = rows_before_limit_at_least  # type: str
+        # The statistics of the results.
         self.statistics = statistics  # type: DescribeProcessListResponseBodyProcessListStatistics
+        # Details of the columns.
         self.table_schema = table_schema  # type: DescribeProcessListResponseBodyProcessListTableSchema
 
     def validate(self):
@@ -7078,7 +7739,9 @@ class DescribeProcessListResponseBodyProcessList(TeaModel):
 
 class DescribeProcessListResponseBody(TeaModel):
     def __init__(self, process_list=None, request_id=None):
+        # The queries.
         self.process_list = process_list  # type: DescribeProcessListResponseBodyProcessList
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7187,7 +7850,12 @@ class DescribeRegionsRequest(TeaModel):
 
 class DescribeRegionsResponseBodyRegionsRegionZonesZone(TeaModel):
     def __init__(self, vpc_enabled=None, zone_id=None):
+        # Indicates whether Virtual Private Cloud (VPC) is supported in the zone. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.vpc_enabled = vpc_enabled  # type: bool
+        # The zone ID.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -7248,7 +7916,9 @@ class DescribeRegionsResponseBodyRegionsRegionZones(TeaModel):
 
 class DescribeRegionsResponseBodyRegionsRegion(TeaModel):
     def __init__(self, region_id=None, zones=None):
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The zones.
         self.zones = zones  # type: DescribeRegionsResponseBodyRegionsRegionZones
 
     def validate(self):
@@ -7311,7 +7981,9 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, regions=None, request_id=None):
+        # The queried regions.
         self.regions = regions  # type: DescribeRegionsResponseBodyRegions
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7382,6 +8054,7 @@ class DescribeRegionsResponse(TeaModel):
 class DescribeSchemasRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -7426,7 +8099,9 @@ class DescribeSchemasRequest(TeaModel):
 
 class DescribeSchemasResponseBodyItemsSchema(TeaModel):
     def __init__(self, dbcluster_id=None, schema_name=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The database name.
         self.schema_name = schema_name  # type: str
 
     def validate(self):
@@ -7487,7 +8162,9 @@ class DescribeSchemasResponseBodyItems(TeaModel):
 
 class DescribeSchemasResponseBody(TeaModel):
     def __init__(self, items=None, request_id=None):
+        # The information about the databases of the cluster.
         self.items = items  # type: DescribeSchemasResponseBodyItems
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7559,16 +8236,29 @@ class DescribeSlowLogRecordsRequest(TeaModel):
     def __init__(self, dbcluster_id=None, end_time=None, owner_account=None, owner_id=None, page_number=None,
                  page_size=None, query_duration_ms=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
                  start_time=None):
+        # The cluster ID. You can call the [DescribeDBClusters](~~170879~~) operation to query information about all the clusters that are deployed in a specific region. The information includes the cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-dd hh:mm:ss format. The time must be in UTC.
+        # 
+        # >  The end time must be later than the start time. The specified time range that can be specified must be less than seven days.
         self.end_time = end_time  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number. Pages start from page 1. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Valid values:
+        # 
+        # *   **30** (default)
+        # *   **50**\
+        # *   **100**\
         self.page_size = page_size  # type: int
+        # The minimum query duration. The minimum value is **1000**, and the default value is **1000**. Unit: milliseconds. Queries that last longer than this duration are returned in response parameters.
         self.query_duration_ms = query_duration_ms  # type: int
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-dd hh:mm:ss format. The time must be in Coordinated Universal Time (UTC).
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -7635,16 +8325,30 @@ class DescribeSlowLogRecordsResponseBodySlowLogRecordsDataResultSet(TeaModel):
     def __init__(self, initial_address=None, initial_query_id=None, initial_user=None, memory_usage=None,
                  query=None, query_duration_ms=None, query_start_time=None, read_bytes=None, read_rows=None,
                  result_bytes=None, type=None):
+        # The IP address of the client that initiated the query.
         self.initial_address = initial_address  # type: str
+        # The query ID.
         self.initial_query_id = initial_query_id  # type: str
+        # The username that is used to initiate the query.
         self.initial_user = initial_user  # type: str
+        # The peak memory usage for the query. Unit: bytes.
         self.memory_usage = memory_usage  # type: str
+        # The statement that was executed in the query.
         self.query = query  # type: str
+        # The duration of the query. Unit: milliseconds.
         self.query_duration_ms = query_duration_ms  # type: str
+        # The beginning of the time range to query. The time is in the yyyy-MM-dd hh:mm:ss format. The time is displayed in UTC.
         self.query_start_time = query_start_time  # type: str
+        # The size of the data read by executing the statement. Unit: bytes.
         self.read_bytes = read_bytes  # type: str
+        # The number of rows read by executing the statement.
         self.read_rows = read_rows  # type: str
+        # The size of the result data. Unit: bytes.
         self.result_bytes = result_bytes  # type: str
+        # The query status. Valid values:
+        # 
+        # *   **QueryFinish**: The query is complete.
+        # *   **Processing**: The query is running.
         self.type = type  # type: str
 
     def validate(self):
@@ -7741,8 +8445,11 @@ class DescribeSlowLogRecordsResponseBodySlowLogRecordsData(TeaModel):
 
 class DescribeSlowLogRecordsResponseBodySlowLogRecordsStatistics(TeaModel):
     def __init__(self, bytes_read=None, elapsed_time=None, rows_read=None):
+        # The total size of data that were read. Unit: bytes.
         self.bytes_read = bytes_read  # type: int
+        # The time consumed by the slow query. Unit: milliseconds.
         self.elapsed_time = elapsed_time  # type: float
+        # The total number of rows that were read.
         self.rows_read = rows_read  # type: int
 
     def validate(self):
@@ -7775,7 +8482,9 @@ class DescribeSlowLogRecordsResponseBodySlowLogRecordsStatistics(TeaModel):
 
 class DescribeSlowLogRecordsResponseBodySlowLogRecordsTableSchemaResultSet(TeaModel):
     def __init__(self, name=None, type=None):
+        # The name of the column.
         self.name = name  # type: str
+        # The type of the column.
         self.type = type  # type: str
 
     def validate(self):
@@ -7836,10 +8545,15 @@ class DescribeSlowLogRecordsResponseBodySlowLogRecordsTableSchema(TeaModel):
 
 class DescribeSlowLogRecordsResponseBodySlowLogRecords(TeaModel):
     def __init__(self, data=None, rows=None, rows_before_limit_at_least=None, statistics=None, table_schema=None):
+        # Details about the slow query logs.
         self.data = data  # type: DescribeSlowLogRecordsResponseBodySlowLogRecordsData
+        # The number of rows in the result set.
         self.rows = rows  # type: str
+        # The number of entries per page.
         self.rows_before_limit_at_least = rows_before_limit_at_least  # type: str
+        # The statistics of the results.
         self.statistics = statistics  # type: DescribeSlowLogRecordsResponseBodySlowLogRecordsStatistics
+        # The schema of the table in the database.
         self.table_schema = table_schema  # type: DescribeSlowLogRecordsResponseBodySlowLogRecordsTableSchema
 
     def validate(self):
@@ -7888,7 +8602,9 @@ class DescribeSlowLogRecordsResponseBodySlowLogRecords(TeaModel):
 
 class DescribeSlowLogRecordsResponseBody(TeaModel):
     def __init__(self, request_id=None, slow_log_records=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The details about the slow query logs.
         self.slow_log_records = slow_log_records  # type: DescribeSlowLogRecordsResponseBodySlowLogRecords
 
     def validate(self):
@@ -7959,11 +8675,13 @@ class DescribeSlowLogRecordsResponse(TeaModel):
 class DescribeSynDbTablesRequest(TeaModel):
     def __init__(self, db_cluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, syn_db=None):
+        # The ID of the ApsaraDB for ClickHouse cluster.
         self.db_cluster_id = db_cluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The name of the ApsaraDB RDS for MySQL instance.
         self.syn_db = syn_db  # type: str
 
     def validate(self):
@@ -8008,7 +8726,9 @@ class DescribeSynDbTablesRequest(TeaModel):
 
 class DescribeSynDbTablesResponseBody(TeaModel):
     def __init__(self, request_id=None, tables=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The queried tables.
         self.tables = tables  # type: list[str]
 
     def validate(self):
@@ -8077,6 +8797,7 @@ class DescribeSynDbTablesResponse(TeaModel):
 class DescribeSynDbsRequest(TeaModel):
     def __init__(self, db_cluster_id=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The ID of the ApsaraDB for ClickHouse cluster.
         self.db_cluster_id = db_cluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -8132,11 +8853,21 @@ class DescribeSynDbsRequest(TeaModel):
 class DescribeSynDbsResponseBodySynDbs(TeaModel):
     def __init__(self, error_msg=None, rds_id=None, rds_user_name=None, rds_vpc_url=None, syn_db=None,
                  syn_status=None):
+        # *   When the value **true** is returned for the **SynStatus** parameter, the system does not return the ErrorMsg parameter.
+        # *   When the value **false** is returned for the **SynStatus** parameter, the system returns for the ErrorMsg parameter the cause why the data synchronization failed.
         self.error_msg = error_msg  # type: str
+        # The ID of the ApsaraDB RDS for MySQL instance.
         self.rds_id = rds_id  # type: str
+        # The account that is used to log on to the ApsaraDB RDS for MySQL database.
         self.rds_user_name = rds_user_name  # type: str
+        # The internal endpoint of the ApsaraDB RDS for MySQL instance.
         self.rds_vpc_url = rds_vpc_url  # type: str
+        # The name of the database in the ApsaraDB RDS for MySQL instance.
         self.syn_db = syn_db  # type: str
+        # Indicates whether the data synchronization succeeded. Valid values:
+        # 
+        # *   **true**: The data synchronization succeeded.
+        # *   **false**: The data synchronization failed.
         self.syn_status = syn_status  # type: bool
 
     def validate(self):
@@ -8180,9 +8911,14 @@ class DescribeSynDbsResponseBodySynDbs(TeaModel):
 
 
 class DescribeSynDbsResponseBody(TeaModel):
-    def __init__(self, request_id=None, syn_dbs=None):
+    def __init__(self, page_number=None, page_size=None, request_id=None, syn_dbs=None, total_count=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The information about data synchronization between the ApsaraDB for ClickHouse cluster and an ApsaraDB RDS for MySQL instance.
         self.syn_dbs = syn_dbs  # type: list[DescribeSynDbsResponseBodySynDbs]
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.syn_dbs:
@@ -8196,16 +8932,26 @@ class DescribeSynDbsResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         result['SynDbs'] = []
         if self.syn_dbs is not None:
             for k in self.syn_dbs:
                 result['SynDbs'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         self.syn_dbs = []
@@ -8213,6 +8959,8 @@ class DescribeSynDbsResponseBody(TeaModel):
             for k in m.get('SynDbs'):
                 temp_model = DescribeSynDbsResponseBodySynDbs()
                 self.syn_dbs.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -8258,11 +9006,13 @@ class DescribeSynDbsResponse(TeaModel):
 class DescribeTablesRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, schema_name=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The database name.
         self.schema_name = schema_name  # type: str
 
     def validate(self):
@@ -8307,8 +9057,11 @@ class DescribeTablesRequest(TeaModel):
 
 class DescribeTablesResponseBodyItemsTable(TeaModel):
     def __init__(self, dbcluster_id=None, schema_name=None, table_name=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The database name.
         self.schema_name = schema_name  # type: str
+        # The table name.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -8373,7 +9126,9 @@ class DescribeTablesResponseBodyItems(TeaModel):
 
 class DescribeTablesResponseBody(TeaModel):
     def __init__(self, items=None, request_id=None):
+        # The information about the tables.
         self.items = items  # type: DescribeTablesResponseBodyItems
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8444,6 +9199,7 @@ class DescribeTablesResponse(TeaModel):
 class DescribeTransferHistoryRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -8488,9 +9244,16 @@ class DescribeTransferHistoryRequest(TeaModel):
 
 class DescribeTransferHistoryResponseBodyHistoryDetailsHistoryDetail(TeaModel):
     def __init__(self, progress=None, source_dbcluster=None, status=None, target_dbcluster=None):
+        # The progress of the data migration.
         self.progress = progress  # type: str
+        # The ID of the source cluster.
         self.source_dbcluster = source_dbcluster  # type: str
+        # The status of the data migration task. Valid values:
+        # 
+        # *   **Finished**: The data migration task is complete.
+        # *   **Processing**: The data migration task is in progress.
         self.status = status  # type: str
+        # The ID of the destination cluster.
         self.target_dbcluster = target_dbcluster  # type: str
 
     def validate(self):
@@ -8559,7 +9322,9 @@ class DescribeTransferHistoryResponseBodyHistoryDetails(TeaModel):
 
 class DescribeTransferHistoryResponseBody(TeaModel):
     def __init__(self, history_details=None, request_id=None):
+        # The migration information.
         self.history_details = history_details  # type: DescribeTransferHistoryResponseBodyHistoryDetails
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8630,10 +9395,15 @@ class DescribeTransferHistoryResponse(TeaModel):
 class KillProcessRequest(TeaModel):
     def __init__(self, dbcluster_id=None, initial_query_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The query statement or query statements that you want to stop executing. If you want to stop executing multiple query statements, separate the statements with commas (,).
+        # 
+        # >  If you do not set this parameter, all query statements are stopped by default.
         self.initial_query_id = initial_query_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -8684,6 +9454,7 @@ class KillProcessRequest(TeaModel):
 
 class KillProcessResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8749,18 +9520,33 @@ class ModifyAccountAuthorityRequest(TeaModel):
     def __init__(self, account_name=None, allow_databases=None, allow_dictionaries=None, dbcluster_id=None,
                  ddl_authority=None, dml_authority=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, total_databases=None, total_dictionaries=None):
+        # The name of the database account.
         self.account_name = account_name  # type: str
+        # The databases to which you want to grant permissions. Separate databases with commas (,).
         self.allow_databases = allow_databases  # type: str
+        # The dictionaries to which you want to grant permissions. Separate dictionaries with commas (,).
         self.allow_dictionaries = allow_dictionaries  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # Specifies whether to grant DDL permissions to the database account. Valid values:
+        # 
+        # *   **true**: grants DDL permissions to the database account.
+        # *   **false**: does not grant DDL permissions to the database account.
         self.ddl_authority = ddl_authority  # type: bool
+        # Specifies whether to grant DML permissions to the database account. Valid values:
+        # 
+        # *   **all**\
+        # *   **readonly,modify**\
         self.dml_authority = dml_authority  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # All databases. Separate databases with commas (,).
         self.total_databases = total_databases  # type: str
+        # All dictionaries. Separate dictionaries with commas (,).
         self.total_dictionaries = total_dictionaries  # type: str
 
     def validate(self):
@@ -8833,6 +9619,7 @@ class ModifyAccountAuthorityRequest(TeaModel):
 
 class ModifyAccountAuthorityResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9015,11 +9802,25 @@ class ModifyAccountDescriptionResponse(TeaModel):
 class ModifyBackupPolicyRequest(TeaModel):
     def __init__(self, backup_retention_period=None, dbcluster_id=None, owner_account=None, owner_id=None,
                  preferred_backup_period=None, preferred_backup_time=None, resource_owner_account=None, resource_owner_id=None):
+        # The retention period for the backup data. Valid values: 7 to 730. Unit: day.
         self.backup_retention_period = backup_retention_period  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The day of a week when the system regularly backs up data. If you specify multiple days of a week, separate them with commas (,). Valid values:
+        # 
+        # *   **Monday**\
+        # *   **Tuesday**\
+        # *   **Wednesday**\
+        # *   **Thursday**\
+        # *   **Friday**\
+        # *   **Saturday**\
+        # *   **Sunday**\
         self.preferred_backup_period = preferred_backup_period  # type: str
+        # The backup window. Specify the time in the ISO 8601 standard in the HH:mmZ-HH:mmZ format. The time must be in Coordinated Universal Time (UTC).
+        # 
+        # For example, if you set the backup window to 00:00Z-01:00Z, the data of the cluster can be backed up from 08:00 (UTC+8) to 09:00 (UTC+8).
         self.preferred_backup_time = preferred_backup_time  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -9074,6 +9875,7 @@ class ModifyBackupPolicyRequest(TeaModel):
 
 class ModifyBackupPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9138,12 +9940,42 @@ class ModifyBackupPolicyResponse(TeaModel):
 class ModifyDBClusterRequest(TeaModel):
     def __init__(self, dbcluster_class=None, dbcluster_id=None, dbnode_group_count=None, dbnode_storage=None,
                  owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The specifications of the cluster.
+        # 
+        # *   Valid values when the cluster is of Single-replica Edition:
+        # 
+        #     *   **S4-NEW**\
+        #     *   **S8**\
+        #     *   **S16**\
+        #     *   **S32**\
+        #     *   **S64**\
+        #     *   **S104**\
+        # 
+        # *   Valid values when the cluster is of Double-replica Edition:
+        # 
+        #     *   **C4-NEW**\
+        #     *   **C8**\
+        #     *   **C16**\
+        #     *   **C32**\
+        #     *   **C64**\
+        #     *   **C104**\
         self.dbcluster_class = dbcluster_class  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The number of nodes in the cluster.
+        # 
+        # *   If the cluster is of Single-replica Edition, the value must be an integer that ranges from 1 to 48.
+        # *   If the cluster is of Double-replica Edition, the value must be an integer that ranges from 1 to 24.
         self.dbnode_group_count = dbnode_group_count  # type: str
+        # The storage capacity of a single node of the cluster. Unit: GB.
+        # 
+        # Valid values: 100 to 32000.
+        # 
+        # >  This value is a multiple of 100.
         self.dbnode_storage = dbnode_storage  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -9202,7 +10034,9 @@ class ModifyDBClusterRequest(TeaModel):
 
 class ModifyDBClusterResponseBodyDBCluster(TeaModel):
     def __init__(self, db_cluster_id=None, order_id=None):
+        # The cluster ID.
         self.db_cluster_id = db_cluster_id  # type: str
+        # The order ID.
         self.order_id = order_id  # type: str
 
     def validate(self):
@@ -9231,7 +10065,9 @@ class ModifyDBClusterResponseBodyDBCluster(TeaModel):
 
 class ModifyDBClusterResponseBody(TeaModel):
     def __init__(self, dbcluster=None, request_id=None):
+        # The information about the cluster.
         self.dbcluster = dbcluster  # type: ModifyDBClusterResponseBodyDBCluster
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9431,13 +10267,19 @@ class ModifyDBClusterAccessWhiteListResponse(TeaModel):
 class ModifyDBClusterConfigRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, reason=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, user_config=None):
+        # The cluster ID. You can call the [DescribeDBClusters](~~170879~~) operation to query information about all the clusters that are deployed in a specific region. The information includes the cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The reason for the change.
         self.reason = reason  # type: str
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The names of the parameters and the new values that you want to specify for the parameters.
+        # 
+        # >  You can change the value of a single parameter. The values of parameters that are not specified will not be changed.
         self.user_config = user_config  # type: str
 
     def validate(self):
@@ -9490,6 +10332,7 @@ class ModifyDBClusterConfigRequest(TeaModel):
 
 class ModifyDBClusterConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9553,9 +10396,15 @@ class ModifyDBClusterConfigResponse(TeaModel):
 
 class ModifyDBClusterConfigInXMLRequest(TeaModel):
     def __init__(self, config=None, dbcluster_id=None, reason=None, region_id=None):
+        # The configuration parameters whose settings you want to modify. You can call the [DescribeDBClusterConfigInXML](~~452210~~) operation to query configuration parameters, and modify the settings of the returned configuration parameters.
+        # 
+        # >  You must specify all configuration parameters even when you want to modify the setting of a single parameter. If a configuration parameter is not specified, the original value of this parameter is retained or the modification fails.
         self.config = config  # type: str
+        # The cluster ID. You can call the [DescribeDBClusters](~~170879~~) operation to query information about all the clusters that are deployed in a specific region. The information includes the cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The reason for the modification.
         self.reason = reason  # type: str
+        # The region ID of the cluster. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9592,6 +10441,7 @@ class ModifyDBClusterConfigInXMLRequest(TeaModel):
 
 class ModifyDBClusterConfigInXMLResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9656,7 +10506,12 @@ class ModifyDBClusterConfigInXMLResponse(TeaModel):
 class ModifyDBClusterDescriptionRequest(TeaModel):
     def __init__(self, dbcluster_description=None, dbcluster_id=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The cluster name. When you set the cluster name, take note of the following rules:
+        # 
+        # *   The cluster name cannot start with http:// or https://.
+        # *   The cluster name must be 2 to 256 characters in length.
         self.dbcluster_description = dbcluster_description  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -9705,6 +10560,7 @@ class ModifyDBClusterDescriptionRequest(TeaModel):
 
 class ModifyDBClusterDescriptionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9769,7 +10625,13 @@ class ModifyDBClusterDescriptionResponse(TeaModel):
 class ModifyDBClusterMaintainTimeRequest(TeaModel):
     def __init__(self, dbcluster_id=None, maintain_time=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The maintenance window of the cluster. Specify the time in the HH:mmZ-HH:mmZ format. The time must be in Coordinated Universal Time (UTC).
+        # 
+        # For example, a value of 00:00Z-01:00Z indicates that routine maintenance can be performed on the cluster from 08:00 (UTC+8) to 09:00 (UTC+8).
+        # 
+        # >  You can set the start time and end time of the maintenance window to the time on the hour, and the maintenance window is 1 hour.
         self.maintain_time = maintain_time  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -9818,6 +10680,7 @@ class ModifyDBClusterMaintainTimeRequest(TeaModel):
 
 class ModifyDBClusterMaintainTimeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9882,10 +10745,13 @@ class ModifyDBClusterMaintainTimeResponse(TeaModel):
 class ModifyDBConfigRequest(TeaModel):
     def __init__(self, config=None, dbcluster_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The dictionary configuration.
         self.config = config  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -9936,6 +10802,7 @@ class ModifyDBConfigRequest(TeaModel):
 
 class ModifyDBConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10115,22 +10982,38 @@ class ModifyRDSToClickhouseDbRequest(TeaModel):
                  limit_upper=None, owner_account=None, owner_id=None, rds_id=None, rds_password=None, rds_port=None,
                  rds_syn_db=None, rds_syn_tables=None, rds_user_name=None, rds_vpc_id=None, resource_owner_account=None,
                  resource_owner_id=None, skip_unsupported=None):
+        # The password of the account that is used to log on to the database in the ApsaraDB for ClickHouse cluster.
         self.ck_password = ck_password  # type: str
+        # The account that is used to log on to the database in the ApsaraDB for ClickHouse cluster.
         self.ck_user_name = ck_user_name  # type: str
+        # The port number of the ApsaraDB for ClickHouse cluster.
         self.clickhouse_port = clickhouse_port  # type: long
+        # The ID of the ApsaraDB for ClickHouse cluster.
         self.db_cluster_id = db_cluster_id  # type: str
+        # The maximum number of rows that can be synchronized per second.
         self.limit_upper = limit_upper  # type: long
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the ApsaraDB RDS for MySQL instance.
         self.rds_id = rds_id  # type: str
+        # The password of the account that is used to log on to the database in the ApsaraDB RDS for MySQL instance.
         self.rds_password = rds_password  # type: str
+        # The port number of the ApsaraDB RDS for MySQL instance.
         self.rds_port = rds_port  # type: long
+        # The database in the ApsaraDB RDS for MySQL instance.
         self.rds_syn_db = rds_syn_db  # type: str
+        # The table in the ApsaraDB RDS for MySQL instance.
         self.rds_syn_tables = rds_syn_tables  # type: str
+        # The account that is used to log on to the database in the ApsaraDB RDS for MySQL instance.
         self.rds_user_name = rds_user_name  # type: str
+        # The ID of the virtual private cloud (VPC) to which the ApsaraDB RDS for MySQL instance belongs.
         self.rds_vpc_id = rds_vpc_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # Specifies whether to ignore databases that do not support synchronization. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.skip_unsupported = skip_unsupported  # type: bool
 
     def validate(self):
@@ -10219,9 +11102,17 @@ class ModifyRDSToClickhouseDbRequest(TeaModel):
 
 class ModifyRDSToClickhouseDbResponseBody(TeaModel):
     def __init__(self, error_code=None, error_msg=None, request_id=None, status=None):
+        # The error code.
         self.error_code = error_code  # type: long
+        # *   If the value **1** is returned for the **Status** parameter, the system does not return the ErrorMsg parameter.
+        # *   If the value **0** is returned for the **Status** parameter, the ErrorMsg parameter returns the cause for the modification failure.
         self.error_msg = error_msg  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the modification was successful. Valid values:
+        # 
+        # *   **1**: The modification was successful.
+        # *   **0**: The modification failed.
         self.status = status  # type: long
 
     def validate(self):
@@ -10298,6 +11189,7 @@ class ModifyRDSToClickhouseDbResponse(TeaModel):
 class ReleaseClusterPublicConnectionRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -10342,6 +11234,7 @@ class ReleaseClusterPublicConnectionRequest(TeaModel):
 
 class ReleaseClusterPublicConnectionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10406,8 +11299,18 @@ class ReleaseClusterPublicConnectionResponse(TeaModel):
 class ResetAccountPasswordRequest(TeaModel):
     def __init__(self, account_name=None, account_password=None, dbcluster_id=None, owner_account=None,
                  owner_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The name of the database account.
         self.account_name = account_name  # type: str
+        # The new password for the database account.
+        # 
+        # > 
+        # 
+        # *   The password must contain at least three types of the following characters: uppercase letters, lowercase letters, digits, and special characters.
+        # 
+        # *   The password can contain the following special characters: ! @ # $ % ^ & \* ( ) \_ + - =\
+        # *   The password must be 8 to 32 characters in length.
         self.account_password = account_password  # type: str
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -10460,6 +11363,7 @@ class ResetAccountPasswordRequest(TeaModel):
 
 class ResetAccountPasswordResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10524,14 +11428,25 @@ class ResetAccountPasswordResponse(TeaModel):
 class RestartInstanceRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, restart_time=None):
+        # The cluster ID. You can call the [DescribeDBClusters](~~170879~~) operation to query information about all the clusters that are deployed in a specific region. The information includes the cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Valid values:
+        # 
+        # *   30 (default)
+        # *   50
+        # *   100
         self.page_size = page_size  # type: int
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The scheduled restart time. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mmZ format. The time must be in Coordinated Universal Time (UTC).
+        # 
+        # >  If this parameter is left empty or the time specified by this parameter is earlier than the current time, the cluster is immediately restarted.
         self.restart_time = restart_time  # type: str
 
     def validate(self):
@@ -10588,6 +11503,7 @@ class RestartInstanceRequest(TeaModel):
 
 class RestartInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10653,18 +11569,31 @@ class TransferVersionRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, source_account=None,
                  source_password=None, target_account=None, target_db_cluster_id=None, target_password=None):
+        # The ID of the source ApsaraDB for ClickHouse cluster.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Valid values:
+        # 
+        # *   **30** (default)
+        # *   **50**\
+        # *   **100**\
         self.page_size = page_size  # type: int
+        # The region ID. You can call the [DescribeRegions](~~170875~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The database account that is used to log on to the database in the source ApsaraDB for ClickHouse cluster.
         self.source_account = source_account  # type: str
+        # The password that corresponds to the database account for logging on to the database in the source ApsaraDB for ClickHouse cluster.
         self.source_password = source_password  # type: str
+        # The database account that is used to log on to the database in the destination ApsaraDB for ClickHouse cluster.
         self.target_account = target_account  # type: str
+        # The ID of the destination ApsaraDB for ClickHouse cluster.
         self.target_db_cluster_id = target_db_cluster_id  # type: str
+        # The password that corresponds to the database account for logging on to the database in the destination ApsaraDB for ClickHouse cluster.
         self.target_password = target_password  # type: str
 
     def validate(self):
@@ -10737,6 +11666,7 @@ class TransferVersionRequest(TeaModel):
 
 class TransferVersionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10801,13 +11731,26 @@ class TransferVersionResponse(TeaModel):
 class UpgradeMinorVersionRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, upgrade_immediately=None, upgrade_time=None, upgrade_version=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # Specifies whether to update the minor engine version of the ApsaraDB for ClickHouse cluster immediately. Valid values:
+        # 
+        # *   **true**: updates the minor engine version of the ApsaraDB for ClickHouse cluster immediately.
+        # *   **false**: updates the minor engine version of the ApsaraDB for ClickHouse cluster at the specified time or within the specified maintenance window.
+        # 
+        # >  If you want to update the minor engine version of the ApsaraDB for ClickHouse cluster at the specified time, **UpgradeTime** is required.
         self.upgrade_immediately = upgrade_immediately  # type: bool
+        # The update time. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mmZ format. The time must be in Coordinated Universal Time (UTC).
+        # 
+        # >  If you do not set this parameter, the minor engine version of an ApsaraDB for ClickHouse cluster is updated within the specified maintenance window.
         self.upgrade_time = upgrade_time  # type: str
+        # The minor engine version to which you want to update.
+        # 
+        # >  By default, UpgradeVersion is not set and the minor engine version of the ApsaraDB for ClickHouse cluster is updated to the latest version.
         self.upgrade_version = upgrade_version  # type: str
 
     def validate(self):
@@ -10860,6 +11803,7 @@ class UpgradeMinorVersionRequest(TeaModel):
 
 class UpgradeMinorVersionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):

@@ -169,6 +169,16 @@ class Client(OpenApiClient):
         return self.check_clickhouse_to_rdswith_options(request, runtime)
 
     def check_modify_config_need_restart_with_options(self, request, runtime):
+        """
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were created after December 1, 2021.
+        
+
+        @param request: CheckModifyConfigNeedRestartRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CheckModifyConfigNeedRestartResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.config):
@@ -195,6 +205,14 @@ class Client(OpenApiClient):
         )
 
     def check_modify_config_need_restart(self, request):
+        """
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were created after December 1, 2021.
+        
+
+        @param request: CheckModifyConfigNeedRestartRequest
+
+        @return: CheckModifyConfigNeedRestartResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.check_modify_config_need_restart_with_options(request, runtime)
 
@@ -595,6 +613,16 @@ class Client(OpenApiClient):
         return self.create_monitor_data_report_with_options(request, runtime)
 
     def create_ossstorage_with_options(self, request, runtime):
+        """
+        Only an ApsaraDB for ClickHouse cluster of V20.8 or later supports tiered storage of hot data and cold data. If your data is in an ApsaraDB for ClickHouse cluster of a version earlier than V20.8 and you want to use tiered storage of hot data and cold data to store the data, you can migrate the data to an ApsaraDB for ClickHouse cluster of V20.8 or later and use tiered storage of hot data and cold data. For more information about how to migrate data between ApsaraDB for ClickHouse clusters, see [Migrate data between ApsaraDB for ClickHouse clusters](~~276926~~).
+        
+
+        @param request: CreateOSSStorageRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateOSSStorageResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -629,10 +657,28 @@ class Client(OpenApiClient):
         )
 
     def create_ossstorage(self, request):
+        """
+        Only an ApsaraDB for ClickHouse cluster of V20.8 or later supports tiered storage of hot data and cold data. If your data is in an ApsaraDB for ClickHouse cluster of a version earlier than V20.8 and you want to use tiered storage of hot data and cold data to store the data, you can migrate the data to an ApsaraDB for ClickHouse cluster of V20.8 or later and use tiered storage of hot data and cold data. For more information about how to migrate data between ApsaraDB for ClickHouse clusters, see [Migrate data between ApsaraDB for ClickHouse clusters](~~276926~~).
+        
+
+        @param request: CreateOSSStorageRequest
+
+        @return: CreateOSSStorageResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_ossstorage_with_options(request, runtime)
 
     def create_ports_for_click_house_with_options(self, request, runtime):
+        """
+        >  For an ApsaraDB for ClickHouse cluster of V20.8 or later that was created before December 1, 2021, you must manually enable the MySQL port. For an ApsaraDB for ClickHouse cluster of V20.8 or later that was created after December 1, 2021, the MySQL port is automatically enabled.
+        
+
+        @param request: CreatePortsForClickHouseRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreatePortsForClickHouseResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -669,10 +715,28 @@ class Client(OpenApiClient):
         )
 
     def create_ports_for_click_house(self, request):
+        """
+        >  For an ApsaraDB for ClickHouse cluster of V20.8 or later that was created before December 1, 2021, you must manually enable the MySQL port. For an ApsaraDB for ClickHouse cluster of V20.8 or later that was created after December 1, 2021, the MySQL port is automatically enabled.
+        
+
+        @param request: CreatePortsForClickHouseRequest
+
+        @return: CreatePortsForClickHouseResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_ports_for_click_house_with_options(request, runtime)
 
     def create_rdsto_clickhouse_db_with_options(self, request, runtime):
+        """
+        >  This operation is only applicable to ApsaraDB for ClickHouse clusters.
+        
+
+        @param request: CreateRDSToClickhouseDbRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateRDSToClickhouseDbResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ck_password):
@@ -729,10 +793,28 @@ class Client(OpenApiClient):
         )
 
     def create_rdsto_clickhouse_db(self, request):
+        """
+        >  This operation is only applicable to ApsaraDB for ClickHouse clusters.
+        
+
+        @param request: CreateRDSToClickhouseDbRequest
+
+        @return: CreateRDSToClickhouseDbResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_rdsto_clickhouse_db_with_options(request, runtime)
 
     def create_sqlaccount_with_options(self, request, runtime):
+        """
+        >  This operation is applicable only to ApsaraDB for ClickHouse clusters of V20.8 or later that were created after December 1, 2021,
+        
+
+        @param request: CreateSQLAccountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateSQLAccountResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.account_description):
@@ -773,6 +855,14 @@ class Client(OpenApiClient):
         )
 
     def create_sqlaccount(self, request):
+        """
+        >  This operation is applicable only to ApsaraDB for ClickHouse clusters of V20.8 or later that were created after December 1, 2021,
+        
+
+        @param request: CreateSQLAccountRequest
+
+        @return: CreateSQLAccountResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_sqlaccount_with_options(request, runtime)
 
@@ -811,6 +901,16 @@ class Client(OpenApiClient):
         return self.create_service_linked_role_with_options(request, runtime)
 
     def delete_account_with_options(self, request, runtime):
+        """
+        >  After you delete a database account, you cannot use the account to log on to the ApsaraDB for ClickHouse cluster. Exercise caution when performing this operation.
+        
+
+        @param request: DeleteAccountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteAccountResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.account_name):
@@ -845,10 +945,29 @@ class Client(OpenApiClient):
         )
 
     def delete_account(self, request):
+        """
+        >  After you delete a database account, you cannot use the account to log on to the ApsaraDB for ClickHouse cluster. Exercise caution when performing this operation.
+        
+
+        @param request: DeleteAccountRequest
+
+        @return: DeleteAccountResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_account_with_options(request, runtime)
 
     def delete_dbcluster_with_options(self, request, runtime):
+        """
+        *\
+        **Warning** After an ApsaraDB for ClickHouse cluster is deleted, all data in the cluster is deleted and cannot be recovered. Exercise caution when performing this operation.
+        
+
+        @param request: DeleteDBClusterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDBClusterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -881,6 +1000,15 @@ class Client(OpenApiClient):
         )
 
     def delete_dbcluster(self, request):
+        """
+        *\
+        **Warning** After an ApsaraDB for ClickHouse cluster is deleted, all data in the cluster is deleted and cannot be recovered. Exercise caution when performing this operation.
+        
+
+        @param request: DeleteDBClusterRequest
+
+        @return: DeleteDBClusterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_dbcluster_with_options(request, runtime)
 
@@ -1085,6 +1213,16 @@ class Client(OpenApiClient):
         return self.describe_all_data_sources_with_options(request, runtime)
 
     def describe_backup_policy_with_options(self, request, runtime):
+        """
+        >  This operation is available only for the ApsaraDB for ClickHouse clusters of versions 20.3, 20.8, and 21.8.
+        
+
+        @param request: DescribeBackupPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeBackupPolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -1117,6 +1255,14 @@ class Client(OpenApiClient):
         )
 
     def describe_backup_policy(self, request):
+        """
+        >  This operation is available only for the ApsaraDB for ClickHouse clusters of versions 20.3, 20.8, and 21.8.
+        
+
+        @param request: DescribeBackupPolicyRequest
+
+        @return: DescribeBackupPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_backup_policy_with_options(request, runtime)
 
@@ -1207,6 +1353,16 @@ class Client(OpenApiClient):
         return self.describe_columns_with_options(request, runtime)
 
     def describe_config_history_with_options(self, request, runtime):
+        """
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were created after December 1, 2021.
+        
+
+        @param request: DescribeConfigHistoryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeConfigHistoryResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -1229,10 +1385,28 @@ class Client(OpenApiClient):
         )
 
     def describe_config_history(self, request):
+        """
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were created after December 1, 2021.
+        
+
+        @param request: DescribeConfigHistoryRequest
+
+        @return: DescribeConfigHistoryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_config_history_with_options(request, runtime)
 
     def describe_config_version_difference_with_options(self, request, runtime):
+        """
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were created after December 1, 2021.
+        
+
+        @param request: DescribeConfigVersionDifferenceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeConfigVersionDifferenceResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -1255,6 +1429,14 @@ class Client(OpenApiClient):
         )
 
     def describe_config_version_difference(self, request):
+        """
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were created after December 1, 2021.
+        
+
+        @param request: DescribeConfigVersionDifferenceRequest
+
+        @return: DescribeConfigVersionDifferenceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_config_version_difference_with_options(request, runtime)
 
@@ -1369,6 +1551,16 @@ class Client(OpenApiClient):
         return self.describe_dbcluster_config_with_options(request, runtime)
 
     def describe_dbcluster_config_in_xmlwith_options(self, request, runtime):
+        """
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were created after December 1, 2021.
+        
+
+        @param request: DescribeDBClusterConfigInXMLRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBClusterConfigInXMLResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -1395,6 +1587,14 @@ class Client(OpenApiClient):
         )
 
     def describe_dbcluster_config_in_xml(self, request):
+        """
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were created after December 1, 2021.
+        
+
+        @param request: DescribeDBClusterConfigInXMLRequest
+
+        @return: DescribeDBClusterConfigInXMLResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbcluster_config_in_xmlwith_options(request, runtime)
 
@@ -1435,6 +1635,17 @@ class Client(OpenApiClient):
         return self.describe_dbcluster_net_info_items_with_options(request, runtime)
 
     def describe_dbcluster_performance_with_options(self, request, runtime):
+        """
+        You can query the performance data of a specified cluster over a specific time range based on the performance metrics. The data is collected every 30 seconds.
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were created before December 1, 2021.
+        
+
+        @param request: DescribeDBClusterPerformanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBClusterPerformanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -1473,6 +1684,15 @@ class Client(OpenApiClient):
         )
 
     def describe_dbcluster_performance(self, request):
+        """
+        You can query the performance data of a specified cluster over a specific time range based on the performance metrics. The data is collected every 30 seconds.
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were created before December 1, 2021.
+        
+
+        @param request: DescribeDBClusterPerformanceRequest
+
+        @return: DescribeDBClusterPerformanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbcluster_performance_with_options(request, runtime)
 
@@ -1889,6 +2109,16 @@ class Client(OpenApiClient):
         return self.describe_tables_with_options(request, runtime)
 
     def describe_transfer_history_with_options(self, request, runtime):
+        """
+        >  You can call this operation to query information about only data migration from an ApsaraDB for ClickHouse cluster of an earlier version to an ApsaraDB for ClickHouse cluster of a later version.
+        
+
+        @param request: DescribeTransferHistoryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeTransferHistoryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -1921,6 +2151,14 @@ class Client(OpenApiClient):
         )
 
     def describe_transfer_history(self, request):
+        """
+        >  You can call this operation to query information about only data migration from an ApsaraDB for ClickHouse cluster of an earlier version to an ApsaraDB for ClickHouse cluster of a later version.
+        
+
+        @param request: DescribeTransferHistoryRequest
+
+        @return: DescribeTransferHistoryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_transfer_history_with_options(request, runtime)
 
@@ -2057,6 +2295,16 @@ class Client(OpenApiClient):
         return self.modify_account_description_with_options(request, runtime)
 
     def modify_backup_policy_with_options(self, request, runtime):
+        """
+        >  This operation is available only for the ApsaraDB for ClickHouse clusters of versions 20.3, 20.8, and 21.8.
+        
+
+        @param request: ModifyBackupPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyBackupPolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.backup_retention_period):
@@ -2095,6 +2343,14 @@ class Client(OpenApiClient):
         )
 
     def modify_backup_policy(self, request):
+        """
+        >  This operation is available only for the ApsaraDB for ClickHouse clusters of versions 20.3, 20.8, and 21.8.
+        
+
+        @param request: ModifyBackupPolicyRequest
+
+        @return: ModifyBackupPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_backup_policy_with_options(request, runtime)
 
@@ -2229,6 +2485,16 @@ class Client(OpenApiClient):
         return self.modify_dbcluster_config_with_options(request, runtime)
 
     def modify_dbcluster_config_in_xmlwith_options(self, request, runtime):
+        """
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were created after December 1, 2021.
+        
+
+        @param request: ModifyDBClusterConfigInXMLRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBClusterConfigInXMLResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.config):
@@ -2259,6 +2525,14 @@ class Client(OpenApiClient):
         )
 
     def modify_dbcluster_config_in_xml(self, request):
+        """
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were created after December 1, 2021.
+        
+
+        @param request: ModifyDBClusterConfigInXMLRequest
+
+        @return: ModifyDBClusterConfigInXMLResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbcluster_config_in_xmlwith_options(request, runtime)
 
@@ -2417,6 +2691,16 @@ class Client(OpenApiClient):
         return self.modify_minor_version_greade_type_with_options(request, runtime)
 
     def modify_rdsto_clickhouse_db_with_options(self, request, runtime):
+        """
+        >  This operation is applicable only to ApsaraDB for ClickHouse clusters.
+        
+
+        @param request: ModifyRDSToClickhouseDbRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyRDSToClickhouseDbResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ck_password):
@@ -2473,6 +2757,14 @@ class Client(OpenApiClient):
         )
 
     def modify_rdsto_clickhouse_db(self, request):
+        """
+        >  This operation is applicable only to ApsaraDB for ClickHouse clusters.
+        
+
+        @param request: ModifyRDSToClickhouseDbRequest
+
+        @return: ModifyRDSToClickhouseDbResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_rdsto_clickhouse_db_with_options(request, runtime)
 
@@ -2597,6 +2889,19 @@ class Client(OpenApiClient):
         return self.restart_instance_with_options(request, runtime)
 
     def transfer_version_with_options(self, request, runtime):
+        """
+        ## [](#)Prerequisites
+        *   The IP address of the source ApsaraDB for ClickHouse cluster is added to the IP address whitelist of the destination ApsaraDB for ClickHouse cluster.
+        *   The IP address of the destination ApsaraDB for ClickHouse cluster is added to the IP address whitelist of the source ApsaraDB for ClickHouse cluster.
+        >  You can execute the `select * from system.clusters;` statement to query the IP address of an ApsaraDB for ClickHouse cluster.
+        
+
+        @param request: TransferVersionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TransferVersionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -2645,10 +2950,31 @@ class Client(OpenApiClient):
         )
 
     def transfer_version(self, request):
+        """
+        ## [](#)Prerequisites
+        *   The IP address of the source ApsaraDB for ClickHouse cluster is added to the IP address whitelist of the destination ApsaraDB for ClickHouse cluster.
+        *   The IP address of the destination ApsaraDB for ClickHouse cluster is added to the IP address whitelist of the source ApsaraDB for ClickHouse cluster.
+        >  You can execute the `select * from system.clusters;` statement to query the IP address of an ApsaraDB for ClickHouse cluster.
+        
+
+        @param request: TransferVersionRequest
+
+        @return: TransferVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.transfer_version_with_options(request, runtime)
 
     def upgrade_minor_version_with_options(self, request, runtime):
+        """
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were purchased after December 1, 2021.
+        
+
+        @param request: UpgradeMinorVersionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpgradeMinorVersionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -2687,5 +3013,13 @@ class Client(OpenApiClient):
         )
 
     def upgrade_minor_version(self, request):
+        """
+        >  You can call this operation only for ApsaraDB for ClickHouse clusters that were purchased after December 1, 2021.
+        
+
+        @param request: UpgradeMinorVersionRequest
+
+        @return: UpgradeMinorVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upgrade_minor_version_with_options(request, runtime)
