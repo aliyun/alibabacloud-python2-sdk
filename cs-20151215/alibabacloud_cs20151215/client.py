@@ -590,6 +590,8 @@ class Client(OpenApiClient):
             body['management'] = request.management
         if not UtilClient.is_unset(request.max_nodes):
             body['max_nodes'] = request.max_nodes
+        if not UtilClient.is_unset(request.node_config):
+            body['node_config'] = request.node_config
         if not UtilClient.is_unset(request.nodepool_info):
             body['nodepool_info'] = request.nodepool_info
         if not UtilClient.is_unset(request.scaling_group):
@@ -1133,6 +1135,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.descirbe_workflow_with_options(workflow_name, headers, runtime)
+
+    def describe_addon_with_options(self, addon_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['cluster_id'] = request.cluster_id
+        if not UtilClient.is_unset(request.cluster_spec):
+            query['cluster_spec'] = request.cluster_spec
+        if not UtilClient.is_unset(request.cluster_type):
+            query['cluster_type'] = request.cluster_type
+        if not UtilClient.is_unset(request.cluster_version):
+            query['cluster_version'] = request.cluster_version
+        if not UtilClient.is_unset(request.profile):
+            query['profile'] = request.profile
+        if not UtilClient.is_unset(request.region_id):
+            query['region_id'] = request.region_id
+        if not UtilClient.is_unset(request.version):
+            query['version'] = request.version
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAddon',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/addons/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(addon_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.DescribeAddonResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_addon(self, addon_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_addon_with_options(addon_name, request, headers, runtime)
 
     def describe_addons_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2873,6 +2917,38 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_cluster_checks_with_options(cluster_id, request, headers, runtime)
 
+    def list_operation_plans_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['cluster_id'] = request.cluster_id
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListOperationPlans',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/operation/plans',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.ListOperationPlansResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_operation_plans(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_operation_plans_with_options(request, headers, runtime)
+
     def list_tag_resources_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = cs20151215_models.ListTagResourcesShrinkRequest()
@@ -3093,6 +3169,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.auto_scaling):
             body['auto_scaling'] = request.auto_scaling
+        if not UtilClient.is_unset(request.concurrency):
+            body['concurrency'] = request.concurrency
         if not UtilClient.is_unset(request.kubernetes_config):
             body['kubernetes_config'] = request.kubernetes_config
         if not UtilClient.is_unset(request.management):
@@ -3465,6 +3543,8 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.nodes):
             request.nodes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.nodes, 'nodes', 'json')
         query = {}
+        if not UtilClient.is_unset(request.concurrency):
+            query['concurrency'] = request.concurrency
         if not UtilClient.is_unset(request.drain_node):
             query['drain_node'] = request.drain_node
         if not UtilClient.is_unset(request.instance_ids_shrink):
@@ -4206,7 +4286,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             cs20151215_models.UpdateControlPlaneLogResponse(),
