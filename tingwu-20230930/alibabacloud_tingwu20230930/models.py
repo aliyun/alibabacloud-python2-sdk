@@ -716,14 +716,66 @@ class DeleteTranscriptionPhrasesResponse(TeaModel):
         return self
 
 
+class GetTaskInfoResponseBodyDataResult(TeaModel):
+    def __init__(self, auto_chapters=None, meeting_assistance=None, ppt_extraction=None, summarization=None,
+                 transcription=None, translation=None):
+        self.auto_chapters = auto_chapters  # type: str
+        self.meeting_assistance = meeting_assistance  # type: str
+        self.ppt_extraction = ppt_extraction  # type: str
+        self.summarization = summarization  # type: str
+        self.transcription = transcription  # type: str
+        self.translation = translation  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTaskInfoResponseBodyDataResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_chapters is not None:
+            result['AutoChapters'] = self.auto_chapters
+        if self.meeting_assistance is not None:
+            result['MeetingAssistance'] = self.meeting_assistance
+        if self.ppt_extraction is not None:
+            result['PptExtraction'] = self.ppt_extraction
+        if self.summarization is not None:
+            result['Summarization'] = self.summarization
+        if self.transcription is not None:
+            result['Transcription'] = self.transcription
+        if self.translation is not None:
+            result['Translation'] = self.translation
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AutoChapters') is not None:
+            self.auto_chapters = m.get('AutoChapters')
+        if m.get('MeetingAssistance') is not None:
+            self.meeting_assistance = m.get('MeetingAssistance')
+        if m.get('PptExtraction') is not None:
+            self.ppt_extraction = m.get('PptExtraction')
+        if m.get('Summarization') is not None:
+            self.summarization = m.get('Summarization')
+        if m.get('Transcription') is not None:
+            self.transcription = m.get('Transcription')
+        if m.get('Translation') is not None:
+            self.translation = m.get('Translation')
+        return self
+
+
 class GetTaskInfoResponseBodyData(TeaModel):
-    def __init__(self, task_id=None, task_key=None, task_status=None):
+    def __init__(self, result=None, task_id=None, task_key=None, task_status=None):
+        self.result = result  # type: GetTaskInfoResponseBodyDataResult
         self.task_id = task_id  # type: str
         self.task_key = task_key  # type: str
         self.task_status = task_status  # type: str
 
     def validate(self):
-        pass
+        if self.result:
+            self.result.validate()
 
     def to_map(self):
         _map = super(GetTaskInfoResponseBodyData, self).to_map()
@@ -731,6 +783,8 @@ class GetTaskInfoResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         if self.task_key is not None:
@@ -741,6 +795,9 @@ class GetTaskInfoResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Result') is not None:
+            temp_model = GetTaskInfoResponseBodyDataResult()
+            self.result = temp_model.from_map(m['Result'])
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         if m.get('TaskKey') is not None:
