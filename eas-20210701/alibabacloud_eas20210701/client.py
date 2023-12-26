@@ -2060,8 +2060,12 @@ class Client(OpenApiClient):
 
     def update_service_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.update_type):
+            query['UpdateType'] = request.update_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
+            query=OpenApiUtilClient.query(query),
             body=request.body
         )
         params = open_api_models.Params(
