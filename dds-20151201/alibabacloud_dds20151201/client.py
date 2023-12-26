@@ -251,7 +251,8 @@ class Client(OpenApiClient):
 
     def check_recovery_condition_with_options(self, request, runtime):
         """
-        You can call this operation to check whether an ApsaraDB for MongoDB instance meets the data recovery conditions.
+        This operation is applicable to replica set instances or sharded cluster instances.
+        >  After you confirm that the data recovery conditions are met by calling this operation, you can call the [CreateDBInstance](~~61763~~) operation to restore data to a new instance.
         
 
         @param request: CheckRecoveryConditionRequest
@@ -303,7 +304,8 @@ class Client(OpenApiClient):
 
     def check_recovery_condition(self, request):
         """
-        You can call this operation to check whether an ApsaraDB for MongoDB instance meets the data recovery conditions.
+        This operation is applicable to replica set instances or sharded cluster instances.
+        >  After you confirm that the data recovery conditions are met by calling this operation, you can call the [CreateDBInstance](~~61763~~) operation to restore data to a new instance.
         
 
         @param request: CheckRecoveryConditionRequest
@@ -314,6 +316,16 @@ class Client(OpenApiClient):
         return self.check_recovery_condition_with_options(request, runtime)
 
     def create_account_with_options(self, request, runtime):
+        """
+        Database accounts can be created only for shards in sharded cluster instances that use cloud disks.
+        
+
+        @param request: CreateAccountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateAccountResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.account_name):
@@ -350,6 +362,14 @@ class Client(OpenApiClient):
         )
 
     def create_account(self, request):
+        """
+        Database accounts can be created only for shards in sharded cluster instances that use cloud disks.
+        
+
+        @param request: CreateAccountRequest
+
+        @return: CreateAccountResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_account_with_options(request, runtime)
 
@@ -2084,6 +2104,18 @@ class Client(OpenApiClient):
         return self.describe_dbinstance_sslwith_options(request, runtime)
 
     def describe_dbinstance_switch_log_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the ApsaraDB for MongoDB instance meets the following requirements:
+        *   The instance is a replica set or sharded cluster instance.
+        *   The instance uses local physical disks to store data.
+        
+
+        @param request: DescribeDBInstanceSwitchLogRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstanceSwitchLogResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -2118,6 +2150,16 @@ class Client(OpenApiClient):
         )
 
     def describe_dbinstance_switch_log(self, request):
+        """
+        Before you call this operation, make sure that the ApsaraDB for MongoDB instance meets the following requirements:
+        *   The instance is a replica set or sharded cluster instance.
+        *   The instance uses local physical disks to store data.
+        
+
+        @param request: DescribeDBInstanceSwitchLogRequest
+
+        @return: DescribeDBInstanceSwitchLogResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_switch_log_with_options(request, runtime)
 
@@ -2682,6 +2724,16 @@ class Client(OpenApiClient):
         return self.describe_kernel_release_notes_with_options(request, runtime)
 
     def describe_kms_keys_with_options(self, request, runtime):
+        """
+        Queried keys are available only for disk encryption.
+        
+
+        @param request: DescribeKmsKeysRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeKmsKeysResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_account):
@@ -2712,6 +2764,14 @@ class Client(OpenApiClient):
         )
 
     def describe_kms_keys(self, request):
+        """
+        Queried keys are available only for disk encryption.
+        
+
+        @param request: DescribeKmsKeysRequest
+
+        @return: DescribeKmsKeysResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_kms_keys_with_options(request, runtime)
 
@@ -3302,6 +3362,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.show_hdmips):
+            query['ShowHDMIps'] = request.show_hdmips
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3906,7 +3968,7 @@ class Client(OpenApiClient):
     def modify_audit_log_filter_with_options(self, request, runtime):
         """
         The instance must be in the running state when you call this operation.
-        *   This operation is applicable only to **general-purpose local-disk** and **dedicated local-disk** instances.
+        *   This operation is applicable only to **general-purpose local-disk** or **dedicated local-disk** instances.
         *   You can call this operation up to 30 times per minute. To call this operation at a higher frequency, use a Logstore. For more information, see [Manage a Logstore](~~48990~~).
         
 
@@ -3954,7 +4016,7 @@ class Client(OpenApiClient):
     def modify_audit_log_filter(self, request):
         """
         The instance must be in the running state when you call this operation.
-        *   This operation is applicable only to **general-purpose local-disk** and **dedicated local-disk** instances.
+        *   This operation is applicable only to **general-purpose local-disk** or **dedicated local-disk** instances.
         *   You can call this operation up to 30 times per minute. To call this operation at a higher frequency, use a Logstore. For more information, see [Manage a Logstore](~~48990~~).
         
 
@@ -4799,7 +4861,10 @@ class Client(OpenApiClient):
 
     def modify_instance_vpc_auth_mode_with_options(self, request, runtime):
         """
-        You can call this operation to enable or disable password-free access from the same VPC as an ApsaraDB for MongoDB instance.
+        Before you call this operation, make sure that the following requirements are met:
+        *   A replica set or sharded cluster instance is used.
+        *   The database version of the instance is 4.0 (with the minor version of mongodb\\_20190408\\_3.0.11 or later) or 4.2. You can call the [DescribeDBInstanceAttribute](~~62010~~) operation to view the database engine version of the instance. If necessary, you can call the [UpgradeDBInstanceEngineVersion](~~67608~~) operation to upgrade the database engine.
+        *   The instance is in a VPC. If the network type is Classic Network, you can call the [ModifyDBInstanceNetworkType](~~62138~~) operation to switch the network type to VPC.
         
 
         @param request: ModifyInstanceVpcAuthModeRequest
@@ -4845,7 +4910,10 @@ class Client(OpenApiClient):
 
     def modify_instance_vpc_auth_mode(self, request):
         """
-        You can call this operation to enable or disable password-free access from the same VPC as an ApsaraDB for MongoDB instance.
+        Before you call this operation, make sure that the following requirements are met:
+        *   A replica set or sharded cluster instance is used.
+        *   The database version of the instance is 4.0 (with the minor version of mongodb\\_20190408\\_3.0.11 or later) or 4.2. You can call the [DescribeDBInstanceAttribute](~~62010~~) operation to view the database engine version of the instance. If necessary, you can call the [UpgradeDBInstanceEngineVersion](~~67608~~) operation to upgrade the database engine.
+        *   The instance is in a VPC. If the network type is Classic Network, you can call the [ModifyDBInstanceNetworkType](~~62138~~) operation to switch the network type to VPC.
         
 
         @param request: ModifyInstanceVpcAuthModeRequest
@@ -5009,7 +5077,7 @@ class Client(OpenApiClient):
 
     def modify_parameters_with_options(self, request, runtime):
         """
-        ## Precautions
+        ### Precautions
         *   The instance must be in the Running state when you call this operation.
         *   If you call this operation to modify specific instance parameters and the modification for part of the parameters can take effect only after an instance restart, the instance is automatically restarted after this operation is called. You can call the [DescribeParameterTemplates](~~67618~~) operation to query the parameters that take effect only after the instance is restarted.
         
@@ -5061,7 +5129,7 @@ class Client(OpenApiClient):
 
     def modify_parameters(self, request):
         """
-        ## Precautions
+        ### Precautions
         *   The instance must be in the Running state when you call this operation.
         *   If you call this operation to modify specific instance parameters and the modification for part of the parameters can take effect only after an instance restart, the instance is automatically restarted after this operation is called. You can call the [DescribeParameterTemplates](~~67618~~) operation to query the parameters that take effect only after the instance is restarted.
         
@@ -5232,6 +5300,16 @@ class Client(OpenApiClient):
         return self.modify_security_ips_with_options(request, runtime)
 
     def modify_task_info_with_options(self, request, runtime):
+        """
+        The actions performed by this operation for a task vary based on the current state of the task. The supported actions for a task can be obtained from the value of the actionInfo parameter in the DescribeHistoryTasks operation.
+        
+
+        @param request: ModifyTaskInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyTaskInfoResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.action_params):
@@ -5268,6 +5346,14 @@ class Client(OpenApiClient):
         )
 
     def modify_task_info(self, request):
+        """
+        The actions performed by this operation for a task vary based on the current state of the task. The supported actions for a task can be obtained from the value of the actionInfo parameter in the DescribeHistoryTasks operation.
+        
+
+        @param request: ModifyTaskInfoRequest
+
+        @return: ModifyTaskInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_task_info_with_options(request, runtime)
 
