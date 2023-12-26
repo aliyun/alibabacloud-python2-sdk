@@ -44,19 +44,22 @@ class Addon(TeaModel):
 
 class DataDisk(TeaModel):
     def __init__(self, auto_format=None, auto_snapshot_policy_id=None, bursting_enabled=None, category=None,
-                 encrypted=None, file_system=None, kms_key_id=None, mount_target=None, performance_level=None,
-                 provisioned_iops=None, size=None):
+                 device=None, encrypted=None, file_system=None, kms_key_id=None, mount_target=None, name=None,
+                 performance_level=None, provisioned_iops=None, size=None, snapshot_id=None):
         self.auto_format = auto_format  # type: bool
         self.auto_snapshot_policy_id = auto_snapshot_policy_id  # type: str
         self.bursting_enabled = bursting_enabled  # type: bool
         self.category = category  # type: str
+        self.device = device  # type: str
         self.encrypted = encrypted  # type: str
         self.file_system = file_system  # type: str
         self.kms_key_id = kms_key_id  # type: str
         self.mount_target = mount_target  # type: str
+        self.name = name  # type: str
         self.performance_level = performance_level  # type: str
         self.provisioned_iops = provisioned_iops  # type: long
         self.size = size  # type: long
+        self.snapshot_id = snapshot_id  # type: str
 
     def validate(self):
         pass
@@ -75,6 +78,8 @@ class DataDisk(TeaModel):
             result['bursting_enabled'] = self.bursting_enabled
         if self.category is not None:
             result['category'] = self.category
+        if self.device is not None:
+            result['device'] = self.device
         if self.encrypted is not None:
             result['encrypted'] = self.encrypted
         if self.file_system is not None:
@@ -83,12 +88,16 @@ class DataDisk(TeaModel):
             result['kms_key_id'] = self.kms_key_id
         if self.mount_target is not None:
             result['mount_target'] = self.mount_target
+        if self.name is not None:
+            result['name'] = self.name
         if self.performance_level is not None:
             result['performance_level'] = self.performance_level
         if self.provisioned_iops is not None:
             result['provisioned_iops'] = self.provisioned_iops
         if self.size is not None:
             result['size'] = self.size
+        if self.snapshot_id is not None:
+            result['snapshot_id'] = self.snapshot_id
         return result
 
     def from_map(self, m=None):
@@ -101,6 +110,8 @@ class DataDisk(TeaModel):
             self.bursting_enabled = m.get('bursting_enabled')
         if m.get('category') is not None:
             self.category = m.get('category')
+        if m.get('device') is not None:
+            self.device = m.get('device')
         if m.get('encrypted') is not None:
             self.encrypted = m.get('encrypted')
         if m.get('file_system') is not None:
@@ -109,12 +120,16 @@ class DataDisk(TeaModel):
             self.kms_key_id = m.get('kms_key_id')
         if m.get('mount_target') is not None:
             self.mount_target = m.get('mount_target')
+        if m.get('name') is not None:
+            self.name = m.get('name')
         if m.get('performance_level') is not None:
             self.performance_level = m.get('performance_level')
         if m.get('provisioned_iops') is not None:
             self.provisioned_iops = m.get('provisioned_iops')
         if m.get('size') is not None:
             self.size = m.get('size')
+        if m.get('snapshot_id') is not None:
+            self.snapshot_id = m.get('snapshot_id')
         return self
 
 
