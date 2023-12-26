@@ -798,6 +798,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_app_version_with_options(request, runtime)
 
+    def list_instances_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListInstances',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.ListInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_instances_with_options(request, runtime)
+
     def modify_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -921,6 +947,104 @@ class Client(OpenApiClient):
     def release_capacity_by_batch(self, request):
         runtime = util_models.RuntimeOptions()
         return self.release_capacity_by_batch_with_options(request, runtime)
+
+    def release_instances_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.amount):
+            body['Amount'] = request.amount
+        if not UtilClient.is_unset(request.district_id):
+            body['DistrictId'] = request.district_id
+        if not UtilClient.is_unset(request.instance_type):
+            body['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ReleaseInstances',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.ReleaseInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def release_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.release_instances_with_options(request, runtime)
+
+    def reserve_instances_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.amount):
+            body['Amount'] = request.amount
+        if not UtilClient.is_unset(request.district_id):
+            body['DistrictId'] = request.district_id
+        if not UtilClient.is_unset(request.instance_type):
+            body['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ReserveInstances',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.ReserveInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def reserve_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.reserve_instances_with_options(request, runtime)
+
+    def send_biz_coc_change_callback_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.platform_session_id):
+            query['PlatformSessionId'] = request.platform_session_id
+        if not UtilClient.is_unset(request.result):
+            query['Result'] = request.result
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SendBizCocChangeCallback',
+            version='2021-11-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cgcs20211111_models.SendBizCocChangeCallbackResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def send_biz_coc_change_callback(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.send_biz_coc_change_callback_with_options(request, runtime)
 
     def stop_app_session_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)

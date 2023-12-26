@@ -594,6 +594,7 @@ class CreateAppSessionRequest(TeaModel):
     def __init__(self, adapter_file_id=None, app_id=None, app_version=None, client_ip=None, custom_session_id=None,
                  custom_user_id=None, district_id=None, enable_postpaid=None, project_id=None, start_parameters=None,
                  system_info=None, timeout=None):
+        # 适配文件ID。此功能灰度开放，如未约定使用请勿传入。
         self.adapter_file_id = adapter_file_id  # type: str
         self.app_id = app_id  # type: str
         self.app_version = app_version  # type: str
@@ -602,6 +603,7 @@ class CreateAppSessionRequest(TeaModel):
         self.custom_user_id = custom_user_id  # type: str
         self.district_id = district_id  # type: str
         self.enable_postpaid = enable_postpaid  # type: bool
+        # 项目ID。如果已将应用关联到项目，创建会话时需填写正确的项目ID。
         self.project_id = project_id  # type: str
         self.start_parameters = start_parameters  # type: list[CreateAppSessionRequestStartParameters]
         self.system_info = system_info  # type: list[CreateAppSessionRequestSystemInfo]
@@ -4070,7 +4072,9 @@ class ListAppSessionsRequest(TeaModel):
 
 class ListAppSessionsResponseBodyAppSessionsBizInfo(TeaModel):
     def __init__(self, start_time=None, stop_time=None):
+        # 会话启动时间
         self.start_time = start_time  # type: str
+        # 会话停止时间
         self.stop_time = stop_time  # type: str
 
     def validate(self):
@@ -4102,6 +4106,7 @@ class ListAppSessionsResponseBodyAppSessions(TeaModel):
                  platform_session_id=None, project_id=None, status=None):
         self.app_id = app_id  # type: str
         self.app_version = app_version  # type: str
+        # 业务特定的信息，如会话启动/停止时间。
         self.biz_info = biz_info  # type: ListAppSessionsResponseBodyAppSessionsBizInfo
         self.custom_session_id = custom_session_id  # type: str
         self.platform_session_id = platform_session_id  # type: str
@@ -4437,6 +4442,197 @@ class ListAppVersionResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListAppVersionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListInstancesRequest(TeaModel):
+    def __init__(self, district_id=None, instance_id=None, instance_type=None, max_results=None, next_token=None,
+                 project_id=None, status=None):
+        self.district_id = district_id  # type: str
+        self.instance_id = instance_id  # type: list[str]
+        self.instance_type = instance_type  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.project_id = project_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstancesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.district_id is not None:
+            result['DistrictId'] = self.district_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DistrictId') is not None:
+            self.district_id = m.get('DistrictId')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListInstancesResponseBodyInstances(TeaModel):
+    def __init__(self, creation_time=None, district_id=None, instance_id=None, instance_type=None, project_id=None,
+                 status=None):
+        self.creation_time = creation_time  # type: str
+        self.district_id = district_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_type = instance_type  # type: str
+        self.project_id = project_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstancesResponseBodyInstances, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.creation_time is not None:
+            result['CreationTime'] = self.creation_time
+        if self.district_id is not None:
+            result['DistrictId'] = self.district_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreationTime') is not None:
+            self.creation_time = m.get('CreationTime')
+        if m.get('DistrictId') is not None:
+            self.district_id = m.get('DistrictId')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListInstancesResponseBody(TeaModel):
+    def __init__(self, instances=None, max_results=None, next_token=None, request_id=None):
+        self.instances = instances  # type: list[ListInstancesResponseBodyInstances]
+        self.max_results = max_results  # type: str
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.instances:
+            for k in self.instances:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListInstancesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Instances'] = []
+        if self.instances is not None:
+            for k in self.instances:
+                result['Instances'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.instances = []
+        if m.get('Instances') is not None:
+            for k in m.get('Instances'):
+                temp_model = ListInstancesResponseBodyInstances()
+                self.instances.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListInstancesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListInstancesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListInstancesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListInstancesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -4835,9 +5031,318 @@ class ReleaseCapacityByBatchResponse(TeaModel):
         return self
 
 
+class ReleaseInstancesRequest(TeaModel):
+    def __init__(self, amount=None, district_id=None, instance_type=None, project_id=None):
+        self.amount = amount  # type: int
+        self.district_id = district_id  # type: str
+        self.instance_type = instance_type  # type: str
+        self.project_id = project_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReleaseInstancesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['Amount'] = self.amount
+        if self.district_id is not None:
+            result['DistrictId'] = self.district_id
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Amount') is not None:
+            self.amount = m.get('Amount')
+        if m.get('DistrictId') is not None:
+            self.district_id = m.get('DistrictId')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        return self
+
+
+class ReleaseInstancesResponseBody(TeaModel):
+    def __init__(self, instance_ids=None, request_id=None):
+        self.instance_ids = instance_ids  # type: list[str]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReleaseInstancesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ReleaseInstancesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ReleaseInstancesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ReleaseInstancesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ReleaseInstancesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ReserveInstancesRequest(TeaModel):
+    def __init__(self, amount=None, district_id=None, instance_type=None, project_id=None):
+        self.amount = amount  # type: int
+        self.district_id = district_id  # type: str
+        self.instance_type = instance_type  # type: str
+        self.project_id = project_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReserveInstancesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['Amount'] = self.amount
+        if self.district_id is not None:
+            result['DistrictId'] = self.district_id
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Amount') is not None:
+            self.amount = m.get('Amount')
+        if m.get('DistrictId') is not None:
+            self.district_id = m.get('DistrictId')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        return self
+
+
+class ReserveInstancesResponseBody(TeaModel):
+    def __init__(self, instance_ids=None, request_id=None):
+        self.instance_ids = instance_ids  # type: list[str]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReserveInstancesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ReserveInstancesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ReserveInstancesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ReserveInstancesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ReserveInstancesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SendBizCocChangeCallbackRequest(TeaModel):
+    def __init__(self, platform_session_id=None, result=None):
+        self.platform_session_id = platform_session_id  # type: str
+        self.result = result  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendBizCocChangeCallbackRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.platform_session_id is not None:
+            result['PlatformSessionId'] = self.platform_session_id
+        if self.result is not None:
+            result['Result'] = self.result
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PlatformSessionId') is not None:
+            self.platform_session_id = m.get('PlatformSessionId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        return self
+
+
+class SendBizCocChangeCallbackResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendBizCocChangeCallbackResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SendBizCocChangeCallbackResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SendBizCocChangeCallbackResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SendBizCocChangeCallbackResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SendBizCocChangeCallbackResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class StopAppSessionRequestStopParam(TeaModel):
     def __init__(self, key=None, value=None):
+        # 目前支持的枚举值包括：
+        # - reason：停止原因。
         self.key = key  # type: str
+        # key对应的取值。
         self.value = value  # type: any
 
     def validate(self):
@@ -4868,6 +5373,7 @@ class StopAppSessionRequest(TeaModel):
     def __init__(self, custom_session_id=None, platform_session_id=None, stop_param=None):
         self.custom_session_id = custom_session_id  # type: str
         self.platform_session_id = platform_session_id  # type: str
+        # 停止容器参数。此参数将透传到Agent。
         self.stop_param = stop_param  # type: list[StopAppSessionRequestStopParam]
 
     def validate(self):
@@ -4910,6 +5416,7 @@ class StopAppSessionShrinkRequest(TeaModel):
     def __init__(self, custom_session_id=None, platform_session_id=None, stop_param_shrink=None):
         self.custom_session_id = custom_session_id  # type: str
         self.platform_session_id = platform_session_id  # type: str
+        # 停止容器参数。此参数将透传到Agent。
         self.stop_param_shrink = stop_param_shrink  # type: str
 
     def validate(self):
