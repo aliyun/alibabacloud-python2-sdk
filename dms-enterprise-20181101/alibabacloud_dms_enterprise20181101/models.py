@@ -6336,10 +6336,11 @@ class CreateProcCorrectOrderRequestParamDbItemList(TeaModel):
 
 
 class CreateProcCorrectOrderRequestParam(TeaModel):
-    def __init__(self, classify=None, db_item_list=None, exec_sql=None, rollback_attachment_name=None,
-                 rollback_sql=None, rollback_sql_type=None):
+    def __init__(self, classify=None, db_item_list=None, exec_mode=None, exec_sql=None,
+                 rollback_attachment_name=None, rollback_sql=None, rollback_sql_type=None):
         self.classify = classify  # type: str
         self.db_item_list = db_item_list  # type: list[CreateProcCorrectOrderRequestParamDbItemList]
+        self.exec_mode = exec_mode  # type: str
         self.exec_sql = exec_sql  # type: str
         self.rollback_attachment_name = rollback_attachment_name  # type: str
         self.rollback_sql = rollback_sql  # type: str
@@ -6363,6 +6364,8 @@ class CreateProcCorrectOrderRequestParam(TeaModel):
         if self.db_item_list is not None:
             for k in self.db_item_list:
                 result['DbItemList'].append(k.to_map() if k else None)
+        if self.exec_mode is not None:
+            result['ExecMode'] = self.exec_mode
         if self.exec_sql is not None:
             result['ExecSQL'] = self.exec_sql
         if self.rollback_attachment_name is not None:
@@ -6382,6 +6385,8 @@ class CreateProcCorrectOrderRequestParam(TeaModel):
             for k in m.get('DbItemList'):
                 temp_model = CreateProcCorrectOrderRequestParamDbItemList()
                 self.db_item_list.append(temp_model.from_map(k))
+        if m.get('ExecMode') is not None:
+            self.exec_mode = m.get('ExecMode')
         if m.get('ExecSQL') is not None:
             self.exec_sql = m.get('ExecSQL')
         if m.get('RollbackAttachmentName') is not None:
@@ -7377,11 +7382,13 @@ class CreateStandardGroupRequest(TeaModel):
 
 
 class CreateStandardGroupResponseBodyStandardGroup(TeaModel):
-    def __init__(self, db_type=None, description=None, group_mode=None, group_name=None, last_mender_id=None):
+    def __init__(self, db_type=None, description=None, group_id=None, group_mode=None, group_name=None,
+                 last_mender_id=None):
         # The type of the database engine. For more information about the valid values of this parameter, see [DbType parameter](~~198106~~).
         self.db_type = db_type  # type: str
         # The description of the security rule set.
         self.description = description  # type: str
+        self.group_id = group_id  # type: long
         # The control mode. Valid values:
         # 
         # *   **NONE_CONTROL**: Flexible Management
@@ -7406,6 +7413,8 @@ class CreateStandardGroupResponseBodyStandardGroup(TeaModel):
             result['DbType'] = self.db_type
         if self.description is not None:
             result['Description'] = self.description
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
         if self.group_mode is not None:
             result['GroupMode'] = self.group_mode
         if self.group_name is not None:
@@ -7420,6 +7429,8 @@ class CreateStandardGroupResponseBodyStandardGroup(TeaModel):
             self.db_type = m.get('DbType')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
         if m.get('GroupMode') is not None:
             self.group_mode = m.get('GroupMode')
         if m.get('GroupName') is not None:
@@ -43025,6 +43036,7 @@ class RegisterInstanceRequest(TeaModel):
         self.database_user = database_user  # type: str
         # The ID of the user who assumes the DBA role of the database instance. You can call the [ListUsers](~~141938~~) or [GetInstance](~~141567~~) operation to query the user ID.
         self.dba_uid = dba_uid  # type: long
+        # The ID of the user who assumes the DBA role of the database instance. If the user ID is a non-numeric value such as a role or an account, you can use this parameter to replace DbaUid.
         self.dba_uid_by_string = dba_uid_by_string  # type: str
         # Specifies whether to enable the lock-free schema change feature for the database instance. Valid values:
         # 
