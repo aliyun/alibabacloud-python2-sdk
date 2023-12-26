@@ -30,6 +30,64 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def associate_default_filter_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.filter_name):
+            query['FilterName'] = request.filter_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AssociateDefaultFilter',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.AssociateDefaultFilterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def associate_default_filter(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.associate_default_filter_with_options(request, runtime)
+
+    def create_filter_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.filter_configuration):
+            query['FilterConfiguration'] = request.filter_configuration
+        if not UtilClient.is_unset(request.filter_name):
+            query['FilterName'] = request.filter_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateFilter',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.CreateFilterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_filter(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_filter_with_options(request, runtime)
+
     def create_saved_query_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -61,6 +119,34 @@ class Client(OpenApiClient):
     def create_saved_query(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_saved_query_with_options(request, runtime)
+
+    def delete_filter_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.filter_name):
+            query['FilterName'] = request.filter_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteFilter',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.DeleteFilterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_filter(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_filter_with_options(request, runtime)
 
     def delete_saved_query_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -133,6 +219,28 @@ class Client(OpenApiClient):
     def disable_resource_center(self):
         runtime = util_models.RuntimeOptions()
         return self.disable_resource_center_with_options(runtime)
+
+    def disassociate_default_filter_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='DisassociateDefaultFilter',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.DisassociateDefaultFilterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def disassociate_default_filter(self):
+        runtime = util_models.RuntimeOptions()
+        return self.disassociate_default_filter_with_options(runtime)
 
     def enable_multi_account_resource_center_with_options(self, runtime):
         """
@@ -479,6 +587,28 @@ class Client(OpenApiClient):
     def list_example_queries(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_example_queries_with_options(request, runtime)
+
+    def list_filters_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='ListFilters',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.ListFiltersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_filters(self):
+        runtime = util_models.RuntimeOptions()
+        return self.list_filters_with_options(runtime)
 
     def list_multi_account_resource_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -845,6 +975,36 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.search_resources_with_options(request, runtime)
+
+    def update_filter_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.filter_configuration):
+            query['FilterConfiguration'] = request.filter_configuration
+        if not UtilClient.is_unset(request.filter_name):
+            query['FilterName'] = request.filter_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateFilter',
+            version='2022-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_center_20221201_models.UpdateFilterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_filter(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_filter_with_options(request, runtime)
 
     def update_saved_query_with_options(self, request, runtime):
         UtilClient.validate_model(request)

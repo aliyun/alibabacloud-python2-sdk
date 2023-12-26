@@ -3,6 +3,185 @@
 from Tea.model import TeaModel
 
 
+class AssociateDefaultFilterRequest(TeaModel):
+    def __init__(self, filter_name=None):
+        self.filter_name = filter_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AssociateDefaultFilterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.filter_name is not None:
+            result['FilterName'] = self.filter_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FilterName') is not None:
+            self.filter_name = m.get('FilterName')
+        return self
+
+
+class AssociateDefaultFilterResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AssociateDefaultFilterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class AssociateDefaultFilterResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AssociateDefaultFilterResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AssociateDefaultFilterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AssociateDefaultFilterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateFilterRequest(TeaModel):
+    def __init__(self, filter_configuration=None, filter_name=None):
+        self.filter_configuration = filter_configuration  # type: str
+        self.filter_name = filter_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateFilterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.filter_configuration is not None:
+            result['FilterConfiguration'] = self.filter_configuration
+        if self.filter_name is not None:
+            result['FilterName'] = self.filter_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FilterConfiguration') is not None:
+            self.filter_configuration = m.get('FilterConfiguration')
+        if m.get('FilterName') is not None:
+            self.filter_name = m.get('FilterName')
+        return self
+
+
+class CreateFilterResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateFilterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateFilterResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateFilterResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateFilterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateFilterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateSavedQueryRequest(TeaModel):
     def __init__(self, description=None, expression=None, name=None):
         # The description of the template.
@@ -112,6 +291,93 @@ class CreateSavedQueryResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateSavedQueryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteFilterRequest(TeaModel):
+    def __init__(self, filter_name=None):
+        self.filter_name = filter_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteFilterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.filter_name is not None:
+            result['FilterName'] = self.filter_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FilterName') is not None:
+            self.filter_name = m.get('FilterName')
+        return self
+
+
+class DeleteFilterResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteFilterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteFilterResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteFilterResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteFilterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteFilterResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -331,6 +597,69 @@ class DisableResourceCenterResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DisableResourceCenterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DisassociateDefaultFilterResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisassociateDefaultFilterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DisassociateDefaultFilterResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DisassociateDefaultFilterResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DisassociateDefaultFilterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DisassociateDefaultFilterResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1062,8 +1391,14 @@ class GetMultiAccountResourceConfigurationRequest(TeaModel):
 
 class GetMultiAccountResourceConfigurationResponseBodyIpAddressAttributes(TeaModel):
     def __init__(self, ip_address=None, network_type=None, version=None):
+        # The IP address.
         self.ip_address = ip_address  # type: str
+        # The network type. Valid values:
+        # 
+        # *   **Public**: the Internet
+        # *   **Private**: internal network
         self.network_type = network_type  # type: str
+        # The version.
         self.version = version  # type: str
 
     def validate(self):
@@ -1096,9 +1431,9 @@ class GetMultiAccountResourceConfigurationResponseBodyIpAddressAttributes(TeaMod
 
 class GetMultiAccountResourceConfigurationResponseBodyTags(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of the tag.
+        # The key of tag N.
         self.key = key  # type: str
-        # The value of the tag.
+        # The value of tag N.
         self.value = value  # type: str
 
     def validate(self):
@@ -1135,7 +1470,9 @@ class GetMultiAccountResourceConfigurationResponseBody(TeaModel):
         self.configuration = configuration  # type: dict[str, any]
         # The time when the resource was created.
         self.create_time = create_time  # type: str
+        # The time when the resource expires.
         self.expire_time = expire_time  # type: str
+        # The attributes of the IP address.
         self.ip_address_attributes = ip_address_attributes  # type: list[GetMultiAccountResourceConfigurationResponseBodyIpAddressAttributes]
         # The IP addresses.
         # 
@@ -1290,7 +1627,7 @@ class GetResourceCenterServiceStatusResponseBody(TeaModel):
     def __init__(self, initial_status=None, request_id=None, service_status=None):
         # The initialization status of the service. Valid values:
         # 
-        # *   Pending: The service being initialized.
+        # *   Pending: The service is being initialized.
         # *   Finished: The service is initialized.
         self.initial_status = initial_status  # type: str
         # The ID of the request.
@@ -1409,8 +1746,14 @@ class GetResourceConfigurationRequest(TeaModel):
 
 class GetResourceConfigurationResponseBodyIpAddressAttributes(TeaModel):
     def __init__(self, ip_address=None, network_type=None, version=None):
+        # The IP address.
         self.ip_address = ip_address  # type: str
+        # The network type. Valid values:
+        # 
+        # *   **Public**: the Internet
+        # *   **Private**: internal network
         self.network_type = network_type  # type: str
+        # The version.
         self.version = version  # type: str
 
     def validate(self):
@@ -1482,7 +1825,9 @@ class GetResourceConfigurationResponseBody(TeaModel):
         self.configuration = configuration  # type: dict[str, any]
         # The time when the resource was created.
         self.create_time = create_time  # type: str
+        # The time when the resource expires.
         self.expire_time = expire_time  # type: str
+        # The attributes of the IP address.
         self.ip_address_attributes = ip_address_attributes  # type: list[GetResourceConfigurationResponseBodyIpAddressAttributes]
         # The IP addresses.
         # 
@@ -2191,6 +2536,116 @@ class ListExampleQueriesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListExampleQueriesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListFiltersResponseBodyFilters(TeaModel):
+    def __init__(self, filter_configuration=None, filter_name=None):
+        self.filter_configuration = filter_configuration  # type: str
+        self.filter_name = filter_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListFiltersResponseBodyFilters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.filter_configuration is not None:
+            result['FilterConfiguration'] = self.filter_configuration
+        if self.filter_name is not None:
+            result['FilterName'] = self.filter_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FilterConfiguration') is not None:
+            self.filter_configuration = m.get('FilterConfiguration')
+        if m.get('FilterName') is not None:
+            self.filter_name = m.get('FilterName')
+        return self
+
+
+class ListFiltersResponseBody(TeaModel):
+    def __init__(self, default_filter_name=None, filters=None, request_id=None):
+        self.default_filter_name = default_filter_name  # type: str
+        self.filters = filters  # type: list[ListFiltersResponseBodyFilters]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.filters:
+            for k in self.filters:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListFiltersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.default_filter_name is not None:
+            result['DefaultFilterName'] = self.default_filter_name
+        result['Filters'] = []
+        if self.filters is not None:
+            for k in self.filters:
+                result['Filters'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefaultFilterName') is not None:
+            self.default_filter_name = m.get('DefaultFilterName')
+        self.filters = []
+        if m.get('Filters') is not None:
+            for k in m.get('Filters'):
+                temp_model = ListFiltersResponseBodyFilters()
+                self.filters.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListFiltersResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListFiltersResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListFiltersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListFiltersResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -4218,6 +4673,98 @@ class SearchResourcesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SearchResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateFilterRequest(TeaModel):
+    def __init__(self, filter_configuration=None, filter_name=None):
+        self.filter_configuration = filter_configuration  # type: str
+        self.filter_name = filter_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateFilterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.filter_configuration is not None:
+            result['FilterConfiguration'] = self.filter_configuration
+        if self.filter_name is not None:
+            result['FilterName'] = self.filter_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FilterConfiguration') is not None:
+            self.filter_configuration = m.get('FilterConfiguration')
+        if m.get('FilterName') is not None:
+            self.filter_name = m.get('FilterName')
+        return self
+
+
+class UpdateFilterResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateFilterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateFilterResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateFilterResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateFilterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateFilterResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
