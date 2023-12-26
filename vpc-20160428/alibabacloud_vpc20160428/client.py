@@ -3258,6 +3258,7 @@ class Client(OpenApiClient):
 
     def create_global_acceleration_instance_with_options(self, request, runtime):
         """
+        @deprecated
         ## Usage notes
         You can call this operation to create only pay-as-you-go GA instances.
         
@@ -3267,6 +3268,7 @@ class Client(OpenApiClient):
         @param runtime: runtime options for this request RuntimeOptions
 
         @return: CreateGlobalAccelerationInstanceResponse
+        Deprecated
         """
         UtilClient.validate_model(request)
         query = {}
@@ -3313,6 +3315,7 @@ class Client(OpenApiClient):
 
     def create_global_acceleration_instance(self, request):
         """
+        @deprecated
         ## Usage notes
         You can call this operation to create only pay-as-you-go GA instances.
         
@@ -3320,6 +3323,7 @@ class Client(OpenApiClient):
         @param request: CreateGlobalAccelerationInstanceRequest
 
         @return: CreateGlobalAccelerationInstanceResponse
+        Deprecated
         """
         runtime = util_models.RuntimeOptions()
         return self.create_global_acceleration_instance_with_options(request, runtime)
@@ -14778,6 +14782,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.filter):
+            query['Filter'] = request.filter
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -17615,8 +17621,7 @@ class Client(OpenApiClient):
 
     def modify_route_table_attributes_with_options(self, request, runtime):
         """
-        ## [](#)References
-        You cannot repeatedly call the **ModifyRouteTableAttributes** operation to modify the name and description of a route table within the specified period of time.
+        You cannot repeatedly call the *ModifyRouteTableAttributes** operation to modify the name and description of a route table within the specified period of time.
         
 
         @param request: ModifyRouteTableAttributesRequest
@@ -17664,8 +17669,7 @@ class Client(OpenApiClient):
 
     def modify_route_table_attributes(self, request):
         """
-        ## [](#)References
-        You cannot repeatedly call the **ModifyRouteTableAttributes** operation to modify the name and description of a route table within the specified period of time.
+        You cannot repeatedly call the *ModifyRouteTableAttributes** operation to modify the name and description of a route table within the specified period of time.
         
 
         @param request: ModifyRouteTableAttributesRequest
@@ -18370,6 +18374,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.sitelink_enable):
+            query['SitelinkEnable'] = request.sitelink_enable
         if not UtilClient.is_unset(request.vbr_id):
             query['VbrId'] = request.vbr_id
         if not UtilClient.is_unset(request.vlan_id):
