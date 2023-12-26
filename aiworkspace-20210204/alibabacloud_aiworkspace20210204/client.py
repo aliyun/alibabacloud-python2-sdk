@@ -297,6 +297,8 @@ class Client(OpenApiClient):
             body['Accessibility'] = request.accessibility
         if not UtilClient.is_unset(request.domain):
             body['Domain'] = request.domain
+        if not UtilClient.is_unset(request.extra_info):
+            body['ExtraInfo'] = request.extra_info
         if not UtilClient.is_unset(request.labels):
             body['Labels'] = request.labels
         if not UtilClient.is_unset(request.model_description):
@@ -305,14 +307,12 @@ class Client(OpenApiClient):
             body['ModelDoc'] = request.model_doc
         if not UtilClient.is_unset(request.model_name):
             body['ModelName'] = request.model_name
+        if not UtilClient.is_unset(request.model_type):
+            body['ModelType'] = request.model_type
         if not UtilClient.is_unset(request.order_number):
             body['OrderNumber'] = request.order_number
         if not UtilClient.is_unset(request.origin):
             body['Origin'] = request.origin
-        if not UtilClient.is_unset(request.source_id):
-            body['SourceId'] = request.source_id
-        if not UtilClient.is_unset(request.source_type):
-            body['SourceType'] = request.source_type
         if not UtilClient.is_unset(request.task):
             body['Task'] = request.task
         if not UtilClient.is_unset(request.workspace_id):
@@ -377,6 +377,10 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.approval_status):
             body['ApprovalStatus'] = request.approval_status
+        if not UtilClient.is_unset(request.evaluation_spec):
+            body['EvaluationSpec'] = request.evaluation_spec
+        if not UtilClient.is_unset(request.extra_info):
+            body['ExtraInfo'] = request.extra_info
         if not UtilClient.is_unset(request.format_type):
             body['FormatType'] = request.format_type
         if not UtilClient.is_unset(request.framework_type):
@@ -1389,12 +1393,16 @@ class Client(OpenApiClient):
     def list_models_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.collections):
+            query['Collections'] = request.collections
         if not UtilClient.is_unset(request.domain):
             query['Domain'] = request.domain
         if not UtilClient.is_unset(request.label):
             query['Label'] = request.label
         if not UtilClient.is_unset(request.model_name):
             query['ModelName'] = request.model_name
+        if not UtilClient.is_unset(request.model_type):
+            query['ModelType'] = request.model_type
         if not UtilClient.is_unset(request.order):
             query['Order'] = request.order
         if not UtilClient.is_unset(request.origin):
@@ -1409,10 +1417,6 @@ class Client(OpenApiClient):
             query['Query'] = request.query
         if not UtilClient.is_unset(request.sort_by):
             query['SortBy'] = request.sort_by
-        if not UtilClient.is_unset(request.souce_type):
-            query['SouceType'] = request.souce_type
-        if not UtilClient.is_unset(request.source_id):
-            query['SourceId'] = request.source_id
         if not UtilClient.is_unset(request.task):
             query['Task'] = request.task
         if not UtilClient.is_unset(request.workspace_id):
@@ -1807,7 +1811,7 @@ class Client(OpenApiClient):
         headers = {}
         return self.remove_image_with_options(image_id, headers, runtime)
 
-    def remove_image_labels_with_options(self, image_id, label_keys, headers, runtime):
+    def remove_image_labels_with_options(self, image_id, label_key, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1815,7 +1819,7 @@ class Client(OpenApiClient):
             action='RemoveImageLabels',
             version='2021-02-04',
             protocol='HTTPS',
-            pathname='/api/v1/images/%s/labels/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(image_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(label_keys))),
+            pathname='/api/v1/images/%s/labels/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(image_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(label_key))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -1827,10 +1831,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_image_labels(self, image_id, label_keys):
+    def remove_image_labels(self, image_id, label_key):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_image_labels_with_options(image_id, label_keys, headers, runtime)
+        return self.remove_image_labels_with_options(image_id, label_key, headers, runtime)
 
     def remove_member_role_with_options(self, workspace_id, member_id, role_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1928,20 +1932,20 @@ class Client(OpenApiClient):
             body['Accessibility'] = request.accessibility
         if not UtilClient.is_unset(request.domain):
             body['Domain'] = request.domain
+        if not UtilClient.is_unset(request.extra_info):
+            body['ExtraInfo'] = request.extra_info
         if not UtilClient.is_unset(request.model_description):
             body['ModelDescription'] = request.model_description
         if not UtilClient.is_unset(request.model_doc):
             body['ModelDoc'] = request.model_doc
         if not UtilClient.is_unset(request.model_name):
             body['ModelName'] = request.model_name
+        if not UtilClient.is_unset(request.model_type):
+            body['ModelType'] = request.model_type
         if not UtilClient.is_unset(request.order_number):
             body['OrderNumber'] = request.order_number
         if not UtilClient.is_unset(request.origin):
             body['Origin'] = request.origin
-        if not UtilClient.is_unset(request.source_id):
-            body['SourceId'] = request.source_id
-        if not UtilClient.is_unset(request.source_type):
-            body['SourceType'] = request.source_type
         if not UtilClient.is_unset(request.task):
             body['Task'] = request.task
         req = open_api_models.OpenApiRequest(
@@ -1974,6 +1978,10 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.approval_status):
             body['ApprovalStatus'] = request.approval_status
+        if not UtilClient.is_unset(request.evaluation_spec):
+            body['EvaluationSpec'] = request.evaluation_spec
+        if not UtilClient.is_unset(request.extra_info):
+            body['ExtraInfo'] = request.extra_info
         if not UtilClient.is_unset(request.inference_spec):
             body['InferenceSpec'] = request.inference_spec
         if not UtilClient.is_unset(request.metrics):

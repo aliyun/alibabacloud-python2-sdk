@@ -94,6 +94,51 @@ class CodeSourceItem(TeaModel):
         return self
 
 
+class Collection(TeaModel):
+    def __init__(self, collection_name=None, gmt_create_time=None, gmt_modified_time=None, owner_id=None,
+                 user_id=None):
+        self.collection_name = collection_name  # type: str
+        self.gmt_create_time = gmt_create_time  # type: str
+        self.gmt_modified_time = gmt_modified_time  # type: str
+        self.owner_id = owner_id  # type: str
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Collection, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection_name is not None:
+            result['CollectionName'] = self.collection_name
+        if self.gmt_create_time is not None:
+            result['GmtCreateTime'] = self.gmt_create_time
+        if self.gmt_modified_time is not None:
+            result['GmtModifiedTime'] = self.gmt_modified_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CollectionName') is not None:
+            self.collection_name = m.get('CollectionName')
+        if m.get('GmtCreateTime') is not None:
+            self.gmt_create_time = m.get('GmtCreateTime')
+        if m.get('GmtModifiedTime') is not None:
+            self.gmt_modified_time = m.get('GmtModifiedTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
 class Dataset(TeaModel):
     def __init__(self, accessibility=None, data_source_type=None, data_type=None, dataset_id=None, description=None,
                  gmt_create_time=None, gmt_modified_time=None, labels=None, name=None, options=None, owner_id=None, property=None,
@@ -272,12 +317,13 @@ class Label(TeaModel):
 
 
 class Model(TeaModel):
-    def __init__(self, accessibility=None, domain=None, gmt_create_time=None, gmt_modified_time=None, labels=None,
-                 latest_version=None, model_description=None, model_doc=None, model_id=None, model_name=None, order_number=None,
-                 origin=None, owner_id=None, provider=None, source_id=None, source_type=None, task=None, user_id=None,
-                 workspace_id=None):
+    def __init__(self, accessibility=None, domain=None, extra_info=None, gmt_create_time=None,
+                 gmt_modified_time=None, labels=None, latest_version=None, model_description=None, model_doc=None, model_id=None,
+                 model_name=None, model_type=None, order_number=None, origin=None, owner_id=None, provider=None, task=None,
+                 user_id=None, workspace_id=None):
         self.accessibility = accessibility  # type: str
         self.domain = domain  # type: str
+        self.extra_info = extra_info  # type: dict[str, any]
         self.gmt_create_time = gmt_create_time  # type: str
         self.gmt_modified_time = gmt_modified_time  # type: str
         self.labels = labels  # type: list[Label]
@@ -286,12 +332,11 @@ class Model(TeaModel):
         self.model_doc = model_doc  # type: str
         self.model_id = model_id  # type: str
         self.model_name = model_name  # type: str
+        self.model_type = model_type  # type: str
         self.order_number = order_number  # type: long
         self.origin = origin  # type: str
         self.owner_id = owner_id  # type: str
         self.provider = provider  # type: str
-        self.source_id = source_id  # type: str
-        self.source_type = source_type  # type: str
         self.task = task  # type: str
         self.user_id = user_id  # type: str
         self.workspace_id = workspace_id  # type: str
@@ -314,6 +359,8 @@ class Model(TeaModel):
             result['Accessibility'] = self.accessibility
         if self.domain is not None:
             result['Domain'] = self.domain
+        if self.extra_info is not None:
+            result['ExtraInfo'] = self.extra_info
         if self.gmt_create_time is not None:
             result['GmtCreateTime'] = self.gmt_create_time
         if self.gmt_modified_time is not None:
@@ -332,6 +379,8 @@ class Model(TeaModel):
             result['ModelId'] = self.model_id
         if self.model_name is not None:
             result['ModelName'] = self.model_name
+        if self.model_type is not None:
+            result['ModelType'] = self.model_type
         if self.order_number is not None:
             result['OrderNumber'] = self.order_number
         if self.origin is not None:
@@ -340,10 +389,6 @@ class Model(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.provider is not None:
             result['Provider'] = self.provider
-        if self.source_id is not None:
-            result['SourceId'] = self.source_id
-        if self.source_type is not None:
-            result['SourceType'] = self.source_type
         if self.task is not None:
             result['Task'] = self.task
         if self.user_id is not None:
@@ -358,6 +403,8 @@ class Model(TeaModel):
             self.accessibility = m.get('Accessibility')
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
+        if m.get('ExtraInfo') is not None:
+            self.extra_info = m.get('ExtraInfo')
         if m.get('GmtCreateTime') is not None:
             self.gmt_create_time = m.get('GmtCreateTime')
         if m.get('GmtModifiedTime') is not None:
@@ -378,6 +425,8 @@ class Model(TeaModel):
             self.model_id = m.get('ModelId')
         if m.get('ModelName') is not None:
             self.model_name = m.get('ModelName')
+        if m.get('ModelType') is not None:
+            self.model_type = m.get('ModelType')
         if m.get('OrderNumber') is not None:
             self.order_number = m.get('OrderNumber')
         if m.get('Origin') is not None:
@@ -386,10 +435,6 @@ class Model(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('Provider') is not None:
             self.provider = m.get('Provider')
-        if m.get('SourceId') is not None:
-            self.source_id = m.get('SourceId')
-        if m.get('SourceType') is not None:
-            self.source_type = m.get('SourceType')
         if m.get('Task') is not None:
             self.task = m.get('Task')
         if m.get('UserId') is not None:
@@ -400,10 +445,13 @@ class Model(TeaModel):
 
 
 class ModelVersion(TeaModel):
-    def __init__(self, approval_status=None, format_type=None, framework_type=None, gmt_create_time=None,
-                 gmt_modified_time=None, inference_spec=None, labels=None, metrics=None, options=None, owner_id=None, source_id=None,
-                 source_type=None, training_spec=None, uri=None, user_id=None, version_description=None, version_name=None):
+    def __init__(self, approval_status=None, evaluation_spec=None, extra_info=None, format_type=None,
+                 framework_type=None, gmt_create_time=None, gmt_modified_time=None, inference_spec=None, labels=None, metrics=None,
+                 options=None, owner_id=None, source_id=None, source_type=None, training_spec=None, uri=None, user_id=None,
+                 version_description=None, version_name=None):
         self.approval_status = approval_status  # type: str
+        self.evaluation_spec = evaluation_spec  # type: dict[str, any]
+        self.extra_info = extra_info  # type: dict[str, any]
         self.format_type = format_type  # type: str
         self.framework_type = framework_type  # type: str
         self.gmt_create_time = gmt_create_time  # type: str
@@ -435,6 +483,10 @@ class ModelVersion(TeaModel):
         result = dict()
         if self.approval_status is not None:
             result['ApprovalStatus'] = self.approval_status
+        if self.evaluation_spec is not None:
+            result['EvaluationSpec'] = self.evaluation_spec
+        if self.extra_info is not None:
+            result['ExtraInfo'] = self.extra_info
         if self.format_type is not None:
             result['FormatType'] = self.format_type
         if self.framework_type is not None:
@@ -475,6 +527,10 @@ class ModelVersion(TeaModel):
         m = m or dict()
         if m.get('ApprovalStatus') is not None:
             self.approval_status = m.get('ApprovalStatus')
+        if m.get('EvaluationSpec') is not None:
+            self.evaluation_spec = m.get('EvaluationSpec')
+        if m.get('ExtraInfo') is not None:
+            self.extra_info = m.get('ExtraInfo')
         if m.get('FormatType') is not None:
             self.format_type = m.get('FormatType')
         if m.get('FrameworkType') is not None:
@@ -1521,19 +1577,19 @@ class CreateMemberResponse(TeaModel):
 
 
 class CreateModelRequest(TeaModel):
-    def __init__(self, accessibility=None, domain=None, labels=None, model_description=None, model_doc=None,
-                 model_name=None, order_number=None, origin=None, source_id=None, source_type=None, task=None,
+    def __init__(self, accessibility=None, domain=None, extra_info=None, labels=None, model_description=None,
+                 model_doc=None, model_name=None, model_type=None, order_number=None, origin=None, task=None,
                  workspace_id=None):
         self.accessibility = accessibility  # type: str
         self.domain = domain  # type: str
+        self.extra_info = extra_info  # type: dict[str, any]
         self.labels = labels  # type: list[Label]
         self.model_description = model_description  # type: str
         self.model_doc = model_doc  # type: str
         self.model_name = model_name  # type: str
+        self.model_type = model_type  # type: str
         self.order_number = order_number  # type: long
         self.origin = origin  # type: str
-        self.source_id = source_id  # type: str
-        self.source_type = source_type  # type: str
         self.task = task  # type: str
         self.workspace_id = workspace_id  # type: str
 
@@ -1553,6 +1609,8 @@ class CreateModelRequest(TeaModel):
             result['Accessibility'] = self.accessibility
         if self.domain is not None:
             result['Domain'] = self.domain
+        if self.extra_info is not None:
+            result['ExtraInfo'] = self.extra_info
         result['Labels'] = []
         if self.labels is not None:
             for k in self.labels:
@@ -1563,14 +1621,12 @@ class CreateModelRequest(TeaModel):
             result['ModelDoc'] = self.model_doc
         if self.model_name is not None:
             result['ModelName'] = self.model_name
+        if self.model_type is not None:
+            result['ModelType'] = self.model_type
         if self.order_number is not None:
             result['OrderNumber'] = self.order_number
         if self.origin is not None:
             result['Origin'] = self.origin
-        if self.source_id is not None:
-            result['SourceId'] = self.source_id
-        if self.source_type is not None:
-            result['SourceType'] = self.source_type
         if self.task is not None:
             result['Task'] = self.task
         if self.workspace_id is not None:
@@ -1583,6 +1639,8 @@ class CreateModelRequest(TeaModel):
             self.accessibility = m.get('Accessibility')
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
+        if m.get('ExtraInfo') is not None:
+            self.extra_info = m.get('ExtraInfo')
         self.labels = []
         if m.get('Labels') is not None:
             for k in m.get('Labels'):
@@ -1594,14 +1652,12 @@ class CreateModelRequest(TeaModel):
             self.model_doc = m.get('ModelDoc')
         if m.get('ModelName') is not None:
             self.model_name = m.get('ModelName')
+        if m.get('ModelType') is not None:
+            self.model_type = m.get('ModelType')
         if m.get('OrderNumber') is not None:
             self.order_number = m.get('OrderNumber')
         if m.get('Origin') is not None:
             self.origin = m.get('Origin')
-        if m.get('SourceId') is not None:
-            self.source_id = m.get('SourceId')
-        if m.get('SourceType') is not None:
-            self.source_type = m.get('SourceType')
         if m.get('Task') is not None:
             self.task = m.get('Task')
         if m.get('WorkspaceId') is not None:
@@ -1773,10 +1829,12 @@ class CreateModelLabelsResponse(TeaModel):
 
 
 class CreateModelVersionRequest(TeaModel):
-    def __init__(self, approval_status=None, format_type=None, framework_type=None, inference_spec=None,
-                 labels=None, metrics=None, options=None, source_id=None, source_type=None, training_spec=None, uri=None,
-                 version_description=None, version_name=None):
+    def __init__(self, approval_status=None, evaluation_spec=None, extra_info=None, format_type=None,
+                 framework_type=None, inference_spec=None, labels=None, metrics=None, options=None, source_id=None,
+                 source_type=None, training_spec=None, uri=None, version_description=None, version_name=None):
         self.approval_status = approval_status  # type: str
+        self.evaluation_spec = evaluation_spec  # type: dict[str, any]
+        self.extra_info = extra_info  # type: dict[str, any]
         self.format_type = format_type  # type: str
         self.framework_type = framework_type  # type: str
         self.inference_spec = inference_spec  # type: dict[str, any]
@@ -1804,6 +1862,10 @@ class CreateModelVersionRequest(TeaModel):
         result = dict()
         if self.approval_status is not None:
             result['ApprovalStatus'] = self.approval_status
+        if self.evaluation_spec is not None:
+            result['EvaluationSpec'] = self.evaluation_spec
+        if self.extra_info is not None:
+            result['ExtraInfo'] = self.extra_info
         if self.format_type is not None:
             result['FormatType'] = self.format_type
         if self.framework_type is not None:
@@ -1836,6 +1898,10 @@ class CreateModelVersionRequest(TeaModel):
         m = m or dict()
         if m.get('ApprovalStatus') is not None:
             self.approval_status = m.get('ApprovalStatus')
+        if m.get('EvaluationSpec') is not None:
+            self.evaluation_spec = m.get('EvaluationSpec')
+        if m.get('ExtraInfo') is not None:
+            self.extra_info = m.get('ExtraInfo')
         if m.get('FormatType') is not None:
             self.format_type = m.get('FormatType')
         if m.get('FrameworkType') is not None:
@@ -3359,8 +3425,9 @@ class DeleteWorkspaceResourceRequest(TeaModel):
 
 
 class DeleteWorkspaceResourceResponseBody(TeaModel):
-    def __init__(self, request_id=None):
+    def __init__(self, request_id=None, resource_ids=None):
         self.request_id = request_id  # type: str
+        self.resource_ids = resource_ids  # type: list[str]
 
     def validate(self):
         pass
@@ -3373,12 +3440,16 @@ class DeleteWorkspaceResourceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.resource_ids is not None:
+            result['ResourceIds'] = self.resource_ids
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('ResourceIds') is not None:
+            self.resource_ids = m.get('ResourceIds')
         return self
 
 
@@ -4247,11 +4318,13 @@ class GetMemberResponse(TeaModel):
 
 
 class GetModelResponseBody(TeaModel):
-    def __init__(self, accessibility=None, domain=None, gmt_create_time=None, gmt_modified_time=None, labels=None,
-                 latest_version=None, model_description=None, model_doc=None, model_id=None, model_name=None, origin=None,
-                 owner_id=None, provider=None, request_id=None, task=None, user_id=None, workspace_id=None):
+    def __init__(self, accessibility=None, domain=None, extra_info=None, gmt_create_time=None,
+                 gmt_modified_time=None, labels=None, latest_version=None, model_description=None, model_doc=None, model_id=None,
+                 model_name=None, model_type=None, order_number=None, origin=None, owner_id=None, provider=None,
+                 request_id=None, task=None, user_id=None, workspace_id=None):
         self.accessibility = accessibility  # type: str
         self.domain = domain  # type: str
+        self.extra_info = extra_info  # type: dict[str, any]
         self.gmt_create_time = gmt_create_time  # type: str
         self.gmt_modified_time = gmt_modified_time  # type: str
         self.labels = labels  # type: list[Label]
@@ -4260,6 +4333,8 @@ class GetModelResponseBody(TeaModel):
         self.model_doc = model_doc  # type: str
         self.model_id = model_id  # type: str
         self.model_name = model_name  # type: str
+        self.model_type = model_type  # type: str
+        self.order_number = order_number  # type: long
         self.origin = origin  # type: str
         self.owner_id = owner_id  # type: str
         self.provider = provider  # type: str
@@ -4286,6 +4361,8 @@ class GetModelResponseBody(TeaModel):
             result['Accessibility'] = self.accessibility
         if self.domain is not None:
             result['Domain'] = self.domain
+        if self.extra_info is not None:
+            result['ExtraInfo'] = self.extra_info
         if self.gmt_create_time is not None:
             result['GmtCreateTime'] = self.gmt_create_time
         if self.gmt_modified_time is not None:
@@ -4304,6 +4381,10 @@ class GetModelResponseBody(TeaModel):
             result['ModelId'] = self.model_id
         if self.model_name is not None:
             result['ModelName'] = self.model_name
+        if self.model_type is not None:
+            result['ModelType'] = self.model_type
+        if self.order_number is not None:
+            result['OrderNumber'] = self.order_number
         if self.origin is not None:
             result['Origin'] = self.origin
         if self.owner_id is not None:
@@ -4326,6 +4407,8 @@ class GetModelResponseBody(TeaModel):
             self.accessibility = m.get('Accessibility')
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
+        if m.get('ExtraInfo') is not None:
+            self.extra_info = m.get('ExtraInfo')
         if m.get('GmtCreateTime') is not None:
             self.gmt_create_time = m.get('GmtCreateTime')
         if m.get('GmtModifiedTime') is not None:
@@ -4346,6 +4429,10 @@ class GetModelResponseBody(TeaModel):
             self.model_id = m.get('ModelId')
         if m.get('ModelName') is not None:
             self.model_name = m.get('ModelName')
+        if m.get('ModelType') is not None:
+            self.model_type = m.get('ModelType')
+        if m.get('OrderNumber') is not None:
+            self.order_number = m.get('OrderNumber')
         if m.get('Origin') is not None:
             self.origin = m.get('Origin')
         if m.get('OwnerId') is not None:
@@ -4403,17 +4490,20 @@ class GetModelResponse(TeaModel):
 
 
 class GetModelVersionResponseBody(TeaModel):
-    def __init__(self, approval_status=None, format_type=None, framework_type=None, gmt_create_time=None,
-                 gmt_modified_time=None, inference_spec=None, labels=None, options=None, owner_id=None, request_id=None,
-                 source_id=None, source_type=None, training_spec=None, uri=None, user_id=None, version_description=None,
-                 version_name=None):
+    def __init__(self, approval_status=None, evaluation_spec=None, extra_info=None, format_type=None,
+                 framework_type=None, gmt_create_time=None, gmt_modified_time=None, inference_spec=None, labels=None, metrics=None,
+                 options=None, owner_id=None, request_id=None, source_id=None, source_type=None, training_spec=None,
+                 uri=None, user_id=None, version_description=None, version_name=None):
         self.approval_status = approval_status  # type: str
+        self.evaluation_spec = evaluation_spec  # type: dict[str, any]
+        self.extra_info = extra_info  # type: dict[str, any]
         self.format_type = format_type  # type: str
         self.framework_type = framework_type  # type: str
         self.gmt_create_time = gmt_create_time  # type: str
         self.gmt_modified_time = gmt_modified_time  # type: str
         self.inference_spec = inference_spec  # type: dict[str, any]
         self.labels = labels  # type: list[Label]
+        self.metrics = metrics  # type: dict[str, any]
         self.options = options  # type: str
         self.owner_id = owner_id  # type: str
         self.request_id = request_id  # type: str
@@ -4439,6 +4529,10 @@ class GetModelVersionResponseBody(TeaModel):
         result = dict()
         if self.approval_status is not None:
             result['ApprovalStatus'] = self.approval_status
+        if self.evaluation_spec is not None:
+            result['EvaluationSpec'] = self.evaluation_spec
+        if self.extra_info is not None:
+            result['ExtraInfo'] = self.extra_info
         if self.format_type is not None:
             result['FormatType'] = self.format_type
         if self.framework_type is not None:
@@ -4453,6 +4547,8 @@ class GetModelVersionResponseBody(TeaModel):
         if self.labels is not None:
             for k in self.labels:
                 result['Labels'].append(k.to_map() if k else None)
+        if self.metrics is not None:
+            result['Metrics'] = self.metrics
         if self.options is not None:
             result['Options'] = self.options
         if self.owner_id is not None:
@@ -4479,6 +4575,10 @@ class GetModelVersionResponseBody(TeaModel):
         m = m or dict()
         if m.get('ApprovalStatus') is not None:
             self.approval_status = m.get('ApprovalStatus')
+        if m.get('EvaluationSpec') is not None:
+            self.evaluation_spec = m.get('EvaluationSpec')
+        if m.get('ExtraInfo') is not None:
+            self.extra_info = m.get('ExtraInfo')
         if m.get('FormatType') is not None:
             self.format_type = m.get('FormatType')
         if m.get('FrameworkType') is not None:
@@ -4494,6 +4594,8 @@ class GetModelVersionResponseBody(TeaModel):
             for k in m.get('Labels'):
                 temp_model = Label()
                 self.labels.append(temp_model.from_map(k))
+        if m.get('Metrics') is not None:
+            self.metrics = m.get('Metrics')
         if m.get('Options') is not None:
             self.options = m.get('Options')
         if m.get('OwnerId') is not None:
@@ -6065,12 +6167,14 @@ class ListModelVersionsResponse(TeaModel):
 
 
 class ListModelsRequest(TeaModel):
-    def __init__(self, domain=None, label=None, model_name=None, order=None, origin=None, page_number=None,
-                 page_size=None, provider=None, query=None, sort_by=None, souce_type=None, source_id=None, task=None,
+    def __init__(self, collections=None, domain=None, label=None, model_name=None, model_type=None, order=None,
+                 origin=None, page_number=None, page_size=None, provider=None, query=None, sort_by=None, task=None,
                  workspace_id=None):
+        self.collections = collections  # type: str
         self.domain = domain  # type: str
         self.label = label  # type: str
         self.model_name = model_name  # type: str
+        self.model_type = model_type  # type: str
         self.order = order  # type: str
         self.origin = origin  # type: str
         self.page_number = page_number  # type: int
@@ -6078,8 +6182,6 @@ class ListModelsRequest(TeaModel):
         self.provider = provider  # type: str
         self.query = query  # type: str
         self.sort_by = sort_by  # type: str
-        self.souce_type = souce_type  # type: str
-        self.source_id = source_id  # type: str
         self.task = task  # type: str
         self.workspace_id = workspace_id  # type: str
 
@@ -6092,12 +6194,16 @@ class ListModelsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.collections is not None:
+            result['Collections'] = self.collections
         if self.domain is not None:
             result['Domain'] = self.domain
         if self.label is not None:
             result['Label'] = self.label
         if self.model_name is not None:
             result['ModelName'] = self.model_name
+        if self.model_type is not None:
+            result['ModelType'] = self.model_type
         if self.order is not None:
             result['Order'] = self.order
         if self.origin is not None:
@@ -6112,10 +6218,6 @@ class ListModelsRequest(TeaModel):
             result['Query'] = self.query
         if self.sort_by is not None:
             result['SortBy'] = self.sort_by
-        if self.souce_type is not None:
-            result['SouceType'] = self.souce_type
-        if self.source_id is not None:
-            result['SourceId'] = self.source_id
         if self.task is not None:
             result['Task'] = self.task
         if self.workspace_id is not None:
@@ -6124,12 +6226,16 @@ class ListModelsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Collections') is not None:
+            self.collections = m.get('Collections')
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
         if m.get('Label') is not None:
             self.label = m.get('Label')
         if m.get('ModelName') is not None:
             self.model_name = m.get('ModelName')
+        if m.get('ModelType') is not None:
+            self.model_type = m.get('ModelType')
         if m.get('Order') is not None:
             self.order = m.get('Order')
         if m.get('Origin') is not None:
@@ -6144,10 +6250,6 @@ class ListModelsRequest(TeaModel):
             self.query = m.get('Query')
         if m.get('SortBy') is not None:
             self.sort_by = m.get('SortBy')
-        if m.get('SouceType') is not None:
-            self.souce_type = m.get('SouceType')
-        if m.get('SourceId') is not None:
-            self.source_id = m.get('SourceId')
         if m.get('Task') is not None:
             self.task = m.get('Task')
         if m.get('WorkspaceId') is not None:
@@ -8332,17 +8434,17 @@ class UpdateDefaultWorkspaceResponse(TeaModel):
 
 
 class UpdateModelRequest(TeaModel):
-    def __init__(self, accessibility=None, domain=None, model_description=None, model_doc=None, model_name=None,
-                 order_number=None, origin=None, source_id=None, source_type=None, task=None):
+    def __init__(self, accessibility=None, domain=None, extra_info=None, model_description=None, model_doc=None,
+                 model_name=None, model_type=None, order_number=None, origin=None, task=None):
         self.accessibility = accessibility  # type: str
         self.domain = domain  # type: str
+        self.extra_info = extra_info  # type: dict[str, any]
         self.model_description = model_description  # type: str
         self.model_doc = model_doc  # type: str
         self.model_name = model_name  # type: str
+        self.model_type = model_type  # type: str
         self.order_number = order_number  # type: long
         self.origin = origin  # type: str
-        self.source_id = source_id  # type: str
-        self.source_type = source_type  # type: str
         self.task = task  # type: str
 
     def validate(self):
@@ -8358,20 +8460,20 @@ class UpdateModelRequest(TeaModel):
             result['Accessibility'] = self.accessibility
         if self.domain is not None:
             result['Domain'] = self.domain
+        if self.extra_info is not None:
+            result['ExtraInfo'] = self.extra_info
         if self.model_description is not None:
             result['ModelDescription'] = self.model_description
         if self.model_doc is not None:
             result['ModelDoc'] = self.model_doc
         if self.model_name is not None:
             result['ModelName'] = self.model_name
+        if self.model_type is not None:
+            result['ModelType'] = self.model_type
         if self.order_number is not None:
             result['OrderNumber'] = self.order_number
         if self.origin is not None:
             result['Origin'] = self.origin
-        if self.source_id is not None:
-            result['SourceId'] = self.source_id
-        if self.source_type is not None:
-            result['SourceType'] = self.source_type
         if self.task is not None:
             result['Task'] = self.task
         return result
@@ -8382,20 +8484,20 @@ class UpdateModelRequest(TeaModel):
             self.accessibility = m.get('Accessibility')
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
+        if m.get('ExtraInfo') is not None:
+            self.extra_info = m.get('ExtraInfo')
         if m.get('ModelDescription') is not None:
             self.model_description = m.get('ModelDescription')
         if m.get('ModelDoc') is not None:
             self.model_doc = m.get('ModelDoc')
         if m.get('ModelName') is not None:
             self.model_name = m.get('ModelName')
+        if m.get('ModelType') is not None:
+            self.model_type = m.get('ModelType')
         if m.get('OrderNumber') is not None:
             self.order_number = m.get('OrderNumber')
         if m.get('Origin') is not None:
             self.origin = m.get('Origin')
-        if m.get('SourceId') is not None:
-            self.source_id = m.get('SourceId')
-        if m.get('SourceType') is not None:
-            self.source_type = m.get('SourceType')
         if m.get('Task') is not None:
             self.task = m.get('Task')
         return self
@@ -8465,9 +8567,11 @@ class UpdateModelResponse(TeaModel):
 
 
 class UpdateModelVersionRequest(TeaModel):
-    def __init__(self, approval_status=None, inference_spec=None, metrics=None, options=None, source_id=None,
-                 source_type=None, training_spec=None, version_description=None):
+    def __init__(self, approval_status=None, evaluation_spec=None, extra_info=None, inference_spec=None,
+                 metrics=None, options=None, source_id=None, source_type=None, training_spec=None, version_description=None):
         self.approval_status = approval_status  # type: str
+        self.evaluation_spec = evaluation_spec  # type: dict[str, any]
+        self.extra_info = extra_info  # type: dict[str, any]
         self.inference_spec = inference_spec  # type: dict[str, any]
         self.metrics = metrics  # type: dict[str, any]
         self.options = options  # type: str
@@ -8487,6 +8591,10 @@ class UpdateModelVersionRequest(TeaModel):
         result = dict()
         if self.approval_status is not None:
             result['ApprovalStatus'] = self.approval_status
+        if self.evaluation_spec is not None:
+            result['EvaluationSpec'] = self.evaluation_spec
+        if self.extra_info is not None:
+            result['ExtraInfo'] = self.extra_info
         if self.inference_spec is not None:
             result['InferenceSpec'] = self.inference_spec
         if self.metrics is not None:
@@ -8507,6 +8615,10 @@ class UpdateModelVersionRequest(TeaModel):
         m = m or dict()
         if m.get('ApprovalStatus') is not None:
             self.approval_status = m.get('ApprovalStatus')
+        if m.get('EvaluationSpec') is not None:
+            self.evaluation_spec = m.get('EvaluationSpec')
+        if m.get('ExtraInfo') is not None:
+            self.extra_info = m.get('ExtraInfo')
         if m.get('InferenceSpec') is not None:
             self.inference_spec = m.get('InferenceSpec')
         if m.get('Metrics') is not None:
@@ -8772,8 +8884,9 @@ class UpdateWorkspaceResourceRequest(TeaModel):
 
 
 class UpdateWorkspaceResourceResponseBody(TeaModel):
-    def __init__(self, request_id=None):
+    def __init__(self, request_id=None, resource_ids=None):
         self.request_id = request_id  # type: str
+        self.resource_ids = resource_ids  # type: list[str]
 
     def validate(self):
         pass
@@ -8786,12 +8899,16 @@ class UpdateWorkspaceResourceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.resource_ids is not None:
+            result['ResourceIds'] = self.resource_ids
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('ResourceIds') is not None:
+            self.resource_ids = m.get('ResourceIds')
         return self
 
 
