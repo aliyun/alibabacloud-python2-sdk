@@ -1569,14 +1569,15 @@ class Logging(TeaModel):
 
 class Logstore(TeaModel):
     def __init__(self, append_meta=None, auto_split=None, create_time=None, enable_tracking=None, encrypt_conf=None,
-                 hot_ttl=None, last_modify_time=None, logstore_name=None, max_split_shard=None, mode=None,
-                 product_type=None, shard_count=None, telemetry_type=None, ttl=None):
+                 hot_ttl=None, infrequent_access_ttl=None, last_modify_time=None, logstore_name=None, max_split_shard=None,
+                 mode=None, product_type=None, shard_count=None, telemetry_type=None, ttl=None):
         self.append_meta = append_meta  # type: bool
         self.auto_split = auto_split  # type: bool
         self.create_time = create_time  # type: int
         self.enable_tracking = enable_tracking  # type: bool
         self.encrypt_conf = encrypt_conf  # type: EncryptConf
         self.hot_ttl = hot_ttl  # type: int
+        self.infrequent_access_ttl = infrequent_access_ttl  # type: int
         self.last_modify_time = last_modify_time  # type: int
         self.logstore_name = logstore_name  # type: str
         self.max_split_shard = max_split_shard  # type: int
@@ -1608,6 +1609,8 @@ class Logstore(TeaModel):
             result['encrypt_conf'] = self.encrypt_conf.to_map()
         if self.hot_ttl is not None:
             result['hot_ttl'] = self.hot_ttl
+        if self.infrequent_access_ttl is not None:
+            result['infrequentAccessTTL'] = self.infrequent_access_ttl
         if self.last_modify_time is not None:
             result['lastModifyTime'] = self.last_modify_time
         if self.logstore_name is not None:
@@ -1641,6 +1644,8 @@ class Logstore(TeaModel):
             self.encrypt_conf = temp_model.from_map(m['encrypt_conf'])
         if m.get('hot_ttl') is not None:
             self.hot_ttl = m.get('hot_ttl')
+        if m.get('infrequentAccessTTL') is not None:
+            self.infrequent_access_ttl = m.get('infrequentAccessTTL')
         if m.get('lastModifyTime') is not None:
             self.last_modify_time = m.get('lastModifyTime')
         if m.get('logstoreName') is not None:
@@ -2765,7 +2770,8 @@ class CreateIndexResponse(TeaModel):
 
 class CreateLogStoreRequest(TeaModel):
     def __init__(self, append_meta=None, auto_split=None, enable_tracking=None, encrypt_conf=None, hot_ttl=None,
-                 logstore_name=None, max_split_shard=None, mode=None, shard_count=None, telemetry_type=None, ttl=None):
+                 infrequent_access_ttl=None, logstore_name=None, max_split_shard=None, mode=None, shard_count=None, telemetry_type=None,
+                 ttl=None):
         # Specifies whether to record public IP addresses. Default value: false. Valid values:
         # 
         # *   true
@@ -2787,6 +2793,7 @@ class CreateLogStoreRequest(TeaModel):
         # 
         # Hot data that is stored for longer than the period specified by hot_ttl is converted to cold data. For more information, see [Enable hot and cold-tiered storage for a Logstore](~~308645~~).
         self.hot_ttl = hot_ttl  # type: int
+        self.infrequent_access_ttl = infrequent_access_ttl  # type: int
         # The name of the Logstore. The name must meet the following requirements:
         # 
         # *   The name must be unique in a project.
@@ -2835,6 +2842,8 @@ class CreateLogStoreRequest(TeaModel):
             result['encrypt_conf'] = self.encrypt_conf.to_map()
         if self.hot_ttl is not None:
             result['hot_ttl'] = self.hot_ttl
+        if self.infrequent_access_ttl is not None:
+            result['infrequentAccessTTL'] = self.infrequent_access_ttl
         if self.logstore_name is not None:
             result['logstoreName'] = self.logstore_name
         if self.max_split_shard is not None:
@@ -2862,6 +2871,8 @@ class CreateLogStoreRequest(TeaModel):
             self.encrypt_conf = temp_model.from_map(m['encrypt_conf'])
         if m.get('hot_ttl') is not None:
             self.hot_ttl = m.get('hot_ttl')
+        if m.get('infrequentAccessTTL') is not None:
+            self.infrequent_access_ttl = m.get('infrequentAccessTTL')
         if m.get('logstoreName') is not None:
             self.logstore_name = m.get('logstoreName')
         if m.get('maxSplitShard') is not None:
@@ -10281,7 +10292,8 @@ class UpdateIndexResponse(TeaModel):
 
 class UpdateLogStoreRequest(TeaModel):
     def __init__(self, append_meta=None, auto_split=None, enable_tracking=None, encrypt_conf=None, hot_ttl=None,
-                 logstore_name=None, max_split_shard=None, mode=None, shard_count=None, telemetry_type=None, ttl=None):
+                 infrequent_access_ttl=None, logstore_name=None, max_split_shard=None, mode=None, shard_count=None, telemetry_type=None,
+                 ttl=None):
         # Specifies whether to record public IP addresses. Default value: false. Valid values:
         # 
         # *   true
@@ -10301,6 +10313,7 @@ class UpdateLogStoreRequest(TeaModel):
         self.encrypt_conf = encrypt_conf  # type: EncryptConf
         # The retention period of data in the hot storage tier of the Logstore. Minimum value: 30. Unit: day. You can specify a value that ranges from 30 to the value of ttl. Hot data that is stored for longer than the period specified by hot_ttl is converted to cold data. For more information, see [Enable hot and cold-tiered storage for a Logstore](~~308645~~).
         self.hot_ttl = hot_ttl  # type: int
+        self.infrequent_access_ttl = infrequent_access_ttl  # type: int
         # The name of the Logstore.
         self.logstore_name = logstore_name  # type: str
         # The maximum number of shards into which existing shards can be automatically split. Valid values: 1 to 64.
@@ -10344,6 +10357,8 @@ class UpdateLogStoreRequest(TeaModel):
             result['encrypt_conf'] = self.encrypt_conf.to_map()
         if self.hot_ttl is not None:
             result['hot_ttl'] = self.hot_ttl
+        if self.infrequent_access_ttl is not None:
+            result['infrequentAccessTTL'] = self.infrequent_access_ttl
         if self.logstore_name is not None:
             result['logstoreName'] = self.logstore_name
         if self.max_split_shard is not None:
@@ -10371,6 +10386,8 @@ class UpdateLogStoreRequest(TeaModel):
             self.encrypt_conf = temp_model.from_map(m['encrypt_conf'])
         if m.get('hot_ttl') is not None:
             self.hot_ttl = m.get('hot_ttl')
+        if m.get('infrequentAccessTTL') is not None:
+            self.infrequent_access_ttl = m.get('infrequentAccessTTL')
         if m.get('logstoreName') is not None:
             self.logstore_name = m.get('logstoreName')
         if m.get('maxSplitShard') is not None:
