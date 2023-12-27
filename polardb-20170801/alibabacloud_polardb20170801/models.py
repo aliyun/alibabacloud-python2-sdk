@@ -8117,16 +8117,16 @@ class DescribeDBClusterAttributeResponseBodyTags(TeaModel):
 
 class DescribeDBClusterAttributeResponseBody(TeaModel):
     def __init__(self, ai_type=None, architecture=None, blktag_total=None, blktag_used=None, category=None,
-                 compress_storage_mode=None, creation_time=None, dbcluster_description=None, dbcluster_id=None,
-                 dbcluster_network_type=None, dbcluster_status=None, dbnodes=None, dbtype=None, dbversion=None, dbversion_status=None,
-                 data_level_1backup_chain_size=None, data_sync_mode=None, deletion_lock=None, engine=None, expire_time=None, expired=None,
-                 has_complete_standby_res=None, hot_standby_cluster=None, inode_total=None, inode_used=None, is_latest_version=None,
-                 is_proxy_latest_version=None, lock_mode=None, maintain_time=None, pay_type=None, provisioned_iops=None,
-                 proxy_cpu_cores=None, proxy_serverless_type=None, proxy_standard_cpu_cores=None, proxy_status=None,
-                 proxy_type=None, region_id=None, request_id=None, resource_group_id=None, sqlsize=None, serverless_type=None,
-                 standby_hamode=None, storage_max=None, storage_pay_type=None, storage_space=None, storage_type=None,
-                 storage_used=None, strict_consistency=None, sub_category=None, tags=None, vpcid=None, v_switch_id=None,
-                 zone_ids=None):
+                 compress_storage_mode=None, compress_storage_used=None, creation_time=None, dbcluster_description=None,
+                 dbcluster_id=None, dbcluster_network_type=None, dbcluster_status=None, dbnodes=None, dbtype=None,
+                 dbversion=None, dbversion_status=None, data_level_1backup_chain_size=None, data_sync_mode=None,
+                 deletion_lock=None, engine=None, expire_time=None, expired=None, has_complete_standby_res=None,
+                 hot_standby_cluster=None, inode_total=None, inode_used=None, is_latest_version=None, is_proxy_latest_version=None,
+                 lock_mode=None, maintain_time=None, pay_type=None, provisioned_iops=None, proxy_cpu_cores=None,
+                 proxy_serverless_type=None, proxy_standard_cpu_cores=None, proxy_status=None, proxy_type=None, region_id=None,
+                 request_id=None, resource_group_id=None, sqlsize=None, serverless_type=None, standby_hamode=None,
+                 storage_max=None, storage_pay_type=None, storage_space=None, storage_type=None, storage_used=None,
+                 strict_consistency=None, sub_category=None, tags=None, vpcid=None, v_switch_id=None, zone_ids=None):
         # The information status of the AI node. Valid values:
         # 
         # *   SearchNode: search node.
@@ -8150,6 +8150,7 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
         # >- Only PolarDB for MySQL 8.0 supports X-Engine Edition and Multi-master Cluster Edition.
         self.category = category  # type: str
         self.compress_storage_mode = compress_storage_mode  # type: str
+        self.compress_storage_used = compress_storage_used  # type: long
         # The time when the cluster was created.
         self.creation_time = creation_time  # type: str
         # The description of the cluster.
@@ -8323,6 +8324,8 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
             result['Category'] = self.category
         if self.compress_storage_mode is not None:
             result['CompressStorageMode'] = self.compress_storage_mode
+        if self.compress_storage_used is not None:
+            result['CompressStorageUsed'] = self.compress_storage_used
         if self.creation_time is not None:
             result['CreationTime'] = self.creation_time
         if self.dbcluster_description is not None:
@@ -8437,6 +8440,8 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
             self.category = m.get('Category')
         if m.get('CompressStorageMode') is not None:
             self.compress_storage_mode = m.get('CompressStorageMode')
+        if m.get('CompressStorageUsed') is not None:
+            self.compress_storage_used = m.get('CompressStorageUsed')
         if m.get('CreationTime') is not None:
             self.creation_time = m.get('CreationTime')
         if m.get('DBClusterDescription') is not None:
@@ -11610,10 +11615,10 @@ class DescribeDBClustersRequestTag(TeaModel):
 
 class DescribeDBClustersRequest(TeaModel):
     def __init__(self, connection_string=None, dbcluster_description=None, dbcluster_ids=None,
-                 dbcluster_status=None, dbnode_ids=None, dbtype=None, dbversion=None, expired=None, owner_account=None, owner_id=None,
-                 page_number=None, page_size=None, pay_type=None, recent_creation_interval=None,
-                 recent_expiration_interval=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
-                 tag=None):
+                 dbcluster_status=None, dbnode_ids=None, dbtype=None, dbversion=None, describe_type=None, expired=None,
+                 owner_account=None, owner_id=None, page_number=None, page_size=None, pay_type=None,
+                 recent_creation_interval=None, recent_expiration_interval=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None, tag=None):
         # The endpoint of the cluster.
         self.connection_string = connection_string  # type: str
         # The description of the cluster. Fuzzy match is supported.
@@ -11632,6 +11637,8 @@ class DescribeDBClustersRequest(TeaModel):
         self.dbtype = dbtype  # type: str
         # The database engine version of the cluster.
         self.dbversion = dbversion  # type: str
+        # 查询方式，当取值为Simple时，将返回简略版参数
+        self.describe_type = describe_type  # type: str
         # Specifies whether the cluster has expired. Valid values:
         # 
         # *   **true**\
@@ -11691,6 +11698,8 @@ class DescribeDBClustersRequest(TeaModel):
             result['DBType'] = self.dbtype
         if self.dbversion is not None:
             result['DBVersion'] = self.dbversion
+        if self.describe_type is not None:
+            result['DescribeType'] = self.describe_type
         if self.expired is not None:
             result['Expired'] = self.expired
         if self.owner_account is not None:
@@ -11737,6 +11746,8 @@ class DescribeDBClustersRequest(TeaModel):
             self.dbtype = m.get('DBType')
         if m.get('DBVersion') is not None:
             self.dbversion = m.get('DBVersion')
+        if m.get('DescribeType') is not None:
+            self.describe_type = m.get('DescribeType')
         if m.get('Expired') is not None:
             self.expired = m.get('Expired')
         if m.get('OwnerAccount') is not None:
@@ -21966,9 +21977,10 @@ class ModifyBackupPolicyResponse(TeaModel):
 
 
 class ModifyDBClusterRequest(TeaModel):
-    def __init__(self, dbcluster_id=None, data_sync_mode=None, fault_simulate_mode=None, owner_account=None,
-                 owner_id=None, resource_owner_account=None, resource_owner_id=None, standby_hamode=None,
+    def __init__(self, compress_storage=None, dbcluster_id=None, data_sync_mode=None, fault_simulate_mode=None,
+                 owner_account=None, owner_id=None, resource_owner_account=None, resource_owner_id=None, standby_hamode=None,
                  storage_auto_scale=None, storage_upper_bound=None):
+        self.compress_storage = compress_storage  # type: str
         self.dbcluster_id = dbcluster_id  # type: str
         self.data_sync_mode = data_sync_mode  # type: str
         self.fault_simulate_mode = fault_simulate_mode  # type: str
@@ -21989,6 +22001,8 @@ class ModifyDBClusterRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.compress_storage is not None:
+            result['CompressStorage'] = self.compress_storage
         if self.dbcluster_id is not None:
             result['DBClusterId'] = self.dbcluster_id
         if self.data_sync_mode is not None:
@@ -22013,6 +22027,8 @@ class ModifyDBClusterRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CompressStorage') is not None:
+            self.compress_storage = m.get('CompressStorage')
         if m.get('DBClusterId') is not None:
             self.dbcluster_id = m.get('DBClusterId')
         if m.get('DataSyncMode') is not None:
