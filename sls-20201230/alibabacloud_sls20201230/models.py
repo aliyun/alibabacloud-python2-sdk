@@ -9297,6 +9297,60 @@ class PutProjectPolicyResponse(TeaModel):
         return self
 
 
+class PutProjectTransferAccelerationRequest(TeaModel):
+    def __init__(self, enabled=None):
+        self.enabled = enabled  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PutProjectTransferAccelerationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enabled is not None:
+            result['enabled'] = self.enabled
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('enabled') is not None:
+            self.enabled = m.get('enabled')
+        return self
+
+
+class PutProjectTransferAccelerationResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(PutProjectTransferAccelerationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
 class PutWebtrackingRequest(TeaModel):
     def __init__(self, logs=None, source=None, tags=None, topic=None):
         self.logs = logs  # type: list[dict[str, str]]

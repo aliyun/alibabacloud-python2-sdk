@@ -3817,6 +3817,39 @@ class Client(OpenApiClient):
         headers = {}
         return self.put_project_policy_with_options(project, request, headers, runtime)
 
+    def put_project_transfer_acceleration_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.enabled):
+            body['enabled'] = request.enabled
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='PutProjectTransferAcceleration',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/transferacceleration',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.PutProjectTransferAccelerationResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def put_project_transfer_acceleration(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.put_project_transfer_acceleration_with_options(project, request, headers, runtime)
+
     def put_webtracking_with_options(self, project, logstore_name, request, headers, runtime):
         UtilClient.validate_model(request)
         host_map = {}
