@@ -6360,6 +6360,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_smcertificate_list_with_options(request, runtime)
 
+    def describe_dcdn_sslcertificate_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_keyword):
+            query['SearchKeyword'] = request.search_keyword
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnSSLCertificateList',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnSSLCertificateListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_sslcertificate_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_sslcertificate_list_with_options(request, runtime)
+
     def describe_dcdn_sec_func_info_with_options(self, request, runtime):
         """
         > You can call this operation up to 50 times per second per account.
@@ -9757,6 +9795,42 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.refresh_dcdn_object_caches_with_options(request, runtime)
+
+    def refresh_er_object_caches_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
+        if not UtilClient.is_unset(request.merge_domain_name):
+            query['MergeDomainName'] = request.merge_domain_name
+        if not UtilClient.is_unset(request.object_path):
+            query['ObjectPath'] = request.object_path
+        if not UtilClient.is_unset(request.object_type):
+            query['ObjectType'] = request.object_type
+        if not UtilClient.is_unset(request.routine_id):
+            query['RoutineId'] = request.routine_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RefreshErObjectCaches',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.RefreshErObjectCachesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def refresh_er_object_caches(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.refresh_er_object_caches_with_options(request, runtime)
 
     def rollback_dcdn_staging_config_with_options(self, request, runtime):
         """
