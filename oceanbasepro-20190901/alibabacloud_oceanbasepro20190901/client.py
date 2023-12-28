@@ -97,6 +97,10 @@ class Client(OpenApiClient):
             body['Period'] = request.period
         if not UtilClient.is_unset(request.period_unit):
             body['PeriodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.primary_instance):
+            body['PrimaryInstance'] = request.primary_instance
+        if not UtilClient.is_unset(request.primary_region):
+            body['PrimaryRegion'] = request.primary_region
         if not UtilClient.is_unset(request.replica_mode):
             body['ReplicaMode'] = request.replica_mode
         if not UtilClient.is_unset(request.resource_group_id):
@@ -1459,8 +1463,12 @@ class Client(OpenApiClient):
             query['SortOrder'] = request.sort_order
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
+        body = {}
+        if not UtilClient.is_unset(request.replica_type):
+            body['ReplicaType'] = request.replica_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DescribeMetricsData',
@@ -3309,6 +3317,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.disk_size):
             body['DiskSize'] = request.disk_size
+        if not UtilClient.is_unset(request.disk_type):
+            body['DiskType'] = request.disk_type
         if not UtilClient.is_unset(request.dry_run):
             body['DryRun'] = request.dry_run
         if not UtilClient.is_unset(request.instance_class):
@@ -3371,6 +3381,8 @@ class Client(OpenApiClient):
     def modify_instance_temporary_capacity_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.accept_language):
+            body['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.disk_size):
             body['DiskSize'] = request.disk_size
         if not UtilClient.is_unset(request.instance_id):
@@ -3509,10 +3521,14 @@ class Client(OpenApiClient):
             body['MasterIntranetAddressZone'] = request.master_intranet_address_zone
         if not UtilClient.is_unset(request.primary_zone):
             body['PrimaryZone'] = request.primary_zone
+        if not UtilClient.is_unset(request.tenant_endpoint_direct_id):
+            body['TenantEndpointDirectId'] = request.tenant_endpoint_direct_id
         if not UtilClient.is_unset(request.tenant_endpoint_id):
             body['TenantEndpointId'] = request.tenant_endpoint_id
         if not UtilClient.is_unset(request.tenant_id):
             body['TenantId'] = request.tenant_id
+        if not UtilClient.is_unset(request.user_direct_vswitch_id):
+            body['UserDirectVSwitchId'] = request.user_direct_vswitch_id
         if not UtilClient.is_unset(request.user_vswitch_id):
             body['UserVSwitchId'] = request.user_vswitch_id
         req = open_api_models.OpenApiRequest(
