@@ -252,9 +252,12 @@ class UploadSampleApiRequest(TeaModel):
 
 
 class UploadSampleApiResponseBody(TeaModel):
-    def __init__(self, request_id=None):
+    def __init__(self, code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
         # Id of the request
         self.request_id = request_id  # type: str
+        self.success = success  # type: str
 
     def validate(self):
         pass
@@ -265,14 +268,26 @@ class UploadSampleApiResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         return self
 
 
