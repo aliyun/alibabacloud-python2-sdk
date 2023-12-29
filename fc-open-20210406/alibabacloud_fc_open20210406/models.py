@@ -2625,11 +2625,13 @@ class SourceRocketMQParameters(TeaModel):
 
 
 class StatefulAsyncInvocation(TeaModel):
-    def __init__(self, already_retried_times=None, destination_status=None, end_time=None, events=None,
-                 function_name=None, instance_id=None, invocation_error_message=None, invocation_id=None,
-                 invocation_payload=None, qualifier=None, request_id=None, service_name=None, started_time=None, status=None):
+    def __init__(self, already_retried_times=None, destination_status=None, duration_ms=None, end_time=None,
+                 events=None, function_name=None, instance_id=None, invocation_error_message=None, invocation_id=None,
+                 invocation_payload=None, qualifier=None, request_id=None, return_payload=None, service_name=None, started_time=None,
+                 status=None):
         self.already_retried_times = already_retried_times  # type: long
         self.destination_status = destination_status  # type: str
+        self.duration_ms = duration_ms  # type: long
         self.end_time = end_time  # type: long
         self.events = events  # type: list[StatefulAsyncInvocationEvent]
         self.function_name = function_name  # type: str
@@ -2639,6 +2641,7 @@ class StatefulAsyncInvocation(TeaModel):
         self.invocation_payload = invocation_payload  # type: str
         self.qualifier = qualifier  # type: str
         self.request_id = request_id  # type: str
+        self.return_payload = return_payload  # type: str
         self.service_name = service_name  # type: str
         self.started_time = started_time  # type: long
         self.status = status  # type: str
@@ -2659,6 +2662,8 @@ class StatefulAsyncInvocation(TeaModel):
             result['alreadyRetriedTimes'] = self.already_retried_times
         if self.destination_status is not None:
             result['destinationStatus'] = self.destination_status
+        if self.duration_ms is not None:
+            result['durationMs'] = self.duration_ms
         if self.end_time is not None:
             result['endTime'] = self.end_time
         result['events'] = []
@@ -2679,6 +2684,8 @@ class StatefulAsyncInvocation(TeaModel):
             result['qualifier'] = self.qualifier
         if self.request_id is not None:
             result['requestId'] = self.request_id
+        if self.return_payload is not None:
+            result['returnPayload'] = self.return_payload
         if self.service_name is not None:
             result['serviceName'] = self.service_name
         if self.started_time is not None:
@@ -2693,6 +2700,8 @@ class StatefulAsyncInvocation(TeaModel):
             self.already_retried_times = m.get('alreadyRetriedTimes')
         if m.get('destinationStatus') is not None:
             self.destination_status = m.get('destinationStatus')
+        if m.get('durationMs') is not None:
+            self.duration_ms = m.get('durationMs')
         if m.get('endTime') is not None:
             self.end_time = m.get('endTime')
         self.events = []
@@ -2714,6 +2723,8 @@ class StatefulAsyncInvocation(TeaModel):
             self.qualifier = m.get('qualifier')
         if m.get('requestId') is not None:
             self.request_id = m.get('requestId')
+        if m.get('returnPayload') is not None:
+            self.return_payload = m.get('returnPayload')
         if m.get('serviceName') is not None:
             self.service_name = m.get('serviceName')
         if m.get('startedTime') is not None:
@@ -3419,7 +3430,7 @@ class CreateAliasRequest(TeaModel):
 
 class CreateAliasResponseBody(TeaModel):
     def __init__(self, additional_version_weight=None, alias_name=None, created_time=None, description=None,
-                 last_modified_time=None, version_id=None):
+                 last_modified_time=None, resolve_policy=None, route_policy=None, version_id=None):
         # The additional version to which the alias points and the weight of the additional version.
         # 
         # *   The additional version takes effect only when the function is invoked.
@@ -3433,11 +3444,14 @@ class CreateAliasResponseBody(TeaModel):
         self.description = description  # type: str
         # The time when the alias was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        self.resolve_policy = resolve_policy  # type: str
+        self.route_policy = route_policy  # type: RoutePolicy
         # The ID of the version to which the alias points.
         self.version_id = version_id  # type: str
 
     def validate(self):
-        pass
+        if self.route_policy:
+            self.route_policy.validate()
 
     def to_map(self):
         _map = super(CreateAliasResponseBody, self).to_map()
@@ -3455,6 +3469,10 @@ class CreateAliasResponseBody(TeaModel):
             result['description'] = self.description
         if self.last_modified_time is not None:
             result['lastModifiedTime'] = self.last_modified_time
+        if self.resolve_policy is not None:
+            result['resolvePolicy'] = self.resolve_policy
+        if self.route_policy is not None:
+            result['routePolicy'] = self.route_policy.to_map()
         if self.version_id is not None:
             result['versionId'] = self.version_id
         return result
@@ -3471,6 +3489,11 @@ class CreateAliasResponseBody(TeaModel):
             self.description = m.get('description')
         if m.get('lastModifiedTime') is not None:
             self.last_modified_time = m.get('lastModifiedTime')
+        if m.get('resolvePolicy') is not None:
+            self.resolve_policy = m.get('resolvePolicy')
+        if m.get('routePolicy') is not None:
+            temp_model = RoutePolicy()
+            self.route_policy = temp_model.from_map(m['routePolicy'])
         if m.get('versionId') is not None:
             self.version_id = m.get('versionId')
         return self
@@ -13569,7 +13592,7 @@ class UpdateAliasRequest(TeaModel):
 
 class UpdateAliasResponseBody(TeaModel):
     def __init__(self, additional_version_weight=None, alias_name=None, created_time=None, description=None,
-                 last_modified_time=None, version_id=None):
+                 last_modified_time=None, resolve_policy=None, route_policy=None, version_id=None):
         # The additional version to which the alias points and the weight of the additional version.
         # 
         # *   The additional version takes effect only when the function is invoked.
@@ -13583,11 +13606,14 @@ class UpdateAliasResponseBody(TeaModel):
         self.description = description  # type: str
         # The time when the alias was last modified.
         self.last_modified_time = last_modified_time  # type: str
+        self.resolve_policy = resolve_policy  # type: str
+        self.route_policy = route_policy  # type: RoutePolicy
         # The ID of the version to which the alias points.
         self.version_id = version_id  # type: str
 
     def validate(self):
-        pass
+        if self.route_policy:
+            self.route_policy.validate()
 
     def to_map(self):
         _map = super(UpdateAliasResponseBody, self).to_map()
@@ -13605,6 +13631,10 @@ class UpdateAliasResponseBody(TeaModel):
             result['description'] = self.description
         if self.last_modified_time is not None:
             result['lastModifiedTime'] = self.last_modified_time
+        if self.resolve_policy is not None:
+            result['resolvePolicy'] = self.resolve_policy
+        if self.route_policy is not None:
+            result['routePolicy'] = self.route_policy.to_map()
         if self.version_id is not None:
             result['versionId'] = self.version_id
         return result
@@ -13621,6 +13651,11 @@ class UpdateAliasResponseBody(TeaModel):
             self.description = m.get('description')
         if m.get('lastModifiedTime') is not None:
             self.last_modified_time = m.get('lastModifiedTime')
+        if m.get('resolvePolicy') is not None:
+            self.resolve_policy = m.get('resolvePolicy')
+        if m.get('routePolicy') is not None:
+            temp_model = RoutePolicy()
+            self.route_policy = temp_model.from_map(m['routePolicy'])
         if m.get('versionId') is not None:
             self.version_id = m.get('versionId')
         return self
@@ -14757,8 +14792,8 @@ class UpdateTriggerRequest(TeaModel):
 
 class UpdateTriggerResponseBody(TeaModel):
     def __init__(self, created_time=None, description=None, domain_name=None, invocation_role=None,
-                 last_modified_time=None, qualifier=None, source_arn=None, trigger_config=None, trigger_id=None, trigger_name=None,
-                 trigger_type=None, url_internet=None, url_intranet=None):
+                 last_modified_time=None, qualifier=None, source_arn=None, status=None, target_arn=None, trigger_config=None,
+                 trigger_id=None, trigger_name=None, trigger_type=None, url_internet=None, url_intranet=None):
         # The time when the audio or video file was created.
         self.created_time = created_time  # type: str
         # The description of the trigger.
@@ -14773,6 +14808,8 @@ class UpdateTriggerResponseBody(TeaModel):
         self.qualifier = qualifier  # type: str
         # The ARN of the event source.
         self.source_arn = source_arn  # type: str
+        self.status = status  # type: str
+        self.target_arn = target_arn  # type: str
         # The configurations of the trigger. The configurations vary based on the trigger type.
         self.trigger_config = trigger_config  # type: str
         # The unique ID of the trigger.
@@ -14809,6 +14846,10 @@ class UpdateTriggerResponseBody(TeaModel):
             result['qualifier'] = self.qualifier
         if self.source_arn is not None:
             result['sourceArn'] = self.source_arn
+        if self.status is not None:
+            result['status'] = self.status
+        if self.target_arn is not None:
+            result['targetArn'] = self.target_arn
         if self.trigger_config is not None:
             result['triggerConfig'] = self.trigger_config
         if self.trigger_id is not None:
@@ -14839,6 +14880,10 @@ class UpdateTriggerResponseBody(TeaModel):
             self.qualifier = m.get('qualifier')
         if m.get('sourceArn') is not None:
             self.source_arn = m.get('sourceArn')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('targetArn') is not None:
+            self.target_arn = m.get('targetArn')
         if m.get('triggerConfig') is not None:
             self.trigger_config = m.get('triggerConfig')
         if m.get('triggerId') is not None:
