@@ -6228,13 +6228,14 @@ class TwoElementsVerificationResponse(TeaModel):
 
 
 class UAIDVerificationRequest(TeaModel):
-    def __init__(self, auth_code=None, carrier=None, ip=None, out_id=None, owner_id=None,
+    def __init__(self, auth_code=None, carrier=None, ip=None, out_id=None, owner_id=None, province=None,
                  resource_owner_account=None, resource_owner_id=None, token=None, user_grant_id=None):
         self.auth_code = auth_code  # type: str
         self.carrier = carrier  # type: str
         self.ip = ip  # type: str
         self.out_id = out_id  # type: str
         self.owner_id = owner_id  # type: long
+        self.province = province  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.token = token  # type: str
@@ -6259,6 +6260,8 @@ class UAIDVerificationRequest(TeaModel):
             result['OutId'] = self.out_id
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.province is not None:
+            result['Province'] = self.province
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -6281,6 +6284,8 @@ class UAIDVerificationRequest(TeaModel):
             self.out_id = m.get('OutId')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('Province') is not None:
+            self.province = m.get('Province')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
