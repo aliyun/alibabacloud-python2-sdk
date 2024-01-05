@@ -366,6 +366,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_recording_rule_with_options(request, runtime)
 
+    def add_tag_to_flink_cluster_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.flink_work_space_id):
+            query['FlinkWorkSpaceId'] = request.flink_work_space_id
+        if not UtilClient.is_unset(request.flink_work_space_name):
+            query['FlinkWorkSpaceName'] = request.flink_work_space_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.target_user_id):
+            query['TargetUserId'] = request.target_user_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddTagToFlinkCluster',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.AddTagToFlinkClusterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_tag_to_flink_cluster(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_tag_to_flink_cluster_with_options(request, runtime)
+
     def append_instances_to_prometheus_global_view_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
