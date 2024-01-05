@@ -1549,6 +1549,8 @@ class Client(OpenApiClient):
     def update_public_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
         if not UtilClient.is_unset(request.content):
             query['Content'] = request.content
         if not UtilClient.is_unset(request.popularity):

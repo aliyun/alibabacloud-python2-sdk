@@ -6990,7 +6990,9 @@ class UpdatePublicPatchBaselineResponse(TeaModel):
 
 
 class UpdatePublicTemplateRequest(TeaModel):
-    def __init__(self, content=None, popularity=None, publisher=None, region_id=None, template_name=None):
+    def __init__(self, category=None, content=None, popularity=None, publisher=None, region_id=None,
+                 template_name=None):
+        self.category = category  # type: str
         self.content = content  # type: str
         self.popularity = popularity  # type: int
         self.publisher = publisher  # type: str
@@ -7006,6 +7008,8 @@ class UpdatePublicTemplateRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.category is not None:
+            result['Category'] = self.category
         if self.content is not None:
             result['Content'] = self.content
         if self.popularity is not None:
@@ -7020,6 +7024,8 @@ class UpdatePublicTemplateRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
         if m.get('Content') is not None:
             self.content = m.get('Content')
         if m.get('Popularity') is not None:
@@ -7034,9 +7040,10 @@ class UpdatePublicTemplateRequest(TeaModel):
 
 
 class UpdatePublicTemplateResponseBodyTemplate(TeaModel):
-    def __init__(self, created_by=None, created_date=None, description=None, hash=None, popularity=None,
-                 share_type=None, template_format=None, template_id=None, template_name=None, template_version=None,
-                 updated_by=None, updated_date=None):
+    def __init__(self, category=None, created_by=None, created_date=None, description=None, hash=None,
+                 popularity=None, share_type=None, template_format=None, template_id=None, template_name=None,
+                 template_version=None, updated_by=None, updated_date=None):
+        self.category = category  # type: str
         self.created_by = created_by  # type: str
         self.created_date = created_date  # type: str
         self.description = description  # type: str
@@ -7059,6 +7066,8 @@ class UpdatePublicTemplateResponseBodyTemplate(TeaModel):
             return _map
 
         result = dict()
+        if self.category is not None:
+            result['Category'] = self.category
         if self.created_by is not None:
             result['CreatedBy'] = self.created_by
         if self.created_date is not None:
@@ -7087,6 +7096,8 @@ class UpdatePublicTemplateResponseBodyTemplate(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
         if m.get('CreatedBy') is not None:
             self.created_by = m.get('CreatedBy')
         if m.get('CreatedDate') is not None:
