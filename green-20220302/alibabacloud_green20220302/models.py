@@ -501,7 +501,7 @@ class DescribeImageModerationResultResponseBodyData(TeaModel):
 
 class DescribeImageModerationResultResponseBody(TeaModel):
     def __init__(self, code=None, data=None, msg=None, request_id=None):
-        self.code = code  # type: str
+        self.code = code  # type: int
         self.data = data  # type: DescribeImageModerationResultResponseBodyData
         self.msg = msg  # type: str
         self.request_id = request_id  # type: str
@@ -1834,6 +1834,35 @@ class VideoModerationResultRequest(TeaModel):
         return self
 
 
+class VideoModerationResultResponseBodyDataAudioResultAudioSummarys(TeaModel):
+    def __init__(self, label=None, label_sum=None):
+        self.label = label  # type: str
+        self.label_sum = label_sum  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VideoModerationResultResponseBodyDataAudioResultAudioSummarys, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.label is not None:
+            result['Label'] = self.label
+        if self.label_sum is not None:
+            result['LabelSum'] = self.label_sum
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Label') is not None:
+            self.label = m.get('Label')
+        if m.get('LabelSum') is not None:
+            self.label_sum = m.get('LabelSum')
+        return self
+
+
 class VideoModerationResultResponseBodyDataAudioResultSliceDetails(TeaModel):
     def __init__(self, end_time=None, end_timestamp=None, extend=None, labels=None, risk_tips=None, risk_words=None,
                  score=None, start_time=None, start_timestamp=None, text=None, url=None):
@@ -1910,10 +1939,15 @@ class VideoModerationResultResponseBodyDataAudioResultSliceDetails(TeaModel):
 
 
 class VideoModerationResultResponseBodyDataAudioResult(TeaModel):
-    def __init__(self, slice_details=None):
+    def __init__(self, audio_summarys=None, slice_details=None):
+        self.audio_summarys = audio_summarys  # type: list[VideoModerationResultResponseBodyDataAudioResultAudioSummarys]
         self.slice_details = slice_details  # type: list[VideoModerationResultResponseBodyDataAudioResultSliceDetails]
 
     def validate(self):
+        if self.audio_summarys:
+            for k in self.audio_summarys:
+                if k:
+                    k.validate()
         if self.slice_details:
             for k in self.slice_details:
                 if k:
@@ -1925,6 +1959,10 @@ class VideoModerationResultResponseBodyDataAudioResult(TeaModel):
             return _map
 
         result = dict()
+        result['AudioSummarys'] = []
+        if self.audio_summarys is not None:
+            for k in self.audio_summarys:
+                result['AudioSummarys'].append(k.to_map() if k else None)
         result['SliceDetails'] = []
         if self.slice_details is not None:
             for k in self.slice_details:
@@ -1933,11 +1971,45 @@ class VideoModerationResultResponseBodyDataAudioResult(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.audio_summarys = []
+        if m.get('AudioSummarys') is not None:
+            for k in m.get('AudioSummarys'):
+                temp_model = VideoModerationResultResponseBodyDataAudioResultAudioSummarys()
+                self.audio_summarys.append(temp_model.from_map(k))
         self.slice_details = []
         if m.get('SliceDetails') is not None:
             for k in m.get('SliceDetails'):
                 temp_model = VideoModerationResultResponseBodyDataAudioResultSliceDetails()
                 self.slice_details.append(temp_model.from_map(k))
+        return self
+
+
+class VideoModerationResultResponseBodyDataFrameResultFrameSummarys(TeaModel):
+    def __init__(self, label=None, label_sum=None):
+        self.label = label  # type: str
+        self.label_sum = label_sum  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VideoModerationResultResponseBodyDataFrameResultFrameSummarys, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.label is not None:
+            result['Label'] = self.label
+        if self.label_sum is not None:
+            result['LabelSum'] = self.label_sum
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Label') is not None:
+            self.label = m.get('Label')
+        if m.get('LabelSum') is not None:
+            self.label_sum = m.get('LabelSum')
         return self
 
 
@@ -2008,10 +2080,11 @@ class VideoModerationResultResponseBodyDataFrameResultFramesResults(TeaModel):
 
 
 class VideoModerationResultResponseBodyDataFrameResultFrames(TeaModel):
-    def __init__(self, offset=None, results=None, temp_url=None):
+    def __init__(self, offset=None, results=None, temp_url=None, timestamp=None):
         self.offset = offset  # type: float
         self.results = results  # type: list[VideoModerationResultResponseBodyDataFrameResultFramesResults]
         self.temp_url = temp_url  # type: str
+        self.timestamp = timestamp  # type: long
 
     def validate(self):
         if self.results:
@@ -2033,6 +2106,8 @@ class VideoModerationResultResponseBodyDataFrameResultFrames(TeaModel):
                 result['Results'].append(k.to_map() if k else None)
         if self.temp_url is not None:
             result['TempUrl'] = self.temp_url
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
         return result
 
     def from_map(self, m=None):
@@ -2046,15 +2121,22 @@ class VideoModerationResultResponseBodyDataFrameResultFrames(TeaModel):
                 self.results.append(temp_model.from_map(k))
         if m.get('TempUrl') is not None:
             self.temp_url = m.get('TempUrl')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
         return self
 
 
 class VideoModerationResultResponseBodyDataFrameResult(TeaModel):
-    def __init__(self, frame_num=None, frames=None):
+    def __init__(self, frame_num=None, frame_summarys=None, frames=None):
         self.frame_num = frame_num  # type: int
+        self.frame_summarys = frame_summarys  # type: list[VideoModerationResultResponseBodyDataFrameResultFrameSummarys]
         self.frames = frames  # type: list[VideoModerationResultResponseBodyDataFrameResultFrames]
 
     def validate(self):
+        if self.frame_summarys:
+            for k in self.frame_summarys:
+                if k:
+                    k.validate()
         if self.frames:
             for k in self.frames:
                 if k:
@@ -2068,6 +2150,10 @@ class VideoModerationResultResponseBodyDataFrameResult(TeaModel):
         result = dict()
         if self.frame_num is not None:
             result['FrameNum'] = self.frame_num
+        result['FrameSummarys'] = []
+        if self.frame_summarys is not None:
+            for k in self.frame_summarys:
+                result['FrameSummarys'].append(k.to_map() if k else None)
         result['Frames'] = []
         if self.frames is not None:
             for k in self.frames:
@@ -2078,6 +2164,11 @@ class VideoModerationResultResponseBodyDataFrameResult(TeaModel):
         m = m or dict()
         if m.get('FrameNum') is not None:
             self.frame_num = m.get('FrameNum')
+        self.frame_summarys = []
+        if m.get('FrameSummarys') is not None:
+            for k in m.get('FrameSummarys'):
+                temp_model = VideoModerationResultResponseBodyDataFrameResultFrameSummarys()
+                self.frame_summarys.append(temp_model.from_map(k))
         self.frames = []
         if m.get('Frames') is not None:
             for k in m.get('Frames'):
