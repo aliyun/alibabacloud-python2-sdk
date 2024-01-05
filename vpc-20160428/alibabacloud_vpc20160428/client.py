@@ -864,6 +864,60 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.allocate_eip_segment_address_with_options(request, runtime)
 
+    def allocate_ipv_6address_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.ipv_6address):
+            query['Ipv6Address'] = request.ipv_6address
+        if not UtilClient.is_unset(request.ipv_6address_description):
+            query['Ipv6AddressDescription'] = request.ipv_6address_description
+        if not UtilClient.is_unset(request.ipv_6address_name):
+            query['Ipv6AddressName'] = request.ipv_6address_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AllocateIpv6Address',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.AllocateIpv6AddressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def allocate_ipv_6address(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.allocate_ipv_6address_with_options(request, runtime)
+
     def allocate_ipv_6internet_bandwidth_with_options(self, request, runtime):
         """
         You cannot repeatedly call the *AllocateIpv6InternetBandwidth** operation within a specific time period.
@@ -2340,10 +2394,11 @@ class Client(OpenApiClient):
 
     def copy_network_acl_entries_with_options(self, request, runtime):
         """
-        The **CopyNetworkAclEntries** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeNetworkAclAttributes](~~116542~~) operation to query the status of a network ACL:
+        ## [](#)Description
+        *   **CopyNetworkAclEntries** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeNetworkAclAttributes](~~116542~~) operation to query the status of the task.
         *   If the network ACL is in the **Modifying** state, the rules of the network ACL are being copied.
         *   If the network ACL is in the **Available** state, the rules of the network ACL are copied.
-        *   You cannot repeatedly call the **CopyNetworkAclEntries** operation to copy the rules of a network ACL within the specified period of time.
+        *   You cannot repeatedly call the **CopyNetworkAclEntries** operation within the specified period of time.
         
 
         @param request: CopyNetworkAclEntriesRequest
@@ -2395,10 +2450,11 @@ class Client(OpenApiClient):
 
     def copy_network_acl_entries(self, request):
         """
-        The **CopyNetworkAclEntries** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeNetworkAclAttributes](~~116542~~) operation to query the status of a network ACL:
+        ## [](#)Description
+        *   **CopyNetworkAclEntries** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeNetworkAclAttributes](~~116542~~) operation to query the status of the task.
         *   If the network ACL is in the **Modifying** state, the rules of the network ACL are being copied.
         *   If the network ACL is in the **Available** state, the rules of the network ACL are copied.
-        *   You cannot repeatedly call the **CopyNetworkAclEntries** operation to copy the rules of a network ACL within the specified period of time.
+        *   You cannot repeatedly call the **CopyNetworkAclEntries** operation within the specified period of time.
         
 
         @param request: CopyNetworkAclEntriesRequest
@@ -2654,13 +2710,12 @@ class Client(OpenApiClient):
 
     def create_default_vswitch_with_options(self, request, runtime):
         """
-        ## Usage notes
-        When you call this operation, take note of the following items:
-        *   The first IP address and last three IP addresses of a default vSwitch CIDR block are reserved. For example, if the CIDR block of a vSwitch is 192.168.1.0/24, the IP addresses 192.168.1.0, 192.168.1.253, 192.168.1.254, and 192.168.1.255 are reserved.
+        When you call this operation, take note of the following limits:
+        *   The first IP address and last three IP addresses of a vSwitch CIDR block are reserved. For example, if the CIDR block of a vSwitch is 192.168.1.0/24, the IP addresses 192.168.1.0, 192.168.1.253, 192.168.1.254, and 192.168.1.255 are reserved.
         *   The number of instances in the default vSwitch cannot exceed the remaining number of instances supported by the VPC (15,000 minus the number of existing instances).
         *   Default vSwitches do not support multicasting or broadcasting.
         *   After you create a default vSwitch, you cannot modify its CIDR block.
-        *   **CreateDefaultVSwitch** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a default vSwitch:
+        *   **CreateDefaultVSwitch** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a default vSwitch:
         *   If a default vSwitch is in the **Pending** state, it is being configured.
         *   If a default vSwitch is in the **Available** state, it is available.
         *   If a default vSwitch already exists in a region, you cannot call this operation to create a default vSwitch in this region.
@@ -2712,13 +2767,12 @@ class Client(OpenApiClient):
 
     def create_default_vswitch(self, request):
         """
-        ## Usage notes
-        When you call this operation, take note of the following items:
-        *   The first IP address and last three IP addresses of a default vSwitch CIDR block are reserved. For example, if the CIDR block of a vSwitch is 192.168.1.0/24, the IP addresses 192.168.1.0, 192.168.1.253, 192.168.1.254, and 192.168.1.255 are reserved.
+        When you call this operation, take note of the following limits:
+        *   The first IP address and last three IP addresses of a vSwitch CIDR block are reserved. For example, if the CIDR block of a vSwitch is 192.168.1.0/24, the IP addresses 192.168.1.0, 192.168.1.253, 192.168.1.254, and 192.168.1.255 are reserved.
         *   The number of instances in the default vSwitch cannot exceed the remaining number of instances supported by the VPC (15,000 minus the number of existing instances).
         *   Default vSwitches do not support multicasting or broadcasting.
         *   After you create a default vSwitch, you cannot modify its CIDR block.
-        *   **CreateDefaultVSwitch** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a default vSwitch:
+        *   **CreateDefaultVSwitch** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a default vSwitch:
         *   If a default vSwitch is in the **Pending** state, it is being configured.
         *   If a default vSwitch is in the **Available** state, it is available.
         *   If a default vSwitch already exists in a region, you cannot call this operation to create a default vSwitch in this region.
@@ -5387,7 +5441,7 @@ class Client(OpenApiClient):
         *   Each instance can belong to only one vSwitch.
         *   vSwitches do not support multicast or broadcast.
         *   After you create a vSwitch, you cannot modify its CIDR block.
-        *   The **CreateVSwitch** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
+        *   **CreateVSwitch** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call [DescribeVSwitchAttributes](~~94567~~) to query the status of the task.
         *   If the vSwitch is in the **Pending** state, the vSwitch is being configured.
         *   If the vSwitch is in the **Available** state, the vSwitch is available.
         *   You cannot repeatedly call the **CreateVSwitch** operation to create a vSwitch in a VPC within the specified period of time.
@@ -5457,7 +5511,7 @@ class Client(OpenApiClient):
         *   Each instance can belong to only one vSwitch.
         *   vSwitches do not support multicast or broadcast.
         *   After you create a vSwitch, you cannot modify its CIDR block.
-        *   The **CreateVSwitch** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
+        *   **CreateVSwitch** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call [DescribeVSwitchAttributes](~~94567~~) to query the status of the task.
         *   If the vSwitch is in the **Pending** state, the vSwitch is being configured.
         *   If the vSwitch is in the **Available** state, the vSwitch is available.
         *   You cannot repeatedly call the **CreateVSwitch** operation to create a vSwitch in a VPC within the specified period of time.
@@ -8035,7 +8089,8 @@ class Client(OpenApiClient):
 
     def delete_network_acl_with_options(self, request, runtime):
         """
-        You cannot repeatedly call the *DeleteNetworkAcl** operation to delete a network ACL within the specified period of time.
+        ## [](#)Description
+        You cannot repeatedly call the **DeleteNetworkAcl** operation within the specified period of time.
         
 
         @param request: DeleteNetworkAclRequest
@@ -8085,7 +8140,8 @@ class Client(OpenApiClient):
 
     def delete_network_acl(self, request):
         """
-        You cannot repeatedly call the *DeleteNetworkAcl** operation to delete a network ACL within the specified period of time.
+        ## [](#)Description
+        You cannot repeatedly call the **DeleteNetworkAcl** operation within the specified period of time.
         
 
         @param request: DeleteNetworkAclRequest
@@ -18109,9 +18165,9 @@ class Client(OpenApiClient):
 
     def modify_vswitch_attribute_with_options(self, request, runtime):
         """
-        The **ModifyVSwitchAttribute** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
-        *   If the vSwitch is in the **Pending** state, the vSwitch is being modified.
-        *   If the vSwitch is in the **Available** state, the vSwitch is available.
+        **ModifyVSwitchAttribute** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of the task:
+        *   If the vSwitch is in the **Pending** state, the name and description of the vSwitch are being modified.
+        *   If the vSwitch is in the **Available** state, the name and description of the vSwitch are modified.
         *   You cannot repeatedly call the **ModifyVSwitchAttribute** operation to modify the name and description of a vSwitch within the specified period of time.
         
 
@@ -18166,9 +18222,9 @@ class Client(OpenApiClient):
 
     def modify_vswitch_attribute(self, request):
         """
-        The **ModifyVSwitchAttribute** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
-        *   If the vSwitch is in the **Pending** state, the vSwitch is being modified.
-        *   If the vSwitch is in the **Available** state, the vSwitch is available.
+        **ModifyVSwitchAttribute** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of the task:
+        *   If the vSwitch is in the **Pending** state, the name and description of the vSwitch are being modified.
+        *   If the vSwitch is in the **Available** state, the name and description of the vSwitch are modified.
         *   You cannot repeatedly call the **ModifyVSwitchAttribute** operation to modify the name and description of a vSwitch within the specified period of time.
         
 
@@ -19691,6 +19747,50 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.release_eip_segment_address_with_options(request, runtime)
+
+    def release_ipv_6address_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.ipv_6address_id):
+            query['Ipv6AddressId'] = request.ipv_6address_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReleaseIpv6Address',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.ReleaseIpv6AddressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def release_ipv_6address(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.release_ipv_6address_with_options(request, runtime)
 
     def remove_common_bandwidth_package_ip_with_options(self, request, runtime):
         UtilClient.validate_model(request)
