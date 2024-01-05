@@ -221,6 +221,42 @@ class Client(OpenApiClient):
         headers = {}
         return self.close_merge_request_with_options(repository_id, local_id, request, headers, runtime)
 
+    def create_app_members_with_options(self, app_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.player_list):
+            body['playerList'] = request.player_list
+        if not UtilClient.is_unset(request.role_names):
+            body['roleNames'] = request.role_names
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateAppMembers',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/appstack/apps/%s/members' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_name)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='string'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateAppMembersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_app_members(self, app_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_app_members_with_options(app_name, request, headers, runtime)
+
     def create_branch_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1528,6 +1564,40 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_workspace_with_options(request, headers, runtime)
 
+    def delete_app_member_with_options(self, app_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.subject_id):
+            query['subjectId'] = request.subject_id
+        if not UtilClient.is_unset(request.subject_type):
+            query['subjectType'] = request.subject_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAppMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/appstack/apps/%s/members' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_name)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='string'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteAppMemberResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_app_member(self, app_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_app_member_with_options(app_name, request, headers, runtime)
+
     def delete_branch_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2293,6 +2363,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.frozen_workspace_with_options(workspace_id, headers, runtime)
+
+    def get_application_with_options(self, app_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetApplication',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/appstack/apps/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetApplicationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_application(self, app_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_application_with_options(app_name, request, headers, runtime)
 
     def get_branch_info_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3538,6 +3638,76 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.join_pipeline_group_with_options(organization_id, request, headers, runtime)
+
+    def list_application_members_with_options(self, app_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListApplicationMembers',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/appstack/apps/%s/members' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListApplicationMembersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_application_members(self, app_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_application_members_with_options(app_name, request, headers, runtime)
+
+    def list_applications_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.next_token):
+            query['nextToken'] = request.next_token
+        if not UtilClient.is_unset(request.order_by):
+            query['orderBy'] = request.order_by
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.pagination):
+            query['pagination'] = request.pagination
+        if not UtilClient.is_unset(request.per_page):
+            query['perPage'] = request.per_page
+        if not UtilClient.is_unset(request.sort):
+            query['sort'] = request.sort
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListApplications',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/appstack/apps%3Asearch',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListApplicationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_applications(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_applications_with_options(request, headers, runtime)
 
     def list_commit_statuses_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -6033,6 +6203,76 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.trigger_repository_mirror_sync_with_options(repository_id, request, headers, runtime)
+
+    def update_app_member_with_options(self, app_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.player):
+            body['player'] = request.player
+        if not UtilClient.is_unset(request.role_names):
+            body['roleNames'] = request.role_names
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateAppMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/appstack/apps/%s/members' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='string'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateAppMemberResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_app_member(self, app_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_app_member_with_options(app_name, request, headers, runtime)
+
+    def update_application_with_options(self, app_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.owner_account_id):
+            body['ownerAccountId'] = request.owner_account_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateApplication',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/appstack/apps/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateApplicationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_application(self, app_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_application_with_options(app_name, request, headers, runtime)
 
     def update_file_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
