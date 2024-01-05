@@ -1,3 +1,6 @@
+2024-01-05 Version: 2.0.2
+- Generated python2 2014-08-15 for Rds.
+
 2023-12-20 Version: 2.0.1
 - Generated python2 2014-08-15 for Rds.
 
