@@ -116,6 +116,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.auth_user_with_options(request, runtime)
 
+    def batch_query_motion_shop_task_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.jwt_token):
+            body['JwtToken'] = request.jwt_token
+        if not UtilClient.is_unset(request.task_id):
+            body['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='BatchQueryMotionShopTaskStatus',
+            version='2023-03-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            xr_engine_20230313_models.BatchQueryMotionShopTaskStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def batch_query_motion_shop_task_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.batch_query_motion_shop_task_status_with_options(request, runtime)
+
     def create_digital_human_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -234,6 +264,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_live_portrait_project_with_options(request, runtime)
 
+    def generate_motion_shop_video_upload_url_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.jwt_token):
+            query['JwtToken'] = request.jwt_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GenerateMotionShopVideoUploadUrl',
+            version='2023-03-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            xr_engine_20230313_models.GenerateMotionShopVideoUploadUrlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def generate_motion_shop_video_upload_url(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.generate_motion_shop_video_upload_url_with_options(request, runtime)
+
     def get_map_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -324,6 +382,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.init_locate_with_options(request, runtime)
 
+    def list_common_materials_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.jwt_token):
+            query['JwtToken'] = request.jwt_token
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCommonMaterials',
+            version='2023-03-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            xr_engine_20230313_models.ListCommonMaterialsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_common_materials(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_common_materials_with_options(request, runtime)
+
     def list_digital_human_materials_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -397,6 +485,38 @@ class Client(OpenApiClient):
     def list_location_service(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_location_service_with_options(request, runtime)
+
+    def list_motion_shop_tasks_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.current):
+            body['Current'] = request.current
+        if not UtilClient.is_unset(request.jwt_token):
+            body['JwtToken'] = request.jwt_token
+        if not UtilClient.is_unset(request.size):
+            body['Size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListMotionShopTasks',
+            version='2023-03-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            xr_engine_20230313_models.ListMotionShopTasksResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_motion_shop_tasks(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_motion_shop_tasks_with_options(request, runtime)
 
     def live_portrait_face_detect_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -495,6 +615,38 @@ class Client(OpenApiClient):
     def login_model_scope(self, request):
         runtime = util_models.RuntimeOptions()
         return self.login_model_scope_with_options(request, runtime)
+
+    def motion_shop_video_detect_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.jwt_token):
+            query['JwtToken'] = request.jwt_token
+        body = {}
+        if not UtilClient.is_unset(request.oss_key):
+            body['OssKey'] = request.oss_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='MotionShopVideoDetect',
+            version='2023-03-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            xr_engine_20230313_models.MotionShopVideoDetectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def motion_shop_video_detect(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.motion_shop_video_detect_with_options(request, runtime)
 
     def pop_batch_query_object_generation_project_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1832,6 +1984,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_long_tts_result_with_options(request, runtime)
 
+    def query_motion_shop_video_detect_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.jwt_token):
+            query['JwtToken'] = request.jwt_token
+        body = {}
+        if not UtilClient.is_unset(request.job_id):
+            body['JobId'] = request.job_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryMotionShopVideoDetectResult',
+            version='2023-03-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            xr_engine_20230313_models.QueryMotionShopVideoDetectResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_motion_shop_video_detect_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_motion_shop_video_detect_result_with_options(request, runtime)
+
     def submit_long_tts_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1865,6 +2049,40 @@ class Client(OpenApiClient):
     def submit_long_tts_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.submit_long_tts_task_with_options(request, runtime)
+
+    def submit_motion_shop_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.avatar_id):
+            body['AvatarId'] = request.avatar_id
+        if not UtilClient.is_unset(request.jwt_token):
+            body['JwtToken'] = request.jwt_token
+        if not UtilClient.is_unset(request.title):
+            body['Title'] = request.title
+        if not UtilClient.is_unset(request.video_id):
+            body['VideoId'] = request.video_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SubmitMotionShopTask',
+            version='2023-03-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            xr_engine_20230313_models.SubmitMotionShopTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def submit_motion_shop_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.submit_motion_shop_task_with_options(request, runtime)
 
     def update_user_email_with_options(self, request, runtime):
         UtilClient.validate_model(request)
