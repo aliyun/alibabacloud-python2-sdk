@@ -396,6 +396,17 @@ class Client(OpenApiClient):
         return self.add_vod_domain_with_options(request, runtime)
 
     def add_vod_storage_for_app_with_options(self, request, runtime):
+        """
+        You can call this operation to add a buckets to an ApsaraVideo VOD applications.
+        > You can add only one ApsaraVideo VOD bucket for each application. If you specify an AppId that does not exist or the ID of an application for which an VOD bucket is enabled, an error is returned.
+        
+
+        @param request: AddVodStorageForAppRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddVodStorageForAppResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.app_id):
@@ -424,6 +435,15 @@ class Client(OpenApiClient):
         )
 
     def add_vod_storage_for_app(self, request):
+        """
+        You can call this operation to add a buckets to an ApsaraVideo VOD applications.
+        > You can add only one ApsaraVideo VOD bucket for each application. If you specify an AppId that does not exist or the ID of an application for which an VOD bucket is enabled, an error is returned.
+        
+
+        @param request: AddVodStorageForAppRequest
+
+        @return: AddVodStorageForAppResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_vod_storage_for_app_with_options(request, runtime)
 
@@ -747,7 +767,7 @@ class Client(OpenApiClient):
 
     def cancel_url_upload_jobs_with_options(self, request, runtime):
         """
-        You can cancel only a URL-based upload job in the **Pending** state. You can query the status of a URL-based upload job by calling the [GetURLUploadInfos](~~106830~~) operation.
+        You can cancel only URL-based upload jobs in the **Pending** state. You can query the status of a URL-based upload job by calling the [GetURLUploadInfos](~~106830~~) operation.
         *   You cannot cancel an upload job that already starts.
         
 
@@ -784,7 +804,7 @@ class Client(OpenApiClient):
 
     def cancel_url_upload_jobs(self, request):
         """
-        You can cancel only a URL-based upload job in the **Pending** state. You can query the status of a URL-based upload job by calling the [GetURLUploadInfos](~~106830~~) operation.
+        You can cancel only URL-based upload jobs in the **Pending** state. You can query the status of a URL-based upload job by calling the [GetURLUploadInfos](~~106830~~) operation.
         *   You cannot cancel an upload job that already starts.
         
 
@@ -877,7 +897,8 @@ class Client(OpenApiClient):
 
     def create_upload_attached_media_with_options(self, request, runtime):
         """
-        The process of obtaining upload URLs and credentials is a core process in ApsaraVideo VOD and is required for each upload operation. ApsaraVideo VOD provides multiple upload methods. You can upload auxiliary media assets by using server upload SDKs, client upload SDKs, URLs of auxiliary media assets, Object Storage Service (OSS) API, or native OSS SDKs. Each upload method has different requirements for obtaining upload URLs and credentials. For more information, see the "Usage notes" section of the [Upload URLs and credentials](~~55397~~) topic.
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. You are charged storage fees after you upload media files to ApsaraVideo VOD. For more information, see [Billing of media asset storage](~~188308#section_e97\\_xrp_mzz~~). If you have activated the acceleration service, you are charged acceleration fees when you upload media files to ApsaraVideo VOD. For more information, see [Billing of acceleration traffic](~~188310#section_sta_zm2\\_tsv~~).**\
+        *   You must obtain a URL and a credential before you upload an image to ApsaraVideo VOD. ApsaraVideo VOD provides multiple upload methods. You can upload auxiliary media assets by using SDKs for upload from servers, SDKs for upload from clients, URLs of auxiliary media assets, Object Storage Service (OSS) API, or OSS SDKs. Each upload method has different requirements for obtaining upload URLs and credentials. For more information, see the "Usage notes" section of the [Upload URLs and credentials](~~55397~~) topic.
         *   If the upload credential expires, you can call this operation to obtain a new upload URL and credential. The default validity period of an upload credential is 3,000 seconds.
         *   You can configure a callback to receive an [AttachedMediaUploadComplete](~~103250~~) event notification to determine whether the upload is successful.
         
@@ -933,7 +954,8 @@ class Client(OpenApiClient):
 
     def create_upload_attached_media(self, request):
         """
-        The process of obtaining upload URLs and credentials is a core process in ApsaraVideo VOD and is required for each upload operation. ApsaraVideo VOD provides multiple upload methods. You can upload auxiliary media assets by using server upload SDKs, client upload SDKs, URLs of auxiliary media assets, Object Storage Service (OSS) API, or native OSS SDKs. Each upload method has different requirements for obtaining upload URLs and credentials. For more information, see the "Usage notes" section of the [Upload URLs and credentials](~~55397~~) topic.
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. You are charged storage fees after you upload media files to ApsaraVideo VOD. For more information, see [Billing of media asset storage](~~188308#section_e97\\_xrp_mzz~~). If you have activated the acceleration service, you are charged acceleration fees when you upload media files to ApsaraVideo VOD. For more information, see [Billing of acceleration traffic](~~188310#section_sta_zm2\\_tsv~~).**\
+        *   You must obtain a URL and a credential before you upload an image to ApsaraVideo VOD. ApsaraVideo VOD provides multiple upload methods. You can upload auxiliary media assets by using SDKs for upload from servers, SDKs for upload from clients, URLs of auxiliary media assets, Object Storage Service (OSS) API, or OSS SDKs. Each upload method has different requirements for obtaining upload URLs and credentials. For more information, see the "Usage notes" section of the [Upload URLs and credentials](~~55397~~) topic.
         *   If the upload credential expires, you can call this operation to obtain a new upload URL and credential. The default validity period of an upload credential is 3,000 seconds.
         *   You can configure a callback to receive an [AttachedMediaUploadComplete](~~103250~~) event notification to determine whether the upload is successful.
         
@@ -947,7 +969,8 @@ class Client(OpenApiClient):
 
     def create_upload_image_with_options(self, request, runtime):
         """
-        You must obtain a URL and a credential before you upload an image to ApsaraVideo VOD. ApsaraVideo VOD provides multiple upload methods. You can upload files by using server upload SDKs, client upload SDKs, URLs, Object Storage Service (OSS) API, or OSS SDKs. Each upload method has different requirements for obtaining upload URLs and credentials. For more information, see the "Usage notes" section of the [Upload URLs and credentials](~~55397~~) topic.
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. You are charged storage fees after you upload media files to ApsaraVideo VOD. For more information, see [Billing of media asset storage](~~188308#section_e97\\_xrp_mzz~~). If you have activated the acceleration service, you are charged acceleration fees when you upload media files to ApsaraVideo VOD. For more information, see [Billing of acceleration traffic](~~188310#section_sta_zm2\\_tsv~~).**\
+        *   You must obtain a URL and a credential before you upload an image to ApsaraVideo VOD. ApsaraVideo VOD provides multiple upload methods. You can upload files by using server upload SDKs, client upload SDKs, URLs, Object Storage Service (OSS) API, or OSS SDKs. Each upload method has different requirements for obtaining upload URLs and credentials. For more information, see the "Usage notes" section of the [Upload URLs and credentials](~~55397~~) topic.
         *   You cannot refresh the upload URL or credential when you upload images. If the image upload credential expires, you can call this operation to obtain a new upload URL and credential. By default, the validity period of an image upload credential is 3,000 seconds.
         *   You can call the [CreateUploadAttachedMedia](~~98467~~) operation to upload image watermarks.
         *   You can configure a callback for [ImageUploadComplete](~~91968~~) to receive notifications about the image upload status.
@@ -1002,7 +1025,8 @@ class Client(OpenApiClient):
 
     def create_upload_image(self, request):
         """
-        You must obtain a URL and a credential before you upload an image to ApsaraVideo VOD. ApsaraVideo VOD provides multiple upload methods. You can upload files by using server upload SDKs, client upload SDKs, URLs, Object Storage Service (OSS) API, or OSS SDKs. Each upload method has different requirements for obtaining upload URLs and credentials. For more information, see the "Usage notes" section of the [Upload URLs and credentials](~~55397~~) topic.
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. You are charged storage fees after you upload media files to ApsaraVideo VOD. For more information, see [Billing of media asset storage](~~188308#section_e97\\_xrp_mzz~~). If you have activated the acceleration service, you are charged acceleration fees when you upload media files to ApsaraVideo VOD. For more information, see [Billing of acceleration traffic](~~188310#section_sta_zm2\\_tsv~~).**\
+        *   You must obtain a URL and a credential before you upload an image to ApsaraVideo VOD. ApsaraVideo VOD provides multiple upload methods. You can upload files by using server upload SDKs, client upload SDKs, URLs, Object Storage Service (OSS) API, or OSS SDKs. Each upload method has different requirements for obtaining upload URLs and credentials. For more information, see the "Usage notes" section of the [Upload URLs and credentials](~~55397~~) topic.
         *   You cannot refresh the upload URL or credential when you upload images. If the image upload credential expires, you can call this operation to obtain a new upload URL and credential. By default, the validity period of an image upload credential is 3,000 seconds.
         *   You can call the [CreateUploadAttachedMedia](~~98467~~) operation to upload image watermarks.
         *   You can configure a callback for [ImageUploadComplete](~~91968~~) to receive notifications about the image upload status.
@@ -1017,7 +1041,8 @@ class Client(OpenApiClient):
 
     def create_upload_video_with_options(self, request, runtime):
         """
-        You can call this operation to obtain upload URLs and credentials for video and audio files. For more information, see [Upload URLs and credentials](~~55397~~).
+        **Make sure that you understand the billing method and prices of ApsaraVideo VOD before you call this operation. You are charged storage fees after you upload media files to ApsaraVideo VOD. For more information, see [Billing of media asset storage](~~188308#section_e97\\_xrp_mzz~~). If you have activated the acceleration service, you are charged acceleration fees when you upload media files to ApsaraVideo VOD. For more information, see [Billing of acceleration traffic](~~188310#section_sta_zm2\\_tsv~~).**\
+        *   You can call this operation to obtain upload URLs and credentials for video and audio files. For more information, see [Upload URLs and credentials](~~55397~~).
         *   You can call this operation only to obtain the upload URLs and credentials for media files and create media assets in ApsaraVideo VOD. You cannot call this operation to upload media files. For more information about how to upload media files by calling API operations, see [Upload media files by calling API operations](~~476208~~).
         *   If the upload credential expires, call the [RefreshUploadVideo](~~55408~~) operation to obtain a new upload credential. The default validity period of an upload credential is 3,000 seconds.
         *   You can configure a callback to receive an [event notification](~~55396~~) when an audio or video file is uploaded. Alternatively, after you upload an audio or video file, you can call the [GetMezzanineInfo](~~59624~~) operation to determine whether the upload is successful based on the value of the Status response parameter.
@@ -1078,7 +1103,8 @@ class Client(OpenApiClient):
 
     def create_upload_video(self, request):
         """
-        You can call this operation to obtain upload URLs and credentials for video and audio files. For more information, see [Upload URLs and credentials](~~55397~~).
+        **Make sure that you understand the billing method and prices of ApsaraVideo VOD before you call this operation. You are charged storage fees after you upload media files to ApsaraVideo VOD. For more information, see [Billing of media asset storage](~~188308#section_e97\\_xrp_mzz~~). If you have activated the acceleration service, you are charged acceleration fees when you upload media files to ApsaraVideo VOD. For more information, see [Billing of acceleration traffic](~~188310#section_sta_zm2\\_tsv~~).**\
+        *   You can call this operation to obtain upload URLs and credentials for video and audio files. For more information, see [Upload URLs and credentials](~~55397~~).
         *   You can call this operation only to obtain the upload URLs and credentials for media files and create media assets in ApsaraVideo VOD. You cannot call this operation to upload media files. For more information about how to upload media files by calling API operations, see [Upload media files by calling API operations](~~476208~~).
         *   If the upload credential expires, call the [RefreshUploadVideo](~~55408~~) operation to obtain a new upload credential. The default validity period of an upload credential is 3,000 seconds.
         *   You can configure a callback to receive an [event notification](~~55396~~) when an audio or video file is uploaded. Alternatively, after you upload an audio or video file, you can call the [GetMezzanineInfo](~~59624~~) operation to determine whether the upload is successful based on the value of the Status response parameter.
@@ -1227,7 +1253,6 @@ class Client(OpenApiClient):
 
     def delete_app_info_with_options(self, request, runtime):
         """
-        ## Usage note
         Application with resources can not be deleted.
         
 
@@ -1262,7 +1287,6 @@ class Client(OpenApiClient):
 
     def delete_app_info(self, request):
         """
-        ## Usage note
         Application with resources can not be deleted.
         
 
@@ -3291,6 +3315,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.detach_app_policy_from_identity_with_options(request, runtime)
 
+    def generate_download_secret_key_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_decrypt_key):
+            query['AppDecryptKey'] = request.app_decrypt_key
+        if not UtilClient.is_unset(request.app_identification):
+            query['AppIdentification'] = request.app_identification
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GenerateDownloadSecretKey',
+            version='2017-03-21',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vod_20170321_models.GenerateDownloadSecretKeyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def generate_download_secret_key(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.generate_download_secret_key_with_options(request, runtime)
+
     def generate_kmsdata_key_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4281,7 +4341,7 @@ class Client(OpenApiClient):
 
     def get_mezzanine_info_with_options(self, request, runtime):
         """
-        > You can obtain the complete mezzanine file information only after a stream is transcoded.
+        You can obtain complete information about the source file only after a stream is transcoded.
         
 
         @param request: GetMezzanineInfoRequest
@@ -4321,7 +4381,7 @@ class Client(OpenApiClient):
 
     def get_mezzanine_info(self, request):
         """
-        > You can obtain the complete mezzanine file information only after a stream is transcoded.
+        You can obtain complete information about the source file only after a stream is transcoded.
         
 
         @param request: GetMezzanineInfoRequest
@@ -4333,7 +4393,8 @@ class Client(OpenApiClient):
 
     def get_play_info_with_options(self, request, runtime):
         """
-        You can use the ID of a media file to query the playback URL of the file. After you integrate ApsaraVideo Player SDK for URL-based playback or a third-party player, you can use the obtained playback URLs to play audio and video files.
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. You are charged for outbound traffic when you download or play videos based on URLs in ApsaraVideo VOD. For more information about billing of outbound traffic, see [Billing of outbound traffic](~~188308#section-rwh-e88-f7j~~). If you have configured an accelerated domain name, see [Billing of the acceleration service](~~188308#section-c5t-oq9-15e~~). If you have activated the acceleration service, you are charged acceleration fees when you upload media files to ApsaraVideo VOD. For more information, see [Billing of acceleration traffic](~~188310#section_sta_zm2\\_tsv~~).**\
+        *   You can use the ID of a media file to query the playback URL of the file. After you integrate ApsaraVideo Player SDK for URL-based playback or a third-party player, you can use the obtained playback URLs to play audio and video files.
         *   Only videos whose Status is Normal can be played. The Status parameter in the response indicates the status of the video. For more information, see [Overview](~~57290~~).
         *   If video playback fails, you can call the [GetMezzanineInfo](~~GetMezzanineInfo~~) operation to check whether the video source information is correct.
         
@@ -4391,7 +4452,8 @@ class Client(OpenApiClient):
 
     def get_play_info(self, request):
         """
-        You can use the ID of a media file to query the playback URL of the file. After you integrate ApsaraVideo Player SDK for URL-based playback or a third-party player, you can use the obtained playback URLs to play audio and video files.
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. You are charged for outbound traffic when you download or play videos based on URLs in ApsaraVideo VOD. For more information about billing of outbound traffic, see [Billing of outbound traffic](~~188308#section-rwh-e88-f7j~~). If you have configured an accelerated domain name, see [Billing of the acceleration service](~~188308#section-c5t-oq9-15e~~). If you have activated the acceleration service, you are charged acceleration fees when you upload media files to ApsaraVideo VOD. For more information, see [Billing of acceleration traffic](~~188310#section_sta_zm2\\_tsv~~).**\
+        *   You can use the ID of a media file to query the playback URL of the file. After you integrate ApsaraVideo Player SDK for URL-based playback or a third-party player, you can use the obtained playback URLs to play audio and video files.
         *   Only videos whose Status is Normal can be played. The Status parameter in the response indicates the status of the video. For more information, see [Overview](~~57290~~).
         *   If video playback fails, you can call the [GetMezzanineInfo](~~GetMezzanineInfo~~) operation to check whether the video source information is correct.
         
@@ -4711,7 +4773,8 @@ class Client(OpenApiClient):
 
     def get_video_infos_with_options(self, request, runtime):
         """
-        You can call this operation to obtain the basic information about multiple videos at a time based on video IDs. The basic information includes the title, description, duration, thumbnail URL, status, creation time, size, snapshots, category, and tags of each video.
+        You can call this operation to obtain basic information about multiple media files based on media IDs. The basic information includes the title, description, duration, thumbnail URL, status, creation time, size, snapshots, category, and tags.
+        *   After a media file is uploaded, ApsaraVideo VOD processes the source file. Then, information about the media file is asynchronously generated. You can configure notifications for the **VideoAnalysisComplete** event and call this operation to query information about a media file after you receive notifications for the **VideoAnalysisComplete** event. For more information, see [Overview](~~55627~~).
         
 
         @param request: GetVideoInfosRequest
@@ -4745,7 +4808,8 @@ class Client(OpenApiClient):
 
     def get_video_infos(self, request):
         """
-        You can call this operation to obtain the basic information about multiple videos at a time based on video IDs. The basic information includes the title, description, duration, thumbnail URL, status, creation time, size, snapshots, category, and tags of each video.
+        You can call this operation to obtain basic information about multiple media files based on media IDs. The basic information includes the title, description, duration, thumbnail URL, status, creation time, size, snapshots, category, and tags.
+        *   After a media file is uploaded, ApsaraVideo VOD processes the source file. Then, information about the media file is asynchronously generated. You can configure notifications for the **VideoAnalysisComplete** event and call this operation to query information about a media file after you receive notifications for the **VideoAnalysisComplete** event. For more information, see [Overview](~~55627~~).
         
 
         @param request: GetVideoInfosRequest
@@ -6565,7 +6629,8 @@ class Client(OpenApiClient):
 
     def submit_aijob_with_options(self, request, runtime):
         """
-        Regions that support the video fingerprinting feature: **China (Beijing)**, **China (Shanghai)**, and **Singapore**. Regions that support the smart tagging feature: **China (Beijing)** and **China (Shanghai)**.
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. You are charged for using the smart tagging and video fingerprinting features. For more information, see [Billing of video AI](~~188310#section-g7l-s3o-9ng~~).**\
+        *   Regions that support the video fingerprinting feature: **China (Beijing)**, **China (Shanghai)**, and **Singapore**. Regions that support the smart tagging feature: **China (Beijing)** and **China (Shanghai)**.
         *   You need to enable the video fingerprinting feature or the smart tagging feature before you can call this operation to submit jobs. For more information, see [Video AI](~~101148~~).
         *   If this is the first time you use the video fingerprinting feature, you must [submit a ticket](https://yida.alibaba-inc.com/o/ticketapply) to apply for using the media fingerprint library for free. Otherwise, the video fingerprinting feature will be affected.
         *   After you submit an AI job, ApsaraVideo VOD asynchronously processes the job. The operation may return a response before the job is complete. You can configure the [Event Notification](~~55627~~) feature and set the callback event to **AI Processing Completed**. After you receive the event notification, you can query the execution result of the AI job.
@@ -6616,7 +6681,8 @@ class Client(OpenApiClient):
 
     def submit_aijob(self, request):
         """
-        Regions that support the video fingerprinting feature: **China (Beijing)**, **China (Shanghai)**, and **Singapore**. Regions that support the smart tagging feature: **China (Beijing)** and **China (Shanghai)**.
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. You are charged for using the smart tagging and video fingerprinting features. For more information, see [Billing of video AI](~~188310#section-g7l-s3o-9ng~~).**\
+        *   Regions that support the video fingerprinting feature: **China (Beijing)**, **China (Shanghai)**, and **Singapore**. Regions that support the smart tagging feature: **China (Beijing)** and **China (Shanghai)**.
         *   You need to enable the video fingerprinting feature or the smart tagging feature before you can call this operation to submit jobs. For more information, see [Video AI](~~101148~~).
         *   If this is the first time you use the video fingerprinting feature, you must [submit a ticket](https://yida.alibaba-inc.com/o/ticketapply) to apply for using the media fingerprint library for free. Otherwise, the video fingerprinting feature will be affected.
         *   After you submit an AI job, ApsaraVideo VOD asynchronously processes the job. The operation may return a response before the job is complete. You can configure the [Event Notification](~~55627~~) feature and set the callback event to **AI Processing Completed**. After you receive the event notification, you can query the execution result of the AI job.
@@ -6630,6 +6696,19 @@ class Client(OpenApiClient):
         return self.submit_aijob_with_options(request, runtime)
 
     def submit_aimedia_audit_job_with_options(self, request, runtime):
+        """
+        **Make sure that you understand the billing methods and price of ApsaraVideo VOD before you call this operation. You are charged for using the automated review feature. For more information about billing, submit a ticket or contact your account manager.**\
+        *   You can call this operation only in the **China (Shanghai)**, **China (Beijing)**, and **Singapore** regions.
+        *   For more information, see [Automated review](~~101148~~).
+        *   After an automated review job is complete, the images generated during the review are stored in the VOD bucket for two weeks free of charge. The images are automatically deleted after two weeks.
+        
+
+        @param request: SubmitAIMediaAuditJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SubmitAIMediaAuditJobResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.media_audit_configuration):
@@ -6662,12 +6741,24 @@ class Client(OpenApiClient):
         )
 
     def submit_aimedia_audit_job(self, request):
+        """
+        **Make sure that you understand the billing methods and price of ApsaraVideo VOD before you call this operation. You are charged for using the automated review feature. For more information about billing, submit a ticket or contact your account manager.**\
+        *   You can call this operation only in the **China (Shanghai)**, **China (Beijing)**, and **Singapore** regions.
+        *   For more information, see [Automated review](~~101148~~).
+        *   After an automated review job is complete, the images generated during the review are stored in the VOD bucket for two weeks free of charge. The images are automatically deleted after two weeks.
+        
+
+        @param request: SubmitAIMediaAuditJobRequest
+
+        @return: SubmitAIMediaAuditJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.submit_aimedia_audit_job_with_options(request, runtime)
 
     def submit_digital_watermark_extract_job_with_options(self, request, runtime):
         """
-        You must upload the video from which you want to extract the digital watermark to ApsaraVideo VOD.
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. You are charged for using the digital watermark feature. For more information about billing, see [Billing of digital watermarks](~~188310#section-rcb-x9z-6p1~~).**\
+        *   You must upload the video from which you want to extract the digital watermark to ApsaraVideo VOD.
         *   The duration of the video from which you want to extract the digital watermark must exceed 3 minutes.
         
 
@@ -6712,7 +6803,8 @@ class Client(OpenApiClient):
 
     def submit_digital_watermark_extract_job(self, request):
         """
-        You must upload the video from which you want to extract the digital watermark to ApsaraVideo VOD.
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. You are charged for using the digital watermark feature. For more information about billing, see [Billing of digital watermarks](~~188310#section-rcb-x9z-6p1~~).**\
+        *   You must upload the video from which you want to extract the digital watermark to ApsaraVideo VOD.
         *   The duration of the video from which you want to extract the digital watermark must exceed 3 minutes.
         
 
@@ -6955,9 +7047,11 @@ class Client(OpenApiClient):
 
     def submit_transcode_jobs_with_options(self, request, runtime):
         """
-        You can transcode a video only in the UploadSucc, Normal, or Checking state.
-        *   You can obtain the transcoding result in the [StreamTranscodeComplete](~~55636~~) or [TranscodeComplete](~~55638~~) event notification.
-        *   If you initiate an HTTP Live Streaming (HLS) packaging task, you can call this operation to dynamically override the subtitle. If the packaging task does not contain subtitles, we recommend that you do not call this operation to initiate the packaging task. Instead, you can specify the ID of the specific template group when you upload the video. The packaging process is automatically initiated.
+        ### [](#)Usage notes
+        *   **Make sure that you understand the billing methods and prices of ApsaraVideo VOD before you call this operation. For more information about billing of the transcoding feature, see [Billing of basic services](~~188308#section-ejb-nii-nqa~~).**\
+        *   You can transcode a video only in the Uploaded, Normal, or Reviewing state.
+        *   You can obtain the transcoding results from the [StreamTranscodeComplete](~~55636~~) or [TranscodeComplete](~~55638~~) callback.
+        *   You can call this operation to dynamically override the subtitle URL in an HTTP Live Streaming (HLS) packaging task. If the packaging task does not contain subtitles, we recommend that you specify the ID of the specific packaging template group when you upload the video instead of calling this operation.
         
 
         @param request: SubmitTranscodeJobsRequest
@@ -7003,9 +7097,11 @@ class Client(OpenApiClient):
 
     def submit_transcode_jobs(self, request):
         """
-        You can transcode a video only in the UploadSucc, Normal, or Checking state.
-        *   You can obtain the transcoding result in the [StreamTranscodeComplete](~~55636~~) or [TranscodeComplete](~~55638~~) event notification.
-        *   If you initiate an HTTP Live Streaming (HLS) packaging task, you can call this operation to dynamically override the subtitle. If the packaging task does not contain subtitles, we recommend that you do not call this operation to initiate the packaging task. Instead, you can specify the ID of the specific template group when you upload the video. The packaging process is automatically initiated.
+        ### [](#)Usage notes
+        *   **Make sure that you understand the billing methods and prices of ApsaraVideo VOD before you call this operation. For more information about billing of the transcoding feature, see [Billing of basic services](~~188308#section-ejb-nii-nqa~~).**\
+        *   You can transcode a video only in the Uploaded, Normal, or Reviewing state.
+        *   You can obtain the transcoding results from the [StreamTranscodeComplete](~~55636~~) or [TranscodeComplete](~~55638~~) callback.
+        *   You can call this operation to dynamically override the subtitle URL in an HTTP Live Streaming (HLS) packaging task. If the packaging task does not contain subtitles, we recommend that you specify the ID of the specific packaging template group when you upload the video instead of calling this operation.
         
 
         @param request: SubmitTranscodeJobsRequest
@@ -7016,6 +7112,17 @@ class Client(OpenApiClient):
         return self.submit_transcode_jobs_with_options(request, runtime)
 
     def submit_workflow_job_with_options(self, request, runtime):
+        """
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. When you use workflows to process videos, you may be charged for transcoding, encryption, and automated review. For more information, see [Billing overview](~~188307~~).**\
+        * You can call this operation to initiate a VOD workflow to process media files. For more information, see [Workflows](~~115347~~).
+        
+
+        @param request: SubmitWorkflowJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SubmitWorkflowJobResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.media_id):
@@ -7042,6 +7149,15 @@ class Client(OpenApiClient):
         )
 
     def submit_workflow_job(self, request):
+        """
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. When you use workflows to process videos, you may be charged for transcoding, encryption, and automated review. For more information, see [Billing overview](~~188307~~).**\
+        * You can call this operation to initiate a VOD workflow to process media files. For more information, see [Workflows](~~115347~~).
+        
+
+        @param request: SubmitWorkflowJobRequest
+
+        @return: SubmitWorkflowJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.submit_workflow_job_with_options(request, runtime)
 
@@ -7723,8 +7839,10 @@ class Client(OpenApiClient):
 
     def upload_stream_by_urlwith_options(self, request, runtime):
         """
-        You can call this operation to upload transcoded streams to ApsaraVideo VOD from external storage. The following HDR types of transcoded streams are supported: HDR, HDR 10, HLG, Dolby Vision, HDR Vivid, and SDR+. You can call the [GetURLUploadInfos](~~106830~~) operation to query the upload status. After the upload is complete, the callback of the UploadByURLComplete event is returned.
-        >  This operation is available only in the Singapore (Singapore) region.
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. You are charged storage fees after you upload media files to ApsaraVideo VOD. For more information, see [Billing of media asset storage](~~188308#section_e97\\_xrp_mzz~~). If you have activated the acceleration service, you are charged acceleration fees when you upload media files to ApsaraVideo VOD. For more information, see [Billing of acceleration traffic](~~188310#section_sta_zm2\\_tsv~~).**\
+        *   This operation is available only in the **China (Shanghai)** and **Singapore** regions.
+        *   You can call this operation to upload transcoded streams to ApsaraVideo VOD from external storage. The following HDR types of transcoded streams are supported: HDR, HDR 10, HLG, Dolby Vision, HDR Vivid, and SDR+.
+        *   You can call the [GetURLUploadInfos](~~106830~~) operation to query the upload status. After the upload is complete, the callback of the [UploadByURLComplete](~~376427~~) event is returned.
         
 
         @param request: UploadStreamByURLRequest
@@ -7768,8 +7886,10 @@ class Client(OpenApiClient):
 
     def upload_stream_by_url(self, request):
         """
-        You can call this operation to upload transcoded streams to ApsaraVideo VOD from external storage. The following HDR types of transcoded streams are supported: HDR, HDR 10, HLG, Dolby Vision, HDR Vivid, and SDR+. You can call the [GetURLUploadInfos](~~106830~~) operation to query the upload status. After the upload is complete, the callback of the UploadByURLComplete event is returned.
-        >  This operation is available only in the Singapore (Singapore) region.
+        **Make sure that you understand the billing method and price of ApsaraVideo VOD before you call this operation. You are charged storage fees after you upload media files to ApsaraVideo VOD. For more information, see [Billing of media asset storage](~~188308#section_e97\\_xrp_mzz~~). If you have activated the acceleration service, you are charged acceleration fees when you upload media files to ApsaraVideo VOD. For more information, see [Billing of acceleration traffic](~~188310#section_sta_zm2\\_tsv~~).**\
+        *   This operation is available only in the **China (Shanghai)** and **Singapore** regions.
+        *   You can call this operation to upload transcoded streams to ApsaraVideo VOD from external storage. The following HDR types of transcoded streams are supported: HDR, HDR 10, HLG, Dolby Vision, HDR Vivid, and SDR+.
+        *   You can call the [GetURLUploadInfos](~~106830~~) operation to query the upload status. After the upload is complete, the callback of the [UploadByURLComplete](~~376427~~) event is returned.
         
 
         @param request: UploadStreamByURLRequest
