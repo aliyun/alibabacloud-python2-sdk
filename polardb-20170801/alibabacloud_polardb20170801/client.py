@@ -6225,6 +6225,8 @@ class Client(OpenApiClient):
             query['RuleName'] = request.rule_name
         if not UtilClient.is_unset(request.rule_name_list):
             query['RuleNameList'] = request.rule_name_list
+        if not UtilClient.is_unset(request.rule_version):
+            query['RuleVersion'] = request.rule_version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )

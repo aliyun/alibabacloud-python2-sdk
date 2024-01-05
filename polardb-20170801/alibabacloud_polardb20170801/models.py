@@ -16237,9 +16237,10 @@ class DescribeMaskingRulesRequest(TeaModel):
 
 
 class DescribeMaskingRulesResponseBodyData(TeaModel):
-    def __init__(self, rule_list=None):
+    def __init__(self, rule_list=None, rule_version=None):
         # Details about the masking rules.
         self.rule_list = rule_list  # type: list[str]
+        self.rule_version = rule_version  # type: str
 
     def validate(self):
         pass
@@ -16252,12 +16253,16 @@ class DescribeMaskingRulesResponseBodyData(TeaModel):
         result = dict()
         if self.rule_list is not None:
             result['RuleList'] = self.rule_list
+        if self.rule_version is not None:
+            result['RuleVersion'] = self.rule_version
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RuleList') is not None:
             self.rule_list = m.get('RuleList')
+        if m.get('RuleVersion') is not None:
+            self.rule_version = m.get('RuleVersion')
         return self
 
 
@@ -26407,7 +26412,8 @@ class ModifyLogBackupPolicyResponse(TeaModel):
 
 
 class ModifyMaskingRulesRequest(TeaModel):
-    def __init__(self, dbcluster_id=None, enable=None, rule_config=None, rule_name=None, rule_name_list=None):
+    def __init__(self, dbcluster_id=None, enable=None, rule_config=None, rule_name=None, rule_name_list=None,
+                 rule_version=None):
         # The ID of the cluster.
         # 
         # > You can call the [DescribeDBClusters](~~98094~~) operation to query the details of the clusters that belong to your Alibaba Cloud account, such as cluster IDs.
@@ -26442,6 +26448,7 @@ class ModifyMaskingRulesRequest(TeaModel):
         # 
         # > You must specify either the `RuleName` or `RuleNameList` parameter.
         self.rule_name_list = rule_name_list  # type: str
+        self.rule_version = rule_version  # type: str
 
     def validate(self):
         pass
@@ -26462,6 +26469,8 @@ class ModifyMaskingRulesRequest(TeaModel):
             result['RuleName'] = self.rule_name
         if self.rule_name_list is not None:
             result['RuleNameList'] = self.rule_name_list
+        if self.rule_version is not None:
+            result['RuleVersion'] = self.rule_version
         return result
 
     def from_map(self, m=None):
@@ -26476,6 +26485,8 @@ class ModifyMaskingRulesRequest(TeaModel):
             self.rule_name = m.get('RuleName')
         if m.get('RuleNameList') is not None:
             self.rule_name_list = m.get('RuleNameList')
+        if m.get('RuleVersion') is not None:
+            self.rule_version = m.get('RuleVersion')
         return self
 
 
