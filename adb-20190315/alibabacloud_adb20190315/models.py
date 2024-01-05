@@ -971,18 +971,23 @@ class CreateDBClusterRequest(TeaModel):
         # > * This parameter is required if the Mode parameter is set to Reserver.
         # > * 1000 The storage capacity less than 1,000 GB increases in 100 GB increments. The storage capacity greater than 1,000 GB increases in 1,000 GB increments.
         self.dbnode_storage = dbnode_storage  # type: str
+        # Specifies whether to enable disk encryption.
+        # 
+        # Valid values:
+        # 
+        # *   true
+        # *   false
         self.disk_encryption = disk_encryption  # type: str
         # The number of elastic I/O units (EIUs). For more information, see [Use EIUs to scale up storage resources](~~189505~~).
         self.elastic_ioresource = elastic_ioresource  # type: str
         # A reserved parameter.
         self.executor_count = executor_count  # type: str
+        # The Key Management Service (KMS) ID that is used for disk encryption. This parameter is valid only when DiskEncryption is set to true.
         self.kms_id = kms_id  # type: str
         # The mode of the cluster. Valid values:
         # 
-        # *   **Reserver**: the reserved mode
-        # *   **Flexible**: the elastic mode
-        # 
-        # >  If you do not specify this parameter, the cluster is in reserved mode.
+        # *   **Reserver**: the reserved mode.
+        # *   **Flexible**: the elastic mode.
         self.mode = mode  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -1558,9 +1563,10 @@ class CreateDBResourcePoolResponse(TeaModel):
 
 class CreateElasticPlanRequest(TeaModel):
     def __init__(self, dbcluster_id=None, elastic_plan_enable=None, elastic_plan_end_day=None,
-                 elastic_plan_name=None, elastic_plan_node_num=None, elastic_plan_start_day=None, elastic_plan_time_end=None,
-                 elastic_plan_time_start=None, elastic_plan_type=None, elastic_plan_weekly_repeat=None, elastic_plan_worker_spec=None,
-                 owner_account=None, owner_id=None, resource_owner_account=None, resource_owner_id=None, resource_pool_name=None):
+                 elastic_plan_monthly_repeat=None, elastic_plan_name=None, elastic_plan_node_num=None, elastic_plan_start_day=None,
+                 elastic_plan_time_end=None, elastic_plan_time_start=None, elastic_plan_type=None, elastic_plan_weekly_repeat=None,
+                 elastic_plan_worker_spec=None, owner_account=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
+                 resource_pool_name=None):
         # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
         # 
         # > You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a region.
@@ -1572,6 +1578,7 @@ class CreateElasticPlanRequest(TeaModel):
         self.elastic_plan_enable = elastic_plan_enable  # type: bool
         # The end date of the scaling plan. Specify the date in the yyyy-MM-dd format.
         self.elastic_plan_end_day = elastic_plan_end_day  # type: str
+        self.elastic_plan_monthly_repeat = elastic_plan_monthly_repeat  # type: str
         # The name of the scaling plan.
         # 
         # *   The name must be 2 to 30 characters in length.
@@ -1632,6 +1639,8 @@ class CreateElasticPlanRequest(TeaModel):
             result['ElasticPlanEnable'] = self.elastic_plan_enable
         if self.elastic_plan_end_day is not None:
             result['ElasticPlanEndDay'] = self.elastic_plan_end_day
+        if self.elastic_plan_monthly_repeat is not None:
+            result['ElasticPlanMonthlyRepeat'] = self.elastic_plan_monthly_repeat
         if self.elastic_plan_name is not None:
             result['ElasticPlanName'] = self.elastic_plan_name
         if self.elastic_plan_node_num is not None:
@@ -1668,6 +1677,8 @@ class CreateElasticPlanRequest(TeaModel):
             self.elastic_plan_enable = m.get('ElasticPlanEnable')
         if m.get('ElasticPlanEndDay') is not None:
             self.elastic_plan_end_day = m.get('ElasticPlanEndDay')
+        if m.get('ElasticPlanMonthlyRepeat') is not None:
+            self.elastic_plan_monthly_repeat = m.get('ElasticPlanMonthlyRepeat')
         if m.get('ElasticPlanName') is not None:
             self.elastic_plan_name = m.get('ElasticPlanName')
         if m.get('ElasticPlanNodeNum') is not None:
@@ -2366,11 +2377,17 @@ class DescribeAccountsRequest(TeaModel):
     def __init__(self, account_name=None, account_type=None, dbcluster_id=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None):
         # The name of the database account.
+        # 
+        # >  If you do not specify this parameter, the information about all database accounts is returned.
         self.account_name = account_name  # type: str
-        # *   Normal: standard account.
-        # *   Super: privileged account.
+        # The type of the database account. If you do not specify this parameter, the information about all account types is returned. Valid values:
+        # 
+        # *   **Normal**: standard account.
+        # *   **Super**: privileged account.
         self.account_type = account_type  # type: str
-        # The cluster ID.
+        # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -2429,12 +2446,14 @@ class DescribeAccountsResponseBodyAccountListDBAccount(TeaModel):
         self.account_name = account_name  # type: str
         # The state of the database account. Valid values:
         # 
-        # *   Creating
-        # *   Available
-        # *   Deleting
+        # *   **Creating**\
+        # *   **Available**\
+        # *   **Deleting**\
         self.account_status = account_status  # type: str
-        # *   Normal: standard account.
-        # *   Super: privileged account.
+        # The type of the database account. Valid values:
+        # 
+        # *   **Normal**: standard account.
+        # *   **Super**: privileged account.
         self.account_type = account_type  # type: str
 
     def validate(self):
@@ -3222,9 +3241,9 @@ class DescribeAllDataSourceResponse(TeaModel):
 class DescribeAppliedAdvicesRequest(TeaModel):
     def __init__(self, dbcluster_id=None, end_time=None, lang=None, page_number=None, page_size=None, region_id=None,
                  start_time=None):
-        # The cluster ID.
+        # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
         # 
-        # > You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of Data Warehouse Edition (V3.0) clusters.
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyyMMdd format. The time must be in UTC.
         self.end_time = end_time  # type: long
@@ -3301,14 +3320,14 @@ class DescribeAppliedAdvicesResponseBodyItems(TeaModel):
         self.advice_id = advice_id  # type: str
         # The benefit of the suggestion.
         self.benefit = benefit  # type: str
-        # The SQL statement used to execute the BUILD task.
+        # The SQL statement that is used to execute the BUILD job.
         self.build_sql = build_sql  # type: str
-        # The state of the suggestion execution task. Valid values:
+        # The state of the suggestion execution job. Valid values:
         # 
         # *   **SUCCEED**\
         # *   **FAILED**\
         self.job_status = job_status  # type: str
-        # The page number. Pages start from page 1. Default value: 1.
+        # The page number. Pages start from 1. Default value: 1.
         self.page_number = page_number  # type: long
         # The number of entries per page. Valid values:
         # 
@@ -3316,7 +3335,7 @@ class DescribeAppliedAdvicesResponseBodyItems(TeaModel):
         # *   **50**\
         # *   **100**\
         self.page_size = page_size  # type: long
-        # The SQL statement used to roll back the suggestion.
+        # The SQL statement that is used to roll back the suggestion.
         self.rollback_sql = rollback_sql  # type: str
         # The SQL statement that is used to apply the suggestion.
         self.sql = sql  # type: str
@@ -3327,7 +3346,7 @@ class DescribeAppliedAdvicesResponseBodyItems(TeaModel):
         self.submit_status = submit_status  # type: str
         # The time when the suggestion was submitted. The time follows the ISO 8601 standard in the yyMMddHHmm format. The time is displayed in UTC.
         self.submit_time = submit_time  # type: str
-        # The total number of entries returned. The value is an integer that is greater than or equal to 0. Default value: 0.
+        # The total number of entries returned. Minimum value: 0. Default value: 0.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -4316,30 +4335,30 @@ class DescribeAvailableAdvicesRequest(TeaModel):
 class DescribeAvailableAdvicesResponseBodyItems(TeaModel):
     def __init__(self, advice_date=None, advice_id=None, advice_type=None, benefit=None, page_number=None,
                  page_size=None, reason=None, sql=None, total_count=None):
-        # The date when the suggestion was generated. The date follows the yyyyMMdd format. The date is displayed in UTC.
+        # The time when the suggestion was generated. The time follows the ISO 8601 standard in the yyyyMMdd format. The time is displayed in UTC.
         self.advice_date = advice_date  # type: str
         # The suggestion ID.
         self.advice_id = advice_id  # type: str
         # The type of the suggestion. Valid values:
         # 
-        # *   **Index**: index optimization
-        # *   **Tiering**: hot and cold data optimization
+        # *   **Index**: index optimization.
+        # *   **Tiering**: hot and cold data optimization.
         self.advice_type = advice_type  # type: str
         # The benefit of the suggestion.
         self.benefit = benefit  # type: str
-        # The page number of the returned page. The value must be an integer that is greater than 0. Default value: 1.
+        # The page number. Pages start from 1. Default value: 1.
         self.page_number = page_number  # type: long
-        # The number of entries returned per page. Default value: 30. Valid values:
+        # The number of entries per page. Valid values:
         # 
-        # *   **30**\
+        # *   **30** (default)
         # *   **50**\
         # *   **100**\
         self.page_size = page_size  # type: long
         # The reason why the suggestion was generated.
         self.reason = reason  # type: str
-        # The SQL statement used to apply the suggestion.
+        # The SQL statement that is used to apply the suggestion.
         self.sql = sql  # type: str
-        # The total number of entries returned. The value must be an integer that is greater than or equal to 0. Default value: 0.
+        # The total number of entries returned. Minimum value: 0. Default value: 0.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -4396,7 +4415,7 @@ class DescribeAvailableAdvicesResponseBodyItems(TeaModel):
 
 class DescribeAvailableAdvicesResponseBody(TeaModel):
     def __init__(self, items=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # Details of the suggestions.
+        # The queried suggestions.
         self.items = items  # type: list[DescribeAvailableAdvicesResponseBodyItems]
         # The page number of the returned page. The value must be an integer that is greater than 0. Default value: 1.
         self.page_number = page_number  # type: long
@@ -4497,21 +4516,26 @@ class DescribeAvailableAdvicesResponse(TeaModel):
 class DescribeAvailableResourceRequest(TeaModel):
     def __init__(self, accept_language=None, charge_type=None, dbcluster_version=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, zone_id=None):
-        # The supported mode. Valid values:
+        # The language of query results. Valid values:
         # 
-        # *   **flexible**: elastic mode
-        # *   **reserver**: reserved mode
+        # *   **zh-CN** (default): Chinese.
+        # *   **en-US**: English.
         self.accept_language = accept_language  # type: str
         # The resources available in the supported modes.
         self.charge_type = charge_type  # type: str
+        # The version of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
         self.dbcluster_version = dbcluster_version  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The resources available in the zones.
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](~~143074~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the zone.
+        # The zone ID.
+        # 
+        # >  You can call the [DescribeRegions](~~143074~~) operation to query the most recent zone list.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -4568,8 +4592,11 @@ class DescribeAvailableResourceRequest(TeaModel):
 
 class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedFlexibleResourceSupportedElasticIOResource(TeaModel):
     def __init__(self, max_count=None, min_count=None, step=None):
+        # The maximum amount of elastic I/O resources.
         self.max_count = max_count  # type: str
+        # The minimum amount of elastic I/O resources.
         self.min_count = min_count  # type: str
+        # The step size.
         self.step = step  # type: str
 
     def validate(self):
@@ -4603,10 +4630,16 @@ class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupport
 class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedFlexibleResource(TeaModel):
     def __init__(self, storage_type=None, supported_compute_resource=None, supported_elastic_ioresource=None,
                  supported_storage_resource=None):
-        # The maximum number of EIUs.
+        # The disk storage type. Valid values:
+        # 
+        # *   **hdd**\
+        # *   **ssd**\
         self.storage_type = storage_type  # type: str
+        # The supported computing resources.
         self.supported_compute_resource = supported_compute_resource  # type: list[str]
+        # The supported elastic I/O resources.
         self.supported_elastic_ioresource = supported_elastic_ioresource  # type: DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedFlexibleResourceSupportedElasticIOResource
+        # The supported storage resources.
         self.supported_storage_resource = supported_storage_resource  # type: list[str]
 
     def validate(self):
@@ -4645,8 +4678,11 @@ class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupport
 
 class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedInstanceClassListSupportedExecutorListNodeCount(TeaModel):
     def __init__(self, max_count=None, min_count=None, step=None):
+        # A reserved parameter.
         self.max_count = max_count  # type: str
+        # A reserved parameter.
         self.min_count = min_count  # type: str
+        # A reserved parameter.
         self.step = step  # type: str
 
     def validate(self):
@@ -4679,6 +4715,7 @@ class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupport
 
 class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedInstanceClassListSupportedExecutorList(TeaModel):
     def __init__(self, node_count=None):
+        # The information about the supported compute nodes.
         self.node_count = node_count  # type: DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedInstanceClassListSupportedExecutorListNodeCount
 
     def validate(self):
@@ -4705,8 +4742,11 @@ class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupport
 
 class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedInstanceClassListSupportedNodeCountListNodeCount(TeaModel):
     def __init__(self, max_count=None, min_count=None, step=None):
+        # The maximum number of compute nodes.
         self.max_count = max_count  # type: str
+        # The minimum number of compute nodes.
         self.min_count = min_count  # type: str
+        # The step size.
         self.step = step  # type: str
 
     def validate(self):
@@ -4739,7 +4779,9 @@ class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupport
 
 class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedInstanceClassListSupportedNodeCountList(TeaModel):
     def __init__(self, node_count=None, storage_size=None):
+        # The number of the supported compute nodes.
         self.node_count = node_count  # type: DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedInstanceClassListSupportedNodeCountListNodeCount
+        # The support storage capacity. Unit: GB.
         self.storage_size = storage_size  # type: list[str]
 
     def validate(self):
@@ -4771,9 +4813,13 @@ class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupport
 class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedInstanceClassList(TeaModel):
     def __init__(self, instance_class=None, supported_executor_list=None, supported_node_count_list=None,
                  tips=None):
+        # The supported instance type.
         self.instance_class = instance_class  # type: str
+        # A reserved parameter.
         self.supported_executor_list = supported_executor_list  # type: list[DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedInstanceClassListSupportedExecutorList]
+        # The supported compute nodes.
         self.supported_node_count_list = supported_node_count_list  # type: list[DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedInstanceClassListSupportedNodeCountList]
+        # The description of the instance type.
         self.tips = tips  # type: str
 
     def validate(self):
@@ -4827,10 +4873,15 @@ class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupport
 
 class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialList(TeaModel):
     def __init__(self, serial=None, supported_flexible_resource=None, supported_instance_class_list=None):
-        # The step size.
+        # The supported edition. Valid values:
+        # 
+        # *   **basic**: Basic Edition.
+        # *   **cluster**: Cluster Edition.
+        # *   **mixed_storage**: elastic mode for Cluster Edition.
         self.serial = serial  # type: str
-        # The minimum number of EIUs.
+        # The supported resources in elastic mode.
         self.supported_flexible_resource = supported_flexible_resource  # type: list[DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedFlexibleResource]
+        # The supported resources in reserved mode.
         self.supported_instance_class_list = supported_instance_class_list  # type: list[DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialListSupportedInstanceClassList]
 
     def validate(self):
@@ -4880,9 +4931,12 @@ class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupport
 
 class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedMode(TeaModel):
     def __init__(self, mode=None, supported_serial_list=None):
-        # N/A
+        # The supported mode. Valid values:
+        # 
+        # *   **flexible**: elastic mode.
+        # *   **reserver**: reserved mode.
         self.mode = mode  # type: str
-        # The available elastic I/O units (EIUs).
+        # The supported editions.
         self.supported_serial_list = supported_serial_list  # type: list[DescribeAvailableResourceResponseBodyAvailableZoneListSupportedModeSupportedSerialList]
 
     def validate(self):
@@ -4920,14 +4974,13 @@ class DescribeAvailableResourceResponseBodyAvailableZoneListSupportedMode(TeaMod
 class DescribeAvailableResourceResponseBodyAvailableZoneList(TeaModel):
     def __init__(self, supported_compute_resource=None, supported_mode=None, supported_storage_resource=None,
                  zone_id=None):
+        # A reserved parameter.
         self.supported_compute_resource = supported_compute_resource  # type: list[str]
-        # The available computing resources.
+        # The supported modes.
         self.supported_mode = supported_mode  # type: list[DescribeAvailableResourceResponseBodyAvailableZoneListSupportedMode]
+        # A reserved parameter.
         self.supported_storage_resource = supported_storage_resource  # type: list[str]
-        # The storage type. Valid values:
-        # 
-        # *   **hdd**\
-        # *   **ssd**\
+        # The zone ID.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -4972,7 +5025,7 @@ class DescribeAvailableResourceResponseBodyAvailableZoneList(TeaModel):
 
 class DescribeAvailableResourceResponseBody(TeaModel):
     def __init__(self, available_zone_list=None, region_id=None, request_id=None):
-        # The resources available in elastic mode.
+        # The supported zones.
         self.available_zone_list = available_zone_list  # type: list[DescribeAvailableResourceResponseBodyAvailableZoneList]
         # The resources available in the supported editions.
         self.region_id = region_id  # type: str
@@ -5297,11 +5350,11 @@ class DescribeBackupsResponseBodyItemsBackup(TeaModel):
                  backup_start_time=None, backup_type=None, dbcluster_id=None):
         # The end time of the backup.
         self.backup_end_time = backup_end_time  # type: str
-        # The ID of the backup set.
+        # The backup set ID.
         self.backup_id = backup_id  # type: str
         # The backup method. Only Snapshot is returned.
         self.backup_method = backup_method  # type: str
-        # The backup size. Unit: bytes.
+        # The size of the backup set. Unit: bytes.
         self.backup_size = backup_size  # type: long
         # The start time of the backup.
         self.backup_start_time = backup_start_time  # type: str
@@ -6100,7 +6153,7 @@ class DescribeConnectionCountRecordsResponse(TeaModel):
 class DescribeDBClusterAccessWhiteListRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
-        # The ID of the cluster.
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -6145,16 +6198,16 @@ class DescribeDBClusterAccessWhiteListRequest(TeaModel):
 
 class DescribeDBClusterAccessWhiteListResponseBodyItemsIPArray(TeaModel):
     def __init__(self, dbcluster_iparray_attribute=None, dbcluster_iparray_name=None, security_iplist=None):
-        # The attribute of the whitelist group. It is empty by default.
+        # The attribute of the IP address whitelist. By default, this parameter is empty.
         # 
-        # >  The groups with hidden attribute are not displayed in the console. The groups with hidden attribute are used to access DTS and PolarDB-X.
+        # >  The IP address whitelists that have the **hidden** attribute are not displayed in the console. These IP address whitelists are used to access services such as Data Transmission Service (DTS) and PolarDB-X.
         self.dbcluster_iparray_attribute = dbcluster_iparray_attribute  # type: str
         # The name of the IP address whitelist.
         # 
-        # *   The name of the IP address whitelist group must be 2 to 32 characters in length and can contain lowercase letters, digits, and underscores (\_). The name must start with a lowercase letter and end with a digit or lowercase letter.
-        # *   You can create up to 50 whitelists for a cluster.
+        # *   The name of an IP address whitelist must be 2 to 32 characters in length. The name can contain lowercase letters, digits, and underscores (\_). The name must start with a lowercase letter and end with a lowercase letter or digit.
+        # *   Each cluster supports up to 50 IP address whitelists.
         self.dbcluster_iparray_name = dbcluster_iparray_name  # type: str
-        # The IP addresses in an IP address whitelist. A maximum of 1,000 IP addresses can be returned. These addresses are separated with commas (,).
+        # The IP addresses in the IP address whitelist. Up to 1,000 IP addresses can be returned. Multiple IP addresses are separated by commas (,).
         self.security_iplist = security_iplist  # type: str
 
     def validate(self):
@@ -6219,9 +6272,9 @@ class DescribeDBClusterAccessWhiteListResponseBodyItems(TeaModel):
 
 class DescribeDBClusterAccessWhiteListResponseBody(TeaModel):
     def __init__(self, items=None, request_id=None):
-        # An array that consists of the information of IP whitelists.
+        # The queried IP address whitelists.
         self.items = items  # type: DescribeDBClusterAccessWhiteListResponseBodyItems
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6425,9 +6478,9 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         # *   **ads**: pay-as-you-go.
         # *   **ads_pre**: subscription.
         self.commodity_code = commodity_code  # type: str
-        # The specifications of computing resources that are used in the cluster in elastic mode. The increase of computing resources can speed up queries. You can adjust the value of this parameter to scale the cluster.
+        # The specifications of computing resources that are used in the cluster in elastic mode. Computing resources are used to compute data. The increase in the computing resources can accelerate queries. You can scale computing resources based on your business requirements.
         self.compute_resource = compute_resource  # type: str
-        # The Virtual Private Cloud (VPC) endpoint of the cluster.
+        # The Virtual Private Cloud (VPC) endpoint that is used to connect to the cluster.
         self.connection_string = connection_string  # type: str
         # The time when the cluster was created. The time follows the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
@@ -6439,7 +6492,7 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         self.dbcluster_network_type = dbcluster_network_type  # type: str
         # The state of the cluster. For more information, see [Cluster states](~~143075~~).
         self.dbcluster_status = dbcluster_status  # type: str
-        # The type of the cluster. Valid values:
+        # The cluster type. Valid values:
         # 
         # *   **Common**: common cluster.
         # *   **RDS_ANALYSIS**: MySQL analytic instance.
@@ -6450,8 +6503,12 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         self.dbnode_count = dbnode_count  # type: long
         # The storage capacity of the cluster. Unit: GB.
         self.dbnode_storage = dbnode_storage  # type: long
-        # The version of the database engine. **3.0** is returned.
+        # The engine version of the cluster. **3.0** is returned.
         self.dbversion = dbversion  # type: str
+        # Indicates whether disk encryption is enabled. Valid values:
+        # 
+        # *   true
+        # *   false
         self.disk_encryption = disk_encryption  # type: str
         # The ESSD performance level.
         self.disk_performance_level = disk_performance_level  # type: str
@@ -6468,14 +6525,14 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         # 
         # >  For more information about ESSDs, see [ESSDs](~~122389~~).
         self.disk_type = disk_type  # type: str
-        # The ID of the Data Transmission Service (DTS) synchronization task. This parameter is returned only for MySQL analytic instances.
+        # The ID of the Data Transmission Service (DTS) synchronization job. This parameter is returned only for MySQL analytic instances.
         self.dts_job_id = dts_job_id  # type: str
         # The number of elastic I/O units (EIUs).
         self.elastic_ioresource = elastic_ioresource  # type: int
         # The single-node specifications of an EIU. Valid values:
         # 
-        # *   8Core64GB: If this value is returned, an EIU of the cluster has 24 cores and 192 GB memory.
-        # *   12Core96GB: If this value is returned, an EIU of the cluster has 36 cores and 288 GB memory.
+        # *   8Core64GB: If this value is returned, the specifications of an EIU are 24 cores and 192 GB memory.
+        # *   12Core96GB: If this value is returned, the specifications of an EIU are 36 cores and 288 GB memory.
         self.elastic_ioresource_size = elastic_ioresource_size  # type: str
         # Indicates whether an Airflow cluster was created. Valid values:
         # 
@@ -6493,7 +6550,7 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         self.engine_version = engine_version  # type: str
         # The number of compute nodes that are used by the cluster in elastic mode.
         self.executor_count = executor_count  # type: str
-        # The time when the cluster expires. The time follows the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time is displayed in UTC. Example: *2999-09-08T16:00:00Z*.
+        # The expiration time of the cluster. The time follows the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time is displayed in UTC. Example: *2999-09-08T16:00:00Z*.
         # 
         # > 
         # 
@@ -6506,7 +6563,7 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         # *   **true**\
         # *   **false**\
         self.expired = expired  # type: str
-        # The public IP address.
+        # The public IP address of the cluster.
         self.inner_ip = inner_ip  # type: str
         # The public port number.
         self.inner_port = inner_port  # type: str
@@ -6520,13 +6577,13 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         # *   **ManualLock**: The cluster is manually locked.
         # *   **LockByExpiration**: The cluster is automatically locked due to cluster expiration.
         # *   **LockByRestoration**: The cluster is automatically locked due to cluster restoration.
-        # *   **LockByDiskQuota**: The cluster is automatically locked when it has used 90% of its storage.
+        # *   **LockByDiskQuota**: The cluster is automatically locked when 90% of the cluster storage is used.
         self.lock_mode = lock_mode  # type: str
         # The reason why the cluster is locked.
         # 
         # >  This parameter is returned only when the cluster was locked. **instance_expire** is returned.
         self.lock_reason = lock_reason  # type: str
-        # The maintenance window of the cluster. The window follows the ISO 8601 standard in the *HH:mmZ- HH:mmZ* format. The time is displayed in UTC. An example is *04:00Z-05:00Z*, which indicates that routine maintenance can be performed from 04:00 to 05:00.
+        # The maintenance window of the cluster. The time is displayed in the *HH:mmZ-HH:mmZ* format in UTC. An example is *04:00Z-05:00Z*, which indicates that routine maintenance is performed from 04:00 to 05:00.
         # 
         # >  For more information about maintenance windows, see [Configure a maintenance window](~~122569~~).
         self.maintain_time = maintain_time  # type: str
@@ -6550,7 +6607,7 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         self.region_id = region_id  # type: str
         # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The specifications of storage resources that are used in the cluster in elastic mode. These resources are used to read and write data. You can increase the value of this parameter to improve the read and write performance of the cluster.
+        # The specifications of storage resources that are used in the cluster in elastic mode. Storage resources are used to read and write data. The increase in the storage resources can improve the read and write performance of the cluster.
         self.storage_resource = storage_resource  # type: str
         # The tags that are added to the cluster.
         self.tags = tags  # type: DescribeDBClusterAttributeResponseBodyItemsDBClusterTags
@@ -6804,7 +6861,7 @@ class DescribeDBClusterAttributeResponseBodyItems(TeaModel):
 
 class DescribeDBClusterAttributeResponseBody(TeaModel):
     def __init__(self, items=None, request_id=None):
-        # The information about the cluster.
+        # The queried cluster information.
         self.items = items  # type: DescribeDBClusterAttributeResponseBodyItems
         # The request ID.
         self.request_id = request_id  # type: str
@@ -10778,17 +10835,38 @@ class DescribeEIURangeRequest(TeaModel):
     def __init__(self, compute_resource=None, dbcluster_id=None, dbcluster_version=None, operation=None,
                  owner_account=None, owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None,
                  resource_owner_id=None, zone_id=None):
+        # The specifications of computing resources.
+        # 
+        # >  You can call the [DescribeComputeResource](~~469002~~) operation to query the specifications of computing resources.
         self.compute_resource = compute_resource  # type: str
+        # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
+        # 
+        # *   This parameter can be left empty when **Operation** is set to **Buy**.
+        # *   This parameter must be specified when **Operation** is set to **Upgrade** or **Downgrade**.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The version of the AnalyticDB for MySQL Data Warehouse Edition cluster. Set the value to **3.0**.
         self.dbcluster_version = dbcluster_version  # type: str
+        # The type of the operation. Valid values:
+        # 
+        # *   **Buy**: purchases a cluster.
+        # *   **Upgrade**: upgrades a cluster.
+        # *   **Downgrade**: downgrades a cluster.
         self.operation = operation  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the cluster.
+        # 
+        # >  You can call the [DescribeRegions](~~143074~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The zone ID of the cluster.
+        # 
+        # >  You can call the [DescribeRegions](~~612293~~) operation to query the most recent zone list.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -10853,8 +10931,11 @@ class DescribeEIURangeRequest(TeaModel):
 
 class DescribeEIURangeResponseBodyEIUInfo(TeaModel):
     def __init__(self, default_value=None, eiurange=None, storage_resource_range=None):
+        # The suggested value for the number of EIUs.
         self.default_value = default_value  # type: str
+        # The queried range for the number of EIUs.
         self.eiurange = eiurange  # type: list[long]
+        # A reserved parameter.
         self.storage_resource_range = storage_resource_range  # type: list[str]
 
     def validate(self):
@@ -10887,7 +10968,9 @@ class DescribeEIURangeResponseBodyEIUInfo(TeaModel):
 
 class DescribeEIURangeResponseBody(TeaModel):
     def __init__(self, eiuinfo=None, request_id=None):
+        # The queried information about the number of EIUs.
         self.eiuinfo = eiuinfo  # type: DescribeEIURangeResponseBodyEIUInfo
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11301,8 +11384,8 @@ class DescribeElasticPlanRequest(TeaModel):
 
 class DescribeElasticPlanResponseBodyElasticPlanList(TeaModel):
     def __init__(self, elastic_node_num=None, elastic_plan_type=None, elastic_plan_worker_spec=None, enable=None,
-                 end_day=None, end_time=None, plan_name=None, resource_pool_name=None, start_day=None, start_time=None,
-                 weekly_repeat=None):
+                 end_day=None, end_time=None, monthly_repeat=None, plan_name=None, resource_pool_name=None, start_day=None,
+                 start_time=None, weekly_repeat=None):
         # The number of nodes that are involved in the scaling plan.
         # 
         # *   If ElasticPlanType is set to **worker**, a value of 0 or null is returned.
@@ -11333,6 +11416,7 @@ class DescribeElasticPlanResponseBodyElasticPlanList(TeaModel):
         self.end_day = end_day  # type: str
         # The restoration time of the scaling plan. The interval between the scale-up time and the restoration time cannot be more than 24 hours. The time is in the HH:mm:ss format.
         self.end_time = end_time  # type: str
+        self.monthly_repeat = monthly_repeat  # type: str
         # The name of the scaling plan.
         self.plan_name = plan_name  # type: str
         # The name of the resource group.
@@ -11365,6 +11449,8 @@ class DescribeElasticPlanResponseBodyElasticPlanList(TeaModel):
             result['EndDay'] = self.end_day
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.monthly_repeat is not None:
+            result['MonthlyRepeat'] = self.monthly_repeat
         if self.plan_name is not None:
             result['PlanName'] = self.plan_name
         if self.resource_pool_name is not None:
@@ -11391,6 +11477,8 @@ class DescribeElasticPlanResponseBodyElasticPlanList(TeaModel):
             self.end_day = m.get('EndDay')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('MonthlyRepeat') is not None:
+            self.monthly_repeat = m.get('MonthlyRepeat')
         if m.get('PlanName') is not None:
             self.plan_name = m.get('PlanName')
         if m.get('ResourcePoolName') is not None:
@@ -13321,10 +13409,17 @@ class DescribeRegionsResponse(TeaModel):
 class DescribeResubmitConfigRequest(TeaModel):
     def __init__(self, dbcluster_id=None, group_name=None, owner_account=None, owner_id=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The name of the resource group.
+        # 
+        # >  You can call the [DescribeDBResourceGroup](~~459446~~) operation to query the resource group name of a cluster.
         self.group_name = group_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -13376,10 +13471,15 @@ class DescribeResubmitConfigRequest(TeaModel):
 class DescribeResubmitConfigResponseBodyRules(TeaModel):
     def __init__(self, exceed_memory_exception=None, group_name=None, peak_memory=None, query_time=None,
                  target_group_name=None):
+        # Indicates whether out-of-memory (OOM) check is configured.
         self.exceed_memory_exception = exceed_memory_exception  # type: bool
+        # The name of the source resource group.
         self.group_name = group_name  # type: str
+        # The peak memory usage.
         self.peak_memory = peak_memory  # type: str
+        # The duration of the SQL statement. Unit: milliseconds.
         self.query_time = query_time  # type: str
+        # The name of the destination resource group.
         self.target_group_name = target_group_name  # type: str
 
     def validate(self):
@@ -13420,8 +13520,13 @@ class DescribeResubmitConfigResponseBodyRules(TeaModel):
 
 class DescribeResubmitConfigResponseBody(TeaModel):
     def __init__(self, dbcluster_id=None, request_id=None, rules=None):
+        # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The job resubmission rules.
         self.rules = rules  # type: list[DescribeResubmitConfigResponseBodyRules]
 
     def validate(self):
@@ -13502,11 +13607,21 @@ class DescribeResubmitConfigResponse(TeaModel):
 class DescribeSQAConfigRequest(TeaModel):
     def __init__(self, dbcluster_id=None, group_name=None, owner_account=None, owner_id=None, region_id=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The name of the resource group.
+        # 
+        # >  You can call the [DescribeDBResourceGroup](~~612410~~) operation to query the resource group name of a cluster.
         self.group_name = group_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the cluster.
+        # 
+        # >  You can call the [DescribeRegions](~~143074~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -13561,9 +13676,15 @@ class DescribeSQAConfigRequest(TeaModel):
 
 class DescribeSQAConfigResponseBody(TeaModel):
     def __init__(self, dbcluster_id=None, group_name=None, request_id=None, sqastatus=None):
+        # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The name of the resource group.
         self.group_name = group_name  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether short query acceleration (SQA) is enabled.
         self.sqastatus = sqastatus  # type: str
 
     def validate(self):
@@ -16926,14 +17047,19 @@ class DescribeTablesResponse(TeaModel):
 class DescribeTaskInfoRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, task_id=None):
-        # The ID of the cluster.
+        # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the cluster.
+        # 
+        # >  You can call the [DescribeRegions](~~143074~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the task.
+        # The task ID.
         self.task_id = task_id  # type: int
 
     def validate(self):
@@ -16982,13 +17108,13 @@ class DescribeTaskInfoRequest(TeaModel):
 
 class DescribeTaskInfoResponseBodyTaskInfo(TeaModel):
     def __init__(self, begin_time=None, finish_time=None, progress=None, status=None, task_id=None):
-        # The start time of the task. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format.
+        # The start time of the task. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format.
         self.begin_time = begin_time  # type: str
-        # The end time of the task. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format.
+        # The end time of the task. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format.
         self.finish_time = finish_time  # type: str
         # The progress of the task. Unit: %.
         self.progress = progress  # type: str
-        # The status of the task.
+        # The status. Valid values:
         # 
         # *   Waiting
         # *   Running
@@ -17000,7 +17126,7 @@ class DescribeTaskInfoResponseBodyTaskInfo(TeaModel):
         # *   Pause
         # *   Stop
         self.status = status  # type: str
-        # The ID of the task.
+        # The task ID.
         self.task_id = task_id  # type: int
 
     def validate(self):
@@ -17041,9 +17167,9 @@ class DescribeTaskInfoResponseBodyTaskInfo(TeaModel):
 
 class DescribeTaskInfoResponseBody(TeaModel):
     def __init__(self, request_id=None, task_info=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The description of the task.
+        # The queried task.
         self.task_info = task_info  # type: DescribeTaskInfoResponseBodyTaskInfo
 
     def validate(self):
@@ -17127,6 +17253,7 @@ class DescribeVSwitchesRequest(TeaModel):
         # 
         # > You can call the [DescribeDBClusters](~~129857~~) operation to query the VPC ID.
         self.vpc_id = vpc_id  # type: str
+        # The vSwitch ID.
         self.vsw_id = vsw_id  # type: str
         # The zone ID.
         # 
@@ -17198,7 +17325,7 @@ class DescribeVSwitchesResponseBodyVSwitchesVSwitch(TeaModel):
         self.gmt_create = gmt_create  # type: str
         # The time when the vSwitch was modified.
         self.gmt_modified = gmt_modified  # type: str
-        # Indicates whether the vSwitch is the default vSwitch. Valid values: **true** **false**\
+        # Indicates whether the vSwitch is the default vSwitch. Valid values: **true**: The vSwitch is the default vSwitch. **false**: The vSwitch is not the default vSwitch.
         self.is_default = is_default  # type: bool
         # The zone ID of the vSwitch.
         self.iz_no = iz_no  # type: str
@@ -17273,6 +17400,7 @@ class DescribeVSwitchesResponseBodyVSwitchesVSwitch(TeaModel):
 
 class DescribeVSwitchesResponseBodyVSwitches(TeaModel):
     def __init__(self, v_switch=None):
+        # The queried vSwitch.
         self.v_switch = v_switch  # type: list[DescribeVSwitchesResponseBodyVSwitchesVSwitch]
 
     def validate(self):
@@ -19281,7 +19409,12 @@ class ModifyDBClusterRequest(TeaModel):
         # 
         # *   The storage capacity less than 1,000 GB increases in 100 GB increments. The storage capacity greater than 1,000 GB increases in 1,000 GB increments.
         self.dbnode_storage = dbnode_storage  # type: str
-        # The enhanced SSD (ESSD) performance level of the cluster. Valid values: PL1 PL2 PL3
+        # The enhanced SSD (ESSD) performance level of the cluster. Valid values:
+        # 
+        # *   PL0
+        # *   PL1
+        # *   PL2
+        # *   PL3
         self.disk_performance_level = disk_performance_level  # type: str
         # The number of EIUs. The number of EIUs that you can purchase varies based on the single-node EIU specifications.
         # 
@@ -19293,7 +19426,7 @@ class ModifyDBClusterRequest(TeaModel):
         # *   **8Core64GB**: If you set the parameter to **8Core64GB**, the specifications of an EIU are 24 cores and 192 GB memory.
         # *   **12Core96GB**: If you set the parameter to **12Core96GB**, the specifications of an EIU are 36 cores and 288 GB memory.
         # 
-        # > This parameter is available only when the cluster meets the following conditions:
+        # >  This parameter takes effect only when your cluster meets the following requirements:
         # 
         # *   The cluster is in elastic mode.
         # 
@@ -19490,23 +19623,19 @@ class ModifyDBClusterAccessWhiteListRequest(TeaModel):
     def __init__(self, dbcluster_iparray_attribute=None, dbcluster_iparray_name=None, dbcluster_id=None,
                  modify_mode=None, owner_account=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  security_ips=None):
-        # The attribute of the whitelist. This parameter is empty by default.
-        # 
-        # The IP address whitelists that have the hidden attribute are not displayed in the AnalyticDB for MySQL console. These IP address whitelists are used to access Alibaba Cloud services such as Data Transmission Service (DTS) and PolarDB-X.
+        # The attribute of the IP address whitelist. By default, this parameter is empty. The IP address whitelists that have the **hidden** attribute are not displayed in the console. These IP address whitelists are used to access services such as Data Transmission Service (DTS) and PolarDB-X.
         self.dbcluster_iparray_attribute = dbcluster_iparray_attribute  # type: str
-        # The name of the IP address whitelist to be modified. Default value: Default.
+        # The name of the IP address whitelist that you want to modify. Default value: **Default**. The name of an IP address whitelist must be 2 to 32 characters in length. The name can contain lowercase letters, digits, and underscores (\_). The name must start with a lowercase letter and end with a lowercase letter or digit.
         # 
-        # The name of an IP address whitelist must be 2 to 32 characters in length. The name must contain lowercase letters, digits, and underscores (\_). The name must start with a lowercase letter and end with a digit or lowercase letter.
-        # 
-        # You can create up to 50 whitelists for a cluster.
+        # Each cluster supports up to 50 IP address whitelists.
         self.dbcluster_iparray_name = dbcluster_iparray_name  # type: str
-        # The ID of the cluster.
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The method used to modify the whitelist. Valid values:
+        # The method that you want to use to modify the IP address whitelist. Valid values:
         # 
-        # *   Cover: overwrites the original IP address whitelist.
-        # *   Append: adds one or more IP addresses.
-        # *   Delete: deletes one or more IP addresses.
+        # *   Cover: overwrites the IP address whitelist.
+        # *   Append: adds IP addresses to the IP address whitelist.
+        # *   Delete: removes IP addresses from the IP address whitelist.
         # 
         # Default value: Cover.
         self.modify_mode = modify_mode  # type: str
@@ -19514,12 +19643,12 @@ class ModifyDBClusterAccessWhiteListRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The IP addresses in an IP address whitelist of a cluster. Separate multiple IP addresses with commas (,). You can add a maximum of 500 different IP addresses to a whitelist. The following formats are supported:
+        # The IP addresses that you want to use to modify the IP address whitelist of the cluster. Separate multiple IP addresses with commas (,). You can specify up to 500 distinct IP addresses. The following formats are supported:
         # 
-        # *   IP addresses. Example: 10.23.12.24.
-        # *   CIDR blocks. Example: 10.23.12.24/24. 24 indicates that the prefix of the CIDR block is 24-bit long. You can replace 24 with a value within the range of 1 to 32.
+        # *   IP address. Example: 10.23.12.24.
+        # *   CIDR block. Example: 10.23.12.24/24. In this example, 24 indicates that the prefix of the CIDR block is 24 bits in length. You can replace 24 with a value that ranges from 1 to 32.
         # 
-        # This parameter must be specified unless the ModifyMode parameter is set to Delete.
+        # >  This parameter must be specified unless ModifyMode is set to Delete.
         self.security_ips = security_ips  # type: str
 
     def validate(self):
@@ -19576,11 +19705,11 @@ class ModifyDBClusterAccessWhiteListRequest(TeaModel):
 
 class ModifyDBClusterAccessWhiteListResponseBody(TeaModel):
     def __init__(self, dbcluster_id=None, request_id=None, task_id=None):
-        # The ID of the cluster.
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The ID of the task.
+        # The task ID.
         self.task_id = task_id  # type: int
 
     def validate(self):
@@ -20431,9 +20560,10 @@ class ModifyDBResourcePoolResponse(TeaModel):
 
 class ModifyElasticPlanRequest(TeaModel):
     def __init__(self, dbcluster_id=None, elastic_plan_enable=None, elastic_plan_end_day=None,
-                 elastic_plan_name=None, elastic_plan_node_num=None, elastic_plan_start_day=None, elastic_plan_time_end=None,
-                 elastic_plan_time_start=None, elastic_plan_type=None, elastic_plan_weekly_repeat=None, elastic_plan_worker_spec=None,
-                 owner_account=None, owner_id=None, resource_owner_account=None, resource_owner_id=None, resource_pool_name=None):
+                 elastic_plan_monthly_repeat=None, elastic_plan_name=None, elastic_plan_node_num=None, elastic_plan_start_day=None,
+                 elastic_plan_time_end=None, elastic_plan_time_start=None, elastic_plan_type=None, elastic_plan_weekly_repeat=None,
+                 elastic_plan_worker_spec=None, owner_account=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
+                 resource_pool_name=None):
         # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
         # 
         # > You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a region.
@@ -20445,6 +20575,7 @@ class ModifyElasticPlanRequest(TeaModel):
         self.elastic_plan_enable = elastic_plan_enable  # type: bool
         # The end date of the scaling plan. Specify the date in the yyyy-MM-dd format.
         self.elastic_plan_end_day = elastic_plan_end_day  # type: str
+        self.elastic_plan_monthly_repeat = elastic_plan_monthly_repeat  # type: str
         # The name of the scaling plan.
         # 
         # *   The name must be 2 to 30 characters in length.
@@ -20511,6 +20642,8 @@ class ModifyElasticPlanRequest(TeaModel):
             result['ElasticPlanEnable'] = self.elastic_plan_enable
         if self.elastic_plan_end_day is not None:
             result['ElasticPlanEndDay'] = self.elastic_plan_end_day
+        if self.elastic_plan_monthly_repeat is not None:
+            result['ElasticPlanMonthlyRepeat'] = self.elastic_plan_monthly_repeat
         if self.elastic_plan_name is not None:
             result['ElasticPlanName'] = self.elastic_plan_name
         if self.elastic_plan_node_num is not None:
@@ -20547,6 +20680,8 @@ class ModifyElasticPlanRequest(TeaModel):
             self.elastic_plan_enable = m.get('ElasticPlanEnable')
         if m.get('ElasticPlanEndDay') is not None:
             self.elastic_plan_end_day = m.get('ElasticPlanEndDay')
+        if m.get('ElasticPlanMonthlyRepeat') is not None:
+            self.elastic_plan_monthly_repeat = m.get('ElasticPlanMonthlyRepeat')
         if m.get('ElasticPlanName') is not None:
             self.elastic_plan_name = m.get('ElasticPlanName')
         if m.get('ElasticPlanNodeNum') is not None:
@@ -20914,10 +21049,15 @@ class ModifyMaintenanceActionResponse(TeaModel):
 class ModifyResubmitConfigRequestRules(TeaModel):
     def __init__(self, exceed_memory_exception=None, group_name=None, peak_memory=None, query_time=None,
                  target_group_name=None):
+        # Specifies whether to configure out-of-memory (OOM) check.
         self.exceed_memory_exception = exceed_memory_exception  # type: bool
+        # The name of the source resource group.
         self.group_name = group_name  # type: str
+        # The peak memory usage.
         self.peak_memory = peak_memory  # type: str
+        # The duration of the SQL statement. Unit: milliseconds.
         self.query_time = query_time  # type: str
+        # The name of the destination resource group.
         self.target_group_name = target_group_name  # type: str
 
     def validate(self):
@@ -20959,12 +21099,17 @@ class ModifyResubmitConfigRequestRules(TeaModel):
 class ModifyResubmitConfigRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, rules=None):
+        # The cluster ID.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the information about all AnalyticDB for MySQL clusters within a region, including cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The job resubmission rules.
         self.rules = rules  # type: list[ModifyResubmitConfigRequestRules]
 
     def validate(self):
@@ -21022,12 +21167,17 @@ class ModifyResubmitConfigRequest(TeaModel):
 class ModifyResubmitConfigShrinkRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, rules_shrink=None):
+        # The cluster ID.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the information about all AnalyticDB for MySQL clusters within a region, including cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The job resubmission rules.
         self.rules_shrink = rules_shrink  # type: str
 
     def validate(self):
@@ -21076,6 +21226,7 @@ class ModifyResubmitConfigShrinkRequest(TeaModel):
 
 class ModifyResubmitConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -21140,13 +21291,26 @@ class ModifyResubmitConfigResponse(TeaModel):
 class ModifySQAConfigRequest(TeaModel):
     def __init__(self, dbcluster_id=None, group_name=None, owner_account=None, owner_id=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None, sqastatus=None):
+        # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The name of the resource group.
+        # 
+        # >  You can call the [DescribeDBResourceGroup](~~459446~~) operation to query the resource group name of a cluster.
         self.group_name = group_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # Specifies whether to enable short query acceleration (SQA).
+        # 
+        # Valid values:
+        # 
+        # *   on
+        # *   off
         self.sqastatus = sqastatus  # type: str
 
     def validate(self):
@@ -21199,6 +21363,7 @@ class ModifySQAConfigRequest(TeaModel):
 
 class ModifySQAConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -22052,22 +22217,26 @@ class UnbindDBResourcePoolWithUserResponse(TeaModel):
 class UntagResourcesRequest(TeaModel):
     def __init__(self, all=None, owner_account=None, owner_id=None, region_id=None, resource_id=None,
                  resource_owner_account=None, resource_owner_id=None, resource_type=None, tag_key=None):
-        # Specifies whether to detach all tags. This parameter takes effect only when the TagKey.N parameter is not specified. Valid values:
+        # Specifies whether to remove all tags from clusters. Default value: false. Valid values:
         # 
-        # *   true
-        # *   false
+        # *   **true**\
+        # *   **false**\
         # 
-        # Default value: false.
+        # >  If you specify TagKey and this parameter, this parameter does not take effect.
         self.all = all  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance. You can call the [DescribeRegions](~~143074~~) operation to query the most recent region list.
+        # The region ID.
+        # 
+        # >  You can call the [DescribeRegions](~~143074~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of cluster N. Valid values of N: 1 to 50.
         self.resource_id = resource_id  # type: list[str]
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The type of the cluster. Set the value to `ALIYUN::ADB::CLUSTER`.
+        # The resource type. Set the value to **ALIYUN::ADB::CLUSTER**.
         self.resource_type = resource_type  # type: str
+        # The key of tag N. Valid values of N: 1 to 20.
         self.tag_key = tag_key  # type: list[str]
 
     def validate(self):
@@ -22124,7 +22293,7 @@ class UntagResourcesRequest(TeaModel):
 
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):

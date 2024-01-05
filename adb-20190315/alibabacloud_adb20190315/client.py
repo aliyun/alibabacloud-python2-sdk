@@ -654,6 +654,8 @@ class Client(OpenApiClient):
             query['ElasticPlanEnable'] = request.elastic_plan_enable
         if not UtilClient.is_unset(request.elastic_plan_end_day):
             query['ElasticPlanEndDay'] = request.elastic_plan_end_day
+        if not UtilClient.is_unset(request.elastic_plan_monthly_repeat):
+            query['ElasticPlanMonthlyRepeat'] = request.elastic_plan_monthly_repeat
         if not UtilClient.is_unset(request.elastic_plan_name):
             query['ElasticPlanName'] = request.elastic_plan_name
         if not UtilClient.is_unset(request.elastic_plan_node_num):
@@ -4445,6 +4447,8 @@ class Client(OpenApiClient):
             query['ElasticPlanEnable'] = request.elastic_plan_enable
         if not UtilClient.is_unset(request.elastic_plan_end_day):
             query['ElasticPlanEndDay'] = request.elastic_plan_end_day
+        if not UtilClient.is_unset(request.elastic_plan_monthly_repeat):
+            query['ElasticPlanMonthlyRepeat'] = request.elastic_plan_monthly_repeat
         if not UtilClient.is_unset(request.elastic_plan_name):
             query['ElasticPlanName'] = request.elastic_plan_name
         if not UtilClient.is_unset(request.elastic_plan_node_num):
