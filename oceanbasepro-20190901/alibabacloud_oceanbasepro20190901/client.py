@@ -30,6 +30,36 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def create_backup_set_download_link_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.backup_set_id):
+            body['BackupSetId'] = request.backup_set_id
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateBackupSetDownloadLink',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.CreateBackupSetDownloadLinkResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_backup_set_download_link(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_backup_set_download_link_with_options(request, runtime)
+
     def create_database_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1161,6 +1191,46 @@ class Client(OpenApiClient):
     def describe_charset(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_charset_with_options(request, runtime)
+
+    def describe_data_backup_set_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.backup_object_type):
+            body['BackupObjectType'] = request.backup_object_type
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeDataBackupSet',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.DescribeDataBackupSetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_data_backup_set(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_data_backup_set_with_options(request, runtime)
 
     def describe_databases_with_options(self, request, runtime):
         UtilClient.validate_model(request)
