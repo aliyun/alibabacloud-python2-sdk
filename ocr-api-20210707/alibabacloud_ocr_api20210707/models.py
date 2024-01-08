@@ -636,6 +636,30 @@ class RecognizeAllTextRequestIdCardConfig(TeaModel):
         return self
 
 
+class RecognizeAllTextRequestInternationalBusinessLicenseConfig(TeaModel):
+    def __init__(self, country=None):
+        self.country = country  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RecognizeAllTextRequestInternationalBusinessLicenseConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.country is not None:
+            result['Country'] = self.country
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
+        return self
+
+
 class RecognizeAllTextRequestInternationalIdCardConfig(TeaModel):
     def __init__(self, country=None):
         self.country = country  # type: str
@@ -684,12 +708,54 @@ class RecognizeAllTextRequestMultiLanConfig(TeaModel):
         return self
 
 
+class RecognizeAllTextRequestTableConfig(TeaModel):
+    def __init__(self, is_hand_writing_table=None, is_line_less_table=None, output_table_excel=None,
+                 output_table_html=None):
+        self.is_hand_writing_table = is_hand_writing_table  # type: bool
+        self.is_line_less_table = is_line_less_table  # type: bool
+        self.output_table_excel = output_table_excel  # type: bool
+        self.output_table_html = output_table_html  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RecognizeAllTextRequestTableConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_hand_writing_table is not None:
+            result['IsHandWritingTable'] = self.is_hand_writing_table
+        if self.is_line_less_table is not None:
+            result['IsLineLessTable'] = self.is_line_less_table
+        if self.output_table_excel is not None:
+            result['OutputTableExcel'] = self.output_table_excel
+        if self.output_table_html is not None:
+            result['OutputTableHtml'] = self.output_table_html
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IsHandWritingTable') is not None:
+            self.is_hand_writing_table = m.get('IsHandWritingTable')
+        if m.get('IsLineLessTable') is not None:
+            self.is_line_less_table = m.get('IsLineLessTable')
+        if m.get('OutputTableExcel') is not None:
+            self.output_table_excel = m.get('OutputTableExcel')
+        if m.get('OutputTableHtml') is not None:
+            self.output_table_html = m.get('OutputTableHtml')
+        return self
+
+
 class RecognizeAllTextRequest(TeaModel):
-    def __init__(self, advanced_config=None, id_card_config=None, international_id_card_config=None,
-                 multi_lan_config=None, output_bar_code=None, output_coordinate=None, output_figure=None, output_kvexcel=None,
-                 output_oricoord=None, output_qrcode=None, output_stamp=None, page_no=None, type=None, url=None, body=None):
+    def __init__(self, advanced_config=None, id_card_config=None, international_business_license_config=None,
+                 international_id_card_config=None, multi_lan_config=None, output_bar_code=None, output_coordinate=None, output_figure=None,
+                 output_kvexcel=None, output_oricoord=None, output_qrcode=None, output_stamp=None, page_no=None, table_config=None,
+                 type=None, url=None, body=None):
         self.advanced_config = advanced_config  # type: RecognizeAllTextRequestAdvancedConfig
         self.id_card_config = id_card_config  # type: RecognizeAllTextRequestIdCardConfig
+        self.international_business_license_config = international_business_license_config  # type: RecognizeAllTextRequestInternationalBusinessLicenseConfig
         self.international_id_card_config = international_id_card_config  # type: RecognizeAllTextRequestInternationalIdCardConfig
         self.multi_lan_config = multi_lan_config  # type: RecognizeAllTextRequestMultiLanConfig
         self.output_bar_code = output_bar_code  # type: bool
@@ -700,6 +766,7 @@ class RecognizeAllTextRequest(TeaModel):
         self.output_qrcode = output_qrcode  # type: bool
         self.output_stamp = output_stamp  # type: bool
         self.page_no = page_no  # type: int
+        self.table_config = table_config  # type: RecognizeAllTextRequestTableConfig
         self.type = type  # type: str
         self.url = url  # type: str
         self.body = body  # type: READABLE
@@ -709,10 +776,14 @@ class RecognizeAllTextRequest(TeaModel):
             self.advanced_config.validate()
         if self.id_card_config:
             self.id_card_config.validate()
+        if self.international_business_license_config:
+            self.international_business_license_config.validate()
         if self.international_id_card_config:
             self.international_id_card_config.validate()
         if self.multi_lan_config:
             self.multi_lan_config.validate()
+        if self.table_config:
+            self.table_config.validate()
 
     def to_map(self):
         _map = super(RecognizeAllTextRequest, self).to_map()
@@ -724,6 +795,8 @@ class RecognizeAllTextRequest(TeaModel):
             result['AdvancedConfig'] = self.advanced_config.to_map()
         if self.id_card_config is not None:
             result['IdCardConfig'] = self.id_card_config.to_map()
+        if self.international_business_license_config is not None:
+            result['InternationalBusinessLicenseConfig'] = self.international_business_license_config.to_map()
         if self.international_id_card_config is not None:
             result['InternationalIdCardConfig'] = self.international_id_card_config.to_map()
         if self.multi_lan_config is not None:
@@ -744,6 +817,8 @@ class RecognizeAllTextRequest(TeaModel):
             result['OutputStamp'] = self.output_stamp
         if self.page_no is not None:
             result['PageNo'] = self.page_no
+        if self.table_config is not None:
+            result['TableConfig'] = self.table_config.to_map()
         if self.type is not None:
             result['Type'] = self.type
         if self.url is not None:
@@ -760,6 +835,9 @@ class RecognizeAllTextRequest(TeaModel):
         if m.get('IdCardConfig') is not None:
             temp_model = RecognizeAllTextRequestIdCardConfig()
             self.id_card_config = temp_model.from_map(m['IdCardConfig'])
+        if m.get('InternationalBusinessLicenseConfig') is not None:
+            temp_model = RecognizeAllTextRequestInternationalBusinessLicenseConfig()
+            self.international_business_license_config = temp_model.from_map(m['InternationalBusinessLicenseConfig'])
         if m.get('InternationalIdCardConfig') is not None:
             temp_model = RecognizeAllTextRequestInternationalIdCardConfig()
             self.international_id_card_config = temp_model.from_map(m['InternationalIdCardConfig'])
@@ -782,6 +860,9 @@ class RecognizeAllTextRequest(TeaModel):
             self.output_stamp = m.get('OutputStamp')
         if m.get('PageNo') is not None:
             self.page_no = m.get('PageNo')
+        if m.get('TableConfig') is not None:
+            temp_model = RecognizeAllTextRequestTableConfig()
+            self.table_config = temp_model.from_map(m['TableConfig'])
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('Url') is not None:
@@ -793,11 +874,12 @@ class RecognizeAllTextRequest(TeaModel):
 
 class RecognizeAllTextShrinkRequest(TeaModel):
     def __init__(self, advanced_config_shrink=None, id_card_config_shrink=None,
-                 international_id_card_config_shrink=None, multi_lan_config_shrink=None, output_bar_code=None, output_coordinate=None,
-                 output_figure=None, output_kvexcel=None, output_oricoord=None, output_qrcode=None, output_stamp=None,
-                 page_no=None, type=None, url=None, body=None):
+                 international_business_license_config_shrink=None, international_id_card_config_shrink=None, multi_lan_config_shrink=None,
+                 output_bar_code=None, output_coordinate=None, output_figure=None, output_kvexcel=None, output_oricoord=None,
+                 output_qrcode=None, output_stamp=None, page_no=None, table_config_shrink=None, type=None, url=None, body=None):
         self.advanced_config_shrink = advanced_config_shrink  # type: str
         self.id_card_config_shrink = id_card_config_shrink  # type: str
+        self.international_business_license_config_shrink = international_business_license_config_shrink  # type: str
         self.international_id_card_config_shrink = international_id_card_config_shrink  # type: str
         self.multi_lan_config_shrink = multi_lan_config_shrink  # type: str
         self.output_bar_code = output_bar_code  # type: bool
@@ -808,6 +890,7 @@ class RecognizeAllTextShrinkRequest(TeaModel):
         self.output_qrcode = output_qrcode  # type: bool
         self.output_stamp = output_stamp  # type: bool
         self.page_no = page_no  # type: int
+        self.table_config_shrink = table_config_shrink  # type: str
         self.type = type  # type: str
         self.url = url  # type: str
         self.body = body  # type: READABLE
@@ -825,6 +908,8 @@ class RecognizeAllTextShrinkRequest(TeaModel):
             result['AdvancedConfig'] = self.advanced_config_shrink
         if self.id_card_config_shrink is not None:
             result['IdCardConfig'] = self.id_card_config_shrink
+        if self.international_business_license_config_shrink is not None:
+            result['InternationalBusinessLicenseConfig'] = self.international_business_license_config_shrink
         if self.international_id_card_config_shrink is not None:
             result['InternationalIdCardConfig'] = self.international_id_card_config_shrink
         if self.multi_lan_config_shrink is not None:
@@ -845,6 +930,8 @@ class RecognizeAllTextShrinkRequest(TeaModel):
             result['OutputStamp'] = self.output_stamp
         if self.page_no is not None:
             result['PageNo'] = self.page_no
+        if self.table_config_shrink is not None:
+            result['TableConfig'] = self.table_config_shrink
         if self.type is not None:
             result['Type'] = self.type
         if self.url is not None:
@@ -859,6 +946,8 @@ class RecognizeAllTextShrinkRequest(TeaModel):
             self.advanced_config_shrink = m.get('AdvancedConfig')
         if m.get('IdCardConfig') is not None:
             self.id_card_config_shrink = m.get('IdCardConfig')
+        if m.get('InternationalBusinessLicenseConfig') is not None:
+            self.international_business_license_config_shrink = m.get('InternationalBusinessLicenseConfig')
         if m.get('InternationalIdCardConfig') is not None:
             self.international_id_card_config_shrink = m.get('InternationalIdCardConfig')
         if m.get('MultiLanConfig') is not None:
@@ -879,6 +968,8 @@ class RecognizeAllTextShrinkRequest(TeaModel):
             self.output_stamp = m.get('OutputStamp')
         if m.get('PageNo') is not None:
             self.page_no = m.get('PageNo')
+        if m.get('TableConfig') is not None:
+            self.table_config_shrink = m.get('TableConfig')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('Url') is not None:
