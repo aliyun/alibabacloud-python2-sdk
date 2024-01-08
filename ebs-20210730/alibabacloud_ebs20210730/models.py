@@ -176,9 +176,13 @@ class ApplyLensServiceResponse(TeaModel):
 
 class BindEnterpriseSnapshotPolicyRequest(TeaModel):
     def __init__(self, client_token=None, disk_targets=None, policy_id=None, region_id=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
+        # The list of disks.
         self.disk_targets = disk_targets  # type: list[str]
+        # The id of the policy.
         self.policy_id = policy_id  # type: str
+        # The region ID . You can call the [DescribeRegions](~~354276~~) operation to query the most recent list of regions in which snapshot policy is supported.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -215,6 +219,7 @@ class BindEnterpriseSnapshotPolicyRequest(TeaModel):
 
 class BindEnterpriseSnapshotPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -662,7 +667,15 @@ class ClearReplicaGroupDrillResponse(TeaModel):
 
 class CreateDedicatedBlockStorageClusterRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of tag N used for exact search of EBS resources. The tag key must be 1 to 128 characters in length. Valid values of N: 1 to 20.
+        # 
+        # The `Tag.N` parameter pair (Tag.N.Key and Tag.N.Value) is used for exact search of EBS resources that have specified tags added. Each tag is a key-value pair.
+        # 
+        # *   If you specify only `Tag.N.Key`, all EBS resources whose tags contain the specified tag key are returned.
+        # *   If you specify only `Tag.N.Value`, the `InvalidParameter.TagValue` error is returned.
+        # *   If you specify multiple tag key-value pairs at the same time, only EBS resources that match all tag key-value pairs are returned.
         self.key = key  # type: str
+        # The value of tag N to add to the resource. Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot start with `acs:` or contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -698,14 +711,22 @@ class CreateDedicatedBlockStorageClusterRequest(TeaModel):
         # 
         # >  If the capacity of a dedicated block storage cluster is less than 576 TiB, the maximum throughput supported per TiB does not exceed 52 MB/s. If the capacity of a dedicated block storage cluster is greater than 576 TiB, the maximum throughput supported per TiB does not exceed 26 MB/s.
         self.capacity = capacity  # type: long
+        # This parameter is no longer used.
         self.dbsc_id = dbsc_id  # type: str
         # The name of the dedicated block storage cluster.
         self.dbsc_name = dbsc_name  # type: str
+        # The specific number of PeriodUnit.
         self.period = period  # type: int
+        # The unit of the subscription duration for the dedicated block storage cluster,
+        # Valid values:
+        # 
+        # *   **Month**\
         self.period_unit = period_unit  # type: str
         # The ID of the region in which to create the dedicated block storage cluster. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which to assign the dedicated block storage cluster.
         self.resource_group_id = resource_group_id  # type: str
+        # The resource tags. You can specify up to 20 tags.
         self.tag = tag  # type: list[CreateDedicatedBlockStorageClusterRequestTag]
         # The type of the dedicated block storage cluster. Valid values:
         # 
@@ -1312,7 +1333,9 @@ class CreateDiskReplicaPairResponse(TeaModel):
 
 class CreateEnterpriseSnapshotPolicyRequestCrossRegionCopyInfoRegions(TeaModel):
     def __init__(self, region_id=None, retain_days=None):
+        # The region ID of the destination. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # Number of days to retain the destination snapshot. The range of values is greater than 1.
         self.retain_days = retain_days  # type: int
 
     def validate(self):
@@ -1341,7 +1364,13 @@ class CreateEnterpriseSnapshotPolicyRequestCrossRegionCopyInfoRegions(TeaModel):
 
 class CreateEnterpriseSnapshotPolicyRequestCrossRegionCopyInfo(TeaModel):
     def __init__(self, enabled=None, regions=None):
+        # Whether cross-region replication is enabled. The range of values:
+        # 
+        # - true
+        # 
+        # - false
         self.enabled = enabled  # type: bool
+        # The list of destination regions.
         self.regions = regions  # type: list[CreateEnterpriseSnapshotPolicyRequestCrossRegionCopyInfoRegions]
 
     def validate(self):
@@ -1378,8 +1407,15 @@ class CreateEnterpriseSnapshotPolicyRequestCrossRegionCopyInfo(TeaModel):
 
 class CreateEnterpriseSnapshotPolicyRequestRetainRule(TeaModel):
     def __init__(self, number=None, time_interval=None, time_unit=None):
+        # Maximum number of retained snapshots.
         self.number = number  # type: int
+        # The time interval , valid value greater than 1.
         self.time_interval = time_interval  # type: int
+        # The unit of time, valid values:
+        # 
+        # - DAYS
+        # 
+        # - WEEKS
         self.time_unit = time_unit  # type: str
 
     def validate(self):
@@ -1412,6 +1448,9 @@ class CreateEnterpriseSnapshotPolicyRequestRetainRule(TeaModel):
 
 class CreateEnterpriseSnapshotPolicyRequestSchedule(TeaModel):
     def __init__(self, cron_expression=None):
+        # The time when the policy will to be scheduled. Valid values: Set the parameter in a cron expression.
+        # 
+        # For example, you can use 0 0 4 1/1 * ? to specify 04:00:00 (UTC+8) on the first day of each month.
         self.cron_expression = cron_expression  # type: str
 
     def validate(self):
@@ -1436,8 +1475,18 @@ class CreateEnterpriseSnapshotPolicyRequestSchedule(TeaModel):
 
 class CreateEnterpriseSnapshotPolicyRequestSpecialRetainRulesRules(TeaModel):
     def __init__(self, special_period_unit=None, time_interval=None, time_unit=None):
+        # The periodic unit for specially retained snapshots. If configured to WEEKS, it provides special retention for the first snapshot of each week. The retention period is determined by TimeUnit and TimeInterval. The range of values are:
+        # - WEEKS
+        # - MONTHS
+        # - YEARS
         self.special_period_unit = special_period_unit  # type: str
+        # Retention Time Value. The range of values is greater than 1.
         self.time_interval = time_interval  # type: int
+        # Retention time unit for special snapshots. The range of values:
+        # 
+        # - DAYS
+        # 
+        # - WEEKS
         self.time_unit = time_unit  # type: str
 
     def validate(self):
@@ -1470,7 +1519,12 @@ class CreateEnterpriseSnapshotPolicyRequestSpecialRetainRulesRules(TeaModel):
 
 class CreateEnterpriseSnapshotPolicyRequestSpecialRetainRules(TeaModel):
     def __init__(self, enabled=None, rules=None):
+        # Indicates whether the special retention is enabled.
+        # 
+        # *   true: enable
+        # *   false: disable
         self.enabled = enabled  # type: bool
+        # The special retention rules.
         self.rules = rules  # type: list[CreateEnterpriseSnapshotPolicyRequestSpecialRetainRulesRules]
 
     def validate(self):
@@ -1507,6 +1561,11 @@ class CreateEnterpriseSnapshotPolicyRequestSpecialRetainRules(TeaModel):
 
 class CreateEnterpriseSnapshotPolicyRequestStorageRule(TeaModel):
     def __init__(self, enable_immediate_access=None):
+        # Whether to enable the rapid availability of snapshots. The range of values:
+        # 
+        # - true
+        # 
+        # - false
         self.enable_immediate_access = enable_immediate_access  # type: bool
 
     def validate(self):
@@ -1531,7 +1590,13 @@ class CreateEnterpriseSnapshotPolicyRequestStorageRule(TeaModel):
 
 class CreateEnterpriseSnapshotPolicyRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The tag value.
+        # 
+        # The tag value can be 0 to 128 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        # 
+        # Each tag key must have a unique tag value. You can specify at most 20 tag values in each call.
         self.value = value  # type: str
 
     def validate(self):
@@ -1562,18 +1627,37 @@ class CreateEnterpriseSnapshotPolicyRequest(TeaModel):
     def __init__(self, client_token=None, cross_region_copy_info=None, desc=None, name=None, region_id=None,
                  resource_group_id=None, retain_rule=None, schedule=None, special_retain_rules=None, state=None, storage_rule=None,
                  tag=None, target_type=None):
+        # The client token that is used to ensure the idempotency of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
+        # Snapshot replication destination information.
         self.cross_region_copy_info = cross_region_copy_info  # type: CreateEnterpriseSnapshotPolicyRequestCrossRegionCopyInfo
+        # The description of the policy.
         self.desc = desc  # type: str
+        # The name of the policy.
         self.name = name  # type: str
+        # The region ID . You can call the [DescribeRegions](~~354276~~) operation to query the most recent list of regions in which snapshot policy is supported.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which to assign the snapshot policy.
         self.resource_group_id = resource_group_id  # type: str
+        # The snapshot retention rule.
         self.retain_rule = retain_rule  # type: CreateEnterpriseSnapshotPolicyRequestRetainRule
+        # The rule for scheduling.
         self.schedule = schedule  # type: CreateEnterpriseSnapshotPolicyRequestSchedule
+        # The special snapshot retention rules.
         self.special_retain_rules = special_retain_rules  # type: CreateEnterpriseSnapshotPolicyRequestSpecialRetainRules
+        # The status of the policy. Valid values:
+        # 
+        # - ENABLED: Enable snapshot policy execution.
+        # 
+        # - DISABLED: Disable snapshot policy execution.
         self.state = state  # type: str
+        # Advanced snapshot features.
         self.storage_rule = storage_rule  # type: CreateEnterpriseSnapshotPolicyRequestStorageRule
+        # The list of tags.
         self.tag = tag  # type: list[CreateEnterpriseSnapshotPolicyRequestTag]
+        # Binding target type, valid value:
+        # 
+        # - DISK
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -1669,7 +1753,13 @@ class CreateEnterpriseSnapshotPolicyRequest(TeaModel):
 
 class CreateEnterpriseSnapshotPolicyShrinkRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The tag value.
+        # 
+        # The tag value can be 0 to 128 characters in length, and cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
+        # 
+        # Each tag key must have a unique tag value. You can specify at most 20 tag values in each call.
         self.value = value  # type: str
 
     def validate(self):
@@ -1700,18 +1790,37 @@ class CreateEnterpriseSnapshotPolicyShrinkRequest(TeaModel):
     def __init__(self, client_token=None, cross_region_copy_info_shrink=None, desc=None, name=None, region_id=None,
                  resource_group_id=None, retain_rule_shrink=None, schedule_shrink=None, special_retain_rules_shrink=None, state=None,
                  storage_rule_shrink=None, tag=None, target_type=None):
+        # The client token that is used to ensure the idempotency of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
+        # Snapshot replication destination information.
         self.cross_region_copy_info_shrink = cross_region_copy_info_shrink  # type: str
+        # The description of the policy.
         self.desc = desc  # type: str
+        # The name of the policy.
         self.name = name  # type: str
+        # The region ID . You can call the [DescribeRegions](~~354276~~) operation to query the most recent list of regions in which snapshot policy is supported.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which to assign the snapshot policy.
         self.resource_group_id = resource_group_id  # type: str
+        # The snapshot retention rule.
         self.retain_rule_shrink = retain_rule_shrink  # type: str
+        # The rule for scheduling.
         self.schedule_shrink = schedule_shrink  # type: str
+        # The special snapshot retention rules.
         self.special_retain_rules_shrink = special_retain_rules_shrink  # type: str
+        # The status of the policy. Valid values:
+        # 
+        # - ENABLED: Enable snapshot policy execution.
+        # 
+        # - DISABLED: Disable snapshot policy execution.
         self.state = state  # type: str
+        # Advanced snapshot features.
         self.storage_rule_shrink = storage_rule_shrink  # type: str
+        # The list of tags.
         self.tag = tag  # type: list[CreateEnterpriseSnapshotPolicyShrinkRequestTag]
+        # Binding target type, valid value:
+        # 
+        # - DISK
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -1792,8 +1901,9 @@ class CreateEnterpriseSnapshotPolicyShrinkRequest(TeaModel):
 
 class CreateEnterpriseSnapshotPolicyResponseBody(TeaModel):
     def __init__(self, policy_id=None, request_id=None):
-        # snapshot policy instance id
+        # The id of a policy.
         self.policy_id = policy_id  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2063,8 +2173,11 @@ class DeleteDiskReplicaPairResponse(TeaModel):
 
 class DeleteEnterpriseSnapshotPolicyRequest(TeaModel):
     def __init__(self, client_token=None, policy_id=None, region_id=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
+        # The id of the policy.
         self.policy_id = policy_id  # type: str
+        # The region ID . You can call the [DescribeRegions](~~354276~~) operation to query the most recent list of regions in which snapshot policy is supported.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2097,6 +2210,7 @@ class DeleteEnterpriseSnapshotPolicyRequest(TeaModel):
 
 class DeleteEnterpriseSnapshotPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2246,6 +2360,7 @@ class DescribeDedicatedBlockStorageClusterDisksResponseBodyDisksDisk(TeaModel):
         self.attached_time = attached_time  # type: str
         # This parameter is currently in invitational preview and unavailable for general users.
         self.bdf_id = bdf_id  # type: str
+        # Whether the ESSD AutoPL disk is enabled burst IOPS / BPS. This parameter is available only if the DiskCategory parameter is set to cloud_auto. For more information, see [ESSD AutoPL disks](~~368372~~).
         self.bursting_enabled = bursting_enabled  # type: bool
         # The category of the disk. A value of cloud_essd indicates that the disk is an ESSD.
         self.category = category  # type: str
@@ -2309,6 +2424,8 @@ class DescribeDedicatedBlockStorageClusterDisksResponseBodyDisksDisk(TeaModel):
         self.performance_level = performance_level  # type: str
         # Indicates whether the cloud disk is removable.
         self.portable = portable  # type: bool
+        # The provisioned read/write IOPS of the ESSD AutoPL disk. 
+        # >  This parameter is available only if the DiskCategory parameter is set to cloud_auto. For more information, see [ESSD AutoPL disks](~~368372~~) and [Modify the performance configurations of an ESSD AutoPL disk](~~413275~~).
         self.provisioned_iops = provisioned_iops  # type: long
         # The region ID of cloud disk.
         self.region_id = region_id  # type: str
@@ -2335,6 +2452,7 @@ class DescribeDedicatedBlockStorageClusterDisksResponseBodyDisksDisk(TeaModel):
         self.storage_set_partition_number = storage_set_partition_number  # type: int
         # The tags of the cloud disk.
         self.tags = tags  # type: list[DescribeDedicatedBlockStorageClusterDisksResponseBodyDisksDiskTags]
+        # The maximum number of BPS.
         self.throughput = throughput  # type: long
         # The type of the disk. Valid values:
         # 
@@ -2883,6 +3001,7 @@ class DescribeDedicatedBlockStorageClustersResponseBodyDedicatedBlockStorageClus
                  description=None, enable_thin_provision=None, expired_time=None, performance_level=None, region_id=None,
                  resource_group_id=None, size_over_sold_ratio=None, status=None, storage_domain=None, supported_category=None,
                  tags=None, type=None, zone_id=None):
+        # The unique ID (UID) of the Alibaba Cloud account.
         self.ali_uid = ali_uid  # type: str
         # The category of disks that can be created in the dedicated block storage cluster.
         self.category = category  # type: str
@@ -2896,6 +3015,7 @@ class DescribeDedicatedBlockStorageClustersResponseBodyDedicatedBlockStorageClus
         self.dedicated_block_storage_cluster_name = dedicated_block_storage_cluster_name  # type: str
         # The description of the dedicated block storage cluster.
         self.description = description  # type: str
+        # The dedicated block storage cluster enable thin provison.
         self.enable_thin_provision = enable_thin_provision  # type: bool
         # The time when the dedicated block storage cluster expires. The value is a UNIX timestamp. Unit: seconds.
         self.expired_time = expired_time  # type: str
@@ -2912,6 +3032,7 @@ class DescribeDedicatedBlockStorageClustersResponseBodyDedicatedBlockStorageClus
         self.region_id = region_id  # type: str
         # The ID of the resource group to which the dedicated block storage cluster belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # Oversold ratio of cluster space capacity for creating disk.
         self.size_over_sold_ratio = size_over_sold_ratio  # type: float
         # The state of the dedicated block storage cluster. Valid values:
         # 
@@ -2920,6 +3041,7 @@ class DescribeDedicatedBlockStorageClustersResponseBodyDedicatedBlockStorageClus
         # *   Expired
         # *   Offline
         self.status = status  # type: str
+        # StorageDomain.
         self.storage_domain = storage_domain  # type: str
         # This parameter is not supported.
         self.supported_category = supported_category  # type: str
@@ -4821,7 +4943,9 @@ class DescribeDiskReplicaPairsResponse(TeaModel):
 
 class DescribeEnterpriseSnapshotPolicyRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -4849,16 +4973,35 @@ class DescribeEnterpriseSnapshotPolicyRequestTag(TeaModel):
 
 
 class DescribeEnterpriseSnapshotPolicyRequest(TeaModel):
-    def __init__(self, client_token=None, max_results=None, next_token=None, page_number=None, page_size=None,
-                 policy_ids=None, region_id=None, resource_group_id=None, tag=None):
+    def __init__(self, client_token=None, disk_ids=None, max_results=None, next_token=None, page_number=None,
+                 page_size=None, policy_ids=None, region_id=None, resource_group_id=None, tag=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests.
+        # 
+        # The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How do I ensure idempotence ](~~25693~~).
         self.client_token = client_token  # type: str
+        self.disk_ids = disk_ids  # type: list[str]
+        # The maximum number of entries to be returned. You can use this parameter together with NextToken.
+        # 
+        # Valid values: 1 to 500.
+        # 
+        # Default value: 10.
         self.max_results = max_results  # type: int
+        # The token that is used for the next query. Valid values:
+        # 
+        # *   If the value of **NextToken** is not returned, it indicates that no next query is to be sent.
+        # *   If a value of **NextToken** is returned, the value is the token that is used for the subsequent query.
         self.next_token = next_token  # type: str
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The list of policies.
         self.policy_ids = policy_ids  # type: list[str]
+        # The region ID . You can call the [DescribeRegions](~~354276~~) operation to query the most recent list of regions in which snapshot policy is supported.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the policy belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # The list of tags.
         self.tag = tag  # type: list[DescribeEnterpriseSnapshotPolicyRequestTag]
 
     def validate(self):
@@ -4875,6 +5018,8 @@ class DescribeEnterpriseSnapshotPolicyRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.disk_ids is not None:
+            result['DiskIds'] = self.disk_ids
         if self.max_results is not None:
             result['MaxResults'] = self.max_results
         if self.next_token is not None:
@@ -4899,6 +5044,8 @@ class DescribeEnterpriseSnapshotPolicyRequest(TeaModel):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('DiskIds') is not None:
+            self.disk_ids = m.get('DiskIds')
         if m.get('MaxResults') is not None:
             self.max_results = m.get('MaxResults')
         if m.get('NextToken') is not None:
@@ -4923,7 +5070,9 @@ class DescribeEnterpriseSnapshotPolicyRequest(TeaModel):
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesCrossRegionCopyInfoRegions(TeaModel):
     def __init__(self, region_id=None, retain_days=None):
+        # The region ID of the destination. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # Number of days to retain the destination snapshot. The range of values is greater than 1.
         self.retain_days = retain_days  # type: int
 
     def validate(self):
@@ -4952,7 +5101,13 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesCrossRegionCopyInfoReg
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesCrossRegionCopyInfo(TeaModel):
     def __init__(self, enabled=None, regions=None):
+        # Whether cross-region replication is enabled. The range of values:
+        # 
+        # - true
+        # 
+        # - false
         self.enabled = enabled  # type: bool
+        # Destination region information.
         self.regions = regions  # type: list[DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesCrossRegionCopyInfoRegions]
 
     def validate(self):
@@ -4989,8 +5144,15 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesCrossRegionCopyInfo(Te
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesRetainRule(TeaModel):
     def __init__(self, number=None, time_interval=None, time_unit=None):
+        # Maximum number of retained snapshots.
         self.number = number  # type: int
+        # The time interval , valid value greater than 1.
         self.time_interval = time_interval  # type: int
+        # The unit of time, valid values:
+        # 
+        # - DAYS
+        # 
+        # - WEEKS
         self.time_unit = time_unit  # type: str
 
     def validate(self):
@@ -5023,6 +5185,9 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesRetainRule(TeaModel):
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSchedule(TeaModel):
     def __init__(self, cron_expression=None):
+        # The time when the policy will to be scheduled. Valid values: Set the parameter in a cron expression.
+        # 
+        # For example, you can use 0 0 4 1/1 * ? to specify 04:00:00 (UTC+8) on the first day of each month.
         self.cron_expression = cron_expression  # type: str
 
     def validate(self):
@@ -5047,8 +5212,18 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSchedule(TeaModel):
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSpecialRetainRulesRules(TeaModel):
     def __init__(self, special_period_unit=None, time_interval=None, time_unit=None):
+        # The periodic unit for specially retained snapshots. If configured to WEEKS, it provides special retention for the first snapshot of each week. The retention period is determined by TimeUnit and TimeInterval. The range of values are:
+        # - WEEKS
+        # - MONTHS
+        # - YEARS
         self.special_period_unit = special_period_unit  # type: str
+        # Retention Time Value. The range of values is greater than 1.
         self.time_interval = time_interval  # type: int
+        # Retention time unit for special snapshots. The range of values:
+        # 
+        # - DAYS
+        # 
+        # - WEEKS
         self.time_unit = time_unit  # type: str
 
     def validate(self):
@@ -5081,7 +5256,12 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSpecialRetainRulesRule
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSpecialRetainRules(TeaModel):
     def __init__(self, enabled=None, rules=None):
+        # Indicates whether the special retention is enabled.
+        # 
+        # *   true: enable
+        # *   false: disable
         self.enabled = enabled  # type: bool
+        # The special retention rules.
         self.rules = rules  # type: list[DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSpecialRetainRulesRules]
 
     def validate(self):
@@ -5118,6 +5298,11 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSpecialRetainRules(Tea
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesStorageRule(TeaModel):
     def __init__(self, enable_immediate_access=None):
+        # Whether to enable the rapid availability of snapshots. The range of values:
+        # 
+        # - true
+        # 
+        # - false
         self.enable_immediate_access = enable_immediate_access  # type: bool
 
     def validate(self):
@@ -5142,7 +5327,9 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesStorageRule(TeaModel):
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesTags(TeaModel):
     def __init__(self, tag_key=None, tag_value=None):
+        # The key of a tag.
         self.tag_key = tag_key  # type: str
+        # The value of a tag.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -5170,25 +5357,46 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesTags(TeaModel):
 
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPolicies(TeaModel):
-    def __init__(self, create_time=None, cross_region_copy_info=None, desc=None, managed_for_ecs=None, name=None,
-                 policy_id=None, resource_group_id=None, retain_rule=None, schedule=None, special_retain_rules=None,
-                 state=None, storage_rule=None, tags=None, target_count=None, target_type=None):
+    def __init__(self, create_time=None, cross_region_copy_info=None, desc=None, disk_ids=None,
+                 managed_for_ecs=None, name=None, policy_id=None, resource_group_id=None, retain_rule=None, schedule=None,
+                 special_retain_rules=None, state=None, storage_rule=None, tags=None, target_count=None, target_type=None):
+        # Creation Time.
         self.create_time = create_time  # type: str
+        # Snapshot replication destination information.
         self.cross_region_copy_info = cross_region_copy_info  # type: DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesCrossRegionCopyInfo
+        # The description of the policy.
         self.desc = desc  # type: str
+        self.disk_ids = disk_ids  # type: list[str]
+        # Indicates whether it is an ECS snapshot policy，The range of values:
+        # 
+        # - true
+        # - false
         self.managed_for_ecs = managed_for_ecs  # type: bool
+        # The name of the policy.
         self.name = name  # type: str
+        # The id of the policy.
         self.policy_id = policy_id  # type: str
-        # the resource group
+        # The resource group
         self.resource_group_id = resource_group_id  # type: str
+        # The snapshot retention rule.
         self.retain_rule = retain_rule  # type: DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesRetainRule
+        # The rule for scheduling.
         self.schedule = schedule  # type: DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSchedule
+        # The special snapshot retention rules.
         self.special_retain_rules = special_retain_rules  # type: DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSpecialRetainRules
+        # The status of the policy. Valid values:
+        # 
+        # - ENABLED: Enable policy execution.
+        # 
+        # - DISABLED: Disable policy execution.
         self.state = state  # type: str
+        # Advanced snapshot features.
         self.storage_rule = storage_rule  # type: DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesStorageRule
-        # the pair tags
+        # The list of tags.
         self.tags = tags  # type: list[DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesTags]
+        # Number of bound targets.
         self.target_count = target_count  # type: int
+        # The target type.
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -5219,6 +5427,8 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPolicies(TeaModel):
             result['CrossRegionCopyInfo'] = self.cross_region_copy_info.to_map()
         if self.desc is not None:
             result['Desc'] = self.desc
+        if self.disk_ids is not None:
+            result['DiskIds'] = self.disk_ids
         if self.managed_for_ecs is not None:
             result['ManagedForEcs'] = self.managed_for_ecs
         if self.name is not None:
@@ -5256,6 +5466,8 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPolicies(TeaModel):
             self.cross_region_copy_info = temp_model.from_map(m['CrossRegionCopyInfo'])
         if m.get('Desc') is not None:
             self.desc = m.get('Desc')
+        if m.get('DiskIds') is not None:
+            self.disk_ids = m.get('DiskIds')
         if m.get('ManagedForEcs') is not None:
             self.managed_for_ecs = m.get('ManagedForEcs')
         if m.get('Name') is not None:
@@ -5293,11 +5505,17 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPolicies(TeaModel):
 class DescribeEnterpriseSnapshotPolicyResponseBody(TeaModel):
     def __init__(self, next_token=None, page_number=None, page_size=None, policies=None, request_id=None,
                  total_count=None):
+        # The query token returned in this call.
         self.next_token = next_token  # type: str
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The list of policies.
         self.policies = policies  # type: list[DescribeEnterpriseSnapshotPolicyResponseBodyPolicies]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -5464,11 +5682,17 @@ class DescribeLensServiceStatusResponse(TeaModel):
 class DescribeMetricDataRequest(TeaModel):
     def __init__(self, dimensions=None, end_time=None, metric_name=None, period=None, region_id=None,
                  start_time=None):
+        # The dimension map in the JSON format. A dimension is a key-value pair. Valid dimension key: diskId.
         self.dimensions = dimensions  # type: str
+        # The end of the time range to query. The specified time must be later than the current time. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.end_time = end_time  # type: str
+        # The name of the metric.
         self.metric_name = metric_name  # type: str
+        # The interval at which metric data is collected. Unit: seconds. Default value: 60. Valid values: 60, 300, 600, and 3600, which support queries for time ranges of up to 2 hours, 2 hours, 1 day, and 7 days, respectively. For example, if you set Period to 60, the end time is less than 2 hours from the end time.
         self.period = period  # type: int
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The beginning of the time range to query. You can specify a point in time that is up to one year apart from the current time. If StartTime and EndTime are both unspecified, the monitoring metric data of the last Period value is queried. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -5513,7 +5737,9 @@ class DescribeMetricDataRequest(TeaModel):
 
 class DescribeMetricDataResponseBodyDataList(TeaModel):
     def __init__(self, datapoints=None, labels=None):
+        # The datapoints that consist of consecutive timestamps in seconds and metric values that were recorded at these time points.
         self.datapoints = datapoints  # type: any
+        # The tags.
         self.labels = labels  # type: any
 
     def validate(self):
@@ -5542,8 +5768,11 @@ class DescribeMetricDataResponseBodyDataList(TeaModel):
 
 class DescribeMetricDataResponseBody(TeaModel):
     def __init__(self, data_list=None, request_id=None, total_count=None):
+        # The disk monitoring data.
         self.data_list = data_list  # type: list[DescribeMetricDataResponseBodyDataList]
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of data entries queried.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -8561,9 +8790,13 @@ class TagResourcesResponse(TeaModel):
 
 class UnbindEnterpriseSnapshotPolicyRequest(TeaModel):
     def __init__(self, client_token=None, disk_targets=None, policy_id=None, region_id=None):
+        # The client token that is used to ensure the idempotency of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
+        # The list of disks.
         self.disk_targets = disk_targets  # type: list[str]
+        # The id of the policy.
         self.policy_id = policy_id  # type: str
+        # The region ID . You can call the [DescribeRegions](~~354276~~) operation to query the most recent list of regions in which snapshot policy is supported.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -8600,6 +8833,7 @@ class UnbindEnterpriseSnapshotPolicyRequest(TeaModel):
 
 class UnbindEnterpriseSnapshotPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8792,7 +9026,9 @@ class UntagResourcesResponse(TeaModel):
 
 class UpdateEnterpriseSnapshotPolicyRequestCrossRegionCopyInfoRegions(TeaModel):
     def __init__(self, region_id=None, retain_days=None):
+        # The region ID. You can call the [DescribeRegions](~~354276~~) operation to query the most recent list of regions in which async replication is supported.
         self.region_id = region_id  # type: str
+        # Number of days to retain the destination snapshot. The range of values is greater than 1.
         self.retain_days = retain_days  # type: int
 
     def validate(self):
@@ -8821,7 +9057,13 @@ class UpdateEnterpriseSnapshotPolicyRequestCrossRegionCopyInfoRegions(TeaModel):
 
 class UpdateEnterpriseSnapshotPolicyRequestCrossRegionCopyInfo(TeaModel):
     def __init__(self, enabled=None, regions=None):
+        # Whether cross-region replication is enabled. The range of values:
+        # 
+        # - true
+        # 
+        # - false
         self.enabled = enabled  # type: bool
+        # Destination region information.
         self.regions = regions  # type: list[UpdateEnterpriseSnapshotPolicyRequestCrossRegionCopyInfoRegions]
 
     def validate(self):
@@ -8858,8 +9100,14 @@ class UpdateEnterpriseSnapshotPolicyRequestCrossRegionCopyInfo(TeaModel):
 
 class UpdateEnterpriseSnapshotPolicyRequestRetainRule(TeaModel):
     def __init__(self, number=None, time_interval=None, time_unit=None):
+        # Maximum number of retained snapshots.
         self.number = number  # type: int
+        # The time interval , valid value greater than 1.
         self.time_interval = time_interval  # type: int
+        # The unit of time, valid values:
+        # 
+        # - DAYS
+        # - WEEKS
         self.time_unit = time_unit  # type: str
 
     def validate(self):
@@ -8892,6 +9140,9 @@ class UpdateEnterpriseSnapshotPolicyRequestRetainRule(TeaModel):
 
 class UpdateEnterpriseSnapshotPolicyRequestSchedule(TeaModel):
     def __init__(self, cron_expression=None):
+        # The time when the policy will to be scheduled. Valid values: Set the parameter in a cron expression.
+        # 
+        # For example, you can use `0 0 4 1/1 * ?` to specify 04:00:00 (UTC+8) on the first day of each month.
         self.cron_expression = cron_expression  # type: str
 
     def validate(self):
@@ -8916,8 +9167,18 @@ class UpdateEnterpriseSnapshotPolicyRequestSchedule(TeaModel):
 
 class UpdateEnterpriseSnapshotPolicyRequestSpecialRetainRulesRules(TeaModel):
     def __init__(self, special_period_unit=None, time_interval=None, time_unit=None):
+        # The periodic unit for specially retained snapshots. If configured to WEEKS, it provides special retention for the first snapshot of each week. The retention period is determined by TimeUnit and TimeInterval. The range of values are:
+        # - WEEKS
+        # - MONTHS
+        # - YEARS"
         self.special_period_unit = special_period_unit  # type: str
+        # Retention Time Value. The range of values is greater than 1.
         self.time_interval = time_interval  # type: int
+        # Retention time unit for special snapshots. The range of values:
+        # 
+        # - DAYS
+        # 
+        # - WEEKS
         self.time_unit = time_unit  # type: str
 
     def validate(self):
@@ -8950,7 +9211,12 @@ class UpdateEnterpriseSnapshotPolicyRequestSpecialRetainRulesRules(TeaModel):
 
 class UpdateEnterpriseSnapshotPolicyRequestSpecialRetainRules(TeaModel):
     def __init__(self, enabled=None, rules=None):
+        # Indicates whether the special retention is enabled.
+        # 
+        # *   true: enable
+        # *   false: disable
         self.enabled = enabled  # type: bool
+        # The special retention rules.
         self.rules = rules  # type: list[UpdateEnterpriseSnapshotPolicyRequestSpecialRetainRulesRules]
 
     def validate(self):
@@ -8987,6 +9253,11 @@ class UpdateEnterpriseSnapshotPolicyRequestSpecialRetainRules(TeaModel):
 
 class UpdateEnterpriseSnapshotPolicyRequestStorageRule(TeaModel):
     def __init__(self, enable_immediate_access=None):
+        # Whether to enable the rapid availability of snapshots. The range of values:
+        # 
+        # - true
+        # 
+        # - false
         self.enable_immediate_access = enable_immediate_access  # type: bool
 
     def validate(self):
@@ -9012,16 +9283,30 @@ class UpdateEnterpriseSnapshotPolicyRequestStorageRule(TeaModel):
 class UpdateEnterpriseSnapshotPolicyRequest(TeaModel):
     def __init__(self, client_token=None, cross_region_copy_info=None, desc=None, name=None, policy_id=None,
                  region_id=None, retain_rule=None, schedule=None, special_retain_rules=None, state=None, storage_rule=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
+        # Snapshot replication destination information.
         self.cross_region_copy_info = cross_region_copy_info  # type: UpdateEnterpriseSnapshotPolicyRequestCrossRegionCopyInfo
+        # The description of the policy.
         self.desc = desc  # type: str
+        # The name of the policy.
         self.name = name  # type: str
+        # The id of the policy.
         self.policy_id = policy_id  # type: str
+        # The region ID . You can call the [DescribeRegions](~~354276~~) operation to query the most recent list of regions in which snapshot policy is supported.
         self.region_id = region_id  # type: str
+        # Snapshot retention rule.
         self.retain_rule = retain_rule  # type: UpdateEnterpriseSnapshotPolicyRequestRetainRule
+        # The rule for scheduling.
         self.schedule = schedule  # type: UpdateEnterpriseSnapshotPolicyRequestSchedule
+        # The special snapshot retention rules.
         self.special_retain_rules = special_retain_rules  # type: UpdateEnterpriseSnapshotPolicyRequestSpecialRetainRules
+        # The status of the policy. Valid values:
+        # 
+        # *   **ENABLED**: Enable snapshot policy execution.
+        # *   **DISABLED**: Disable snapshot policy execution.
         self.state = state  # type: str
+        # Advanced snapshot features.
         self.storage_rule = storage_rule  # type: UpdateEnterpriseSnapshotPolicyRequestStorageRule
 
     def validate(self):
@@ -9102,16 +9387,30 @@ class UpdateEnterpriseSnapshotPolicyShrinkRequest(TeaModel):
     def __init__(self, client_token=None, cross_region_copy_info_shrink=None, desc=None, name=None, policy_id=None,
                  region_id=None, retain_rule_shrink=None, schedule_shrink=None, special_retain_rules_shrink=None, state=None,
                  storage_rule_shrink=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
+        # Snapshot replication destination information.
         self.cross_region_copy_info_shrink = cross_region_copy_info_shrink  # type: str
+        # The description of the policy.
         self.desc = desc  # type: str
+        # The name of the policy.
         self.name = name  # type: str
+        # The id of the policy.
         self.policy_id = policy_id  # type: str
+        # The region ID . You can call the [DescribeRegions](~~354276~~) operation to query the most recent list of regions in which snapshot policy is supported.
         self.region_id = region_id  # type: str
+        # Snapshot retention rule.
         self.retain_rule_shrink = retain_rule_shrink  # type: str
+        # The rule for scheduling.
         self.schedule_shrink = schedule_shrink  # type: str
+        # The special snapshot retention rules.
         self.special_retain_rules_shrink = special_retain_rules_shrink  # type: str
+        # The status of the policy. Valid values:
+        # 
+        # *   **ENABLED**: Enable snapshot policy execution.
+        # *   **DISABLED**: Disable snapshot policy execution.
         self.state = state  # type: str
+        # Advanced snapshot features.
         self.storage_rule_shrink = storage_rule_shrink  # type: str
 
     def validate(self):
@@ -9176,6 +9475,7 @@ class UpdateEnterpriseSnapshotPolicyShrinkRequest(TeaModel):
 
 class UpdateEnterpriseSnapshotPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9233,6 +9533,119 @@ class UpdateEnterpriseSnapshotPolicyResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateEnterpriseSnapshotPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateSolutionInstanceAttributeRequest(TeaModel):
+    def __init__(self, client_token=None, description=None, name=None, region_id=None, solution_instance_id=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The **ClientToken** value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
+        self.client_token = client_token  # type: str
+        # The description of the instance.
+        self.description = description  # type: str
+        # The name of the instance.
+        self.name = name  # type: str
+        # The ID of the region where the dedicated block storage cluster resides. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The ID of the instance.
+        self.solution_instance_id = solution_instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateSolutionInstanceAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.solution_instance_id is not None:
+            result['SolutionInstanceId'] = self.solution_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SolutionInstanceId') is not None:
+            self.solution_instance_id = m.get('SolutionInstanceId')
+        return self
+
+
+class UpdateSolutionInstanceAttributeResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateSolutionInstanceAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateSolutionInstanceAttributeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateSolutionInstanceAttributeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateSolutionInstanceAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateSolutionInstanceAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

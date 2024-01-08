@@ -1239,6 +1239,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.disk_ids):
+            query['DiskIds'] = request.disk_ids
         if not UtilClient.is_unset(request.max_results):
             query['MaxResults'] = request.max_results
         if not UtilClient.is_unset(request.next_token):
@@ -2645,3 +2647,39 @@ class Client(OpenApiClient):
     def update_enterprise_snapshot_policy(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_enterprise_snapshot_policy_with_options(request, runtime)
+
+    def update_solution_instance_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.solution_instance_id):
+            query['SolutionInstanceId'] = request.solution_instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateSolutionInstanceAttribute',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.UpdateSolutionInstanceAttributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_solution_instance_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_solution_instance_attribute_with_options(request, runtime)
