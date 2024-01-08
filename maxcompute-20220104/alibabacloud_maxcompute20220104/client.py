@@ -344,9 +344,14 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_package_with_options(project_name, package_name, request, headers, runtime)
 
-    def get_project_with_options(self, project_name, headers, runtime):
+    def get_project_with_options(self, project_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.verbose):
+            query['verbose'] = request.verbose
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetProject',
@@ -364,10 +369,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_project(self, project_name):
+    def get_project(self, project_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_project_with_options(project_name, headers, runtime)
+        return self.get_project_with_options(project_name, request, headers, runtime)
 
     def get_quota_with_options(self, nickname, request, headers, runtime):
         UtilClient.validate_model(request)
