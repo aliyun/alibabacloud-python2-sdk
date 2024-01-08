@@ -5123,6 +5123,30 @@ class SubmitAudioTo2DAvatarVideoTaskRequestApp(TeaModel):
         return self
 
 
+class SubmitAudioTo2DAvatarVideoTaskRequestAudioInfo(TeaModel):
+    def __init__(self, sample_rate=None):
+        self.sample_rate = sample_rate  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitAudioTo2DAvatarVideoTaskRequestAudioInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sample_rate is not None:
+            result['SampleRate'] = self.sample_rate
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SampleRate') is not None:
+            self.sample_rate = m.get('SampleRate')
+        return self
+
+
 class SubmitAudioTo2DAvatarVideoTaskRequestAvatarInfo(TeaModel):
     def __init__(self, code=None, height=None, width=None, x=None, y=None):
         self.code = code  # type: str
@@ -5207,9 +5231,10 @@ class SubmitAudioTo2DAvatarVideoTaskRequestVideoInfo(TeaModel):
 
 
 class SubmitAudioTo2DAvatarVideoTaskRequest(TeaModel):
-    def __init__(self, app=None, avatar_info=None, callback=None, callback_params=None, ext_params=None,
-                 tenant_id=None, title=None, url=None, video_info=None):
+    def __init__(self, app=None, audio_info=None, avatar_info=None, callback=None, callback_params=None,
+                 ext_params=None, tenant_id=None, title=None, url=None, video_info=None):
         self.app = app  # type: SubmitAudioTo2DAvatarVideoTaskRequestApp
+        self.audio_info = audio_info  # type: SubmitAudioTo2DAvatarVideoTaskRequestAudioInfo
         self.avatar_info = avatar_info  # type: SubmitAudioTo2DAvatarVideoTaskRequestAvatarInfo
         self.callback = callback  # type: bool
         self.callback_params = callback_params  # type: str
@@ -5222,6 +5247,8 @@ class SubmitAudioTo2DAvatarVideoTaskRequest(TeaModel):
     def validate(self):
         if self.app:
             self.app.validate()
+        if self.audio_info:
+            self.audio_info.validate()
         if self.avatar_info:
             self.avatar_info.validate()
         if self.video_info:
@@ -5235,6 +5262,8 @@ class SubmitAudioTo2DAvatarVideoTaskRequest(TeaModel):
         result = dict()
         if self.app is not None:
             result['App'] = self.app.to_map()
+        if self.audio_info is not None:
+            result['AudioInfo'] = self.audio_info.to_map()
         if self.avatar_info is not None:
             result['AvatarInfo'] = self.avatar_info.to_map()
         if self.callback is not None:
@@ -5258,6 +5287,9 @@ class SubmitAudioTo2DAvatarVideoTaskRequest(TeaModel):
         if m.get('App') is not None:
             temp_model = SubmitAudioTo2DAvatarVideoTaskRequestApp()
             self.app = temp_model.from_map(m['App'])
+        if m.get('AudioInfo') is not None:
+            temp_model = SubmitAudioTo2DAvatarVideoTaskRequestAudioInfo()
+            self.audio_info = temp_model.from_map(m['AudioInfo'])
         if m.get('AvatarInfo') is not None:
             temp_model = SubmitAudioTo2DAvatarVideoTaskRequestAvatarInfo()
             self.avatar_info = temp_model.from_map(m['AvatarInfo'])
@@ -5280,9 +5312,10 @@ class SubmitAudioTo2DAvatarVideoTaskRequest(TeaModel):
 
 
 class SubmitAudioTo2DAvatarVideoTaskShrinkRequest(TeaModel):
-    def __init__(self, app_shrink=None, avatar_info_shrink=None, callback=None, callback_params=None,
-                 ext_params=None, tenant_id=None, title=None, url=None, video_info_shrink=None):
+    def __init__(self, app_shrink=None, audio_info_shrink=None, avatar_info_shrink=None, callback=None,
+                 callback_params=None, ext_params=None, tenant_id=None, title=None, url=None, video_info_shrink=None):
         self.app_shrink = app_shrink  # type: str
+        self.audio_info_shrink = audio_info_shrink  # type: str
         self.avatar_info_shrink = avatar_info_shrink  # type: str
         self.callback = callback  # type: bool
         self.callback_params = callback_params  # type: str
@@ -5303,6 +5336,8 @@ class SubmitAudioTo2DAvatarVideoTaskShrinkRequest(TeaModel):
         result = dict()
         if self.app_shrink is not None:
             result['App'] = self.app_shrink
+        if self.audio_info_shrink is not None:
+            result['AudioInfo'] = self.audio_info_shrink
         if self.avatar_info_shrink is not None:
             result['AvatarInfo'] = self.avatar_info_shrink
         if self.callback is not None:
@@ -5325,6 +5360,8 @@ class SubmitAudioTo2DAvatarVideoTaskShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('App') is not None:
             self.app_shrink = m.get('App')
+        if m.get('AudioInfo') is not None:
+            self.audio_info_shrink = m.get('AudioInfo')
         if m.get('AvatarInfo') is not None:
             self.avatar_info_shrink = m.get('AvatarInfo')
         if m.get('Callback') is not None:
@@ -5477,6 +5514,30 @@ class SubmitAudioTo3DAvatarVideoTaskRequestApp(TeaModel):
         return self
 
 
+class SubmitAudioTo3DAvatarVideoTaskRequestAudioInfo(TeaModel):
+    def __init__(self, sample_rate=None):
+        self.sample_rate = sample_rate  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitAudioTo3DAvatarVideoTaskRequestAudioInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sample_rate is not None:
+            result['SampleRate'] = self.sample_rate
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SampleRate') is not None:
+            self.sample_rate = m.get('SampleRate')
+        return self
+
+
 class SubmitAudioTo3DAvatarVideoTaskRequestAvatarInfo(TeaModel):
     def __init__(self, angle=None, code=None, industry_code=None, locate=None):
         self.angle = angle  # type: int
@@ -5556,9 +5617,10 @@ class SubmitAudioTo3DAvatarVideoTaskRequestVideoInfo(TeaModel):
 
 
 class SubmitAudioTo3DAvatarVideoTaskRequest(TeaModel):
-    def __init__(self, app=None, avatar_info=None, callback=None, callback_params=None, ext_params=None,
-                 tenant_id=None, title=None, url=None, video_info=None):
+    def __init__(self, app=None, audio_info=None, avatar_info=None, callback=None, callback_params=None,
+                 ext_params=None, tenant_id=None, title=None, url=None, video_info=None):
         self.app = app  # type: SubmitAudioTo3DAvatarVideoTaskRequestApp
+        self.audio_info = audio_info  # type: SubmitAudioTo3DAvatarVideoTaskRequestAudioInfo
         self.avatar_info = avatar_info  # type: SubmitAudioTo3DAvatarVideoTaskRequestAvatarInfo
         self.callback = callback  # type: bool
         self.callback_params = callback_params  # type: str
@@ -5571,6 +5633,8 @@ class SubmitAudioTo3DAvatarVideoTaskRequest(TeaModel):
     def validate(self):
         if self.app:
             self.app.validate()
+        if self.audio_info:
+            self.audio_info.validate()
         if self.avatar_info:
             self.avatar_info.validate()
         if self.video_info:
@@ -5584,6 +5648,8 @@ class SubmitAudioTo3DAvatarVideoTaskRequest(TeaModel):
         result = dict()
         if self.app is not None:
             result['App'] = self.app.to_map()
+        if self.audio_info is not None:
+            result['AudioInfo'] = self.audio_info.to_map()
         if self.avatar_info is not None:
             result['AvatarInfo'] = self.avatar_info.to_map()
         if self.callback is not None:
@@ -5607,6 +5673,9 @@ class SubmitAudioTo3DAvatarVideoTaskRequest(TeaModel):
         if m.get('App') is not None:
             temp_model = SubmitAudioTo3DAvatarVideoTaskRequestApp()
             self.app = temp_model.from_map(m['App'])
+        if m.get('AudioInfo') is not None:
+            temp_model = SubmitAudioTo3DAvatarVideoTaskRequestAudioInfo()
+            self.audio_info = temp_model.from_map(m['AudioInfo'])
         if m.get('AvatarInfo') is not None:
             temp_model = SubmitAudioTo3DAvatarVideoTaskRequestAvatarInfo()
             self.avatar_info = temp_model.from_map(m['AvatarInfo'])
@@ -5629,9 +5698,10 @@ class SubmitAudioTo3DAvatarVideoTaskRequest(TeaModel):
 
 
 class SubmitAudioTo3DAvatarVideoTaskShrinkRequest(TeaModel):
-    def __init__(self, app_shrink=None, avatar_info_shrink=None, callback=None, callback_params=None,
-                 ext_params=None, tenant_id=None, title=None, url=None, video_info_shrink=None):
+    def __init__(self, app_shrink=None, audio_info_shrink=None, avatar_info_shrink=None, callback=None,
+                 callback_params=None, ext_params=None, tenant_id=None, title=None, url=None, video_info_shrink=None):
         self.app_shrink = app_shrink  # type: str
+        self.audio_info_shrink = audio_info_shrink  # type: str
         self.avatar_info_shrink = avatar_info_shrink  # type: str
         self.callback = callback  # type: bool
         self.callback_params = callback_params  # type: str
@@ -5652,6 +5722,8 @@ class SubmitAudioTo3DAvatarVideoTaskShrinkRequest(TeaModel):
         result = dict()
         if self.app_shrink is not None:
             result['App'] = self.app_shrink
+        if self.audio_info_shrink is not None:
+            result['AudioInfo'] = self.audio_info_shrink
         if self.avatar_info_shrink is not None:
             result['AvatarInfo'] = self.avatar_info_shrink
         if self.callback is not None:
@@ -5674,6 +5746,8 @@ class SubmitAudioTo3DAvatarVideoTaskShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('App') is not None:
             self.app_shrink = m.get('App')
+        if m.get('AudioInfo') is not None:
+            self.audio_info_shrink = m.get('AudioInfo')
         if m.get('AvatarInfo') is not None:
             self.avatar_info_shrink = m.get('AvatarInfo')
         if m.get('Callback') is not None:
@@ -6073,8 +6147,9 @@ class SubmitTextTo2DAvatarVideoTaskRequestApp(TeaModel):
 
 
 class SubmitTextTo2DAvatarVideoTaskRequestAudioInfo(TeaModel):
-    def __init__(self, pitch_rate=None, speech_rate=None, voice=None, volume=None):
+    def __init__(self, pitch_rate=None, sample_rate=None, speech_rate=None, voice=None, volume=None):
         self.pitch_rate = pitch_rate  # type: int
+        self.sample_rate = sample_rate  # type: int
         self.speech_rate = speech_rate  # type: int
         self.voice = voice  # type: str
         self.volume = volume  # type: int
@@ -6090,6 +6165,8 @@ class SubmitTextTo2DAvatarVideoTaskRequestAudioInfo(TeaModel):
         result = dict()
         if self.pitch_rate is not None:
             result['PitchRate'] = self.pitch_rate
+        if self.sample_rate is not None:
+            result['SampleRate'] = self.sample_rate
         if self.speech_rate is not None:
             result['SpeechRate'] = self.speech_rate
         if self.voice is not None:
@@ -6102,6 +6179,8 @@ class SubmitTextTo2DAvatarVideoTaskRequestAudioInfo(TeaModel):
         m = m or dict()
         if m.get('PitchRate') is not None:
             self.pitch_rate = m.get('PitchRate')
+        if m.get('SampleRate') is not None:
+            self.sample_rate = m.get('SampleRate')
         if m.get('SpeechRate') is not None:
             self.speech_rate = m.get('SpeechRate')
         if m.get('Voice') is not None:
@@ -6155,18 +6234,64 @@ class SubmitTextTo2DAvatarVideoTaskRequestAvatarInfo(TeaModel):
         return self
 
 
+class SubmitTextTo2DAvatarVideoTaskRequestVideoInfoSubtitleStyle(TeaModel):
+    def __init__(self, color=None, name=None, outline_color=None, size=None, y=None):
+        self.color = color  # type: str
+        self.name = name  # type: str
+        self.outline_color = outline_color  # type: str
+        self.size = size  # type: int
+        self.y = y  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitTextTo2DAvatarVideoTaskRequestVideoInfoSubtitleStyle, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.color is not None:
+            result['Color'] = self.color
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.outline_color is not None:
+            result['OutlineColor'] = self.outline_color
+        if self.size is not None:
+            result['Size'] = self.size
+        if self.y is not None:
+            result['Y'] = self.y
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Color') is not None:
+            self.color = m.get('Color')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OutlineColor') is not None:
+            self.outline_color = m.get('OutlineColor')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        if m.get('Y') is not None:
+            self.y = m.get('Y')
+        return self
+
+
 class SubmitTextTo2DAvatarVideoTaskRequestVideoInfo(TeaModel):
     def __init__(self, alpha_format=None, background_image_url=None, is_alpha=None, is_subtitles=None,
-                 resolution=None, subtitle_embedded=None):
+                 resolution=None, subtitle_embedded=None, subtitle_style=None):
         self.alpha_format = alpha_format  # type: int
         self.background_image_url = background_image_url  # type: str
         self.is_alpha = is_alpha  # type: bool
         self.is_subtitles = is_subtitles  # type: bool
         self.resolution = resolution  # type: int
         self.subtitle_embedded = subtitle_embedded  # type: bool
+        self.subtitle_style = subtitle_style  # type: SubmitTextTo2DAvatarVideoTaskRequestVideoInfoSubtitleStyle
 
     def validate(self):
-        pass
+        if self.subtitle_style:
+            self.subtitle_style.validate()
 
     def to_map(self):
         _map = super(SubmitTextTo2DAvatarVideoTaskRequestVideoInfo, self).to_map()
@@ -6186,6 +6311,8 @@ class SubmitTextTo2DAvatarVideoTaskRequestVideoInfo(TeaModel):
             result['Resolution'] = self.resolution
         if self.subtitle_embedded is not None:
             result['SubtitleEmbedded'] = self.subtitle_embedded
+        if self.subtitle_style is not None:
+            result['SubtitleStyle'] = self.subtitle_style.to_map()
         return result
 
     def from_map(self, m=None):
@@ -6202,6 +6329,9 @@ class SubmitTextTo2DAvatarVideoTaskRequestVideoInfo(TeaModel):
             self.resolution = m.get('Resolution')
         if m.get('SubtitleEmbedded') is not None:
             self.subtitle_embedded = m.get('SubtitleEmbedded')
+        if m.get('SubtitleStyle') is not None:
+            temp_model = SubmitTextTo2DAvatarVideoTaskRequestVideoInfoSubtitleStyle()
+            self.subtitle_style = temp_model.from_map(m['SubtitleStyle'])
         return self
 
 
@@ -6490,8 +6620,9 @@ class SubmitTextTo3DAvatarVideoTaskRequestApp(TeaModel):
 
 
 class SubmitTextTo3DAvatarVideoTaskRequestAudioInfo(TeaModel):
-    def __init__(self, pitch_rate=None, speech_rate=None, voice=None, volume=None):
+    def __init__(self, pitch_rate=None, sample_rate=None, speech_rate=None, voice=None, volume=None):
         self.pitch_rate = pitch_rate  # type: int
+        self.sample_rate = sample_rate  # type: int
         self.speech_rate = speech_rate  # type: int
         self.voice = voice  # type: str
         self.volume = volume  # type: int
@@ -6507,6 +6638,8 @@ class SubmitTextTo3DAvatarVideoTaskRequestAudioInfo(TeaModel):
         result = dict()
         if self.pitch_rate is not None:
             result['PitchRate'] = self.pitch_rate
+        if self.sample_rate is not None:
+            result['SampleRate'] = self.sample_rate
         if self.speech_rate is not None:
             result['SpeechRate'] = self.speech_rate
         if self.voice is not None:
@@ -6519,6 +6652,8 @@ class SubmitTextTo3DAvatarVideoTaskRequestAudioInfo(TeaModel):
         m = m or dict()
         if m.get('PitchRate') is not None:
             self.pitch_rate = m.get('PitchRate')
+        if m.get('SampleRate') is not None:
+            self.sample_rate = m.get('SampleRate')
         if m.get('SpeechRate') is not None:
             self.speech_rate = m.get('SpeechRate')
         if m.get('Voice') is not None:
@@ -6567,18 +6702,64 @@ class SubmitTextTo3DAvatarVideoTaskRequestAvatarInfo(TeaModel):
         return self
 
 
+class SubmitTextTo3DAvatarVideoTaskRequestVideoInfoSubtitleStyle(TeaModel):
+    def __init__(self, color=None, name=None, outline_color=None, size=None, y=None):
+        self.color = color  # type: str
+        self.name = name  # type: str
+        self.outline_color = outline_color  # type: str
+        self.size = size  # type: int
+        self.y = y  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitTextTo3DAvatarVideoTaskRequestVideoInfoSubtitleStyle, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.color is not None:
+            result['Color'] = self.color
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.outline_color is not None:
+            result['OutlineColor'] = self.outline_color
+        if self.size is not None:
+            result['Size'] = self.size
+        if self.y is not None:
+            result['Y'] = self.y
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Color') is not None:
+            self.color = m.get('Color')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OutlineColor') is not None:
+            self.outline_color = m.get('OutlineColor')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        if m.get('Y') is not None:
+            self.y = m.get('Y')
+        return self
+
+
 class SubmitTextTo3DAvatarVideoTaskRequestVideoInfo(TeaModel):
     def __init__(self, alpha_format=None, background_image_url=None, is_alpha=None, is_subtitles=None,
-                 resolution=None, subtitle_embedded=None):
+                 resolution=None, subtitle_embedded=None, subtitle_style=None):
         self.alpha_format = alpha_format  # type: int
         self.background_image_url = background_image_url  # type: str
         self.is_alpha = is_alpha  # type: bool
         self.is_subtitles = is_subtitles  # type: bool
         self.resolution = resolution  # type: int
         self.subtitle_embedded = subtitle_embedded  # type: bool
+        self.subtitle_style = subtitle_style  # type: SubmitTextTo3DAvatarVideoTaskRequestVideoInfoSubtitleStyle
 
     def validate(self):
-        pass
+        if self.subtitle_style:
+            self.subtitle_style.validate()
 
     def to_map(self):
         _map = super(SubmitTextTo3DAvatarVideoTaskRequestVideoInfo, self).to_map()
@@ -6598,6 +6779,8 @@ class SubmitTextTo3DAvatarVideoTaskRequestVideoInfo(TeaModel):
             result['Resolution'] = self.resolution
         if self.subtitle_embedded is not None:
             result['SubtitleEmbedded'] = self.subtitle_embedded
+        if self.subtitle_style is not None:
+            result['SubtitleStyle'] = self.subtitle_style.to_map()
         return result
 
     def from_map(self, m=None):
@@ -6614,6 +6797,9 @@ class SubmitTextTo3DAvatarVideoTaskRequestVideoInfo(TeaModel):
             self.resolution = m.get('Resolution')
         if m.get('SubtitleEmbedded') is not None:
             self.subtitle_embedded = m.get('SubtitleEmbedded')
+        if m.get('SubtitleStyle') is not None:
+            temp_model = SubmitTextTo3DAvatarVideoTaskRequestVideoInfoSubtitleStyle()
+            self.subtitle_style = temp_model.from_map(m['SubtitleStyle'])
         return self
 
 
