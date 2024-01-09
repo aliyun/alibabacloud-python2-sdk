@@ -208,6 +208,8 @@ class Client(OpenApiClient):
             query['DBInstanceId'] = request.dbinstance_id
         if not UtilClient.is_unset(request.dimension):
             query['Dimension'] = request.dimension
+        if not UtilClient.is_unset(request.external_storage):
+            query['ExternalStorage'] = request.external_storage
         if not UtilClient.is_unset(request.full_text_retrieval_fields):
             query['FullTextRetrievalFields'] = request.full_text_retrieval_fields
         if not UtilClient.is_unset(request.hnsw_m):
@@ -313,6 +315,8 @@ class Client(OpenApiClient):
             query['Period'] = request.period
         if not UtilClient.is_unset(request.private_ip_address):
             query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.prod_type):
+            query['ProdType'] = request.prod_type
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_group_id):
@@ -456,6 +460,8 @@ class Client(OpenApiClient):
             query['DBInstanceId'] = request.dbinstance_id
         if not UtilClient.is_unset(request.embedding_model):
             query['EmbeddingModel'] = request.embedding_model
+        if not UtilClient.is_unset(request.external_storage):
+            query['ExternalStorage'] = request.external_storage
         if not UtilClient.is_unset(request.full_text_retrieval_fields):
             query['FullTextRetrievalFields'] = request.full_text_retrieval_fields
         if not UtilClient.is_unset(request.hnsw_m):
@@ -642,6 +648,8 @@ class Client(OpenApiClient):
             query['DBInstanceId'] = request.dbinstance_id
         if not UtilClient.is_unset(request.dimension):
             query['Dimension'] = request.dimension
+        if not UtilClient.is_unset(request.external_storage):
+            query['ExternalStorage'] = request.external_storage
         if not UtilClient.is_unset(request.hnsw_m):
             query['HnswM'] = request.hnsw_m
         if not UtilClient.is_unset(request.manager_account):
@@ -1080,6 +1088,50 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_accounts_with_options(request, runtime)
+
+    def describe_active_sqlrecords_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.keyword):
+            query['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.max_duration):
+            query['MaxDuration'] = request.max_duration
+        if not UtilClient.is_unset(request.min_duration):
+            query['MinDuration'] = request.min_duration
+        if not UtilClient.is_unset(request.order):
+            query['Order'] = request.order
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.user):
+            query['User'] = request.user
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeActiveSQLRecords',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.DescribeActiveSQLRecordsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_active_sqlrecords(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_active_sqlrecords_with_options(request, runtime)
 
     def describe_available_resources_with_options(self, request, runtime):
         """

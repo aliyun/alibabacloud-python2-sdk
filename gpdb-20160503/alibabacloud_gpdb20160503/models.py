@@ -373,12 +373,13 @@ class CreateAccountResponse(TeaModel):
 
 
 class CreateCollectionRequest(TeaModel):
-    def __init__(self, collection=None, dbinstance_id=None, dimension=None, full_text_retrieval_fields=None,
-                 hnsw_m=None, manager_account=None, manager_account_password=None, metadata=None, metrics=None,
-                 namespace=None, owner_id=None, parser=None, pq_enable=None, region_id=None):
+    def __init__(self, collection=None, dbinstance_id=None, dimension=None, external_storage=None,
+                 full_text_retrieval_fields=None, hnsw_m=None, manager_account=None, manager_account_password=None, metadata=None,
+                 metrics=None, namespace=None, owner_id=None, parser=None, pq_enable=None, region_id=None):
         self.collection = collection  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
         self.dimension = dimension  # type: long
+        self.external_storage = external_storage  # type: int
         self.full_text_retrieval_fields = full_text_retrieval_fields  # type: str
         self.hnsw_m = hnsw_m  # type: int
         self.manager_account = manager_account  # type: str
@@ -406,6 +407,8 @@ class CreateCollectionRequest(TeaModel):
             result['DBInstanceId'] = self.dbinstance_id
         if self.dimension is not None:
             result['Dimension'] = self.dimension
+        if self.external_storage is not None:
+            result['ExternalStorage'] = self.external_storage
         if self.full_text_retrieval_fields is not None:
             result['FullTextRetrievalFields'] = self.full_text_retrieval_fields
         if self.hnsw_m is not None:
@@ -438,6 +441,8 @@ class CreateCollectionRequest(TeaModel):
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('Dimension') is not None:
             self.dimension = m.get('Dimension')
+        if m.get('ExternalStorage') is not None:
+            self.external_storage = m.get('ExternalStorage')
         if m.get('FullTextRetrievalFields') is not None:
             self.full_text_retrieval_fields = m.get('FullTextRetrievalFields')
         if m.get('HnswM') is not None:
@@ -580,10 +585,10 @@ class CreateDBInstanceRequest(TeaModel):
                  dbinstance_class=None, dbinstance_description=None, dbinstance_group_count=None, dbinstance_mode=None,
                  enable_ssl=None, encryption_key=None, encryption_type=None, engine=None, engine_version=None, idle_time=None,
                  instance_network_type=None, instance_spec=None, master_cu=None, master_node_num=None, owner_id=None, pay_type=None,
-                 period=None, private_ip_address=None, region_id=None, resource_group_id=None, security_iplist=None,
-                 seg_disk_performance_level=None, seg_node_num=None, seg_storage_type=None, serverless_mode=None, serverless_resource=None,
-                 src_db_instance_name=None, storage_size=None, storage_type=None, tag=None, used_time=None, vpcid=None, v_switch_id=None,
-                 vector_configuration_status=None, zone_id=None):
+                 period=None, private_ip_address=None, prod_type=None, region_id=None, resource_group_id=None,
+                 security_iplist=None, seg_disk_performance_level=None, seg_node_num=None, seg_storage_type=None,
+                 serverless_mode=None, serverless_resource=None, src_db_instance_name=None, storage_size=None, storage_type=None,
+                 tag=None, used_time=None, vpcid=None, v_switch_id=None, vector_configuration_status=None, zone_id=None):
         # The ID of the backup set.
         # 
         # >  You can call the [DescribeDataBackups](~~210093~~) operation to query the IDs of all backup sets in the instance.
@@ -707,6 +712,7 @@ class CreateDBInstanceRequest(TeaModel):
         self.period = period  # type: str
         # This parameter is no longer used.
         self.private_ip_address = private_ip_address  # type: str
+        self.prod_type = prod_type  # type: str
         # The ID of the region. You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         # The ID of the resource group to which the instance belongs.
@@ -854,6 +860,8 @@ class CreateDBInstanceRequest(TeaModel):
             result['Period'] = self.period
         if self.private_ip_address is not None:
             result['PrivateIpAddress'] = self.private_ip_address
+        if self.prod_type is not None:
+            result['ProdType'] = self.prod_type
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
@@ -938,6 +946,8 @@ class CreateDBInstanceRequest(TeaModel):
             self.period = m.get('Period')
         if m.get('PrivateIpAddress') is not None:
             self.private_ip_address = m.get('PrivateIpAddress')
+        if m.get('ProdType') is not None:
+            self.prod_type = m.get('ProdType')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
@@ -1263,12 +1273,13 @@ class CreateDBInstancePlanResponse(TeaModel):
 
 
 class CreateDocumentCollectionRequest(TeaModel):
-    def __init__(self, collection=None, dbinstance_id=None, embedding_model=None, full_text_retrieval_fields=None,
-                 hnsw_m=None, manager_account=None, manager_account_password=None, metadata=None, metrics=None,
-                 namespace=None, owner_id=None, parser=None, pq_enable=None, region_id=None):
+    def __init__(self, collection=None, dbinstance_id=None, embedding_model=None, external_storage=None,
+                 full_text_retrieval_fields=None, hnsw_m=None, manager_account=None, manager_account_password=None, metadata=None,
+                 metrics=None, namespace=None, owner_id=None, parser=None, pq_enable=None, region_id=None):
         self.collection = collection  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
         self.embedding_model = embedding_model  # type: str
+        self.external_storage = external_storage  # type: int
         self.full_text_retrieval_fields = full_text_retrieval_fields  # type: str
         self.hnsw_m = hnsw_m  # type: int
         self.manager_account = manager_account  # type: str
@@ -1296,6 +1307,8 @@ class CreateDocumentCollectionRequest(TeaModel):
             result['DBInstanceId'] = self.dbinstance_id
         if self.embedding_model is not None:
             result['EmbeddingModel'] = self.embedding_model
+        if self.external_storage is not None:
+            result['ExternalStorage'] = self.external_storage
         if self.full_text_retrieval_fields is not None:
             result['FullTextRetrievalFields'] = self.full_text_retrieval_fields
         if self.hnsw_m is not None:
@@ -1328,6 +1341,8 @@ class CreateDocumentCollectionRequest(TeaModel):
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('EmbeddingModel') is not None:
             self.embedding_model = m.get('EmbeddingModel')
+        if m.get('ExternalStorage') is not None:
+            self.external_storage = m.get('ExternalStorage')
         if m.get('FullTextRetrievalFields') is not None:
             self.full_text_retrieval_fields = m.get('FullTextRetrievalFields')
         if m.get('HnswM') is not None:
@@ -1782,11 +1797,13 @@ class CreateServiceLinkedRoleResponse(TeaModel):
 
 
 class CreateVectorIndexRequest(TeaModel):
-    def __init__(self, collection=None, dbinstance_id=None, dimension=None, hnsw_m=None, manager_account=None,
-                 manager_account_password=None, metrics=None, namespace=None, owner_id=None, pq_enable=None, region_id=None):
+    def __init__(self, collection=None, dbinstance_id=None, dimension=None, external_storage=None, hnsw_m=None,
+                 manager_account=None, manager_account_password=None, metrics=None, namespace=None, owner_id=None, pq_enable=None,
+                 region_id=None):
         self.collection = collection  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
         self.dimension = dimension  # type: int
+        self.external_storage = external_storage  # type: int
         self.hnsw_m = hnsw_m  # type: int
         self.manager_account = manager_account  # type: str
         self.manager_account_password = manager_account_password  # type: str
@@ -1812,6 +1829,8 @@ class CreateVectorIndexRequest(TeaModel):
             result['DBInstanceId'] = self.dbinstance_id
         if self.dimension is not None:
             result['Dimension'] = self.dimension
+        if self.external_storage is not None:
+            result['ExternalStorage'] = self.external_storage
         if self.hnsw_m is not None:
             result['HnswM'] = self.hnsw_m
         if self.manager_account is not None:
@@ -1838,6 +1857,8 @@ class CreateVectorIndexRequest(TeaModel):
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('Dimension') is not None:
             self.dimension = m.get('Dimension')
+        if m.get('ExternalStorage') is not None:
+            self.external_storage = m.get('ExternalStorage')
         if m.get('HnswM') is not None:
             self.hnsw_m = m.get('HnswM')
         if m.get('ManagerAccount') is not None:
@@ -3181,6 +3202,227 @@ class DescribeAccountsResponse(TeaModel):
         return self
 
 
+class DescribeActiveSQLRecordsRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, database=None, end_time=None, keyword=None, max_duration=None,
+                 min_duration=None, order=None, start_time=None, user=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.database = database  # type: str
+        self.end_time = end_time  # type: str
+        self.keyword = keyword  # type: str
+        self.max_duration = max_duration  # type: str
+        self.min_duration = min_duration  # type: str
+        self.order = order  # type: str
+        self.start_time = start_time  # type: str
+        self.user = user  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeActiveSQLRecordsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.max_duration is not None:
+            result['MaxDuration'] = self.max_duration
+        if self.min_duration is not None:
+            result['MinDuration'] = self.min_duration
+        if self.order is not None:
+            result['Order'] = self.order
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.user is not None:
+            result['User'] = self.user
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('MaxDuration') is not None:
+            self.max_duration = m.get('MaxDuration')
+        if m.get('MinDuration') is not None:
+            self.min_duration = m.get('MinDuration')
+        if m.get('Order') is not None:
+            self.order = m.get('Order')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('User') is not None:
+            self.user = m.get('User')
+        return self
+
+
+class DescribeActiveSQLRecordsResponseBodyQueries(TeaModel):
+    def __init__(self, client_addr=None, database=None, pid=None, query=None, query_duration=None, query_start=None,
+                 session_id=None, sql_truncated=None, sql_truncated_threshold=None, state=None, user=None):
+        self.client_addr = client_addr  # type: str
+        self.database = database  # type: str
+        self.pid = pid  # type: str
+        self.query = query  # type: str
+        self.query_duration = query_duration  # type: str
+        self.query_start = query_start  # type: str
+        self.session_id = session_id  # type: str
+        self.sql_truncated = sql_truncated  # type: str
+        self.sql_truncated_threshold = sql_truncated_threshold  # type: str
+        self.state = state  # type: str
+        self.user = user  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeActiveSQLRecordsResponseBodyQueries, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_addr is not None:
+            result['ClientAddr'] = self.client_addr
+        if self.database is not None:
+            result['Database'] = self.database
+        if self.pid is not None:
+            result['PID'] = self.pid
+        if self.query is not None:
+            result['Query'] = self.query
+        if self.query_duration is not None:
+            result['QueryDuration'] = self.query_duration
+        if self.query_start is not None:
+            result['QueryStart'] = self.query_start
+        if self.session_id is not None:
+            result['SessionID'] = self.session_id
+        if self.sql_truncated is not None:
+            result['SqlTruncated'] = self.sql_truncated
+        if self.sql_truncated_threshold is not None:
+            result['SqlTruncatedThreshold'] = self.sql_truncated_threshold
+        if self.state is not None:
+            result['State'] = self.state
+        if self.user is not None:
+            result['User'] = self.user
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientAddr') is not None:
+            self.client_addr = m.get('ClientAddr')
+        if m.get('Database') is not None:
+            self.database = m.get('Database')
+        if m.get('PID') is not None:
+            self.pid = m.get('PID')
+        if m.get('Query') is not None:
+            self.query = m.get('Query')
+        if m.get('QueryDuration') is not None:
+            self.query_duration = m.get('QueryDuration')
+        if m.get('QueryStart') is not None:
+            self.query_start = m.get('QueryStart')
+        if m.get('SessionID') is not None:
+            self.session_id = m.get('SessionID')
+        if m.get('SqlTruncated') is not None:
+            self.sql_truncated = m.get('SqlTruncated')
+        if m.get('SqlTruncatedThreshold') is not None:
+            self.sql_truncated_threshold = m.get('SqlTruncatedThreshold')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('User') is not None:
+            self.user = m.get('User')
+        return self
+
+
+class DescribeActiveSQLRecordsResponseBody(TeaModel):
+    def __init__(self, dbinstance_id=None, queries=None, request_id=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.queries = queries  # type: list[DescribeActiveSQLRecordsResponseBodyQueries]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.queries:
+            for k in self.queries:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeActiveSQLRecordsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        result['Queries'] = []
+        if self.queries is not None:
+            for k in self.queries:
+                result['Queries'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        self.queries = []
+        if m.get('Queries') is not None:
+            for k in m.get('Queries'):
+                temp_model = DescribeActiveSQLRecordsResponseBodyQueries()
+                self.queries.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeActiveSQLRecordsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeActiveSQLRecordsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeActiveSQLRecordsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeActiveSQLRecordsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeAvailableResourcesRequest(TeaModel):
     def __init__(self, charge_type=None, region=None, zone_id=None):
         # The billing method. Valid values:
@@ -4426,8 +4668,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
                  encryption_key=None, encryption_type=None, engine=None, engine_version=None, expire_time=None, host_type=None,
                  idle_time=None, instance_network_type=None, lock_mode=None, lock_reason=None, maintain_end_time=None,
                  maintain_start_time=None, master_cu=None, master_node_num=None, max_connections=None, memory_per_node=None,
-                 memory_size=None, memory_unit=None, minor_version=None, pay_type=None, port=None, read_delay_time=None,
-                 region_id=None, resource_group_id=None, running_time=None, security_iplist=None,
+                 memory_size=None, memory_unit=None, minor_version=None, pay_type=None, port=None, prod_type=None,
+                 read_delay_time=None, region_id=None, resource_group_id=None, running_time=None, security_iplist=None,
                  seg_disk_performance_level=None, seg_node_num=None, segment_counts=None, serverless_mode=None, serverless_resource=None,
                  start_time=None, storage_per_node=None, storage_size=None, storage_type=None, storage_unit=None,
                  support_restore=None, tags=None, v_switch_id=None, vector_configuration_status=None, vpc_id=None, zone_id=None):
@@ -4576,6 +4818,7 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
         self.pay_type = pay_type  # type: str
         # The port number that is used to connect to the instance.
         self.port = port  # type: str
+        self.prod_type = prod_type  # type: str
         # An invalid parameter. It is no longer returned when you call this operation.
         self.read_delay_time = read_delay_time  # type: str
         # The region ID of the instance.
@@ -4741,6 +4984,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             result['PayType'] = self.pay_type
         if self.port is not None:
             result['Port'] = self.port
+        if self.prod_type is not None:
+            result['ProdType'] = self.prod_type
         if self.read_delay_time is not None:
             result['ReadDelayTime'] = self.read_delay_time
         if self.region_id is not None:
@@ -4869,6 +5114,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             self.pay_type = m.get('PayType')
         if m.get('Port') is not None:
             self.port = m.get('Port')
+        if m.get('ProdType') is not None:
+            self.prod_type = m.get('ProdType')
         if m.get('ReadDelayTime') is not None:
             self.read_delay_time = m.get('ReadDelayTime')
         if m.get('RegionId') is not None:
@@ -7853,9 +8100,9 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
     def __init__(self, connection_mode=None, create_time=None, dbinstance_category=None,
                  dbinstance_description=None, dbinstance_id=None, dbinstance_mode=None, dbinstance_net_type=None, dbinstance_status=None,
                  engine=None, engine_version=None, expire_time=None, instance_deploy_type=None,
-                 instance_network_type=None, lock_mode=None, lock_reason=None, master_node_num=None, pay_type=None, region_id=None,
-                 resource_group_id=None, seg_node_num=None, serverless_mode=None, storage_size=None, storage_type=None, tags=None,
-                 v_switch_id=None, vpc_id=None, zone_id=None):
+                 instance_network_type=None, lock_mode=None, lock_reason=None, master_node_num=None, pay_type=None, prod_type=None,
+                 region_id=None, resource_group_id=None, seg_node_num=None, serverless_mode=None, storage_size=None,
+                 storage_type=None, tags=None, v_switch_id=None, vpc_id=None, zone_id=None):
         # An invalid parameter. It is no longer returned when you call this operation.
         # 
         # You can call the [DescribeDBInstanceAttribute](~~86910~~) operation to query the access mode of an instance.
@@ -7930,6 +8177,7 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
         # *   **Postpaid**: pay-as-you-go.
         # *   **Prepaid**: subscription.
         self.pay_type = pay_type  # type: str
+        self.prod_type = prod_type  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
         # The ID of the resource group to which the instance belongs.
@@ -8003,6 +8251,8 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
             result['MasterNodeNum'] = self.master_node_num
         if self.pay_type is not None:
             result['PayType'] = self.pay_type
+        if self.prod_type is not None:
+            result['ProdType'] = self.prod_type
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
@@ -8061,6 +8311,8 @@ class DescribeDBInstancesResponseBodyItemsDBInstance(TeaModel):
             self.master_node_num = m.get('MasterNodeNum')
         if m.get('PayType') is not None:
             self.pay_type = m.get('PayType')
+        if m.get('ProdType') is not None:
+            self.prod_type = m.get('ProdType')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
@@ -20715,11 +20967,14 @@ class UpdateCollectionDataMetadataRequest(TeaModel):
         self.collection = collection  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
         self.filter = filter  # type: str
+        # The row IDs of the data that you want to update. You must specify one of the Ids and Filter parameters.
         self.ids = ids  # type: list[str]
+        # The data that you want to update, which is a JSON string in the MAP format. In the JSON string, key specifies the field name and value specifies the new data value.
         self.metadata = metadata  # type: dict[str, any]
         self.namespace = namespace  # type: str
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -20780,11 +21035,14 @@ class UpdateCollectionDataMetadataShrinkRequest(TeaModel):
         self.collection = collection  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
         self.filter = filter  # type: str
+        # The row IDs of the data that you want to update. You must specify one of the Ids and Filter parameters.
         self.ids_shrink = ids_shrink  # type: str
+        # The data that you want to update, which is a JSON string in the MAP format. In the JSON string, key specifies the field name and value specifies the new data value.
         self.metadata_shrink = metadata_shrink  # type: str
         self.namespace = namespace  # type: str
         self.namespace_password = namespace_password  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance.
         self.region_id = region_id  # type: str
 
     def validate(self):
