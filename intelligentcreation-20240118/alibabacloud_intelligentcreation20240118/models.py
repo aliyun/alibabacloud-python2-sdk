@@ -43,9 +43,9 @@ class ActualDeductResourceCmd(TeaModel):
 
 
 class ActualDeductResourceResult(TeaModel):
-    def __init__(self, error_message=None, errorcode=None, request_id=None, success=None):
+    def __init__(self, error_code=None, error_message=None, request_id=None, success=None):
+        self.error_code = error_code  # type: str
         self.error_message = error_message  # type: str
-        self.errorcode = errorcode  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -58,10 +58,10 @@ class ActualDeductResourceResult(TeaModel):
             return _map
 
         result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
         if self.error_message is not None:
             result['errorMessage'] = self.error_message
-        if self.errorcode is not None:
-            result['errorcode'] = self.errorcode
         if self.request_id is not None:
             result['requestId'] = self.request_id
         if self.success is not None:
@@ -70,10 +70,10 @@ class ActualDeductResourceResult(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
         if m.get('errorMessage') is not None:
             self.error_message = m.get('errorMessage')
-        if m.get('errorcode') is not None:
-            self.errorcode = m.get('errorcode')
         if m.get('requestId') is not None:
             self.request_id = m.get('requestId')
         if m.get('success') is not None:
@@ -137,9 +137,9 @@ class DirectDeductResourceCmd(TeaModel):
 
 
 class DirectDeductResourceResult(TeaModel):
-    def __init__(self, error_message=None, errorcode=None, request_id=None, success=None):
+    def __init__(self, error_code=None, error_message=None, request_id=None, success=None):
+        self.error_code = error_code  # type: str
         self.error_message = error_message  # type: str
-        self.errorcode = errorcode  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -152,10 +152,10 @@ class DirectDeductResourceResult(TeaModel):
             return _map
 
         result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
         if self.error_message is not None:
             result['errorMessage'] = self.error_message
-        if self.errorcode is not None:
-            result['errorcode'] = self.errorcode
         if self.request_id is not None:
             result['requestId'] = self.request_id
         if self.success is not None:
@@ -164,10 +164,10 @@ class DirectDeductResourceResult(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
         if m.get('errorMessage') is not None:
             self.error_message = m.get('errorMessage')
-        if m.get('errorcode') is not None:
-            self.errorcode = m.get('errorcode')
         if m.get('requestId') is not None:
             self.request_id = m.get('requestId')
         if m.get('success') is not None:
@@ -231,9 +231,9 @@ class ExpectDeductResourceCmd(TeaModel):
 
 
 class ExpectDeductResourceResult(TeaModel):
-    def __init__(self, error_message=None, errorcode=None, request_id=None, success=None, task_id=None):
+    def __init__(self, error_code=None, error_message=None, request_id=None, success=None, task_id=None):
+        self.error_code = error_code  # type: str
         self.error_message = error_message  # type: str
-        self.errorcode = errorcode  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
         self.task_id = task_id  # type: str
@@ -247,10 +247,10 @@ class ExpectDeductResourceResult(TeaModel):
             return _map
 
         result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
         if self.error_message is not None:
             result['errorMessage'] = self.error_message
-        if self.errorcode is not None:
-            result['errorcode'] = self.errorcode
         if self.request_id is not None:
             result['requestId'] = self.request_id
         if self.success is not None:
@@ -261,10 +261,10 @@ class ExpectDeductResourceResult(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
         if m.get('errorMessage') is not None:
             self.error_message = m.get('errorMessage')
-        if m.get('errorcode') is not None:
-            self.errorcode = m.get('errorcode')
         if m.get('requestId') is not None:
             self.request_id = m.get('requestId')
         if m.get('success') is not None:
