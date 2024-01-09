@@ -181,8 +181,10 @@ class AyncTradeDocumentPackageExtractSmartAppResponse(TeaModel):
 
 
 class GetDocStructureResultRequest(TeaModel):
-    def __init__(self, id=None):
+    def __init__(self, id=None, image_strategy=None, reveal_markdown=None):
         self.id = id  # type: str
+        self.image_strategy = image_strategy  # type: str
+        self.reveal_markdown = reveal_markdown  # type: bool
 
     def validate(self):
         pass
@@ -195,12 +197,20 @@ class GetDocStructureResultRequest(TeaModel):
         result = dict()
         if self.id is not None:
             result['Id'] = self.id
+        if self.image_strategy is not None:
+            result['ImageStrategy'] = self.image_strategy
+        if self.reveal_markdown is not None:
+            result['RevealMarkdown'] = self.reveal_markdown
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('ImageStrategy') is not None:
+            self.image_strategy = m.get('ImageStrategy')
+        if m.get('RevealMarkdown') is not None:
+            self.reveal_markdown = m.get('RevealMarkdown')
         return self
 
 
@@ -1969,10 +1979,13 @@ class SubmitConvertPdfToWordJobResponse(TeaModel):
 
 
 class SubmitDigitalDocStructureJobRequest(TeaModel):
-    def __init__(self, file_name=None, file_name_extension=None, file_url=None):
+    def __init__(self, file_name=None, file_name_extension=None, file_url=None, image_strategy=None,
+                 reveal_markdown=None):
         self.file_name = file_name  # type: str
         self.file_name_extension = file_name_extension  # type: str
         self.file_url = file_url  # type: str
+        self.image_strategy = image_strategy  # type: str
+        self.reveal_markdown = reveal_markdown  # type: bool
 
     def validate(self):
         pass
@@ -1989,6 +2002,10 @@ class SubmitDigitalDocStructureJobRequest(TeaModel):
             result['FileNameExtension'] = self.file_name_extension
         if self.file_url is not None:
             result['FileUrl'] = self.file_url
+        if self.image_strategy is not None:
+            result['ImageStrategy'] = self.image_strategy
+        if self.reveal_markdown is not None:
+            result['RevealMarkdown'] = self.reveal_markdown
         return result
 
     def from_map(self, m=None):
@@ -1999,14 +2016,21 @@ class SubmitDigitalDocStructureJobRequest(TeaModel):
             self.file_name_extension = m.get('FileNameExtension')
         if m.get('FileUrl') is not None:
             self.file_url = m.get('FileUrl')
+        if m.get('ImageStrategy') is not None:
+            self.image_strategy = m.get('ImageStrategy')
+        if m.get('RevealMarkdown') is not None:
+            self.reveal_markdown = m.get('RevealMarkdown')
         return self
 
 
 class SubmitDigitalDocStructureJobAdvanceRequest(TeaModel):
-    def __init__(self, file_name=None, file_name_extension=None, file_url_object=None):
+    def __init__(self, file_name=None, file_name_extension=None, file_url_object=None, image_strategy=None,
+                 reveal_markdown=None):
         self.file_name = file_name  # type: str
         self.file_name_extension = file_name_extension  # type: str
         self.file_url_object = file_url_object  # type: READABLE
+        self.image_strategy = image_strategy  # type: str
+        self.reveal_markdown = reveal_markdown  # type: bool
 
     def validate(self):
         pass
@@ -2023,6 +2047,10 @@ class SubmitDigitalDocStructureJobAdvanceRequest(TeaModel):
             result['FileNameExtension'] = self.file_name_extension
         if self.file_url_object is not None:
             result['FileUrl'] = self.file_url_object
+        if self.image_strategy is not None:
+            result['ImageStrategy'] = self.image_strategy
+        if self.reveal_markdown is not None:
+            result['RevealMarkdown'] = self.reveal_markdown
         return result
 
     def from_map(self, m=None):
@@ -2033,6 +2061,10 @@ class SubmitDigitalDocStructureJobAdvanceRequest(TeaModel):
             self.file_name_extension = m.get('FileNameExtension')
         if m.get('FileUrl') is not None:
             self.file_url_object = m.get('FileUrl')
+        if m.get('ImageStrategy') is not None:
+            self.image_strategy = m.get('ImageStrategy')
+        if m.get('RevealMarkdown') is not None:
+            self.reveal_markdown = m.get('RevealMarkdown')
         return self
 
 

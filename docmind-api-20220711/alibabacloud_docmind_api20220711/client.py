@@ -140,6 +140,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.id):
             query['Id'] = request.id
+        if not UtilClient.is_unset(request.image_strategy):
+            query['ImageStrategy'] = request.image_strategy
+        if not UtilClient.is_unset(request.reveal_markdown):
+            query['RevealMarkdown'] = request.reveal_markdown
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -725,6 +729,10 @@ class Client(OpenApiClient):
             query['FileNameExtension'] = request.file_name_extension
         if not UtilClient.is_unset(request.file_url):
             query['FileUrl'] = request.file_url
+        if not UtilClient.is_unset(request.image_strategy):
+            query['ImageStrategy'] = request.image_strategy
+        if not UtilClient.is_unset(request.reveal_markdown):
+            query['RevealMarkdown'] = request.reveal_markdown
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
