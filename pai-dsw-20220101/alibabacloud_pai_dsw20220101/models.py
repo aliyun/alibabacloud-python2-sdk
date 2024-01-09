@@ -376,15 +376,51 @@ class CreateIdleInstanceCullerResponse(TeaModel):
         return self
 
 
-class CreateInstanceRequestCloudDisks(TeaModel):
-    def __init__(self, capacity=None, mount_path=None, path=None, sub_type=None):
-        self.capacity = capacity  # type: str
-        self.mount_path = mount_path  # type: str
-        self.path = path  # type: str
-        self.sub_type = sub_type  # type: str
+class CreateInstanceRequestCloudDisksStatus(TeaModel):
+    def __init__(self, available=None, capacity=None, usage=None):
+        self.available = available  # type: long
+        self.capacity = capacity  # type: long
+        self.usage = usage  # type: long
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(CreateInstanceRequestCloudDisksStatus, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.available is not None:
+            result['Available'] = self.available
+        if self.capacity is not None:
+            result['Capacity'] = self.capacity
+        if self.usage is not None:
+            result['Usage'] = self.usage
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Available') is not None:
+            self.available = m.get('Available')
+        if m.get('Capacity') is not None:
+            self.capacity = m.get('Capacity')
+        if m.get('Usage') is not None:
+            self.usage = m.get('Usage')
+        return self
+
+
+class CreateInstanceRequestCloudDisks(TeaModel):
+    def __init__(self, capacity=None, mount_path=None, path=None, status=None, sub_type=None):
+        self.capacity = capacity  # type: str
+        self.mount_path = mount_path  # type: str
+        self.path = path  # type: str
+        self.status = status  # type: CreateInstanceRequestCloudDisksStatus
+        self.sub_type = sub_type  # type: str
+
+    def validate(self):
+        if self.status:
+            self.status.validate()
 
     def to_map(self):
         _map = super(CreateInstanceRequestCloudDisks, self).to_map()
@@ -398,6 +434,8 @@ class CreateInstanceRequestCloudDisks(TeaModel):
             result['MountPath'] = self.mount_path
         if self.path is not None:
             result['Path'] = self.path
+        if self.status is not None:
+            result['Status'] = self.status.to_map()
         if self.sub_type is not None:
             result['SubType'] = self.sub_type
         return result
@@ -410,6 +448,9 @@ class CreateInstanceRequestCloudDisks(TeaModel):
             self.mount_path = m.get('MountPath')
         if m.get('Path') is not None:
             self.path = m.get('Path')
+        if m.get('Status') is not None:
+            temp_model = CreateInstanceRequestCloudDisksStatus()
+            self.status = temp_model.from_map(m['Status'])
         if m.get('SubType') is not None:
             self.sub_type = m.get('SubType')
         return self
@@ -5144,6 +5185,35 @@ class StopInstanceResponse(TeaModel):
         return self
 
 
+class UpdateInstanceRequestCloudDisks(TeaModel):
+    def __init__(self, capacity=None, sub_type=None):
+        self.capacity = capacity  # type: str
+        self.sub_type = sub_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateInstanceRequestCloudDisks, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.capacity is not None:
+            result['Capacity'] = self.capacity
+        if self.sub_type is not None:
+            result['SubType'] = self.sub_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Capacity') is not None:
+            self.capacity = m.get('Capacity')
+        if m.get('SubType') is not None:
+            self.sub_type = m.get('SubType')
+        return self
+
+
 class UpdateInstanceRequestDatasets(TeaModel):
     def __init__(self, dataset_id=None, mount_path=None):
         self.dataset_id = dataset_id  # type: str
@@ -5276,13 +5346,16 @@ class UpdateInstanceRequestUserVpc(TeaModel):
 
 
 class UpdateInstanceRequest(TeaModel):
-    def __init__(self, accessibility=None, datasets=None, disassociate_datasets=None, disassociate_driver=None,
-                 disassociate_vpc=None, driver=None, ecs_spec=None, image_id=None, image_url=None, instance_name=None, priority=None,
-                 requested_resource=None, user_id=None, user_vpc=None, workspace_source=None):
+    def __init__(self, accessibility=None, cloud_disks=None, datasets=None, disassociate_datasets=None,
+                 disassociate_driver=None, disassociate_forward_infos=None, disassociate_vpc=None, driver=None, ecs_spec=None,
+                 image_id=None, image_url=None, instance_name=None, priority=None, requested_resource=None, user_id=None,
+                 user_vpc=None, workspace_source=None):
         self.accessibility = accessibility  # type: str
+        self.cloud_disks = cloud_disks  # type: list[UpdateInstanceRequestCloudDisks]
         self.datasets = datasets  # type: list[UpdateInstanceRequestDatasets]
         self.disassociate_datasets = disassociate_datasets  # type: bool
         self.disassociate_driver = disassociate_driver  # type: bool
+        self.disassociate_forward_infos = disassociate_forward_infos  # type: bool
         self.disassociate_vpc = disassociate_vpc  # type: bool
         self.driver = driver  # type: str
         self.ecs_spec = ecs_spec  # type: str
@@ -5296,6 +5369,10 @@ class UpdateInstanceRequest(TeaModel):
         self.workspace_source = workspace_source  # type: str
 
     def validate(self):
+        if self.cloud_disks:
+            for k in self.cloud_disks:
+                if k:
+                    k.validate()
         if self.datasets:
             for k in self.datasets:
                 if k:
@@ -5313,6 +5390,10 @@ class UpdateInstanceRequest(TeaModel):
         result = dict()
         if self.accessibility is not None:
             result['Accessibility'] = self.accessibility
+        result['CloudDisks'] = []
+        if self.cloud_disks is not None:
+            for k in self.cloud_disks:
+                result['CloudDisks'].append(k.to_map() if k else None)
         result['Datasets'] = []
         if self.datasets is not None:
             for k in self.datasets:
@@ -5321,6 +5402,8 @@ class UpdateInstanceRequest(TeaModel):
             result['DisassociateDatasets'] = self.disassociate_datasets
         if self.disassociate_driver is not None:
             result['DisassociateDriver'] = self.disassociate_driver
+        if self.disassociate_forward_infos is not None:
+            result['DisassociateForwardInfos'] = self.disassociate_forward_infos
         if self.disassociate_vpc is not None:
             result['DisassociateVpc'] = self.disassociate_vpc
         if self.driver is not None:
@@ -5349,6 +5432,11 @@ class UpdateInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('Accessibility') is not None:
             self.accessibility = m.get('Accessibility')
+        self.cloud_disks = []
+        if m.get('CloudDisks') is not None:
+            for k in m.get('CloudDisks'):
+                temp_model = UpdateInstanceRequestCloudDisks()
+                self.cloud_disks.append(temp_model.from_map(k))
         self.datasets = []
         if m.get('Datasets') is not None:
             for k in m.get('Datasets'):
@@ -5358,6 +5446,8 @@ class UpdateInstanceRequest(TeaModel):
             self.disassociate_datasets = m.get('DisassociateDatasets')
         if m.get('DisassociateDriver') is not None:
             self.disassociate_driver = m.get('DisassociateDriver')
+        if m.get('DisassociateForwardInfos') is not None:
+            self.disassociate_forward_infos = m.get('DisassociateForwardInfos')
         if m.get('DisassociateVpc') is not None:
             self.disassociate_vpc = m.get('DisassociateVpc')
         if m.get('Driver') is not None:
