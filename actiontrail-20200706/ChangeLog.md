@@ -1,3 +1,6 @@
+2024-01-09 Version: 1.2.1
+- Generated python2 2020-07-06 for Actiontrail.
+
 2023-11-07 Version: 1.2.0
 - Generated python2 2020-07-06 for Actiontrail.
 
