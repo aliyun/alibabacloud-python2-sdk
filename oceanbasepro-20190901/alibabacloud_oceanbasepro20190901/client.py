@@ -30,6 +30,34 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def cancel_project_modify_record_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CancelProjectModifyRecord',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.CancelProjectModifyRecordResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def cancel_project_modify_record(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.cancel_project_modify_record_with_options(request, runtime)
+
     def create_backup_set_download_link_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -496,6 +524,78 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_project_with_options(request, runtime)
 
+    def create_project_modify_records_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ocean_base_pro_20190901_models.CreateProjectModifyRecordsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.databases):
+            request.databases_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.databases, 'Databases', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.databases_shrink):
+            body['Databases'] = request.databases_shrink
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateProjectModifyRecords',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.CreateProjectModifyRecordsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_project_modify_records(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_project_modify_records_with_options(request, runtime)
+
+    def create_rds_postgre_sqldata_source_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.database_name):
+            body['DatabaseName'] = request.database_name
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.password):
+            body['Password'] = request.password
+        if not UtilClient.is_unset(request.user_name):
+            body['UserName'] = request.user_name
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateRdsPostgreSQLDataSource',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.CreateRdsPostgreSQLDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_rds_postgre_sqldata_source(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_rds_postgre_sqldata_source_with_options(request, runtime)
+
     def create_security_ip_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -693,6 +793,34 @@ class Client(OpenApiClient):
     def create_tenant_user(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_tenant_user_with_options(request, runtime)
+
+    def delete_data_source_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataSource',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.DeleteDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_data_source(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_data_source_with_options(request, runtime)
 
     def delete_databases_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3150,6 +3278,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_project_full_verify_result_with_options(request, runtime)
 
+    def list_project_modify_records_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListProjectModifyRecords',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.ListProjectModifyRecordsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_project_modify_records(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_project_modify_records_with_options(request, runtime)
+
     def list_projects_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = ocean_base_pro_20190901_models.ListProjectsShrinkRequest()
@@ -3930,6 +4086,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.release_project_with_options(request, runtime)
 
+    def release_worker_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ReleaseWorkerInstance',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.ReleaseWorkerInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def release_worker_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.release_worker_instance_with_options(request, runtime)
+
     def reset_oms_open_apiproject_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -4025,6 +4209,34 @@ class Client(OpenApiClient):
     def resume_project(self, request):
         runtime = util_models.RuntimeOptions()
         return self.resume_project_with_options(request, runtime)
+
+    def retry_project_modify_records_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RetryProjectModifyRecords',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.RetryProjectModifyRecordsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def retry_project_modify_records(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.retry_project_modify_records_with_options(request, runtime)
 
     def search_oms_open_apimonitor_metric_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4271,6 +4483,34 @@ class Client(OpenApiClient):
     def stop_project(self, request):
         runtime = util_models.RuntimeOptions()
         return self.stop_project_with_options(request, runtime)
+
+    def stop_project_modify_records_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='StopProjectModifyRecords',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.StopProjectModifyRecordsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_project_modify_records(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.stop_project_modify_records_with_options(request, runtime)
 
     def stop_projects_by_label_with_options(self, request, runtime):
         UtilClient.validate_model(request)
