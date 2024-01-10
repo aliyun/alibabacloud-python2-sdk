@@ -74,11 +74,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def query_copyright(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_copyright_with_options(request, headers, runtime)
-
     def query_copyright_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -114,10 +109,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def query_copyright_extract(self, request):
+    def query_copyright(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_copyright_extract_with_options(request, headers, runtime)
+        return self.query_copyright_with_options(request, headers, runtime)
 
     def query_copyright_extract_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -144,10 +139,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def query_trace_ab(self, request):
+    def query_copyright_extract(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_trace_ab_with_options(request, headers, runtime)
+        return self.query_copyright_extract_with_options(request, headers, runtime)
 
     def query_trace_ab_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -176,10 +171,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def query_trace_extract(self, request):
+    def query_trace_ab(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_trace_extract_with_options(request, headers, runtime)
+        return self.query_trace_ab_with_options(request, headers, runtime)
 
     def query_trace_extract_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -206,10 +201,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def query_trace_mu(self, request):
+    def query_trace_extract(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_trace_mu_with_options(request, headers, runtime)
+        return self.query_trace_extract_with_options(request, headers, runtime)
 
     def query_trace_mu_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -248,10 +243,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def submit_copyright_extract(self, request):
+    def query_trace_mu(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.submit_copyright_extract_with_options(request, headers, runtime)
+        return self.query_trace_mu_with_options(request, headers, runtime)
 
     def submit_copyright_extract_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -260,6 +255,8 @@ class Client(OpenApiClient):
             body['CallBack'] = request.call_back
         if not UtilClient.is_unset(request.input):
             body['Input'] = request.input
+        if not UtilClient.is_unset(request.params):
+            body['Params'] = request.params
         if not UtilClient.is_unset(request.url):
             body['Url'] = request.url
         if not UtilClient.is_unset(request.user_data):
@@ -284,10 +281,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def submit_copyright_job(self, request):
+    def submit_copyright_extract(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.submit_copyright_job_with_options(request, headers, runtime)
+        return self.submit_copyright_extract_with_options(request, headers, runtime)
 
     def submit_copyright_job_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -336,10 +333,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def submit_image_copyright(self, request):
+    def submit_copyright_job(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.submit_image_copyright_with_options(request, headers, runtime)
+        return self.submit_copyright_job_with_options(request, headers, runtime)
 
     def submit_image_copyright_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -372,10 +369,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def submit_trace_ab(self, request):
+    def submit_image_copyright(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.submit_trace_ab_with_options(request, headers, runtime)
+        return self.submit_image_copyright_with_options(request, headers, runtime)
 
     def submit_trace_ab_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -418,10 +415,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def submit_trace_extract(self, request):
+    def submit_trace_ab(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.submit_trace_extract_with_options(request, headers, runtime)
+        return self.submit_trace_ab_with_options(request, headers, runtime)
 
     def submit_trace_extract_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -430,6 +427,8 @@ class Client(OpenApiClient):
             body['CallBack'] = request.call_back
         if not UtilClient.is_unset(request.input):
             body['Input'] = request.input
+        if not UtilClient.is_unset(request.params):
+            body['Params'] = request.params
         if not UtilClient.is_unset(request.url):
             body['Url'] = request.url
         if not UtilClient.is_unset(request.user_data):
@@ -454,10 +453,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def submit_tracemu(self, request):
+    def submit_trace_extract(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.submit_tracemu_with_options(request, headers, runtime)
+        return self.submit_trace_extract_with_options(request, headers, runtime)
 
     def submit_tracemu_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -468,6 +467,8 @@ class Client(OpenApiClient):
             body['MediaId'] = request.media_id
         if not UtilClient.is_unset(request.output):
             body['Output'] = request.output
+        if not UtilClient.is_unset(request.params):
+            body['Params'] = request.params
         if not UtilClient.is_unset(request.trace):
             body['Trace'] = request.trace
         req = open_api_models.OpenApiRequest(
@@ -489,3 +490,8 @@ class Client(OpenApiClient):
             mts_20210728_models.SubmitTracemuResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def submit_tracemu(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_tracemu_with_options(request, headers, runtime)
