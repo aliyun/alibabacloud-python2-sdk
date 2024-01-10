@@ -904,6 +904,31 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_saved_search_with_options(project, request, headers, runtime)
 
+    def create_ticket_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='CreateTicket',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/tickets',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateTicketResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_ticket(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_ticket_with_options(headers, runtime)
+
     def delete_annotation_data_with_options(self, dataset_id, annotationdata_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
