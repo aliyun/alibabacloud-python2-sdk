@@ -988,8 +988,11 @@ class CreateChangeSetResponse(TeaModel):
 
 class CreateDiagnosticRequest(TeaModel):
     def __init__(self, diagnostic_key=None, diagnostic_type=None, product=None):
+        # The keyword in the diagnosis.
         self.diagnostic_key = diagnostic_key  # type: str
+        # The type of the item that is diagnosed. Set the value to Stack, which specifies that the stack is diagnosed.
         self.diagnostic_type = diagnostic_type  # type: str
+        # The name of the product that is diagonosed.
         self.product = product  # type: str
 
     def validate(self):
@@ -1023,12 +1026,22 @@ class CreateDiagnosticRequest(TeaModel):
 class CreateDiagnosticResponseBody(TeaModel):
     def __init__(self, code=None, diagnostic_type=None, http_status_code=None, message=None, report_id=None,
                  request_id=None, success=None):
+        # The error code returned.
         self.code = code  # type: str
+        # The type of the item that is diagnosed.
         self.diagnostic_type = diagnostic_type  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message returned.
         self.message = message  # type: str
+        # The ID of the diagnostic report.
         self.report_id = report_id  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: str
 
     def validate(self):
@@ -2855,6 +2868,7 @@ class CreateTemplateScratchRequestSourceResourceGroup(TeaModel):
 
 class CreateTemplateScratchRequestSourceResources(TeaModel):
     def __init__(self, region_id=None, resource_id=None, resource_type=None):
+        # The region ID.
         self.region_id = region_id  # type: str
         # The ID of the resource.
         self.resource_id = resource_id  # type: str
@@ -2984,6 +2998,7 @@ class CreateTemplateScratchRequest(TeaModel):
         # 
         # You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The source resource group.
         self.source_resource_group = source_resource_group  # type: CreateTemplateScratchRequestSourceResourceGroup
@@ -3158,6 +3173,7 @@ class CreateTemplateScratchShrinkRequest(TeaModel):
         # 
         # You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The source resource group.
         self.source_resource_group_shrink = source_resource_group_shrink  # type: str
@@ -3413,6 +3429,7 @@ class DeleteChangeSetResponse(TeaModel):
 
 class DeleteDiagnosticRequest(TeaModel):
     def __init__(self, report_id=None):
+        # The report ID. You can troubleshoot issues based on the report.
         self.report_id = report_id  # type: str
 
     def validate(self):
@@ -3437,10 +3454,18 @@ class DeleteDiagnosticRequest(TeaModel):
 
 class DeleteDiagnosticResponseBody(TeaModel):
     def __init__(self, code=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The error code returned.
         self.code = code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: str
 
     def validate(self):
@@ -3744,7 +3769,8 @@ class DeleteStackGroupResponse(TeaModel):
 
 
 class DeleteStackInstancesRequestDeploymentTargets(TeaModel):
-    def __init__(self, rd_folder_ids=None):
+    def __init__(self, account_ids=None, rd_folder_ids=None):
+        self.account_ids = account_ids  # type: list[str]
         # The IDs of the folders in the resource directory. You can add up to five folder IDs.
         # 
         # You can create stacks within all the member accounts in the specified folders. If you create stacks in the Root folder, the stacks are created within all member accounts in the resource directory.
@@ -3761,12 +3787,16 @@ class DeleteStackInstancesRequestDeploymentTargets(TeaModel):
             return _map
 
         result = dict()
+        if self.account_ids is not None:
+            result['AccountIds'] = self.account_ids
         if self.rd_folder_ids is not None:
             result['RdFolderIds'] = self.rd_folder_ids
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccountIds') is not None:
+            self.account_ids = m.get('AccountIds')
         if m.get('RdFolderIds') is not None:
             self.rd_folder_ids = m.get('RdFolderIds')
         return self
@@ -5952,6 +5982,7 @@ class GetChangeSetResponse(TeaModel):
 
 class GetDiagnosticRequest(TeaModel):
     def __init__(self, report_id=None):
+        # The ID of the diagnostic report.
         self.report_id = report_id  # type: str
 
     def validate(self):
@@ -5976,8 +6007,11 @@ class GetDiagnosticRequest(TeaModel):
 
 class GetDiagnosticResponseBodyDiagnosticResult(TeaModel):
     def __init__(self, failed_resources=None, ros_action_messages=None, stack_messages=None):
+        # The resources that failed to be diagnosed.
         self.failed_resources = failed_resources  # type: dict[str, any]
+        # The information about Resource Orchestration Service (ROS) calling.
         self.ros_action_messages = ros_action_messages  # type: dict[str, any]
+        # The stack information.
         self.stack_messages = stack_messages  # type: dict[str, any]
 
     def validate(self):
@@ -6012,19 +6046,40 @@ class GetDiagnosticResponseBody(TeaModel):
     def __init__(self, code=None, diagnostic_key=None, diagnostic_product=None, diagnostic_result=None,
                  diagnostic_time=None, http_code=None, http_status_code=None, message=None, recommends=None, report_id=None,
                  request_id=None, status=None, status_reason=None, success=None):
+        # The error code returned.
         self.code = code  # type: str
+        # The keyword in the diagnosis.
         self.diagnostic_key = diagnostic_key  # type: str
+        # The name of the diagnostic item.
         self.diagnostic_product = diagnostic_product  # type: str
+        # The diagnosis result.
         self.diagnostic_result = diagnostic_result  # type: GetDiagnosticResponseBodyDiagnosticResult
+        # The time when the diagnosis was performed.
         self.diagnostic_time = diagnostic_time  # type: str
+        # The HTTP status code
         self.http_code = http_code  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The error message returned.
         self.message = message  # type: str
+        # The suggestion for the diagnosis.
         self.recommends = recommends  # type: dict[str, any]
+        # The ID of the diagnostic report.
         self.report_id = report_id  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The diagnosis status. Valid values:
+        # 
+        # *   Running: The diagnosis is in progress.
+        # *   Complete: The diagnosis is complete.
+        # *   Failed: The diagnosis failed.
         self.status = status  # type: str
+        # The reason for the diagnosis status.
         self.status_reason = status_reason  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: str
 
     def validate(self):
@@ -6178,6 +6233,7 @@ class GetFeatureDetailsRequest(TeaModel):
 
 class GetFeatureDetailsResponseBodyDriftDetection(TeaModel):
     def __init__(self, supported_resource_types=None):
+        # The resource types that are supported by the drift detection feature.
         self.supported_resource_types = supported_resource_types  # type: list[str]
 
     def validate(self):
@@ -6202,18 +6258,11 @@ class GetFeatureDetailsResponseBodyDriftDetection(TeaModel):
 
 class GetFeatureDetailsResponseBodyResourceCleanerSupportedResourceTypes(TeaModel):
     def __init__(self, resource_type=None, side_effects=None, supported_filters=None):
-        # The resource type that can be cleaned up.
+        # The resource type that supports the resource cleaner feature.
         self.resource_type = resource_type  # type: str
-        # The names of the side effects. The StopInstance value indicates that an instance that is related to the specified resource is stopped.
+        # The names of the side effects that may be caused by the cleanup operation performed on the resources of the specified type.
         self.side_effects = side_effects  # type: list[str]
-        # The filters that are used to filter resources. Valid values:
-        # 
-        # *   RegionId: the ID of the region.
-        # *   ResourceId: the ID of the resource.
-        # *   ResourceName: the name of the resource.
-        # *   Tags: the tags of the resource.
-        # *   ResourceGroupId: the ID of the resource group.
-        # *   DeletionProtection: the deletion protection feature.
+        # The names of the filters that are supported by the resource type.
         self.supported_filters = supported_filters  # type: list[str]
 
     def validate(self):
@@ -6279,7 +6328,9 @@ class GetFeatureDetailsResponseBodyResourceCleaner(TeaModel):
 
 class GetFeatureDetailsResponseBodyResourceImportSupportedResourceTypes(TeaModel):
     def __init__(self, resource_identifiers=None, resource_type=None):
+        # The resource identifiers.
         self.resource_identifiers = resource_identifiers  # type: list[str]
+        # The resource type.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -6308,6 +6359,7 @@ class GetFeatureDetailsResponseBodyResourceImportSupportedResourceTypes(TeaModel
 
 class GetFeatureDetailsResponseBodyResourceImport(TeaModel):
     def __init__(self, supported_resource_types=None):
+        # The resource types that are supported by the resource import feature.
         self.supported_resource_types = supported_resource_types  # type: list[GetFeatureDetailsResponseBodyResourceImportSupportedResourceTypes]
 
     def validate(self):
@@ -6407,26 +6459,27 @@ class GetFeatureDetailsResponseBodyTemplateScratchSupportedResourceTypes(TeaMode
                  source_supported=None, source_tag_supported=None, supported_template_scratch_types=None):
         # The resource type.
         self.resource_type = resource_type  # type: str
-        # Indicates whether the resource scope can be specified by resource group. Valid values:
+        # Indicates whether the resource scope can be specified by source resource group. Valid values:
         # 
-        # - true
-        # - false
+        # *   true
+        # *   false
         self.source_resource_group_supported = source_resource_group_supported  # type: bool
-        # Indicates whether the resource scope can be specified by tag, resource group, or resource. Valid values:
+        # Indicates whether the resource scope can be specified by source resource. Valid values:
         # 
-        # - true
-        # - false
+        # *   true
+        # *   false
         self.source_resources_supported = source_resources_supported  # type: bool
-        # Indicates whether the resource scope can be specified by resource. Valid values:
+        # Indicates whether the resource scope can be specified by source tag, resource group, or resource. Valid values:
         # 
-        # - true
-        # - false
+        # *   true
+        # *   false
         self.source_supported = source_supported  # type: bool
-        # Indicates whether the resource scope can be specified by tag. Valid values:
+        # Indicates whether the resource scope can be specified by source tag. Valid values:
         # 
-        # - true
-        # - false
+        # *   true
+        # *   false
         self.source_tag_supported = source_tag_supported  # type: bool
+        # The scenario types that are supported.
         self.supported_template_scratch_types = supported_template_scratch_types  # type: list[str]
 
     def validate(self):
@@ -6471,7 +6524,7 @@ class GetFeatureDetailsResponseBodyTemplateScratchSupportedResourceTypes(TeaMode
 
 class GetFeatureDetailsResponseBodyTemplateScratch(TeaModel):
     def __init__(self, supported_resource_types=None):
-        # The resource types that support the scenario feature.
+        # The resource types that are supported by the scenario feature.
         self.supported_resource_types = supported_resource_types  # type: list[GetFeatureDetailsResponseBodyTemplateScratchSupportedResourceTypes]
 
     def validate(self):
@@ -6583,7 +6636,7 @@ class GetFeatureDetailsResponseBodyTerraformSupportedVersionsProviderVersions(Te
     def __init__(self, provider_name=None, supported_versions=None):
         # The name of the provider.
         self.provider_name = provider_name  # type: str
-        # The versions of the provider.
+        # The provider versions.
         self.supported_versions = supported_versions  # type: list[str]
 
     def validate(self):
@@ -6619,7 +6672,7 @@ class GetFeatureDetailsResponseBodyTerraformSupportedVersions(TeaModel):
         self.terraform_version = terraform_version  # type: str
         # The Terraform version that is supported by ROS. The parameter value is the same as the value of the Transform parameter in a Terraform template.
         self.transform = transform  # type: str
-        # The versions to which Terraform can be updated in ROS.
+        # The Terraform versions that can be updated in ROS.
         self.update_allowed_transforms = update_allowed_transforms  # type: list[str]
 
     def validate(self):
@@ -6707,11 +6760,13 @@ class GetFeatureDetailsResponseBodyTerraform(TeaModel):
 class GetFeatureDetailsResponseBody(TeaModel):
     def __init__(self, drift_detection=None, request_id=None, resource_cleaner=None, resource_import=None,
                  template_parameter_constraints=None, template_scratch=None, terraform=None):
+        # Details of the drift detection feature.
         self.drift_detection = drift_detection  # type: GetFeatureDetailsResponseBodyDriftDetection
         # The ID of the request.
         self.request_id = request_id  # type: str
         # Details of the resource cleaner feature.
         self.resource_cleaner = resource_cleaner  # type: GetFeatureDetailsResponseBodyResourceCleaner
+        # Details of the resource import feature.
         self.resource_import = resource_import  # type: GetFeatureDetailsResponseBodyResourceImport
         # Details of the template parameter constraint feature.
         self.template_parameter_constraints = template_parameter_constraints  # type: GetFeatureDetailsResponseBodyTemplateParameterConstraints
@@ -7041,6 +7096,7 @@ class GetResourceTypeResponse(TeaModel):
 
 class GetResourceTypeTemplateRequest(TeaModel):
     def __init__(self, resource_type=None, version_id=None):
+        # The resource type.
         self.resource_type = resource_type  # type: str
         # The version ID. If you want to query a specific version of the resource type, you must specify this parameter. If you do not specify this parameter, only the resource type is queried.
         # 
@@ -7073,6 +7129,7 @@ class GetResourceTypeTemplateRequest(TeaModel):
 
 class GetResourceTypeTemplateResponseBody(TeaModel):
     def __init__(self, request_id=None, template_body=None, template_content=None):
+        # The request ID.
         self.request_id = request_id  # type: str
         # The structure that contains the template body. The template body must be 1 to 51,200 bytes in length. For more information, see [Template syntax](~~28857~~).
         # 
@@ -8148,6 +8205,7 @@ class GetStackResponseBody(TeaModel):
         # 
         # >  This property is returned in specific conditions. At least one sub-property is returned. For example, an error is reported when you call the API of another cloud service.
         self.operation_info = operation_info  # type: GetStackResponseBodyOperationInfo
+        # The ID of the order. This parameter is returned only if you set the ChargeType parameter to PrePaid.
         self.order_ids = order_ids  # type: list[str]
         # The output parameters of the stack.
         # 
@@ -10011,7 +10069,9 @@ class GetStackResourceResponseBody(TeaModel):
         self.resource_drift_status = resource_drift_status  # type: str
         # The logical ID of the resource defined in the template.
         self.resource_type = resource_type  # type: str
+        # The ID of the stack.
         self.stack_id = stack_id  # type: str
+        # The name of the stack.
         self.stack_name = stack_name  # type: str
         # The ID of the request.
         self.status = status  # type: str
@@ -11580,13 +11640,14 @@ class GetTemplateScratchRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The data display option. Valid values:
         # 
-        # *   Source: displays only the data of source nodes.
-        # *   Provisions: displays only the data of new nodes.
-        # *   All: displays the data of all nodes.
+        # *   Sources: displays only the data of source nodes. This setting takes effect only when TemplateScratchType is set to ArchitectureDetection.
+        # *   Source: displays only the data of the source node. This setting takes effect only when TemplateScratchType is not set to ArchitectureDetection.
+        # *   Provisions: displays only the data of new nodes. This setting takes effect only when TemplateScratchType is not set to ArchitectureDetection.
+        # *   All: displays all data.
         # 
         # For more information about source nodes and new nodes, see [Overview](~~352074~~).
         # 
-        # > If you do not specify this parameter, the node data is not displayed.
+        # >  If you do not specify this parameter, the node data is not displayed.
         self.show_data_option = show_data_option  # type: str
         # The ID of the scenario.
         self.template_scratch_id = template_scratch_id  # type: str
@@ -11621,9 +11682,9 @@ class GetTemplateScratchRequest(TeaModel):
 
 class GetTemplateScratchResponseBodyTemplateScratchPreferenceParameters(TeaModel):
     def __init__(self, parameter_key=None, parameter_value=None):
-        # The key of the parameter.
+        # The parameter name.
         self.parameter_key = parameter_key  # type: str
-        # The value of the parameter.
+        # The parameter value.
         self.parameter_value = parameter_value  # type: str
 
     def validate(self):
@@ -11683,9 +11744,9 @@ class GetTemplateScratchResponseBodyTemplateScratchSourceResourceGroup(TeaModel)
 
 class GetTemplateScratchResponseBodyTemplateScratchSourceResources(TeaModel):
     def __init__(self, resource_id=None, resource_type=None):
-        # The ID of the resource.
+        # The resource ID.
         self.resource_id = resource_id  # type: str
-        # The type of the resource.
+        # The resource type.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -11784,7 +11845,7 @@ class GetTemplateScratchResponseBodyTemplateScratchStacks(TeaModel):
     def __init__(self, region_id=None, stack_id=None, usage_type=None):
         # The region ID of the stack.
         self.region_id = region_id  # type: str
-        # The ID of the stack.
+        # The stack ID.
         self.stack_id = stack_id  # type: str
         # The purpose of the stack. Valid values:
         # 
@@ -11843,6 +11904,7 @@ class GetTemplateScratchResponseBodyTemplateScratch(TeaModel):
         self.logical_id_strategy = logical_id_strategy  # type: str
         # The preference parameters of the scenario.
         self.preference_parameters = preference_parameters  # type: list[GetTemplateScratchResponseBodyTemplateScratchPreferenceParameters]
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The source resource group.
         self.source_resource_group = source_resource_group  # type: GetTemplateScratchResponseBodyTemplateScratchSourceResourceGroup
@@ -12001,7 +12063,7 @@ class GetTemplateScratchResponseBody(TeaModel):
     def __init__(self, request_id=None, template_scratch=None):
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The scenario.
+        # The resource scenario.
         self.template_scratch = template_scratch  # type: GetTemplateScratchResponseBodyTemplateScratch
 
     def validate(self):
@@ -12637,10 +12699,19 @@ class ListChangeSetsResponse(TeaModel):
 
 class ListDiagnosticsRequest(TeaModel):
     def __init__(self, diagnostic_key=None, diagnostic_product=None, max_results=None, next_token=None, status=None):
+        # The keyword in the diagnosis.
         self.diagnostic_key = diagnostic_key  # type: str
+        # The product that is diagnosed.
         self.diagnostic_product = diagnostic_product  # type: str
+        # The maximum number of results to be returned in a single call when NextToken is used for the query.
+        # 
+        # Valid values: 1 to 100.
+        # 
+        # Default value: 50.
         self.max_results = max_results  # type: str
+        # The pagination token that is used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
+        # The diagnosis status.
         self.status = status  # type: str
 
     def validate(self):
@@ -12681,10 +12752,15 @@ class ListDiagnosticsRequest(TeaModel):
 
 class ListDiagnosticsResponseBodyDiagnostics(TeaModel):
     def __init__(self, create_time=None, diagnostic_key=None, diagnostic_product=None, report_id=None, status=None):
+        # The time when the diagnostic report was generated.
         self.create_time = create_time  # type: str
+        # The keyword in the diagnosis.
         self.diagnostic_key = diagnostic_key  # type: str
+        # The product that is diagnosed.
         self.diagnostic_product = diagnostic_product  # type: str
+        # The ID of the diagnostic report.
         self.report_id = report_id  # type: str
+        # The diagnosis status.
         self.status = status  # type: str
 
     def validate(self):
@@ -12726,11 +12802,20 @@ class ListDiagnosticsResponseBodyDiagnostics(TeaModel):
 class ListDiagnosticsResponseBody(TeaModel):
     def __init__(self, diagnostics=None, http_status_code=None, message=None, next_token=None, request_id=None,
                  success=None):
+        # The items that are diagnosed.
         self.diagnostics = diagnostics  # type: list[ListDiagnosticsResponseBodyDiagnostics]
+        # The HTTP status code returned. The value 200 indicates that the request was successful.
         self.http_status_code = http_status_code  # type: int
+        # The error message returned.
         self.message = message  # type: str
+        # The pagination token that is used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: str
 
     def validate(self):
@@ -13341,6 +13426,7 @@ class ListResourceTypesResponseBodyResourceTypeSummaries(TeaModel):
 
 class ListResourceTypesResponseBody(TeaModel):
     def __init__(self, request_id=None, resource_type_summaries=None, resource_types=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
         # The resource type summaries.
         self.resource_type_summaries = resource_type_summaries  # type: list[ListResourceTypesResponseBodyResourceTypeSummaries]
@@ -15663,7 +15749,7 @@ class ListStacksRequest(TeaModel):
     def __init__(self, end_time=None, page_number=None, page_size=None, parent_stack_id=None, region_id=None,
                  resource_group_id=None, show_nested_stack=None, stack_id=None, stack_ids=None, stack_name=None, start_time=None,
                  status=None, tag=None):
-        # 按创建时间查询，创建时间区间的终止点。按照[ISO 8601](~~25696~~)标准表示，并需要使用UTC +0时间，格式为yyyy-MM-ddTHH:mm:ssZ。
+        # The end of the time range during which data was queried. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.end_time = end_time  # type: str
         # The page number.
         # 
@@ -15697,7 +15783,7 @@ class ListStacksRequest(TeaModel):
         self.stack_ids = stack_ids  # type: list[str]
         # The names of the stacks.
         self.stack_name = stack_name  # type: list[str]
-        # 按创建时间查询，创建时间区间的起始点。按照[ISO 8601](~~25696~~)标准表示，并需要使用UTC +0时间，格式为yyyy-MM-ddTHH:mm:ssZ。
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.
         self.start_time = start_time  # type: str
         # The status of the stack.
         self.status = status  # type: list[str]
@@ -15838,9 +15924,9 @@ class ListStacksResponseBodyStacksOperationInfo(TeaModel):
 
 class ListStacksResponseBodyStacksTags(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of the tag.
+        # The tag key of the stack.
         self.key = key  # type: str
-        # The value of the tag.
+        # The tag value of the stack.
         self.value = value  # type: str
 
     def validate(self):
@@ -15874,6 +15960,12 @@ class ListStacksResponseBodyStacks(TeaModel):
                  status=None, status_reason=None, tags=None, timeout_in_minutes=None, update_time=None):
         # The time when the stack was created. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.create_time = create_time  # type: str
+        # Indicates whether deletion protection is enabled for the stack. Valid values:
+        # 
+        # *   Enabled: Deletion protection is enabled for the stack.
+        # *   Disabled: Deletion protection is disabled for the stack. In this case, you can delete the stack by using the console or calling the [DeleteStack](~~610812~~) operation.
+        # 
+        # >  Deletion protection of a nested stack is the same as that of its root stack.
         self.deletion_protection = deletion_protection  # type: str
         # Indicates whether rollback is disabled when the stack fails to be created. Valid values:
         # 
@@ -15882,9 +15974,9 @@ class ListStacksResponseBodyStacks(TeaModel):
         self.disable_rollback = disable_rollback  # type: bool
         # The time when the most recent successful drift detection was performed on the stack.
         self.drift_detection_time = drift_detection_time  # type: str
-        # The supplementary information that is returned when an error occurs on a stack operation.
+        # The supplementary information that is returned if an error occurs on a stack operation.
         # 
-        # > This parameter is returned only if an error occurs on a stack operation. The system returns at least one sub-property. For example, an error occurred when an API operation of another Alibaba Cloud service was called.
+        # >  This parameter is returned only under specific conditions, and is returned together with at least one sub-parameter. For example, an error occurred when an API operation of another Alibaba Cloud service was called.
         self.operation_info = operation_info  # type: ListStacksResponseBodyStacksOperationInfo
         # The ID of the parent stack.
         self.parent_stack_id = parent_stack_id  # type: str
@@ -15911,7 +16003,7 @@ class ListStacksResponseBodyStacks(TeaModel):
         self.stack_name = stack_name  # type: str
         # The stack type. Valid values:
         # 
-        # *   ROS: Resource Orchestration Service (ROS) stack. The stack is created by using a ROS template.
+        # *   ROS: ROS stack. The stack is created by using a ROS template.
         # *   Terraform: Terraform stack. The stack is created by using a Terraform template.
         self.stack_type = stack_type  # type: str
         # The state of the stack.
@@ -15920,7 +16012,7 @@ class ListStacksResponseBodyStacks(TeaModel):
         self.status_reason = status_reason  # type: str
         # The tags of the stack.
         self.tags = tags  # type: list[ListStacksResponseBodyStacksTags]
-        # The timeout period that is allowed to create the stack. Unit: minutes.
+        # The timeout period for creating the stack. Unit: minutes.
         self.timeout_in_minutes = timeout_in_minutes  # type: int
         # The time when the stack was updated. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.update_time = update_time  # type: str
@@ -16040,7 +16132,7 @@ class ListStacksResponseBody(TeaModel):
         self.page_size = page_size  # type: int
         # The request ID.
         self.request_id = request_id  # type: str
-        # The stacks.
+        # Details of the stacks.
         self.stacks = stacks  # type: list[ListStacksResponseBodyStacks]
         # The total number of stacks.
         self.total_count = total_count  # type: int
@@ -16644,6 +16736,7 @@ class ListTemplateScratchesRequest(TeaModel):
         # 
         # You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The status of the scenario. Valid values:
         # 
@@ -16657,8 +16750,10 @@ class ListTemplateScratchesRequest(TeaModel):
         self.template_scratch_id = template_scratch_id  # type: str
         # The type of the scenario. Valid values:
         # 
-        # *   ResourceImport: resource management
         # *   ArchitectureReplication: resource replication
+        # *   ArchitectureDetection: resource detection
+        # *   ResourceImport: resource management
+        # *   ResourceMigration: resource migration
         self.template_scratch_type = template_scratch_type  # type: str
 
     def validate(self):
@@ -16719,7 +16814,7 @@ class ListTemplateScratchesRequest(TeaModel):
 
 class ListTemplateScratchesResponseBodyTemplateScratchesPreferenceParameters(TeaModel):
     def __init__(self, parameter_key=None, parameter_value=None):
-        # The key of the parameter.
+        # The name of the parameter.
         self.parameter_key = parameter_key  # type: str
         # The value of the parameter.
         self.parameter_value = parameter_value  # type: str
@@ -16752,7 +16847,7 @@ class ListTemplateScratchesResponseBodyTemplateScratchesSourceResourceGroup(TeaM
     def __init__(self, resource_group_id=None, resource_type_filter=None):
         # The ID of the source resource group.
         self.resource_group_id = resource_group_id  # type: str
-        # The resource types.
+        # The filters for resource types.
         self.resource_type_filter = resource_type_filter  # type: list[str]
 
     def validate(self):
@@ -16781,9 +16876,9 @@ class ListTemplateScratchesResponseBodyTemplateScratchesSourceResourceGroup(TeaM
 
 class ListTemplateScratchesResponseBodyTemplateScratchesSourceResources(TeaModel):
     def __init__(self, resource_id=None, resource_type=None):
-        # The ID of the resource.
+        # The resource ID.
         self.resource_id = resource_id  # type: str
-        # The type of the resource.
+        # The resource type.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -16814,7 +16909,7 @@ class ListTemplateScratchesResponseBodyTemplateScratchesSourceTag(TeaModel):
     def __init__(self, resource_tags=None, resource_type_filter=None):
         # The source tags.
         self.resource_tags = resource_tags  # type: dict[str, any]
-        # The resource types.
+        # The filters for resource types.
         self.resource_type_filter = resource_type_filter  # type: list[str]
 
     def validate(self):
@@ -16877,15 +16972,15 @@ class ListTemplateScratchesResponseBodyTemplateScratches(TeaModel):
                  preference_parameters=None, resource_group_id=None, source_resource_group=None, source_resources=None, source_tag=None,
                  status=None, status_reason=None, tags=None, template_scratch_id=None, template_scratch_type=None,
                  update_time=None):
-        # The time at which the scenario was created.
+        # The time when the scenario was created.
         # 
         # The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.create_time = create_time  # type: str
         # The description of the scenario.
         self.description = description  # type: str
-        # The status code of the scenario that fails to be created.
+        # The status code that is returned if the scenario failed to be generated.
         # 
-        # > This parameter is returned only if you set Status to GENERATE_FAILED.
+        # >  This parameter is returned only if Status is set to GENERATE_FAILED.
         self.failed_code = failed_code  # type: str
         # The policy based on which the logical ID is generated. Valid values:
         # 
@@ -16893,8 +16988,9 @@ class ListTemplateScratchesResponseBodyTemplateScratches(TeaModel):
         # *   LongTypePrefixAndHashSuffix: long-type prefix + hash-type suffix
         # *   ShortTypePrefixAndHashSuffix: short-type prefix + hash-type suffix
         self.logical_id_strategy = logical_id_strategy  # type: str
-        # The preference parameters of the scenario.
+        # The parameters that are configured for the scenario.
         self.preference_parameters = preference_parameters  # type: list[ListTemplateScratchesResponseBodyTemplateScratchesPreferenceParameters]
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The source resource group.
         self.source_resource_group = source_resource_group  # type: ListTemplateScratchesResponseBodyTemplateScratchesSourceResourceGroup
@@ -16902,22 +16998,22 @@ class ListTemplateScratchesResponseBodyTemplateScratches(TeaModel):
         self.source_resources = source_resources  # type: list[ListTemplateScratchesResponseBodyTemplateScratchesSourceResources]
         # The source tag.
         self.source_tag = source_tag  # type: ListTemplateScratchesResponseBodyTemplateScratchesSourceTag
-        # The status of the scenario.
+        # The state of the scenario.
         self.status = status  # type: str
-        # The reason why the scenario fails to be created.
+        # The reason why the scenario failed to be generated.
         # 
-        # > This parameter is returned only if you set Status to GENERATE_FAILED.
+        # >  This parameter is returned only if Status is set to GENERATE_FAILED.
         self.status_reason = status_reason  # type: str
         # The tags of the scenario.
         self.tags = tags  # type: list[ListTemplateScratchesResponseBodyTemplateScratchesTags]
-        # The ID of the scenario.
+        # The scenario ID.
         self.template_scratch_id = template_scratch_id  # type: str
         # The type of the scenario. Valid values:
         # 
         # *   ResourceImport: resource management
         # *   ArchitectureReplication: resource replication
         self.template_scratch_type = template_scratch_type  # type: str
-        # The time at which the scenario was updated.
+        # The time when the scenario was updated.
         # 
         # The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.update_time = update_time  # type: str
@@ -17038,7 +17134,7 @@ class ListTemplateScratchesResponseBody(TeaModel):
         self.page_size = page_size  # type: int
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The list of scenarios.
+        # The scenarios.
         self.template_scratches = template_scratches  # type: list[ListTemplateScratchesResponseBodyTemplateScratches]
         # The total number of scenarios.
         self.total_count = total_count  # type: int
@@ -21328,18 +21424,18 @@ class UpdateTemplateResponse(TeaModel):
 
 class UpdateTemplateScratchRequestPreferenceParameters(TeaModel):
     def __init__(self, parameter_key=None, parameter_value=None):
-        # The key of the parameter.
+        # The name of the parameter.
         # 
-        # For more information about the valid values of ParameterKey, see the **Additional information about request parameters** section of this topic.
+        # For more information about the valid values of ParameterKey, see the "**Additional information about request parameters**" section of this topic.
         # 
-        # > -  PreferenceParameters is optional. If you want to specify PreferenceParameters, you must specify ParameterKey and ParameterValue.
+        # > - PreferenceParameters is optional. If you specify PreferenceParameters, you must specify both ParameterKey and ParameterValue.
         # > - If you set TemplateScratchType to ResourceImport, you must set ParameterKey to DeletionPolicy.
         self.parameter_key = parameter_key  # type: str
         # The value of the parameter. The value of ParameterValue varies based on the value of ParameterKey.
         # 
-        # For more information about the valid values of ParameterValue, see the **Additional information about request parameters** section of this topic.
+        # For more information about the valid values of ParameterValue, see the "**Additional information about request parameters**" section of this topic.
         # 
-        # > PreferenceParameters is optional. If you want to specify PreferenceParameters, you must specify ParameterKey and ParameterValue.
+        # >  PreferenceParameters is optional. If you specify PreferenceParameters, you must specify both ParameterKey and ParameterValue.
         self.parameter_value = parameter_value  # type: str
 
     def validate(self):
@@ -21399,9 +21495,9 @@ class UpdateTemplateScratchRequestSourceResourceGroup(TeaModel):
 
 class UpdateTemplateScratchRequestSourceResources(TeaModel):
     def __init__(self, resource_id=None, resource_type=None):
-        # The ID of the resource.
+        # The resource ID.
         self.resource_id = resource_id  # type: str
-        # The type of the resource.
+        # The resource type.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -21434,9 +21530,9 @@ class UpdateTemplateScratchRequestSourceTag(TeaModel):
         # 
         # If you want to specify only the tag key, you must set the tag value to an empty string. Example: {"TagKey": ""}.
         # 
-        # You can add up to 10 source tags.
+        # If you set TemplateScratchType to ArchitectureDetection, you can add up to five source tags. In other cases, you can add up to 10 source tags.
         self.resource_tags = resource_tags  # type: dict[str, any]
-        # The resource types.
+        # The filters for resource types.
         self.resource_type_filter = resource_type_filter  # type: list[str]
 
     def validate(self):
@@ -21482,20 +21578,27 @@ class UpdateTemplateScratchRequest(TeaModel):
         self.execution_mode = execution_mode  # type: str
         # The policy based on which the logical ID is generated. Valid values:
         # 
-        # *   LongTypePrefixAndIndexSuffix (default): long-type prefix + index-type suffix
+        # *   LongTypePrefixAndIndexSuffix: long-type prefix + index-type suffix
         # *   LongTypePrefixAndHashSuffix: long-type prefix + hash-type suffix
         # *   ShortTypePrefixAndHashSuffix: short-type prefix + hash-type suffix
+        # 
+        # >  If you set TemplateScratchType to ArchitectureDetection, the default value of LogicalIdStrategy is LongTypePrefixAndHashSuffix. In other cases, the default value of LogicalIdStrategy is LongTypePrefixAndIndexSuffix.
         self.logical_id_strategy = logical_id_strategy  # type: str
-        # The preference parameters of the scenario.
+        # The parameters that you want to configure for the scenario.
         self.preference_parameters = preference_parameters  # type: list[UpdateTemplateScratchRequestPreferenceParameters]
         # The region ID of the scenario.
         # 
         # You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The source resource group.
         self.source_resource_group = source_resource_group  # type: UpdateTemplateScratchRequestSourceResourceGroup
         # The source resources.
+        # 
+        # If you specify source resources as the value of SourceResources when TemplateScratchType is set to ArchitectureDetection, the system detects the schema data of all resources that are associated with the specified source resources. For example, if you specify the ID of a Classic Load Balancer (CLB) instance as the value of SourceResources, the system detects the schema data of resources, such as Elastic Compute Service (ECS) instances, vSwitches, and VPCs, that are associated with the CLB instance.
+        # 
+        # If you set TemplateScratchType to ArchitectureDetection, you can specify up to 20 source resources for SourceResources. In other cases, you can specify up to 200 source resources.
         self.source_resources = source_resources  # type: list[UpdateTemplateScratchRequestSourceResources]
         # The source tag.
         self.source_tag = source_tag  # type: UpdateTemplateScratchRequestSourceTag
@@ -21604,20 +21707,27 @@ class UpdateTemplateScratchShrinkRequest(TeaModel):
         self.execution_mode = execution_mode  # type: str
         # The policy based on which the logical ID is generated. Valid values:
         # 
-        # *   LongTypePrefixAndIndexSuffix (default): long-type prefix + index-type suffix
+        # *   LongTypePrefixAndIndexSuffix: long-type prefix + index-type suffix
         # *   LongTypePrefixAndHashSuffix: long-type prefix + hash-type suffix
         # *   ShortTypePrefixAndHashSuffix: short-type prefix + hash-type suffix
+        # 
+        # >  If you set TemplateScratchType to ArchitectureDetection, the default value of LogicalIdStrategy is LongTypePrefixAndHashSuffix. In other cases, the default value of LogicalIdStrategy is LongTypePrefixAndIndexSuffix.
         self.logical_id_strategy = logical_id_strategy  # type: str
-        # The preference parameters of the scenario.
+        # The parameters that you want to configure for the scenario.
         self.preference_parameters_shrink = preference_parameters_shrink  # type: str
         # The region ID of the scenario.
         # 
         # You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The source resource group.
         self.source_resource_group_shrink = source_resource_group_shrink  # type: str
         # The source resources.
+        # 
+        # If you specify source resources as the value of SourceResources when TemplateScratchType is set to ArchitectureDetection, the system detects the schema data of all resources that are associated with the specified source resources. For example, if you specify the ID of a Classic Load Balancer (CLB) instance as the value of SourceResources, the system detects the schema data of resources, such as Elastic Compute Service (ECS) instances, vSwitches, and VPCs, that are associated with the CLB instance.
+        # 
+        # If you set TemplateScratchType to ArchitectureDetection, you can specify up to 20 source resources for SourceResources. In other cases, you can specify up to 200 source resources.
         self.source_resources_shrink = source_resources_shrink  # type: str
         # The source tag.
         self.source_tag_shrink = source_tag_shrink  # type: str
