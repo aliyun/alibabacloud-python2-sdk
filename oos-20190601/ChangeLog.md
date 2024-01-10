@@ -1,3 +1,6 @@
+2024-01-10 Version: 3.0.0
+- Generated python2 2019-06-01 for oos.
+
 2023-12-11 Version: 2.1.1
 - Generated python2 2019-06-01 for oos.
 

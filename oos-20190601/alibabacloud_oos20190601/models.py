@@ -2228,7 +2228,7 @@ class CreateSecretParameterRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         # The tags.
         self.tags = tags  # type: dict[str, any]
-        # The data type of the parameter. Set the value to Secret.
+        # The type of the parameter. Set the value to Secret.
         self.type = type  # type: str
         # The value of the encryption parameter. The value must be 1 to 4096 characters in length.
         self.value = value  # type: str
@@ -2313,7 +2313,7 @@ class CreateSecretParameterShrinkRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         # The tags.
         self.tags_shrink = tags_shrink  # type: str
-        # The data type of the parameter. Set the value to Secret.
+        # The type of the parameter. Set the value to Secret.
         self.type = type  # type: str
         # The value of the encryption parameter. The value must be 1 to 4096 characters in length.
         self.value = value  # type: str
@@ -3214,6 +3214,9 @@ class DeleteApplicationRequest(TeaModel):
         self.name = name  # type: str
         # The region ID. Set the value to cn-hangzhou.
         self.region_id = region_id  # type: str
+        # Specifies whether to retain resources created by application manager when deleting the application. Valid values:
+        # - true
+        # - false
         self.retain_resource = retain_resource  # type: bool
 
     def validate(self):
@@ -3320,6 +3323,9 @@ class DeleteApplicationGroupRequest(TeaModel):
         self.name = name  # type: str
         # The ID of the region. Set the value to cn-hangzhou.
         self.region_id = region_id  # type: str
+        # Specifies whether to retain resources created by application manager when deleting the application. Valid values:
+        # - true
+        # - false
         self.retain_resource = retain_resource  # type: bool
 
     def validate(self):
@@ -4213,12 +4219,19 @@ class DeployApplicationGroupResponse(TeaModel):
 class DescribeApplicationGroupBillRequest(TeaModel):
     def __init__(self, application_name=None, billing_cycle=None, max_results=None, name=None, next_token=None,
                  region_id=None, resource_type=None):
+        # The application name.
         self.application_name = application_name  # type: str
+        # The billing cycle, in the YYYY-MM format.
         self.billing_cycle = billing_cycle  # type: str
+        # The number of entries per page.
         self.max_results = max_results  # type: int
+        # The application group name.
         self.name = name  # type: str
+        # The token that is used to retrieve the next page of results.
         self.next_token = next_token  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The type of the cloud resource.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -4268,15 +4281,25 @@ class DescribeApplicationGroupBillRequest(TeaModel):
 class DescribeApplicationGroupBillResponseBodyApplicationGroupConsume(TeaModel):
     def __init__(self, amount=None, creation_time=None, currency=None, instance_id=None, instance_name=None,
                  instance_type=None, optimization=None, peak_type=None, performance=None, status=None):
+        # The amount consumed by the instance.
         self.amount = amount  # type: float
+        # The time when the instance was created.
         self.creation_time = creation_time  # type: str
+        # The currency unit.
         self.currency = currency  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The name of the instance.
         self.instance_name = instance_name  # type: str
+        # The instance type.
         self.instance_type = instance_type  # type: str
+        # Optimization suggestions.
         self.optimization = optimization  # type: str
+        # The peak type.
         self.peak_type = peak_type  # type: str
+        # The performance of the data synchronization instance.
         self.performance = performance  # type: str
+        # The status of instance.
         self.status = status  # type: str
 
     def validate(self):
@@ -4337,9 +4360,13 @@ class DescribeApplicationGroupBillResponseBodyApplicationGroupConsume(TeaModel):
 
 class DescribeApplicationGroupBillResponseBody(TeaModel):
     def __init__(self, application_group_consume=None, max_results=None, next_token=None, request_id=None):
+        # The consume of application group.
         self.application_group_consume = application_group_consume  # type: list[DescribeApplicationGroupBillResponseBodyApplicationGroupConsume]
+        # The number of entries per page.
         self.max_results = max_results  # type: int
+        # The token that is used to retrieve the next page of results.
         self.next_token = next_token  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4577,6 +4604,7 @@ class GenerateExecutionPolicyRequest(TeaModel):
         self.ram_role = ram_role  # type: str
         # The ID of the region.
         self.region_id = region_id  # type: str
+        # The content of the template in the JSON or YAML format. This parameter is the same as the Content parameter that you can specify when you call the CreateTemplate operation. You can use this parameter to specify the tasks that you want to run. This way, you do not need to create a template before you start an execution. If you select an existing template, you do not need to specify this parameter.
         self.template_content = template_content  # type: str
         # The name of the template.
         self.template_name = template_name  # type: str
@@ -5612,10 +5640,9 @@ class GetOpsItemRequest(TeaModel):
 
 
 class GetOpsItemResponseBodyOpsItem(TeaModel):
-    def __init__(self, attributes=None, category=None, create_by=None, create_date=None, dedup_string=None,
-                 description=None, last_modified_by=None, ops_item_id=None, priority=None, resource_group_id=None,
-                 resources=None, severity=None, solutions=None, source=None, status=None, tags=None, title=None,
-                 update_date=None):
+    def __init__(self, attributes=None, category=None, create_by=None, create_date=None, description=None,
+                 last_modified_by=None, ops_item_id=None, priority=None, resource_group_id=None, resources=None, severity=None,
+                 solutions=None, source=None, status=None, tags=None, title=None, update_date=None):
         # The information about the attributes of the O\&M item.
         self.attributes = attributes  # type: dict[str, any]
         # The category of the O\&M item.
@@ -5624,8 +5651,6 @@ class GetOpsItemResponseBodyOpsItem(TeaModel):
         self.create_by = create_by  # type: str
         # The time when the O\&M item was created.
         self.create_date = create_date  # type: str
-        # The duplicated string.
-        self.dedup_string = dedup_string  # type: str
         # The description.
         self.description = description  # type: str
         # The user who last modified the O\&M item.
@@ -5670,8 +5695,6 @@ class GetOpsItemResponseBodyOpsItem(TeaModel):
             result['CreateBy'] = self.create_by
         if self.create_date is not None:
             result['CreateDate'] = self.create_date
-        if self.dedup_string is not None:
-            result['DedupString'] = self.dedup_string
         if self.description is not None:
             result['Description'] = self.description
         if self.last_modified_by is not None:
@@ -5710,8 +5733,6 @@ class GetOpsItemResponseBodyOpsItem(TeaModel):
             self.create_by = m.get('CreateBy')
         if m.get('CreateDate') is not None:
             self.create_date = m.get('CreateDate')
-        if m.get('DedupString') is not None:
-            self.dedup_string = m.get('DedupString')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('LastModifiedBy') is not None:
@@ -14047,6 +14068,7 @@ class ListTemplatesRequest(TeaModel):
         self.created_date_before = created_date_before  # type: str
         # Specifies whether to query the template that is configured with a trigger.
         self.has_trigger = has_trigger  # type: bool
+        # The template is favorite or not.
         self.is_favorite = is_favorite  # type: bool
         # The number of entries to return on each page. Valid values: 20 to 100. Default value: 50.
         self.max_results = max_results  # type: int
@@ -14061,13 +14083,13 @@ class ListTemplatesRequest(TeaModel):
         # *   **Public**\
         # *   **Private**\
         self.share_type = share_type  # type: str
-        # The field that is used to sort the templates to be returned. Valid values:
+        # The field that is used to sort the templates to be queried. Valid values:
         # 
-        # *   **TotalExecutionCounts**: The system sorts the returned templates based on the total number of execution times of the template. This is the default value.
-        # *   **Popularity**: The system sorts the returned templates based on the popularity of the template.
-        # *   **TemplateName**: The system sorts the returned templates based on the name of the template.
-        # *   **CreatedDate**: The system sorts the returned templates based on the creation time of the template.
-        # *   **UpdateDate**: The system sorts the returned templates based on the update time of the template.
+        # *   **TotalExecutionCount** (default): The system sorts the returned templates based on the total number of times that the templates are used.
+        # *   **Popularity**: The system sorts the returned templates based on the popularity of the templates.
+        # *   **TemplateName**: The system sorts the returned templates based on the names of the templates.
+        # *   **CreatedDate**: The system sorts the returned templates based on the points in time when the templates are created.
+        # *   **UpdatedDate**: The system sorts the returned templates based on the points in time when the templates are updated.
         self.sort_field = sort_field  # type: str
         # The order in which you want to sort the results. Valid values:
         # 
@@ -14083,33 +14105,11 @@ class ListTemplatesRequest(TeaModel):
         self.template_format = template_format  # type: str
         # The name of the template. All templates whose names contain the specified template name are to be returned.
         self.template_name = template_name  # type: str
-        # The type of the template.
+        # The type of the template. Valid values:
         # 
-        # Valid values:
-        # 
-        # *   Automation
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        # *   State
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        # *   Package
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
+        # *   Automation: the template for automated tasks.
+        # *   State: the template for configuration inventories.
+        # *   Package: the template for software packages.
         self.template_type = template_type  # type: str
 
     def validate(self):
@@ -14218,6 +14218,7 @@ class ListTemplatesShrinkRequest(TeaModel):
         self.created_date_before = created_date_before  # type: str
         # Specifies whether to query the template that is configured with a trigger.
         self.has_trigger = has_trigger  # type: bool
+        # The template is favorite or not.
         self.is_favorite = is_favorite  # type: bool
         # The number of entries to return on each page. Valid values: 20 to 100. Default value: 50.
         self.max_results = max_results  # type: int
@@ -14232,13 +14233,13 @@ class ListTemplatesShrinkRequest(TeaModel):
         # *   **Public**\
         # *   **Private**\
         self.share_type = share_type  # type: str
-        # The field that is used to sort the templates to be returned. Valid values:
+        # The field that is used to sort the templates to be queried. Valid values:
         # 
-        # *   **TotalExecutionCounts**: The system sorts the returned templates based on the total number of execution times of the template. This is the default value.
-        # *   **Popularity**: The system sorts the returned templates based on the popularity of the template.
-        # *   **TemplateName**: The system sorts the returned templates based on the name of the template.
-        # *   **CreatedDate**: The system sorts the returned templates based on the creation time of the template.
-        # *   **UpdateDate**: The system sorts the returned templates based on the update time of the template.
+        # *   **TotalExecutionCount** (default): The system sorts the returned templates based on the total number of times that the templates are used.
+        # *   **Popularity**: The system sorts the returned templates based on the popularity of the templates.
+        # *   **TemplateName**: The system sorts the returned templates based on the names of the templates.
+        # *   **CreatedDate**: The system sorts the returned templates based on the points in time when the templates are created.
+        # *   **UpdatedDate**: The system sorts the returned templates based on the points in time when the templates are updated.
         self.sort_field = sort_field  # type: str
         # The order in which you want to sort the results. Valid values:
         # 
@@ -14254,33 +14255,11 @@ class ListTemplatesShrinkRequest(TeaModel):
         self.template_format = template_format  # type: str
         # The name of the template. All templates whose names contain the specified template name are to be returned.
         self.template_name = template_name  # type: str
-        # The type of the template.
+        # The type of the template. Valid values:
         # 
-        # Valid values:
-        # 
-        # *   Automation
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        # *   State
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        # *   Package
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
-        # 
-        #     <!-- -->
+        # *   Automation: the template for automated tasks.
+        # *   State: the template for configuration inventories.
+        # *   Package: the template for software packages.
         self.template_type = template_type  # type: str
 
     def validate(self):
@@ -14374,6 +14353,7 @@ class ListTemplatesResponseBodyTemplates(TeaModel):
                  template_version=None, total_execution_count=None, updated_by=None, updated_date=None):
         # The type of the template.
         self.category = category  # type: str
+        # The constraints of template
         self.constraints = constraints  # type: str
         # The user who created the template.
         self.created_by = created_by  # type: str
@@ -14385,11 +14365,13 @@ class ListTemplatesResponseBodyTemplates(TeaModel):
         self.has_trigger = has_trigger  # type: bool
         # The SHA-256 value of the template content.
         self.hash = hash  # type: str
+        # The template is favorite or not.
         self.is_favorite = is_favorite  # type: bool
         # The popularity of the public template. Valid values: **1-10**. A greater value indicates higher popularity. If the **ShareType** parameter is set to **Private**, the value of this parameter is `-1`.
         # 
         # **Notes** This parameter is valid only if the value of the **ShareType** parameter is set to **Public**.
         self.popularity = popularity  # type: int
+        # The publisher of template.
         self.publisher = publisher  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
