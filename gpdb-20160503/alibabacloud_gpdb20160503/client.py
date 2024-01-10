@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from Tea.core import TeaCore
+from Tea.converter import TeaConverter
 
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
@@ -11,6 +12,12 @@ from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_gpdb20160503 import models as gpdb_20160503_models
 from alibabacloud_tea_util import models as util_models
 from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
+from alibabacloud_openplatform20191219.client import Client as OpenPlatformClient
+from alibabacloud_openplatform20191219 import models as open_platform_models
+from alibabacloud_oss_sdk import models as oss_models
+from alibabacloud_tea_fileform import models as file_form_models
+from alibabacloud_oss_util import models as ossutil_models
+from alibabacloud_oss_sdk.client import Client as OSSClient
 
 
 class Client(OpenApiClient):
@@ -106,6 +113,48 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.allocate_instance_public_connection_with_options(request, runtime)
+
+    def cancel_upsert_collection_data_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        body = {}
+        if not UtilClient.is_unset(request.collection):
+            body['Collection'] = request.collection
+        if not UtilClient.is_unset(request.job_id):
+            body['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.namespace):
+            body['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.namespace_password):
+            body['NamespacePassword'] = request.namespace_password
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CancelUpsertCollectionDataJob',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.CancelUpsertCollectionDataJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def cancel_upsert_collection_data_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.cancel_upsert_collection_data_job_with_options(request, runtime)
 
     def check_service_linked_role_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3681,6 +3730,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.download_sqllogs_records_with_options(request, runtime)
 
+    def get_upsert_collection_data_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        body = {}
+        if not UtilClient.is_unset(request.collection):
+            body['Collection'] = request.collection
+        if not UtilClient.is_unset(request.job_id):
+            body['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.namespace):
+            body['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.namespace_password):
+            body['NamespacePassword'] = request.namespace_password
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetUpsertCollectionDataJob',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.GetUpsertCollectionDataJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_upsert_collection_data_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_upsert_collection_data_job_with_options(request, runtime)
+
     def grant_collection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5530,3 +5621,112 @@ class Client(OpenApiClient):
     def upsert_collection_data(self, request):
         runtime = util_models.RuntimeOptions()
         return self.upsert_collection_data_with_options(request, runtime)
+
+    def upsert_collection_data_async_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        body = {}
+        if not UtilClient.is_unset(request.collection):
+            body['Collection'] = request.collection
+        if not UtilClient.is_unset(request.file_url):
+            body['FileUrl'] = request.file_url
+        if not UtilClient.is_unset(request.namespace):
+            body['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.namespace_password):
+            body['NamespacePassword'] = request.namespace_password
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpsertCollectionDataAsync',
+            version='2016-05-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gpdb_20160503_models.UpsertCollectionDataAsyncResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def upsert_collection_data_async(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.upsert_collection_data_async_with_options(request, runtime)
+
+    def upsert_collection_data_async_advance(self, request, runtime):
+        # Step 0: init client
+        access_key_id = self._credential.get_access_key_id()
+        access_key_secret = self._credential.get_access_key_secret()
+        security_token = self._credential.get_security_token()
+        credential_type = self._credential.get_type()
+        open_platform_endpoint = self._open_platform_endpoint
+        if UtilClient.is_unset(open_platform_endpoint):
+            open_platform_endpoint = 'openplatform.aliyuncs.com'
+        if UtilClient.is_unset(credential_type):
+            credential_type = 'access_key'
+        auth_config = open_api_models.Config(
+            access_key_id=access_key_id,
+            access_key_secret=access_key_secret,
+            security_token=security_token,
+            type=credential_type,
+            endpoint=open_platform_endpoint,
+            protocol=self._protocol,
+            region_id=self._region_id
+        )
+        auth_client = OpenPlatformClient(auth_config)
+        auth_request = open_platform_models.AuthorizeFileUploadRequest(
+            product='gpdb',
+            region_id=self._region_id
+        )
+        auth_response = open_platform_models.AuthorizeFileUploadResponse()
+        oss_config = oss_models.Config(
+            access_key_secret=access_key_secret,
+            type='access_key',
+            protocol=self._protocol,
+            region_id=self._region_id
+        )
+        oss_client = None
+        file_obj = file_form_models.FileField()
+        oss_header = oss_models.PostObjectRequestHeader()
+        upload_request = oss_models.PostObjectRequest()
+        oss_runtime = ossutil_models.RuntimeOptions()
+        OpenApiUtilClient.convert(runtime, oss_runtime)
+        upsert_collection_data_async_req = gpdb_20160503_models.UpsertCollectionDataAsyncRequest()
+        OpenApiUtilClient.convert(request, upsert_collection_data_async_req)
+        if not UtilClient.is_unset(request.file_url_object):
+            auth_response = auth_client.authorize_file_upload_with_options(auth_request, runtime)
+            oss_config.access_key_id = auth_response.body.access_key_id
+            oss_config.endpoint = OpenApiUtilClient.get_endpoint(auth_response.body.endpoint, auth_response.body.use_accelerate, self._endpoint_type)
+            oss_client = OSSClient(oss_config)
+            file_obj = file_form_models.FileField(
+                filename=auth_response.body.object_key,
+                content=request.file_url_object,
+                content_type=''
+            )
+            oss_header = oss_models.PostObjectRequestHeader(
+                access_key_id=auth_response.body.access_key_id,
+                policy=auth_response.body.encoded_policy,
+                signature=auth_response.body.signature,
+                key=auth_response.body.object_key,
+                file=file_obj,
+                success_action_status='201'
+            )
+            upload_request = oss_models.PostObjectRequest(
+                bucket_name=auth_response.body.bucket,
+                header=oss_header
+            )
+            oss_client.post_object(upload_request, oss_runtime)
+            upsert_collection_data_async_req.file_url = 'http://%s.%s/%s' % (TeaConverter.to_unicode(auth_response.body.bucket), TeaConverter.to_unicode(auth_response.body.endpoint), TeaConverter.to_unicode(auth_response.body.object_key))
+        upsert_collection_data_async_resp = self.upsert_collection_data_async_with_options(upsert_collection_data_async_req, runtime)
+        return upsert_collection_data_async_resp

@@ -135,6 +135,134 @@ class AllocateInstancePublicConnectionResponse(TeaModel):
         return self
 
 
+class CancelUpsertCollectionDataJobRequest(TeaModel):
+    def __init__(self, collection=None, dbinstance_id=None, job_id=None, namespace=None, namespace_password=None,
+                 owner_id=None, region_id=None):
+        self.collection = collection  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.job_id = job_id  # type: str
+        self.namespace = namespace  # type: str
+        self.namespace_password = namespace_password  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelUpsertCollectionDataJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection is not None:
+            result['Collection'] = self.collection
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.namespace_password is not None:
+            result['NamespacePassword'] = self.namespace_password
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Collection') is not None:
+            self.collection = m.get('Collection')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('NamespacePassword') is not None:
+            self.namespace_password = m.get('NamespacePassword')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class CancelUpsertCollectionDataJobResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None, status=None):
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelUpsertCollectionDataJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class CancelUpsertCollectionDataJobResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CancelUpsertCollectionDataJobResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CancelUpsertCollectionDataJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CancelUpsertCollectionDataJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CheckServiceLinkedRoleRequest(TeaModel):
     def __init__(self, region_id=None):
         # The ID of the region. You can call the [DescribeRegions](~~86912~~) operation to query the most recent region list.
@@ -15740,6 +15868,197 @@ class DownloadSQLLogsRecordsResponse(TeaModel):
         return self
 
 
+class GetUpsertCollectionDataJobRequest(TeaModel):
+    def __init__(self, collection=None, dbinstance_id=None, job_id=None, namespace=None, namespace_password=None,
+                 owner_id=None, region_id=None):
+        self.collection = collection  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.job_id = job_id  # type: str
+        self.namespace = namespace  # type: str
+        self.namespace_password = namespace_password  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetUpsertCollectionDataJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection is not None:
+            result['Collection'] = self.collection
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.namespace_password is not None:
+            result['NamespacePassword'] = self.namespace_password
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Collection') is not None:
+            self.collection = m.get('Collection')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('NamespacePassword') is not None:
+            self.namespace_password = m.get('NamespacePassword')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class GetUpsertCollectionDataJobResponseBodyJob(TeaModel):
+    def __init__(self, completed=None, create_time=None, error=None, id=None, progress=None, status=None,
+                 update_time=None):
+        self.completed = completed  # type: bool
+        self.create_time = create_time  # type: str
+        self.error = error  # type: str
+        # Job ID。
+        self.id = id  # type: str
+        self.progress = progress  # type: int
+        self.status = status  # type: str
+        self.update_time = update_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetUpsertCollectionDataJobResponseBodyJob, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.completed is not None:
+            result['Completed'] = self.completed
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.error is not None:
+            result['Error'] = self.error
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.progress is not None:
+            result['Progress'] = self.progress
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Completed') is not None:
+            self.completed = m.get('Completed')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('Error') is not None:
+            self.error = m.get('Error')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Progress') is not None:
+            self.progress = m.get('Progress')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        return self
+
+
+class GetUpsertCollectionDataJobResponseBody(TeaModel):
+    def __init__(self, job=None, message=None, request_id=None, status=None):
+        self.job = job  # type: GetUpsertCollectionDataJobResponseBodyJob
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.job:
+            self.job.validate()
+
+    def to_map(self):
+        _map = super(GetUpsertCollectionDataJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job is not None:
+            result['Job'] = self.job.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Job') is not None:
+            temp_model = GetUpsertCollectionDataJobResponseBodyJob()
+            self.job = temp_model.from_map(m['Job'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class GetUpsertCollectionDataJobResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetUpsertCollectionDataJobResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetUpsertCollectionDataJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetUpsertCollectionDataJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GrantCollectionRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, grant_to_namespace=None, grant_type=None,
                  manager_account=None, manager_account_password=None, namespace=None, owner_id=None, region_id=None):
@@ -22174,6 +22493,194 @@ class UpsertCollectionDataResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpsertCollectionDataResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpsertCollectionDataAsyncRequest(TeaModel):
+    def __init__(self, collection=None, dbinstance_id=None, file_url=None, namespace=None, namespace_password=None,
+                 owner_id=None, region_id=None):
+        self.collection = collection  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.file_url = file_url  # type: str
+        self.namespace = namespace  # type: str
+        self.namespace_password = namespace_password  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpsertCollectionDataAsyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection is not None:
+            result['Collection'] = self.collection
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.file_url is not None:
+            result['FileUrl'] = self.file_url
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.namespace_password is not None:
+            result['NamespacePassword'] = self.namespace_password
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Collection') is not None:
+            self.collection = m.get('Collection')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('FileUrl') is not None:
+            self.file_url = m.get('FileUrl')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('NamespacePassword') is not None:
+            self.namespace_password = m.get('NamespacePassword')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class UpsertCollectionDataAsyncAdvanceRequest(TeaModel):
+    def __init__(self, collection=None, dbinstance_id=None, file_url_object=None, namespace=None,
+                 namespace_password=None, owner_id=None, region_id=None):
+        self.collection = collection  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.file_url_object = file_url_object  # type: READABLE
+        self.namespace = namespace  # type: str
+        self.namespace_password = namespace_password  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpsertCollectionDataAsyncAdvanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection is not None:
+            result['Collection'] = self.collection
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.file_url_object is not None:
+            result['FileUrl'] = self.file_url_object
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.namespace_password is not None:
+            result['NamespacePassword'] = self.namespace_password
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Collection') is not None:
+            self.collection = m.get('Collection')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('FileUrl') is not None:
+            self.file_url_object = m.get('FileUrl')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('NamespacePassword') is not None:
+            self.namespace_password = m.get('NamespacePassword')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class UpsertCollectionDataAsyncResponseBody(TeaModel):
+    def __init__(self, job_id=None, message=None, request_id=None, status=None):
+        self.job_id = job_id  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpsertCollectionDataAsyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class UpsertCollectionDataAsyncResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpsertCollectionDataAsyncResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpsertCollectionDataAsyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpsertCollectionDataAsyncResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
