@@ -12657,7 +12657,7 @@ class DescribeParameterModificationHistoryResponse(TeaModel):
 
 class DescribeParameterTemplatesRequest(TeaModel):
     def __init__(self, engine=None, engine_version=None, owner_account=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None):
+                 resource_owner_account=None, resource_owner_id=None, role=None):
         # The database engine of the instance. Set the value to **MongoDB**.
         self.engine = engine  # type: str
         # The database engine version of the instance. Valid values:
@@ -12674,6 +12674,20 @@ class DescribeParameterTemplatesRequest(TeaModel):
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The role of the instance. Valid values:
+        # 
+        # 1. db:  a shard node.
+        # 
+        # 1. cs:  a Configserver node.
+        # 
+        # 1. mongos:  a mongos node.
+        # 
+        # 1. normal: a replica set node.
+        # 
+        # 1. physical: a standalone node.
+        # 
+        # default: normal
+        self.role = role  # type: str
 
     def validate(self):
         pass
@@ -12698,6 +12712,8 @@ class DescribeParameterTemplatesRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.role is not None:
+            result['Role'] = self.role
         return result
 
     def from_map(self, m=None):
@@ -12716,6 +12732,8 @@ class DescribeParameterTemplatesRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
         return self
 
 

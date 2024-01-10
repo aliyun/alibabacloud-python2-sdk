@@ -1,3 +1,6 @@
+2024-01-10 Version: 3.0.3
+- Generated python2 2015-12-01 for Dds.
+
 2024-01-10 Version: 3.0.2
 - Generated python2 2015-12-01 for Dds.
 
