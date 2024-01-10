@@ -4411,8 +4411,8 @@ class CommentListReportResponse(TeaModel):
 
 
 class CreateDeliveryPlanHeadersAccountContext(TeaModel):
-    def __init__(self, account_id=None):
-        self.account_id = account_id  # type: str
+    def __init__(self, user_token=None):
+        self.user_token = user_token  # type: str
 
     def validate(self):
         pass
@@ -4423,14 +4423,14 @@ class CreateDeliveryPlanHeadersAccountContext(TeaModel):
             return _map
 
         result = dict()
-        if self.account_id is not None:
-            result['accountId'] = self.account_id
+        if self.user_token is not None:
+            result['userToken'] = self.user_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('accountId') is not None:
-            self.account_id = m.get('accountId')
+        if m.get('userToken') is not None:
+            self.user_token = m.get('userToken')
         return self
 
 
@@ -28157,12 +28157,15 @@ class ListEventsResponseBodyEvents(TeaModel):
 
 
 class ListEventsResponseBody(TeaModel):
-    def __init__(self, events=None, next_token=None, request_id=None, sync_token=None):
+    def __init__(self, events=None, next_token=None, request_id=None, sync_token=None, vendor_request_id=None,
+                 vendor_type=None):
         self.events = events  # type: list[ListEventsResponseBodyEvents]
         self.next_token = next_token  # type: str
         # requestId
         self.request_id = request_id  # type: str
         self.sync_token = sync_token  # type: str
+        self.vendor_request_id = vendor_request_id  # type: str
+        self.vendor_type = vendor_type  # type: str
 
     def validate(self):
         if self.events:
@@ -28186,6 +28189,10 @@ class ListEventsResponseBody(TeaModel):
             result['requestId'] = self.request_id
         if self.sync_token is not None:
             result['syncToken'] = self.sync_token
+        if self.vendor_request_id is not None:
+            result['vendorRequestId'] = self.vendor_request_id
+        if self.vendor_type is not None:
+            result['vendorType'] = self.vendor_type
         return result
 
     def from_map(self, m=None):
@@ -28201,6 +28208,10 @@ class ListEventsResponseBody(TeaModel):
             self.request_id = m.get('requestId')
         if m.get('syncToken') is not None:
             self.sync_token = m.get('syncToken')
+        if m.get('vendorRequestId') is not None:
+            self.vendor_request_id = m.get('vendorRequestId')
+        if m.get('vendorType') is not None:
+            self.vendor_type = m.get('vendorType')
         return self
 
 
