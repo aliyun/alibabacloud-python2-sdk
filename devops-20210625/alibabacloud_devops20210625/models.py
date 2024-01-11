@@ -14315,13 +14315,14 @@ class GetMergeRequestResponseBodyResultAuthor(TeaModel):
 
 class GetMergeRequestResponseBodyResultReviewers(TeaModel):
     def __init__(self, avatar_url=None, email=None, has_reviewed=None, id=None, name=None,
-                 review_opinion_status=None, state=None, username=None):
+                 review_opinion_status=None, review_time=None, state=None, username=None):
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
         self.has_reviewed = has_reviewed  # type: bool
         self.id = id  # type: long
         self.name = name  # type: str
         self.review_opinion_status = review_opinion_status  # type: str
+        self.review_time = review_time  # type: str
         self.state = state  # type: str
         self.username = username  # type: str
 
@@ -14346,6 +14347,8 @@ class GetMergeRequestResponseBodyResultReviewers(TeaModel):
             result['name'] = self.name
         if self.review_opinion_status is not None:
             result['reviewOpinionStatus'] = self.review_opinion_status
+        if self.review_time is not None:
+            result['reviewTime'] = self.review_time
         if self.state is not None:
             result['state'] = self.state
         if self.username is not None:
@@ -14366,6 +14369,8 @@ class GetMergeRequestResponseBodyResultReviewers(TeaModel):
             self.name = m.get('name')
         if m.get('reviewOpinionStatus') is not None:
             self.review_opinion_status = m.get('reviewOpinionStatus')
+        if m.get('reviewTime') is not None:
+            self.review_time = m.get('reviewTime')
         if m.get('state') is not None:
             self.state = m.get('state')
         if m.get('username') is not None:
@@ -16700,9 +16705,10 @@ class GetProjectMemberRequest(TeaModel):
 
 
 class GetProjectMemberResponseBodyResult(TeaModel):
-    def __init__(self, access_level=None, avatar_url=None, id=None, name=None):
+    def __init__(self, access_level=None, avatar_url=None, email=None, id=None, name=None):
         self.access_level = access_level  # type: int
         self.avatar_url = avatar_url  # type: str
+        self.email = email  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
 
@@ -16719,6 +16725,8 @@ class GetProjectMemberResponseBodyResult(TeaModel):
             result['accessLevel'] = self.access_level
         if self.avatar_url is not None:
             result['avatarUrl'] = self.avatar_url
+        if self.email is not None:
+            result['email'] = self.email
         if self.id is not None:
             result['id'] = self.id
         if self.name is not None:
@@ -16731,6 +16739,8 @@ class GetProjectMemberResponseBodyResult(TeaModel):
             self.access_level = m.get('accessLevel')
         if m.get('avatarUrl') is not None:
             self.avatar_url = m.get('avatarUrl')
+        if m.get('email') is not None:
+            self.email = m.get('email')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('name') is not None:
@@ -24553,11 +24563,13 @@ class ListMergeRequestsResponseBodyResultAuthor(TeaModel):
 
 
 class ListMergeRequestsResponseBodyResultReviewers(TeaModel):
-    def __init__(self, avatar_url=None, email=None, id=None, name=None, state=None, status=None, username=None):
+    def __init__(self, avatar_url=None, email=None, id=None, name=None, review_time=None, state=None, status=None,
+                 username=None):
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
+        self.review_time = review_time  # type: str
         self.state = state  # type: str
         self.status = status  # type: str
         self.username = username  # type: str
@@ -24579,6 +24591,8 @@ class ListMergeRequestsResponseBodyResultReviewers(TeaModel):
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
+        if self.review_time is not None:
+            result['reviewTime'] = self.review_time
         if self.state is not None:
             result['state'] = self.state
         if self.status is not None:
@@ -24597,6 +24611,8 @@ class ListMergeRequestsResponseBodyResultReviewers(TeaModel):
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('reviewTime') is not None:
+            self.review_time = m.get('reviewTime')
         if m.get('state') is not None:
             self.state = m.get('state')
         if m.get('status') is not None:
