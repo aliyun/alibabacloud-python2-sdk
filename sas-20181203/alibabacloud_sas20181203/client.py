@@ -8275,6 +8275,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_machine_can_reboot_with_options(request, runtime)
 
+    def describe_matched_malicious_names_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.levels):
+            query['Levels'] = request.levels
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeMatchedMaliciousNames',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeMatchedMaliciousNamesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_matched_malicious_names(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_matched_malicious_names_with_options(request, runtime)
+
     def describe_module_config_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
@@ -16957,6 +16987,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_honeypot_probe_uuid_with_options(request, runtime)
 
+    def list_image_build_risk_item_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListImageBuildRiskItem',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListImageBuildRiskItemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_image_build_risk_item(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_image_build_risk_item_with_options(request, runtime)
+
     def list_image_registry_region_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
@@ -18000,6 +18058,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
         if not UtilClient.is_unset(request.operate_task_id):
             query['OperateTaskId'] = request.operate_task_id
         if not UtilClient.is_unset(request.page_size):
