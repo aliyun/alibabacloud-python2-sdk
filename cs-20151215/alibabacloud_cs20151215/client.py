@@ -366,6 +366,25 @@ class Client(OpenApiClient):
         return self.create_autoscaling_config_with_options(cluster_id, request, headers, runtime)
 
     def create_cluster_with_options(self, request, headers, runtime):
+        """
+        This topic describes all parameters for creating an ACK cluster. You can create the following types of ACK clusters.
+        *   [Create an ACK managed cluster](~~90776~~)
+        *   [Create an ACK dedicated cluster](~~197620~~)
+        *   [Create an ACK Serverless cluster](~~144246~~)
+        *   [Create an ACK Edge cluster](128204)
+        *   [Create an ACK Basic cluster that supports sandboxed containers](~~196321~~)
+        *   [Create an ACK Pro cluster that supports sandboxed containers](140623)
+        
+
+        @param request: CreateClusterRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateClusterResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.access_control_list):
@@ -569,6 +588,20 @@ class Client(OpenApiClient):
         )
 
     def create_cluster(self, request):
+        """
+        This topic describes all parameters for creating an ACK cluster. You can create the following types of ACK clusters.
+        *   [Create an ACK managed cluster](~~90776~~)
+        *   [Create an ACK dedicated cluster](~~197620~~)
+        *   [Create an ACK Serverless cluster](~~144246~~)
+        *   [Create an ACK Edge cluster](128204)
+        *   [Create an ACK Basic cluster that supports sandboxed containers](~~196321~~)
+        *   [Create an ACK Pro cluster that supports sandboxed containers](140623)
+        
+
+        @param request: CreateClusterRequest
+
+        @return: CreateClusterResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_cluster_with_options(request, headers, runtime)
@@ -1639,6 +1672,20 @@ class Client(OpenApiClient):
         return self.describe_cluster_tasks_with_options(cluster_id, request, headers, runtime)
 
     def describe_cluster_user_kubeconfig_with_options(self, cluster_id, request, headers, runtime):
+        """
+        *\
+        ****The default validity period of a kubeconfig file is 3 years. Two months before a kubeconfig file expires, you can renew it in the Container Service for Kubernetes (ACK) console or by calling API operations. After a kubeconfig file is renewed, the secret is valid for 3 years. The previous kubeconfig secret remains valid until expiration. We recommend that you renew your kubeconfig file at the earliest opportunity.
+        
+
+        @param request: DescribeClusterUserKubeconfigRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeClusterUserKubeconfigResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.private_ip_address):
@@ -1666,6 +1713,15 @@ class Client(OpenApiClient):
         )
 
     def describe_cluster_user_kubeconfig(self, cluster_id, request):
+        """
+        *\
+        ****The default validity period of a kubeconfig file is 3 years. Two months before a kubeconfig file expires, you can renew it in the Container Service for Kubernetes (ACK) console or by calling API operations. After a kubeconfig file is renewed, the secret is valid for 3 years. The previous kubeconfig secret remains valid until expiration. We recommend that you renew your kubeconfig file at the earliest opportunity.
+        
+
+        @param request: DescribeClusterUserKubeconfigRequest
+
+        @return: DescribeClusterUserKubeconfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_cluster_user_kubeconfig_with_options(cluster_id, request, headers, runtime)
@@ -3048,6 +3104,8 @@ class Client(OpenApiClient):
             body['instance_deletion_protection'] = request.instance_deletion_protection
         if not UtilClient.is_unset(request.maintenance_window):
             body['maintenance_window'] = request.maintenance_window
+        if not UtilClient.is_unset(request.operation_policy):
+            body['operation_policy'] = request.operation_policy
         if not UtilClient.is_unset(request.resource_group_id):
             body['resource_group_id'] = request.resource_group_id
         if not UtilClient.is_unset(request.system_events_logging):
@@ -3237,7 +3295,7 @@ class Client(OpenApiClient):
 
     def modify_node_pool_node_config_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         """
-        This operation progressively modifies the kubelet configuration of the nodes in a node pool and restarts the kubelet process, which may affect your businesses.
+        >  Container Service for Kubernetes (ACK) allows you to modify the kubelet configuration of nodes in a node pool. After you modify the kubelet configuration, the new configuration immediately takes effect on existing nodes in the node pool and is automatically applied to newly added nodes.
         
 
         @param request: ModifyNodePoolNodeConfigRequest
@@ -3277,7 +3335,7 @@ class Client(OpenApiClient):
 
     def modify_node_pool_node_config(self, cluster_id, nodepool_id, request):
         """
-        This operation progressively modifies the kubelet configuration of the nodes in a node pool and restarts the kubelet process, which may affect your businesses.
+        >  Container Service for Kubernetes (ACK) allows you to modify the kubelet configuration of nodes in a node pool. After you modify the kubelet configuration, the new configuration immediately takes effect on existing nodes in the node pool and is automatically applied to newly added nodes.
         
 
         @param request: ModifyNodePoolNodeConfigRequest
