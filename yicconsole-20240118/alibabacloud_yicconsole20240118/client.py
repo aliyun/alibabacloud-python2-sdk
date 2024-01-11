@@ -32,12 +32,9 @@ class Client(OpenApiClient):
 
     def billing_process_message_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.body):
-            query['body'] = request.body
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='BillingProcessMessage',

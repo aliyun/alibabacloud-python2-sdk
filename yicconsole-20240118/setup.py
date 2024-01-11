@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_yicconsole20240118_py2.
 
-Created on 10/01/2024
+Created on 11/01/2024
 
 @author: Alibaba Cloud SDK
 """
