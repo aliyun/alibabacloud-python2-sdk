@@ -146,6 +146,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.batch_query_motion_shop_task_status_with_options(request, runtime)
 
+    def create_avatar_talk_project_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.jwt_token):
+            query['JwtToken'] = request.jwt_token
+        body = {}
+        if not UtilClient.is_unset(request.avatar_project_id):
+            body['AvatarProjectId'] = request.avatar_project_id
+        if not UtilClient.is_unset(request.title):
+            body['Title'] = request.title
+        if not UtilClient.is_unset(request.tts_voice):
+            body['TtsVoice'] = request.tts_voice
+        if not UtilClient.is_unset(request.txt_content):
+            body['TxtContent'] = request.txt_content
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateAvatarTalkProject',
+            version='2023-03-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            xr_engine_20230313_models.CreateAvatarTalkProjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_avatar_talk_project(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_avatar_talk_project_with_options(request, runtime)
+
     def create_digital_human_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
