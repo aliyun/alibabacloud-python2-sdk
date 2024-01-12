@@ -927,6 +927,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.accept_language):
+            body['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.dimensions):
             body['Dimensions'] = request.dimensions
         if not UtilClient.is_unset(request.key_word):

@@ -545,9 +545,9 @@ class CreateQuotaApplicationsForTemplateRequest(TeaModel):
     def __init__(self, aliyun_uids=None, desire_value=None, dimensions=None, effective_time=None, env_language=None,
                  expire_time=None, notice_type=None, product_code=None, quota_action_code=None, quota_category=None,
                  reason=None):
-        # The Alibaba Cloud accounts for which the quotas are applied.
+        # The Alibaba Cloud accounts that correspond to the resource directory member accounts for which the quotas are applied.
         # 
-        # >  For more information about the members of a resource directory, see [Query all the members in a resource directory](~~604207~~).
+        # >  You can apply for a quota increase for up to 50 member accounts in each request. For more information about the member accounts in a resource directory, see [ListAccounts](~~604207~~).
         self.aliyun_uids = aliyun_uids  # type: list[str]
         # The requested value of the quota.
         # 
@@ -660,7 +660,9 @@ class CreateQuotaApplicationsForTemplateRequest(TeaModel):
 
 class CreateQuotaApplicationsForTemplateResponseBodyFailResults(TeaModel):
     def __init__(self, aliyun_uid=None, reason=None):
+        # The Alibaba Cloud account of the members in a resource directory whose quota increase request is rejected.
         self.aliyun_uid = aliyun_uid  # type: str
+        # The reason for the rejection.
         self.reason = reason  # type: str
 
     def validate(self):
@@ -693,6 +695,7 @@ class CreateQuotaApplicationsForTemplateResponseBody(TeaModel):
         self.aliyun_uids = aliyun_uids  # type: list[str]
         # The ID of the quota application batch.
         self.batch_quota_application_id = batch_quota_application_id  # type: str
+        # The Alibaba Cloud accounts of the members in a resource directory whose quota increase request is rejected, and the reason for the rejection.
         self.fail_results = fail_results  # type: list[CreateQuotaApplicationsForTemplateResponseBodyFailResults]
         # The request ID.
         self.request_id = request_id  # type: str
@@ -3532,6 +3535,10 @@ class ListProductQuotasResponseBodyQuotas(TeaModel):
         self.effective_time = effective_time  # type: str
         # The end time of the validity period of the quota. The value is displayed in UTC.
         self.expire_time = expire_time  # type: str
+        # Indicates whether the quota is a global quota. Valid values:
+        # 
+        # *   true: The quota is shared in all regions.
+        # *   false: The quota is independently used in a region.
         self.global_quota = global_quota  # type: bool
         # The calculation cycle of the quota.
         self.period = period  # type: ListProductQuotasResponseBodyQuotasPeriod
@@ -4747,8 +4754,9 @@ class ListQuotaApplicationsRequestDimensions(TeaModel):
 
 
 class ListQuotaApplicationsRequest(TeaModel):
-    def __init__(self, dimensions=None, key_word=None, max_results=None, next_token=None, product_code=None,
-                 quota_action_code=None, quota_category=None, status=None):
+    def __init__(self, accept_language=None, dimensions=None, key_word=None, max_results=None, next_token=None,
+                 product_code=None, quota_action_code=None, quota_category=None, status=None):
+        self.accept_language = accept_language  # type: str
         # The quota dimensions.
         self.dimensions = dimensions  # type: list[ListQuotaApplicationsRequestDimensions]
         # The keyword that you want to use to search for the application.
@@ -4791,6 +4799,8 @@ class ListQuotaApplicationsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
         result['Dimensions'] = []
         if self.dimensions is not None:
             for k in self.dimensions:
@@ -4813,6 +4823,8 @@ class ListQuotaApplicationsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
         self.dimensions = []
         if m.get('Dimensions') is not None:
             for k in m.get('Dimensions'):
@@ -5612,9 +5624,11 @@ class ListQuotaApplicationsForTemplateResponseBodyQuotaBatchApplicationsAuditSta
 
 
 class ListQuotaApplicationsForTemplateResponseBodyQuotaBatchApplications(TeaModel):
-    def __init__(self, apply_time=None, audit_status_vos=None, batch_quota_application_id=None, desire_value=None,
-                 dimensions=None, effective_time=None, expire_time=None, product_code=None, quota_action_code=None,
-                 quota_category=None):
+    def __init__(self, aliyun_uids=None, apply_time=None, audit_status_vos=None, batch_quota_application_id=None,
+                 desire_value=None, dimensions=None, effective_time=None, expire_time=None, product_code=None,
+                 quota_action_code=None, quota_category=None, reason=None):
+        # The Alibaba Cloud accounts for which the quotas are applied.
+        self.aliyun_uids = aliyun_uids  # type: list[str]
         # The time when the quota increase application was submitted. The value is displayed in UTC.
         self.apply_time = apply_time  # type: str
         # The number of applications in different approval states.
@@ -5641,6 +5655,8 @@ class ListQuotaApplicationsForTemplateResponseBodyQuotaBatchApplications(TeaMode
         # *   FlowControl: API rate limit
         # *   WhiteListLabel: privilege
         self.quota_category = quota_category  # type: str
+        # The reason for the quota increase application.
+        self.reason = reason  # type: str
 
     def validate(self):
         if self.audit_status_vos:
@@ -5654,6 +5670,8 @@ class ListQuotaApplicationsForTemplateResponseBodyQuotaBatchApplications(TeaMode
             return _map
 
         result = dict()
+        if self.aliyun_uids is not None:
+            result['AliyunUids'] = self.aliyun_uids
         if self.apply_time is not None:
             result['ApplyTime'] = self.apply_time
         result['AuditStatusVos'] = []
@@ -5676,10 +5694,14 @@ class ListQuotaApplicationsForTemplateResponseBodyQuotaBatchApplications(TeaMode
             result['QuotaActionCode'] = self.quota_action_code
         if self.quota_category is not None:
             result['QuotaCategory'] = self.quota_category
+        if self.reason is not None:
+            result['Reason'] = self.reason
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AliyunUids') is not None:
+            self.aliyun_uids = m.get('AliyunUids')
         if m.get('ApplyTime') is not None:
             self.apply_time = m.get('ApplyTime')
         self.audit_status_vos = []
@@ -5703,6 +5725,8 @@ class ListQuotaApplicationsForTemplateResponseBodyQuotaBatchApplications(TeaMode
             self.quota_action_code = m.get('QuotaActionCode')
         if m.get('QuotaCategory') is not None:
             self.quota_category = m.get('QuotaCategory')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
         return self
 
 
