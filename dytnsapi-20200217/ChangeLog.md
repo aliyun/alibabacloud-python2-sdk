@@ -1,3 +1,6 @@
+2024-01-12 Version: 1.5.2
+- Generated python2 2020-02-17 for Dytnsapi.
+
 2023-12-29 Version: 1.5.1
 - Generated python2 2020-02-17 for Dytnsapi.
 
