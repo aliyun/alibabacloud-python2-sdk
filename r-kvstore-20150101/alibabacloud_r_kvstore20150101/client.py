@@ -221,7 +221,7 @@ class Client(OpenApiClient):
 
     def allocate_instance_public_connection_with_options(self, request, runtime):
         """
-        r-bp1zxszhcgatnx***\
+        You can also apply for public endpoints in the ApsaraDB for Redis console. For more information, see [Use a public endpoint to connect to an ApsaraDB for Redis instance](~~43850~~).
         
 
         @param request: AllocateInstancePublicConnectionRequest
@@ -269,7 +269,7 @@ class Client(OpenApiClient):
 
     def allocate_instance_public_connection(self, request):
         """
-        r-bp1zxszhcgatnx***\
+        You can also apply for public endpoints in the ApsaraDB for Redis console. For more information, see [Use a public endpoint to connect to an ApsaraDB for Redis instance](~~43850~~).
         
 
         @param request: AllocateInstancePublicConnectionRequest
@@ -677,6 +677,8 @@ class Client(OpenApiClient):
             query['Capacity'] = request.capacity
         if not UtilClient.is_unset(request.charge_type):
             query['ChargeType'] = request.charge_type
+        if not UtilClient.is_unset(request.cluster_backup_id):
+            query['ClusterBackupId'] = request.cluster_backup_id
         if not UtilClient.is_unset(request.connection_string_prefix):
             query['ConnectionStringPrefix'] = request.connection_string_prefix
         if not UtilClient.is_unset(request.coupon_no):
@@ -889,6 +891,8 @@ class Client(OpenApiClient):
             query['ChargeType'] = request.charge_type
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.cluster_backup_id):
+            query['ClusterBackupId'] = request.cluster_backup_id
         if not UtilClient.is_unset(request.coupon_no):
             query['CouponNo'] = request.coupon_no
         if not UtilClient.is_unset(request.dry_run):
@@ -1046,6 +1050,16 @@ class Client(OpenApiClient):
         return self.delete_account_with_options(request, runtime)
 
     def delete_global_security_ipgroup_with_options(self, request, runtime):
+        """
+        Before you delete an IP whitelist template, you must unbind (disassociate) the instances that are currently associated with the template.
+        
+
+        @param request: DeleteGlobalSecurityIPGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteGlobalSecurityIPGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.global_ig_name):
@@ -1086,6 +1100,14 @@ class Client(OpenApiClient):
         )
 
     def delete_global_security_ipgroup(self, request):
+        """
+        Before you delete an IP whitelist template, you must unbind (disassociate) the instances that are currently associated with the template.
+        
+
+        @param request: DeleteGlobalSecurityIPGroupRequest
+
+        @return: DeleteGlobalSecurityIPGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_global_security_ipgroup_with_options(request, runtime)
 
@@ -1225,7 +1247,7 @@ class Client(OpenApiClient):
 
     def describe_accounts_with_options(self, request, runtime):
         """
-        Details about returned accounts of the instance.
+        >  Only ApsaraDB for Redis instances of Redis 4.0 or later are supported.
         
 
         @param request: DescribeAccountsRequest
@@ -1271,7 +1293,7 @@ class Client(OpenApiClient):
 
     def describe_accounts(self, request):
         """
-        Details about returned accounts of the instance.
+        >  Only ApsaraDB for Redis instances of Redis 4.0 or later are supported.
         
 
         @param request: DescribeAccountsRequest
@@ -1651,6 +1673,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.backup_id):
             query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.backup_job_id):
+            query['BackupJobId'] = request.backup_job_id
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.instance_id):
@@ -1846,6 +1870,32 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_cache_analysis_report_list_with_options(request, runtime)
+
+    def describe_cluster_backup_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeClusterBackupList',
+            version='2015-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            r_kvstore_20150101_models.DescribeClusterBackupListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cluster_backup_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cluster_backup_list_with_options(request, runtime)
 
     def describe_cluster_member_info_with_options(self, request, runtime):
         """
@@ -3016,7 +3066,7 @@ class Client(OpenApiClient):
     def describe_monitor_items_with_options(self, request, runtime):
         """
         >  ApsaraDB for Redis has upgraded the monitoring metrics. The DescribeMonitorItems operation is phased out. For more information, see [The DescribeMonitorItems operation supported by ApsaraDB for Redis is phased out](~~189893~~).
-        After you call this operation to retrieve a list of metrics for a specified ApsaraDB for Redis instance, you can call the [DescribeHistoryMonitorValues](~~61107~~) operation to query monitoring history of the instance.
+        After you call this operation to retrieve a list of metrics for a specified ApsaraDB for Redis instance, you can call the [DescribeHistoryMonitorValues](~~DescribeHistoryMonitorValues~~) operation to query monitoring history of the instance.
         
 
         @param request: DescribeMonitorItemsRequest
@@ -3059,7 +3109,7 @@ class Client(OpenApiClient):
     def describe_monitor_items(self, request):
         """
         >  ApsaraDB for Redis has upgraded the monitoring metrics. The DescribeMonitorItems operation is phased out. For more information, see [The DescribeMonitorItems operation supported by ApsaraDB for Redis is phased out](~~189893~~).
-        After you call this operation to retrieve a list of metrics for a specified ApsaraDB for Redis instance, you can call the [DescribeHistoryMonitorValues](~~61107~~) operation to query monitoring history of the instance.
+        After you call this operation to retrieve a list of metrics for a specified ApsaraDB for Redis instance, you can call the [DescribeHistoryMonitorValues](~~DescribeHistoryMonitorValues~~) operation to query monitoring history of the instance.
         
 
         @param request: DescribeMonitorItemsRequest
@@ -3346,17 +3396,6 @@ class Client(OpenApiClient):
         return self.describe_regions_with_options(request, runtime)
 
     def describe_role_zone_info_with_options(self, request, runtime):
-        """
-        ## Debugging
-        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=R-kvstore\\&api=DescribeRoleZoneInfo\\&type=RPC\\&version=2015-01-01)
-        
-
-        @param request: DescribeRoleZoneInfoRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeRoleZoneInfoResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -3397,15 +3436,6 @@ class Client(OpenApiClient):
         )
 
     def describe_role_zone_info(self, request):
-        """
-        ## Debugging
-        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=R-kvstore\\&api=DescribeRoleZoneInfo\\&type=RPC\\&version=2015-01-01)
-        
-
-        @param request: DescribeRoleZoneInfoRequest
-
-        @return: DescribeRoleZoneInfoResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_role_zone_info_with_options(request, runtime)
 
@@ -3825,10 +3855,8 @@ class Client(OpenApiClient):
 
     def flush_expire_keys_with_options(self, request, runtime):
         """
-        The time when the minor version is upgraded. Valid values:
-        *   **Immediately**: immediately deletes expired keys.
-        *   **MaintainTime:**deletes expired key in the maintenance window.
-        >  You can call the [ModifyInstanceMaintainTime](~~61000~~) operation to modify the maintenance window of an ApsaraDB for Redis instance.
+        For more information about how to clear the expired keys in the ApsaraDB for Redis console, see [Clear data](~~43881~~).
+        >  Expired keys cannot be recovered after they are deleted. Exercise caution when you call this operation.
         
 
         @param request: FlushExpireKeysRequest
@@ -3874,10 +3902,8 @@ class Client(OpenApiClient):
 
     def flush_expire_keys(self, request):
         """
-        The time when the minor version is upgraded. Valid values:
-        *   **Immediately**: immediately deletes expired keys.
-        *   **MaintainTime:**deletes expired key in the maintenance window.
-        >  You can call the [ModifyInstanceMaintainTime](~~61000~~) operation to modify the maintenance window of an ApsaraDB for Redis instance.
+        For more information about how to clear the expired keys in the ApsaraDB for Redis console, see [Clear data](~~43881~~).
+        >  Expired keys cannot be recovered after they are deleted. Exercise caution when you call this operation.
         
 
         @param request: FlushExpireKeysRequest
@@ -3888,16 +3914,6 @@ class Client(OpenApiClient):
         return self.flush_expire_keys_with_options(request, runtime)
 
     def flush_instance_with_options(self, request, runtime):
-        """
-        The ID of the instance.
-        
-
-        @param request: FlushInstanceRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: FlushInstanceResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -3932,14 +3948,6 @@ class Client(OpenApiClient):
         )
 
     def flush_instance(self, request):
-        """
-        The ID of the instance.
-        
-
-        @param request: FlushInstanceRequest
-
-        @return: FlushInstanceResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.flush_instance_with_options(request, runtime)
 
@@ -4003,7 +4011,9 @@ class Client(OpenApiClient):
 
     def grant_account_privilege_with_options(self, request, runtime):
         """
-        The name of the account. You can call the [DescribeAccounts](~~95802~~) operation to obtain the name of the account.
+        >
+        *   Only ApsaraDB for Redis instances of Redis 4.0 or later are supported.
+        *   The ApsaraDB for Redis instance must be in the running state.
         
 
         @param request: GrantAccountPrivilegeRequest
@@ -4051,7 +4061,9 @@ class Client(OpenApiClient):
 
     def grant_account_privilege(self, request):
         """
-        The name of the account. You can call the [DescribeAccounts](~~95802~~) operation to obtain the name of the account.
+        >
+        *   Only ApsaraDB for Redis instances of Redis 4.0 or later are supported.
+        *   The ApsaraDB for Redis instance must be in the running state.
         
 
         @param request: GrantAccountPrivilegeRequest
@@ -4063,7 +4075,7 @@ class Client(OpenApiClient):
 
     def initialize_kvstore_permission_with_options(self, request, runtime):
         """
-        The ID of the request.
+        The log management feature of ApsaraDB for Redis requires the resources of [Log Service](~~48869~~). To use the log management feature of ApsaraDB for Redis, you can call this operation to associate the RAM role named AliyunServiceRoleForKvstore with the ApsaraDB for Redis instance. For more information, see [Associated RAM roles of ApsaraDB for Redis](~~184337~~).
         
 
         @param request: InitializeKvstorePermissionRequest
@@ -4107,7 +4119,7 @@ class Client(OpenApiClient):
 
     def initialize_kvstore_permission(self, request):
         """
-        The ID of the request.
+        The log management feature of ApsaraDB for Redis requires the resources of [Log Service](~~48869~~). To use the log management feature of ApsaraDB for Redis, you can call this operation to associate the RAM role named AliyunServiceRoleForKvstore with the ApsaraDB for Redis instance. For more information, see [Associated RAM roles of ApsaraDB for Redis](~~184337~~).
         
 
         @param request: InitializeKvstorePermissionRequest
@@ -5211,10 +5223,8 @@ class Client(OpenApiClient):
 
     def modify_instance_sslwith_options(self, request, runtime):
         """
-        Modifies SSL encryption configurations. Valid values:
-        *   **Disable**: The SSL encryption is disabled.
-        *   **Enable**: The SSL encryption is enabled.
-        *   **Update**: The SSL certificate is updated.
+        You can also modify SSL encryption configurations in the ApsaraDB for Redis console. For more information, see [Configure SSL encryption](~~84898~~).
+        >  To specify the earliest supported SSL version, you can call the [ModifyInstanceConfig](~~ModifyInstanceConfig~~) operation to modify the required parameter.
         
 
         @param request: ModifyInstanceSSLRequest
@@ -5260,10 +5270,8 @@ class Client(OpenApiClient):
 
     def modify_instance_ssl(self, request):
         """
-        Modifies SSL encryption configurations. Valid values:
-        *   **Disable**: The SSL encryption is disabled.
-        *   **Enable**: The SSL encryption is enabled.
-        *   **Update**: The SSL certificate is updated.
+        You can also modify SSL encryption configurations in the ApsaraDB for Redis console. For more information, see [Configure SSL encryption](~~84898~~).
+        >  To specify the earliest supported SSL version, you can call the [ModifyInstanceConfig](~~ModifyInstanceConfig~~) operation to modify the required parameter.
         
 
         @param request: ModifyInstanceSSLRequest
@@ -5607,7 +5615,7 @@ class Client(OpenApiClient):
 
     def modify_security_group_configuration_with_options(self, request, runtime):
         """
-        > After you call this operation, the security groups that are added to the whitelists of the ApsaraDB for Redis instance are deleted, and the security group specified by the *SecurityGroupId** parameter are added to the whitelists. For more information about how to reset security groups in the ApsaraDB for Redis console, see [Add security groups](~~148267~~).
+        > After you call this operation, the security groups that are added to the whitelists of the ApsaraDB for Redis instance are deleted, and the security group specified by the *SecurityGroupId** parameter is added to the whitelists. For more information about how to reset security groups in the ApsaraDB for Redis console, see [Add security groups](~~148267~~).
         
 
         @param request: ModifySecurityGroupConfigurationRequest
@@ -5653,7 +5661,7 @@ class Client(OpenApiClient):
 
     def modify_security_group_configuration(self, request):
         """
-        > After you call this operation, the security groups that are added to the whitelists of the ApsaraDB for Redis instance are deleted, and the security group specified by the *SecurityGroupId** parameter are added to the whitelists. For more information about how to reset security groups in the ApsaraDB for Redis console, see [Add security groups](~~148267~~).
+        > After you call this operation, the security groups that are added to the whitelists of the ApsaraDB for Redis instance are deleted, and the security group specified by the *SecurityGroupId** parameter is added to the whitelists. For more information about how to reset security groups in the ApsaraDB for Redis console, see [Add security groups](~~148267~~).
         
 
         @param request: ModifySecurityGroupConfigurationRequest
@@ -5785,7 +5793,7 @@ class Client(OpenApiClient):
 
     def release_instance_public_connection_with_options(self, request, runtime):
         """
-        The ID of the request.
+        For more information about how to perform the API operation in the ApsaraDB for Redis console, see [Release public endpoints](~~125424~~).
         
 
         @param request: ReleaseInstancePublicConnectionRequest
@@ -5831,7 +5839,7 @@ class Client(OpenApiClient):
 
     def release_instance_public_connection(self, request):
         """
-        The ID of the request.
+        For more information about how to perform the API operation in the ApsaraDB for Redis console, see [Release public endpoints](~~125424~~).
         
 
         @param request: ReleaseInstancePublicConnectionRequest
@@ -6039,7 +6047,7 @@ class Client(OpenApiClient):
 
     def reset_account_password_with_options(self, request, runtime):
         """
-        r-bp1zxszhcgatnx***\
+        >  Only ApsaraDB for Redis instances of Redis 4.0 or later are supported.
         
 
         @param request: ResetAccountPasswordRequest
@@ -6087,7 +6095,7 @@ class Client(OpenApiClient):
 
     def reset_account_password(self, request):
         """
-        r-bp1zxszhcgatnx***\
+        >  Only ApsaraDB for Redis instances of Redis 4.0 or later are supported.
         
 
         @param request: ResetAccountPasswordRequest
@@ -6505,7 +6513,9 @@ class Client(OpenApiClient):
 
     def transform_instance_charge_type_with_options(self, request, runtime):
         """
-        1
+        Before you call this operation, make sure that you understand relevant precautions and billing rules. For more information, see the following topics:
+        *   [Change the billing method to subscription](~~54542~~).
+        *   [Change the billing method to pay-as-you-go](~~211549~~).
         
 
         @param request: TransformInstanceChargeTypeRequest
@@ -6559,7 +6569,9 @@ class Client(OpenApiClient):
 
     def transform_instance_charge_type(self, request):
         """
-        1
+        Before you call this operation, make sure that you understand relevant precautions and billing rules. For more information, see the following topics:
+        *   [Change the billing method to subscription](~~54542~~).
+        *   [Change the billing method to pay-as-you-go](~~211549~~).
         
 
         @param request: TransformInstanceChargeTypeRequest
@@ -6571,7 +6583,8 @@ class Client(OpenApiClient):
 
     def transform_to_pre_paid_with_options(self, request, runtime):
         """
-        The ID of the instance. You can call the [DescribeInstances](~~60933~~) operation to query the ID of the instance.
+        For more information about how to change the billing method in the ApsaraDB for Redis console, see [Switch to subscription](~~54542~~).
+        >  You cannot change the billing method of an ApsaraDB for Redis instance from subscription to pay-as-you-go.
         
 
         @param request: TransformToPrePaidRequest
@@ -6619,7 +6632,8 @@ class Client(OpenApiClient):
 
     def transform_to_pre_paid(self, request):
         """
-        The ID of the instance. You can call the [DescribeInstances](~~60933~~) operation to query the ID of the instance.
+        For more information about how to change the billing method in the ApsaraDB for Redis console, see [Switch to subscription](~~54542~~).
+        >  You cannot change the billing method of an ApsaraDB for Redis instance from subscription to pay-as-you-go.
         
 
         @param request: TransformToPrePaidRequest

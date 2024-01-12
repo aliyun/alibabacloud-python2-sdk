@@ -1,3 +1,6 @@
+2024-01-12 Version: 2.25.0
+- Generated python2 2015-01-01 for R-kvstore.
+
 2023-12-13 Version: 2.24.0
 - Generated python2 2015-01-01 for R-kvstore.
 
