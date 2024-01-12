@@ -6405,6 +6405,28 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_field_statistics_with_options(request, runtime)
 
+    def describe_fix_used_count_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='DescribeFixUsedCount',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeFixUsedCountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_fix_used_count(self):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_fix_used_count_with_options(runtime)
+
     def describe_front_vul_patch_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -19998,6 +20020,8 @@ class Client(OpenApiClient):
             query['TagId'] = request.tag_id
         if not UtilClient.is_unset(request.tag_list):
             query['TagList'] = request.tag_list
+        if not UtilClient.is_unset(request.target):
+            query['Target'] = request.target
         if not UtilClient.is_unset(request.uuid_list):
             query['UuidList'] = request.uuid_list
         req = open_api_models.OpenApiRequest(
