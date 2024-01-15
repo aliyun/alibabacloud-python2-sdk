@@ -1863,6 +1863,8 @@ class Client(OpenApiClient):
             query['BottomsId'] = request.bottoms_id
         if not UtilClient.is_unset(request.clothing_type):
             query['ClothingType'] = request.clothing_type
+        if not UtilClient.is_unset(request.generate_picture_num):
+            query['GeneratePictureNum'] = request.generate_picture_num
         if not UtilClient.is_unset(request.jwt_token):
             query['JwtToken'] = request.jwt_token
         if not UtilClient.is_unset(request.model_id):
