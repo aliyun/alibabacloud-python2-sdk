@@ -3849,15 +3849,18 @@ class ListPublicTemplateRegistrationsRequest(TeaModel):
 
 
 class ListPublicTemplateRegistrationsResponseBodyRegistrations(TeaModel):
-    def __init__(self, comment=None, detail=None, registration_id=None, status=None, template_id=None,
-                 template_name=None, template_version=None):
+    def __init__(self, comment=None, created_date=None, detail=None, registration_id=None, show_pages=None,
+                 status=None, template_id=None, template_name=None, template_version=None, updated_date=None):
         self.comment = comment  # type: str
+        self.created_date = created_date  # type: str
         self.detail = detail  # type: str
         self.registration_id = registration_id  # type: str
+        self.show_pages = show_pages  # type: str
         self.status = status  # type: str
         self.template_id = template_id  # type: str
         self.template_name = template_name  # type: str
         self.template_version = template_version  # type: str
+        self.updated_date = updated_date  # type: str
 
     def validate(self):
         pass
@@ -3870,10 +3873,14 @@ class ListPublicTemplateRegistrationsResponseBodyRegistrations(TeaModel):
         result = dict()
         if self.comment is not None:
             result['Comment'] = self.comment
+        if self.created_date is not None:
+            result['CreatedDate'] = self.created_date
         if self.detail is not None:
             result['Detail'] = self.detail
         if self.registration_id is not None:
             result['RegistrationId'] = self.registration_id
+        if self.show_pages is not None:
+            result['ShowPages'] = self.show_pages
         if self.status is not None:
             result['Status'] = self.status
         if self.template_id is not None:
@@ -3882,16 +3889,22 @@ class ListPublicTemplateRegistrationsResponseBodyRegistrations(TeaModel):
             result['TemplateName'] = self.template_name
         if self.template_version is not None:
             result['TemplateVersion'] = self.template_version
+        if self.updated_date is not None:
+            result['UpdatedDate'] = self.updated_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Comment') is not None:
             self.comment = m.get('Comment')
+        if m.get('CreatedDate') is not None:
+            self.created_date = m.get('CreatedDate')
         if m.get('Detail') is not None:
             self.detail = m.get('Detail')
         if m.get('RegistrationId') is not None:
             self.registration_id = m.get('RegistrationId')
+        if m.get('ShowPages') is not None:
+            self.show_pages = m.get('ShowPages')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('TemplateId') is not None:
@@ -3900,6 +3913,8 @@ class ListPublicTemplateRegistrationsResponseBodyRegistrations(TeaModel):
             self.template_name = m.get('TemplateName')
         if m.get('TemplateVersion') is not None:
             self.template_version = m.get('TemplateVersion')
+        if m.get('UpdatedDate') is not None:
+            self.updated_date = m.get('UpdatedDate')
         return self
 
 
