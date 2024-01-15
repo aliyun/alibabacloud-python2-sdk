@@ -49,12 +49,9 @@ class AllocateInstancePublicConnectionRequest(TeaModel):
 
 
 class AllocateInstancePublicConnectionResponseBody(TeaModel):
-    def __init__(self, code=None, instance_name=None, message=None, request_id=None, success=None, task_id=None):
-        self.code = code  # type: str
+    def __init__(self, instance_name=None, request_id=None, task_id=None):
         self.instance_name = instance_name  # type: str
-        self.message = message  # type: str
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
         self.task_id = task_id  # type: long
 
     def validate(self):
@@ -66,32 +63,20 @@ class AllocateInstancePublicConnectionResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.instance_name is not None:
             result['InstanceName'] = self.instance_name
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('InstanceName') is not None:
             self.instance_name = m.get('InstanceName')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         return self
@@ -245,11 +230,8 @@ class CheckCreateDBInstanceRequest(TeaModel):
 
 
 class CheckCreateDBInstanceResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.message = message  # type: str
+    def __init__(self, request_id=None):
         self.request_id = request_id  # type: str
-        self.success = success  # type: str
 
     def validate(self):
         pass
@@ -260,26 +242,14 @@ class CheckCreateDBInstanceResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -2269,14 +2239,10 @@ class DescribeSecurityIPListResponseBodyGroupItems(TeaModel):
 
 
 class DescribeSecurityIPListResponseBody(TeaModel):
-    def __init__(self, code=None, dbinstance_name=None, group_items=None, message=None, request_id=None,
-                 success=None):
-        self.code = code  # type: str
+    def __init__(self, dbinstance_name=None, group_items=None, request_id=None):
         self.dbinstance_name = dbinstance_name  # type: str
         self.group_items = group_items  # type: list[DescribeSecurityIPListResponseBodyGroupItems]
-        self.message = message  # type: str
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         if self.group_items:
@@ -2290,26 +2256,18 @@ class DescribeSecurityIPListResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.dbinstance_name is not None:
             result['DBInstanceName'] = self.dbinstance_name
         result['GroupItems'] = []
         if self.group_items is not None:
             for k in self.group_items:
                 result['GroupItems'].append(k.to_map() if k else None)
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('DBInstanceName') is not None:
             self.dbinstance_name = m.get('DBInstanceName')
         self.group_items = []
@@ -2317,12 +2275,8 @@ class DescribeSecurityIPListResponseBody(TeaModel):
             for k in m.get('GroupItems'):
                 temp_model = DescribeSecurityIPListResponseBodyGroupItems()
                 self.group_items.append(temp_model.from_map(k))
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -2416,11 +2370,8 @@ class ModifyBEClusterAttributeRequest(TeaModel):
 
 
 class ModifyBEClusterAttributeResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.message = message  # type: str
+    def __init__(self, request_id=None):
         self.request_id = request_id  # type: str
-        self.success = success  # type: str
 
     def validate(self):
         pass
@@ -2431,26 +2382,14 @@ class ModifyBEClusterAttributeResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -2699,11 +2638,8 @@ class ModifyDBInstanceAttributeRequest(TeaModel):
 
 
 class ModifyDBInstanceAttributeResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.message = message  # type: str
+    def __init__(self, request_id=None):
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -2714,26 +2650,14 @@ class ModifyDBInstanceAttributeResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -2827,18 +2751,14 @@ class ModifySecurityIPListRequest(TeaModel):
 
 
 class ModifySecurityIPListResponseBody(TeaModel):
-    def __init__(self, code=None, dbinstance_name=None, group_name=None, group_tag=None, message=None,
-                 request_id=None, security_iplist=None, security_iptype=None, success=None, task_id=None,
-                 whitelist_net_type=None):
-        self.code = code  # type: str
+    def __init__(self, dbinstance_name=None, group_name=None, group_tag=None, request_id=None, security_iplist=None,
+                 security_iptype=None, task_id=None, whitelist_net_type=None):
         self.dbinstance_name = dbinstance_name  # type: str
         self.group_name = group_name  # type: str
         self.group_tag = group_tag  # type: str
-        self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.security_iplist = security_iplist  # type: str
         self.security_iptype = security_iptype  # type: str
-        self.success = success  # type: bool
         self.task_id = task_id  # type: long
         self.whitelist_net_type = whitelist_net_type  # type: str
 
@@ -2851,24 +2771,18 @@ class ModifySecurityIPListResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
         if self.dbinstance_name is not None:
             result['DBInstanceName'] = self.dbinstance_name
         if self.group_name is not None:
             result['GroupName'] = self.group_name
         if self.group_tag is not None:
             result['GroupTag'] = self.group_tag
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.security_iplist is not None:
             result['SecurityIPList'] = self.security_iplist
         if self.security_iptype is not None:
             result['SecurityIPType'] = self.security_iptype
-        if self.success is not None:
-            result['Success'] = self.success
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         if self.whitelist_net_type is not None:
@@ -2877,24 +2791,18 @@ class ModifySecurityIPListResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('DBInstanceName') is not None:
             self.dbinstance_name = m.get('DBInstanceName')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
         if m.get('GroupTag') is not None:
             self.group_tag = m.get('GroupTag')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('SecurityIPList') is not None:
             self.security_iplist = m.get('SecurityIPList')
         if m.get('SecurityIPType') is not None:
             self.security_iptype = m.get('SecurityIPType')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         if m.get('WhitelistNetType') is not None:
@@ -2981,11 +2889,8 @@ class ReleaseInstancePublicConnectionRequest(TeaModel):
 
 
 class ReleaseInstancePublicConnectionResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.message = message  # type: str
+    def __init__(self, request_id=None):
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -2996,26 +2901,14 @@ class ReleaseInstancePublicConnectionResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -3455,9 +3348,7 @@ class StopBEClusterRequest(TeaModel):
 
 
 class StopBEClusterResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None):
-        self.code = code  # type: str
-        self.message = message  # type: str
+    def __init__(self, request_id=None):
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3469,20 +3360,12 @@ class StopBEClusterResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
@@ -3573,9 +3456,7 @@ class UpgradeDBInstanceEngineVersionRequest(TeaModel):
 
 
 class UpgradeDBInstanceEngineVersionResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None):
-        self.code = code  # type: str
-        self.message = message  # type: str
+    def __init__(self, request_id=None):
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3587,20 +3468,12 @@ class UpgradeDBInstanceEngineVersionResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
