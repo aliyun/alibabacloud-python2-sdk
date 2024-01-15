@@ -146,6 +146,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.check_domain_with_options(request, runtime)
 
+    def check_domain_dns_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_id):
+            query['DomainId'] = request.domain_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckDomainDns',
+            version='2017-06-22',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dm_20170622_models.CheckDomainDnsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def check_domain_dns(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.check_domain_dns_with_options(request, runtime)
+
     def create_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -265,6 +301,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag_description):
+            query['TagDescription'] = request.tag_description
         if not UtilClient.is_unset(request.tag_name):
             query['TagName'] = request.tag_name
         req = open_api_models.OpenApiRequest(
@@ -587,6 +625,8 @@ class Client(OpenApiClient):
             query['DomainId'] = request.domain_id
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.require_real_time_dns_records):
+            query['RequireRealTimeDnsRecords'] = request.require_real_time_dns_records
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -875,6 +915,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag_description):
+            query['TagDescription'] = request.tag_description
         if not UtilClient.is_unset(request.tag_id):
             query['TagId'] = request.tag_id
         if not UtilClient.is_unset(request.tag_name):
