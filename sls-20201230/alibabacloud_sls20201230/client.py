@@ -110,6 +110,21 @@ class Client(OpenApiClient):
         return self.change_resource_group_with_options(project, request, headers, runtime)
 
     def consumer_group_heart_beat_with_options(self, project, logstore, consumer_group, request, headers, runtime):
+        """
+        ### Usage notes
+        *   Connections between consumers and servers are established by sending heartbeats at regular intervals. If a server does not receive heartbeats from a consumer on schedule, the server deletes the consumer.
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        
+
+        @param request: ConsumerGroupHeartBeatRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ConsumerGroupHeartBeatResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
@@ -139,9 +154,49 @@ class Client(OpenApiClient):
         )
 
     def consumer_group_heart_beat(self, project, logstore, consumer_group, request):
+        """
+        ### Usage notes
+        *   Connections between consumers and servers are established by sending heartbeats at regular intervals. If a server does not receive heartbeats from a consumer on schedule, the server deletes the consumer.
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        
+
+        @param request: ConsumerGroupHeartBeatRequest
+
+        @return: ConsumerGroupHeartBeatResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.consumer_group_heart_beat_with_options(project, logstore, consumer_group, request, headers, runtime)
+
+    def create_alert_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
+        )
+        params = open_api_models.Params(
+            action='CreateAlert',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/alerts',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='any'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateAlertResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_alert(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_alert_with_options(project, request, headers, runtime)
 
     def create_annotation_data_set_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -202,6 +257,25 @@ class Client(OpenApiClient):
         return self.create_annotation_label_with_options(request, headers, runtime)
 
     def create_config_with_options(self, project, request, headers, runtime):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong, the region of the project, and the name of the Logstore to which the logs belong. For more information, see [Manage a project](~~48984~~).
+        *   You can create up to 100 Logtail configurations in a project.
+        *   The Logtail configuration is planned out. For more information, see [Logtail configurations](~~29058~~).
+        
+
+        @param request: CreateConfigRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateConfigResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
@@ -227,6 +301,20 @@ class Client(OpenApiClient):
         )
 
     def create_config(self, project, request):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong, the region of the project, and the name of the Logstore to which the logs belong. For more information, see [Manage a project](~~48984~~).
+        *   You can create up to 100 Logtail configurations in a project.
+        *   The Logtail configuration is planned out. For more information, see [Logtail configurations](~~29058~~).
+        
+
+        @param request: CreateConfigRequest
+
+        @return: CreateConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_config_with_options(project, request, headers, runtime)
@@ -296,6 +384,23 @@ class Client(OpenApiClient):
         return self.create_consumer_group_with_options(project, logstore, request, headers, runtime)
 
     def create_dashboard_with_options(self, project, request, headers, runtime):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        
+
+        @param request: CreateDashboardRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDashboardResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
@@ -321,6 +426,18 @@ class Client(OpenApiClient):
         )
 
     def create_dashboard(self, project, request):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        
+
+        @param request: CreateDashboardRequest
+
+        @return: CreateDashboardResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_dashboard_with_options(project, request, headers, runtime)
@@ -580,6 +697,19 @@ class Client(OpenApiClient):
         return self.create_logging_with_options(project, request, headers, runtime)
 
     def create_logtail_pipeline_config_with_options(self, project, request, headers, runtime):
+        """
+        The UK (London) region is supported. Supported regions are constantly updated.
+        
+
+        @param request: CreateLogtailPipelineConfigRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateLogtailPipelineConfigResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
@@ -620,6 +750,14 @@ class Client(OpenApiClient):
         )
 
     def create_logtail_pipeline_config(self, project, request):
+        """
+        The UK (London) region is supported. Supported regions are constantly updated.
+        
+
+        @param request: CreateLogtailPipelineConfigRequest
+
+        @return: CreateLogtailPipelineConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_logtail_pipeline_config_with_options(project, request, headers, runtime)
@@ -690,6 +828,7 @@ class Client(OpenApiClient):
 
     def create_oss_external_store_with_options(self, project, request, headers, runtime):
         """
+        ### [](#)Usage notes
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
         
 
@@ -735,6 +874,7 @@ class Client(OpenApiClient):
 
     def create_oss_external_store(self, project, request):
         """
+        ### [](#)Usage notes
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
         
 
@@ -929,6 +1069,34 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_ticket_with_options(headers, runtime)
 
+    def delete_alert_with_options(self, project, alert_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteAlert',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/alerts/%s' % TeaConverter.to_unicode(alert_name),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='any'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteAlertResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_alert(self, project, alert_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_alert_with_options(project, alert_name, headers, runtime)
+
     def delete_annotation_data_with_options(self, dataset_id, annotationdata_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
@@ -955,6 +1123,17 @@ class Client(OpenApiClient):
         return self.delete_annotation_data_with_options(dataset_id, annotationdata_id, headers, runtime)
 
     def delete_annotation_data_set_with_options(self, dataset_id, headers, runtime):
+        """
+        You can delete a dataset only if no data exists in the dataset.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteAnnotationDataSetResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -975,11 +1154,28 @@ class Client(OpenApiClient):
         )
 
     def delete_annotation_data_set(self, dataset_id):
+        """
+        You can delete a dataset only if no data exists in the dataset.
+        
+
+        @return: DeleteAnnotationDataSetResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_annotation_data_set_with_options(dataset_id, headers, runtime)
 
     def delete_annotation_label_with_options(self, label_id, headers, runtime):
+        """
+        Only non-built-in tags can be deleted.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteAnnotationLabelResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1000,6 +1196,12 @@ class Client(OpenApiClient):
         )
 
     def delete_annotation_label(self, label_id):
+        """
+        Only non-built-in tags can be deleted.
+        
+
+        @return: DeleteAnnotationLabelResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_annotation_label_with_options(label_id, headers, runtime)
@@ -1037,6 +1239,23 @@ class Client(OpenApiClient):
         return self.delete_collection_policy_with_options(policy_name, request, headers, runtime)
 
     def delete_config_with_options(self, project, config_name, headers, runtime):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   If a Logtail configuration is applied to a machine group, you cannot collect data from the machine group after you delete the Logtail configuration.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        *   The name of the required Logtail configuration is obtained. For more information, see [ListConfig](~~29043~~).
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteConfigResponse
+        """
         host_map = {}
         host_map['project'] = project
         req = open_api_models.OpenApiRequest(
@@ -1060,6 +1279,18 @@ class Client(OpenApiClient):
         )
 
     def delete_config(self, project, config_name):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   If a Logtail configuration is applied to a machine group, you cannot collect data from the machine group after you delete the Logtail configuration.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        *   The name of the required Logtail configuration is obtained. For more information, see [ListConfig](~~29043~~).
+        
+
+        @return: DeleteConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_config_with_options(project, config_name, headers, runtime)
@@ -1110,6 +1341,21 @@ class Client(OpenApiClient):
         return self.delete_consumer_group_with_options(project, logstore, consumer_group, headers, runtime)
 
     def delete_dashboard_with_options(self, project, dashboard_name, headers, runtime):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDashboardResponse
+        """
         host_map = {}
         host_map['project'] = project
         req = open_api_models.OpenApiRequest(
@@ -1133,6 +1379,16 @@ class Client(OpenApiClient):
         )
 
     def delete_dashboard(self, project, dashboard_name):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        
+
+        @return: DeleteDashboardResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_dashboard_with_options(project, dashboard_name, headers, runtime)
@@ -1350,6 +1606,17 @@ class Client(OpenApiClient):
         return self.delete_logging_with_options(project, headers, runtime)
 
     def delete_logtail_pipeline_config_with_options(self, project, config_name, headers, runtime):
+        """
+        The UK (London) region is supported. Supported regions are constantly updated.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteLogtailPipelineConfigResponse
+        """
         host_map = {}
         host_map['project'] = project
         req = open_api_models.OpenApiRequest(
@@ -1373,6 +1640,12 @@ class Client(OpenApiClient):
         )
 
     def delete_logtail_pipeline_config(self, project, config_name):
+        """
+        The UK (London) region is supported. Supported regions are constantly updated.
+        
+
+        @return: DeleteLogtailPipelineConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_logtail_pipeline_config_with_options(project, config_name, headers, runtime)
@@ -1590,6 +1863,90 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_shipper_with_options(project, logstore, shipper_name, headers, runtime)
+
+    def disable_alert_with_options(self, project, alert_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DisableAlert',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/alerts/%s?action=disable' % TeaConverter.to_unicode(alert_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='any'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DisableAlertResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def disable_alert(self, project, alert_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.disable_alert_with_options(project, alert_name, headers, runtime)
+
+    def enable_alert_with_options(self, project, alert_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='EnableAlert',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/alerts/%s?action=enable' % TeaConverter.to_unicode(alert_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='any'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.EnableAlertResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def enable_alert(self, project, alert_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.enable_alert_with_options(project, alert_name, headers, runtime)
+
+    def get_alert_with_options(self, project, alert_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetAlert',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/alerts/%s' % TeaConverter.to_unicode(alert_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetAlertResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_alert(self, project, alert_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_alert_with_options(project, alert_name, headers, runtime)
 
     def get_annotation_data_with_options(self, dataset_id, annotationdata_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1843,6 +2200,22 @@ class Client(OpenApiClient):
         return self.get_collection_policy_with_options(policy_name, request, headers, runtime)
 
     def get_config_with_options(self, project, config_name, headers, runtime):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        *   The name of the required Logtail configuration is obtained. For more information, see [ListConfig](~~29043~~).
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetConfigResponse
+        """
         host_map = {}
         host_map['project'] = project
         req = open_api_models.OpenApiRequest(
@@ -1866,6 +2239,17 @@ class Client(OpenApiClient):
         )
 
     def get_config(self, project, config_name):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        *   The name of the required Logtail configuration is obtained. For more information, see [ListConfig](~~29043~~).
+        
+
+        @return: GetConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_config_with_options(project, config_name, headers, runtime)
@@ -2032,6 +2416,21 @@ class Client(OpenApiClient):
         return self.get_cursor_time_with_options(project, logstore, shard_id, request, headers, runtime)
 
     def get_dashboard_with_options(self, project, dashboard_name, headers, runtime):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDashboardResponse
+        """
         host_map = {}
         host_map['project'] = project
         req = open_api_models.OpenApiRequest(
@@ -2055,6 +2454,16 @@ class Client(OpenApiClient):
         )
 
     def get_dashboard(self, project, dashboard_name):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        
+
+        @return: GetDashboardResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_dashboard_with_options(project, dashboard_name, headers, runtime)
@@ -2524,6 +2933,17 @@ class Client(OpenApiClient):
         return self.get_logs_v2with_options(project, logstore, request, headers, runtime)
 
     def get_logtail_pipeline_config_with_options(self, project, config_name, headers, runtime):
+        """
+        The UK (London) region is supported. Supported regions are constantly updated.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetLogtailPipelineConfigResponse
+        """
         host_map = {}
         host_map['project'] = project
         req = open_api_models.OpenApiRequest(
@@ -2547,6 +2967,12 @@ class Client(OpenApiClient):
         )
 
     def get_logtail_pipeline_config(self, project, config_name):
+        """
+        The UK (London) region is supported. Supported regions are constantly updated.
+        
+
+        @return: GetLogtailPipelineConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_logtail_pipeline_config_with_options(project, config_name, headers, runtime)
@@ -2896,6 +3322,43 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_shipper_status_with_options(project, logstore, shipper_name, request, headers, runtime)
 
+    def list_alerts_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.logstore):
+            query['logstore'] = request.logstore
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAlerts',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/alerts',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListAlertsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_alerts(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_alerts_with_options(project, request, headers, runtime)
+
     def list_annotation_data_with_options(self, dataset_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3039,6 +3502,23 @@ class Client(OpenApiClient):
         return self.list_collection_policies_with_options(request, headers, runtime)
 
     def list_config_with_options(self, project, request, headers, runtime):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        
+
+        @param request: ListConfigRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListConfigResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
@@ -3073,6 +3553,18 @@ class Client(OpenApiClient):
         )
 
     def list_config(self, project, request):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        
+
+        @param request: ListConfigRequest
+
+        @return: ListConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_config_with_options(project, request, headers, runtime)
@@ -3125,6 +3617,23 @@ class Client(OpenApiClient):
         return self.list_consumer_group_with_options(project, logstore, headers, runtime)
 
     def list_dashboard_with_options(self, project, request, headers, runtime):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        
+
+        @param request: ListDashboardRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListDashboardResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
@@ -3155,6 +3664,18 @@ class Client(OpenApiClient):
         )
 
     def list_dashboard(self, project, request):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        
+
+        @param request: ListDashboardRequest
+
+        @return: ListDashboardResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_dashboard_with_options(project, request, headers, runtime)
@@ -3280,7 +3801,15 @@ class Client(OpenApiClient):
     def list_log_stores_with_options(self, project, request, headers, runtime):
         """
         ### Usage notes
-        Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        * Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        * An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O&#x26;M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        * The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        ### Authentication resources
+        The following table describes the authorization information that is required for this operation. You can add the information to the Action element of a RAM policy statement to grant a RAM user or a RAM role the permissions to call this operation.
+        |Action|Resource|
+        |:---|:---|
+        |`log:ListLogStores`|`acs:log:{#regionId}:{#accountId}:project/{#ProjectName}/logstore/*`|
         
 
         @param request: ListLogStoresRequest
@@ -3330,7 +3859,15 @@ class Client(OpenApiClient):
     def list_log_stores(self, project, request):
         """
         ### Usage notes
-        Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        * Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        * An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O&#x26;M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        * The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        ### Authentication resources
+        The following table describes the authorization information that is required for this operation. You can add the information to the Action element of a RAM policy statement to grant a RAM user or a RAM role the permissions to call this operation.
+        |Action|Resource|
+        |:---|:---|
+        |`log:ListLogStores`|`acs:log:{#regionId}:{#accountId}:project/{#ProjectName}/logstore/*`|
         
 
         @param request: ListLogStoresRequest
@@ -3342,6 +3879,19 @@ class Client(OpenApiClient):
         return self.list_log_stores_with_options(project, request, headers, runtime)
 
     def list_logtail_pipeline_config_with_options(self, project, request, headers, runtime):
+        """
+        The UK (London) region is supported. Supported regions are constantly updated.
+        
+
+        @param request: ListLogtailPipelineConfigRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListLogtailPipelineConfigResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
@@ -3376,6 +3926,14 @@ class Client(OpenApiClient):
         )
 
     def list_logtail_pipeline_config(self, project, request):
+        """
+        The UK (London) region is supported. Supported regions are constantly updated.
+        
+
+        @param request: ListLogtailPipelineConfigRequest
+
+        @return: ListLogtailPipelineConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_logtail_pipeline_config_with_options(project, request, headers, runtime)
@@ -3496,7 +4054,7 @@ class Client(OpenApiClient):
 
     def list_project_with_options(self, request, headers, runtime):
         """
-        ### Usage notes
+        ### [](#)Usage notes
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
         
 
@@ -3541,7 +4099,7 @@ class Client(OpenApiClient):
 
     def list_project(self, request):
         """
-        ### Usage notes
+        ### [](#)Usage notes
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
         
 
@@ -3878,6 +4436,26 @@ class Client(OpenApiClient):
         return self.put_project_transfer_acceleration_with_options(project, request, headers, runtime)
 
     def put_webtracking_with_options(self, project, logstore_name, request, headers, runtime):
+        """
+        ### [](#)Usage notes
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong, the region of the project, and the name of the Logstore to which the logs belong. For more information, see [Manage a project](~~48984~~) and [Manage a Logstore](~~48990~~).
+        *   You can call this operation to collect logs from web pages or clients.
+        *   If you use web tracking to collect logs and you do not call this operation, you can send only one log to Simple Log Service in a request. For more information, see [Use web tracking to collect logs](~~31752~~).
+        *   If you want to collect a large amount of log data, you can call this operation to send multiple logs to Simple Log Service in one request.
+        *   Before you can call this operation to send logs to a Logstore, you must enable web tracking for the Logstore. For more information, see [Use web tracking to collect logs](~~31752~~).
+        *   You cannot call this operation to send the logs of multiple topics to Simple Log Service at a time.
+        *   If you call this operation, anonymous users from the Internet are granted the write permissions on the Logstore. This may generate dirty data because AccessKey pair-based authentication is not performed.
+        
+
+        @param request: PutWebtrackingRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: PutWebtrackingResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
@@ -3912,6 +4490,21 @@ class Client(OpenApiClient):
         )
 
     def put_webtracking(self, project, logstore_name, request):
+        """
+        ### [](#)Usage notes
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong, the region of the project, and the name of the Logstore to which the logs belong. For more information, see [Manage a project](~~48984~~) and [Manage a Logstore](~~48990~~).
+        *   You can call this operation to collect logs from web pages or clients.
+        *   If you use web tracking to collect logs and you do not call this operation, you can send only one log to Simple Log Service in a request. For more information, see [Use web tracking to collect logs](~~31752~~).
+        *   If you want to collect a large amount of log data, you can call this operation to send multiple logs to Simple Log Service in one request.
+        *   Before you can call this operation to send logs to a Logstore, you must enable web tracking for the Logstore. For more information, see [Use web tracking to collect logs](~~31752~~).
+        *   You cannot call this operation to send the logs of multiple topics to Simple Log Service at a time.
+        *   If you call this operation, anonymous users from the Internet are granted the write permissions on the Logstore. This may generate dirty data because AccessKey pair-based authentication is not performed.
+        
+
+        @param request: PutWebtrackingRequest
+
+        @return: PutWebtrackingResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.put_webtracking_with_options(project, logstore_name, request, headers, runtime)
@@ -4191,6 +4784,36 @@ class Client(OpenApiClient):
         headers = {}
         return self.untag_resources_with_options(request, headers, runtime)
 
+    def update_alert_with_options(self, project, alert_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
+        )
+        params = open_api_models.Params(
+            action='UpdateAlert',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/alerts/%s' % TeaConverter.to_unicode(alert_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='any'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateAlertResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_alert(self, project, alert_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_alert_with_options(project, alert_name, request, headers, runtime)
+
     def update_annotation_data_set_with_options(self, dataset_id, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -4219,6 +4842,19 @@ class Client(OpenApiClient):
         return self.update_annotation_data_set_with_options(dataset_id, request, headers, runtime)
 
     def update_annotation_label_with_options(self, request, headers, runtime):
+        """
+        You can update only the names of the tags in a tag set.
+        
+
+        @param request: UpdateAnnotationLabelRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateAnnotationLabelResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -4241,11 +4877,38 @@ class Client(OpenApiClient):
         )
 
     def update_annotation_label(self, request):
+        """
+        You can update only the names of the tags in a tag set.
+        
+
+        @param request: UpdateAnnotationLabelRequest
+
+        @return: UpdateAnnotationLabelResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_annotation_label_with_options(request, headers, runtime)
 
     def update_config_with_options(self, project, config_name, request, headers, runtime):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   After you update a Logtail configuration that is applied to a machine group, the new configuration immediately takes effect.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        *   The Logtail configuration is planned out. For more information, see [Logtail configurations](~~29058~~).
+        
+
+        @param request: UpdateConfigRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateConfigResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
@@ -4271,6 +4934,20 @@ class Client(OpenApiClient):
         )
 
     def update_config(self, project, config_name, request):
+        """
+        ### [](#)Usage notes
+        *   Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        *   After you update a Logtail configuration that is applied to a machine group, the new configuration immediately takes effect.
+        *   An AccessKey pair is created and obtained. For more information, see [AccessKey pair](~~29009~~).
+        The AccessKey pair of an Alibaba Cloud account has permissions on all API operations. Using these credentials to perform operations in Simple Log Service is a high-risk operation. We recommend that you use a RAM user to call API operations or perform routine O\\&M. To create a RAM user, log on to the RAM console. Make sure that the RAM user has the management permissions on Simple Log Service resources. For more information, see [Create a RAM user and authorize the RAM user to access Simple Log Service](~~47664~~).
+        *   The information that is required to query logs is obtained. The information includes the name of the project to which the logs belong and the region of the project. For more information, see [Manage a project](~~48984~~).
+        *   The Logtail configuration is planned out. For more information, see [Logtail configurations](~~29058~~).
+        
+
+        @param request: UpdateConfigRequest
+
+        @return: UpdateConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_config_with_options(project, config_name, request, headers, runtime)
@@ -4334,6 +5011,20 @@ class Client(OpenApiClient):
         return self.update_consumer_group_with_options(project, logstore, consumer_group, request, headers, runtime)
 
     def update_dashboard_with_options(self, project, dashboard_name, request, headers, runtime):
+        """
+        ### [](#)Usage notes
+        Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        
+
+        @param request: UpdateDashboardRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateDashboardResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
@@ -4370,6 +5061,15 @@ class Client(OpenApiClient):
         )
 
     def update_dashboard(self, project, dashboard_name, request):
+        """
+        ### [](#)Usage notes
+        Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
+        
+
+        @param request: UpdateDashboardRequest
+
+        @return: UpdateDashboardResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_dashboard_with_options(project, dashboard_name, request, headers, runtime)
@@ -4612,6 +5312,19 @@ class Client(OpenApiClient):
         return self.update_logging_with_options(project, request, headers, runtime)
 
     def update_logtail_pipeline_config_with_options(self, project, config_name, request, headers, runtime):
+        """
+        The UK (London) region is supported. Supported regions are constantly updated.
+        
+
+        @param request: UpdateLogtailPipelineConfigRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateLogtailPipelineConfigResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
@@ -4652,6 +5365,14 @@ class Client(OpenApiClient):
         )
 
     def update_logtail_pipeline_config(self, project, config_name, request):
+        """
+        The UK (London) region is supported. Supported regions are constantly updated.
+        
+
+        @param request: UpdateLogtailPipelineConfigRequest
+
+        @return: UpdateLogtailPipelineConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_logtail_pipeline_config_with_options(project, config_name, request, headers, runtime)
@@ -4775,6 +5496,7 @@ class Client(OpenApiClient):
 
     def update_oss_external_store_with_options(self, project, external_store_name, request, headers, runtime):
         """
+        ### [](#)Usage notes
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
         
 
@@ -4820,6 +5542,7 @@ class Client(OpenApiClient):
 
     def update_oss_external_store(self, project, external_store_name, request):
         """
+        ### [](#)Usage notes
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
         
 

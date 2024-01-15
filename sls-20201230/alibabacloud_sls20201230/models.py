@@ -3,6 +3,412 @@
 from Tea.model import TeaModel
 
 
+class AlertConfiguration(TeaModel):
+    def __init__(self, annotations=None, auto_annotation=None, condition_configuration=None, dashboard=None,
+                 group_configuration=None, join_configurations=None, labels=None, mute_until=None, no_data_fire=None,
+                 no_data_severity=None, policy_configuration=None, query_list=None, send_resolved=None,
+                 severity_configurations=None, sink_alerthub=None, sink_cms=None, sink_event_store=None, tags=None,
+                 template_configuration=None, threshold=None, type=None, version=None):
+        self.annotations = annotations  # type: list[AlertTag]
+        self.auto_annotation = auto_annotation  # type: bool
+        self.condition_configuration = condition_configuration  # type: ConditionConfiguration
+        self.dashboard = dashboard  # type: str
+        self.group_configuration = group_configuration  # type: GroupConfiguration
+        self.join_configurations = join_configurations  # type: list[JoinConfiguration]
+        self.labels = labels  # type: list[AlertTag]
+        self.mute_until = mute_until  # type: long
+        self.no_data_fire = no_data_fire  # type: bool
+        self.no_data_severity = no_data_severity  # type: int
+        self.policy_configuration = policy_configuration  # type: PolicyConfiguration
+        self.query_list = query_list  # type: list[AlertQuery]
+        self.send_resolved = send_resolved  # type: bool
+        self.severity_configurations = severity_configurations  # type: list[SeverityConfiguration]
+        self.sink_alerthub = sink_alerthub  # type: SinkAlerthubConfiguration
+        self.sink_cms = sink_cms  # type: SinkCmsConfiguration
+        self.sink_event_store = sink_event_store  # type: SinkEventStoreConfiguration
+        self.tags = tags  # type: list[str]
+        self.template_configuration = template_configuration  # type: TemplateConfiguration
+        self.threshold = threshold  # type: int
+        self.type = type  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        if self.annotations:
+            for k in self.annotations:
+                if k:
+                    k.validate()
+        if self.condition_configuration:
+            self.condition_configuration.validate()
+        if self.group_configuration:
+            self.group_configuration.validate()
+        if self.join_configurations:
+            for k in self.join_configurations:
+                if k:
+                    k.validate()
+        if self.labels:
+            for k in self.labels:
+                if k:
+                    k.validate()
+        if self.policy_configuration:
+            self.policy_configuration.validate()
+        if self.query_list:
+            for k in self.query_list:
+                if k:
+                    k.validate()
+        if self.severity_configurations:
+            for k in self.severity_configurations:
+                if k:
+                    k.validate()
+        if self.sink_alerthub:
+            self.sink_alerthub.validate()
+        if self.sink_cms:
+            self.sink_cms.validate()
+        if self.sink_event_store:
+            self.sink_event_store.validate()
+        if self.template_configuration:
+            self.template_configuration.validate()
+
+    def to_map(self):
+        _map = super(AlertConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['annotations'] = []
+        if self.annotations is not None:
+            for k in self.annotations:
+                result['annotations'].append(k.to_map() if k else None)
+        if self.auto_annotation is not None:
+            result['autoAnnotation'] = self.auto_annotation
+        if self.condition_configuration is not None:
+            result['conditionConfiguration'] = self.condition_configuration.to_map()
+        if self.dashboard is not None:
+            result['dashboard'] = self.dashboard
+        if self.group_configuration is not None:
+            result['groupConfiguration'] = self.group_configuration.to_map()
+        result['joinConfigurations'] = []
+        if self.join_configurations is not None:
+            for k in self.join_configurations:
+                result['joinConfigurations'].append(k.to_map() if k else None)
+        result['labels'] = []
+        if self.labels is not None:
+            for k in self.labels:
+                result['labels'].append(k.to_map() if k else None)
+        if self.mute_until is not None:
+            result['muteUntil'] = self.mute_until
+        if self.no_data_fire is not None:
+            result['noDataFire'] = self.no_data_fire
+        if self.no_data_severity is not None:
+            result['noDataSeverity'] = self.no_data_severity
+        if self.policy_configuration is not None:
+            result['policyConfiguration'] = self.policy_configuration.to_map()
+        result['queryList'] = []
+        if self.query_list is not None:
+            for k in self.query_list:
+                result['queryList'].append(k.to_map() if k else None)
+        if self.send_resolved is not None:
+            result['sendResolved'] = self.send_resolved
+        result['severityConfigurations'] = []
+        if self.severity_configurations is not None:
+            for k in self.severity_configurations:
+                result['severityConfigurations'].append(k.to_map() if k else None)
+        if self.sink_alerthub is not None:
+            result['sinkAlerthub'] = self.sink_alerthub.to_map()
+        if self.sink_cms is not None:
+            result['sinkCms'] = self.sink_cms.to_map()
+        if self.sink_event_store is not None:
+            result['sinkEventStore'] = self.sink_event_store.to_map()
+        if self.tags is not None:
+            result['tags'] = self.tags
+        if self.template_configuration is not None:
+            result['templateConfiguration'] = self.template_configuration.to_map()
+        if self.threshold is not None:
+            result['threshold'] = self.threshold
+        if self.type is not None:
+            result['type'] = self.type
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.annotations = []
+        if m.get('annotations') is not None:
+            for k in m.get('annotations'):
+                temp_model = AlertTag()
+                self.annotations.append(temp_model.from_map(k))
+        if m.get('autoAnnotation') is not None:
+            self.auto_annotation = m.get('autoAnnotation')
+        if m.get('conditionConfiguration') is not None:
+            temp_model = ConditionConfiguration()
+            self.condition_configuration = temp_model.from_map(m['conditionConfiguration'])
+        if m.get('dashboard') is not None:
+            self.dashboard = m.get('dashboard')
+        if m.get('groupConfiguration') is not None:
+            temp_model = GroupConfiguration()
+            self.group_configuration = temp_model.from_map(m['groupConfiguration'])
+        self.join_configurations = []
+        if m.get('joinConfigurations') is not None:
+            for k in m.get('joinConfigurations'):
+                temp_model = JoinConfiguration()
+                self.join_configurations.append(temp_model.from_map(k))
+        self.labels = []
+        if m.get('labels') is not None:
+            for k in m.get('labels'):
+                temp_model = AlertTag()
+                self.labels.append(temp_model.from_map(k))
+        if m.get('muteUntil') is not None:
+            self.mute_until = m.get('muteUntil')
+        if m.get('noDataFire') is not None:
+            self.no_data_fire = m.get('noDataFire')
+        if m.get('noDataSeverity') is not None:
+            self.no_data_severity = m.get('noDataSeverity')
+        if m.get('policyConfiguration') is not None:
+            temp_model = PolicyConfiguration()
+            self.policy_configuration = temp_model.from_map(m['policyConfiguration'])
+        self.query_list = []
+        if m.get('queryList') is not None:
+            for k in m.get('queryList'):
+                temp_model = AlertQuery()
+                self.query_list.append(temp_model.from_map(k))
+        if m.get('sendResolved') is not None:
+            self.send_resolved = m.get('sendResolved')
+        self.severity_configurations = []
+        if m.get('severityConfigurations') is not None:
+            for k in m.get('severityConfigurations'):
+                temp_model = SeverityConfiguration()
+                self.severity_configurations.append(temp_model.from_map(k))
+        if m.get('sinkAlerthub') is not None:
+            temp_model = SinkAlerthubConfiguration()
+            self.sink_alerthub = temp_model.from_map(m['sinkAlerthub'])
+        if m.get('sinkCms') is not None:
+            temp_model = SinkCmsConfiguration()
+            self.sink_cms = temp_model.from_map(m['sinkCms'])
+        if m.get('sinkEventStore') is not None:
+            temp_model = SinkEventStoreConfiguration()
+            self.sink_event_store = temp_model.from_map(m['sinkEventStore'])
+        if m.get('tags') is not None:
+            self.tags = m.get('tags')
+        if m.get('templateConfiguration') is not None:
+            temp_model = TemplateConfiguration()
+            self.template_configuration = temp_model.from_map(m['templateConfiguration'])
+        if m.get('threshold') is not None:
+            self.threshold = m.get('threshold')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        return self
+
+
+class AlertQuery(TeaModel):
+    def __init__(self, chart_title=None, dashboard_id=None, end=None, power_sql_mode=None, project=None, query=None,
+                 region=None, role_arn=None, start=None, store=None, store_type=None, time_span_type=None, ui=None):
+        self.chart_title = chart_title  # type: str
+        self.dashboard_id = dashboard_id  # type: str
+        self.end = end  # type: str
+        self.power_sql_mode = power_sql_mode  # type: str
+        self.project = project  # type: str
+        self.query = query  # type: str
+        self.region = region  # type: str
+        self.role_arn = role_arn  # type: str
+        self.start = start  # type: str
+        self.store = store  # type: str
+        self.store_type = store_type  # type: str
+        self.time_span_type = time_span_type  # type: str
+        self.ui = ui  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AlertQuery, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.chart_title is not None:
+            result['chartTitle'] = self.chart_title
+        if self.dashboard_id is not None:
+            result['dashboardId'] = self.dashboard_id
+        if self.end is not None:
+            result['end'] = self.end
+        if self.power_sql_mode is not None:
+            result['powerSqlMode'] = self.power_sql_mode
+        if self.project is not None:
+            result['project'] = self.project
+        if self.query is not None:
+            result['query'] = self.query
+        if self.region is not None:
+            result['region'] = self.region
+        if self.role_arn is not None:
+            result['roleArn'] = self.role_arn
+        if self.start is not None:
+            result['start'] = self.start
+        if self.store is not None:
+            result['store'] = self.store
+        if self.store_type is not None:
+            result['storeType'] = self.store_type
+        if self.time_span_type is not None:
+            result['timeSpanType'] = self.time_span_type
+        if self.ui is not None:
+            result['ui'] = self.ui
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('chartTitle') is not None:
+            self.chart_title = m.get('chartTitle')
+        if m.get('dashboardId') is not None:
+            self.dashboard_id = m.get('dashboardId')
+        if m.get('end') is not None:
+            self.end = m.get('end')
+        if m.get('powerSqlMode') is not None:
+            self.power_sql_mode = m.get('powerSqlMode')
+        if m.get('project') is not None:
+            self.project = m.get('project')
+        if m.get('query') is not None:
+            self.query = m.get('query')
+        if m.get('region') is not None:
+            self.region = m.get('region')
+        if m.get('roleArn') is not None:
+            self.role_arn = m.get('roleArn')
+        if m.get('start') is not None:
+            self.start = m.get('start')
+        if m.get('store') is not None:
+            self.store = m.get('store')
+        if m.get('storeType') is not None:
+            self.store_type = m.get('storeType')
+        if m.get('timeSpanType') is not None:
+            self.time_span_type = m.get('timeSpanType')
+        if m.get('ui') is not None:
+            self.ui = m.get('ui')
+        return self
+
+
+class AlertResp(TeaModel):
+    def __init__(self, configuration=None, create_time=None, description=None, display_name=None,
+                 last_modified_time=None, name=None, schedule=None, status=None):
+        self.configuration = configuration  # type: AlertConfiguration
+        self.create_time = create_time  # type: long
+        self.description = description  # type: str
+        self.display_name = display_name  # type: str
+        self.last_modified_time = last_modified_time  # type: long
+        self.name = name  # type: str
+        self.schedule = schedule  # type: Schedule
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.configuration:
+            self.configuration.validate()
+        if self.schedule:
+            self.schedule.validate()
+
+    def to_map(self):
+        _map = super(AlertResp, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.configuration is not None:
+            result['configuration'] = self.configuration.to_map()
+        if self.create_time is not None:
+            result['createTime'] = self.create_time
+        if self.description is not None:
+            result['description'] = self.description
+        if self.display_name is not None:
+            result['displayName'] = self.display_name
+        if self.last_modified_time is not None:
+            result['lastModifiedTime'] = self.last_modified_time
+        if self.name is not None:
+            result['name'] = self.name
+        if self.schedule is not None:
+            result['schedule'] = self.schedule.to_map()
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('configuration') is not None:
+            temp_model = AlertConfiguration()
+            self.configuration = temp_model.from_map(m['configuration'])
+        if m.get('createTime') is not None:
+            self.create_time = m.get('createTime')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('displayName') is not None:
+            self.display_name = m.get('displayName')
+        if m.get('lastModifiedTime') is not None:
+            self.last_modified_time = m.get('lastModifiedTime')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('schedule') is not None:
+            temp_model = Schedule()
+            self.schedule = temp_model.from_map(m['schedule'])
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class AlertTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AlertTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class ConditionConfiguration(TeaModel):
+    def __init__(self, condition=None, count_condition=None):
+        self.condition = condition  # type: str
+        self.count_condition = count_condition  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConditionConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.condition is not None:
+            result['condition'] = self.condition
+        if self.count_condition is not None:
+            result['countCondition'] = self.count_condition
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('condition') is not None:
+            self.condition = m.get('condition')
+        if m.get('countCondition') is not None:
+            self.count_condition = m.get('countCondition')
+        return self
+
+
 class ConsumerGroup(TeaModel):
     def __init__(self, name=None, order=None, timeout=None):
         self.name = name  # type: str
@@ -34,6 +440,55 @@ class ConsumerGroup(TeaModel):
             self.order = m.get('order')
         if m.get('timeout') is not None:
             self.timeout = m.get('timeout')
+        return self
+
+
+class CreateAlertReq(TeaModel):
+    def __init__(self, configuration=None, description=None, display_name=None, name=None, schedule=None):
+        self.configuration = configuration  # type: AlertConfiguration
+        self.description = description  # type: str
+        self.display_name = display_name  # type: str
+        self.name = name  # type: str
+        self.schedule = schedule  # type: Schedule
+
+    def validate(self):
+        if self.configuration:
+            self.configuration.validate()
+        if self.schedule:
+            self.schedule.validate()
+
+    def to_map(self):
+        _map = super(CreateAlertReq, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.configuration is not None:
+            result['configuration'] = self.configuration.to_map()
+        if self.description is not None:
+            result['description'] = self.description
+        if self.display_name is not None:
+            result['displayName'] = self.display_name
+        if self.name is not None:
+            result['name'] = self.name
+        if self.schedule is not None:
+            result['schedule'] = self.schedule.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('configuration') is not None:
+            temp_model = AlertConfiguration()
+            self.configuration = temp_model.from_map(m['configuration'])
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('displayName') is not None:
+            self.display_name = m.get('displayName')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('schedule') is not None:
+            temp_model = Schedule()
+            self.schedule = temp_model.from_map(m['schedule'])
         return self
 
 
@@ -107,6 +562,35 @@ class EncryptUserCmkConf(TeaModel):
         return self
 
 
+class GroupConfiguration(TeaModel):
+    def __init__(self, fileds=None, type=None):
+        self.fileds = fileds  # type: list[str]
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GroupConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fileds is not None:
+            result['fileds'] = self.fileds
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fileds') is not None:
+            self.fileds = m.get('fileds')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
 class Histogram(TeaModel):
     def __init__(self, count=None, from_=None, progress=None, to=None):
         self.count = count  # type: long
@@ -143,6 +627,35 @@ class Histogram(TeaModel):
             self.progress = m.get('progress')
         if m.get('to') is not None:
             self.to = m.get('to')
+        return self
+
+
+class JoinConfiguration(TeaModel):
+    def __init__(self, condition=None, type=None):
+        self.condition = condition  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(JoinConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.condition is not None:
+            result['condition'] = self.condition
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('condition') is not None:
+            self.condition = m.get('condition')
+        if m.get('type') is not None:
+            self.type = m.get('type')
         return self
 
 
@@ -869,6 +1382,40 @@ class MLServiceParam(TeaModel):
         return self
 
 
+class PolicyConfiguration(TeaModel):
+    def __init__(self, action_policy_id=None, alert_policy_id=None, repeat_interval=None):
+        self.action_policy_id = action_policy_id  # type: str
+        self.alert_policy_id = alert_policy_id  # type: str
+        self.repeat_interval = repeat_interval  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PolicyConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.action_policy_id is not None:
+            result['actionPolicyId'] = self.action_policy_id
+        if self.alert_policy_id is not None:
+            result['alertPolicyId'] = self.alert_policy_id
+        if self.repeat_interval is not None:
+            result['repeatInterval'] = self.repeat_interval
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('actionPolicyId') is not None:
+            self.action_policy_id = m.get('actionPolicyId')
+        if m.get('alertPolicyId') is not None:
+            self.alert_policy_id = m.get('alertPolicyId')
+        if m.get('repeatInterval') is not None:
+            self.repeat_interval = m.get('repeatInterval')
+        return self
+
+
 class SavedSearch(TeaModel):
     def __init__(self, display_name=None, logstore=None, savedsearch_name=None, search_query=None, topic=None):
         self.display_name = display_name  # type: str
@@ -910,6 +1457,228 @@ class SavedSearch(TeaModel):
             self.search_query = m.get('searchQuery')
         if m.get('topic') is not None:
             self.topic = m.get('topic')
+        return self
+
+
+class Schedule(TeaModel):
+    def __init__(self, cron_expression=None, delay=None, interval=None, run_immediately=None, time_zone=None,
+                 type=None):
+        self.cron_expression = cron_expression  # type: str
+        self.delay = delay  # type: int
+        self.interval = interval  # type: str
+        self.run_immediately = run_immediately  # type: bool
+        self.time_zone = time_zone  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Schedule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cron_expression is not None:
+            result['cronExpression'] = self.cron_expression
+        if self.delay is not None:
+            result['delay'] = self.delay
+        if self.interval is not None:
+            result['interval'] = self.interval
+        if self.run_immediately is not None:
+            result['runImmediately'] = self.run_immediately
+        if self.time_zone is not None:
+            result['timeZone'] = self.time_zone
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cronExpression') is not None:
+            self.cron_expression = m.get('cronExpression')
+        if m.get('delay') is not None:
+            self.delay = m.get('delay')
+        if m.get('interval') is not None:
+            self.interval = m.get('interval')
+        if m.get('runImmediately') is not None:
+            self.run_immediately = m.get('runImmediately')
+        if m.get('timeZone') is not None:
+            self.time_zone = m.get('timeZone')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class SeverityConfiguration(TeaModel):
+    def __init__(self, eval_condition=None, severity=None):
+        self.eval_condition = eval_condition  # type: ConditionConfiguration
+        self.severity = severity  # type: int
+
+    def validate(self):
+        if self.eval_condition:
+            self.eval_condition.validate()
+
+    def to_map(self):
+        _map = super(SeverityConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.eval_condition is not None:
+            result['evalCondition'] = self.eval_condition.to_map()
+        if self.severity is not None:
+            result['severity'] = self.severity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('evalCondition') is not None:
+            temp_model = ConditionConfiguration()
+            self.eval_condition = temp_model.from_map(m['evalCondition'])
+        if m.get('severity') is not None:
+            self.severity = m.get('severity')
+        return self
+
+
+class SinkAlerthubConfiguration(TeaModel):
+    def __init__(self, enabled=None):
+        self.enabled = enabled  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SinkAlerthubConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enabled is not None:
+            result['enabled'] = self.enabled
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('enabled') is not None:
+            self.enabled = m.get('enabled')
+        return self
+
+
+class SinkCmsConfiguration(TeaModel):
+    def __init__(self, enabled=None):
+        self.enabled = enabled  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SinkCmsConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enabled is not None:
+            result['enabled'] = self.enabled
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('enabled') is not None:
+            self.enabled = m.get('enabled')
+        return self
+
+
+class SinkEventStoreConfiguration(TeaModel):
+    def __init__(self, enabled=None, endpoint=None, event_store=None, project=None, role_arn=None):
+        self.enabled = enabled  # type: bool
+        self.endpoint = endpoint  # type: str
+        self.event_store = event_store  # type: str
+        self.project = project  # type: str
+        self.role_arn = role_arn  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SinkEventStoreConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enabled is not None:
+            result['enabled'] = self.enabled
+        if self.endpoint is not None:
+            result['endpoint'] = self.endpoint
+        if self.event_store is not None:
+            result['eventStore'] = self.event_store
+        if self.project is not None:
+            result['project'] = self.project
+        if self.role_arn is not None:
+            result['roleArn'] = self.role_arn
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('enabled') is not None:
+            self.enabled = m.get('enabled')
+        if m.get('endpoint') is not None:
+            self.endpoint = m.get('endpoint')
+        if m.get('eventStore') is not None:
+            self.event_store = m.get('eventStore')
+        if m.get('project') is not None:
+            self.project = m.get('project')
+        if m.get('roleArn') is not None:
+            self.role_arn = m.get('roleArn')
+        return self
+
+
+class TemplateConfiguration(TeaModel):
+    def __init__(self, aonotations=None, id=None, lang=None, tokens=None, type=None, version=None):
+        self.aonotations = aonotations  # type: dict[str, any]
+        self.id = id  # type: str
+        self.lang = lang  # type: str
+        self.tokens = tokens  # type: dict[str, any]
+        self.type = type  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TemplateConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aonotations is not None:
+            result['aonotations'] = self.aonotations
+        if self.id is not None:
+            result['id'] = self.id
+        if self.lang is not None:
+            result['lang'] = self.lang
+        if self.tokens is not None:
+            result['tokens'] = self.tokens
+        if self.type is not None:
+            result['type'] = self.type
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('aonotations') is not None:
+            self.aonotations = m.get('aonotations')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('lang') is not None:
+            self.lang = m.get('lang')
+        if m.get('tokens') is not None:
+            self.tokens = m.get('tokens')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('version') is not None:
+            self.version = m.get('version')
         return self
 
 
@@ -985,6 +1754,50 @@ class Ticket(TeaModel):
             self.used_number = m.get('usedNumber')
         if m.get('valid') is not None:
             self.valid = m.get('valid')
+        return self
+
+
+class UpdateAlertReq(TeaModel):
+    def __init__(self, configuration=None, description=None, display_name=None, schedule=None):
+        self.configuration = configuration  # type: AlertConfiguration
+        self.description = description  # type: str
+        self.display_name = display_name  # type: str
+        self.schedule = schedule  # type: Schedule
+
+    def validate(self):
+        if self.configuration:
+            self.configuration.validate()
+        if self.schedule:
+            self.schedule.validate()
+
+    def to_map(self):
+        _map = super(UpdateAlertReq, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.configuration is not None:
+            result['configuration'] = self.configuration.to_map()
+        if self.description is not None:
+            result['description'] = self.description
+        if self.display_name is not None:
+            result['displayName'] = self.display_name
+        if self.schedule is not None:
+            result['schedule'] = self.schedule.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('configuration') is not None:
+            temp_model = AlertConfiguration()
+            self.configuration = temp_model.from_map(m['configuration'])
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('displayName') is not None:
+            self.display_name = m.get('displayName')
+        if m.get('schedule') is not None:
+            temp_model = Schedule()
+            self.schedule = temp_model.from_map(m['schedule'])
         return self
 
 
@@ -2124,8 +2937,11 @@ class ApplyConfigToMachineGroupResponse(TeaModel):
 
 class ChangeResourceGroupRequest(TeaModel):
     def __init__(self, resource_group_id=None, resource_id=None, resource_type=None):
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the resource.
         self.resource_id = resource_id  # type: str
+        # The type of the resource. Only PROJECT is supported. Set the value to PROJECT.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -2188,7 +3004,9 @@ class ChangeResourceGroupResponse(TeaModel):
 
 class ConsumerGroupHeartBeatRequest(TeaModel):
     def __init__(self, body=None, consumer=None):
+        # The IDs of shards whose data is being consumed.
         self.body = body  # type: list[int]
+        # The consumer.
         self.consumer = consumer  # type: str
 
     def validate(self):
@@ -2251,9 +3069,73 @@ class ConsumerGroupHeartBeatResponse(TeaModel):
         return self
 
 
+class CreateAlertRequest(TeaModel):
+    def __init__(self, body=None):
+        self.body = body  # type: CreateAlertReq
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateAlertRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('body') is not None:
+            temp_model = CreateAlertReq()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateAlertResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: any
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+
+    def to_map(self):
+        _map = super(CreateAlertResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            self.body = m.get('body')
+        return self
+
+
 class CreateAnnotationDataSetRequest(TeaModel):
     def __init__(self, body=None, dataset_id=None):
+        # The data structure of the request.
         self.body = body  # type: MLDataSetParam
+        # The unique identifier of the dataset.
         self.dataset_id = dataset_id  # type: str
 
     def validate(self):
@@ -2314,6 +3196,7 @@ class CreateAnnotationDataSetResponse(TeaModel):
 
 class CreateAnnotationLabelRequest(TeaModel):
     def __init__(self, body=None):
+        # The data structure of the request.
         self.body = body  # type: MLLabelParam
 
     def validate(self):
@@ -2370,6 +3253,7 @@ class CreateAnnotationLabelResponse(TeaModel):
 
 class CreateConfigRequest(TeaModel):
     def __init__(self, body=None):
+        # The body of the request.
         self.body = body  # type: LogtailConfig
 
     def validate(self):
@@ -2501,6 +3385,7 @@ class CreateConsumerGroupResponse(TeaModel):
 
 class CreateDashboardRequest(TeaModel):
     def __init__(self, body=None):
+        # The data structure of the dashboard.
         self.body = body  # type: Dashboard
 
     def validate(self):
@@ -3030,12 +3915,19 @@ class CreateLoggingResponse(TeaModel):
 class CreateLogtailPipelineConfigRequest(TeaModel):
     def __init__(self, aggregators=None, config_name=None, flushers=None, global_=None, inputs=None, log_sample=None,
                  processors=None):
+        # The aggregation plug-ins.
         self.aggregators = aggregators  # type: list[dict[str, any]]
+        # The name of the configuration.
         self.config_name = config_name  # type: str
+        # The data output plug-ins.
         self.flushers = flushers  # type: list[dict[str, any]]
+        # The global configuration.
         self.global_ = global_  # type: dict[str, any]
+        # The data source plug-ins.
         self.inputs = inputs  # type: list[dict[str, any]]
+        # The sample log.
         self.log_sample = log_sample  # type: str
+        # The processing plug-ins.
         self.processors = processors  # type: list[dict[str, any]]
 
     def validate(self):
@@ -3275,11 +4167,11 @@ class CreateOssExternalStoreRequestParameter(TeaModel):
         self.accesskey = accesskey  # type: str
         # The name of the OSS bucket.
         self.bucket = bucket  # type: str
-        # The associated fields.
+        # The fields that are associated to the external store.
         self.columns = columns  # type: list[CreateOssExternalStoreRequestParameterColumns]
-        # The OSS endpoint.
+        # The Object Storage Service (OSS) endpoint.
         self.endpoint = endpoint  # type: str
-        # The associated objects.
+        # The names of the OSS objects that are associated to the external store.
         self.objects = objects  # type: list[str]
 
     def validate(self):
@@ -3759,6 +4651,42 @@ class CreateTicketResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = CreateTicketResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteAlertResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: any
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+
+    def to_map(self):
+        _map = super(DeleteAlertResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            self.body = m.get('body')
         return self
 
 
@@ -4361,6 +5289,117 @@ class DeleteShipperResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
+        return self
+
+
+class DisableAlertResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: any
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+
+    def to_map(self):
+        _map = super(DisableAlertResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            self.body = m.get('body')
+        return self
+
+
+class EnableAlertResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: any
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+
+    def to_map(self):
+        _map = super(EnableAlertResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            self.body = m.get('body')
+        return self
+
+
+class GetAlertResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AlertResp
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetAlertResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AlertResp()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
@@ -6078,34 +7117,35 @@ class GetLogsV2Headers(TeaModel):
 class GetLogsV2Request(TeaModel):
     def __init__(self, forward=None, from_=None, line=None, offset=None, power_sql=None, query=None, reverse=None,
                  session=None, shard=None, to=None, topic=None):
-        # Specifies whether to page forward or backward for the scan-based query or the phrase query.
+        # Specifies whether to page forward or backward for the scan-based query or the phrase search.
         self.forward = forward  # type: bool
         # The beginning of the time range to query. The value is the log time that is specified when log data is written.
         # 
-        # The time range specified by the from and to parameters is a left-closed and right-open interval. Each interval includes the specified start time but does not include the specified end time. If you specify the same value for the from and to parameters, the interval is invalid, and an error message is returned. The value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # The time range that is specified in this operation is a left-closed, right-open interval. The interval includes the start time specified by the from parameter, but does not include the end time specified by the to parameter. If you specify the same value for the from and to parameters, the interval is invalid, and an error message is returned. The value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.from_ = from_  # type: int
-        # The maximum number of logs to return for the request. This parameter takes effect only when the query parameter is set to a search statement. Valid values: 0 to 100. Default value: 100.
+        # The maximum number of logs to return for the request. This parameter takes effect only when the query parameter is set to a search statement. Minimum value: 0. Maximum value: 100. Default value: 100.
         self.line = line  # type: long
-        # The row from which the query starts. This parameter takes effect only when the query parameter is set to a search statement. Default value: 0.
+        # The line from which the query starts. This parameter takes effect only when the query parameter is set to a search statement. Default value: 0.
         self.offset = offset  # type: long
         # Specifies whether to enable the SQL enhancement feature. By default, the feature is disabled.
         self.power_sql = power_sql  # type: bool
         # The search statement or the query statement. For more information, see the "Log search overview" and "Log analysis overview" topics.
         # 
-        # If you add set session parallel_sql=true; to the analytic statement in the query parameter, the dedicated SQL feature is enabled. Example: \* | set session parallel_sql=true; select count(\*) as pv.
+        # If you add set session parallel_sql=true; to the analytic statement in the query parameter, Dedicated SQL is used. For example, you can set the query parameter to \* | set session parallel_sql=true; select count(\*) as pv.
         # 
-        # Note: If you specify an analytic statement in the query parameter, the line and offset parameters are invalid for this operation. In this case, we recommend that you set the line and offset parameters to 0 and use a LIMIT clause to limit the number of entries to return on each page. For more information, see the "Perform paged queries" topic.
+        # Note: If you specify an analytic statement in the query parameter, the line and offset parameters do not take effect in this operation. In this case, we recommend that you set the line and offset parameters to 0 and use the LIMIT clause to limit the number of logs to return on each page. For more information, see the "Perform paged queries" topic.
         self.query = query  # type: str
         # Specifies whether to return logs in reverse chronological order of log timestamps. The log timestamps are accurate to the minute. Valid values:
         # 
-        # true: returns logs in reverse chronological order of log timestamps. false (default): returns logs in chronological order of log timestamps. Note The reverse parameter takes effect only when the query parameter is set to a search statement. The reverse parameter specifies the method used to sort the returned logs. If the query parameter is set to a query statement, which consists of a search statement and an analytic statement, the reverse parameter does not take effect. The method used to sort the returned logs is specified by the ORDER BY clause in the analytic statement. If you use the keyword asc in the ORDER BY clause, the logs are sorted in chronological order. If you use the keyword desc in the ORDER BY clause, the logs are sorted in reverse chronological order. By default, asc is used in the ORDER BY clause.
+        # true: Logs are returned in reverse chronological order of log timestamps. false (default): Logs are returned in chronological order of log timestamps. Note: The reverse parameter takes effect only when the query parameter is set to a search statement. The reverse parameter specifies the method used to sort returned logs. If the query parameter is set to a query statement, the reverse parameter does not take effect. The method used to sort returned logs is specified by the ORDER BY clause in the analytic statement. If you use the keyword asc in the ORDER BY clause, the logs are sorted in chronological order. If you use the keyword desc in the ORDER BY clause, the logs are sorted in reverse chronological order. By default, asc is used in the ORDER BY clause.
         self.reverse = reverse  # type: bool
+        # The parameter that is used to query data.
         self.session = session  # type: str
         # The ID of the shard.
         self.shard = shard  # type: int
         # The end of the time range to query. The value is the log time that is specified when log data is written.
         # 
-        # The time range specified by the from and to parameters is a left-closed and right-open interval. Each interval includes the specified start time but does not include the specified end time. If you specify the same value for the from and to parameters, the interval is invalid, and an error message is returned. The value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # The time range that is specified in this operation is a left-closed, right-open interval. The interval includes the start time specified by the from parameter, but does not include the end time specified by the to parameter. If you specify the same value for the from and to parameters, the interval is invalid, and an error message is returned. The value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.to = to  # type: int
         # The topic of the logs. Default value: double quotation marks ("").
         self.topic = topic  # type: str
@@ -6942,9 +7982,126 @@ class GetShipperStatusResponse(TeaModel):
         return self
 
 
+class ListAlertsRequest(TeaModel):
+    def __init__(self, logstore=None, offset=None, size=None):
+        self.logstore = logstore  # type: str
+        self.offset = offset  # type: int
+        self.size = size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAlertsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.logstore is not None:
+            result['logstore'] = self.logstore
+        if self.offset is not None:
+            result['offset'] = self.offset
+        if self.size is not None:
+            result['size'] = self.size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('logstore') is not None:
+            self.logstore = m.get('logstore')
+        if m.get('offset') is not None:
+            self.offset = m.get('offset')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        return self
+
+
+class ListAlertsResponseBody(TeaModel):
+    def __init__(self, count=None, results=None, total=None):
+        self.count = count  # type: int
+        self.results = results  # type: list[AlertResp]
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.results:
+            for k in self.results:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListAlertsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['count'] = self.count
+        result['results'] = []
+        if self.results is not None:
+            for k in self.results:
+                result['results'].append(k.to_map() if k else None)
+        if self.total is not None:
+            result['total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        self.results = []
+        if m.get('results') is not None:
+            for k in m.get('results'):
+                temp_model = AlertResp()
+                self.results.append(temp_model.from_map(k))
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        return self
+
+
+class ListAlertsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListAlertsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListAlertsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListAlertsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListAnnotationDataRequest(TeaModel):
     def __init__(self, offset=None, size=None):
+        # The line from which the query starts.
         self.offset = offset  # type: int
+        # The number of entries per page.
         self.size = size  # type: int
 
     def validate(self):
@@ -6973,7 +8130,9 @@ class ListAnnotationDataRequest(TeaModel):
 
 class ListAnnotationDataResponseBody(TeaModel):
     def __init__(self, data=None, total=None):
+        # The data returned.
         self.data = data  # type: list[MLDataParam]
+        # The total number of entries returned.
         self.total = total  # type: int
 
     def validate(self):
@@ -7049,7 +8208,9 @@ class ListAnnotationDataResponse(TeaModel):
 
 class ListAnnotationDataSetsRequest(TeaModel):
     def __init__(self, offset=None, size=None):
+        # The line from which the query starts.
         self.offset = offset  # type: int
+        # The number of entries per page.
         self.size = size  # type: int
 
     def validate(self):
@@ -7078,7 +8239,9 @@ class ListAnnotationDataSetsRequest(TeaModel):
 
 class ListAnnotationDataSetsResponseBody(TeaModel):
     def __init__(self, data=None, total=None):
+        # The data returned.
         self.data = data  # type: list[MLDataSetParam]
+        # The total number of entries returned.
         self.total = total  # type: int
 
     def validate(self):
@@ -7154,7 +8317,9 @@ class ListAnnotationDataSetsResponse(TeaModel):
 
 class ListAnnotationLabelsRequest(TeaModel):
     def __init__(self, offset=None, size=None):
+        # The line from which the query starts.
         self.offset = offset  # type: int
+        # The number of entries per page.
         self.size = size  # type: int
 
     def validate(self):
@@ -7183,7 +8348,9 @@ class ListAnnotationLabelsRequest(TeaModel):
 
 class ListAnnotationLabelsResponseBody(TeaModel):
     def __init__(self, data=None, total=None):
+        # The data returned.
         self.data = data  # type: list[MLLabelParam]
+        # The total number of tags that meet the query conditions.
         self.total = total  # type: int
 
     def validate(self):
@@ -7656,9 +8823,13 @@ class ListCollectionPoliciesResponse(TeaModel):
 
 class ListConfigRequest(TeaModel):
     def __init__(self, config_name=None, logstore_name=None, offset=None, size=None):
+        # The name of the Logtail configuration.
         self.config_name = config_name  # type: str
+        # The name of the Logstore.
         self.logstore_name = logstore_name  # type: str
+        # The line from which the query starts. Default value: 0.
         self.offset = offset  # type: long
+        # The number of entries per page. Maximum value: 500.
         self.size = size  # type: long
 
     def validate(self):
@@ -7695,8 +8866,11 @@ class ListConfigRequest(TeaModel):
 
 class ListConfigResponseBody(TeaModel):
     def __init__(self, configs=None, count=None, total=None):
+        # The Logtail configurations that are returned on the current page.
         self.configs = configs  # type: list[str]
+        # The number of Logtail configurations that are returned on the current page.
         self.count = count  # type: int
+        # The total number of Logtail configurations that meet the query conditions.
         self.total = total  # type: int
 
     def validate(self):
@@ -7813,7 +8987,9 @@ class ListConsumerGroupResponse(TeaModel):
 
 class ListDashboardRequest(TeaModel):
     def __init__(self, offset=None, size=None):
+        # The line from which the query starts. Default value: 0.
         self.offset = offset  # type: int
+        # The number of entries per page. Maximum value: 500. Default value: 500.
         self.size = size  # type: int
 
     def validate(self):
@@ -7842,7 +9018,9 @@ class ListDashboardRequest(TeaModel):
 
 class ListDashboardResponseBodyDashboardItems(TeaModel):
     def __init__(self, dashboard_name=None, display_name=None):
+        # The dashboard ID. The ID must be unique in a project. Fuzzy search is supported. For example, if you enter da, all dashboards whose IDs start with da are queried.
         self.dashboard_name = dashboard_name  # type: str
+        # The display name of the dashboard.
         self.display_name = display_name  # type: str
 
     def validate(self):
@@ -7871,7 +9049,9 @@ class ListDashboardResponseBodyDashboardItems(TeaModel):
 
 class ListDashboardResponseBody(TeaModel):
     def __init__(self, dashboard_items=None, dashboards=None):
+        # The details of the dashboard.
         self.dashboard_items = dashboard_items  # type: list[ListDashboardResponseBodyDashboardItems]
+        # The queried dashboards. Each dashboard in the array is specified by dashboardName.
         self.dashboards = dashboards  # type: list[str]
 
     def validate(self):
@@ -8236,7 +9416,7 @@ class ListLogStoresRequest(TeaModel):
 
 class ListLogStoresResponseBody(TeaModel):
     def __init__(self, count=None, logstores=None, total=None):
-        # The number of entries that are returned on the current page.
+        # The number of entries returned on the current page.
         self.count = count  # type: int
         # The Logstores that meet the query conditions.
         self.logstores = logstores  # type: list[str]
@@ -8312,9 +9492,13 @@ class ListLogStoresResponse(TeaModel):
 
 class ListLogtailPipelineConfigRequest(TeaModel):
     def __init__(self, config_name=None, logstore_name=None, offset=None, size=None):
+        # The name of the Logtail pipeline configuration.
         self.config_name = config_name  # type: str
+        # The name of the Logstore.
         self.logstore_name = logstore_name  # type: str
+        # The line from which the query starts.
         self.offset = offset  # type: long
+        # The number of Logtail pipeline configurations per page.
         self.size = size  # type: long
 
     def validate(self):
@@ -8351,8 +9535,11 @@ class ListLogtailPipelineConfigRequest(TeaModel):
 
 class ListLogtailPipelineConfigResponseBody(TeaModel):
     def __init__(self, configs=None, count=None, total=None):
+        # The Logtail pipeline configurations that are returned on the current page.
         self.configs = configs  # type: list[str]
+        # The number of Logtail pipeline configurations that are returned on the current page.
         self.count = count  # type: int
+        # The total number of Logtail pipeline configurations in the current project.
         self.total = total  # type: int
 
     def validate(self):
@@ -9252,8 +10439,11 @@ class ListTagResourcesResponse(TeaModel):
 
 class PutAnnotationDataRequest(TeaModel):
     def __init__(self, annotationdata_id=None, ml_data_param=None, raw_log=None):
+        # The unique identifier of the data.
         self.annotationdata_id = annotationdata_id  # type: str
+        # The data structure of the request.
         self.ml_data_param = ml_data_param  # type: MLDataParam
+        # The raw log data.
         self.raw_log = raw_log  # type: list[dict[str, str]]
 
     def validate(self):
@@ -9427,9 +10617,15 @@ class PutProjectTransferAccelerationResponse(TeaModel):
 
 class PutWebtrackingRequest(TeaModel):
     def __init__(self, logs=None, source=None, tags=None, topic=None):
+        # The logs. Each element is a JSON object that indicates a log.
+        # 
+        # >  **Note**: The time in a log that is collected by using the web tracking feature is the time at which Simple Log Service receives the log. You do not need to configure the \__time\_\_ field for each log. If this field exists, it is overwritten by the time at which Simple Log Service receives the log.
         self.logs = logs  # type: list[dict[str, str]]
+        # The source of the logs.
         self.source = source  # type: str
+        # The tags of the logs.
         self.tags = tags  # type: dict[str, str]
+        # The topic of the logs.
         self.topic = topic  # type: str
 
     def validate(self):
@@ -9881,8 +11077,71 @@ class UntagResourcesResponse(TeaModel):
         return self
 
 
+class UpdateAlertRequest(TeaModel):
+    def __init__(self, body=None):
+        self.body = body  # type: UpdateAlertReq
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateAlertRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('body') is not None:
+            temp_model = UpdateAlertReq()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateAlertResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: any
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+
+    def to_map(self):
+        _map = super(UpdateAlertResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            self.body = m.get('body')
+        return self
+
+
 class UpdateAnnotationDataSetRequest(TeaModel):
     def __init__(self, body=None):
+        # The data structure of the request.
         self.body = body  # type: MLDataSetParam
 
     def validate(self):
@@ -9939,6 +11198,7 @@ class UpdateAnnotationDataSetResponse(TeaModel):
 
 class UpdateAnnotationLabelRequest(TeaModel):
     def __init__(self, body=None):
+        # The data structure of the request.
         self.body = body  # type: MLLabelParam
 
     def validate(self):
@@ -9995,6 +11255,7 @@ class UpdateAnnotationLabelResponse(TeaModel):
 
 class UpdateConfigRequest(TeaModel):
     def __init__(self, body=None):
+        # The body of the request.
         self.body = body  # type: LogtailConfig
 
     def validate(self):
@@ -10115,10 +11376,15 @@ class UpdateConsumerGroupResponse(TeaModel):
 
 class UpdateDashboardRequest(TeaModel):
     def __init__(self, attribute=None, charts=None, dashboard_name=None, description=None, display_name=None):
+        # The attributes of the dashboard.
         self.attribute = attribute  # type: dict[str, str]
+        # The charts on the dashboard.
         self.charts = charts  # type: list[Chart]
+        # The name of the dashboard.
         self.dashboard_name = dashboard_name  # type: str
+        # The description of the dashboard.
         self.description = description  # type: str
+        # The display name of the dashboard.
         self.display_name = display_name  # type: str
 
     def validate(self):
@@ -10662,12 +11928,19 @@ class UpdateLoggingResponse(TeaModel):
 class UpdateLogtailPipelineConfigRequest(TeaModel):
     def __init__(self, aggregators=None, config_name=None, flushers=None, global_=None, inputs=None, log_sample=None,
                  processors=None):
+        # The aggregation plug-ins.
         self.aggregators = aggregators  # type: list[dict[str, any]]
+        # The name of the configuration.
         self.config_name = config_name  # type: str
+        # The data output plug-ins.
         self.flushers = flushers  # type: list[dict[str, any]]
+        # The global configuration.
         self.global_ = global_  # type: dict[str, any]
+        # The data source plug-ins.
         self.inputs = inputs  # type: list[dict[str, any]]
+        # The sample log.
         self.log_sample = log_sample  # type: str
+        # The processing plug-ins.
         self.processors = processors  # type: list[dict[str, any]]
 
     def validate(self):
@@ -10926,7 +12199,7 @@ class UpdateMachineGroupMachineResponse(TeaModel):
 
 class UpdateOssExternalStoreRequestParameterColumns(TeaModel):
     def __init__(self, name=None, type=None):
-        # The key of the field.
+        # The name of the field.
         self.name = name  # type: str
         # The type of the field.
         self.type = type  # type: str
@@ -10963,11 +12236,11 @@ class UpdateOssExternalStoreRequestParameter(TeaModel):
         self.accesskey = accesskey  # type: str
         # The name of the OSS bucket.
         self.bucket = bucket  # type: str
-        # The associated fields.
+        # The fields that are associated to the external store.
         self.columns = columns  # type: list[UpdateOssExternalStoreRequestParameterColumns]
-        # The OSS endpoint.
+        # The Object Storage Service (OSS) endpoint.
         self.endpoint = endpoint  # type: str
-        # The associated objects.
+        # The names of the OSS objects that are associated to the external store.
         self.objects = objects  # type: list[str]
 
     def validate(self):
