@@ -21162,6 +21162,136 @@ class GetWorkitemCommentListResponse(TeaModel):
         return self
 
 
+class GetWorkitemFileResponseBodyWorkitemFile(TeaModel):
+    def __init__(self, id=None, name=None, size=None, suffix=None, url=None):
+        self.id = id  # type: str
+        self.name = name  # type: str
+        self.size = size  # type: int
+        self.suffix = suffix  # type: str
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetWorkitemFileResponseBodyWorkitemFile, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.size is not None:
+            result['size'] = self.size
+        if self.suffix is not None:
+            result['suffix'] = self.suffix
+        if self.url is not None:
+            result['url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        if m.get('suffix') is not None:
+            self.suffix = m.get('suffix')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        return self
+
+
+class GetWorkitemFileResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, request_id=None, success=None, workitem_file=None):
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: str
+        self.workitem_file = workitem_file  # type: GetWorkitemFileResponseBodyWorkitemFile
+
+    def validate(self):
+        if self.workitem_file:
+            self.workitem_file.validate()
+
+    def to_map(self):
+        _map = super(GetWorkitemFileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.workitem_file is not None:
+            result['workitemFile'] = self.workitem_file.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('workitemFile') is not None:
+            temp_model = GetWorkitemFileResponseBodyWorkitemFile()
+            self.workitem_file = temp_model.from_map(m['workitemFile'])
+        return self
+
+
+class GetWorkitemFileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetWorkitemFileResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetWorkitemFileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetWorkitemFileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetWorkitemRelationsRequest(TeaModel):
     def __init__(self, relation_type=None):
         self.relation_type = relation_type  # type: str
