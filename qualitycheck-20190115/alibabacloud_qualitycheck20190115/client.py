@@ -33,6 +33,8 @@ class Client(OpenApiClient):
     def add_business_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -61,6 +63,8 @@ class Client(OpenApiClient):
     def add_rule_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -88,12 +92,16 @@ class Client(OpenApiClient):
 
     def add_rule_v4with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         body = {}
         if not UtilClient.is_unset(request.is_copy):
             body['IsCopy'] = request.is_copy
         if not UtilClient.is_unset(request.json_str_for_rule):
             body['JsonStrForRule'] = request.json_str_for_rule
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -119,6 +127,8 @@ class Client(OpenApiClient):
     def add_thesaurus_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -147,6 +157,8 @@ class Client(OpenApiClient):
     def assign_reviewer_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -175,6 +187,8 @@ class Client(OpenApiClient):
     def assign_reviewer_by_session_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -203,6 +217,8 @@ class Client(OpenApiClient):
     def batch_submit_review_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -231,6 +247,8 @@ class Client(OpenApiClient):
     def create_asr_vocab_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -259,6 +277,8 @@ class Client(OpenApiClient):
     def create_check_type_to_scheme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -287,6 +307,8 @@ class Client(OpenApiClient):
     def create_quality_check_scheme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -315,6 +337,8 @@ class Client(OpenApiClient):
     def create_scheme_task_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -343,6 +367,8 @@ class Client(OpenApiClient):
     def create_skill_group_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -371,6 +397,8 @@ class Client(OpenApiClient):
     def create_task_assign_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -397,8 +425,21 @@ class Client(OpenApiClient):
         return self.create_task_assign_rule_with_options(request, runtime)
 
     def create_user_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: CreateUserRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateUserResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -421,12 +462,23 @@ class Client(OpenApiClient):
         )
 
     def create_user(self, request):
+        """
+        @deprecated
+        
+
+        @param request: CreateUserRequest
+
+        @return: CreateUserResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_user_with_options(request, runtime)
 
     def create_warning_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -455,6 +507,8 @@ class Client(OpenApiClient):
     def create_warning_strategy_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -483,6 +537,8 @@ class Client(OpenApiClient):
     def del_rule_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -511,6 +567,8 @@ class Client(OpenApiClient):
     def del_thesaurus_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -539,6 +597,8 @@ class Client(OpenApiClient):
     def delete_asr_vocab_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -567,6 +627,8 @@ class Client(OpenApiClient):
     def delete_business_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -595,6 +657,8 @@ class Client(OpenApiClient):
     def delete_customization_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -623,6 +687,8 @@ class Client(OpenApiClient):
     def delete_data_set_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -651,6 +717,8 @@ class Client(OpenApiClient):
     def delete_precision_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -679,6 +747,8 @@ class Client(OpenApiClient):
     def delete_quality_check_scheme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -706,6 +776,9 @@ class Client(OpenApiClient):
 
     def delete_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         body = {}
         if not UtilClient.is_unset(request.force_delete):
             body['ForceDelete'] = request.force_delete
@@ -714,6 +787,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.rule_id):
             body['RuleId'] = request.rule_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -738,12 +812,16 @@ class Client(OpenApiClient):
 
     def delete_rule_v4with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         body = {}
         if not UtilClient.is_unset(request.force_delete):
             body['ForceDelete'] = request.force_delete
         if not UtilClient.is_unset(request.rule_id):
             body['RuleId'] = request.rule_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -769,6 +847,8 @@ class Client(OpenApiClient):
     def delete_scheme_task_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -797,6 +877,8 @@ class Client(OpenApiClient):
     def delete_score_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -825,6 +907,8 @@ class Client(OpenApiClient):
     def delete_skill_group_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -853,6 +937,8 @@ class Client(OpenApiClient):
     def delete_sub_score_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -881,6 +967,8 @@ class Client(OpenApiClient):
     def delete_task_assign_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -907,8 +995,21 @@ class Client(OpenApiClient):
         return self.delete_task_assign_rule_with_options(request, runtime)
 
     def delete_user_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: DeleteUserRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteUserResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -931,12 +1032,23 @@ class Client(OpenApiClient):
         )
 
     def delete_user(self, request):
+        """
+        @deprecated
+        
+
+        @param request: DeleteUserRequest
+
+        @return: DeleteUserResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_user_with_options(request, runtime)
 
     def delete_warning_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -965,6 +1077,8 @@ class Client(OpenApiClient):
     def delete_warning_strategy_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -993,6 +1107,8 @@ class Client(OpenApiClient):
     def edit_thesaurus_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1021,6 +1137,8 @@ class Client(OpenApiClient):
     def get_asr_vocab_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1049,6 +1167,8 @@ class Client(OpenApiClient):
     def get_business_category_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1077,6 +1197,8 @@ class Client(OpenApiClient):
     def get_customization_config_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1105,6 +1227,8 @@ class Client(OpenApiClient):
     def get_hit_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1133,6 +1257,8 @@ class Client(OpenApiClient):
     def get_next_result_to_verify_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1161,6 +1287,8 @@ class Client(OpenApiClient):
     def get_precision_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1189,6 +1317,8 @@ class Client(OpenApiClient):
     def get_quality_check_scheme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1217,6 +1347,8 @@ class Client(OpenApiClient):
     def get_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1243,8 +1375,21 @@ class Client(OpenApiClient):
         return self.get_result_with_options(request, runtime)
 
     def get_result_callback_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: GetResultCallbackRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetResultCallbackResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1267,12 +1412,23 @@ class Client(OpenApiClient):
         )
 
     def get_result_callback(self, request):
+        """
+        @deprecated
+        
+
+        @param request: GetResultCallbackRequest
+
+        @return: GetResultCallbackResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_result_callback_with_options(request, runtime)
 
     def get_result_to_review_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1301,6 +1457,8 @@ class Client(OpenApiClient):
     def get_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1328,10 +1486,14 @@ class Client(OpenApiClient):
 
     def get_rule_by_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         body = {}
         if not UtilClient.is_unset(request.rule_id):
             body['RuleId'] = request.rule_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -1357,6 +1519,8 @@ class Client(OpenApiClient):
     def get_rule_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1385,6 +1549,8 @@ class Client(OpenApiClient):
     def get_rule_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1438,8 +1604,61 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_rule_v4with_options(request, runtime)
 
+    def get_rule_v4str_with_options(self, request, runtime):
+        """
+        @deprecated : GetRuleV4Str is deprecated, please use Qualitycheck::2019-01-15::GetRuleV4 instead.
+        
+
+        @param request: GetRuleV4StrRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetRuleV4StrResponse
+        Deprecated
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.is_scheme_data):
+            body['IsSchemeData'] = request.is_scheme_data
+        if not UtilClient.is_unset(request.rule_id):
+            body['RuleId'] = request.rule_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetRuleV4Str',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.GetRuleV4StrResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_rule_v4str(self, request):
+        """
+        @deprecated : GetRuleV4Str is deprecated, please use Qualitycheck::2019-01-15::GetRuleV4 instead.
+        
+
+        @param request: GetRuleV4StrRequest
+
+        @return: GetRuleV4StrResponse
+        Deprecated
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_rule_v4str_with_options(request, runtime)
+
     def get_rules_count_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         body = {}
         if not UtilClient.is_unset(request.business_name):
             body['BusinessName'] = request.business_name
@@ -1492,6 +1711,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.update_user_id):
             body['UpdateUserId'] = request.update_user_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -1517,6 +1737,8 @@ class Client(OpenApiClient):
     def get_score_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1545,6 +1767,8 @@ class Client(OpenApiClient):
     def get_skill_group_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1573,6 +1797,8 @@ class Client(OpenApiClient):
     def get_sync_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1601,6 +1827,8 @@ class Client(OpenApiClient):
     def get_thesaurus_by_synonym_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1629,6 +1857,8 @@ class Client(OpenApiClient):
     def get_warning_strategy_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1657,6 +1887,8 @@ class Client(OpenApiClient):
     def handle_complaint_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1685,6 +1917,8 @@ class Client(OpenApiClient):
     def insert_score_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1713,6 +1947,8 @@ class Client(OpenApiClient):
     def insert_sub_score_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1741,6 +1977,8 @@ class Client(OpenApiClient):
     def invalid_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1769,6 +2007,8 @@ class Client(OpenApiClient):
     def list_asr_vocab_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1795,6 +2035,17 @@ class Client(OpenApiClient):
         return self.list_asr_vocab_with_options(request, runtime)
 
     def list_business_spaces_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: ListBusinessSpacesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListBusinessSpacesResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.json_str):
@@ -1819,12 +2070,23 @@ class Client(OpenApiClient):
         )
 
     def list_business_spaces(self, request):
+        """
+        @deprecated
+        
+
+        @param request: ListBusinessSpacesRequest
+
+        @return: ListBusinessSpacesResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_business_spaces_with_options(request, runtime)
 
     def list_data_set_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1853,6 +2115,8 @@ class Client(OpenApiClient):
     def list_hot_words_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1881,6 +2145,8 @@ class Client(OpenApiClient):
     def list_precision_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1909,6 +2175,8 @@ class Client(OpenApiClient):
     def list_quality_check_scheme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1937,6 +2205,8 @@ class Client(OpenApiClient):
     def list_roles_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1965,6 +2235,8 @@ class Client(OpenApiClient):
     def list_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -1992,6 +2264,9 @@ class Client(OpenApiClient):
 
     def list_rules_v4with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         body = {}
         if not UtilClient.is_unset(request.business_name):
             body['BusinessName'] = request.business_name
@@ -2044,6 +2319,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.update_user_id):
             body['UpdateUserId'] = request.update_user_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -2069,6 +2345,8 @@ class Client(OpenApiClient):
     def list_scheme_task_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2097,6 +2375,8 @@ class Client(OpenApiClient):
     def list_session_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2125,6 +2405,8 @@ class Client(OpenApiClient):
     def list_skill_group_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2153,6 +2435,8 @@ class Client(OpenApiClient):
     def list_task_assign_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2181,6 +2465,8 @@ class Client(OpenApiClient):
     def list_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2209,6 +2495,8 @@ class Client(OpenApiClient):
     def list_warning_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2237,6 +2525,8 @@ class Client(OpenApiClient):
     def list_warning_strategy_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2265,6 +2555,8 @@ class Client(OpenApiClient):
     def restart_asr_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2293,6 +2585,8 @@ class Client(OpenApiClient):
     def revert_assigned_session_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2321,6 +2615,8 @@ class Client(OpenApiClient):
     def revert_assigned_session_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2349,6 +2645,8 @@ class Client(OpenApiClient):
     def save_config_data_set_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2377,6 +2675,8 @@ class Client(OpenApiClient):
     def submit_complaint_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2405,6 +2705,8 @@ class Client(OpenApiClient):
     def submit_precision_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2433,6 +2735,8 @@ class Client(OpenApiClient):
     def submit_quality_check_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2461,6 +2765,8 @@ class Client(OpenApiClient):
     def submit_review_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2489,6 +2795,8 @@ class Client(OpenApiClient):
     def sync_quality_check_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2514,9 +2822,41 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.sync_quality_check_with_options(request, runtime)
 
+    def test_rule_v4with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.is_scheme_data):
+            body['IsSchemeData'] = request.is_scheme_data
+        if not UtilClient.is_unset(request.test_json):
+            body['TestJson'] = request.test_json
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='TestRuleV4',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.TestRuleV4Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def test_rule_v4(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.test_rule_v4with_options(request, runtime)
+
     def update_asr_vocab_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2545,6 +2885,8 @@ class Client(OpenApiClient):
     def update_check_type_to_scheme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2573,6 +2915,8 @@ class Client(OpenApiClient):
     def update_quality_check_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2601,6 +2945,8 @@ class Client(OpenApiClient):
     def update_quality_check_scheme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2629,6 +2975,8 @@ class Client(OpenApiClient):
     def update_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2656,6 +3004,9 @@ class Client(OpenApiClient):
 
     def update_rule_by_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         body = {}
         if not UtilClient.is_unset(request.is_copy):
             body['IsCopy'] = request.is_copy
@@ -2666,6 +3017,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.rule_id):
             body['RuleId'] = request.rule_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -2691,6 +3043,8 @@ class Client(OpenApiClient):
     def update_rule_to_scheme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2718,12 +3072,16 @@ class Client(OpenApiClient):
 
     def update_rule_v4with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         body = {}
         if not UtilClient.is_unset(request.json_str_for_rule):
             body['JsonStrForRule'] = request.json_str_for_rule
         if not UtilClient.is_unset(request.rule_id):
             body['RuleId'] = request.rule_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -2749,6 +3107,8 @@ class Client(OpenApiClient):
     def update_scheme_task_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['jsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2777,6 +3137,8 @@ class Client(OpenApiClient):
     def update_score_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2805,6 +3167,8 @@ class Client(OpenApiClient):
     def update_skill_group_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2833,6 +3197,8 @@ class Client(OpenApiClient):
     def update_sub_score_for_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2861,6 +3227,8 @@ class Client(OpenApiClient):
     def update_sync_quality_check_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2889,6 +3257,8 @@ class Client(OpenApiClient):
     def update_task_assign_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2917,6 +3287,8 @@ class Client(OpenApiClient):
     def update_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2945,6 +3317,8 @@ class Client(OpenApiClient):
     def update_user_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -2973,6 +3347,8 @@ class Client(OpenApiClient):
     def update_warning_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -3001,6 +3377,8 @@ class Client(OpenApiClient):
     def update_warning_strategy_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -3029,6 +3407,8 @@ class Client(OpenApiClient):
     def upload_audio_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -3055,8 +3435,21 @@ class Client(OpenApiClient):
         return self.upload_audio_data_with_options(request, runtime)
 
     def upload_data_with_options(self, request, runtime):
+        """
+        @deprecated : UploadData is deprecated, please use Qualitycheck::2019-01-15::UploadDataV4 instead.
+        
+
+        @param request: UploadDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UploadDataResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -3079,12 +3472,23 @@ class Client(OpenApiClient):
         )
 
     def upload_data(self, request):
+        """
+        @deprecated : UploadData is deprecated, please use Qualitycheck::2019-01-15::UploadDataV4 instead.
+        
+
+        @param request: UploadDataRequest
+
+        @return: UploadDataResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.upload_data_with_options(request, runtime)
 
     def upload_data_sync_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -3110,9 +3514,41 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.upload_data_sync_with_options(request, runtime)
 
+    def upload_data_v4with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            body['BaseMeAgentId'] = request.base_me_agent_id
+        if not UtilClient.is_unset(request.json_str):
+            body['JsonStr'] = request.json_str
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UploadDataV4',
+            version='2019-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            qualitycheck_20190115_models.UploadDataV4Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def upload_data_v4(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.upload_data_v4with_options(request, runtime)
+
     def upload_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -3141,6 +3577,8 @@ class Client(OpenApiClient):
     def verify_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
@@ -3169,6 +3607,8 @@ class Client(OpenApiClient):
     def verify_sentence_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.base_me_agent_id):
+            query['BaseMeAgentId'] = request.base_me_agent_id
         if not UtilClient.is_unset(request.json_str):
             query['JsonStr'] = request.json_str
         req = open_api_models.OpenApiRequest(
