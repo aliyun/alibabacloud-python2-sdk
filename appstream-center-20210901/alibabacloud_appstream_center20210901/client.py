@@ -19,6 +19,7 @@ class Client(OpenApiClient):
     """
     def __init__(self, config):
         super(Client, self).__init__(config)
+        self._signature_algorithm = 'v2'
         self._endpoint_rule = ''
         self.check_config(config)
         self._endpoint = self.get_endpoint('appstream-center', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
@@ -29,6 +30,70 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(endpoint_map) and not UtilClient.empty(endpoint_map.get(region_id)):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
+
+    def access_page_get_acl_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_page_id):
+            query['AccessPageId'] = request.access_page_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AccessPageGetAcl',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.AccessPageGetAclResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def access_page_get_acl(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.access_page_get_acl_with_options(request, runtime)
+
+    def access_page_set_acl_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_mode):
+            query['AccessMode'] = request.access_mode
+        if not UtilClient.is_unset(request.access_page_id):
+            query['AccessPageId'] = request.access_page_id
+        if not UtilClient.is_unset(request.access_page_name):
+            query['AccessPageName'] = request.access_page_name
+        if not UtilClient.is_unset(request.effect_time):
+            query['EffectTime'] = request.effect_time
+        if not UtilClient.is_unset(request.unit):
+            query['Unit'] = request.unit
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AccessPageSetAcl',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.AccessPageSetAclResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def access_page_set_acl(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.access_page_set_acl_with_options(request, runtime)
 
     def approve_ota_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -66,6 +131,80 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.approve_ota_task_with_options(request, runtime)
 
+    def ask_session_package_price_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.charge_type):
+            query['ChargeType'] = request.charge_type
+        if not UtilClient.is_unset(request.max_sessions):
+            query['MaxSessions'] = request.max_sessions
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.session_package_type):
+            query['SessionPackageType'] = request.session_package_type
+        if not UtilClient.is_unset(request.session_spec):
+            query['SessionSpec'] = request.session_spec
+        if not UtilClient.is_unset(request.session_type):
+            query['SessionType'] = request.session_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AskSessionPackagePrice',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.AskSessionPackagePriceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def ask_session_package_price(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.ask_session_package_price_with_options(request, runtime)
+
+    def ask_session_package_renew_price_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.session_package_id):
+            query['SessionPackageId'] = request.session_package_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AskSessionPackageRenewPrice',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.AskSessionPackageRenewPriceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def ask_session_package_renew_price(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.ask_session_package_renew_price_with_options(request, runtime)
+
     def authorize_instance_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -100,6 +239,52 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.authorize_instance_group_with_options(request, runtime)
 
+    def buy_session_package_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.charge_type):
+            query['ChargeType'] = request.charge_type
+        if not UtilClient.is_unset(request.max_sessions):
+            query['MaxSessions'] = request.max_sessions
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.session_package_name):
+            query['SessionPackageName'] = request.session_package_name
+        if not UtilClient.is_unset(request.session_package_type):
+            query['SessionPackageType'] = request.session_package_type
+        if not UtilClient.is_unset(request.session_spec):
+            query['SessionSpec'] = request.session_spec
+        if not UtilClient.is_unset(request.session_type):
+            query['SessionType'] = request.session_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BuySessionPackage',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.BuySessionPackageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def buy_session_package(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.buy_session_package_with_options(request, runtime)
+
     def cancel_ota_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -129,6 +314,44 @@ class Client(OpenApiClient):
     def cancel_ota_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.cancel_ota_task_with_options(request, runtime)
+
+    def create_access_page_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_page_name):
+            query['AccessPageName'] = request.access_page_name
+        if not UtilClient.is_unset(request.cloud_env_id):
+            query['CloudEnvId'] = request.cloud_env_id
+        if not UtilClient.is_unset(request.effect_time):
+            query['EffectTime'] = request.effect_time
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_name):
+            query['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.unit):
+            query['Unit'] = request.unit
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateAccessPage',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.CreateAccessPageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_access_page(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_access_page_with_options(request, runtime)
 
     def create_app_instance_group_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -242,6 +465,86 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_image_from_app_instance_group_with_options(request, runtime)
 
+    def create_project_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.clipboard):
+            query['Clipboard'] = request.clipboard
+        if not UtilClient.is_unset(request.cloud_env_id):
+            query['CloudEnvId'] = request.cloud_env_id
+        if not UtilClient.is_unset(request.content_id):
+            query['ContentId'] = request.content_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.file_transfer):
+            query['FileTransfer'] = request.file_transfer
+        if not UtilClient.is_unset(request.frame_rate):
+            query['FrameRate'] = request.frame_rate
+        if not UtilClient.is_unset(request.keep_alive_duration):
+            query['KeepAliveDuration'] = request.keep_alive_duration
+        if not UtilClient.is_unset(request.project_name):
+            query['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.session_resolution_height):
+            query['SessionResolutionHeight'] = request.session_resolution_height
+        if not UtilClient.is_unset(request.session_resolution_width):
+            query['SessionResolutionWidth'] = request.session_resolution_width
+        if not UtilClient.is_unset(request.session_spec):
+            query['SessionSpec'] = request.session_spec
+        if not UtilClient.is_unset(request.streaming_mode):
+            query['StreamingMode'] = request.streaming_mode
+        if not UtilClient.is_unset(request.terminal_resolution_adaptation):
+            query['TerminalResolutionAdaptation'] = request.terminal_resolution_adaptation
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateProject',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.CreateProjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_project(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_project_with_options(request, runtime)
+
+    def delete_access_page_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_page_id):
+            query['AccessPageId'] = request.access_page_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAccessPage',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.DeleteAccessPageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_access_page(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_access_page_with_options(request, runtime)
+
     def delete_app_instance_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -304,6 +607,66 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_app_instances_with_options(request, runtime)
 
+    def delete_project_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteProject',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.DeleteProjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_project(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_project_with_options(request, runtime)
+
+    def get_access_page_session_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_page_id):
+            query['AccessPageId'] = request.access_page_id
+        if not UtilClient.is_unset(request.access_page_token):
+            query['AccessPageToken'] = request.access_page_token
+        if not UtilClient.is_unset(request.external_user_id):
+            query['ExternalUserId'] = request.external_user_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAccessPageSession',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='Anonymous',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.GetAccessPageSessionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_access_page_session(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_access_page_session_with_options(request, runtime)
+
     def get_app_instance_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -343,6 +706,8 @@ class Client(OpenApiClient):
             body['AppInstanceGroupIdList'] = request.app_instance_group_id_list
         if not UtilClient.is_unset(request.app_instance_id):
             body['AppInstanceId'] = request.app_instance_id
+        if not UtilClient.is_unset(request.app_instance_persistent_id):
+            body['AppInstancePersistentId'] = request.app_instance_persistent_id
         if not UtilClient.is_unset(request.app_start_param):
             body['AppStartParam'] = request.app_start_param
         if not UtilClient.is_unset(request.app_version):
@@ -436,6 +801,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_ota_task_by_task_id_with_options(request, runtime)
 
+    def get_project_policies_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetProjectPolicies',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.GetProjectPoliciesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_project_policies(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_project_policies_with_options(request, runtime)
+
     def get_resource_price_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -512,6 +905,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_resource_renew_price_with_options(request, runtime)
 
+    def list_access_pages_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_page_id):
+            query['AccessPageId'] = request.access_page_id
+        if not UtilClient.is_unset(request.access_page_name):
+            query['AccessPageName'] = request.access_page_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.sort_type):
+            query['SortType'] = request.sort_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAccessPages',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.ListAccessPagesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_access_pages(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_access_pages_with_options(request, runtime)
+
     def list_app_instance_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -521,6 +952,8 @@ class Client(OpenApiClient):
             query['AppInstanceGroupId'] = request.app_instance_group_id
         if not UtilClient.is_unset(request.app_instance_group_name):
             query['AppInstanceGroupName'] = request.app_instance_group_name
+        if not UtilClient.is_unset(request.biz_region_id):
+            query['BizRegionId'] = request.biz_region_id
         if not UtilClient.is_unset(request.node_instance_type):
             query['NodeInstanceType'] = request.node_instance_type
         if not UtilClient.is_unset(request.page_number):
@@ -529,8 +962,6 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.product_type):
             query['ProductType'] = request.product_type
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
         body = {}
         if not UtilClient.is_unset(request.status):
             body['Status'] = request.status
@@ -674,6 +1105,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_ota_task_with_options(request, runtime)
 
+    def list_projects_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_name):
+            query['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.sort_type):
+            query['SortType'] = request.sort_type
+        if not UtilClient.is_unset(request.state_list):
+            query['StateList'] = request.state_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListProjects',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.ListProjectsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_projects(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_projects_with_options(request, runtime)
+
     def list_regions_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
@@ -695,6 +1164,46 @@ class Client(OpenApiClient):
     def list_regions(self):
         runtime = util_models.RuntimeOptions()
         return self.list_regions_with_options(runtime)
+
+    def list_session_packages_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.session_package_id):
+            query['SessionPackageId'] = request.session_package_id
+        if not UtilClient.is_unset(request.session_package_name):
+            query['SessionPackageName'] = request.session_package_name
+        if not UtilClient.is_unset(request.sort_type):
+            query['SortType'] = request.sort_type
+        if not UtilClient.is_unset(request.state_list):
+            query['StateList'] = request.state_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSessionPackages',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.ListSessionPackagesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_session_packages(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_session_packages_with_options(request, runtime)
 
     def list_tenant_config_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
@@ -747,6 +1256,38 @@ class Client(OpenApiClient):
     def log_off_all_sessions_in_app_instance_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.log_off_all_sessions_in_app_instance_group_with_options(request, runtime)
+
+    def migrate_session_package_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.dest_project_id):
+            body['DestProjectId'] = request.dest_project_id
+        if not UtilClient.is_unset(request.session_package_id):
+            body['SessionPackageId'] = request.session_package_id
+        if not UtilClient.is_unset(request.source_project_id):
+            body['SourceProjectId'] = request.source_project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='MigrateSessionPackage',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.MigrateSessionPackageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def migrate_session_package(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.migrate_session_package_with_options(request, runtime)
 
     def modify_app_instance_group_attribute_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -846,6 +1387,50 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_node_pool_attribute_with_options(request, runtime)
 
+    def modify_project_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.clipboard):
+            query['Clipboard'] = request.clipboard
+        if not UtilClient.is_unset(request.file_transfer):
+            query['FileTransfer'] = request.file_transfer
+        if not UtilClient.is_unset(request.frame_rate):
+            query['FrameRate'] = request.frame_rate
+        if not UtilClient.is_unset(request.keep_alive_duration):
+            query['KeepAliveDuration'] = request.keep_alive_duration
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.session_resolution_height):
+            query['SessionResolutionHeight'] = request.session_resolution_height
+        if not UtilClient.is_unset(request.session_resolution_width):
+            query['SessionResolutionWidth'] = request.session_resolution_width
+        if not UtilClient.is_unset(request.streaming_mode):
+            query['StreamingMode'] = request.streaming_mode
+        if not UtilClient.is_unset(request.terminal_resolution_adaptation):
+            query['TerminalResolutionAdaptation'] = request.terminal_resolution_adaptation
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyProjectPolicy',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.ModifyProjectPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_project_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_project_policy_with_options(request, runtime)
+
     def modify_tenant_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -908,6 +1493,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.page_list_app_instance_group_user_with_options(request, runtime)
 
+    def refresh_access_url_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_page_id):
+            query['AccessPageId'] = request.access_page_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RefreshAccessUrl',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.RefreshAccessUrlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def refresh_access_url(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.refresh_access_url_with_options(request, runtime)
+
     def renew_app_instance_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -946,6 +1559,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.renew_app_instance_group_with_options(request, runtime)
 
+    def renew_session_package_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.session_package_id):
+            query['SessionPackageId'] = request.session_package_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RenewSessionPackage',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.RenewSessionPackageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def renew_session_package(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.renew_session_package_with_options(request, runtime)
+
     def unbind_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -953,6 +1598,8 @@ class Client(OpenApiClient):
             body['AppInstanceGroupId'] = request.app_instance_group_id
         if not UtilClient.is_unset(request.app_instance_id):
             body['AppInstanceId'] = request.app_instance_id
+        if not UtilClient.is_unset(request.app_instance_persistent_id):
+            body['AppInstancePersistentId'] = request.app_instance_persistent_id
         if not UtilClient.is_unset(request.end_user_id):
             body['EndUserId'] = request.end_user_id
         if not UtilClient.is_unset(request.product_type):
@@ -979,6 +1626,36 @@ class Client(OpenApiClient):
     def unbind(self, request):
         runtime = util_models.RuntimeOptions()
         return self.unbind_with_options(request, runtime)
+
+    def update_access_page_state_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_page_id):
+            query['AccessPageId'] = request.access_page_id
+        if not UtilClient.is_unset(request.access_page_state):
+            query['AccessPageState'] = request.access_page_state
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateAccessPageState',
+            version='2021-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            appstream_center_20210901_models.UpdateAccessPageStateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_access_page_state(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_access_page_state_with_options(request, runtime)
 
     def update_app_instance_group_image_with_options(self, request, runtime):
         UtilClient.validate_model(request)
