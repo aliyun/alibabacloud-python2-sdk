@@ -404,6 +404,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_instance_ip_white_list_with_options(request, runtime)
 
+    def get_instance_security_groups_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetInstanceSecurityGroups',
+            version='2020-06-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            hitsdb_20200615_models.GetInstanceSecurityGroupsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_instance_security_groups(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_instance_security_groups_with_options(request, runtime)
+
     def get_ldps_compute_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1131,6 +1169,46 @@ class Client(OpenApiClient):
     def update_instance_ip_white_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_instance_ip_white_list_with_options(request, runtime)
+
+    def update_instance_security_groups_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_groups):
+            query['SecurityGroups'] = request.security_groups
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateInstanceSecurityGroups',
+            version='2020-06-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            hitsdb_20200615_models.UpdateInstanceSecurityGroupsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_instance_security_groups(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_instance_security_groups_with_options(request, runtime)
 
     def update_ldps_compute_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
