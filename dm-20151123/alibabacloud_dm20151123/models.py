@@ -929,10 +929,12 @@ class CreateReceiverResponse(TeaModel):
 
 
 class CreateTagRequest(TeaModel):
-    def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, tag_name=None):
+    def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, tag_description=None,
+                 tag_name=None):
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.tag_description = tag_description  # type: str
         self.tag_name = tag_name  # type: str
 
     def validate(self):
@@ -950,6 +952,8 @@ class CreateTagRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.tag_description is not None:
+            result['TagDescription'] = self.tag_description
         if self.tag_name is not None:
             result['TagName'] = self.tag_name
         return result
@@ -962,6 +966,8 @@ class CreateTagRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('TagDescription') is not None:
+            self.tag_description = m.get('TagDescription')
         if m.get('TagName') is not None:
             self.tag_name = m.get('TagName')
         return self
@@ -1944,9 +1950,11 @@ class DescAccountSummaryResponse(TeaModel):
 
 
 class DescDomainRequest(TeaModel):
-    def __init__(self, domain_id=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, domain_id=None, owner_id=None, require_real_time_dns_records=None,
+                 resource_owner_account=None, resource_owner_id=None):
         self.domain_id = domain_id  # type: int
         self.owner_id = owner_id  # type: long
+        self.require_real_time_dns_records = require_real_time_dns_records  # type: bool
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -1963,6 +1971,8 @@ class DescDomainRequest(TeaModel):
             result['DomainId'] = self.domain_id
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.require_real_time_dns_records is not None:
+            result['RequireRealTimeDnsRecords'] = self.require_real_time_dns_records
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -1975,6 +1985,8 @@ class DescDomainRequest(TeaModel):
             self.domain_id = m.get('DomainId')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('RequireRealTimeDnsRecords') is not None:
+            self.require_real_time_dns_records = m.get('RequireRealTimeDnsRecords')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -1984,10 +1996,11 @@ class DescDomainRequest(TeaModel):
 
 class DescDomainResponseBody(TeaModel):
     def __init__(self, cname_auth_status=None, cname_confirm_status=None, cname_record=None, create_time=None,
-                 default_domain=None, dkim_auth_status=None, dkim_public_key=None, dkim_rr=None, dns_mx=None, dns_spf=None,
-                 dns_txt=None, domain_id=None, domain_name=None, domain_status=None, domain_type=None, host_record=None,
-                 icp_status=None, mx_auth_status=None, mx_record=None, request_id=None, spf_auth_status=None, spf_record=None,
-                 spf_record_v2=None, tl_domain_name=None, tracef_record=None):
+                 default_domain=None, dkim_auth_status=None, dkim_public_key=None, dkim_rr=None, dmarc_auth_status=None,
+                 dmarc_host_record=None, dmarc_record=None, dns_dmarc=None, dns_mx=None, dns_spf=None, dns_txt=None, domain_id=None,
+                 domain_name=None, domain_status=None, domain_type=None, host_record=None, icp_status=None, mx_auth_status=None,
+                 mx_record=None, request_id=None, spf_auth_status=None, spf_record=None, spf_record_v2=None,
+                 tl_domain_name=None, tracef_record=None):
         self.cname_auth_status = cname_auth_status  # type: str
         self.cname_confirm_status = cname_confirm_status  # type: str
         self.cname_record = cname_record  # type: str
@@ -1996,6 +2009,10 @@ class DescDomainResponseBody(TeaModel):
         self.dkim_auth_status = dkim_auth_status  # type: str
         self.dkim_public_key = dkim_public_key  # type: str
         self.dkim_rr = dkim_rr  # type: str
+        self.dmarc_auth_status = dmarc_auth_status  # type: int
+        self.dmarc_host_record = dmarc_host_record  # type: str
+        self.dmarc_record = dmarc_record  # type: str
+        self.dns_dmarc = dns_dmarc  # type: str
         self.dns_mx = dns_mx  # type: str
         self.dns_spf = dns_spf  # type: str
         self.dns_txt = dns_txt  # type: str
@@ -2039,6 +2056,14 @@ class DescDomainResponseBody(TeaModel):
             result['DkimPublicKey'] = self.dkim_public_key
         if self.dkim_rr is not None:
             result['DkimRR'] = self.dkim_rr
+        if self.dmarc_auth_status is not None:
+            result['DmarcAuthStatus'] = self.dmarc_auth_status
+        if self.dmarc_host_record is not None:
+            result['DmarcHostRecord'] = self.dmarc_host_record
+        if self.dmarc_record is not None:
+            result['DmarcRecord'] = self.dmarc_record
+        if self.dns_dmarc is not None:
+            result['DnsDmarc'] = self.dns_dmarc
         if self.dns_mx is not None:
             result['DnsMx'] = self.dns_mx
         if self.dns_spf is not None:
@@ -2093,6 +2118,14 @@ class DescDomainResponseBody(TeaModel):
             self.dkim_public_key = m.get('DkimPublicKey')
         if m.get('DkimRR') is not None:
             self.dkim_rr = m.get('DkimRR')
+        if m.get('DmarcAuthStatus') is not None:
+            self.dmarc_auth_status = m.get('DmarcAuthStatus')
+        if m.get('DmarcHostRecord') is not None:
+            self.dmarc_host_record = m.get('DmarcHostRecord')
+        if m.get('DmarcRecord') is not None:
+            self.dmarc_record = m.get('DmarcRecord')
+        if m.get('DnsDmarc') is not None:
+            self.dns_dmarc = m.get('DnsDmarc')
         if m.get('DnsMx') is not None:
             self.dns_mx = m.get('DnsMx')
         if m.get('DnsSpf') is not None:
@@ -3253,11 +3286,12 @@ class ModifyPWByDomainResponse(TeaModel):
 
 
 class ModifyTagRequest(TeaModel):
-    def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, tag_id=None,
-                 tag_name=None):
+    def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, tag_description=None,
+                 tag_id=None, tag_name=None):
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.tag_description = tag_description  # type: str
         # The ID of the tag.
         self.tag_id = tag_id  # type: int
         # The name of the tag.
@@ -3278,6 +3312,8 @@ class ModifyTagRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.tag_description is not None:
+            result['TagDescription'] = self.tag_description
         if self.tag_id is not None:
             result['TagId'] = self.tag_id
         if self.tag_name is not None:
@@ -3292,6 +3328,8 @@ class ModifyTagRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('TagDescription') is not None:
+            self.tag_description = m.get('TagDescription')
         if m.get('TagId') is not None:
             self.tag_id = m.get('TagId')
         if m.get('TagName') is not None:
@@ -4564,7 +4602,8 @@ class QueryTagByParamRequest(TeaModel):
 
 
 class QueryTagByParamResponseBodyDataTag(TeaModel):
-    def __init__(self, tag_id=None, tag_name=None):
+    def __init__(self, tag_description=None, tag_id=None, tag_name=None):
+        self.tag_description = tag_description  # type: str
         self.tag_id = tag_id  # type: str
         self.tag_name = tag_name  # type: str
 
@@ -4577,6 +4616,8 @@ class QueryTagByParamResponseBodyDataTag(TeaModel):
             return _map
 
         result = dict()
+        if self.tag_description is not None:
+            result['TagDescription'] = self.tag_description
         if self.tag_id is not None:
             result['TagId'] = self.tag_id
         if self.tag_name is not None:
@@ -4585,6 +4626,8 @@ class QueryTagByParamResponseBodyDataTag(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('TagDescription') is not None:
+            self.tag_description = m.get('TagDescription')
         if m.get('TagId') is not None:
             self.tag_id = m.get('TagId')
         if m.get('TagName') is not None:
