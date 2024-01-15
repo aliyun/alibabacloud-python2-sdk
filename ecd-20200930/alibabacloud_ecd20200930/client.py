@@ -78,6 +78,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.activate_office_site_with_options(request, runtime)
 
+    def add_desktop_oversold_user_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.image_id):
+            query['ImageId'] = request.image_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.oversold_group_id):
+            query['OversoldGroupId'] = request.oversold_group_id
+        if not UtilClient.is_unset(request.policy_group_id):
+            query['PolicyGroupId'] = request.policy_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddDesktopOversoldUserGroup',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.AddDesktopOversoldUserGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_desktop_oversold_user_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_desktop_oversold_user_group_with_options(request, runtime)
+
     def add_devices_with_options(self, request, runtime):
         """
         You can add only one device to a tenant.
@@ -129,6 +163,16 @@ class Client(OpenApiClient):
         return self.add_devices_with_options(request, runtime)
 
     def add_file_permission_with_options(self, tmp_req, runtime):
+        """
+        You can call this operation to share a specific folder with other users. You can also configure the folder permissions.
+        
+
+        @param tmp_req: AddFilePermissionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddFilePermissionResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = ecd_20200930_models.AddFilePermissionShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -141,6 +185,8 @@ class Client(OpenApiClient):
             query['EndUserId'] = request.end_user_id
         if not UtilClient.is_unset(request.file_id):
             query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.member_list_shrink):
             query['MemberList'] = request.member_list_shrink
         if not UtilClient.is_unset(request.region_id):
@@ -165,6 +211,14 @@ class Client(OpenApiClient):
         )
 
     def add_file_permission(self, request):
+        """
+        You can call this operation to share a specific folder with other users. You can also configure the folder permissions.
+        
+
+        @param request: AddFilePermissionRequest
+
+        @return: AddFilePermissionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_file_permission_with_options(request, runtime)
 
@@ -203,6 +257,40 @@ class Client(OpenApiClient):
     def add_user_to_desktop_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.add_user_to_desktop_group_with_options(request, runtime)
+
+    def add_user_to_desktop_oversold_user_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.add_user_amount):
+            query['AddUserAmount'] = request.add_user_amount
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
+        if not UtilClient.is_unset(request.oversold_group_id):
+            query['OversoldGroupId'] = request.oversold_group_id
+        if not UtilClient.is_unset(request.user_group_id):
+            query['UserGroupId'] = request.user_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddUserToDesktopOversoldUserGroup',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.AddUserToDesktopOversoldUserGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_user_to_desktop_oversold_user_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_user_to_desktop_oversold_user_group_with_options(request, runtime)
 
     def apply_auto_snapshot_policy_with_options(self, request, runtime):
         """
@@ -396,10 +484,10 @@ class Client(OpenApiClient):
 
     def attach_cen_with_options(self, request, runtime):
         """
-        ## Description
-        *   A Cloud Enterprise Network (CEN) instance is created.
+        Prerequisites
+        *   A CEN instance is created.
         *   A workspace of the convenience account type is created.
-        >  The secure office network of a workspace of the enterprise Active Directory (AD) account type is attached to a CEN instance when you create the workspace. The secure office network that corresponds to each workspace can be attached only to a single CEN instance.
+        > Workspaces of the Active Directory (AD) account type are automatically attached to CEN instances when you create the workspaces. You can attach the secure office network of a workspace to only one CEN instance.
         
 
         @param request: AttachCenRequest
@@ -441,10 +529,10 @@ class Client(OpenApiClient):
 
     def attach_cen(self, request):
         """
-        ## Description
-        *   A Cloud Enterprise Network (CEN) instance is created.
+        Prerequisites
+        *   A CEN instance is created.
         *   A workspace of the convenience account type is created.
-        >  The secure office network of a workspace of the enterprise Active Directory (AD) account type is attached to a CEN instance when you create the workspace. The secure office network that corresponds to each workspace can be attached only to a single CEN instance.
+        > Workspaces of the Active Directory (AD) account type are automatically attached to CEN instances when you create the workspaces. You can attach the secure office network of a workspace to only one CEN instance.
         
 
         @param request: AttachCenRequest
@@ -661,6 +749,8 @@ class Client(OpenApiClient):
             query['EndUserId'] = request.end_user_id
         if not UtilClient.is_unset(request.file_id):
             query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.upload_id):
@@ -769,6 +859,12 @@ class Client(OpenApiClient):
             query['EndUserId'] = request.end_user_id
         if not UtilClient.is_unset(request.file_id):
             query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.file_receiver_id):
+            query['FileReceiverId'] = request.file_receiver_id
+        if not UtilClient.is_unset(request.file_receiver_type):
+            query['FileReceiverType'] = request.file_receiver_type
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.parent_folder_id):
             query['ParentFolderId'] = request.parent_folder_id
         if not UtilClient.is_unset(request.region_id):
@@ -904,13 +1000,11 @@ class Client(OpenApiClient):
 
     def create_adconnector_office_site_with_options(self, request, runtime):
         """
-        - When you create a workspace of the enterprise Active Directory (AD) account type, AD connectors are automatically created for you to connect to enterprise AD systems. You are charged for the AD connectors. For more information, see [Billing overview](~~188395~~).
-        - After you call this operation to create the AD workspace, you must configure the AD domain. To configure the AD domain, perform the following operations:
-        1. Configure the conditional forwarder in the Domain Name System (DNS) server.
-        2. Configure the trust relationship in the AD domain server, and call the [ConfigADConnectorTrust](~~311258~~) operation to configure the trust relationship for the AD workspace.
-        3. Call the [ListUserAdOrganizationUnits](~~311259~~) operation to obtain the organizational unit (OU) details of the AD domain. Then, call the [ConfigADConnectorUser](~~311262~~) operation to specify an OU and an administrator for the AD workspace.
-        > If you specify the DomainUserName and DomainPassword parameters when you create the AD workspace, you need to configure only the conditional forwarder. If you do not specify the DomainUserName and DomainPassword parameters, you need to configure the conditional forwarder, trust relationship, and OU.
-        For more information, see [Create a workspace of the enterprise account type](~~214469~~).
+        When you create a workspace of the enterprise AD account type, AD connectors are automatically created to allow you to connect to enterprise AD systems. You are charged for the AD connectors. For more information, see [Billing overview](~~188395~~).
+        *   After you call this operation to create a workspace of the enterprise AD account type, perform the following steps to configure the AD domain: 1. Configure the conditional forwarder in the Domain Name System (DNS) server. 2. Configure the trust relationship in the AD domain server, and call the [ConfigADConnectorTrust](~~311258~~) operation to configure the trust relationship for the workspace of the enterprise AD account type. 3. Call the [ListUserAdOrganizationUnits](~~311259~~) operation to obtain the organizational unit (OU) details of the AD domain. Then, call the [ConfigADConnectorUser](~~311262~~) operation to specify an OU and an administrator for the workspace of the enterprise AD account type.
+        **\
+        **Note**If you specify DomainUserName and DomainPassword when you create a workspace of the enterprise AD account type, you must configure only the conditional forwarder. If you do not specify DomainUserName or DomainPassword, you must configure the conditional forwarder, trust relationship, and OU.
+        For more information, see [Create a workspace of the enterprise AD account type](~~214469~~).
         
 
         @param request: CreateADConnectorOfficeSiteRequest
@@ -982,13 +1076,11 @@ class Client(OpenApiClient):
 
     def create_adconnector_office_site(self, request):
         """
-        - When you create a workspace of the enterprise Active Directory (AD) account type, AD connectors are automatically created for you to connect to enterprise AD systems. You are charged for the AD connectors. For more information, see [Billing overview](~~188395~~).
-        - After you call this operation to create the AD workspace, you must configure the AD domain. To configure the AD domain, perform the following operations:
-        1. Configure the conditional forwarder in the Domain Name System (DNS) server.
-        2. Configure the trust relationship in the AD domain server, and call the [ConfigADConnectorTrust](~~311258~~) operation to configure the trust relationship for the AD workspace.
-        3. Call the [ListUserAdOrganizationUnits](~~311259~~) operation to obtain the organizational unit (OU) details of the AD domain. Then, call the [ConfigADConnectorUser](~~311262~~) operation to specify an OU and an administrator for the AD workspace.
-        > If you specify the DomainUserName and DomainPassword parameters when you create the AD workspace, you need to configure only the conditional forwarder. If you do not specify the DomainUserName and DomainPassword parameters, you need to configure the conditional forwarder, trust relationship, and OU.
-        For more information, see [Create a workspace of the enterprise account type](~~214469~~).
+        When you create a workspace of the enterprise AD account type, AD connectors are automatically created to allow you to connect to enterprise AD systems. You are charged for the AD connectors. For more information, see [Billing overview](~~188395~~).
+        *   After you call this operation to create a workspace of the enterprise AD account type, perform the following steps to configure the AD domain: 1. Configure the conditional forwarder in the Domain Name System (DNS) server. 2. Configure the trust relationship in the AD domain server, and call the [ConfigADConnectorTrust](~~311258~~) operation to configure the trust relationship for the workspace of the enterprise AD account type. 3. Call the [ListUserAdOrganizationUnits](~~311259~~) operation to obtain the organizational unit (OU) details of the AD domain. Then, call the [ConfigADConnectorUser](~~311262~~) operation to specify an OU and an administrator for the workspace of the enterprise AD account type.
+        **\
+        **Note**If you specify DomainUserName and DomainPassword when you create a workspace of the enterprise AD account type, you must configure only the conditional forwarder. If you do not specify DomainUserName or DomainPassword, you must configure the conditional forwarder, trust relationship, and OU.
+        For more information, see [Create a workspace of the enterprise AD account type](~~214469~~).
         
 
         @param request: CreateADConnectorOfficeSiteRequest
@@ -1094,7 +1186,6 @@ class Client(OpenApiClient):
 
     def create_bundle_with_options(self, request, runtime):
         """
-        ## Description
         Desktop templates are categorized into system templates and custom templates. System templates are the templates provided by Alibaba Cloud. You can call this operation to create a custom template.
         
 
@@ -1147,7 +1238,6 @@ class Client(OpenApiClient):
 
     def create_bundle(self, request):
         """
-        ## Description
         Desktop templates are categorized into system templates and custom templates. System templates are the templates provided by Alibaba Cloud. You can call this operation to create a custom template.
         
 
@@ -1159,6 +1249,16 @@ class Client(OpenApiClient):
         return self.create_bundle_with_options(request, runtime)
 
     def create_cds_file_with_options(self, request, runtime):
+        """
+        After the RAM permissions are authenticated, you can call the CreateCdsFile operation to obtain the upload URL of a file and upload the file to a cloud disk.
+        
+
+        @param request: CreateCdsFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateCdsFileResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cds_id):
@@ -1175,6 +1275,8 @@ class Client(OpenApiClient):
             query['FileName'] = request.file_name
         if not UtilClient.is_unset(request.file_type):
             query['FileType'] = request.file_type
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.parent_file_id):
             query['ParentFileId'] = request.parent_file_id
         if not UtilClient.is_unset(request.region_id):
@@ -1199,6 +1301,14 @@ class Client(OpenApiClient):
         )
 
     def create_cds_file(self, request):
+        """
+        After the RAM permissions are authenticated, you can call the CreateCdsFile operation to obtain the upload URL of a file and upload the file to a cloud disk.
+        
+
+        @param request: CreateCdsFileRequest
+
+        @return: CreateCdsFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_cds_file_with_options(request, runtime)
 
@@ -1223,6 +1333,8 @@ class Client(OpenApiClient):
             query['Expiration'] = request.expiration
         if not UtilClient.is_unset(request.file_ids):
             query['FileIds'] = request.file_ids
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.preview_limit):
             query['PreviewLimit'] = request.preview_limit
         if not UtilClient.is_unset(request.save_limit):
@@ -1253,6 +1365,88 @@ class Client(OpenApiClient):
     def create_cds_file_share_link(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_cds_file_share_link_with_options(request, runtime)
+
+    def create_cloud_drive_service_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.biz_type):
+            query['BizType'] = request.biz_type
+        if not UtilClient.is_unset(request.cen_id):
+            query['CenId'] = request.cen_id
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
+        if not UtilClient.is_unset(request.max_size):
+            query['MaxSize'] = request.max_size
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.office_site_id):
+            query['OfficeSiteId'] = request.office_site_id
+        if not UtilClient.is_unset(request.office_site_type):
+            query['OfficeSiteType'] = request.office_site_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.solution_id):
+            query['SolutionId'] = request.solution_id
+        if not UtilClient.is_unset(request.user_max_size):
+            query['UserMaxSize'] = request.user_max_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateCloudDriveService',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.CreateCloudDriveServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_cloud_drive_service(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_cloud_drive_service_with_options(request, runtime)
+
+    def create_cloud_drive_users_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cds_id):
+            query['CdsId'] = request.cds_id
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.user_max_size):
+            query['UserMaxSize'] = request.user_max_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateCloudDriveUsers',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.CreateCloudDriveUsersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_cloud_drive_users(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_cloud_drive_users_with_options(request, runtime)
 
     def create_desktop_group_with_options(self, request, runtime):
         """
@@ -1380,6 +1574,60 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_desktop_group_with_options(request, runtime)
 
+    def create_desktop_oversold_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.concurrence_count):
+            query['ConcurrenceCount'] = request.concurrence_count
+        if not UtilClient.is_unset(request.data_disk_size):
+            query['DataDiskSize'] = request.data_disk_size
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.desktop_type):
+            query['DesktopType'] = request.desktop_type
+        if not UtilClient.is_unset(request.directory_id):
+            query['DirectoryId'] = request.directory_id
+        if not UtilClient.is_unset(request.image_id):
+            query['ImageId'] = request.image_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.oversold_user_count):
+            query['OversoldUserCount'] = request.oversold_user_count
+        if not UtilClient.is_unset(request.oversold_warn):
+            query['OversoldWarn'] = request.oversold_warn
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.policy_group_id):
+            query['PolicyGroupId'] = request.policy_group_id
+        if not UtilClient.is_unset(request.stop_duration):
+            query['StopDuration'] = request.stop_duration
+        if not UtilClient.is_unset(request.system_disk_size):
+            query['SystemDiskSize'] = request.system_disk_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDesktopOversoldGroup',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.CreateDesktopOversoldGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_desktop_oversold_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_desktop_oversold_group_with_options(request, runtime)
+
     def create_desktops_with_options(self, request, runtime):
         """
         1\\. Before you create a cloud desktop in Elastic Desktop Service (EDS), make sure that the following operations are complete:
@@ -1411,10 +1659,14 @@ class Client(OpenApiClient):
             query['BundleModels'] = request.bundle_models
         if not UtilClient.is_unset(request.charge_type):
             query['ChargeType'] = request.charge_type
+        if not UtilClient.is_unset(request.desktop_member_ip):
+            query['DesktopMemberIp'] = request.desktop_member_ip
         if not UtilClient.is_unset(request.desktop_name):
             query['DesktopName'] = request.desktop_name
         if not UtilClient.is_unset(request.desktop_name_suffix):
             query['DesktopNameSuffix'] = request.desktop_name_suffix
+        if not UtilClient.is_unset(request.desktop_timers):
+            query['DesktopTimers'] = request.desktop_timers
         if not UtilClient.is_unset(request.directory_id):
             query['DirectoryId'] = request.directory_id
         if not UtilClient.is_unset(request.end_user_id):
@@ -1559,19 +1811,6 @@ class Client(OpenApiClient):
         return self.create_image_with_options(request, runtime)
 
     def create_nasfile_system_with_options(self, request, runtime):
-        """
-        You can create a NAS file system for each standard workspace so that cloud desktops within the workspace can share files.
-        *   The system creates a General-purpose NAS file system and generates a default mount target. The storage types of the NAS file system includes Capacity type and Performance type. The Capacity type provides 10 PiB of storage while the Performance type provides only 1 PiB of storage.
-        *   NAS file systems are billed on a pay-as-you-go basis. You are charged based on the amount of used storage. You can also purchase resource plans to offset the storage fees of the NAS file systems.
-        For more information, see [Create a NAS file system](~~214481~~).
-        
-
-        @param request: CreateNASFileSystemRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: CreateNASFileSystemResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -1606,17 +1845,6 @@ class Client(OpenApiClient):
         )
 
     def create_nasfile_system(self, request):
-        """
-        You can create a NAS file system for each standard workspace so that cloud desktops within the workspace can share files.
-        *   The system creates a General-purpose NAS file system and generates a default mount target. The storage types of the NAS file system includes Capacity type and Performance type. The Capacity type provides 10 PiB of storage while the Performance type provides only 1 PiB of storage.
-        *   NAS file systems are billed on a pay-as-you-go basis. You are charged based on the amount of used storage. You can also purchase resource plans to offset the storage fees of the NAS file systems.
-        For more information, see [Create a NAS file system](~~214481~~).
-        
-
-        @param request: CreateNASFileSystemRequest
-
-        @return: CreateNASFileSystemResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.create_nasfile_system_with_options(request, runtime)
 
@@ -1679,6 +1907,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.admin_access):
+            query['AdminAccess'] = request.admin_access
         if not UtilClient.is_unset(request.app_content_protection):
             query['AppContentProtection'] = request.app_content_protection
         if not UtilClient.is_unset(request.authorize_access_policy_rule):
@@ -1693,6 +1923,10 @@ class Client(OpenApiClient):
             query['Clipboard'] = request.clipboard
         if not UtilClient.is_unset(request.domain_list):
             query['DomainList'] = request.domain_list
+        if not UtilClient.is_unset(request.domain_resolve_rule):
+            query['DomainResolveRule'] = request.domain_resolve_rule
+        if not UtilClient.is_unset(request.domain_resolve_rule_type):
+            query['DomainResolveRuleType'] = request.domain_resolve_rule_type
         if not UtilClient.is_unset(request.end_user_apply_admin_coordinate):
             query['EndUserApplyAdminCoordinate'] = request.end_user_apply_admin_coordinate
         if not UtilClient.is_unset(request.end_user_group_coordinate):
@@ -1763,6 +1997,8 @@ class Client(OpenApiClient):
             query['WatermarkFontStyle'] = request.watermark_font_style
         if not UtilClient.is_unset(request.watermark_row_amount):
             query['WatermarkRowAmount'] = request.watermark_row_amount
+        if not UtilClient.is_unset(request.watermark_security):
+            query['WatermarkSecurity'] = request.watermark_security
         if not UtilClient.is_unset(request.watermark_transparency):
             query['WatermarkTransparency'] = request.watermark_transparency
         if not UtilClient.is_unset(request.watermark_transparency_value):
@@ -1889,6 +2125,8 @@ class Client(OpenApiClient):
             query['VSwitchId'] = request.v_switch_id
         if not UtilClient.is_unset(request.verify_code):
             query['VerifyCode'] = request.verify_code
+        if not UtilClient.is_unset(request.vpc_type):
+            query['VpcType'] = request.vpc_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2035,6 +2273,8 @@ class Client(OpenApiClient):
             query['EndUserId'] = request.end_user_id
         if not UtilClient.is_unset(request.file_id):
             query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
@@ -2284,11 +2524,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_directories_with_options(request, runtime)
 
+    def delete_edu_room_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.edu_room_id):
+            query['EduRoomId'] = request.edu_room_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteEduRoom',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DeleteEduRoomResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_edu_room(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_edu_room_with_options(request, runtime)
+
     def delete_images_with_options(self, request, runtime):
         """
-        ## Description
-        *   Images include system images and custom images. System images cannot be deleted.
-        *   If an image to delete is used by a desktop bundle, call the [DeleteBundles](~~188885~~) operation to delete the desktop bundle.
+        Images include system images and custom images. System images cannot be deleted.
+        *   If an image to delete is referenced by a desktop template, you must first delete the template by calling the DeleteBundles operation.
         
 
         @param request: DeleteImagesRequest
@@ -2326,9 +2595,8 @@ class Client(OpenApiClient):
 
     def delete_images(self, request):
         """
-        ## Description
-        *   Images include system images and custom images. System images cannot be deleted.
-        *   If an image to delete is used by a desktop bundle, call the [DeleteBundles](~~188885~~) operation to delete the desktop bundle.
+        Images include system images and custom images. System images cannot be deleted.
+        *   If an image to delete is referenced by a desktop template, you must first delete the template by calling the DeleteBundles operation.
         
 
         @param request: DeleteImagesRequest
@@ -2340,9 +2608,9 @@ class Client(OpenApiClient):
 
     def delete_nasfile_systems_with_options(self, request, runtime):
         """
-        ## Description
-        Before you delete a NAS file system, make sure that the data you want to retain is backed up.
-        >  If a NAS file system is deleted, data stored in the NAS file system cannot be restored. Proceed with caution when you delete NAS file systems.
+        Before you delete an Apsara File Storage NAS (NAS) file system, make sure that the data you want to retain is backed up.
+        **\
+        **Warning** If a NAS file system is deleted, data stored in the NAS file system cannot be restored. Proceed with caution when you delete NAS file systems.
         
 
         @param request: DeleteNASFileSystemsRequest
@@ -2378,9 +2646,9 @@ class Client(OpenApiClient):
 
     def delete_nasfile_systems(self, request):
         """
-        ## Description
-        Before you delete a NAS file system, make sure that the data you want to retain is backed up.
-        >  If a NAS file system is deleted, data stored in the NAS file system cannot be restored. Proceed with caution when you delete NAS file systems.
+        Before you delete an Apsara File Storage NAS (NAS) file system, make sure that the data you want to retain is backed up.
+        **\
+        **Warning** If a NAS file system is deleted, data stored in the NAS file system cannot be restored. Proceed with caution when you delete NAS file systems.
         
 
         @param request: DeleteNASFileSystemsRequest
@@ -2422,10 +2690,11 @@ class Client(OpenApiClient):
 
     def delete_office_sites_with_options(self, request, runtime):
         """
-        Before you delete a workspace, make sure that the following operations are complete:
+        Before you delete a workspace, make sure that the following requirements are met:
         *   All cloud desktops in the workspace are released.
         *   The data that you want to retain is backed up.
-        >  After a workspace is deleted, its resources and data cannot be restored. Proceed with caution.
+        **\
+        **Warning** After you delete a workspace, the resources and data of the workspace cannot be recovered. Exercise with caution.
         
 
         @param request: DeleteOfficeSitesRequest
@@ -2461,10 +2730,11 @@ class Client(OpenApiClient):
 
     def delete_office_sites(self, request):
         """
-        Before you delete a workspace, make sure that the following operations are complete:
+        Before you delete a workspace, make sure that the following requirements are met:
         *   All cloud desktops in the workspace are released.
         *   The data that you want to retain is backed up.
-        >  After a workspace is deleted, its resources and data cannot be restored. Proceed with caution.
+        **\
+        **Warning** After you delete a workspace, the resources and data of the workspace cannot be recovered. Exercise with caution.
         
 
         @param request: DeleteOfficeSitesRequest
@@ -2475,17 +2745,6 @@ class Client(OpenApiClient):
         return self.delete_office_sites_with_options(request, runtime)
 
     def delete_policy_groups_with_options(self, request, runtime):
-        """
-        System policies cannot be deleted.
-        *   Custom policies that are associated with cloud desktops cannot be deleted.
-        
-
-        @param request: DeletePolicyGroupsRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DeletePolicyGroupsResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.policy_group_id):
@@ -2512,15 +2771,6 @@ class Client(OpenApiClient):
         )
 
     def delete_policy_groups(self, request):
-        """
-        System policies cannot be deleted.
-        *   Custom policies that are associated with cloud desktops cannot be deleted.
-        
-
-        @param request: DeletePolicyGroupsRequest
-
-        @return: DeletePolicyGroupsResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.delete_policy_groups_with_options(request, runtime)
 
@@ -2574,7 +2824,6 @@ class Client(OpenApiClient):
 
     def delete_virtual_mfadevice_with_options(self, request, runtime):
         """
-        ## Description
         If an MFA device is deleted, the device is unbound, reset, and disabled. When the Active Directory (AD) user wants to log on to the cloud desktop, the AD user must bind a new MFA device.
         
 
@@ -2611,7 +2860,6 @@ class Client(OpenApiClient):
 
     def delete_virtual_mfadevice(self, request):
         """
-        ## Description
         If an MFA device is deleted, the device is unbound, reset, and disabled. When the Active Directory (AD) user wants to log on to the cloud desktop, the AD user must bind a new MFA device.
         
 
@@ -2622,24 +2870,24 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_virtual_mfadevice_with_options(request, runtime)
 
-    def describe_alarm_event_stack_info_with_options(self, request, runtime):
+    def describe_acl_entries_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.desktop_id):
-            query['DesktopId'] = request.desktop_id
-        if not UtilClient.is_unset(request.event_name):
-            query['EventName'] = request.event_name
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.unique_info):
-            query['UniqueInfo'] = request.unique_info
+        if not UtilClient.is_unset(request.source_id):
+            query['SourceId'] = request.source_id
+        if not UtilClient.is_unset(request.source_type):
+            query['SourceType'] = request.source_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='DescribeAlarmEventStackInfo',
+            action='DescribeAclEntries',
             version='2020-09-30',
             protocol='HTTPS',
             pathname='/',
@@ -2650,13 +2898,13 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            ecd_20200930_models.DescribeAlarmEventStackInfoResponse(),
+            ecd_20200930_models.DescribeAclEntriesResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def describe_alarm_event_stack_info(self, request):
+    def describe_acl_entries(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_alarm_event_stack_info_with_options(request, runtime)
+        return self.describe_acl_entries_with_options(request, runtime)
 
     def describe_auto_snapshot_policy_with_options(self, request, runtime):
         """
@@ -2739,10 +2987,14 @@ class Client(OpenApiClient):
             query['MemorySize'] = request.memory_size
         if not UtilClient.is_unset(request.next_token):
             query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.os_type):
+            query['OsType'] = request.os_type
         if not UtilClient.is_unset(request.protocol_type):
             query['ProtocolType'] = request.protocol_type
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.scope):
+            query['Scope'] = request.scope
         if not UtilClient.is_unset(request.selected_bundle):
             query['SelectedBundle'] = request.selected_bundle
         if not UtilClient.is_unset(request.session_type):
@@ -2848,7 +3100,7 @@ class Client(OpenApiClient):
 
     def describe_client_events_with_options(self, request, runtime):
         """
-        You can audit the operation logs of regular users to improve security. The operation logs record events such as desktop startup, shutdown, and session disconnection.
+        The version of the client.
         
 
         @param request: DescribeClientEventsRequest
@@ -2908,7 +3160,7 @@ class Client(OpenApiClient):
 
     def describe_client_events(self, request):
         """
-        You can audit the operation logs of regular users to improve security. The operation logs record events such as desktop startup, shutdown, and session disconnection.
+        The version of the client.
         
 
         @param request: DescribeClientEventsRequest
@@ -2997,6 +3249,42 @@ class Client(OpenApiClient):
     def describe_cloud_drive_permissions(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_cloud_drive_permissions_with_options(request, runtime)
+
+    def describe_cloud_drive_users_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cds_id):
+            query['CdsId'] = request.cds_id
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCloudDriveUsers',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DescribeCloudDriveUsersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cloud_drive_users(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cloud_drive_users_with_options(request, runtime)
 
     def describe_customized_list_headers_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3088,24 +3376,18 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_desktop_groups_with_options(request, runtime)
 
-    def describe_desktop_ids_by_vul_names_with_options(self, request, runtime):
+    def describe_desktop_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.necessity):
-            query['Necessity'] = request.necessity
-        if not UtilClient.is_unset(request.office_site_id):
-            query['OfficeSiteId'] = request.office_site_id
+        if not UtilClient.is_unset(request.desktop_id):
+            query['DesktopId'] = request.desktop_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.type):
-            query['Type'] = request.type
-        if not UtilClient.is_unset(request.vul_name):
-            query['VulName'] = request.vul_name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='DescribeDesktopIdsByVulNames',
+            action='DescribeDesktopInfo',
             version='2020-09-30',
             protocol='HTTPS',
             pathname='/',
@@ -3116,21 +3398,199 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            ecd_20200930_models.DescribeDesktopIdsByVulNamesResponse(),
+            ecd_20200930_models.DescribeDesktopInfoResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def describe_desktop_ids_by_vul_names(self, request):
+    def describe_desktop_info(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_desktop_ids_by_vul_names_with_options(request, runtime)
+        return self.describe_desktop_info_with_options(request, runtime)
+
+    def describe_desktop_oversold_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.oversold_group_ids):
+            query['OversoldGroupIds'] = request.oversold_group_ids
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDesktopOversoldGroup',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DescribeDesktopOversoldGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_desktop_oversold_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_desktop_oversold_group_with_options(request, runtime)
+
+    def describe_desktop_oversold_user_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.oversold_group_id):
+            query['OversoldGroupId'] = request.oversold_group_id
+        if not UtilClient.is_unset(request.user_desktop_ids):
+            query['UserDesktopIds'] = request.user_desktop_ids
+        if not UtilClient.is_unset(request.user_group_id):
+            query['UserGroupId'] = request.user_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDesktopOversoldUser',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DescribeDesktopOversoldUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_desktop_oversold_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_desktop_oversold_user_with_options(request, runtime)
+
+    def describe_desktop_oversold_user_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.oversold_group_id):
+            query['OversoldGroupId'] = request.oversold_group_id
+        if not UtilClient.is_unset(request.user_group_ids):
+            query['UserGroupIds'] = request.user_group_ids
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDesktopOversoldUserGroup',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DescribeDesktopOversoldUserGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_desktop_oversold_user_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_desktop_oversold_user_group_with_options(request, runtime)
+
+    def describe_desktop_sessions_with_options(self, request, runtime):
+        """
+        You can query data within the last 30 days.
+        
+
+        @param request: DescribeDesktopSessionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDesktopSessionsResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
+        if not UtilClient.is_unset(request.office_site_id):
+            query['OfficeSiteId'] = request.office_site_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.session_status):
+            query['SessionStatus'] = request.session_status
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDesktopSessions',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DescribeDesktopSessionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_desktop_sessions(self, request):
+        """
+        You can query data within the last 30 days.
+        
+
+        @param request: DescribeDesktopSessionsRequest
+
+        @return: DescribeDesktopSessionsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_desktop_sessions_with_options(request, runtime)
 
     def describe_desktop_types_with_options(self, request, runtime):
+        """
+        When no values are specified for the `InstanceTypeFamily` and `DesktopTypeId` parameters for a cloud desktop, all types of cloud desktops are queried.
+        
+
+        @param request: DescribeDesktopTypesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDesktopTypesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.applied_scope):
             query['AppliedScope'] = request.applied_scope
         if not UtilClient.is_unset(request.cpu_count):
             query['CpuCount'] = request.cpu_count
+        if not UtilClient.is_unset(request.desktop_group_id_for_modify):
+            query['DesktopGroupIdForModify'] = request.desktop_group_id_for_modify
         if not UtilClient.is_unset(request.desktop_id_for_modify):
             query['DesktopIdForModify'] = request.desktop_id_for_modify
         if not UtilClient.is_unset(request.desktop_type_id):
@@ -3165,6 +3625,14 @@ class Client(OpenApiClient):
         )
 
     def describe_desktop_types(self, request):
+        """
+        When no values are specified for the `InstanceTypeFamily` and `DesktopTypeId` parameters for a cloud desktop, all types of cloud desktops are queried.
+        
+
+        @param request: DescribeDesktopTypesRequest
+
+        @return: DescribeDesktopTypesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_desktop_types_with_options(request, runtime)
 
@@ -3181,6 +3649,8 @@ class Client(OpenApiClient):
             query['DesktopName'] = request.desktop_name
         if not UtilClient.is_unset(request.desktop_status):
             query['DesktopStatus'] = request.desktop_status
+        if not UtilClient.is_unset(request.desktop_status_list):
+            query['DesktopStatusList'] = request.desktop_status_list
         if not UtilClient.is_unset(request.desktop_type):
             query['DesktopType'] = request.desktop_type
         if not UtilClient.is_unset(request.directory_id):
@@ -3497,6 +3967,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.fota_status):
             query['FotaStatus'] = request.fota_status
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
         if not UtilClient.is_unset(request.max_results):
             query['MaxResults'] = request.max_results
         if not UtilClient.is_unset(request.next_token):
@@ -3530,32 +4002,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_fota_tasks_with_options(request, runtime)
 
-    def describe_front_vul_patch_list_with_options(self, request, runtime):
-        """
-        You can query the information about patches of up to 50 vulnerabilities in each request before you fix the current vulnerability.
-        
-
-        @param request: DescribeFrontVulPatchListRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeFrontVulPatchListResponse
-        """
+    def describe_guest_applications_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.operate_type):
-            query['OperateType'] = request.operate_type
+        if not UtilClient.is_unset(request.desktop_id):
+            query['DesktopId'] = request.desktop_id
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.type):
-            query['Type'] = request.type
-        if not UtilClient.is_unset(request.vul_info):
-            query['VulInfo'] = request.vul_info
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='DescribeFrontVulPatchList',
+            action='DescribeGuestApplications',
             version='2020-09-30',
             protocol='HTTPS',
             pathname='/',
@@ -3566,95 +4026,15 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            ecd_20200930_models.DescribeFrontVulPatchListResponse(),
+            ecd_20200930_models.DescribeGuestApplicationsResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def describe_front_vul_patch_list(self, request):
-        """
-        You can query the information about patches of up to 50 vulnerabilities in each request before you fix the current vulnerability.
-        
-
-        @param request: DescribeFrontVulPatchListRequest
-
-        @return: DescribeFrontVulPatchListResponse
-        """
+    def describe_guest_applications(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_front_vul_patch_list_with_options(request, runtime)
-
-    def describe_grouped_vul_with_options(self, request, runtime):
-        """
-        ## Description
-        After security protection is enabled, the system scans your cloud desktops for vulnerabilities once every day.
-        
-
-        @param request: DescribeGroupedVulRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeGroupedVulResponse
-        """
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.current_page):
-            query['CurrentPage'] = request.current_page
-        if not UtilClient.is_unset(request.dealed):
-            query['Dealed'] = request.dealed
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
-        if not UtilClient.is_unset(request.necessity):
-            query['Necessity'] = request.necessity
-        if not UtilClient.is_unset(request.office_site_id):
-            query['OfficeSiteId'] = request.office_site_id
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.type):
-            query['Type'] = request.type
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeGroupedVul',
-            version='2020-09-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ecd_20200930_models.DescribeGroupedVulResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_grouped_vul(self, request):
-        """
-        ## Description
-        After security protection is enabled, the system scans your cloud desktops for vulnerabilities once every day.
-        
-
-        @param request: DescribeGroupedVulRequest
-
-        @return: DescribeGroupedVulResponse
-        """
-        runtime = util_models.RuntimeOptions()
-        return self.describe_grouped_vul_with_options(request, runtime)
+        return self.describe_guest_applications_with_options(request, runtime)
 
     def describe_image_modified_records_with_options(self, request, runtime):
-        """
-        If you have changed the image for a cloud desktop, you can go to the Elastic Desktop Service (EDS) console to query the image change records. To query the image change records of a cloud desktop, find the cloud desktop that you want to manage, click *Change Image History** to the right of **Image ID/Name** on the **Basic Information** tab.
-        
-
-        @param request: DescribeImageModifiedRecordsRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeImageModifiedRecordsResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.desktop_id):
@@ -3685,18 +4065,20 @@ class Client(OpenApiClient):
         )
 
     def describe_image_modified_records(self, request):
-        """
-        If you have changed the image for a cloud desktop, you can go to the Elastic Desktop Service (EDS) console to query the image change records. To query the image change records of a cloud desktop, find the cloud desktop that you want to manage, click *Change Image History** to the right of **Image ID/Name** on the **Basic Information** tab.
-        
-
-        @param request: DescribeImageModifiedRecordsRequest
-
-        @return: DescribeImageModifiedRecordsResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_image_modified_records_with_options(request, runtime)
 
     def describe_image_permission_with_options(self, request, runtime):
+        """
+        You can call the ModifyImagePermission operation to share images with other Alibaba Cloud accounts or unshare images. You can call the DescribeImagePermission operation to obtain the list of Alibaba Cloud accounts that have received shared images.
+        
+
+        @param request: DescribeImagePermissionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeImagePermissionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.image_id):
@@ -3723,6 +4105,14 @@ class Client(OpenApiClient):
         )
 
     def describe_image_permission(self, request):
+        """
+        You can call the ModifyImagePermission operation to share images with other Alibaba Cloud accounts or unshare images. You can call the DescribeImagePermission operation to obtain the list of Alibaba Cloud accounts that have received shared images.
+        
+
+        @param request: DescribeImagePermissionRequest
+
+        @return: DescribeImagePermissionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_image_permission_with_options(request, runtime)
 
@@ -3731,12 +4121,16 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.desktop_instance_type):
             query['DesktopInstanceType'] = request.desktop_instance_type
+        if not UtilClient.is_unset(request.fota_version):
+            query['FotaVersion'] = request.fota_version
         if not UtilClient.is_unset(request.gpu_category):
             query['GpuCategory'] = request.gpu_category
         if not UtilClient.is_unset(request.gpu_driver_version):
             query['GpuDriverVersion'] = request.gpu_driver_version
         if not UtilClient.is_unset(request.image_id):
             query['ImageId'] = request.image_id
+        if not UtilClient.is_unset(request.image_name):
+            query['ImageName'] = request.image_name
         if not UtilClient.is_unset(request.image_status):
             query['ImageStatus'] = request.image_status
         if not UtilClient.is_unset(request.image_type):
@@ -3780,8 +4174,8 @@ class Client(OpenApiClient):
 
     def describe_invocations_with_options(self, request, runtime):
         """
-        After you run a command, the command may not succeed or return the expected results. You can call this operation to query the execution result.
-        *   You can query the execution information in the previous two weeks. Up to 100,000 lines of execution information can be retained.
+        After you run a command, it may not succeed. You can call this operation to query the execution result.
+        *   You can query the information about execution in the last two weeks. A maximum of 100,000 lines of execution information can be retained.
         
 
         @param request: DescribeInvocationsRequest
@@ -3835,8 +4229,8 @@ class Client(OpenApiClient):
 
     def describe_invocations(self, request):
         """
-        After you run a command, the command may not succeed or return the expected results. You can call this operation to query the execution result.
-        *   You can query the execution information in the previous two weeks. Up to 100,000 lines of execution information can be retained.
+        After you run a command, it may not succeed. You can call this operation to query the execution result.
+        *   You can query the information about execution in the last two weeks. A maximum of 100,000 lines of execution information can be retained.
         
 
         @param request: DescribeInvocationsRequest
@@ -4022,6 +4416,228 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_policy_groups_with_options(request, runtime)
 
+    def describe_price_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        The request parameters vary based on the type of desktop resources whose price you want to query. Take note of the following items:
+        *   If you set ResourceType to OfficeSite, you must specify InstanceType.
+        *   If you set ResourceType to Bandwidth, the pay-by-data-transfer metering method is used for network billing.
+        *   If you set ResourceType to Desktop, you must specify InstanceType, RootDiskSizeGib, and UserDiskSizeGib. You can specify OsType, PeriodUnit, Period, and Amount based on your business requirements.
+        > Before you call this operation to query the prices of cloud desktops by setting ResourceType to Desktop, you must know the desktop types and disk sizes that EDS provides. The disk sizes vary based on the desktop types. For more information, see [Cloud desktop types](~~188609~~).
+        
+
+        @param request: DescribePriceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribePriceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.amount):
+            query['Amount'] = request.amount
+        if not UtilClient.is_unset(request.bandwidth):
+            query['Bandwidth'] = request.bandwidth
+        if not UtilClient.is_unset(request.bundle_models):
+            query['BundleModels'] = request.bundle_models
+        if not UtilClient.is_unset(request.edu_cds_enable):
+            query['EduCdsEnable'] = request.edu_cds_enable
+        if not UtilClient.is_unset(request.edu_cds_size):
+            query['EduCdsSize'] = request.edu_cds_size
+        if not UtilClient.is_unset(request.edu_committed_time):
+            query['EduCommittedTime'] = request.edu_committed_time
+        if not UtilClient.is_unset(request.edu_desktop_bundle_id):
+            query['EduDesktopBundleId'] = request.edu_desktop_bundle_id
+        if not UtilClient.is_unset(request.edu_desktop_num):
+            query['EduDesktopNum'] = request.edu_desktop_num
+        if not UtilClient.is_unset(request.edu_room_classify):
+            query['EduRoomClassify'] = request.edu_room_classify
+        if not UtilClient.is_unset(request.edu_student_bundle_id):
+            query['EduStudentBundleId'] = request.edu_student_bundle_id
+        if not UtilClient.is_unset(request.edu_student_num):
+            query['EduStudentNum'] = request.edu_student_num
+        if not UtilClient.is_unset(request.edu_teacher_bundle_id):
+            query['EduTeacherBundleId'] = request.edu_teacher_bundle_id
+        if not UtilClient.is_unset(request.edu_teacher_num):
+            query['EduTeacherNum'] = request.edu_teacher_num
+        if not UtilClient.is_unset(request.group_desktop_count):
+            query['GroupDesktopCount'] = request.group_desktop_count
+        if not UtilClient.is_unset(request.hardware_version):
+            query['HardwareVersion'] = request.hardware_version
+        if not UtilClient.is_unset(request.instance_type):
+            query['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.internet_charge_type):
+            query['InternetChargeType'] = request.internet_charge_type
+        if not UtilClient.is_unset(request.network_type):
+            query['NetworkType'] = request.network_type
+        if not UtilClient.is_unset(request.os_type):
+            query['OsType'] = request.os_type
+        if not UtilClient.is_unset(request.package_size):
+            query['PackageSize'] = request.package_size
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.promotion_id):
+            query['PromotionId'] = request.promotion_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.root_disk_performance_level):
+            query['RootDiskPerformanceLevel'] = request.root_disk_performance_level
+        if not UtilClient.is_unset(request.root_disk_size_gib):
+            query['RootDiskSizeGib'] = request.root_disk_size_gib
+        if not UtilClient.is_unset(request.sp_period_info):
+            query['SpPeriodInfo'] = request.sp_period_info
+        if not UtilClient.is_unset(request.sp_price):
+            query['SpPrice'] = request.sp_price
+        if not UtilClient.is_unset(request.sp_type):
+            query['SpType'] = request.sp_type
+        if not UtilClient.is_unset(request.user_disk_performance_level):
+            query['UserDiskPerformanceLevel'] = request.user_disk_performance_level
+        if not UtilClient.is_unset(request.user_disk_size_gib):
+            query['UserDiskSizeGib'] = request.user_disk_size_gib
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribePrice',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DescribePriceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_price(self, request):
+        """
+        ## Usage notes
+        The request parameters vary based on the type of desktop resources whose price you want to query. Take note of the following items:
+        *   If you set ResourceType to OfficeSite, you must specify InstanceType.
+        *   If you set ResourceType to Bandwidth, the pay-by-data-transfer metering method is used for network billing.
+        *   If you set ResourceType to Desktop, you must specify InstanceType, RootDiskSizeGib, and UserDiskSizeGib. You can specify OsType, PeriodUnit, Period, and Amount based on your business requirements.
+        > Before you call this operation to query the prices of cloud desktops by setting ResourceType to Desktop, you must know the desktop types and disk sizes that EDS provides. The disk sizes vary based on the desktop types. For more information, see [Cloud desktop types](~~188609~~).
+        
+
+        @param request: DescribePriceRequest
+
+        @return: DescribePriceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_price_with_options(request, runtime)
+
+    def describe_price_for_create_desktop_oversold_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.concurrence_count):
+            query['ConcurrenceCount'] = request.concurrence_count
+        if not UtilClient.is_unset(request.data_disk_size):
+            query['DataDiskSize'] = request.data_disk_size
+        if not UtilClient.is_unset(request.desktop_type):
+            query['DesktopType'] = request.desktop_type
+        if not UtilClient.is_unset(request.oversold_user_count):
+            query['OversoldUserCount'] = request.oversold_user_count
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.system_disk_size):
+            query['SystemDiskSize'] = request.system_disk_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribePriceForCreateDesktopOversoldGroup',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DescribePriceForCreateDesktopOversoldGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_price_for_create_desktop_oversold_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_price_for_create_desktop_oversold_group_with_options(request, runtime)
+
+    def describe_price_for_modify_desktop_oversold_group_sale_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.concurrence_count):
+            query['ConcurrenceCount'] = request.concurrence_count
+        if not UtilClient.is_unset(request.oversold_group_id):
+            query['OversoldGroupId'] = request.oversold_group_id
+        if not UtilClient.is_unset(request.oversold_user_count):
+            query['OversoldUserCount'] = request.oversold_user_count
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribePriceForModifyDesktopOversoldGroupSale',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DescribePriceForModifyDesktopOversoldGroupSaleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_price_for_modify_desktop_oversold_group_sale(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_price_for_modify_desktop_oversold_group_sale_with_options(request, runtime)
+
+    def describe_price_for_renew_desktop_oversold_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.oversold_group_id):
+            query['OversoldGroupId'] = request.oversold_group_id
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribePriceForRenewDesktopOversoldGroup',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.DescribePriceForRenewDesktopOversoldGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_price_for_renew_desktop_oversold_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_price_for_renew_desktop_oversold_group_with_options(request, runtime)
+
     def describe_regions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4052,18 +4668,37 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_regions_with_options(request, runtime)
 
-    def describe_scan_task_progress_with_options(self, request, runtime):
+    def describe_session_statistic_with_options(self, request, runtime):
+        """
+        This is a central operation and can be called only by using services in the China (Shanghai) region.
+        *   You can query session statistics for the past hour.
+        
+
+        @param request: DescribeSessionStatisticRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSessionStatisticResponse
+        """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.office_site_id):
+            query['OfficeSiteId'] = request.office_site_id
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.task_id):
-            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.search_region_id):
+            query['SearchRegionId'] = request.search_region_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='DescribeScanTaskProgress',
+            action='DescribeSessionStatistic',
             version='2020-09-30',
             protocol='HTTPS',
             pathname='/',
@@ -4074,75 +4709,22 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            ecd_20200930_models.DescribeScanTaskProgressResponse(),
+            ecd_20200930_models.DescribeSessionStatisticResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def describe_scan_task_progress(self, request):
+    def describe_session_statistic(self, request):
+        """
+        This is a central operation and can be called only by using services in the China (Shanghai) region.
+        *   You can query session statistics for the past hour.
+        
+
+        @param request: DescribeSessionStatisticRequest
+
+        @return: DescribeSessionStatisticResponse
+        """
         runtime = util_models.RuntimeOptions()
-        return self.describe_scan_task_progress_with_options(request, runtime)
-
-    def describe_security_event_operation_status_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.security_event_id):
-            query['SecurityEventId'] = request.security_event_id
-        if not UtilClient.is_unset(request.task_id):
-            query['TaskId'] = request.task_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeSecurityEventOperationStatus',
-            version='2020-09-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ecd_20200930_models.DescribeSecurityEventOperationStatusResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_security_event_operation_status(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_security_event_operation_status_with_options(request, runtime)
-
-    def describe_security_event_operations_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.security_event_id):
-            query['SecurityEventId'] = request.security_event_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeSecurityEventOperations',
-            version='2020-09-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ecd_20200930_models.DescribeSecurityEventOperationsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_security_event_operations(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_security_event_operations_with_options(request, runtime)
+        return self.describe_session_statistic_with_options(request, runtime)
 
     def describe_snapshots_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4194,16 +4776,30 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_snapshots_with_options(request, runtime)
 
-    def describe_susp_event_overview_with_options(self, request, runtime):
+    def describe_user_connect_time_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.oversold_group_id):
+            query['OversoldGroupId'] = request.oversold_group_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.user_desktop_id):
+            query['UserDesktopId'] = request.user_desktop_id
+        if not UtilClient.is_unset(request.user_group_id):
+            query['UserGroupId'] = request.user_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='DescribeSuspEventOverview',
+            action='DescribeUserConnectTime',
             version='2020-09-30',
             protocol='HTTPS',
             pathname='/',
@@ -4214,131 +4810,13 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            ecd_20200930_models.DescribeSuspEventOverviewResponse(),
+            ecd_20200930_models.DescribeUserConnectTimeResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def describe_susp_event_overview(self, request):
+    def describe_user_connect_time(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_susp_event_overview_with_options(request, runtime)
-
-    def describe_susp_event_quara_files_with_options(self, request, runtime):
-        """
-        ## Description
-        When alerts are handled, the system quarantines the files that contain detected threats to the quarantine panel. You can call this operation to view the quarantined files.
-        
-
-        @param request: DescribeSuspEventQuaraFilesRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeSuspEventQuaraFilesResponse
-        """
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.current_page):
-            query['CurrentPage'] = request.current_page
-        if not UtilClient.is_unset(request.office_site_id):
-            query['OfficeSiteId'] = request.office_site_id
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.status):
-            query['Status'] = request.status
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeSuspEventQuaraFiles',
-            version='2020-09-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ecd_20200930_models.DescribeSuspEventQuaraFilesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_susp_event_quara_files(self, request):
-        """
-        ## Description
-        When alerts are handled, the system quarantines the files that contain detected threats to the quarantine panel. You can call this operation to view the quarantined files.
-        
-
-        @param request: DescribeSuspEventQuaraFilesRequest
-
-        @return: DescribeSuspEventQuaraFilesResponse
-        """
-        runtime = util_models.RuntimeOptions()
-        return self.describe_susp_event_quara_files_with_options(request, runtime)
-
-    def describe_susp_events_with_options(self, request, runtime):
-        """
-        An alert event consists of alerts and exceptions. Each alert event corresponds to multiple exceptions.
-        
-
-        @param request: DescribeSuspEventsRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeSuspEventsResponse
-        """
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.alarm_unique_info):
-            query['AlarmUniqueInfo'] = request.alarm_unique_info
-        if not UtilClient.is_unset(request.current_page):
-            query['CurrentPage'] = request.current_page
-        if not UtilClient.is_unset(request.dealed):
-            query['Dealed'] = request.dealed
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
-        if not UtilClient.is_unset(request.levels):
-            query['Levels'] = request.levels
-        if not UtilClient.is_unset(request.office_site_id):
-            query['OfficeSiteId'] = request.office_site_id
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.parent_event_type):
-            query['ParentEventType'] = request.parent_event_type
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeSuspEvents',
-            version='2020-09-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ecd_20200930_models.DescribeSuspEventsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_susp_events(self, request):
-        """
-        An alert event consists of alerts and exceptions. Each alert event corresponds to multiple exceptions.
-        
-
-        @param request: DescribeSuspEventsRequest
-
-        @return: DescribeSuspEventsResponse
-        """
-        runtime = util_models.RuntimeOptions()
-        return self.describe_susp_events_with_options(request, runtime)
+        return self.describe_user_connect_time_with_options(request, runtime)
 
     def describe_user_connection_records_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4535,116 +5013,6 @@ class Client(OpenApiClient):
     def describe_virtual_mfadevices(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_virtual_mfadevices_with_options(request, runtime)
-
-    def describe_vul_details_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.alias_name):
-            query['AliasName'] = request.alias_name
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
-        if not UtilClient.is_unset(request.name):
-            query['Name'] = request.name
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.type):
-            query['Type'] = request.type
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeVulDetails',
-            version='2020-09-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ecd_20200930_models.DescribeVulDetailsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_vul_details(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_vul_details_with_options(request, runtime)
-
-    def describe_vul_list_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.alias_name):
-            query['AliasName'] = request.alias_name
-        if not UtilClient.is_unset(request.current_page):
-            query['CurrentPage'] = request.current_page
-        if not UtilClient.is_unset(request.dealed):
-            query['Dealed'] = request.dealed
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
-        if not UtilClient.is_unset(request.name):
-            query['Name'] = request.name
-        if not UtilClient.is_unset(request.necessity):
-            query['Necessity'] = request.necessity
-        if not UtilClient.is_unset(request.office_site_id):
-            query['OfficeSiteId'] = request.office_site_id
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.type):
-            query['Type'] = request.type
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeVulList',
-            version='2020-09-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ecd_20200930_models.DescribeVulListResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_vul_list(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_vul_list_with_options(request, runtime)
-
-    def describe_vul_overview_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeVulOverview',
-            version='2020-09-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ecd_20200930_models.DescribeVulOverviewResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_vul_overview(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_vul_overview_with_options(request, runtime)
 
     def describe_zones_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4857,16 +5225,6 @@ class Client(OpenApiClient):
         return self.export_client_events_with_options(request, runtime)
 
     def export_desktop_group_info_with_options(self, request, runtime):
-        """
-        You can call the operation to export desktop groups and then save the desktop groups in the .xlsx file. The information about exported desktop groups includes: the desktop group ID and name, the workspace ID and name, the desktop template, the security policy name, the number of authorized users, the billing method, and the creation time.
-        
-
-        @param request: ExportDesktopGroupInfoRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ExportDesktopGroupInfoResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.charge_type):
@@ -4911,14 +5269,6 @@ class Client(OpenApiClient):
         )
 
     def export_desktop_group_info(self, request):
-        """
-        You can call the operation to export desktop groups and then save the desktop groups in the .xlsx file. The information about exported desktop groups includes: the desktop group ID and name, the workspace ID and name, the desktop template, the security policy name, the number of authorized users, the billing method, and the creation time.
-        
-
-        @param request: ExportDesktopGroupInfoRequest
-
-        @return: ExportDesktopGroupInfoResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.export_desktop_group_info_with_options(request, runtime)
 
@@ -4996,6 +5346,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.export_desktop_list_info_with_options(request, runtime)
 
+    def get_async_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.async_task_id):
+            query['AsyncTaskId'] = request.async_task_id
+        if not UtilClient.is_unset(request.cds_id):
+            query['CdsId'] = request.cds_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAsyncTask',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.GetAsyncTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_async_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_async_task_with_options(request, runtime)
+
     def get_connection_ticket_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5041,6 +5421,42 @@ class Client(OpenApiClient):
     def get_connection_ticket(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_connection_ticket_with_options(request, runtime)
+
+    def get_coordinate_ticket_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.co_id):
+            query['CoId'] = request.co_id
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.user_type):
+            query['UserType'] = request.user_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCoordinateTicket',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.GetCoordinateTicketResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_coordinate_ticket(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_coordinate_ticket_with_options(request, runtime)
 
     def get_desktop_group_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5104,8 +5520,7 @@ class Client(OpenApiClient):
 
     def get_sp_metadata_with_options(self, request, runtime):
         """
-        ## Description
-        You can call this operation only for workspaces of the Active Directory (AD) and convenience account types. You cannot call this operation for RAM directories.
+        You can call this operation only for workspaces of the Active Directory (AD) and convenience account types.
         
 
         @param request: GetSpMetadataRequest
@@ -5143,8 +5558,7 @@ class Client(OpenApiClient):
 
     def get_sp_metadata(self, request):
         """
-        ## Description
-        You can call this operation only for workspaces of the Active Directory (AD) and convenience account types. You cannot call this operation for RAM directories.
+        You can call this operation only for workspaces of the Active Directory (AD) and convenience account types.
         
 
         @param request: GetSpMetadataRequest
@@ -5154,22 +5568,28 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_sp_metadata_with_options(request, runtime)
 
-    def handle_security_events_with_options(self, request, runtime):
+    def hibernate_desktops_with_options(self, request, runtime):
+        """
+        Hibernating a cloud desktop is in private preview. If you want to try this feature, submit a ticket.
+        
+
+        @param request: HibernateDesktopsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: HibernateDesktopsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.operation_code):
-            query['OperationCode'] = request.operation_code
-        if not UtilClient.is_unset(request.operation_params):
-            query['OperationParams'] = request.operation_params
+        if not UtilClient.is_unset(request.desktop_id):
+            query['DesktopId'] = request.desktop_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.security_event):
-            query['SecurityEvent'] = request.security_event
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='HandleSecurityEvents',
+            action='HibernateDesktops',
             version='2020-09-30',
             protocol='HTTPS',
             pathname='/',
@@ -5180,13 +5600,21 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            ecd_20200930_models.HandleSecurityEventsResponse(),
+            ecd_20200930_models.HibernateDesktopsResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def handle_security_events(self, request):
+    def hibernate_desktops(self, request):
+        """
+        Hibernating a cloud desktop is in private preview. If you want to try this feature, submit a ticket.
+        
+
+        @param request: HibernateDesktopsRequest
+
+        @return: HibernateDesktopsResponse
+        """
         runtime = util_models.RuntimeOptions()
-        return self.handle_security_events_with_options(request, runtime)
+        return self.hibernate_desktops_with_options(request, runtime)
 
     def list_cds_files_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -5201,6 +5629,8 @@ class Client(OpenApiClient):
             query['EndUserId'] = request.end_user_id
         if not UtilClient.is_unset(request.file_ids_shrink):
             query['FileIds'] = request.file_ids_shrink
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.max_results):
             query['MaxResults'] = request.max_results
         if not UtilClient.is_unset(request.next_token):
@@ -5238,7 +5668,7 @@ class Client(OpenApiClient):
 
     def list_directory_users_with_options(self, request, runtime):
         """
-        If you use an AD directory to connect to an AD system of an enterprise, you can call this operation to obtain the information about users in the AD system.
+        If you use an AD directory to connect to an AD system, you can call this operation to obtain the user information in the AD system.
         
 
         @param request: ListDirectoryUsersRequest
@@ -5282,7 +5712,7 @@ class Client(OpenApiClient):
 
     def list_directory_users(self, request):
         """
-        If you use an AD directory to connect to an AD system of an enterprise, you can call this operation to obtain the information about users in the AD system.
+        If you use an AD directory to connect to an AD system, you can call this operation to obtain the user information in the AD system.
         
 
         @param request: ListDirectoryUsersRequest
@@ -5301,6 +5731,8 @@ class Client(OpenApiClient):
             query['EndUserId'] = request.end_user_id
         if not UtilClient.is_unset(request.file_id):
             query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
@@ -5404,7 +5836,6 @@ class Client(OpenApiClient):
 
     def list_tag_resources_with_options(self, request, runtime):
         """
-        ## Description
         You must specify at least one of the ResourceId.N, Tag.N.Key, and Tag.N.Value parameters in the request to specify the query objects.
         
 
@@ -5449,7 +5880,6 @@ class Client(OpenApiClient):
 
     def list_tag_resources(self, request):
         """
-        ## Description
         You must specify at least one of the ResourceId.N, Tag.N.Key, and Tag.N.Value parameters in the request to specify the query objects.
         
 
@@ -5498,7 +5928,6 @@ class Client(OpenApiClient):
 
     def lock_virtual_mfadevice_with_options(self, request, runtime):
         """
-        ## Description
         After a virtual MFA device is locked, its status changes to LOCKED. The AD user who uses the virtual MFA device is unable to pass MFA and is therefore unable to log on to the client. You can call the [UnlockVirtualMFADevice](~~206212~~) operation to unlock the device.
         
 
@@ -5535,7 +5964,6 @@ class Client(OpenApiClient):
 
     def lock_virtual_mfadevice(self, request):
         """
-        ## Description
         After a virtual MFA device is locked, its status changes to LOCKED. The AD user who uses the virtual MFA device is unable to pass MFA and is therefore unable to log on to the client. You can call the [UnlockVirtualMFADevice](~~206212~~) operation to unlock the device.
         
 
@@ -5578,17 +6006,39 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.migrate_desktops_with_options(request, runtime)
 
+    def migrate_image_protocol_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.image_id):
+            query['ImageId'] = request.image_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.target_protocol_type):
+            query['TargetProtocolType'] = request.target_protocol_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='MigrateImageProtocol',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.MigrateImageProtocolResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def migrate_image_protocol(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.migrate_image_protocol_with_options(request, runtime)
+
     def modify_adconnector_directory_with_options(self, request, runtime):
-        """
-        This operation modifies only the domain name and Domain Name System (DNS) parameters of AD directories in the ERROR or REGISTERING state. DNS parameters include DomainName, SubDomainName, DnsAddress.N, and SubDomainDnsAddress.
-        
-
-        @param request: ModifyADConnectorDirectoryRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ModifyADConnectorDirectoryResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ad_hostname):
@@ -5635,28 +6085,10 @@ class Client(OpenApiClient):
         )
 
     def modify_adconnector_directory(self, request):
-        """
-        This operation modifies only the domain name and Domain Name System (DNS) parameters of AD directories in the ERROR or REGISTERING state. DNS parameters include DomainName, SubDomainName, DnsAddress.N, and SubDomainDnsAddress.
-        
-
-        @param request: ModifyADConnectorDirectoryRequest
-
-        @return: ModifyADConnectorDirectoryResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.modify_adconnector_directory_with_options(request, runtime)
 
     def modify_adconnector_office_site_with_options(self, request, runtime):
-        """
-        This operation modifies the domain name and DNS parameters of workspaces that are of enterprise AD account type and in the Error or Registering state. DNS parameters include DomainName, SubDomainName, DnsAddress.N, and SubDomainDnsAddress.N.
-        
-
-        @param request: ModifyADConnectorOfficeSiteRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ModifyADConnectorOfficeSiteResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ad_hostname):
@@ -5703,16 +6135,42 @@ class Client(OpenApiClient):
         )
 
     def modify_adconnector_office_site(self, request):
-        """
-        This operation modifies the domain name and DNS parameters of workspaces that are of enterprise AD account type and in the Error or Registering state. DNS parameters include DomainName, SubDomainName, DnsAddress.N, and SubDomainDnsAddress.N.
-        
-
-        @param request: ModifyADConnectorOfficeSiteRequest
-
-        @return: ModifyADConnectorOfficeSiteResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.modify_adconnector_office_site_with_options(request, runtime)
+
+    def modify_acl_entries_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.policy):
+            query['Policy'] = request.policy
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.source_id):
+            query['SourceId'] = request.source_id
+        if not UtilClient.is_unset(request.source_type):
+            query['SourceType'] = request.source_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyAclEntries',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.ModifyAclEntriesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_acl_entries(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_acl_entries_with_options(request, runtime)
 
     def modify_auto_snapshot_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5752,7 +6210,6 @@ class Client(OpenApiClient):
 
     def modify_bundle_with_options(self, request, runtime):
         """
-        ## Description
         Only custom desktop templates can be modified.
         
 
@@ -5797,7 +6254,6 @@ class Client(OpenApiClient):
 
     def modify_bundle(self, request):
         """
-        ## Description
         Only custom desktop templates can be modified.
         
 
@@ -5821,6 +6277,8 @@ class Client(OpenApiClient):
             query['FileId'] = request.file_id
         if not UtilClient.is_unset(request.file_name):
             query['FileName'] = request.file_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
@@ -5978,6 +6436,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_cloud_drive_permission_with_options(request, runtime)
 
+    def modify_cloud_drive_users_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cds_id):
+            query['CdsId'] = request.cds_id
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.user_max_size):
+            query['UserMaxSize'] = request.user_max_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyCloudDriveUsers',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.ModifyCloudDriveUsersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_cloud_drive_users(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_cloud_drive_users_with_options(request, runtime)
+
     def modify_customized_list_headers_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -6012,11 +6506,9 @@ class Client(OpenApiClient):
 
     def modify_desktop_charge_type_with_options(self, request, runtime):
         """
-        Before you call this operation, make sure that you are familiar with the billing methods of cloud desktops in Elastic Desktop Service (EDS). For more information, see [Billing overview](~~188395~~).
+        Before you call this operation, make sure that you are familiar with the billing methods of cloud desktops. For more information, see [Billing overview](~~188395~~).
         *   Before you call this operation, make sure that the cloud desktop that you want to manage is in the Running or Stopped state and no overdue payments of the cloud desktop are generated.
-        *   After the order payment is completed, the system starts to change the billing method of the cloud desktop. During the change, you cannot perform operations, such as starting or stopping the cloud desktop, and changing configurations of the cloud desktop.<props="china">
-        After you change the billing method of the cloud desktop from subscription to pay-as-you-go, you may get a refund. For more information, see [Change a subscription cloud desktop to a pay-as-you-go one](https://help.aliyun.com/document_detail/439964.html).
-        </props>
+        *   After the order payment is completed, the system starts to change the billing method of the cloud desktop. During the change, you cannot perform operations, such as starting or stopping the cloud desktop, and changing configurations of the cloud desktop.
         
 
         @param request: ModifyDesktopChargeTypeRequest
@@ -6041,6 +6533,8 @@ class Client(OpenApiClient):
             query['PromotionId'] = request.promotion_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.use_duration):
+            query['UseDuration'] = request.use_duration
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -6062,11 +6556,9 @@ class Client(OpenApiClient):
 
     def modify_desktop_charge_type(self, request):
         """
-        Before you call this operation, make sure that you are familiar with the billing methods of cloud desktops in Elastic Desktop Service (EDS). For more information, see [Billing overview](~~188395~~).
+        Before you call this operation, make sure that you are familiar with the billing methods of cloud desktops. For more information, see [Billing overview](~~188395~~).
         *   Before you call this operation, make sure that the cloud desktop that you want to manage is in the Running or Stopped state and no overdue payments of the cloud desktop are generated.
-        *   After the order payment is completed, the system starts to change the billing method of the cloud desktop. During the change, you cannot perform operations, such as starting or stopping the cloud desktop, and changing configurations of the cloud desktop.<props="china">
-        After you change the billing method of the cloud desktop from subscription to pay-as-you-go, you may get a refund. For more information, see [Change a subscription cloud desktop to a pay-as-you-go one](https://help.aliyun.com/document_detail/439964.html).
-        </props>
+        *   After the order payment is completed, the system starts to change the billing method of the cloud desktop. During the change, you cannot perform operations, such as starting or stopping the cloud desktop, and changing configurations of the cloud desktop.
         
 
         @param request: ModifyDesktopChargeTypeRequest
@@ -6182,8 +6674,7 @@ class Client(OpenApiClient):
 
     def modify_desktop_host_name_with_options(self, request, runtime):
         """
-        ## Description
-        You can only change the hostname of a Windows cloud desktop in the workspace of the enterprise Active Directory (AD) account type. After the hostname is changed, the cloud desktop is recreated.
+        You can only change the hostname of a Windows cloud desktop in the Active Directory (AD) workspace. After the hostname is changed, the cloud desktop is recreated.
         
 
         @param request: ModifyDesktopHostNameRequest
@@ -6221,8 +6712,7 @@ class Client(OpenApiClient):
 
     def modify_desktop_host_name(self, request):
         """
-        ## Description
-        You can only change the hostname of a Windows cloud desktop in the workspace of the enterprise Active Directory (AD) account type. After the hostname is changed, the cloud desktop is recreated.
+        You can only change the hostname of a Windows cloud desktop in the Active Directory (AD) workspace. After the hostname is changed, the cloud desktop is recreated.
         
 
         @param request: ModifyDesktopHostNameRequest
@@ -6263,6 +6753,118 @@ class Client(OpenApiClient):
     def modify_desktop_name(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_desktop_name_with_options(request, runtime)
+
+    def modify_desktop_oversold_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.concurrence_count):
+            query['ConcurrenceCount'] = request.concurrence_count
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.image_id):
+            query['ImageId'] = request.image_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.oversold_group_id):
+            query['OversoldGroupId'] = request.oversold_group_id
+        if not UtilClient.is_unset(request.oversold_user_count):
+            query['OversoldUserCount'] = request.oversold_user_count
+        if not UtilClient.is_unset(request.oversold_warn):
+            query['OversoldWarn'] = request.oversold_warn
+        if not UtilClient.is_unset(request.policy_group_id):
+            query['PolicyGroupId'] = request.policy_group_id
+        if not UtilClient.is_unset(request.stop_duration):
+            query['StopDuration'] = request.stop_duration
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDesktopOversoldGroup',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.ModifyDesktopOversoldGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_desktop_oversold_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_desktop_oversold_group_with_options(request, runtime)
+
+    def modify_desktop_oversold_group_sale_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.concurrence_count):
+            query['ConcurrenceCount'] = request.concurrence_count
+        if not UtilClient.is_unset(request.oversold_group_id):
+            query['OversoldGroupId'] = request.oversold_group_id
+        if not UtilClient.is_unset(request.oversold_user_count):
+            query['OversoldUserCount'] = request.oversold_user_count
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDesktopOversoldGroupSale',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.ModifyDesktopOversoldGroupSaleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_desktop_oversold_group_sale(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_desktop_oversold_group_sale_with_options(request, runtime)
+
+    def modify_desktop_oversold_user_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.image_id):
+            query['ImageId'] = request.image_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.oversold_group_id):
+            query['OversoldGroupId'] = request.oversold_group_id
+        if not UtilClient.is_unset(request.policy_group_id):
+            query['PolicyGroupId'] = request.policy_group_id
+        if not UtilClient.is_unset(request.user_group_id):
+            query['UserGroupId'] = request.user_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDesktopOversoldUserGroup',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.ModifyDesktopOversoldUserGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_desktop_oversold_user_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_desktop_oversold_user_group_with_options(request, runtime)
 
     def modify_desktop_spec_with_options(self, request, runtime):
         """
@@ -6342,9 +6944,43 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_desktop_spec_with_options(request, runtime)
 
+    def modify_desktop_timer_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.desktop_id):
+            query['DesktopId'] = request.desktop_id
+        if not UtilClient.is_unset(request.desktop_timers):
+            query['DesktopTimers'] = request.desktop_timers
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.use_desktop_timers):
+            query['UseDesktopTimers'] = request.use_desktop_timers
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDesktopTimer',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.ModifyDesktopTimerResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_desktop_timer(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_desktop_timer_with_options(request, runtime)
+
     def modify_desktops_policy_group_with_options(self, request, runtime):
         """
-        The cloud desktops whose policy you want to modify must be in the Running state.
+        The cloud desktop must be in the Running (Running) state.
         
 
         @param request: ModifyDesktopsPolicyGroupRequest
@@ -6384,7 +7020,7 @@ class Client(OpenApiClient):
 
     def modify_desktops_policy_group(self, request):
         """
-        The cloud desktops whose policy you want to modify must be in the Running state.
+        The cloud desktop must be in the Running (Running) state.
         
 
         @param request: ModifyDesktopsPolicyGroupRequest
@@ -6470,7 +7106,7 @@ class Client(OpenApiClient):
 
     def modify_entitlement_with_options(self, request, runtime):
         """
-        The cloud desktop must be in the Running state.
+        The cloud desktops to which you want to assign users must be in the Running state.
         
 
         @param request: ModifyEntitlementRequest
@@ -6508,7 +7144,7 @@ class Client(OpenApiClient):
 
     def modify_entitlement(self, request):
         """
-        The cloud desktop must be in the Running state.
+        The cloud desktops to which you want to assign users must be in the Running state.
         
 
         @param request: ModifyEntitlementRequest
@@ -6520,8 +7156,7 @@ class Client(OpenApiClient):
 
     def modify_image_attribute_with_options(self, request, runtime):
         """
-        ## Description
-        You can call this operation to modify the properties of only custom images in the Available (Available) state.
+        You can call this operation to modify the attributes of only custom images that are in the Available state.
         
 
         @param request: ModifyImageAttributeRequest
@@ -6561,8 +7196,7 @@ class Client(OpenApiClient):
 
     def modify_image_attribute(self, request):
         """
-        ## Description
-        You can call this operation to modify the properties of only custom images in the Available (Available) state.
+        You can call this operation to modify the attributes of only custom images that are in the Available state.
         
 
         @param request: ModifyImageAttributeRequest
@@ -6573,28 +7207,6 @@ class Client(OpenApiClient):
         return self.modify_image_attribute_with_options(request, runtime)
 
     def modify_image_permission_with_options(self, request, runtime):
-        """
-        ### Security of shared images
-        Elastic Desktop Service (EDS) does not ensure the integrity and security of shared images on cloud desktops. Before you use shared images, make sure that the images come from trusted accounts. You must assume all risks.
-        ### Quotas and billing
-        *   Shared images do not count against the image quotas of the recipient Alibaba Cloud accounts.
-        *   Alibaba Cloud accounts that share images are not charged if the recipient accounts use the shared images to create cloud desktops.
-        *   There are no additional charges for sharing an image.
-        ### Supported sharing behavior
-        *   You can share custom images with other Alibaba Cloud accounts.
-        *   You can share custom images between accounts in the China site (aliyun.com) and the international site (alibabacloud.com).
-        ### Unsupported sharing behavior
-        *   You cannot share images that are shared by other Alibaba Cloud accounts.
-        *   You cannot share encrypted images.
-        *   You cannot share images across regions. If you want to share images across regions, you can call the CopyImage operation to copy the images from the source region to the destination region.
-        
-
-        @param request: ModifyImagePermissionRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ModifyImagePermissionResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.add_account):
@@ -6625,33 +7237,12 @@ class Client(OpenApiClient):
         )
 
     def modify_image_permission(self, request):
-        """
-        ### Security of shared images
-        Elastic Desktop Service (EDS) does not ensure the integrity and security of shared images on cloud desktops. Before you use shared images, make sure that the images come from trusted accounts. You must assume all risks.
-        ### Quotas and billing
-        *   Shared images do not count against the image quotas of the recipient Alibaba Cloud accounts.
-        *   Alibaba Cloud accounts that share images are not charged if the recipient accounts use the shared images to create cloud desktops.
-        *   There are no additional charges for sharing an image.
-        ### Supported sharing behavior
-        *   You can share custom images with other Alibaba Cloud accounts.
-        *   You can share custom images between accounts in the China site (aliyun.com) and the international site (alibabacloud.com).
-        ### Unsupported sharing behavior
-        *   You cannot share images that are shared by other Alibaba Cloud accounts.
-        *   You cannot share encrypted images.
-        *   You cannot share images across regions. If you want to share images across regions, you can call the CopyImage operation to copy the images from the source region to the destination region.
-        
-
-        @param request: ModifyImagePermissionRequest
-
-        @return: ModifyImagePermissionResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.modify_image_permission_with_options(request, runtime)
 
     def modify_nasdefault_mount_target_with_options(self, request, runtime):
         """
-        ## Description
-        When you create a NAS file system, a mount target is automatically generated. By default, the mount target does not need to be changed. If the mount target is accidentally deleted, you must specify a new mount target for the NAS file system in the workspace. You can call the [CreateMountTarget](~~62621~~) operation to create a mount target.
+        When you create a NAS file system, a mount target is automatically generated. By default, the mount target does not need to be changed. If the mount target is deleted by misoperation, you must specify a new mount target for the NAS file system in the workspace. You can call the [CreateMountTarget](~~62621~~) operation to create a mount target.
         
 
         @param request: ModifyNASDefaultMountTargetRequest
@@ -6689,8 +7280,7 @@ class Client(OpenApiClient):
 
     def modify_nasdefault_mount_target(self, request):
         """
-        ## Description
-        When you create a NAS file system, a mount target is automatically generated. By default, the mount target does not need to be changed. If the mount target is accidentally deleted, you must specify a new mount target for the NAS file system in the workspace. You can call the [CreateMountTarget](~~62621~~) operation to create a mount target.
+        When you create a NAS file system, a mount target is automatically generated. By default, the mount target does not need to be changed. If the mount target is deleted by misoperation, you must specify a new mount target for the NAS file system in the workspace. You can call the [CreateMountTarget](~~62621~~) operation to create a mount target.
         
 
         @param request: ModifyNASDefaultMountTargetRequest
@@ -6738,8 +7328,7 @@ class Client(OpenApiClient):
 
     def modify_network_package_enabled_with_options(self, request, runtime):
         """
-        ## Description
-        If you want to temporarily disable Internet access for a cloud desktop, you can disable the Internet access package. You can restore the package based on your requirements.
+        If you want to temporarily disable Internet access for a cloud desktop, you can disable the Internet access package. You can restore the package when you require Internet access for the cloud desktop.
         
 
         @param request: ModifyNetworkPackageEnabledRequest
@@ -6777,8 +7366,7 @@ class Client(OpenApiClient):
 
     def modify_network_package_enabled(self, request):
         """
-        ## Description
-        If you want to temporarily disable Internet access for a cloud desktop, you can disable the Internet access package. You can restore the package based on your requirements.
+        If you want to temporarily disable Internet access for a cloud desktop, you can disable the Internet access package. You can restore the package when you require Internet access for the cloud desktop.
         
 
         @param request: ModifyNetworkPackageEnabledRequest
@@ -6892,45 +7480,11 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_office_site_mfa_enabled_with_options(request, runtime)
 
-    def modify_operate_vul_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.operate_type):
-            query['OperateType'] = request.operate_type
-        if not UtilClient.is_unset(request.reason):
-            query['Reason'] = request.reason
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.type):
-            query['Type'] = request.type
-        if not UtilClient.is_unset(request.vul_info):
-            query['VulInfo'] = request.vul_info
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ModifyOperateVul',
-            version='2020-09-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ecd_20200930_models.ModifyOperateVulResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def modify_operate_vul(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_operate_vul_with_options(request, runtime)
-
     def modify_policy_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.admin_access):
+            query['AdminAccess'] = request.admin_access
         if not UtilClient.is_unset(request.app_content_protection):
             query['AppContentProtection'] = request.app_content_protection
         if not UtilClient.is_unset(request.authorize_access_policy_rule):
@@ -6945,6 +7499,10 @@ class Client(OpenApiClient):
             query['Clipboard'] = request.clipboard
         if not UtilClient.is_unset(request.domain_list):
             query['DomainList'] = request.domain_list
+        if not UtilClient.is_unset(request.domain_resolve_rule):
+            query['DomainResolveRule'] = request.domain_resolve_rule
+        if not UtilClient.is_unset(request.domain_resolve_rule_type):
+            query['DomainResolveRuleType'] = request.domain_resolve_rule_type
         if not UtilClient.is_unset(request.end_user_apply_admin_coordinate):
             query['EndUserApplyAdminCoordinate'] = request.end_user_apply_admin_coordinate
         if not UtilClient.is_unset(request.end_user_group_coordinate):
@@ -7021,6 +7579,8 @@ class Client(OpenApiClient):
             query['WatermarkFontStyle'] = request.watermark_font_style
         if not UtilClient.is_unset(request.watermark_row_amount):
             query['WatermarkRowAmount'] = request.watermark_row_amount
+        if not UtilClient.is_unset(request.watermark_security):
+            query['WatermarkSecurity'] = request.watermark_security
         if not UtilClient.is_unset(request.watermark_transparency):
             query['WatermarkTransparency'] = request.watermark_transparency
         if not UtilClient.is_unset(request.watermark_transparency_value):
@@ -7052,7 +7612,7 @@ class Client(OpenApiClient):
 
     def modify_user_entitlement_with_options(self, request, runtime):
         """
-        You can modify permissions for regular users on cloud desktops that are only in the Running state.
+        You can modify user permissions on cloud desktops that are only in the Running state.
         
 
         @param request: ModifyUserEntitlementRequest
@@ -7092,7 +7652,7 @@ class Client(OpenApiClient):
 
     def modify_user_entitlement(self, request):
         """
-        You can modify permissions for regular users on cloud desktops that are only in the Running state.
+        You can modify user permissions on cloud desktops that are only in the Running state.
         
 
         @param request: ModifyUserEntitlementRequest
@@ -7147,6 +7707,8 @@ class Client(OpenApiClient):
             query['EndUserId'] = request.end_user_id
         if not UtilClient.is_unset(request.file_id):
             query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.parent_folder_id):
             query['ParentFolderId'] = request.parent_folder_id
         if not UtilClient.is_unset(request.region_id):
@@ -7173,46 +7735,6 @@ class Client(OpenApiClient):
     def move_cds_file(self, request):
         runtime = util_models.RuntimeOptions()
         return self.move_cds_file_with_options(request, runtime)
-
-    def operate_vuls_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.desktop_id):
-            query['DesktopId'] = request.desktop_id
-        if not UtilClient.is_unset(request.operate_type):
-            query['OperateType'] = request.operate_type
-        if not UtilClient.is_unset(request.precondition):
-            query['Precondition'] = request.precondition
-        if not UtilClient.is_unset(request.reason):
-            query['Reason'] = request.reason
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.type):
-            query['Type'] = request.type
-        if not UtilClient.is_unset(request.vul_name):
-            query['VulName'] = request.vul_name
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='OperateVuls',
-            version='2020-09-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ecd_20200930_models.OperateVulsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def operate_vuls(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.operate_vuls_with_options(request, runtime)
 
     def reboot_desktops_with_options(self, request, runtime):
         """
@@ -7265,11 +7787,11 @@ class Client(OpenApiClient):
     def rebuild_desktops_with_options(self, request, runtime):
         """
         Before you change the image of a cloud desktop, take note of the following limits:
-        - You can select the OS of an image during image change. However, this operation is unavailable in the following regions: China (Hong Kong), Australia (Sydney), Singapore (Singapore), and Japan (Tokyo).
-        - Image change between GPU and non-GPU images is not supported. If a cloud desktop is of the Graphics type, you can use only a GPU image. If the cloud desktop is of a non-Graphics type, you can use only a non-GPU image.
+        *   You can select the OS of an image during image change. However, this operation is unavailable in the following regions: China (Hong Kong), Australia (Sydney), Singapore (Singapore), and Japan (Tokyo).
+        *   Image change between GPU and non-GPU images is not supported. If a cloud desktop is of the Graphics type, you can use only a GPU image. If the cloud desktop is of a non-Graphics type, you can use only a non-GPU image.
         After you change the image of the cloud desktop, the system uses the new image to initialize the system disk of the cloud desktop. Take note of the following impacts:
-        - The system deletes data from the original system disk. The snapshots that are created from the original system disk of the cloud desktop become unavailable and are automatically deleted.
-        - If you change the OS of the image, the system deletes data from the original data disk of the cloud desktop. The system also deletes snapshots that are created from the original data disk of the cloud desktop because original snapshots become unavailable. If you do not change the OS of the image, data on the original data disk is retained, and snapshots that are created from the data disk are still available.
+        *   The system deletes data from the original system disk. The snapshots that are created from the original system disk of the cloud desktop become unavailable and are automatically deleted.
+        *   If you change the OS of the image, the system deletes data from the original data disk of the cloud desktop. The system also deletes snapshots that are created from the original data disk of the cloud desktop because original snapshots become unavailable. If you do not change the OS of the image, data on the original data disk is retained, and snapshots that are created from the data disk are still available.
         
 
         @param request: RebuildDesktopsRequest
@@ -7284,6 +7806,8 @@ class Client(OpenApiClient):
             query['DesktopId'] = request.desktop_id
         if not UtilClient.is_unset(request.image_id):
             query['ImageId'] = request.image_id
+        if not UtilClient.is_unset(request.operate_type):
+            query['OperateType'] = request.operate_type
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
@@ -7308,11 +7832,11 @@ class Client(OpenApiClient):
     def rebuild_desktops(self, request):
         """
         Before you change the image of a cloud desktop, take note of the following limits:
-        - You can select the OS of an image during image change. However, this operation is unavailable in the following regions: China (Hong Kong), Australia (Sydney), Singapore (Singapore), and Japan (Tokyo).
-        - Image change between GPU and non-GPU images is not supported. If a cloud desktop is of the Graphics type, you can use only a GPU image. If the cloud desktop is of a non-Graphics type, you can use only a non-GPU image.
+        *   You can select the OS of an image during image change. However, this operation is unavailable in the following regions: China (Hong Kong), Australia (Sydney), Singapore (Singapore), and Japan (Tokyo).
+        *   Image change between GPU and non-GPU images is not supported. If a cloud desktop is of the Graphics type, you can use only a GPU image. If the cloud desktop is of a non-Graphics type, you can use only a non-GPU image.
         After you change the image of the cloud desktop, the system uses the new image to initialize the system disk of the cloud desktop. Take note of the following impacts:
-        - The system deletes data from the original system disk. The snapshots that are created from the original system disk of the cloud desktop become unavailable and are automatically deleted.
-        - If you change the OS of the image, the system deletes data from the original data disk of the cloud desktop. The system also deletes snapshots that are created from the original data disk of the cloud desktop because original snapshots become unavailable. If you do not change the OS of the image, data on the original data disk is retained, and snapshots that are created from the data disk are still available.
+        *   The system deletes data from the original system disk. The snapshots that are created from the original system disk of the cloud desktop become unavailable and are automatically deleted.
+        *   If you change the OS of the image, the system deletes data from the original data disk of the cloud desktop. The system also deletes snapshots that are created from the original data disk of the cloud desktop because original snapshots become unavailable. If you do not change the OS of the image, data on the original data disk is retained, and snapshots that are created from the data disk are still available.
         
 
         @param request: RebuildDesktopsRequest
@@ -7335,6 +7859,8 @@ class Client(OpenApiClient):
             query['EndUserId'] = request.end_user_id
         if not UtilClient.is_unset(request.file_id):
             query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.member_list_shrink):
             query['MemberList'] = request.member_list_shrink
         if not UtilClient.is_unset(request.region_id):
@@ -7395,6 +7921,72 @@ class Client(OpenApiClient):
     def remove_user_from_desktop_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.remove_user_from_desktop_group_with_options(request, runtime)
+
+    def remove_user_from_desktop_oversold_user_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_user_id):
+            query['EndUserId'] = request.end_user_id
+        if not UtilClient.is_unset(request.oversold_group_id):
+            query['OversoldGroupId'] = request.oversold_group_id
+        if not UtilClient.is_unset(request.user_desktop_id):
+            query['UserDesktopId'] = request.user_desktop_id
+        if not UtilClient.is_unset(request.user_group_id):
+            query['UserGroupId'] = request.user_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveUserFromDesktopOversoldUserGroup',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.RemoveUserFromDesktopOversoldUserGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def remove_user_from_desktop_oversold_user_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.remove_user_from_desktop_oversold_user_group_with_options(request, runtime)
+
+    def renew_desktop_oversold_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.oversold_group_id):
+            query['OversoldGroupId'] = request.oversold_group_id
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RenewDesktopOversoldGroup',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.RenewDesktopOversoldGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def renew_desktop_oversold_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.renew_desktop_oversold_group_with_options(request, runtime)
 
     def renew_desktops_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -7473,6 +8065,16 @@ class Client(OpenApiClient):
         return self.renew_network_packages_with_options(request, runtime)
 
     def reset_desktops_with_options(self, request, runtime):
+        """
+        > You can call this operation to reset only cloud desktops that are managed by a cloud desktop group. You cannot reset an independent cloud desktop.
+        
+
+        @param request: ResetDesktopsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ResetDesktopsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.desktop_group_id):
@@ -7507,12 +8109,19 @@ class Client(OpenApiClient):
         )
 
     def reset_desktops(self, request):
+        """
+        > You can call this operation to reset only cloud desktops that are managed by a cloud desktop group. You cannot reset an independent cloud desktop.
+        
+
+        @param request: ResetDesktopsRequest
+
+        @return: ResetDesktopsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.reset_desktops_with_options(request, runtime)
 
     def reset_nasdefault_mount_target_with_options(self, request, runtime):
         """
-        ## Description
         When you create a NAS file system, a mount target is automatically generated. By default, you do not need to modify the mount target of the NAS file system. If the mount target is disabled, you need to reset the mount target of the NAS file system.
         
 
@@ -7549,7 +8158,6 @@ class Client(OpenApiClient):
 
     def reset_nasdefault_mount_target(self, request):
         """
-        ## Description
         When you create a NAS file system, a mount target is automatically generated. By default, you do not need to modify the mount target of the NAS file system. If the mount target is disabled, you need to reset the mount target of the NAS file system.
         
 
@@ -7652,59 +8260,17 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.revoke_coordinate_privilege_with_options(request, runtime)
 
-    def rollback_susp_event_quara_file_with_options(self, request, runtime):
+    def run_command_with_options(self, request, runtime):
         """
-        ## Description
-        When alerts are handled, the system quarantines the files that contain detected threats to the quarantine panel. You can call this operation to remove quarantined files from the quarantine panel.
+        You can use the RunCommand operation to run scripts only on Windows cloud desktops.
         
 
-        @param request: RollbackSuspEventQuaraFileRequest
+        @param request: RunCommandRequest
 
         @param runtime: runtime options for this request RuntimeOptions
 
-        @return: RollbackSuspEventQuaraFileResponse
+        @return: RunCommandResponse
         """
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.desktop_id):
-            query['DesktopId'] = request.desktop_id
-        if not UtilClient.is_unset(request.quara_field_id):
-            query['QuaraFieldId'] = request.quara_field_id
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='RollbackSuspEventQuaraFile',
-            version='2020-09-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ecd_20200930_models.RollbackSuspEventQuaraFileResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def rollback_susp_event_quara_file(self, request):
-        """
-        ## Description
-        When alerts are handled, the system quarantines the files that contain detected threats to the quarantine panel. You can call this operation to remove quarantined files from the quarantine panel.
-        
-
-        @param request: RollbackSuspEventQuaraFileRequest
-
-        @return: RollbackSuspEventQuaraFileResponse
-        """
-        runtime = util_models.RuntimeOptions()
-        return self.rollback_susp_event_quara_file_with_options(request, runtime)
-
-    def run_command_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.command_content):
@@ -7741,6 +8307,14 @@ class Client(OpenApiClient):
         )
 
     def run_command(self, request):
+        """
+        You can use the RunCommand operation to run scripts only on Windows cloud desktops.
+        
+
+        @param request: RunCommandRequest
+
+        @return: RunCommandResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.run_command_with_options(request, runtime)
 
@@ -7901,6 +8475,16 @@ class Client(OpenApiClient):
         return self.set_desktop_group_timer_status_with_options(request, runtime)
 
     def set_directory_sso_status_with_options(self, request, runtime):
+        """
+        This operation is supported only for AD directories, not for RAM directories.
+        
+
+        @param request: SetDirectorySsoStatusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SetDirectorySsoStatusResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.directory_id):
@@ -7929,13 +8513,20 @@ class Client(OpenApiClient):
         )
 
     def set_directory_sso_status(self, request):
+        """
+        This operation is supported only for AD directories, not for RAM directories.
+        
+
+        @param request: SetDirectorySsoStatusRequest
+
+        @return: SetDirectorySsoStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.set_directory_sso_status_with_options(request, runtime)
 
     def set_idp_metadata_with_options(self, request, runtime):
         """
-        ## Description
-        You can call this operation only for workspaces of the Active Directory (AD) and convenience account types. You cannot call this operation for RAM directories.
+        You can call this operation only for workspaces of the Active Directory (AD) and convenience account types.
         
 
         @param request: SetIdpMetadataRequest
@@ -7975,8 +8566,7 @@ class Client(OpenApiClient):
 
     def set_idp_metadata(self, request):
         """
-        ## Description
-        You can call this operation only for workspaces of the Active Directory (AD) and convenience account types. You cannot call this operation for RAM directories.
+        You can call this operation only for workspaces of the Active Directory (AD) and convenience account types.
         
 
         @param request: SetIdpMetadataRequest
@@ -8058,7 +8648,7 @@ class Client(OpenApiClient):
 
     def start_desktops_with_options(self, request, runtime):
         """
-        The cloud desktop to be started must be in the Stopped (Stopped) state.
+        The cloud desktop that you want to start must be in the Stopped state.
         
 
         @param request: StartDesktopsRequest
@@ -8094,7 +8684,7 @@ class Client(OpenApiClient):
 
     def start_desktops(self, request):
         """
-        The cloud desktop to be started must be in the Stopped (Stopped) state.
+        The cloud desktop that you want to start must be in the Stopped state.
         
 
         @param request: StartDesktopsRequest
@@ -8104,61 +8694,9 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.start_desktops_with_options(request, runtime)
 
-    def start_virus_scan_task_with_options(self, request, runtime):
-        """
-        When you call this operation, you must specify a workspace or a cloud desktop by specifying the OfficeSiteId or DesktopId parameter.
-        > When you specify a workspace, all cloud desktops within the workspace are scanned.
-        
-
-        @param request: StartVirusScanTaskRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: StartVirusScanTaskResponse
-        """
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.desktop_id):
-            query['DesktopId'] = request.desktop_id
-        if not UtilClient.is_unset(request.office_site_id):
-            query['OfficeSiteId'] = request.office_site_id
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='StartVirusScanTask',
-            version='2020-09-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ecd_20200930_models.StartVirusScanTaskResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def start_virus_scan_task(self, request):
-        """
-        When you call this operation, you must specify a workspace or a cloud desktop by specifying the OfficeSiteId or DesktopId parameter.
-        > When you specify a workspace, all cloud desktops within the workspace are scanned.
-        
-
-        @param request: StartVirusScanTaskRequest
-
-        @return: StartVirusScanTaskResponse
-        """
-        runtime = util_models.RuntimeOptions()
-        return self.start_virus_scan_task_with_options(request, runtime)
-
     def stop_desktops_with_options(self, request, runtime):
         """
-        The cloud desktop must be in the Running state.
+        The cloud desktops that you want to stop must be in the Running state.
         
 
         @param request: StopDesktopsRequest
@@ -8196,7 +8734,7 @@ class Client(OpenApiClient):
 
     def stop_desktops(self, request):
         """
-        The cloud desktop must be in the Running state.
+        The cloud desktops that you want to stop must be in the Running state.
         
 
         @param request: StopDesktopsRequest
@@ -8208,7 +8746,7 @@ class Client(OpenApiClient):
 
     def stop_invocation_with_options(self, request, runtime):
         """
-        When you stop a one-time execution of a command, the command continues to run on the cloud desktops where it has started to run, and will not run on the cloud desktops where it has not started to run.
+        The ID of the execution.
         
 
         @param request: StopInvocationRequest
@@ -8246,7 +8784,7 @@ class Client(OpenApiClient):
 
     def stop_invocation(self, request):
         """
-        When you stop a one-time execution of a command, the command continues to run on the cloud desktops where it has started to run, and will not run on the cloud desktops where it has not started to run.
+        The ID of the execution.
         
 
         @param request: StopInvocationRequest
@@ -8407,6 +8945,16 @@ class Client(OpenApiClient):
         return self.update_fota_task_with_options(request, runtime)
 
     def upload_image_with_options(self, request, runtime):
+        """
+        > You can call this operation to upload custom Windows images.
+        
+
+        @param request: UploadImageRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UploadImageResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.data_disk_size):
@@ -8451,6 +8999,14 @@ class Client(OpenApiClient):
         )
 
     def upload_image(self, request):
+        """
+        > You can call this operation to upload custom Windows images.
+        
+
+        @param request: UploadImageRequest
+
+        @return: UploadImageResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upload_image_with_options(request, runtime)
 
@@ -8489,3 +9045,33 @@ class Client(OpenApiClient):
     def verify_cen(self, request):
         runtime = util_models.RuntimeOptions()
         return self.verify_cen_with_options(request, runtime)
+
+    def wakeup_desktops_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.desktop_id):
+            query['DesktopId'] = request.desktop_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='WakeupDesktops',
+            version='2020-09-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ecd_20200930_models.WakeupDesktopsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def wakeup_desktops(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.wakeup_desktops_with_options(request, runtime)
