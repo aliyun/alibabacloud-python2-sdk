@@ -1075,6 +1075,8 @@ class Client(OpenApiClient):
     def modify_playbook_input_output_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.exe_config):
+            body['ExeConfig'] = request.exe_config
         if not UtilClient.is_unset(request.input_params):
             body['InputParams'] = request.input_params
         if not UtilClient.is_unset(request.lang):
@@ -1265,6 +1267,16 @@ class Client(OpenApiClient):
         return self.revert_playbook_release_with_options(request, runtime)
 
     def run_python_3script_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that you understand the billing method and pricing of Security Orchestration Automation Response (SOAR). For more information, see [Pricing](https://www.aliyun.com/price/product#/sas/detail/sas).
+        
+
+        @param request: RunPython3ScriptRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RunPython3ScriptResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.node_name):
@@ -1295,10 +1307,28 @@ class Client(OpenApiClient):
         )
 
     def run_python_3script(self, request):
+        """
+        Before you call this operation, make sure that you understand the billing method and pricing of Security Orchestration Automation Response (SOAR). For more information, see [Pricing](https://www.aliyun.com/price/product#/sas/detail/sas).
+        
+
+        @param request: RunPython3ScriptRequest
+
+        @return: RunPython3ScriptResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.run_python_3script_with_options(request, runtime)
 
     def trigger_playbook_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that you understand the billing methods and pricing of Security Orchestration Automation Response (SOAR). For more information, see [Pricing](https://www.aliyun.com/price/product#/sas/detail/sas).
+        
+
+        @param request: TriggerPlaybookRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TriggerPlaybookResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.input_param):
@@ -1325,6 +1355,14 @@ class Client(OpenApiClient):
         )
 
     def trigger_playbook(self, request):
+        """
+        Before you call this operation, make sure that you understand the billing methods and pricing of Security Orchestration Automation Response (SOAR). For more information, see [Pricing](https://www.aliyun.com/price/product#/sas/detail/sas).
+        
+
+        @param request: TriggerPlaybookRequest
+
+        @return: TriggerPlaybookResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.trigger_playbook_with_options(request, runtime)
 
@@ -1361,6 +1399,16 @@ class Client(OpenApiClient):
         return self.trigger_process_task_with_options(request, runtime)
 
     def trigger_sophon_playbook_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that you understand the billing methods and pricing of Security Orchestration Automation Response (SOAR). For more information, see [Pricing](https://www.aliyun.com/price/product#/sas/detail/sas).
+        
+
+        @param request: TriggerSophonPlaybookRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TriggerSophonPlaybookResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.command_name):
@@ -1393,6 +1441,14 @@ class Client(OpenApiClient):
         )
 
     def trigger_sophon_playbook(self, request):
+        """
+        Before you call this operation, make sure that you understand the billing methods and pricing of Security Orchestration Automation Response (SOAR). For more information, see [Pricing](https://www.aliyun.com/price/product#/sas/detail/sas).
+        
+
+        @param request: TriggerSophonPlaybookRequest
+
+        @return: TriggerSophonPlaybookResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.trigger_sophon_playbook_with_options(request, runtime)
 

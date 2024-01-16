@@ -5,8 +5,19 @@ from Tea.model import TeaModel
 
 class BatchModifyInstanceStatusRequest(TeaModel):
     def __init__(self, active=None, lang=None, playbook_uuid=None):
+        # Specifies whether to start or stop the playbook.
+        # 
+        # *   **0**: stops the playbook.
+        # *   **1**: starts the playbook.
         self.active = active  # type: int
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The playbook UUID. If you want to specify multiple playbooks, separate the playbook UUIDs with commas (,).
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -39,6 +50,7 @@ class BatchModifyInstanceStatusRequest(TeaModel):
 
 class BatchModifyInstanceStatusResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -102,9 +114,22 @@ class BatchModifyInstanceStatusResponse(TeaModel):
 
 class ComparePlaybooksRequest(TeaModel):
     def __init__(self, lang=None, new_playbook_release_id=None, old_playbook_release_id=None, playbook_uuid=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The UUID of the second version.
+        # 
+        # >  You can call the [DescribePopApiVersionList](~~DescribePopApiVersionList~~) operation to query the UUIDs of versions.
         self.new_playbook_release_id = new_playbook_release_id  # type: int
+        # The UUID of the first version.
+        # 
+        # >  You can call the [DescribePopApiVersionList](~~DescribePopApiVersionList~~) operation to query the UUIDs of versions.
         self.old_playbook_release_id = old_playbook_release_id  # type: int
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the UUIDs of playbooks.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -141,8 +166,14 @@ class ComparePlaybooksRequest(TeaModel):
 
 class ComparePlaybooksResponseBodyCompareResult(TeaModel):
     def __init__(self, description=None, new=None, same=None):
+        # The description of the comparison result.
         self.description = description  # type: str
+        # Indicates whether the second version provides more information than the first version. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.new = new  # type: bool
+        # Indicates whether the configurations of the two versions are the same. Valid values: **true** and **false**.
         self.same = same  # type: bool
 
     def validate(self):
@@ -175,7 +206,9 @@ class ComparePlaybooksResponseBodyCompareResult(TeaModel):
 
 class ComparePlaybooksResponseBody(TeaModel):
     def __init__(self, compare_result=None, request_id=None):
+        # The comparison result.
         self.compare_result = compare_result  # type: ComparePlaybooksResponseBodyCompareResult
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -245,8 +278,14 @@ class ComparePlaybooksResponse(TeaModel):
 
 class CreatePlaybookRequest(TeaModel):
     def __init__(self, description=None, display_name=None, lang=None):
+        # The description of the playbook.
         self.description = description  # type: str
+        # The name of the playbook.
         self.display_name = display_name  # type: str
+        # The language of the content within the response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -279,6 +318,7 @@ class CreatePlaybookRequest(TeaModel):
 
 class CreatePlaybookResponseBodyData(TeaModel):
     def __init__(self, playbook_uuid=None):
+        # The UUID of the playbook.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -303,7 +343,9 @@ class CreatePlaybookResponseBodyData(TeaModel):
 
 class CreatePlaybookResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: CreatePlaybookResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -373,9 +415,20 @@ class CreatePlaybookResponse(TeaModel):
 
 class DebugPlaybookRequest(TeaModel):
     def __init__(self, lang=None, playbook_uuid=None, record=None, taskflow=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The playbook UUID.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
+        # The input parameters that you use to debug the playbook. You can define the parameters based on your business requirements.
         self.record = record  # type: str
+        # The XML configuration of the playbook.
+        # 
+        # >  You can call the [DescribePlaybook](~~DescribePlaybook~~) operation to query the XML configuration of the playbook.
         self.taskflow = taskflow  # type: str
 
     def validate(self):
@@ -412,7 +465,9 @@ class DebugPlaybookRequest(TeaModel):
 
 class DebugPlaybookResponseBody(TeaModel):
     def __init__(self, request_id=None, request_uuid=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The UUID of the debugging task. You can use the UUID to query the result and other details of the debugging task.
         self.request_uuid = request_uuid  # type: str
 
     def validate(self):
@@ -480,7 +535,14 @@ class DebugPlaybookResponse(TeaModel):
 
 class DeleteComponentAssetRequest(TeaModel):
     def __init__(self, asset_id=None, lang=None):
+        # The ID of the asset.
+        # 
+        # >  You can call the [DescribeComponentAssets](~~DescribeComponentAssets~~) operation to query the ID.
         self.asset_id = asset_id  # type: long
+        # The language of the content within the request and the response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -509,6 +571,7 @@ class DeleteComponentAssetRequest(TeaModel):
 
 class DeleteComponentAssetResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -572,7 +635,14 @@ class DeleteComponentAssetResponse(TeaModel):
 
 class DeletePlaybookRequest(TeaModel):
     def __init__(self, lang=None, playbook_uuid=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -601,6 +671,7 @@ class DeletePlaybookRequest(TeaModel):
 
 class DeletePlaybookResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -664,6 +735,10 @@ class DeletePlaybookResponse(TeaModel):
 
 class DescribeApiListRequest(TeaModel):
     def __init__(self, lang=None):
+        # The language of the content within the response. Valid values:
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -688,8 +763,11 @@ class DescribeApiListRequest(TeaModel):
 
 class DescribeApiListResponseBodyApiList(TeaModel):
     def __init__(self, doc_url=None, pop_code=None, product_name=None):
+        # The link to the API references of the Alibaba Cloud service.
         self.doc_url = doc_url  # type: str
+        # The POP code of the Alibaba Cloud service.
         self.pop_code = pop_code  # type: str
+        # The name of the Alibaba Cloud service.
         self.product_name = product_name  # type: str
 
     def validate(self):
@@ -722,7 +800,9 @@ class DescribeApiListResponseBodyApiList(TeaModel):
 
 class DescribeApiListResponseBody(TeaModel):
     def __init__(self, api_list=None, request_id=None):
+        # The information about the service.
         self.api_list = api_list  # type: list[DescribeApiListResponseBodyApiList]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -798,7 +878,12 @@ class DescribeApiListResponse(TeaModel):
 
 class DescribeComponentAssetFormRequest(TeaModel):
     def __init__(self, component_name=None, lang=None):
+        # The component name.
         self.component_name = component_name  # type: str
+        # The language of the content within the response. Valid values:
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -827,7 +912,14 @@ class DescribeComponentAssetFormRequest(TeaModel):
 
 class DescribeComponentAssetFormResponseBody(TeaModel):
     def __init__(self, component_asset_form=None, request_id=None):
+        # The metadata of the asset in the component. The value is a JSON array and contains the following fields:
+        # 
+        # *   **name**: the parameter name.
+        # *   **defaultValue**: the default parameter value.
+        # *   **description**: the parameter description.
+        # *   **required**: indicates whether the parameter is required. Valid values: **true** and **false**.
         self.component_asset_form = component_asset_form  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -895,7 +987,12 @@ class DescribeComponentAssetFormResponse(TeaModel):
 
 class DescribeComponentAssetsRequest(TeaModel):
     def __init__(self, component_name=None, lang=None):
+        # The name of the component.
         self.component_name = component_name  # type: str
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -925,12 +1022,21 @@ class DescribeComponentAssetsRequest(TeaModel):
 class DescribeComponentAssetsResponseBodyComponentAssets(TeaModel):
     def __init__(self, asset_uuid=None, componentname=None, gmt_create=None, gmt_modified=None, id=None, name=None,
                  params=None):
+        # The UUID of the asset.
         self.asset_uuid = asset_uuid  # type: str
+        # The name of the component to which the asset belongs.
         self.componentname = componentname  # type: str
+        # The time when the asset was created. The time is in the yyyy-MM-ddTHH:mm:ssZ format and is displayed in UTC.
         self.gmt_create = gmt_create  # type: str
+        # The time when the asset was modified. The time is in the yyyy-MM-ddTHH:mm:ssZ format and is displayed in UTC.
         self.gmt_modified = gmt_modified  # type: str
+        # The UUID of the asset.
         self.id = id  # type: long
+        # The name of the asset.
         self.name = name  # type: str
+        # The configurations of the asset in the JSON string format. DescribeComponentAssetForm
+        # 
+        # >  For more information, see [DescribeComponentAssetForm](~~DescribeComponentAssetForm~~).
         self.params = params  # type: str
 
     def validate(self):
@@ -979,7 +1085,9 @@ class DescribeComponentAssetsResponseBodyComponentAssets(TeaModel):
 
 class DescribeComponentAssetsResponseBody(TeaModel):
     def __init__(self, component_assets=None, request_id=None):
+        # The information about the assets.
         self.component_assets = component_assets  # type: list[DescribeComponentAssetsResponseBodyComponentAssets]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1055,7 +1163,14 @@ class DescribeComponentAssetsResponse(TeaModel):
 
 class DescribeComponentListRequest(TeaModel):
     def __init__(self, lang=None, playbook_uuid=None):
+        # The language of the content within the request and the response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the UUIDs of playbooks.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -1084,7 +1199,9 @@ class DescribeComponentListRequest(TeaModel):
 
 class DescribeComponentListResponseBody(TeaModel):
     def __init__(self, components=None, request_id=None):
+        # The information about the components. The value is a JSON array.
         self.components = components  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1152,7 +1269,14 @@ class DescribeComponentListResponse(TeaModel):
 
 class DescribeComponentPlaybookRequest(TeaModel):
     def __init__(self, lang=None, playbook_uuid=None):
+        # The language of the content within the request and the response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the UUIDs of playbooks.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -1181,8 +1305,13 @@ class DescribeComponentPlaybookRequest(TeaModel):
 
 class DescribeComponentPlaybookResponseBodyPlaybooks(TeaModel):
     def __init__(self, description=None, display_name=None, input_params=None):
+        # The description of the predefined component.
         self.description = description  # type: str
+        # The name of the predefined component.
         self.display_name = display_name  # type: str
+        # The input parameter configuration of the playbook. The value is a JSON array.
+        # 
+        # >  For more information, see [DescribePlaybookInputOutput](~~DescribePlaybookInputOutput~~).
         self.input_params = input_params  # type: str
 
     def validate(self):
@@ -1215,7 +1344,9 @@ class DescribeComponentPlaybookResponseBodyPlaybooks(TeaModel):
 
 class DescribeComponentPlaybookResponseBody(TeaModel):
     def __init__(self, playbooks=None, request_id=None):
+        # The information about the predefined components.
         self.playbooks = playbooks  # type: list[DescribeComponentPlaybookResponseBodyPlaybooks]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1291,6 +1422,10 @@ class DescribeComponentPlaybookResponse(TeaModel):
 
 class DescribeComponentsJsRequest(TeaModel):
     def __init__(self, lang=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -1315,7 +1450,9 @@ class DescribeComponentsJsRequest(TeaModel):
 
 class DescribeComponentsJsResponseBody(TeaModel):
     def __init__(self, components_js=None, request_id=None):
+        # The configuration of the JavaScript file for the component.
         self.components_js = components_js  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1383,8 +1520,16 @@ class DescribeComponentsJsResponse(TeaModel):
 
 class DescribeDistinctReleasesRequest(TeaModel):
     def __init__(self, lang=None, playbook_uuid=None, taskflow_md_5=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The playbook UUID.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
+        # The MD5 value of the playbook XML configuration.
         self.taskflow_md_5 = taskflow_md_5  # type: str
 
     def validate(self):
@@ -1417,7 +1562,9 @@ class DescribeDistinctReleasesRequest(TeaModel):
 
 class DescribeDistinctReleasesResponseBodyRecords(TeaModel):
     def __init__(self, description=None, taskflow_md_5=None):
+        # The version description.
         self.description = description  # type: str
+        # The MD5 value of the playbook XML configuration.
         self.taskflow_md_5 = taskflow_md_5  # type: str
 
     def validate(self):
@@ -1446,7 +1593,9 @@ class DescribeDistinctReleasesResponseBodyRecords(TeaModel):
 
 class DescribeDistinctReleasesResponseBody(TeaModel):
     def __init__(self, records=None, request_id=None):
+        # The version information.
         self.records = records  # type: list[DescribeDistinctReleasesResponseBodyRecords]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1522,7 +1671,14 @@ class DescribeDistinctReleasesResponse(TeaModel):
 
 class DescribeEnumItemsRequest(TeaModel):
     def __init__(self, enum_type=None, lang=None):
+        # The type of the enumeration item. Valid values:
+        # 
+        # *   **process**: scenarios
         self.enum_type = enum_type  # type: str
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh_cn**: Simplified Chinese (default)
+        # *   **en_us**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -1551,7 +1707,9 @@ class DescribeEnumItemsRequest(TeaModel):
 
 class DescribeEnumItemsResponseBodyData(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the enumeration item.
         self.key = key  # type: str
+        # The value of the enumeration item.
         self.value = value  # type: str
 
     def validate(self):
@@ -1580,7 +1738,9 @@ class DescribeEnumItemsResponseBodyData(TeaModel):
 
 class DescribeEnumItemsResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The information about the enumeration item.
         self.data = data  # type: list[DescribeEnumItemsResponseBodyData]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1656,9 +1816,23 @@ class DescribeEnumItemsResponse(TeaModel):
 
 class DescribeExecutePlaybooksRequest(TeaModel):
     def __init__(self, lang=None, param_type=None, playbook_name=None, uuid=None):
+        # The language of the content within the request and the response. Valid values:
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The input parameter type of the playbook.
+        # 
+        # *   **template-ip**\
+        # *   **template-file**\
+        # *   **template-process**\
+        # *   **custom**\
         self.param_type = param_type  # type: str
+        # The playbook name. Fuzzy search is supported.
         self.playbook_name = playbook_name  # type: str
+        # The playbook UUID.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~) operation to query the playbook UUID.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -1695,10 +1869,22 @@ class DescribeExecutePlaybooksRequest(TeaModel):
 
 class DescribeExecutePlaybooksResponseBodyPlaybookMetrics(TeaModel):
     def __init__(self, description=None, display_name=None, param_config=None, param_type=None, uuid=None):
+        # The playbook description.
         self.description = description  # type: str
+        # The playbook name.
         self.display_name = display_name  # type: str
+        # The configuration of the input parameter. The value is a JSON array.
+        # 
+        # >  For more information, see [DescribePlaybookInputOutput](~~DescribePlaybookInputOutput~~).
         self.param_config = param_config  # type: str
+        # The input parameter type of the playbook.
+        # 
+        # *   **template-ip**\
+        # *   **template-file**\
+        # *   **template-process**\
+        # *   **custom**\
         self.param_type = param_type  # type: str
+        # The playbook UUID.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -1739,7 +1925,9 @@ class DescribeExecutePlaybooksResponseBodyPlaybookMetrics(TeaModel):
 
 class DescribeExecutePlaybooksResponseBody(TeaModel):
     def __init__(self, playbook_metrics=None, request_id=None):
+        # The playbook.
         self.playbook_metrics = playbook_metrics  # type: list[DescribeExecutePlaybooksResponseBodyPlaybookMetrics]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1815,7 +2003,14 @@ class DescribeExecutePlaybooksResponse(TeaModel):
 
 class DescribeFieldRequest(TeaModel):
     def __init__(self, lang=None, query_key=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The key of the global configuration. Valid values:
+        # 
+        # *   **soar_filed_tags**: queries the input template of the playbook.
         self.query_key = query_key  # type: str
 
     def validate(self):
@@ -1844,8 +2039,11 @@ class DescribeFieldRequest(TeaModel):
 
 class DescribeFieldResponseBody(TeaModel):
     def __init__(self, fields=None, name=None, request_id=None):
+        # The configuration content.
         self.fields = fields  # type: str
+        # The name of the global configuration.
         self.name = name  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1917,7 +2115,14 @@ class DescribeFieldResponse(TeaModel):
 
 class DescribeLatestRecordSchemaRequest(TeaModel):
     def __init__(self, lang=None, playbook_uuid=None):
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the UUIDs of playbooks.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -1946,9 +2151,13 @@ class DescribeLatestRecordSchemaRequest(TeaModel):
 
 class DescribeLatestRecordSchemaResponseBodyPlaybookNodeSchemaNodeSchema(TeaModel):
     def __init__(self, action_name=None, component_name=None, node_name=None, output_fields=None):
+        # The action name of the component.
         self.action_name = action_name  # type: str
+        # The name of the component.
         self.component_name = component_name  # type: str
+        # The name of the node.
         self.node_name = node_name  # type: str
+        # The output fields.
         self.output_fields = output_fields  # type: list[str]
 
     def validate(self):
@@ -1985,6 +2194,7 @@ class DescribeLatestRecordSchemaResponseBodyPlaybookNodeSchemaNodeSchema(TeaMode
 
 class DescribeLatestRecordSchemaResponseBodyPlaybookNodeSchema(TeaModel):
     def __init__(self, node_schema=None):
+        # The structure information.
         self.node_schema = node_schema  # type: list[DescribeLatestRecordSchemaResponseBodyPlaybookNodeSchemaNodeSchema]
 
     def validate(self):
@@ -2017,7 +2227,9 @@ class DescribeLatestRecordSchemaResponseBodyPlaybookNodeSchema(TeaModel):
 
 class DescribeLatestRecordSchemaResponseBody(TeaModel):
     def __init__(self, playbook_node_schema=None, request_id=None):
+        # The output structure information of the playbook.
         self.playbook_node_schema = playbook_node_schema  # type: DescribeLatestRecordSchemaResponseBodyPlaybookNodeSchema
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2087,8 +2299,16 @@ class DescribeLatestRecordSchemaResponse(TeaModel):
 
 class DescribeNodeParamTagsRequest(TeaModel):
     def __init__(self, lang=None, node_name=None, playbook_uuid=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The name of the node.
         self.node_name = node_name  # type: str
+        # The playbook UUID.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -2121,7 +2341,9 @@ class DescribeNodeParamTagsRequest(TeaModel):
 
 class DescribeNodeParamTagsResponseBodyParamReferredPaths(TeaModel):
     def __init__(self, param_name=None, referred_path=None):
+        # The name of the upstream node.
         self.param_name = param_name  # type: str
+        # The paths.
         self.referred_path = referred_path  # type: list[str]
 
     def validate(self):
@@ -2150,7 +2372,9 @@ class DescribeNodeParamTagsResponseBodyParamReferredPaths(TeaModel):
 
 class DescribeNodeParamTagsResponseBody(TeaModel):
     def __init__(self, param_referred_paths=None, request_id=None):
+        # The configuration of the recommended path.
         self.param_referred_paths = param_referred_paths  # type: list[DescribeNodeParamTagsResponseBodyParamReferredPaths]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2226,8 +2450,16 @@ class DescribeNodeParamTagsResponse(TeaModel):
 
 class DescribeNodeUsedInfosRequest(TeaModel):
     def __init__(self, lang=None, node_name=None, playbook_uuid=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The node name of the component.
         self.node_name = node_name  # type: str
+        # The playbook UUID.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -2260,7 +2492,14 @@ class DescribeNodeUsedInfosRequest(TeaModel):
 
 class DescribeNodeUsedInfosResponseBody(TeaModel):
     def __init__(self, node_used_infos=None, request_id=None):
+        # The node reference information. The value is in the JSON format and contains the following fields:
+        # 
+        # *   **action**: the referencing action. This field contains the following information:
+        # 
+        #     *   **name**: the name of the referencing node.
+        #     *   **inputParams**: the parameter settings of the referencing node.
         self.node_used_infos = node_used_infos  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2328,9 +2567,21 @@ class DescribeNodeUsedInfosResponse(TeaModel):
 
 class DescribePlaybookRequest(TeaModel):
     def __init__(self, debug_flag=None, lang=None, playbook_uuid=None, taskflow_md_5=None):
+        # The flag that indicates whether the playbook is of the debugging or published version. Valid values:
+        # 
+        # *   **1**: playbook of the debugging version
+        # *   **0**: playbook of the published version
         self.debug_flag = debug_flag  # type: int
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the UUIDs of playbooks.
         self.playbook_uuid = playbook_uuid  # type: str
+        # The MD5 hash value of the playbook.
         self.taskflow_md_5 = taskflow_md_5  # type: str
 
     def validate(self):
@@ -2369,20 +2620,43 @@ class DescribePlaybookResponseBodyPlaybook(TeaModel):
     def __init__(self, creator=None, description=None, display_name=None, fail_exe_num=None, gmt_create=None,
                  gmt_modified=None, input_params=None, last_exe_time=None, modifier=None, online_active=None,
                  online_release_taskflow_md_5=None, own_type=None, playbook_uuid=None, success_exe_num=None, taskflow=None):
+        # The ID of the Alibaba Cloud account that is used to create the playbook.
         self.creator = creator  # type: str
+        # The description of the playbook.
         self.description = description  # type: str
+        # The display name of the playbook.
         self.display_name = display_name  # type: str
+        # The number of times that the playbook failed to be run.
         self.fail_exe_num = fail_exe_num  # type: int
+        # The creation time of the playbook. The value is a 13-digit timestamp.
         self.gmt_create = gmt_create  # type: str
+        # The modification time of the playbook. The value is a 13-digit timestamp.
         self.gmt_modified = gmt_modified  # type: str
+        # The input parameter configuration of the playbook. The value is a JSON array.
+        # 
+        # >  For more information, see [DescribePlaybookInputOutput](~~DescribePlaybookInputOutput~~).
         self.input_params = input_params  # type: str
+        # The time when the playbook was last run. The value is a 13-digit timestamp.
         self.last_exe_time = last_exe_time  # type: long
+        # The ID of the Alibaba Cloud account that is used to modify the playbook.
         self.modifier = modifier  # type: str
+        # The status of the playbook. Valid values:
+        # 
+        # *   **0**: disabled
+        # *   **1**: enabled
         self.online_active = online_active  # type: bool
+        # The MD5 hash value in the latest published version of the playbook.
         self.online_release_taskflow_md_5 = online_release_taskflow_md_5  # type: str
+        # The type of the playbook. Valid values:
+        # 
+        # *   **preset**: predefined playbook
+        # *   **user**: custom playbook
         self.own_type = own_type  # type: str
+        # The UUID of the playbook.
         self.playbook_uuid = playbook_uuid  # type: str
+        # The number of times that the playbook was successfully run.
         self.success_exe_num = success_exe_num  # type: int
+        # The XML configuration of the playbook.
         self.taskflow = taskflow  # type: str
 
     def validate(self):
@@ -2463,7 +2737,9 @@ class DescribePlaybookResponseBodyPlaybook(TeaModel):
 
 class DescribePlaybookResponseBody(TeaModel):
     def __init__(self, playbook=None, request_id=None):
+        # The configuration of the playbook.
         self.playbook = playbook  # type: DescribePlaybookResponseBodyPlaybook
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2533,7 +2809,14 @@ class DescribePlaybookResponse(TeaModel):
 
 class DescribePlaybookInputOutputRequest(TeaModel):
     def __init__(self, lang=None, playbook_uuid=None):
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the UUIDs of playbooks.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -2561,10 +2844,20 @@ class DescribePlaybookInputOutputRequest(TeaModel):
 
 
 class DescribePlaybookInputOutputResponseBodyConfig(TeaModel):
-    def __init__(self, input_params=None, output_params=None, param_type=None, playbook_uuid=None):
+    def __init__(self, exe_config=None, input_params=None, output_params=None, param_type=None, playbook_uuid=None):
+        self.exe_config = exe_config  # type: str
+        # The input parameter configuration of the playbook. The value is a JSON array.
         self.input_params = input_params  # type: str
+        # The output parameter configuration. This parameter is unavailable and is always left empty.
         self.output_params = output_params  # type: str
+        # The input parameter type of the playbook. Valid values:
+        # 
+        # *   **template-ip**\
+        # *   **template-file**\
+        # *   **template-process**\
+        # *   **custom**\
         self.param_type = param_type  # type: str
+        # The UUID of the playbook.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -2576,6 +2869,8 @@ class DescribePlaybookInputOutputResponseBodyConfig(TeaModel):
             return _map
 
         result = dict()
+        if self.exe_config is not None:
+            result['ExeConfig'] = self.exe_config
         if self.input_params is not None:
             result['InputParams'] = self.input_params
         if self.output_params is not None:
@@ -2588,6 +2883,8 @@ class DescribePlaybookInputOutputResponseBodyConfig(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ExeConfig') is not None:
+            self.exe_config = m.get('ExeConfig')
         if m.get('InputParams') is not None:
             self.input_params = m.get('InputParams')
         if m.get('OutputParams') is not None:
@@ -2601,7 +2898,9 @@ class DescribePlaybookInputOutputResponseBodyConfig(TeaModel):
 
 class DescribePlaybookInputOutputResponseBody(TeaModel):
     def __init__(self, config=None, request_id=None):
+        # The configurations.
         self.config = config  # type: DescribePlaybookInputOutputResponseBodyConfig
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2671,7 +2970,14 @@ class DescribePlaybookInputOutputResponse(TeaModel):
 
 class DescribePlaybookMetricsRequest(TeaModel):
     def __init__(self, lang=None, playbook_uuid=None):
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the UUIDs of playbooks.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -2701,15 +3007,31 @@ class DescribePlaybookMetricsRequest(TeaModel):
 class DescribePlaybookMetricsResponseBodyMetrics(TeaModel):
     def __init__(self, active=None, description=None, display_name=None, fail_num=None, gmt_create=None,
                  history_md_5=None, last_runtime=None, own_type=None, playbook_uuid=None, succ_num=None):
+        # The status of the playbook. Valid values:
+        # 
+        # *   **1**: enabled
+        # *   **0**: disabled
         self.active = active  # type: int
+        # The description of the playbook.
         self.description = description  # type: str
+        # The name of the playbook.
         self.display_name = display_name  # type: str
+        # The number of the tasks that are created for the playbook and failed to run.
         self.fail_num = fail_num  # type: int
+        # The time when the playbook was created. The value is a 13-digit timestamp.
         self.gmt_create = gmt_create  # type: long
+        # The number of historical versions of the playbook.
         self.history_md_5 = history_md_5  # type: int
+        # The time when the playbook was last run. The value is a 13-digit timestamp.
         self.last_runtime = last_runtime  # type: long
+        # The type of the playbook. Valid values:
+        # 
+        # *   **preset**: predefined playbook
+        # *   **user**: custom playbook
         self.own_type = own_type  # type: str
+        # The UUID of the playbook.
         self.playbook_uuid = playbook_uuid  # type: str
+        # The number of the tasks that are created for the playbook and were successfully run.
         self.succ_num = succ_num  # type: int
 
     def validate(self):
@@ -2770,7 +3092,9 @@ class DescribePlaybookMetricsResponseBodyMetrics(TeaModel):
 
 class DescribePlaybookMetricsResponseBody(TeaModel):
     def __init__(self, metrics=None, request_id=None):
+        # The details of the playbook.
         self.metrics = metrics  # type: DescribePlaybookMetricsResponseBodyMetrics
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2840,8 +3164,16 @@ class DescribePlaybookMetricsResponse(TeaModel):
 
 class DescribePlaybookNodesOutputRequest(TeaModel):
     def __init__(self, lang=None, node_name=None, playbook_uuid=None):
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The name of the component node.
         self.node_name = node_name  # type: str
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the UUIDs of playbooks.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -2874,7 +3206,9 @@ class DescribePlaybookNodesOutputRequest(TeaModel):
 
 class DescribePlaybookNodesOutputResponseBodyPlaybookNodesOutput(TeaModel):
     def __init__(self, node_name=None, node_output=None):
+        # The name of the component node.
         self.node_name = node_name  # type: str
+        # The historical output data of the component node. The value is in the JSON string format. If no data is found, the parameter is left empty.
         self.node_output = node_output  # type: str
 
     def validate(self):
@@ -2903,7 +3237,9 @@ class DescribePlaybookNodesOutputResponseBodyPlaybookNodesOutput(TeaModel):
 
 class DescribePlaybookNodesOutputResponseBody(TeaModel):
     def __init__(self, playbook_nodes_output=None, request_id=None):
+        # The output data of the component node.
         self.playbook_nodes_output = playbook_nodes_output  # type: DescribePlaybookNodesOutputResponseBodyPlaybookNodesOutput
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2973,6 +3309,10 @@ class DescribePlaybookNodesOutputResponse(TeaModel):
 
 class DescribePlaybookNumberMetricsRequest(TeaModel):
     def __init__(self, lang=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -2997,7 +3337,9 @@ class DescribePlaybookNumberMetricsRequest(TeaModel):
 
 class DescribePlaybookNumberMetricsResponseBodyMetrics(TeaModel):
     def __init__(self, start_up_num=None, total_num=None):
+        # The number of enabled playbooks.
         self.start_up_num = start_up_num  # type: int
+        # The total number of playbooks.
         self.total_num = total_num  # type: int
 
     def validate(self):
@@ -3026,7 +3368,9 @@ class DescribePlaybookNumberMetricsResponseBodyMetrics(TeaModel):
 
 class DescribePlaybookNumberMetricsResponseBody(TeaModel):
     def __init__(self, metrics=None, request_id=None):
+        # The statistics.
         self.metrics = metrics  # type: DescribePlaybookNumberMetricsResponseBodyMetrics
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3096,9 +3440,18 @@ class DescribePlaybookNumberMetricsResponse(TeaModel):
 
 class DescribePlaybookReleasesRequest(TeaModel):
     def __init__(self, lang=None, page_number=None, page_size=None, playbook_uuid=None):
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The page number. Default value: 1. Pages start from page 1.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Default value: 10. If you do not specify the PageSize parameter, 10 entries are returned by default.
+        # 
+        # >  We recommend that you do not leave this parameter empty.
         self.page_size = page_size  # type: int
+        # The playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -3135,8 +3488,11 @@ class DescribePlaybookReleasesRequest(TeaModel):
 
 class DescribePlaybookReleasesResponseBodyPage(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -3170,11 +3526,17 @@ class DescribePlaybookReleasesResponseBodyPage(TeaModel):
 class DescribePlaybookReleasesResponseBodyRecords(TeaModel):
     def __init__(self, creator=None, description=None, gmt_create=None, gmt_modified=None, id=None,
                  taskflow_md_5=None):
+        # The ID of the Alibaba Cloud account that is used to publish the version.
         self.creator = creator  # type: str
+        # The description of the layer version.
         self.description = description  # type: str
+        # The time when the version was created. The value is a 13-digit timestamp.
         self.gmt_create = gmt_create  # type: long
+        # The time when the version was modified. The value is a 13-digit timestamp.
         self.gmt_modified = gmt_modified  # type: long
+        # The record ID.
         self.id = id  # type: int
+        # The MD5 value configured for the published version of the playbook.
         self.taskflow_md_5 = taskflow_md_5  # type: str
 
     def validate(self):
@@ -3219,8 +3581,11 @@ class DescribePlaybookReleasesResponseBodyRecords(TeaModel):
 
 class DescribePlaybookReleasesResponseBody(TeaModel):
     def __init__(self, page=None, records=None, request_id=None):
+        # The pagination information.
         self.page = page  # type: DescribePlaybookReleasesResponseBodyPage
+        # The information about the playbook version.
         self.records = records  # type: list[DescribePlaybookReleasesResponseBodyRecords]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3304,14 +3669,38 @@ class DescribePlaybookReleasesResponse(TeaModel):
 class DescribePlaybooksRequest(TeaModel):
     def __init__(self, active=None, end_millis=None, lang=None, name=None, own_type=None, page_number=None,
                  page_size=None, playbook_uuid=None, start_millis=None):
+        # The status of the playbook. Valid values:
+        # 
+        # *   **1**: enabled
+        # *   **0**: disabled
         self.active = active  # type: int
+        # The end of the time range to query. The value is a 13-digit timestamp.
         self.end_millis = end_millis  # type: long
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The name of the playbook.
         self.name = name  # type: str
+        # The type of the playbook. Valid values:
+        # 
+        # *   **preset**: predefined playbook
+        # *   **user**: custom playbook
         self.own_type = own_type  # type: str
+        # The page number. Default value: 1. Pages start from page 1.
         self.page_number = page_number  # type: str
+        # The number of entries per page. Default value: 10. If you leave this parameter empty, 10 entries are returned on each page.
+        # 
+        # >  We recommend that you do not leave this parameter empty.
         self.page_size = page_size  # type: str
+        # The playbook UUID.
+        # 
+        # >  You can use the UUID to query the information about a specific playbook.
+        # 
+        # *   You can call the [DescribePlaybooks](~~DescribePlaybooks~~) operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
+        # The beginning of the time range to query. The value is a 13-digit timestamp.
         self.start_millis = start_millis  # type: long
 
     def validate(self):
@@ -3368,8 +3757,11 @@ class DescribePlaybooksRequest(TeaModel):
 
 class DescribePlaybooksResponseBodyPage(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -3403,11 +3795,23 @@ class DescribePlaybooksResponseBodyPage(TeaModel):
 class DescribePlaybooksResponseBodyPlaybooks(TeaModel):
     def __init__(self, active=None, display_name=None, gmt_create=None, last_runtime=None, own_type=None,
                  playbook_uuid=None):
+        # The playbook status. Valid values:
+        # 
+        # *   **1**: The playbook is started.
+        # *   **0**: The playbook is stopped.
         self.active = active  # type: int
+        # The display name of the playbook.
         self.display_name = display_name  # type: str
+        # The time when the playbook was created. The value is a 13-digit timestamp.
         self.gmt_create = gmt_create  # type: long
+        # The time when the playbook was last run. The value is a 13-digit timestamp.
         self.last_runtime = last_runtime  # type: long
+        # The type of the playbook. Valid values:
+        # 
+        # *   **preset**: predefined playbook
+        # *   **user**: custom playbook
         self.own_type = own_type  # type: str
+        # The UUID of the playbook.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -3452,8 +3856,11 @@ class DescribePlaybooksResponseBodyPlaybooks(TeaModel):
 
 class DescribePlaybooksResponseBody(TeaModel):
     def __init__(self, page=None, playbooks=None, request_id=None):
+        # The pagination information.
         self.page = page  # type: DescribePlaybooksResponseBodyPage
+        # The list of playbooks.
         self.playbooks = playbooks  # type: list[DescribePlaybooksResponseBodyPlaybooks]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3536,9 +3943,17 @@ class DescribePlaybooksResponse(TeaModel):
 
 class DescribePopApiRequest(TeaModel):
     def __init__(self, api_name=None, api_version=None, env=None, pop_code=None):
+        # The operation name of the Alibaba Cloud service.
         self.api_name = api_name  # type: str
+        # The version number of the API.
+        # 
+        # >  You can call the [DescribePopApiVersionList](~~DescribePopApiVersionList~~) operation to query the version number.
         self.api_version = api_version  # type: str
+        # The environment in which the API operation parameter is used. Set the value to online.
         self.env = env  # type: str
+        # The POP code of the Alibaba Cloud service.
+        # 
+        # >  You can call the [DescribeApiList](~~DescribeApiList~~) operation to query the POP code.
         self.pop_code = pop_code  # type: str
 
     def validate(self):
@@ -3575,10 +3990,23 @@ class DescribePopApiRequest(TeaModel):
 
 class DescribePopApiResponseBodyOpenApiMetaList(TeaModel):
     def __init__(self, description=None, example_value=None, name=None, required=None, type=None):
+        # The parameter description.
         self.description = description  # type: str
+        # The example value.
         self.example_value = example_value  # type: str
+        # The parameter name.
         self.name = name  # type: str
+        # Indicates whether the parameter is required.
+        # 
+        # *   true
+        # *   false
         self.required = required  # type: bool
+        # The data type of the parameter field. Valid values:
+        # 
+        # *   **string**\
+        # *   **boolean**\
+        # *   **integer**\
+        # *   **long**\
         self.type = type  # type: str
 
     def validate(self):
@@ -3619,10 +4047,15 @@ class DescribePopApiResponseBodyOpenApiMetaList(TeaModel):
 
 class DescribePopApiResponseBody(TeaModel):
     def __init__(self, api_name=None, open_api_meta_list=None, pop_code=None, request_id=None, version=None):
+        # The name of the API.
         self.api_name = api_name  # type: str
+        # The information about the API.
         self.open_api_meta_list = open_api_meta_list  # type: list[DescribePopApiResponseBodyOpenApiMetaList]
+        # The POP code of the Alibaba Cloud service.
         self.pop_code = pop_code  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The version of the API.
         self.version = version  # type: str
 
     def validate(self):
@@ -3710,10 +4143,22 @@ class DescribePopApiResponse(TeaModel):
 
 class DescribePopApiItemListRequest(TeaModel):
     def __init__(self, api_name=None, api_version=None, env=None, lang=None, pop_code=None):
+        # The API operation name of the Alibaba Cloud service. Fuzzy match is supported.
         self.api_name = api_name  # type: str
+        # The version number of the API.
+        # 
+        # >  You can call the [DescribePopApiVersionList](~~DescribePopApiVersionList~~) operation to query the version number.
         self.api_version = api_version  # type: str
+        # The environment in which the API operation parameters are used. Set the value to online.
         self.env = env  # type: str
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The POP code of the Alibaba Cloud service.
+        # 
+        # >  You can call the [DescribeApiList](~~DescribeApiList~~) operation to query the POP code.
         self.pop_code = pop_code  # type: str
 
     def validate(self):
@@ -3754,10 +4199,15 @@ class DescribePopApiItemListRequest(TeaModel):
 
 class DescribePopApiItemListResponseBody(TeaModel):
     def __init__(self, names=None, pop_code=None, request_id=None, total=None, version=None):
+        # The names of API operations.
         self.names = names  # type: list[str]
+        # The POP code of the Alibaba Cloud service.
         self.pop_code = pop_code  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total = total  # type: long
+        # The version number of the API for the Alibaba Cloud service.
         self.version = version  # type: str
 
     def validate(self):
@@ -3837,8 +4287,16 @@ class DescribePopApiItemListResponse(TeaModel):
 
 class DescribePopApiVersionListRequest(TeaModel):
     def __init__(self, env=None, lang=None, pop_code=None):
+        # The environment in which the API operation parameters are used. Set the value to **online**.
         self.env = env  # type: str
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The POP code of the Alibaba Cloud service.
+        # 
+        # >  You can call the [DescribeApiList](~~DescribeApiList~~) operation to query the POP code.
         self.pop_code = pop_code  # type: str
 
     def validate(self):
@@ -3871,8 +4329,11 @@ class DescribePopApiVersionListRequest(TeaModel):
 
 class DescribePopApiVersionListResponseBodyVersionList(TeaModel):
     def __init__(self, api_name=None, pop_code=None, version=None):
+        # The name of the API operation.
         self.api_name = api_name  # type: str
+        # The POP code of the Alibaba Cloud service.
         self.pop_code = pop_code  # type: str
+        # The version number of the API for the Alibaba Cloud service.
         self.version = version  # type: str
 
     def validate(self):
@@ -3905,9 +4366,13 @@ class DescribePopApiVersionListResponseBodyVersionList(TeaModel):
 
 class DescribePopApiVersionListResponseBody(TeaModel):
     def __init__(self, pop_code=None, request_id=None, total=None, version_list=None):
+        # The POP code of the Alibaba Cloud service.
         self.pop_code = pop_code  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total = total  # type: int
+        # The information about the versions of API operations.
         self.version_list = version_list  # type: list[DescribePopApiVersionListResponseBodyVersionList]
 
     def validate(self):
@@ -3994,23 +4459,78 @@ class DescribeProcessTasksRequest(TeaModel):
                  page_size=None, param_content=None, process_action_end=None, process_action_start=None,
                  process_remove_end=None, process_remove_start=None, process_strategy_uuid=None, scene_code=None, scope=None,
                  source=None, task_id=None, task_status=None, yun_code=None):
+        # The sort order. Valid values:
+        # 
+        # *   **desc** (default)
+        # *   **asc**\
         self.direction = direction  # type: str
+        # The name of the handling entity.
         self.entity_name = entity_name  # type: str
+        # The type of the handling entity. Valid values:
+        # 
+        # *   **ip**\
+        # *   **file**\
+        # *   **process**\
         self.entity_type = entity_type  # type: str
+        # The field that you use to sort the result.
+        # 
+        # >  You can obtain the field from the response result.
         self.order_field = order_field  # type: str
+        # The page number. Default value: 1. Pages start from page 1.
         self.page_number = page_number  # type: str
+        # The number of entries per page. Default value: 10. If you do not specify the PageSize parameter, 10 entries are returned by default.
+        # 
+        # >  We recommend that you do not leave this parameter empty.
         self.page_size = page_size  # type: int
+        # The handling entity, handling scenario, or handling parameter that is used for fuzzy match.
         self.param_content = param_content  # type: str
+        # The end of the time range for a handling task. The value is a 13-digit timestamp.
         self.process_action_end = process_action_end  # type: long
+        # The beginning of the time range for a handling task. The value is a 13-digit timestamp.
         self.process_action_start = process_action_start  # type: long
+        # The end of the time range for an unblocking task. The value is a 13-digit timestamp.
         self.process_remove_end = process_remove_end  # type: long
+        # The beginning of the time range for an unblocking task. The value is a 13-digit timestamp.
         self.process_remove_start = process_remove_start  # type: long
+        # The UUID of the handling policy.
+        # 
+        # >  You can call the [ListDisposeStrategy](~~2584440~~) operation to query the UUID of the handling policy.
         self.process_strategy_uuid = process_strategy_uuid  # type: str
+        # The scenario code of the handling task.
+        # 
+        # >  You can call the [DescribeEnumItems](~~DescribeEnumItems~~) operation to query the scenario code of the handling task. This parameter is available when you set **EnumType** to **process**.
         self.scene_code = scene_code  # type: str
+        # The ID of the Alibaba Cloud account that is specified in the handling task.
         self.scope = scope  # type: str
+        # The triggering source of the handling task. The value is a string array. Valid values:
+        # 
+        # *   **system**: triggered when you manually handle an event
+        # *   **custom**: triggered by an event based on an automatic response rule
+        # *   **custom_alert**: triggered by an alert based on an automatic response rule
+        # *   **soar-manual**: triggered when you use SOAR to manually run a playbook
+        # *   **soar-mdr**: triggered by Managed Security Service
         self.source = source  # type: str
+        # The unique identifier of the handling task.
+        # 
+        # >  This parameter is used to query a specific task. You can obtain the value from the response result.
         self.task_id = task_id  # type: str
+        # The status of the handling task. The value is a string. Valid values:
+        # 
+        # *   **11**: being handled
+        # *   **21**: being blocked
+        # *   **22**: being quarantined
+        # *   **23**: completed
+        # *   **24**: added to the whitelist
+        # *   **20**: successful
+        # *   **90**: failed
+        # *   **91**: unblocking failed
+        # *   **92**: restoring quarantined files failed
         self.task_status = task_status  # type: str
+        # The cloud service that is associated with the handling task. The value is a string. Valid values:
+        # 
+        # *   **WAF**: Web Application Firewall (WAF)
+        # *   **CFW**: Cloud Firewall
+        # *   **Aegis**: Security Center
         self.yun_code = yun_code  # type: str
 
     def validate(self):
@@ -4103,8 +4623,11 @@ class DescribeProcessTasksRequest(TeaModel):
 
 class DescribeProcessTasksResponseBodyPage(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -4139,21 +4662,37 @@ class DescribeProcessTasksResponseBodyProcessTasks(TeaModel):
     def __init__(self, creator=None, entity_name=None, entity_type=None, gmt_create_millis=None,
                  gmt_modified_millis=None, input_params=None, process_strategy_uuid=None, process_time=None, remove_time=None,
                  scene_code=None, scene_name=None, scope=None, source=None, task_id=None, task_status=None, yun_code=None):
+        # The ID of the Alibaba Cloud account that is used to submit the handling task.
         self.creator = creator  # type: str
+        # The name of the handling entity.
         self.entity_name = entity_name  # type: str
+        # The type of the handling entity.
         self.entity_type = entity_type  # type: str
+        # The creation time of the handling task. The value is a 13-digit timestamp.
         self.gmt_create_millis = gmt_create_millis  # type: long
+        # The modification time of the handling task. The value is a 13-digit timestamp.
         self.gmt_modified_millis = gmt_modified_millis  # type: long
+        # The input parameter of the handling task.
         self.input_params = input_params  # type: str
+        # The ID of the associated policy.
         self.process_strategy_uuid = process_strategy_uuid  # type: str
+        # The delivery time of the handling task. The value is a 13-digit timestamp.
         self.process_time = process_time  # type: long
+        # The unblocking time of the handling task. The value is a 13-digit timestamp.
         self.remove_time = remove_time  # type: long
+        # The scenario code of the handling task.
         self.scene_code = scene_code  # type: str
+        # The scenario name of the handling task.
         self.scene_name = scene_name  # type: str
+        # The ID of the Alibaba Cloud account that is specified in the handling task.
         self.scope = scope  # type: str
+        # The submission source of the handling task.
         self.source = source  # type: str
+        # The unique identifier of the handling task.
         self.task_id = task_id  # type: str
+        # The status of the handling task.
         self.task_status = task_status  # type: int
+        # The code of the cloud service that is associated with the handling task.
         self.yun_code = yun_code  # type: str
 
     def validate(self):
@@ -4238,8 +4777,11 @@ class DescribeProcessTasksResponseBodyProcessTasks(TeaModel):
 
 class DescribeProcessTasksResponseBody(TeaModel):
     def __init__(self, page=None, process_tasks=None, request_id=None):
+        # The pagination information.
         self.page = page  # type: DescribeProcessTasksResponseBodyPage
+        # The handling tasks.
         self.process_tasks = process_tasks  # type: list[DescribeProcessTasksResponseBodyProcessTasks]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4322,9 +4864,20 @@ class DescribeProcessTasksResponse(TeaModel):
 
 class DescribeSoarRecordActionOutputListRequest(TeaModel):
     def __init__(self, action_uuid=None, lang=None, page_number=None, page_size=None):
+        # The UUID of the component action.
+        # 
+        # >  You can call the [DescribeSoarTaskAndActions](~~DescribeSoarTaskAndActions~~) operation to query the UUID.
         self.action_uuid = action_uuid  # type: str
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The page number. Default value: 1. Pages start from page 1.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Default value: 10. If you leave this parameter empty, 10 entries are returned on each page.
+        # 
+        # >  We recommend that you do not leave this parameter empty.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -4361,10 +4914,17 @@ class DescribeSoarRecordActionOutputListRequest(TeaModel):
 
 class DescribeSoarRecordActionOutputListResponseBody(TeaModel):
     def __init__(self, action_outputs=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The data that is returned when the component action is performed. The value is a JSON array.
+        # 
+        # >  The format of the output data is determined by the component that is configured when the playbook is written.
         self.action_outputs = action_outputs  # type: str
+        # The page number. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Default value: 10.
         self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of pages returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -4444,7 +5004,14 @@ class DescribeSoarRecordActionOutputListResponse(TeaModel):
 
 class DescribeSoarRecordInOutputRequest(TeaModel):
     def __init__(self, action_uuid=None, lang=None):
+        # The UUID of the component action.
+        # 
+        # >  You can call the [DescribeSoarTaskAndActions](~~DescribeSoarTaskAndActions~~) operation to query the UUIDs of component actions.
         self.action_uuid = action_uuid  # type: str
+        # The language of the content within the request and the response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -4473,7 +5040,9 @@ class DescribeSoarRecordInOutputRequest(TeaModel):
 
 class DescribeSoarRecordInOutputResponseBody(TeaModel):
     def __init__(self, in_output_info=None, request_id=None):
+        # The execution result of the component action.
         self.in_output_info = in_output_info  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4542,14 +5111,34 @@ class DescribeSoarRecordInOutputResponse(TeaModel):
 class DescribeSoarRecordsRequest(TeaModel):
     def __init__(self, end_millis=None, lang=None, page_number=None, page_size=None, playbook_uuid=None,
                  start_millis=None, task_status=None, taskflow_md_5=None, trigger_user=None):
+        # The end of the time range to query. The value is a 13-digit timestamp.
         self.end_millis = end_millis  # type: long
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The page number. Default value: 1. Pages start from page 1.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Default value: 10. If you do not specify the PageSize parameter, 10 entries are returned by default.
+        # 
+        # >  We recommend that you do not leave this parameter empty.
         self.page_size = page_size  # type: int
+        # The playbook UUID.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~) operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
+        # The beginning of the time range to query. The value is a 13-byte timestamp.
         self.start_millis = start_millis  # type: long
+        # The status of the task. Valid values:
+        # 
+        # *   **success**\
+        # *   **failed**\
+        # *   **inprogress**\
         self.task_status = task_status  # type: str
+        # The MD5 value of the playbook.
         self.taskflow_md_5 = taskflow_md_5  # type: str
+        # The ID of the Alibaba Cloud account that is used to execute the task.
         self.trigger_user = trigger_user  # type: str
 
     def validate(self):
@@ -4606,8 +5195,11 @@ class DescribeSoarRecordsRequest(TeaModel):
 
 class DescribeSoarRecordsResponseBodyPage(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -4642,17 +5234,40 @@ class DescribeSoarRecordsResponseBodySoarExecuteRecords(TeaModel):
     def __init__(self, end_time=None, error_msg=None, raw_event_req=None, request_uuid=None, result_message=None,
                  start_time=None, status=None, task_name=None, task_type=None, taskflow_md_5=None, trigger_type=None,
                  trigger_user=None):
+        # The end of the time range to query. The value is a 13-digit timestamp.
         self.end_time = end_time  # type: long
+        # The error message of the task. If the task is successful, this field is empty.
         self.error_msg = error_msg  # type: str
+        # The request parameters of the task.
         self.raw_event_req = raw_event_req  # type: str
+        # The request ID of the task. The value is unique.
         self.request_uuid = request_uuid  # type: str
+        # The returned information about the playbook. You can define the value in the playbook.
         self.result_message = result_message  # type: str
+        # The beginning of the time range to query. The value is a 13-byte timestamp.
         self.start_time = start_time  # type: long
+        # The status of the task. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
+        # *   **running**\
         self.status = status  # type: str
+        # The name of the task. The value is the same as the playbook UUID.
         self.task_name = task_name  # type: str
+        # The type of the task. Valid values:
+        # 
+        # *   **general**: a common task
+        # *   **standard**: a component task
         self.task_type = task_type  # type: str
+        # The MD5 value of the playbook.
         self.taskflow_md_5 = taskflow_md_5  # type: str
+        # The type of the task. Valid values:
+        # 
+        # *   **debug**: a debugging task
+        # *   **manual**: a manual task
+        # *   **siem**: a task that is triggered by an event or alert
         self.trigger_type = trigger_type  # type: str
+        # The ID of the Alibaba Cloud account that is used to execute the task.
         self.trigger_user = trigger_user  # type: str
 
     def validate(self):
@@ -4721,8 +5336,11 @@ class DescribeSoarRecordsResponseBodySoarExecuteRecords(TeaModel):
 
 class DescribeSoarRecordsResponseBody(TeaModel):
     def __init__(self, page=None, request_id=None, soar_execute_records=None):
+        # The pagination information.
         self.page = page  # type: DescribeSoarRecordsResponseBodyPage
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The execution records.
         self.soar_execute_records = soar_execute_records  # type: list[DescribeSoarRecordsResponseBodySoarExecuteRecords]
 
     def validate(self):
@@ -4805,7 +5423,12 @@ class DescribeSoarRecordsResponse(TeaModel):
 
 class DescribeSoarTaskAndActionsRequest(TeaModel):
     def __init__(self, lang=None, request_uuid=None):
+        # The language of the content within the request and response.
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The playbook UUID.
         self.request_uuid = request_uuid  # type: str
 
     def validate(self):
@@ -4835,17 +5458,34 @@ class DescribeSoarTaskAndActionsRequest(TeaModel):
 class DescribeSoarTaskAndActionsResponseBodyDetailsActions(TeaModel):
     def __init__(self, action=None, action_uuid=None, asset_name=None, component=None, end_time=None, node_name=None,
                  request_uuid=None, start_time=None, status=None, task_name=None, task_status=None, trigger_user=None):
+        # The action name of the component.
         self.action = action  # type: str
+        # The UUID of the component execution record.
         self.action_uuid = action_uuid  # type: str
+        # The name of the asset that is used by the component.
         self.asset_name = asset_name  # type: str
+        # The component name.
         self.component = component  # type: str
+        # The end of the time range during which the component is run. The value is a 13-digit timestamp.
         self.end_time = end_time  # type: long
+        # The custom name of the node in the component.
         self.node_name = node_name  # type: str
+        # The request ID of the task. The value is unique.
         self.request_uuid = request_uuid  # type: str
+        # The beginning of the time range during which the component is run. The value is a 13-digit timestamp.
         self.start_time = start_time  # type: long
+        # The running result of the component. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
         self.status = status  # type: str
+        # The name of the task. The value is the same as the playbook UUID.
         self.task_name = task_name  # type: str
+        # The status of the triggered component action.
+        # 
+        # >  This parameter is disabled and left empty.
         self.task_status = task_status  # type: str
+        # The ID of the Alibaba Cloud account that is used to execute the task.
         self.trigger_user = trigger_user  # type: str
 
     def validate(self):
@@ -4916,19 +5556,41 @@ class DescribeSoarTaskAndActionsResponseBodyDetails(TeaModel):
     def __init__(self, actions=None, end_time=None, error_msg=None, raw_event_req=None, request_uuid=None,
                  result_level=None, result_message=None, start_time=None, status=None, task_flow_md_5=None, task_name=None,
                  task_tenant_id=None, trigger_type=None, trigger_user=None):
+        # The list of component actions during the running of the playbook.
         self.actions = actions  # type: list[DescribeSoarTaskAndActionsResponseBodyDetailsActions]
+        # The end of the time range during which the playbook is run. The value is a 13-digit timestamp.
         self.end_time = end_time  # type: long
+        # The error message of the task. If the task is successful, this field is empty.
         self.error_msg = error_msg  # type: str
+        # The request parameters of the task.
         self.raw_event_req = raw_event_req  # type: str
+        # The request ID of the task. The value is unique.
         self.request_uuid = request_uuid  # type: str
+        # The flag of the task. For debugging tasks, the value is **DEBUG**. For other tasks, the parameter is left empty.
         self.result_level = result_level  # type: str
+        # The returned information about the playbook. You can define the value in the playbook.
         self.result_message = result_message  # type: str
+        # The beginning of the time range during which the playbook is run. The value is a 13-digit timestamp.
         self.start_time = start_time  # type: long
+        # The task status. Valid values:
+        # 
+        # *   **success**\
+        # *   **fail**\
+        # *   **running**\
         self.status = status  # type: str
+        # The MD5 value of the playbook.
         self.task_flow_md_5 = task_flow_md_5  # type: str
+        # The name of the task. The value is the same as the playbook UUID.
         self.task_name = task_name  # type: str
+        # The ID of the Alibaba Cloud account to which the task belongs.
         self.task_tenant_id = task_tenant_id  # type: str
+        # The task type. Valid values:
+        # 
+        # *   **debug**: a debugging task
+        # *   **manual**: a manual task
+        # *   **siem**: an event-triggered task
         self.trigger_type = trigger_type  # type: str
+        # The ID of the Alibaba Cloud account that triggers the task.
         self.trigger_user = trigger_user  # type: str
 
     def validate(self):
@@ -5013,7 +5675,9 @@ class DescribeSoarTaskAndActionsResponseBodyDetails(TeaModel):
 
 class DescribeSoarTaskAndActionsResponseBody(TeaModel):
     def __init__(self, details=None, request_id=None):
+        # The execution details of each task.
         self.details = details  # type: DescribeSoarTaskAndActionsResponseBodyDetails
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5083,6 +5747,7 @@ class DescribeSoarTaskAndActionsResponse(TeaModel):
 
 class DescribeSophonCommandsRequest(TeaModel):
     def __init__(self, name=None):
+        # The name of the command. Fuzzy match is supported.
         self.name = name  # type: str
 
     def validate(self):
@@ -5107,9 +5772,16 @@ class DescribeSophonCommandsRequest(TeaModel):
 
 class DescribeSophonCommandsResponseBodyDataParamConfig(TeaModel):
     def __init__(self, check_field=None, field=None, necessary=None, value=None):
+        # The regular expression that is used to check the format of the parameter value. If the parameter is left empty, the check is not performed.
         self.check_field = check_field  # type: str
+        # The name of the parameter.
         self.field = field  # type: str
+        # Indicates whether the parameter is required. Valid values:
+        # 
+        # *   **true** (default)
+        # *   **false**\
         self.necessary = necessary  # type: bool
+        # The value of the parameter.
         self.value = value  # type: str
 
     def validate(self):
@@ -5146,9 +5818,13 @@ class DescribeSophonCommandsResponseBodyDataParamConfig(TeaModel):
 
 class DescribeSophonCommandsResponseBodyData(TeaModel):
     def __init__(self, description=None, display_name=None, name=None, param_config=None):
+        # The description of the command.
         self.description = description  # type: str
+        # The display name of the command.
         self.display_name = display_name  # type: str
+        # The name of the command.
         self.name = name  # type: str
+        # The parameter configurations.
         self.param_config = param_config  # type: list[DescribeSophonCommandsResponseBodyDataParamConfig]
 
     def validate(self):
@@ -5193,7 +5869,9 @@ class DescribeSophonCommandsResponseBodyData(TeaModel):
 
 class DescribeSophonCommandsResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The commands.
         self.data = data  # type: list[DescribeSophonCommandsResponseBodyData]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5269,7 +5947,14 @@ class DescribeSophonCommandsResponse(TeaModel):
 
 class DescriberPython3ScriptLogsRequest(TeaModel):
     def __init__(self, lang=None, request_uuid=None):
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The UUID that is returned when the Python3 script is run.
+        # 
+        # >  You can call the [RunPython3Script](~~RunPython3Script~~) operation to query the UUID.
         self.request_uuid = request_uuid  # type: str
 
     def validate(self):
@@ -5298,7 +5983,9 @@ class DescriberPython3ScriptLogsRequest(TeaModel):
 
 class DescriberPython3ScriptLogsResponseBody(TeaModel):
     def __init__(self, request_id=None, run_result=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The operational logs of the Python3 script.
         self.run_result = run_result  # type: str
 
     def validate(self):
@@ -5366,7 +6053,12 @@ class DescriberPython3ScriptLogsResponse(TeaModel):
 
 class ModifyComponentAssetRequest(TeaModel):
     def __init__(self, asset_config=None, lang=None):
+        # The configuration of the asset. The value is a JSON object.
         self.asset_config = asset_config  # type: str
+        # The language of the content within the request and response.
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -5395,6 +6087,7 @@ class ModifyComponentAssetRequest(TeaModel):
 
 class ModifyComponentAssetResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5458,10 +6151,20 @@ class ModifyComponentAssetResponse(TeaModel):
 
 class ModifyPlaybookRequest(TeaModel):
     def __init__(self, description=None, display_name=None, lang=None, playbook_uuid=None, taskflow=None):
+        # The description of the playbook.
         self.description = description  # type: str
+        # The display name of the playbook.
         self.display_name = display_name  # type: str
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the UUIDs of playbooks.
         self.playbook_uuid = playbook_uuid  # type: str
+        # The XML configuration of the playbook.
         self.taskflow = taskflow  # type: str
 
     def validate(self):
@@ -5502,6 +6205,7 @@ class ModifyPlaybookRequest(TeaModel):
 
 class ModifyPlaybookResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5564,11 +6268,28 @@ class ModifyPlaybookResponse(TeaModel):
 
 
 class ModifyPlaybookInputOutputRequest(TeaModel):
-    def __init__(self, input_params=None, lang=None, output_params=None, param_type=None, playbook_uuid=None):
+    def __init__(self, exe_config=None, input_params=None, lang=None, output_params=None, param_type=None,
+                 playbook_uuid=None):
+        self.exe_config = exe_config  # type: str
+        # The configuration of the input parameters. The value is a JSON array.
         self.input_params = input_params  # type: str
+        # The language of the content within the request and response.
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The configuration of the output parameters. This parameter is unavailable. Leave it empty.
         self.output_params = output_params  # type: str
+        # The input parameter type.
+        # 
+        # *   **template-ip**\
+        # *   **template-file**\
+        # *   **template-process**\
+        # *   **custom**\
         self.param_type = param_type  # type: str
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -5580,6 +6301,8 @@ class ModifyPlaybookInputOutputRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.exe_config is not None:
+            result['ExeConfig'] = self.exe_config
         if self.input_params is not None:
             result['InputParams'] = self.input_params
         if self.lang is not None:
@@ -5594,6 +6317,8 @@ class ModifyPlaybookInputOutputRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ExeConfig') is not None:
+            self.exe_config = m.get('ExeConfig')
         if m.get('InputParams') is not None:
             self.input_params = m.get('InputParams')
         if m.get('Lang') is not None:
@@ -5609,6 +6334,7 @@ class ModifyPlaybookInputOutputRequest(TeaModel):
 
 class ModifyPlaybookInputOutputResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5672,8 +6398,19 @@ class ModifyPlaybookInputOutputResponse(TeaModel):
 
 class ModifyPlaybookInstanceStatusRequest(TeaModel):
     def __init__(self, active=None, lang=None, playbook_uuid=None):
+        # The playbook status. Valid values:
+        # 
+        # *   **1**: starts the playbook.
+        # *   **0**: stops the playbook.
         self.active = active  # type: int
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The playbook UUID.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~) operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -5706,6 +6443,7 @@ class ModifyPlaybookInstanceStatusRequest(TeaModel):
 
 class ModifyPlaybookInstanceStatusResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5769,7 +6507,11 @@ class ModifyPlaybookInstanceStatusResponse(TeaModel):
 
 class PublishPlaybookRequest(TeaModel):
     def __init__(self, description=None, playbook_uuid=None):
+        # The description of the released version.
         self.description = description  # type: str
+        # The playbook UUID.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~) operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -5798,6 +6540,7 @@ class PublishPlaybookRequest(TeaModel):
 
 class PublishPlaybookResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5861,6 +6604,10 @@ class PublishPlaybookResponse(TeaModel):
 
 class QueryTreeDataRequest(TeaModel):
     def __init__(self, lang=None):
+        # The language of the content within the response. Valid values:
+        # 
+        # *   **zh**: Chinese (default)
+        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -5885,7 +6632,9 @@ class QueryTreeDataRequest(TeaModel):
 
 class QueryTreeDataResponseBody(TeaModel):
     def __init__(self, playbooks=None, request_id=None):
+        # The returned information about the playbook. The value is a JSON string.
         self.playbooks = playbooks  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5953,9 +6702,18 @@ class QueryTreeDataResponse(TeaModel):
 
 class RenamePlaybookNodeRequest(TeaModel):
     def __init__(self, lang=None, new_node_name=None, old_node_name=None, playbook_uuid=None):
+        # The language of the content within the request and the response. Valid values:
+        # 
+        # *   **zh** (default): Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The new name of the node.
         self.new_node_name = new_node_name  # type: str
+        # The original name of the node.
         self.old_node_name = old_node_name  # type: str
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the UUIDs of playbooks.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -5992,7 +6750,9 @@ class RenamePlaybookNodeRequest(TeaModel):
 
 class RenamePlaybookNodeResponseBody(TeaModel):
     def __init__(self, rename_result=None, request_id=None):
+        # The returned new name of the node.
         self.rename_result = rename_result  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6060,8 +6820,18 @@ class RenamePlaybookNodeResponse(TeaModel):
 
 class RevertPlaybookReleaseRequest(TeaModel):
     def __init__(self, is_publish=None, play_release_id=None, playbook_uuid=None):
+        # Specifies whether to directly publish the new playbook after the rollback.
+        # 
+        # *   **true** (default)
+        # *   **false**\
         self.is_publish = is_publish  # type: bool
+        # The version of the playbook that you want to publish.
+        # 
+        # >  You can call the [DescribePlaybookReleases](~~DescribePlaybookReleases~~) operation to query the playbook version.
         self.play_release_id = play_release_id  # type: int
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -6094,6 +6864,7 @@ class RevertPlaybookReleaseRequest(TeaModel):
 
 class RevertPlaybookReleaseResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6157,9 +6928,15 @@ class RevertPlaybookReleaseResponse(TeaModel):
 
 class RunPython3ScriptRequest(TeaModel):
     def __init__(self, node_name=None, params=None, playbook_uuid=None, python_script=None):
+        # The name of the node in the playbook.
         self.node_name = node_name  # type: str
+        # The input parameters of the Python3 script.
         self.params = params  # type: str
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~) operation to query the UUIDs of playbooks.
         self.playbook_uuid = playbook_uuid  # type: str
+        # The Python3 script.
         self.python_script = python_script  # type: str
 
     def validate(self):
@@ -6196,7 +6973,9 @@ class RunPython3ScriptRequest(TeaModel):
 
 class RunPython3ScriptResponseBody(TeaModel):
     def __init__(self, request_id=None, run_result=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The execution result of the Python3 script.
         self.run_result = run_result  # type: str
 
     def validate(self):
@@ -6264,7 +7043,11 @@ class RunPython3ScriptResponse(TeaModel):
 
 class TriggerPlaybookRequest(TeaModel):
     def __init__(self, input_param=None, playbook_uuid=None):
+        # The input parameters of the playbook.
         self.input_param = input_param  # type: str
+        # The playbook UUID.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~) operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
 
     def validate(self):
@@ -6293,7 +7076,9 @@ class TriggerPlaybookRequest(TeaModel):
 
 class TriggerPlaybookResponseBody(TeaModel):
     def __init__(self, request_id=None, trigger_uuid=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The running UUID of the playbook. This parameter is used to query the running result of the playbook.
         self.trigger_uuid = trigger_uuid  # type: str
 
     def validate(self):
@@ -6361,7 +7146,14 @@ class TriggerPlaybookResponse(TeaModel):
 
 class TriggerProcessTaskRequest(TeaModel):
     def __init__(self, action_type=None, task_id=None):
+        # The type of the action. Valid values:
+        # 
+        # *   **remove**: cancels blocking or isolation.
+        # *   **retry**: submits the task again.
         self.action_type = action_type  # type: str
+        # The ID of the handling task.
+        # 
+        # >  You can call the [DescribeProcessTasks](~~DescribeProcessTasks~~) operation to query the IDs of handling tasks.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -6390,6 +7182,7 @@ class TriggerProcessTaskRequest(TeaModel):
 
 class TriggerProcessTaskResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6453,10 +7246,22 @@ class TriggerProcessTaskResponse(TeaModel):
 
 class TriggerSophonPlaybookRequest(TeaModel):
     def __init__(self, command_name=None, input_params=None, sophon_task_id=None, trigger_type=None, uuid=None):
+        # The name of the command that you want to trigger.
+        # 
+        # >  You can call the [DescribeSophonCommands](~~DescribeSophonCommands~~) operation to query the command name.
         self.command_name = command_name  # type: str
+        # The input parameters of the command or playbook that you want to trigger.
         self.input_params = input_params  # type: str
+        # The custom ID. If you do not specify this parameter when the playbook is triggered, a random ID is generated for fault locating and troubleshooting.
         self.sophon_task_id = sophon_task_id  # type: str
+        # The task type. Valid values:
+        # 
+        # *   **command**\
+        # *   **playbook**\
         self.trigger_type = trigger_type  # type: str
+        # The UUID of the playbook.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~)operation to query the playbook UUID.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -6497,6 +7302,7 @@ class TriggerSophonPlaybookRequest(TeaModel):
 
 class TriggerSophonPlaybookResponseBodyData(TeaModel):
     def __init__(self, sophon_task_id=None):
+        # The custom ID. If you do not specify this parameter when the playbook is triggered, a random ID is generated for fault locating and troubleshooting.
         self.sophon_task_id = sophon_task_id  # type: str
 
     def validate(self):
@@ -6521,7 +7327,9 @@ class TriggerSophonPlaybookResponseBodyData(TeaModel):
 
 class TriggerSophonPlaybookResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The details that is returned after the command or playbook is triggered.
         self.data = data  # type: TriggerSophonPlaybookResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6591,7 +7399,11 @@ class TriggerSophonPlaybookResponse(TeaModel):
 
 class VerifyPlaybookRequest(TeaModel):
     def __init__(self, playbook_uuid=None, task_flow=None):
+        # The playbook UUID.
+        # 
+        # >  You can call the [DescribePlaybooks](~~DescribePlaybooks~~) operation to query the playbook UUID.
         self.playbook_uuid = playbook_uuid  # type: str
+        # The XML configuration of the playbook.
         self.task_flow = task_flow  # type: str
 
     def validate(self):
@@ -6620,8 +7432,15 @@ class VerifyPlaybookRequest(TeaModel):
 
 class VerifyPlaybookResponseBodyCheckTaskInfos(TeaModel):
     def __init__(self, detail=None, node_name=None, risk_level=None):
+        # The error message returned when the playbook does not pass the check.
         self.detail = detail  # type: str
+        # The name of the node in the playbook.
         self.node_name = node_name  # type: str
+        # The severity level of the verification information. Valid values:
+        # 
+        # *   warn: An issue may occur during playbook running.
+        # *   error: The playbook cannot be compiled.
+        # *   remind: The publishing and running of the playbook are not affected. We recommend that you optimize the playbook format.
         self.risk_level = risk_level  # type: str
 
     def validate(self):
@@ -6654,7 +7473,9 @@ class VerifyPlaybookResponseBodyCheckTaskInfos(TeaModel):
 
 class VerifyPlaybookResponseBody(TeaModel):
     def __init__(self, check_task_infos=None, request_id=None):
+        # The result of the verification.
         self.check_task_infos = check_task_infos  # type: list[VerifyPlaybookResponseBodyCheckTaskInfos]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6730,6 +7551,7 @@ class VerifyPlaybookResponse(TeaModel):
 
 class VerifyPythonFileRequest(TeaModel):
     def __init__(self, content=None):
+        # The Python code snippet.
         self.content = content  # type: str
 
     def validate(self):
@@ -6755,11 +7577,20 @@ class VerifyPythonFileRequest(TeaModel):
 class VerifyPythonFileResponseBodySyntax(TeaModel):
     def __init__(self, end_column=None, end_line_number=None, message=None, severity=None, start_column=None,
                  start_line_number=None):
+        # The number that indicates the end column of the error code.
         self.end_column = end_column  # type: int
+        # The number that indicates the end line of the error code.
         self.end_line_number = end_line_number  # type: int
+        # The error message for the error code.
         self.message = message  # type: str
+        # The severity level of the error code. Valid values:
+        # 
+        # *   4: moderate
+        # *   8: serious
         self.severity = severity  # type: int
+        # The number that indicates the start column of the error code.
         self.start_column = start_column  # type: int
+        # The number that indicates the start line of the error code.
         self.start_line_number = start_line_number  # type: int
 
     def validate(self):
@@ -6804,7 +7635,9 @@ class VerifyPythonFileResponseBodySyntax(TeaModel):
 
 class VerifyPythonFileResponseBody(TeaModel):
     def __init__(self, request_id=None, syntax=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The verification result. If the parameter is left empty, the syntax of the code snippet is correct.
         self.syntax = syntax  # type: list[VerifyPythonFileResponseBodySyntax]
 
     def validate(self):
