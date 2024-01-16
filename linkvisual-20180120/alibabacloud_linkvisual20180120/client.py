@@ -569,6 +569,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
         if not UtilClient.is_unset(request.device_type):
             query['DeviceType'] = request.device_type
         if not UtilClient.is_unset(request.gb_id):
@@ -1112,6 +1114,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_face_user_picture_with_options(request, runtime)
 
+    def delete_gb_device_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteGbDevice',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkvisual_20180120_models.DeleteGbDeviceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_gb_device(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_gb_device_with_options(request, runtime)
+
     def delete_local_file_upload_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1403,6 +1439,42 @@ class Client(OpenApiClient):
     def detect_user_face_by_url(self, request):
         runtime = util_models.RuntimeOptions()
         return self.detect_user_face_by_url_with_options(request, runtime)
+
+    def enable_gb_sub_device_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.sub_device_id):
+            query['SubDeviceId'] = request.sub_device_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='EnableGbSubDevice',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkvisual_20180120_models.EnableGbSubDeviceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_gb_sub_device(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_gb_sub_device_with_options(request, runtime)
 
     def get_picture_search_job_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2400,6 +2472,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_face_user_id_by_custom_user_id_with_options(request, runtime)
 
+    def query_gb_sub_device_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.page_start):
+            query['PageStart'] = request.page_start
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryGbSubDeviceList',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkvisual_20180120_models.QueryGbSubDeviceListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_gb_sub_device_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_gb_sub_device_list_with_options(request, runtime)
+
     def query_live_streaming_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3288,6 +3398,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_voice_intercom_with_options(request, runtime)
 
+    def refresh_gb_sub_device_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RefreshGbSubDeviceList',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkvisual_20180120_models.RefreshGbSubDeviceListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def refresh_gb_sub_device_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.refresh_gb_sub_device_list_with_options(request, runtime)
+
     def remove_face_device_from_device_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3747,6 +3891,46 @@ class Client(OpenApiClient):
     def update_face_user_group_and_device_group_relation(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_face_user_group_and_device_group_relation_with_options(request, runtime)
+
+    def update_gb_device_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.gb_id):
+            query['GbId'] = request.gb_id
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateGbDevice',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkvisual_20180120_models.UpdateGbDeviceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_gb_device(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_gb_device_with_options(request, runtime)
 
     def update_instance_internet_protocol_with_options(self, request, runtime):
         UtilClient.validate_model(request)
