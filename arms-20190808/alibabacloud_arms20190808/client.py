@@ -1065,6 +1065,8 @@ class Client(OpenApiClient):
             query['EnvironmentSubType'] = request.environment_sub_type
         if not UtilClient.is_unset(request.environment_type):
             query['EnvironmentType'] = request.environment_type
+        if not UtilClient.is_unset(request.managed_type):
+            query['ManagedType'] = request.managed_type
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_group_id):
@@ -1093,6 +1095,54 @@ class Client(OpenApiClient):
     def create_environment(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_environment_with_options(request, runtime)
+
+    def create_grafana_workspace_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = arms20190808_models.CreateGrafanaWorkspaceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.grafana_version):
+            query['GrafanaVersion'] = request.grafana_version
+        if not UtilClient.is_unset(request.grafana_workspace_edition):
+            query['GrafanaWorkspaceEdition'] = request.grafana_workspace_edition
+        if not UtilClient.is_unset(request.grafana_workspace_name):
+            query['GrafanaWorkspaceName'] = request.grafana_workspace_name
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.tags_shrink):
+            query['Tags'] = request.tags_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateGrafanaWorkspace',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.CreateGrafanaWorkspaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_grafana_workspace(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_grafana_workspace_with_options(request, runtime)
 
     def create_integration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2428,6 +2478,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_grafana_resource_with_options(request, runtime)
 
+    def delete_grafana_workspace_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.grafana_workspace_id):
+            query['GrafanaWorkspaceId'] = request.grafana_workspace_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteGrafanaWorkspace',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.DeleteGrafanaWorkspaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_grafana_workspace(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_grafana_workspace_with_options(request, runtime)
+
     def delete_imrobot_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3708,6 +3788,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_explore_url_with_options(request, runtime)
 
+    def get_grafana_workspace_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.grafana_workspace_id):
+            query['GrafanaWorkspaceId'] = request.grafana_workspace_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetGrafanaWorkspace',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.GetGrafanaWorkspaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_grafana_workspace(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_grafana_workspace_with_options(request, runtime)
+
     def get_integration_state_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4575,6 +4687,8 @@ class Client(OpenApiClient):
             query['AliyunLang'] = request.aliyun_lang
         if not UtilClient.is_unset(request.environment_id):
             query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.managed_type):
+            query['ManagedType'] = request.managed_type
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
@@ -7819,6 +7933,76 @@ class Client(OpenApiClient):
     def update_environment(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_environment_with_options(request, runtime)
+
+    def update_grafana_workspace_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.grafana_workspace_id):
+            query['GrafanaWorkspaceId'] = request.grafana_workspace_id
+        if not UtilClient.is_unset(request.grafana_workspace_name):
+            query['GrafanaWorkspaceName'] = request.grafana_workspace_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateGrafanaWorkspace',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.UpdateGrafanaWorkspaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_grafana_workspace(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_grafana_workspace_with_options(request, runtime)
+
+    def update_grafana_workspace_version_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.grafana_version):
+            query['GrafanaVersion'] = request.grafana_version
+        if not UtilClient.is_unset(request.grafana_workspace_id):
+            query['GrafanaWorkspaceId'] = request.grafana_workspace_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateGrafanaWorkspaceVersion',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.UpdateGrafanaWorkspaceVersionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_grafana_workspace_version(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_grafana_workspace_version_with_options(request, runtime)
 
     def update_integration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
