@@ -440,6 +440,13 @@ class CreateRuleRequest(TeaModel):
         # *   **1**: yes
         # *   **0**: no
         self.status = status  # type: int
+        # The type of the data asset. Valid values:
+        # 
+        # *   **0**: all data assets
+        # *   **1**: structured data asset
+        # *   **2**: unstructured data asset
+        # 
+        # > If you set the parameter to 1 or 2, rules that support all data assets and rules that support the queried data asset type are returned.
         self.support_form = support_form  # type: int
         # The code of the service to which the sensitive data detection rule is applied. Valid values include **MaxCompute**, **OSS**, **ADS**, **OTS**, and **RDS**.
         self.target = target  # type: str
@@ -1697,7 +1704,17 @@ class DescribeColumnsRequest(TeaModel):
 
 class DescribeColumnsResponseBodyItemsModelTags(TeaModel):
     def __init__(self, id=None, name=None):
+        # The tag ID.
+        # 
+        # *   **101**: sensitive personal information
+        # *   **102**: personal information
+        # *   **103**: important information
         self.id = id  # type: long
+        # The tag name.
+        # 
+        # *   Sensitive personal information
+        # *   Personal information
+        # *   Important information
         self.name = name  # type: str
 
     def validate(self):
@@ -1729,7 +1746,7 @@ class DescribeColumnsResponseBodyItems(TeaModel):
                  model_tags=None, name=None, odps_risk_level_name=None, odps_risk_level_value=None, product_code=None,
                  revision_id=None, revision_status=None, risk_level_id=None, risk_level_name=None, rule_id=None, rule_name=None,
                  sens_level_name=None, sensitive=None, table_id=None, table_name=None):
-        # The beginning of the time range during which data in the column of the table is created. The value is a UNIX timestamp. Unit: milliseconds.
+        # The time when the data in the column of the table is created. Unit: milliseconds.
         self.creation_time = creation_time  # type: long
         # The type of data in the column of the table.
         self.data_type = data_type  # type: str
@@ -1739,18 +1756,19 @@ class DescribeColumnsResponseBodyItems(TeaModel):
         self.instance_id = instance_id  # type: long
         # The name of the instance to which data in the column of the table belongs.
         self.instance_name = instance_name  # type: str
+        # A list of tags for data that hits the recognition model.
         self.model_tags = model_tags  # type: list[DescribeColumnsResponseBodyItemsModelTags]
         # The name of the column of the table.
         self.name = name  # type: str
-        # The name of the sensitivity level for data in the column of the table. Valid values:
+        # The name of the sensitivity level for asset. Valid values:
         # 
-        # *   **N/A**: No sensitive data is detected.
+        # *   **N/A**: indicates that no sensitive data is detected.
         # *   **S1**: indicates the low sensitivity level.
         # *   **S2**: indicates the medium sensitivity level.
         # *   **S3**: indicates the high sensitivity level.
         # *   **S4**: indicates the highest sensitivity level.
         self.odps_risk_level_name = odps_risk_level_name  # type: str
-        # The ID of the sensitivity level for data in the column of the table. Valid values:
+        # The ID of the sensitivity level of the asset. Valid values:
         # 
         # *   **1**: N/A
         # *   **2**: S1
@@ -1777,7 +1795,7 @@ class DescribeColumnsResponseBodyItems(TeaModel):
         self.risk_level_id = risk_level_id  # type: long
         # The name of the sensitivity level for data in the column of the table. Valid values:
         # 
-        # *   **N/A**: No sensitive data is detected.
+        # *   **N/A**: indicates that no sensitive data is detected.
         # *   **S1**: indicates the low sensitivity level.
         # *   **S2**: indicates the medium sensitivity level.
         # *   **S3**: indicates the high sensitivity level.
@@ -1787,9 +1805,9 @@ class DescribeColumnsResponseBodyItems(TeaModel):
         self.rule_id = rule_id  # type: long
         # The name of the sensitive data detection rule that data in the column of the table hits.
         self.rule_name = rule_name  # type: str
-        # The name of the sensitivity level of the data that hits the sensitive data detection rule. Valid values:
+        # The name of the sensitivity level. Valid values:
         # 
-        # *   **N/A**: No sensitive data is detected.
+        # *   **N/A**: indicates that no sensitive data is detected.
         # *   **S1**: indicates the low sensitivity level.
         # *   **S2**: indicates the medium sensitivity level.
         # *   **S3**: indicates the high sensitivity level.
@@ -1797,8 +1815,8 @@ class DescribeColumnsResponseBodyItems(TeaModel):
         self.sens_level_name = sens_level_name  # type: str
         # Indicates whether the column contains sensitive data. Valid values:
         # 
-        # *   true: the column contains sensitive data.
-        # *   false: the column does not contain sensitive data.
+        # *   true
+        # *   false
         self.sensitive = sensitive  # type: bool
         # The ID of the table.
         self.table_id = table_id  # type: long
@@ -1913,7 +1931,7 @@ class DescribeColumnsResponseBody(TeaModel):
     def __init__(self, current_page=None, items=None, page_size=None, request_id=None, total_count=None):
         # The page number of the returned page.
         self.current_page = current_page  # type: int
-        # An array that consists of data in the column of the table.
+        # A list of columns.
         self.items = items  # type: list[DescribeColumnsResponseBodyItems]
         # The number of entries returned per page.
         self.page_size = page_size  # type: int
@@ -6543,7 +6561,7 @@ class DescribeEventTypesResponse(TeaModel):
 class DescribeEventsRequest(TeaModel):
     def __init__(self, current_page=None, deal_user_id=None, end_time=None, id=None, instance_name=None, lang=None,
                  page_size=None, product_code=None, start_time=None, status=None, sub_type_code=None,
-                 target_product_code=None, type_code=None, user_id=None, user_name=None):
+                 target_product_code=None, type_code=None, user_id=None, user_name=None, warn_level=None):
         # The page number of the page to return.
         self.current_page = current_page  # type: int
         # The ID of the account that handles the anomalous event.
@@ -6587,6 +6605,7 @@ class DescribeEventsRequest(TeaModel):
         self.user_id = user_id  # type: long
         # The username of the RAM user.
         self.user_name = user_name  # type: str
+        self.warn_level = warn_level  # type: int
 
     def validate(self):
         pass
@@ -6627,6 +6646,8 @@ class DescribeEventsRequest(TeaModel):
             result['UserId'] = self.user_id
         if self.user_name is not None:
             result['UserName'] = self.user_name
+        if self.warn_level is not None:
+            result['WarnLevel'] = self.warn_level
         return result
 
     def from_map(self, m=None):
@@ -6661,6 +6682,8 @@ class DescribeEventsRequest(TeaModel):
             self.user_id = m.get('UserId')
         if m.get('UserName') is not None:
             self.user_name = m.get('UserName')
+        if m.get('WarnLevel') is not None:
+            self.warn_level = m.get('WarnLevel')
         return self
 
 
@@ -7722,7 +7745,7 @@ class DescribeOssObjectDetailRequest(TeaModel):
     def __init__(self, id=None, lang=None):
         # The ID of the OSS object.
         # 
-        # > You can call the **DescribeOssObjects** operation to obtain the ID of the OSS object.
+        # >  You can call the [DescribeOssObjects](~~410152~~) operation to obtain the ID of the OSS object.
         self.id = id  # type: long
         # The language of the content within the request and response. Default value: **zh_cn**. Valid values:
         # 
@@ -7756,7 +7779,17 @@ class DescribeOssObjectDetailRequest(TeaModel):
 
 class DescribeOssObjectDetailResponseBodyOssObjectDetailRuleListModelTags(TeaModel):
     def __init__(self, id=None, name=None):
+        # The tag ID.
+        # 
+        # *   **101**: sensitive personal information
+        # *   **102**: personal information
+        # *   **103**: important information
         self.id = id  # type: long
+        # The tag name.
+        # 
+        # *   Sensitive personal information
+        # *   Personal information
+        # *   Important information
         self.name = name  # type: str
 
     def validate(self):
@@ -7790,8 +7823,9 @@ class DescribeOssObjectDetailResponseBodyOssObjectDetailRuleList(TeaModel):
         self.category_name = category_name  # type: str
         # The number of times that the OSS object hits the sensitive data detection rule.
         self.count = count  # type: long
+        # A list of tags for data that hits the recognition model.
         self.model_tags = model_tags  # type: list[DescribeOssObjectDetailResponseBodyOssObjectDetailRuleListModelTags]
-        # The sensitivity level of the OSS object.
+        # The ID of the sensitivity level of the OSS object.
         # 
         # *   **1**: No sensitive data is detected.
         # *   **2**: indicates the low sensitivity level.
@@ -7865,7 +7899,7 @@ class DescribeOssObjectDetailResponseBodyOssObjectDetail(TeaModel):
         self.region_id = region_id  # type: str
         # The name of the sensitivity level for the OSS object.
         self.risk_level_name = risk_level_name  # type: str
-        # An array consisting of the sensitive data detection rules that the OSS object hits.
+        # A list of the sensitive data detection rules that the OSS object hits.
         self.rule_list = rule_list  # type: list[DescribeOssObjectDetailResponseBodyOssObjectDetailRuleList]
 
     def validate(self):
@@ -8238,6 +8272,7 @@ class DescribeOssObjectsRequest(TeaModel):
                  service_region_id=None, template_id=None):
         # The page number of the page to return.
         self.current_page = current_page  # type: int
+        # The code of the file type.
         self.file_category_code = file_category_code  # type: long
         # The ID of the instance to which the OSS object belongs.
         # 
@@ -8343,7 +8378,7 @@ class DescribeOssObjectsResponseBodyItemsRuleList(TeaModel):
         self.count = count  # type: long
         # The search keyword. Fuzzy match is supported.
         self.name = name  # type: str
-        # The sensitivity level of the OSS object. Valid values:
+        # The ID of the sensitivity level of the OSS object. Valid values:
         # 
         # *   **1**: N/A, which indicates that no sensitive data is detected.
         # *   **2**: S1, which indicates the low sensitivity level.
@@ -8384,13 +8419,15 @@ class DescribeOssObjectsResponseBodyItems(TeaModel):
     def __init__(self, bucket_name=None, category=None, category_name=None, file_category_code=None,
                  file_category_name=None, file_id=None, id=None, instance_id=None, name=None, region_id=None, risk_level_id=None,
                  risk_level_name=None, rule_count=None, rule_list=None, sensitive_count=None, size=None):
-        # The name of the OSS bucket.
+        # The name of the bucket.
         self.bucket_name = bucket_name  # type: str
-        # The type ID of the OSS object. Valid values include **900001**, **800015**, or **800005**, which indicates the MP4 file, PDF file, or OSS configuration file, respectively.
+        # The type of the OSS object. Valid values include **900001**, **800015**, or **800005**, which indicates the MP4 file, PDF file, or OSS configuration file, respectively.
         self.category = category  # type: long
-        # The file type of the OSS object.
+        # The name of the file type.
         self.category_name = category_name  # type: str
+        # The code of the file type.
         self.file_category_code = file_category_code  # type: long
+        # The name of the file type.
         self.file_category_name = file_category_name  # type: str
         # The file ID of the OSS object.
         self.file_id = file_id  # type: str
@@ -8402,7 +8439,7 @@ class DescribeOssObjectsResponseBodyItems(TeaModel):
         self.name = name  # type: str
         # The region ID of the OSS object.
         self.region_id = region_id  # type: str
-        # The sensitivity level of the OSS object. Valid values:
+        # The ID of the sensitivity level of the OSS object. Valid values:
         # 
         # *   **1**: N/A, which indicates that no sensitive data is detected.
         # *   **2**: S1, which indicates the low sensitivity level.
@@ -8414,7 +8451,7 @@ class DescribeOssObjectsResponseBodyItems(TeaModel):
         self.risk_level_name = risk_level_name  # type: str
         # The number of rules that are hit.
         self.rule_count = rule_count  # type: int
-        # An array that consists of the rules.
+        # A list of rules.
         self.rule_list = rule_list  # type: list[DescribeOssObjectsResponseBodyItemsRuleList]
         # The number of fields that are hit.
         self.sensitive_count = sensitive_count  # type: int
@@ -8513,7 +8550,7 @@ class DescribeOssObjectsResponseBody(TeaModel):
     def __init__(self, current_page=None, items=None, page_size=None, request_id=None, total_count=None):
         # The page number of the returned page.
         self.current_page = current_page  # type: int
-        # An array that consists of the OSS objects.
+        # A list of OSS objects.
         self.items = items  # type: list[DescribeOssObjectsResponseBodyItems]
         # The number of entries returned per page.
         self.page_size = page_size  # type: int
@@ -9080,6 +9117,7 @@ class DescribeRulesRequest(TeaModel):
         # *   **0**: built-in rule
         # *   **1**: custom rule
         self.custom_type = custom_type  # type: int
+        # This parameter is deprecated.
         self.feature_type = feature_type  # type: int
         # The parent group type of the rule.
         self.group_id = group_id  # type: str
@@ -9245,6 +9283,8 @@ class DescribeRulesResponseBodyItems(TeaModel):
         # The name of the content type of the sensitive data detection rule.
         self.category_name = category_name  # type: str
         # The content in the sensitive data detection rule.
+        # 
+        # >  A built-in detection rule whose CustomType is 0 does not return the content of the rule.
         self.content = content  # type: str
         # The type of the content in the sensitive data detection rule. Valid values include **1**, **2**, **3**, **4**, and **5**. The value 1 indicates attempts to exploit SQL injections. The value 2 indicates bypass by using SQL injections. The value 3 indicates abuse of stored procedures. The value 4 indicates buffer overflow. The value 5 indicates SQL injections based on errors.
         self.content_category = content_category  # type: str
@@ -9292,7 +9332,7 @@ class DescribeRulesResponseBodyItems(TeaModel):
         self.risk_level_id = risk_level_id  # type: long
         # The sensitivity level of data that hits the sensitive data detection rule. Valid values:
         # 
-        # *   **N/A**: No sensitive data is detected.
+        # *   **N/A**: indicates that no sensitive data is detected.
         # *   **S1**: indicates the low sensitivity level.
         # *   **S2**: indicates the medium sensitivity level.
         # *   **S3**: indicates the high sensitivity level.
@@ -9305,12 +9345,17 @@ class DescribeRulesResponseBodyItems(TeaModel):
         # *   **0**: disabled
         # *   **1**: enabled
         self.status = status  # type: int
+        # The data asset type that is supported by the sensitive data detection rule. Valid values:
+        # 
+        # *   **0**: all data assets
+        # *   **1**: structured data assets
+        # *   **2**: unstructured data assets
         self.support_form = support_form  # type: int
         # The name of the service to which the data asset belongs. Valid values include **MaxCompute, OSS, ADS, OTS, and RDS**.
         self.target = target  # type: str
         # The ID of the account that is used to create the sensitive data detection rule.
         self.user_id = user_id  # type: long
-        # The severity level of the alert. Valid values:
+        # The severity level. Valid values:
         # 
         # *   **1**: low
         # *   **2**: medium
@@ -10061,6 +10106,7 @@ class DescribeTemplateAllRulesResponse(TeaModel):
 
 class DescribeUserStatusRequest(TeaModel):
     def __init__(self, feature_type=None, lang=None):
+        # This parameter is deprecated.
         self.feature_type = feature_type  # type: int
         # The language of the content within the request and response. Valid values:
         # 
@@ -10095,8 +10141,8 @@ class DescribeUserStatusRequest(TeaModel):
 class DescribeUserStatusResponseBodyUserStatus(TeaModel):
     def __init__(self, access_key_id=None, audit_closable=None, audit_releasable=None, authed=None,
                  charge_type=None, data_manager_role=None, instance_id=None, instance_num=None, instance_total_count=None,
-                 lab_status=None, oss_total_size=None, purchased=None, release_days=None, release_time=None, remain_days=None,
-                 trail=None, use_agent_audit=None, use_instance_num=None, use_oss_size=None):
+                 lab_status=None, oss_total_size=None, protection_days=None, purchased=None, release_days=None,
+                 release_time=None, remain_days=None, trail=None, use_agent_audit=None, use_instance_num=None, use_oss_size=None):
         # The AccessKey ID of the current account.
         self.access_key_id = access_key_id  # type: str
         # Indicates whether the SQL Explorer feature can be disabled. Valid values:
@@ -10128,13 +10174,17 @@ class DescribeUserStatusResponseBodyUserStatus(TeaModel):
         self.instance_id = instance_id  # type: str
         # The number of instances within the current account.
         self.instance_num = instance_num  # type: int
+        # The total number of instances.
         self.instance_total_count = instance_total_count  # type: long
         # Indicates whether the data security lab feature is enabled. Valid values:
         # 
         # *   **1**: yes
         # *   **0**: no
         self.lab_status = lab_status  # type: int
+        # OSS total storage capacity. Unit: Bytes.
         self.oss_total_size = oss_total_size  # type: long
+        # Accumulate the number of days to protect user assets.
+        self.protection_days = protection_days  # type: int
         # Indicates whether DSC is purchased. Valid values:
         # 
         # *   **true**: yes
@@ -10151,6 +10201,10 @@ class DescribeUserStatusResponseBodyUserStatus(TeaModel):
         # *   **true**: yes
         # *   **false**: no
         self.trail = trail  # type: bool
+        # Indicates whether the agent audit feature is used. Valid values:
+        # 
+        # *   **1**: yes
+        # *   **0**: no
         self.use_agent_audit = use_agent_audit  # type: bool
         # The number of instances that are used.
         self.use_instance_num = use_instance_num  # type: int
@@ -10188,6 +10242,8 @@ class DescribeUserStatusResponseBodyUserStatus(TeaModel):
             result['LabStatus'] = self.lab_status
         if self.oss_total_size is not None:
             result['OssTotalSize'] = self.oss_total_size
+        if self.protection_days is not None:
+            result['ProtectionDays'] = self.protection_days
         if self.purchased is not None:
             result['Purchased'] = self.purchased
         if self.release_days is not None:
@@ -10230,6 +10286,8 @@ class DescribeUserStatusResponseBodyUserStatus(TeaModel):
             self.lab_status = m.get('LabStatus')
         if m.get('OssTotalSize') is not None:
             self.oss_total_size = m.get('OssTotalSize')
+        if m.get('ProtectionDays') is not None:
+            self.protection_days = m.get('ProtectionDays')
         if m.get('Purchased') is not None:
             self.purchased = m.get('Purchased')
         if m.get('ReleaseDays') is not None:
@@ -11222,6 +11280,7 @@ class ModifyEventTypeStatusResponse(TeaModel):
 
 class ModifyReportTaskStatusRequest(TeaModel):
     def __init__(self, feature_type=None, lang=None, report_task_status=None):
+        # This parameter is deprecated.
         self.feature_type = feature_type  # type: int
         # The language of the content within the request and response. Default value: **zh_cn**. Valid values:
         # 
