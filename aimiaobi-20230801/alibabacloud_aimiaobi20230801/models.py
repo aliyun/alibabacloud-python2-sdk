@@ -60,7 +60,7 @@ class CreateTokenResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
         self.code = code  # type: str
         self.data = data  # type: CreateTokenResponseBodyData
-        self.http_status_code = http_status_code  # type: str
+        self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
