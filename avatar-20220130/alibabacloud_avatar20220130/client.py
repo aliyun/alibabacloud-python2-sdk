@@ -134,6 +134,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.client_start_with_options(request, runtime)
 
+    def client_unbind_device_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.tenant_id):
+            query['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ClientUnbindDevice',
+            version='2022-01-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            avatar_20220130_models.ClientUnbindDeviceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def client_unbind_device(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.client_unbind_device_with_options(request, runtime)
+
     def close_timed_reset_operate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
