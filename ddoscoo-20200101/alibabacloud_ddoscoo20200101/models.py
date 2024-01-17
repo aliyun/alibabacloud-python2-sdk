@@ -14107,6 +14107,155 @@ class DescribePortAutoCcStatusResponse(TeaModel):
         return self
 
 
+class DescribePortCcAttackTopIPRequest(TeaModel):
+    def __init__(self, ip=None, limit=None, port=None, start_timestamp=None):
+        self.ip = ip  # type: str
+        self.limit = limit  # type: long
+        self.port = port  # type: str
+        self.start_timestamp = start_timestamp  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePortCcAttackTopIPRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ip is not None:
+            result['Ip'] = self.ip
+        if self.limit is not None:
+            result['Limit'] = self.limit
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.start_timestamp is not None:
+            result['StartTimestamp'] = self.start_timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Ip') is not None:
+            self.ip = m.get('Ip')
+        if m.get('Limit') is not None:
+            self.limit = m.get('Limit')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('StartTimestamp') is not None:
+            self.start_timestamp = m.get('StartTimestamp')
+        return self
+
+
+class DescribePortCcAttackTopIPResponseBodyTopIp(TeaModel):
+    def __init__(self, area_id=None, pv=None, src_ip=None):
+        self.area_id = area_id  # type: str
+        self.pv = pv  # type: long
+        self.src_ip = src_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePortCcAttackTopIPResponseBodyTopIp, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.area_id is not None:
+            result['AreaId'] = self.area_id
+        if self.pv is not None:
+            result['Pv'] = self.pv
+        if self.src_ip is not None:
+            result['SrcIp'] = self.src_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AreaId') is not None:
+            self.area_id = m.get('AreaId')
+        if m.get('Pv') is not None:
+            self.pv = m.get('Pv')
+        if m.get('SrcIp') is not None:
+            self.src_ip = m.get('SrcIp')
+        return self
+
+
+class DescribePortCcAttackTopIPResponseBody(TeaModel):
+    def __init__(self, request_id=None, top_ip=None):
+        self.request_id = request_id  # type: str
+        self.top_ip = top_ip  # type: list[DescribePortCcAttackTopIPResponseBodyTopIp]
+
+    def validate(self):
+        if self.top_ip:
+            for k in self.top_ip:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribePortCcAttackTopIPResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['TopIp'] = []
+        if self.top_ip is not None:
+            for k in self.top_ip:
+                result['TopIp'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.top_ip = []
+        if m.get('TopIp') is not None:
+            for k in m.get('TopIp'):
+                temp_model = DescribePortCcAttackTopIPResponseBodyTopIp()
+                self.top_ip.append(temp_model.from_map(k))
+        return self
+
+
+class DescribePortCcAttackTopIPResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribePortCcAttackTopIPResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribePortCcAttackTopIPResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribePortCcAttackTopIPResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribePortConnsCountRequest(TeaModel):
     def __init__(self, end_time=None, instance_ids=None, port=None, resource_group_id=None, start_time=None):
         # The end of the time range to query. The value is a UNIX timestamp. Unit: seconds.
@@ -15898,8 +16047,9 @@ class DescribeSchedulerRulesResponseBodySchedulerRulesParam(TeaModel):
 
 
 class DescribeSchedulerRulesResponseBodySchedulerRulesRules(TeaModel):
-    def __init__(self, priority=None, region_id=None, restore_delay=None, status=None, type=None, value=None,
-                 value_type=None):
+    def __init__(self, line=None, priority=None, region_id=None, restore_delay=None, status=None, type=None,
+                 value=None, value_type=None):
+        self.line = line  # type: str
         self.priority = priority  # type: int
         self.region_id = region_id  # type: str
         self.restore_delay = restore_delay  # type: int
@@ -15917,6 +16067,8 @@ class DescribeSchedulerRulesResponseBodySchedulerRulesRules(TeaModel):
             return _map
 
         result = dict()
+        if self.line is not None:
+            result['Line'] = self.line
         if self.priority is not None:
             result['Priority'] = self.priority
         if self.region_id is not None:
@@ -15935,6 +16087,8 @@ class DescribeSchedulerRulesResponseBodySchedulerRulesRules(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Line') is not None:
+            self.line = m.get('Line')
         if m.get('Priority') is not None:
             self.priority = m.get('Priority')
         if m.get('RegionId') is not None:
@@ -18944,8 +19098,8 @@ class DescribeWebCcProtectSwitchRequest(TeaModel):
 
 class DescribeWebCcProtectSwitchResponseBodyProtectSwitchList(TeaModel):
     def __init__(self, ai_mode=None, ai_rule_enable=None, ai_template=None, black_white_list_enable=None,
-                 cc_custom_rule_enable=None, cc_enable=None, cc_template=None, domain=None, precise_rule_enable=None,
-                 region_block_enable=None):
+                 cc_custom_rule_enable=None, cc_enable=None, cc_global_switch=None, cc_template=None, domain=None,
+                 precise_rule_enable=None, region_block_enable=None):
         # The mode of the Intelligent Protection policy. Valid values:
         # 
         # *   **watch**: the Warning mode
@@ -18977,6 +19131,7 @@ class DescribeWebCcProtectSwitchResponseBodyProtectSwitchList(TeaModel):
         # *   **0**: disabled
         # *   **1**: enabled
         self.cc_enable = cc_enable  # type: int
+        self.cc_global_switch = cc_global_switch  # type: str
         # The mode of the Frequency Control policy. Valid values:
         # 
         # *   **default**: Normal
@@ -19018,6 +19173,8 @@ class DescribeWebCcProtectSwitchResponseBodyProtectSwitchList(TeaModel):
             result['CcCustomRuleEnable'] = self.cc_custom_rule_enable
         if self.cc_enable is not None:
             result['CcEnable'] = self.cc_enable
+        if self.cc_global_switch is not None:
+            result['CcGlobalSwitch'] = self.cc_global_switch
         if self.cc_template is not None:
             result['CcTemplate'] = self.cc_template
         if self.domain is not None:
@@ -19042,6 +19199,8 @@ class DescribeWebCcProtectSwitchResponseBodyProtectSwitchList(TeaModel):
             self.cc_custom_rule_enable = m.get('CcCustomRuleEnable')
         if m.get('CcEnable') is not None:
             self.cc_enable = m.get('CcEnable')
+        if m.get('CcGlobalSwitch') is not None:
+            self.cc_global_switch = m.get('CcGlobalSwitch')
         if m.get('CcTemplate') is not None:
             self.cc_template = m.get('CcTemplate')
         if m.get('Domain') is not None:
@@ -19492,9 +19651,10 @@ class DescribeWebPreciseAccessRuleRequest(TeaModel):
 
 
 class DescribeWebPreciseAccessRuleResponseBodyPreciseAccessConfigListRuleListConditionList(TeaModel):
-    def __init__(self, content=None, field=None, header_name=None, match_method=None):
+    def __init__(self, content=None, content_list=None, field=None, header_name=None, match_method=None):
         # The match content.
         self.content = content  # type: str
+        self.content_list = content_list  # type: list[str]
         # The match field.
         self.field = field  # type: str
         # The custom HTTP header.
@@ -19515,6 +19675,8 @@ class DescribeWebPreciseAccessRuleResponseBodyPreciseAccessConfigListRuleListCon
         result = dict()
         if self.content is not None:
             result['Content'] = self.content
+        if self.content_list is not None:
+            result['ContentList'] = self.content_list
         if self.field is not None:
             result['Field'] = self.field
         if self.header_name is not None:
@@ -19527,6 +19689,8 @@ class DescribeWebPreciseAccessRuleResponseBodyPreciseAccessConfigListRuleListCon
         m = m or dict()
         if m.get('Content') is not None:
             self.content = m.get('Content')
+        if m.get('ContentList') is not None:
+            self.content_list = m.get('ContentList')
         if m.get('Field') is not None:
             self.field = m.get('Field')
         if m.get('HeaderName') is not None:
@@ -19713,6 +19877,170 @@ class DescribeWebPreciseAccessRuleResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeWebPreciseAccessRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeWebReportTopIpRequest(TeaModel):
+    def __init__(self, domain=None, end_time=None, interval=None, query_type=None, start_time=None, top=None):
+        self.domain = domain  # type: str
+        self.end_time = end_time  # type: long
+        self.interval = interval  # type: int
+        self.query_type = query_type  # type: str
+        self.start_time = start_time  # type: long
+        self.top = top  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWebReportTopIpRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.interval is not None:
+            result['Interval'] = self.interval
+        if self.query_type is not None:
+            result['QueryType'] = self.query_type
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.top is not None:
+            result['Top'] = self.top
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Interval') is not None:
+            self.interval = m.get('Interval')
+        if m.get('QueryType') is not None:
+            self.query_type = m.get('QueryType')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Top') is not None:
+            self.top = m.get('Top')
+        return self
+
+
+class DescribeWebReportTopIpResponseBodyDataList(TeaModel):
+    def __init__(self, area_id=None, count=None, isp=None, source_ip=None):
+        self.area_id = area_id  # type: str
+        self.count = count  # type: long
+        self.isp = isp  # type: str
+        self.source_ip = source_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWebReportTopIpResponseBodyDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.area_id is not None:
+            result['AreaId'] = self.area_id
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.isp is not None:
+            result['Isp'] = self.isp
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AreaId') is not None:
+            self.area_id = m.get('AreaId')
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('Isp') is not None:
+            self.isp = m.get('Isp')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        return self
+
+
+class DescribeWebReportTopIpResponseBody(TeaModel):
+    def __init__(self, data_list=None, request_id=None):
+        self.data_list = data_list  # type: list[DescribeWebReportTopIpResponseBodyDataList]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data_list:
+            for k in self.data_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeWebReportTopIpResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DataList'] = []
+        if self.data_list is not None:
+            for k in self.data_list:
+                result['DataList'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data_list = []
+        if m.get('DataList') is not None:
+            for k in m.get('DataList'):
+                temp_model = DescribeWebReportTopIpResponseBodyDataList()
+                self.data_list.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeWebReportTopIpResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeWebReportTopIpResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeWebReportTopIpResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeWebReportTopIpResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
