@@ -1264,7 +1264,7 @@ class Client(OpenApiClient):
 
     def describe_batch_result_detail_with_options(self, request, runtime):
         """
-        Before you call this operation, make sure that the batch tasks have been executed.
+        *Before you call this operation, make sure that the batch operation task is complete.
         
 
         @param request: DescribeBatchResultDetailRequest
@@ -1308,7 +1308,7 @@ class Client(OpenApiClient):
 
     def describe_batch_result_detail(self, request):
         """
-        Before you call this operation, make sure that the batch tasks have been executed.
+        *Before you call this operation, make sure that the batch operation task is complete.
         
 
         @param request: DescribeBatchResultDetailRequest
@@ -2298,7 +2298,7 @@ class Client(OpenApiClient):
 
     def describe_domain_info_with_options(self, request, runtime):
         """
-        In this example, the domain name is bound to an Alibaba Cloud DNS instance of Enterprise Ultimate Edition. For more information about valid lines, see the return values of the RecordLines parameter.
+        In this example, the domain name is bound to an instance of Alibaba Cloud DNS Enterprise Ultimate Edition. For more information about valid Domain Name System (DNS) request lines, see the return values of the RecordLines parameter.
         
 
         @param request: DescribeDomainInfoRequest
@@ -2336,7 +2336,7 @@ class Client(OpenApiClient):
 
     def describe_domain_info(self, request):
         """
-        In this example, the domain name is bound to an Alibaba Cloud DNS instance of Enterprise Ultimate Edition. For more information about valid lines, see the return values of the RecordLines parameter.
+        In this example, the domain name is bound to an instance of Alibaba Cloud DNS Enterprise Ultimate Edition. For more information about valid Domain Name System (DNS) request lines, see the return values of the RecordLines parameter.
         
 
         @param request: DescribeDomainInfoRequest
@@ -2390,7 +2390,7 @@ class Client(OpenApiClient):
 
     def describe_domain_ns_with_options(self, request, runtime):
         """
-        > This operation queries the authoritative servers of a domain name registry to obtain the name servers for a domain name. If the domain name is in an invalid state, such as serverHold or clientHold, an error may be returned.
+        >  You can call this operation to query the authoritative servers of a domain name registry to obtain the name servers for a domain name. If the domain name is in an invalid state, such as serverHold or clientHold, an error may be returned.
         
 
         @param request: DescribeDomainNsRequest
@@ -2426,7 +2426,7 @@ class Client(OpenApiClient):
 
     def describe_domain_ns(self, request):
         """
-        > This operation queries the authoritative servers of a domain name registry to obtain the name servers for a domain name. If the domain name is in an invalid state, such as serverHold or clientHold, an error may be returned.
+        >  You can call this operation to query the authoritative servers of a domain name registry to obtain the name servers for a domain name. If the domain name is in an invalid state, such as serverHold or clientHold, an error may be returned.
         
 
         @param request: DescribeDomainNsRequest
@@ -2490,9 +2490,10 @@ class Client(OpenApiClient):
 
     def describe_domain_records_with_options(self, request, runtime):
         """
-        You can specify the DomainName, PageNumber, and PageSize parameters to query the DNS records of a domain name.
-        *   You can also specify the RRKeyWord, TypeKeyWord, or ValueKeyWord parameter to query the DNS records that contain the specified keyword.
+        You can specify DomainName, PageNumber, and PageSize to query the DNS records of the specified domain names.
+        *   You can also specify RRKeyWord, TypeKeyWord, or ValueKeyWord to query the DNS records that contain the specified keyword.
         *   By default, the DNS records are sorted in reverse chronological order based on the time when they were added.
+        *   You can specify GroupId to query the DNS records of the specified domain names based on the group ID. You can query the DNS records of all domain names and the domain names in the default group.
         
 
         @param request: DescribeDomainRecordsRequest
@@ -2554,9 +2555,10 @@ class Client(OpenApiClient):
 
     def describe_domain_records(self, request):
         """
-        You can specify the DomainName, PageNumber, and PageSize parameters to query the DNS records of a domain name.
-        *   You can also specify the RRKeyWord, TypeKeyWord, or ValueKeyWord parameter to query the DNS records that contain the specified keyword.
+        You can specify DomainName, PageNumber, and PageSize to query the DNS records of the specified domain names.
+        *   You can also specify RRKeyWord, TypeKeyWord, or ValueKeyWord to query the DNS records that contain the specified keyword.
         *   By default, the DNS records are sorted in reverse chronological order based on the time when they were added.
+        *   You can specify GroupId to query the DNS records of the specified domain names based on the group ID. You can query the DNS records of all domain names and the domain names in the default group.
         
 
         @param request: DescribeDomainRecordsRequest
