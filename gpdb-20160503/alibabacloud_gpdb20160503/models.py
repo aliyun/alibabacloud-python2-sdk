@@ -19534,11 +19534,14 @@ class QueryCollectionDataResponse(TeaModel):
 
 
 class QueryContentRequest(TeaModel):
-    def __init__(self, collection=None, content=None, dbinstance_id=None, filter=None, metrics=None, namespace=None,
-                 namespace_password=None, owner_id=None, region_id=None, top_k=None, use_full_text_retrieval=None):
+    def __init__(self, collection=None, content=None, dbinstance_id=None, file_name=None, file_url=None, filter=None,
+                 metrics=None, namespace=None, namespace_password=None, owner_id=None, region_id=None, top_k=None,
+                 use_full_text_retrieval=None):
         self.collection = collection  # type: str
         self.content = content  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
+        self.file_name = file_name  # type: str
+        self.file_url = file_url  # type: str
         self.filter = filter  # type: str
         self.metrics = metrics  # type: str
         self.namespace = namespace  # type: str
@@ -19563,6 +19566,10 @@ class QueryContentRequest(TeaModel):
             result['Content'] = self.content
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
+        if self.file_name is not None:
+            result['FileName'] = self.file_name
+        if self.file_url is not None:
+            result['FileUrl'] = self.file_url
         if self.filter is not None:
             result['Filter'] = self.filter
         if self.metrics is not None:
@@ -19589,6 +19596,96 @@ class QueryContentRequest(TeaModel):
             self.content = m.get('Content')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('FileName') is not None:
+            self.file_name = m.get('FileName')
+        if m.get('FileUrl') is not None:
+            self.file_url = m.get('FileUrl')
+        if m.get('Filter') is not None:
+            self.filter = m.get('Filter')
+        if m.get('Metrics') is not None:
+            self.metrics = m.get('Metrics')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('NamespacePassword') is not None:
+            self.namespace_password = m.get('NamespacePassword')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('TopK') is not None:
+            self.top_k = m.get('TopK')
+        if m.get('UseFullTextRetrieval') is not None:
+            self.use_full_text_retrieval = m.get('UseFullTextRetrieval')
+        return self
+
+
+class QueryContentAdvanceRequest(TeaModel):
+    def __init__(self, collection=None, content=None, dbinstance_id=None, file_name=None, file_url_object=None,
+                 filter=None, metrics=None, namespace=None, namespace_password=None, owner_id=None, region_id=None,
+                 top_k=None, use_full_text_retrieval=None):
+        self.collection = collection  # type: str
+        self.content = content  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.file_name = file_name  # type: str
+        self.file_url_object = file_url_object  # type: READABLE
+        self.filter = filter  # type: str
+        self.metrics = metrics  # type: str
+        self.namespace = namespace  # type: str
+        self.namespace_password = namespace_password  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.top_k = top_k  # type: int
+        self.use_full_text_retrieval = use_full_text_retrieval  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryContentAdvanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.collection is not None:
+            result['Collection'] = self.collection
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.file_name is not None:
+            result['FileName'] = self.file_name
+        if self.file_url_object is not None:
+            result['FileUrl'] = self.file_url_object
+        if self.filter is not None:
+            result['Filter'] = self.filter
+        if self.metrics is not None:
+            result['Metrics'] = self.metrics
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.namespace_password is not None:
+            result['NamespacePassword'] = self.namespace_password
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.top_k is not None:
+            result['TopK'] = self.top_k
+        if self.use_full_text_retrieval is not None:
+            result['UseFullTextRetrieval'] = self.use_full_text_retrieval
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Collection') is not None:
+            self.collection = m.get('Collection')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('FileName') is not None:
+            self.file_name = m.get('FileName')
+        if m.get('FileUrl') is not None:
+            self.file_url_object = m.get('FileUrl')
         if m.get('Filter') is not None:
             self.filter = m.get('Filter')
         if m.get('Metrics') is not None:
@@ -19633,10 +19730,11 @@ class QueryContentResponseBodyMatchesMatchListVector(TeaModel):
 
 
 class QueryContentResponseBodyMatchesMatchList(TeaModel):
-    def __init__(self, content=None, file_name=None, id=None, loader_metadata=None, metadata=None,
+    def __init__(self, content=None, file_name=None, file_url=None, id=None, loader_metadata=None, metadata=None,
                  retrieval_source=None, score=None, vector=None):
         self.content = content  # type: str
         self.file_name = file_name  # type: str
+        self.file_url = file_url  # type: str
         self.id = id  # type: str
         self.loader_metadata = loader_metadata  # type: str
         self.metadata = metadata  # type: dict[str, str]
@@ -19658,6 +19756,8 @@ class QueryContentResponseBodyMatchesMatchList(TeaModel):
             result['Content'] = self.content
         if self.file_name is not None:
             result['FileName'] = self.file_name
+        if self.file_url is not None:
+            result['FileURL'] = self.file_url
         if self.id is not None:
             result['Id'] = self.id
         if self.loader_metadata is not None:
@@ -19678,6 +19778,8 @@ class QueryContentResponseBodyMatchesMatchList(TeaModel):
             self.content = m.get('Content')
         if m.get('FileName') is not None:
             self.file_name = m.get('FileName')
+        if m.get('FileURL') is not None:
+            self.file_url = m.get('FileURL')
         if m.get('Id') is not None:
             self.id = m.get('Id')
         if m.get('LoaderMetadata') is not None:
@@ -19726,17 +19828,49 @@ class QueryContentResponseBodyMatches(TeaModel):
         return self
 
 
+class QueryContentResponseBodyUsage(TeaModel):
+    def __init__(self, embedding_entries=None, embedding_tokens=None):
+        self.embedding_entries = embedding_entries  # type: str
+        self.embedding_tokens = embedding_tokens  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryContentResponseBodyUsage, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.embedding_entries is not None:
+            result['EmbeddingEntries'] = self.embedding_entries
+        if self.embedding_tokens is not None:
+            result['EmbeddingTokens'] = self.embedding_tokens
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EmbeddingEntries') is not None:
+            self.embedding_entries = m.get('EmbeddingEntries')
+        if m.get('EmbeddingTokens') is not None:
+            self.embedding_tokens = m.get('EmbeddingTokens')
+        return self
+
+
 class QueryContentResponseBody(TeaModel):
-    def __init__(self, embedding_tokens=None, matches=None, message=None, request_id=None, status=None):
+    def __init__(self, embedding_tokens=None, matches=None, message=None, request_id=None, status=None, usage=None):
         self.embedding_tokens = embedding_tokens  # type: str
         self.matches = matches  # type: QueryContentResponseBodyMatches
         self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.status = status  # type: str
+        self.usage = usage  # type: QueryContentResponseBodyUsage
 
     def validate(self):
         if self.matches:
             self.matches.validate()
+        if self.usage:
+            self.usage.validate()
 
     def to_map(self):
         _map = super(QueryContentResponseBody, self).to_map()
@@ -19754,6 +19888,8 @@ class QueryContentResponseBody(TeaModel):
             result['RequestId'] = self.request_id
         if self.status is not None:
             result['Status'] = self.status
+        if self.usage is not None:
+            result['Usage'] = self.usage.to_map()
         return result
 
     def from_map(self, m=None):
@@ -19769,6 +19905,9 @@ class QueryContentResponseBody(TeaModel):
             self.request_id = m.get('RequestId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('Usage') is not None:
+            temp_model = QueryContentResponseBodyUsage()
+            self.usage = temp_model.from_map(m['Usage'])
         return self
 
 
