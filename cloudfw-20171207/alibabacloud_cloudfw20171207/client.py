@@ -310,7 +310,7 @@ class Client(OpenApiClient):
 
     def create_nat_firewall_control_policy_with_options(self, request, runtime):
         """
-        You can use this operation to create an access control policy to allow, deny, or monitor traffic that passes through a NAT firewall.
+        You can call this operation to create a policy that allows, denies, or monitors the traffic that passes through the NAT firewall.
         
 
         @param request: CreateNatFirewallControlPolicyRequest
@@ -390,7 +390,7 @@ class Client(OpenApiClient):
 
     def create_nat_firewall_control_policy(self, request):
         """
-        You can use this operation to create an access control policy to allow, deny, or monitor traffic that passes through a NAT firewall.
+        You can call this operation to create a policy that allows, denies, or monitors the traffic that passes through the NAT firewall.
         
 
         @param request: CreateNatFirewallControlPolicyRequest
@@ -4301,6 +4301,34 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.put_enable_fw_switch_with_options(request, runtime)
+
+    def release_post_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReleasePostInstance',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.ReleasePostInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def release_post_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.release_post_instance_with_options(request, runtime)
 
     def reset_vpc_firewall_rule_hit_count_with_options(self, request, runtime):
         """
