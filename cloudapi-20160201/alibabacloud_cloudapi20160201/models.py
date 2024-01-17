@@ -14060,10 +14060,11 @@ class DescribePurchasedApiGroupDetailResponse(TeaModel):
 
 
 class DescribePurchasedApiGroupsRequest(TeaModel):
-    def __init__(self, group_ids=None, page_number=None, page_size=None):
+    def __init__(self, group_ids=None, page_number=None, page_size=None, security_token=None):
         self.group_ids = group_ids  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -14080,6 +14081,8 @@ class DescribePurchasedApiGroupsRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
@@ -14090,6 +14093,8 @@ class DescribePurchasedApiGroupsRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
