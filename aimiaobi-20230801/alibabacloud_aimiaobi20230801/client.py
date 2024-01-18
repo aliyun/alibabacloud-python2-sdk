@@ -322,6 +322,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.fetch_image_task_with_options(request, runtime)
 
+    def generate_file_url_by_key_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        body = {}
+        if not UtilClient.is_unset(request.file_key):
+            body['FileKey'] = request.file_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GenerateFileUrlByKey',
+            version='2023-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ai_miao_bi_20230801_models.GenerateFileUrlByKeyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def generate_file_url_by_key(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.generate_file_url_by_key_with_options(request, runtime)
+
     def generate_image_task_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = ai_miao_bi_20230801_models.GenerateImageTaskShrinkRequest()
@@ -363,6 +395,40 @@ class Client(OpenApiClient):
     def generate_image_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.generate_image_task_with_options(request, runtime)
+
+    def generate_upload_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        body = {}
+        if not UtilClient.is_unset(request.file_name):
+            body['FileName'] = request.file_name
+        if not UtilClient.is_unset(request.parent_dir):
+            body['ParentDir'] = request.parent_dir
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GenerateUploadConfig',
+            version='2023-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ai_miao_bi_20230801_models.GenerateUploadConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def generate_upload_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.generate_upload_config_with_options(request, runtime)
 
     def generate_view_point_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -961,6 +1027,52 @@ class Client(OpenApiClient):
     def save_material_document(self, request):
         runtime = util_models.RuntimeOptions()
         return self.save_material_document_with_options(request, runtime)
+
+    def search_news_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ai_miao_bi_20230801_models.SearchNewsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.search_sources):
+            request.search_sources_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.search_sources, 'SearchSources', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        body = {}
+        if not UtilClient.is_unset(request.filter_not_null):
+            body['FilterNotNull'] = request.filter_not_null
+        if not UtilClient.is_unset(request.include_content):
+            body['IncludeContent'] = request.include_content
+        if not UtilClient.is_unset(request.page):
+            body['Page'] = request.page
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.query):
+            body['Query'] = request.query
+        if not UtilClient.is_unset(request.search_sources_shrink):
+            body['SearchSources'] = request.search_sources_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SearchNews',
+            version='2023-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ai_miao_bi_20230801_models.SearchNewsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def search_news(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.search_news_with_options(request, runtime)
 
     def submit_async_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)

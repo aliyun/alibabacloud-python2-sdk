@@ -1306,6 +1306,123 @@ class FetchImageTaskResponse(TeaModel):
         return self
 
 
+class GenerateFileUrlByKeyRequest(TeaModel):
+    def __init__(self, agent_key=None, file_key=None):
+        self.agent_key = agent_key  # type: str
+        self.file_key = file_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GenerateFileUrlByKeyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.file_key is not None:
+            result['FileKey'] = self.file_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('FileKey') is not None:
+            self.file_key = m.get('FileKey')
+        return self
+
+
+class GenerateFileUrlByKeyResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GenerateFileUrlByKeyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GenerateFileUrlByKeyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GenerateFileUrlByKeyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GenerateFileUrlByKeyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GenerateFileUrlByKeyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GenerateImageTaskRequestParagraphList(TeaModel):
     def __init__(self, content=None, id=None, task_id=None, task_status=None):
         self.content = content  # type: str
@@ -1598,6 +1715,164 @@ class GenerateImageTaskResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GenerateImageTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GenerateUploadConfigRequest(TeaModel):
+    def __init__(self, agent_key=None, file_name=None, parent_dir=None):
+        self.agent_key = agent_key  # type: str
+        self.file_name = file_name  # type: str
+        self.parent_dir = parent_dir  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GenerateUploadConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.file_name is not None:
+            result['FileName'] = self.file_name
+        if self.parent_dir is not None:
+            result['ParentDir'] = self.parent_dir
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('FileName') is not None:
+            self.file_name = m.get('FileName')
+        if m.get('ParentDir') is not None:
+            self.parent_dir = m.get('ParentDir')
+        return self
+
+
+class GenerateUploadConfigResponseBodyData(TeaModel):
+    def __init__(self, file_key=None, form_datas=None, post_url=None):
+        self.file_key = file_key  # type: str
+        self.form_datas = form_datas  # type: dict[str, any]
+        self.post_url = post_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GenerateUploadConfigResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_key is not None:
+            result['FileKey'] = self.file_key
+        if self.form_datas is not None:
+            result['FormDatas'] = self.form_datas
+        if self.post_url is not None:
+            result['PostUrl'] = self.post_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FileKey') is not None:
+            self.file_key = m.get('FileKey')
+        if m.get('FormDatas') is not None:
+            self.form_datas = m.get('FormDatas')
+        if m.get('PostUrl') is not None:
+            self.post_url = m.get('PostUrl')
+        return self
+
+
+class GenerateUploadConfigResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: GenerateUploadConfigResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GenerateUploadConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GenerateUploadConfigResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GenerateUploadConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GenerateUploadConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GenerateUploadConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GenerateUploadConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5727,6 +6002,313 @@ class SaveMaterialDocumentResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SaveMaterialDocumentResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SearchNewsRequest(TeaModel):
+    def __init__(self, agent_key=None, filter_not_null=None, include_content=None, page=None, page_size=None,
+                 query=None, search_sources=None):
+        self.agent_key = agent_key  # type: str
+        self.filter_not_null = filter_not_null  # type: bool
+        self.include_content = include_content  # type: bool
+        self.page = page  # type: int
+        self.page_size = page_size  # type: int
+        self.query = query  # type: str
+        self.search_sources = search_sources  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SearchNewsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.filter_not_null is not None:
+            result['FilterNotNull'] = self.filter_not_null
+        if self.include_content is not None:
+            result['IncludeContent'] = self.include_content
+        if self.page is not None:
+            result['Page'] = self.page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.query is not None:
+            result['Query'] = self.query
+        if self.search_sources is not None:
+            result['SearchSources'] = self.search_sources
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('FilterNotNull') is not None:
+            self.filter_not_null = m.get('FilterNotNull')
+        if m.get('IncludeContent') is not None:
+            self.include_content = m.get('IncludeContent')
+        if m.get('Page') is not None:
+            self.page = m.get('Page')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Query') is not None:
+            self.query = m.get('Query')
+        if m.get('SearchSources') is not None:
+            self.search_sources = m.get('SearchSources')
+        return self
+
+
+class SearchNewsShrinkRequest(TeaModel):
+    def __init__(self, agent_key=None, filter_not_null=None, include_content=None, page=None, page_size=None,
+                 query=None, search_sources_shrink=None):
+        self.agent_key = agent_key  # type: str
+        self.filter_not_null = filter_not_null  # type: bool
+        self.include_content = include_content  # type: bool
+        self.page = page  # type: int
+        self.page_size = page_size  # type: int
+        self.query = query  # type: str
+        self.search_sources_shrink = search_sources_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SearchNewsShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.filter_not_null is not None:
+            result['FilterNotNull'] = self.filter_not_null
+        if self.include_content is not None:
+            result['IncludeContent'] = self.include_content
+        if self.page is not None:
+            result['Page'] = self.page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.query is not None:
+            result['Query'] = self.query
+        if self.search_sources_shrink is not None:
+            result['SearchSources'] = self.search_sources_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('FilterNotNull') is not None:
+            self.filter_not_null = m.get('FilterNotNull')
+        if m.get('IncludeContent') is not None:
+            self.include_content = m.get('IncludeContent')
+        if m.get('Page') is not None:
+            self.page = m.get('Page')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Query') is not None:
+            self.query = m.get('Query')
+        if m.get('SearchSources') is not None:
+            self.search_sources_shrink = m.get('SearchSources')
+        return self
+
+
+class SearchNewsResponseBodyData(TeaModel):
+    def __init__(self, author=None, content=None, doc_uuid=None, image_urls=None, pub_time=None, search_source=None,
+                 search_source_name=None, source=None, summary=None, tag=None, title=None, update_time=None, url=None):
+        self.author = author  # type: str
+        self.content = content  # type: str
+        self.doc_uuid = doc_uuid  # type: str
+        self.image_urls = image_urls  # type: list[str]
+        self.pub_time = pub_time  # type: str
+        self.search_source = search_source  # type: str
+        self.search_source_name = search_source_name  # type: str
+        self.source = source  # type: str
+        self.summary = summary  # type: str
+        self.tag = tag  # type: str
+        self.title = title  # type: str
+        self.update_time = update_time  # type: str
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SearchNewsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.author is not None:
+            result['Author'] = self.author
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.doc_uuid is not None:
+            result['DocUuid'] = self.doc_uuid
+        if self.image_urls is not None:
+            result['ImageUrls'] = self.image_urls
+        if self.pub_time is not None:
+            result['PubTime'] = self.pub_time
+        if self.search_source is not None:
+            result['SearchSource'] = self.search_source
+        if self.search_source_name is not None:
+            result['SearchSourceName'] = self.search_source_name
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.summary is not None:
+            result['Summary'] = self.summary
+        if self.tag is not None:
+            result['Tag'] = self.tag
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Author') is not None:
+            self.author = m.get('Author')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('DocUuid') is not None:
+            self.doc_uuid = m.get('DocUuid')
+        if m.get('ImageUrls') is not None:
+            self.image_urls = m.get('ImageUrls')
+        if m.get('PubTime') is not None:
+            self.pub_time = m.get('PubTime')
+        if m.get('SearchSource') is not None:
+            self.search_source = m.get('SearchSource')
+        if m.get('SearchSourceName') is not None:
+            self.search_source_name = m.get('SearchSourceName')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('Summary') is not None:
+            self.summary = m.get('Summary')
+        if m.get('Tag') is not None:
+            self.tag = m.get('Tag')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class SearchNewsResponseBody(TeaModel):
+    def __init__(self, code=None, current=None, data=None, http_status_code=None, message=None, request_id=None,
+                 size=None, success=None, total=None):
+        self.code = code  # type: str
+        self.current = current  # type: int
+        self.data = data  # type: list[SearchNewsResponseBodyData]
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.size = size  # type: int
+        self.success = success  # type: bool
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SearchNewsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.current is not None:
+            result['Current'] = self.current
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.size is not None:
+            result['Size'] = self.size
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Current') is not None:
+            self.current = m.get('Current')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = SearchNewsResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class SearchNewsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SearchNewsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SearchNewsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SearchNewsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
