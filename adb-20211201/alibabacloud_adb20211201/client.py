@@ -1113,6 +1113,16 @@ class Client(OpenApiClient):
         return self.describe_aps_resource_groups_with_options(request, runtime)
 
     def describe_audit_log_records_with_options(self, request, runtime):
+        """
+        SQL audit logs can be queried only when SQL audit is enabled. Only SQL audit logs within the last 30 days can be queried. If SQL audit was disabled and re-enabled, only SQL audit logs from the time when SQL audit was re-enabled can be queried. The following operations are not recorded in SQL audit logs: *INSERT INTO VALUES**, **REPLACE INTO VALUES**, and **UPSERT INTO VALUES**.
+        
+
+        @param request: DescribeAuditLogRecordsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeAuditLogRecordsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -1173,6 +1183,14 @@ class Client(OpenApiClient):
         )
 
     def describe_audit_log_records(self, request):
+        """
+        SQL audit logs can be queried only when SQL audit is enabled. Only SQL audit logs within the last 30 days can be queried. If SQL audit was disabled and re-enabled, only SQL audit logs from the time when SQL audit was re-enabled can be queried. The following operations are not recorded in SQL audit logs: *INSERT INTO VALUES**, **REPLACE INTO VALUES**, and **UPSERT INTO VALUES**.
+        
+
+        @param request: DescribeAuditLogRecordsRequest
+
+        @return: DescribeAuditLogRecordsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_audit_log_records_with_options(request, runtime)
 
@@ -2628,12 +2646,18 @@ class Client(OpenApiClient):
 
     def get_spark_app_attempt_log_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         body = {}
         if not UtilClient.is_unset(request.attempt_id):
             body['AttemptId'] = request.attempt_id
         if not UtilClient.is_unset(request.log_length):
             body['LogLength'] = request.log_length
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -2693,6 +2717,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
             query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         body = {}
         if not UtilClient.is_unset(request.app_id):
             body['AppId'] = request.app_id
@@ -2964,7 +2992,8 @@ class Client(OpenApiClient):
 
     def get_spark_template_folder_tree_with_options(self, request, runtime):
         """
-        You can call this operation to query the directory structure but not application data in the directory. To query the directory structure that contains application data, call the [GetSparkTemplateFullTree](~~456205~~) operation.
+        ### [](#)Usage notes
+        You can call this operation to query the directory structure but not application data in the directory. To query the directory structure that contains application data, call the [GetSparkTemplateFullTree](~~612467~~) operation.
         
 
         @param request: GetSparkTemplateFolderTreeRequest
@@ -2998,7 +3027,8 @@ class Client(OpenApiClient):
 
     def get_spark_template_folder_tree(self, request):
         """
-        You can call this operation to query the directory structure but not application data in the directory. To query the directory structure that contains application data, call the [GetSparkTemplateFullTree](~~456205~~) operation.
+        ### [](#)Usage notes
+        You can call this operation to query the directory structure but not application data in the directory. To query the directory structure that contains application data, call the [GetSparkTemplateFullTree](~~612467~~) operation.
         
 
         @param request: GetSparkTemplateFolderTreeRequest

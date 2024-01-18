@@ -2325,7 +2325,7 @@ class CheckSampleDataSetResponse(TeaModel):
 class CreateAccountRequest(TeaModel):
     def __init__(self, account_description=None, account_name=None, account_password=None, account_type=None,
                  dbcluster_id=None):
-        # The description of the database account.
+        # The description of the account.
         # 
         # *   The description cannot start with `http://` or `https://`.
         # *   The description can be up to 256 characters in length.
@@ -2781,6 +2781,9 @@ class CreateDBResourceGroupRequest(TeaModel):
         # *   When GroupType is set to Interactive, set this parameter to 16 ACUs.
         # *   When GroupType is set to Job, set this parameter to 0 ACUs.
         self.min_compute_resource = min_compute_resource  # type: str
+        # The region ID of the cluster.
+        # 
+        # >  You can call the [DescribeRegions](~~612393~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2906,58 +2909,60 @@ class CreateDBResourceGroupResponse(TeaModel):
 class CreateElasticPlanRequest(TeaModel):
     def __init__(self, auto_scale=None, cron_expression=None, dbcluster_id=None, elastic_plan_name=None,
                  enabled=None, end_time=None, resource_group_name=None, start_time=None, target_size=None, type=None):
-        # Specifies whether to enable **Proportional Default Scaling for EIUs**.
+        # Specifies whether to enable **Default Proportional Scaling for EIUs**. Valid values:
         # 
-        # Valid values:
+        # *   true. In this case, storage resources are scaled along with computing resources, and the TargetSize and CronExpression parameters are not supported.
+        # *   false
         # 
-        # *   true: enables Proportional Default Scaling for EIUs. If you enable Proportional Default Scaling, storage resources are scaled along with computing resources, and the TargetSize and CronExpression parameters are not supported.
+        # > 
         # 
-        # *   false: does not enable Proportional Default Scaling for EIUs.
+        # *   This parameter must be specified when Type is set to WORKER. This parameter is not required when Type is set to EXECUTOR.
         # 
-        # > *   This parameter is required if the Type parameter is set to WORKER. This parameter is not required if the Type parameter is set to EXECUTOR.
-        # > *   You can enable Proportional Default Scaling for EIUs for only a single scaling plan of a cluster.
+        # *   You can enable Default Proportional Scaling for EIUs for only a single scaling plan of a cluster.
         self.auto_scale = auto_scale  # type: bool
         # A CORN expression that specifies the scaling cycle and time for the scaling plan.
         self.cron_expression = cron_expression  # type: str
-        # The ID of the cluster.
+        # The cluster ID.
         # 
-        # >  You can call the [DescribeDBClusters](~~454250~~) operation to query the ID of an AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # >  You can call the [DescribeDBClusters](~~454250~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
         # The name of the scaling plan.
         # 
-        # >  The name must be 2 to 30 characters in length, and can contain letters, digits, and underscores (\_). It must start with a letter.
+        # >  The name must be 2 to 30 characters in length and can contain letters, digits, and underscores (\_). The name must start with a letter.
         self.elastic_plan_name = elastic_plan_name  # type: str
-        # Specifies whether to immediately enable the scaling plan after the scaling plan is created.
+        # Specifies whether to immediately enable the scaling plan after the plan is created. Valid values:
         # 
-        # Valid values:
-        # 
-        # *   true: immediately enables the scaling plan.
-        # *   false: does not immediately enable the scaling plan.
+        # *   true
+        # *   false
         self.enabled = enabled  # type: bool
-        # The time to end the scaling plan.
+        # The end time of the scaling plan.
         # 
         # >  Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.end_time = end_time  # type: str
         # The name of the resource group.
         # 
-        # > *   This parameter is required if you want to create a scaling plan that uses interactive resource groups. This parameter is not required if you want to create a scaling plan that uses elastic I/O units (EIUs).
-        # > *   You can call the [DescribeDBResourceGroup](~~459446~~) operation to query the name of a resource group within a specific cluster.
+        # > 
+        # 
+        # *   If you want to create a scaling plan that uses interactive resource groups, you must specify this parameter. If you want to create a scaling plan that uses elastic I/O units (EIUs), you do not need to specify this parameter.
+        # 
+        # *   You can call the [DescribeDBResourceGroup](~~459446~~) operation to query the resource group name for a cluster.
         self.resource_group_name = resource_group_name  # type: str
-        # The time to start the scaling plan.
+        # The start time of the scaling plan.
         # 
         # >  Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
-        # The amount of elastic resources after scaling.
+        # The desired specifications of elastic resources after scaling.
         # 
-        # > *   This parameter is not required only if the resource group uses **EIUs** and **Proportional Default Scaling for EIUs** is enabled.
-        # > *   You can call the [DescribeElasticPlanSpecifications](~~601278~~) operation to query the specifications that are supported for scaling plans.
+        # > 
+        # 
+        # *   If the scaling plan uses **EIUs** and **Default Proportional Scaling for EIUs** is enabled, you do not need to specify this parameter. In other cases, you must specify this parameter.
+        # 
+        # *   You can call the [DescribeElasticPlanSpecifications](~~601278~~) operation to query the specifications that are supported for scaling plans.
         self.target_size = target_size  # type: str
-        # The type of the scaling plan.
+        # The type of the scaling plan. Valid values:
         # 
-        # Valid values:
-        # 
-        # *   EXECUTOR: interactive resource groups, which fall into the computing resource category.
-        # *   WORKER: EIUs.
+        # *   EXECUTOR: the interactive resource group type, which indicates the computing resource type.
+        # *   WORKER: the EIU type.
         self.type = type  # type: str
 
     def validate(self):
@@ -3018,7 +3023,7 @@ class CreateElasticPlanRequest(TeaModel):
 
 class CreateElasticPlanResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3082,7 +3087,11 @@ class CreateElasticPlanResponse(TeaModel):
 
 class CreateOssSubDirectoryRequest(TeaModel):
     def __init__(self, dbcluster_id=None, path=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~612397~~) operation to query the information about all AnalyticDB for MySQL clusters within a region, including cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The OSS path where you want to create a subdirectory.
         self.path = path  # type: str
 
     def validate(self):
@@ -3111,9 +3120,13 @@ class CreateOssSubDirectoryRequest(TeaModel):
 
 class CreateOssSubDirectoryResponseBodyData(TeaModel):
     def __init__(self, client_crc=None, etag=None, request_id=None, server_crc=None):
+        # The cyclic redundancy check (CRC) value on the client.
         self.client_crc = client_crc  # type: long
+        # The tag of the OSS path.
         self.etag = etag  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The CRC-64 value on the OSS bucket.
         self.server_crc = server_crc  # type: long
 
     def validate(self):
@@ -3150,10 +3163,21 @@ class CreateOssSubDirectoryResponseBodyData(TeaModel):
 
 class CreateOssSubDirectoryResponseBody(TeaModel):
     def __init__(self, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The returned data.
         self.data = data  # type: CreateOssSubDirectoryResponseBodyData
+        # The response code. The status code 200 indicates that the request was successful.
         self.http_status_code = http_status_code  # type: long
+        # The returned message.
+        # 
+        # *   If the request was successful, a **success** message is returned.
+        # *   If the request failed, an error message is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -3235,24 +3259,26 @@ class CreateOssSubDirectoryResponse(TeaModel):
 
 class CreateSparkTemplateRequest(TeaModel):
     def __init__(self, app_type=None, dbcluster_id=None, name=None, parent_id=None, type=None):
-        # The type of the application. Valid values:
+        # The application type. Valid values:
         # 
-        # *   **SQL**: SQL application
-        # *   **STREAMING**: streaming application
-        # *   **BATCH**: batch application
+        # *   **SQL**\
+        # *   **STREAMING**\
+        # *   **BATCH**\
         # 
-        # >  This parameter is not required if the application template is of the folder type.
+        # >  You do not need to specify this parameter when Type is set to folder.
         self.app_type = app_type  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
         # The name of the application template. The name can be up to 64 characters in length.
         self.name = name  # type: str
         # The ID of the directory to which the application template belongs.
+        # 
+        # >  You can call the [GetSparkTemplateFolderTree](~~456218~~) operation to query the directory ID.
         self.parent_id = parent_id  # type: long
         # The type of the application template. Valid values:
         # 
-        # *   **folder**: directory
-        # *   **file**: application
+        # *   **folder**: directory.
+        # *   **file**: application.
         self.type = type  # type: str
 
     def validate(self):
@@ -3295,8 +3321,8 @@ class CreateSparkTemplateResponseBodyData(TeaModel):
     def __init__(self, succeeded=None):
         # Indicates whether the application template is created. Valid values:
         # 
-        # *   **true**: The application template is created.
-        # *   **false**: The application fails to be created.
+        # *   **True**\
+        # *   **False**\
         self.succeeded = succeeded  # type: bool
 
     def validate(self):
@@ -3323,7 +3349,7 @@ class CreateSparkTemplateResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
         # The creation result.
         self.data = data  # type: CreateSparkTemplateResponseBodyData
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3684,13 +3710,13 @@ class DeleteDBResourceGroupResponse(TeaModel):
 
 class DeleteElasticPlanRequest(TeaModel):
     def __init__(self, dbcluster_id=None, elastic_plan_name=None):
-        # The ID of the cluster.
+        # The cluster ID.
         # 
-        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the cluster IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a specific region.
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
         # The name of the scaling plan.
         # 
-        # >  You can call the [DescribeElasticPlans](~~601334~~) operation to query the name of a scaling plan for a specific cluster.
+        # >  You can call the [DescribeElasticPlans](~~601334~~) operation to query the names of scaling plans.
         self.elastic_plan_name = elastic_plan_name  # type: str
 
     def validate(self):
@@ -3719,7 +3745,7 @@ class DeleteElasticPlanRequest(TeaModel):
 
 class DeleteElasticPlanResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4057,7 +4083,7 @@ class DeleteSparkTemplateFileRequest(TeaModel):
         self.dbcluster_id = dbcluster_id  # type: str
         # The ID of the template file to be deleted.
         # 
-        # >  You can call the [GetSparkTemplateFullTree](~~456205#doc-api-adb-GetSparkTemplateFullTree~~) operation to query the IDs of all existing template files.
+        # >  You can call the [GetSparkTemplateFullTree](~~456205~~) operation to query all template file IDs.
         self.id = id  # type: long
 
     def validate(self):
@@ -4088,8 +4114,8 @@ class DeleteSparkTemplateFileResponseBodyData(TeaModel):
     def __init__(self, succeeded=None):
         # Indicates whether the template file is deleted. Valid values:
         # 
-        # *   **true**: The template file is deleted.
-        # *   **false**: The template file fails to be deleted.
+        # *   **true**\
+        # *   **false**\
         self.succeeded = succeeded  # type: bool
 
     def validate(self):
@@ -4116,7 +4142,7 @@ class DeleteSparkTemplateFileResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
         # The deletion result.
         self.data = data  # type: DeleteSparkTemplateFileResponseBodyData
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5326,19 +5352,19 @@ class DescribeAdbMySqlSchemasRequest(TeaModel):
 
 class DescribeAdbMySqlSchemasResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None, schemas=None, success=None):
-        # The message returned for the operation. Valid values:
+        # The returned message.
         # 
-        # *   **Success** is returned if the operation is successful.
-        # *   An error message is returned if the operation fails.
+        # *   If the request was successful, a **success** message is returned.
+        # *   If the request failed, an error message is returned.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The names of databases.
+        # The queried databases.
         self.schemas = schemas  # type: list[str]
-        # Indicates whether the operation is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   **true**: The operation is successful.
-        # *   **false**: The operation fails.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -6195,6 +6221,9 @@ class DescribeApsActionLogsResponse(TeaModel):
 
 class DescribeApsResourceGroupsRequest(TeaModel):
     def __init__(self, dbcluster_id=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~612397~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -6220,12 +6249,32 @@ class DescribeApsResourceGroupsRequest(TeaModel):
 class DescribeApsResourceGroupsResponseBodyDataResourceGroups(TeaModel):
     def __init__(self, available=None, cu_options=None, group_name=None, group_type=None,
                  left_compute_resource=None, max_compute_resource=None, min_compute_resource=None):
+        # Indicates whether the resource group is available. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.available = available  # type: bool
         self.cu_options = cu_options  # type: list[long]
+        # The name of the resource group.
         self.group_name = group_name  # type: str
+        # The type of the resource group. Valid values:
+        # 
+        # *   **Interactive**\
+        # *   **Job**\
+        # 
+        # >  For more information about resource groups, see [Resource groups](~~428610~~).
         self.group_type = group_type  # type: str
+        # The amount of remaining computing resources. Unit: ACUs.
         self.left_compute_resource = left_compute_resource  # type: int
+        # The maximum amount of reserved computing resources. Unit: ACUs.
+        # 
+        # *   If the value of GroupType is **Interactive**, the amount of reserved computing resources that are not allocated in the cluster is returned in increments of 16 ACUs.
+        # *   If the value of GroupType is **Job**, the amount of reserved computing resources that are not allocated in the cluster is returned in increments of 8 ACUs.
         self.max_compute_resource = max_compute_resource  # type: int
+        # The minimum amount of reserved computing resources. Unit: ACUs.
+        # 
+        # *   If the value of GroupType is **Interactive**, 16 is returned.
+        # *   If the value of GroupType is **Job**, 0 is returned.
         self.min_compute_resource = min_compute_resource  # type: int
 
     def validate(self):
@@ -6274,7 +6323,12 @@ class DescribeApsResourceGroupsResponseBodyDataResourceGroups(TeaModel):
 
 class DescribeApsResourceGroupsResponseBodyData(TeaModel):
     def __init__(self, resource_groups=None, step=None):
+        # The queried resource groups.
         self.resource_groups = resource_groups  # type: list[DescribeApsResourceGroupsResponseBodyDataResourceGroups]
+        # The step size of resources. Unit: AnalyticDB compute units (ACUs).
+        # 
+        # *   If the value of GroupType is **Interactive**, 16 is returned.
+        # *   If the value of GroupType is **Job**, 8 is returned.
         self.step = step  # type: long
 
     def validate(self):
@@ -6311,10 +6365,21 @@ class DescribeApsResourceGroupsResponseBodyData(TeaModel):
 
 class DescribeApsResourceGroupsResponseBody(TeaModel):
     def __init__(self, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        # The queried resource groups.
         self.data = data  # type: DescribeApsResourceGroupsResponseBodyData
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: long
+        # The returned message.
+        # 
+        # *   If the request was successful, a success message is returned.
+        # *   If the request failed, an error message is returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -6470,9 +6535,9 @@ class DescribeAuditLogRecordsRequest(TeaModel):
         # *   **INSERT INTO SELECT**\
         # *   **ALTER**\
         # *   **DROP**\
-        # *   **INSERT**\
+        # *   **CREATE**\
         # 
-        # > You can query only a single type of SQL statements at a time. If you leave this parameter empty, the **SELECT** SQL statements are queried.
+        # >  You can query only a single type of SQL statements at a time. If you leave this parameter empty, the **SELECT** statements are queried.
         self.sql_type = sql_type  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mmZ format. The time must be in UTC.
         # 
@@ -6921,15 +6986,29 @@ class DescribeBackupPolicyResponse(TeaModel):
 class DescribeBackupsRequest(TeaModel):
     def __init__(self, backup_id=None, dbcluster_id=None, end_time=None, owner_account=None, owner_id=None,
                  page_number=None, page_size=None, resource_owner_account=None, resource_owner_id=None, start_time=None):
+        # The backup set ID.
         self.backup_id = backup_id  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~454250~~) operation to query the information about all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region, including cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mmZ format. The time must be in UTC. The end time must be later than the start time.
         self.end_time = end_time  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number. Pages start from page 1. Default value: 1
         self.page_number = page_number  # type: int
+        # The number of entries per page. Valid values:
+        # 
+        # *   30
+        # *   50
+        # *   100
+        # 
+        # Default value: 30.
         self.page_size = page_size  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mmZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -6991,12 +7070,22 @@ class DescribeBackupsRequest(TeaModel):
 class DescribeBackupsResponseBodyItemsBackup(TeaModel):
     def __init__(self, backup_end_time=None, backup_id=None, backup_method=None, backup_size=None,
                  backup_start_time=None, backup_type=None, dbcluster_id=None):
+        # The end time of the backup.
         self.backup_end_time = backup_end_time  # type: str
+        # The backup set ID.
         self.backup_id = backup_id  # type: str
+        # The backup method. Snapshot is returned.
         self.backup_method = backup_method  # type: str
+        # The size of the backup set. Unit: bytes.
         self.backup_size = backup_size  # type: int
+        # The start time of the backup.
         self.backup_start_time = backup_start_time  # type: str
+        # The backup type. Valid values:
+        # 
+        # *   **FullBackup**\
+        # *   **IncrementalBackup**\
         self.backup_type = backup_type  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -7077,10 +7166,15 @@ class DescribeBackupsResponseBodyItems(TeaModel):
 
 class DescribeBackupsResponseBody(TeaModel):
     def __init__(self, items=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The queried backup sets.
         self.items = items  # type: DescribeBackupsResponseBodyItems
+        # The page number.
         self.page_number = page_number  # type: str
+        # The number of entries per page.
         self.page_size = page_size  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: str
 
     def validate(self):
@@ -7552,6 +7646,9 @@ class DescribeClusterNetInfoResponse(TeaModel):
 
 class DescribeClusterResourceDetailRequest(TeaModel):
     def __init__(self, dbcluster_id=None):
+        # The cluster ID.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the information about all AnalyticDB for MySQL clusters within a region, including cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -7578,17 +7675,33 @@ class DescribeClusterResourceDetailResponseBodyDataResourceGroupList(TeaModel):
     def __init__(self, cluster_mode=None, cluster_size_resource=None, max_cluster_count=None,
                  max_compute_resource=None, min_cluster_count=None, min_compute_resource=None, pool_id=None, pool_name=None,
                  pool_type=None, pool_users=None, running_cluster_count=None, status=None):
+        # A reserved parameter.
         self.cluster_mode = cluster_mode  # type: str
+        # A reserved parameter.
         self.cluster_size_resource = cluster_size_resource  # type: str
+        # A reserved parameter.
         self.max_cluster_count = max_cluster_count  # type: int
+        # The maximum amount of reserved computing resources. Unit: ACUs.
         self.max_compute_resource = max_compute_resource  # type: str
+        # A reserved parameter.
         self.min_cluster_count = min_cluster_count  # type: int
+        # The minimum amount of reserved computing resources. Unit: ACUs.
         self.min_compute_resource = min_compute_resource  # type: str
+        # The resource group ID.
         self.pool_id = pool_id  # type: long
+        # The name of the resource group.
         self.pool_name = pool_name  # type: str
+        # The type of the resource group.
         self.pool_type = pool_type  # type: str
+        # The user of the resource group.
         self.pool_users = pool_users  # type: str
+        # A reserved parameter.
         self.running_cluster_count = running_cluster_count  # type: int
+        # The state of the resource group. Valid values:
+        # 
+        # *   **running**\
+        # *   **deleting**\
+        # *   **scaling**\
         self.status = status  # type: str
 
     def validate(self):
@@ -7658,10 +7771,15 @@ class DescribeClusterResourceDetailResponseBodyDataResourceGroupList(TeaModel):
 class DescribeClusterResourceDetailResponseBodyData(TeaModel):
     def __init__(self, compute_resource=None, dbcluster_id=None, free_compute_resource=None,
                  resource_group_list=None, storage_resource=None):
+        # The amount of reserved computing resources. Unit: AnalyticDB compute units (ACUs). Valid values: 0 to 4096. The value must be in increments of 16 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
         self.compute_resource = compute_resource  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The amount of idle reserved computing resources. Unit: ACUs. Valid values: 0 to 4096. The value must be in increments of 16 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
         self.free_compute_resource = free_compute_resource  # type: str
+        # The resource groups.
         self.resource_group_list = resource_group_list  # type: list[DescribeClusterResourceDetailResponseBodyDataResourceGroupList]
+        # The amount of reserved storage resources. Unit: ACUs. Valid values: 0 to 2064. The value must be in increments of 24 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
         self.storage_resource = storage_resource  # type: str
 
     def validate(self):
@@ -7710,8 +7828,11 @@ class DescribeClusterResourceDetailResponseBodyData(TeaModel):
 
 class DescribeClusterResourceDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, request_id=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The information about the cluster resource usage.
         self.data = data  # type: DescribeClusterResourceDetailResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7785,8 +7906,13 @@ class DescribeClusterResourceDetailResponse(TeaModel):
 
 class DescribeClusterResourceUsageRequest(TeaModel):
     def __init__(self, dbcluster_id=None, end_time=None, start_time=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~612397~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.end_time = end_time  # type: str
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -7819,7 +7945,13 @@ class DescribeClusterResourceUsageRequest(TeaModel):
 
 class DescribeClusterResourceUsageResponseBodyDataAcuInfo(TeaModel):
     def __init__(self, name=None, values=None):
+        # The resource usage metric. Valid values:
+        # 
+        # *   `TotalAcuNumber`: the total number of ACUs.
+        # *   `ReservedAcuNumber`: the number of ACUs for the reserved resources.
+        # *   `ReservedAcuUsageNumber`: the number of ACUs for the reserved resources that are used.
         self.name = name  # type: str
+        # The values of the metric at specific points in time.
         self.values = values  # type: list[str]
 
     def validate(self):
@@ -7848,9 +7980,13 @@ class DescribeClusterResourceUsageResponseBodyDataAcuInfo(TeaModel):
 
 class DescribeClusterResourceUsageResponseBodyData(TeaModel):
     def __init__(self, acu_info=None, dbcluster_id=None, end_time=None, start_time=None):
+        # The AnalyticDB compute unit (ACU) usage of the cluster.
         self.acu_info = acu_info  # type: list[DescribeClusterResourceUsageResponseBodyDataAcuInfo]
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end time of the query. The time follows the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time is displayed in UTC.
         self.end_time = end_time  # type: str
+        # The start time of the query. The time follows the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time is displayed in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -7895,8 +8031,11 @@ class DescribeClusterResourceUsageResponseBodyData(TeaModel):
 
 class DescribeClusterResourceUsageResponseBody(TeaModel):
     def __init__(self, code=None, data=None, request_id=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The queried resource usage.
         self.data = data  # type: DescribeClusterResourceUsageResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8185,9 +8324,15 @@ class DescribeColumnsResponse(TeaModel):
 
 class DescribeComputeResourceUsageRequest(TeaModel):
     def __init__(self, dbcluster_id=None, end_time=None, resource_group_name=None, start_time=None):
+        # The cluster ID.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the information about all AnalyticDB for MySQL clusters within a region, including cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time must be in UTC.
         self.end_time = end_time  # type: str
+        # The name of the resource group.
         self.resource_group_name = resource_group_name  # type: str
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -8224,7 +8369,13 @@ class DescribeComputeResourceUsageRequest(TeaModel):
 
 class DescribeComputeResourceUsageResponseBodyDataAcuInfo(TeaModel):
     def __init__(self, name=None, values=None):
+        # The resource usage metric. Valid values:
+        # 
+        # *   `TotalAcuNumber`: the total number of ACUs.
+        # *   `ReservedAcuNumber`: the number of ACUs for the reserved resources.
+        # *   `ReservedAcuUsageNumber`: the number of ACUs for the reserved resources that are used.
         self.name = name  # type: str
+        # The values of the metric at specific points in time.
         self.values = values  # type: list[str]
 
     def validate(self):
@@ -8254,11 +8405,17 @@ class DescribeComputeResourceUsageResponseBodyDataAcuInfo(TeaModel):
 class DescribeComputeResourceUsageResponseBodyData(TeaModel):
     def __init__(self, acu_info=None, dbcluster_id=None, end_time=None, resource_group_name=None,
                  resource_group_type=None, start_time=None):
+        # The AnalyticDB compute unit (ACU) usage of the cluster.
         self.acu_info = acu_info  # type: list[DescribeComputeResourceUsageResponseBodyDataAcuInfo]
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end time of the query. The time follows the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time is displayed in UTC.
         self.end_time = end_time  # type: str
+        # The name of the resource group.
         self.resource_group_name = resource_group_name  # type: str
+        # The type of the resource group.
         self.resource_group_type = resource_group_type  # type: str
+        # The start time of the query. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -8311,8 +8468,11 @@ class DescribeComputeResourceUsageResponseBodyData(TeaModel):
 
 class DescribeComputeResourceUsageResponseBody(TeaModel):
     def __init__(self, code=None, data=None, request_id=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The queried resource usage.
         self.data = data  # type: DescribeComputeResourceUsageResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8413,7 +8573,11 @@ class DescribeDBClusterAttributeRequest(TeaModel):
 
 class DescribeDBClusterAttributeResponseBodyItemsDBClusterTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
+        # 
+        # >  You can call the [TagResources](~~179253~~) operation to add tags to a cluster.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -8485,7 +8649,7 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         # *   **ads**: pay-as-you-go.
         # *   **ads_pre**: subscription.
         self.commodity_code = commodity_code  # type: str
-        # The specifications of reserved computing resources. Each ACU is equivalent to 1 core and 4 GB memory. Computing resources serve compute operations. The amount of computing resources is proportional to the query speed of the cluster. You can scale computing resources based on your needs.
+        # The specifications of reserved computing resources. Each ACU is equivalent to 1 core and 4 GB memory. Computing resources are used to compute data. The increase in the computing resources can accelerate queries. You can scale computing resources based on your business requirements.
         self.compute_resource = compute_resource  # type: str
         # The total amount of computing resources in the cluster. Each ACU is equivalent to 1 core and 4 GB memory.
         self.compute_resource_total = compute_resource_total  # type: str
@@ -8501,17 +8665,17 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         self.dbcluster_network_type = dbcluster_network_type  # type: str
         # The state of the cluster. Valid values:
         # 
-        # *   **Preparing**: The cluster is being prepared.
-        # *   **Creating**: The cluster is being created.
-        # *   **Running**: The cluster is running.
-        # *   **Deleting**: The cluster is being deleted.
-        # *   **Restoring**: The cluster is being restored from a backup.
-        # *   **ClassChanging**: The cluster specifications are being changed.
-        # *   **NetAddressCreating**: A network connection is being created.
-        # *   **NetAddressDeleting**: A network connection is being deleted.
-        # *   **NetAddressModifying**: A network connection is being modified.
+        # *   **Preparing**\
+        # *   **Creating**\
+        # *   **Running**\
+        # *   **Deleting**\
+        # *   **Restoring**\
+        # *   **ClassChanging**\
+        # *   **NetAddressCreating**\
+        # *   **NetAddressDeleting**\
+        # *   **NetAddressModifying**\
         self.dbcluster_status = dbcluster_status  # type: str
-        # The type of the cluster. By default, **Common** is returned, which indicates a common cluster.
+        # The cluster type. By default, **Common** is returned, which indicates a common cluster.
         self.dbcluster_type = dbcluster_type  # type: str
         # The engine version of the AnalyticDB for MySQL Data Lakehouse Edition cluster. **5.0** is returned.
         self.dbversion = dbversion  # type: str
@@ -8519,10 +8683,10 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         self.engine = engine  # type: str
         # The minor version of the cluster.
         self.engine_version = engine_version  # type: str
-        # The time when the cluster expires.
+        # The expiration time of the cluster.
         # 
-        # *   The expiration time is returned for a subscription cluster.
-        # *   An empty string is returned for a pay-as-you-go cluster.
+        # *   If the billing method of the cluster is subscription, the actual expiration time is returned.
+        # *   If the billing method of the cluster is pay-as-you-go, null is returned.
         self.expire_time = expire_time  # type: str
         # Indicates whether the subscription cluster has expired. Valid values:
         # 
@@ -8539,15 +8703,15 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         # 
         # *   **Unlock**: The cluster is not locked.
         # *   **ManualLock**: The cluster is manually locked.
-        # *   **LockByExpiration**: The cluster is automatically locked after the cluster expires.
+        # *   **LockByExpiration**: The cluster is automatically locked due to cluster expiration.
         self.lock_mode = lock_mode  # type: str
         # The reason why the cluster is locked.
         # 
-        # > This parameter is returned only when the cluster was locked. The value is **instance_expire**.
+        # >  This parameter is returned only when the cluster was locked. **instance_expire** is returned.
         self.lock_reason = lock_reason  # type: str
         # The maintenance window of the cluster. The time is displayed in the `HH:mmZ-HH:mmZ` format in UTC.
         # 
-        # > For more information about maintenance windows, see [Configure a maintenance window](~~122569~~).
+        # >  For more information about maintenance windows, see [Configure a maintenance window](~~122569~~).
         self.maintain_time = maintain_time  # type: str
         # The mode of the cluster. By default, **flexible** is returned, which indicates that the cluster is in elastic mode.
         self.mode = mode  # type: str
@@ -8560,15 +8724,17 @@ class DescribeDBClusterAttributeResponseBodyItemsDBCluster(TeaModel):
         self.port = port  # type: int
         # The region ID of the cluster.
         self.region_id = region_id  # type: str
-        # The amount of remaining reserved computing resources that are available in the cluster. Each ACU is equivalent to 1 core and 4 GB memory.
+        # The remaining reserved computing resources that are available in the cluster. Each ACU is equivalent to 1 core and 4 GB memory.
         self.reserved_acu = reserved_acu  # type: str
-        # The ID of the resource group.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The specifications of reserved storage resources. Each AnalyticDB compute unit (ACU) is equivalent to 1 core and 4 GB memory. Storage resources serve read and write requests. The amount of storage resources is proportional to the read and write performance of the cluster.
+        # The specifications of reserved storage resources. Each AnalyticDB compute unit (ACU) is equivalent to 1 core and 4 GB memory. Storage resources are used to read and write data. The increase in the storage resources can improve the read and write performance of the cluster.
         self.storage_resource = storage_resource  # type: str
         # The total amount of storage resources in the cluster. Each ACU is equivalent to 1 core and 4 GB memory.
         self.storage_resource_total = storage_resource_total  # type: str
+        # A reserved parameter.
         self.supported_features = supported_features  # type: dict[str, str]
+        # The tags that are added to the cluster.
         self.tags = tags  # type: DescribeDBClusterAttributeResponseBodyItemsDBClusterTags
         # Indicates whether Elastic Network Interface (ENI) is enabled. Valid values:
         # 
@@ -8762,7 +8928,7 @@ class DescribeDBClusterAttributeResponseBodyItems(TeaModel):
 
 class DescribeDBClusterAttributeResponseBody(TeaModel):
     def __init__(self, items=None, request_id=None):
-        # The queried AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # The queried AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster information.
         self.items = items  # type: DescribeDBClusterAttributeResponseBodyItems
         # The request ID.
         self.request_id = request_id  # type: str
@@ -8834,7 +9000,13 @@ class DescribeDBClusterAttributeResponse(TeaModel):
 
 class DescribeDBClusterHealthStatusRequest(TeaModel):
     def __init__(self, dbcluster_id=None, region_id=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~612397~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The region ID of the cluster.
+        # 
+        # >  You can call the [DescribeRegions](~~143074~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -8863,10 +9035,19 @@ class DescribeDBClusterHealthStatusRequest(TeaModel):
 
 class DescribeDBClusterHealthStatusResponseBodyCS(TeaModel):
     def __init__(self, active_count=None, expected_count=None, risk_count=None, status=None, unavailable_count=None):
+        # The number of healthy access nodes.
         self.active_count = active_count  # type: long
+        # The total number of access nodes.
         self.expected_count = expected_count  # type: long
+        # The number of risky nodes.
         self.risk_count = risk_count  # type: long
+        # The health state of access nodes. Valid values:
+        # 
+        # *   **RISK**\
+        # *   **NORMAL**\
+        # *   **UNAVAILABLE**\
         self.status = status  # type: str
+        # The number of unavailable access nodes.
         self.unavailable_count = unavailable_count  # type: long
 
     def validate(self):
@@ -8907,10 +9088,19 @@ class DescribeDBClusterHealthStatusResponseBodyCS(TeaModel):
 
 class DescribeDBClusterHealthStatusResponseBodyExecutor(TeaModel):
     def __init__(self, active_count=None, expected_count=None, risk_count=None, status=None, unavailable_count=None):
+        # The number of healthy access nodes.
         self.active_count = active_count  # type: long
+        # The total number of compute nodes.
         self.expected_count = expected_count  # type: long
+        # The number of risky nodes.
         self.risk_count = risk_count  # type: long
+        # The health state of compute node groups. Valid values:
+        # 
+        # *   **RISK**\
+        # *   **NORMAL**\
+        # *   **UNAVAILABLE**\
         self.status = status  # type: str
+        # The number of unavailable access nodes.
         self.unavailable_count = unavailable_count  # type: long
 
     def validate(self):
@@ -8951,10 +9141,19 @@ class DescribeDBClusterHealthStatusResponseBodyExecutor(TeaModel):
 
 class DescribeDBClusterHealthStatusResponseBodyWorker(TeaModel):
     def __init__(self, active_count=None, expected_count=None, risk_count=None, status=None, unavailable_count=None):
+        # The number of healthy storage node groups.
         self.active_count = active_count  # type: long
+        # The total number of storage node groups.
         self.expected_count = expected_count  # type: long
+        # The number of risky storage node groups.
         self.risk_count = risk_count  # type: long
+        # The health state of storage node groups. Valid values:
+        # 
+        # *   **RISK**\
+        # *   **NORMAL**\
+        # *   **UNAVAILABLE**\
         self.status = status  # type: str
+        # The number of unavailable storage node groups.
         self.unavailable_count = unavailable_count  # type: long
 
     def validate(self):
@@ -8995,10 +9194,21 @@ class DescribeDBClusterHealthStatusResponseBodyWorker(TeaModel):
 
 class DescribeDBClusterHealthStatusResponseBody(TeaModel):
     def __init__(self, cs=None, executor=None, instance_status=None, request_id=None, worker=None):
+        # The access nodes of the queried cluster.
         self.cs = cs  # type: DescribeDBClusterHealthStatusResponseBodyCS
+        # The compute node groups of the queried cluster.
         self.executor = executor  # type: DescribeDBClusterHealthStatusResponseBodyExecutor
+        # The health state of the cluster. Valid values:
+        # 
+        # *   **RISK**\
+        # *   **NORMAL**\
+        # *   **UNAVAILABLE**\
+        # 
+        # >  When the states of the access nodes, compute node groups, and storage node groups of a cluster are all **NORMAL** and a connection to the cluster is established, the state of the cluster is **NORMAL**. When the state of the access nodes, compute node groups, or storage node groups of the cluster is **RISK**, the state of the cluster is **RISK**. When the state of the access nodes, compute node groups, or storage node groups of the cluster is **UNAVAILABLE**, the state of the cluster is **UNAVAILABLE**.
         self.instance_status = instance_status  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The storage node groups of the queried cluster.
         self.worker = worker  # type: DescribeDBClusterHealthStatusResponseBodyWorker
 
     def validate(self):
@@ -9710,22 +9920,16 @@ class DescribeDBClustersResponseBodyItemsDBCluster(TeaModel):
         self.engine = engine  # type: str
         # The time when the cluster expired. The time follows the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time is displayed in UTC.
         # 
-        # > 
-        # 
-        # *   The expiration time is returned for a subscription cluster.
-        # 
-        # *   An empty string is returned for a pay-as-you-go cluster.
+        # > - The expiration time is returned for a subscription cluster.
+        # > - Anempty string is returned for a pay-as-you-go cluster.
         self.expire_time = expire_time  # type: str
         # Indicates whether the subscription cluster has expired. Valid values:
         # 
         # *   **true**\
         # *   **false**\
         # 
-        # > 
-        # 
-        # *   If the cluster has expired, the system locks or releases the cluster within a period of time. We recommend that you renew expired clusters. For more information, see [Renewal policy](~~135246~~).
-        # 
-        # *   This parameter is not returned for pay-as-you-go clusters.
+        # > - If the cluster has expired, the system locks or releases the cluster within a period of time. We recommend that you renew expired clusters. For more information, see [Renewal policy](~~135246~~).
+        # > - This parameter is not returned for pay-as-you-go clusters.
         self.expired = expired  # type: str
         # The lock state of the cluster. Valid values:
         # 
@@ -10061,11 +10265,13 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
                  elastic_min_compute_resource=None, group_name=None, group_type=None, group_users=None, max_cluster_count=None,
                  max_compute_resource=None, min_cluster_count=None, min_compute_resource=None, running_cluster_count=None, status=None,
                  update_time=None):
+        # A reserved parameter.
         self.cluster_mode = cluster_mode  # type: str
+        # A reserved parameter.
         self.cluster_size_resource = cluster_size_resource  # type: str
         # The time when the resource group was created. The time follows the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time is displayed in UTC.
         self.create_time = create_time  # type: str
-        # The amount of minimum elastic computing resources. Unit: ACU.
+        # The minimum amount of elastic computing resources. Unit: ACUs.
         self.elastic_min_compute_resource = elastic_min_compute_resource  # type: str
         # The name of the resource group.
         self.group_name = group_name  # type: str
@@ -10074,22 +10280,25 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
         # *   **Interactive**\
         # *   **Job**\
         # 
-        # > For information about resource groups of Data Lakehouse Edition, see [Resource groups](~~428610~~).
+        # >  For more information about resource groups, see [Resource groups](~~428610~~).
         self.group_type = group_type  # type: str
         # The Resource Access Management (RAM) user with which the resource group is associated.
         self.group_users = group_users  # type: str
+        # A reserved parameter.
         self.max_cluster_count = max_cluster_count  # type: int
-        # The maximum amount of reserved computing resources. Unit: ACU.
+        # The maximum amount of reserved computing resources. Unit: ACUs.
         self.max_compute_resource = max_compute_resource  # type: str
+        # A reserved parameter.
         self.min_cluster_count = min_cluster_count  # type: int
-        # The minimum amount of reserved computing resources. Unit: AnalyticDB compute unit (ACU).
+        # The minimum amount of reserved computing resources. Unit: AnalyticDB compute units (ACUs).
         self.min_compute_resource = min_compute_resource  # type: str
+        # A reserved parameter.
         self.running_cluster_count = running_cluster_count  # type: int
         # The state of the resource group. Valid values:
         # 
-        # *   **creating**\
-        # *   **ok**\
-        # *   **pendingdelete**\
+        # *   **creating**: The resource group is being created.
+        # *   **ok**: The resource group is created.
+        # *   **pendingdelete**: The resource group is pending to be deleted.
         self.status = status  # type: str
         # The time when the resource group was updated. The time follows the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time is displayed in UTC.
         self.update_time = update_time  # type: str
@@ -10168,7 +10377,7 @@ class DescribeDBResourceGroupResponseBodyGroupsInfo(TeaModel):
 
 class DescribeDBResourceGroupResponseBody(TeaModel):
     def __init__(self, groups_info=None, request_id=None):
-        # The queried resource groups.
+        # The queried resource group.
         self.groups_info = groups_info  # type: list[DescribeDBResourceGroupResponseBodyGroupsInfo]
         # The request ID.
         self.request_id = request_id  # type: str
@@ -10247,11 +10456,37 @@ class DescribeDBResourceGroupResponse(TeaModel):
 class DescribeDiagnosisDimensionsRequest(TeaModel):
     def __init__(self, dbcluster_id=None, end_time=None, lang=None, query_condition=None, region_id=None,
                  start_time=None):
+        # The cluster ID.
+        # 
+        # >  You can call the [DescribeDBClusters](~~454250~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end of the time range to query. Set the time to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # > 
+        # 
+        # *   The end time must be later than the start time.
+        # 
+        # *   The maximum time range that can be specified is 24 hours.
         self.end_time = end_time  # type: str
+        # The language. Valid values:
+        # 
+        # *   **zh-CN** (default): simplified Chinese.
+        # *   **en-US**: English.
+        # *   **ja**: Japanese.
         self.lang = lang  # type: str
+        # The query condition for SQL statements, which can contain the `Type`, `Value`, `Min`, and `Max` fields. Specify the condition in the JSON format. `Type` specifies the query dimension. Valid values for Type: `maxCost`, `status`, and `cost`. `Value`, `Min`, or `Max` specifies the query range for the dimension. Valid values:
+        # 
+        # *   `{"Type":"maxCost","Value":"100"}`: queries the top 100 most time-consuming SQL statements. Set `Value` to 100.
+        # *   `{"Type":"status","Value":"finished"}`: queries the executed SQL statements. You can set `Value` to `running` to query the SQL statements that are being executed. You can also set Value to `failed` to query the SQL statements that failed to be executed.
+        # *   `{"Type":"cost","Min":"10","Max":"200"}`: queries the SQL statements whose execution duration is in the range of 10 to 200 milliseconds. You can also specify custom values for the Min and Max fields.
         self.query_condition = query_condition  # type: str
+        # The region ID of the cluster.
+        # 
+        # >  You can call the [DescribeRegions](~~454314~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The beginning of the time range to query. Set the time to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  You can query data only within the last 14 days.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -10296,10 +10531,15 @@ class DescribeDiagnosisDimensionsRequest(TeaModel):
 
 class DescribeDiagnosisDimensionsResponseBody(TeaModel):
     def __init__(self, client_ips=None, databases=None, request_id=None, resource_groups=None, user_names=None):
+        # The queried source IP addresses.
         self.client_ips = client_ips  # type: list[str]
+        # The queried database names.
         self.databases = databases  # type: list[str]
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The queried resource group names.
         self.resource_groups = resource_groups  # type: list[str]
+        # The queried usernames.
         self.user_names = user_names  # type: list[str]
 
     def validate(self):
@@ -10382,24 +10622,95 @@ class DescribeDiagnosisRecordsRequest(TeaModel):
                  max_peak_memory=None, max_scan_size=None, min_peak_memory=None, min_scan_size=None, order=None, page_number=None,
                  page_size=None, pattern_id=None, query_condition=None, region_id=None, resource_group=None, start_time=None,
                  user_name=None):
+        # The source IP address.
+        # 
+        # >  You can call the [DescribeDiagnosisDimensions](~~308210~~) operation to query the resource groups, database names, usernames, and source IP addresses of the SQL statements that meet a query condition.
         self.client_ip = client_ip  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~612397~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The name of the database on which the SQL statements are executed.
+        # 
+        # >  You can call the [DescribeDiagnosisDimensions](~~308210~~) operation to query the resource groups, database names, usernames, and source IP addresses of the SQL statements that meet a query condition.
         self.database = database  # type: str
+        # The end of the time range to query. Set the time to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # > 
+        # 
+        # *   The end time must be later than the start time.
+        # 
+        # *   The maximum time range that can be specified is 24 hours.
         self.end_time = end_time  # type: str
+        # The query keyword of the SQL statements.
         self.keyword = keyword  # type: str
+        # The language of file titles and error messages. Valid values:
+        # 
+        # *   **zh** (default): simplified Chinese.
+        # *   **en**: English.
+        # *   **ja**: Japanese.
+        # *   **zh-tw**: traditional Chinese.
         self.lang = lang  # type: str
+        # The maximum peak memory of the SQL statements. Unit: bytes.
         self.max_peak_memory = max_peak_memory  # type: long
+        # The maximum scan size of the SQL statements. Unit: bytes.
         self.max_scan_size = max_scan_size  # type: long
+        # The minimum peak memory of the SQL statements. Unit: bytes.
         self.min_peak_memory = min_peak_memory  # type: long
+        # The minimum scan size of the SQL statements. Unit: bytes.
         self.min_scan_size = min_scan_size  # type: long
+        # The order in which to sort the SQL statements by field, which contains the `Field` and `Type` fields. Specify the order in the JSON format. Example: `[{"Field":"StartTime", "Type": "desc"}]`. Fields:
+        # 
+        # *   `Field` specifies the field that is used to sort the SQL statements. Valid values:
+        # 
+        #     *   `StartTime`: the execution start time.
+        #     *   `Status`: the execution status.
+        #     *   `UserName`: the username.
+        #     *   `Cost`: the execution duration.
+        #     *   `PeakMemory`: the peak memory.
+        #     *   `ScanSize`: the amount of data that is scanned.
+        #     *   `Database`: the name of the database.
+        #     *   `ClientIp`: the source IP address.
+        #     *   `ResourceGroup`: the name of the resource group.
+        #     *   `QueueTime`: the amount of time that is consumed for queuing.
+        #     *   `OutputRows`: the number of output rows.
+        #     *   `OutputDataSize`: the amount of output data.
+        #     *   `ResourceCostRank`: the execution duration rank of operators that are used in the SQL statements. This value takes effect only when `QueryCondition` is set to `{"Type":"status","Value":"running"}`.
+        # 
+        # *   `Type` specifies the sorting order. Valid values (case-insensitive):
+        # 
+        #     *   `Desc`: descending order.
+        #     *   `Asc`: ascending order.
         self.order = order  # type: str
+        # The page number. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Valid values:
+        # 
+        # *   **30** (default)
+        # *   **50**\
+        # *   **100**\
         self.page_size = page_size  # type: int
+        # The SQL pattern ID.
         self.pattern_id = pattern_id  # type: str
+        # The query condition for SQL statements, which can contain the `Type`, `Value`, `Min`, and `Max` fields. Specify the condition in the JSON format. `Type` specifies the query dimension. Valid values for Type: `maxCost`, `status`, and `cost`. `Value`, `Min`, or `Max` specifies the query range for the dimension. Valid values:
+        # 
+        # *   `{"Type":"maxCost","Value":"100"}`: queries the top 100 most time-consuming SQL statements. Set `Value` to 100.
+        # *   `{"Type":"status","Value":"finished"}`: queries the executed SQL statements. You can set `Value` to `running` to query the SQL statements that are being executed. You can also set Value to `failed` to query the SQL statements that failed to be executed.
+        # *   `{"Type":"cost","Min":"10","Max":"200"}`: queries the SQL statements whose execution duration is in the range of 10 to 200 milliseconds. You can also specify custom values for the Min and Max fields.
         self.query_condition = query_condition  # type: str
+        # The region ID of the cluster.
+        # 
+        # >  You can call the [DescribeRegions](~~143074~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The resource group to which the SQL statements belong.
+        # 
+        # >  You can call the [DescribeDiagnosisDimensions](~~308210~~) operation to query the resource groups, database names, usernames, and source IP addresses of the SQL statements that meet a query condition.
         self.resource_group = resource_group  # type: str
+        # The beginning of the time range to query. Set the time to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  You can query data only within the last 14 days.
         self.start_time = start_time  # type: str
+        # The username that is used to execute the SQL statements. You can call the [DescribeDiagnosisDimensions](~~308210~~) operation to query the resource groups, database names, usernames, and source IP addresses of the SQL statements that meet a query condition.
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -10500,28 +10811,64 @@ class DescribeDiagnosisRecordsResponseBodyQuerys(TeaModel):
                  resource_cost_rank=None, resource_group=None, sql=None, sqltruncated=None, sqltruncated_threshold=None,
                  scan_rows=None, scan_size=None, start_time=None, status=None, total_planning_time=None, total_stages=None,
                  user_name=None):
+        # The source IP address.
         self.client_ip = client_ip  # type: str
+        # The total execution duration. Unit: milliseconds.
+        # 
+        # >  This value is the cumulative value of the `QueuedTime`, `TotalPlanningTime`, and `ExecutionTime` parameters.
         self.cost = cost  # type: long
+        # The name of the database on which the SQL statement is executed.
         self.database = database  # type: str
+        # The number of rows written to the table by an extract-transform-load (ETL) job.
         self.etl_write_rows = etl_write_rows  # type: long
+        # The execution duration. Unit: milliseconds.
         self.execution_time = execution_time  # type: long
+        # The amount of returned data. Unit: bytes.
         self.output_data_size = output_data_size  # type: long
+        # The number of rows returned.
         self.output_rows = output_rows  # type: long
+        # The peak memory. Unit: bytes.
         self.peak_memory = peak_memory  # type: long
+        # The query ID.
         self.process_id = process_id  # type: str
+        # The amount of time that is consumed for queuing. Unit: milliseconds.
         self.queue_time = queue_time  # type: long
+        # The IP address and port number of the AnalyticDB for MySQL frontend node on which the SQL statement is executed.
         self.rc_host = rc_host  # type: str
+        # The execution duration rank of operators that are used in the SQL statement.
+        # 
+        # >  This parameter is returned only for SQL statements whose `Status` parameter is `running`.
         self.resource_cost_rank = resource_cost_rank  # type: int
+        # The resource group to which the SQL statement belongs.
         self.resource_group = resource_group  # type: str
+        # The queried SQL statement.
+        # 
+        # >  For performance considerations, an SQL statement cannot exceed 5,120 characters in length. Otherwise, the SQL statement is truncated. You can call the [DownloadDiagnosisRecords](~~308212~~) operation to download the information about SQL statements that meet a query condition for an AnalyticDB for MySQL cluster, including the complete SQL statements.
         self.sql = sql  # type: str
+        # Indicates whether the SQL statement is truncated. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.sqltruncated = sqltruncated  # type: bool
+        # The maximum length of the SQL statement. 5120 is returned. Unit: characters. SQL statements that exceed this limit are truncated.
         self.sqltruncated_threshold = sqltruncated_threshold  # type: long
+        # The number of rows scanned.
         self.scan_rows = scan_rows  # type: long
+        # The amount of scanned data. Unit: bytes.
         self.scan_size = scan_size  # type: long
+        # The execution start time of the SQL statement. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: long
+        # The state of the SQL statement. Valid values:
+        # 
+        # *   **running**\
+        # *   **finished**\
+        # *   **failed**\
         self.status = status  # type: str
+        # The amount of time that is consumed to generate an execution plan. Unit: milliseconds.
         self.total_planning_time = total_planning_time  # type: long
+        # The total number of stages generated.
         self.total_stages = total_stages  # type: int
+        # The username that is used to execute the SQL statements.
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -10634,10 +10981,19 @@ class DescribeDiagnosisRecordsResponseBodyQuerys(TeaModel):
 
 class DescribeDiagnosisRecordsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, querys=None, request_id=None, total_count=None):
+        # The page number. Pages start from page 1. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Valid values:
+        # 
+        # *   **30** (default)
+        # *   **50**\
+        # *   **100**\
         self.page_size = page_size  # type: int
+        # The queried SQL statements.
         self.querys = querys  # type: list[DescribeDiagnosisRecordsResponseBodyQuerys]
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -10726,12 +11082,40 @@ class DescribeDiagnosisRecordsResponse(TeaModel):
 class DescribeDiagnosisSQLInfoRequest(TeaModel):
     def __init__(self, dbcluster_id=None, lang=None, process_id=None, process_rc_host=None, process_start_time=None,
                  process_state=None, region_id=None):
+        # The cluster ID.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The language of file titles and error messages. Valid values:
+        # 
+        # *   **zh**: simplified Chinese.
+        # *   **en**: English.
+        # *   **ja**: Japanese.
+        # *   **zh-tw**: traditional Chinese.
         self.lang = lang  # type: str
+        # The query ID.
+        # 
+        # >  You can call the [DescribeDiagnosisRecords](~~308207~~) operation to query the diagnostic information about SQL statements for an AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster, including the query ID.
         self.process_id = process_id  # type: str
+        # The IP address and port number of the AnalyticDB for MySQL frontend node on which the SQL statement is executed.
+        # 
+        # >  You can call the [DescribeDiagnosisRecords](~~308207~~) operation to query the diagnostic information about SQL statements for an AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster, including the IP address and port number of the frontend node.
         self.process_rc_host = process_rc_host  # type: str
+        # The execution start time of the SQL statement. Set the time to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  You can call the [DescribeDiagnosisRecords](~~308207~~) operation to query the diagnostic information about SQL statements for an AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster, including the execution start time of the SQL statement.
         self.process_start_time = process_start_time  # type: long
+        # The state of the SQL statement. Valid values:
+        # 
+        # *   **running**\
+        # *   **finished**\
+        # *   **failed**\
+        # 
+        # >  You can call the [DescribeDiagnosisRecords](~~308207~~) operation to query the diagnostic information about SQL statements for an AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster, including the status of the SQL statement.
         self.process_state = process_state  # type: str
+        # The region ID of the cluster.
+        # 
+        # >  You can call the [DescribeRegions](~~143074~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -10781,15 +11165,23 @@ class DescribeDiagnosisSQLInfoRequest(TeaModel):
 class DescribeDiagnosisSQLInfoResponseBodyStageInfos(TeaModel):
     def __init__(self, input_data_size=None, input_rows=None, operator_cost=None, output_data_size=None,
                  output_rows=None, peak_memory=None, progress=None, stage_id=None, state=None):
+        # The total amount of input data in the stage. Unit: bytes.
         self.input_data_size = input_data_size  # type: long
+        # The total number of input rows in the stage.
         self.input_rows = input_rows  # type: long
+        # The total amount of time consumed by all operators in the stage. Unit: milliseconds.
         self.operator_cost = operator_cost  # type: long
+        # The total amount of output data in the stage. Unit: bytes.
         self.output_data_size = output_data_size  # type: long
+        # The total number of output rows in the stage.
         self.output_rows = output_rows  # type: long
+        # The total peak memory of the stage. Unit: bytes.
         self.peak_memory = peak_memory  # type: long
+        # The execution progress of the stage.
         self.progress = progress  # type: float
-        # StageID。
+        # The stage ID.
         self.stage_id = stage_id  # type: str
+        # The state of the stage.
         self.state = state  # type: str
 
     def validate(self):
@@ -10846,8 +11238,11 @@ class DescribeDiagnosisSQLInfoResponseBodyStageInfos(TeaModel):
 
 class DescribeDiagnosisSQLInfoResponseBody(TeaModel):
     def __init__(self, diagnosis_sqlinfo=None, request_id=None, stage_infos=None):
+        # The queried execution information, including the SQL statement, statistics, execution plan, and operator information.
         self.diagnosis_sqlinfo = diagnosis_sqlinfo  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The queried execution information by stage.
         self.stage_infos = stage_infos  # type: list[DescribeDiagnosisSQLInfoResponseBodyStageInfos]
 
     def validate(self):
@@ -10927,8 +11322,18 @@ class DescribeDiagnosisSQLInfoResponse(TeaModel):
 
 class DescribeDownloadRecordsRequest(TeaModel):
     def __init__(self, dbcluster_id=None, lang=None, region_id=None):
+        # The cluster ID.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The language of the returned data. Valid values:
+        # 
+        # *   **zh**: simplified Chinese.
+        # *   **en**: English.
+        # *   **ja**: Japanese.
+        # *   **zh-tw**: traditional Chinese.
         self.lang = lang  # type: str
+        # The region ID of the cluster.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -10961,10 +11366,19 @@ class DescribeDownloadRecordsRequest(TeaModel):
 
 class DescribeDownloadRecordsResponseBodyRecords(TeaModel):
     def __init__(self, download_id=None, exception_msg=None, file_name=None, status=None, url=None):
+        # The download task ID.
         self.download_id = download_id  # type: long
+        # The error message returned if the download task failed.
         self.exception_msg = exception_msg  # type: str
+        # The name of the downloaded file.
         self.file_name = file_name  # type: str
+        # The state of the download task. Valid values:
+        # 
+        # *   **running**\
+        # *   **finished**\
+        # *   **failed**\
         self.status = status  # type: str
+        # The download URL of the file.
         self.url = url  # type: str
 
     def validate(self):
@@ -11005,7 +11419,9 @@ class DescribeDownloadRecordsResponseBodyRecords(TeaModel):
 
 class DescribeDownloadRecordsResponseBody(TeaModel):
     def __init__(self, records=None, request_id=None):
+        # The queried download tasks.
         self.records = records  # type: list[DescribeDownloadRecordsResponseBodyRecords]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11275,39 +11691,39 @@ class DescribeElasticPlanAttributeResponse(TeaModel):
 class DescribeElasticPlanJobsRequest(TeaModel):
     def __init__(self, dbcluster_id=None, elastic_plan_name=None, page_number=None, page_size=None,
                  resource_group_name=None, start_time=None, status=None):
-        # The ID of the cluster.
+        # The cluster ID.
         # 
-        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the ID of an AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
         # The name of the scaling plan.
         # 
-        # > *   If you do not specify this parameter, all scaling plans of the cluster are queried.
-        # > *   You can call the [DescribeElasticPlans](~~601334~~) operation to query the name of a scaling plan.
+        # > 
+        # 
+        # *   If you do not specify this parameter, all scaling plans of the cluster are queried.
+        # 
+        # *   You can call the [DescribeElasticPlans](~~601334~~) operation to query the names of scaling plans.
         self.elastic_plan_name = elastic_plan_name  # type: str
-        # The number of the page to return.
+        # The page number.
         self.page_number = page_number  # type: int
-        # The number of scaling plan jobs to return per page.
+        # The number of entries per page.
         self.page_size = page_size  # type: int
         # The name of the resource group.
         # 
-        # > *   If you do not specify this parameter, the scaling plans of all resource groups are queried, including interactive resource groups and elastic I/O units (EIUs).
-        # > *   You can call the [DescribeDBResourceGroup](~~459446~~) operation to query the name of a resource group within a specific cluster.
+        # > 
+        # 
+        # *   If you do not specify this parameter, the scaling plans of all resource groups are queried, including the interactive resource group and elastic I/O unit (EIU) types.
+        # 
+        # *   You can call the [DescribeDBResourceGroup](~~459446~~) operation to query the resource group name for a cluster.
         self.resource_group_name = resource_group_name  # type: str
-        # The time to enable the scaling plan job.
-        # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddThh:mm:ssZ format. The time must be in UTC.
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
-        # The state of the scaling plan job.
+        # The state of the scaling plan job. Valid values:
         # 
-        # Valid values:
+        # *   RUNNING
+        # *   SUCCESSFUL
+        # *   FAILED
         # 
-        # *   RUNNING: The job is running.
-        # 
-        # *   SUCCESSFUL: The job is successfully run.
-        # 
-        # *   FAILED: The job fails.
-        # 
-        # > If you do not specify this parameter, scaling plan jobs in all states are queried.
+        # >  If you do not specify this parameter, the scaling plans in all states are queried.
         self.status = status  # type: str
 
     def validate(self):
@@ -11360,52 +11776,56 @@ class DescribeElasticPlanJobsResponseBodyJobs(TeaModel):
                  type=None):
         # The amount of elastic resources.
         # 
-        # > *   If the Type parameter is set to EXECUTOR, ElasticAcu indicates the amount of elastic resources in the current resource group.
-        # > *   If the Type parameter is set to WORKER, ElasticAcu indicates the total amount of elastic storage resources in the current cluster.
+        # > 
+        # 
+        # *   If Type is set to EXECUTOR, ElasticAcu indicates the amount of elastic resources in the current resource group.
+        # *   If Type is set to WORKER, ElasticAcu indicates the total amount of elastic storage resources in the current cluster.
         self.elastic_acu = elastic_acu  # type: str
         # The name of the scaling plan.
         self.elastic_plan_name = elastic_plan_name  # type: str
-        # The time when the scaling plan job was complete.
+        # The end time of the scaling plan job.
         # 
-        # >  The time follows the ISO 8601 standard in the yyyy-MM-ddThh:mm:ssZ format. The time is displayed in UTC.
+        # >  The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.end_time = end_time  # type: str
-        # The number of instances.
+        # The number of compute nodes or storage replica sets.
         # 
-        # > *   If the Type parameter is set to EXECUTOR, InstanceSize indicates the number of compute nodes.
-        # > *   If the Type parameter is set to EXECUTOR, InstanceSize indicates the number of replica sets at the storage layer in the cluster.
+        # > 
+        # 
+        # *   If Type is set to EXECUTOR, InstanceSize indicates the number of compute nodes in the cluster.
+        # *   If Type is set to EXECUTOR, InstanceSize indicates the number of storage replica sets in the cluster.
         self.instance_size = instance_size  # type: int
         # The amount of reserved resources.
         # 
-        # > *   If the Type parameter is set to EXECUTOR, ReserveAcu indicates the amount of reserved resources in the current resource group.
-        # > *   If the Type parameter is set to WORKER, ReserveAcu indicates the total amount of reserved storage resources in the current cluster.
+        # > 
+        # 
+        # *   If Type is set to EXECUTOR, ReserveAcu indicates the amount of reserved resources in the current resource group.
+        # *   If Type is set to WORKER, ReserveAcu indicates the total amount of reserved storage resources in the current cluster.
         self.reserve_acu = reserve_acu  # type: str
         # The name of the resource group.
         self.resource_group_name = resource_group_name  # type: str
-        # The time when the scaling plan job was enabled.
+        # The start time of the scaling plan job.
         # 
-        # >  The time follows the ISO 8601 standard in the yyyy-MM-ddThh:mm:ssZ format. The time is displayed in UTC.
+        # >  The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ss format. The time is displayed in UTC.
         self.start_time = start_time  # type: str
-        # The state of the scaling plan job.
+        # The state of the scaling plan job. Valid values:
         # 
-        # Valid values:
-        # 
-        # *   RUNNING: The job is running.
-        # *   SUCCESSFUL: The job is successfully run.
-        # *   FAILED: The job fails.
+        # *   RUNNING
+        # *   SUCCESSFUL
+        # *   FAILED
         self.status = status  # type: str
-        # The amount of elastic resources after scaling.
+        # The desired specifications of elastic resources after scaling.
         self.target_size = target_size  # type: str
         # The total amount of resources.
         # 
-        # > *   If the Type parameter is set to EXECUTOR, TotalAcu indicates the total amount of computing resources in the current resource group.
-        # > *   If the Type parameter is set to WORKER, TotalAcu indicates the total amount of storage resources in the cluster.
+        # > 
+        # 
+        # *   If Type is set to EXECUTOR, TotalAcu indicates the total amount of computing resources in the current resource group.
+        # *   If Type is set to WORKER, TotalAcu indicates the total amount of storage resources in the cluster.
         self.total_acu = total_acu  # type: str
-        # The type of the scaling plan job.
+        # The type of the scaling plan job. Valid values:
         # 
-        # Valid values:
-        # 
-        # *   EXECUTOR: interactive resource groups, which fall into the computing resource category.
-        # *   WORKER: EIUs.
+        # *   EXECUTOR: the interactive resource group type, which indicates the computing resource type.
+        # *   WORKER: the EIU type.
         self.type = type  # type: str
 
     def validate(self):
@@ -11470,13 +11890,13 @@ class DescribeElasticPlanJobsResponseBodyJobs(TeaModel):
 
 class DescribeElasticPlanJobsResponseBody(TeaModel):
     def __init__(self, jobs=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # Details of the scaling plan jobs.
+        # The queried scaling plan jobs.
         self.jobs = jobs  # type: list[DescribeElasticPlanJobsResponseBodyJobs]
-        # The page number of the returned page.
+        # The page number.
         self.page_number = page_number  # type: int
-        # The number of scaling plan jobs returned per page.
+        # The number of entries per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The total number of scaling plan jobs.
         self.total_count = total_count  # type: int
@@ -11945,8 +12365,9 @@ class DescribeElasticPlansResponse(TeaModel):
 
 class DescribeEnabledPrivilegesRequest(TeaModel):
     def __init__(self, account_name=None, dbcluster_id=None, region_id=None):
-        # 数据库账号名称。
-        # > 您可以调用[DescribeAccounts](~~612430~~)接口查看指定集群的数据库账号信息，包括账号名称。
+        # The name of the database account.
+        # 
+        # >  You can call the [DescribeAccounts](~~612430~~) operation to query the information about database accounts for a cluster, including the account name.
         self.account_name = account_name  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
@@ -12137,8 +12558,11 @@ class DescribeEnabledPrivilegesResponse(TeaModel):
 
 class DescribeJobResourceUsageRequest(TeaModel):
     def __init__(self, dbcluster_id=None, end_time=None, start_time=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC. The end time must be later than the start time.
         self.end_time = end_time  # type: str
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -12171,8 +12595,11 @@ class DescribeJobResourceUsageRequest(TeaModel):
 
 class DescribeJobResourceUsageResponseBodyDataJobAcuUsageAcuUsageDetail(TeaModel):
     def __init__(self, elastic_acu_number=None, reserved_acu_number=None, total_acu_number=None):
+        # The number of ACUs for the elastic resources.
         self.elastic_acu_number = elastic_acu_number  # type: float
+        # The number of ACUs for the reserved resources.
         self.reserved_acu_number = reserved_acu_number  # type: float
+        # The total number of ACUs.
         self.total_acu_number = total_acu_number  # type: float
 
     def validate(self):
@@ -12206,10 +12633,15 @@ class DescribeJobResourceUsageResponseBodyDataJobAcuUsageAcuUsageDetail(TeaModel
 class DescribeJobResourceUsageResponseBodyDataJobAcuUsage(TeaModel):
     def __init__(self, acu_usage_detail=None, job_end_time=None, job_id=None, job_start_time=None,
                  resource_group_name=None):
+        # The ACU usage.
         self.acu_usage_detail = acu_usage_detail  # type: DescribeJobResourceUsageResponseBodyDataJobAcuUsageAcuUsageDetail
+        # The end time of the job. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.job_end_time = job_end_time  # type: str
+        # The job ID.
         self.job_id = job_id  # type: str
+        # The start time of the job. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.job_start_time = job_start_time  # type: str
+        # The name of the job resource group.
         self.resource_group_name = resource_group_name  # type: str
 
     def validate(self):
@@ -12252,9 +12684,13 @@ class DescribeJobResourceUsageResponseBodyDataJobAcuUsage(TeaModel):
 
 class DescribeJobResourceUsageResponseBodyData(TeaModel):
     def __init__(self, dbcluster_id=None, end_time=None, job_acu_usage=None, start_time=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end time of the query. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.end_time = end_time  # type: str
+        # The AnalyticDB compute unit (ACU) usage of the job resource group.
         self.job_acu_usage = job_acu_usage  # type: list[DescribeJobResourceUsageResponseBodyDataJobAcuUsage]
+        # The start time of the query. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -12299,8 +12735,11 @@ class DescribeJobResourceUsageResponseBodyData(TeaModel):
 
 class DescribeJobResourceUsageResponseBody(TeaModel):
     def __init__(self, code=None, data=None, request_id=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The queried resource usage.
         self.data = data  # type: DescribeJobResourceUsageResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12382,9 +12821,9 @@ class DescribePatternPerformanceRequest(TeaModel):
         # 
         # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The ID of the SQL pattern.
+        # The SQL pattern ID.
         # 
-        # > You can call the [DescribeSQLPatterns](~~321868~~) operation to query the information about all SQL patterns in an AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster within a period of time, including SQL pattern IDs.
+        # >  You can call the [DescribeSQLPatterns](~~321868~~) operation to query the information about all SQL patterns in an AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster within a period of time, including SQL pattern IDs.
         self.pattern_id = pattern_id  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
@@ -12435,7 +12874,31 @@ class DescribePatternPerformanceRequest(TeaModel):
 
 class DescribePatternPerformanceResponseBodyPerformancesSeries(TeaModel):
     def __init__(self, name=None, values=None):
+        # The name of the performance metric value. Valid values:
+        # 
+        # *   If the value of `Key` is `AnalyticDB_PatternQueryCount`, `pattern_query_count` is returned, which indicates the number of executions of the SQL statements in association with the SQL pattern.
+        # 
+        # *   If the value of `Key` is `AnalyticDB_PatternQueryTime`, the following values are returned:
+        # 
+        #     *   `average_query_time`, which indicates the average total amount of time consumed by the SQL statements in association with the SQL pattern.
+        #     *   `max_query_time`, which indicates the maximum total amount of time consumed by the SQL statements in association with the SQL pattern.
+        # 
+        # *   If the value of `Key` is `AnalyticDB_PatternExecutionTime`, the following values are returned:
+        # 
+        #     *   `average_execution_time`, which indicates the average execution duration of the SQL statements in association with the SQL pattern.
+        #     *   `max_execution_time`, which indicates the maximum execution duration of the SQL statements in association with the SQL pattern.
+        # 
+        # *   If the value of `Key` is `AnalyticDB_PatternPeakMemory`, the following values are returned:
+        # 
+        #     *   `average_peak_memory`, which indicates the average peak memory usage of the SQL statements in association with the SQL pattern.
+        #     *   `max_peak_memory`, which indicates the maximum peak memory usage of the SQL statements in association with the SQL pattern.
+        # 
+        # *   If the value of `Key` is `AnalyticDB_PatternScanSize`, the following values are returned:
+        # 
+        #     *   `average_scan_size`, which indicates the average amount of data scanned by the SQL statements in association with the SQL pattern.
+        #     *   `max_scan_size`, which indicates the maximum amount of data scanned by the SQL statements in association with the SQL pattern.
         self.name = name  # type: str
+        # The values of the performance metric.
         self.values = values  # type: list[str]
 
     def validate(self):
@@ -12464,8 +12927,22 @@ class DescribePatternPerformanceResponseBodyPerformancesSeries(TeaModel):
 
 class DescribePatternPerformanceResponseBodyPerformances(TeaModel):
     def __init__(self, key=None, series=None, unit=None):
+        # The queried performance metric. Valid values:
+        # 
+        # *   **AnalyticDB_PatternQueryCount**: the total number of queries executed in association with the SQL pattern.
+        # *   **AnalyticDB_PatternQueryTime**: the total amount of time consumed by the queries executed in association with the SQL pattern.
+        # *   **AnalyticDB_PatternExecutionTime**: the execution duration of the queries executed in association with the SQL pattern.
+        # *   **AnalyticDB_PatternPeakMemory**: the peak memory usage of the queries executed in association with the SQL pattern.
+        # *   **AnalyticDB_PatternScanSize**: the amount of data scanned in the queries executed in association with the SQL pattern.
         self.key = key  # type: str
+        # The values of the performance metrics.
         self.series = series  # type: list[DescribePatternPerformanceResponseBodyPerformancesSeries]
+        # The unit of the performance metric. Valid values:
+        # 
+        # *   If the performance metric is related to the query time (the value of `Key` is `AnalyticDB_PatternQueryTime` or `AnalyticDB_PatternExecutionTime`), **ms** is returned.
+        # *   If the performance metric is related to the peak memory usage (the value of `Key` is `AnalyticDB_PatternPeakMemory`), **MB** is returned.
+        # *   If the performance metric is related to the amount of data scanned (the value of `Key` is `AnalyticDB_PatternScanSize`), **MB** is returned.
+        # *   If the performance metric is related to the number of queries (the value of `Key` is `AnalyticDB_PatternQueryCount`), null is returned.
         self.unit = unit  # type: str
 
     def validate(self):
@@ -12508,29 +12985,7 @@ class DescribePatternPerformanceResponseBody(TeaModel):
     def __init__(self, end_time=None, performances=None, request_id=None, start_time=None):
         # The end time of the query. The time follows the ISO 8601 standard in the *yyyy-MM-ddTHH:mmZ* format. The time is displayed in UTC.
         self.end_time = end_time  # type: str
-        # The name of the performance metric value. Valid values:
-        # 
-        # *   When the `Key` parameter is set to `AnalyticDB_PatternQueryCount`, `pattern_query_count` is returned, which indicates the number of executions of the SQL statements in association with the SQL pattern.
-        # 
-        # *   When the `Key` value is `AnalyticDB_PatternQueryTime`, the following values are returned:
-        # 
-        #     *   `average_query_time`, which indicates the average total amount of time consumed by the SQL statements in association with the SQL pattern.
-        #     *   `max_query_time`, which indicates the maximum total amount of time consumed by the SQL statements in association with the SQL pattern.
-        # 
-        # *   When the `Key` value is `AnalyticDB_PatternExecutionTime`, the following values are returned:
-        # 
-        #     *   `average_execution_time`, which indicates the average execution duration of the SQL statements in association with the SQL pattern.
-        #     *   `max_execution_time`, which indicates the maximum execution duration of the SQL statements in association with the SQL pattern.
-        # 
-        # *   When the `Key` value is `AnalyticDB_PatternPeakMemory`, the following values are returned:
-        # 
-        #     *   `average_peak_memory`, which indicates the average peak memory usage of the SQL statements in association with the SQL pattern.
-        #     *   `max_peak_memory`, which indicates the maximum peak memory usage of the SQL statements in association with the SQL pattern.
-        # 
-        # *   When the `Key` value is `AnalyticDB_PatternScanSize`, the following values are returned:
-        # 
-        #     *   `average_scan_size`, which indicates the average amount of data scanned by the SQL statements in association with the SQL pattern.
-        #     *   `max_scan_size`, which indicates the maximum amount of data scanned by the SQL statements in association with the SQL pattern.
+        # The queried performance metrics.
         self.performances = performances  # type: list[DescribePatternPerformanceResponseBodyPerformances]
         # The request ID.
         self.request_id = request_id  # type: str
@@ -12907,7 +13362,7 @@ class DescribeSQLPatternsRequest(TeaModel):
         # *   **ja**: Japanese.
         # *   **zh-tw**: traditional Chinese.
         self.lang = lang  # type: str
-        # The order by which to sort query results. Specify the parameter value in the JSON string format. Example: `[{"Field":"AverageQueryTime","Type":"Asc"}]`. Parameters:
+        # The order by which to sort query results. Specify the parameter value in the JSON string format. Example: `[{"Field":"AverageQueryTime","Type":"Asc"}]`.
         # 
         # *   `Field` specifies the field by which to sort the query results. Valid values:
         # 
@@ -12941,11 +13396,8 @@ class DescribeSQLPatternsRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-ddTHH:mm:ssZ* format. The time must be in UTC.
         # 
-        # > 
-        # 
-        # *   Only data within the last 14 days can be queried.
-        # 
-        # *   The maximum time range that can be specified is 24 hours.
+        # > *   Only data within the last 14 days can be queried.
+        # > * The maximum time range that can be specified is 24 hours.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -13005,22 +13457,44 @@ class DescribeSQLPatternsResponseBodyPatternDetails(TeaModel):
                  average_query_time=None, average_scan_size=None, blockable=None, failed_count=None, max_execution_time=None,
                  max_peak_memory=None, max_query_time=None, max_scan_size=None, pattern_creation_time=None, pattern_id=None,
                  query_count=None, sqlpattern=None, tables=None, user=None):
+        # The IP address of the SQL client that commits the SQL pattern.
         self.access_ip = access_ip  # type: str
+        # The average execution duration of the SQL pattern within the query time range. Unit: milliseconds.
         self.average_execution_time = average_execution_time  # type: float
+        # The average peak memory usage of the SQL pattern within the query time range. Unit: bytes.
         self.average_peak_memory = average_peak_memory  # type: float
+        # The average total amount of time consumed by the SQL pattern within the query time range. Unit: milliseconds.
         self.average_query_time = average_query_time  # type: float
+        # The average amount of data scanned based on the SQL pattern within the query time range. Unit: bytes.
         self.average_scan_size = average_scan_size  # type: float
+        # Indicates whether the execution of the SQL pattern can be blocked. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        # 
+        # >  Only SELECT and INSERT statements can be blocked.
         self.blockable = blockable  # type: bool
+        # The number of failed queries executed in association with the SQL pattern within the query time range.
         self.failed_count = failed_count  # type: long
+        # The maximum execution duration of the SQL pattern within the query time range. Unit: milliseconds.
         self.max_execution_time = max_execution_time  # type: long
+        # The maximum peak memory usage of the SQL pattern within the query time range. Unit: bytes.
         self.max_peak_memory = max_peak_memory  # type: long
+        # The maximum total amount of time consumed by the SQL pattern within the query time range. Unit: milliseconds.
         self.max_query_time = max_query_time  # type: long
+        # The maximum amount of data scanned based on the SQL pattern within the query time range. Unit: bytes.
         self.max_scan_size = max_scan_size  # type: long
+        # The earliest commit time of the SQL pattern within the query time range.
         self.pattern_creation_time = pattern_creation_time  # type: str
+        # The ID of the SQL pattern.
         self.pattern_id = pattern_id  # type: str
+        # The number of queries executed in association with the SQL pattern within the query time range.
         self.query_count = query_count  # type: long
+        # The statement of the SQL pattern.
         self.sqlpattern = sqlpattern  # type: str
+        # The tables scanned based on the SQL pattern.
         self.tables = tables  # type: str
+        # The database username that is used to commit the SQL pattern.
         self.user = user  # type: str
 
     def validate(self):
@@ -13113,12 +13587,7 @@ class DescribeSQLPatternsResponseBody(TeaModel):
         self.page_number = page_number  # type: int
         # The number of entries per page.
         self.page_size = page_size  # type: int
-        # Indicates whether the execution of the SQL pattern can be blocked. Valid values:
-        # 
-        # *   **true**\
-        # *   **false**\
-        # 
-        # > Only SELECT and INSERT statements can be blocked.
+        # The queried SQL pattern.
         self.pattern_details = pattern_details  # type: list[DescribeSQLPatternsResponseBodyPatternDetails]
         # The request ID.
         self.request_id = request_id  # type: str
@@ -14087,8 +14556,11 @@ class DescribeSqlPatternResponse(TeaModel):
 
 class DescribeStorageResourceUsageRequest(TeaModel):
     def __init__(self, dbcluster_id=None, end_time=None, start_time=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.end_time = end_time  # type: str
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -14121,7 +14593,12 @@ class DescribeStorageResourceUsageRequest(TeaModel):
 
 class DescribeStorageResourceUsageResponseBodyDataAcuInfo(TeaModel):
     def __init__(self, name=None, values=None):
+        # The resource usage metric. Valid values:
+        # 
+        # *   `TotalAcuNumber`: the total number of ACUs.
+        # *   `ReservedAcuNumber`: the number of ACUs for the reserved resources.
         self.name = name  # type: str
+        # The values of the metric at specific points in time.
         self.values = values  # type: list[str]
 
     def validate(self):
@@ -14150,9 +14627,13 @@ class DescribeStorageResourceUsageResponseBodyDataAcuInfo(TeaModel):
 
 class DescribeStorageResourceUsageResponseBodyData(TeaModel):
     def __init__(self, acu_info=None, dbcluster_id=None, end_time=None, start_time=None):
+        # The AnalyticDB compute unit (ACU) usage of the cluster.
         self.acu_info = acu_info  # type: list[DescribeStorageResourceUsageResponseBodyDataAcuInfo]
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The end time of the query. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.end_time = end_time  # type: str
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -14197,8 +14678,11 @@ class DescribeStorageResourceUsageResponseBodyData(TeaModel):
 
 class DescribeStorageResourceUsageResponseBody(TeaModel):
     def __init__(self, code=None, data=None, request_id=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The queried resource usage.
         self.data = data  # type: DescribeStorageResourceUsageResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14273,12 +14757,43 @@ class DescribeStorageResourceUsageResponse(TeaModel):
 class DescribeTableAccessCountRequest(TeaModel):
     def __init__(self, dbcluster_id=None, order=None, page_number=None, page_size=None, region_id=None,
                  start_time=None, table_name=None):
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~454250~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The order by which to sort query results. Specify the parameter value in the JSON string format. Example: `[{"Field":"TableSchema","Type":"Asc"}]`. Fields in the request parameter:
+        # 
+        # *   `Field` specifies the field by which to sort the query results. Valid values:
+        # 
+        #     *   `TableSchema`: the name of the database to which the table belongs.
+        #     *   `TableName`: the name of the table.
+        #     *   `AccessCount`: the number of accesses to the table.
+        # 
+        # *   `Type` specifies the sorting order. Valid values:
+        # 
+        #     *   `Asc`: ascending order.
+        #     *   `Desc`: descending order.
+        # 
+        # >  If you do not specify this parameter, query results are sorted in ascending order based on the database and the table.
         self.order = order  # type: str
+        # The page number. Pages start from 1. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries per page. Valid values:
+        # 
+        # *   **10** (default)
+        # *   **30**\
+        # *   **50**\
+        # *   **100**\
         self.page_size = page_size  # type: int
+        # The region ID of the cluster.
         self.region_id = region_id  # type: str
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # 
+        # >  Only data within the last 30 days can be queried.
         self.start_time = start_time  # type: str
+        # The name of the table.
+        # 
+        # >  If you leave this parameter empty, the number of accesses to all tables in the cluster on a date is returned.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -14327,10 +14842,15 @@ class DescribeTableAccessCountRequest(TeaModel):
 
 class DescribeTableAccessCountResponseBodyItems(TeaModel):
     def __init__(self, access_count=None, instance_name=None, report_date=None, table_name=None, table_schema=None):
+        # The number of accesses to the table.
         self.access_count = access_count  # type: str
+        # The ID of the cluster to which the table belongs.
         self.instance_name = instance_name  # type: str
+        # The date when the table was accessed.
         self.report_date = report_date  # type: str
+        # The name of the table.
         self.table_name = table_name  # type: str
+        # The database to which the table belongs.
         self.table_schema = table_schema  # type: str
 
     def validate(self):
@@ -14371,10 +14891,15 @@ class DescribeTableAccessCountResponseBodyItems(TeaModel):
 
 class DescribeTableAccessCountResponseBody(TeaModel):
     def __init__(self, items=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The queried tables.
         self.items = items  # type: list[DescribeTableAccessCountResponseBodyItems]
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -14851,13 +15376,13 @@ class DetachUserENIResponse(TeaModel):
 
 class DisableElasticPlanRequest(TeaModel):
     def __init__(self, dbcluster_id=None, elastic_plan_name=None):
-        # The ID of the cluster.
+        # The cluster ID.
         # 
-        # >  You can call the [DescribeDBClusters](~~454250~~) operation to query the ID of an AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # >  You can call the [DescribeDBClusters](~~454250~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
         # The name of the scaling plan.
         # 
-        # >  You can call the [DescribeElasticPlans](~~601334~~) operation to query the name of a scaling plan for a specific cluster.
+        # >  You can call the [DescribeElasticPlans](~~601334~~) operation to query the names of scaling plans.
         self.elastic_plan_name = elastic_plan_name  # type: str
 
     def validate(self):
@@ -14886,7 +15411,7 @@ class DisableElasticPlanRequest(TeaModel):
 
 class DisableElasticPlanResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14952,20 +15477,62 @@ class DownloadDiagnosisRecordsRequest(TeaModel):
     def __init__(self, client_ip=None, dbcluster_id=None, database=None, end_time=None, keyword=None, lang=None,
                  max_peak_memory=None, max_scan_size=None, min_peak_memory=None, min_scan_size=None, query_condition=None,
                  region_id=None, resource_group=None, start_time=None, user_name=None):
+        # The source IP address.
+        # 
+        # >  You can call the [DescribeDiagnosisDimensions](~~308210~~) operation to query the resource groups, database names, usernames, and source IP addresses of the SQL statements that meet a query condition.
         self.client_ip = client_ip  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The name of the database on which the SQL statements are executed.
+        # 
+        # >  You can call the [DescribeDiagnosisDimensions](~~308210~~) operation to query the resource groups, database names, usernames, and source IP addresses of the SQL statements that meet a query condition.
         self.database = database  # type: str
+        # The end of the time range to query. Set the time to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # > 
+        # 
+        # *   The end time must be later than the start time.
+        # 
+        # *   The maximum time range that can be specified is 24 hours.
         self.end_time = end_time  # type: str
+        # The query keyword of the SQL statements.
         self.keyword = keyword  # type: str
+        # The language. Valid values:
+        # 
+        # *   **zh**: simplified Chinese.
+        # *   **en**: English.
+        # *   **ja**: Japanese.
+        # *   **zh-tw**: traditional Chinese.
         self.lang = lang  # type: str
+        # The maximum peak memory of the SQL statements. Unit: bytes.
         self.max_peak_memory = max_peak_memory  # type: long
+        # The maximum scan size of the SQL statements. Unit: bytes.
         self.max_scan_size = max_scan_size  # type: long
+        # The minimum peak memory of the SQL statements. Unit: bytes.
         self.min_peak_memory = min_peak_memory  # type: long
+        # The minimum scan size of the SQL statements. Unit: bytes.
         self.min_scan_size = min_scan_size  # type: long
+        # The query condition for SQL statements, which can contain the `Type`, `Value`, `Min`, and `Max` fields. Specify the condition in the JSON format. `Type` specifies the query dimension. Valid values for Type: `maxCost`, `status`, and `cost`. `Value`, `Min`, or `Max` specifies the query range for the dimension. Valid values:
+        # 
+        # *   `{"Type":"maxCost","Value":"100"}`: queries the top 100 most time-consuming SQL statements. Set `Value` to 100.
+        # *   `{"Type":"status","Value":"finished"}`: queries the executed SQL statements. You can set `Value` to `running` to query the SQL statements that are being executed. You can also set Value to `failed` to query the SQL statements that failed to be executed.
+        # *   `{"Type":"cost","Min":"10","Max":"200"}`: queries the SQL statements whose execution duration is in the range of 10 to 200 milliseconds. You can also specify custom values for the Min and Max fields.
         self.query_condition = query_condition  # type: str
+        # The region ID of the cluster.
         self.region_id = region_id  # type: str
+        # The resource group to which the SQL statements belong.
+        # 
+        # >  You can call the [DescribeDiagnosisDimensions](~~308210~~) operation to query the resource groups, database names, usernames, and source IP addresses of the SQL statements that meet a query condition.
         self.resource_group = resource_group  # type: str
+        # The beginning of the time range to query. Set the time to a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
+        # 
+        # >  You can query data only within the last 14 days.
         self.start_time = start_time  # type: str
+        # The username that is used to execute the SQL statements.
+        # 
+        # >  You can call the [DescribeDiagnosisDimensions](~~~~) operation to query the resource groups, database names, usernames, and source IP addresses of the SQL statements that meet a query condition.
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -15046,7 +15613,9 @@ class DownloadDiagnosisRecordsRequest(TeaModel):
 
 class DownloadDiagnosisRecordsResponseBody(TeaModel):
     def __init__(self, download_id=None, request_id=None):
+        # The download ID.
         self.download_id = download_id  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15114,13 +15683,13 @@ class DownloadDiagnosisRecordsResponse(TeaModel):
 
 class EnableElasticPlanRequest(TeaModel):
     def __init__(self, dbcluster_id=None, elastic_plan_name=None):
-        # The ID of the cluster.
+        # The cluster ID.
         # 
-        # >  You can call the [DescribeDBClusters](~~454250~~) operation to query the ID of an AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
+        # >  You can call the [DescribeDBClusters](~~454250~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
         # The name of the scaling plan.
         # 
-        # >  You can call the [DescribeElasticPlans](~~601334~~) operation to query the name of a scaling plan for a specific cluster.
+        # >  You can call the [DescribeElasticPlans](~~601334~~) operation to query the names of scaling plans.
         self.elastic_plan_name = elastic_plan_name  # type: str
 
     def validate(self):
@@ -15149,7 +15718,7 @@ class EnableElasticPlanRequest(TeaModel):
 
 class EnableElasticPlanResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15548,13 +16117,15 @@ class GetDatabaseObjectsResponse(TeaModel):
 
 
 class GetSparkAppAttemptLogRequest(TeaModel):
-    def __init__(self, attempt_id=None, log_length=None):
+    def __init__(self, attempt_id=None, log_length=None, page_number=None, page_size=None):
         # The ID of the log.
         # 
         # > You can call the [ListSparkAppAttempts](~~455887~~) operation to query the information about the retry attempts of a Spark application, including the retry log IDs.
         self.attempt_id = attempt_id  # type: str
         # The number of log entries to return. Valid values: 1 to 500. Default value: 300.
         self.log_length = log_length  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: str
 
     def validate(self):
         pass
@@ -15569,6 +16140,10 @@ class GetSparkAppAttemptLogRequest(TeaModel):
             result['AttemptId'] = self.attempt_id
         if self.log_length is not None:
             result['LogLength'] = self.log_length
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         return result
 
     def from_map(self, m=None):
@@ -15577,17 +16152,22 @@ class GetSparkAppAttemptLogRequest(TeaModel):
             self.attempt_id = m.get('AttemptId')
         if m.get('LogLength') is not None:
             self.log_length = m.get('LogLength')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         return self
 
 
 class GetSparkAppAttemptLogResponseBodyData(TeaModel):
-    def __init__(self, app_id=None, dbcluster_id=None, log_content=None, message=None):
+    def __init__(self, app_id=None, dbcluster_id=None, log_content=None, log_size=None, message=None):
         # The application ID.
         self.app_id = app_id  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
         # The content of the log.
         self.log_content = log_content  # type: str
+        self.log_size = log_size  # type: int
         # The alert message returned for the request, such as task execution failure or insufficient resources. If no alert occurs, null is returned.
         self.message = message  # type: str
 
@@ -15606,6 +16186,8 @@ class GetSparkAppAttemptLogResponseBodyData(TeaModel):
             result['DBClusterId'] = self.dbcluster_id
         if self.log_content is not None:
             result['LogContent'] = self.log_content
+        if self.log_size is not None:
+            result['LogSize'] = self.log_size
         if self.message is not None:
             result['Message'] = self.message
         return result
@@ -15618,6 +16200,8 @@ class GetSparkAppAttemptLogResponseBodyData(TeaModel):
             self.dbcluster_id = m.get('DBClusterId')
         if m.get('LogContent') is not None:
             self.log_content = m.get('LogContent')
+        if m.get('LogSize') is not None:
+            self.log_size = m.get('LogSize')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         return self
@@ -15816,14 +16400,19 @@ class GetSparkAppInfoResponse(TeaModel):
 
 
 class GetSparkAppLogRequest(TeaModel):
-    def __init__(self, app_id=None, dbcluster_id=None, log_length=None):
+    def __init__(self, app_id=None, dbcluster_id=None, log_length=None, page_number=None, page_size=None):
         # The Spark application ID.
         # 
         # > You can call the [ListSparkApps](~~612475~~) operation to query the Spark application ID.
         self.app_id = app_id  # type: str
+        # The cluster ID.
+        # 
+        # >  You can call the [DescribeDBClusters](~~454250~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
         # The number of log entries to return. Valid values: 1 to 500. Default value: 300.
         self.log_length = log_length  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
 
     def validate(self):
         pass
@@ -15840,6 +16429,10 @@ class GetSparkAppLogRequest(TeaModel):
             result['DBClusterId'] = self.dbcluster_id
         if self.log_length is not None:
             result['LogLength'] = self.log_length
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         return result
 
     def from_map(self, m=None):
@@ -15850,15 +16443,20 @@ class GetSparkAppLogRequest(TeaModel):
             self.dbcluster_id = m.get('DBClusterId')
         if m.get('LogLength') is not None:
             self.log_length = m.get('LogLength')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         return self
 
 
 class GetSparkAppLogResponseBodyData(TeaModel):
-    def __init__(self, dbcluster_id=None, log_content=None, message=None):
+    def __init__(self, dbcluster_id=None, log_content=None, log_size=None, message=None):
         # The ID of the Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
         # The content of the log.
         self.log_content = log_content  # type: str
+        self.log_size = log_size  # type: int
         # The alert message returned for the request, such as task execution failure or insufficient resources. If no alert occurs, null is returned.
         self.message = message  # type: str
 
@@ -15875,6 +16473,8 @@ class GetSparkAppLogResponseBodyData(TeaModel):
             result['DBClusterId'] = self.dbcluster_id
         if self.log_content is not None:
             result['LogContent'] = self.log_content
+        if self.log_size is not None:
+            result['LogSize'] = self.log_size
         if self.message is not None:
             result['Message'] = self.message
         return result
@@ -15885,6 +16485,8 @@ class GetSparkAppLogResponseBodyData(TeaModel):
             self.dbcluster_id = m.get('DBClusterId')
         if m.get('LogContent') is not None:
             self.log_content = m.get('LogContent')
+        if m.get('LogSize') is not None:
+            self.log_size = m.get('LogSize')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         return self
@@ -15966,6 +16568,9 @@ class GetSparkAppMetricsRequest(TeaModel):
     def __init__(self, app_id=None, dbcluster_id=None):
         # The ID of the Spark application.
         self.app_id = app_id  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # > You can call the [DescribeDBClusters](~~612397~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -16151,8 +16756,13 @@ class GetSparkAppMetricsResponse(TeaModel):
 
 class GetSparkAppStateRequest(TeaModel):
     def __init__(self, app_id=None, dbcluster_id=None):
-        # The ID of the application.
+        # The Spark application ID.
+        # 
+        # >  You can call the [ListSparkApps](~~455888~~) operation to query Spark application IDs.
         self.app_id = app_id  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~612397~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -16181,27 +16791,27 @@ class GetSparkAppStateRequest(TeaModel):
 
 class GetSparkAppStateResponseBodyData(TeaModel):
     def __init__(self, app_id=None, app_name=None, dbcluster_id=None, message=None, state=None):
-        # The ID of the application.
+        # The Spark application ID.
         self.app_id = app_id  # type: str
         # The name of the application.
         self.app_name = app_name  # type: str
-        # The ID of the Database.
+        # The database ID.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The alert message returned for the operation, such as task execution failure or insufficient resources. Null is returned if no alert occurs.
+        # The alert message returned for the operation, such as task execution failure or insufficient resources. If no alert occurs, null is returned.
         self.message = message  # type: str
         # The execution state of the application. Valid values:
         # 
-        # *   **SUBMITTED**: The application is submitted.
-        # *   **STARTING**: The application task is starting.
-        # *   **RUNNING**: The application task is being executed.
-        # *   **FAILING**: The application task failed, and the environment is being cleared.
-        # *   **FAILED**: The application task failed.
-        # *   **KILLING**: The application task is terminated, and the environment is being cleared.
-        # *   **KILLED**: The application task is terminated.
-        # *   **SUCCEEDING**: The application task is completed, and the environment is being cleared.
-        # *   **COMPLETED**: The application task is completed.
-        # *   **FATAL**: An unexpected failure occurred.
-        # *   **UNKNOWN**: An unknown error occurred.
+        # *   **SUBMITTED**\
+        # *   **STARTING**\
+        # *   **RUNNING**\
+        # *   **FAILING**\
+        # *   **FAILED**\
+        # *   **KILLING**\
+        # *   **KILLED**\
+        # *   **SUCCEEDING**\
+        # *   **COMPLETED**\
+        # *   **FATAL**\
+        # *   **UNKNOWN**\
         self.state = state  # type: str
 
     def validate(self):
@@ -16242,9 +16852,9 @@ class GetSparkAppStateResponseBodyData(TeaModel):
 
 class GetSparkAppStateResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # The data returned.
+        # The returned data.
         self.data = data  # type: GetSparkAppStateResponseBodyData
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16314,8 +16924,13 @@ class GetSparkAppStateResponse(TeaModel):
 
 class GetSparkAppWebUiAddressRequest(TeaModel):
     def __init__(self, app_id=None, dbcluster_id=None):
-        # The ID of the Spark application.
+        # The Spark application ID.
+        # 
+        # >  You can call the [ListSparkApps](~~455888~~) operation to query Spark application IDs.
         self.app_id = app_id  # type: str
+        # The cluster ID.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -16344,11 +16959,11 @@ class GetSparkAppWebUiAddressRequest(TeaModel):
 
 class GetSparkAppWebUiAddressResponseBodyData(TeaModel):
     def __init__(self, app_id=None, dbcluster_id=None, expiration_time_in_millis=None, web_ui_address=None):
-        # The ID of the Spark application.
+        # The Spark application ID.
         self.app_id = app_id  # type: str
-        # The ID of the Database.
+        # The database ID.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The expiration time. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
+        # The expiration time. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.expiration_time_in_millis = expiration_time_in_millis  # type: long
         # The URL of the web UI for the Spark application.
         self.web_ui_address = web_ui_address  # type: str
@@ -16387,9 +17002,9 @@ class GetSparkAppWebUiAddressResponseBodyData(TeaModel):
 
 class GetSparkAppWebUiAddressResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # The data returned.
+        # The returned data.
         self.data = data  # type: GetSparkAppWebUiAddressResponseBodyData
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16459,7 +17074,7 @@ class GetSparkAppWebUiAddressResponse(TeaModel):
 
 class GetSparkConfigLogPathRequest(TeaModel):
     def __init__(self, dbcluster_id=None):
-        # The database ID.
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -16485,15 +17100,15 @@ class GetSparkConfigLogPathRequest(TeaModel):
 class GetSparkConfigLogPathResponseBodyData(TeaModel):
     def __init__(self, default_log_path=None, is_log_path_exists=None, modified_timestamp=None, modified_uid=None,
                  recorded_log_path=None):
-        # The recommended default log path.
+        # The default log path.
         self.default_log_path = default_log_path  # type: str
         # Indicates whether a log path exists.
         self.is_log_path_exists = is_log_path_exists  # type: bool
-        # The time when the configuration was last modified.
+        # The last modification time.
         self.modified_timestamp = modified_timestamp  # type: str
-        # The modifier ID.
+        # The account ID of the modifier.
         self.modified_uid = modified_uid  # type: str
-        # The log path.
+        # The recorded log path.
         self.recorded_log_path = recorded_log_path  # type: str
 
     def validate(self):
@@ -16534,7 +17149,7 @@ class GetSparkConfigLogPathResponseBodyData(TeaModel):
 
 class GetSparkConfigLogPathResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # The returned data.
+        # The queried Spark log configuration.
         self.data = data  # type: GetSparkConfigLogPathResponseBodyData
         # The request ID.
         self.request_id = request_id  # type: str
@@ -16983,9 +17598,9 @@ class GetSparkTemplateFileContentRequest(TeaModel):
     def __init__(self, dbcluster_id=None, id=None):
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The ID of the application template.
+        # The application template ID.
         # 
-        # >  You can call the [GetSparkTemplateFullTree](~~456205~~) operation to query the template ID.
+        # >  You can call the [GetSparkTemplateFullTree](~~456205~~) operation to query the application template ID.
         self.id = id  # type: long
 
     def validate(self):
@@ -17014,19 +17629,19 @@ class GetSparkTemplateFileContentRequest(TeaModel):
 
 class GetSparkTemplateFileContentResponseBodyData(TeaModel):
     def __init__(self, app_type=None, content=None, id=None, resource_group_name=None, type=None):
-        # The type of the application. Valid values:
+        # The application type. Valid values:
         # 
-        # *   **SQL**: SQL application
-        # *   **STREAMING**: streaming application
-        # *   **BATCH**: batch application
+        # *   **SQL**\
+        # *   **STREAMING**\
+        # *   **BATCH**\
         self.app_type = app_type  # type: str
-        # The content of the template.
+        # The content of the application template.
         self.content = content  # type: str
-        # The ID of the application template.
+        # The application template ID.
         self.id = id  # type: long
         # The name of the resource group.
         self.resource_group_name = resource_group_name  # type: str
-        # The type of the file. Valid values:
+        # The file type. Valid values:
         # 
         # *   **folder**\
         # *   **file**\
@@ -17070,9 +17685,9 @@ class GetSparkTemplateFileContentResponseBodyData(TeaModel):
 
 class GetSparkTemplateFileContentResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # The data returned.
+        # The returned data.
         self.data = data  # type: GetSparkTemplateFileContentResponseBodyData
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17171,22 +17786,22 @@ class GetSparkTemplateFolderTreeResponseBody(TeaModel):
         # 
         # *   **Uid**: the UID of the Alibaba Cloud account.
         # 
-        # *   **Type**: the type of the application template. Valid values: **FOLDER**: directory.
+        # *   **Type**: the application template type. Valid values: **FOLDER**\
         # 
         # *   **Parent**: indicates whether a child directory exists. Valid values:
         # 
-        #     *   **0**: No child directory exists.
-        #     *   **-1**: A child directory exists.
+        #     *   **0**: no.
+        #     *   **-1**: yes.
         # 
         # *   **Children**: the child directory.
         # 
-        # *   **LastModified**: the time when applications in the directory are last modified. The time is displayed in the UNIX timestamp format. Unit: seconds.
+        # *   **LastModified**: the time when applications in the directory are last modified. This value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         # 
         # *   **Name**: the name of the directory.
         # 
-        # *   **Id**: the ID of the directory.
+        # *   **Id**: the directory ID.
         self.data = data  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17279,35 +17894,35 @@ class GetSparkTemplateFullTreeRequest(TeaModel):
 
 class GetSparkTemplateFullTreeResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # The directory structure of the application template. Fields in the response parameter:
+        # The directory structure of Spark applications. Fields in the response parameter:
         # 
         # *   **Uid**: the UID of the Alibaba Cloud account.
         # 
-        # *   **Type**: the type of the application template. Valid values:
+        # *   **Type**: the application template type. Valid values:
         # 
-        #     *   **FOLDER**: directory
-        #     *   **FILE**: application
+        #     *   **FOLDER**\
+        #     *   **FILE**\
         # 
-        # *   **Parent**: the parent directory. Valid values:
+        # *   **Parent**: indicates whether a child directory exists. Valid values:
         # 
-        #     *   **0**: No child directory exists.
-        #     *   **-1**: A child directory exists.
+        #     *   **0**: no.
+        #     *   **-1**: yes.
         # 
         # *   **Children**: the child directory.
         # 
-        # *   **LastModified**: the time when the application is last modified. The time is displayed in the UNIX timestamp format. Unit: seconds.
+        # *   **LastModified**: the time when applications are last modified. This value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         # 
         # *   **AppType**: the application type. Valid values:
         # 
-        #     *   **SQL**: SQL application
-        #     *   **STREAMING**: streaming application
-        #     *   **BATCH**: batch application
+        #     *   **SQL**\
+        #     *   **STREAMING**\
+        #     *   **BATCH**\
         # 
         # *   **Name**: the name of the directory or application.
         # 
-        # *   **Id**: the ID of the directory or application.
+        # *   **Id**: the directory ID or application ID.
         self.data = data  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17717,9 +18332,9 @@ class GetTableColumnsResponse(TeaModel):
 
 class GetTableDDLRequest(TeaModel):
     def __init__(self, dbcluster_id=None, region_id=None, schema_name=None, table_name=None):
-        # The ID of the cluster.
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The ID of the region in which the cluster resides.
+        # The region ID.
         self.region_id = region_id  # type: str
         # The name of the database.
         self.schema_name = schema_name  # type: str
@@ -17760,7 +18375,7 @@ class GetTableDDLRequest(TeaModel):
 
 class GetTableDDLResponseBody(TeaModel):
     def __init__(self, request_id=None, sql=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The SQL statement.
         self.sql = sql  # type: str
@@ -18092,9 +18707,9 @@ class GetTableObjectsResponse(TeaModel):
 
 class GetViewDDLRequest(TeaModel):
     def __init__(self, dbcluster_id=None, region_id=None, schema_name=None, view_name=None):
-        # The ID of the cluster.
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The ID of the region in which the cluster resides.
+        # The region ID.
         self.region_id = region_id  # type: str
         # The name of the database.
         self.schema_name = schema_name  # type: str
@@ -18135,9 +18750,9 @@ class GetViewDDLRequest(TeaModel):
 
 class GetViewDDLResponseBody(TeaModel):
     def __init__(self, request_id=None, sql=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Details of the SQL statement.
+        # The SQL statement.
         self.sql = sql  # type: str
 
     def validate(self):
@@ -18451,8 +19066,11 @@ class GetViewObjectsResponse(TeaModel):
 
 class KillSparkAppRequest(TeaModel):
     def __init__(self, app_id=None, dbcluster_id=None):
-        # The ID of the Spark application.
+        # The ID of the Spark application that you want to terminate.
         self.app_id = app_id  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~454250~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -18481,21 +19099,27 @@ class KillSparkAppRequest(TeaModel):
 
 class KillSparkAppResponseBodyData(TeaModel):
     def __init__(self, app_id=None, app_name=None, dbcluster_id=None, message=None, state=None):
-        # The ID of the Spark application.
+        # The Spark application ID.
         self.app_id = app_id  # type: str
-        # The name of the Spark application.
+        # The name of the application.
         self.app_name = app_name  # type: str
-        # The database ID.
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The error message returned if the request failed.
+        # The error message returned.
         self.message = message  # type: str
-        # The state of the Spark application. Valid values:
+        # The execution state of the Spark application. Valid values:
         # 
-        # *   **waiting**\
-        # *   **running**\
-        # *   **finished**\
-        # *   **failed**\
-        # *   **closed**\
+        # *   **SUBMITTED**\
+        # *   **STARTING**\
+        # *   **RUNNING**\
+        # *   **FAILING**\
+        # *   **FAILED**\
+        # *   **KILLING**\
+        # *   **KILLED**\
+        # *   **SUCCEEDING**\
+        # *   **COMPLETED**\
+        # *   **FATAL**\
+        # *   **UNKNOWN**\
         self.state = state  # type: str
 
     def validate(self):
@@ -18810,6 +19434,7 @@ class ListSparkAppAttemptsRequest(TeaModel):
         # 
         # > You can call the [ListSparkApps](~~455888~~) operation to query all application IDs.
         self.app_id = app_id  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
         # The page number. The value must be an integer that is greater than 0. Default value: **1**.
         self.page_number = page_number  # type: long
@@ -19475,6 +20100,9 @@ class ListSparkTemplateFileIdsResponse(TeaModel):
 
 class LoadSampleDataSetRequest(TeaModel):
     def __init__(self, dbcluster_id=None):
+        # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -19499,7 +20127,9 @@ class LoadSampleDataSetRequest(TeaModel):
 
 class LoadSampleDataSetResponseBody(TeaModel):
     def __init__(self, dbcluster_id=None, request_id=None):
+        # The ID of the AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20806,7 +21436,9 @@ class ModifyDBResourceGroupRequest(TeaModel):
     def __init__(self, cluster_mode=None, cluster_size_resource=None, dbcluster_id=None, group_name=None,
                  group_type=None, max_cluster_count=None, max_compute_resource=None, min_cluster_count=None,
                  min_compute_resource=None, region_id=None):
+        # A reserved parameter.
         self.cluster_mode = cluster_mode  # type: str
+        # A reserved parameter.
         self.cluster_size_resource = cluster_size_resource  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
@@ -20821,18 +21453,23 @@ class ModifyDBResourceGroupRequest(TeaModel):
         # 
         # > For information about resource groups of Data Lakehouse Edition, see [Resource groups](~~428610~~).
         self.group_type = group_type  # type: str
+        # A reserved parameter.
         self.max_cluster_count = max_cluster_count  # type: int
         # The maximum amount of reserved computing resources. Unit: ACU.
         # 
         # *   If GroupType is set to Interactive, the maximum amount of reserved computing resources refers to the amount of resources that are not allocated in the cluster. Set this parameter to a value in increments of 16 ACUs.
         # *   If GroupType is set to Job, the maximum amount of reserved computing resources refers to the amount of resources that are not allocated in the cluster. Set this parameter to a value in increments of 8 ACUs.
         self.max_compute_resource = max_compute_resource  # type: str
+        # A reserved parameter.
         self.min_cluster_count = min_cluster_count  # type: int
-        # The minimum amount of reserved computing resources. Unit: AnalyticDB compute unit (ACU).
+        # The minimum amount of reserved computing resources. Unit: AnalyticDB compute units (ACUs).
         # 
-        # *   If GroupType is set to Interactive, set the value to 16ACU.
+        # *   If the GroupType parameter is set to Interactive, set the value to 16ACU.
         # *   If GroupType is set to Job, set the value to 0ACU.
         self.min_compute_resource = min_compute_resource  # type: str
+        # The region ID of the cluster.
+        # 
+        # >  You can call the [DescribeRegions](~~454314~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -20960,26 +21597,29 @@ class ModifyElasticPlanRequest(TeaModel):
                  start_time=None, target_size=None):
         # A CORN expression that specifies the scaling cycle and time for the scaling plan.
         self.cron_expression = cron_expression  # type: str
-        # The ID of the cluster.
+        # The cluster ID.
         # 
-        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the ID of an AnalyticDB for MySQL Data Warehouse Edition (V3.0) cluster.
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
         # The name of the scaling plan.
         # 
-        # >  You can call the [DescribeElasticPlans](~~601334~~) operation to query the name of a scaling plan of a specific cluster.
+        # >  You can call the [DescribeElasticPlans](~~601334~~) operation to query the names of scaling plans.
         self.elastic_plan_name = elastic_plan_name  # type: str
-        # The time to end the scaling plan.
+        # The end time of the scaling plan.
         # 
         # >  Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.end_time = end_time  # type: str
-        # The time to start the scaling plan.
+        # The start time of the scaling plan.
         # 
         # >  Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
-        # The amount of elastic resources after scaling.
+        # The desired specifications of elastic resources after scaling.
         # 
-        # > *   This parameter is not required only if the resource group uses **EIUs** and **Proportional Default Scaling for EIUs** is enabled.
-        # > *   You can call the [DescribeElasticPlanSpecifications](~~601278~~) operation to query the specifications that are supported for scaling plans.
+        # > 
+        # 
+        # *   If the scaling plan uses **EIUs** and **Default Proportional Scaling for EIUs** is enabled, you do not need to specify this parameter. In other cases, you must specify this parameter.
+        # 
+        # *   You can call the [DescribeElasticPlanSpecifications](~~601278~~) operation to query the specifications that are supported for scaling plans.
         self.target_size = target_size  # type: str
 
     def validate(self):
@@ -21024,7 +21664,7 @@ class ModifyElasticPlanRequest(TeaModel):
 
 class ModifyElasticPlanResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -21088,8 +21728,11 @@ class ModifyElasticPlanResponse(TeaModel):
 
 class PreloadSparkAppMetricsRequest(TeaModel):
     def __init__(self, app_id=None, dbcluster_id=None):
-        # The ID of the Spark application.
+        # The Spark application ID.
         self.app_id = app_id  # type: str
+        # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # 
+        # >  You can call the [DescribeDBClusters](~~129857~~) operation to query the IDs of all AnalyticDB for MySQL Data Lakehouse Edition (V3.0) clusters within a region.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -21118,9 +21761,9 @@ class PreloadSparkAppMetricsRequest(TeaModel):
 
 class PreloadSparkAppMetricsResponseBodyDataScanMetrics(TeaModel):
     def __init__(self, output_rows_count=None, total_read_file_size_in_byte=None):
-        # The number of scanned rows.
+        # The number of rows scanned.
         self.output_rows_count = output_rows_count  # type: long
-        # The number of scanned bytes.
+        # The size of the scanned data. Unit: bytes.
         self.total_read_file_size_in_byte = total_read_file_size_in_byte  # type: long
 
     def validate(self):
@@ -21153,7 +21796,7 @@ class PreloadSparkAppMetricsResponseBodyData(TeaModel):
         self.app_id = app_id  # type: str
         # The retry ID of the Spark application.
         self.attempt_id = attempt_id  # type: str
-        # The path of the event log.
+        # The event log path.
         self.event_log_path = event_log_path  # type: str
         # Indicates whether parsing is complete. Valid values:
         # 
@@ -21975,7 +22618,7 @@ class SubmitSparkAppRequest(TeaModel):
         self.data = data  # type: str
         # The name of the job resource group.
         # 
-        # > You can call the [DescribeDBResourceGroup](~~612413~~) operation to query the resource group IDs of an AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
+        # >  You can call the [DescribeDBResourceGroup](~~612410~~) operation to query the resource group ID of an AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.resource_group_name = resource_group_name  # type: str
         # The ID of the application template.
         # 
@@ -22456,13 +23099,13 @@ class UpdateSparkTemplateFileRequest(TeaModel):
     def __init__(self, content=None, dbcluster_id=None, id=None, resource_group_name=None):
         # The template data to be updated.
         # 
-        # >  If you do not specify this parameter, the application template is not updated. For more information about how to configure an application template, see [Configure a Spark application](~~452402~~).
+        # >  If you do not specify this parameter, the application template is not updated. For information about how to configure a Spark application template, see [Configure a Spark application](~~452402~~).
         self.content = content  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The ID of the application template.
+        # The application template ID.
         # 
-        # >  You can call the [GetSparkTemplateFullTree](~~456205~~) operation to query the template ID.
+        # >  You can call the [GetSparkTemplateFullTree](~~456205~~) operation to query the application template ID.
         self.id = id  # type: long
         # The name of the job resource group.
         self.resource_group_name = resource_group_name  # type: str
@@ -22503,8 +23146,8 @@ class UpdateSparkTemplateFileResponseBodyData(TeaModel):
     def __init__(self, succeeded=None):
         # Indicates whether the application template is updated.
         # 
-        # *   **true**: The application template is updated.
-        # *   **false**: The application template fails to be updated.
+        # *   **True**\
+        # *   **False**\
         self.succeeded = succeeded  # type: bool
 
     def validate(self):
@@ -22531,7 +23174,7 @@ class UpdateSparkTemplateFileResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
         # The update result.
         self.data = data  # type: UpdateSparkTemplateFileResponseBodyData
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
