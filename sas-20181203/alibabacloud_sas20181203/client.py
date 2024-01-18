@@ -12488,6 +12488,8 @@ class Client(OpenApiClient):
             query['Dealed'] = request.dealed
         if not UtilClient.is_unset(request.export_type):
             query['ExportType'] = request.export_type
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.is_cleartext_pwd):
             query['IsCleartextPwd'] = request.is_cleartext_pwd
         if not UtilClient.is_unset(request.is_summary_export):
