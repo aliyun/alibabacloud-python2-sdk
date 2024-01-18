@@ -254,6 +254,7 @@ class Client(OpenApiClient):
 
     def apply_nodes_with_options(self, request, runtime):
         """
+        ## [](#)Description
         You can call the ApplyNodes operation to specify the number of compute nodes, the number of vCPUs, and the memory size when you add nodes to a cluster.
         
 
@@ -286,6 +287,7 @@ class Client(OpenApiClient):
 
     def apply_nodes(self, request):
         """
+        ## [](#)Description
         You can call the ApplyNodes operation to specify the number of compute nodes, the number of vCPUs, and the memory size when you add nodes to a cluster.
         
 
@@ -498,7 +500,7 @@ class Client(OpenApiClient):
 
     def delete_cluster_with_options(self, request, runtime):
         """
-        After a cluster is released, the pay-as-you-go nodes and the subscription nodes that have expired are automatically released. The subscription nodes that have not expired are retained. If you need to release the subscription nodes that have not expired, change their billing method to pay-as-you-go. Before you release a cluster, make sure that you will no longer use the cluster.
+        After a cluster is released, the pay-as-you-go nodes and the subscription nodes that are expired are automatically released. The subscription nodes that are expired are retained. If you need to release subscription nodes that are not expired, change the billing method to pay-as-you-go. Before you release a cluster, make sure that you no longer use the cluster.
         
 
         @param request: DeleteClusterRequest
@@ -530,7 +532,7 @@ class Client(OpenApiClient):
 
     def delete_cluster(self, request):
         """
-        After a cluster is released, the pay-as-you-go nodes and the subscription nodes that have expired are automatically released. The subscription nodes that have not expired are retained. If you need to release the subscription nodes that have not expired, change their billing method to pay-as-you-go. Before you release a cluster, make sure that you will no longer use the cluster.
+        After a cluster is released, the pay-as-you-go nodes and the subscription nodes that are expired are automatically released. The subscription nodes that are expired are retained. If you need to release subscription nodes that are not expired, change the billing method to pay-as-you-go. Before you release a cluster, make sure that you no longer use the cluster.
         
 
         @param request: DeleteClusterRequest
