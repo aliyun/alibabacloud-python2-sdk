@@ -16137,7 +16137,8 @@ class GetUploadDocumentJobResponseBodyJob(TeaModel):
 
 
 class GetUploadDocumentJobResponseBodyUsage(TeaModel):
-    def __init__(self, embedding_tokens=None):
+    def __init__(self, embedding_entries=None, embedding_tokens=None):
+        self.embedding_entries = embedding_entries  # type: int
         self.embedding_tokens = embedding_tokens  # type: int
 
     def validate(self):
@@ -16149,12 +16150,16 @@ class GetUploadDocumentJobResponseBodyUsage(TeaModel):
             return _map
 
         result = dict()
+        if self.embedding_entries is not None:
+            result['EmbeddingEntries'] = self.embedding_entries
         if self.embedding_tokens is not None:
             result['EmbeddingTokens'] = self.embedding_tokens
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EmbeddingEntries') is not None:
+            self.embedding_entries = m.get('EmbeddingEntries')
         if m.get('EmbeddingTokens') is not None:
             self.embedding_tokens = m.get('EmbeddingTokens')
         return self
