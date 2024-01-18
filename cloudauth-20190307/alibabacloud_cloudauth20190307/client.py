@@ -12,7 +12,6 @@ from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_cloudauth20190307 import models as cloudauth_20190307_models
 from alibabacloud_tea_util import models as util_models
 from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
-from alibabacloud_tea_rpc import models as rpc_models
 from alibabacloud_openplatform20191219.client import Client as OpenPlatformClient
 from alibabacloud_openplatform20191219 import models as open_platform_models
 from alibabacloud_oss_sdk import models as oss_models
@@ -203,7 +202,7 @@ class Client(OpenApiClient):
             open_platform_endpoint = 'openplatform.aliyuncs.com'
         if UtilClient.is_unset(credential_type):
             credential_type = 'access_key'
-        auth_config = rpc_models.Config(
+        auth_config = open_api_models.Config(
             access_key_id=access_key_id,
             access_key_secret=access_key_secret,
             security_token=security_token,
@@ -234,28 +233,28 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(request, contrast_face_verify_req)
         if not UtilClient.is_unset(request.face_contrast_file_object):
             auth_response = auth_client.authorize_file_upload_with_options(auth_request, runtime)
-            oss_config.access_key_id = auth_response.access_key_id
-            oss_config.endpoint = OpenApiUtilClient.get_endpoint(auth_response.endpoint, auth_response.use_accelerate, self._endpoint_type)
+            oss_config.access_key_id = auth_response.body.access_key_id
+            oss_config.endpoint = OpenApiUtilClient.get_endpoint(auth_response.body.endpoint, auth_response.body.use_accelerate, self._endpoint_type)
             oss_client = OSSClient(oss_config)
             file_obj = file_form_models.FileField(
-                filename=auth_response.object_key,
+                filename=auth_response.body.object_key,
                 content=request.face_contrast_file_object,
                 content_type=''
             )
             oss_header = oss_models.PostObjectRequestHeader(
-                access_key_id=auth_response.access_key_id,
-                policy=auth_response.encoded_policy,
-                signature=auth_response.signature,
-                key=auth_response.object_key,
+                access_key_id=auth_response.body.access_key_id,
+                policy=auth_response.body.encoded_policy,
+                signature=auth_response.body.signature,
+                key=auth_response.body.object_key,
                 file=file_obj,
                 success_action_status='201'
             )
             upload_request = oss_models.PostObjectRequest(
-                bucket_name=auth_response.bucket,
+                bucket_name=auth_response.body.bucket,
                 header=oss_header
             )
             oss_client.post_object(upload_request, oss_runtime)
-            contrast_face_verify_req.face_contrast_file = 'http://%s.%s/%s' % (TeaConverter.to_unicode(auth_response.bucket), TeaConverter.to_unicode(auth_response.endpoint), TeaConverter.to_unicode(auth_response.object_key))
+            contrast_face_verify_req.face_contrast_file = 'http://%s.%s/%s' % (TeaConverter.to_unicode(auth_response.body.bucket), TeaConverter.to_unicode(auth_response.body.endpoint), TeaConverter.to_unicode(auth_response.body.object_key))
         contrast_face_verify_resp = self.contrast_face_verify_with_options(contrast_face_verify_req, runtime)
         return contrast_face_verify_resp
 
@@ -425,6 +424,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_oss_upload_token_with_options(runtime)
 
+    def describe_smart_statistics_page_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.end_date):
+            query['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.scene_id):
+            query['SceneId'] = request.scene_id
+        if not UtilClient.is_unset(request.service_code):
+            query['ServiceCode'] = request.service_code
+        if not UtilClient.is_unset(request.start_date):
+            query['StartDate'] = request.start_date
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSmartStatisticsPageList',
+            version='2019-03-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudauth_20190307_models.DescribeSmartStatisticsPageListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_smart_statistics_page_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_smart_statistics_page_list_with_options(request, runtime)
+
     def describe_verify_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -569,9 +606,43 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.detect_face_attributes_with_options(request, runtime)
 
+    def id_2meta_verify_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.identify_num):
+            query['IdentifyNum'] = request.identify_num
+        if not UtilClient.is_unset(request.param_type):
+            query['ParamType'] = request.param_type
+        if not UtilClient.is_unset(request.user_name):
+            query['UserName'] = request.user_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='Id2MetaVerify',
+            version='2019-03-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudauth_20190307_models.Id2MetaVerifyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def id_2meta_verify(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.id_2meta_verify_with_options(request, runtime)
+
     def init_face_verify_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.birthday):
+            query['Birthday'] = request.birthday
         if not UtilClient.is_unset(request.callback_token):
             query['CallbackToken'] = request.callback_token
         if not UtilClient.is_unset(request.callback_url):
@@ -584,32 +655,50 @@ class Client(OpenApiClient):
             query['CertType'] = request.cert_type
         if not UtilClient.is_unset(request.certify_id):
             query['CertifyId'] = request.certify_id
+        if not UtilClient.is_unset(request.certify_url_style):
+            query['CertifyUrlStyle'] = request.certify_url_style
         if not UtilClient.is_unset(request.certify_url_type):
             query['CertifyUrlType'] = request.certify_url_type
         if not UtilClient.is_unset(request.encrypt_type):
             query['EncryptType'] = request.encrypt_type
         if not UtilClient.is_unset(request.face_contrast_picture_url):
             query['FaceContrastPictureUrl'] = request.face_contrast_picture_url
+        if not UtilClient.is_unset(request.face_guard_output):
+            query['FaceGuardOutput'] = request.face_guard_output
         if not UtilClient.is_unset(request.ip):
             query['Ip'] = request.ip
         if not UtilClient.is_unset(request.meta_info):
             query['MetaInfo'] = request.meta_info
         if not UtilClient.is_unset(request.mobile):
             query['Mobile'] = request.mobile
+        if not UtilClient.is_unset(request.mode):
+            query['Mode'] = request.mode
         if not UtilClient.is_unset(request.oss_bucket_name):
             query['OssBucketName'] = request.oss_bucket_name
         if not UtilClient.is_unset(request.oss_object_name):
             query['OssObjectName'] = request.oss_object_name
         if not UtilClient.is_unset(request.outer_order_no):
             query['OuterOrderNo'] = request.outer_order_no
+        if not UtilClient.is_unset(request.procedure_priority):
+            query['ProcedurePriority'] = request.procedure_priority
         if not UtilClient.is_unset(request.product_code):
             query['ProductCode'] = request.product_code
+        if not UtilClient.is_unset(request.rarely_characters):
+            query['RarelyCharacters'] = request.rarely_characters
+        if not UtilClient.is_unset(request.read_img):
+            query['ReadImg'] = request.read_img
         if not UtilClient.is_unset(request.return_url):
             query['ReturnUrl'] = request.return_url
         if not UtilClient.is_unset(request.scene_id):
             query['SceneId'] = request.scene_id
+        if not UtilClient.is_unset(request.suitable_type):
+            query['SuitableType'] = request.suitable_type
         if not UtilClient.is_unset(request.user_id):
             query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.validity_date):
+            query['ValidityDate'] = request.validity_date
+        if not UtilClient.is_unset(request.voluntary_customized_content):
+            query['VoluntaryCustomizedContent'] = request.voluntary_customized_content
         body = {}
         if not UtilClient.is_unset(request.auth_id):
             body['AuthId'] = request.auth_id
@@ -698,6 +787,74 @@ class Client(OpenApiClient):
     def liveness_face_verify(self, request):
         runtime = util_models.RuntimeOptions()
         return self.liveness_face_verify_with_options(request, runtime)
+
+    def mobile_3meta_detail_verify_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.identify_num):
+            query['IdentifyNum'] = request.identify_num
+        if not UtilClient.is_unset(request.mobile):
+            query['Mobile'] = request.mobile
+        if not UtilClient.is_unset(request.param_type):
+            query['ParamType'] = request.param_type
+        if not UtilClient.is_unset(request.user_name):
+            query['UserName'] = request.user_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='Mobile3MetaDetailVerify',
+            version='2019-03-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudauth_20190307_models.Mobile3MetaDetailVerifyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def mobile_3meta_detail_verify(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.mobile_3meta_detail_verify_with_options(request, runtime)
+
+    def mobile_3meta_simple_verify_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.identify_num):
+            query['IdentifyNum'] = request.identify_num
+        if not UtilClient.is_unset(request.mobile):
+            query['Mobile'] = request.mobile
+        if not UtilClient.is_unset(request.param_type):
+            query['ParamType'] = request.param_type
+        if not UtilClient.is_unset(request.user_name):
+            query['UserName'] = request.user_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='Mobile3MetaSimpleVerify',
+            version='2019-03-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudauth_20190307_models.Mobile3MetaSimpleVerifyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def mobile_3meta_simple_verify(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.mobile_3meta_simple_verify_with_options(request, runtime)
 
     def modify_device_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
