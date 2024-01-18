@@ -119,12 +119,32 @@ class DataProductListLogMapValue(TeaModel):
 class AddDataSourceRequest(TeaModel):
     def __init__(self, account_id=None, cloud_code=None, data_source_instance_name=None,
                  data_source_instance_params=None, data_source_instance_remark=None, data_source_type=None, region_id=None):
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The code of the cloud service provider.
+        # 
+        # Valid values:
+        # 
+        # *   qcloud
+        # *   hcloud
+        # *   aliyun
         self.cloud_code = cloud_code  # type: str
+        # The name of the data source.
         self.data_source_instance_name = data_source_instance_name  # type: str
+        # The parameters of the data source. Set this parameter to a JSON array.
         self.data_source_instance_params = data_source_instance_params  # type: str
+        # The remarks on the data source.
         self.data_source_instance_remark = data_source_instance_remark  # type: str
+        # The type of the data source. Valid values:
+        # 
+        # *   obs: Huawei Cloud Object Storage Service (OBS)
+        # *   wafApi: download API of Tencent Cloud Web Application Firewall (WAF)
+        # *   ckafka: Tencent Cloud Kafka (CKafka)
         self.data_source_type = data_source_type  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -173,7 +193,9 @@ class AddDataSourceRequest(TeaModel):
 
 class AddDataSourceResponseBodyData(TeaModel):
     def __init__(self, count=None, data_source_instance_id=None):
+        # The number of data sources that are added. The value 1 indicates that data source is added, and a value less than or equal to 0 indicates that the data source failed to be added.
         self.count = count  # type: int
+        # The ID of the data source. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters.
         self.data_source_instance_id = data_source_instance_id  # type: str
 
     def validate(self):
@@ -202,7 +224,9 @@ class AddDataSourceResponseBodyData(TeaModel):
 
 class AddDataSourceResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: AddDataSourceResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -273,11 +297,24 @@ class AddDataSourceResponse(TeaModel):
 class AddDataSourceLogRequest(TeaModel):
     def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None,
                  data_source_instance_logs=None, log_code=None, region_id=None):
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The ID of the data source. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters. You can call the [ListDataSourceLogs](https://api.aliyun-inc.com/#/publishment/document/cloud-siem/863fdf54478f4cc5877e27c2a5fe9e44?tenantUuid=f382fccd88b94c5c8c864def6815b854\&activeTabKey=api%7CListDataSourceLogs) operation to query the IDs of data sources.
         self.data_source_instance_id = data_source_instance_id  # type: str
+        # The parameters of the data source. Set this parameter to a JSON array.
         self.data_source_instance_logs = data_source_instance_logs  # type: str
+        # The log code.
         self.log_code = log_code  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -322,7 +359,9 @@ class AddDataSourceLogRequest(TeaModel):
 
 class AddDataSourceLogResponseBodyData(TeaModel):
     def __init__(self, count=None, log_instance_id=None):
+        # The number of logs that are added. The value 1 indicates that the log is added, and a value less than or equal to 0 indicates that the log failed to be added.
         self.count = count  # type: int
+        # The ID of the log. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters.
         self.log_instance_id = log_instance_id  # type: str
 
     def validate(self):
@@ -351,7 +390,9 @@ class AddDataSourceLogResponseBodyData(TeaModel):
 
 class AddDataSourceLogResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: AddDataSourceLogResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -421,7 +462,12 @@ class AddDataSourceLogResponse(TeaModel):
 
 class AddUserRequest(TeaModel):
     def __init__(self, added_user_id=None, region_id=None):
+        # The ID of the Alibaba Cloud account.
         self.added_user_id = added_user_id  # type: long
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -450,7 +496,9 @@ class AddUserRequest(TeaModel):
 
 class AddUserResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # Indicates whether the Alibaba Cloud account is added to the threat analysis feature.
         self.data = data  # type: bool
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -519,12 +567,25 @@ class AddUserResponse(TeaModel):
 class AddUserSourceLogConfigRequest(TeaModel):
     def __init__(self, deleted=None, dis_play_line=None, region_id=None, source_log_code=None, source_log_info=None,
                  source_prod_code=None, sub_user_id=None):
+        # Specifies whether to add logs or delete added logs. Valid values:
+        # 
+        # *   \-1: deletes added logs.
+        # *   0: adds logs.
         self.deleted = deleted  # type: int
+        # The display details of the Logstore.
         self.dis_play_line = dis_play_line  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The log code.
         self.source_log_code = source_log_code  # type: str
+        # The details of the Logstore that you want to use in the JSON string format.
         self.source_log_info = source_log_info  # type: str
+        # The code of the cloud service.
         self.source_prod_code = source_prod_code  # type: str
+        # The ID of the Alibaba Cloud account.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -574,13 +635,21 @@ class AddUserSourceLogConfigRequest(TeaModel):
 class AddUserSourceLogConfigResponseBodyData(TeaModel):
     def __init__(self, diplay_line=None, displayed=None, imported=None, main_user_id=None, source_log_code=None,
                  source_prod_code=None, sub_user_id=None, sub_user_name=None):
+        # The display details of the Logstore.
         self.diplay_line = diplay_line  # type: str
+        # Indicates whether the details of added logs are returned. Valid values: true false
         self.displayed = displayed  # type: bool
+        # Indicates whether the logs are added to the threat analysis feature. Valid values: true false
         self.imported = imported  # type: bool
+        # The ID of the Alibaba Cloud account that is used to purchase the threat analysis feature.
         self.main_user_id = main_user_id  # type: long
+        # The log code.
         self.source_log_code = source_log_code  # type: str
+        # The code of the cloud service.
         self.source_prod_code = source_prod_code  # type: str
+        # The ID of the Alibaba Cloud account that can be used to perform operations supported by the threat analysis feature.
         self.sub_user_id = sub_user_id  # type: long
+        # The username of the Alibaba Cloud account that can be used to perform operations supported by the threat analysis feature.
         self.sub_user_name = sub_user_name  # type: str
 
     def validate(self):
@@ -633,7 +702,9 @@ class AddUserSourceLogConfigResponseBodyData(TeaModel):
 
 class AddUserSourceLogConfigResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: AddUserSourceLogConfigResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -703,7 +774,9 @@ class AddUserSourceLogConfigResponse(TeaModel):
 
 class BatchJobCheckRequest(TeaModel):
     def __init__(self, region_id=None, submit_id=None):
+        # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside.
         self.region_id = region_id  # type: str
+        # The id of task.
         self.submit_id = submit_id  # type: str
 
     def validate(self):
@@ -733,11 +806,17 @@ class BatchJobCheckRequest(TeaModel):
 class BatchJobCheckResponseBodyDataErrTaskListProductListLogList(TeaModel):
     def __init__(self, error_code=None, log_code=None, log_store_name_pattern=None, product_code=None,
                  project_name_pattern=None, region_code=None):
+        # The error code returned if the request failed.
         self.error_code = error_code  # type: str
+        # The log code.
         self.log_code = log_code  # type: str
+        # The pattern of SLS log store name.
         self.log_store_name_pattern = log_store_name_pattern  # type: str
+        # The code of product.
         self.product_code = product_code  # type: str
+        # The pattern of SLS project name.
         self.project_name_pattern = project_name_pattern  # type: str
+        # The ID of the region in which the instance resides.
         self.region_code = region_code  # type: str
 
     def validate(self):
@@ -782,7 +861,9 @@ class BatchJobCheckResponseBodyDataErrTaskListProductListLogList(TeaModel):
 
 class BatchJobCheckResponseBodyDataErrTaskListProductList(TeaModel):
     def __init__(self, log_list=None, product_code=None):
+        # The list of log.
         self.log_list = log_list  # type: list[BatchJobCheckResponseBodyDataErrTaskListProductListLogList]
+        # The code of the product.
         self.product_code = product_code  # type: str
 
     def validate(self):
@@ -819,7 +900,9 @@ class BatchJobCheckResponseBodyDataErrTaskListProductList(TeaModel):
 
 class BatchJobCheckResponseBodyDataErrTaskList(TeaModel):
     def __init__(self, product_list=None, user_id=None):
+        # The list of product.
         self.product_list = product_list  # type: list[BatchJobCheckResponseBodyDataErrTaskListProductList]
+        # The account id of aliyun.
         self.user_id = user_id  # type: long
 
     def validate(self):
@@ -857,12 +940,19 @@ class BatchJobCheckResponseBodyDataErrTaskList(TeaModel):
 class BatchJobCheckResponseBodyData(TeaModel):
     def __init__(self, config_id=None, err_task_list=None, failed_count=None, finish_count=None, folder_id=None,
                  task_count=None, task_status=None):
+        # The ID of the task configuration.
         self.config_id = config_id  # type: str
+        # The list of error task.
         self.err_task_list = err_task_list  # type: list[BatchJobCheckResponseBodyDataErrTaskList]
+        # The number of custom route entries that failed to be added.
         self.failed_count = failed_count  # type: int
+        # The number of scan tasks that are complete.
         self.finish_count = finish_count  # type: int
+        # The ID of the folder.
         self.folder_id = folder_id  # type: str
+        # The number of existing tasks that are created to add logs within the data source.
         self.task_count = task_count  # type: int
+        # The status of task.
         self.task_status = task_status  # type: str
 
     def validate(self):
@@ -919,11 +1009,20 @@ class BatchJobCheckResponseBodyData(TeaModel):
 
 class BatchJobCheckResponseBody(TeaModel):
     def __init__(self, code=None, data=None, err_code=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: BatchJobCheckResponseBodyData
+        # The error code.
         self.err_code = err_code  # type: str
+        # The message returned.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -1009,7 +1108,12 @@ class BatchJobCheckResponse(TeaModel):
 
 class BatchJobSubmitRequest(TeaModel):
     def __init__(self, json_config=None, region_id=None):
+        # The detail config of task.
         self.json_config = json_config  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1039,11 +1143,17 @@ class BatchJobSubmitRequest(TeaModel):
 class BatchJobSubmitResponseBodyDataConfigListProductListLogList(TeaModel):
     def __init__(self, error_code=None, log_code=None, log_store_name_pattern=None, product_code=None,
                  project_name_pattern=None, region_code=None):
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The log code.
         self.log_code = log_code  # type: str
+        # The pattern of SLS log store name.
         self.log_store_name_pattern = log_store_name_pattern  # type: str
+        # The code of product.
         self.product_code = product_code  # type: str
+        # The pattern of SLS project name.
         self.project_name_pattern = project_name_pattern  # type: str
+        # The ID of the region in which the instance resides.
         self.region_code = region_code  # type: str
 
     def validate(self):
@@ -1088,7 +1198,9 @@ class BatchJobSubmitResponseBodyDataConfigListProductListLogList(TeaModel):
 
 class BatchJobSubmitResponseBodyDataConfigListProductList(TeaModel):
     def __init__(self, log_list=None, product_code=None):
+        # The list of log.
         self.log_list = log_list  # type: list[BatchJobSubmitResponseBodyDataConfigListProductListLogList]
+        # The code of the product.
         self.product_code = product_code  # type: str
 
     def validate(self):
@@ -1125,7 +1237,9 @@ class BatchJobSubmitResponseBodyDataConfigListProductList(TeaModel):
 
 class BatchJobSubmitResponseBodyDataConfigList(TeaModel):
     def __init__(self, product_list=None, user_id=None):
+        # The list of product.
         self.product_list = product_list  # type: list[BatchJobSubmitResponseBodyDataConfigListProductList]
+        # The account id of aliyun.
         self.user_id = user_id  # type: long
 
     def validate(self):
@@ -1162,9 +1276,13 @@ class BatchJobSubmitResponseBodyDataConfigList(TeaModel):
 
 class BatchJobSubmitResponseBodyData(TeaModel):
     def __init__(self, config_id=None, config_list=None, submit_id=None, task_count=None):
+        # The ID of the task configuration.
         self.config_id = config_id  # type: str
+        # The list of task configure.
         self.config_list = config_list  # type: list[BatchJobSubmitResponseBodyDataConfigList]
+        # The id of task.
         self.submit_id = submit_id  # type: str
+        # The number of existing tasks that are created to add logs within the data source.
         self.task_count = task_count  # type: int
 
     def validate(self):
@@ -1209,11 +1327,20 @@ class BatchJobSubmitResponseBodyData(TeaModel):
 
 class BatchJobSubmitResponseBody(TeaModel):
     def __init__(self, code=None, data=None, err_code=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: BatchJobSubmitResponseBodyData
+        # The error code.
         self.err_code = err_code  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -1299,10 +1426,23 @@ class BatchJobSubmitResponse(TeaModel):
 
 class BindAccountRequest(TeaModel):
     def __init__(self, access_id=None, account_id=None, account_name=None, cloud_code=None, region_id=None):
+        # The AccessKey ID of the cloud account.
         self.access_id = access_id  # type: str
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The username of the cloud account.
         self.account_name = account_name  # type: str
+        # The code of the cloud service provider.
+        # 
+        # Valid values:
+        # 
+        # *   qcloud
+        # *   hcloud
         self.cloud_code = cloud_code  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1343,6 +1483,7 @@ class BindAccountRequest(TeaModel):
 
 class BindAccountResponseBodyData(TeaModel):
     def __init__(self, count=None):
+        # The number of the cloud accounts that are added to the threat analysis feature. The value 1 indicates that the account is added, and a value less than or equal to 0 indicates that the account failed to be added.
         self.count = count  # type: int
 
     def validate(self):
@@ -1367,7 +1508,9 @@ class BindAccountResponseBodyData(TeaModel):
 
 class BindAccountResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The response parameters.
         self.data = data  # type: BindAccountResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1699,10 +1842,22 @@ class DeleteAutomateResponseConfigResponse(TeaModel):
 
 class DeleteBindAccountRequest(TeaModel):
     def __init__(self, access_id=None, account_id=None, bind_id=None, cloud_code=None, region_id=None):
+        # The AccessKey ID of the cloud account.
         self.access_id = access_id  # type: str
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The ID generated when the account is added to the threat analysis feature. You can call the [ListBindAccount](https://api.aliyun-inc.com/#/publishment/document/cloud-siem/863fdf54478f4cc5877e27c2a5fe9e44?tenantUuid=f382fccd88b94c5c8c864def6815b854\&activeTabKey=api%7CListBindAccount) operation to query the ID.
         self.bind_id = bind_id  # type: long
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1743,6 +1898,7 @@ class DeleteBindAccountRequest(TeaModel):
 
 class DeleteBindAccountResponseBodyData(TeaModel):
     def __init__(self, count=None):
+        # The number of cloud accounts that are removed. The value 1 indicates that cloud account is removed, and a value less than or equal to 0 indicates that the cloud account failed to be removed.
         self.count = count  # type: int
 
     def validate(self):
@@ -1767,7 +1923,9 @@ class DeleteBindAccountResponseBodyData(TeaModel):
 
 class DeleteBindAccountResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: DeleteBindAccountResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1959,9 +2117,20 @@ class DeleteCustomizeRuleResponse(TeaModel):
 
 class DeleteDataSourceRequest(TeaModel):
     def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None, region_id=None):
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The ID of the data source. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters. You can call the [ListDataSourceLogs](https://api.aliyun-inc.com/#/publishment/document/cloud-siem/863fdf54478f4cc5877e27c2a5fe9e44?tenantUuid=f382fccd88b94c5c8c864def6815b854\&activeTabKey=api%7CListDataSourceLogs) operation to query the IDs of data sources.
         self.data_source_instance_id = data_source_instance_id  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1998,6 +2167,7 @@ class DeleteDataSourceRequest(TeaModel):
 
 class DeleteDataSourceResponseBodyData(TeaModel):
     def __init__(self, count=None):
+        # The number of data sources that are removed. The value 1 indicates that data source is removed, and a value less than or equal to 0 indicates that the data source failed to be removed.
         self.count = count  # type: int
 
     def validate(self):
@@ -2022,7 +2192,9 @@ class DeleteDataSourceResponseBodyData(TeaModel):
 
 class DeleteDataSourceResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: DeleteDataSourceResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2093,10 +2265,22 @@ class DeleteDataSourceResponse(TeaModel):
 class DeleteDataSourceLogRequest(TeaModel):
     def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None, log_instance_id=None,
                  region_id=None):
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The ID of the data source. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters. You can call the [ListDataSourceLogs](https://api.aliyun-inc.com/#/publishment/document/cloud-siem/863fdf54478f4cc5877e27c2a5fe9e44?tenantUuid=f382fccd88b94c5c8c864def6815b854\&activeTabKey=api%7CListDataSourceLogs) operation to query the IDs of data sources.
         self.data_source_instance_id = data_source_instance_id  # type: str
+        # The ID of the log. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters. You can call the [ListDataSourceLogs](https://api.aliyun-inc.com/#/publishment/document/cloud-siem/863fdf54478f4cc5877e27c2a5fe9e44?tenantUuid=f382fccd88b94c5c8c864def6815b854\&activeTabKey=api%7CListDataSourceLogs) operation to query the IDs of logs.
         self.log_instance_id = log_instance_id  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2137,7 +2321,9 @@ class DeleteDataSourceLogRequest(TeaModel):
 
 class DeleteDataSourceLogResponseBodyData(TeaModel):
     def __init__(self, count=None, log_instance_id=None):
+        # The number of logs that are removed. The value 1 indicates that the log is removed, and a value less than or equal to 0 indicates that the log failed to be removed.
         self.count = count  # type: int
+        # The ID of the log. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters.
         self.log_instance_id = log_instance_id  # type: str
 
     def validate(self):
@@ -2166,7 +2352,9 @@ class DeleteDataSourceLogResponseBodyData(TeaModel):
 
 class DeleteDataSourceLogResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: DeleteDataSourceLogResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2343,7 +2531,12 @@ class DeleteQuickQueryResponse(TeaModel):
 
 class DeleteUserRequest(TeaModel):
     def __init__(self, added_user_id=None, region_id=None):
+        # The ID of the Alibaba Cloud account.
         self.added_user_id = added_user_id  # type: long
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2372,7 +2565,12 @@ class DeleteUserRequest(TeaModel):
 
 class DeleteUserResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # Indicates whether the Alibaba Cloud account is removed. Valid values:
+        # 
+        # *   true
+        # *   false
         self.data = data  # type: bool
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2723,6 +2921,10 @@ class DescribeAggregateFunctionResponse(TeaModel):
 
 class DescribeAlertSceneRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2747,9 +2949,13 @@ class DescribeAlertSceneRequest(TeaModel):
 
 class DescribeAlertSceneResponseBodyDataTargets(TeaModel):
     def __init__(self, name=None, type=None, value=None, values=None):
+        # The display name of the attribute for the entity.
         self.name = name  # type: str
+        # The attribute of the entity.
         self.type = type  # type: str
+        # The right operand that is displayed by default in the whitelist rule.
         self.value = value  # type: str
+        # The right operands supported by the whitelist rule.
         self.values = values  # type: list[str]
 
     def validate(self):
@@ -2787,12 +2993,19 @@ class DescribeAlertSceneResponseBodyDataTargets(TeaModel):
 class DescribeAlertSceneResponseBodyData(TeaModel):
     def __init__(self, alert_name=None, alert_name_id=None, alert_tile=None, alert_tile_id=None, alert_type=None,
                  alert_type_id=None, targets=None):
+        # The name of the alert. The value varies based on the display language (Chinese or English) of the Security Center console.
         self.alert_name = alert_name  # type: str
+        # The ID of the alert name.
         self.alert_name_id = alert_name_id  # type: str
+        # The title of the alert notification. The value varies based on the display language (Chinese or English) of the Security Center console.
         self.alert_tile = alert_tile  # type: str
+        # The ID of the alert title.
         self.alert_tile_id = alert_tile_id  # type: str
+        # The type of the alert. The value varies based on the display language (Chinese or English) of the Security Center console.
         self.alert_type = alert_type  # type: str
+        # The ID of the alert type.
         self.alert_type_id = alert_type_id  # type: str
+        # The information about the entities for which you need to add the alert to the whitelist.
         self.targets = targets  # type: list[DescribeAlertSceneResponseBodyDataTargets]
 
     def validate(self):
@@ -2849,10 +3062,18 @@ class DescribeAlertSceneResponseBodyData(TeaModel):
 
 class DescribeAlertSceneResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The response code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[DescribeAlertSceneResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -5742,6 +5963,10 @@ class DescribeAttackTimeLineResponse(TeaModel):
 
 class DescribeAuthRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5766,7 +5991,12 @@ class DescribeAuthRequest(TeaModel):
 
 class DescribeAuthResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # Indicates whether the SIEM system is granted the required permissions. Valid values:
+        # 
+        # *   true
+        # *   false
         self.data = data  # type: bool
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7710,8 +7940,14 @@ class DescribeCloudSiemEventsResponse(TeaModel):
 
 class DescribeCsImportedProdStatusByUserRequest(TeaModel):
     def __init__(self, region_id=None, source_log_prod=None, user_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The code of the cloud service.
         self.source_log_prod = source_log_prod  # type: str
+        # The ID of the Alibaba Cloud account.
         self.user_id = user_id  # type: long
 
     def validate(self):
@@ -7744,7 +7980,12 @@ class DescribeCsImportedProdStatusByUserRequest(TeaModel):
 
 class DescribeCsImportedProdStatusByUserResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # Indicates whether the cloud service is activated for the account. Valid values:
+        # 
+        # *   true
+        # *   false
         self.data = data  # type: bool
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8617,9 +8858,20 @@ class DescribeCustomizeRuleTestHistogramResponse(TeaModel):
 
 class DescribeDataSourceInstanceRequest(TeaModel):
     def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None, region_id=None):
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The ID of the data source. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters. You can call the [ListDataSourceLogs](https://api.aliyun-inc.com/#/publishment/document/cloud-siem/863fdf54478f4cc5877e27c2a5fe9e44?tenantUuid=f382fccd88b94c5c8c864def6815b854\&activeTabKey=api%7CListDataSourceLogs) operation to query the IDs of data sources.
         self.data_source_instance_id = data_source_instance_id  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -8656,7 +8908,9 @@ class DescribeDataSourceInstanceRequest(TeaModel):
 
 class DescribeDataSourceInstanceResponseBodyDataDataSourceInstanceParams(TeaModel):
     def __init__(self, para_code=None, para_value=None):
+        # The code of the parameter.
         self.para_code = para_code  # type: str
+        # The value of the parameter.
         self.para_value = para_value  # type: str
 
     def validate(self):
@@ -8686,9 +8940,17 @@ class DescribeDataSourceInstanceResponseBodyDataDataSourceInstanceParams(TeaMode
 class DescribeDataSourceInstanceResponseBodyData(TeaModel):
     def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None,
                  data_source_instance_params=None):
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The ID of the data source. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters.
         self.data_source_instance_id = data_source_instance_id  # type: str
+        # The parameters of the data source.
         self.data_source_instance_params = data_source_instance_params  # type: list[DescribeDataSourceInstanceResponseBodyDataDataSourceInstanceParams]
 
     def validate(self):
@@ -8733,7 +8995,9 @@ class DescribeDataSourceInstanceResponseBodyData(TeaModel):
 
 class DescribeDataSourceInstanceResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: DescribeDataSourceInstanceResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8803,8 +9067,24 @@ class DescribeDataSourceInstanceResponse(TeaModel):
 
 class DescribeDataSourceParametersRequest(TeaModel):
     def __init__(self, cloud_code=None, data_source_type=None, region_id=None):
+        # The code of the cloud service provider.
+        # 
+        # Valid values:
+        # 
+        # *   qcloud
+        # *   hcloud
+        # *   aliyun
         self.cloud_code = cloud_code  # type: str
+        # The type of the data source. Valid values:
+        # 
+        # *   ckafka: Tencent Cloud Kafka (CKafka)
+        # *   obs: Huawei Cloud Object Storage Service (OBS)
+        # *   wafApi: download API of Tencent Cloud Web Application Firewall (WAF)
         self.data_source_type = data_source_type  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -8837,7 +9117,9 @@ class DescribeDataSourceParametersRequest(TeaModel):
 
 class DescribeDataSourceParametersResponseBodyDataParamValue(TeaModel):
     def __init__(self, label=None, value=None):
+        # The display value.
         self.label = label  # type: str
+        # The actual value.
         self.value = value  # type: str
 
     def validate(self):
@@ -8868,19 +9150,53 @@ class DescribeDataSourceParametersResponseBodyData(TeaModel):
     def __init__(self, can_editted=None, cloud_code=None, data_source_type=None, default_value=None, disabled=None,
                  format_check=None, hit=None, para_code=None, para_level=None, para_name=None, para_type=None, param_value=None,
                  required=None, title=None):
+        # Indicates whether the edit operation is supported. Valid values:
+        # 
+        # *   0: no
+        # *   1: yes
         self.can_editted = can_editted  # type: int
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The type of the data source. Valid values:
+        # 
+        # *   obs: Huawei Cloud OBS
+        # *   wafApi: download API of Tencent Cloud WAF
+        # *   ckafka: Tencent Cloud CKafka
         self.data_source_type = data_source_type  # type: str
+        # The default value of the parameter.
         self.default_value = default_value  # type: str
+        # Indicates whether the modification operation is forbidden. Valid values:
+        # 
+        # *   true
+        # *   false
         self.disabled = disabled  # type: bool
+        # The method that is used to check the parameter format.
         self.format_check = format_check  # type: str
+        # The additional information.
         self.hit = hit  # type: str
+        # The code of the parameter.
         self.para_code = para_code  # type: str
+        # The parameter level. Valid values:
+        # 
+        # *   1: data source
+        # *   2: log
         self.para_level = para_level  # type: int
+        # The name of the parameter.
         self.para_name = para_name  # type: str
+        # The data type of the parameter.
         self.para_type = para_type  # type: str
+        # The value of the parameter.
         self.param_value = param_value  # type: list[DescribeDataSourceParametersResponseBodyDataParamValue]
+        # Indicates whether the parameter is required. Valid values:
+        # 
+        # *   1: yes
+        # *   0: no
         self.required = required  # type: int
+        # The note on the parameter value.
         self.title = title  # type: str
 
     def validate(self):
@@ -8965,7 +9281,9 @@ class DescribeDataSourceParametersResponseBodyData(TeaModel):
 
 class DescribeDataSourceParametersResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: list[DescribeDataSourceParametersResponseBodyData]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9133,8 +9451,8 @@ class DescribeDisposeAndPlaybookResponseBodyDataPageInfo(TeaModel):
 
 
 class DescribeDisposeAndPlaybookResponseBodyDataResponseDataPlaybookList(TeaModel):
-    def __init__(self, description=None, display_name=None, name=None, op_code=None, op_level=None, task_config=None,
-                 waf_playbook=None):
+    def __init__(self, description=None, display_name=None, name=None, op_code=None, op_level=None,
+                 param_config=None, task_config=None, waf_playbook=None):
         # The playbook description.
         self.description = description  # type: str
         # The display name of the playbook.
@@ -9148,6 +9466,7 @@ class DescribeDisposeAndPlaybookResponseBodyDataResponseDataPlaybookList(TeaMode
         # *   2: Quick event handling is selected.
         # *   1: Quick event handling is displayed but not selected.
         self.op_level = op_level  # type: str
+        self.param_config = param_config  # type: list[any]
         # The opcode configuration.
         self.task_config = task_config  # type: str
         # Indicates whether the playbook is intended for Web Application Firewall (WAF). Valid values:
@@ -9175,6 +9494,8 @@ class DescribeDisposeAndPlaybookResponseBodyDataResponseDataPlaybookList(TeaMode
             result['OpCode'] = self.op_code
         if self.op_level is not None:
             result['OpLevel'] = self.op_level
+        if self.param_config is not None:
+            result['ParamConfig'] = self.param_config
         if self.task_config is not None:
             result['TaskConfig'] = self.task_config
         if self.waf_playbook is not None:
@@ -9193,6 +9514,8 @@ class DescribeDisposeAndPlaybookResponseBodyDataResponseDataPlaybookList(TeaMode
             self.op_code = m.get('OpCode')
         if m.get('OpLevel') is not None:
             self.op_level = m.get('OpLevel')
+        if m.get('ParamConfig') is not None:
+            self.param_config = m.get('ParamConfig')
         if m.get('TaskConfig') is not None:
             self.task_config = m.get('TaskConfig')
         if m.get('WafPlaybook') is not None:
@@ -10213,6 +10536,10 @@ class DescribeEventDisposeResponse(TeaModel):
 
 class DescribeImportedLogCountRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -10237,8 +10564,11 @@ class DescribeImportedLogCountRequest(TeaModel):
 
 class DescribeImportedLogCountResponseBodyData(TeaModel):
     def __init__(self, imported_log_count=None, total_log_count=None, un_imported_log_count=None):
+        # The number of logs that are added.
         self.imported_log_count = imported_log_count  # type: int
+        # The total number of logs.
         self.total_log_count = total_log_count  # type: int
+        # The number of logs that are not added.
         self.un_imported_log_count = un_imported_log_count  # type: int
 
     def validate(self):
@@ -10271,7 +10601,9 @@ class DescribeImportedLogCountResponseBodyData(TeaModel):
 
 class DescribeImportedLogCountResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: DescribeImportedLogCountResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10341,7 +10673,12 @@ class DescribeImportedLogCountResponse(TeaModel):
 
 class DescribeJobStatusRequest(TeaModel):
     def __init__(self, region_id=None, submit_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The id of collection task.
         self.submit_id = submit_id  # type: str
 
     def validate(self):
@@ -10371,11 +10708,17 @@ class DescribeJobStatusRequest(TeaModel):
 class DescribeJobStatusResponseBodyDataErrTaskListProductListLogList(TeaModel):
     def __init__(self, error_code=None, log_code=None, log_store_name_pattern=None, product_code=None,
                  project_name_pattern=None, region_code=None):
+        # The error code.
         self.error_code = error_code  # type: str
+        # The log code.
         self.log_code = log_code  # type: str
+        # The pattern of SLS logstore name.
         self.log_store_name_pattern = log_store_name_pattern  # type: str
+        # The code of product.
         self.product_code = product_code  # type: str
+        # The pattern of SLS project name.
         self.project_name_pattern = project_name_pattern  # type: str
+        # The ID of the region in which the instance resides.
         self.region_code = region_code  # type: str
 
     def validate(self):
@@ -10420,7 +10763,9 @@ class DescribeJobStatusResponseBodyDataErrTaskListProductListLogList(TeaModel):
 
 class DescribeJobStatusResponseBodyDataErrTaskListProductList(TeaModel):
     def __init__(self, log_list=None, product_code=None):
+        # The list of log.
         self.log_list = log_list  # type: list[DescribeJobStatusResponseBodyDataErrTaskListProductListLogList]
+        # The code of product.
         self.product_code = product_code  # type: str
 
     def validate(self):
@@ -10457,7 +10802,9 @@ class DescribeJobStatusResponseBodyDataErrTaskListProductList(TeaModel):
 
 class DescribeJobStatusResponseBodyDataErrTaskList(TeaModel):
     def __init__(self, product_list=None, user_id=None):
+        # The list of product.
         self.product_list = product_list  # type: list[DescribeJobStatusResponseBodyDataErrTaskListProductList]
+        # The account id of aliyun.
         self.user_id = user_id  # type: long
 
     def validate(self):
@@ -10495,12 +10842,19 @@ class DescribeJobStatusResponseBodyDataErrTaskList(TeaModel):
 class DescribeJobStatusResponseBodyData(TeaModel):
     def __init__(self, config_id=None, err_task_list=None, failed_count=None, finish_count=None, folder_id=None,
                  task_count=None, task_status=None):
+        # The ID of the task configuration.
         self.config_id = config_id  # type: str
+        # The list of failed task.
         self.err_task_list = err_task_list  # type: list[DescribeJobStatusResponseBodyDataErrTaskList]
+        # The number of failed tasks.
         self.failed_count = failed_count  # type: int
+        # The number of scan tasks that are complete.
         self.finish_count = finish_count  # type: int
+        # The ID of the folder.
         self.folder_id = folder_id  # type: str
+        # The number of existing tasks that are created to add logs within the data source.
         self.task_count = task_count  # type: int
+        # The status of submitted task.
         self.task_status = task_status  # type: str
 
     def validate(self):
@@ -10557,11 +10911,20 @@ class DescribeJobStatusResponseBodyData(TeaModel):
 
 class DescribeJobStatusResponseBody(TeaModel):
     def __init__(self, code=None, data=None, err_code=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeJobStatusResponseBodyData
+        # The error code.
         self.err_code = err_code  # type: str
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -11529,6 +11892,10 @@ class DescribeOperatorsResponse(TeaModel):
 
 class DescribeProdCountRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -11553,8 +11920,11 @@ class DescribeProdCountRequest(TeaModel):
 
 class DescribeProdCountResponseBodyData(TeaModel):
     def __init__(self, aliyun_prod_count=None, hcloud_prod_count=None, qcloud_prod_count=None):
+        # The number of Alibaba Cloud services.
         self.aliyun_prod_count = aliyun_prod_count  # type: int
+        # The number of Huawei Cloud services.
         self.hcloud_prod_count = hcloud_prod_count  # type: int
+        # The number of Tencent Cloud services.
         self.qcloud_prod_count = qcloud_prod_count  # type: int
 
     def validate(self):
@@ -11587,7 +11957,9 @@ class DescribeProdCountResponseBodyData(TeaModel):
 
 class DescribeProdCountResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: DescribeProdCountResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11827,6 +12199,10 @@ class DescribeScopeUsersResponse(TeaModel):
 
 class DescribeServiceStatusRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -11851,7 +12227,12 @@ class DescribeServiceStatusRequest(TeaModel):
 
 class DescribeServiceStatusResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # Indicates whether the threat analysis feature is authorized to access the resource directory. Valid values:
+        # 
+        # *   true
+        # *   false
         self.data = data  # type: bool
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12020,7 +12401,12 @@ class DescribeStorageResponse(TeaModel):
 
 class DescribeUserBuyStatusRequest(TeaModel):
     def __init__(self, region_id=None, sub_user_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The ID of the Alibaba Cloud account.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -12051,16 +12437,30 @@ class DescribeUserBuyStatusResponseBodyData(TeaModel):
     def __init__(self, can_buy=None, capacity=None, duration_days=None, end_time=None, main_user_id=None,
                  main_user_name=None, master_user_id=None, master_user_name=None, sas_instance_id=None, sub_user_id=None,
                  sub_user_name=None):
+        # Indicates whether the logon Alibaba Cloud account can be used to place orders for the threat analysis feature, such as purchase, upgrade, and specifications change orders. Valid values:
+        # 
+        # *   true
+        # *   false
         self.can_buy = can_buy  # type: bool
+        # The log storage capacity that is purchased for the threat analysis feature. Unit: GB.
         self.capacity = capacity  # type: int
+        # The number of days before the expiration time of the threat analysis feature.
         self.duration_days = duration_days  # type: long
+        # The timestamp when the threat analysis feature expires. Unit: milliseconds.
         self.end_time = end_time  # type: long
+        # The ID of the Alibaba Cloud account that is used to purchase the threat analysis feature.
         self.main_user_id = main_user_id  # type: long
+        # The username of the Alibaba Cloud account that is used to purchase the threat analysis feature.
         self.main_user_name = main_user_name  # type: str
+        # The ID of the management account of the resource directory.
         self.master_user_id = master_user_id  # type: long
+        # The display name of the management account of the resource directory.
         self.master_user_name = master_user_name  # type: str
+        # The instance ID of Security Center.
         self.sas_instance_id = sas_instance_id  # type: str
+        # The ID of the logon Alibaba Cloud account.
         self.sub_user_id = sub_user_id  # type: long
+        # The username of the logon Alibaba Cloud account.
         self.sub_user_name = sub_user_name  # type: str
 
     def validate(self):
@@ -12125,7 +12525,9 @@ class DescribeUserBuyStatusResponseBodyData(TeaModel):
 
 class DescribeUserBuyStatusResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: DescribeUserBuyStatusResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12366,11 +12768,20 @@ class DescribeWafScopeResponse(TeaModel):
 class DescribeWhiteRuleListRequest(TeaModel):
     def __init__(self, alert_name=None, alert_type=None, current_page=None, incident_uuid=None, page_size=None,
                  region_id=None):
+        # The name of the alert.
         self.alert_name = alert_name  # type: str
+        # The type of the alert.
         self.alert_type = alert_type  # type: str
+        # The page number. Pages start from page 1.
         self.current_page = current_page  # type: int
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The number of entries per page. Valid values: 1 to 100.
         self.page_size = page_size  # type: int
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -12415,8 +12826,11 @@ class DescribeWhiteRuleListRequest(TeaModel):
 
 class DescribeWhiteRuleListResponseBodyDataPageInfo(TeaModel):
     def __init__(self, current_page=None, page_size=None, total_count=None):
+        # The current page number.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -12449,10 +12863,21 @@ class DescribeWhiteRuleListResponseBodyDataPageInfo(TeaModel):
 
 class DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsLeft(TeaModel):
     def __init__(self, is_var=None, modifier=None, modifier_param=None, type=None, value=None):
+        # Indicates whether the left operand is a variable. Valid values:
+        # 
+        # *   true: variable
+        # *   false: constant
         self.is_var = is_var  # type: bool
+        # The remarks on the left operand.
         self.modifier = modifier  # type: str
+        # The key-value pair information of the remarks.
         self.modifier_param = modifier_param  # type: dict[str, any]
+        # Indicates whether the left operand is a constant. Valid values:
+        # 
+        # *   true
+        # *   false
         self.type = type  # type: str
+        # The variable of the left operand.
         self.value = value  # type: str
 
     def validate(self):
@@ -12493,10 +12918,18 @@ class DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsLeft(
 
 class DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsRight(TeaModel):
     def __init__(self, is_var=None, modifier=None, modifier_param=None, type=None, value=None):
+        # Indicates whether the right operand is a constant or a runtime variable that is obtained from the runtime context. Valid values:
+        # 
+        # *   true: runtime variable
+        # *   false: constant
         self.is_var = is_var  # type: bool
+        # The remarks on the right operand.
         self.modifier = modifier  # type: str
+        # The key-value pair information of the remarks.
         self.modifier_param = modifier_param  # type: dict[str, any]
+        # The data type of the right operand.
         self.type = type  # type: str
+        # The right operand.
         self.value = value  # type: str
 
     def validate(self):
@@ -12537,10 +12970,25 @@ class DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsRight
 
 class DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditions(TeaModel):
     def __init__(self, is_not=None, item_id=None, left=None, operator=None, right=None):
+        # Indicates whether the result is inverted. Valid values:
+        # 
+        # *   true
+        # *   false
         self.is_not = is_not  # type: bool
+        # The ID of the rule condition.
         self.item_id = item_id  # type: int
+        # The left operand of the rule condition.
         self.left = left  # type: DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsLeft
+        # The logical operator of the rule condition. Valid values:
+        # 
+        # *   `=`: equals to
+        # *   `<>`: does not equal to
+        # *   `in`: contains
+        # *   `not in`: does not contain
+        # *   `REGEXP`: matches a regular expression
+        # *   `NOT REGEXP`: does not match a regular expression
         self.operator = operator  # type: str
+        # The right operand of the rule condition.
         self.right = right  # type: DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditionsRight
 
     def validate(self):
@@ -12586,7 +13034,9 @@ class DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditions(TeaM
 
 class DescribeWhiteRuleListResponseBodyDataResponseDataExpression(TeaModel):
     def __init__(self, conditions=None, logic=None):
+        # The rule conditions.
         self.conditions = conditions  # type: list[DescribeWhiteRuleListResponseBodyDataResponseDataExpressionConditions]
+        # The logical relationships among the rule conditions.
         self.logic = logic  # type: str
 
     def validate(self):
@@ -12625,18 +13075,34 @@ class DescribeWhiteRuleListResponseBodyDataResponseData(TeaModel):
     def __init__(self, alert_name=None, alert_name_id=None, alert_type=None, alert_type_id=None, alert_uuid=None,
                  aliuid=None, expression=None, gmt_create=None, gmt_modified=None, id=None, incident_uuid=None, status=None,
                  sub_aliuid=None):
+        # The alert name.
         self.alert_name = alert_name  # type: str
+        # The ID of the alert name.
         self.alert_name_id = alert_name_id  # type: str
+        # The alert type.
         self.alert_type = alert_type  # type: str
+        # The ID of the alert type.
         self.alert_type_id = alert_type_id  # type: str
+        # The UUID of the alert.
         self.alert_uuid = alert_uuid  # type: str
+        # The ID of the Alibaba Cloud account that is used to purchase the threat analysis feature.
         self.aliuid = aliuid  # type: long
+        # The conditions in the rule. The value is a JSON array.
         self.expression = expression  # type: DescribeWhiteRuleListResponseBodyDataResponseDataExpression
+        # The time when the whitelist rule was created.
         self.gmt_create = gmt_create  # type: str
+        # The time when the whitelist rule was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the whitelist rule.
         self.id = id  # type: long
+        # The UUID of the event.
         self.incident_uuid = incident_uuid  # type: str
+        # The status of the whitelist rule. Valid values:
+        # 
+        # *   1: enabled
+        # *   0: disabled
         self.status = status  # type: int
+        # The ID of the Alibaba Cloud account that is used to create the whitelist rule.
         self.sub_aliuid = sub_aliuid  # type: long
 
     def validate(self):
@@ -12711,7 +13177,9 @@ class DescribeWhiteRuleListResponseBodyDataResponseData(TeaModel):
 
 class DescribeWhiteRuleListResponseBodyData(TeaModel):
     def __init__(self, page_info=None, response_data=None):
+        # The pagination information.
         self.page_info = page_info  # type: DescribeWhiteRuleListResponseBodyDataPageInfo
+        # The detailed data.
         self.response_data = response_data  # type: list[DescribeWhiteRuleListResponseBodyDataResponseData]
 
     def validate(self):
@@ -12751,10 +13219,18 @@ class DescribeWhiteRuleListResponseBodyData(TeaModel):
 
 class DescribeWhiteRuleListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The response code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: DescribeWhiteRuleListResponseBodyData
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -13177,6 +13653,10 @@ class DoSelfDelegateResponse(TeaModel):
 
 class EnableAccessForCloudSiemRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -13201,7 +13681,9 @@ class EnableAccessForCloudSiemRequest(TeaModel):
 
 class EnableAccessForCloudSiemResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: bool
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13269,6 +13751,10 @@ class EnableAccessForCloudSiemResponse(TeaModel):
 
 class EnableServiceForCloudSiemRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -13293,7 +13779,12 @@ class EnableServiceForCloudSiemRequest(TeaModel):
 
 class EnableServiceForCloudSiemResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # Indicates whether the threat analysis feature is authorized to access the resource directory. Valid values:
+        # 
+        # *   true
+        # *   false
         self.data = data  # type: bool
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13503,7 +13994,7 @@ class GetHistogramsRequest(TeaModel):
     def __init__(self, from_=None, query=None, region_id=None, to=None):
         # The start time of the subinterval. The value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC. The time range that is specified in this operation is a left-closed, right-open interval. The interval includes the start time specified by the from parameter, but does not include the end time specified by the to parameter. If you specify the same value for the from and to parameters, the interval is invalid, and an error message is returned.
         self.from_ = from_  # type: int
-        # The SQL statement. Only search statements are supported. Analytic statements are not supported. For more information about the syntax and limits of search statements, see [Log search overview](https://help.aliyun.com/zh/sls/user-guide/search-syntax?spm=a2c4g.11186623.0.i2#concept-tnd-1jq-zdb).
+        # The SQL statement. Only search statements are supported. Analytic statements are not supported. For more information about the syntax and limits of search statements, see [Log search overview](~~29060~~).
         self.query = query  # type: str
         # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the region where your assets reside. Valid values:
         # 
@@ -14264,7 +14755,17 @@ class GetStorageResponse(TeaModel):
 
 class ListAccountAccessIdRequest(TeaModel):
     def __init__(self, cloud_code=None, region_id=None):
+        # The code of the cloud service provider.
+        # 
+        # Valid values:
+        # 
+        # *   qcloud
+        # *   hcloud
         self.cloud_code = cloud_code  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14294,12 +14795,22 @@ class ListAccountAccessIdRequest(TeaModel):
 class ListAccountAccessIdResponseBodyData(TeaModel):
     def __init__(self, access_id=None, access_id_md_5=None, account_id=None, account_str=None, bound=None,
                  cloud_code=None, sub_user_id=None):
+        # The AccessKey ID of the cloud account that is added to the threat analysis feature.
         self.access_id = access_id  # type: str
+        # The MD5 hash value of the AccessKey ID.
         self.access_id_md_5 = access_id_md_5  # type: str
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The information about the cloud account to which the AccessKey ID belongs. The value is in the following format: Alibaba Cloud account ID|Alibaba Cloud account username|AccessKey ID.
         self.account_str = account_str  # type: str
+        # Indicates whether the cloud account to which the AccessKey ID belongs is added to the threat analysis feature. Valid values:
+        # 
+        # *   0: no
+        # *   1: yes
         self.bound = bound  # type: int
+        # The code of the cloud service provider.
         self.cloud_code = cloud_code  # type: str
+        # The ID of the Alibaba Cloud account that is used to add the third-party cloud account.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -14348,10 +14859,18 @@ class ListAccountAccessIdResponseBodyData(TeaModel):
 
 class ListAccountAccessIdResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The data returned.
         self.data = data  # type: list[ListAccountAccessIdResponseBodyData]
+        # The returned message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -14439,9 +14958,22 @@ class ListAccountAccessIdResponse(TeaModel):
 
 class ListAccountsByLogRequest(TeaModel):
     def __init__(self, cloud_code=None, log_codes=None, prod_code=None, region_id=None):
+        # The code that is used for multi-cloud environments.
+        # 
+        # Valid values:
+        # 
+        # *   qcloud
+        # *   hcloud
+        # *   aliyun
         self.cloud_code = cloud_code  # type: str
+        # The codes of logs. The value is a JSON array.
         self.log_codes = log_codes  # type: list[str]
+        # The code of the service.
         self.prod_code = prod_code  # type: str
+        # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14479,12 +15011,19 @@ class ListAccountsByLogRequest(TeaModel):
 class ListAccountsByLogResponseBodyData(TeaModel):
     def __init__(self, account_id=None, account_name=None, imported=None, log_code=None, main_user_id=None,
                  prod_code=None, sub_user_id=None):
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The name of the cloud account.
         self.account_name = account_name  # type: str
+        # Indicates whether the account is added. Valid values: -1: yes -0: no
         self.imported = imported  # type: int
+        # The code of the log.
         self.log_code = log_code  # type: str
+        # The ID of the Alibaba Cloud account that is used to purchase the threat analysis feature.
         self.main_user_id = main_user_id  # type: long
+        # The code of the service.
         self.prod_code = prod_code  # type: str
+        # The ID of the Alibaba Cloud account for which the threat analysis feature is enabled.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -14533,7 +15072,9 @@ class ListAccountsByLogResponseBodyData(TeaModel):
 
 class ListAccountsByLogResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: list[ListAccountsByLogResponseBodyData]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14609,6 +15150,10 @@ class ListAccountsByLogResponse(TeaModel):
 
 class ListAllProdsRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -14634,10 +15179,19 @@ class ListAllProdsRequest(TeaModel):
 class ListAllProdsResponseBodyDataProdList(TeaModel):
     def __init__(self, cloud_code=None, imported_log_count=None, modify_time=None, prod_code=None,
                  total_log_count=None):
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The number of logs within the cloud service that are added to the threat analysis feature.
         self.imported_log_count = imported_log_count  # type: int
+        # The time when the logs within the cloud service were last added to the threat analysis feature.
         self.modify_time = modify_time  # type: str
+        # The code of the cloud service.
         self.prod_code = prod_code  # type: str
+        # The total number of logs within the cloud service.
         self.total_log_count = total_log_count  # type: int
 
     def validate(self):
@@ -14678,9 +15232,13 @@ class ListAllProdsResponseBodyDataProdList(TeaModel):
 
 class ListAllProdsResponseBodyData(TeaModel):
     def __init__(self, current_page=None, page_size=None, prod_list=None, total_count=None):
+        # The page number.
         self.current_page = current_page  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The cloud services.
         self.prod_list = prod_list  # type: list[ListAllProdsResponseBodyDataProdList]
+        # The total number of logs.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -14725,7 +15283,9 @@ class ListAllProdsResponseBodyData(TeaModel):
 
 class ListAllProdsResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: ListAllProdsResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15156,7 +15716,16 @@ class ListAutomateResponseConfigsResponse(TeaModel):
 
 class ListBindAccountRequest(TeaModel):
     def __init__(self, cloud_code=None, region_id=None):
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -15186,13 +15755,25 @@ class ListBindAccountRequest(TeaModel):
 class ListBindAccountResponseBodyData(TeaModel):
     def __init__(self, access_id=None, account_id=None, account_name=None, bind_id=None, cloud_code=None,
                  create_user=None, data_source_count=None, modify_time=None):
+        # The AccessKey ID of the cloud account.
         self.access_id = access_id  # type: str
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The username of the cloud account.
         self.account_name = account_name  # type: str
+        # The ID that is generated when the cloud account is added.
         self.bind_id = bind_id  # type: long
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The ID of the account that is used to add the cloud account.
         self.create_user = create_user  # type: str
+        # The number of data sources that are added to the threat analysis feature within the cloud account.
         self.data_source_count = data_source_count  # type: long
+        # The modification time.
         self.modify_time = modify_time  # type: str
 
     def validate(self):
@@ -15245,7 +15826,9 @@ class ListBindAccountResponseBodyData(TeaModel):
 
 class ListBindAccountResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: list[ListBindAccountResponseBodyData]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15321,8 +15904,20 @@ class ListBindAccountResponse(TeaModel):
 
 class ListBindDataSourcesRequest(TeaModel):
     def __init__(self, account_id=None, cloud_code=None, region_id=None):
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The code of the cloud service provider.
+        # 
+        # Valid values:
+        # 
+        # *   qcloud
+        # *   hcloud
+        # *   aliyun
         self.cloud_code = cloud_code  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -15356,14 +15951,31 @@ class ListBindDataSourcesRequest(TeaModel):
 class ListBindDataSourcesResponseBodyData(TeaModel):
     def __init__(self, account_id=None, account_name=None, cloud_code=None, data_source_instance_id=None,
                  data_source_name=None, data_source_remark=None, data_source_type=None, log_count=None, task_count=None):
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The username of the cloud account.
         self.account_name = account_name  # type: str
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The ID of the data source. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters.
         self.data_source_instance_id = data_source_instance_id  # type: str
+        # The name of the data source.
         self.data_source_name = data_source_name  # type: str
+        # The remarks on the data source.
         self.data_source_remark = data_source_remark  # type: str
+        # The type of the data source. Valid values:
+        # 
+        # *   obs: Huawei Cloud Object Storage Service (OBS)
+        # *   wafApi: download API of Tencent Cloud Web Application Firewall (WAF)
+        # *   ckafka: Tencent Cloud Kafka (CKafka)
         self.data_source_type = data_source_type  # type: str
+        # The number of logs that are added within the data source.
         self.log_count = log_count  # type: int
+        # The number of existing tasks that are created to add logs within the data source.
         self.task_count = task_count  # type: int
 
     def validate(self):
@@ -15420,7 +16032,9 @@ class ListBindDataSourcesResponseBodyData(TeaModel):
 
 class ListBindDataSourcesResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: list[ListBindDataSourcesResponseBodyData]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16641,9 +17255,20 @@ class ListCustomizeRuleTestResultResponse(TeaModel):
 
 class ListDataSourceLogsRequest(TeaModel):
     def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None, region_id=None):
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The code that is used for multi-cloud environments. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The ID of the data source. The value is obtained after the threat analysis feature calculates the MD5 hash value of a parameter.
         self.data_source_instance_id = data_source_instance_id  # type: str
+        # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -16680,7 +17305,9 @@ class ListDataSourceLogsRequest(TeaModel):
 
 class ListDataSourceLogsResponseBodyDataDataSourceInstanceLogsLogParams(TeaModel):
     def __init__(self, para_code=None, para_value=None):
+        # The parameter code of the log.
         self.para_code = para_code  # type: str
+        # The parameter value of the log.
         self.para_value = para_value  # type: str
 
     def validate(self):
@@ -16709,10 +17336,18 @@ class ListDataSourceLogsResponseBodyDataDataSourceInstanceLogsLogParams(TeaModel
 
 class ListDataSourceLogsResponseBodyDataDataSourceInstanceLogs(TeaModel):
     def __init__(self, log_code=None, log_instance_id=None, log_mds_code=None, log_params=None, task_status=None):
+        # The code of the log.
         self.log_code = log_code  # type: str
+        # The ID of the log. The value is obtained after the threat analysis feature calculates the MD5 hash value of a parameter.
         self.log_instance_id = log_instance_id  # type: str
+        # The display code of the log.
         self.log_mds_code = log_mds_code  # type: str
+        # The parameters of the log.
         self.log_params = log_params  # type: list[ListDataSourceLogsResponseBodyDataDataSourceInstanceLogsLogParams]
+        # Indicates whether the task for which logs are collected is enabled. Valid values:
+        # 
+        # *   1: yes
+        # *   0: no
         self.task_status = task_status  # type: int
 
     def validate(self):
@@ -16762,12 +17397,23 @@ class ListDataSourceLogsResponseBodyDataDataSourceInstanceLogs(TeaModel):
 class ListDataSourceLogsResponseBodyData(TeaModel):
     def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None,
                  data_source_instance_logs=None, data_source_instance_name=None, data_source_instance_remark=None, sub_user_id=None):
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The code that is used for multi-cloud environments. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The ID of the data source. The value is obtained after the threat analysis feature calculates the MD5 hash value of a parameter.
         self.data_source_instance_id = data_source_instance_id  # type: str
+        # The logs of the data source.
         self.data_source_instance_logs = data_source_instance_logs  # type: list[ListDataSourceLogsResponseBodyDataDataSourceInstanceLogs]
+        # The name of the data source.
         self.data_source_instance_name = data_source_instance_name  # type: str
+        # The remarks of the data source.
         self.data_source_instance_remark = data_source_instance_remark  # type: str
+        # The ID of the Alibaba Cloud account.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -16824,7 +17470,9 @@ class ListDataSourceLogsResponseBodyData(TeaModel):
 
 class ListDataSourceLogsResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: ListDataSourceLogsResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16894,7 +17542,17 @@ class ListDataSourceLogsResponse(TeaModel):
 
 class ListDataSourceTypesRequest(TeaModel):
     def __init__(self, cloud_code=None, region_id=None):
+        # The code of the third-party cloud service.
+        # 
+        # Valid values:
+        # 
+        # *   qcloud
+        # *   hcloud
         self.cloud_code = cloud_code  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -16923,7 +17581,13 @@ class ListDataSourceTypesRequest(TeaModel):
 
 class ListDataSourceTypesResponseBodyData(TeaModel):
     def __init__(self, cloud_code=None, data_source_type=None):
+        # The code of the third-party cloud service.
         self.cloud_code = cloud_code  # type: str
+        # The type of the data source. Valid values:
+        # 
+        # *   obs: Huawei Cloud Object Storage Service (OBS)
+        # *   wafApi: download API of Tencent Cloud Web Application Firewall (WAF)
+        # *   ckafka: Tencent Cloud Kafka (CKafka)
         self.data_source_type = data_source_type  # type: str
 
     def validate(self):
@@ -16952,7 +17616,9 @@ class ListDataSourceTypesResponseBodyData(TeaModel):
 
 class ListDataSourceTypesResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: list[ListDataSourceTypesResponseBodyData]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17229,7 +17895,7 @@ class ListDeliveryResponseBodyDataProductList(TeaModel):
                 l1 = []
                 for k1 in v:
                     l1.append(k1.to_map() if k1 else None)
-                result['logMap'][k] = l1
+                result['LogMap'][k] = l1
         if self.product_code is not None:
             result['ProductCode'] = self.product_code
         if self.product_name is not None:
@@ -17865,8 +18531,18 @@ class ListDisposeStrategyResponse(TeaModel):
 
 class ListImportedLogsByProdRequest(TeaModel):
     def __init__(self, cloud_code=None, prod_code=None, region_id=None):
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The code of the cloud service.
         self.prod_code = prod_code  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -17900,15 +18576,35 @@ class ListImportedLogsByProdRequest(TeaModel):
 class ListImportedLogsByProdResponseBodyData(TeaModel):
     def __init__(self, auto_imported=None, cloud_code=None, imported=None, imported_user_count=None, log_code=None,
                  log_mds_code=None, modify_time=None, prod_code=None, total_user_count=None, un_imported_user_count=None):
+        # Indicates whether the log is automatically added to the threat analysis feature within newly added accounts. Valid values:
+        # 
+        # *   1: yes
+        # *   0: no
         self.auto_imported = auto_imported  # type: int
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # Indicates whether the log is added to the threat analysis feature. Valid values:
+        # 
+        # *   1: yes
+        # *   0: no
         self.imported = imported  # type: int
+        # The number of users who have added the log.
         self.imported_user_count = imported_user_count  # type: int
+        # The log code.
         self.log_code = log_code  # type: str
+        # The display log code.
         self.log_mds_code = log_mds_code  # type: str
+        # The time when the log was last added.
         self.modify_time = modify_time  # type: str
+        # The code of the cloud service to which the log belongs.
         self.prod_code = prod_code  # type: str
+        # The total number of users who have the log.
         self.total_user_count = total_user_count  # type: int
+        # The number of users who have not added the log.
         self.un_imported_user_count = un_imported_user_count  # type: int
 
     def validate(self):
@@ -17969,7 +18665,9 @@ class ListImportedLogsByProdResponseBodyData(TeaModel):
 
 class ListImportedLogsByProdResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: list[ListImportedLogsByProdResponseBodyData]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -18179,9 +18877,16 @@ class ListOperationResponse(TeaModel):
 
 class ListProjectLogStoresRequest(TeaModel):
     def __init__(self, region_id=None, source_log_code=None, source_prod_code=None, sub_user_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The log code.
         self.source_log_code = source_log_code  # type: str
+        # The code of the cloud service.
         self.source_prod_code = source_prod_code  # type: str
+        # The ID of the Alibaba Cloud account.
         self.sub_user_id = sub_user_id  # type: long
 
     def validate(self):
@@ -18219,13 +18924,21 @@ class ListProjectLogStoresRequest(TeaModel):
 class ListProjectLogStoresResponseBodyData(TeaModel):
     def __init__(self, end_point=None, local_name=None, log_store=None, main_user_id=None, project=None,
                  region_id=None, sub_user_id=None, sub_user_name=None):
+        # The endpoint of the Simple Log Service project.
         self.end_point = end_point  # type: str
+        # The name of the region in which the Simple Log Service project resides.
         self.local_name = local_name  # type: str
+        # The name of the Simple Log Service Logstore.
         self.log_store = log_store  # type: str
+        # The ID of the Alibaba Cloud account that is used to purchase the threat analysis feature.
         self.main_user_id = main_user_id  # type: long
+        # The name of the Simple Log Service project.
         self.project = project  # type: str
+        # The ID of the region in which the Simple Log Service project resides.
         self.region_id = region_id  # type: str
+        # The ID of the Alibaba Cloud account that can be used to perform operations supported by the threat analysis feature.
         self.sub_user_id = sub_user_id  # type: long
+        # The username of the Alibaba Cloud account that can be used to perform operations supported by the threat analysis feature.
         self.sub_user_name = sub_user_name  # type: str
 
     def validate(self):
@@ -18278,7 +18991,9 @@ class ListProjectLogStoresResponseBodyData(TeaModel):
 
 class ListProjectLogStoresResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: list[ListProjectLogStoresResponseBodyData]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -18548,6 +19263,10 @@ class ListQuickQueryResponse(TeaModel):
 
 class ListRdUsersRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -18573,11 +19292,20 @@ class ListRdUsersRequest(TeaModel):
 class ListRdUsersResponseBodyData(TeaModel):
     def __init__(self, delegated_or_not=None, joined=None, joined_time=None, main_user_id=None, sub_user_id=None,
                  sub_user_name=None):
+        # Indicates whether the account can be used to view the logs and alerts within the account.
         self.delegated_or_not = delegated_or_not  # type: bool
+        # Indicates whether the account is added to the threat analysis feature for centralized management. Valid values:
+        # 
+        # *   true
+        # *   false
         self.joined = joined  # type: bool
+        # The time when the account was added to the threat analysis feature.
         self.joined_time = joined_time  # type: str
+        # The ID of the Alibaba Cloud account that is used to purchase the threat analysis feature.
         self.main_user_id = main_user_id  # type: long
+        # The ID of the Alibaba Cloud account that is used to perform operations supported by the threat analysis feature.
         self.sub_user_id = sub_user_id  # type: long
+        # The username of the Alibaba Cloud account that can be used to perform operations supported by the threat analysis feature.
         self.sub_user_name = sub_user_name  # type: str
 
     def validate(self):
@@ -18622,7 +19350,9 @@ class ListRdUsersResponseBodyData(TeaModel):
 
 class ListRdUsersResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: list[ListRdUsersResponseBodyData]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -18698,8 +19428,14 @@ class ListRdUsersResponse(TeaModel):
 
 class ListUserProdLogsRequest(TeaModel):
     def __init__(self, region_id=None, source_log_code=None, source_prod_code=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The log code.
         self.source_log_code = source_log_code  # type: str
+        # The code of the cloud service.
         self.source_prod_code = source_prod_code  # type: str
 
     def validate(self):
@@ -18733,15 +19469,34 @@ class ListUserProdLogsRequest(TeaModel):
 class ListUserProdLogsResponseBodyData(TeaModel):
     def __init__(self, display_line=None, displayed=None, imported=None, is_deleted=None, main_user_id=None,
                  source_log_code=None, source_log_info=None, source_prod_code=None, sub_user_id=None, sub_user_name=None):
+        # The display details of the Logstore.
         self.display_line = display_line  # type: str
+        # Indicates whether the details of the added log are returned. Valid values:
+        # 
+        # *   true
+        # *   false
         self.displayed = displayed  # type: bool
+        # Indicates whether the log is added to the threat analysis feature. Valid values:
+        # 
+        # *   true
+        # *   false
         self.imported = imported  # type: bool
+        # Indicates whether the log is added to the threat analysis feature. Valid values:
+        # 
+        # *   0: yes
+        # *   1: no
         self.is_deleted = is_deleted  # type: int
+        # The ID of the Alibaba Cloud account that is used to purchase the threat analysis feature.
         self.main_user_id = main_user_id  # type: long
+        # The log code.
         self.source_log_code = source_log_code  # type: str
+        # The details of the Logstore. The value is a JSON string.
         self.source_log_info = source_log_info  # type: str
+        # The code of the cloud service.
         self.source_prod_code = source_prod_code  # type: str
+        # The ID of the Alibaba Cloud account that can be used to perform operations supported by the threat analysis feature.
         self.sub_user_id = sub_user_id  # type: long
+        # The username of the Alibaba Cloud account that can be used to perform operations supported by the threat analysis feature.
         self.sub_user_name = sub_user_name  # type: str
 
     def validate(self):
@@ -18802,7 +19557,9 @@ class ListUserProdLogsResponseBodyData(TeaModel):
 
 class ListUserProdLogsResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: list[ListUserProdLogsResponseBodyData]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -18878,7 +19635,12 @@ class ListUserProdLogsResponse(TeaModel):
 
 class ListUsersByProdRequest(TeaModel):
     def __init__(self, region_id=None, source_prod_code=None):
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
+        # The code of the cloud service.
         self.source_prod_code = source_prod_code  # type: str
 
     def validate(self):
@@ -18908,14 +19670,27 @@ class ListUsersByProdRequest(TeaModel):
 class ListUsersByProdResponseBodyData(TeaModel):
     def __init__(self, cloud_code=None, imported=None, log_mds_code=None, main_user_id=None, source_log_code=None,
                  source_log_name=None, source_prod_code=None, sub_user_id=None, sub_user_name=None):
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # Indicates whether the log is added to the threat analysis feature.
         self.imported = imported  # type: bool
+        # The display log code. The value is based on your console settings.
         self.log_mds_code = log_mds_code  # type: str
+        # The ID of the Alibaba Cloud account that is used to purchase the threat analysis feature.
         self.main_user_id = main_user_id  # type: long
+        # The log code.
         self.source_log_code = source_log_code  # type: str
+        # The log name.
         self.source_log_name = source_log_name  # type: str
+        # The code of the cloud service.
         self.source_prod_code = source_prod_code  # type: str
+        # The ID of the Alibaba Cloud account that can be used to perform operations supported by the threat analysis feature.
         self.sub_user_id = sub_user_id  # type: long
+        # The username of the Alibaba Cloud account that can be used to perform operations supported by the threat analysis feature.
         self.sub_user_name = sub_user_name  # type: str
 
     def validate(self):
@@ -18972,7 +19747,9 @@ class ListUsersByProdResponseBodyData(TeaModel):
 
 class ListUsersByProdResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: list[ListUsersByProdResponseBodyData]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19049,11 +19826,25 @@ class ListUsersByProdResponse(TeaModel):
 class ModifyBindAccountRequest(TeaModel):
     def __init__(self, access_id=None, account_id=None, account_name=None, bind_id=None, cloud_code=None,
                  region_id=None):
+        # The AccessKey ID of the cloud account.
         self.access_id = access_id  # type: str
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The username of the cloud account.
         self.account_name = account_name  # type: str
+        # The ID that is generated by the system when the account is added. You can call the ListBindAccount operation to query the ID.
         self.bind_id = bind_id  # type: long
+        # The code of the cloud service provider.
+        # 
+        # Enumeration values:
+        # 
+        # *   qcloud
+        # *   hcloud
         self.cloud_code = cloud_code  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -19098,6 +19889,7 @@ class ModifyBindAccountRequest(TeaModel):
 
 class ModifyBindAccountResponseBodyData(TeaModel):
     def __init__(self, count=None):
+        # The number of the accounts that are modified. The value 1 indicates that the modification is successful, and a value less than or equal to 0 indicates that the modification failed.
         self.count = count  # type: int
 
     def validate(self):
@@ -19122,7 +19914,9 @@ class ModifyBindAccountResponseBodyData(TeaModel):
 
 class ModifyBindAccountResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: ModifyBindAccountResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19194,13 +19988,32 @@ class ModifyDataSourceRequest(TeaModel):
     def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None,
                  data_source_instance_name=None, data_source_instance_params=None, data_source_instance_remark=None, data_source_type=None,
                  region_id=None):
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The ID of the data source. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters. You can call the [DescribeDataSourceInstance](https://api.aliyun-inc.com/#/publishment/document/cloud-siem/863fdf54478f4cc5877e27c2a5fe9e44?tenantUuid=f382fccd88b94c5c8c864def6815b854\&activeTabKey=api%7CDescribeDataSourceInstance) operation to query the IDs of data sources.
         self.data_source_instance_id = data_source_instance_id  # type: str
+        # The name of the data source.
         self.data_source_instance_name = data_source_instance_name  # type: str
+        # The parameters of the data source in the JSON string format.
         self.data_source_instance_params = data_source_instance_params  # type: str
+        # The remarks on the data source.
         self.data_source_instance_remark = data_source_instance_remark  # type: str
+        # The type of the data source. Valid values:
+        # 
+        # *   ckafka: Tencent Cloud Kafka (CKafka)
+        # *   obs: Huawei Cloud Object Storage Service (OBS)
+        # *   wafApi: download API of Tencent Cloud Web Application Firewall (WAF)
         self.data_source_type = data_source_type  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -19253,7 +20066,9 @@ class ModifyDataSourceRequest(TeaModel):
 
 class ModifyDataSourceResponseBodyData(TeaModel):
     def __init__(self, count=None, data_source_instance_id=None):
+        # The number of data sources that are modified. The value 1 indicates that the modification is successful, and a value less than or equal to 0 indicates that the modification failed.
         self.count = count  # type: int
+        # The ID of the data source. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters.
         self.data_source_instance_id = data_source_instance_id  # type: str
 
     def validate(self):
@@ -19282,7 +20097,9 @@ class ModifyDataSourceResponseBodyData(TeaModel):
 
 class ModifyDataSourceResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: ModifyDataSourceResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19353,13 +20170,32 @@ class ModifyDataSourceResponse(TeaModel):
 class ModifyDataSourceLogRequest(TeaModel):
     def __init__(self, account_id=None, cloud_code=None, data_source_instance_id=None,
                  data_source_instance_logs=None, data_source_type=None, log_code=None, log_instance_id=None, region_id=None):
+        # The ID of the cloud account.
         self.account_id = account_id  # type: str
+        # The code of the cloud service provider. Valid values:
+        # 
+        # *   qcloud: Tencent Cloud
+        # *   aliyun: Alibaba Cloud
+        # *   hcloud: Huawei Cloud
         self.cloud_code = cloud_code  # type: str
+        # The ID of the data source. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters. You can call the [DescribeDataSourceInstance](https://api.aliyun-inc.com/#/publishment/document/cloud-siem/863fdf54478f4cc5877e27c2a5fe9e44?tenantUuid=f382fccd88b94c5c8c864def6815b854\&activeTabKey=api%7CDescribeDataSourceInstance) operation to query the IDs of data sources.
         self.data_source_instance_id = data_source_instance_id  # type: str
+        # The parameters of the data source. Set this parameter to a JSON string.
         self.data_source_instance_logs = data_source_instance_logs  # type: str
+        # The type of the data source. Valid values:
+        # 
+        # *   obs: Huawei Cloud Object Storage Service (OBS)
+        # *   wafApi: download API of Tencent Cloud Web Application Firewall (WAF)
+        # *   ckafka: Tencent Cloud Kafka (CKafka)
         self.data_source_type = data_source_type  # type: str
+        # The log code.
         self.log_code = log_code  # type: str
+        # The ID of the log. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters. You can call the [ListDataSourceLogs](https://api.aliyun-inc.com/#/publishment/document/cloud-siem/863fdf54478f4cc5877e27c2a5fe9e44?tenantUuid=f382fccd88b94c5c8c864def6815b854\&activeTabKey=api%7CListDataSourceLogs) to query log IDs.
         self.log_instance_id = log_instance_id  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -19412,7 +20248,9 @@ class ModifyDataSourceLogRequest(TeaModel):
 
 class ModifyDataSourceLogResponseBodyData(TeaModel):
     def __init__(self, count=None, log_instance_id=None):
+        # The number of logs that are modified. The value 1 indicates that the modification is successful, and a value less than or equal to 0 indicates that the modification failed.
         self.count = count  # type: int
+        # The ID of the log. The ID is an MD5 hash value that is calculated by the threat analysis feature based on specific parameters.
         self.log_instance_id = log_instance_id  # type: str
 
     def validate(self):
@@ -19441,7 +20279,9 @@ class ModifyDataSourceLogResponseBodyData(TeaModel):
 
 class ModifyDataSourceLogResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: ModifyDataSourceLogResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -21375,11 +22215,36 @@ class ShowQuickAnalysisResponse(TeaModel):
 class SubmitImportLogTasksRequest(TeaModel):
     def __init__(self, accounts=None, auto_imported=None, cloud_code=None, log_codes=None, prod_code=None,
                  region_id=None):
+        # The accounts that you want to add. The value is a JSON array. Valid values:
+        # 
+        # *   AccountId: the IDs of the accounts.
+        # 
+        # *   Imported: specifies whether to add the accounts. Valid values:
+        # 
+        #     *   0: no
+        #     *   1: yes
         self.accounts = accounts  # type: str
+        # Specifies whether to automatically add the account for which the logging feature is configured. Valid values:
+        # 
+        # *   1: yes
+        # *   0: no
         self.auto_imported = auto_imported  # type: int
+        # The code that is used for multi-cloud environments.
+        # 
+        # Valid values:
+        # 
+        # *   qcloud.
+        # *   hcloud.
+        # *   aliyun.
         self.cloud_code = cloud_code  # type: str
+        # The logs that you want to collect. The value is a JSON array.
         self.log_codes = log_codes  # type: str
+        # The code of the service.
         self.prod_code = prod_code  # type: str
+        # The data management center of the threat analysis feature. Specify this parameter based on the region where your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions inside China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -21424,6 +22289,7 @@ class SubmitImportLogTasksRequest(TeaModel):
 
 class SubmitImportLogTasksResponseBodyData(TeaModel):
     def __init__(self, count=None):
+        # The number of log collection tasks that are submitted.
         self.count = count  # type: int
 
     def validate(self):
@@ -21448,7 +22314,9 @@ class SubmitImportLogTasksResponseBodyData(TeaModel):
 
 class SubmitImportLogTasksResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: SubmitImportLogTasksResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -21518,7 +22386,22 @@ class SubmitImportLogTasksResponse(TeaModel):
 
 class SubmitJobsRequest(TeaModel):
     def __init__(self, json_param=None, region_id=None):
+        # The parameters of the logs that you want to add. The value is a JSON array, which contains the following parameters:\
+        # 
+        # 
+        # *   SourceProdCode: the code of the cloud service.
+        # 
+        # *   SourceLogCode: the code of the log.
+        # 
+        # *   Deleted: specifies whether to add the log. Valid values:
+        # 
+        #     *   0: yes
+        #     *   1: no
         self.json_param = json_param  # type: str
+        # The region in which the data management center of the threat analysis feature resides. Specify this parameter based on the regions in which your assets reside. Valid values:
+        # 
+        # *   cn-hangzhou: Your assets reside in regions in China.
+        # *   ap-southeast-1: Your assets reside in regions outside China.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -21547,7 +22430,9 @@ class SubmitJobsRequest(TeaModel):
 
 class SubmitJobsResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The total number of tasks.
         self.data = data  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
