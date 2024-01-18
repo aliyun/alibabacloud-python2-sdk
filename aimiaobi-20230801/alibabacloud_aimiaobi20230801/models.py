@@ -5899,6 +5899,204 @@ class SubmitAsyncTaskResponse(TeaModel):
         return self
 
 
+class UpdateGeneratedContentRequest(TeaModel):
+    def __init__(self, agent_key=None, content=None, content_text=None, id=None, keywords=None, prompt=None,
+                 title=None):
+        self.agent_key = agent_key  # type: str
+        self.content = content  # type: str
+        self.content_text = content_text  # type: str
+        self.id = id  # type: long
+        self.keywords = keywords  # type: list[str]
+        self.prompt = prompt  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGeneratedContentRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.content_text is not None:
+            result['ContentText'] = self.content_text
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.keywords is not None:
+            result['Keywords'] = self.keywords
+        if self.prompt is not None:
+            result['Prompt'] = self.prompt
+        if self.title is not None:
+            result['Title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('ContentText') is not None:
+            self.content_text = m.get('ContentText')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Keywords') is not None:
+            self.keywords = m.get('Keywords')
+        if m.get('Prompt') is not None:
+            self.prompt = m.get('Prompt')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        return self
+
+
+class UpdateGeneratedContentShrinkRequest(TeaModel):
+    def __init__(self, agent_key=None, content=None, content_text=None, id=None, keywords_shrink=None, prompt=None,
+                 title=None):
+        self.agent_key = agent_key  # type: str
+        self.content = content  # type: str
+        self.content_text = content_text  # type: str
+        self.id = id  # type: long
+        self.keywords_shrink = keywords_shrink  # type: str
+        self.prompt = prompt  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGeneratedContentShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.content_text is not None:
+            result['ContentText'] = self.content_text
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.keywords_shrink is not None:
+            result['Keywords'] = self.keywords_shrink
+        if self.prompt is not None:
+            result['Prompt'] = self.prompt
+        if self.title is not None:
+            result['Title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('ContentText') is not None:
+            self.content_text = m.get('ContentText')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Keywords') is not None:
+            self.keywords_shrink = m.get('Keywords')
+        if m.get('Prompt') is not None:
+            self.prompt = m.get('Prompt')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        return self
+
+
+class UpdateGeneratedContentResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: bool
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGeneratedContentResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpdateGeneratedContentResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateGeneratedContentResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateGeneratedContentResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateGeneratedContentResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateMaterialDocumentRequest(TeaModel):
     def __init__(self, agent_key=None, author=None, doc_keywords=None, doc_type=None, external_url=None,
                  html_content=None, id=None, pub_time=None, share_attr=None, src_from=None, summary=None, text_content=None,
