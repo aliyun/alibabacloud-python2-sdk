@@ -5618,8 +5618,7 @@ class CreateEnvironmentRequest(TeaModel):
                  environment_type=None, managed_type=None, region_id=None, resource_group_id=None, tags=None):
         # The language. Valid values: zh and en. Default value: zh.
         self.aliyun_lang = aliyun_lang  # type: str
-        # The ID of the resource associated with the environment, such as the ACK cluster ID or VPC ID.
-        # For Cloud type environments, the current field value is RegionId.
+        # The ID of the resource bound to the environment, such as the container ID or VPC ID. For a Cloud environment, specify the region ID.
         self.bind_resource_id = bind_resource_id  # type: str
         # The name of the environment.
         self.environment_name = environment_name  # type: str
@@ -5636,15 +5635,15 @@ class CreateEnvironmentRequest(TeaModel):
         # *   Cloud: cloud service
         self.environment_type = environment_type  # type: str
         # type of managed：
-        # - none： not managed. default value of prometheus for ACK.
-        # - agent：managed agent. default value of  promehtues for ASK/ACS/AckOne.
-        # - agent-exproter： maanged agent and exporter. default of prometheus for Cloud.
+        # - none: not managed. default value of prometheus for ACK.
+        # - agent: managed agent. default value of  promehtues for ASK/ACS/AckOne.
+        # - agent-exproter: maanged agent and exporter. default of prometheus for Cloud.
         self.managed_type = managed_type  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
-        # The tags to add to the instance.
+        # The tags of the instance. You can specify this parameter to manage tags for the instance.
         self.tags = tags  # type: list[CreateEnvironmentRequestTags]
 
     def validate(self):
@@ -9576,8 +9575,8 @@ class CreatePrometheusInstanceRequest(TeaModel):
         # - ecs: Prometheus for ECS
         # - global-view: Global Aggregation Instance
         # - aliyun-cs: Prometheus Instance for Container Service
-        # - cloud-product：Prometheus for cloud monitor
-        # - cloud-monitor：Prometheus for enterprise cloud monitor
+        # - cloud-product: Prometheus for cloud monitor
+        # - cloud-monitor: Prometheus for enterprise cloud monitor
         # - flink: Prometheus for FLink
         self.cluster_type = cluster_type  # type: str
         # The ID of the Grafana dedicated instance. This parameter is available if you set ClusterType to ecs.
@@ -29987,10 +29986,15 @@ class ImportAppAlertRulesResponse(TeaModel):
 
 class InitEnvironmentRequest(TeaModel):
     def __init__(self, aliyun_lang=None, environment_id=None, managed_type=None, region_id=None):
-        # Locale, the default is Chinese zh.
+        # The language. Valid values: zh and en. Default value: zh.
         self.aliyun_lang = aliyun_lang  # type: str
-        # Environment ID.
+        # The ID of the environment instance.
         self.environment_id = environment_id  # type: str
+        # type of managed:
+        # 
+        # - none: not managed. default value of prometheus for ACK.
+        # - agent: managed agent. default value of promehtues for ASK/ACS/AckOne.
+        # - agent-exproter: maanged agent and exporter. default of prometheus for Cloud.
         self.managed_type = managed_type  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
@@ -30029,13 +30033,13 @@ class InitEnvironmentRequest(TeaModel):
 
 class InitEnvironmentResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
-        # The status code.
+        # The status code. The status code 200 indicates that the request was successful.
         self.code = code  # type: int
-        # The data returned.
+        # The result of the operation.
         self.data = data  # type: str
-        # The message returned.
+        # The returned message.
         self.message = message  # type: str
-        # Id of the request
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
