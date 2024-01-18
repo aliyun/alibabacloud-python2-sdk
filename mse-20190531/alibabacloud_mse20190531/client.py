@@ -358,6 +358,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
         if not UtilClient.is_unset(request.destination_type):
             query['DestinationType'] = request.destination_type
         if not UtilClient.is_unset(request.direct_response_jsonshrink):
@@ -4384,6 +4386,8 @@ class Client(OpenApiClient):
             query['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.cluster_alias_name):
             query['ClusterAliasName'] = request.cluster_alias_name
+        if not UtilClient.is_unset(request.key_id):
+            query['KeyId'] = request.key_id
         if not UtilClient.is_unset(request.page_num):
             query['PageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
@@ -4754,6 +4758,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.gateway_unique_id):
             query['GatewayUniqueId'] = request.gateway_unique_id
         if not UtilClient.is_unset(request.type):
@@ -5258,6 +5264,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.cert_name):
+            query['CertName'] = request.cert_name
         if not UtilClient.is_unset(request.gateway_unique_id):
             query['GatewayUniqueId'] = request.gateway_unique_id
         req = open_api_models.OpenApiRequest(
@@ -7226,6 +7234,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
         if not UtilClient.is_unset(request.destination_type):
             query['DestinationType'] = request.destination_type
         if not UtilClient.is_unset(request.direct_response_jsonshrink):

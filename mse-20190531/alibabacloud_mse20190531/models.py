@@ -3266,15 +3266,16 @@ class AddGatewayRouteRequestServices(TeaModel):
 
 
 class AddGatewayRouteRequest(TeaModel):
-    def __init__(self, accept_language=None, destination_type=None, direct_response_json=None, domain_id=None,
-                 domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services=None, gateway_id=None,
-                 gateway_unique_id=None, name=None, policies=None, predicates=None, redirect_json=None, route_order=None,
-                 route_type=None, services=None):
+    def __init__(self, accept_language=None, description=None, destination_type=None, direct_response_json=None,
+                 domain_id=None, domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services=None,
+                 gateway_id=None, gateway_unique_id=None, name=None, policies=None, predicates=None, redirect_json=None,
+                 route_order=None, route_type=None, services=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
         # *   en: English
         self.accept_language = accept_language  # type: str
+        self.description = description  # type: str
         # The type of the destination service. Valid values:
         # 
         # *   Single
@@ -3340,6 +3341,8 @@ class AddGatewayRouteRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.description is not None:
+            result['Description'] = self.description
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.direct_response_json is not None:
@@ -3382,6 +3385,8 @@ class AddGatewayRouteRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('DirectResponseJSON') is not None:
@@ -3427,15 +3432,16 @@ class AddGatewayRouteRequest(TeaModel):
 
 
 class AddGatewayRouteShrinkRequest(TeaModel):
-    def __init__(self, accept_language=None, destination_type=None, direct_response_jsonshrink=None,
-                 domain_id=None, domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services_shrink=None,
-                 gateway_id=None, gateway_unique_id=None, name=None, policies=None, predicates_shrink=None,
+    def __init__(self, accept_language=None, description=None, destination_type=None,
+                 direct_response_jsonshrink=None, domain_id=None, domain_id_list_json=None, enable_waf=None, fallback=None,
+                 fallback_services_shrink=None, gateway_id=None, gateway_unique_id=None, name=None, policies=None, predicates_shrink=None,
                  redirect_jsonshrink=None, route_order=None, route_type=None, services_shrink=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
         # *   en: English
         self.accept_language = accept_language  # type: str
+        self.description = description  # type: str
         # The type of the destination service. Valid values:
         # 
         # *   Single
@@ -3488,6 +3494,8 @@ class AddGatewayRouteShrinkRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.description is not None:
+            result['Description'] = self.description
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.direct_response_jsonshrink is not None:
@@ -3526,6 +3534,8 @@ class AddGatewayRouteShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('DirectResponseJSON') is not None:
@@ -5063,8 +5073,11 @@ class AddServiceSourceRequestIngressOptionsRequest(TeaModel):
 
 class AddServiceSourceRequestToAuthorizeSecurityGroups(TeaModel):
     def __init__(self, description=None, port_range=None, security_group_id=None):
+        # The description of the authorization record.
         self.description = description  # type: str
+        # The authorized port range of the security group. You can select multiple port ranges. Separate each port range with a comma (,).
         self.port_range = port_range  # type: str
+        # The ID of the security group.
         self.security_group_id = security_group_id  # type: str
 
     def validate(self):
@@ -5121,6 +5134,7 @@ class AddServiceSourceRequest(TeaModel):
         # *   K8s: ACK cluster
         # *   NACOS: MSE Nacos instance
         self.source = source  # type: str
+        # The list of security groups to be authorized. You can specify security groups to allow backend services to access data sources that you create.
         self.to_authorize_security_groups = to_authorize_security_groups  # type: list[AddServiceSourceRequestToAuthorizeSecurityGroups]
         # The type of the service source.
         # 
@@ -5222,6 +5236,7 @@ class AddServiceSourceShrinkRequest(TeaModel):
         # *   K8s: ACK cluster
         # *   NACOS: MSE Nacos instance
         self.source = source  # type: str
+        # The list of security groups to be authorized. You can specify security groups to allow backend services to access data sources that you create.
         self.to_authorize_security_groups_shrink = to_authorize_security_groups_shrink  # type: str
         # The type of the service source.
         # 
@@ -6824,9 +6839,9 @@ class CreateCircuitBreakerRuleResponse(TeaModel):
 
 class CreateClusterRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of a tag.
+        # The key of tag N to add to the resource.
         self.key = key  # type: str
-        # The value of a tag.
+        # The value of tag N to add to the resource.
         self.value = value  # type: str
 
     def validate(self):
@@ -6864,33 +6879,9 @@ class CreateClusterRequest(TeaModel):
         # *   zh: Chinese
         # *   en: English
         self.accept_language = accept_language  # type: str
-        # The billing method.
+        # The billing method. Valid values: PREPAY and POSTPAY.
         # 
-        # Valid values:
-        # 
-        # *   PREPAY
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     the subscription billing method
-        # 
-        #     <!-- -->
-        # 
-        # *   POSTPAY
-        # 
-        #     <!-- -->
-        # 
-        #     :
-        # 
-        #     <!-- -->
-        # 
-        #     the pay-as-you-go billing method
-        # 
-        #     <!-- -->
+        # Ignore this parameter for serverless instances.
         self.charge_type = charge_type  # type: str
         # The engine specifications. Valid values:
         # 
@@ -6906,67 +6897,88 @@ class CreateClusterRequest(TeaModel):
         # 
         # *   `MSE_SC_1_2_60_c`: 1 vCPU and 2 GB of memory
         # *   `MSE_SC_2_4_60_c`: 2 vCPUs and 4 GB of memory
+        # 
+        # \[Serverless Edition]
+        # 
+        # Ignore this parameter or set this parameter to `MSE_SC_SERVERLESS`.
         self.cluster_specification = cluster_specification  # type: str
         # The type of the instance. Valid values: ZooKeeper and Nacos-Ans.
         self.cluster_type = cluster_type  # type: str
         # The engine version of the instance. Valid values:
         # 
-        # \[Professional version]
+        # \[Professional Edition]
         # 
-        # *   `NACOS_2_0_0`: Nacos 2.0.0
-        # *   `ZooKeeper_3_8_0`: ZooKeeper 3.8.0
+        # *   `NACOS_2_0_0`
+        # *   `ZooKeeper_3_8_0`
         # 
         # \[Developer Edition]
         # 
-        # *   `NACOS_2_0_0`: Nacos 2.0.0
-        # *   `ZooKeeper_3_8_0`: ZooKeeper 3.8.0
+        # *   `NACOS_2_0_0`
+        # *   `ZooKeeper_3_8_0`
+        # 
+        # \[Serverless Edition]
+        # 
+        # *   `NACOS_2_0_0`
+        # *   `ZooKeeper_3_8_0`
         self.cluster_version = cluster_version  # type: str
-        # The network connection type. Valid values:
-        # 
-        # *   slb
-        # *   eni
+        # The network connection type. Valid values: `slb` or `single_eni`. For instances of the Developer Edition in some regions, only the value `single_eni` is supported.
         self.connection_type = connection_type  # type: str
-        # The type of the disk. Valid values:
-        # 
-        # *   alicloud-disk-ssd
-        # *   alicloud-disk-essd-pl1
+        # This parameter is obsolete.
         self.disk_type = disk_type  # type: str
         # Specifies whether to enable Internet access (Elastic IP Address) if ConnectionType is set to `single_eni`.
+        # 
+        # Valid values:
+        # 
+        # *   true
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   false
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.eip_enabled = eip_enabled  # type: bool
         # The number of nodes in the instance. Valid values: 1 to 9.
         # 
         # \[Professional Edition]
         # 
-        # *   The number of nodes in an instance is greater than or equal to 3 and must be an odd number.
+        # *   The value must be greater than or equal to 3 and must be an odd number.
         # 
         # \[Developer Edition]
         # 
-        # *   Only one node can be deployed for an instance.
+        # *   The value must be 1.
+        # 
+        # \[Serverless Edition]
+        # 
+        # Ignore this parameter.
         self.instance_count = instance_count  # type: int
-        # The name of the MSE instance.
+        # The custom name of the instance.
         self.instance_name = instance_name  # type: str
         # Configure this parameter unless otherwise specified. Valid values:
         # 
         # *   `mse_pro`: Professional Edition
-        # *   `mse_dev`: Developer Edition.
+        # *   `mse_dev`: Developer Edition
+        # *   `mse_dev`: Serverless Edition
         self.mse_version = mse_version  # type: str
         # The network type of the MSE instance. Valid values:
         # 
         # *   `privatenet`: VPC
         # *   `pubnet`: Internet
         self.net_type = net_type  # type: str
-        # The specifications of the internal-facing SLB instance. Valid values:
-        # 
-        # *   `slb.s1.small`
-        # *   `slb.s3.medium`
+        # This parameter is obsolete.
         self.private_slb_specification = private_slb_specification  # type: str
-        # The public bandwidth. Unit: Mbit/s. This parameter is required.\
-        # Valid values: 0 to 5000. A value of 0 indicates no access to the Internet.
-        self.pub_network_flow = pub_network_flow  # type: str
-        # The specifications of the Internet-facing Server Load Balancer (SLB) instance. Valid values:
+        # This parameter is valid only if the ConnectionType parameter is set to `slb`. The value 0 indicates that the Server Load Balancer (SLB) instance is not connected over the Internet. A value greater than 1 indicates the fixed bandwidth that is used to access the SLB instance over the Internet. Unit: Mbit/s.
         # 
-        # *   `slb.s1.small`
-        # *   `slb.s3.medium`
+        # Valid values: 0 to 5000.
+        self.pub_network_flow = pub_network_flow  # type: str
+        # This parameter is obsolete.
         self.pub_slb_specification = pub_slb_specification  # type: str
         # The region where the instance resides. Examples:
         # 
@@ -6980,14 +6992,14 @@ class CreateClusterRequest(TeaModel):
         self.request_pars = request_pars  # type: str
         # The ID of the resource group. For the details of resource groups, see [View basic information of a resource group](~~457230~~).
         self.resource_group_id = resource_group_id  # type: str
-        # The type of the security group to which the instance belongs. This parameter is valid only when the ConnectionType parameter is set to `single_eni`.
+        # The type of the security group to which the instance belongs. This parameter is valid only if the ConnectionType parameter is set to `single_eni`.
         # 
         # Valid values:
         # 
         # *   enterprise
         # *   normal
         self.security_group_type = security_group_type  # type: str
-        # The list of the tags that you want to add.
+        # The tags to add to the resource. You can specify up to 20 tags.
         self.tag = tag  # type: list[CreateClusterRequestTag]
         # The ID of the vSwitch.
         self.v_switch_id = v_switch_id  # type: str
@@ -16226,18 +16238,19 @@ class GetGatewayResponseBodyData(TeaModel):
         self.security_group = security_group  # type: str
         # The specifications of the gateway.
         self.spec = spec  # type: str
-        # The status of the gateway. Valid values: 
-        # * 0: The gateway is being created. 
-        # * 1: The gateway fails to be created. 
-        # * 2: The gateway is running. 
-        # * 3: The gateway is changing. 
-        # * 4: The gateway is scaling down. 
-        # * 6: The gateway is scaling up. 
-        # * 8: The gateway is being deleted. 
-        # * 10: The gateway is restarting. 
-        # * 11: The gateway is being rebuilt. 
-        # * 12: The gateway is updating. 
-        # * 13: The gateway fails to be updated.
+        # The status of the gateway. Valid values:
+        # 
+        # *   0: The gateway is being created.
+        # *   1: The gateway fails to be created.
+        # *   2: The gateway is running.
+        # *   3: The gateway is changing.
+        # *   4: The gateway is scaling in.
+        # *   6: The gateway is scaling out.
+        # *   8: The gateway is being deleted.
+        # *   10: The gateway is restarting.
+        # *   11: The gateway is being rebuilt.
+        # *   12: The gateway is updating.
+        # *   13: The gateway fails to be updated.
         self.status = status  # type: int
         # The description of the status.
         self.status_desc = status_desc  # type: str
@@ -17962,12 +17975,14 @@ class GetGatewayRouteDetailResponseBodyDataRoutePredicates(TeaModel):
 
 
 class GetGatewayRouteDetailResponseBodyDataRouteServices(TeaModel):
-    def __init__(self, agreement_type=None, group_name=None, name=None, namespace=None, percent=None,
-                 service_id=None, service_name=None, service_port=None, source_type=None, version=None):
+    def __init__(self, agreement_type=None, group_name=None, health_status=None, name=None, namespace=None,
+                 percent=None, service_id=None, service_name=None, service_port=None, source_type=None,
+                 unhealthy_endpoints=None, version=None):
         # The protocol type.
         self.agreement_type = agreement_type  # type: str
         # The name of the group to which the service belongs.
         self.group_name = group_name  # type: str
+        self.health_status = health_status  # type: str
         # The service name.
         self.name = name  # type: str
         # The namespace.
@@ -17982,6 +17997,7 @@ class GetGatewayRouteDetailResponseBodyDataRouteServices(TeaModel):
         self.service_port = service_port  # type: int
         # The source type of the service.
         self.source_type = source_type  # type: str
+        self.unhealthy_endpoints = unhealthy_endpoints  # type: list[str]
         # The service version.
         self.version = version  # type: str
 
@@ -17998,6 +18014,8 @@ class GetGatewayRouteDetailResponseBodyDataRouteServices(TeaModel):
             result['AgreementType'] = self.agreement_type
         if self.group_name is not None:
             result['GroupName'] = self.group_name
+        if self.health_status is not None:
+            result['HealthStatus'] = self.health_status
         if self.name is not None:
             result['Name'] = self.name
         if self.namespace is not None:
@@ -18012,6 +18030,8 @@ class GetGatewayRouteDetailResponseBodyDataRouteServices(TeaModel):
             result['ServicePort'] = self.service_port
         if self.source_type is not None:
             result['SourceType'] = self.source_type
+        if self.unhealthy_endpoints is not None:
+            result['UnhealthyEndpoints'] = self.unhealthy_endpoints
         if self.version is not None:
             result['Version'] = self.version
         return result
@@ -18022,6 +18042,8 @@ class GetGatewayRouteDetailResponseBodyDataRouteServices(TeaModel):
             self.agreement_type = m.get('AgreementType')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
+        if m.get('HealthStatus') is not None:
+            self.health_status = m.get('HealthStatus')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('Namespace') is not None:
@@ -18036,6 +18058,8 @@ class GetGatewayRouteDetailResponseBodyDataRouteServices(TeaModel):
             self.service_port = m.get('ServicePort')
         if m.get('SourceType') is not None:
             self.source_type = m.get('SourceType')
+        if m.get('UnhealthyEndpoints') is not None:
+            self.unhealthy_endpoints = m.get('UnhealthyEndpoints')
         if m.get('Version') is not None:
             self.version = m.get('Version')
         return self
@@ -18080,11 +18104,11 @@ class GetGatewayRouteDetailResponseBodyDataTimeout(TeaModel):
 
 class GetGatewayRouteDetailResponseBodyData(TeaModel):
     def __init__(self, ahas_status=None, cors=None, default_service_id=None, default_service_name=None,
-                 destination_type=None, direct_response=None, domain_id=None, domain_id_list=None, domain_name=None,
-                 domain_name_list=None, enable_waf=None, fallback=None, fallback_services=None, flow_mirror=None, gateway_id=None,
-                 gateway_unique_id=None, gmt_create=None, gmt_modified=None, httprewrite=None, header_op=None, id=None, name=None,
-                 policies=None, predicates=None, redirect=None, retry=None, route_order=None, route_predicates=None,
-                 route_services=None, services=None, status=None, timeout=None):
+                 description=None, destination_type=None, direct_response=None, domain_id=None, domain_id_list=None,
+                 domain_name=None, domain_name_list=None, enable_waf=None, fallback=None, fallback_services=None,
+                 flow_mirror=None, gateway_id=None, gateway_unique_id=None, gmt_create=None, gmt_modified=None,
+                 httprewrite=None, header_op=None, id=None, name=None, policies=None, predicates=None, redirect=None, retry=None,
+                 route_order=None, route_predicates=None, route_services=None, services=None, status=None, timeout=None):
         # The status of Application High Availability Service (AHAS).
         self.ahas_status = ahas_status  # type: int
         # The configuration for cross-origin resource sharing (CORS).
@@ -18093,6 +18117,7 @@ class GetGatewayRouteDetailResponseBodyData(TeaModel):
         self.default_service_id = default_service_id  # type: long
         # The default service name.
         self.default_service_name = default_service_name  # type: str
+        self.description = description  # type: str
         # The destination service type.
         self.destination_type = destination_type  # type: str
         # The information about service mocking.
@@ -18199,6 +18224,8 @@ class GetGatewayRouteDetailResponseBodyData(TeaModel):
             result['DefaultServiceId'] = self.default_service_id
         if self.default_service_name is not None:
             result['DefaultServiceName'] = self.default_service_name
+        if self.description is not None:
+            result['Description'] = self.description
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.direct_response is not None:
@@ -18272,6 +18299,8 @@ class GetGatewayRouteDetailResponseBodyData(TeaModel):
             self.default_service_id = m.get('DefaultServiceId')
         if m.get('DefaultServiceName') is not None:
             self.default_service_name = m.get('DefaultServiceName')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('DirectResponse') is not None:
@@ -25303,7 +25332,7 @@ class ListAppBySwimmingLaneGroupTagsResponseBody(TeaModel):
                 l1 = []
                 for k1 in v:
                     l1.append(k1.to_map() if k1 else None)
-                result['data'][k] = l1
+                result['Data'][k] = l1
         if self.error_code is not None:
             result['ErrorCode'] = self.error_code
         if self.message is not None:
@@ -26614,13 +26643,13 @@ class ListCircuitBreakerRulesResponseBodyDataResult(TeaModel):
         self.half_open_base_amount_per_step = half_open_base_amount_per_step  # type: int
         # The number of circuit breaking recovery steps.
         self.half_open_recovery_step_num = half_open_recovery_step_num  # type: int
-        # The maximum response time (RT). Unit: milliseconds. If the RT of a request is greater than the value of this parameter, a slow call is counted. If you set Strategy to 0, you must specify this parameter.
+        # The maximum RT. Unit: milliseconds. If the RT of a request is greater than the value of this parameter, a slow call is counted. If you set Strategy to 0, you must specify this parameter.
         self.max_allowed_rt_ms = max_allowed_rt_ms  # type: int
         # The minimum number of requests to trigger circuit breaking. If the number of requests in the current time window is less than the value of this parameter, circuit breaking is not triggered even if the circuit breaking rule is met.
         self.min_request_amount = min_request_amount  # type: int
         # The microservice namespace to which the application belongs.
         self.namespace = namespace  # type: str
-        # The region where the cluster resides.
+        # The region in which the instance resides.
         self.region_id = region_id  # type: str
         # The name of the interface to which the rule is applicable. The interface name must be the same as the name on the interface details page in the console.
         self.resource = resource  # type: str
@@ -27981,8 +28010,8 @@ class ListClustersRequestTag(TeaModel):
 
 
 class ListClustersRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_alias_name=None, page_num=None, page_size=None, region_id=None,
-                 request_pars=None, resource_group_id=None, tag=None):
+    def __init__(self, accept_language=None, cluster_alias_name=None, key_id=None, page_num=None, page_size=None,
+                 region_id=None, request_pars=None, resource_group_id=None, tag=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
@@ -27990,6 +28019,7 @@ class ListClustersRequest(TeaModel):
         self.accept_language = accept_language  # type: str
         # The alias of the instance. Fuzzy match is supported.
         self.cluster_alias_name = cluster_alias_name  # type: str
+        self.key_id = key_id  # type: str
         # The number of the page to return.
         self.page_num = page_num  # type: int
         # The number of entries to return on each page.
@@ -28019,6 +28049,8 @@ class ListClustersRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.cluster_alias_name is not None:
             result['ClusterAliasName'] = self.cluster_alias_name
+        if self.key_id is not None:
+            result['KeyId'] = self.key_id
         if self.page_num is not None:
             result['PageNum'] = self.page_num
         if self.page_size is not None:
@@ -28041,6 +28073,8 @@ class ListClustersRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ClusterAliasName') is not None:
             self.cluster_alias_name = m.get('ClusterAliasName')
+        if m.get('KeyId') is not None:
+            self.key_id = m.get('KeyId')
         if m.get('PageNum') is not None:
             self.page_num = m.get('PageNum')
         if m.get('PageSize') is not None:
@@ -29755,7 +29789,7 @@ class ListFlowRulesResponseBodyDataResult(TeaModel):
                  rule_id=None, threshold=None, traffic_tags=None):
         # The ID of the application.
         self.app_id = app_id  # type: str
-        # The name of the application.
+        # The application name.
         self.app_name = app_name  # type: str
         # The throttling effect.
         # 
@@ -29809,16 +29843,16 @@ class ListFlowRulesResponseBodyDataResult(TeaModel):
         self.fallback_object = fallback_object  # type: str
         # The timeout period for queuing when the value of ControlBehavior is set to 2. Unit: milliseconds.
         self.max_queueing_time_ms = max_queueing_time_ms  # type: int
-        # The statistical dimension. The value 1 indicates the number of accepted requests.
+        # The statistical dimension. The value 1 indicates that the number of accepted requests is used for statistics.
         self.metric_type = metric_type  # type: int
         # The namespace.
         self.namespace = namespace  # type: str
-        # The region ID.
+        # The ID of the region in which the instance resides.
         self.region_id = region_id  # type: str
         # The name of the interface resource.
         self.resource = resource  # type: str
         self.resource_type = resource_type  # type: int
-        # The ID of the rule.
+        # The rule ID.
         self.rule_id = rule_id  # type: long
         # The throttling threshold.
         self.threshold = threshold  # type: float
@@ -31643,12 +31677,13 @@ class ListGatewayAuthConsumerResourceResponse(TeaModel):
 
 
 class ListGatewayDomainRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None, type=None):
+    def __init__(self, accept_language=None, domain_name=None, gateway_unique_id=None, type=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
         # *   en: English
         self.accept_language = accept_language  # type: str
+        self.domain_name = domain_name  # type: str
         # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
         # The type of the domain name.
@@ -31665,6 +31700,8 @@ class ListGatewayDomainRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.type is not None:
@@ -31675,6 +31712,8 @@ class ListGatewayDomainRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Type') is not None:
@@ -31941,7 +31980,7 @@ class ListGatewayDomainResponse(TeaModel):
 
 class ListGatewayRouteRequestFilterParams(TeaModel):
     def __init__(self, default_service_id=None, domain_id=None, domain_name=None, gateway_id=None,
-                 gateway_unique_id=None, name=None, route_order=None, status=None):
+                 gateway_unique_id=None, name=None, path=None, route_order=None, status=None):
         # The default service ID.
         self.default_service_id = default_service_id  # type: long
         # The domain ID.
@@ -31954,6 +31993,7 @@ class ListGatewayRouteRequestFilterParams(TeaModel):
         self.gateway_unique_id = gateway_unique_id  # type: str
         # The name of the gateway.
         self.name = name  # type: str
+        self.path = path  # type: str
         # The order.
         self.route_order = route_order  # type: int
         # The status.
@@ -31980,6 +32020,8 @@ class ListGatewayRouteRequestFilterParams(TeaModel):
             result['GatewayUniqueId'] = self.gateway_unique_id
         if self.name is not None:
             result['Name'] = self.name
+        if self.path is not None:
+            result['Path'] = self.path
         if self.route_order is not None:
             result['RouteOrder'] = self.route_order
         if self.status is not None:
@@ -32000,6 +32042,8 @@ class ListGatewayRouteRequestFilterParams(TeaModel):
             self.gateway_unique_id = m.get('GatewayUniqueId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('Path') is not None:
+            self.path = m.get('Path')
         if m.get('RouteOrder') is not None:
             self.route_order = m.get('RouteOrder')
         if m.get('Status') is not None:
@@ -32658,12 +32702,14 @@ class ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoder(Tea
 
 
 class ListGatewayRouteResponseBodyDataResultRouteServices(TeaModel):
-    def __init__(self, agreement_type=None, group_name=None, http_dubbo_transcoder=None, name=None, namespace=None,
-                 percent=None, service_id=None, service_name=None, service_port=None, source_type=None, version=None):
+    def __init__(self, agreement_type=None, group_name=None, health_status=None, http_dubbo_transcoder=None,
+                 name=None, namespace=None, percent=None, service_id=None, service_name=None, service_port=None,
+                 source_type=None, unhealthy_endpoints=None, version=None):
         # The type of the protocol.
         self.agreement_type = agreement_type  # type: str
         # The name of the group to which the service belongs.
         self.group_name = group_name  # type: str
+        self.health_status = health_status  # type: str
         # The transcoder of the Dubbo protocol.
         self.http_dubbo_transcoder = http_dubbo_transcoder  # type: ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoder
         # The name.
@@ -32680,6 +32726,7 @@ class ListGatewayRouteResponseBodyDataResultRouteServices(TeaModel):
         self.service_port = service_port  # type: int
         # The source type.
         self.source_type = source_type  # type: str
+        self.unhealthy_endpoints = unhealthy_endpoints  # type: list[str]
         # The version of the service.
         self.version = version  # type: str
 
@@ -32697,6 +32744,8 @@ class ListGatewayRouteResponseBodyDataResultRouteServices(TeaModel):
             result['AgreementType'] = self.agreement_type
         if self.group_name is not None:
             result['GroupName'] = self.group_name
+        if self.health_status is not None:
+            result['HealthStatus'] = self.health_status
         if self.http_dubbo_transcoder is not None:
             result['HttpDubboTranscoder'] = self.http_dubbo_transcoder.to_map()
         if self.name is not None:
@@ -32713,6 +32762,8 @@ class ListGatewayRouteResponseBodyDataResultRouteServices(TeaModel):
             result['ServicePort'] = self.service_port
         if self.source_type is not None:
             result['SourceType'] = self.source_type
+        if self.unhealthy_endpoints is not None:
+            result['UnhealthyEndpoints'] = self.unhealthy_endpoints
         if self.version is not None:
             result['Version'] = self.version
         return result
@@ -32723,6 +32774,8 @@ class ListGatewayRouteResponseBodyDataResultRouteServices(TeaModel):
             self.agreement_type = m.get('AgreementType')
         if m.get('GroupName') is not None:
             self.group_name = m.get('GroupName')
+        if m.get('HealthStatus') is not None:
+            self.health_status = m.get('HealthStatus')
         if m.get('HttpDubboTranscoder') is not None:
             temp_model = ListGatewayRouteResponseBodyDataResultRouteServicesHttpDubboTranscoder()
             self.http_dubbo_transcoder = temp_model.from_map(m['HttpDubboTranscoder'])
@@ -32740,6 +32793,8 @@ class ListGatewayRouteResponseBodyDataResultRouteServices(TeaModel):
             self.service_port = m.get('ServicePort')
         if m.get('SourceType') is not None:
             self.source_type = m.get('SourceType')
+        if m.get('UnhealthyEndpoints') is not None:
+            self.unhealthy_endpoints = m.get('UnhealthyEndpoints')
         if m.get('Version') is not None:
             self.version = m.get('Version')
         return self
@@ -35771,7 +35826,8 @@ class ListNacosHistoryConfigsRequest(TeaModel):
 
 
 class ListNacosHistoryConfigsResponseBodyHistoryItems(TeaModel):
-    def __init__(self, app_name=None, data_id=None, group=None, id=None, last_modified_time=None, op_type=None):
+    def __init__(self, app_name=None, data_id=None, group=None, id=None, last_modified_time=None, op_type=None,
+                 src_user=None):
         # The application tag.
         self.app_name = app_name  # type: str
         # The ID of the data.
@@ -35784,6 +35840,7 @@ class ListNacosHistoryConfigsResponseBodyHistoryItems(TeaModel):
         self.last_modified_time = last_modified_time  # type: long
         # The format of the configuration file.
         self.op_type = op_type  # type: str
+        self.src_user = src_user  # type: str
 
     def validate(self):
         pass
@@ -35806,6 +35863,8 @@ class ListNacosHistoryConfigsResponseBodyHistoryItems(TeaModel):
             result['LastModifiedTime'] = self.last_modified_time
         if self.op_type is not None:
             result['OpType'] = self.op_type
+        if self.src_user is not None:
+            result['SrcUser'] = self.src_user
         return result
 
     def from_map(self, m=None):
@@ -35822,6 +35881,8 @@ class ListNacosHistoryConfigsResponseBodyHistoryItems(TeaModel):
             self.last_modified_time = m.get('LastModifiedTime')
         if m.get('OpType') is not None:
             self.op_type = m.get('OpType')
+        if m.get('SrcUser') is not None:
+            self.src_user = m.get('SrcUser')
         return self
 
 
@@ -36246,12 +36307,13 @@ class ListNamingTrackResponse(TeaModel):
 
 
 class ListSSLCertRequest(TeaModel):
-    def __init__(self, accept_language=None, gateway_unique_id=None):
+    def __init__(self, accept_language=None, cert_name=None, gateway_unique_id=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
         # *   en: English
         self.accept_language = accept_language  # type: str
+        self.cert_name = cert_name  # type: str
         # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
 
@@ -36266,6 +36328,8 @@ class ListSSLCertRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
         if self.gateway_unique_id is not None:
             result['GatewayUniqueId'] = self.gateway_unique_id
         return result
@@ -36274,6 +36338,8 @@ class ListSSLCertRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
         if m.get('GatewayUniqueId') is not None:
             self.gateway_unique_id = m.get('GatewayUniqueId')
         return self
@@ -36693,11 +36759,11 @@ class ListSecurityGroupRuleResponseBodyData(TeaModel):
         self.gateway_id = gateway_id  # type: long
         # The unique ID of the gateway.
         self.gateway_unique_id = gateway_unique_id  # type: str
-        # The time when the instance was created.
+        # The creation time.
         self.gmt_create = gmt_create  # type: str
-        # The time when the instance configuration was last modified.
+        # The last modification time.
         self.gmt_modified = gmt_modified  # type: str
-        # The authorization record ID of the security group.
+        # The ID of the security group authorization record.
         self.id = id  # type: str
         # The protocol type.
         self.ip_protocol = ip_protocol  # type: str
@@ -36766,7 +36832,7 @@ class ListSecurityGroupRuleResponseBody(TeaModel):
     def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
         # The status code returned.
         self.code = code  # type: int
-        # The returned data.
+        # The returned result.
         self.data = data  # type: list[ListSecurityGroupRuleResponseBodyData]
         # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
@@ -37966,7 +38032,7 @@ class ListZnodeChildrenResponse(TeaModel):
 
 class ModifyGovernanceKubernetesClusterRequestNamespaceInfos(TeaModel):
     def __init__(self, mse_namespace=None, name=None):
-        # The microservice namespace.If you do not specify this parameter, Microservice Governance is not enabled for the namespace.
+        # The microservice namespace. If you do not specify this parameter, Microservice Governance is not enabled for the namespace.
         self.mse_namespace = mse_namespace  # type: str
         # The name of the Kubernetes namespace.
         self.name = name  # type: str
@@ -48647,7 +48713,7 @@ class UpdateGatewayRouteRequestServices(TeaModel):
 
 
 class UpdateGatewayRouteRequest(TeaModel):
-    def __init__(self, accept_language=None, destination_type=None, direct_response_json=None,
+    def __init__(self, accept_language=None, description=None, destination_type=None, direct_response_json=None,
                  domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services=None, gateway_id=None,
                  gateway_unique_id=None, id=None, name=None, predicates=None, redirect_json=None, route_order=None, services=None):
         # The language of the response. Valid values:
@@ -48655,6 +48721,7 @@ class UpdateGatewayRouteRequest(TeaModel):
         # *   zh: Chinese
         # *   en: English
         self.accept_language = accept_language  # type: str
+        self.description = description  # type: str
         # The destination service type.
         self.destination_type = destination_type  # type: str
         # The information about service mocking.
@@ -48708,6 +48775,8 @@ class UpdateGatewayRouteRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.description is not None:
+            result['Description'] = self.description
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.direct_response_json is not None:
@@ -48746,6 +48815,8 @@ class UpdateGatewayRouteRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('DirectResponseJSON') is not None:
@@ -48787,15 +48858,16 @@ class UpdateGatewayRouteRequest(TeaModel):
 
 
 class UpdateGatewayRouteShrinkRequest(TeaModel):
-    def __init__(self, accept_language=None, destination_type=None, direct_response_jsonshrink=None,
-                 domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services_shrink=None, gateway_id=None,
-                 gateway_unique_id=None, id=None, name=None, predicates_shrink=None, redirect_jsonshrink=None, route_order=None,
-                 services_shrink=None):
+    def __init__(self, accept_language=None, description=None, destination_type=None,
+                 direct_response_jsonshrink=None, domain_id_list_json=None, enable_waf=None, fallback=None, fallback_services_shrink=None,
+                 gateway_id=None, gateway_unique_id=None, id=None, name=None, predicates_shrink=None, redirect_jsonshrink=None,
+                 route_order=None, services_shrink=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
         # *   en: English
         self.accept_language = accept_language  # type: str
+        self.description = description  # type: str
         # The destination service type.
         self.destination_type = destination_type  # type: str
         # The information about service mocking.
@@ -48836,6 +48908,8 @@ class UpdateGatewayRouteShrinkRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.description is not None:
+            result['Description'] = self.description
         if self.destination_type is not None:
             result['DestinationType'] = self.destination_type
         if self.direct_response_jsonshrink is not None:
@@ -48870,6 +48944,8 @@ class UpdateGatewayRouteShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('DestinationType') is not None:
             self.destination_type = m.get('DestinationType')
         if m.get('DirectResponseJSON') is not None:
