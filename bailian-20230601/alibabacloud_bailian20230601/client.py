@@ -30,36 +30,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def add_enterprise_tag_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.agent_key):
-            query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.tag_name):
-            query['TagName'] = request.tag_name
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='AddEnterpriseTag',
-            version='2023-06-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bailian_20230601_models.AddEnterpriseTagResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def add_enterprise_tag(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.add_enterprise_tag_with_options(request, runtime)
-
     def cancel_fine_tune_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -91,6 +61,36 @@ class Client(OpenApiClient):
     def cancel_fine_tune_job(self, request):
         runtime = util_models.RuntimeOptions()
         return self.cancel_fine_tune_job_with_options(request, runtime)
+
+    def create_document_tag_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDocumentTag',
+            version='2023-06-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bailian_20230601_models.CreateDocumentTagResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_document_tag(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_document_tag_with_options(request, runtime)
 
     def create_fine_tune_job_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -238,7 +238,37 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_token_with_options(request, runtime)
 
-    def del_enterprise_tag_with_options(self, request, runtime):
+    def delete_doc_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.doc_id):
+            query['DocId'] = request.doc_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDoc',
+            version='2023-06-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bailian_20230601_models.DeleteDocResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_doc(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_doc_with_options(request, runtime)
+
+    def delete_document_tag_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.agent_key):
@@ -249,7 +279,7 @@ class Client(OpenApiClient):
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='DelEnterpriseTag',
+            action='DeleteDocumentTag',
             version='2023-06-01',
             protocol='HTTPS',
             pathname='/',
@@ -260,43 +290,13 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            bailian_20230601_models.DelEnterpriseTagResponse(),
+            bailian_20230601_models.DeleteDocumentTagResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def del_enterprise_tag(self, request):
+    def delete_document_tag(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.del_enterprise_tag_with_options(request, runtime)
-
-    def delete_enterprise_data_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.agent_key):
-            query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.data_id):
-            query['DataId'] = request.data_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DeleteEnterpriseData',
-            version='2023-06-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bailian_20230601_models.DeleteEnterpriseDataResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_enterprise_data(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_enterprise_data_with_options(request, runtime)
+        return self.delete_document_tag_with_options(request, runtime)
 
     def delete_fine_tune_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -362,6 +362,66 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_service_with_options(request, runtime)
 
+    def describe_doc_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.doc_id):
+            query['DocId'] = request.doc_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDoc',
+            version='2023-06-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bailian_20230601_models.DescribeDocResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_doc(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_doc_with_options(request, runtime)
+
+    def describe_document_import_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDocumentImportJob',
+            version='2023-06-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bailian_20230601_models.DescribeDocumentImportJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_document_import_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_document_import_job_with_options(request, runtime)
+
     def describe_fine_tune_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -426,128 +486,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_service_with_options(request, runtime)
 
-    def get_enterprise_data_by_data_id_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.agent_key):
-            query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.data_id):
-            query['DataId'] = request.data_id
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetEnterpriseDataByDataId',
-            version='2023-06-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bailian_20230601_models.GetEnterpriseDataByDataIdResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_enterprise_data_by_data_id(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_enterprise_data_by_data_id_with_options(request, runtime)
-
-    def get_enterprise_data_chunk_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.agent_key):
-            query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.data_id):
-            query['DataId'] = request.data_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetEnterpriseDataChunk',
-            version='2023-06-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bailian_20230601_models.GetEnterpriseDataChunkResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_enterprise_data_chunk(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_enterprise_data_chunk_with_options(request, runtime)
-
-    def get_enterprise_data_page_image_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.agent_key):
-            query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.data_id):
-            query['DataId'] = request.data_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetEnterpriseDataPageImage',
-            version='2023-06-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bailian_20230601_models.GetEnterpriseDataPageImageResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_enterprise_data_page_image(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_enterprise_data_page_image_with_options(request, runtime)
-
-    def get_enterprise_data_parse_result_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.agent_key):
-            query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.data_id):
-            query['DataId'] = request.data_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetEnterpriseDataParseResult',
-            version='2023-06-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bailian_20230601_models.GetEnterpriseDataParseResultResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_enterprise_data_parse_result(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_enterprise_data_parse_result_with_options(request, runtime)
-
     def get_file_store_upload_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -581,36 +519,6 @@ class Client(OpenApiClient):
     def get_file_store_upload_policy(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_file_store_upload_policy_with_options(request, runtime)
-
-    def get_import_task_result_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.agent_key):
-            query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.task_id):
-            query['TaskId'] = request.task_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetImportTaskResult',
-            version='2023-06-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bailian_20230601_models.GetImportTaskResultResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_import_task_result(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_import_task_result_with_options(request, runtime)
 
     def get_prompt_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -670,50 +578,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_text_2image_job_with_options(request, runtime)
 
-    def import_enterprise_document_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = bailian_20230601_models.ImportEnterpriseDocumentShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.document_list):
-            request.document_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.document_list, 'DocumentList', 'json')
-        if not UtilClient.is_unset(tmp_req.tags):
-            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
-        query = {}
-        if not UtilClient.is_unset(request.agent_key):
-            query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.data_type):
-            query['DataType'] = request.data_type
-        if not UtilClient.is_unset(request.document_list_shrink):
-            query['DocumentList'] = request.document_list_shrink
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.store_id):
-            query['StoreId'] = request.store_id
-        if not UtilClient.is_unset(request.tags_shrink):
-            query['Tags'] = request.tags_shrink
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ImportEnterpriseDocument',
-            version='2023-06-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bailian_20230601_models.ImportEnterpriseDocumentResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def import_enterprise_document(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.import_enterprise_document_with_options(request, runtime)
-
     def import_user_document_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -751,6 +615,84 @@ class Client(OpenApiClient):
     def import_user_document(self, request):
         runtime = util_models.RuntimeOptions()
         return self.import_user_document_with_options(request, runtime)
+
+    def list_docs_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = bailian_20230601_models.ListDocsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.tag_ids):
+            request.tag_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tag_ids, 'TagIds', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.store_id):
+            query['StoreId'] = request.store_id
+        if not UtilClient.is_unset(request.tag_ids_shrink):
+            query['TagIds'] = request.tag_ids_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDocs',
+            version='2023-06-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bailian_20230601_models.ListDocsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_docs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_docs_with_options(request, runtime)
+
+    def list_document_tags_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.tag_id):
+            query['TagId'] = request.tag_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDocumentTags',
+            version='2023-06-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            bailian_20230601_models.ListDocumentTagsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_document_tags(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_document_tags_with_options(request, runtime)
 
     def list_fine_tune_jobs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -818,110 +760,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_services_with_options(request, runtime)
 
-    def query_enterprise_data_list_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = bailian_20230601_models.QueryEnterpriseDataListShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.tags):
-            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
-        query = {}
-        if not UtilClient.is_unset(request.agent_key):
-            query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.data_name):
-            query['DataName'] = request.data_name
-        if not UtilClient.is_unset(request.page_no):
-            query['PageNo'] = request.page_no
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.store_type):
-            query['StoreType'] = request.store_type
-        if not UtilClient.is_unset(request.tags_shrink):
-            query['Tags'] = request.tags_shrink
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='QueryEnterpriseDataList',
-            version='2023-06-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bailian_20230601_models.QueryEnterpriseDataListResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def query_enterprise_data_list(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.query_enterprise_data_list_with_options(request, runtime)
-
-    def query_enterprise_data_tag_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.agent_key):
-            query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.data_id):
-            query['DataId'] = request.data_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='QueryEnterpriseDataTag',
-            version='2023-06-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bailian_20230601_models.QueryEnterpriseDataTagResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def query_enterprise_data_tag(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.query_enterprise_data_tag_with_options(request, runtime)
-
-    def query_enterprise_tag_list_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.agent_key):
-            query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.page_no):
-            query['PageNo'] = request.page_no
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='QueryEnterpriseTagList',
-            version='2023-06-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bailian_20230601_models.QueryEnterpriseTagListResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def query_enterprise_tag_list(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.query_enterprise_tag_list_with_options(request, runtime)
-
     def query_user_document_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -954,34 +792,18 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_user_document_with_options(request, runtime)
 
-    def search_enterprise_data_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = bailian_20230601_models.SearchEnterpriseDataShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.data_id_list):
-            request.data_id_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_id_list, 'DataIdList', 'json')
-        if not UtilClient.is_unset(tmp_req.tag_id_list):
-            request.tag_id_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tag_id_list, 'TagIdList', 'json')
+    def submit_document_import_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.data_id_list_shrink):
-            query['DataIdList'] = request.data_id_list_shrink
-        if not UtilClient.is_unset(request.enable_rank):
-            query['EnableRank'] = request.enable_rank
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.query):
-            query['Query'] = request.query
-        if not UtilClient.is_unset(request.store_id):
-            query['StoreId'] = request.store_id
-        if not UtilClient.is_unset(request.tag_id_list_shrink):
-            query['TagIdList'] = request.tag_id_list_shrink
+        if not UtilClient.is_unset(request.docs):
+            query['Docs'] = request.docs
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='SearchEnterpriseData',
+            action='SubmitDocumentImportJob',
             version='2023-06-01',
             protocol='HTTPS',
             pathname='/',
@@ -992,13 +814,13 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            bailian_20230601_models.SearchEnterpriseDataResponse(),
+            bailian_20230601_models.SubmitDocumentImportJobResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def search_enterprise_data(self, request):
+    def submit_document_import_job(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.search_enterprise_data_with_options(request, runtime)
+        return self.submit_document_import_job_with_options(request, runtime)
 
     def submit_text_2image_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1042,60 +864,28 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.submit_text_2image_job_with_options(request, runtime)
 
-    def update_enterprise_data_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.agent_key):
-            query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.biz_id):
-            query['BizId'] = request.biz_id
-        if not UtilClient.is_unset(request.data_id):
-            query['DataId'] = request.data_id
-        if not UtilClient.is_unset(request.data_name):
-            query['DataName'] = request.data_name
-        if not UtilClient.is_unset(request.file_preview_link):
-            query['FilePreviewLink'] = request.file_preview_link
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='UpdateEnterpriseDataInfo',
-            version='2023-06-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            bailian_20230601_models.UpdateEnterpriseDataInfoResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def update_enterprise_data_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.update_enterprise_data_info_with_options(request, runtime)
-
-    def update_enterprise_data_tag_with_options(self, tmp_req, runtime):
+    def update_doc_attribute_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
-        request = bailian_20230601_models.UpdateEnterpriseDataTagShrinkRequest()
+        request = bailian_20230601_models.UpdateDocAttributeShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.tags):
-            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        if not UtilClient.is_unset(tmp_req.tag_ids):
+            request.tag_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tag_ids, 'TagIds', 'json')
         query = {}
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
-        if not UtilClient.is_unset(request.data_id):
-            query['DataId'] = request.data_id
-        if not UtilClient.is_unset(request.tags_shrink):
-            query['Tags'] = request.tags_shrink
+        if not UtilClient.is_unset(request.del_all_tags):
+            query['DelAllTags'] = request.del_all_tags
+        if not UtilClient.is_unset(request.doc_id):
+            query['DocId'] = request.doc_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.tag_ids_shrink):
+            query['TagIds'] = request.tag_ids_shrink
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='UpdateEnterpriseDataTag',
+            action='UpdateDocAttribute',
             version='2023-06-01',
             protocol='HTTPS',
             pathname='/',
@@ -1106,28 +896,28 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            bailian_20230601_models.UpdateEnterpriseDataTagResponse(),
+            bailian_20230601_models.UpdateDocAttributeResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def update_enterprise_data_tag(self, request):
+    def update_doc_attribute(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.update_enterprise_data_tag_with_options(request, runtime)
+        return self.update_doc_attribute_with_options(request, runtime)
 
-    def update_enterprise_tag_with_options(self, request, runtime):
+    def update_document_tag_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.agent_key):
             query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
         if not UtilClient.is_unset(request.tag_id):
             query['TagId'] = request.tag_id
-        if not UtilClient.is_unset(request.tag_name):
-            query['TagName'] = request.tag_name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='UpdateEnterpriseTag',
+            action='UpdateDocumentTag',
             version='2023-06-01',
             protocol='HTTPS',
             pathname='/',
@@ -1138,10 +928,10 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            bailian_20230601_models.UpdateEnterpriseTagResponse(),
+            bailian_20230601_models.UpdateDocumentTagResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def update_enterprise_tag(self, request):
+    def update_document_tag(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.update_enterprise_tag_with_options(request, runtime)
+        return self.update_document_tag_with_options(request, runtime)
