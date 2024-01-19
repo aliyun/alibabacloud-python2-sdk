@@ -735,6 +735,247 @@ class AddDesensitizationRuleResponse(TeaModel):
         return self
 
 
+class AddInstanceRequest(TeaModel):
+    def __init__(self, data_link_name=None, database_password=None, database_user=None, dba_id=None,
+                 ddl_online=None, ecs_instance_id=None, ecs_region=None, enable_sell_common=None, enable_sell_sitd=None,
+                 enable_sell_stable=None, enable_sell_trust=None, env_type=None, export_timeout=None, host=None, instance_alias=None,
+                 instance_source=None, instance_type=None, network_type=None, port=None, query_timeout=None, safe_rule=None,
+                 sid=None, skip_test=None, template_id=None, template_type=None, tid=None, use_dsql=None, vpc_id=None):
+        self.data_link_name = data_link_name  # type: str
+        self.database_password = database_password  # type: str
+        self.database_user = database_user  # type: str
+        self.dba_id = dba_id  # type: long
+        self.ddl_online = ddl_online  # type: int
+        self.ecs_instance_id = ecs_instance_id  # type: str
+        self.ecs_region = ecs_region  # type: str
+        self.enable_sell_common = enable_sell_common  # type: str
+        self.enable_sell_sitd = enable_sell_sitd  # type: str
+        self.enable_sell_stable = enable_sell_stable  # type: str
+        self.enable_sell_trust = enable_sell_trust  # type: str
+        self.env_type = env_type  # type: str
+        self.export_timeout = export_timeout  # type: int
+        self.host = host  # type: str
+        self.instance_alias = instance_alias  # type: str
+        self.instance_source = instance_source  # type: str
+        self.instance_type = instance_type  # type: str
+        self.network_type = network_type  # type: str
+        self.port = port  # type: int
+        self.query_timeout = query_timeout  # type: int
+        self.safe_rule = safe_rule  # type: str
+        self.sid = sid  # type: str
+        self.skip_test = skip_test  # type: bool
+        self.template_id = template_id  # type: long
+        self.template_type = template_type  # type: str
+        self.tid = tid  # type: long
+        self.use_dsql = use_dsql  # type: int
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_link_name is not None:
+            result['DataLinkName'] = self.data_link_name
+        if self.database_password is not None:
+            result['DatabasePassword'] = self.database_password
+        if self.database_user is not None:
+            result['DatabaseUser'] = self.database_user
+        if self.dba_id is not None:
+            result['DbaId'] = self.dba_id
+        if self.ddl_online is not None:
+            result['DdlOnline'] = self.ddl_online
+        if self.ecs_instance_id is not None:
+            result['EcsInstanceId'] = self.ecs_instance_id
+        if self.ecs_region is not None:
+            result['EcsRegion'] = self.ecs_region
+        if self.enable_sell_common is not None:
+            result['EnableSellCommon'] = self.enable_sell_common
+        if self.enable_sell_sitd is not None:
+            result['EnableSellSitd'] = self.enable_sell_sitd
+        if self.enable_sell_stable is not None:
+            result['EnableSellStable'] = self.enable_sell_stable
+        if self.enable_sell_trust is not None:
+            result['EnableSellTrust'] = self.enable_sell_trust
+        if self.env_type is not None:
+            result['EnvType'] = self.env_type
+        if self.export_timeout is not None:
+            result['ExportTimeout'] = self.export_timeout
+        if self.host is not None:
+            result['Host'] = self.host
+        if self.instance_alias is not None:
+            result['InstanceAlias'] = self.instance_alias
+        if self.instance_source is not None:
+            result['InstanceSource'] = self.instance_source
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.network_type is not None:
+            result['NetworkType'] = self.network_type
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.query_timeout is not None:
+            result['QueryTimeout'] = self.query_timeout
+        if self.safe_rule is not None:
+            result['SafeRule'] = self.safe_rule
+        if self.sid is not None:
+            result['Sid'] = self.sid
+        if self.skip_test is not None:
+            result['SkipTest'] = self.skip_test
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        if self.template_type is not None:
+            result['TemplateType'] = self.template_type
+        if self.tid is not None:
+            result['Tid'] = self.tid
+        if self.use_dsql is not None:
+            result['UseDsql'] = self.use_dsql
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataLinkName') is not None:
+            self.data_link_name = m.get('DataLinkName')
+        if m.get('DatabasePassword') is not None:
+            self.database_password = m.get('DatabasePassword')
+        if m.get('DatabaseUser') is not None:
+            self.database_user = m.get('DatabaseUser')
+        if m.get('DbaId') is not None:
+            self.dba_id = m.get('DbaId')
+        if m.get('DdlOnline') is not None:
+            self.ddl_online = m.get('DdlOnline')
+        if m.get('EcsInstanceId') is not None:
+            self.ecs_instance_id = m.get('EcsInstanceId')
+        if m.get('EcsRegion') is not None:
+            self.ecs_region = m.get('EcsRegion')
+        if m.get('EnableSellCommon') is not None:
+            self.enable_sell_common = m.get('EnableSellCommon')
+        if m.get('EnableSellSitd') is not None:
+            self.enable_sell_sitd = m.get('EnableSellSitd')
+        if m.get('EnableSellStable') is not None:
+            self.enable_sell_stable = m.get('EnableSellStable')
+        if m.get('EnableSellTrust') is not None:
+            self.enable_sell_trust = m.get('EnableSellTrust')
+        if m.get('EnvType') is not None:
+            self.env_type = m.get('EnvType')
+        if m.get('ExportTimeout') is not None:
+            self.export_timeout = m.get('ExportTimeout')
+        if m.get('Host') is not None:
+            self.host = m.get('Host')
+        if m.get('InstanceAlias') is not None:
+            self.instance_alias = m.get('InstanceAlias')
+        if m.get('InstanceSource') is not None:
+            self.instance_source = m.get('InstanceSource')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('NetworkType') is not None:
+            self.network_type = m.get('NetworkType')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('QueryTimeout') is not None:
+            self.query_timeout = m.get('QueryTimeout')
+        if m.get('SafeRule') is not None:
+            self.safe_rule = m.get('SafeRule')
+        if m.get('Sid') is not None:
+            self.sid = m.get('Sid')
+        if m.get('SkipTest') is not None:
+            self.skip_test = m.get('SkipTest')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        if m.get('TemplateType') is not None:
+            self.template_type = m.get('TemplateType')
+        if m.get('Tid') is not None:
+            self.tid = m.get('Tid')
+        if m.get('UseDsql') is not None:
+            self.use_dsql = m.get('UseDsql')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        return self
+
+
+class AddInstanceResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class AddInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AddInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AddInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AddInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class AddLhMembersRequestMembers(TeaModel):
     def __init__(self, roles=None, user_id=None):
         # The role. Valid values:
@@ -9703,6 +9944,113 @@ class DeleteScenarioResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteScenarioResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteStandardGroupRequest(TeaModel):
+    def __init__(self, group_id=None, tid=None):
+        self.group_id = group_id  # type: long
+        self.tid = tid  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteStandardGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.tid is not None:
+            result['Tid'] = self.tid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('Tid') is not None:
+            self.tid = m.get('Tid')
+        return self
+
+
+class DeleteStandardGroupResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteStandardGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteStandardGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteStandardGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteStandardGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteStandardGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -23216,6 +23564,170 @@ class GetSQLReviewOptimizeDetailResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetSQLReviewOptimizeDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetStandardGroupRequest(TeaModel):
+    def __init__(self, group_id=None, tid=None):
+        self.group_id = group_id  # type: long
+        self.tid = tid  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetStandardGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.tid is not None:
+            result['Tid'] = self.tid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('Tid') is not None:
+            self.tid = m.get('Tid')
+        return self
+
+
+class GetStandardGroupResponseBodyStandardGroup(TeaModel):
+    def __init__(self, db_type=None, description=None, group_id=None, group_mode=None, group_name=None,
+                 last_mender_id=None):
+        self.db_type = db_type  # type: str
+        self.description = description  # type: str
+        self.group_id = group_id  # type: long
+        self.group_mode = group_mode  # type: str
+        self.group_name = group_name  # type: str
+        self.last_mender_id = last_mender_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetStandardGroupResponseBodyStandardGroup, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.db_type is not None:
+            result['DbType'] = self.db_type
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.group_mode is not None:
+            result['GroupMode'] = self.group_mode
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.last_mender_id is not None:
+            result['LastMenderId'] = self.last_mender_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DbType') is not None:
+            self.db_type = m.get('DbType')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('GroupMode') is not None:
+            self.group_mode = m.get('GroupMode')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('LastMenderId') is not None:
+            self.last_mender_id = m.get('LastMenderId')
+        return self
+
+
+class GetStandardGroupResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, standard_group=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.standard_group = standard_group  # type: GetStandardGroupResponseBodyStandardGroup
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.standard_group:
+            self.standard_group.validate()
+
+    def to_map(self):
+        _map = super(GetStandardGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.standard_group is not None:
+            result['StandardGroup'] = self.standard_group.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StandardGroup') is not None:
+            temp_model = GetStandardGroupResponseBodyStandardGroup()
+            self.standard_group = temp_model.from_map(m['StandardGroup'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetStandardGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetStandardGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetStandardGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetStandardGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -41661,6 +42173,253 @@ class ModifyDesensitizationStrategyResponse(TeaModel):
         return self
 
 
+class ModifyInstanceRequest(TeaModel):
+    def __init__(self, data_link_name=None, database_password=None, database_user=None, dba_id=None,
+                 ddl_online=None, ecs_instance_id=None, ecs_region=None, enable_sell_common=None, enable_sell_sitd=None,
+                 enable_sell_stable=None, enable_sell_trust=None, env_type=None, export_timeout=None, host=None, instance_alias=None,
+                 instance_id=None, instance_source=None, instance_type=None, network_type=None, port=None, query_timeout=None,
+                 safe_rule=None, sid=None, skip_test=None, template_id=None, template_type=None, tid=None, use_dsql=None,
+                 vpc_id=None):
+        self.data_link_name = data_link_name  # type: str
+        self.database_password = database_password  # type: str
+        self.database_user = database_user  # type: str
+        self.dba_id = dba_id  # type: long
+        self.ddl_online = ddl_online  # type: int
+        self.ecs_instance_id = ecs_instance_id  # type: str
+        self.ecs_region = ecs_region  # type: str
+        self.enable_sell_common = enable_sell_common  # type: str
+        self.enable_sell_sitd = enable_sell_sitd  # type: str
+        self.enable_sell_stable = enable_sell_stable  # type: str
+        self.enable_sell_trust = enable_sell_trust  # type: str
+        self.env_type = env_type  # type: str
+        self.export_timeout = export_timeout  # type: int
+        self.host = host  # type: str
+        self.instance_alias = instance_alias  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_source = instance_source  # type: str
+        self.instance_type = instance_type  # type: str
+        self.network_type = network_type  # type: str
+        self.port = port  # type: int
+        self.query_timeout = query_timeout  # type: int
+        self.safe_rule = safe_rule  # type: str
+        self.sid = sid  # type: str
+        self.skip_test = skip_test  # type: bool
+        self.template_id = template_id  # type: long
+        self.template_type = template_type  # type: str
+        self.tid = tid  # type: long
+        self.use_dsql = use_dsql  # type: int
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_link_name is not None:
+            result['DataLinkName'] = self.data_link_name
+        if self.database_password is not None:
+            result['DatabasePassword'] = self.database_password
+        if self.database_user is not None:
+            result['DatabaseUser'] = self.database_user
+        if self.dba_id is not None:
+            result['DbaId'] = self.dba_id
+        if self.ddl_online is not None:
+            result['DdlOnline'] = self.ddl_online
+        if self.ecs_instance_id is not None:
+            result['EcsInstanceId'] = self.ecs_instance_id
+        if self.ecs_region is not None:
+            result['EcsRegion'] = self.ecs_region
+        if self.enable_sell_common is not None:
+            result['EnableSellCommon'] = self.enable_sell_common
+        if self.enable_sell_sitd is not None:
+            result['EnableSellSitd'] = self.enable_sell_sitd
+        if self.enable_sell_stable is not None:
+            result['EnableSellStable'] = self.enable_sell_stable
+        if self.enable_sell_trust is not None:
+            result['EnableSellTrust'] = self.enable_sell_trust
+        if self.env_type is not None:
+            result['EnvType'] = self.env_type
+        if self.export_timeout is not None:
+            result['ExportTimeout'] = self.export_timeout
+        if self.host is not None:
+            result['Host'] = self.host
+        if self.instance_alias is not None:
+            result['InstanceAlias'] = self.instance_alias
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_source is not None:
+            result['InstanceSource'] = self.instance_source
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.network_type is not None:
+            result['NetworkType'] = self.network_type
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.query_timeout is not None:
+            result['QueryTimeout'] = self.query_timeout
+        if self.safe_rule is not None:
+            result['SafeRule'] = self.safe_rule
+        if self.sid is not None:
+            result['Sid'] = self.sid
+        if self.skip_test is not None:
+            result['SkipTest'] = self.skip_test
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        if self.template_type is not None:
+            result['TemplateType'] = self.template_type
+        if self.tid is not None:
+            result['Tid'] = self.tid
+        if self.use_dsql is not None:
+            result['UseDsql'] = self.use_dsql
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataLinkName') is not None:
+            self.data_link_name = m.get('DataLinkName')
+        if m.get('DatabasePassword') is not None:
+            self.database_password = m.get('DatabasePassword')
+        if m.get('DatabaseUser') is not None:
+            self.database_user = m.get('DatabaseUser')
+        if m.get('DbaId') is not None:
+            self.dba_id = m.get('DbaId')
+        if m.get('DdlOnline') is not None:
+            self.ddl_online = m.get('DdlOnline')
+        if m.get('EcsInstanceId') is not None:
+            self.ecs_instance_id = m.get('EcsInstanceId')
+        if m.get('EcsRegion') is not None:
+            self.ecs_region = m.get('EcsRegion')
+        if m.get('EnableSellCommon') is not None:
+            self.enable_sell_common = m.get('EnableSellCommon')
+        if m.get('EnableSellSitd') is not None:
+            self.enable_sell_sitd = m.get('EnableSellSitd')
+        if m.get('EnableSellStable') is not None:
+            self.enable_sell_stable = m.get('EnableSellStable')
+        if m.get('EnableSellTrust') is not None:
+            self.enable_sell_trust = m.get('EnableSellTrust')
+        if m.get('EnvType') is not None:
+            self.env_type = m.get('EnvType')
+        if m.get('ExportTimeout') is not None:
+            self.export_timeout = m.get('ExportTimeout')
+        if m.get('Host') is not None:
+            self.host = m.get('Host')
+        if m.get('InstanceAlias') is not None:
+            self.instance_alias = m.get('InstanceAlias')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceSource') is not None:
+            self.instance_source = m.get('InstanceSource')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('NetworkType') is not None:
+            self.network_type = m.get('NetworkType')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('QueryTimeout') is not None:
+            self.query_timeout = m.get('QueryTimeout')
+        if m.get('SafeRule') is not None:
+            self.safe_rule = m.get('SafeRule')
+        if m.get('Sid') is not None:
+            self.sid = m.get('Sid')
+        if m.get('SkipTest') is not None:
+            self.skip_test = m.get('SkipTest')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        if m.get('TemplateType') is not None:
+            self.template_type = m.get('TemplateType')
+        if m.get('Tid') is not None:
+            self.tid = m.get('Tid')
+        if m.get('UseDsql') is not None:
+            self.use_dsql = m.get('UseDsql')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        return self
+
+
+class ModifyInstanceResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ModifyInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class MoveTaskFlowToScenarioRequest(TeaModel):
     def __init__(self, dag_id=None, scenario_id=None, tid=None):
         # The ID of the task flow. You can call the [ListTaskFlow](~~424565~~) or [ListLhTaskFlowAndScenario](~~426672~~) operation to query the task flow ID.
@@ -47276,6 +48035,180 @@ class UpdateScenarioResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateScenarioResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateStandardGroupRequest(TeaModel):
+    def __init__(self, description=None, group_id=None, group_name=None, tid=None):
+        self.description = description  # type: str
+        self.group_id = group_id  # type: long
+        self.group_name = group_name  # type: str
+        self.tid = tid  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateStandardGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.tid is not None:
+            result['Tid'] = self.tid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('Tid') is not None:
+            self.tid = m.get('Tid')
+        return self
+
+
+class UpdateStandardGroupResponseBodyStandardGroup(TeaModel):
+    def __init__(self, db_type=None, description=None, group_id=None, group_mode=None, group_name=None,
+                 last_mender_id=None):
+        self.db_type = db_type  # type: str
+        self.description = description  # type: str
+        self.group_id = group_id  # type: long
+        self.group_mode = group_mode  # type: str
+        self.group_name = group_name  # type: str
+        self.last_mender_id = last_mender_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateStandardGroupResponseBodyStandardGroup, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.db_type is not None:
+            result['DbType'] = self.db_type
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.group_mode is not None:
+            result['GroupMode'] = self.group_mode
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.last_mender_id is not None:
+            result['LastMenderId'] = self.last_mender_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DbType') is not None:
+            self.db_type = m.get('DbType')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('GroupMode') is not None:
+            self.group_mode = m.get('GroupMode')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('LastMenderId') is not None:
+            self.last_mender_id = m.get('LastMenderId')
+        return self
+
+
+class UpdateStandardGroupResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, standard_group=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.standard_group = standard_group  # type: UpdateStandardGroupResponseBodyStandardGroup
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.standard_group:
+            self.standard_group.validate()
+
+    def to_map(self):
+        _map = super(UpdateStandardGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.standard_group is not None:
+            result['StandardGroup'] = self.standard_group.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StandardGroup') is not None:
+            temp_model = UpdateStandardGroupResponseBodyStandardGroup()
+            self.standard_group = temp_model.from_map(m['StandardGroup'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpdateStandardGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateStandardGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateStandardGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateStandardGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
