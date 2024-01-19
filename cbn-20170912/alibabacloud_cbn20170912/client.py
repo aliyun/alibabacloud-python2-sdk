@@ -723,9 +723,9 @@ class Client(OpenApiClient):
     def create_cen_child_instance_route_entry_to_cen_with_options(self, request, runtime):
         """
         ## Limits
-        *   By default, the CreateCenChildInstanceRouteEntryToCen operation is unavailable. To call this operation,[submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        *   By default, the CreateCenChildInstanceRouteEntryToCen operation is unavailable. To call this operation, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
         *   You cannot add a route entry to an Enterprise Edition transit router by calling the CreateCenChildInstanceRouteEntryToCen operation.
-        *   By default, the next hop of the route entry is the regional gateway of the Cloud Enterprise Network (CEN) instance. You cannot modify the next hop.
+        *   By default, the next hop of the route entry is the regional gateway of the CEN instance. You cannot modify the next hop.
         
 
         @param request: CreateCenChildInstanceRouteEntryToCenRequest
@@ -780,9 +780,9 @@ class Client(OpenApiClient):
     def create_cen_child_instance_route_entry_to_cen(self, request):
         """
         ## Limits
-        *   By default, the CreateCenChildInstanceRouteEntryToCen operation is unavailable. To call this operation,[submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        *   By default, the CreateCenChildInstanceRouteEntryToCen operation is unavailable. To call this operation, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
         *   You cannot add a route entry to an Enterprise Edition transit router by calling the CreateCenChildInstanceRouteEntryToCen operation.
-        *   By default, the next hop of the route entry is the regional gateway of the Cloud Enterprise Network (CEN) instance. You cannot modify the next hop.
+        *   By default, the next hop of the route entry is the regional gateway of the CEN instance. You cannot modify the next hop.
         
 
         @param request: CreateCenChildInstanceRouteEntryToCenRequest
@@ -2825,6 +2825,17 @@ class Client(OpenApiClient):
         return self.delete_traffic_marking_policy_with_options(request, runtime)
 
     def delete_transit_route_table_aggregation_with_options(self, request, runtime):
+        """
+        Before you delete an aggregate route, make sure that your network has a redundant route to prevent service interruptions.
+        *   After an aggregate route is deleted, the aggregate route is automatically withdrawn from virtual private clouds (VPCs). Specific routes that fall within the aggregate route are advertised to the VPCs.
+        
+
+        @param request: DeleteTransitRouteTableAggregationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTransitRouteTableAggregationResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2863,6 +2874,15 @@ class Client(OpenApiClient):
         )
 
     def delete_transit_route_table_aggregation(self, request):
+        """
+        Before you delete an aggregate route, make sure that your network has a redundant route to prevent service interruptions.
+        *   After an aggregate route is deleted, the aggregate route is automatically withdrawn from virtual private clouds (VPCs). Specific routes that fall within the aggregate route are advertised to the VPCs.
+        
+
+        @param request: DeleteTransitRouteTableAggregationRequest
+
+        @return: DeleteTransitRouteTableAggregationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_transit_route_table_aggregation_with_options(request, runtime)
 
@@ -3011,6 +3031,19 @@ class Client(OpenApiClient):
         return self.delete_transit_router_cidr_with_options(request, runtime)
 
     def delete_transit_router_multicast_domain_with_options(self, request, runtime):
+        """
+        Before you delete a multicast domain, make sure that the following requirements are met:
+        *   The multicast domain is disassociated from all vSwitches. For more information, see [DisassociateTransitRouterMulticastDomain](~~429774~~).
+        *   All multicast sources and members are removed from the multicast domain. For more information, see [DeregisterTransitRouterMulticastGroupSources](~~429776~~) and [DeregisterTransitRouterMulticastGroupMembers](~~429779~~).
+        *   The multicast domain is not added to other multicast domains as a multicast member. If the multicast domain is added to another multicast domain as a multicast member, you must remove the multicast domain from the other multicast domain. For more information, see [DeregisterTransitRouterMulticastGroupMembers](~~429779~~).
+        
+
+        @param request: DeleteTransitRouterMulticastDomainRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTransitRouterMulticastDomainResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -3047,6 +3080,17 @@ class Client(OpenApiClient):
         )
 
     def delete_transit_router_multicast_domain(self, request):
+        """
+        Before you delete a multicast domain, make sure that the following requirements are met:
+        *   The multicast domain is disassociated from all vSwitches. For more information, see [DisassociateTransitRouterMulticastDomain](~~429774~~).
+        *   All multicast sources and members are removed from the multicast domain. For more information, see [DeregisterTransitRouterMulticastGroupSources](~~429776~~) and [DeregisterTransitRouterMulticastGroupMembers](~~429779~~).
+        *   The multicast domain is not added to other multicast domains as a multicast member. If the multicast domain is added to another multicast domain as a multicast member, you must remove the multicast domain from the other multicast domain. For more information, see [DeregisterTransitRouterMulticastGroupMembers](~~429779~~).
+        
+
+        @param request: DeleteTransitRouterMulticastDomainRequest
+
+        @return: DeleteTransitRouterMulticastDomainResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_transit_router_multicast_domain_with_options(request, runtime)
 
