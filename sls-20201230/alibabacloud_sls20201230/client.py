@@ -2871,6 +2871,8 @@ class Client(OpenApiClient):
             body['forward'] = request.forward
         if not UtilClient.is_unset(request.from_):
             body['from'] = request.from_
+        if not UtilClient.is_unset(request.highlight):
+            body['highlight'] = request.highlight
         if not UtilClient.is_unset(request.line):
             body['line'] = request.line
         if not UtilClient.is_unset(request.offset):

@@ -7115,14 +7115,15 @@ class GetLogsV2Headers(TeaModel):
 
 
 class GetLogsV2Request(TeaModel):
-    def __init__(self, forward=None, from_=None, line=None, offset=None, power_sql=None, query=None, reverse=None,
-                 session=None, shard=None, to=None, topic=None):
+    def __init__(self, forward=None, from_=None, highlight=None, line=None, offset=None, power_sql=None, query=None,
+                 reverse=None, session=None, shard=None, to=None, topic=None):
         # Specifies whether to page forward or backward for the scan-based query or the phrase search.
         self.forward = forward  # type: bool
         # The beginning of the time range to query. The value is the log time that is specified when log data is written.
         # 
         # The time range that is specified in this operation is a left-closed, right-open interval. The interval includes the start time specified by the from parameter, but does not include the end time specified by the to parameter. If you specify the same value for the from and to parameters, the interval is invalid, and an error message is returned. The value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.from_ = from_  # type: int
+        self.highlight = highlight  # type: bool
         # The maximum number of logs to return for the request. This parameter takes effect only when the query parameter is set to a search statement. Minimum value: 0. Maximum value: 100. Default value: 100.
         self.line = line  # type: long
         # The line from which the query starts. This parameter takes effect only when the query parameter is set to a search statement. Default value: 0.
@@ -7163,6 +7164,8 @@ class GetLogsV2Request(TeaModel):
             result['forward'] = self.forward
         if self.from_ is not None:
             result['from'] = self.from_
+        if self.highlight is not None:
+            result['highlight'] = self.highlight
         if self.line is not None:
             result['line'] = self.line
         if self.offset is not None:
@@ -7189,6 +7192,8 @@ class GetLogsV2Request(TeaModel):
             self.forward = m.get('forward')
         if m.get('from') is not None:
             self.from_ = m.get('from')
+        if m.get('highlight') is not None:
+            self.highlight = m.get('highlight')
         if m.get('line') is not None:
             self.line = m.get('line')
         if m.get('offset') is not None:
@@ -7210,22 +7215,69 @@ class GetLogsV2Request(TeaModel):
         return self
 
 
+class GetLogsV2ResponseBodyMetaPhraseQueryInfo(TeaModel):
+    def __init__(self, begin_offset=None, end_offset=None, end_time=None, scan_all=None):
+        self.begin_offset = begin_offset  # type: long
+        self.end_offset = end_offset  # type: long
+        self.end_time = end_time  # type: long
+        self.scan_all = scan_all  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetLogsV2ResponseBodyMetaPhraseQueryInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.begin_offset is not None:
+            result['beginOffset'] = self.begin_offset
+        if self.end_offset is not None:
+            result['endOffset'] = self.end_offset
+        if self.end_time is not None:
+            result['endTime'] = self.end_time
+        if self.scan_all is not None:
+            result['scanAll'] = self.scan_all
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('beginOffset') is not None:
+            self.begin_offset = m.get('beginOffset')
+        if m.get('endOffset') is not None:
+            self.end_offset = m.get('endOffset')
+        if m.get('endTime') is not None:
+            self.end_time = m.get('endTime')
+        if m.get('scanAll') is not None:
+            self.scan_all = m.get('scanAll')
+        return self
+
+
 class GetLogsV2ResponseBodyMeta(TeaModel):
-    def __init__(self, agg_query=None, count=None, elapsed_millisecond=None, has_sql=None, is_accurate=None,
-                 keys=None, processed_bytes=None, processed_rows=None, progress=None, telementry_type=None, terms=None,
-                 where_query=None):
+    def __init__(self, agg_query=None, column_types=None, count=None, cpu_cores=None, cpu_sec=None,
+                 elapsed_millisecond=None, has_sql=None, highlights=None, is_accurate=None, keys=None, limited=None, mode=None,
+                 phrase_query_info=None, processed_bytes=None, processed_rows=None, progress=None, scan_bytes=None,
+                 telementry_type=None, terms=None, where_query=None):
         # The SQL statement after | in the query statement.
         self.agg_query = agg_query  # type: str
+        self.column_types = column_types  # type: list[str]
         # The number of rows that are returned.
         self.count = count  # type: int
+        self.cpu_cores = cpu_cores  # type: int
+        self.cpu_sec = cpu_sec  # type: float
         # The amount of time that is consumed by the request. Unit: milliseconds.
         self.elapsed_millisecond = elapsed_millisecond  # type: long
         # Indicates whether the query is an SQL query.
         self.has_sql = has_sql  # type: bool
+        self.highlights = highlights  # type: list[list[LogContent]]
         # Indicates whether the returned result is accurate.
         self.is_accurate = is_accurate  # type: bool
         # All keys in the query result.
         self.keys = keys  # type: list[str]
+        self.limited = limited  # type: int
+        self.mode = mode  # type: int
+        self.phrase_query_info = phrase_query_info  # type: GetLogsV2ResponseBodyMetaPhraseQueryInfo
         # The number of logs that are processed in the request.
         self.processed_bytes = processed_bytes  # type: long
         # The number of rows that are processed in the request.
@@ -7235,6 +7287,7 @@ class GetLogsV2ResponseBodyMeta(TeaModel):
         # *   Complete: The query was successful, and the complete result is returned.
         # *   Incomplete: The query was successful, but the query result is incomplete. To obtain the complete result, you must call the operation again.
         self.progress = progress  # type: str
+        self.scan_bytes = scan_bytes  # type: long
         # The type of observable data.
         self.telementry_type = telementry_type  # type: str
         # All terms in the query statement.
@@ -7243,7 +7296,13 @@ class GetLogsV2ResponseBodyMeta(TeaModel):
         self.where_query = where_query  # type: str
 
     def validate(self):
-        pass
+        if self.highlights:
+            for k in self.highlights:
+                for k1 in k:
+                    if k1:
+                        k1.validate()
+        if self.phrase_query_info:
+            self.phrase_query_info.validate()
 
     def to_map(self):
         _map = super(GetLogsV2ResponseBodyMeta, self).to_map()
@@ -7253,22 +7312,43 @@ class GetLogsV2ResponseBodyMeta(TeaModel):
         result = dict()
         if self.agg_query is not None:
             result['aggQuery'] = self.agg_query
+        if self.column_types is not None:
+            result['columnTypes'] = self.column_types
         if self.count is not None:
             result['count'] = self.count
+        if self.cpu_cores is not None:
+            result['cpuCores'] = self.cpu_cores
+        if self.cpu_sec is not None:
+            result['cpuSec'] = self.cpu_sec
         if self.elapsed_millisecond is not None:
             result['elapsedMillisecond'] = self.elapsed_millisecond
         if self.has_sql is not None:
             result['hasSQL'] = self.has_sql
+        result['highlights'] = []
+        if self.highlights is not None:
+            for k in self.highlights:
+                l1 = []
+                for k1 in k:
+                    l1.append(k1.to_map() if k1 else None)
+                result['highlights'].append(l1)
         if self.is_accurate is not None:
             result['isAccurate'] = self.is_accurate
         if self.keys is not None:
             result['keys'] = self.keys
+        if self.limited is not None:
+            result['limited'] = self.limited
+        if self.mode is not None:
+            result['mode'] = self.mode
+        if self.phrase_query_info is not None:
+            result['phraseQueryInfo'] = self.phrase_query_info.to_map()
         if self.processed_bytes is not None:
             result['processedBytes'] = self.processed_bytes
         if self.processed_rows is not None:
             result['processedRows'] = self.processed_rows
         if self.progress is not None:
             result['progress'] = self.progress
+        if self.scan_bytes is not None:
+            result['scanBytes'] = self.scan_bytes
         if self.telementry_type is not None:
             result['telementryType'] = self.telementry_type
         if self.terms is not None:
@@ -7281,22 +7361,45 @@ class GetLogsV2ResponseBodyMeta(TeaModel):
         m = m or dict()
         if m.get('aggQuery') is not None:
             self.agg_query = m.get('aggQuery')
+        if m.get('columnTypes') is not None:
+            self.column_types = m.get('columnTypes')
         if m.get('count') is not None:
             self.count = m.get('count')
+        if m.get('cpuCores') is not None:
+            self.cpu_cores = m.get('cpuCores')
+        if m.get('cpuSec') is not None:
+            self.cpu_sec = m.get('cpuSec')
         if m.get('elapsedMillisecond') is not None:
             self.elapsed_millisecond = m.get('elapsedMillisecond')
         if m.get('hasSQL') is not None:
             self.has_sql = m.get('hasSQL')
+        self.highlights = []
+        if m.get('highlights') is not None:
+            for k in m.get('highlights'):
+                l1 = []
+                for k1 in k:
+                    temp_model = LogContent()
+                    l1.append(temp_model.from_map(k1))
+                self.highlights.append(l1)
         if m.get('isAccurate') is not None:
             self.is_accurate = m.get('isAccurate')
         if m.get('keys') is not None:
             self.keys = m.get('keys')
+        if m.get('limited') is not None:
+            self.limited = m.get('limited')
+        if m.get('mode') is not None:
+            self.mode = m.get('mode')
+        if m.get('phraseQueryInfo') is not None:
+            temp_model = GetLogsV2ResponseBodyMetaPhraseQueryInfo()
+            self.phrase_query_info = temp_model.from_map(m['phraseQueryInfo'])
         if m.get('processedBytes') is not None:
             self.processed_bytes = m.get('processedBytes')
         if m.get('processedRows') is not None:
             self.processed_rows = m.get('processedRows')
         if m.get('progress') is not None:
             self.progress = m.get('progress')
+        if m.get('scanBytes') is not None:
+            self.scan_bytes = m.get('scanBytes')
         if m.get('telementryType') is not None:
             self.telementry_type = m.get('telementryType')
         if m.get('terms') is not None:
