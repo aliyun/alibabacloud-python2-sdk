@@ -13138,6 +13138,8 @@ class Client(OpenApiClient):
     def get_check_summary_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.is_item_statistic):
+            query['IsItemStatistic'] = request.is_item_statistic
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
         if not UtilClient.is_unset(request.resource_directory_account_id):
