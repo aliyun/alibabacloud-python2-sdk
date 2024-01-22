@@ -4640,9 +4640,10 @@ class DescribeApiResponse(TeaModel):
 
 
 class DescribeApiDocRequest(TeaModel):
-    def __init__(self, api_id=None, group_id=None, stage_name=None):
+    def __init__(self, api_id=None, group_id=None, security_token=None, stage_name=None):
         self.api_id = api_id  # type: str
         self.group_id = group_id  # type: str
+        self.security_token = security_token  # type: str
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -4658,6 +4659,8 @@ class DescribeApiDocRequest(TeaModel):
             result['ApiId'] = self.api_id
         if self.group_id is not None:
             result['GroupId'] = self.group_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         if self.stage_name is not None:
             result['StageName'] = self.stage_name
         return result
@@ -4668,6 +4671,8 @@ class DescribeApiDocRequest(TeaModel):
             self.api_id = m.get('ApiId')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         if m.get('StageName') is not None:
             self.stage_name = m.get('StageName')
         return self
@@ -5525,12 +5530,14 @@ class DescribeApiDocResponse(TeaModel):
 
 
 class DescribeApiDocsRequest(TeaModel):
-    def __init__(self, api_id=None, api_name=None, group_id=None, page_number=None, page_size=None, stage_name=None):
+    def __init__(self, api_id=None, api_name=None, group_id=None, page_number=None, page_size=None,
+                 security_token=None, stage_name=None):
         self.api_id = api_id  # type: str
         self.api_name = api_name  # type: str
         self.group_id = group_id  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.security_token = security_token  # type: str
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -5552,6 +5559,8 @@ class DescribeApiDocsRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         if self.stage_name is not None:
             result['StageName'] = self.stage_name
         return result
@@ -5568,6 +5577,8 @@ class DescribeApiDocsRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         if m.get('StageName') is not None:
             self.stage_name = m.get('StageName')
         return self
@@ -6460,11 +6471,12 @@ class DescribeApiGroupDetailResponse(TeaModel):
 
 
 class DescribeApiGroupsRequest(TeaModel):
-    def __init__(self, group_id=None, group_name=None, page_number=None, page_size=None):
+    def __init__(self, group_id=None, group_name=None, page_number=None, page_size=None, security_token=None):
         self.group_id = group_id  # type: str
         self.group_name = group_name  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -6483,6 +6495,8 @@ class DescribeApiGroupsRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
@@ -6495,6 +6509,8 @@ class DescribeApiGroupsRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 

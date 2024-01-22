@@ -1265,6 +1265,8 @@ class Client(OpenApiClient):
             query['ApiId'] = request.api_id
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         if not UtilClient.is_unset(request.stage_name):
             query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
@@ -1303,6 +1305,8 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         if not UtilClient.is_unset(request.stage_name):
             query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
@@ -1441,6 +1445,8 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
