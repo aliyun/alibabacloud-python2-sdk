@@ -5862,11 +5862,14 @@ class DescribeBackupsResponseBodyBackups(TeaModel):
 
 
 class DescribeBackupsResponseBody(TeaModel):
-    def __init__(self, access_denied_detail=None, backups=None, page_number=None, page_size=None, request_id=None,
-                 total_count=None):
+    def __init__(self, access_denied_detail=None, backups=None, free_size=None, full_storage_size=None,
+                 log_storage_size=None, page_number=None, page_size=None, request_id=None, total_count=None):
         self.access_denied_detail = access_denied_detail  # type: DescribeBackupsResponseBodyAccessDeniedDetail
         # Details of the backup files.
         self.backups = backups  # type: DescribeBackupsResponseBodyBackups
+        self.free_size = free_size  # type: long
+        self.full_storage_size = full_storage_size  # type: long
+        self.log_storage_size = log_storage_size  # type: long
         # The page number of the returned page.
         self.page_number = page_number  # type: int
         # The number of entries returned on each page.
@@ -5892,6 +5895,12 @@ class DescribeBackupsResponseBody(TeaModel):
             result['AccessDeniedDetail'] = self.access_denied_detail.to_map()
         if self.backups is not None:
             result['Backups'] = self.backups.to_map()
+        if self.free_size is not None:
+            result['FreeSize'] = self.free_size
+        if self.full_storage_size is not None:
+            result['FullStorageSize'] = self.full_storage_size
+        if self.log_storage_size is not None:
+            result['LogStorageSize'] = self.log_storage_size
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -5910,6 +5919,12 @@ class DescribeBackupsResponseBody(TeaModel):
         if m.get('Backups') is not None:
             temp_model = DescribeBackupsResponseBodyBackups()
             self.backups = temp_model.from_map(m['Backups'])
+        if m.get('FreeSize') is not None:
+            self.free_size = m.get('FreeSize')
+        if m.get('FullStorageSize') is not None:
+            self.full_storage_size = m.get('FullStorageSize')
+        if m.get('LogStorageSize') is not None:
+            self.log_storage_size = m.get('LogStorageSize')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -6721,8 +6736,12 @@ class DescribeClusterBackupListResponseBodyClusterBackups(TeaModel):
 
 
 class DescribeClusterBackupListResponseBody(TeaModel):
-    def __init__(self, cluster_backups=None, max_results=None, page_number=None, page_size=None, request_id=None):
+    def __init__(self, cluster_backups=None, free_size=None, full_storage_size=None, log_storage_size=None,
+                 max_results=None, page_number=None, page_size=None, request_id=None):
         self.cluster_backups = cluster_backups  # type: list[DescribeClusterBackupListResponseBodyClusterBackups]
+        self.free_size = free_size  # type: long
+        self.full_storage_size = full_storage_size  # type: long
+        self.log_storage_size = log_storage_size  # type: long
         self.max_results = max_results  # type: int
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -6744,6 +6763,12 @@ class DescribeClusterBackupListResponseBody(TeaModel):
         if self.cluster_backups is not None:
             for k in self.cluster_backups:
                 result['ClusterBackups'].append(k.to_map() if k else None)
+        if self.free_size is not None:
+            result['FreeSize'] = self.free_size
+        if self.full_storage_size is not None:
+            result['FullStorageSize'] = self.full_storage_size
+        if self.log_storage_size is not None:
+            result['LogStorageSize'] = self.log_storage_size
         if self.max_results is not None:
             result['MaxResults'] = self.max_results
         if self.page_number is not None:
@@ -6761,6 +6786,12 @@ class DescribeClusterBackupListResponseBody(TeaModel):
             for k in m.get('ClusterBackups'):
                 temp_model = DescribeClusterBackupListResponseBodyClusterBackups()
                 self.cluster_backups.append(temp_model.from_map(k))
+        if m.get('FreeSize') is not None:
+            self.free_size = m.get('FreeSize')
+        if m.get('FullStorageSize') is not None:
+            self.full_storage_size = m.get('FullStorageSize')
+        if m.get('LogStorageSize') is not None:
+            self.log_storage_size = m.get('LogStorageSize')
         if m.get('MaxResults') is not None:
             self.max_results = m.get('MaxResults')
         if m.get('PageNumber') is not None:
