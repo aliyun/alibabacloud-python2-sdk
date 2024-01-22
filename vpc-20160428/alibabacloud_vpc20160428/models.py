@@ -12553,7 +12553,7 @@ class CreatePublicIpAddressPoolRequestTag(TeaModel):
 class CreatePublicIpAddressPoolRequest(TeaModel):
     def __init__(self, biz_type=None, client_token=None, description=None, dry_run=None, isp=None, name=None,
                  owner_account=None, owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None,
-                 resource_owner_id=None, tag=None, zones=None):
+                 resource_owner_id=None, security_protection_types=None, tag=None, zones=None):
         # The service type of the IP address pool. Valid values:
         # 
         # *   **CloudBox** Only cloud box users can select this type.
@@ -12604,6 +12604,7 @@ class CreatePublicIpAddressPoolRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.security_protection_types = security_protection_types  # type: list[str]
         # The tag of the resource.
         self.tag = tag  # type: list[CreatePublicIpAddressPoolRequestTag]
         # The zone of the IP address pool. If you set **BizType** to **CloudBox**, this parameter is required.
@@ -12645,6 +12646,8 @@ class CreatePublicIpAddressPoolRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.security_protection_types is not None:
+            result['SecurityProtectionTypes'] = self.security_protection_types
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -12679,6 +12682,8 @@ class CreatePublicIpAddressPoolRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SecurityProtectionTypes') is not None:
+            self.security_protection_types = m.get('SecurityProtectionTypes')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
@@ -18974,6 +18979,8 @@ class CreateVpnGatewayRequest(TeaModel):
         # 
         # *   **true**\
         # *   **false** (default)
+        # 
+        # >  We recommend that you enable automatic payment. If you disable automatic payment, you must manually pay the bill for creating the VPN gateway.
         self.auto_pay = auto_pay  # type: bool
         # The maximum bandwidth of the VPN gateway. Unit: Mbit/s.
         # 
@@ -19025,11 +19032,13 @@ class CreateVpnGatewayRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The ID of the resource group to which the VPN gateway belongs.
         # 
-        # - You can call the [ListResourceGroups](~~158855~~) operation to query the resource group list.
-        # - If you do not specify a resource group, the VPN gateway will belong to the default resource group after being created.
-        # - After the VPN gateway is created, if you create an SSL server, SSL client certificate, IPsec server, or IPsec-VPN connection under the VPN gateway (when the IPsec-VPN connection is bound to the VPN gateway), these resources directly belong to the resource group to which the VPN gateway belongs and cannot be modified.
+        # *   You can call the [ListResourceGroups](~~158855~~) operation to query resource group IDs.
         # 
-        #     If you change the resource group to which the VPN gateway belongs, the resource group to which the resource belongs will also be changed.
+        # *   If you do not specify a resource group ID, the VPN gateway belongs to the default resource group.
+        # 
+        # *   After the VPN gateway is created, the following resources also belong to the resource group and you cannot change the resource group: SSL servers, SSL client certificates, IPsec servers, and IPsec-VPN connections.
+        # 
+        #     If you move the VPN gateway to a new resource group, the preceding resources are also moved to the new resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -51804,9 +51813,9 @@ class DescribeVpnConnectionsRequest(TeaModel):
         # 
         # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # IPsec连接所属的资源组ID。
+        # The ID of the resource group to which the IPsec-VPN connection belongs.
         # 
-        # 您可以调用[ListResourceGroups](~~158855~~)接口查询资源组ID。
+        # You can call the [ListResourceGroups](~~158855~~) operation to query the resource group ID.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -53507,7 +53516,7 @@ class DescribeVpnGatewayResponseBody(TeaModel):
         self.vpn_gateway_id = vpn_gateway_id  # type: str
         # The type of the VPN gateway.
         # 
-        # Only **Normal** may be returned, which indicates a standard NAT gateway.
+        # Only **Normal** may be returned, which indicates a standard VPN gateway.
         self.vpn_type = vpn_type  # type: str
 
     def validate(self):
@@ -64675,7 +64684,7 @@ class ListPublicIpAddressPoolsRequestTags(TeaModel):
 class ListPublicIpAddressPoolsRequest(TeaModel):
     def __init__(self, dry_run=None, isp=None, max_results=None, name=None, next_token=None, owner_account=None,
                  owner_id=None, public_ip_address_pool_ids=None, region_id=None, resource_group_id=None,
-                 resource_owner_account=None, resource_owner_id=None, status=None, tags=None):
+                 resource_owner_account=None, resource_owner_id=None, security_protection_enabled=None, status=None, tags=None):
         # Specifies whether to perform a dry run, without performing the actual request. Valid values:
         # 
         # *   **true**: performs only a dry run. The system checks the request for potential issues, including missing parameter values, incorrect request syntax, and service limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
@@ -64724,6 +64733,7 @@ class ListPublicIpAddressPoolsRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.security_protection_enabled = security_protection_enabled  # type: bool
         # The status of the IP address pool. Valid values:
         # 
         # *   **Created**\
@@ -64769,6 +64779,8 @@ class ListPublicIpAddressPoolsRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.security_protection_enabled is not None:
+            result['SecurityProtectionEnabled'] = self.security_protection_enabled
         if self.status is not None:
             result['Status'] = self.status
         result['Tags'] = []
@@ -64803,6 +64815,8 @@ class ListPublicIpAddressPoolsRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SecurityProtectionEnabled') is not None:
+            self.security_protection_enabled = m.get('SecurityProtectionEnabled')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         self.tags = []
@@ -64847,7 +64861,8 @@ class ListPublicIpAddressPoolsResponseBodyPublicIpAddressPoolListTags(TeaModel):
 class ListPublicIpAddressPoolsResponseBodyPublicIpAddressPoolList(TeaModel):
     def __init__(self, biz_type=None, creation_time=None, description=None, ip_address_remaining=None, isp=None,
                  name=None, owner_id=None, public_ip_address_pool_id=None, region_id=None, resource_group_id=None,
-                 share_type=None, status=None, tags=None, total_ip_num=None, used_ip_num=None, user_type=None, zones=None):
+                 security_protection_types=None, share_type=None, status=None, tags=None, total_ip_num=None, used_ip_num=None, user_type=None,
+                 zones=None):
         # The service type of the IP address pool. Valid values:
         # 
         # *   **CloudBox**: the cloud box service type. Only cloud box users can select this type.
@@ -64890,6 +64905,7 @@ class ListPublicIpAddressPoolsResponseBodyPublicIpAddressPoolList(TeaModel):
         self.region_id = region_id  # type: str
         # The ID of the resource group to which the IP address pool belongs.
         self.resource_group_id = resource_group_id  # type: str
+        self.security_protection_types = security_protection_types  # type: list[str]
         # Indicates whether the IP address pool is shared.
         # 
         # *   Only **Shared** may be returned.
@@ -64947,6 +64963,8 @@ class ListPublicIpAddressPoolsResponseBodyPublicIpAddressPoolList(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.security_protection_types is not None:
+            result['SecurityProtectionTypes'] = self.security_protection_types
         if self.share_type is not None:
             result['ShareType'] = self.share_type
         if self.status is not None:
@@ -64987,6 +65005,8 @@ class ListPublicIpAddressPoolsResponseBodyPublicIpAddressPoolList(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SecurityProtectionTypes') is not None:
+            self.security_protection_types = m.get('SecurityProtectionTypes')
         if m.get('ShareType') is not None:
             self.share_type = m.get('ShareType')
         if m.get('Status') is not None:
@@ -73999,9 +74019,7 @@ class ModifySslVpnServerResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # The ID of the resource group to which the SSL server belongs.
         # 
-        # The SSL server has the same resource group as its associated VPN gateway instance.
-        # 
-        # You can call the [ListResourceGroups](~~158855~~) operation to query the resource group information.
+        # The SSL server and the VPN gateway associated with the SSL server belong to the same resource group. You can call the [ListResourceGroups](~~158855~~) operation to query resource groups.
         self.resource_group_id = resource_group_id  # type: str
         # The ID of the SSL server.
         self.ssl_vpn_server_id = ssl_vpn_server_id  # type: str
