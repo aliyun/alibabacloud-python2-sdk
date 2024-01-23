@@ -7372,6 +7372,336 @@ class CreateOrgHonorTemplateResponse(TeaModel):
         return self
 
 
+class CreatePersonalTodoTaskHeadersAccountContext(TeaModel):
+    def __init__(self, user_token=None):
+        self.user_token = user_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreatePersonalTodoTaskHeadersAccountContext, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_token is not None:
+            result['userToken'] = self.user_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('userToken') is not None:
+            self.user_token = m.get('userToken')
+        return self
+
+
+class CreatePersonalTodoTaskHeaders(TeaModel):
+    def __init__(self, common_headers=None, account_context=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.account_context = account_context  # type: CreatePersonalTodoTaskHeadersAccountContext
+
+    def validate(self):
+        if self.account_context:
+            self.account_context.validate()
+
+    def to_map(self):
+        _map = super(CreatePersonalTodoTaskHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.account_context is not None:
+            result['AccountContext'] = self.account_context.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('AccountContext') is not None:
+            temp_model = CreatePersonalTodoTaskHeadersAccountContext()
+            self.account_context = temp_model.from_map(m['AccountContext'])
+        return self
+
+
+class CreatePersonalTodoTaskShrinkHeaders(TeaModel):
+    def __init__(self, common_headers=None, account_context_shrink=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.account_context_shrink = account_context_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreatePersonalTodoTaskShrinkHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.account_context_shrink is not None:
+            result['AccountContext'] = self.account_context_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('AccountContext') is not None:
+            self.account_context_shrink = m.get('AccountContext')
+        return self
+
+
+class CreatePersonalTodoTaskRequestNotifyConfigs(TeaModel):
+    def __init__(self, ding_notify=None):
+        self.ding_notify = ding_notify  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreatePersonalTodoTaskRequestNotifyConfigs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ding_notify is not None:
+            result['DingNotify'] = self.ding_notify
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DingNotify') is not None:
+            self.ding_notify = m.get('DingNotify')
+        return self
+
+
+class CreatePersonalTodoTaskRequestTenantContext(TeaModel):
+    def __init__(self, tenant_id=None):
+        self.tenant_id = tenant_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreatePersonalTodoTaskRequestTenantContext, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tenant_id is not None:
+            result['tenantId'] = self.tenant_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('tenantId') is not None:
+            self.tenant_id = m.get('tenantId')
+        return self
+
+
+class CreatePersonalTodoTaskRequest(TeaModel):
+    def __init__(self, description=None, due_time=None, executor_ids=None, notify_configs=None,
+                 participant_ids=None, subject=None, tenant_context=None):
+        self.description = description  # type: str
+        self.due_time = due_time  # type: long
+        self.executor_ids = executor_ids  # type: list[str]
+        self.notify_configs = notify_configs  # type: CreatePersonalTodoTaskRequestNotifyConfigs
+        self.participant_ids = participant_ids  # type: list[str]
+        self.subject = subject  # type: str
+        self.tenant_context = tenant_context  # type: CreatePersonalTodoTaskRequestTenantContext
+
+    def validate(self):
+        if self.notify_configs:
+            self.notify_configs.validate()
+        if self.tenant_context:
+            self.tenant_context.validate()
+
+    def to_map(self):
+        _map = super(CreatePersonalTodoTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.due_time is not None:
+            result['DueTime'] = self.due_time
+        if self.executor_ids is not None:
+            result['ExecutorIds'] = self.executor_ids
+        if self.notify_configs is not None:
+            result['NotifyConfigs'] = self.notify_configs.to_map()
+        if self.participant_ids is not None:
+            result['ParticipantIds'] = self.participant_ids
+        if self.subject is not None:
+            result['Subject'] = self.subject
+        if self.tenant_context is not None:
+            result['TenantContext'] = self.tenant_context.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DueTime') is not None:
+            self.due_time = m.get('DueTime')
+        if m.get('ExecutorIds') is not None:
+            self.executor_ids = m.get('ExecutorIds')
+        if m.get('NotifyConfigs') is not None:
+            temp_model = CreatePersonalTodoTaskRequestNotifyConfigs()
+            self.notify_configs = temp_model.from_map(m['NotifyConfigs'])
+        if m.get('ParticipantIds') is not None:
+            self.participant_ids = m.get('ParticipantIds')
+        if m.get('Subject') is not None:
+            self.subject = m.get('Subject')
+        if m.get('TenantContext') is not None:
+            temp_model = CreatePersonalTodoTaskRequestTenantContext()
+            self.tenant_context = temp_model.from_map(m['TenantContext'])
+        return self
+
+
+class CreatePersonalTodoTaskShrinkRequest(TeaModel):
+    def __init__(self, description=None, due_time=None, executor_ids_shrink=None, notify_configs_shrink=None,
+                 participant_ids_shrink=None, subject=None, tenant_context_shrink=None):
+        self.description = description  # type: str
+        self.due_time = due_time  # type: long
+        self.executor_ids_shrink = executor_ids_shrink  # type: str
+        self.notify_configs_shrink = notify_configs_shrink  # type: str
+        self.participant_ids_shrink = participant_ids_shrink  # type: str
+        self.subject = subject  # type: str
+        self.tenant_context_shrink = tenant_context_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreatePersonalTodoTaskShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.due_time is not None:
+            result['DueTime'] = self.due_time
+        if self.executor_ids_shrink is not None:
+            result['ExecutorIds'] = self.executor_ids_shrink
+        if self.notify_configs_shrink is not None:
+            result['NotifyConfigs'] = self.notify_configs_shrink
+        if self.participant_ids_shrink is not None:
+            result['ParticipantIds'] = self.participant_ids_shrink
+        if self.subject is not None:
+            result['Subject'] = self.subject
+        if self.tenant_context_shrink is not None:
+            result['TenantContext'] = self.tenant_context_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DueTime') is not None:
+            self.due_time = m.get('DueTime')
+        if m.get('ExecutorIds') is not None:
+            self.executor_ids_shrink = m.get('ExecutorIds')
+        if m.get('NotifyConfigs') is not None:
+            self.notify_configs_shrink = m.get('NotifyConfigs')
+        if m.get('ParticipantIds') is not None:
+            self.participant_ids_shrink = m.get('ParticipantIds')
+        if m.get('Subject') is not None:
+            self.subject = m.get('Subject')
+        if m.get('TenantContext') is not None:
+            self.tenant_context_shrink = m.get('TenantContext')
+        return self
+
+
+class CreatePersonalTodoTaskResponseBody(TeaModel):
+    def __init__(self, created_time=None, request_id=None, task_id=None, vendor_request_id=None, vendor_type=None):
+        self.created_time = created_time  # type: long
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
+        self.vendor_request_id = vendor_request_id  # type: str
+        self.vendor_type = vendor_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreatePersonalTodoTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.created_time is not None:
+            result['createdTime'] = self.created_time
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.task_id is not None:
+            result['taskId'] = self.task_id
+        if self.vendor_request_id is not None:
+            result['vendorRequestId'] = self.vendor_request_id
+        if self.vendor_type is not None:
+            result['vendorType'] = self.vendor_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('createdTime') is not None:
+            self.created_time = m.get('createdTime')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('taskId') is not None:
+            self.task_id = m.get('taskId')
+        if m.get('vendorRequestId') is not None:
+            self.vendor_request_id = m.get('vendorRequestId')
+        if m.get('vendorType') is not None:
+            self.vendor_type = m.get('vendorType')
+        return self
+
+
+class CreatePersonalTodoTaskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreatePersonalTodoTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreatePersonalTodoTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreatePersonalTodoTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateReportHeadersAccountContext(TeaModel):
     def __init__(self, account_id=None):
         self.account_id = account_id  # type: str
