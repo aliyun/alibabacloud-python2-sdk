@@ -216,7 +216,8 @@ class BatchQueryMotionShopTaskStatusResponseBodyDataTasksResult(TeaModel):
 
 
 class BatchQueryMotionShopTaskStatusResponseBodyDataTasks(TeaModel):
-    def __init__(self, result=None, status=None, task_id=None):
+    def __init__(self, error_message=None, result=None, status=None, task_id=None):
+        self.error_message = error_message  # type: str
         self.result = result  # type: BatchQueryMotionShopTaskStatusResponseBodyDataTasksResult
         self.status = status  # type: str
         self.task_id = task_id  # type: str
@@ -231,6 +232,8 @@ class BatchQueryMotionShopTaskStatusResponseBodyDataTasks(TeaModel):
             return _map
 
         result = dict()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         if self.result is not None:
             result['Result'] = self.result.to_map()
         if self.status is not None:
@@ -241,6 +244,8 @@ class BatchQueryMotionShopTaskStatusResponseBodyDataTasks(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Result') is not None:
             temp_model = BatchQueryMotionShopTaskStatusResponseBodyDataTasksResult()
             self.result = temp_model.from_map(m['Result'])
@@ -2229,7 +2234,8 @@ class ListMotionShopTasksResponseBodyDataResult(TeaModel):
 
 
 class ListMotionShopTasksResponseBodyData(TeaModel):
-    def __init__(self, material=None, result=None, status=None, task_id=None):
+    def __init__(self, error_message=None, material=None, result=None, status=None, task_id=None):
+        self.error_message = error_message  # type: str
         self.material = material  # type: ListMotionShopTasksResponseBodyDataMaterial
         self.result = result  # type: ListMotionShopTasksResponseBodyDataResult
         self.status = status  # type: str
@@ -2247,6 +2253,8 @@ class ListMotionShopTasksResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         if self.material is not None:
             result['Material'] = self.material.to_map()
         if self.result is not None:
@@ -2259,6 +2267,8 @@ class ListMotionShopTasksResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Material') is not None:
             temp_model = ListMotionShopTasksResponseBodyDataMaterial()
             self.material = temp_model.from_map(m['Material'])
