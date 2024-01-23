@@ -38042,8 +38042,9 @@ class DescribeParameterGroupResponse(TeaModel):
 
 
 class DescribeParameterGroupsRequest(TeaModel):
-    def __init__(self, owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None,
-                 resource_owner_id=None):
+    def __init__(self, enable_detail=None, owner_id=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None):
+        self.enable_detail = enable_detail  # type: bool
         self.owner_id = owner_id  # type: long
         # The region ID. You can call the DescribeRegions operation to query the most recent region list.
         self.region_id = region_id  # type: str
@@ -38061,6 +38062,8 @@ class DescribeParameterGroupsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.enable_detail is not None:
+            result['EnableDetail'] = self.enable_detail
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -38075,6 +38078,8 @@ class DescribeParameterGroupsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EnableDetail') is not None:
+            self.enable_detail = m.get('EnableDetail')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
@@ -50573,11 +50578,8 @@ class ModifyBackupPolicyRequest(TeaModel):
         # *   Valid values when **ArchiveBackupKeepPolicy** is set to **ByMonth**: **1** to **31**.
         # *   Valid values when **ArchiveBackupKeepPolicy** is set to **ByWeek**: **1** to **7**.
         # 
-        # > 
-        # 
-        # *   You do not need to specify this parameter when **ArchiveBackupKeepPolicy** is set to **KeepAll**.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
+        # > *   You do not need to specify this parameter when **ArchiveBackupKeepPolicy** is set to **KeepAll**.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
         self.archive_backup_keep_count = archive_backup_keep_count  # type: int
         # The retention period of archived backup files. The number of archived backup files that can be retained within the specified retention period is specified by **ArchiveBackupKeepCount**. Default value: **0**. Valid values:
         # 
@@ -50600,28 +50602,19 @@ class ModifyBackupPolicyRequest(TeaModel):
         # *   **240**: A snapshot backup is performed every 240 minutes.
         # *   **480**: A snapshot backup is performed every 480 minutes.
         # 
-        # > 
-        # 
-        # *   You can configure a backup policy by using this parameter and the **PreferredBackupPeriod** parameter. For example, if you set **PreferredBackupPeriod** to Saturday,Sunday and BackupInterval to \*\*-1\*\*, a snapshot backup is performed on every Saturday and Sunday.
-        # 
-        # *   If the instance runs PostgreSQL, BackupInterval is supported only when the instance is equipped with cloud disks.
-        # 
-        # *   If the instance runs SQL Server, BackupInterval is supported only when the snapshot backup feature is enabled for the instance. For more information, see [Enable snapshot backups for an ApsaraDB RDS for SQL Server instance](~~211143~~).
-        # 
-        # *   If **Category** is set to **Flash**, BackupInterval is invalid.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
+        # > *   You can configure a backup policy by using this parameter and the **PreferredBackupPeriod** parameter. For example, if you set **PreferredBackupPeriod** to Saturday,Sunday and BackupInterval to \*\*-1\*\*, a snapshot backup is performed on every Saturday and Sunday.
+        # > *   If the instance runs PostgreSQL, BackupInterval is supported only when the instance is equipped with cloud disks.
+        # > *   If the instance runs SQL Server, BackupInterval is supported only when the snapshot backup feature is enabled for the instance. For more information, see [Enable snapshot backups for an ApsaraDB RDS for SQL Server instance](~~211143~~).
+        # > *   If **Category** is set to **Flash**, BackupInterval is invalid.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
         self.backup_interval = backup_interval  # type: str
         # Specifies whether to enable the log backup feature. Valid values:
         # 
         # *   **Enable**: enables the feature.
         # *   **Disabled**: disables the feature.
         # 
-        # > 
-        # 
-        # *   This parameter must be specified when **BackupPolicyMode** is set to **DataBackupPolicy**.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
+        # > *   This parameter must be specified when **BackupPolicyMode** is set to **DataBackupPolicy**.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
         self.backup_log = backup_log  # type: str
         # The backup method of the instance. Valid values:
         # 
@@ -50630,11 +50623,8 @@ class ModifyBackupPolicyRequest(TeaModel):
         # 
         # Default value: **Physical**.
         # 
-        # > 
-        # 
-        # *   This parameter takes effect only on instances that run SQL Server with cloud disks.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
+        # > *   This parameter takes effect only on instances that run SQL Server with cloud disks.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
         self.backup_method = backup_method  # type: str
         # The type of the backup. Valid values:
         # 
@@ -50646,19 +50636,13 @@ class ModifyBackupPolicyRequest(TeaModel):
         # *   **1**: secondary instance preferred
         # *   **2**: primary instance preferred
         # 
-        # > 
-        # 
-        # *   This parameter is suitable only for instances that run SQL Server on RDS Cluster Edition.
-        # 
-        # *   This parameter takes effect only when **BackupMethod** is set to **Physical**. If **BackupMethod** is set to **Snapshot**, backups are forcefully performed on the primary instance that runs SQL Server on RDS Cluster Edition.
+        # > *   This parameter is suitable only for instances that run SQL Server on RDS Cluster Edition.
+        # > *   This parameter takes effect only when **BackupMethod** is set to **Physical**. If **BackupMethod** is set to **Snapshot**, backups are forcefully performed on the primary instance that runs SQL Server on RDS Cluster Edition.
         self.backup_priority = backup_priority  # type: int
         # The number of days for which you want to retain data backup files. Valid values: **7 to 730**.
         # 
-        # > 
-        # 
-        # *   This parameter must be specified when **BackupPolicyMode** is set to **DataBackupPolicy**.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
+        # > *   This parameter must be specified when **BackupPolicyMode** is set to **DataBackupPolicy**.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
         self.backup_retention_period = backup_retention_period  # type: str
         # Specifies whether to enable the single-digit second backup feature. Valid values:
         # 
@@ -50684,73 +50668,49 @@ class ModifyBackupPolicyRequest(TeaModel):
         # *   **True** or **1**: enables the feature.
         # *   **False** or **0**: disables the feature.
         # 
-        # > 
-        # 
-        # *   This parameter must be specified when **BackupPolicyMode** is set to **LogBackupPolicy**.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**.
+        # > *   This parameter must be specified when **BackupPolicyMode** is set to **LogBackupPolicy**.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**.
         self.enable_backup_log = enable_backup_log  # type: str
         # Specifies whether to enable incremental backup. Valid values:
         # 
         # *   **false** (default): disables the feature.
         # *   **true**: enables the feature.
         # 
-        # > 
-        # 
-        # *   This parameter takes effect only on instances that run SQL Server with cloud disks.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
+        # > *   This parameter takes effect only on instances that run SQL Server with cloud disks.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
         self.enable_increment_data_backup = enable_increment_data_backup  # type: bool
         # Specifies whether to forcefully delete log backup files from the instance when the storage usage of the instance exceeds 80% or the amount of remaining storage on the instance is less than 5 GB. Valid values: **Enable and Disable**. You can retain the default value.
         # 
-        # > 
-        # 
-        # *   This parameter must be specified when **BackupPolicyMode** is set to **LogBackupPolicy**.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**.
+        # > *   This parameter must be specified when **BackupPolicyMode** is set to **LogBackupPolicy**.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**.
         self.high_space_usage_protection = high_space_usage_protection  # type: str
         # The number of hours for which you want to retain log backup files on the instance. Valid values: **0 to 168**. The value 0 specifies that log backup files are not retained on the instance. The value 168 is calculated based on the following formula: 7 × 24.
         # 
-        # > 
-        # 
-        # *   This parameter must be specified when **BackupPolicyMode** is set to **LogBackupPolicy**.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**.
+        # > *   This parameter must be specified when **BackupPolicyMode** is set to **LogBackupPolicy**.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**.
         self.local_log_retention_hours = local_log_retention_hours  # type: str
         # The maximum storage usage that is allowed for log backup files on the instance. If the storage usage for log backup files on the instance exceeds the value of this parameter, the system deletes earlier log backup files until the storage usage falls below the value of this parameter. Valid values:**0 to 50**. You can retain the default value.
         # 
-        # > 
-        # 
-        # *   This parameter must be specified when **BackupPolicyMode** is set to **LogBackupPolicy**.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**.
+        # > *   This parameter must be specified when **BackupPolicyMode** is set to **LogBackupPolicy**.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**.
         self.local_log_retention_space = local_log_retention_space  # type: str
         # The frequency at which you want to back up the logs of the instance. Valid values:
         # 
         # *   **LogInterval**: A log backup is performed every 30 minutes.
         # *   The default value is the same as the data backup frequency.
         # 
-        # > 
-        # 
-        # *   The value **LogInterval** is supported only for instances that run SQL Server.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
+        # > *   The value **LogInterval** is supported only for instances that run SQL Server.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
         self.log_backup_frequency = log_backup_frequency  # type: str
         # The number of binary log files that you want to retain on the instance. Default value: **60**. Valid values: **6** to **100**.
         # 
-        # > 
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**.
-        # 
-        # *   If the instance runs MySQL, you can set this parameter to \*\*-1\*\*. The value -1 specifies that no limits are imposed on the number of binary log files retained on the instance.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **LogBackupPolicy**.
+        # > *   If the instance runs MySQL, you can set this parameter to \*\*-1\*\*. The value -1 specifies that no limits are imposed on the number of binary log files retained on the instance.
         self.log_backup_local_retention_number = log_backup_local_retention_number  # type: int
         # The number of days for which the log backup is retained. Valid values: **7 to 730**. The log backup retention period cannot be longer than the data backup retention period.
         # 
-        # > 
-        # 
-        # *   If you enable the log backup feature, you can specify the log backup retention period. This parameter is supported for instances that run MySQL and PostgreSQL.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy** or **LogBackupPolicy**.
+        # > *   If you enable the log backup feature, you can specify the log backup retention period. This parameter is supported for instances that run MySQL and PostgreSQL.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy** or **LogBackupPolicy**.
         self.log_backup_retention_period = log_backup_retention_period  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -50764,21 +50724,14 @@ class ModifyBackupPolicyRequest(TeaModel):
         # *   **Saturday**\
         # *   **Sunday**\
         # 
-        # > 
-        # 
-        # *   You can configure a backup policy by using this parameter and the **BackupInterval** parameter. For example, if you set this parameter to Saturday,Sunday and the **BackupInterval** parameter to 30, a backup is performed every 30 minutes on every Saturday and Sunday.
-        # 
-        # *   This parameter must be specified when **BackupPolicyMode** is set to **DataBackupPolicy**.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
+        # > *   You can configure a backup policy by using this parameter and the **BackupInterval** parameter. For example, if you set this parameter to Saturday,Sunday and the **BackupInterval** parameter to 30, a backup is performed every 30 minutes on every Saturday and Sunday.
+        # > *   This parameter must be specified when **BackupPolicyMode** is set to **DataBackupPolicy**.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
         self.preferred_backup_period = preferred_backup_period  # type: str
         # The time at which you want to perform a backup. Specify the time in the ISO 8601 standard in the *HH:mm*Z-*HH:mm*Z format. The time must be in UTC.
         # 
-        # > 
-        # 
-        # *   This parameter must be specified when **BackupPolicyMode** is set to **DataBackupPolicy**.
-        # 
-        # *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
+        # > *   This parameter must be specified when **BackupPolicyMode** is set to **DataBackupPolicy**.
+        # > *   This parameter takes effect only when **BackupPolicyMode** is set to **DataBackupPolicy**.
         self.preferred_backup_time = preferred_backup_time  # type: str
         # The policy that is used to retain archived backup files if the instance is released. Default value: None. Valid values:
         # 
@@ -54730,11 +54683,8 @@ class ModifyDBInstanceTDERequest(TeaModel):
         # *   Public endpoint: `oss-<The ID of the region>.aliyuncs.com:<The name of the bucket>:<The name of the certificate file>` (The file name contains the extension.)
         # *   Internal endpoint: `oss-<The ID of the region>-internal.aliyuncs.com:<The name of the bucket>:<The name of the certificate file>` (The file name contains the extension.)
         # 
-        # > 
-        # 
-        # *   This parameter is available when the instance runs SQL Server 2019 SE or an Enterprise Edition of SQL Server.
-        # 
-        # *   You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
+        # > *   This parameter is available when the instance runs SQL Server 2019 SE or an Enterprise Edition of SQL Server.
+        # > *   You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
         self.certificate = certificate  # type: str
         # The instance ID. You can call the DescribeDBInstances operation to query the instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
@@ -54767,11 +54717,8 @@ class ModifyDBInstanceTDERequest(TeaModel):
         # *   Public endpoint: `oss-<The ID of the region>.aliyuncs.com:<The name of the bucket>:<The name of the file that contains the private key>` (The file name contains the extension.)
         # *   Internal endpoint: `oss-<The ID of the region>-internal.aliyuncs.com:<The name of the bucket>:<The name of the file that contains the private key>` (The file name contains the extension.)
         # 
-        # > 
-        # 
-        # *   This parameter is available when the instance runs SQL Server 2019 SE or an Enterprise Edition of SQL Server.
-        # 
-        # *   You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
+        # > *   This parameter is available when the instance runs SQL Server 2019 SE or an Enterprise Edition of SQL Server.
+        # > *   You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
         self.private_key = private_key  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -55291,7 +55238,7 @@ class ModifyDBProxyRequest(TeaModel):
         # 
         # >  The capability of the database proxy to process requests increases with the number of proxy instances that are enabled. You can monitor the load on the instance and specify an appropriate number of proxy instances based on the load monitoring data.
         self.dbproxy_instance_num = dbproxy_instance_num  # type: str
-        # A reserved parameter. You do not need to specify this parameter.
+        # This parameter is reserved. You do not need to specify this parameter.
         self.dbproxy_instance_type = dbproxy_instance_type  # type: str
         # The network type of the instance. Set the value to **VPC**.
         # 
@@ -61282,7 +61229,7 @@ class ReleaseInstanceConnectionResponse(TeaModel):
 class ReleaseInstancePublicConnectionRequest(TeaModel):
     def __init__(self, current_connection_string=None, dbinstance_id=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The public endpoint. You can call the DescribeDBInstanceNetInfo to query the public endpoint.
+        # The public endpoint. You can call the DescribeDBInstanceNetInfo operation to query the public endpoint.
         self.current_connection_string = current_connection_string  # type: str
         # The instance ID. You can call the DescribeDBInstances operation to query the instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
