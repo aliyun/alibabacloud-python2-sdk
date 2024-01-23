@@ -6242,6 +6242,293 @@ class PostMSConvSearchTokenGeneratedResponse(TeaModel):
         return self
 
 
+class PostMSDataProcessingCountRequest(TeaModel):
+    def __init__(self, data_ids=None, data_import_id=None, service_id=None):
+        self.data_ids = data_ids  # type: list[str]
+        self.data_import_id = data_import_id  # type: long
+        self.service_id = service_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PostMSDataProcessingCountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_ids is not None:
+            result['DataIds'] = self.data_ids
+        if self.data_import_id is not None:
+            result['DataImportId'] = self.data_import_id
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataIds') is not None:
+            self.data_ids = m.get('DataIds')
+        if m.get('DataImportId') is not None:
+            self.data_import_id = m.get('DataImportId')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        return self
+
+
+class PostMSDataProcessingCountShrinkRequest(TeaModel):
+    def __init__(self, data_ids_shrink=None, data_import_id=None, service_id=None):
+        self.data_ids_shrink = data_ids_shrink  # type: str
+        self.data_import_id = data_import_id  # type: long
+        self.service_id = service_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PostMSDataProcessingCountShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_ids_shrink is not None:
+            result['DataIds'] = self.data_ids_shrink
+        if self.data_import_id is not None:
+            result['DataImportId'] = self.data_import_id
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataIds') is not None:
+            self.data_ids_shrink = m.get('DataIds')
+        if m.get('DataImportId') is not None:
+            self.data_import_id = m.get('DataImportId')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        return self
+
+
+class PostMSDataProcessingCountResponseBodyDataDataProcessedStatusesErrorDataList(TeaModel):
+    def __init__(self, count=None, error_code=None, op_type=None):
+        self.count = count  # type: int
+        self.error_code = error_code  # type: str
+        self.op_type = op_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PostMSDataProcessingCountResponseBodyDataDataProcessedStatusesErrorDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.op_type is not None:
+            result['OpType'] = self.op_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('OpType') is not None:
+            self.op_type = m.get('OpType')
+        return self
+
+
+class PostMSDataProcessingCountResponseBodyDataDataProcessedStatuses(TeaModel):
+    def __init__(self, chunk_num=None, data_id=None, error_data_list=None, op_status=None, status=None,
+                 version_value=None):
+        self.chunk_num = chunk_num  # type: str
+        self.data_id = data_id  # type: str
+        self.error_data_list = error_data_list  # type: list[PostMSDataProcessingCountResponseBodyDataDataProcessedStatusesErrorDataList]
+        self.op_status = op_status  # type: dict[str, int]
+        self.status = status  # type: str
+        self.version_value = version_value  # type: str
+
+    def validate(self):
+        if self.error_data_list:
+            for k in self.error_data_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(PostMSDataProcessingCountResponseBodyDataDataProcessedStatuses, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.chunk_num is not None:
+            result['ChunkNum'] = self.chunk_num
+        if self.data_id is not None:
+            result['DataId'] = self.data_id
+        result['ErrorDataList'] = []
+        if self.error_data_list is not None:
+            for k in self.error_data_list:
+                result['ErrorDataList'].append(k.to_map() if k else None)
+        if self.op_status is not None:
+            result['OpStatus'] = self.op_status
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.version_value is not None:
+            result['VersionValue'] = self.version_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ChunkNum') is not None:
+            self.chunk_num = m.get('ChunkNum')
+        if m.get('DataId') is not None:
+            self.data_id = m.get('DataId')
+        self.error_data_list = []
+        if m.get('ErrorDataList') is not None:
+            for k in m.get('ErrorDataList'):
+                temp_model = PostMSDataProcessingCountResponseBodyDataDataProcessedStatusesErrorDataList()
+                self.error_data_list.append(temp_model.from_map(k))
+        if m.get('OpStatus') is not None:
+            self.op_status = m.get('OpStatus')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('VersionValue') is not None:
+            self.version_value = m.get('VersionValue')
+        return self
+
+
+class PostMSDataProcessingCountResponseBodyData(TeaModel):
+    def __init__(self, data_processed_statuses=None, status=None):
+        self.data_processed_statuses = data_processed_statuses  # type: list[PostMSDataProcessingCountResponseBodyDataDataProcessedStatuses]
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.data_processed_statuses:
+            for k in self.data_processed_statuses:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(PostMSDataProcessingCountResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DataProcessedStatuses'] = []
+        if self.data_processed_statuses is not None:
+            for k in self.data_processed_statuses:
+                result['DataProcessedStatuses'].append(k.to_map() if k else None)
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data_processed_statuses = []
+        if m.get('DataProcessedStatuses') is not None:
+            for k in m.get('DataProcessedStatuses'):
+                temp_model = PostMSDataProcessingCountResponseBodyDataDataProcessedStatuses()
+                self.data_processed_statuses.append(temp_model.from_map(k))
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class PostMSDataProcessingCountResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, msg=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: PostMSDataProcessingCountResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.msg = msg  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(PostMSDataProcessingCountResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.msg is not None:
+            result['Msg'] = self.msg
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = PostMSDataProcessingCountResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Msg') is not None:
+            self.msg = m.get('Msg')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class PostMSDataProcessingCountResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: PostMSDataProcessingCountResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PostMSDataProcessingCountResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = PostMSDataProcessingCountResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class PostMSSearchEnhanceRequest(TeaModel):
     def __init__(self, body=None, custom_config_info=None, debug=None, fields=None, filters=None, page=None,
                  queries=None, rank_model_info=None, rows=None, service_id=None, sort=None, type=None, uq=None):
