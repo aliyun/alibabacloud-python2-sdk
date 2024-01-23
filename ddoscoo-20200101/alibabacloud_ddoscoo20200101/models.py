@@ -10772,8 +10772,13 @@ class DescribeInstanceDetailsResponse(TeaModel):
 
 class DescribeInstanceExtRequest(TeaModel):
     def __init__(self, instance_id=None, page_number=None, page_size=None):
+        # The ID of the instance.
+        # 
+        # >  You can call the [DescribeInstanceIds](~~157459~~) operation to query the IDs of all instances.
         self.instance_id = instance_id  # type: str
+        # The number of the page. For example, to query the returned results on the first page, set the value to **1**.
         self.page_number = page_number  # type: str
+        # The number of entries per page.
         self.page_size = page_size  # type: str
 
     def validate(self):
@@ -10807,10 +10812,24 @@ class DescribeInstanceExtRequest(TeaModel):
 class DescribeInstanceExtResponseBodyInstanceExtSpecs(TeaModel):
     def __init__(self, function_version=None, instance_id=None, normal_bandwidth=None, product_plan=None,
                  service_partner=None):
+        # The function plan. Valid values:
+        # 
+        # *   **0**: Standard
+        # *   **1**: Enhanced
         self.function_version = function_version  # type: long
+        # The instance ID
         self.instance_id = instance_id  # type: str
+        # The clean bandwidth. Unit: Mbit/s.
         self.normal_bandwidth = normal_bandwidth  # type: long
+        # The type of the instance. Valid value:
+        # 
+        # *   **0**: Anti-DDoS Premium instance of the Insurance mitigation plan
+        # *   **1**: Anti-DDoS Premium instance of the Unlimited mitigation plan
+        # *   **2**: Anti-DDoS Premium instance of the CMA mitigation plan
+        # *   **3**: Anti-DDoS Premium instance of the Secure Chinese Mainland Acceleration (Sec-CMA) plan
+        # *   **9**: Anti-DDoS Pro instance of the Profession mitigation plan
         self.product_plan = product_plan  # type: long
+        # The Internet service provider (ISP) line resource of the Anti-DDoS Pro instance.
         self.service_partner = service_partner  # type: str
 
     def validate(self):
@@ -10851,8 +10870,11 @@ class DescribeInstanceExtResponseBodyInstanceExtSpecs(TeaModel):
 
 class DescribeInstanceExtResponseBody(TeaModel):
     def __init__(self, instance_ext_specs=None, request_id=None, total_count=None):
+        # The information about the instance.
         self.instance_ext_specs = instance_ext_specs  # type: list[DescribeInstanceExtResponseBodyInstanceExtSpecs]
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of queried instances.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -13195,7 +13217,7 @@ class DescribeNetworkRulesRequest(TeaModel):
 
 class DescribeNetworkRulesResponseBodyNetworkRules(TeaModel):
     def __init__(self, backend_port=None, frontend_port=None, instance_id=None, is_auto_create=None, protocol=None,
-                 real_servers=None):
+                 real_servers=None, remark=None):
         # The port of the origin server.
         self.backend_port = backend_port  # type: int
         # The forwarding port.
@@ -13214,6 +13236,7 @@ class DescribeNetworkRulesResponseBodyNetworkRules(TeaModel):
         self.protocol = protocol  # type: str
         # An array that consists of IP addresses of origin servers.
         self.real_servers = real_servers  # type: list[str]
+        self.remark = remark  # type: str
 
     def validate(self):
         pass
@@ -13236,6 +13259,8 @@ class DescribeNetworkRulesResponseBodyNetworkRules(TeaModel):
             result['Protocol'] = self.protocol
         if self.real_servers is not None:
             result['RealServers'] = self.real_servers
+        if self.remark is not None:
+            result['Remark'] = self.remark
         return result
 
     def from_map(self, m=None):
@@ -13252,6 +13277,8 @@ class DescribeNetworkRulesResponseBodyNetworkRules(TeaModel):
             self.protocol = m.get('Protocol')
         if m.get('RealServers') is not None:
             self.real_servers = m.get('RealServers')
+        if m.get('Remark') is not None:
+            self.remark = m.get('Remark')
         return self
 
 
@@ -16244,11 +16271,24 @@ class DescribeSchedulerRulesResponse(TeaModel):
 
 class DescribeSlaEventListRequest(TeaModel):
     def __init__(self, end_time=None, ip=None, page=None, page_size=None, region=None, start_time=None):
+        # The end of the time range to query. The value is a UNIX timestamp. Unit: seconds.
+        # 
+        # >  This UNIX timestamp must indicate a point in time that is accurate to the minute.
         self.end_time = end_time  # type: long
+        # The IP address of the Anti-DDoS Pro or Anti-DDoS Premium instance.
         self.ip = ip  # type: str
+        # The page number.
         self.page = page  # type: long
+        # The number of entries per page.
         self.page_size = page_size  # type: long
+        # The type of the service Valid values:
+        # 
+        # *   **cn**: Anti-DDoS Pro
+        # *   **cn-hongkong**: Anti-DDoS Premium
         self.region = region  # type: str
+        # The beginning of the time range to query. The value is a UNIX timestamp. Unit: seconds.
+        # 
+        # >  This UNIX timestamp must indicate a point in time that is accurate to the minute.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -16293,9 +16333,16 @@ class DescribeSlaEventListRequest(TeaModel):
 
 class DescribeSlaEventListResponseBodySlaEvent(TeaModel):
     def __init__(self, end_time=None, ip=None, region=None, start_time=None):
+        # The end of the time range. Unit: seconds.
         self.end_time = end_time  # type: long
+        # The IP address of the instance.
         self.ip = ip  # type: str
+        # The region to which the destination IP address belongs. Valid values:
+        # 
+        # *   **cn**: a region in the Chinese mainland
+        # *   **cn-hongkong**: China (Hong Kong)
         self.region = region  # type: str
+        # The beginning of the time range. Unit: seconds.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -16332,8 +16379,11 @@ class DescribeSlaEventListResponseBodySlaEvent(TeaModel):
 
 class DescribeSlaEventListResponseBody(TeaModel):
     def __init__(self, request_id=None, sla_event=None, total=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The destination rate limit events.
         self.sla_event = sla_event  # type: list[DescribeSlaEventListResponseBodySlaEvent]
+        # The total number of entries returned.
         self.total = total  # type: long
 
     def validate(self):
