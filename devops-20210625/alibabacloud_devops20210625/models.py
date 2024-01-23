@@ -25198,13 +25198,14 @@ class ListMergeRequestPatchSetsResponse(TeaModel):
 
 
 class ListMergeRequestsRequest(TeaModel):
-    def __init__(self, access_token=None, author_ids=None, filter=None, group_ids=None, order_by=None,
-                 organization_id=None, page=None, page_size=None, project_ids=None, reviewer_ids=None, search=None, sort=None,
-                 state=None):
+    def __init__(self, access_token=None, author_ids=None, filter=None, group_ids=None, label_ids=None,
+                 order_by=None, organization_id=None, page=None, page_size=None, project_ids=None, reviewer_ids=None,
+                 search=None, sort=None, state=None):
         self.access_token = access_token  # type: str
         self.author_ids = author_ids  # type: str
         self.filter = filter  # type: str
         self.group_ids = group_ids  # type: str
+        self.label_ids = label_ids  # type: str
         self.order_by = order_by  # type: str
         self.organization_id = organization_id  # type: str
         self.page = page  # type: long
@@ -25232,6 +25233,8 @@ class ListMergeRequestsRequest(TeaModel):
             result['filter'] = self.filter
         if self.group_ids is not None:
             result['groupIds'] = self.group_ids
+        if self.label_ids is not None:
+            result['labelIds'] = self.label_ids
         if self.order_by is not None:
             result['orderBy'] = self.order_by
         if self.organization_id is not None:
@@ -25262,6 +25265,8 @@ class ListMergeRequestsRequest(TeaModel):
             self.filter = m.get('filter')
         if m.get('groupIds') is not None:
             self.group_ids = m.get('groupIds')
+        if m.get('labelIds') is not None:
+            self.label_ids = m.get('labelIds')
         if m.get('orderBy') is not None:
             self.order_by = m.get('orderBy')
         if m.get('organizationId') is not None:
@@ -25329,6 +25334,45 @@ class ListMergeRequestsResponseBodyResultAuthor(TeaModel):
             self.state = m.get('state')
         if m.get('username') is not None:
             self.username = m.get('username')
+        return self
+
+
+class ListMergeRequestsResponseBodyResultLabels(TeaModel):
+    def __init__(self, color=None, description=None, id=None, name=None):
+        self.color = color  # type: str
+        self.description = description  # type: str
+        self.id = id  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListMergeRequestsResponseBodyResultLabels, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.color is not None:
+            result['color'] = self.color
+        if self.description is not None:
+            result['description'] = self.description
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('color') is not None:
+            self.color = m.get('color')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
         return self
 
 
@@ -25443,7 +25487,7 @@ class ListMergeRequestsResponseBodyResultSubscribers(TeaModel):
 
 class ListMergeRequestsResponseBodyResult(TeaModel):
     def __init__(self, author=None, created_at=None, creation_method=None, description=None, detail_url=None,
-                 id=None, iid=None, local_id=None, mr_biz_id=None, name_with_namespace=None,
+                 id=None, iid=None, labels=None, local_id=None, mr_biz_id=None, name_with_namespace=None,
                  new_merge_request_identifier=None, new_version_state=None, project_id=None, reviewers=None, source_branch=None,
                  source_project_id=None, source_type=None, ssh_url=None, state=None, subscribers=None, support_merge_ffonly=None,
                  target_branch=None, target_project_id=None, target_type=None, title=None, updated_at=None, web_url=None,
@@ -25455,6 +25499,7 @@ class ListMergeRequestsResponseBodyResult(TeaModel):
         self.detail_url = detail_url  # type: str
         self.id = id  # type: long
         self.iid = iid  # type: long
+        self.labels = labels  # type: list[ListMergeRequestsResponseBodyResultLabels]
         self.local_id = local_id  # type: long
         self.mr_biz_id = mr_biz_id  # type: str
         self.name_with_namespace = name_with_namespace  # type: str
@@ -25480,6 +25525,10 @@ class ListMergeRequestsResponseBodyResult(TeaModel):
     def validate(self):
         if self.author:
             self.author.validate()
+        if self.labels:
+            for k in self.labels:
+                if k:
+                    k.validate()
         if self.reviewers:
             for k in self.reviewers:
                 if k:
@@ -25509,6 +25558,10 @@ class ListMergeRequestsResponseBodyResult(TeaModel):
             result['id'] = self.id
         if self.iid is not None:
             result['iid'] = self.iid
+        result['labels'] = []
+        if self.labels is not None:
+            for k in self.labels:
+                result['labels'].append(k.to_map() if k else None)
         if self.local_id is not None:
             result['localId'] = self.local_id
         if self.mr_biz_id is not None:
@@ -25574,6 +25627,11 @@ class ListMergeRequestsResponseBodyResult(TeaModel):
             self.id = m.get('id')
         if m.get('iid') is not None:
             self.iid = m.get('iid')
+        self.labels = []
+        if m.get('labels') is not None:
+            for k in m.get('labels'):
+                temp_model = ListMergeRequestsResponseBodyResultLabels()
+                self.labels.append(temp_model.from_map(k))
         if m.get('localId') is not None:
             self.local_id = m.get('localId')
         if m.get('mrBizId') is not None:
@@ -36949,7 +37007,11 @@ class MergeMergeRequestRequest(TeaModel):
 
 
 class MergeMergeRequestResponseBodyResult(TeaModel):
-    def __init__(self, result=None):
+    def __init__(self, biz_id=None, local_id=None, merged_revision=None, project_id=None, result=None):
+        self.biz_id = biz_id  # type: str
+        self.local_id = local_id  # type: long
+        self.merged_revision = merged_revision  # type: str
+        self.project_id = project_id  # type: long
         self.result = result  # type: bool
 
     def validate(self):
@@ -36961,12 +37023,28 @@ class MergeMergeRequestResponseBodyResult(TeaModel):
             return _map
 
         result = dict()
+        if self.biz_id is not None:
+            result['bizId'] = self.biz_id
+        if self.local_id is not None:
+            result['localId'] = self.local_id
+        if self.merged_revision is not None:
+            result['mergedRevision'] = self.merged_revision
+        if self.project_id is not None:
+            result['projectId'] = self.project_id
         if self.result is not None:
             result['result'] = self.result
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('bizId') is not None:
+            self.biz_id = m.get('bizId')
+        if m.get('localId') is not None:
+            self.local_id = m.get('localId')
+        if m.get('mergedRevision') is not None:
+            self.merged_revision = m.get('mergedRevision')
+        if m.get('projectId') is not None:
+            self.project_id = m.get('projectId')
         if m.get('result') is not None:
             self.result = m.get('result')
         return self
