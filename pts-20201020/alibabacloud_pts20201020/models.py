@@ -1125,6 +1125,338 @@ class GetJMeterLogsResponse(TeaModel):
         return self
 
 
+class GetJMeterReportDetailsRequest(TeaModel):
+    def __init__(self, report_id=None):
+        self.report_id = report_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetJMeterReportDetailsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.report_id is not None:
+            result['ReportId'] = self.report_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ReportId') is not None:
+            self.report_id = m.get('ReportId')
+        return self
+
+
+class GetJMeterReportDetailsResponseBodyReportOverView(TeaModel):
+    def __init__(self, agent_count=None, end_time=None, report_id=None, report_name=None, start_time=None, vum=None):
+        self.agent_count = agent_count  # type: int
+        self.end_time = end_time  # type: str
+        self.report_id = report_id  # type: str
+        self.report_name = report_name  # type: str
+        self.start_time = start_time  # type: str
+        self.vum = vum  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetJMeterReportDetailsResponseBodyReportOverView, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_count is not None:
+            result['AgentCount'] = self.agent_count
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.report_id is not None:
+            result['ReportId'] = self.report_id
+        if self.report_name is not None:
+            result['ReportName'] = self.report_name
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.vum is not None:
+            result['Vum'] = self.vum
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentCount') is not None:
+            self.agent_count = m.get('AgentCount')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('ReportId') is not None:
+            self.report_id = m.get('ReportId')
+        if m.get('ReportName') is not None:
+            self.report_name = m.get('ReportName')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Vum') is not None:
+            self.vum = m.get('Vum')
+        return self
+
+
+class GetJMeterReportDetailsResponseBodySamplerMetricsList(TeaModel):
+    def __init__(self, all_count=None, api_name=None, avg_rt=None, avg_tps=None, fail_count_req=None, max_rt=None,
+                 min_rt=None, seg_75rt=None, seg_90rt=None, seg_99rt=None, success_rate_req=None):
+        self.all_count = all_count  # type: long
+        self.api_name = api_name  # type: str
+        self.avg_rt = avg_rt  # type: float
+        self.avg_tps = avg_tps  # type: float
+        self.fail_count_req = fail_count_req  # type: long
+        self.max_rt = max_rt  # type: float
+        self.min_rt = min_rt  # type: float
+        self.seg_75rt = seg_75rt  # type: float
+        self.seg_90rt = seg_90rt  # type: float
+        self.seg_99rt = seg_99rt  # type: float
+        self.success_rate_req = success_rate_req  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetJMeterReportDetailsResponseBodySamplerMetricsList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.all_count is not None:
+            result['AllCount'] = self.all_count
+        if self.api_name is not None:
+            result['ApiName'] = self.api_name
+        if self.avg_rt is not None:
+            result['AvgRt'] = self.avg_rt
+        if self.avg_tps is not None:
+            result['AvgTps'] = self.avg_tps
+        if self.fail_count_req is not None:
+            result['FailCountReq'] = self.fail_count_req
+        if self.max_rt is not None:
+            result['MaxRt'] = self.max_rt
+        if self.min_rt is not None:
+            result['MinRt'] = self.min_rt
+        if self.seg_75rt is not None:
+            result['Seg75Rt'] = self.seg_75rt
+        if self.seg_90rt is not None:
+            result['Seg90Rt'] = self.seg_90rt
+        if self.seg_99rt is not None:
+            result['Seg99Rt'] = self.seg_99rt
+        if self.success_rate_req is not None:
+            result['SuccessRateReq'] = self.success_rate_req
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AllCount') is not None:
+            self.all_count = m.get('AllCount')
+        if m.get('ApiName') is not None:
+            self.api_name = m.get('ApiName')
+        if m.get('AvgRt') is not None:
+            self.avg_rt = m.get('AvgRt')
+        if m.get('AvgTps') is not None:
+            self.avg_tps = m.get('AvgTps')
+        if m.get('FailCountReq') is not None:
+            self.fail_count_req = m.get('FailCountReq')
+        if m.get('MaxRt') is not None:
+            self.max_rt = m.get('MaxRt')
+        if m.get('MinRt') is not None:
+            self.min_rt = m.get('MinRt')
+        if m.get('Seg75Rt') is not None:
+            self.seg_75rt = m.get('Seg75Rt')
+        if m.get('Seg90Rt') is not None:
+            self.seg_90rt = m.get('Seg90Rt')
+        if m.get('Seg99Rt') is not None:
+            self.seg_99rt = m.get('Seg99Rt')
+        if m.get('SuccessRateReq') is not None:
+            self.success_rate_req = m.get('SuccessRateReq')
+        return self
+
+
+class GetJMeterReportDetailsResponseBodySceneMetrics(TeaModel):
+    def __init__(self, all_count=None, avg_rt=None, avg_tps=None, fail_count_req=None, seg_90rt=None, seg_99rt=None,
+                 success_rate_req=None):
+        self.all_count = all_count  # type: long
+        self.avg_rt = avg_rt  # type: float
+        self.avg_tps = avg_tps  # type: float
+        self.fail_count_req = fail_count_req  # type: long
+        self.seg_90rt = seg_90rt  # type: float
+        self.seg_99rt = seg_99rt  # type: float
+        self.success_rate_req = success_rate_req  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetJMeterReportDetailsResponseBodySceneMetrics, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.all_count is not None:
+            result['AllCount'] = self.all_count
+        if self.avg_rt is not None:
+            result['AvgRt'] = self.avg_rt
+        if self.avg_tps is not None:
+            result['AvgTps'] = self.avg_tps
+        if self.fail_count_req is not None:
+            result['FailCountReq'] = self.fail_count_req
+        if self.seg_90rt is not None:
+            result['Seg90Rt'] = self.seg_90rt
+        if self.seg_99rt is not None:
+            result['Seg99Rt'] = self.seg_99rt
+        if self.success_rate_req is not None:
+            result['SuccessRateReq'] = self.success_rate_req
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AllCount') is not None:
+            self.all_count = m.get('AllCount')
+        if m.get('AvgRt') is not None:
+            self.avg_rt = m.get('AvgRt')
+        if m.get('AvgTps') is not None:
+            self.avg_tps = m.get('AvgTps')
+        if m.get('FailCountReq') is not None:
+            self.fail_count_req = m.get('FailCountReq')
+        if m.get('Seg90Rt') is not None:
+            self.seg_90rt = m.get('Seg90Rt')
+        if m.get('Seg99Rt') is not None:
+            self.seg_99rt = m.get('Seg99Rt')
+        if m.get('SuccessRateReq') is not None:
+            self.success_rate_req = m.get('SuccessRateReq')
+        return self
+
+
+class GetJMeterReportDetailsResponseBody(TeaModel):
+    def __init__(self, code=None, code_key=None, document_url=None, dynamic_ctx=None, http_status_code=None,
+                 message=None, report_over_view=None, request_id=None, sampler_metrics_list=None, scene_metrics=None,
+                 success=None):
+        self.code = code  # type: str
+        self.code_key = code_key  # type: str
+        self.document_url = document_url  # type: str
+        self.dynamic_ctx = dynamic_ctx  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.report_over_view = report_over_view  # type: GetJMeterReportDetailsResponseBodyReportOverView
+        self.request_id = request_id  # type: str
+        self.sampler_metrics_list = sampler_metrics_list  # type: list[GetJMeterReportDetailsResponseBodySamplerMetricsList]
+        self.scene_metrics = scene_metrics  # type: GetJMeterReportDetailsResponseBodySceneMetrics
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.report_over_view:
+            self.report_over_view.validate()
+        if self.sampler_metrics_list:
+            for k in self.sampler_metrics_list:
+                if k:
+                    k.validate()
+        if self.scene_metrics:
+            self.scene_metrics.validate()
+
+    def to_map(self):
+        _map = super(GetJMeterReportDetailsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.code_key is not None:
+            result['CodeKey'] = self.code_key
+        if self.document_url is not None:
+            result['DocumentUrl'] = self.document_url
+        if self.dynamic_ctx is not None:
+            result['DynamicCtx'] = self.dynamic_ctx
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.report_over_view is not None:
+            result['ReportOverView'] = self.report_over_view.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['SamplerMetricsList'] = []
+        if self.sampler_metrics_list is not None:
+            for k in self.sampler_metrics_list:
+                result['SamplerMetricsList'].append(k.to_map() if k else None)
+        if self.scene_metrics is not None:
+            result['SceneMetrics'] = self.scene_metrics.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('CodeKey') is not None:
+            self.code_key = m.get('CodeKey')
+        if m.get('DocumentUrl') is not None:
+            self.document_url = m.get('DocumentUrl')
+        if m.get('DynamicCtx') is not None:
+            self.dynamic_ctx = m.get('DynamicCtx')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('ReportOverView') is not None:
+            temp_model = GetJMeterReportDetailsResponseBodyReportOverView()
+            self.report_over_view = temp_model.from_map(m['ReportOverView'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.sampler_metrics_list = []
+        if m.get('SamplerMetricsList') is not None:
+            for k in m.get('SamplerMetricsList'):
+                temp_model = GetJMeterReportDetailsResponseBodySamplerMetricsList()
+                self.sampler_metrics_list.append(temp_model.from_map(k))
+        if m.get('SceneMetrics') is not None:
+            temp_model = GetJMeterReportDetailsResponseBodySceneMetrics()
+            self.scene_metrics = temp_model.from_map(m['SceneMetrics'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetJMeterReportDetailsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetJMeterReportDetailsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetJMeterReportDetailsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetJMeterReportDetailsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetJMeterSampleMetricsRequest(TeaModel):
     def __init__(self, begin_time=None, end_time=None, report_id=None, sampler_id=None):
         self.begin_time = begin_time  # type: long
@@ -1469,15 +1801,18 @@ class GetJMeterSceneRunningDataRequest(TeaModel):
 
 class GetJMeterSceneRunningDataResponseBodyRunningData(TeaModel):
     def __init__(self, agent_count=None, agent_id_list=None, all_sample_stat=None, concurrency=None,
-                 has_report=None, hold_for=None, is_debugging=None, sample_stat_list=None, scene_id=None, scene_name=None,
-                 stage_name=None, start_time_ts=None, status=None, vum=None):
+                 error_message=None, has_error=None, has_report=None, hold_for=None, is_debugging=None, report_id=None,
+                 sample_stat_list=None, scene_id=None, scene_name=None, stage_name=None, start_time_ts=None, status=None, vum=None):
         self.agent_count = agent_count  # type: int
         self.agent_id_list = agent_id_list  # type: list[str]
         self.all_sample_stat = all_sample_stat  # type: dict[str, any]
         self.concurrency = concurrency  # type: int
+        self.error_message = error_message  # type: str
+        self.has_error = has_error  # type: bool
         self.has_report = has_report  # type: bool
         self.hold_for = hold_for  # type: int
         self.is_debugging = is_debugging  # type: bool
+        self.report_id = report_id  # type: str
         self.sample_stat_list = sample_stat_list  # type: list[dict[str, any]]
         self.scene_id = scene_id  # type: str
         self.scene_name = scene_name  # type: str
@@ -1503,12 +1838,18 @@ class GetJMeterSceneRunningDataResponseBodyRunningData(TeaModel):
             result['AllSampleStat'] = self.all_sample_stat
         if self.concurrency is not None:
             result['Concurrency'] = self.concurrency
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.has_error is not None:
+            result['HasError'] = self.has_error
         if self.has_report is not None:
             result['HasReport'] = self.has_report
         if self.hold_for is not None:
             result['HoldFor'] = self.hold_for
         if self.is_debugging is not None:
             result['IsDebugging'] = self.is_debugging
+        if self.report_id is not None:
+            result['ReportId'] = self.report_id
         if self.sample_stat_list is not None:
             result['SampleStatList'] = self.sample_stat_list
         if self.scene_id is not None:
@@ -1535,12 +1876,18 @@ class GetJMeterSceneRunningDataResponseBodyRunningData(TeaModel):
             self.all_sample_stat = m.get('AllSampleStat')
         if m.get('Concurrency') is not None:
             self.concurrency = m.get('Concurrency')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('HasError') is not None:
+            self.has_error = m.get('HasError')
         if m.get('HasReport') is not None:
             self.has_report = m.get('HasReport')
         if m.get('HoldFor') is not None:
             self.hold_for = m.get('HoldFor')
         if m.get('IsDebugging') is not None:
             self.is_debugging = m.get('IsDebugging')
+        if m.get('ReportId') is not None:
+            self.report_id = m.get('ReportId')
         if m.get('SampleStatList') is not None:
             self.sample_stat_list = m.get('SampleStatList')
         if m.get('SceneId') is not None:
@@ -1817,12 +2164,41 @@ class GetOpenJMeterSceneResponseBodySceneFileList(TeaModel):
         return self
 
 
+class GetOpenJMeterSceneResponseBodySceneRegionalCondition(TeaModel):
+    def __init__(self, amount=None, region=None):
+        self.amount = amount  # type: int
+        self.region = region  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetOpenJMeterSceneResponseBodySceneRegionalCondition, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['Amount'] = self.amount
+        if self.region is not None:
+            result['Region'] = self.region
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Amount') is not None:
+            self.amount = m.get('Amount')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        return self
+
+
 class GetOpenJMeterSceneResponseBodyScene(TeaModel):
     def __init__(self, agent_count=None, base_info=None, concurrency=None, constant_throughput_timer_type=None,
                  dns_cache_config=None, duration=None, environment_id=None, file_list=None, is_vpc_test=None, max_rps=None, mode=None,
-                 pool=None, ramp_up=None, region_id=None, scene_id=None, scene_name=None, security_group_id=None,
-                 start_concurrency=None, start_rps=None, steps=None, sync_timer_type=None, test_file=None, v_switch_id=None,
-                 vpc_id=None):
+                 pool=None, ramp_up=None, region_id=None, regional_condition=None, scene_id=None, scene_name=None,
+                 security_group_id=None, start_concurrency=None, start_rps=None, steps=None, sync_timer_type=None, test_file=None,
+                 v_switch_id=None, vpc_id=None):
         self.agent_count = agent_count  # type: int
         self.base_info = base_info  # type: GetOpenJMeterSceneResponseBodySceneBaseInfo
         self.concurrency = concurrency  # type: int
@@ -1837,6 +2213,7 @@ class GetOpenJMeterSceneResponseBodyScene(TeaModel):
         self.pool = pool  # type: str
         self.ramp_up = ramp_up  # type: int
         self.region_id = region_id  # type: str
+        self.regional_condition = regional_condition  # type: list[GetOpenJMeterSceneResponseBodySceneRegionalCondition]
         self.scene_id = scene_id  # type: str
         self.scene_name = scene_name  # type: str
         self.security_group_id = security_group_id  # type: str
@@ -1855,6 +2232,10 @@ class GetOpenJMeterSceneResponseBodyScene(TeaModel):
             self.dns_cache_config.validate()
         if self.file_list:
             for k in self.file_list:
+                if k:
+                    k.validate()
+        if self.regional_condition:
+            for k in self.regional_condition:
                 if k:
                     k.validate()
 
@@ -1894,6 +2275,10 @@ class GetOpenJMeterSceneResponseBodyScene(TeaModel):
             result['RampUp'] = self.ramp_up
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        result['RegionalCondition'] = []
+        if self.regional_condition is not None:
+            for k in self.regional_condition:
+                result['RegionalCondition'].append(k.to_map() if k else None)
         if self.scene_id is not None:
             result['SceneId'] = self.scene_id
         if self.scene_name is not None:
@@ -1951,6 +2336,11 @@ class GetOpenJMeterSceneResponseBodyScene(TeaModel):
             self.ramp_up = m.get('RampUp')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        self.regional_condition = []
+        if m.get('RegionalCondition') is not None:
+            for k in m.get('RegionalCondition'):
+                temp_model = GetOpenJMeterSceneResponseBodySceneRegionalCondition()
+                self.regional_condition.append(temp_model.from_map(k))
         if m.get('SceneId') is not None:
             self.scene_id = m.get('SceneId')
         if m.get('SceneName') is not None:
@@ -6562,10 +6952,11 @@ class ListOpenJMeterScenesRequest(TeaModel):
 
 
 class ListOpenJMeterScenesResponseBodyJMeterScene(TeaModel):
-    def __init__(self, duration_str=None, scene_id=None, scene_name=None):
+    def __init__(self, duration_str=None, scene_id=None, scene_name=None, status=None):
         self.duration_str = duration_str  # type: str
         self.scene_id = scene_id  # type: str
         self.scene_name = scene_name  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -6582,6 +6973,8 @@ class ListOpenJMeterScenesResponseBodyJMeterScene(TeaModel):
             result['SceneId'] = self.scene_id
         if self.scene_name is not None:
             result['SceneName'] = self.scene_name
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
@@ -6592,6 +6985,8 @@ class ListOpenJMeterScenesResponseBodyJMeterScene(TeaModel):
             self.scene_id = m.get('SceneId')
         if m.get('SceneName') is not None:
             self.scene_name = m.get('SceneName')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -7784,12 +8179,41 @@ class SaveOpenJMeterSceneRequestOpenJMeterSceneJMeterProperties(TeaModel):
         return self
 
 
+class SaveOpenJMeterSceneRequestOpenJMeterSceneRegionalCondition(TeaModel):
+    def __init__(self, amount=None, region=None):
+        self.amount = amount  # type: int
+        self.region = region  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SaveOpenJMeterSceneRequestOpenJMeterSceneRegionalCondition, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['Amount'] = self.amount
+        if self.region is not None:
+            result['Region'] = self.region
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Amount') is not None:
+            self.amount = m.get('Amount')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        return self
+
+
 class SaveOpenJMeterSceneRequestOpenJMeterScene(TeaModel):
     def __init__(self, agent_count=None, concurrency=None, constant_throughput_timer_type=None,
                  dns_cache_config=None, duration=None, environment_id=None, file_list=None, is_vpc_test=None, jmeter_properties=None,
-                 jmeter_plugin_label=None, max_rps=None, mode=None, ramp_up=None, region_id=None, scene_id=None, scene_name=None,
-                 security_group_id=None, start_concurrency=None, start_rps=None, steps=None, sync_timer_type=None, test_file=None,
-                 v_switch_id=None, vpc_id=None):
+                 jmeter_plugin_label=None, max_rps=None, mode=None, ramp_up=None, region_id=None, regional_condition=None, scene_id=None,
+                 scene_name=None, security_group_id=None, start_concurrency=None, start_rps=None, steps=None,
+                 sync_timer_type=None, test_file=None, v_switch_id=None, vpc_id=None):
         self.agent_count = agent_count  # type: int
         self.concurrency = concurrency  # type: int
         self.constant_throughput_timer_type = constant_throughput_timer_type  # type: str
@@ -7804,6 +8228,7 @@ class SaveOpenJMeterSceneRequestOpenJMeterScene(TeaModel):
         self.mode = mode  # type: str
         self.ramp_up = ramp_up  # type: int
         self.region_id = region_id  # type: str
+        self.regional_condition = regional_condition  # type: list[SaveOpenJMeterSceneRequestOpenJMeterSceneRegionalCondition]
         self.scene_id = scene_id  # type: str
         self.scene_name = scene_name  # type: str
         self.security_group_id = security_group_id  # type: str
@@ -7824,6 +8249,10 @@ class SaveOpenJMeterSceneRequestOpenJMeterScene(TeaModel):
                     k.validate()
         if self.jmeter_properties:
             for k in self.jmeter_properties:
+                if k:
+                    k.validate()
+        if self.regional_condition:
+            for k in self.regional_condition:
                 if k:
                     k.validate()
 
@@ -7865,6 +8294,10 @@ class SaveOpenJMeterSceneRequestOpenJMeterScene(TeaModel):
             result['RampUp'] = self.ramp_up
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        result['RegionalCondition'] = []
+        if self.regional_condition is not None:
+            for k in self.regional_condition:
+                result['RegionalCondition'].append(k.to_map() if k else None)
         if self.scene_id is not None:
             result['SceneId'] = self.scene_id
         if self.scene_name is not None:
@@ -7924,6 +8357,11 @@ class SaveOpenJMeterSceneRequestOpenJMeterScene(TeaModel):
             self.ramp_up = m.get('RampUp')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        self.regional_condition = []
+        if m.get('RegionalCondition') is not None:
+            for k in m.get('RegionalCondition'):
+                temp_model = SaveOpenJMeterSceneRequestOpenJMeterSceneRegionalCondition()
+                self.regional_condition.append(temp_model.from_map(k))
         if m.get('SceneId') is not None:
             self.scene_id = m.get('SceneId')
         if m.get('SceneName') is not None:
