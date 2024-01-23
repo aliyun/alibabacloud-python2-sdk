@@ -566,9 +566,9 @@ class GetInstanceResponseBodyInstanceEndpoints(TeaModel):
         self.type = type  # type: str
         # The ID of the vSwitch.
         self.v_switch_id = v_switch_id  # type: str
-        # The VPC ID.
+        # The ID of the VPC to which the instance belongs.
         self.vpc_id = vpc_id  # type: str
-        # The ID of VPC to which the instance belongs.
+        # The ID of the instance that is deployed in the VPC.
         self.vpc_instance_id = vpc_instance_id  # type: str
 
     def validate(self):
@@ -617,9 +617,9 @@ class GetInstanceResponseBodyInstanceEndpoints(TeaModel):
 
 class GetInstanceResponseBodyInstanceTags(TeaModel):
     def __init__(self, key=None, value=None):
-        # The tag key.
+        # The key of tag N.
         self.key = key  # type: str
-        # The tag value.
+        # The value of tag N.
         self.value = value  # type: str
 
     def validate(self):
@@ -651,7 +651,8 @@ class GetInstanceResponseBodyInstance(TeaModel):
                  creation_time=None, disk=None, enable_hive_access=None, endpoints=None, expiration_time=None, gateway_count=None,
                  gateway_cpu=None, gateway_memory=None, instance_charge_type=None, instance_id=None, instance_name=None,
                  instance_owner=None, instance_status=None, instance_type=None, leader_instance_id=None, memory=None,
-                 region_id=None, resource_group_id=None, suspend_reason=None, tags=None, version=None, zone_id=None):
+                 region_id=None, replica_role=None, resource_group_id=None, suspend_reason=None, tags=None, version=None,
+                 zone_id=None):
         # Indicates whether auto-renewal is enabled.
         # 
         # Valid values:
@@ -786,11 +787,11 @@ class GetInstanceResponseBodyInstance(TeaModel):
         # 
         #     <!-- -->
         self.commodity_code = commodity_code  # type: str
-        # The number of compute nodes. In a typical configuration, a node has 16 vCPUs and 32 GB of memory.
+        # The number of compute nodes. In a typical configuration, a node has 16 CPU cores and 32 GB of memory.
         self.compute_node_count = compute_node_count  # type: long
-        # The number of vCPUs.
+        # The number of CPU cores.
         self.cpu = cpu  # type: long
-        # The creation time.
+        # The time when the instance was created.
         self.creation_time = creation_time  # type: str
         # The amount of data that can be stored in the disk of the Standard storage class. Unit: GB.
         self.disk = disk  # type: str
@@ -800,13 +801,11 @@ class GetInstanceResponseBodyInstance(TeaModel):
         self.endpoints = endpoints  # type: list[GetInstanceResponseBodyInstanceEndpoints]
         # The expiration time. This parameter is invalid for pay-as-you-go instances.
         self.expiration_time = expiration_time  # type: str
-        # 网关节点数量。
+        # The number of gateway nodes.
         self.gateway_count = gateway_count  # type: long
-        # 网关cpu资源。
-        # 单位：core。
+        # The number of CPU cores of the gateway. Unit: core.
         self.gateway_cpu = gateway_cpu  # type: long
-        # 网关内存资源。
-        # 单位：GB。
+        # The size of memory resources of the gateway. Unit: GB.
         self.gateway_memory = gateway_memory  # type: long
         # The billing method of the instance.
         # 
@@ -918,10 +917,56 @@ class GetInstanceResponseBodyInstance(TeaModel):
         self.leader_instance_id = leader_instance_id  # type: str
         # The memory size. Unit: GB.
         self.memory = memory  # type: long
+        # The ID of the region in which the instance resides.
         self.region_id = region_id  # type: str
+        self.replica_role = replica_role  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The reason for the suspension.
+        # 
+        # Valid values:
+        # 
+        # *   Indebet
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     The instance has an overdue payment
+        # 
+        #     <!-- -->
+        # 
+        #     .
+        # 
+        # *   Manual
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     The instance is manually suspended
+        # 
+        #     <!-- -->
+        # 
+        #     .
+        # 
+        # *   Overdue
+        # 
+        #     <!-- -->
+        # 
+        #     :
+        # 
+        #     <!-- -->
+        # 
+        #     The instance has expired
+        # 
+        #     <!-- -->
+        # 
+        #     .
         self.suspend_reason = suspend_reason  # type: str
         # The instance tag.
         self.tags = tags  # type: list[GetInstanceResponseBodyInstanceTags]
@@ -992,6 +1037,8 @@ class GetInstanceResponseBodyInstance(TeaModel):
             result['Memory'] = self.memory
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.replica_role is not None:
+            result['ReplicaRole'] = self.replica_role
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.suspend_reason is not None:
@@ -1055,6 +1102,8 @@ class GetInstanceResponseBodyInstance(TeaModel):
             self.memory = m.get('Memory')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ReplicaRole') is not None:
+            self.replica_role = m.get('ReplicaRole')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SuspendReason') is not None:
@@ -1074,13 +1123,13 @@ class GetInstanceResponseBodyInstance(TeaModel):
 class GetInstanceResponseBody(TeaModel):
     def __init__(self, error_code=None, error_message=None, http_status_code=None, instance=None, request_id=None,
                  success=None):
-        # The error code returned if the request failed.
+        # The error code that is returned if the request failed.
         self.error_code = error_code  # type: str
-        # The error message returned if the request failed.
+        # The error message.
         self.error_message = error_message  # type: str
-        # The HTTP status code.
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: str
-        # The details of the instance.
+        # The information about the instance.
         self.instance = instance  # type: GetInstanceResponseBodyInstance
         # The request ID.
         self.request_id = request_id  # type: str
@@ -2146,16 +2195,16 @@ class ScaleInstanceRequest(TeaModel):
     def __init__(self, cold_storage_size=None, cpu=None, gateway_count=None, scale_type=None, storage_size=None):
         # The infrequent access (IA) storage space of the instance. Unit: GB.
         # 
-        # > This parameter is invalid for pay-as-you-go instances.
+        # > Ignore this parameter for pay-as-you-go instances.
         self.cold_storage_size = cold_storage_size  # type: long
         # The specifications of the instance. Valid values:
         # 
-        # *   8-core 32 GB (number of compute Nodes: 1)
-        # *   16-core 64 GB (number of compute nodes: 1)
-        # *   32-core 128 GB (number of compute nodes: 2)
-        # *   64-core 256 GB (number of compute nodes: 4)
-        # *   96-core 384 GB (number of compute nodes: 6)
-        # *   128-core 512 GB (number of compute nodes: 8)
+        # *   8-core 32GB (number of compute nodes: 1)
+        # *   16-core 64GB (number of compute nodes: 1)
+        # *   32-core 128GB (number of compute nodes: 2)
+        # *   64-core 256GB (number of compute nodes: 4)
+        # *   96-core 384GB (number of compute nodes: 6)
+        # *   128-core 512GB (number of compute nodes: 8)
         # *   Others
         # 
         # > 
@@ -2164,10 +2213,13 @@ class ScaleInstanceRequest(TeaModel):
         # 
         # *   If you want to set this parameter to specifications with more than 1,024 compute units (CUs), you must submit a ticket.
         # 
-        # *   This parameter is invalid for shared instances.
+        # *   This parameter is invalid for Hologres Shared Cluster instances.
         # 
-        # *   The specifications of 8-core 32 GB (number of compute nodes: 1) are for trial use only and cannot be used for production.
+        # *   The specifications of 8-core 32GB (number of compute nodes: 1) are for trial use only and cannot be used for production.
         self.cpu = cpu  # type: long
+        # The number of gateways. Valid values: 2 to 50.
+        # 
+        # > This parameter is required only for virtual warehouse instances.
         self.gateway_count = gateway_count  # type: long
         # The specification change type. Valid values:
         # 
@@ -2182,7 +2234,7 @@ class ScaleInstanceRequest(TeaModel):
         self.scale_type = scale_type  # type: str
         # The standard storage space of the instance. Unit: GB.
         # 
-        # > This parameter is invalid for pay-as-you-go instances.
+        # > Ignore this parameter for pay-as-you-go instances.
         self.storage_size = storage_size  # type: long
 
     def validate(self):
