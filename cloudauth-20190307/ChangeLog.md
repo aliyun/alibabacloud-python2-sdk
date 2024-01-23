@@ -1,3 +1,6 @@
+2024-01-23 Version: 2.0.5
+- Update Tea.
+
 2024-01-18 Version: 2.0.4
 - Generated python2 2019-03-07 for Cloudauth.
 
