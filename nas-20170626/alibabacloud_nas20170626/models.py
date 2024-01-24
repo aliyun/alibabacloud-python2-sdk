@@ -1183,6 +1183,108 @@ class CancelRecycleBinJobResponse(TeaModel):
         return self
 
 
+class ChangeResourceGroupRequest(TeaModel):
+    def __init__(self, new_resource_group_id=None, region_id=None, resource_id=None, resource_type=None):
+        self.new_resource_group_id = new_resource_group_id  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_id = resource_id  # type: str
+        self.resource_type = resource_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeResourceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.new_resource_group_id is not None:
+            result['NewResourceGroupId'] = self.new_resource_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NewResourceGroupId') is not None:
+            self.new_resource_group_id = m.get('NewResourceGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        return self
+
+
+class ChangeResourceGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeResourceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ChangeResourceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChangeResourceGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChangeResourceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChangeResourceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateAccessGroupRequest(TeaModel):
     def __init__(self, access_group_name=None, access_group_type=None, description=None, file_system_type=None):
         # The name of the permission group.
@@ -2177,7 +2279,7 @@ class CreateFileResponse(TeaModel):
 class CreateFileSystemRequest(TeaModel):
     def __init__(self, bandwidth=None, capacity=None, charge_type=None, client_token=None, description=None,
                  dry_run=None, duration=None, encrypt_type=None, file_system_type=None, kms_key_id=None, protocol_type=None,
-                 snapshot_id=None, storage_type=None, v_switch_id=None, vpc_id=None, zone_id=None):
+                 resource_group_id=None, snapshot_id=None, storage_type=None, v_switch_id=None, vpc_id=None, zone_id=None):
         # The maximum throughput of the file system.
         # 
         # Unit: MB/s.
@@ -2257,6 +2359,7 @@ class CreateFileSystemRequest(TeaModel):
         # *   If the FileSystemType parameter is set to standard, you can set the ProtocolType parameter to NFS or SMB.
         # *   If the FileSystemType parameter is set to extreme, you can set the ProtocolType parameter to NFS.
         self.protocol_type = protocol_type  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         # The snapshot ID.
         # 
         # This parameter is available only for Extreme NAS file systems.
@@ -2319,6 +2422,8 @@ class CreateFileSystemRequest(TeaModel):
             result['KmsKeyId'] = self.kms_key_id
         if self.protocol_type is not None:
             result['ProtocolType'] = self.protocol_type
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.snapshot_id is not None:
             result['SnapshotId'] = self.snapshot_id
         if self.storage_type is not None:
@@ -2355,6 +2460,8 @@ class CreateFileSystemRequest(TeaModel):
             self.kms_key_id = m.get('KmsKeyId')
         if m.get('ProtocolType') is not None:
             self.protocol_type = m.get('ProtocolType')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SnapshotId') is not None:
             self.snapshot_id = m.get('SnapshotId')
         if m.get('StorageType') is not None:
@@ -8000,8 +8107,8 @@ class DescribeFileSystemsRequestTag(TeaModel):
 
 
 class DescribeFileSystemsRequest(TeaModel):
-    def __init__(self, file_system_id=None, file_system_type=None, page_number=None, page_size=None, tag=None,
-                 vpc_id=None):
+    def __init__(self, file_system_id=None, file_system_type=None, page_number=None, page_size=None,
+                 resource_group_id=None, tag=None, vpc_id=None):
         # The ID of the file system.
         # 
         # *   Sample ID of a General-purpose NAS file system: 31a8e4\*\*\*\*.
@@ -8031,6 +8138,7 @@ class DescribeFileSystemsRequest(TeaModel):
         # 
         # Default value: 10.
         self.page_size = page_size  # type: int
+        self.resource_group_id = resource_group_id  # type: str
         # The details about the tags.
         self.tag = tag  # type: list[DescribeFileSystemsRequestTag]
         # The ID of the virtual private cloud (VPC).
@@ -8058,6 +8166,8 @@ class DescribeFileSystemsRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -8076,6 +8186,8 @@ class DescribeFileSystemsRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
@@ -8556,8 +8668,8 @@ class DescribeFileSystemsResponseBodyFileSystemsFileSystem(TeaModel):
     def __init__(self, access_point_count=None, bandwidth=None, capacity=None, charge_type=None, create_time=None,
                  description=None, encrypt_type=None, expired_time=None, file_system_id=None, file_system_type=None,
                  kmskey_id=None, ldap=None, metered_iasize=None, metered_size=None, mount_targets=None, packages=None,
-                 protocol_type=None, region_id=None, status=None, storage_type=None, supported_features=None, tags=None,
-                 version=None, zone_id=None):
+                 protocol_type=None, region_id=None, resource_group_id=None, status=None, storage_type=None,
+                 supported_features=None, tags=None, version=None, zone_id=None):
         self.access_point_count = access_point_count  # type: str
         # The bandwidth of the file system.
         # 
@@ -8631,6 +8743,7 @@ class DescribeFileSystemsResponseBodyFileSystemsFileSystem(TeaModel):
         self.protocol_type = protocol_type  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         # The status of the file system. Valid values:
         # 
         # *   Pending: The file system is being created or modified.
@@ -8715,6 +8828,8 @@ class DescribeFileSystemsResponseBodyFileSystemsFileSystem(TeaModel):
             result['ProtocolType'] = self.protocol_type
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.status is not None:
             result['Status'] = self.status
         if self.storage_type is not None:
@@ -8770,6 +8885,8 @@ class DescribeFileSystemsResponseBodyFileSystemsFileSystem(TeaModel):
             self.protocol_type = m.get('ProtocolType')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('StorageType') is not None:
