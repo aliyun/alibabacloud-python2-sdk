@@ -646,6 +646,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_benefit_grant_result_with_options(request, runtime)
 
+    def query_finance_user_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.activity_id):
+            body['ActivityId'] = request.activity_id
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryFinanceUserInfo',
+            version='2022-07-04',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            imarketing_20220704_models.QueryFinanceUserInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_finance_user_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_finance_user_info_with_options(request, runtime)
+
     def query_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}

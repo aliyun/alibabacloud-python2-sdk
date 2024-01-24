@@ -4707,6 +4707,219 @@ class QueryBenefitGrantResultResponse(TeaModel):
         return self
 
 
+class QueryFinanceUserInfoRequest(TeaModel):
+    def __init__(self, activity_id=None, user_id=None):
+        self.activity_id = activity_id  # type: long
+        self.user_id = user_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryFinanceUserInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.activity_id is not None:
+            result['ActivityId'] = self.activity_id
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActivityId') is not None:
+            self.activity_id = m.get('ActivityId')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class QueryFinanceUserInfoResponseBodyHeader(TeaModel):
+    def __init__(self, cost_time=None, inner_error_code=None, inner_error_msg=None, rpc_id=None, trace_id=None,
+                 version=None):
+        self.cost_time = cost_time  # type: long
+        self.inner_error_code = inner_error_code  # type: str
+        self.inner_error_msg = inner_error_msg  # type: str
+        # RPC ID
+        self.rpc_id = rpc_id  # type: str
+        self.trace_id = trace_id  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryFinanceUserInfoResponseBodyHeader, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_time is not None:
+            result['CostTime'] = self.cost_time
+        if self.inner_error_code is not None:
+            result['InnerErrorCode'] = self.inner_error_code
+        if self.inner_error_msg is not None:
+            result['InnerErrorMsg'] = self.inner_error_msg
+        if self.rpc_id is not None:
+            result['RpcId'] = self.rpc_id
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CostTime') is not None:
+            self.cost_time = m.get('CostTime')
+        if m.get('InnerErrorCode') is not None:
+            self.inner_error_code = m.get('InnerErrorCode')
+        if m.get('InnerErrorMsg') is not None:
+            self.inner_error_msg = m.get('InnerErrorMsg')
+        if m.get('RpcId') is not None:
+            self.rpc_id = m.get('RpcId')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class QueryFinanceUserInfoResponseBodyResult(TeaModel):
+    def __init__(self, request_id=None, total_income_amount=None, user_page_type=None,
+                 yesterday_income_amount=None):
+        self.request_id = request_id  # type: str
+        self.total_income_amount = total_income_amount  # type: long
+        self.user_page_type = user_page_type  # type: str
+        self.yesterday_income_amount = yesterday_income_amount  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryFinanceUserInfoResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_income_amount is not None:
+            result['TotalIncomeAmount'] = self.total_income_amount
+        if self.user_page_type is not None:
+            result['UserPageType'] = self.user_page_type
+        if self.yesterday_income_amount is not None:
+            result['YesterdayIncomeAmount'] = self.yesterday_income_amount
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalIncomeAmount') is not None:
+            self.total_income_amount = m.get('TotalIncomeAmount')
+        if m.get('UserPageType') is not None:
+            self.user_page_type = m.get('UserPageType')
+        if m.get('YesterdayIncomeAmount') is not None:
+            self.yesterday_income_amount = m.get('YesterdayIncomeAmount')
+        return self
+
+
+class QueryFinanceUserInfoResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, ext=None, header=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        self.ext = ext  # type: dict[str, str]
+        self.header = header  # type: QueryFinanceUserInfoResponseBodyHeader
+        self.result = result  # type: QueryFinanceUserInfoResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.header:
+            self.header.validate()
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(QueryFinanceUserInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        if self.ext is not None:
+            result['Ext'] = self.ext
+        if self.header is not None:
+            result['Header'] = self.header.to_map()
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        if m.get('Ext') is not None:
+            self.ext = m.get('Ext')
+        if m.get('Header') is not None:
+            temp_model = QueryFinanceUserInfoResponseBodyHeader()
+            self.header = temp_model.from_map(m['Header'])
+        if m.get('Result') is not None:
+            temp_model = QueryFinanceUserInfoResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryFinanceUserInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryFinanceUserInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryFinanceUserInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryFinanceUserInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryOrderRequest(TeaModel):
     def __init__(self, channel_id=None, channel_trade_id=None, trade_id=None):
         self.channel_id = channel_id  # type: str
