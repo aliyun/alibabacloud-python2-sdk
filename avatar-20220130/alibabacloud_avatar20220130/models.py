@@ -4577,8 +4577,10 @@ class StartInstanceRequestChannel(TeaModel):
 
 
 class StartInstanceRequestCommandRequest(TeaModel):
-    def __init__(self, alpha_switch=None):
+    def __init__(self, alpha_switch=None, back_ground_image_url=None, locate=None):
         self.alpha_switch = alpha_switch  # type: bool
+        self.back_ground_image_url = back_ground_image_url  # type: str
+        self.locate = locate  # type: int
 
     def validate(self):
         pass
@@ -4591,12 +4593,59 @@ class StartInstanceRequestCommandRequest(TeaModel):
         result = dict()
         if self.alpha_switch is not None:
             result['AlphaSwitch'] = self.alpha_switch
+        if self.back_ground_image_url is not None:
+            result['BackGroundImageUrl'] = self.back_ground_image_url
+        if self.locate is not None:
+            result['Locate'] = self.locate
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AlphaSwitch') is not None:
             self.alpha_switch = m.get('AlphaSwitch')
+        if m.get('BackGroundImageUrl') is not None:
+            self.back_ground_image_url = m.get('BackGroundImageUrl')
+        if m.get('Locate') is not None:
+            self.locate = m.get('Locate')
+        return self
+
+
+class StartInstanceRequestTextRequest(TeaModel):
+    def __init__(self, pitch_rate=None, speech_rate=None, voice=None, volume=None):
+        self.pitch_rate = pitch_rate  # type: int
+        self.speech_rate = speech_rate  # type: int
+        self.voice = voice  # type: str
+        self.volume = volume  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartInstanceRequestTextRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pitch_rate is not None:
+            result['PitchRate'] = self.pitch_rate
+        if self.speech_rate is not None:
+            result['SpeechRate'] = self.speech_rate
+        if self.voice is not None:
+            result['Voice'] = self.voice
+        if self.volume is not None:
+            result['Volume'] = self.volume
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PitchRate') is not None:
+            self.pitch_rate = m.get('PitchRate')
+        if m.get('SpeechRate') is not None:
+            self.speech_rate = m.get('SpeechRate')
+        if m.get('Voice') is not None:
+            self.voice = m.get('Voice')
+        if m.get('Volume') is not None:
+            self.volume = m.get('Volume')
         return self
 
 
@@ -4630,12 +4679,14 @@ class StartInstanceRequestUser(TeaModel):
 
 
 class StartInstanceRequest(TeaModel):
-    def __init__(self, app=None, biz_id=None, channel=None, command_request=None, tenant_id=None, user=None):
+    def __init__(self, app=None, biz_id=None, channel=None, command_request=None, tenant_id=None, text_request=None,
+                 user=None):
         self.app = app  # type: StartInstanceRequestApp
         self.biz_id = biz_id  # type: str
         self.channel = channel  # type: StartInstanceRequestChannel
         self.command_request = command_request  # type: StartInstanceRequestCommandRequest
         self.tenant_id = tenant_id  # type: long
+        self.text_request = text_request  # type: StartInstanceRequestTextRequest
         self.user = user  # type: StartInstanceRequestUser
 
     def validate(self):
@@ -4645,6 +4696,8 @@ class StartInstanceRequest(TeaModel):
             self.channel.validate()
         if self.command_request:
             self.command_request.validate()
+        if self.text_request:
+            self.text_request.validate()
         if self.user:
             self.user.validate()
 
@@ -4664,6 +4717,8 @@ class StartInstanceRequest(TeaModel):
             result['CommandRequest'] = self.command_request.to_map()
         if self.tenant_id is not None:
             result['TenantId'] = self.tenant_id
+        if self.text_request is not None:
+            result['TextRequest'] = self.text_request.to_map()
         if self.user is not None:
             result['User'] = self.user.to_map()
         return result
@@ -4683,6 +4738,9 @@ class StartInstanceRequest(TeaModel):
             self.command_request = temp_model.from_map(m['CommandRequest'])
         if m.get('TenantId') is not None:
             self.tenant_id = m.get('TenantId')
+        if m.get('TextRequest') is not None:
+            temp_model = StartInstanceRequestTextRequest()
+            self.text_request = temp_model.from_map(m['TextRequest'])
         if m.get('User') is not None:
             temp_model = StartInstanceRequestUser()
             self.user = temp_model.from_map(m['User'])
@@ -4691,12 +4749,13 @@ class StartInstanceRequest(TeaModel):
 
 class StartInstanceShrinkRequest(TeaModel):
     def __init__(self, app_shrink=None, biz_id=None, channel_shrink=None, command_request_shrink=None,
-                 tenant_id=None, user_shrink=None):
+                 tenant_id=None, text_request_shrink=None, user_shrink=None):
         self.app_shrink = app_shrink  # type: str
         self.biz_id = biz_id  # type: str
         self.channel_shrink = channel_shrink  # type: str
         self.command_request_shrink = command_request_shrink  # type: str
         self.tenant_id = tenant_id  # type: long
+        self.text_request_shrink = text_request_shrink  # type: str
         self.user_shrink = user_shrink  # type: str
 
     def validate(self):
@@ -4718,6 +4777,8 @@ class StartInstanceShrinkRequest(TeaModel):
             result['CommandRequest'] = self.command_request_shrink
         if self.tenant_id is not None:
             result['TenantId'] = self.tenant_id
+        if self.text_request_shrink is not None:
+            result['TextRequest'] = self.text_request_shrink
         if self.user_shrink is not None:
             result['User'] = self.user_shrink
         return result
@@ -4734,6 +4795,8 @@ class StartInstanceShrinkRequest(TeaModel):
             self.command_request_shrink = m.get('CommandRequest')
         if m.get('TenantId') is not None:
             self.tenant_id = m.get('TenantId')
+        if m.get('TextRequest') is not None:
+            self.text_request_shrink = m.get('TextRequest')
         if m.get('User') is not None:
             self.user_shrink = m.get('User')
         return self

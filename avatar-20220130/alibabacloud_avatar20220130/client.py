@@ -798,6 +798,8 @@ class Client(OpenApiClient):
             request.channel_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.channel, 'Channel', 'json')
         if not UtilClient.is_unset(tmp_req.command_request):
             request.command_request_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.command_request, 'CommandRequest', 'json')
+        if not UtilClient.is_unset(tmp_req.text_request):
+            request.text_request_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.text_request, 'TextRequest', 'json')
         if not UtilClient.is_unset(tmp_req.user):
             request.user_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user, 'User', 'json')
         query = {}
@@ -811,6 +813,8 @@ class Client(OpenApiClient):
             query['CommandRequest'] = request.command_request_shrink
         if not UtilClient.is_unset(request.tenant_id):
             query['TenantId'] = request.tenant_id
+        if not UtilClient.is_unset(request.text_request_shrink):
+            query['TextRequest'] = request.text_request_shrink
         if not UtilClient.is_unset(request.user_shrink):
             query['User'] = request.user_shrink
         req = open_api_models.OpenApiRequest(
