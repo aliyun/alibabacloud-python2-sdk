@@ -8632,12 +8632,12 @@ class DescribeDBClusterAuditLogCollectorRequest(TeaModel):
 
 class DescribeDBClusterAuditLogCollectorResponseBody(TeaModel):
     def __init__(self, collector_status=None, request_id=None):
-        # The status of SQL data collector. Valid values:
+        # The status of SQL collector. Valid values:
         # 
-        # *   Enable: SQL data collector is enabled.
-        # *   Disabled: SQL data collector is disabled.
+        # *   Enable
+        # *   Disabled
         self.collector_status = collector_status  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15064,7 +15064,7 @@ class DescribeGlobalDatabaseNetworkResponseBodyDBClustersDBNodes(TeaModel):
 class DescribeGlobalDatabaseNetworkResponseBodyDBClusters(TeaModel):
     def __init__(self, dbcluster_description=None, dbcluster_id=None, dbcluster_status=None, dbnode_class=None,
                  dbnodes=None, dbtype=None, dbversion=None, expire_time=None, expired=None, pay_type=None, region_id=None,
-                 replica_lag=None, role=None, storage_used=None):
+                 replica_lag=None, role=None, serverless_type=None, storage_used=None):
         # The description of the cluster.
         self.dbcluster_description = dbcluster_description  # type: str
         # The ID of the cluster in the GDN.
@@ -15106,6 +15106,7 @@ class DescribeGlobalDatabaseNetworkResponseBodyDBClusters(TeaModel):
         # 
         # > A GDN consists of one primary cluster and up to four secondary clusters.
         self.role = role  # type: str
+        self.serverless_type = serverless_type  # type: str
         # The storage space that is occupied by the cluster. Unit: bytes.
         self.storage_used = storage_used  # type: str
 
@@ -15149,6 +15150,8 @@ class DescribeGlobalDatabaseNetworkResponseBodyDBClusters(TeaModel):
             result['ReplicaLag'] = self.replica_lag
         if self.role is not None:
             result['Role'] = self.role
+        if self.serverless_type is not None:
+            result['ServerlessType'] = self.serverless_type
         if self.storage_used is not None:
             result['StorageUsed'] = self.storage_used
         return result
@@ -15184,6 +15187,8 @@ class DescribeGlobalDatabaseNetworkResponseBodyDBClusters(TeaModel):
             self.replica_lag = m.get('ReplicaLag')
         if m.get('Role') is not None:
             self.role = m.get('Role')
+        if m.get('ServerlessType') is not None:
+            self.serverless_type = m.get('ServerlessType')
         if m.get('StorageUsed') is not None:
             self.storage_used = m.get('StorageUsed')
         return self
@@ -16393,6 +16398,7 @@ class DescribeMetaListRequest(TeaModel):
         # 
         #     Default value: **30**.
         self.page_size = page_size  # type: int
+        # The ID of the region in which the instance resides. You can call the [DescribeDBClusterAttribute](~~2319132~~) operation to query the region ID of the instance.
         self.region_code = region_code  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -19797,17 +19803,28 @@ class DescribeVSwitchesRequest(TeaModel):
     def __init__(self, dedicated_host_group_id=None, owner_account=None, owner_id=None, page_number=None,
                  page_size=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
                  security_token=None, vpc_id=None, zone_id=None):
+        # The dedicated cluster ID.
+        # 
+        # >  You must specify at least one of the **VpcId** and **DedicatedHostGroupId** parameters.
         self.dedicated_host_group_id = dedicated_host_group_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The page number of the page to return. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return per page. Maximum value: 50. Default value: 50.
         self.page_size = page_size  # type: int
+        # The ID of the region where the vSwitch belongs.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the vSwitch belongs.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
+        # The ID of the virtual private type (VPC) to which the vSwitch belongs.
+        # 
+        # >  You must specify at least one of the **VpcId** and **DedicatedHostGroupId** parameters.
         self.vpc_id = vpc_id  # type: str
+        # The ID of the zone to which the vSwitch belongs.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -19877,13 +19894,27 @@ class DescribeVSwitchesRequest(TeaModel):
 class DescribeVSwitchesResponseBodyVSwitchs(TeaModel):
     def __init__(self, available_ip_address_count=None, cidr_block=None, description=None, is_default=None,
                  iz_no=None, status=None, v_switch_id=None, v_switch_name=None):
+        # The number of available IP addresses in the vSwitch.
         self.available_ip_address_count = available_ip_address_count  # type: long
+        # The IPv4 CIDR block of the vSwitch.
         self.cidr_block = cidr_block  # type: str
+        # The descriptions of the vSwitch.
         self.description = description  # type: str
+        # Indicates whether the vSwitch is the default vSwitch. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.is_default = is_default  # type: bool
+        # The zone to which the NAT gateway belongs.
         self.iz_no = iz_no  # type: str
+        # The status of the vSwitch. Valid values:
+        # 
+        # *   **Pending**: The vSwitch is being configured.
+        # *   **Available**: The vSwitch is available.
         self.status = status  # type: str
+        # The vSwitch ID.
         self.v_switch_id = v_switch_id  # type: str
+        # The name of the vSwitch.
         self.v_switch_name = v_switch_name  # type: str
 
     def validate(self):
@@ -19936,10 +19967,15 @@ class DescribeVSwitchesResponseBodyVSwitchs(TeaModel):
 
 class DescribeVSwitchesResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None, v_switchs=None):
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The number of returned entries.
         self.total_count = total_count  # type: int
+        # The details of the vSwitch.
         self.v_switchs = v_switchs  # type: list[DescribeVSwitchesResponseBodyVSwitchs]
 
     def validate(self):
@@ -20028,6 +20064,7 @@ class DescribeVSwitchesResponse(TeaModel):
 class DisableDBClusterServerlessRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -20072,7 +20109,9 @@ class DisableDBClusterServerlessRequest(TeaModel):
 
 class DisableDBClusterServerlessResponseBody(TeaModel):
     def __init__(self, dbcluster_id=None, request_id=None):
+        # The ID of the serverless cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20142,16 +20181,23 @@ class EnableDBClusterServerlessRequest(TeaModel):
     def __init__(self, dbcluster_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, scale_ap_ro_num_max=None, scale_ap_ro_num_min=None, scale_max=None, scale_min=None,
                  scale_ro_num_max=None, scale_ro_num_min=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The maximum number of stable AP read-only nodes. Valid values: 0 to 7.
         self.scale_ap_ro_num_max = scale_ap_ro_num_max  # type: str
+        # The minimum number of stable AP read-only nodes. Valid values: 0 to 7.
         self.scale_ap_ro_num_min = scale_ap_ro_num_min  # type: str
+        # The maximum number of PCUs per node for scaling. Valid values: 1 to 8 PCUs.
         self.scale_max = scale_max  # type: str
+        # The minimum number of PolarDB capacity units (PCUs) per node for scaling. Valid values: 1 to 8 PCUs.
         self.scale_min = scale_min  # type: str
+        # The maximum number of read-only nodes for scaling. Valid values: 0 to 7.
         self.scale_ro_num_max = scale_ro_num_max  # type: str
+        # The minimum number of read-only nodes for scaling. Valid values: 0 to 7.
         self.scale_ro_num_min = scale_ro_num_min  # type: str
 
     def validate(self):
@@ -20216,7 +20262,9 @@ class EnableDBClusterServerlessRequest(TeaModel):
 
 class EnableDBClusterServerlessResponseBody(TeaModel):
     def __init__(self, dbcluster_id=None, request_id=None):
+        # The ID of the serverless cluster.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -21985,16 +22033,45 @@ class ModifyDBClusterRequest(TeaModel):
     def __init__(self, compress_storage=None, dbcluster_id=None, data_sync_mode=None, fault_simulate_mode=None,
                  owner_account=None, owner_id=None, resource_owner_account=None, resource_owner_id=None, standby_hamode=None,
                  storage_auto_scale=None, storage_upper_bound=None):
+        # Enable storage compression function. The value of this parameter is ON.
         self.compress_storage = compress_storage  # type: str
+        # The cluster ID.
+        # 
+        # >  You can call the DescribeDBClusters operation to query information about all PolarDB clusters that are deployed in a specified region, such as cluster IDs.
         self.dbcluster_id = dbcluster_id  # type: str
+        # The method used to replicate data across zones. Valid values:
+        # 
+        # *   **AsyncSync**: the asynchronous mode.
+        # *   **SemiSync**: the semi-synchronous mode.
         self.data_sync_mode = data_sync_mode  # type: str
+        # The fault scenario that you want to simulate for the cluster.
+        # 
+        # *   Set the value to **0**. The value 0 indicates the scenario in which the primary zone of the cluster fails.
+        # 
+        # > 
+        # 
+        # *   This parameter takes effect only when you set the `StandbyHAMode` parameter to 0.
+        # 
+        # *   If you set this parameter to 0, all compute nodes deployed in the primary zone are unavailable. In this case, the switchover degrades the cluster performance.
         self.fault_simulate_mode = fault_simulate_mode  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # Specifies whether to enable the cross-zone automatic switchover mode. Valid values:
+        # 
+        # *   **ON**: Enable the cross-zone automatic switchover mode.
+        # *   **OFF**: Disable the cross-zone automatic switchover mode.
+        # *   **0**: Enable the customer drill mode.
         self.standby_hamode = standby_hamode  # type: str
+        # Specifies whether to enable automatic storage scaling for the cluster of Standard Edition. Valid values:
+        # 
+        # *   Enable
+        # *   Disable
         self.storage_auto_scale = storage_auto_scale  # type: str
+        # The maximum storage capacity of the cluster of Standard Edition in automatic scaling. Unit: GB.
+        # 
+        # >  The maximum value of this parameter is 32000.
         self.storage_upper_bound = storage_upper_bound  # type: long
 
     def validate(self):
@@ -22059,6 +22136,7 @@ class ModifyDBClusterRequest(TeaModel):
 
 class ModifyDBClusterResponseBody(TeaModel):
     def __init__(self, dbcluster_id=None, order_id=None, request_id=None):
+        # The cluster ID.
         self.dbcluster_id = dbcluster_id  # type: str
         self.order_id = order_id  # type: str
         self.request_id = request_id  # type: str
