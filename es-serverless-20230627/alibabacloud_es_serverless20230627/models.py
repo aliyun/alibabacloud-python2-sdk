@@ -145,6 +145,87 @@ class CreateAppRequestNetwork(TeaModel):
         return self
 
 
+class CreateAppRequestPrivateNetworkWhiteIpGroup(TeaModel):
+    def __init__(self, group_name=None, ips=None):
+        self.group_name = group_name  # type: str
+        self.ips = ips  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAppRequestPrivateNetworkWhiteIpGroup, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_name is not None:
+            result['groupName'] = self.group_name
+        if self.ips is not None:
+            result['ips'] = self.ips
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('groupName') is not None:
+            self.group_name = m.get('groupName')
+        if m.get('ips') is not None:
+            self.ips = m.get('ips')
+        return self
+
+
+class CreateAppRequestPrivateNetwork(TeaModel):
+    def __init__(self, enabled=None, pvl_endpoint_id=None, type=None, vpc_id=None, white_ip_group=None):
+        self.enabled = enabled  # type: bool
+        self.pvl_endpoint_id = pvl_endpoint_id  # type: str
+        self.type = type  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.white_ip_group = white_ip_group  # type: list[CreateAppRequestPrivateNetworkWhiteIpGroup]
+
+    def validate(self):
+        if self.white_ip_group:
+            for k in self.white_ip_group:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateAppRequestPrivateNetwork, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enabled is not None:
+            result['enabled'] = self.enabled
+        if self.pvl_endpoint_id is not None:
+            result['pvlEndpointId'] = self.pvl_endpoint_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.vpc_id is not None:
+            result['vpcId'] = self.vpc_id
+        result['whiteIpGroup'] = []
+        if self.white_ip_group is not None:
+            for k in self.white_ip_group:
+                result['whiteIpGroup'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('enabled') is not None:
+            self.enabled = m.get('enabled')
+        if m.get('pvlEndpointId') is not None:
+            self.pvl_endpoint_id = m.get('pvlEndpointId')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('vpcId') is not None:
+            self.vpc_id = m.get('vpcId')
+        self.white_ip_group = []
+        if m.get('whiteIpGroup') is not None:
+            for k in m.get('whiteIpGroup'):
+                temp_model = CreateAppRequestPrivateNetworkWhiteIpGroup()
+                self.white_ip_group.append(temp_model.from_map(k))
+        return self
+
+
 class CreateAppRequestQuotaInfo(TeaModel):
     def __init__(self, app_type=None, cu=None, storage=None):
         self.app_type = app_type  # type: str
@@ -181,7 +262,7 @@ class CreateAppRequestQuotaInfo(TeaModel):
 
 class CreateAppRequest(TeaModel):
     def __init__(self, app_name=None, authentication=None, charge_type=None, description=None, network=None,
-                 quota_info=None, region_id=None, version=None, dry_run=None):
+                 private_network=None, quota_info=None, region_id=None, version=None, dry_run=None):
         # 应用名
         self.app_name = app_name  # type: str
         self.authentication = authentication  # type: CreateAppRequestAuthentication
@@ -189,6 +270,7 @@ class CreateAppRequest(TeaModel):
         # 应用备注
         self.description = description  # type: str
         self.network = network  # type: list[CreateAppRequestNetwork]
+        self.private_network = private_network  # type: list[CreateAppRequestPrivateNetwork]
         self.quota_info = quota_info  # type: CreateAppRequestQuotaInfo
         self.region_id = region_id  # type: str
         self.version = version  # type: str
@@ -199,6 +281,10 @@ class CreateAppRequest(TeaModel):
             self.authentication.validate()
         if self.network:
             for k in self.network:
+                if k:
+                    k.validate()
+        if self.private_network:
+            for k in self.private_network:
                 if k:
                     k.validate()
         if self.quota_info:
@@ -222,6 +308,10 @@ class CreateAppRequest(TeaModel):
         if self.network is not None:
             for k in self.network:
                 result['network'].append(k.to_map() if k else None)
+        result['privateNetwork'] = []
+        if self.private_network is not None:
+            for k in self.private_network:
+                result['privateNetwork'].append(k.to_map() if k else None)
         if self.quota_info is not None:
             result['quotaInfo'] = self.quota_info.to_map()
         if self.region_id is not None:
@@ -248,6 +338,11 @@ class CreateAppRequest(TeaModel):
             for k in m.get('network'):
                 temp_model = CreateAppRequestNetwork()
                 self.network.append(temp_model.from_map(k))
+        self.private_network = []
+        if m.get('privateNetwork') is not None:
+            for k in m.get('privateNetwork'):
+                temp_model = CreateAppRequestPrivateNetwork()
+                self.private_network.append(temp_model.from_map(k))
         if m.get('quotaInfo') is not None:
             temp_model = CreateAppRequestQuotaInfo()
             self.quota_info = temp_model.from_map(m['quotaInfo'])
@@ -1221,6 +1316,77 @@ class UpdateAppRequestAuthentication(TeaModel):
         return self
 
 
+class UpdateAppRequestLimiterInfoLimiters(TeaModel):
+    def __init__(self, max_value=None, min_value=None, type=None, values=None):
+        self.max_value = max_value  # type: int
+        self.min_value = min_value  # type: int
+        self.type = type  # type: str
+        self.values = values  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAppRequestLimiterInfoLimiters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_value is not None:
+            result['maxValue'] = self.max_value
+        if self.min_value is not None:
+            result['minValue'] = self.min_value
+        if self.type is not None:
+            result['type'] = self.type
+        if self.values is not None:
+            result['values'] = self.values
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('maxValue') is not None:
+            self.max_value = m.get('maxValue')
+        if m.get('minValue') is not None:
+            self.min_value = m.get('minValue')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('values') is not None:
+            self.values = m.get('values')
+        return self
+
+
+class UpdateAppRequestLimiterInfo(TeaModel):
+    def __init__(self, limiters=None):
+        self.limiters = limiters  # type: list[UpdateAppRequestLimiterInfoLimiters]
+
+    def validate(self):
+        if self.limiters:
+            for k in self.limiters:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateAppRequestLimiterInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['limiters'] = []
+        if self.limiters is not None:
+            for k in self.limiters:
+                result['limiters'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.limiters = []
+        if m.get('limiters') is not None:
+            for k in m.get('limiters'):
+                temp_model = UpdateAppRequestLimiterInfoLimiters()
+                self.limiters.append(temp_model.from_map(k))
+        return self
+
+
 class UpdateAppRequestNetworkWhiteIpGroup(TeaModel):
     def __init__(self, group_name=None, ips=None):
         self.group_name = group_name  # type: str
@@ -1302,18 +1468,110 @@ class UpdateAppRequestNetwork(TeaModel):
         return self
 
 
+class UpdateAppRequestPrivateNetworkWhiteIpGroup(TeaModel):
+    def __init__(self, group_name=None, ips=None):
+        self.group_name = group_name  # type: str
+        self.ips = ips  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAppRequestPrivateNetworkWhiteIpGroup, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_name is not None:
+            result['groupName'] = self.group_name
+        if self.ips is not None:
+            result['ips'] = self.ips
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('groupName') is not None:
+            self.group_name = m.get('groupName')
+        if m.get('ips') is not None:
+            self.ips = m.get('ips')
+        return self
+
+
+class UpdateAppRequestPrivateNetwork(TeaModel):
+    def __init__(self, enabled=None, pvl_endpoint_id=None, type=None, vpc_id=None, white_ip_group=None):
+        self.enabled = enabled  # type: bool
+        self.pvl_endpoint_id = pvl_endpoint_id  # type: str
+        self.type = type  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.white_ip_group = white_ip_group  # type: list[UpdateAppRequestPrivateNetworkWhiteIpGroup]
+
+    def validate(self):
+        if self.white_ip_group:
+            for k in self.white_ip_group:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateAppRequestPrivateNetwork, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enabled is not None:
+            result['enabled'] = self.enabled
+        if self.pvl_endpoint_id is not None:
+            result['pvlEndpointId'] = self.pvl_endpoint_id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.vpc_id is not None:
+            result['vpcId'] = self.vpc_id
+        result['whiteIpGroup'] = []
+        if self.white_ip_group is not None:
+            for k in self.white_ip_group:
+                result['whiteIpGroup'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('enabled') is not None:
+            self.enabled = m.get('enabled')
+        if m.get('pvlEndpointId') is not None:
+            self.pvl_endpoint_id = m.get('pvlEndpointId')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('vpcId') is not None:
+            self.vpc_id = m.get('vpcId')
+        self.white_ip_group = []
+        if m.get('whiteIpGroup') is not None:
+            for k in m.get('whiteIpGroup'):
+                temp_model = UpdateAppRequestPrivateNetworkWhiteIpGroup()
+                self.white_ip_group.append(temp_model.from_map(k))
+        return self
+
+
 class UpdateAppRequest(TeaModel):
-    def __init__(self, authentication=None, description=None, network=None):
+    def __init__(self, apply_reason=None, authentication=None, contact_info=None, description=None,
+                 limiter_info=None, network=None, private_network=None):
+        self.apply_reason = apply_reason  # type: str
         self.authentication = authentication  # type: UpdateAppRequestAuthentication
+        self.contact_info = contact_info  # type: str
         # 应用备注
         self.description = description  # type: str
+        self.limiter_info = limiter_info  # type: UpdateAppRequestLimiterInfo
         self.network = network  # type: list[UpdateAppRequestNetwork]
+        self.private_network = private_network  # type: list[UpdateAppRequestPrivateNetwork]
 
     def validate(self):
         if self.authentication:
             self.authentication.validate()
+        if self.limiter_info:
+            self.limiter_info.validate()
         if self.network:
             for k in self.network:
+                if k:
+                    k.validate()
+        if self.private_network:
+            for k in self.private_network:
                 if k:
                     k.validate()
 
@@ -1323,28 +1581,50 @@ class UpdateAppRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.apply_reason is not None:
+            result['applyReason'] = self.apply_reason
         if self.authentication is not None:
             result['authentication'] = self.authentication.to_map()
+        if self.contact_info is not None:
+            result['contactInfo'] = self.contact_info
         if self.description is not None:
             result['description'] = self.description
+        if self.limiter_info is not None:
+            result['limiterInfo'] = self.limiter_info.to_map()
         result['network'] = []
         if self.network is not None:
             for k in self.network:
                 result['network'].append(k.to_map() if k else None)
+        result['privateNetwork'] = []
+        if self.private_network is not None:
+            for k in self.private_network:
+                result['privateNetwork'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('applyReason') is not None:
+            self.apply_reason = m.get('applyReason')
         if m.get('authentication') is not None:
             temp_model = UpdateAppRequestAuthentication()
             self.authentication = temp_model.from_map(m['authentication'])
+        if m.get('contactInfo') is not None:
+            self.contact_info = m.get('contactInfo')
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('limiterInfo') is not None:
+            temp_model = UpdateAppRequestLimiterInfo()
+            self.limiter_info = temp_model.from_map(m['limiterInfo'])
         self.network = []
         if m.get('network') is not None:
             for k in m.get('network'):
                 temp_model = UpdateAppRequestNetwork()
                 self.network.append(temp_model.from_map(k))
+        self.private_network = []
+        if m.get('privateNetwork') is not None:
+            for k in m.get('privateNetwork'):
+                temp_model = UpdateAppRequestPrivateNetwork()
+                self.private_network.append(temp_model.from_map(k))
         return self
 
 
