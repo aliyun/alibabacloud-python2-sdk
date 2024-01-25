@@ -1657,6 +1657,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.parent_service_uid):
             query['ParentServiceUid'] = request.parent_service_uid
+        if not UtilClient.is_unset(request.quota_id):
+            query['QuotaId'] = request.quota_id
         if not UtilClient.is_unset(request.resource_name):
             query['ResourceName'] = request.resource_name
         if not UtilClient.is_unset(request.service_name):
