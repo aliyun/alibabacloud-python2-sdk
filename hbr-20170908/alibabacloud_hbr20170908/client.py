@@ -283,8 +283,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.check_role_with_options(request, runtime)
 
-    def create_backup_job_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def create_backup_job_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = hbr_20170908_models.CreateBackupJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.detail):
+            request.detail_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.detail, 'Detail', 'json')
         query = {}
         if not UtilClient.is_unset(request.backup_type):
             query['BackupType'] = request.backup_type
@@ -300,6 +304,8 @@ class Client(OpenApiClient):
             query['CrossAccountType'] = request.cross_account_type
         if not UtilClient.is_unset(request.cross_account_user_id):
             query['CrossAccountUserId'] = request.cross_account_user_id
+        if not UtilClient.is_unset(request.detail_shrink):
+            query['Detail'] = request.detail_shrink
         if not UtilClient.is_unset(request.exclude):
             query['Exclude'] = request.exclude
         if not UtilClient.is_unset(request.include):
