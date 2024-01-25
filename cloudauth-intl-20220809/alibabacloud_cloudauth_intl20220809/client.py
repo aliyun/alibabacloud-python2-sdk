@@ -599,8 +599,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.crop):
             query['Crop'] = request.crop
-        if not UtilClient.is_unset(request.face_picture_base_64):
-            query['FacePictureBase64'] = request.face_picture_base_64
         if not UtilClient.is_unset(request.face_picture_url):
             query['FacePictureUrl'] = request.face_picture_url
         if not UtilClient.is_unset(request.face_quality):
@@ -613,8 +611,12 @@ class Client(OpenApiClient):
             query['Occlusion'] = request.occlusion
         if not UtilClient.is_unset(request.product_code):
             query['ProductCode'] = request.product_code
+        body = {}
+        if not UtilClient.is_unset(request.face_picture_base_64):
+            body['FacePictureBase64'] = request.face_picture_base_64
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='FaceLiveness',
