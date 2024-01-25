@@ -88,9 +88,6 @@ class AdjustJMeterSceneSpeedResponse(TeaModel):
         self.body = body  # type: AdjustJMeterSceneSpeedResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -266,9 +263,6 @@ class AdjustPtsSceneSpeedResponse(TeaModel):
         self.body = body  # type: AdjustPtsSceneSpeedResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -378,9 +372,6 @@ class CreatePtsSceneResponse(TeaModel):
         self.body = body  # type: CreatePtsSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -490,9 +481,6 @@ class CreatePtsSceneBaseLineFromReportResponse(TeaModel):
         self.body = body  # type: CreatePtsSceneBaseLineFromReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -597,9 +585,6 @@ class DeletePtsSceneResponse(TeaModel):
         self.body = body  # type: DeletePtsSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -704,9 +689,6 @@ class DeletePtsSceneBaseLineResponse(TeaModel):
         self.body = body  # type: DeletePtsSceneBaseLineResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -835,9 +817,6 @@ class DeletePtsScenesResponse(TeaModel):
         self.body = body  # type: DeletePtsScenesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -924,9 +903,6 @@ class GetAllRegionsResponse(TeaModel):
         self.body = body  # type: GetAllRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1093,9 +1069,6 @@ class GetJMeterLogsResponse(TeaModel):
         self.body = body  # type: GetJMeterLogsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1425,9 +1398,6 @@ class GetJMeterReportDetailsResponse(TeaModel):
         self.body = body  # type: GetJMeterReportDetailsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1553,9 +1523,6 @@ class GetJMeterSampleMetricsResponse(TeaModel):
         self.body = body  # type: GetJMeterSampleMetricsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1743,9 +1710,6 @@ class GetJMeterSamplingLogsResponse(TeaModel):
         self.body = body  # type: GetJMeterSamplingLogsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1969,9 +1933,6 @@ class GetJMeterSceneRunningDataResponse(TeaModel):
         self.body = body  # type: GetJMeterSceneRunningDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2422,9 +2383,6 @@ class GetOpenJMeterSceneResponse(TeaModel):
         self.body = body  # type: GetOpenJMeterSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2680,9 +2638,6 @@ class GetPtsDebugSampleLogsResponse(TeaModel):
         self.body = body  # type: GetPtsDebugSampleLogsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3772,9 +3727,6 @@ class GetPtsReportDetailsResponse(TeaModel):
         self.body = body  # type: GetPtsReportDetailsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3952,9 +3904,6 @@ class GetPtsReportsBySceneIdResponse(TeaModel):
         self.body = body  # type: GetPtsReportsBySceneIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4918,9 +4867,6 @@ class GetPtsSceneResponse(TeaModel):
         self.body = body  # type: GetPtsSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5223,9 +5169,6 @@ class GetPtsSceneBaseLineResponse(TeaModel):
         self.body = body  # type: GetPtsSceneBaseLineResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5628,9 +5571,6 @@ class GetPtsSceneRunningDataResponse(TeaModel):
         self.body = body  # type: GetPtsSceneRunningDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5756,9 +5696,6 @@ class GetPtsSceneRunningStatusResponse(TeaModel):
         self.body = body  # type: GetPtsSceneRunningStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5946,9 +5883,6 @@ class GetUserVpcSecurityGroupResponse(TeaModel):
         self.body = body  # type: GetUserVpcSecurityGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6142,9 +6076,6 @@ class GetUserVpcVSwitchResponse(TeaModel):
         self.body = body  # type: GetUserVpcVSwitchResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6353,9 +6284,6 @@ class GetUserVpcsResponse(TeaModel):
         self.body = body  # type: GetUserVpcsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6669,9 +6597,6 @@ class ListEnvsResponse(TeaModel):
         self.body = body  # type: ListEnvsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6880,9 +6805,6 @@ class ListJMeterReportsResponse(TeaModel):
         self.body = body  # type: ListJMeterReportsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7070,9 +6992,6 @@ class ListOpenJMeterScenesResponse(TeaModel):
         self.body = body  # type: ListOpenJMeterScenesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7281,9 +7200,6 @@ class ListPtsReportsResponse(TeaModel):
         self.body = body  # type: ListPtsReportsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7446,9 +7362,6 @@ class ListPtsSceneResponse(TeaModel):
         self.body = body  # type: ListPtsSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7553,9 +7466,6 @@ class ModifyPtsSceneResponse(TeaModel):
         self.body = body  # type: ModifyPtsSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7660,9 +7570,6 @@ class RemoveEnvResponse(TeaModel):
         self.body = body  # type: RemoveEnvResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7767,9 +7674,6 @@ class RemoveOpenJMeterSceneResponse(TeaModel):
         self.body = body  # type: RemoveOpenJMeterSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8029,9 +7933,6 @@ class SaveEnvResponse(TeaModel):
         self.body = body  # type: SaveEnvResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8491,9 +8392,6 @@ class SaveOpenJMeterSceneResponse(TeaModel):
         self.body = body  # type: SaveOpenJMeterSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9424,9 +9322,6 @@ class SavePtsSceneResponse(TeaModel):
         self.body = body  # type: SavePtsSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9536,9 +9431,6 @@ class StartDebugPtsSceneResponse(TeaModel):
         self.body = body  # type: StartDebugPtsSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9648,9 +9540,6 @@ class StartDebuggingJMeterSceneResponse(TeaModel):
         self.body = body  # type: StartDebuggingJMeterSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9760,9 +9649,6 @@ class StartPtsSceneResponse(TeaModel):
         self.body = body  # type: StartPtsSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9872,9 +9758,6 @@ class StartTestingJMeterSceneResponse(TeaModel):
         self.body = body  # type: StartTestingJMeterSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9984,9 +9867,6 @@ class StopDebugPtsSceneResponse(TeaModel):
         self.body = body  # type: StopDebugPtsSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10091,9 +9971,6 @@ class StopDebuggingJMeterSceneResponse(TeaModel):
         self.body = body  # type: StopDebuggingJMeterSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10198,9 +10075,6 @@ class StopPtsSceneResponse(TeaModel):
         self.body = body  # type: StopPtsSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10305,9 +10179,6 @@ class StopTestingJMeterSceneResponse(TeaModel):
         self.body = body  # type: StopTestingJMeterSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10456,9 +10327,6 @@ class UpdatePtsSceneBaseLineResponse(TeaModel):
         self.body = body  # type: UpdatePtsSceneBaseLineResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
