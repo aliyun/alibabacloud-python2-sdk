@@ -80,9 +80,6 @@ class AbolishApiResponse(TeaModel):
         self.body = body  # type: AbolishApiResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -114,7 +111,14 @@ class AbolishApiResponse(TeaModel):
 
 class AddAccessControlListEntryRequest(TeaModel):
     def __init__(self, acl_entrys=None, acl_id=None, security_token=None):
+        # The ACL settings.
+        # 
+        # *   entry: the entries that you want to add to the ACL. You can add CIDR blocks. Separate multiple CIDR blocks with commas (,).
+        # *   comment: the description of the ACL.
+        # 
+        # > You can add at most 50 IP addresses or CIDR blocks to an ACL in each call. If the IP address or CIDR block that you want to add to an ACL already exists, the IP address or CIDR block is not added. The entries that you add must be CIDR blocks.
         self.acl_entrys = acl_entrys  # type: str
+        # The ID of the access control list (ACL).
         self.acl_id = acl_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -148,6 +152,7 @@ class AddAccessControlListEntryRequest(TeaModel):
 
 class AddAccessControlListEntryResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -177,9 +182,6 @@ class AddAccessControlListEntryResponse(TeaModel):
         self.body = body  # type: AddAccessControlListEntryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -296,9 +298,6 @@ class AddIpControlPolicyItemResponse(TeaModel):
         self.body = body  # type: AddIpControlPolicyItemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -413,9 +412,6 @@ class AddTrafficSpecialControlResponse(TeaModel):
         self.body = body  # type: AddTrafficSpecialControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -556,9 +552,6 @@ class AttachApiProductResponse(TeaModel):
         self.body = body  # type: AttachApiProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -679,9 +672,6 @@ class AttachPluginResponse(TeaModel):
         self.body = body  # type: AttachPluginResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -713,9 +703,13 @@ class AttachPluginResponse(TeaModel):
 
 class BatchAbolishApisRequestApi(TeaModel):
     def __init__(self, api_uid=None, group_id=None, stage_id=None, stage_name=None):
+        # The ID of the API.
         self.api_uid = api_uid  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The ID of the environment.
         self.stage_id = stage_id  # type: str
+        # The name of the environment.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -752,6 +746,7 @@ class BatchAbolishApisRequestApi(TeaModel):
 
 class BatchAbolishApisRequest(TeaModel):
     def __init__(self, api=None, security_token=None):
+        # The APIs that you want to operate.
         self.api = api  # type: list[BatchAbolishApisRequestApi]
         self.security_token = security_token  # type: str
 
@@ -789,7 +784,9 @@ class BatchAbolishApisRequest(TeaModel):
 
 class BatchAbolishApisResponseBody(TeaModel):
     def __init__(self, operation_id=None, request_id=None):
+        # The ID of the operation.
         self.operation_id = operation_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -823,9 +820,6 @@ class BatchAbolishApisResponse(TeaModel):
         self.body = body  # type: BatchAbolishApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -978,9 +972,6 @@ class BatchDeployApisResponse(TeaModel):
         self.body = body  # type: BatchDeployApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1078,9 +1069,6 @@ class CreateAccessControlListResponse(TeaModel):
         self.body = body  # type: CreateAccessControlListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1112,7 +1100,9 @@ class CreateAccessControlListResponse(TeaModel):
 
 class CreateApiRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -1207,6 +1197,7 @@ class CreateApiRequest(TeaModel):
         self.service_parameters = service_parameters  # type: str
         self.service_parameters_map = service_parameters_map  # type: str
         self.system_parameters = system_parameters  # type: str
+        # The list of tags.
         self.tag = tag  # type: list[CreateApiRequestTag]
         # Specifies whether to make the API public. Valid values:
         # 
@@ -1390,9 +1381,6 @@ class CreateApiResponse(TeaModel):
         self.body = body  # type: CreateApiResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1581,9 +1569,6 @@ class CreateApiGroupResponse(TeaModel):
         self.body = body  # type: CreateApiGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1705,9 +1690,6 @@ class CreateApiStageVariableResponse(TeaModel):
         self.body = body  # type: CreateApiStageVariableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1891,9 +1873,6 @@ class CreateAppResponse(TeaModel):
         self.body = body  # type: CreateAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2051,9 +2030,6 @@ class CreateBackendResponse(TeaModel):
         self.body = body  # type: CreateBackendResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2169,9 +2145,6 @@ class CreateBackendModelResponse(TeaModel):
         self.body = body  # type: CreateBackendModelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2203,7 +2176,9 @@ class CreateBackendModelResponse(TeaModel):
 
 class CreateDatasetRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -2232,9 +2207,16 @@ class CreateDatasetRequestTag(TeaModel):
 
 class CreateDatasetRequest(TeaModel):
     def __init__(self, dataset_name=None, dataset_type=None, security_token=None, tag=None):
+        # The name of the dataset.
         self.dataset_name = dataset_name  # type: str
+        # The type of the dataset. Valid values:
+        # 
+        # * JWT_BLOCKING: a JSON Web Token (JWT) blacklist
+        # * IP_WHITELIST_CIDR : an IP address whitelist
+        # * PARAMETER_ACCESS : parameter-based access control
         self.dataset_type = dataset_type  # type: str
         self.security_token = security_token  # type: str
+        # The tag of objects that match the rule. You can specify multiple tags.
         self.tag = tag  # type: list[CreateDatasetRequestTag]
 
     def validate(self):
@@ -2279,7 +2261,9 @@ class CreateDatasetRequest(TeaModel):
 
 class CreateDatasetResponseBody(TeaModel):
     def __init__(self, dataset_id=None, request_id=None):
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2313,9 +2297,6 @@ class CreateDatasetResponse(TeaModel):
         self.body = body  # type: CreateDatasetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2425,9 +2406,6 @@ class CreateDatasetItemResponse(TeaModel):
         self.body = body  # type: CreateDatasetItemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2674,9 +2652,6 @@ class CreateInstanceResponse(TeaModel):
         self.body = body  # type: CreateInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2774,9 +2749,6 @@ class CreateIntranetDomainResponse(TeaModel):
         self.body = body  # type: CreateIntranetDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2946,9 +2918,6 @@ class CreateIpControlResponse(TeaModel):
         self.body = body  # type: CreateIpControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3049,9 +3018,6 @@ class CreateLogConfigResponse(TeaModel):
         self.body = body  # type: CreateLogConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3083,7 +3049,9 @@ class CreateLogConfigResponse(TeaModel):
 
 class CreateModelRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The values of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -3120,6 +3088,7 @@ class CreateModelRequest(TeaModel):
         self.model_name = model_name  # type: str
         # The definition of the model in JSON Schema.
         self.schema = schema  # type: str
+        # The object tags that match the lifecycle rule. You can specify multiple tags.
         self.tag = tag  # type: list[CreateModelRequestTag]
 
     def validate(self):
@@ -3253,9 +3222,6 @@ class CreateModelResponse(TeaModel):
         self.body = body  # type: CreateModelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3287,8 +3253,11 @@ class CreateModelResponse(TeaModel):
 
 class CreateMonitorGroupRequest(TeaModel):
     def __init__(self, auth=None, group_id=None, raw_monitor_group_id=None, security_token=None):
+        # The caller authentication status of the API. Valid values: **ok**: The authentication is successful. **mismatch**: The request is redirected. **servicenotfound**: A request error occurred. **Unknown**: An unknown error occurred.
         self.auth = auth  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The ID of the monitoring group.
         self.raw_monitor_group_id = raw_monitor_group_id  # type: long
         self.security_token = security_token  # type: str
 
@@ -3326,7 +3295,9 @@ class CreateMonitorGroupRequest(TeaModel):
 
 class CreateMonitorGroupResponseBody(TeaModel):
     def __init__(self, monitor_group_id=None, request_id=None):
+        # The ID of the API group. This ID is generated by the system and is unique globally.
         self.monitor_group_id = monitor_group_id  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3360,9 +3331,6 @@ class CreateMonitorGroupResponse(TeaModel):
         self.body = body  # type: CreateMonitorGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3541,9 +3509,6 @@ class CreatePluginResponse(TeaModel):
         self.body = body  # type: CreatePluginResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3660,9 +3625,6 @@ class CreateSignatureResponse(TeaModel):
         self.body = body  # type: CreateSignatureResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3797,9 +3759,6 @@ class CreateTrafficControlResponse(TeaModel):
         self.body = body  # type: CreateTrafficControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3891,9 +3850,6 @@ class DeleteAccessControlListResponse(TeaModel):
         self.body = body  # type: DeleteAccessControlListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3986,9 +3942,6 @@ class DeleteAllTrafficSpecialControlResponse(TeaModel):
         self.body = body  # type: DeleteAllTrafficSpecialControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4086,9 +4039,6 @@ class DeleteApiResponse(TeaModel):
         self.body = body  # type: DeleteApiResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4225,9 +4175,6 @@ class DeleteApiGroupResponse(TeaModel):
         self.body = body  # type: DeleteApiGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4319,9 +4266,6 @@ class DeleteApiProductResponse(TeaModel):
         self.body = body  # type: DeleteApiProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4425,9 +4369,6 @@ class DeleteApiStageVariableResponse(TeaModel):
         self.body = body  # type: DeleteApiStageVariableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4564,9 +4505,6 @@ class DeleteAppResponse(TeaModel):
         self.body = body  # type: DeleteAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4598,6 +4536,7 @@ class DeleteAppResponse(TeaModel):
 
 class DeleteBackendRequest(TeaModel):
     def __init__(self, backend_id=None, security_token=None):
+        # The ID of the backend service.
         self.backend_id = backend_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -4627,6 +4566,7 @@ class DeleteBackendRequest(TeaModel):
 
 class DeleteBackendResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4656,9 +4596,6 @@ class DeleteBackendResponse(TeaModel):
         self.body = body  # type: DeleteBackendResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4763,9 +4700,6 @@ class DeleteBackendModelResponse(TeaModel):
         self.body = body  # type: DeleteBackendModelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4855,9 +4789,6 @@ class DeleteDatasetResponse(TeaModel):
         self.body = body  # type: DeleteDatasetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4889,7 +4820,9 @@ class DeleteDatasetResponse(TeaModel):
 
 class DeleteDatasetItemRequest(TeaModel):
     def __init__(self, dataset_id=None, dataset_item_id=None, security_token=None):
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The ID of the data entry.
         self.dataset_item_id = dataset_item_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -4923,6 +4856,7 @@ class DeleteDatasetItemRequest(TeaModel):
 
 class DeleteDatasetItemResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4952,9 +4886,6 @@ class DeleteDatasetItemResponse(TeaModel):
         self.body = body  # type: DeleteDatasetItemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5052,9 +4983,6 @@ class DeleteDomainResponse(TeaModel):
         self.body = body  # type: DeleteDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5086,8 +5014,11 @@ class DeleteDomainResponse(TeaModel):
 
 class DeleteDomainCertificateRequest(TeaModel):
     def __init__(self, certificate_id=None, domain_name=None, group_id=None, security_token=None):
+        # The ID of the SSL certificate that you want to delete. The ID is automatically generated by the system and globally unique.
         self.certificate_id = certificate_id  # type: str
+        # The custom domain name.
         self.domain_name = domain_name  # type: str
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -5125,6 +5056,7 @@ class DeleteDomainCertificateRequest(TeaModel):
 
 class DeleteDomainCertificateResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5154,9 +5086,6 @@ class DeleteDomainCertificateResponse(TeaModel):
         self.body = body  # type: DeleteDomainCertificateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5288,9 +5217,6 @@ class DeleteInstanceResponse(TeaModel):
         self.body = body  # type: DeleteInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5382,9 +5308,6 @@ class DeleteIpControlResponse(TeaModel):
         self.body = body  # type: DeleteIpControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5474,9 +5397,6 @@ class DeleteLogConfigResponse(TeaModel):
         self.body = body  # type: DeleteLogConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5569,9 +5489,6 @@ class DeleteModelResponse(TeaModel):
         self.body = body  # type: DeleteModelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5603,7 +5520,9 @@ class DeleteModelResponse(TeaModel):
 
 class DeleteMonitorGroupRequest(TeaModel):
     def __init__(self, group_id=None, raw_monitor_group_id=None, security_token=None):
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
+        # The ID of the monitoring group.
         self.raw_monitor_group_id = raw_monitor_group_id  # type: long
         self.security_token = security_token  # type: str
 
@@ -5637,6 +5556,7 @@ class DeleteMonitorGroupRequest(TeaModel):
 
 class DeleteMonitorGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5666,9 +5586,6 @@ class DeleteMonitorGroupResponse(TeaModel):
         self.body = body  # type: DeleteMonitorGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5809,9 +5726,6 @@ class DeletePluginResponse(TeaModel):
         self.body = body  # type: DeletePluginResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5904,9 +5818,6 @@ class DeleteSignatureResponse(TeaModel):
         self.body = body  # type: DeleteSignatureResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5998,9 +5909,6 @@ class DeleteTrafficControlResponse(TeaModel):
         self.body = body  # type: DeleteTrafficControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6108,9 +6016,6 @@ class DeleteTrafficSpecialControlResponse(TeaModel):
         self.body = body  # type: DeleteTrafficSpecialControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6224,9 +6129,6 @@ class DeployApiResponse(TeaModel):
         self.body = body  # type: DeployApiResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6429,9 +6331,6 @@ class DescribeAbolishApiTaskResponse(TeaModel):
         self.body = body  # type: DescribeAbolishApiTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6612,9 +6511,6 @@ class DescribeAccessControlListAttributeResponse(TeaModel):
         self.body = body  # type: DescribeAccessControlListAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6646,9 +6542,13 @@ class DescribeAccessControlListAttributeResponse(TeaModel):
 
 class DescribeAccessControlListsRequest(TeaModel):
     def __init__(self, acl_name=None, address_ipversion=None, page_number=None, page_size=None, security_token=None):
+        # The name of the access control policy.
         self.acl_name = acl_name  # type: str
+        # IP版本，可以设置为**ipv4**或者**ipv6**。
         self.address_ipversion = address_ipversion  # type: str
+        # The page number of the current page.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
 
@@ -6690,8 +6590,13 @@ class DescribeAccessControlListsRequest(TeaModel):
 
 class DescribeAccessControlListsResponseBodyAclsAcl(TeaModel):
     def __init__(self, acl_id=None, acl_name=None, address_ipversion=None):
+        # The ID of the access control policy.
         self.acl_id = acl_id  # type: str
+        # The name of the access control policy.
         self.acl_name = acl_name  # type: str
+        # 访问控制策略组的IP版本。
+        # - **IPv4**。
+        # - **IPv6**。
         self.address_ipversion = address_ipversion  # type: str
 
     def validate(self):
@@ -6756,10 +6661,15 @@ class DescribeAccessControlListsResponseBodyAcls(TeaModel):
 
 class DescribeAccessControlListsResponseBody(TeaModel):
     def __init__(self, acls=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The ACLs.
         self.acls = acls  # type: DescribeAccessControlListsResponseBodyAcls
+        # The page number of the current page.
         self.page_number = page_number  # type: int
+        # The number of entries returned on each page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -6807,9 +6717,6 @@ class DescribeAccessControlListsResponse(TeaModel):
         self.body = body  # type: DescribeAccessControlListsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8455,9 +8362,6 @@ class DescribeApiResponse(TeaModel):
         self.body = body  # type: DescribeApiResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8977,9 +8881,6 @@ class DescribeApiDocResponse(TeaModel):
         self.body = body  # type: DescribeApiDocResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9548,9 +9449,6 @@ class DescribeApiGroupResponse(TeaModel):
         self.body = body  # type: DescribeApiGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9582,6 +9480,7 @@ class DescribeApiGroupResponse(TeaModel):
 
 class DescribeApiGroupVpcWhitelistRequest(TeaModel):
     def __init__(self, group_id=None, security_token=None):
+        # The ID of the API group.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -9611,7 +9510,9 @@ class DescribeApiGroupVpcWhitelistRequest(TeaModel):
 
 class DescribeApiGroupVpcWhitelistResponseBody(TeaModel):
     def __init__(self, request_id=None, vpc_ids=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the VPC.
         self.vpc_ids = vpc_ids  # type: str
 
     def validate(self):
@@ -9645,9 +9546,6 @@ class DescribeApiGroupVpcWhitelistResponse(TeaModel):
         self.body = body  # type: DescribeApiGroupVpcWhitelistResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10065,9 +9963,6 @@ class DescribeApiGroupsResponse(TeaModel):
         self.body = body  # type: DescribeApiGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10334,9 +10229,6 @@ class DescribeApiHistoriesResponse(TeaModel):
         self.body = body  # type: DescribeApiHistoriesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12022,9 +11914,6 @@ class DescribeApiHistoryResponse(TeaModel):
         self.body = body  # type: DescribeApiHistoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12251,9 +12140,6 @@ class DescribeApiIpControlsResponse(TeaModel):
         self.body = body  # type: DescribeApiIpControlsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12445,9 +12331,6 @@ class DescribeApiLatencyDataResponse(TeaModel):
         self.body = body  # type: DescribeApiLatencyDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12479,7 +12362,9 @@ class DescribeApiLatencyDataResponse(TeaModel):
 
 class DescribeApiMarketAttributesRequest(TeaModel):
     def __init__(self, api_id=None, group_id=None, security_token=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -12513,9 +12398,13 @@ class DescribeApiMarketAttributesRequest(TeaModel):
 
 class DescribeApiMarketAttributesResponseBody(TeaModel):
     def __init__(self, api_id=None, market_charging_mode=None, need_charging=None, request_id=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The billing method used by the Alibaba Cloud Marketplace.
         self.market_charging_mode = market_charging_mode  # type: str
+        # Indicates whether fees are charged.
         self.need_charging = need_charging  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12557,9 +12446,6 @@ class DescribeApiMarketAttributesResponse(TeaModel):
         self.body = body  # type: DescribeApiMarketAttributesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12799,9 +12685,6 @@ class DescribeApiProductApisResponse(TeaModel):
         self.body = body  # type: DescribeApiProductApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12989,9 +12872,6 @@ class DescribeApiProductsByAppResponse(TeaModel):
         self.body = body  # type: DescribeApiProductsByAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13255,9 +13135,6 @@ class DescribeApiQpsDataResponse(TeaModel):
         self.body = body  # type: DescribeApiQpsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13484,9 +13361,6 @@ class DescribeApiSignaturesResponse(TeaModel):
         self.body = body  # type: DescribeApiSignaturesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13715,9 +13589,6 @@ class DescribeApiTrafficControlsResponse(TeaModel):
         self.body = body  # type: DescribeApiTrafficControlsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13981,9 +13852,6 @@ class DescribeApiTrafficDataResponse(TeaModel):
         self.body = body  # type: DescribeApiTrafficDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14496,9 +14364,6 @@ class DescribeApisResponse(TeaModel):
         self.body = body  # type: DescribeApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14765,9 +14630,6 @@ class DescribeApisByAppResponse(TeaModel):
         self.body = body  # type: DescribeApisByAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14799,10 +14661,20 @@ class DescribeApisByAppResponse(TeaModel):
 
 class DescribeApisByBackendRequest(TeaModel):
     def __init__(self, backend_id=None, page_number=None, page_size=None, security_token=None, stage_name=None):
+        # The ID of the backend service.
         self.backend_id = backend_id  # type: str
+        # The number of the current page.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # The environment to which the API is published. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **PRE**\
+        # *   **TEST**\
+        # 
+        # If you do not specify this parameter, APIs in the draft state are returned.
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -14844,12 +14716,19 @@ class DescribeApisByBackendRequest(TeaModel):
 class DescribeApisByBackendResponseBodyApiInfoListApiInfo(TeaModel):
     def __init__(self, api_id=None, api_name=None, description=None, group_id=None, group_name=None, method=None,
                  path=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # The name of the API.
         self.api_name = api_name  # type: str
+        # The description of the API.
         self.description = description  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the API group.
         self.group_name = group_name  # type: str
+        # The request method of the API.
         self.method = method  # type: str
+        # The request path of the API.
         self.path = path  # type: str
 
     def validate(self):
@@ -14930,10 +14809,15 @@ class DescribeApisByBackendResponseBodyApiInfoList(TeaModel):
 
 class DescribeApisByBackendResponseBody(TeaModel):
     def __init__(self, api_info_list=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The information about the returned API list.
         self.api_info_list = api_info_list  # type: DescribeApisByBackendResponseBodyApiInfoList
+        # The number of the current page.
         self.page_number = page_number  # type: int
+        # The number of entries returned on each page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -14981,9 +14865,6 @@ class DescribeApisByBackendResponse(TeaModel):
         self.body = body  # type: DescribeApisByBackendResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15225,9 +15106,6 @@ class DescribeApisByIpControlResponse(TeaModel):
         self.body = body  # type: DescribeApisByIpControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15469,9 +15347,6 @@ class DescribeApisBySignatureResponse(TeaModel):
         self.body = body  # type: DescribeApisBySignatureResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15714,9 +15589,6 @@ class DescribeApisByTrafficControlResponse(TeaModel):
         self.body = body  # type: DescribeApisByTrafficControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15994,9 +15866,6 @@ class DescribeApisWithStageNameIntegratedByAppResponse(TeaModel):
         self.body = body  # type: DescribeApisWithStageNameIntegratedByAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16125,9 +15994,6 @@ class DescribeAppResponse(TeaModel):
         self.body = body  # type: DescribeAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16505,9 +16371,6 @@ class DescribeAppAttributesResponse(TeaModel):
         self.body = body  # type: DescribeAppAttributesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16539,7 +16402,9 @@ class DescribeAppAttributesResponse(TeaModel):
 
 class DescribeAppSecurityRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -16568,8 +16433,10 @@ class DescribeAppSecurityRequestTag(TeaModel):
 
 class DescribeAppSecurityRequest(TeaModel):
     def __init__(self, app_id=None, security_token=None, tag=None):
+        # The ID of the app.
         self.app_id = app_id  # type: long
         self.security_token = security_token  # type: str
+        # The tag of objects that match the rule. You can specify multiple tags.
         self.tag = tag  # type: list[DescribeAppSecurityRequestTag]
 
     def validate(self):
@@ -16611,11 +16478,17 @@ class DescribeAppSecurityRequest(TeaModel):
 class DescribeAppSecurityResponseBody(TeaModel):
     def __init__(self, app_code=None, app_key=None, app_secret=None, created_time=None, modified_time=None,
                  request_id=None):
+        # The AppCode of the app.
         self.app_code = app_code  # type: str
+        # The key of the app.
         self.app_key = app_key  # type: str
+        # The password of the app.
         self.app_secret = app_secret  # type: str
+        # The creation time (UTC) of the key, which is the same as the app creation time.
         self.created_time = created_time  # type: str
+        # The modification time (UTC) of the key.
         self.modified_time = modified_time  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16665,9 +16538,6 @@ class DescribeAppSecurityResponse(TeaModel):
         self.body = body  # type: DescribeAppSecurityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16872,9 +16742,6 @@ class DescribeAppsResponse(TeaModel):
         self.body = body  # type: DescribeAppsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17098,9 +16965,6 @@ class DescribeAppsByApiProductResponse(TeaModel):
         self.body = body  # type: DescribeAppsByApiProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17358,9 +17222,6 @@ class DescribeAuthorizedApisResponse(TeaModel):
         self.body = body  # type: DescribeAuthorizedApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17633,9 +17494,6 @@ class DescribeAuthorizedAppsResponse(TeaModel):
         self.body = body  # type: DescribeAuthorizedAppsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17775,16 +17633,53 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscov
         return self
 
 
+class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfigZookeeperConfig(TeaModel):
+    def __init__(self, connect_string=None, namespace=None, service_name=None):
+        self.connect_string = connect_string  # type: str
+        self.namespace = namespace  # type: str
+        self.service_name = service_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfigZookeeperConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.connect_string is not None:
+            result['ConnectString'] = self.connect_string
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConnectString') is not None:
+            self.connect_string = m.get('ConnectString')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        return self
+
+
 class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfig(TeaModel):
-    def __init__(self, nacos_config=None, rc_type=None):
+    def __init__(self, nacos_config=None, rc_type=None, zookeeper_config=None):
         # The Nacos configurations.
         self.nacos_config = nacos_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfigNacosConfig
         # The registry type.
         self.rc_type = rc_type  # type: str
+        self.zookeeper_config = zookeeper_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfigZookeeperConfig
 
     def validate(self):
         if self.nacos_config:
             self.nacos_config.validate()
+        if self.zookeeper_config:
+            self.zookeeper_config.validate()
 
     def to_map(self):
         _map = super(DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfig, self).to_map()
@@ -17796,6 +17691,8 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscov
             result['NacosConfig'] = self.nacos_config.to_map()
         if self.rc_type is not None:
             result['RcType'] = self.rc_type
+        if self.zookeeper_config is not None:
+            result['ZookeeperConfig'] = self.zookeeper_config.to_map()
         return result
 
     def from_map(self, m=None):
@@ -17805,6 +17702,9 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscov
             self.nacos_config = temp_model.from_map(m['NacosConfig'])
         if m.get('RcType') is not None:
             self.rc_type = m.get('RcType')
+        if m.get('ZookeeperConfig') is not None:
+            temp_model = DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfigZookeeperConfig()
+            self.zookeeper_config = temp_model.from_map(m['ZookeeperConfig'])
         return self
 
 
@@ -18422,9 +18322,6 @@ class DescribeBackendInfoResponse(TeaModel):
         self.body = body  # type: DescribeBackendInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18707,9 +18604,6 @@ class DescribeBackendListResponse(TeaModel):
         self.body = body  # type: DescribeBackendListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18861,9 +18755,6 @@ class DescribeDatasetInfoResponse(TeaModel):
         self.body = body  # type: DescribeDatasetInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19037,9 +18928,6 @@ class DescribeDatasetItemInfoResponse(TeaModel):
         self.body = body  # type: DescribeDatasetItemInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19245,9 +19133,6 @@ class DescribeDatasetItemListResponse(TeaModel):
         self.body = body  # type: DescribeDatasetItemListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19390,10 +19275,19 @@ class DescribeDatasetListResponseBodyDatasetInfoListTags(TeaModel):
 class DescribeDatasetListResponseBodyDatasetInfoList(TeaModel):
     def __init__(self, created_time=None, dataset_id=None, dataset_name=None, dataset_type=None, modified_time=None,
                  tags=None):
+        # The time when the dataset was created. The time is displayed in UTC.
         self.created_time = created_time  # type: str
+        # The ID of the dataset.
         self.dataset_id = dataset_id  # type: str
+        # The name of the dataset.
         self.dataset_name = dataset_name  # type: str
+        # The type of the dataset. Valid values:
+        # 
+        # *   JWT_BLOCKING: a JSON Web Token (JWT) blacklist
+        # *   IP_WHITELIST_CIDR: an IP address whitelist
+        # *   PARAMETER_ACCESS: a list of parameters for parameter-based access control
         self.dataset_type = dataset_type  # type: str
+        # The time when the dataset was last modified. The time is displayed in UTC.
         self.modified_time = modified_time  # type: str
         self.tags = tags  # type: list[DescribeDatasetListResponseBodyDatasetInfoListTags]
 
@@ -19504,9 +19398,6 @@ class DescribeDatasetListResponse(TeaModel):
         self.body = body  # type: DescribeDatasetListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19538,6 +19429,7 @@ class DescribeDatasetListResponse(TeaModel):
 
 class DescribeDeployApiTaskRequest(TeaModel):
     def __init__(self, operation_uid=None, security_token=None):
+        # The task ID.
         self.operation_uid = operation_uid  # type: str
         self.security_token = security_token  # type: str
 
@@ -19567,10 +19459,18 @@ class DescribeDeployApiTaskRequest(TeaModel):
 
 class DescribeDeployApiTaskResponseBodyDeployedResultsDeployedResult(TeaModel):
     def __init__(self, api_uid=None, deployed_status=None, error_msg=None, group_id=None, stage_name=None):
+        # The ID of the API.
         self.api_uid = api_uid  # type: str
+        # The deployment status of the API.
         self.deployed_status = deployed_status  # type: str
+        # The error message.
         self.error_msg = error_msg  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The runtime environment of the API. Valid values:
+        # 
+        # *   **RELEASE**\
+        # *   **TEST**\
         self.stage_name = stage_name  # type: str
 
     def validate(self):
@@ -19643,7 +19543,9 @@ class DescribeDeployApiTaskResponseBodyDeployedResults(TeaModel):
 
 class DescribeDeployApiTaskResponseBody(TeaModel):
     def __init__(self, deployed_results=None, request_id=None):
+        # The returned result.
         self.deployed_results = deployed_results  # type: DescribeDeployApiTaskResponseBodyDeployedResults
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19679,9 +19581,6 @@ class DescribeDeployApiTaskResponse(TeaModel):
         self.body = body  # type: DescribeDeployApiTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21145,9 +21044,6 @@ class DescribeDeployedApiResponse(TeaModel):
         self.body = body  # type: DescribeDeployedApiResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21486,9 +21382,6 @@ class DescribeDeployedApisResponse(TeaModel):
         self.body = body  # type: DescribeDeployedApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21682,9 +21575,6 @@ class DescribeDomainResponse(TeaModel):
         self.body = body  # type: DescribeDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21878,9 +21768,6 @@ class DescribeGroupLatencyResponse(TeaModel):
         self.body = body  # type: DescribeGroupLatencyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22065,9 +21952,6 @@ class DescribeGroupQpsResponse(TeaModel):
         self.body = body  # type: DescribeGroupQpsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22261,9 +22145,6 @@ class DescribeGroupTrafficResponse(TeaModel):
         self.body = body  # type: DescribeGroupTrafficResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22503,9 +22384,6 @@ class DescribeHistoryApisResponse(TeaModel):
         self.body = body  # type: DescribeHistoryApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22803,9 +22681,6 @@ class DescribeImportOASTaskResponse(TeaModel):
         self.body = body  # type: DescribeImportOASTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22990,9 +22865,6 @@ class DescribeInstanceDropConnectionsResponse(TeaModel):
         self.body = body  # type: DescribeInstanceDropConnectionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23186,9 +23058,6 @@ class DescribeInstanceDropPacketResponse(TeaModel):
         self.body = body  # type: DescribeInstanceDropPacketResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23373,9 +23242,6 @@ class DescribeInstanceHttpCodeResponse(TeaModel):
         self.body = body  # type: DescribeInstanceHttpCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23569,9 +23435,6 @@ class DescribeInstanceLatencyResponse(TeaModel):
         self.body = body  # type: DescribeInstanceLatencyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23756,9 +23619,6 @@ class DescribeInstanceNewConnectionsResponse(TeaModel):
         self.body = body  # type: DescribeInstanceNewConnectionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23952,9 +23812,6 @@ class DescribeInstancePacketsResponse(TeaModel):
         self.body = body  # type: DescribeInstancePacketsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24139,9 +23996,6 @@ class DescribeInstanceQpsResponse(TeaModel):
         self.body = body  # type: DescribeInstanceQpsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24336,9 +24190,6 @@ class DescribeInstanceSlbConnectResponse(TeaModel):
         self.body = body  # type: DescribeInstanceSlbConnectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24532,9 +24383,6 @@ class DescribeInstanceTrafficResponse(TeaModel):
         self.body = body  # type: DescribeInstanceTrafficResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25112,9 +24960,6 @@ class DescribeInstancesResponse(TeaModel):
         self.body = body  # type: DescribeInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25333,9 +25178,6 @@ class DescribeIpControlPolicyItemsResponse(TeaModel):
         self.body = body  # type: DescribeIpControlPolicyItemsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25368,16 +25210,18 @@ class DescribeIpControlPolicyItemsResponse(TeaModel):
 class DescribeIpControlsRequest(TeaModel):
     def __init__(self, ip_control_id=None, ip_control_name=None, ip_control_type=None, page_number=None,
                  page_size=None, security_token=None):
+        # The ID of the ACL. The ID is unique.
         self.ip_control_id = ip_control_id  # type: str
-        self.ip_control_name = ip_control_name  # type: str
         # The name of the ACL.
-        self.ip_control_type = ip_control_type  # type: str
-        # ACLtest
-        self.page_number = page_number  # type: int
+        self.ip_control_name = ip_control_name  # type: str
         # The type of the ACL. Valid values:
         # 
-        # *   **ALLOW**: an IP address whitelist
-        # *   **REFUSE**: an IP address blacklist
+        # *   **ALLOW**: a whitelist
+        # *   **REFUSE**: a blacklist
+        self.ip_control_type = ip_control_type  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
+        self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
 
@@ -25424,19 +25268,19 @@ class DescribeIpControlsRequest(TeaModel):
 class DescribeIpControlsResponseBodyIpControlInfosIpControlInfo(TeaModel):
     def __init__(self, create_time=None, description=None, ip_control_id=None, ip_control_name=None,
                  ip_control_type=None, modified_time=None, region_id=None):
-        # The name of the ACL.
+        # The time when the ACL was created. The time is displayed in UTC.
         self.create_time = create_time  # type: str
-        # The time when the ACL was modified. The time is displayed in UTC.
-        self.description = description  # type: str
-        # The total number of returned entries.
-        self.ip_control_id = ip_control_id  # type: str
-        # The type of the ACL.
-        self.ip_control_name = ip_control_name  # type: str
-        # The information about the ACL. The information is an array of IpControlInfo data. The information does not include specific policies.
-        self.ip_control_type = ip_control_type  # type: str
-        # The ID of the ACL.
-        self.modified_time = modified_time  # type: str
         # The description of the ACL.
+        self.description = description  # type: str
+        # The ID of the ACL.
+        self.ip_control_id = ip_control_id  # type: str
+        # The name of the ACL.
+        self.ip_control_name = ip_control_name  # type: str
+        # The type of the ACL.
+        self.ip_control_type = ip_control_type  # type: str
+        # The time when the ACL was modified. The time is displayed in UTC.
+        self.modified_time = modified_time  # type: str
+        # The ID of the region in which the ACL is deployed.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -25517,15 +25361,15 @@ class DescribeIpControlsResponseBodyIpControlInfos(TeaModel):
 
 class DescribeIpControlsResponseBody(TeaModel):
     def __init__(self, ip_control_infos=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The number of entries returned per page.
+        # The information about the ACL. The information is an array that consists of IpControlInfo data. The information does not include specific policies.
         self.ip_control_infos = ip_control_infos  # type: DescribeIpControlsResponseBodyIpControlInfos
-        # The number of the page to return. Pages start from page 1. Default value: 1.
-        self.page_number = page_number  # type: int
         # The page number of the returned page.
+        self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
-        self.request_id = request_id  # type: str
         # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -25573,9 +25417,6 @@ class DescribeIpControlsResponse(TeaModel):
         self.body = body  # type: DescribeIpControlsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25743,9 +25584,6 @@ class DescribeLogConfigResponse(TeaModel):
         self.body = body  # type: DescribeLogConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25777,6 +25615,7 @@ class DescribeLogConfigResponse(TeaModel):
 
 class DescribeMarketRemainsQuotaRequest(TeaModel):
     def __init__(self, domain_name=None, security_token=None):
+        # The custom domain name.
         self.domain_name = domain_name  # type: str
         self.security_token = security_token  # type: str
 
@@ -25806,7 +25645,9 @@ class DescribeMarketRemainsQuotaRequest(TeaModel):
 
 class DescribeMarketRemainsQuotaResponseBody(TeaModel):
     def __init__(self, remains_quota=None, request_id=None):
+        # The remaining quota.
         self.remains_quota = remains_quota  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -25840,9 +25681,6 @@ class DescribeMarketRemainsQuotaResponse(TeaModel):
         self.body = body  # type: DescribeMarketRemainsQuotaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26189,9 +26027,6 @@ class DescribeModelsResponse(TeaModel):
         self.body = body  # type: DescribeModelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26441,9 +26276,6 @@ class DescribePluginApisResponse(TeaModel):
         self.body = body  # type: DescribePluginApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26616,9 +26448,6 @@ class DescribePluginSchemasResponse(TeaModel):
         self.body = body  # type: DescribePluginSchemasResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26809,9 +26638,6 @@ class DescribePluginTemplatesResponse(TeaModel):
         self.body = body  # type: DescribePluginTemplatesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27174,9 +27000,6 @@ class DescribePluginsResponse(TeaModel):
         self.body = body  # type: DescribePluginsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27423,9 +27246,6 @@ class DescribePluginsByApiResponse(TeaModel):
         self.body = body  # type: DescribePluginsByApiResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27457,6 +27277,7 @@ class DescribePluginsByApiResponse(TeaModel):
 
 class DescribePurchasedApiGroupRequest(TeaModel):
     def __init__(self, group_id=None, security_token=None):
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
 
@@ -27486,6 +27307,7 @@ class DescribePurchasedApiGroupRequest(TeaModel):
 
 class DescribePurchasedApiGroupResponseBodyDomainsDomainItem(TeaModel):
     def __init__(self, domain_name=None):
+        # The domain name.
         self.domain_name = domain_name  # type: str
 
     def validate(self):
@@ -27543,13 +27365,24 @@ class DescribePurchasedApiGroupResponseBodyDomains(TeaModel):
 class DescribePurchasedApiGroupResponseBody(TeaModel):
     def __init__(self, description=None, domains=None, group_id=None, group_name=None, purchased_time=None,
                  region_id=None, request_id=None, status=None):
+        # The description of the API group.
         self.description = description  # type: str
+        # The list of domain names.
         self.domains = domains  # type: DescribePurchasedApiGroupResponseBodyDomains
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the API group.
         self.group_name = group_name  # type: str
+        # The time when the API group was purchased.
         self.purchased_time = purchased_time  # type: str
+        # The region where the API group is located.
         self.region_id = region_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The status of the API group.
+        # 
+        # *   **NORMAL**: The API group is normal.
+        # *   **DELETE**: The API group is deleted.
         self.status = status  # type: str
 
     def validate(self):
@@ -27609,9 +27442,6 @@ class DescribePurchasedApiGroupResponse(TeaModel):
         self.body = body  # type: DescribePurchasedApiGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27851,9 +27681,6 @@ class DescribePurchasedApiGroupsResponse(TeaModel):
         self.body = body  # type: DescribePurchasedApiGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28140,9 +27967,6 @@ class DescribePurchasedApisResponse(TeaModel):
         self.body = body  # type: DescribePurchasedApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28315,9 +28139,6 @@ class DescribeRegionsResponse(TeaModel):
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28548,9 +28369,6 @@ class DescribeSignaturesResponse(TeaModel):
         self.body = body  # type: DescribeSignaturesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28734,9 +28552,6 @@ class DescribeSignaturesByApiResponse(TeaModel):
         self.body = body  # type: DescribeSignaturesByApiResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28853,9 +28668,6 @@ class DescribeSummaryDataResponse(TeaModel):
         self.body = body  # type: DescribeSummaryDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29024,9 +28836,6 @@ class DescribeSystemParametersResponse(TeaModel):
         self.body = body  # type: DescribeSystemParametersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29435,9 +29244,6 @@ class DescribeTrafficControlsResponse(TeaModel):
         self.body = body  # type: DescribeTrafficControlsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29622,9 +29428,6 @@ class DescribeTrafficControlsByApiResponse(TeaModel):
         self.body = body  # type: DescribeTrafficControlsByApiResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29818,9 +29621,6 @@ class DescribeUpdateBackendTaskResponse(TeaModel):
         self.body = body  # type: DescribeUpdateBackendTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30009,9 +29809,6 @@ class DescribeUpdateVpcInfoTaskResponse(TeaModel):
         self.body = body  # type: DescribeUpdateVpcInfoTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30043,7 +29840,9 @@ class DescribeUpdateVpcInfoTaskResponse(TeaModel):
 
 class DescribeVpcAccessesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -30073,14 +29872,22 @@ class DescribeVpcAccessesRequestTag(TeaModel):
 class DescribeVpcAccessesRequest(TeaModel):
     def __init__(self, instance_id=None, name=None, page_number=None, page_size=None, port=None, security_token=None,
                  tag=None, vpc_access_id=None, vpc_id=None):
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The name of the authorization. The name must be unique.
         self.name = name  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 100. Default value: 10.
         self.page_size = page_size  # type: int
+        # The service port.
         self.port = port  # type: str
         self.security_token = security_token  # type: str
+        # The tag of objects that match the rule. You can specify multiple tags.
         self.tag = tag  # type: list[DescribeVpcAccessesRequestTag]
+        # The ID of the VPC authorization.
         self.vpc_access_id = vpc_access_id  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -30145,7 +29952,9 @@ class DescribeVpcAccessesRequest(TeaModel):
 
 class DescribeVpcAccessesResponseBodyVpcAccessAttributesVpcAccessAttributeTagsTagInfo(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -30207,15 +30016,25 @@ class DescribeVpcAccessesResponseBodyVpcAccessAttributesVpcAccessAttributeTags(T
 class DescribeVpcAccessesResponseBodyVpcAccessAttributesVpcAccessAttribute(TeaModel):
     def __init__(self, created_time=None, description=None, instance_id=None, name=None, port=None, region_id=None,
                  tags=None, vpc_access_id=None, vpc_id=None, vpc_target_host_name=None):
+        # The time when the authorization was created.
         self.created_time = created_time  # type: str
+        # The description of the VPC access authorization.
         self.description = description  # type: str
+        # The ID of the Elastic Compute Service (ECS) or Server Load Balancer (SLB) instance in the VPC.
         self.instance_id = instance_id  # type: str
+        # The name of the authorization.
         self.name = name  # type: str
+        # The port number that corresponds to the instance.
         self.port = port  # type: int
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The list of tags.
         self.tags = tags  # type: DescribeVpcAccessesResponseBodyVpcAccessAttributesVpcAccessAttributeTags
+        # The ID of the VPC access authorization.
         self.vpc_access_id = vpc_access_id  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # The host of the backend service.
         self.vpc_target_host_name = vpc_target_host_name  # type: str
 
     def validate(self):
@@ -30311,10 +30130,15 @@ class DescribeVpcAccessesResponseBodyVpcAccessAttributes(TeaModel):
 class DescribeVpcAccessesResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None,
                  vpc_access_attributes=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned on each page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
+        # The information about the VPC access authorization. The information is an array consisting of VpcAccessAttribute data.
         self.vpc_access_attributes = vpc_access_attributes  # type: DescribeVpcAccessesResponseBodyVpcAccessAttributes
 
     def validate(self):
@@ -30362,9 +30186,6 @@ class DescribeVpcAccessesResponse(TeaModel):
         self.body = body  # type: DescribeVpcAccessesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30531,9 +30352,6 @@ class DescribeZonesResponse(TeaModel):
         self.body = body  # type: DescribeZonesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30674,9 +30492,6 @@ class DetachApiProductResponse(TeaModel):
         self.body = body  # type: DetachApiProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30781,9 +30596,6 @@ class DetachPluginResponse(TeaModel):
         self.body = body  # type: DetachPluginResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30887,9 +30699,6 @@ class DisableInstanceAccessControlResponse(TeaModel):
         self.body = body  # type: DisableInstanceAccessControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31366,9 +31175,6 @@ class DryRunSwaggerResponse(TeaModel):
         self.body = body  # type: DryRunSwaggerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31473,9 +31279,6 @@ class EnableInstanceAccessControlResponse(TeaModel):
         self.body = body  # type: EnableInstanceAccessControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31508,20 +31311,35 @@ class EnableInstanceAccessControlResponse(TeaModel):
 class ImportOASRequest(TeaModel):
     def __init__(self, auth_type=None, backend_name=None, data=None, group_id=None, ignore_warning=None,
                  oasversion=None, overwrite=None, request_mode=None, security_token=None, skip_dry_run=None):
-        # API安全认证类型，目前可以取值：
+        # The security authentication method of the API. Valid values:
         # 
-        # - **APP**：只允许已授权的APP调用
-        # - **ANONYMOUS**：允许匿名调用，设置为允许匿名调用需要注意：
-        #      - 任何能够获取该API服务信息的人，都将能够调用该API。网关不会对调用者做身份认证，也无法设置按用户的流量控制，若开放该API请设置好按API的流量控制。
+        # *   **APP: Only authorized applications can call the API.**\
+        # 
+        # *   **ANONYMOUS: The API can be anonymously called. In this mode, you must take note of the following rules:**\
+        # 
+        #     *   All users who have obtained the API service information can call this API. API Gateway does not authenticate callers and cannot set user-specific throttling policies. If you make this API public, set API-specific throttling policies.
         self.auth_type = auth_type  # type: str
+        # The name of the backend service.
         self.backend_name = backend_name  # type: str
+        # The OAS-compliant text file or OSS object URL.
         self.data = data  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # Specifies whether to ignore alerts.
         self.ignore_warning = ignore_warning  # type: bool
+        # The OAS version.
         self.oasversion = oasversion  # type: str
+        # Specifies whether to overwrite an existing API.
+        # 
+        # If an existing API has the same HTTP request type and backend request path as the API to be imported, the existing API is overwritten.
         self.overwrite = overwrite  # type: bool
+        # The request mode. Valid values:
+        # 
+        # *   MAPPING: Parameters are mapped. Unknown parameters are filtered out.
+        # *   PASSTHROUGH: Parameters are passed through.
         self.request_mode = request_mode  # type: str
         self.security_token = security_token  # type: str
+        # Specifies whether to directly import the API without performing a precheck.
         self.skip_dry_run = skip_dry_run  # type: bool
 
     def validate(self):
@@ -31606,8 +31424,11 @@ class ImportOASResponseBodyErrorMessages(TeaModel):
 
 class ImportOASResponseBodyFailedApisFailedApi(TeaModel):
     def __init__(self, error_msg=None, http_method=None, path=None):
+        # The error message.
         self.error_msg = error_msg  # type: str
+        # The HTTP method configured when you created the API.
         self.http_method = http_method  # type: str
+        # The request path configured when you created the API.
         self.path = path  # type: str
 
     def validate(self):
@@ -31672,8 +31493,11 @@ class ImportOASResponseBodyFailedApis(TeaModel):
 
 class ImportOASResponseBodyFailedModelsFailedModel(TeaModel):
     def __init__(self, error_msg=None, group_id=None, model_name=None):
+        # The error message.
         self.error_msg = error_msg  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the model.
         self.model_name = model_name  # type: str
 
     def validate(self):
@@ -31738,9 +31562,13 @@ class ImportOASResponseBodyFailedModels(TeaModel):
 
 class ImportOASResponseBodySuccessApisSuccessApi(TeaModel):
     def __init__(self, api_id=None, api_operation=None, http_method=None, path=None):
+        # The ID of the API.
         self.api_id = api_id  # type: str
+        # Indicates that the operation is CREATE or MODIFY.
         self.api_operation = api_operation  # type: str
+        # The HTTP method configured when you created the API.
         self.http_method = http_method  # type: str
+        # The request path configured when you created the API.
         self.path = path  # type: str
 
     def validate(self):
@@ -31809,9 +31637,13 @@ class ImportOASResponseBodySuccessApis(TeaModel):
 
 class ImportOASResponseBodySuccessModelsSuccessModel(TeaModel):
     def __init__(self, group_id=None, model_name=None, model_operation=None, model_uid=None):
+        # The ID of the API group.
         self.group_id = group_id  # type: str
+        # The name of the model.
         self.model_name = model_name  # type: str
+        # The operation of the model. Valid values: CREATE and MODIFY.
         self.model_operation = model_operation  # type: str
+        # The UID of the model.
         self.model_uid = model_uid  # type: str
 
     def validate(self):
@@ -31905,13 +31737,21 @@ class ImportOASResponseBodyWarningMessages(TeaModel):
 class ImportOASResponseBody(TeaModel):
     def __init__(self, error_messages=None, failed_apis=None, failed_models=None, operation_id=None,
                  request_id=None, success_apis=None, success_models=None, warning_messages=None):
+        # The error messages that appear due to the invalid data in the imported file.
         self.error_messages = error_messages  # type: ImportOASResponseBodyErrorMessages
+        # The APIs that failed to pass the precheck.
         self.failed_apis = failed_apis  # type: ImportOASResponseBodyFailedApis
+        # The information about the models that failed to pass the precheck.
         self.failed_models = failed_models  # type: ImportOASResponseBodyFailedModels
+        # The ID of the asynchronous API import task that was generated during the import operation. This ID is used to query the execution status of the API import task.
         self.operation_id = operation_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The information about the APIs that have passed the precheck.
         self.success_apis = success_apis  # type: ImportOASResponseBodySuccessApis
+        # The information about the models that have passed the precheck.
         self.success_models = success_models  # type: ImportOASResponseBodySuccessModels
+        # The warning messages that appear due to the invalid data in the imported file.
         self.warning_messages = warning_messages  # type: ImportOASResponseBodyWarningMessages
 
     def validate(self):
@@ -31986,9 +31826,6 @@ class ImportOASResponse(TeaModel):
         self.body = body  # type: ImportOASResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32505,9 +32342,6 @@ class ImportSwaggerResponse(TeaModel):
         self.body = body  # type: ImportSwaggerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32755,9 +32589,6 @@ class ListTagResourcesResponse(TeaModel):
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33031,9 +32862,6 @@ class ModifyApiResponse(TeaModel):
         self.body = body  # type: ModifyApiResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33383,9 +33211,6 @@ class ModifyApiConfigurationResponse(TeaModel):
         self.body = body  # type: ModifyApiConfigurationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33620,9 +33445,6 @@ class ModifyApiGroupResponse(TeaModel):
         self.body = body  # type: ModifyApiGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33764,9 +33586,6 @@ class ModifyApiGroupInstanceResponse(TeaModel):
         self.body = body  # type: ModifyApiGroupInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33898,9 +33717,6 @@ class ModifyApiGroupNetworkPolicyResponse(TeaModel):
         self.body = body  # type: ModifyApiGroupNetworkPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33995,9 +33811,6 @@ class ModifyApiGroupVpcWhitelistResponse(TeaModel):
         self.body = body  # type: ModifyApiGroupVpcWhitelistResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34159,9 +33972,6 @@ class ModifyAppResponse(TeaModel):
         self.body = body  # type: ModifyAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34266,9 +34076,6 @@ class ModifyBackendResponse(TeaModel):
         self.body = body  # type: ModifyBackendResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34389,9 +34196,6 @@ class ModifyBackendModelResponse(TeaModel):
         self.body = body  # type: ModifyBackendModelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34489,9 +34293,6 @@ class ModifyDatasetResponse(TeaModel):
         self.body = body  # type: ModifyDatasetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34602,9 +34403,6 @@ class ModifyDatasetItemResponse(TeaModel):
         self.body = body  # type: ModifyDatasetItemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34634,14 +34432,293 @@ class ModifyDatasetItemResponse(TeaModel):
         return self
 
 
+class ModifyInstanceAttributeRequestToConnectVpcIpBlock(TeaModel):
+    def __init__(self, cidr_block=None, customized=None, vswitch_id=None, zone_id=None):
+        self.cidr_block = cidr_block  # type: str
+        self.customized = customized  # type: bool
+        self.vswitch_id = vswitch_id  # type: str
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyInstanceAttributeRequestToConnectVpcIpBlock, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cidr_block is not None:
+            result['CidrBlock'] = self.cidr_block
+        if self.customized is not None:
+            result['Customized'] = self.customized
+        if self.vswitch_id is not None:
+            result['VswitchId'] = self.vswitch_id
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CidrBlock') is not None:
+            self.cidr_block = m.get('CidrBlock')
+        if m.get('Customized') is not None:
+            self.customized = m.get('Customized')
+        if m.get('VswitchId') is not None:
+            self.vswitch_id = m.get('VswitchId')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class ModifyInstanceAttributeRequest(TeaModel):
+    def __init__(self, delete_vpc_ip_block=None, egress_ipv_6enable=None, https_policy=None, ipv6enabled=None,
+                 instance_id=None, instance_name=None, intranet_segments=None, maintain_end_time=None,
+                 maintain_start_time=None, to_connect_vpc_ip_block=None, token=None, vpc_slb_intranet_enable=None):
+        self.delete_vpc_ip_block = delete_vpc_ip_block  # type: str
+        self.egress_ipv_6enable = egress_ipv_6enable  # type: str
+        self.https_policy = https_policy  # type: str
+        self.ipv6enabled = ipv6enabled  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.intranet_segments = intranet_segments  # type: str
+        self.maintain_end_time = maintain_end_time  # type: str
+        self.maintain_start_time = maintain_start_time  # type: str
+        self.to_connect_vpc_ip_block = to_connect_vpc_ip_block  # type: ModifyInstanceAttributeRequestToConnectVpcIpBlock
+        self.token = token  # type: str
+        self.vpc_slb_intranet_enable = vpc_slb_intranet_enable  # type: str
+
+    def validate(self):
+        if self.to_connect_vpc_ip_block:
+            self.to_connect_vpc_ip_block.validate()
+
+    def to_map(self):
+        _map = super(ModifyInstanceAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.delete_vpc_ip_block is not None:
+            result['DeleteVpcIpBlock'] = self.delete_vpc_ip_block
+        if self.egress_ipv_6enable is not None:
+            result['EgressIpv6Enable'] = self.egress_ipv_6enable
+        if self.https_policy is not None:
+            result['HttpsPolicy'] = self.https_policy
+        if self.ipv6enabled is not None:
+            result['IPV6Enabled'] = self.ipv6enabled
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
+        if self.intranet_segments is not None:
+            result['IntranetSegments'] = self.intranet_segments
+        if self.maintain_end_time is not None:
+            result['MaintainEndTime'] = self.maintain_end_time
+        if self.maintain_start_time is not None:
+            result['MaintainStartTime'] = self.maintain_start_time
+        if self.to_connect_vpc_ip_block is not None:
+            result['ToConnectVpcIpBlock'] = self.to_connect_vpc_ip_block.to_map()
+        if self.token is not None:
+            result['Token'] = self.token
+        if self.vpc_slb_intranet_enable is not None:
+            result['VpcSlbIntranetEnable'] = self.vpc_slb_intranet_enable
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeleteVpcIpBlock') is not None:
+            self.delete_vpc_ip_block = m.get('DeleteVpcIpBlock')
+        if m.get('EgressIpv6Enable') is not None:
+            self.egress_ipv_6enable = m.get('EgressIpv6Enable')
+        if m.get('HttpsPolicy') is not None:
+            self.https_policy = m.get('HttpsPolicy')
+        if m.get('IPV6Enabled') is not None:
+            self.ipv6enabled = m.get('IPV6Enabled')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
+        if m.get('IntranetSegments') is not None:
+            self.intranet_segments = m.get('IntranetSegments')
+        if m.get('MaintainEndTime') is not None:
+            self.maintain_end_time = m.get('MaintainEndTime')
+        if m.get('MaintainStartTime') is not None:
+            self.maintain_start_time = m.get('MaintainStartTime')
+        if m.get('ToConnectVpcIpBlock') is not None:
+            temp_model = ModifyInstanceAttributeRequestToConnectVpcIpBlock()
+            self.to_connect_vpc_ip_block = temp_model.from_map(m['ToConnectVpcIpBlock'])
+        if m.get('Token') is not None:
+            self.token = m.get('Token')
+        if m.get('VpcSlbIntranetEnable') is not None:
+            self.vpc_slb_intranet_enable = m.get('VpcSlbIntranetEnable')
+        return self
+
+
+class ModifyInstanceAttributeShrinkRequest(TeaModel):
+    def __init__(self, delete_vpc_ip_block=None, egress_ipv_6enable=None, https_policy=None, ipv6enabled=None,
+                 instance_id=None, instance_name=None, intranet_segments=None, maintain_end_time=None,
+                 maintain_start_time=None, to_connect_vpc_ip_block_shrink=None, token=None, vpc_slb_intranet_enable=None):
+        self.delete_vpc_ip_block = delete_vpc_ip_block  # type: str
+        self.egress_ipv_6enable = egress_ipv_6enable  # type: str
+        self.https_policy = https_policy  # type: str
+        self.ipv6enabled = ipv6enabled  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.intranet_segments = intranet_segments  # type: str
+        self.maintain_end_time = maintain_end_time  # type: str
+        self.maintain_start_time = maintain_start_time  # type: str
+        self.to_connect_vpc_ip_block_shrink = to_connect_vpc_ip_block_shrink  # type: str
+        self.token = token  # type: str
+        self.vpc_slb_intranet_enable = vpc_slb_intranet_enable  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyInstanceAttributeShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.delete_vpc_ip_block is not None:
+            result['DeleteVpcIpBlock'] = self.delete_vpc_ip_block
+        if self.egress_ipv_6enable is not None:
+            result['EgressIpv6Enable'] = self.egress_ipv_6enable
+        if self.https_policy is not None:
+            result['HttpsPolicy'] = self.https_policy
+        if self.ipv6enabled is not None:
+            result['IPV6Enabled'] = self.ipv6enabled
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
+        if self.intranet_segments is not None:
+            result['IntranetSegments'] = self.intranet_segments
+        if self.maintain_end_time is not None:
+            result['MaintainEndTime'] = self.maintain_end_time
+        if self.maintain_start_time is not None:
+            result['MaintainStartTime'] = self.maintain_start_time
+        if self.to_connect_vpc_ip_block_shrink is not None:
+            result['ToConnectVpcIpBlock'] = self.to_connect_vpc_ip_block_shrink
+        if self.token is not None:
+            result['Token'] = self.token
+        if self.vpc_slb_intranet_enable is not None:
+            result['VpcSlbIntranetEnable'] = self.vpc_slb_intranet_enable
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeleteVpcIpBlock') is not None:
+            self.delete_vpc_ip_block = m.get('DeleteVpcIpBlock')
+        if m.get('EgressIpv6Enable') is not None:
+            self.egress_ipv_6enable = m.get('EgressIpv6Enable')
+        if m.get('HttpsPolicy') is not None:
+            self.https_policy = m.get('HttpsPolicy')
+        if m.get('IPV6Enabled') is not None:
+            self.ipv6enabled = m.get('IPV6Enabled')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
+        if m.get('IntranetSegments') is not None:
+            self.intranet_segments = m.get('IntranetSegments')
+        if m.get('MaintainEndTime') is not None:
+            self.maintain_end_time = m.get('MaintainEndTime')
+        if m.get('MaintainStartTime') is not None:
+            self.maintain_start_time = m.get('MaintainStartTime')
+        if m.get('ToConnectVpcIpBlock') is not None:
+            self.to_connect_vpc_ip_block_shrink = m.get('ToConnectVpcIpBlock')
+        if m.get('Token') is not None:
+            self.token = m.get('Token')
+        if m.get('VpcSlbIntranetEnable') is not None:
+            self.vpc_slb_intranet_enable = m.get('VpcSlbIntranetEnable')
+        return self
+
+
+class ModifyInstanceAttributeResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyInstanceAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyInstanceAttributeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyInstanceAttributeResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyInstanceAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyInstanceAttributeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ModifyInstanceSpecRequest(TeaModel):
     def __init__(self, auto_pay=None, instance_id=None, instance_spec=None, modify_action=None,
                  skip_wait_switch=None, token=None):
+        # Specifies whether payment is automatically made during renewal. Valid values:
+        # 
+        # *   **True**: Automatic payment is enabled. Make sure that your Alibaba Cloud account has adequate balance.
+        # *   **False**: Automatic payment is disabled. You have to manually pay in the console. Log on to the console. In the upper-right corner, choose **Expenses > User Center**. In the left-side navigation pane, click **Orders**. On the page that appears, find your order and complete the payment.
+        # 
+        # Default value: **False**.
         self.auto_pay = auto_pay  # type: bool
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The specifications of the instance.
         self.instance_spec = instance_spec  # type: str
+        # Specifies whether to upgrade or downgrade the instance. Valid values:
+        # 
+        # *   **UPGRADE**\
+        # *   **DOWNGRADE**\
+        # 
+        # Default value: **UPGRADE**.
         self.modify_action = modify_action  # type: str
+        # Specifies whether to skip the Waiting for Traffic Switchover state. During the upgrade or downgrade, a new outbound IP address may be added to the API Gateway instance. The Waiting for Traffic Switchover state is used to remind users of adding the new outbound IP address to the whitelist. If you set the SkipWaitSwitch parameter to true, the instance does not enter the Waiting for Traffic Switchover state when a new outbound IP address is available. Instead, the system sends internal messages to the user.
         self.skip_wait_switch = skip_wait_switch  # type: bool
+        # The password.
         self.token = token  # type: str
 
     def validate(self):
@@ -34686,6 +34763,7 @@ class ModifyInstanceSpecRequest(TeaModel):
 
 class ModifyInstanceSpecResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -34715,9 +34793,6 @@ class ModifyInstanceSpecResponse(TeaModel):
         self.body = body  # type: ModifyInstanceSpecResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34818,9 +34893,6 @@ class ModifyIntranetDomainPolicyResponse(TeaModel):
         self.body = body  # type: ModifyIntranetDomainPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34924,9 +34996,6 @@ class ModifyIpControlResponse(TeaModel):
         self.body = body  # type: ModifyIpControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35042,9 +35111,6 @@ class ModifyIpControlPolicyItemResponse(TeaModel):
         self.body = body  # type: ModifyIpControlPolicyItemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35144,9 +35210,6 @@ class ModifyLogConfigResponse(TeaModel):
         self.body = body  # type: ModifyLogConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35257,9 +35320,6 @@ class ModifyModelResponse(TeaModel):
         self.body = body  # type: ModifyModelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35419,9 +35479,6 @@ class ModifyPluginResponse(TeaModel):
         self.body = body  # type: ModifyPluginResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35545,9 +35602,6 @@ class ModifySignatureResponse(TeaModel):
         self.body = body  # type: ModifySignatureResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35682,9 +35736,6 @@ class ModifyTrafficControlResponse(TeaModel):
         self.body = body  # type: ModifyTrafficControlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35843,9 +35894,6 @@ class ModifyVpcAccessAndUpdateApisResponse(TeaModel):
         self.body = body  # type: ModifyVpcAccessAndUpdateApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35911,9 +35959,6 @@ class OpenApiGatewayServiceResponse(TeaModel):
         self.body = body  # type: OpenApiGatewayServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36336,9 +36381,6 @@ class QueryRequestLogsResponse(TeaModel):
         self.body = body  # type: QueryRequestLogsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36436,9 +36478,6 @@ class ReactivateDomainResponse(TeaModel):
         self.body = body  # type: ReactivateDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36533,9 +36572,6 @@ class RemoveAccessControlListEntryResponse(TeaModel):
         self.body = body  # type: RemoveAccessControlListEntryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36669,9 +36705,6 @@ class RemoveApiProductsAuthoritiesResponse(TeaModel):
         self.body = body  # type: RemoveApiProductsAuthoritiesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36791,9 +36824,6 @@ class RemoveApisAuthoritiesResponse(TeaModel):
         self.body = body  # type: RemoveApisAuthoritiesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36906,9 +36936,6 @@ class RemoveAppsAuthoritiesResponse(TeaModel):
         self.body = body  # type: RemoveAppsAuthoritiesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37024,9 +37051,6 @@ class RemoveIpControlApisResponse(TeaModel):
         self.body = body  # type: RemoveIpControlApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37124,9 +37148,6 @@ class RemoveIpControlPolicyItemResponse(TeaModel):
         self.body = body  # type: RemoveIpControlPolicyItemResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37242,9 +37263,6 @@ class RemoveSignatureApisResponse(TeaModel):
         self.body = body  # type: RemoveSignatureApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37361,9 +37379,6 @@ class RemoveTrafficControlApisResponse(TeaModel):
         self.body = body  # type: RemoveTrafficControlApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37550,9 +37565,6 @@ class RemoveVpcAccessResponse(TeaModel):
         self.body = body  # type: RemoveVpcAccessResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37662,9 +37674,6 @@ class RemoveVpcAccessAndAbolishApisResponse(TeaModel):
         self.body = body  # type: RemoveVpcAccessAndAbolishApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37762,9 +37771,6 @@ class ResetAppCodeResponse(TeaModel):
         self.body = body  # type: ResetAppCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37868,9 +37874,6 @@ class ResetAppSecretResponse(TeaModel):
         self.body = body  # type: ResetAppSecretResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37970,9 +37973,6 @@ class SdkGenerateByAppResponse(TeaModel):
         self.body = body  # type: SdkGenerateByAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38072,9 +38072,6 @@ class SdkGenerateByAppForRegionResponse(TeaModel):
         self.body = body  # type: SdkGenerateByAppForRegionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38174,9 +38171,6 @@ class SdkGenerateByGroupResponse(TeaModel):
         self.body = body  # type: SdkGenerateByGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38271,9 +38265,6 @@ class SetAccessControlListAttributeResponse(TeaModel):
         self.body = body  # type: SetAccessControlListAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38424,9 +38415,6 @@ class SetApiProductsAuthoritiesResponse(TeaModel):
         self.body = body  # type: SetApiProductsAuthoritiesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38552,9 +38540,6 @@ class SetApisAuthoritiesResponse(TeaModel):
         self.body = body  # type: SetApisAuthoritiesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38660,9 +38645,6 @@ class SetAppsAuthToApiProductResponse(TeaModel):
         self.body = body  # type: SetAppsAuthToApiProductResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38788,9 +38770,6 @@ class SetAppsAuthoritiesResponse(TeaModel):
         self.body = body  # type: SetAppsAuthoritiesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38823,11 +38802,28 @@ class SetAppsAuthoritiesResponse(TeaModel):
 class SetDomainRequest(TeaModel):
     def __init__(self, bind_stage_name=None, custom_domain_type=None, domain_name=None, group_id=None,
                  is_force=None, is_http_redirect_to_https=None):
+        # The environment which you can access by using the domain name. If you do not specify this parameter, the domain name can be used to access all environments.
+        # 
+        # If you specify an environment, the domain name can be used to access only the specified environment. Valid values:
+        # 
+        # *   TEST
+        # *   PRE
+        # *   RELEASE
+        # 
+        # If you want to use the domain name to access all environments, set this parameter to an empty string ("").
         self.bind_stage_name = bind_stage_name  # type: str
+        # The network type of the domain name to be bound. Default value: INTERNET. Valid values:
+        # 
+        # *   INTERNET
+        # *   INTRANET. If you set this parameter to this value, the domain name cannot be used on the Internet.
         self.custom_domain_type = custom_domain_type  # type: str
+        # The custom domain name.
         self.domain_name = domain_name  # type: str
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
+        # Specifies whether this binding relationship takes precedence over the binding relationships between the domain name and other API groups. If you set this parameter to true, this binding relationship takes precedence, and the domain name is automatically unbound from other API groups. This operation brings risks. Proceed with caution.
         self.is_force = is_force  # type: bool
+        # Specifies whether to redirect HTTP requests to HTTPS requests.
         self.is_http_redirect_to_https = is_http_redirect_to_https  # type: bool
 
     def validate(self):
@@ -38873,13 +38869,27 @@ class SetDomainRequest(TeaModel):
 class SetDomainResponseBody(TeaModel):
     def __init__(self, domain_binding_status=None, domain_legal_status=None, domain_name=None, domain_remark=None,
                  domain_web_socket_status=None, group_id=None, request_id=None, sub_domain=None):
+        # The binding status of the custom domain name. Valid values:
+        # 
+        # *   **BINDING**: The domain name has been bound.
+        # *   **BOUND**: The domain name has not been bound.
         self.domain_binding_status = domain_binding_status  # type: str
+        # The validity status of the domain name. Valid values:
+        # 
+        # *   **NORMAL**: The domain name is valid.
+        # *   **ABNORMAL**: The domain name is invalid. This status affects API calls and must be resolved as soon as possible.
         self.domain_legal_status = domain_legal_status  # type: str
+        # The custom domain name.
         self.domain_name = domain_name  # type: str
+        # The remarks on the domain name, such as the cause of an exception.
         self.domain_remark = domain_remark  # type: str
+        # The status of the domain name that uses the WebSocket feature.
         self.domain_web_socket_status = domain_web_socket_status  # type: str
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The second-level domain name assigned to the API group. This domain name is used to test API calls.
         self.sub_domain = sub_domain  # type: str
 
     def validate(self):
@@ -38937,9 +38947,6 @@ class SetDomainResponse(TeaModel):
         self.body = body  # type: SetDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39068,9 +39075,6 @@ class SetDomainCertificateResponse(TeaModel):
         self.body = body  # type: SetDomainCertificateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39102,8 +39106,11 @@ class SetDomainCertificateResponse(TeaModel):
 
 class SetDomainWebSocketStatusRequest(TeaModel):
     def __init__(self, action_value=None, domain_name=None, group_id=None, security_token=None, wssenable=None):
+        # The action.
         self.action_value = action_value  # type: str
+        # The custom domain name.
         self.domain_name = domain_name  # type: str
+        # The ID of the API group.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
         self.wssenable = wssenable  # type: str
@@ -39146,6 +39153,7 @@ class SetDomainWebSocketStatusRequest(TeaModel):
 
 class SetDomainWebSocketStatusResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -39175,9 +39183,6 @@ class SetDomainWebSocketStatusResponse(TeaModel):
         self.body = body  # type: SetDomainWebSocketStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39272,9 +39277,6 @@ class SetGroupAuthAppCodeResponse(TeaModel):
         self.body = body  # type: SetGroupAuthAppCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39388,9 +39390,6 @@ class SetIpControlApisResponse(TeaModel):
         self.body = body  # type: SetIpControlApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39504,9 +39503,6 @@ class SetSignatureApisResponse(TeaModel):
         self.body = body  # type: SetSignatureApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39620,9 +39616,6 @@ class SetTrafficControlApisResponse(TeaModel):
         self.body = body  # type: SetTrafficControlApisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39654,7 +39647,9 @@ class SetTrafficControlApisResponse(TeaModel):
 
 class SetVpcAccessRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -39684,13 +39679,20 @@ class SetVpcAccessRequestTag(TeaModel):
 class SetVpcAccessRequest(TeaModel):
     def __init__(self, description=None, instance_id=None, name=None, port=None, security_token=None, tag=None,
                  vpc_id=None, vpc_target_host_name=None):
+        # The description of the VPC.
         self.description = description  # type: str
+        # The ID of an ECS or SLB instance in the VPC.
         self.instance_id = instance_id  # type: str
+        # The name of the authorization. The name must be unique.
         self.name = name  # type: str
+        # The port number that corresponds to the instance.
         self.port = port  # type: int
         self.security_token = security_token  # type: str
+        # The tag of objects that match the rule. You can specify multiple tags.
         self.tag = tag  # type: list[SetVpcAccessRequestTag]
+        # The ID of the VPC. The VPC must be an available one that belongs to the same account as the API.
         self.vpc_id = vpc_id  # type: str
+        # The host of the backend service.
         self.vpc_target_host_name = vpc_target_host_name  # type: str
 
     def validate(self):
@@ -39751,7 +39753,9 @@ class SetVpcAccessRequest(TeaModel):
 
 class SetVpcAccessResponseBody(TeaModel):
     def __init__(self, request_id=None, vpc_access_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the VPC access authorization.
         self.vpc_access_id = vpc_access_id  # type: str
 
     def validate(self):
@@ -39785,9 +39789,6 @@ class SetVpcAccessResponse(TeaModel):
         self.body = body  # type: SetVpcAccessResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39819,9 +39820,12 @@ class SetVpcAccessResponse(TeaModel):
 
 class SetWildcardDomainPatternsRequest(TeaModel):
     def __init__(self, domain_name=None, group_id=None, security_token=None, wildcard_domain_patterns=None):
+        # The custom domain name.
         self.domain_name = domain_name  # type: str
+        # The ID of the API group. This ID is generated by the system and globally unique.
         self.group_id = group_id  # type: str
         self.security_token = security_token  # type: str
+        # The wildcard domain name mode.
         self.wildcard_domain_patterns = wildcard_domain_patterns  # type: str
 
     def validate(self):
@@ -39858,6 +39862,7 @@ class SetWildcardDomainPatternsRequest(TeaModel):
 
 class SetWildcardDomainPatternsResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -39887,9 +39892,6 @@ class SetWildcardDomainPatternsResponse(TeaModel):
         self.body = body  # type: SetWildcardDomainPatternsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -40009,9 +40011,6 @@ class SwitchApiResponse(TeaModel):
         self.body = body  # type: SwitchApiResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -40158,9 +40157,6 @@ class TagResourcesResponse(TeaModel):
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -40278,9 +40274,6 @@ class UntagResourcesResponse(TeaModel):
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -40397,9 +40390,6 @@ class ValidateVpcConnectivityResponse(TeaModel):
         self.body = body  # type: ValidateVpcConnectivityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 

@@ -3721,6 +3721,16 @@ class Client(OpenApiClient):
         return self.describe_app_attributes_with_options(request, runtime)
 
     def describe_app_security_with_options(self, request, runtime):
+        """
+        This operation is intended for API callers.
+        
+
+        @param request: DescribeAppSecurityRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeAppSecurityResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.app_id):
@@ -3749,6 +3759,14 @@ class Client(OpenApiClient):
         )
 
     def describe_app_security(self, request):
+        """
+        This operation is intended for API callers.
+        
+
+        @param request: DescribeAppSecurityRequest
+
+        @return: DescribeAppSecurityResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_app_security_with_options(request, runtime)
 
@@ -4927,9 +4945,9 @@ class Client(OpenApiClient):
     def describe_ip_controls_with_options(self, request, runtime):
         """
         This operation is intended for API providers.
-        *   This operation is used to query the ACLs in a Region. Region is a system parameter.
+        *   This operation is used to query the ACLs in a region. Region is a system parameter.
         *   You can filter the query results by ACL ID, name, or type.
-        *   This operation cannot be used to query specific policies. If you want to query specific policies, use the DescribeIpControlPolicyItems operation.
+        *   This operation cannot be used to query specific policies. If you want to query specific policies, call the [DescribeIpControlPolicyItems](~~DescribeIpControlPolicyItems~~) operation.
         
 
         @param request: DescribeIpControlsRequest
@@ -4974,9 +4992,9 @@ class Client(OpenApiClient):
     def describe_ip_controls(self, request):
         """
         This operation is intended for API providers.
-        *   This operation is used to query the ACLs in a Region. Region is a system parameter.
+        *   This operation is used to query the ACLs in a region. Region is a system parameter.
         *   You can filter the query results by ACL ID, name, or type.
-        *   This operation cannot be used to query specific policies. If you want to query specific policies, use the DescribeIpControlPolicyItems operation.
+        *   This operation cannot be used to query specific policies. If you want to query specific policies, call the [DescribeIpControlPolicyItems](~~DescribeIpControlPolicyItems~~) operation.
         
 
         @param request: DescribeIpControlsRequest
@@ -6878,6 +6896,60 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_dataset_item_with_options(request, runtime)
 
+    def modify_instance_attribute_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cloud_api20160714_models.ModifyInstanceAttributeShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.to_connect_vpc_ip_block):
+            request.to_connect_vpc_ip_block_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.to_connect_vpc_ip_block, 'ToConnectVpcIpBlock', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.delete_vpc_ip_block):
+            query['DeleteVpcIpBlock'] = request.delete_vpc_ip_block
+        if not UtilClient.is_unset(request.egress_ipv_6enable):
+            query['EgressIpv6Enable'] = request.egress_ipv_6enable
+        if not UtilClient.is_unset(request.https_policy):
+            query['HttpsPolicy'] = request.https_policy
+        if not UtilClient.is_unset(request.ipv6enabled):
+            query['IPV6Enabled'] = request.ipv6enabled
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.intranet_segments):
+            query['IntranetSegments'] = request.intranet_segments
+        if not UtilClient.is_unset(request.maintain_end_time):
+            query['MaintainEndTime'] = request.maintain_end_time
+        if not UtilClient.is_unset(request.maintain_start_time):
+            query['MaintainStartTime'] = request.maintain_start_time
+        if not UtilClient.is_unset(request.to_connect_vpc_ip_block_shrink):
+            query['ToConnectVpcIpBlock'] = request.to_connect_vpc_ip_block_shrink
+        if not UtilClient.is_unset(request.token):
+            query['Token'] = request.token
+        if not UtilClient.is_unset(request.vpc_slb_intranet_enable):
+            query['VpcSlbIntranetEnable'] = request.vpc_slb_intranet_enable
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyInstanceAttribute',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.ModifyInstanceAttributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_instance_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_instance_attribute_with_options(request, runtime)
+
     def modify_instance_spec_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -8713,6 +8785,17 @@ class Client(OpenApiClient):
         return self.set_traffic_control_apis_with_options(request, runtime)
 
     def set_vpc_access_with_options(self, request, runtime):
+        """
+        This operation is intended for API providers.
+        * This operation is used to authorize API Gateway to access your VPC instance.
+        
+
+        @param request: SetVpcAccessRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SetVpcAccessResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -8751,6 +8834,15 @@ class Client(OpenApiClient):
         )
 
     def set_vpc_access(self, request):
+        """
+        This operation is intended for API providers.
+        * This operation is used to authorize API Gateway to access your VPC instance.
+        
+
+        @param request: SetVpcAccessRequest
+
+        @return: SetVpcAccessResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.set_vpc_access_with_options(request, runtime)
 
