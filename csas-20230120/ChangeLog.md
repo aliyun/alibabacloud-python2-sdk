@@ -1,3 +1,6 @@
+2024-01-25 Version: 1.3.0
+- Generated python2 2023-01-20 for csas.
+
 2023-11-15 Version: 1.2.1
 - Generated python2 2023-01-20 for csas.
 
