@@ -99,9 +99,6 @@ class BindInstance2VpcResponse(TeaModel):
         self.body = body  # type: BindInstance2VpcResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -191,9 +188,6 @@ class DeleteInstanceResponse(TeaModel):
         self.body = body  # type: DeleteInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -325,9 +319,6 @@ class DeleteTagsResponse(TeaModel):
         self.body = body  # type: DeleteTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -589,9 +580,6 @@ class GetInstanceResponse(TeaModel):
         self.body = body  # type: GetInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -712,9 +700,6 @@ class GetOtsServiceStatusResponse(TeaModel):
         self.body = body  # type: GetOtsServiceStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -862,9 +847,6 @@ class InsertInstanceResponse(TeaModel):
         self.body = body  # type: InsertInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -996,9 +978,6 @@ class InsertTagsResponse(TeaModel):
         self.body = body  # type: InsertTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1183,9 +1162,6 @@ class ListClusterTypeResponse(TeaModel):
         self.body = body  # type: ListClusterTypeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1405,9 +1381,6 @@ class ListInstanceResponse(TeaModel):
         self.body = body  # type: ListInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1632,9 +1605,6 @@ class ListTagsResponse(TeaModel):
         self.body = body  # type: ListTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1838,9 +1808,6 @@ class ListVpcInfoByInstanceResponse(TeaModel):
         self.body = body  # type: ListVpcInfoByInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2085,9 +2052,6 @@ class ListVpcInfoByVpcResponse(TeaModel):
         self.body = body  # type: ListVpcInfoByVpcResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2153,9 +2117,6 @@ class OpenOtsServiceResponse(TeaModel):
         self.body = body  # type: OpenOtsServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2255,9 +2216,6 @@ class UnbindInstance2VpcResponse(TeaModel):
         self.body = body  # type: UnbindInstance2VpcResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2352,9 +2310,6 @@ class UpdateInstanceResponse(TeaModel):
         self.body = body  # type: UpdateInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
