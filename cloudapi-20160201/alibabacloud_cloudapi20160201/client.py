@@ -2037,6 +2037,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.ali_uid):
             query['AliUid'] = request.ali_uid
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
