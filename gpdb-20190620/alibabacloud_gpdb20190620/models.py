@@ -197,9 +197,6 @@ class DescribeDBInstanceForDmsResponse(TeaModel):
         self.body = body  # type: DescribeDBInstanceForDmsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -357,9 +354,6 @@ class DescribeDBInstanceSecurityIpsResponse(TeaModel):
         self.body = body  # type: DescribeDBInstanceSecurityIpsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -580,9 +574,6 @@ class DescribeDBInstancesForDmsResponse(TeaModel):
         self.body = body  # type: DescribeDBInstancesForDmsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -707,9 +698,6 @@ class ModifyDBInstanceSecurityIpsResponse(TeaModel):
         self.body = body  # type: ModifyDBInstanceSecurityIpsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
