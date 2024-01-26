@@ -365,6 +365,8 @@ class Client(OpenApiClient):
             query['ClusterSizeResource'] = request.cluster_size_resource
         if not UtilClient.is_unset(request.dbcluster_id):
             query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.enable_spot):
+            query['EnableSpot'] = request.enable_spot
         if not UtilClient.is_unset(request.group_name):
             query['GroupName'] = request.group_name
         if not UtilClient.is_unset(request.group_type):
@@ -3929,6 +3931,8 @@ class Client(OpenApiClient):
             query['ClusterSizeResource'] = request.cluster_size_resource
         if not UtilClient.is_unset(request.dbcluster_id):
             query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.enable_spot):
+            query['EnableSpot'] = request.enable_spot
         if not UtilClient.is_unset(request.group_name):
             query['GroupName'] = request.group_name
         if not UtilClient.is_unset(request.group_type):
