@@ -1969,6 +1969,10 @@ class Client(OpenApiClient):
             query['RecordingFps'] = request.recording_fps
         if not UtilClient.is_unset(request.recording_start_time):
             query['RecordingStartTime'] = request.recording_start_time
+        if not UtilClient.is_unset(request.recording_user_notify):
+            query['RecordingUserNotify'] = request.recording_user_notify
+        if not UtilClient.is_unset(request.recording_user_notify_message):
+            query['RecordingUserNotifyMessage'] = request.recording_user_notify_message
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.remote_coordinate):
@@ -1987,6 +1991,8 @@ class Client(OpenApiClient):
             query['VisualQuality'] = request.visual_quality
         if not UtilClient.is_unset(request.watermark):
             query['Watermark'] = request.watermark
+        if not UtilClient.is_unset(request.watermark_anti_cam):
+            query['WatermarkAntiCam'] = request.watermark_anti_cam
         if not UtilClient.is_unset(request.watermark_color):
             query['WatermarkColor'] = request.watermark_color
         if not UtilClient.is_unset(request.watermark_degree):
@@ -1995,6 +2001,8 @@ class Client(OpenApiClient):
             query['WatermarkFontSize'] = request.watermark_font_size
         if not UtilClient.is_unset(request.watermark_font_style):
             query['WatermarkFontStyle'] = request.watermark_font_style
+        if not UtilClient.is_unset(request.watermark_power):
+            query['WatermarkPower'] = request.watermark_power
         if not UtilClient.is_unset(request.watermark_row_amount):
             query['WatermarkRowAmount'] = request.watermark_row_amount
         if not UtilClient.is_unset(request.watermark_security):
@@ -2693,7 +2701,6 @@ class Client(OpenApiClient):
         Before you delete a workspace, make sure that the following requirements are met:
         *   All cloud desktops in the workspace are released.
         *   The data that you want to retain is backed up.
-        **\
         **Warning** After you delete a workspace, the resources and data of the workspace cannot be recovered. Exercise with caution.
         
 
@@ -2733,7 +2740,6 @@ class Client(OpenApiClient):
         Before you delete a workspace, make sure that the following requirements are met:
         *   All cloud desktops in the workspace are released.
         *   The data that you want to retain is backed up.
-        **\
         **Warning** After you delete a workspace, the resources and data of the workspace cannot be recovered. Exercise with caution.
         
 
@@ -7547,6 +7553,10 @@ class Client(OpenApiClient):
             query['RecordingFps'] = request.recording_fps
         if not UtilClient.is_unset(request.recording_start_time):
             query['RecordingStartTime'] = request.recording_start_time
+        if not UtilClient.is_unset(request.recording_user_notify):
+            query['RecordingUserNotify'] = request.recording_user_notify
+        if not UtilClient.is_unset(request.recording_user_notify_message):
+            query['RecordingUserNotifyMessage'] = request.recording_user_notify_message
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.remote_coordinate):
@@ -7569,6 +7579,8 @@ class Client(OpenApiClient):
             query['VisualQuality'] = request.visual_quality
         if not UtilClient.is_unset(request.watermark):
             query['Watermark'] = request.watermark
+        if not UtilClient.is_unset(request.watermark_anti_cam):
+            query['WatermarkAntiCam'] = request.watermark_anti_cam
         if not UtilClient.is_unset(request.watermark_color):
             query['WatermarkColor'] = request.watermark_color
         if not UtilClient.is_unset(request.watermark_degree):
@@ -7577,6 +7589,8 @@ class Client(OpenApiClient):
             query['WatermarkFontSize'] = request.watermark_font_size
         if not UtilClient.is_unset(request.watermark_font_style):
             query['WatermarkFontStyle'] = request.watermark_font_style
+        if not UtilClient.is_unset(request.watermark_power):
+            query['WatermarkPower'] = request.watermark_power
         if not UtilClient.is_unset(request.watermark_row_amount):
             query['WatermarkRowAmount'] = request.watermark_row_amount
         if not UtilClient.is_unset(request.watermark_security):
