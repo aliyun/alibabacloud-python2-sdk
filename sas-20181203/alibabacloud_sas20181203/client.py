@@ -3745,6 +3745,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_vpc_honey_pot_with_options(request, runtime)
 
+    def delete_vul_auto_repair_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alias_name):
+            query['AliasName'] = request.alias_name
+        if not UtilClient.is_unset(request.config_id_list):
+            query['ConfigIdList'] = request.config_id_list
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteVulAutoRepairConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DeleteVulAutoRepairConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_vul_auto_repair_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_vul_auto_repair_config_with_options(request, runtime)
+
     def delete_vul_whitelist_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
