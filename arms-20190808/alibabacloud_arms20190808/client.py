@@ -5340,6 +5340,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_env_service_monitors_with_options(request, runtime)
 
+    def list_environment_dashboards_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.addon_name):
+            query['AddonName'] = request.addon_name
+        if not UtilClient.is_unset(request.environment_id):
+            query['EnvironmentId'] = request.environment_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.scene):
+            query['Scene'] = request.scene
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListEnvironmentDashboards',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.ListEnvironmentDashboardsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_environment_dashboards(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_environment_dashboards_with_options(request, runtime)
+
     def list_environment_features_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
