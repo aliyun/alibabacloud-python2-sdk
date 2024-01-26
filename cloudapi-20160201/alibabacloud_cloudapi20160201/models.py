@@ -479,8 +479,9 @@ class CheckAccountForInnerResponse(TeaModel):
 
 
 class CheckAoneAppAuditRequest(TeaModel):
-    def __init__(self, aone_app_name=None):
+    def __init__(self, aone_app_name=None, security_token=None):
         self.aone_app_name = aone_app_name  # type: str
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -493,12 +494,16 @@ class CheckAoneAppAuditRequest(TeaModel):
         result = dict()
         if self.aone_app_name is not None:
             result['AoneAppName'] = self.aone_app_name
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AoneAppName') is not None:
             self.aone_app_name = m.get('AoneAppName')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
