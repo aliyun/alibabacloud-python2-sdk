@@ -3784,6 +3784,8 @@ class Client(OpenApiClient):
     def list_public_media_basic_infos_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.business_type):
+            query['BusinessType'] = request.business_type
         if not UtilClient.is_unset(request.include_file_basic_info):
             query['IncludeFileBasicInfo'] = request.include_file_basic_info
         if not UtilClient.is_unset(request.max_results):
