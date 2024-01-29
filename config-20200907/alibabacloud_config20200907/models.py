@@ -212,9 +212,6 @@ class ActiveAggregateConfigRulesResponse(TeaModel):
         self.body = body  # type: ActiveAggregateConfigRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -385,9 +382,6 @@ class ActiveConfigRulesResponse(TeaModel):
         self.body = body  # type: ActiveConfigRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -576,9 +570,6 @@ class AttachAggregateConfigRuleToCompliancePackResponse(TeaModel):
         self.body = body  # type: AttachAggregateConfigRuleToCompliancePackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -759,9 +750,6 @@ class AttachConfigRuleToCompliancePackResponse(TeaModel):
         self.body = body  # type: AttachConfigRuleToCompliancePackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -875,9 +863,6 @@ class CopyCompliancePacksResponse(TeaModel):
         self.body = body  # type: CopyCompliancePacksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -989,9 +974,6 @@ class CopyConfigRulesResponse(TeaModel):
         self.body = body  # type: CopyConfigRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1078,9 +1060,6 @@ class CreateAdvancedSearchFileResponse(TeaModel):
         self.body = body  # type: CreateAdvancedSearchFileResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1175,9 +1154,6 @@ class CreateAggregateAdvancedSearchFileResponse(TeaModel):
         self.body = body  # type: CreateAggregateAdvancedSearchFileResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1596,9 +1572,6 @@ class CreateAggregateCompliancePackResponse(TeaModel):
         self.body = body  # type: CreateAggregateCompliancePackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1813,9 +1786,6 @@ class CreateAggregateConfigDeliveryChannelResponse(TeaModel):
         self.body = body  # type: CreateAggregateConfigDeliveryChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2273,9 +2243,6 @@ class CreateAggregateConfigRuleResponse(TeaModel):
         self.body = body  # type: CreateAggregateConfigRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2432,9 +2399,6 @@ class CreateAggregateRemediationResponse(TeaModel):
         self.body = body  # type: CreateAggregateRemediationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2503,7 +2467,7 @@ class CreateAggregatorRequestAggregatorAccounts(TeaModel):
 
 class CreateAggregatorRequest(TeaModel):
     def __init__(self, aggregator_accounts=None, aggregator_name=None, aggregator_type=None, client_token=None,
-                 description=None):
+                 description=None, folder_id=None):
         # The type of the member account. Valid value: ResourceDirectory.
         self.aggregator_accounts = aggregator_accounts  # type: list[CreateAggregatorRequestAggregatorAccounts]
         # The name of the account group.
@@ -2517,6 +2481,7 @@ class CreateAggregatorRequest(TeaModel):
         self.client_token = client_token  # type: str
         # The description of the account group.
         self.description = description  # type: str
+        self.folder_id = folder_id  # type: str
 
     def validate(self):
         if self.aggregator_accounts:
@@ -2542,6 +2507,8 @@ class CreateAggregatorRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.description is not None:
             result['Description'] = self.description
+        if self.folder_id is not None:
+            result['FolderId'] = self.folder_id
         return result
 
     def from_map(self, m=None):
@@ -2559,12 +2526,14 @@ class CreateAggregatorRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('FolderId') is not None:
+            self.folder_id = m.get('FolderId')
         return self
 
 
 class CreateAggregatorShrinkRequest(TeaModel):
     def __init__(self, aggregator_accounts_shrink=None, aggregator_name=None, aggregator_type=None,
-                 client_token=None, description=None):
+                 client_token=None, description=None, folder_id=None):
         # The type of the member account. Valid value: ResourceDirectory.
         self.aggregator_accounts_shrink = aggregator_accounts_shrink  # type: str
         # The name of the account group.
@@ -2578,6 +2547,7 @@ class CreateAggregatorShrinkRequest(TeaModel):
         self.client_token = client_token  # type: str
         # The description of the account group.
         self.description = description  # type: str
+        self.folder_id = folder_id  # type: str
 
     def validate(self):
         pass
@@ -2598,6 +2568,8 @@ class CreateAggregatorShrinkRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.description is not None:
             result['Description'] = self.description
+        if self.folder_id is not None:
+            result['FolderId'] = self.folder_id
         return result
 
     def from_map(self, m=None):
@@ -2612,6 +2584,8 @@ class CreateAggregatorShrinkRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('FolderId') is not None:
+            self.folder_id = m.get('FolderId')
         return self
 
 
@@ -2653,9 +2627,6 @@ class CreateAggregatorResponse(TeaModel):
         self.body = body  # type: CreateAggregatorResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3058,9 +3029,6 @@ class CreateCompliancePackResponse(TeaModel):
         self.body = body  # type: CreateCompliancePackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3267,9 +3235,6 @@ class CreateConfigDeliveryChannelResponse(TeaModel):
         self.body = body  # type: CreateConfigDeliveryChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3304,26 +3269,26 @@ class CreateConfigRuleRequest(TeaModel):
                  exclude_resource_ids_scope=None, input_parameters=None, maximum_execution_frequency=None, region_ids_scope=None,
                  resource_group_ids_scope=None, resource_types_scope=None, risk_level=None, source_identifier=None, source_owner=None,
                  tag_key_logic_scope=None, tag_key_scope=None, tag_value_scope=None):
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must ensure that the token is unique among different requests. The `token` can contain only ASCII characters and cannot exceed 64 characters in length.
+        # The client token that you want to use to ensure the idempotency of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.``
         self.client_token = client_token  # type: str
-        # The rule name.
+        # The name of the rule.
         self.config_rule_name = config_rule_name  # type: str
         # The trigger type of the rule. Valid values:
         # 
         # *   ConfigurationItemChangeNotification: The rule is triggered by configuration changes.
         # *   ScheduledNotification: The rule is periodically triggered.
         # 
-        # > Separate two trigger mechanisms with commas (,).
+        # >  If a rule supports the preceding trigger types, separate the types with a comma (,).
         self.config_rule_trigger_types = config_rule_trigger_types  # type: str
-        # The rule description.
+        # The description of the rule.
         self.description = description  # type: str
-        # The ID of the resource excluded from the compliance evaluations performed based on the rule. Separate multiple resource IDs with commas (,).
+        # The ID of the resource to be excluded from the compliance evaluations performed by the rule. Separate multiple resource IDs with commas (,).
         # 
-        # > This parameter applies only to a managed rule.
+        # >  This parameter applies only to managed rules.
         self.exclude_resource_ids_scope = exclude_resource_ids_scope  # type: str
-        # The input parameters of the rule.
+        # The input parameter of the rule.
         self.input_parameters = input_parameters  # type: dict[str, any]
-        # The interval at which the rule is triggered. Valid values:
+        # The intervals at which the rule is triggered. Valid values:
         # 
         # *   One_Hour: 1 hour.
         # *   Three_Hours: 3 hours.
@@ -3331,48 +3296,48 @@ class CreateConfigRuleRequest(TeaModel):
         # *   Twelve_Hours: 12 hours.
         # *   TwentyFour_Hours (default): 24 hours.
         # 
-        # > This parameter is required if the ConfigRuleTriggerTypes parameter is set to ScheduledNotification.
+        # >  This parameter is required if the ConfigRuleTriggerTypes parameter is set to ScheduledNotification.
         self.maximum_execution_frequency = maximum_execution_frequency  # type: str
         # The ID of the region to which the rule applies. Separate multiple region IDs with commas (,).
         # 
-        # > This parameter applies only to a managed rule.
+        # >  This parameter applies only to managed rules.
         self.region_ids_scope = region_ids_scope  # type: str
         # The ID of the resource group to which the rule applies. Separate multiple resource group IDs with commas (,).
         # 
-        # > This parameter applies only to a managed rule.
+        # >  This parameter applies only to managed rules.
         self.resource_group_ids_scope = resource_group_ids_scope  # type: str
-        # The type of the resource evaluated by the rule. Separate multiple resource types with commas (,).
+        # The type of the resource to be evaluated by the rule. Separate multiple resource types with commas (,).
         self.resource_types_scope = resource_types_scope  # type: list[str]
-        # The risk level of the resources that do not comply with the rule. Valid values:
+        # The risk level of the resources that are not compliant with the rule. Valid values:
         # 
-        # *   1: high
-        # *   2: medium
-        # *   3: low
+        # *   1: high risk level
+        # *   2: medium risk level
+        # *   3: low risk level
         self.risk_level = risk_level  # type: int
-        # The identifier of the rule.
+        # The ID of the rule.
         # 
         # *   If you set the SourceOwner parameter to ALIYUN, set this parameter to the name of the managed rule.
         # *   If you set the SourceOwner parameter to CUSTOM_FC, set this parameter to the Alibaba Cloud Resource Name (ARN) of the relevant function in Function Compute.
         # 
         # For more information about how to query the name of a managed rule, see [Managed rules](~~127404~~).
         self.source_identifier = source_identifier  # type: str
-        # The type of the rule. Valid values:
+        # The type of the rule Valid values:
         # 
-        # *   ALIYUN: managed rule
-        # *   CUSTOM_FC: a custom rule
+        # *   ALIYUN: managed rule.
+        # *   CUSTOM_FC: custom rule.
         self.source_owner = source_owner  # type: str
-        # The logical relationship among the tag keys if you specify multiple tag keys by using the `TagKeyScope` parameter. For example, if you set the `TagKeyScope` parameter to `ECS,OSS` and set the TagKeyLogicScope parameter to `AND`, the rule applies to resources with both the `ECS` and `OSS` tag keys. Valid values:
+        # The logical relationship among the tag keys if you specify multiple tag keys for the `TagKeyScope` parameter. For example, if you set the `TagKeyScope` parameter to `ECS,OSS` and the TagKeyLogicScope parameter to `AND`, the rule applies to resources with both the `ECS` and `OSS` tag keys. Valid values:
         # 
-        # *   AND
-        # *   OR
+        # *   AND: logical AND
+        # *   OR: logical OR
         self.tag_key_logic_scope = tag_key_logic_scope  # type: str
-        # The tag value used to filter resources. The rule applies only to the resources that use the specified tag value.
+        # The tag key used to filter resources. The rule applies only to the resources with a specified tag key.
         # 
-        # > This parameter applies only to a managed rule. You must configure the `TagKeyScope` and `TagValueScope` parameters at the same time.
+        # >  This parameter applies only to managed rules. You must configure the `TagKeyScope` and `TagValueScope` parameters at the same time.
         self.tag_key_scope = tag_key_scope  # type: str
-        # The tag value used to filter resources. The rule applies only to the resources that use the specified tag value.
+        # The tag key used to filter resources. The rule applies only to the resources with the specified tag key.
         # 
-        # > This parameter applies only to a managed rule. You must configure the `TagKeyScope` and `TagValueScope` parameters at the same time.
+        # >  This parameter applies only to managed rules. You must configure the `TagKeyScope` and `TagValueScope` parameters at the same time.
         self.tag_value_scope = tag_value_scope  # type: str
 
     def validate(self):
@@ -3460,26 +3425,26 @@ class CreateConfigRuleShrinkRequest(TeaModel):
                  exclude_resource_ids_scope=None, input_parameters_shrink=None, maximum_execution_frequency=None, region_ids_scope=None,
                  resource_group_ids_scope=None, resource_types_scope_shrink=None, risk_level=None, source_identifier=None,
                  source_owner=None, tag_key_logic_scope=None, tag_key_scope=None, tag_value_scope=None):
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must ensure that the token is unique among different requests. The `token` can contain only ASCII characters and cannot exceed 64 characters in length.
+        # The client token that you want to use to ensure the idempotency of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.``
         self.client_token = client_token  # type: str
-        # The rule name.
+        # The name of the rule.
         self.config_rule_name = config_rule_name  # type: str
         # The trigger type of the rule. Valid values:
         # 
         # *   ConfigurationItemChangeNotification: The rule is triggered by configuration changes.
         # *   ScheduledNotification: The rule is periodically triggered.
         # 
-        # > Separate two trigger mechanisms with commas (,).
+        # >  If a rule supports the preceding trigger types, separate the types with a comma (,).
         self.config_rule_trigger_types = config_rule_trigger_types  # type: str
-        # The rule description.
+        # The description of the rule.
         self.description = description  # type: str
-        # The ID of the resource excluded from the compliance evaluations performed based on the rule. Separate multiple resource IDs with commas (,).
+        # The ID of the resource to be excluded from the compliance evaluations performed by the rule. Separate multiple resource IDs with commas (,).
         # 
-        # > This parameter applies only to a managed rule.
+        # >  This parameter applies only to managed rules.
         self.exclude_resource_ids_scope = exclude_resource_ids_scope  # type: str
-        # The input parameters of the rule.
+        # The input parameter of the rule.
         self.input_parameters_shrink = input_parameters_shrink  # type: str
-        # The interval at which the rule is triggered. Valid values:
+        # The intervals at which the rule is triggered. Valid values:
         # 
         # *   One_Hour: 1 hour.
         # *   Three_Hours: 3 hours.
@@ -3487,48 +3452,48 @@ class CreateConfigRuleShrinkRequest(TeaModel):
         # *   Twelve_Hours: 12 hours.
         # *   TwentyFour_Hours (default): 24 hours.
         # 
-        # > This parameter is required if the ConfigRuleTriggerTypes parameter is set to ScheduledNotification.
+        # >  This parameter is required if the ConfigRuleTriggerTypes parameter is set to ScheduledNotification.
         self.maximum_execution_frequency = maximum_execution_frequency  # type: str
         # The ID of the region to which the rule applies. Separate multiple region IDs with commas (,).
         # 
-        # > This parameter applies only to a managed rule.
+        # >  This parameter applies only to managed rules.
         self.region_ids_scope = region_ids_scope  # type: str
         # The ID of the resource group to which the rule applies. Separate multiple resource group IDs with commas (,).
         # 
-        # > This parameter applies only to a managed rule.
+        # >  This parameter applies only to managed rules.
         self.resource_group_ids_scope = resource_group_ids_scope  # type: str
-        # The type of the resource evaluated by the rule. Separate multiple resource types with commas (,).
+        # The type of the resource to be evaluated by the rule. Separate multiple resource types with commas (,).
         self.resource_types_scope_shrink = resource_types_scope_shrink  # type: str
-        # The risk level of the resources that do not comply with the rule. Valid values:
+        # The risk level of the resources that are not compliant with the rule. Valid values:
         # 
-        # *   1: high
-        # *   2: medium
-        # *   3: low
+        # *   1: high risk level
+        # *   2: medium risk level
+        # *   3: low risk level
         self.risk_level = risk_level  # type: int
-        # The identifier of the rule.
+        # The ID of the rule.
         # 
         # *   If you set the SourceOwner parameter to ALIYUN, set this parameter to the name of the managed rule.
         # *   If you set the SourceOwner parameter to CUSTOM_FC, set this parameter to the Alibaba Cloud Resource Name (ARN) of the relevant function in Function Compute.
         # 
         # For more information about how to query the name of a managed rule, see [Managed rules](~~127404~~).
         self.source_identifier = source_identifier  # type: str
-        # The type of the rule. Valid values:
+        # The type of the rule Valid values:
         # 
-        # *   ALIYUN: managed rule
-        # *   CUSTOM_FC: a custom rule
+        # *   ALIYUN: managed rule.
+        # *   CUSTOM_FC: custom rule.
         self.source_owner = source_owner  # type: str
-        # The logical relationship among the tag keys if you specify multiple tag keys by using the `TagKeyScope` parameter. For example, if you set the `TagKeyScope` parameter to `ECS,OSS` and set the TagKeyLogicScope parameter to `AND`, the rule applies to resources with both the `ECS` and `OSS` tag keys. Valid values:
+        # The logical relationship among the tag keys if you specify multiple tag keys for the `TagKeyScope` parameter. For example, if you set the `TagKeyScope` parameter to `ECS,OSS` and the TagKeyLogicScope parameter to `AND`, the rule applies to resources with both the `ECS` and `OSS` tag keys. Valid values:
         # 
-        # *   AND
-        # *   OR
+        # *   AND: logical AND
+        # *   OR: logical OR
         self.tag_key_logic_scope = tag_key_logic_scope  # type: str
-        # The tag value used to filter resources. The rule applies only to the resources that use the specified tag value.
+        # The tag key used to filter resources. The rule applies only to the resources with a specified tag key.
         # 
-        # > This parameter applies only to a managed rule. You must configure the `TagKeyScope` and `TagValueScope` parameters at the same time.
+        # >  This parameter applies only to managed rules. You must configure the `TagKeyScope` and `TagValueScope` parameters at the same time.
         self.tag_key_scope = tag_key_scope  # type: str
-        # The tag value used to filter resources. The rule applies only to the resources that use the specified tag value.
+        # The tag key used to filter resources. The rule applies only to the resources with the specified tag key.
         # 
-        # > This parameter applies only to a managed rule. You must configure the `TagKeyScope` and `TagValueScope` parameters at the same time.
+        # >  This parameter applies only to managed rules. You must configure the `TagKeyScope` and `TagValueScope` parameters at the same time.
         self.tag_value_scope = tag_value_scope  # type: str
 
     def validate(self):
@@ -3613,9 +3578,9 @@ class CreateConfigRuleShrinkRequest(TeaModel):
 
 class CreateConfigRuleResponseBody(TeaModel):
     def __init__(self, config_rule_id=None, request_id=None):
-        # The rule ID.
+        # The ID of the rule.
         self.config_rule_id = config_rule_id  # type: str
-        # The request ID.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3649,9 +3614,6 @@ class CreateConfigRuleResponse(TeaModel):
         self.body = body  # type: CreateConfigRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3850,9 +3812,6 @@ class CreateDeliveryChannelResponse(TeaModel):
         self.body = body  # type: CreateDeliveryChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4001,9 +3960,6 @@ class CreateRemediationResponse(TeaModel):
         self.body = body  # type: CreateRemediationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4184,9 +4140,6 @@ class DeactiveAggregateConfigRulesResponse(TeaModel):
         self.body = body  # type: DeactiveAggregateConfigRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4362,9 +4315,6 @@ class DeactiveConfigRulesResponse(TeaModel):
         self.body = body  # type: DeactiveConfigRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4560,9 +4510,6 @@ class DeleteAggregateCompliancePacksResponse(TeaModel):
         self.body = body  # type: DeleteAggregateCompliancePacksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4663,9 +4610,6 @@ class DeleteAggregateConfigDeliveryChannelResponse(TeaModel):
         self.body = body  # type: DeleteAggregateConfigDeliveryChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4846,9 +4790,6 @@ class DeleteAggregateConfigRulesResponse(TeaModel):
         self.body = body  # type: DeleteAggregateConfigRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5002,9 +4943,6 @@ class DeleteAggregateRemediationsResponse(TeaModel):
         self.body = body  # type: DeleteAggregateRemediationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5180,9 +5118,6 @@ class DeleteAggregatorsResponse(TeaModel):
         self.body = body  # type: DeleteAggregatorsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5370,9 +5305,6 @@ class DeleteCompliancePacksResponse(TeaModel):
         self.body = body  # type: DeleteCompliancePacksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5467,9 +5399,6 @@ class DeleteConfigDeliveryChannelResponse(TeaModel):
         self.body = body  # type: DeleteConfigDeliveryChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5642,9 +5571,6 @@ class DeleteConfigRulesResponse(TeaModel):
         self.body = body  # type: DeleteConfigRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5790,9 +5716,6 @@ class DeleteRemediationsResponse(TeaModel):
         self.body = body  # type: DeleteRemediationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5997,9 +5920,6 @@ class DescribeRemediationResponse(TeaModel):
         self.body = body  # type: DescribeRemediationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6188,9 +6108,6 @@ class DetachAggregateConfigRuleToCompliancePackResponse(TeaModel):
         self.body = body  # type: DetachAggregateConfigRuleToCompliancePackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6371,9 +6288,6 @@ class DetachConfigRuleToCompliancePackResponse(TeaModel):
         self.body = body  # type: DetachConfigRuleToCompliancePackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6707,9 +6621,6 @@ class EvaluatePreConfigRulesResponse(TeaModel):
         self.body = body  # type: EvaluatePreConfigRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6818,9 +6729,6 @@ class GenerateAggregateCompliancePackReportResponse(TeaModel):
         self.body = body  # type: GenerateAggregateCompliancePackReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6935,9 +6843,6 @@ class GenerateAggregateConfigRulesReportResponse(TeaModel):
         self.body = body  # type: GenerateAggregateConfigRulesReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7042,9 +6947,6 @@ class GenerateAggregateResourceInventoryResponse(TeaModel):
         self.body = body  # type: GenerateAggregateResourceInventoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7145,9 +7047,6 @@ class GenerateCompliancePackReportResponse(TeaModel):
         self.body = body  # type: GenerateCompliancePackReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7248,9 +7147,6 @@ class GenerateConfigRulesReportResponse(TeaModel):
         self.body = body  # type: GenerateConfigRulesReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7343,9 +7239,6 @@ class GenerateResourceInventoryResponse(TeaModel):
         self.body = body  # type: GenerateResourceInventoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7455,9 +7348,6 @@ class GetAdvancedSearchFileResponse(TeaModel):
         self.body = body  # type: GetAdvancedSearchFileResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7656,9 +7546,6 @@ class GetAggregateAccountComplianceByPackResponse(TeaModel):
         self.body = body  # type: GetAggregateAccountComplianceByPackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7797,9 +7684,6 @@ class GetAggregateAdvancedSearchFileResponse(TeaModel):
         self.body = body  # type: GetAggregateAdvancedSearchFileResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7872,8 +7756,8 @@ class GetAggregateCompliancePackResponseBodyCompliancePackConfigRulesConfigRuleP
         self.parameter_value = parameter_value  # type: str
         # Indicates whether the input parameter is required. Valid values:
         # 
-        # *   true: The input parameter is required.
-        # *   false: The input parameter is optional.
+        # *   true
+        # *   false
         self.required = required  # type: bool
 
     def validate(self):
@@ -7913,13 +7797,13 @@ class GetAggregateCompliancePackResponseBodyCompliancePackConfigRules(TeaModel):
         self.config_rule_name = config_rule_name  # type: str
         # The input parameters of the rule.
         self.config_rule_parameters = config_rule_parameters  # type: list[GetAggregateCompliancePackResponseBodyCompliancePackConfigRulesConfigRuleParameters]
-        # The description of the rule.
+        # The rule description.
         self.description = description  # type: str
         # The identifier of the managed rule.
         self.managed_rule_identifier = managed_rule_identifier  # type: str
         # The types of the resources evaluated based on the rule. Multiple resource types are separated with commas (,).
         self.resource_types_scope = resource_types_scope  # type: str
-        # The risk level of the resources that are not compliant with the rule. Valid values:
+        # The risk level of the resources that do not comply with the rule. Valid values:
         # 
         # *   1: high
         # *   2: medium
@@ -8178,9 +8062,6 @@ class GetAggregateCompliancePackResponse(TeaModel):
         self.body = body  # type: GetAggregateCompliancePackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8339,9 +8220,6 @@ class GetAggregateCompliancePackReportResponse(TeaModel):
         self.body = body  # type: GetAggregateCompliancePackReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8560,9 +8438,6 @@ class GetAggregateComplianceSummaryResponse(TeaModel):
         self.body = body  # type: GetAggregateComplianceSummaryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8820,9 +8695,6 @@ class GetAggregateConfigDeliveryChannelResponse(TeaModel):
         self.body = body  # type: GetAggregateConfigDeliveryChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9546,9 +9418,6 @@ class GetAggregateConfigRuleResponse(TeaModel):
         self.body = body  # type: GetAggregateConfigRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9747,9 +9616,6 @@ class GetAggregateConfigRuleComplianceByPackResponse(TeaModel):
         self.body = body  # type: GetAggregateConfigRuleComplianceByPackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9893,9 +9759,6 @@ class GetAggregateConfigRuleSummaryByRiskLevelResponse(TeaModel):
         self.body = body  # type: GetAggregateConfigRuleSummaryByRiskLevelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10058,9 +9921,6 @@ class GetAggregateConfigRulesReportResponse(TeaModel):
         self.body = body  # type: GetAggregateConfigRulesReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10101,8 +9961,8 @@ class GetAggregateDiscoveredResourceRequest(TeaModel):
         # 
         # For more information about how to query the ID of a region in which the resource resides, see [ListAggregateDiscoveredResources](~~411691~~).
         self.region = region  # type: str
-        # 账号组内待查询资源所属的阿里云账号ID。 
-        # > 参数ResourceAccountId和ResourceOwnerId必须设置其中一个，推荐使用本参数。
+        # The ID of the Alibaba Cloud account to which the resources in the account group belong.
+        # > You can use either the `ResourceAccountId` or `ResourceOwnerId` parameter. We recommend that you use the ResourceAccountId parameter.
         self.resource_account_id = resource_account_id  # type: long
         # The resource ID.
         # 
@@ -10287,9 +10147,6 @@ class GetAggregateDiscoveredResourceResponse(TeaModel):
         self.body = body  # type: GetAggregateDiscoveredResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10494,9 +10351,6 @@ class GetAggregateResourceComplianceByConfigRuleResponse(TeaModel):
         self.body = body  # type: GetAggregateResourceComplianceByConfigRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10638,9 +10492,6 @@ class GetAggregateResourceComplianceByPackResponse(TeaModel):
         self.body = body  # type: GetAggregateResourceComplianceByPackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10849,9 +10700,6 @@ class GetAggregateResourceComplianceGroupByRegionResponse(TeaModel):
         self.body = body  # type: GetAggregateResourceComplianceGroupByRegionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11060,9 +10908,6 @@ class GetAggregateResourceComplianceGroupByResourceTypeResponse(TeaModel):
         self.body = body  # type: GetAggregateResourceComplianceGroupByResourceTypeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11365,9 +11210,6 @@ class GetAggregateResourceComplianceTimelineResponse(TeaModel):
         self.body = body  # type: GetAggregateResourceComplianceTimelineResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11415,8 +11257,6 @@ class GetAggregateResourceConfigurationTimelineRequest(TeaModel):
         # For more information about how to obtain the ID of a region, see [ListAggregateDiscoveredResources](~~265983~~).
         self.region = region  # type: str
         # The ID of the Alibaba Cloud account to which the resource in the account group belongs.
-        # 
-        # > You can use either the ResourceAccountId or ResourceOwnerId parameter. We recommend that you use the ResourceAccountId parameter.
         self.resource_account_id = resource_account_id  # type: long
         # The resource ID.
         # 
@@ -11668,9 +11508,6 @@ class GetAggregateResourceConfigurationTimelineResponse(TeaModel):
         self.body = body  # type: GetAggregateResourceConfigurationTimelineResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11840,9 +11677,6 @@ class GetAggregateResourceCountsGroupByRegionResponse(TeaModel):
         self.body = body  # type: GetAggregateResourceCountsGroupByRegionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12010,9 +11844,6 @@ class GetAggregateResourceCountsGroupByResourceTypeResponse(TeaModel):
         self.body = body  # type: GetAggregateResourceCountsGroupByResourceTypeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12151,9 +11982,6 @@ class GetAggregateResourceInventoryResponse(TeaModel):
         self.body = body  # type: GetAggregateResourceInventoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12259,7 +12087,7 @@ class GetAggregatorResponseBodyAggregatorAggregatorAccounts(TeaModel):
 class GetAggregatorResponseBodyAggregator(TeaModel):
     def __init__(self, account_id=None, aggregator_account_count=None, aggregator_accounts=None,
                  aggregator_create_timestamp=None, aggregator_id=None, aggregator_name=None, aggregator_status=None, aggregator_type=None,
-                 description=None):
+                 description=None, folder_id=None):
         # The ID of the management account used to create the account group.
         self.account_id = account_id  # type: long
         # The number of member accounts in the account group.
@@ -12284,6 +12112,7 @@ class GetAggregatorResponseBodyAggregator(TeaModel):
         self.aggregator_type = aggregator_type  # type: str
         # The description of the account group.
         self.description = description  # type: str
+        self.folder_id = folder_id  # type: str
 
     def validate(self):
         if self.aggregator_accounts:
@@ -12317,6 +12146,8 @@ class GetAggregatorResponseBodyAggregator(TeaModel):
             result['AggregatorType'] = self.aggregator_type
         if self.description is not None:
             result['Description'] = self.description
+        if self.folder_id is not None:
+            result['FolderId'] = self.folder_id
         return result
 
     def from_map(self, m=None):
@@ -12342,6 +12173,8 @@ class GetAggregatorResponseBodyAggregator(TeaModel):
             self.aggregator_type = m.get('AggregatorType')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('FolderId') is not None:
+            self.folder_id = m.get('FolderId')
         return self
 
 
@@ -12385,9 +12218,6 @@ class GetAggregatorResponse(TeaModel):
         self.body = body  # type: GetAggregatorResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12452,8 +12282,8 @@ class GetCompliancePackResponseBodyCompliancePackConfigRulesConfigRuleParameters
         self.parameter_value = parameter_value  # type: str
         # Indicates whether the input parameter is required. Valid values:
         # 
-        # *   true: The input parameter is required.
-        # *   false: The input parameter is optional.
+        # *   true
+        # *   false
         self.required = required  # type: bool
 
     def validate(self):
@@ -12493,13 +12323,13 @@ class GetCompliancePackResponseBodyCompliancePackConfigRules(TeaModel):
         self.config_rule_name = config_rule_name  # type: str
         # The input parameters of the rule.
         self.config_rule_parameters = config_rule_parameters  # type: list[GetCompliancePackResponseBodyCompliancePackConfigRulesConfigRuleParameters]
-        # The description of the rule.
+        # The rule description.
         self.description = description  # type: str
         # The identifier of the managed rule.
         self.managed_rule_identifier = managed_rule_identifier  # type: str
         # The types of the resources evaluated based on the rule. Multiple resource types are separated with commas (,).
         self.resource_types_scope = resource_types_scope  # type: str
-        # The risk level of the resources that are not compliant with the rule. Valid values:
+        # The risk level of the resources that do not comply with the rule. Valid values:
         # 
         # *   1: high
         # *   2: medium
@@ -12752,9 +12582,6 @@ class GetCompliancePackResponse(TeaModel):
         self.body = body  # type: GetCompliancePackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12905,9 +12732,6 @@ class GetCompliancePackReportResponse(TeaModel):
         self.body = body  # type: GetCompliancePackReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13101,9 +12925,6 @@ class GetComplianceSummaryResponse(TeaModel):
         self.body = body  # type: GetComplianceSummaryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13346,9 +13167,6 @@ class GetConfigDeliveryChannelResponse(TeaModel):
         self.body = body  # type: GetConfigDeliveryChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14059,9 +13877,6 @@ class GetConfigRuleResponse(TeaModel):
         self.body = body  # type: GetConfigRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14252,9 +14067,6 @@ class GetConfigRuleComplianceByPackResponse(TeaModel):
         self.body = body  # type: GetConfigRuleComplianceByPackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14371,9 +14183,6 @@ class GetConfigRuleSummaryByRiskLevelResponse(TeaModel):
         self.body = body  # type: GetConfigRuleSummaryByRiskLevelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14522,9 +14331,6 @@ class GetConfigRulesReportResponse(TeaModel):
         self.body = body  # type: GetConfigRulesReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14630,9 +14436,6 @@ class GetConfigurationRecorderResponse(TeaModel):
         self.body = body  # type: GetConfigurationRecorderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14838,9 +14641,6 @@ class GetDiscoveredResourceResponse(TeaModel):
         self.body = body  # type: GetDiscoveredResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14982,9 +14782,6 @@ class GetDiscoveredResourceCountsGroupByRegionResponse(TeaModel):
         self.body = body  # type: GetDiscoveredResourceCountsGroupByRegionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15124,9 +14921,6 @@ class GetDiscoveredResourceCountsGroupByResourceTypeResponse(TeaModel):
         self.body = body  # type: GetDiscoveredResourceCountsGroupByResourceTypeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15190,6 +14984,10 @@ class GetIntegratedServiceStatusResponseBody(TeaModel):
         # *   true
         # *   false
         self.data = data  # type: bool
+        # The types of the integrated events. Separate multiple event types with commas (,). Valid values:
+        # 
+        # *   ConfigurationItemChangeNotification: resource change event
+        # *   NonCompliantNotification: non-compliance event
         self.integrated_types = integrated_types  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
@@ -15229,9 +15027,6 @@ class GetIntegratedServiceStatusResponse(TeaModel):
         self.body = body  # type: GetIntegratedServiceStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15489,9 +15284,6 @@ class GetManagedRuleResponse(TeaModel):
         self.body = body  # type: GetManagedRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15650,9 +15442,6 @@ class GetRemediationTemplateResponse(TeaModel):
         self.body = body  # type: GetRemediationTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15835,9 +15624,6 @@ class GetResourceComplianceByConfigRuleResponse(TeaModel):
         self.body = body  # type: GetResourceComplianceByConfigRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15971,9 +15757,6 @@ class GetResourceComplianceByPackResponse(TeaModel):
         self.body = body  # type: GetResourceComplianceByPackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16176,9 +15959,6 @@ class GetResourceComplianceGroupByRegionResponse(TeaModel):
         self.body = body  # type: GetResourceComplianceGroupByRegionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16381,9 +16161,6 @@ class GetResourceComplianceGroupByResourceTypeResponse(TeaModel):
         self.body = body  # type: GetResourceComplianceGroupByResourceTypeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16660,9 +16437,6 @@ class GetResourceComplianceTimelineResponse(TeaModel):
         self.body = body  # type: GetResourceComplianceTimelineResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16954,9 +16728,6 @@ class GetResourceConfigurationTimelineResponse(TeaModel):
         self.body = body  # type: GetResourceConfigurationTimelineResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17066,9 +16837,6 @@ class GetResourceInventoryResponse(TeaModel):
         self.body = body  # type: GetResourceInventoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17200,9 +16968,6 @@ class GetSupportedResourceRelationConfigResponse(TeaModel):
         self.body = body  # type: GetSupportedResourceRelationConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17434,9 +17199,6 @@ class IgnoreAggregateEvaluationResultsResponse(TeaModel):
         self.body = body  # type: IgnoreAggregateEvaluationResultsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17649,9 +17411,6 @@ class IgnoreEvaluationResultsResponse(TeaModel):
         self.body = body  # type: IgnoreEvaluationResultsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17905,9 +17664,6 @@ class ListAggregateCompliancePacksResponse(TeaModel):
         self.body = body  # type: ListAggregateCompliancePacksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18169,9 +17925,6 @@ class ListAggregateConfigDeliveryChannelsResponse(TeaModel):
         self.body = body  # type: ListAggregateConfigDeliveryChannelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18595,9 +18348,6 @@ class ListAggregateConfigRuleEvaluationResultsResponse(TeaModel):
         self.body = body  # type: ListAggregateConfigRuleEvaluationResultsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18756,9 +18506,6 @@ class ListAggregateConfigRuleEvaluationStatisticsResponse(TeaModel):
         self.body = body  # type: ListAggregateConfigRuleEvaluationStatisticsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19238,9 +18985,6 @@ class ListAggregateConfigRulesResponse(TeaModel):
         self.body = body  # type: ListAggregateConfigRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19283,6 +19027,7 @@ class ListAggregateDiscoveredResourcesRequest(TeaModel):
         self.next_token = next_token  # type: str
         # The ID of the region in which the resource resides. Separate multiple region IDs with commas (,).
         self.regions = regions  # type: str
+        # The ID of the Alibaba Cloud account to which the resources in the account group belong.
         self.resource_account_id = resource_account_id  # type: long
         # The status of the resource. Valid values:
         # 
@@ -19537,9 +19282,6 @@ class ListAggregateDiscoveredResourcesResponse(TeaModel):
         self.body = body  # type: ListAggregateDiscoveredResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19776,9 +19518,6 @@ class ListAggregateRemediationExecutionsResponse(TeaModel):
         self.body = body  # type: ListAggregateRemediationExecutionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20000,9 +19739,6 @@ class ListAggregateRemediationsResponse(TeaModel):
         self.body = body  # type: ListAggregateRemediationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20383,9 +20119,6 @@ class ListAggregateResourceEvaluationResultsResponse(TeaModel):
         self.body = body  # type: ListAggregateResourceEvaluationResultsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20744,9 +20477,6 @@ class ListAggregateResourceRelationsResponse(TeaModel):
         self.body = body  # type: ListAggregateResourceRelationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20905,9 +20635,6 @@ class ListAggregateResourcesByAdvancedSearchResponse(TeaModel):
         self.body = body  # type: ListAggregateResourcesByAdvancedSearchResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20970,7 +20697,8 @@ class ListAggregatorsRequest(TeaModel):
 
 class ListAggregatorsResponseBodyAggregatorsResultAggregators(TeaModel):
     def __init__(self, account_id=None, aggregator_account_count=None, aggregator_create_timestamp=None,
-                 aggregator_id=None, aggregator_name=None, aggregator_status=None, aggregator_type=None, description=None):
+                 aggregator_id=None, aggregator_name=None, aggregator_status=None, aggregator_type=None, description=None,
+                 folder_id=None):
         # The ID of the management account used to create the account group.
         self.account_id = account_id  # type: long
         # The number of member accounts in the account group.
@@ -20993,6 +20721,7 @@ class ListAggregatorsResponseBodyAggregatorsResultAggregators(TeaModel):
         self.aggregator_type = aggregator_type  # type: str
         # The description of the account group.
         self.description = description  # type: str
+        self.folder_id = folder_id  # type: str
 
     def validate(self):
         pass
@@ -21019,6 +20748,8 @@ class ListAggregatorsResponseBodyAggregatorsResultAggregators(TeaModel):
             result['AggregatorType'] = self.aggregator_type
         if self.description is not None:
             result['Description'] = self.description
+        if self.folder_id is not None:
+            result['FolderId'] = self.folder_id
         return result
 
     def from_map(self, m=None):
@@ -21039,6 +20770,8 @@ class ListAggregatorsResponseBodyAggregatorsResultAggregators(TeaModel):
             self.aggregator_type = m.get('AggregatorType')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('FolderId') is not None:
+            self.folder_id = m.get('FolderId')
         return self
 
 
@@ -21121,9 +20854,6 @@ class ListAggregatorsResponse(TeaModel):
         self.body = body  # type: ListAggregatorsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21499,9 +21229,6 @@ class ListCompliancePackTemplatesResponse(TeaModel):
         self.body = body  # type: ListCompliancePackTemplatesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21741,9 +21468,6 @@ class ListCompliancePacksResponse(TeaModel):
         self.body = body  # type: ListCompliancePacksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21990,9 +21714,6 @@ class ListConfigDeliveryChannelsResponse(TeaModel):
         self.body = body  # type: ListConfigDeliveryChannelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22394,9 +22115,6 @@ class ListConfigRuleEvaluationResultsResponse(TeaModel):
         self.body = body  # type: ListConfigRuleEvaluationResultsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22522,9 +22240,6 @@ class ListConfigRuleEvaluationStatisticsResponse(TeaModel):
         self.body = body  # type: ListConfigRuleEvaluationStatisticsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22886,7 +22601,7 @@ class ListConfigRulesResponseBodyConfigRulesConfigRuleList(TeaModel):
 
 class ListConfigRulesResponseBodyConfigRules(TeaModel):
     def __init__(self, config_rule_list=None, page_number=None, page_size=None, total_count=None):
-        # The types of resources evaluated by the rule. Separate multiple resource types with commas (,).
+        # The rule list.
         self.config_rule_list = config_rule_list  # type: list[ListConfigRulesResponseBodyConfigRulesConfigRuleList]
         # The page number.
         self.page_number = page_number  # type: int
@@ -22975,9 +22690,6 @@ class ListConfigRulesResponse(TeaModel):
         self.body = body  # type: ListConfigRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23250,9 +22962,6 @@ class ListDiscoveredResourcesResponse(TeaModel):
         self.body = body  # type: ListDiscoveredResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23284,6 +22993,10 @@ class ListDiscoveredResourcesResponse(TeaModel):
 
 class ListIntegratedServiceResponseBodyData(TeaModel):
     def __init__(self, integrated_types=None, service_code=None, service_name=None, status=None):
+        # The types of the integrated events. Separate multiple event types with commas (,). Valid values:
+        # 
+        # *   ConfigurationItemChangeNotification: resource change event
+        # *   NonCompliantNotification: non-compliance event
         self.integrated_types = integrated_types  # type: str
         # The identifier of the cloud service. Valid values:
         # 
@@ -23377,9 +23090,6 @@ class ListIntegratedServiceResponse(TeaModel):
         self.body = body  # type: ListIntegratedServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23673,9 +23383,6 @@ class ListManagedRulesResponse(TeaModel):
         self.body = body  # type: ListManagedRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23907,9 +23614,6 @@ class ListPreManagedRulesResponse(TeaModel):
         self.body = body  # type: ListPreManagedRulesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24129,9 +23833,6 @@ class ListRemediationExecutionsResponse(TeaModel):
         self.body = body  # type: ListRemediationExecutionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24321,9 +24022,6 @@ class ListRemediationTemplatesResponse(TeaModel):
         self.body = body  # type: ListRemediationTemplatesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24560,9 +24258,6 @@ class ListRemediationsResponse(TeaModel):
         self.body = body  # type: ListRemediationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24941,9 +24636,6 @@ class ListResourceEvaluationResultsResponse(TeaModel):
         self.body = body  # type: ListResourceEvaluationResultsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25290,9 +24982,6 @@ class ListResourceRelationsResponse(TeaModel):
         self.body = body  # type: ListResourceRelationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25445,9 +25134,6 @@ class ListResourcesByAdvancedSearchResponse(TeaModel):
         self.body = body  # type: ListResourcesByAdvancedSearchResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25654,9 +25340,6 @@ class ListSupportedProductsResponse(TeaModel):
         self.body = body  # type: ListSupportedProductsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25970,9 +25653,6 @@ class ListTagResourcesResponse(TeaModel):
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26085,9 +25765,6 @@ class PutEvaluationsResponse(TeaModel):
         self.body = body  # type: PutEvaluationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26286,9 +25963,6 @@ class RevertAggregateEvaluationResultsResponse(TeaModel):
         self.body = body  # type: RevertAggregateEvaluationResultsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26473,9 +26147,6 @@ class RevertEvaluationResultsResponse(TeaModel):
         self.body = body  # type: RevertEvaluationResultsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26600,9 +26271,6 @@ class StartAggregateConfigRuleEvaluationResponse(TeaModel):
         self.body = body  # type: StartAggregateConfigRuleEvaluationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26716,9 +26384,6 @@ class StartAggregateRemediationResponse(TeaModel):
         self.body = body  # type: StartAggregateRemediationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26835,9 +26500,6 @@ class StartConfigRuleEvaluationResponse(TeaModel):
         self.body = body  # type: StartConfigRuleEvaluationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26943,9 +26605,6 @@ class StartConfigurationRecorderResponse(TeaModel):
         self.body = body  # type: StartConfigurationRecorderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27043,9 +26702,6 @@ class StartRemediationResponse(TeaModel):
         self.body = body  # type: StartRemediationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27116,9 +26772,6 @@ class StopConfigurationRecorderResponse(TeaModel):
         self.body = body  # type: StopConfigurationRecorderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27325,9 +26978,6 @@ class TagResourcesResponse(TeaModel):
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27449,9 +27099,6 @@ class UntagResourcesResponse(TeaModel):
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27852,9 +27499,6 @@ class UpdateAggregateCompliancePackResponse(TeaModel):
         self.body = body  # type: UpdateAggregateCompliancePackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28074,9 +27718,6 @@ class UpdateAggregateConfigDeliveryChannelResponse(TeaModel):
         self.body = body  # type: UpdateAggregateConfigDeliveryChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28510,9 +28151,6 @@ class UpdateAggregateConfigRuleResponse(TeaModel):
         self.body = body  # type: UpdateAggregateConfigRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28660,9 +28298,6 @@ class UpdateAggregateRemediationResponse(TeaModel):
         self.body = body  # type: UpdateAggregateRemediationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28901,9 +28536,6 @@ class UpdateAggregatorResponse(TeaModel):
         self.body = body  # type: UpdateAggregatorResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29288,9 +28920,6 @@ class UpdateCompliancePackResponse(TeaModel):
         self.body = body  # type: UpdateCompliancePackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29502,9 +29131,6 @@ class UpdateConfigDeliveryChannelResponse(TeaModel):
         self.body = body  # type: UpdateConfigDeliveryChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29864,9 +29490,6 @@ class UpdateConfigRuleResponse(TeaModel):
         self.body = body  # type: UpdateConfigRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29997,9 +29620,6 @@ class UpdateConfigurationRecorderResponse(TeaModel):
         self.body = body  # type: UpdateConfigurationRecorderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30205,9 +29825,6 @@ class UpdateDeliveryChannelResponse(TeaModel):
         self.body = body  # type: UpdateDeliveryChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30239,6 +29856,10 @@ class UpdateDeliveryChannelResponse(TeaModel):
 
 class UpdateIntegratedServiceStatusRequest(TeaModel):
     def __init__(self, integrated_types=None, service_code=None, status=None):
+        # The types of the integrated events. Separate multiple event types with commas (,). Valid values:
+        # 
+        # *   ConfigurationItemChangeNotification: resource change event
+        # *   NonCompliantNotification: non-compliance event
         self.integrated_types = integrated_types  # type: str
         # The product code of the cloud product. Valid values:
         # 
@@ -30310,9 +29931,6 @@ class UpdateIntegratedServiceStatusResponse(TeaModel):
         self.body = body  # type: UpdateIntegratedServiceStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30458,9 +30076,6 @@ class UpdateRemediationResponse(TeaModel):
         self.body = body  # type: UpdateRemediationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 

@@ -683,6 +683,8 @@ class Client(OpenApiClient):
             body['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.description):
             body['Description'] = request.description
+        if not UtilClient.is_unset(request.folder_id):
+            body['FolderId'] = request.folder_id
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -864,10 +866,8 @@ class Client(OpenApiClient):
 
     def create_config_rule_with_options(self, tmp_req, runtime):
         """
-        ### Limits
-        You can use an ordinary account to create up to 200 rules.
-        ### Usage notes
-        This topic provides an example on how to create a managed rule named required-tags. The returned result indicates that the rule is created and the ID of the rule is `cr-5772ba41209e007b****`.
+        ## Limits
+        You can use a common account to create up to 200 rules.
         
 
         @param tmp_req: CreateConfigRuleRequest
@@ -937,10 +937,8 @@ class Client(OpenApiClient):
 
     def create_config_rule(self, request):
         """
-        ### Limits
-        You can use an ordinary account to create up to 200 rules.
-        ### Usage notes
-        This topic provides an example on how to create a managed rule named required-tags. The returned result indicates that the rule is created and the ID of the rule is `cr-5772ba41209e007b****`.
+        ## Limits
+        You can use a common account to create up to 200 rules.
         
 
         @param request: CreateConfigRuleRequest
@@ -2986,7 +2984,9 @@ class Client(OpenApiClient):
         @return: GetAggregatorResponse
         """
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.aggregator_id):
+            query['AggregatorId'] = request.aggregator_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2995,7 +2995,7 @@ class Client(OpenApiClient):
             version='2020-09-07',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
