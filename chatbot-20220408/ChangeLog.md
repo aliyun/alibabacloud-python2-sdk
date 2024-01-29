@@ -1,3 +1,8 @@
+2024-01-29 Version: 1.1.0
+- Support API ApplyForStreamAccessToken.
+- Update API BeginSessionupdate response param.
+
+
 2023-08-01 Version: 1.0.11
 - GetAgentInfo,ListSaasInfo init.
 
