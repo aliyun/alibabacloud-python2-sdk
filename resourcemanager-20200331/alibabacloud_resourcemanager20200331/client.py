@@ -734,7 +734,7 @@ class Client(OpenApiClient):
 
     def create_resource_group_with_options(self, request, runtime):
         """
-        For more information about common request parameters, see [Common parameters](~~159973~~).
+        >  A maximum of 30 resource groups can be created within an Alibaba Cloud account.
         
 
         @param request: CreateResourceGroupRequest
@@ -749,6 +749,8 @@ class Client(OpenApiClient):
             query['DisplayName'] = request.display_name
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -770,7 +772,7 @@ class Client(OpenApiClient):
 
     def create_resource_group(self, request):
         """
-        For more information about common request parameters, see [Common parameters](~~159973~~).
+        >  A maximum of 30 resource groups can be created within an Alibaba Cloud account.
         
 
         @param request: CreateResourceGroupRequest
@@ -2330,6 +2332,28 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_ancestors_with_options(request, runtime)
 
+    def list_associated_transfer_setting_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='ListAssociatedTransferSetting',
+            version='2020-03-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_manager_20200331_models.ListAssociatedTransferSettingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_associated_transfer_setting(self):
+        runtime = util_models.RuntimeOptions()
+        return self.list_associated_transfer_setting_with_options(runtime)
+
     def list_control_policies_with_options(self, request, runtime):
         """
         This topic provides an example on how to call the API operation to query the system access control policies within a resource directory. The response shows that the resource directory has only one system access control policy. The policy is named `FullAliyunAccess`.
@@ -3833,6 +3857,54 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.update_account_with_options(request, runtime)
+
+    def update_associated_transfer_setting_with_options(self, request, runtime):
+        """
+        For information about the resources that support the Transfer Associated Resources feature, see [Use the Transfer Associated Resources feature](~~2639129~~).
+        
+
+        @param request: UpdateAssociatedTransferSettingRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateAssociatedTransferSettingResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.enable_existing_resources_transfer):
+            query['EnableExistingResourcesTransfer'] = request.enable_existing_resources_transfer
+        if not UtilClient.is_unset(request.rule_settings):
+            query['RuleSettings'] = request.rule_settings
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateAssociatedTransferSetting',
+            version='2020-03-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_manager_20200331_models.UpdateAssociatedTransferSettingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_associated_transfer_setting(self, request):
+        """
+        For information about the resources that support the Transfer Associated Resources feature, see [Use the Transfer Associated Resources feature](~~2639129~~).
+        
+
+        @param request: UpdateAssociatedTransferSettingRequest
+
+        @return: UpdateAssociatedTransferSettingResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_associated_transfer_setting_with_options(request, runtime)
 
     def update_control_policy_with_options(self, request, runtime):
         """

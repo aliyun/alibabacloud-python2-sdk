@@ -1,3 +1,10 @@
+2024-01-29 Version: 1.3.0
+- Support API ListAssociatedTransferSetting.
+- Support API UpdateAssociatedTransferSetting.
+- Update API CreateResourceGroupadd Tag param.
+- Update API EnableAssociatedTransferupdate response param.
+
+
 2023-11-27 Version: 1.2.0
 - Generated python2 2020-03-31 for ResourceManager.
 
