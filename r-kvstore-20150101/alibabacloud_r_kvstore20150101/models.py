@@ -18527,9 +18527,10 @@ class ModifyAuditLogConfigResponse(TeaModel):
 
 
 class ModifyBackupPolicyRequest(TeaModel):
-    def __init__(self, enable_backup_log=None, instance_id=None, owner_account=None, owner_id=None,
-                 preferred_backup_period=None, preferred_backup_time=None, resource_owner_account=None, resource_owner_id=None,
-                 security_token=None):
+    def __init__(self, backup_retention_period=None, enable_backup_log=None, instance_id=None, owner_account=None,
+                 owner_id=None, preferred_backup_period=None, preferred_backup_time=None, resource_owner_account=None,
+                 resource_owner_id=None, security_token=None):
+        self.backup_retention_period = backup_retention_period  # type: int
         # Enables or disables the data flashback feature for the instance. Valid values:
         # 
         # *   **1**: enables the data flashback feature. You must also enable AOF persistence by setting `appendonly` to `yes` in the parameter settings of the instance. Then, you can use the data flashback feature.
@@ -18572,6 +18573,8 @@ class ModifyBackupPolicyRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.backup_retention_period is not None:
+            result['BackupRetentionPeriod'] = self.backup_retention_period
         if self.enable_backup_log is not None:
             result['EnableBackupLog'] = self.enable_backup_log
         if self.instance_id is not None:
@@ -18594,6 +18597,8 @@ class ModifyBackupPolicyRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BackupRetentionPeriod') is not None:
+            self.backup_retention_period = m.get('BackupRetentionPeriod')
         if m.get('EnableBackupLog') is not None:
             self.enable_backup_log = m.get('EnableBackupLog')
         if m.get('InstanceId') is not None:
@@ -21993,9 +21998,9 @@ class RenewAdditionalBandwidthResponse(TeaModel):
 
 
 class RenewInstanceRequest(TeaModel):
-    def __init__(self, auto_pay=None, business_info=None, capacity=None, client_token=None, coupon_no=None,
-                 from_app=None, instance_class=None, instance_id=None, owner_account=None, owner_id=None, period=None,
-                 resource_owner_account=None, resource_owner_id=None, security_token=None):
+    def __init__(self, auto_pay=None, auto_renew=None, business_info=None, capacity=None, client_token=None,
+                 coupon_no=None, from_app=None, instance_class=None, instance_id=None, owner_account=None, owner_id=None,
+                 period=None, resource_owner_account=None, resource_owner_id=None, security_token=None):
         # Specifies whether to enable automatic payment. Default value: true. Valid values:
         # 
         # *   **true**: enables automatic payment.
@@ -22003,6 +22008,7 @@ class RenewInstanceRequest(TeaModel):
         # 
         # If you select false, you must choose **Expenses** > **Renewal Management** in the top navigation bar. In the left-side navigation pane, click **Orders**. Find the specified order and pay for it.
         self.auto_pay = auto_pay  # type: bool
+        self.auto_renew = auto_renew  # type: bool
         # The ID of the promotional event or business information.
         self.business_info = business_info  # type: str
         # The storage capacity of the instance. Unit: MB. When you renew the instance, you can specify this parameter to change specifications of the instance.
@@ -22040,6 +22046,8 @@ class RenewInstanceRequest(TeaModel):
         result = dict()
         if self.auto_pay is not None:
             result['AutoPay'] = self.auto_pay
+        if self.auto_renew is not None:
+            result['AutoRenew'] = self.auto_renew
         if self.business_info is not None:
             result['BusinessInfo'] = self.business_info
         if self.capacity is not None:
@@ -22072,6 +22080,8 @@ class RenewInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('AutoPay') is not None:
             self.auto_pay = m.get('AutoPay')
+        if m.get('AutoRenew') is not None:
+            self.auto_renew = m.get('AutoRenew')
         if m.get('BusinessInfo') is not None:
             self.business_info = m.get('BusinessInfo')
         if m.get('Capacity') is not None:

@@ -4516,6 +4516,8 @@ class Client(OpenApiClient):
     def modify_backup_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.backup_retention_period):
+            query['BackupRetentionPeriod'] = request.backup_retention_period
         if not UtilClient.is_unset(request.enable_backup_log):
             query['EnableBackupLog'] = request.enable_backup_log
         if not UtilClient.is_unset(request.instance_id):
@@ -5976,6 +5978,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.auto_pay):
             query['AutoPay'] = request.auto_pay
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
         if not UtilClient.is_unset(request.business_info):
             query['BusinessInfo'] = request.business_info
         if not UtilClient.is_unset(request.capacity):
