@@ -468,6 +468,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_app_with_options(request, runtime)
 
+    def delete_entity_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.entity_type):
+            query['EntityType'] = request.entity_type
+        if not UtilClient.is_unset(request.workspace):
+            query['Workspace'] = request.workspace
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteEntity',
+            version='2021-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            easy_gene_20210315_models.DeleteEntityResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_entity(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_entity_with_options(request, runtime)
+
     def delete_entity_items_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = easy_gene_20210315_models.DeleteEntityItemsShrinkRequest()
