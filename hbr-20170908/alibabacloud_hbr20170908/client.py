@@ -395,6 +395,8 @@ class Client(OpenApiClient):
             query['DestSourceType'] = request.dest_source_type
         if not UtilClient.is_unset(request.detail_shrink):
             query['Detail'] = request.detail_shrink
+        if not UtilClient.is_unset(request.disabled):
+            query['Disabled'] = request.disabled
         if not UtilClient.is_unset(request.file_system_id):
             query['FileSystemId'] = request.file_system_id
         if not UtilClient.is_unset(request.keep_latest_snapshots):
@@ -1249,6 +1251,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.plan_id):
             query['PlanId'] = request.plan_id
+        if not UtilClient.is_unset(request.require_no_running_jobs):
+            query['RequireNoRunningJobs'] = request.require_no_running_jobs
         if not UtilClient.is_unset(request.source_type):
             query['SourceType'] = request.source_type
         if not UtilClient.is_unset(request.vault_id):
