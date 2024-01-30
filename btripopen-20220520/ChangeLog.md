@@ -1,3 +1,7 @@
+2024-01-30 Version: 1.10.5
+- Update API IeHotelBillSettlementQueryupdate category param.
+
+
 2024-01-26 Version: 1.10.4
 - Generated python2 2022-05-20 for btripOpen.
 
