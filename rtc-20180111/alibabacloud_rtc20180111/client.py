@@ -94,6 +94,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_record_template_with_options(request, runtime)
 
+    def create_app_streaming_out_template_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = rtc_20180111_models.CreateAppStreamingOutTemplateShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.streaming_out_template):
+            request.streaming_out_template_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.streaming_out_template, 'StreamingOutTemplate', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.streaming_out_template_shrink):
+            query['StreamingOutTemplate'] = request.streaming_out_template_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateAppStreamingOutTemplate',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.CreateAppStreamingOutTemplateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_app_streaming_out_template(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_app_streaming_out_template_with_options(request, runtime)
+
     def create_auto_live_stream_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -215,6 +249,40 @@ class Client(OpenApiClient):
     def create_mpulayout(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_mpulayout_with_options(request, runtime)
+
+    def delete_app_streaming_out_template_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = rtc_20180111_models.DeleteAppStreamingOutTemplateShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.streaming_out_template):
+            request.streaming_out_template_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.streaming_out_template, 'StreamingOutTemplate', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.streaming_out_template_shrink):
+            query['StreamingOutTemplate'] = request.streaming_out_template_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAppStreamingOutTemplate',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.DeleteAppStreamingOutTemplateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_app_streaming_out_template(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_app_streaming_out_template_with_options(request, runtime)
 
     def delete_auto_live_stream_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -405,6 +473,44 @@ class Client(OpenApiClient):
     def describe_app_key(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_app_key_with_options(request, runtime)
+
+    def describe_app_streaming_out_templates_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = rtc_20180111_models.DescribeAppStreamingOutTemplatesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.condition):
+            request.condition_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.condition, 'Condition', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.condition_shrink):
+            query['Condition'] = request.condition_shrink
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAppStreamingOutTemplates',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.DescribeAppStreamingOutTemplatesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_app_streaming_out_templates(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_app_streaming_out_templates_with_options(request, runtime)
 
     def describe_apps_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1835,6 +1941,40 @@ class Client(OpenApiClient):
     def modify_app(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_app_with_options(request, runtime)
+
+    def modify_app_streaming_out_template_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = rtc_20180111_models.ModifyAppStreamingOutTemplateShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.streaming_out_template):
+            request.streaming_out_template_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.streaming_out_template, 'StreamingOutTemplate', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.streaming_out_template_shrink):
+            query['StreamingOutTemplate'] = request.streaming_out_template_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyAppStreamingOutTemplate',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.ModifyAppStreamingOutTemplateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_app_streaming_out_template(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_app_streaming_out_template_with_options(request, runtime)
 
     def modify_mpulayout_with_options(self, request, runtime):
         UtilClient.validate_model(request)
