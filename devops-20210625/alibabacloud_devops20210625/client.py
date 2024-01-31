@@ -295,6 +295,62 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_branch_with_options(repository_id, request, headers, runtime)
 
+    def create_check_run_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.repository_identity):
+            query['repositoryIdentity'] = request.repository_identity
+        body = {}
+        if not UtilClient.is_unset(request.annotations):
+            body['annotations'] = request.annotations
+        if not UtilClient.is_unset(request.completed_at):
+            body['completedAt'] = request.completed_at
+        if not UtilClient.is_unset(request.conclusion):
+            body['conclusion'] = request.conclusion
+        if not UtilClient.is_unset(request.details_url):
+            body['detailsUrl'] = request.details_url
+        if not UtilClient.is_unset(request.external_id):
+            body['externalId'] = request.external_id
+        if not UtilClient.is_unset(request.head_sha):
+            body['headSha'] = request.head_sha
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.output):
+            body['output'] = request.output
+        if not UtilClient.is_unset(request.started_at):
+            body['startedAt'] = request.started_at
+        if not UtilClient.is_unset(request.status):
+            body['status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateCheckRun',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v4/projects/check_runs/create_check_run',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateCheckRunResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_check_run(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_check_run_with_options(request, headers, runtime)
+
     def create_commit_status_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2504,6 +2560,42 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_branch_info_with_options(repository_id, request, headers, runtime)
 
+    def get_check_run_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.check_run_id):
+            query['checkRunId'] = request.check_run_id
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.repository_identity):
+            query['repositoryIdentity'] = request.repository_identity
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCheckRun',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v4/projects/check_runs/get_check_run',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetCheckRunResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_check_run(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_check_run_with_options(request, headers, runtime)
+
     def get_codeup_organization_with_options(self, identity, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3849,6 +3941,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_applications_with_options(request, headers, runtime)
+
+    def list_check_runs_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.page_size):
+            query['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.ref):
+            query['ref'] = request.ref
+        if not UtilClient.is_unset(request.repository_identity):
+            query['repositoryIdentity'] = request.repository_identity
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCheckRuns',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v4/projects/check_runs/list_check_runs',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListCheckRunsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_check_runs(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_check_runs_with_options(request, headers, runtime)
 
     def list_commit_statuses_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -6502,6 +6634,62 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_application_with_options(app_name, request, headers, runtime)
+
+    def update_check_run_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.check_run_id):
+            query['checkRunId'] = request.check_run_id
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.repository_identity):
+            query['repositoryIdentity'] = request.repository_identity
+        body = {}
+        if not UtilClient.is_unset(request.annotations):
+            body['annotations'] = request.annotations
+        if not UtilClient.is_unset(request.completed_at):
+            body['completedAt'] = request.completed_at
+        if not UtilClient.is_unset(request.conclusion):
+            body['conclusion'] = request.conclusion
+        if not UtilClient.is_unset(request.details_url):
+            body['detailsUrl'] = request.details_url
+        if not UtilClient.is_unset(request.external_id):
+            body['externalId'] = request.external_id
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.output):
+            body['output'] = request.output
+        if not UtilClient.is_unset(request.started_at):
+            body['startedAt'] = request.started_at
+        if not UtilClient.is_unset(request.status):
+            body['status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateCheckRun',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v4/projects/check_runs/update_check_run',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateCheckRunResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_check_run(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_check_run_with_options(request, headers, runtime)
 
     def update_file_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)

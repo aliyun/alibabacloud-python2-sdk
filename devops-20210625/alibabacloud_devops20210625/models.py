@@ -1177,6 +1177,663 @@ class CreateBranchResponse(TeaModel):
         return self
 
 
+class CreateCheckRunRequestAnnotations(TeaModel):
+    def __init__(self, annotation_level=None, end_column=None, end_line=None, message=None, path=None,
+                 raw_details=None, start_column=None, start_line=None, title=None):
+        self.annotation_level = annotation_level  # type: str
+        self.end_column = end_column  # type: long
+        self.end_line = end_line  # type: long
+        self.message = message  # type: str
+        self.path = path  # type: str
+        self.raw_details = raw_details  # type: str
+        self.start_column = start_column  # type: long
+        self.start_line = start_line  # type: long
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateCheckRunRequestAnnotations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.annotation_level is not None:
+            result['annotationLevel'] = self.annotation_level
+        if self.end_column is not None:
+            result['endColumn'] = self.end_column
+        if self.end_line is not None:
+            result['endLine'] = self.end_line
+        if self.message is not None:
+            result['message'] = self.message
+        if self.path is not None:
+            result['path'] = self.path
+        if self.raw_details is not None:
+            result['rawDetails'] = self.raw_details
+        if self.start_column is not None:
+            result['startColumn'] = self.start_column
+        if self.start_line is not None:
+            result['startLine'] = self.start_line
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('annotationLevel') is not None:
+            self.annotation_level = m.get('annotationLevel')
+        if m.get('endColumn') is not None:
+            self.end_column = m.get('endColumn')
+        if m.get('endLine') is not None:
+            self.end_line = m.get('endLine')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('rawDetails') is not None:
+            self.raw_details = m.get('rawDetails')
+        if m.get('startColumn') is not None:
+            self.start_column = m.get('startColumn')
+        if m.get('startLine') is not None:
+            self.start_line = m.get('startLine')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class CreateCheckRunRequestOutputImages(TeaModel):
+    def __init__(self, alt=None, caption=None, image_url=None):
+        self.alt = alt  # type: str
+        self.caption = caption  # type: str
+        self.image_url = image_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateCheckRunRequestOutputImages, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alt is not None:
+            result['alt'] = self.alt
+        if self.caption is not None:
+            result['caption'] = self.caption
+        if self.image_url is not None:
+            result['imageUrl'] = self.image_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('alt') is not None:
+            self.alt = m.get('alt')
+        if m.get('caption') is not None:
+            self.caption = m.get('caption')
+        if m.get('imageUrl') is not None:
+            self.image_url = m.get('imageUrl')
+        return self
+
+
+class CreateCheckRunRequestOutput(TeaModel):
+    def __init__(self, images=None, summary=None, text=None, title=None):
+        self.images = images  # type: list[CreateCheckRunRequestOutputImages]
+        self.summary = summary  # type: str
+        self.text = text  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.images:
+            for k in self.images:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateCheckRunRequestOutput, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['images'] = []
+        if self.images is not None:
+            for k in self.images:
+                result['images'].append(k.to_map() if k else None)
+        if self.summary is not None:
+            result['summary'] = self.summary
+        if self.text is not None:
+            result['text'] = self.text
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.images = []
+        if m.get('images') is not None:
+            for k in m.get('images'):
+                temp_model = CreateCheckRunRequestOutputImages()
+                self.images.append(temp_model.from_map(k))
+        if m.get('summary') is not None:
+            self.summary = m.get('summary')
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class CreateCheckRunRequest(TeaModel):
+    def __init__(self, access_token=None, annotations=None, completed_at=None, conclusion=None, details_url=None,
+                 external_id=None, head_sha=None, name=None, output=None, started_at=None, status=None, organization_id=None,
+                 repository_identity=None):
+        self.access_token = access_token  # type: str
+        self.annotations = annotations  # type: list[CreateCheckRunRequestAnnotations]
+        self.completed_at = completed_at  # type: str
+        self.conclusion = conclusion  # type: str
+        self.details_url = details_url  # type: str
+        self.external_id = external_id  # type: str
+        self.head_sha = head_sha  # type: str
+        self.name = name  # type: str
+        self.output = output  # type: CreateCheckRunRequestOutput
+        self.started_at = started_at  # type: str
+        self.status = status  # type: str
+        self.organization_id = organization_id  # type: str
+        self.repository_identity = repository_identity  # type: str
+
+    def validate(self):
+        if self.annotations:
+            for k in self.annotations:
+                if k:
+                    k.validate()
+        if self.output:
+            self.output.validate()
+
+    def to_map(self):
+        _map = super(CreateCheckRunRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['accessToken'] = self.access_token
+        result['annotations'] = []
+        if self.annotations is not None:
+            for k in self.annotations:
+                result['annotations'].append(k.to_map() if k else None)
+        if self.completed_at is not None:
+            result['completedAt'] = self.completed_at
+        if self.conclusion is not None:
+            result['conclusion'] = self.conclusion
+        if self.details_url is not None:
+            result['detailsUrl'] = self.details_url
+        if self.external_id is not None:
+            result['externalId'] = self.external_id
+        if self.head_sha is not None:
+            result['headSha'] = self.head_sha
+        if self.name is not None:
+            result['name'] = self.name
+        if self.output is not None:
+            result['output'] = self.output.to_map()
+        if self.started_at is not None:
+            result['startedAt'] = self.started_at
+        if self.status is not None:
+            result['status'] = self.status
+        if self.organization_id is not None:
+            result['organizationId'] = self.organization_id
+        if self.repository_identity is not None:
+            result['repositoryIdentity'] = self.repository_identity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessToken') is not None:
+            self.access_token = m.get('accessToken')
+        self.annotations = []
+        if m.get('annotations') is not None:
+            for k in m.get('annotations'):
+                temp_model = CreateCheckRunRequestAnnotations()
+                self.annotations.append(temp_model.from_map(k))
+        if m.get('completedAt') is not None:
+            self.completed_at = m.get('completedAt')
+        if m.get('conclusion') is not None:
+            self.conclusion = m.get('conclusion')
+        if m.get('detailsUrl') is not None:
+            self.details_url = m.get('detailsUrl')
+        if m.get('externalId') is not None:
+            self.external_id = m.get('externalId')
+        if m.get('headSha') is not None:
+            self.head_sha = m.get('headSha')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('output') is not None:
+            temp_model = CreateCheckRunRequestOutput()
+            self.output = temp_model.from_map(m['output'])
+        if m.get('startedAt') is not None:
+            self.started_at = m.get('startedAt')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('organizationId') is not None:
+            self.organization_id = m.get('organizationId')
+        if m.get('repositoryIdentity') is not None:
+            self.repository_identity = m.get('repositoryIdentity')
+        return self
+
+
+class CreateCheckRunResponseBodyResultAnnotations(TeaModel):
+    def __init__(self, annotation_level=None, end_column=None, end_line=None, id=None, message=None, path=None,
+                 raw_details=None, start_column=None, start_line=None, title=None):
+        self.annotation_level = annotation_level  # type: str
+        self.end_column = end_column  # type: long
+        self.end_line = end_line  # type: long
+        self.id = id  # type: long
+        self.message = message  # type: str
+        self.path = path  # type: str
+        self.raw_details = raw_details  # type: str
+        self.start_column = start_column  # type: long
+        self.start_line = start_line  # type: long
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateCheckRunResponseBodyResultAnnotations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.annotation_level is not None:
+            result['annotationLevel'] = self.annotation_level
+        if self.end_column is not None:
+            result['endColumn'] = self.end_column
+        if self.end_line is not None:
+            result['endLine'] = self.end_line
+        if self.id is not None:
+            result['id'] = self.id
+        if self.message is not None:
+            result['message'] = self.message
+        if self.path is not None:
+            result['path'] = self.path
+        if self.raw_details is not None:
+            result['rawDetails'] = self.raw_details
+        if self.start_column is not None:
+            result['startColumn'] = self.start_column
+        if self.start_line is not None:
+            result['startLine'] = self.start_line
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('annotationLevel') is not None:
+            self.annotation_level = m.get('annotationLevel')
+        if m.get('endColumn') is not None:
+            self.end_column = m.get('endColumn')
+        if m.get('endLine') is not None:
+            self.end_line = m.get('endLine')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('rawDetails') is not None:
+            self.raw_details = m.get('rawDetails')
+        if m.get('startColumn') is not None:
+            self.start_column = m.get('startColumn')
+        if m.get('startLine') is not None:
+            self.start_line = m.get('startLine')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class CreateCheckRunResponseBodyResultCheckSuite(TeaModel):
+    def __init__(self, id=None):
+        self.id = id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateCheckRunResponseBodyResultCheckSuite, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        return self
+
+
+class CreateCheckRunResponseBodyResultOutputImages(TeaModel):
+    def __init__(self, alt=None, caption=None, image_url=None):
+        self.alt = alt  # type: str
+        self.caption = caption  # type: str
+        self.image_url = image_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateCheckRunResponseBodyResultOutputImages, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alt is not None:
+            result['alt'] = self.alt
+        if self.caption is not None:
+            result['caption'] = self.caption
+        if self.image_url is not None:
+            result['imageUrl'] = self.image_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('alt') is not None:
+            self.alt = m.get('alt')
+        if m.get('caption') is not None:
+            self.caption = m.get('caption')
+        if m.get('imageUrl') is not None:
+            self.image_url = m.get('imageUrl')
+        return self
+
+
+class CreateCheckRunResponseBodyResultOutput(TeaModel):
+    def __init__(self, images=None, summary=None, text=None, title=None):
+        self.images = images  # type: list[CreateCheckRunResponseBodyResultOutputImages]
+        self.summary = summary  # type: str
+        self.text = text  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.images:
+            for k in self.images:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateCheckRunResponseBodyResultOutput, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['images'] = []
+        if self.images is not None:
+            for k in self.images:
+                result['images'].append(k.to_map() if k else None)
+        if self.summary is not None:
+            result['summary'] = self.summary
+        if self.text is not None:
+            result['text'] = self.text
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.images = []
+        if m.get('images') is not None:
+            for k in m.get('images'):
+                temp_model = CreateCheckRunResponseBodyResultOutputImages()
+                self.images.append(temp_model.from_map(k))
+        if m.get('summary') is not None:
+            self.summary = m.get('summary')
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class CreateCheckRunResponseBodyResultWriter(TeaModel):
+    def __init__(self, id=None, logo_url=None, name=None, slug=None, type=None):
+        self.id = id  # type: str
+        self.logo_url = logo_url  # type: str
+        self.name = name  # type: str
+        self.slug = slug  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateCheckRunResponseBodyResultWriter, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.logo_url is not None:
+            result['logoUrl'] = self.logo_url
+        if self.name is not None:
+            result['name'] = self.name
+        if self.slug is not None:
+            result['slug'] = self.slug
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('logoUrl') is not None:
+            self.logo_url = m.get('logoUrl')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('slug') is not None:
+            self.slug = m.get('slug')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class CreateCheckRunResponseBodyResult(TeaModel):
+    def __init__(self, annotations=None, check_suite=None, completed_at=None, conclusion=None, created_at=None,
+                 details_url=None, external_id=None, head_sha=None, id=None, name=None, output=None, started_at=None, status=None,
+                 updated_at=None, writer=None):
+        self.annotations = annotations  # type: list[CreateCheckRunResponseBodyResultAnnotations]
+        self.check_suite = check_suite  # type: CreateCheckRunResponseBodyResultCheckSuite
+        self.completed_at = completed_at  # type: str
+        self.conclusion = conclusion  # type: str
+        self.created_at = created_at  # type: str
+        self.details_url = details_url  # type: str
+        self.external_id = external_id  # type: str
+        self.head_sha = head_sha  # type: str
+        self.id = id  # type: long
+        self.name = name  # type: str
+        self.output = output  # type: CreateCheckRunResponseBodyResultOutput
+        self.started_at = started_at  # type: str
+        self.status = status  # type: str
+        self.updated_at = updated_at  # type: str
+        self.writer = writer  # type: CreateCheckRunResponseBodyResultWriter
+
+    def validate(self):
+        if self.annotations:
+            for k in self.annotations:
+                if k:
+                    k.validate()
+        if self.check_suite:
+            self.check_suite.validate()
+        if self.output:
+            self.output.validate()
+        if self.writer:
+            self.writer.validate()
+
+    def to_map(self):
+        _map = super(CreateCheckRunResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['annotations'] = []
+        if self.annotations is not None:
+            for k in self.annotations:
+                result['annotations'].append(k.to_map() if k else None)
+        if self.check_suite is not None:
+            result['checkSuite'] = self.check_suite.to_map()
+        if self.completed_at is not None:
+            result['completedAt'] = self.completed_at
+        if self.conclusion is not None:
+            result['conclusion'] = self.conclusion
+        if self.created_at is not None:
+            result['createdAt'] = self.created_at
+        if self.details_url is not None:
+            result['detailsUrl'] = self.details_url
+        if self.external_id is not None:
+            result['externalId'] = self.external_id
+        if self.head_sha is not None:
+            result['headSha'] = self.head_sha
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.output is not None:
+            result['output'] = self.output.to_map()
+        if self.started_at is not None:
+            result['startedAt'] = self.started_at
+        if self.status is not None:
+            result['status'] = self.status
+        if self.updated_at is not None:
+            result['updatedAt'] = self.updated_at
+        if self.writer is not None:
+            result['writer'] = self.writer.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.annotations = []
+        if m.get('annotations') is not None:
+            for k in m.get('annotations'):
+                temp_model = CreateCheckRunResponseBodyResultAnnotations()
+                self.annotations.append(temp_model.from_map(k))
+        if m.get('checkSuite') is not None:
+            temp_model = CreateCheckRunResponseBodyResultCheckSuite()
+            self.check_suite = temp_model.from_map(m['checkSuite'])
+        if m.get('completedAt') is not None:
+            self.completed_at = m.get('completedAt')
+        if m.get('conclusion') is not None:
+            self.conclusion = m.get('conclusion')
+        if m.get('createdAt') is not None:
+            self.created_at = m.get('createdAt')
+        if m.get('detailsUrl') is not None:
+            self.details_url = m.get('detailsUrl')
+        if m.get('externalId') is not None:
+            self.external_id = m.get('externalId')
+        if m.get('headSha') is not None:
+            self.head_sha = m.get('headSha')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('output') is not None:
+            temp_model = CreateCheckRunResponseBodyResultOutput()
+            self.output = temp_model.from_map(m['output'])
+        if m.get('startedAt') is not None:
+            self.started_at = m.get('startedAt')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('updatedAt') is not None:
+            self.updated_at = m.get('updatedAt')
+        if m.get('writer') is not None:
+            temp_model = CreateCheckRunResponseBodyResultWriter()
+            self.writer = temp_model.from_map(m['writer'])
+        return self
+
+
+class CreateCheckRunResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: CreateCheckRunResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(CreateCheckRunResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('result') is not None:
+            temp_model = CreateCheckRunResponseBodyResult()
+            self.result = temp_model.from_map(m['result'])
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class CreateCheckRunResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateCheckRunResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateCheckRunResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateCheckRunResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateCommitStatusRequest(TeaModel):
     def __init__(self, access_token=None, context=None, description=None, state=None, target_url=None,
                  organization_id=None, repository_identity=None, sha=None):
@@ -12297,6 +12954,459 @@ class GetBranchInfoResponse(TeaModel):
         return self
 
 
+class GetCheckRunRequest(TeaModel):
+    def __init__(self, access_token=None, check_run_id=None, organization_id=None, repository_identity=None):
+        self.access_token = access_token  # type: str
+        self.check_run_id = check_run_id  # type: long
+        self.organization_id = organization_id  # type: str
+        self.repository_identity = repository_identity  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCheckRunRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['accessToken'] = self.access_token
+        if self.check_run_id is not None:
+            result['checkRunId'] = self.check_run_id
+        if self.organization_id is not None:
+            result['organizationId'] = self.organization_id
+        if self.repository_identity is not None:
+            result['repositoryIdentity'] = self.repository_identity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessToken') is not None:
+            self.access_token = m.get('accessToken')
+        if m.get('checkRunId') is not None:
+            self.check_run_id = m.get('checkRunId')
+        if m.get('organizationId') is not None:
+            self.organization_id = m.get('organizationId')
+        if m.get('repositoryIdentity') is not None:
+            self.repository_identity = m.get('repositoryIdentity')
+        return self
+
+
+class GetCheckRunResponseBodyResultAnnotations(TeaModel):
+    def __init__(self, annotation_level=None, end_column=None, end_line=None, id=None, message=None, path=None,
+                 raw_details=None, start_column=None, start_line=None, title=None):
+        self.annotation_level = annotation_level  # type: str
+        self.end_column = end_column  # type: long
+        self.end_line = end_line  # type: long
+        self.id = id  # type: long
+        self.message = message  # type: str
+        self.path = path  # type: str
+        self.raw_details = raw_details  # type: str
+        self.start_column = start_column  # type: long
+        self.start_line = start_line  # type: long
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCheckRunResponseBodyResultAnnotations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.annotation_level is not None:
+            result['annotationLevel'] = self.annotation_level
+        if self.end_column is not None:
+            result['endColumn'] = self.end_column
+        if self.end_line is not None:
+            result['endLine'] = self.end_line
+        if self.id is not None:
+            result['id'] = self.id
+        if self.message is not None:
+            result['message'] = self.message
+        if self.path is not None:
+            result['path'] = self.path
+        if self.raw_details is not None:
+            result['rawDetails'] = self.raw_details
+        if self.start_column is not None:
+            result['startColumn'] = self.start_column
+        if self.start_line is not None:
+            result['startLine'] = self.start_line
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('annotationLevel') is not None:
+            self.annotation_level = m.get('annotationLevel')
+        if m.get('endColumn') is not None:
+            self.end_column = m.get('endColumn')
+        if m.get('endLine') is not None:
+            self.end_line = m.get('endLine')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('rawDetails') is not None:
+            self.raw_details = m.get('rawDetails')
+        if m.get('startColumn') is not None:
+            self.start_column = m.get('startColumn')
+        if m.get('startLine') is not None:
+            self.start_line = m.get('startLine')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class GetCheckRunResponseBodyResultCheckSuite(TeaModel):
+    def __init__(self, id=None):
+        self.id = id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCheckRunResponseBodyResultCheckSuite, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        return self
+
+
+class GetCheckRunResponseBodyResultOutputImages(TeaModel):
+    def __init__(self, alt=None, caption=None, image_url=None):
+        self.alt = alt  # type: str
+        self.caption = caption  # type: str
+        self.image_url = image_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCheckRunResponseBodyResultOutputImages, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alt is not None:
+            result['alt'] = self.alt
+        if self.caption is not None:
+            result['caption'] = self.caption
+        if self.image_url is not None:
+            result['imageUrl'] = self.image_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('alt') is not None:
+            self.alt = m.get('alt')
+        if m.get('caption') is not None:
+            self.caption = m.get('caption')
+        if m.get('imageUrl') is not None:
+            self.image_url = m.get('imageUrl')
+        return self
+
+
+class GetCheckRunResponseBodyResultOutput(TeaModel):
+    def __init__(self, images=None, summary=None, text=None, title=None):
+        self.images = images  # type: list[GetCheckRunResponseBodyResultOutputImages]
+        self.summary = summary  # type: str
+        self.text = text  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.images:
+            for k in self.images:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetCheckRunResponseBodyResultOutput, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['images'] = []
+        if self.images is not None:
+            for k in self.images:
+                result['images'].append(k.to_map() if k else None)
+        if self.summary is not None:
+            result['summary'] = self.summary
+        if self.text is not None:
+            result['text'] = self.text
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.images = []
+        if m.get('images') is not None:
+            for k in m.get('images'):
+                temp_model = GetCheckRunResponseBodyResultOutputImages()
+                self.images.append(temp_model.from_map(k))
+        if m.get('summary') is not None:
+            self.summary = m.get('summary')
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class GetCheckRunResponseBodyResultWriter(TeaModel):
+    def __init__(self, id=None, logo_url=None, name=None, slug=None, type=None):
+        self.id = id  # type: str
+        self.logo_url = logo_url  # type: str
+        self.name = name  # type: str
+        self.slug = slug  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCheckRunResponseBodyResultWriter, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.logo_url is not None:
+            result['logoUrl'] = self.logo_url
+        if self.name is not None:
+            result['name'] = self.name
+        if self.slug is not None:
+            result['slug'] = self.slug
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('logoUrl') is not None:
+            self.logo_url = m.get('logoUrl')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('slug') is not None:
+            self.slug = m.get('slug')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class GetCheckRunResponseBodyResult(TeaModel):
+    def __init__(self, annotations=None, check_suite=None, completed_at=None, conclusion=None, created_at=None,
+                 details_url=None, external_id=None, head_sha=None, id=None, name=None, output=None, started_at=None, status=None,
+                 updated_at=None, writer=None):
+        self.annotations = annotations  # type: list[GetCheckRunResponseBodyResultAnnotations]
+        self.check_suite = check_suite  # type: GetCheckRunResponseBodyResultCheckSuite
+        self.completed_at = completed_at  # type: str
+        self.conclusion = conclusion  # type: str
+        self.created_at = created_at  # type: str
+        self.details_url = details_url  # type: str
+        self.external_id = external_id  # type: str
+        self.head_sha = head_sha  # type: str
+        self.id = id  # type: long
+        self.name = name  # type: str
+        self.output = output  # type: GetCheckRunResponseBodyResultOutput
+        self.started_at = started_at  # type: str
+        self.status = status  # type: str
+        self.updated_at = updated_at  # type: str
+        self.writer = writer  # type: GetCheckRunResponseBodyResultWriter
+
+    def validate(self):
+        if self.annotations:
+            for k in self.annotations:
+                if k:
+                    k.validate()
+        if self.check_suite:
+            self.check_suite.validate()
+        if self.output:
+            self.output.validate()
+        if self.writer:
+            self.writer.validate()
+
+    def to_map(self):
+        _map = super(GetCheckRunResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['annotations'] = []
+        if self.annotations is not None:
+            for k in self.annotations:
+                result['annotations'].append(k.to_map() if k else None)
+        if self.check_suite is not None:
+            result['checkSuite'] = self.check_suite.to_map()
+        if self.completed_at is not None:
+            result['completedAt'] = self.completed_at
+        if self.conclusion is not None:
+            result['conclusion'] = self.conclusion
+        if self.created_at is not None:
+            result['createdAt'] = self.created_at
+        if self.details_url is not None:
+            result['detailsUrl'] = self.details_url
+        if self.external_id is not None:
+            result['externalId'] = self.external_id
+        if self.head_sha is not None:
+            result['headSha'] = self.head_sha
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.output is not None:
+            result['output'] = self.output.to_map()
+        if self.started_at is not None:
+            result['startedAt'] = self.started_at
+        if self.status is not None:
+            result['status'] = self.status
+        if self.updated_at is not None:
+            result['updatedAt'] = self.updated_at
+        if self.writer is not None:
+            result['writer'] = self.writer.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.annotations = []
+        if m.get('annotations') is not None:
+            for k in m.get('annotations'):
+                temp_model = GetCheckRunResponseBodyResultAnnotations()
+                self.annotations.append(temp_model.from_map(k))
+        if m.get('checkSuite') is not None:
+            temp_model = GetCheckRunResponseBodyResultCheckSuite()
+            self.check_suite = temp_model.from_map(m['checkSuite'])
+        if m.get('completedAt') is not None:
+            self.completed_at = m.get('completedAt')
+        if m.get('conclusion') is not None:
+            self.conclusion = m.get('conclusion')
+        if m.get('createdAt') is not None:
+            self.created_at = m.get('createdAt')
+        if m.get('detailsUrl') is not None:
+            self.details_url = m.get('detailsUrl')
+        if m.get('externalId') is not None:
+            self.external_id = m.get('externalId')
+        if m.get('headSha') is not None:
+            self.head_sha = m.get('headSha')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('output') is not None:
+            temp_model = GetCheckRunResponseBodyResultOutput()
+            self.output = temp_model.from_map(m['output'])
+        if m.get('startedAt') is not None:
+            self.started_at = m.get('startedAt')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('updatedAt') is not None:
+            self.updated_at = m.get('updatedAt')
+        if m.get('writer') is not None:
+            temp_model = GetCheckRunResponseBodyResultWriter()
+            self.writer = temp_model.from_map(m['writer'])
+        return self
+
+
+class GetCheckRunResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: GetCheckRunResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(GetCheckRunResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('result') is not None:
+            temp_model = GetCheckRunResponseBodyResult()
+            self.result = temp_model.from_map(m['result'])
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class GetCheckRunResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetCheckRunResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetCheckRunResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetCheckRunResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetCodeupOrganizationRequest(TeaModel):
     def __init__(self, access_token=None):
         self.access_token = access_token  # type: str
@@ -22381,6 +23491,476 @@ class ListApplicationsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListApplicationsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListCheckRunsRequest(TeaModel):
+    def __init__(self, access_token=None, organization_id=None, page=None, page_size=None, ref=None,
+                 repository_identity=None):
+        self.access_token = access_token  # type: str
+        self.organization_id = organization_id  # type: str
+        self.page = page  # type: long
+        self.page_size = page_size  # type: long
+        self.ref = ref  # type: str
+        self.repository_identity = repository_identity  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCheckRunsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['accessToken'] = self.access_token
+        if self.organization_id is not None:
+            result['organizationId'] = self.organization_id
+        if self.page is not None:
+            result['page'] = self.page
+        if self.page_size is not None:
+            result['pageSize'] = self.page_size
+        if self.ref is not None:
+            result['ref'] = self.ref
+        if self.repository_identity is not None:
+            result['repositoryIdentity'] = self.repository_identity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessToken') is not None:
+            self.access_token = m.get('accessToken')
+        if m.get('organizationId') is not None:
+            self.organization_id = m.get('organizationId')
+        if m.get('page') is not None:
+            self.page = m.get('page')
+        if m.get('pageSize') is not None:
+            self.page_size = m.get('pageSize')
+        if m.get('ref') is not None:
+            self.ref = m.get('ref')
+        if m.get('repositoryIdentity') is not None:
+            self.repository_identity = m.get('repositoryIdentity')
+        return self
+
+
+class ListCheckRunsResponseBodyResultAnnotations(TeaModel):
+    def __init__(self, annotation_level=None, end_column=None, end_line=None, id=None, message=None, path=None,
+                 raw_details=None, start_column=None, start_line=None, title=None):
+        self.annotation_level = annotation_level  # type: str
+        self.end_column = end_column  # type: long
+        self.end_line = end_line  # type: long
+        self.id = id  # type: long
+        self.message = message  # type: str
+        self.path = path  # type: str
+        self.raw_details = raw_details  # type: str
+        self.start_column = start_column  # type: long
+        self.start_line = start_line  # type: long
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCheckRunsResponseBodyResultAnnotations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.annotation_level is not None:
+            result['annotationLevel'] = self.annotation_level
+        if self.end_column is not None:
+            result['endColumn'] = self.end_column
+        if self.end_line is not None:
+            result['endLine'] = self.end_line
+        if self.id is not None:
+            result['id'] = self.id
+        if self.message is not None:
+            result['message'] = self.message
+        if self.path is not None:
+            result['path'] = self.path
+        if self.raw_details is not None:
+            result['rawDetails'] = self.raw_details
+        if self.start_column is not None:
+            result['startColumn'] = self.start_column
+        if self.start_line is not None:
+            result['startLine'] = self.start_line
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('annotationLevel') is not None:
+            self.annotation_level = m.get('annotationLevel')
+        if m.get('endColumn') is not None:
+            self.end_column = m.get('endColumn')
+        if m.get('endLine') is not None:
+            self.end_line = m.get('endLine')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('rawDetails') is not None:
+            self.raw_details = m.get('rawDetails')
+        if m.get('startColumn') is not None:
+            self.start_column = m.get('startColumn')
+        if m.get('startLine') is not None:
+            self.start_line = m.get('startLine')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class ListCheckRunsResponseBodyResultCheckSuite(TeaModel):
+    def __init__(self, id=None):
+        self.id = id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCheckRunsResponseBodyResultCheckSuite, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        return self
+
+
+class ListCheckRunsResponseBodyResultOutputImages(TeaModel):
+    def __init__(self, alt=None, caption=None, image_url=None):
+        self.alt = alt  # type: str
+        self.caption = caption  # type: str
+        self.image_url = image_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCheckRunsResponseBodyResultOutputImages, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alt is not None:
+            result['alt'] = self.alt
+        if self.caption is not None:
+            result['caption'] = self.caption
+        if self.image_url is not None:
+            result['imageUrl'] = self.image_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('alt') is not None:
+            self.alt = m.get('alt')
+        if m.get('caption') is not None:
+            self.caption = m.get('caption')
+        if m.get('imageUrl') is not None:
+            self.image_url = m.get('imageUrl')
+        return self
+
+
+class ListCheckRunsResponseBodyResultOutput(TeaModel):
+    def __init__(self, images=None, summary=None, text=None, title=None):
+        self.images = images  # type: list[ListCheckRunsResponseBodyResultOutputImages]
+        self.summary = summary  # type: str
+        self.text = text  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.images:
+            for k in self.images:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListCheckRunsResponseBodyResultOutput, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['images'] = []
+        if self.images is not None:
+            for k in self.images:
+                result['images'].append(k.to_map() if k else None)
+        if self.summary is not None:
+            result['summary'] = self.summary
+        if self.text is not None:
+            result['text'] = self.text
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.images = []
+        if m.get('images') is not None:
+            for k in m.get('images'):
+                temp_model = ListCheckRunsResponseBodyResultOutputImages()
+                self.images.append(temp_model.from_map(k))
+        if m.get('summary') is not None:
+            self.summary = m.get('summary')
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class ListCheckRunsResponseBodyResultWriter(TeaModel):
+    def __init__(self, id=None, logo_url=None, name=None, slug=None, type=None):
+        self.id = id  # type: str
+        self.logo_url = logo_url  # type: str
+        self.name = name  # type: str
+        self.slug = slug  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCheckRunsResponseBodyResultWriter, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.logo_url is not None:
+            result['logoUrl'] = self.logo_url
+        if self.name is not None:
+            result['name'] = self.name
+        if self.slug is not None:
+            result['slug'] = self.slug
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('logoUrl') is not None:
+            self.logo_url = m.get('logoUrl')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('slug') is not None:
+            self.slug = m.get('slug')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class ListCheckRunsResponseBodyResult(TeaModel):
+    def __init__(self, annotations=None, check_suite=None, completed_at=None, conclusion=None, created_at=None,
+                 details_url=None, external_id=None, head_sha=None, id=None, name=None, output=None, started_at=None, status=None,
+                 updated_at=None, writer=None):
+        self.annotations = annotations  # type: list[ListCheckRunsResponseBodyResultAnnotations]
+        self.check_suite = check_suite  # type: ListCheckRunsResponseBodyResultCheckSuite
+        self.completed_at = completed_at  # type: str
+        self.conclusion = conclusion  # type: str
+        self.created_at = created_at  # type: str
+        self.details_url = details_url  # type: str
+        self.external_id = external_id  # type: str
+        self.head_sha = head_sha  # type: str
+        self.id = id  # type: long
+        self.name = name  # type: str
+        self.output = output  # type: ListCheckRunsResponseBodyResultOutput
+        self.started_at = started_at  # type: str
+        self.status = status  # type: str
+        self.updated_at = updated_at  # type: str
+        self.writer = writer  # type: ListCheckRunsResponseBodyResultWriter
+
+    def validate(self):
+        if self.annotations:
+            for k in self.annotations:
+                if k:
+                    k.validate()
+        if self.check_suite:
+            self.check_suite.validate()
+        if self.output:
+            self.output.validate()
+        if self.writer:
+            self.writer.validate()
+
+    def to_map(self):
+        _map = super(ListCheckRunsResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['annotations'] = []
+        if self.annotations is not None:
+            for k in self.annotations:
+                result['annotations'].append(k.to_map() if k else None)
+        if self.check_suite is not None:
+            result['checkSuite'] = self.check_suite.to_map()
+        if self.completed_at is not None:
+            result['completedAt'] = self.completed_at
+        if self.conclusion is not None:
+            result['conclusion'] = self.conclusion
+        if self.created_at is not None:
+            result['createdAt'] = self.created_at
+        if self.details_url is not None:
+            result['detailsUrl'] = self.details_url
+        if self.external_id is not None:
+            result['externalId'] = self.external_id
+        if self.head_sha is not None:
+            result['headSha'] = self.head_sha
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.output is not None:
+            result['output'] = self.output.to_map()
+        if self.started_at is not None:
+            result['startedAt'] = self.started_at
+        if self.status is not None:
+            result['status'] = self.status
+        if self.updated_at is not None:
+            result['updatedAt'] = self.updated_at
+        if self.writer is not None:
+            result['writer'] = self.writer.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.annotations = []
+        if m.get('annotations') is not None:
+            for k in m.get('annotations'):
+                temp_model = ListCheckRunsResponseBodyResultAnnotations()
+                self.annotations.append(temp_model.from_map(k))
+        if m.get('checkSuite') is not None:
+            temp_model = ListCheckRunsResponseBodyResultCheckSuite()
+            self.check_suite = temp_model.from_map(m['checkSuite'])
+        if m.get('completedAt') is not None:
+            self.completed_at = m.get('completedAt')
+        if m.get('conclusion') is not None:
+            self.conclusion = m.get('conclusion')
+        if m.get('createdAt') is not None:
+            self.created_at = m.get('createdAt')
+        if m.get('detailsUrl') is not None:
+            self.details_url = m.get('detailsUrl')
+        if m.get('externalId') is not None:
+            self.external_id = m.get('externalId')
+        if m.get('headSha') is not None:
+            self.head_sha = m.get('headSha')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('output') is not None:
+            temp_model = ListCheckRunsResponseBodyResultOutput()
+            self.output = temp_model.from_map(m['output'])
+        if m.get('startedAt') is not None:
+            self.started_at = m.get('startedAt')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('updatedAt') is not None:
+            self.updated_at = m.get('updatedAt')
+        if m.get('writer') is not None:
+            temp_model = ListCheckRunsResponseBodyResultWriter()
+            self.writer = temp_model.from_map(m['writer'])
+        return self
+
+
+class ListCheckRunsResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: list[ListCheckRunsResponseBodyResult]
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListCheckRunsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        result['result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['result'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        self.result = []
+        if m.get('result') is not None:
+            for k in m.get('result'):
+                temp_model = ListCheckRunsResponseBodyResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class ListCheckRunsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListCheckRunsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListCheckRunsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListCheckRunsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -38599,6 +40179,663 @@ class UpdateApplicationResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateApplicationResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateCheckRunRequestAnnotations(TeaModel):
+    def __init__(self, annotation_level=None, end_column=None, end_line=None, message=None, path=None,
+                 raw_details=None, start_column=None, start_line=None, title=None):
+        self.annotation_level = annotation_level  # type: str
+        self.end_column = end_column  # type: long
+        self.end_line = end_line  # type: long
+        self.message = message  # type: str
+        self.path = path  # type: str
+        self.raw_details = raw_details  # type: str
+        self.start_column = start_column  # type: long
+        self.start_line = start_line  # type: long
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateCheckRunRequestAnnotations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.annotation_level is not None:
+            result['annotationLevel'] = self.annotation_level
+        if self.end_column is not None:
+            result['endColumn'] = self.end_column
+        if self.end_line is not None:
+            result['endLine'] = self.end_line
+        if self.message is not None:
+            result['message'] = self.message
+        if self.path is not None:
+            result['path'] = self.path
+        if self.raw_details is not None:
+            result['rawDetails'] = self.raw_details
+        if self.start_column is not None:
+            result['startColumn'] = self.start_column
+        if self.start_line is not None:
+            result['startLine'] = self.start_line
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('annotationLevel') is not None:
+            self.annotation_level = m.get('annotationLevel')
+        if m.get('endColumn') is not None:
+            self.end_column = m.get('endColumn')
+        if m.get('endLine') is not None:
+            self.end_line = m.get('endLine')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('rawDetails') is not None:
+            self.raw_details = m.get('rawDetails')
+        if m.get('startColumn') is not None:
+            self.start_column = m.get('startColumn')
+        if m.get('startLine') is not None:
+            self.start_line = m.get('startLine')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class UpdateCheckRunRequestOutputImages(TeaModel):
+    def __init__(self, alt=None, caption=None, image_url=None):
+        self.alt = alt  # type: str
+        self.caption = caption  # type: str
+        self.image_url = image_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateCheckRunRequestOutputImages, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alt is not None:
+            result['alt'] = self.alt
+        if self.caption is not None:
+            result['caption'] = self.caption
+        if self.image_url is not None:
+            result['imageUrl'] = self.image_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('alt') is not None:
+            self.alt = m.get('alt')
+        if m.get('caption') is not None:
+            self.caption = m.get('caption')
+        if m.get('imageUrl') is not None:
+            self.image_url = m.get('imageUrl')
+        return self
+
+
+class UpdateCheckRunRequestOutput(TeaModel):
+    def __init__(self, images=None, summary=None, text=None, title=None):
+        self.images = images  # type: list[UpdateCheckRunRequestOutputImages]
+        self.summary = summary  # type: str
+        self.text = text  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.images:
+            for k in self.images:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateCheckRunRequestOutput, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['images'] = []
+        if self.images is not None:
+            for k in self.images:
+                result['images'].append(k.to_map() if k else None)
+        if self.summary is not None:
+            result['summary'] = self.summary
+        if self.text is not None:
+            result['text'] = self.text
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.images = []
+        if m.get('images') is not None:
+            for k in m.get('images'):
+                temp_model = UpdateCheckRunRequestOutputImages()
+                self.images.append(temp_model.from_map(k))
+        if m.get('summary') is not None:
+            self.summary = m.get('summary')
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class UpdateCheckRunRequest(TeaModel):
+    def __init__(self, access_token=None, annotations=None, completed_at=None, conclusion=None, details_url=None,
+                 external_id=None, name=None, output=None, started_at=None, status=None, check_run_id=None, organization_id=None,
+                 repository_identity=None):
+        self.access_token = access_token  # type: str
+        self.annotations = annotations  # type: list[UpdateCheckRunRequestAnnotations]
+        self.completed_at = completed_at  # type: str
+        self.conclusion = conclusion  # type: str
+        self.details_url = details_url  # type: str
+        self.external_id = external_id  # type: str
+        self.name = name  # type: str
+        self.output = output  # type: UpdateCheckRunRequestOutput
+        self.started_at = started_at  # type: str
+        self.status = status  # type: str
+        self.check_run_id = check_run_id  # type: long
+        self.organization_id = organization_id  # type: str
+        self.repository_identity = repository_identity  # type: str
+
+    def validate(self):
+        if self.annotations:
+            for k in self.annotations:
+                if k:
+                    k.validate()
+        if self.output:
+            self.output.validate()
+
+    def to_map(self):
+        _map = super(UpdateCheckRunRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['accessToken'] = self.access_token
+        result['annotations'] = []
+        if self.annotations is not None:
+            for k in self.annotations:
+                result['annotations'].append(k.to_map() if k else None)
+        if self.completed_at is not None:
+            result['completedAt'] = self.completed_at
+        if self.conclusion is not None:
+            result['conclusion'] = self.conclusion
+        if self.details_url is not None:
+            result['detailsUrl'] = self.details_url
+        if self.external_id is not None:
+            result['externalId'] = self.external_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.output is not None:
+            result['output'] = self.output.to_map()
+        if self.started_at is not None:
+            result['startedAt'] = self.started_at
+        if self.status is not None:
+            result['status'] = self.status
+        if self.check_run_id is not None:
+            result['checkRunId'] = self.check_run_id
+        if self.organization_id is not None:
+            result['organizationId'] = self.organization_id
+        if self.repository_identity is not None:
+            result['repositoryIdentity'] = self.repository_identity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessToken') is not None:
+            self.access_token = m.get('accessToken')
+        self.annotations = []
+        if m.get('annotations') is not None:
+            for k in m.get('annotations'):
+                temp_model = UpdateCheckRunRequestAnnotations()
+                self.annotations.append(temp_model.from_map(k))
+        if m.get('completedAt') is not None:
+            self.completed_at = m.get('completedAt')
+        if m.get('conclusion') is not None:
+            self.conclusion = m.get('conclusion')
+        if m.get('detailsUrl') is not None:
+            self.details_url = m.get('detailsUrl')
+        if m.get('externalId') is not None:
+            self.external_id = m.get('externalId')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('output') is not None:
+            temp_model = UpdateCheckRunRequestOutput()
+            self.output = temp_model.from_map(m['output'])
+        if m.get('startedAt') is not None:
+            self.started_at = m.get('startedAt')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('checkRunId') is not None:
+            self.check_run_id = m.get('checkRunId')
+        if m.get('organizationId') is not None:
+            self.organization_id = m.get('organizationId')
+        if m.get('repositoryIdentity') is not None:
+            self.repository_identity = m.get('repositoryIdentity')
+        return self
+
+
+class UpdateCheckRunResponseBodyResultAnnotations(TeaModel):
+    def __init__(self, annotation_level=None, end_column=None, end_line=None, id=None, message=None, path=None,
+                 raw_details=None, start_column=None, start_line=None, title=None):
+        self.annotation_level = annotation_level  # type: str
+        self.end_column = end_column  # type: long
+        self.end_line = end_line  # type: long
+        self.id = id  # type: long
+        self.message = message  # type: str
+        self.path = path  # type: str
+        self.raw_details = raw_details  # type: str
+        self.start_column = start_column  # type: long
+        self.start_line = start_line  # type: long
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateCheckRunResponseBodyResultAnnotations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.annotation_level is not None:
+            result['annotationLevel'] = self.annotation_level
+        if self.end_column is not None:
+            result['endColumn'] = self.end_column
+        if self.end_line is not None:
+            result['endLine'] = self.end_line
+        if self.id is not None:
+            result['id'] = self.id
+        if self.message is not None:
+            result['message'] = self.message
+        if self.path is not None:
+            result['path'] = self.path
+        if self.raw_details is not None:
+            result['rawDetails'] = self.raw_details
+        if self.start_column is not None:
+            result['startColumn'] = self.start_column
+        if self.start_line is not None:
+            result['startLine'] = self.start_line
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('annotationLevel') is not None:
+            self.annotation_level = m.get('annotationLevel')
+        if m.get('endColumn') is not None:
+            self.end_column = m.get('endColumn')
+        if m.get('endLine') is not None:
+            self.end_line = m.get('endLine')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('rawDetails') is not None:
+            self.raw_details = m.get('rawDetails')
+        if m.get('startColumn') is not None:
+            self.start_column = m.get('startColumn')
+        if m.get('startLine') is not None:
+            self.start_line = m.get('startLine')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class UpdateCheckRunResponseBodyResultCheckSuite(TeaModel):
+    def __init__(self, id=None):
+        self.id = id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateCheckRunResponseBodyResultCheckSuite, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        return self
+
+
+class UpdateCheckRunResponseBodyResultOutputImages(TeaModel):
+    def __init__(self, alt=None, caption=None, image_url=None):
+        self.alt = alt  # type: str
+        self.caption = caption  # type: str
+        self.image_url = image_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateCheckRunResponseBodyResultOutputImages, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alt is not None:
+            result['alt'] = self.alt
+        if self.caption is not None:
+            result['caption'] = self.caption
+        if self.image_url is not None:
+            result['imageUrl'] = self.image_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('alt') is not None:
+            self.alt = m.get('alt')
+        if m.get('caption') is not None:
+            self.caption = m.get('caption')
+        if m.get('imageUrl') is not None:
+            self.image_url = m.get('imageUrl')
+        return self
+
+
+class UpdateCheckRunResponseBodyResultOutput(TeaModel):
+    def __init__(self, images=None, summary=None, text=None, title=None):
+        self.images = images  # type: list[UpdateCheckRunResponseBodyResultOutputImages]
+        self.summary = summary  # type: str
+        self.text = text  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.images:
+            for k in self.images:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateCheckRunResponseBodyResultOutput, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['images'] = []
+        if self.images is not None:
+            for k in self.images:
+                result['images'].append(k.to_map() if k else None)
+        if self.summary is not None:
+            result['summary'] = self.summary
+        if self.text is not None:
+            result['text'] = self.text
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.images = []
+        if m.get('images') is not None:
+            for k in m.get('images'):
+                temp_model = UpdateCheckRunResponseBodyResultOutputImages()
+                self.images.append(temp_model.from_map(k))
+        if m.get('summary') is not None:
+            self.summary = m.get('summary')
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class UpdateCheckRunResponseBodyResultWriter(TeaModel):
+    def __init__(self, id=None, logo_url=None, name=None, slug=None, type=None):
+        self.id = id  # type: str
+        self.logo_url = logo_url  # type: str
+        self.name = name  # type: str
+        self.slug = slug  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateCheckRunResponseBodyResultWriter, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.logo_url is not None:
+            result['logoUrl'] = self.logo_url
+        if self.name is not None:
+            result['name'] = self.name
+        if self.slug is not None:
+            result['slug'] = self.slug
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('logoUrl') is not None:
+            self.logo_url = m.get('logoUrl')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('slug') is not None:
+            self.slug = m.get('slug')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class UpdateCheckRunResponseBodyResult(TeaModel):
+    def __init__(self, annotations=None, check_suite=None, completed_at=None, conclusion=None, created_at=None,
+                 details_url=None, external_id=None, head_sha=None, id=None, name=None, output=None, started_at=None, status=None,
+                 updated_at=None, writer=None):
+        self.annotations = annotations  # type: list[UpdateCheckRunResponseBodyResultAnnotations]
+        self.check_suite = check_suite  # type: UpdateCheckRunResponseBodyResultCheckSuite
+        self.completed_at = completed_at  # type: str
+        self.conclusion = conclusion  # type: str
+        self.created_at = created_at  # type: str
+        self.details_url = details_url  # type: str
+        self.external_id = external_id  # type: str
+        self.head_sha = head_sha  # type: str
+        self.id = id  # type: long
+        self.name = name  # type: str
+        self.output = output  # type: UpdateCheckRunResponseBodyResultOutput
+        self.started_at = started_at  # type: str
+        self.status = status  # type: str
+        self.updated_at = updated_at  # type: str
+        self.writer = writer  # type: UpdateCheckRunResponseBodyResultWriter
+
+    def validate(self):
+        if self.annotations:
+            for k in self.annotations:
+                if k:
+                    k.validate()
+        if self.check_suite:
+            self.check_suite.validate()
+        if self.output:
+            self.output.validate()
+        if self.writer:
+            self.writer.validate()
+
+    def to_map(self):
+        _map = super(UpdateCheckRunResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['annotations'] = []
+        if self.annotations is not None:
+            for k in self.annotations:
+                result['annotations'].append(k.to_map() if k else None)
+        if self.check_suite is not None:
+            result['checkSuite'] = self.check_suite.to_map()
+        if self.completed_at is not None:
+            result['completedAt'] = self.completed_at
+        if self.conclusion is not None:
+            result['conclusion'] = self.conclusion
+        if self.created_at is not None:
+            result['createdAt'] = self.created_at
+        if self.details_url is not None:
+            result['detailsUrl'] = self.details_url
+        if self.external_id is not None:
+            result['externalId'] = self.external_id
+        if self.head_sha is not None:
+            result['headSha'] = self.head_sha
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.output is not None:
+            result['output'] = self.output.to_map()
+        if self.started_at is not None:
+            result['startedAt'] = self.started_at
+        if self.status is not None:
+            result['status'] = self.status
+        if self.updated_at is not None:
+            result['updatedAt'] = self.updated_at
+        if self.writer is not None:
+            result['writer'] = self.writer.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.annotations = []
+        if m.get('annotations') is not None:
+            for k in m.get('annotations'):
+                temp_model = UpdateCheckRunResponseBodyResultAnnotations()
+                self.annotations.append(temp_model.from_map(k))
+        if m.get('checkSuite') is not None:
+            temp_model = UpdateCheckRunResponseBodyResultCheckSuite()
+            self.check_suite = temp_model.from_map(m['checkSuite'])
+        if m.get('completedAt') is not None:
+            self.completed_at = m.get('completedAt')
+        if m.get('conclusion') is not None:
+            self.conclusion = m.get('conclusion')
+        if m.get('createdAt') is not None:
+            self.created_at = m.get('createdAt')
+        if m.get('detailsUrl') is not None:
+            self.details_url = m.get('detailsUrl')
+        if m.get('externalId') is not None:
+            self.external_id = m.get('externalId')
+        if m.get('headSha') is not None:
+            self.head_sha = m.get('headSha')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('output') is not None:
+            temp_model = UpdateCheckRunResponseBodyResultOutput()
+            self.output = temp_model.from_map(m['output'])
+        if m.get('startedAt') is not None:
+            self.started_at = m.get('startedAt')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('updatedAt') is not None:
+            self.updated_at = m.get('updatedAt')
+        if m.get('writer') is not None:
+            temp_model = UpdateCheckRunResponseBodyResultWriter()
+            self.writer = temp_model.from_map(m['writer'])
+        return self
+
+
+class UpdateCheckRunResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: UpdateCheckRunResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(UpdateCheckRunResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('result') is not None:
+            temp_model = UpdateCheckRunResponseBodyResult()
+            self.result = temp_model.from_map(m['result'])
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class UpdateCheckRunResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateCheckRunResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateCheckRunResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateCheckRunResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
