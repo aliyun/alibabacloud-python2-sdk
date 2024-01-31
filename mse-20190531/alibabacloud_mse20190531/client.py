@@ -6740,6 +6740,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.auto_pay):
+            query['AutoPay'] = request.auto_pay
         if not UtilClient.is_unset(request.cluster_id):
             query['ClusterId'] = request.cluster_id
         if not UtilClient.is_unset(request.cluster_specification):
@@ -6750,6 +6752,8 @@ class Client(OpenApiClient):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.mse_version):
             query['MseVersion'] = request.mse_version
+        if not UtilClient.is_unset(request.pub_network_flow):
+            query['PubNetworkFlow'] = request.pub_network_flow
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )

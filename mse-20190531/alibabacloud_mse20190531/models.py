@@ -45404,13 +45404,14 @@ class UpdateClusterResponse(TeaModel):
 
 
 class UpdateClusterSpecRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_id=None, cluster_specification=None, instance_count=None,
-                 instance_id=None, mse_version=None):
+    def __init__(self, accept_language=None, auto_pay=None, cluster_id=None, cluster_specification=None,
+                 instance_count=None, instance_id=None, mse_version=None, pub_network_flow=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
         # *   en: English
         self.accept_language = accept_language  # type: str
+        self.auto_pay = auto_pay  # type: bool
         # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
         # The destination engine specifications.
@@ -45421,6 +45422,7 @@ class UpdateClusterSpecRequest(TeaModel):
         self.instance_id = instance_id  # type: str
         # The MSE version.
         self.mse_version = mse_version  # type: str
+        self.pub_network_flow = pub_network_flow  # type: int
 
     def validate(self):
         pass
@@ -45433,6 +45435,8 @@ class UpdateClusterSpecRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.auto_pay is not None:
+            result['AutoPay'] = self.auto_pay
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
         if self.cluster_specification is not None:
@@ -45443,12 +45447,16 @@ class UpdateClusterSpecRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.mse_version is not None:
             result['MseVersion'] = self.mse_version
+        if self.pub_network_flow is not None:
+            result['PubNetworkFlow'] = self.pub_network_flow
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('AutoPay') is not None:
+            self.auto_pay = m.get('AutoPay')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
         if m.get('ClusterSpecification') is not None:
@@ -45459,6 +45467,8 @@ class UpdateClusterSpecRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('MseVersion') is not None:
             self.mse_version = m.get('MseVersion')
+        if m.get('PubNetworkFlow') is not None:
+            self.pub_network_flow = m.get('PubNetworkFlow')
         return self
 
 
