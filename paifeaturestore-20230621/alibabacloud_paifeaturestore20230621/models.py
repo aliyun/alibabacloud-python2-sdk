@@ -1060,6 +1060,71 @@ class CreateModelFeatureResponse(TeaModel):
         return self
 
 
+class CreateModelFeatureTrainingSetFGTableResponseBody(TeaModel):
+    def __init__(self, training_set_fgtable_name=None, request_id=None):
+        self.training_set_fgtable_name = training_set_fgtable_name  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateModelFeatureTrainingSetFGTableResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.training_set_fgtable_name is not None:
+            result['TrainingSetFGTableName'] = self.training_set_fgtable_name
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TrainingSetFGTableName') is not None:
+            self.training_set_fgtable_name = m.get('TrainingSetFGTableName')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        return self
+
+
+class CreateModelFeatureTrainingSetFGTableResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateModelFeatureTrainingSetFGTableResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateModelFeatureTrainingSetFGTableResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateModelFeatureTrainingSetFGTableResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateProjectRequest(TeaModel):
     def __init__(self, description=None, name=None, offline_datasource_id=None, offline_life_cycle=None,
                  online_datasource_id=None, workspace_id=None):
@@ -1625,6 +1690,131 @@ class DeleteProjectResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteProjectResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ExportModelFeatureTrainingSetFGTableRequestTrainingSetFgConfig(TeaModel):
+    def __init__(self, fg_json_name=None, jar_name=None, partitions=None):
+        self.fg_json_name = fg_json_name  # type: str
+        self.jar_name = jar_name  # type: str
+        self.partitions = partitions  # type: dict[str, dict]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExportModelFeatureTrainingSetFGTableRequestTrainingSetFgConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fg_json_name is not None:
+            result['FgJsonName'] = self.fg_json_name
+        if self.jar_name is not None:
+            result['JarName'] = self.jar_name
+        if self.partitions is not None:
+            result['Partitions'] = self.partitions
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FgJsonName') is not None:
+            self.fg_json_name = m.get('FgJsonName')
+        if m.get('JarName') is not None:
+            self.jar_name = m.get('JarName')
+        if m.get('Partitions') is not None:
+            self.partitions = m.get('Partitions')
+        return self
+
+
+class ExportModelFeatureTrainingSetFGTableRequest(TeaModel):
+    def __init__(self, training_set_fg_config=None):
+        self.training_set_fg_config = training_set_fg_config  # type: ExportModelFeatureTrainingSetFGTableRequestTrainingSetFgConfig
+
+    def validate(self):
+        if self.training_set_fg_config:
+            self.training_set_fg_config.validate()
+
+    def to_map(self):
+        _map = super(ExportModelFeatureTrainingSetFGTableRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.training_set_fg_config is not None:
+            result['TrainingSetFgConfig'] = self.training_set_fg_config.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TrainingSetFgConfig') is not None:
+            temp_model = ExportModelFeatureTrainingSetFGTableRequestTrainingSetFgConfig()
+            self.training_set_fg_config = temp_model.from_map(m['TrainingSetFgConfig'])
+        return self
+
+
+class ExportModelFeatureTrainingSetFGTableResponseBody(TeaModel):
+    def __init__(self, task_id=None, request_id=None):
+        self.task_id = task_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExportModelFeatureTrainingSetFGTableResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        return self
+
+
+class ExportModelFeatureTrainingSetFGTableResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ExportModelFeatureTrainingSetFGTableResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ExportModelFeatureTrainingSetFGTableResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ExportModelFeatureTrainingSetFGTableResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2858,6 +3048,386 @@ class GetModelFeatureResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetModelFeatureResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetModelFeatureFGFeatureResponseBodyLookupFeatures(TeaModel):
+    def __init__(self, default_value=None, feature_name=None, key_feature_domain=None, key_feature_name=None,
+                 map_feature_domain=None, map_feature_name=None, value_type=None):
+        self.default_value = default_value  # type: str
+        self.feature_name = feature_name  # type: str
+        self.key_feature_domain = key_feature_domain  # type: str
+        self.key_feature_name = key_feature_name  # type: str
+        self.map_feature_domain = map_feature_domain  # type: str
+        self.map_feature_name = map_feature_name  # type: str
+        self.value_type = value_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetModelFeatureFGFeatureResponseBodyLookupFeatures, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.default_value is not None:
+            result['DefaultValue'] = self.default_value
+        if self.feature_name is not None:
+            result['FeatureName'] = self.feature_name
+        if self.key_feature_domain is not None:
+            result['KeyFeatureDomain'] = self.key_feature_domain
+        if self.key_feature_name is not None:
+            result['KeyFeatureName'] = self.key_feature_name
+        if self.map_feature_domain is not None:
+            result['MapFeatureDomain'] = self.map_feature_domain
+        if self.map_feature_name is not None:
+            result['MapFeatureName'] = self.map_feature_name
+        if self.value_type is not None:
+            result['ValueType'] = self.value_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefaultValue') is not None:
+            self.default_value = m.get('DefaultValue')
+        if m.get('FeatureName') is not None:
+            self.feature_name = m.get('FeatureName')
+        if m.get('KeyFeatureDomain') is not None:
+            self.key_feature_domain = m.get('KeyFeatureDomain')
+        if m.get('KeyFeatureName') is not None:
+            self.key_feature_name = m.get('KeyFeatureName')
+        if m.get('MapFeatureDomain') is not None:
+            self.map_feature_domain = m.get('MapFeatureDomain')
+        if m.get('MapFeatureName') is not None:
+            self.map_feature_name = m.get('MapFeatureName')
+        if m.get('ValueType') is not None:
+            self.value_type = m.get('ValueType')
+        return self
+
+
+class GetModelFeatureFGFeatureResponseBodyRawFeatures(TeaModel):
+    def __init__(self, default_value=None, feature_domain=None, feature_name=None, feature_type=None,
+                 input_feature_name=None, value_type=None):
+        self.default_value = default_value  # type: str
+        self.feature_domain = feature_domain  # type: str
+        self.feature_name = feature_name  # type: str
+        self.feature_type = feature_type  # type: str
+        self.input_feature_name = input_feature_name  # type: str
+        self.value_type = value_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetModelFeatureFGFeatureResponseBodyRawFeatures, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.default_value is not None:
+            result['DefaultValue'] = self.default_value
+        if self.feature_domain is not None:
+            result['FeatureDomain'] = self.feature_domain
+        if self.feature_name is not None:
+            result['FeatureName'] = self.feature_name
+        if self.feature_type is not None:
+            result['FeatureType'] = self.feature_type
+        if self.input_feature_name is not None:
+            result['InputFeatureName'] = self.input_feature_name
+        if self.value_type is not None:
+            result['ValueType'] = self.value_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefaultValue') is not None:
+            self.default_value = m.get('DefaultValue')
+        if m.get('FeatureDomain') is not None:
+            self.feature_domain = m.get('FeatureDomain')
+        if m.get('FeatureName') is not None:
+            self.feature_name = m.get('FeatureName')
+        if m.get('FeatureType') is not None:
+            self.feature_type = m.get('FeatureType')
+        if m.get('InputFeatureName') is not None:
+            self.input_feature_name = m.get('InputFeatureName')
+        if m.get('ValueType') is not None:
+            self.value_type = m.get('ValueType')
+        return self
+
+
+class GetModelFeatureFGFeatureResponseBodySequenceFeaturesSubFeatures(TeaModel):
+    def __init__(self, default_value=None, feature_domain=None, feature_name=None, feature_type=None,
+                 input_feature_name=None, value_type=None):
+        self.default_value = default_value  # type: str
+        self.feature_domain = feature_domain  # type: str
+        self.feature_name = feature_name  # type: str
+        self.feature_type = feature_type  # type: str
+        self.input_feature_name = input_feature_name  # type: str
+        self.value_type = value_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetModelFeatureFGFeatureResponseBodySequenceFeaturesSubFeatures, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.default_value is not None:
+            result['DefaultValue'] = self.default_value
+        if self.feature_domain is not None:
+            result['FeatureDomain'] = self.feature_domain
+        if self.feature_name is not None:
+            result['FeatureName'] = self.feature_name
+        if self.feature_type is not None:
+            result['FeatureType'] = self.feature_type
+        if self.input_feature_name is not None:
+            result['InputFeatureName'] = self.input_feature_name
+        if self.value_type is not None:
+            result['ValueType'] = self.value_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefaultValue') is not None:
+            self.default_value = m.get('DefaultValue')
+        if m.get('FeatureDomain') is not None:
+            self.feature_domain = m.get('FeatureDomain')
+        if m.get('FeatureName') is not None:
+            self.feature_name = m.get('FeatureName')
+        if m.get('FeatureType') is not None:
+            self.feature_type = m.get('FeatureType')
+        if m.get('InputFeatureName') is not None:
+            self.input_feature_name = m.get('InputFeatureName')
+        if m.get('ValueType') is not None:
+            self.value_type = m.get('ValueType')
+        return self
+
+
+class GetModelFeatureFGFeatureResponseBodySequenceFeatures(TeaModel):
+    def __init__(self, attribute_delim=None, feature_name=None, sequence_delim=None, sequence_length=None,
+                 sub_features=None):
+        self.attribute_delim = attribute_delim  # type: str
+        self.feature_name = feature_name  # type: str
+        self.sequence_delim = sequence_delim  # type: str
+        self.sequence_length = sequence_length  # type: long
+        self.sub_features = sub_features  # type: list[GetModelFeatureFGFeatureResponseBodySequenceFeaturesSubFeatures]
+
+    def validate(self):
+        if self.sub_features:
+            for k in self.sub_features:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetModelFeatureFGFeatureResponseBodySequenceFeatures, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attribute_delim is not None:
+            result['AttributeDelim'] = self.attribute_delim
+        if self.feature_name is not None:
+            result['FeatureName'] = self.feature_name
+        if self.sequence_delim is not None:
+            result['SequenceDelim'] = self.sequence_delim
+        if self.sequence_length is not None:
+            result['SequenceLength'] = self.sequence_length
+        result['SubFeatures'] = []
+        if self.sub_features is not None:
+            for k in self.sub_features:
+                result['SubFeatures'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AttributeDelim') is not None:
+            self.attribute_delim = m.get('AttributeDelim')
+        if m.get('FeatureName') is not None:
+            self.feature_name = m.get('FeatureName')
+        if m.get('SequenceDelim') is not None:
+            self.sequence_delim = m.get('SequenceDelim')
+        if m.get('SequenceLength') is not None:
+            self.sequence_length = m.get('SequenceLength')
+        self.sub_features = []
+        if m.get('SubFeatures') is not None:
+            for k in m.get('SubFeatures'):
+                temp_model = GetModelFeatureFGFeatureResponseBodySequenceFeaturesSubFeatures()
+                self.sub_features.append(temp_model.from_map(k))
+        return self
+
+
+class GetModelFeatureFGFeatureResponseBody(TeaModel):
+    def __init__(self, lookup_features=None, raw_features=None, request_id=None, reserves=None,
+                 sequence_features=None):
+        self.lookup_features = lookup_features  # type: list[GetModelFeatureFGFeatureResponseBodyLookupFeatures]
+        self.raw_features = raw_features  # type: list[GetModelFeatureFGFeatureResponseBodyRawFeatures]
+        self.request_id = request_id  # type: str
+        self.reserves = reserves  # type: list[str]
+        self.sequence_features = sequence_features  # type: list[GetModelFeatureFGFeatureResponseBodySequenceFeatures]
+
+    def validate(self):
+        if self.lookup_features:
+            for k in self.lookup_features:
+                if k:
+                    k.validate()
+        if self.raw_features:
+            for k in self.raw_features:
+                if k:
+                    k.validate()
+        if self.sequence_features:
+            for k in self.sequence_features:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetModelFeatureFGFeatureResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['LookupFeatures'] = []
+        if self.lookup_features is not None:
+            for k in self.lookup_features:
+                result['LookupFeatures'].append(k.to_map() if k else None)
+        result['RawFeatures'] = []
+        if self.raw_features is not None:
+            for k in self.raw_features:
+                result['RawFeatures'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.reserves is not None:
+            result['Reserves'] = self.reserves
+        result['SequenceFeatures'] = []
+        if self.sequence_features is not None:
+            for k in self.sequence_features:
+                result['SequenceFeatures'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.lookup_features = []
+        if m.get('LookupFeatures') is not None:
+            for k in m.get('LookupFeatures'):
+                temp_model = GetModelFeatureFGFeatureResponseBodyLookupFeatures()
+                self.lookup_features.append(temp_model.from_map(k))
+        self.raw_features = []
+        if m.get('RawFeatures') is not None:
+            for k in m.get('RawFeatures'):
+                temp_model = GetModelFeatureFGFeatureResponseBodyRawFeatures()
+                self.raw_features.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Reserves') is not None:
+            self.reserves = m.get('Reserves')
+        self.sequence_features = []
+        if m.get('SequenceFeatures') is not None:
+            for k in m.get('SequenceFeatures'):
+                temp_model = GetModelFeatureFGFeatureResponseBodySequenceFeatures()
+                self.sequence_features.append(temp_model.from_map(k))
+        return self
+
+
+class GetModelFeatureFGFeatureResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetModelFeatureFGFeatureResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetModelFeatureFGFeatureResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetModelFeatureFGFeatureResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetModelFeatureFGInfoResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetModelFeatureFGInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetModelFeatureFGInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetModelFeatureFGInfoResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetModelFeatureFGInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetModelFeatureFGInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5319,6 +5889,147 @@ class ListLabelTablesResponse(TeaModel):
         return self
 
 
+class ListModelFeatureAvailableFeaturesRequest(TeaModel):
+    def __init__(self, feature_name=None):
+        self.feature_name = feature_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListModelFeatureAvailableFeaturesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.feature_name is not None:
+            result['FeatureName'] = self.feature_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FeatureName') is not None:
+            self.feature_name = m.get('FeatureName')
+        return self
+
+
+class ListModelFeatureAvailableFeaturesResponseBodyAvaliableFeatures(TeaModel):
+    def __init__(self, name=None, source_name=None, source_type=None, type=None):
+        self.name = name  # type: str
+        self.source_name = source_name  # type: str
+        self.source_type = source_type  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListModelFeatureAvailableFeaturesResponseBodyAvaliableFeatures, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.source_name is not None:
+            result['SourceName'] = self.source_name
+        if self.source_type is not None:
+            result['SourceType'] = self.source_type
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('SourceName') is not None:
+            self.source_name = m.get('SourceName')
+        if m.get('SourceType') is not None:
+            self.source_type = m.get('SourceType')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ListModelFeatureAvailableFeaturesResponseBody(TeaModel):
+    def __init__(self, avaliable_features=None, total_count=None, request_id=None):
+        self.avaliable_features = avaliable_features  # type: list[ListModelFeatureAvailableFeaturesResponseBodyAvaliableFeatures]
+        self.total_count = total_count  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.avaliable_features:
+            for k in self.avaliable_features:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListModelFeatureAvailableFeaturesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AvaliableFeatures'] = []
+        if self.avaliable_features is not None:
+            for k in self.avaliable_features:
+                result['AvaliableFeatures'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.avaliable_features = []
+        if m.get('AvaliableFeatures') is not None:
+            for k in m.get('AvaliableFeatures'):
+                temp_model = ListModelFeatureAvailableFeaturesResponseBodyAvaliableFeatures()
+                self.avaliable_features.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        return self
+
+
+class ListModelFeatureAvailableFeaturesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListModelFeatureAvailableFeaturesResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListModelFeatureAvailableFeaturesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListModelFeatureAvailableFeaturesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListModelFeaturesRequest(TeaModel):
     def __init__(self, model_feature_ids=None, name=None, order=None, owner=None, page_number=None, page_size=None,
                  project_id=None, sort_by=None):
@@ -7004,6 +7715,423 @@ class UpdateModelFeatureResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateModelFeatureResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateModelFeatureFGFeatureRequestLookupFeatures(TeaModel):
+    def __init__(self, default_value=None, feature_name=None, key_feature_domain=None, key_feature_name=None,
+                 map_feature_domain=None, map_feature_name=None, value_type=None):
+        self.default_value = default_value  # type: str
+        self.feature_name = feature_name  # type: str
+        self.key_feature_domain = key_feature_domain  # type: str
+        self.key_feature_name = key_feature_name  # type: str
+        self.map_feature_domain = map_feature_domain  # type: str
+        self.map_feature_name = map_feature_name  # type: str
+        self.value_type = value_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateModelFeatureFGFeatureRequestLookupFeatures, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.default_value is not None:
+            result['DefaultValue'] = self.default_value
+        if self.feature_name is not None:
+            result['FeatureName'] = self.feature_name
+        if self.key_feature_domain is not None:
+            result['KeyFeatureDomain'] = self.key_feature_domain
+        if self.key_feature_name is not None:
+            result['KeyFeatureName'] = self.key_feature_name
+        if self.map_feature_domain is not None:
+            result['MapFeatureDomain'] = self.map_feature_domain
+        if self.map_feature_name is not None:
+            result['MapFeatureName'] = self.map_feature_name
+        if self.value_type is not None:
+            result['ValueType'] = self.value_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefaultValue') is not None:
+            self.default_value = m.get('DefaultValue')
+        if m.get('FeatureName') is not None:
+            self.feature_name = m.get('FeatureName')
+        if m.get('KeyFeatureDomain') is not None:
+            self.key_feature_domain = m.get('KeyFeatureDomain')
+        if m.get('KeyFeatureName') is not None:
+            self.key_feature_name = m.get('KeyFeatureName')
+        if m.get('MapFeatureDomain') is not None:
+            self.map_feature_domain = m.get('MapFeatureDomain')
+        if m.get('MapFeatureName') is not None:
+            self.map_feature_name = m.get('MapFeatureName')
+        if m.get('ValueType') is not None:
+            self.value_type = m.get('ValueType')
+        return self
+
+
+class UpdateModelFeatureFGFeatureRequestRawFeatures(TeaModel):
+    def __init__(self, default_value=None, feature_domain=None, feature_name=None, feature_type=None,
+                 input_feature_name=None, value_type=None):
+        self.default_value = default_value  # type: str
+        self.feature_domain = feature_domain  # type: str
+        self.feature_name = feature_name  # type: str
+        self.feature_type = feature_type  # type: str
+        self.input_feature_name = input_feature_name  # type: str
+        self.value_type = value_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateModelFeatureFGFeatureRequestRawFeatures, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.default_value is not None:
+            result['DefaultValue'] = self.default_value
+        if self.feature_domain is not None:
+            result['FeatureDomain'] = self.feature_domain
+        if self.feature_name is not None:
+            result['FeatureName'] = self.feature_name
+        if self.feature_type is not None:
+            result['FeatureType'] = self.feature_type
+        if self.input_feature_name is not None:
+            result['InputFeatureName'] = self.input_feature_name
+        if self.value_type is not None:
+            result['ValueType'] = self.value_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefaultValue') is not None:
+            self.default_value = m.get('DefaultValue')
+        if m.get('FeatureDomain') is not None:
+            self.feature_domain = m.get('FeatureDomain')
+        if m.get('FeatureName') is not None:
+            self.feature_name = m.get('FeatureName')
+        if m.get('FeatureType') is not None:
+            self.feature_type = m.get('FeatureType')
+        if m.get('InputFeatureName') is not None:
+            self.input_feature_name = m.get('InputFeatureName')
+        if m.get('ValueType') is not None:
+            self.value_type = m.get('ValueType')
+        return self
+
+
+class UpdateModelFeatureFGFeatureRequestSequenceFeaturesSubFeatures(TeaModel):
+    def __init__(self, default_value=None, feature_domain=None, feature_name=None, feature_type=None,
+                 input_feature_name=None, value_type=None):
+        self.default_value = default_value  # type: str
+        self.feature_domain = feature_domain  # type: str
+        self.feature_name = feature_name  # type: str
+        self.feature_type = feature_type  # type: str
+        self.input_feature_name = input_feature_name  # type: str
+        self.value_type = value_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateModelFeatureFGFeatureRequestSequenceFeaturesSubFeatures, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.default_value is not None:
+            result['DefaultValue'] = self.default_value
+        if self.feature_domain is not None:
+            result['FeatureDomain'] = self.feature_domain
+        if self.feature_name is not None:
+            result['FeatureName'] = self.feature_name
+        if self.feature_type is not None:
+            result['FeatureType'] = self.feature_type
+        if self.input_feature_name is not None:
+            result['InputFeatureName'] = self.input_feature_name
+        if self.value_type is not None:
+            result['ValueType'] = self.value_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefaultValue') is not None:
+            self.default_value = m.get('DefaultValue')
+        if m.get('FeatureDomain') is not None:
+            self.feature_domain = m.get('FeatureDomain')
+        if m.get('FeatureName') is not None:
+            self.feature_name = m.get('FeatureName')
+        if m.get('FeatureType') is not None:
+            self.feature_type = m.get('FeatureType')
+        if m.get('InputFeatureName') is not None:
+            self.input_feature_name = m.get('InputFeatureName')
+        if m.get('ValueType') is not None:
+            self.value_type = m.get('ValueType')
+        return self
+
+
+class UpdateModelFeatureFGFeatureRequestSequenceFeatures(TeaModel):
+    def __init__(self, attribute_delim=None, feature_name=None, sequence_delim=None, sequence_length=None,
+                 sub_features=None):
+        self.attribute_delim = attribute_delim  # type: str
+        self.feature_name = feature_name  # type: str
+        self.sequence_delim = sequence_delim  # type: str
+        self.sequence_length = sequence_length  # type: long
+        self.sub_features = sub_features  # type: list[UpdateModelFeatureFGFeatureRequestSequenceFeaturesSubFeatures]
+
+    def validate(self):
+        if self.sub_features:
+            for k in self.sub_features:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateModelFeatureFGFeatureRequestSequenceFeatures, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attribute_delim is not None:
+            result['AttributeDelim'] = self.attribute_delim
+        if self.feature_name is not None:
+            result['FeatureName'] = self.feature_name
+        if self.sequence_delim is not None:
+            result['SequenceDelim'] = self.sequence_delim
+        if self.sequence_length is not None:
+            result['SequenceLength'] = self.sequence_length
+        result['SubFeatures'] = []
+        if self.sub_features is not None:
+            for k in self.sub_features:
+                result['SubFeatures'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AttributeDelim') is not None:
+            self.attribute_delim = m.get('AttributeDelim')
+        if m.get('FeatureName') is not None:
+            self.feature_name = m.get('FeatureName')
+        if m.get('SequenceDelim') is not None:
+            self.sequence_delim = m.get('SequenceDelim')
+        if m.get('SequenceLength') is not None:
+            self.sequence_length = m.get('SequenceLength')
+        self.sub_features = []
+        if m.get('SubFeatures') is not None:
+            for k in m.get('SubFeatures'):
+                temp_model = UpdateModelFeatureFGFeatureRequestSequenceFeaturesSubFeatures()
+                self.sub_features.append(temp_model.from_map(k))
+        return self
+
+
+class UpdateModelFeatureFGFeatureRequest(TeaModel):
+    def __init__(self, lookup_features=None, raw_features=None, reserves=None, sequence_features=None):
+        self.lookup_features = lookup_features  # type: list[UpdateModelFeatureFGFeatureRequestLookupFeatures]
+        self.raw_features = raw_features  # type: list[UpdateModelFeatureFGFeatureRequestRawFeatures]
+        self.reserves = reserves  # type: list[str]
+        self.sequence_features = sequence_features  # type: list[UpdateModelFeatureFGFeatureRequestSequenceFeatures]
+
+    def validate(self):
+        if self.lookup_features:
+            for k in self.lookup_features:
+                if k:
+                    k.validate()
+        if self.raw_features:
+            for k in self.raw_features:
+                if k:
+                    k.validate()
+        if self.sequence_features:
+            for k in self.sequence_features:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateModelFeatureFGFeatureRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['LookupFeatures'] = []
+        if self.lookup_features is not None:
+            for k in self.lookup_features:
+                result['LookupFeatures'].append(k.to_map() if k else None)
+        result['RawFeatures'] = []
+        if self.raw_features is not None:
+            for k in self.raw_features:
+                result['RawFeatures'].append(k.to_map() if k else None)
+        if self.reserves is not None:
+            result['Reserves'] = self.reserves
+        result['SequenceFeatures'] = []
+        if self.sequence_features is not None:
+            for k in self.sequence_features:
+                result['SequenceFeatures'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.lookup_features = []
+        if m.get('LookupFeatures') is not None:
+            for k in m.get('LookupFeatures'):
+                temp_model = UpdateModelFeatureFGFeatureRequestLookupFeatures()
+                self.lookup_features.append(temp_model.from_map(k))
+        self.raw_features = []
+        if m.get('RawFeatures') is not None:
+            for k in m.get('RawFeatures'):
+                temp_model = UpdateModelFeatureFGFeatureRequestRawFeatures()
+                self.raw_features.append(temp_model.from_map(k))
+        if m.get('Reserves') is not None:
+            self.reserves = m.get('Reserves')
+        self.sequence_features = []
+        if m.get('SequenceFeatures') is not None:
+            for k in m.get('SequenceFeatures'):
+                temp_model = UpdateModelFeatureFGFeatureRequestSequenceFeatures()
+                self.sequence_features.append(temp_model.from_map(k))
+        return self
+
+
+class UpdateModelFeatureFGFeatureResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateModelFeatureFGFeatureResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        return self
+
+
+class UpdateModelFeatureFGFeatureResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateModelFeatureFGFeatureResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateModelFeatureFGFeatureResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateModelFeatureFGFeatureResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateModelFeatureFGInfoRequest(TeaModel):
+    def __init__(self, content=None):
+        self.content = content  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateModelFeatureFGInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        return self
+
+
+class UpdateModelFeatureFGInfoResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateModelFeatureFGInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        return self
+
+
+class UpdateModelFeatureFGInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateModelFeatureFGInfoResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateModelFeatureFGInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateModelFeatureFGInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
