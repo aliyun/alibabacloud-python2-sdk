@@ -362,9 +362,6 @@ class DescribeFileModerationResultResponse(TeaModel):
         self.body = body  # type: DescribeFileModerationResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -547,9 +544,6 @@ class DescribeImageModerationResultResponse(TeaModel):
         self.body = body  # type: DescribeImageModerationResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -801,9 +795,6 @@ class DescribeImageResultExtResponse(TeaModel):
         self.body = body  # type: DescribeImageResultExtResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -941,9 +932,6 @@ class DescribeUploadTokenResponse(TeaModel):
         self.body = body  # type: DescribeUploadTokenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -969,6 +957,215 @@ class DescribeUploadTokenResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeUploadTokenResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeUrlModerationResultRequest(TeaModel):
+    def __init__(self, req_id=None):
+        self.req_id = req_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeUrlModerationResultRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_id is not None:
+            result['ReqId'] = self.req_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ReqId') is not None:
+            self.req_id = m.get('ReqId')
+        return self
+
+
+class DescribeUrlModerationResultResponseBodyDataExtraInfo(TeaModel):
+    def __init__(self, icp_no=None, icp_type=None):
+        self.icp_no = icp_no  # type: str
+        self.icp_type = icp_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeUrlModerationResultResponseBodyDataExtraInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.icp_no is not None:
+            result['IcpNo'] = self.icp_no
+        if self.icp_type is not None:
+            result['IcpType'] = self.icp_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IcpNo') is not None:
+            self.icp_no = m.get('IcpNo')
+        if m.get('IcpType') is not None:
+            self.icp_type = m.get('IcpType')
+        return self
+
+
+class DescribeUrlModerationResultResponseBodyDataResult(TeaModel):
+    def __init__(self, confidence=None, label=None):
+        self.confidence = confidence  # type: float
+        self.label = label  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeUrlModerationResultResponseBodyDataResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.confidence is not None:
+            result['Confidence'] = self.confidence
+        if self.label is not None:
+            result['Label'] = self.label
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Confidence') is not None:
+            self.confidence = m.get('Confidence')
+        if m.get('Label') is not None:
+            self.label = m.get('Label')
+        return self
+
+
+class DescribeUrlModerationResultResponseBodyData(TeaModel):
+    def __init__(self, data_id=None, extra_info=None, req_id=None, result=None):
+        self.data_id = data_id  # type: str
+        self.extra_info = extra_info  # type: DescribeUrlModerationResultResponseBodyDataExtraInfo
+        self.req_id = req_id  # type: str
+        self.result = result  # type: list[DescribeUrlModerationResultResponseBodyDataResult]
+
+    def validate(self):
+        if self.extra_info:
+            self.extra_info.validate()
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeUrlModerationResultResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_id is not None:
+            result['DataId'] = self.data_id
+        if self.extra_info is not None:
+            result['ExtraInfo'] = self.extra_info.to_map()
+        if self.req_id is not None:
+            result['ReqId'] = self.req_id
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataId') is not None:
+            self.data_id = m.get('DataId')
+        if m.get('ExtraInfo') is not None:
+            temp_model = DescribeUrlModerationResultResponseBodyDataExtraInfo()
+            self.extra_info = temp_model.from_map(m['ExtraInfo'])
+        if m.get('ReqId') is not None:
+            self.req_id = m.get('ReqId')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = DescribeUrlModerationResultResponseBodyDataResult()
+                self.result.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeUrlModerationResultResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, msg=None, request_id=None):
+        self.code = code  # type: int
+        self.data = data  # type: DescribeUrlModerationResultResponseBodyData
+        self.msg = msg  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeUrlModerationResultResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.msg is not None:
+            result['Msg'] = self.msg
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribeUrlModerationResultResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Msg') is not None:
+            self.msg = m.get('Msg')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeUrlModerationResultResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeUrlModerationResultResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeUrlModerationResultResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeUrlModerationResultResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1075,9 +1272,6 @@ class FileModerationResponse(TeaModel):
         self.body = body  # type: FileModerationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1213,9 +1407,6 @@ class ImageAsyncModerationResponse(TeaModel):
         self.body = body  # type: ImageAsyncModerationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1388,9 +1579,6 @@ class ImageModerationResponse(TeaModel):
         self.body = body  # type: ImageModerationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1536,9 +1724,6 @@ class TextModerationResponse(TeaModel):
         self.body = body  # type: TextModerationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1797,9 +1982,6 @@ class TextModerationPlusResponse(TeaModel):
         self.body = body  # type: TextModerationPlusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1825,6 +2007,142 @@ class TextModerationPlusResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = TextModerationPlusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UrlAsyncModerationRequest(TeaModel):
+    def __init__(self, service=None, service_parameters=None):
+        self.service = service  # type: str
+        self.service_parameters = service_parameters  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UrlAsyncModerationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.service is not None:
+            result['Service'] = self.service
+        if self.service_parameters is not None:
+            result['ServiceParameters'] = self.service_parameters
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Service') is not None:
+            self.service = m.get('Service')
+        if m.get('ServiceParameters') is not None:
+            self.service_parameters = m.get('ServiceParameters')
+        return self
+
+
+class UrlAsyncModerationResponseBodyData(TeaModel):
+    def __init__(self, data_id=None, req_id=None):
+        self.data_id = data_id  # type: str
+        self.req_id = req_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UrlAsyncModerationResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_id is not None:
+            result['DataId'] = self.data_id
+        if self.req_id is not None:
+            result['ReqId'] = self.req_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataId') is not None:
+            self.data_id = m.get('DataId')
+        if m.get('ReqId') is not None:
+            self.req_id = m.get('ReqId')
+        return self
+
+
+class UrlAsyncModerationResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, msg=None, request_id=None):
+        self.code = code  # type: int
+        self.data = data  # type: UrlAsyncModerationResponseBodyData
+        self.msg = msg  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(UrlAsyncModerationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.msg is not None:
+            result['Msg'] = self.msg
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = UrlAsyncModerationResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Msg') is not None:
+            self.msg = m.get('Msg')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UrlAsyncModerationResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UrlAsyncModerationResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UrlAsyncModerationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UrlAsyncModerationResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1931,9 +2249,6 @@ class VideoModerationResponse(TeaModel):
         self.body = body  # type: VideoModerationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2034,9 +2349,6 @@ class VideoModerationCancelResponse(TeaModel):
         self.body = body  # type: VideoModerationCancelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2531,9 +2843,6 @@ class VideoModerationResultResponse(TeaModel):
         self.body = body  # type: VideoModerationResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2665,9 +2974,6 @@ class VoiceModerationResponse(TeaModel):
         self.body = body  # type: VoiceModerationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2768,9 +3074,6 @@ class VoiceModerationCancelResponse(TeaModel):
         self.body = body  # type: VoiceModerationCancelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3005,9 +3308,6 @@ class VoiceModerationResultResponse(TeaModel):
         self.body = body  # type: VoiceModerationResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
