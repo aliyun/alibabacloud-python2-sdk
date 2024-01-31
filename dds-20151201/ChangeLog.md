@@ -1,3 +1,8 @@
+2024-01-31 Version: 3.0.6
+- Update API DescribePriceupdate response param.
+- Update API RenewDBInstanceadd AutoRenew param.
+
+
 2024-01-30 Version: 3.0.5
 - Update API DescribeDBInstancesupdate ExpireTime param.
 

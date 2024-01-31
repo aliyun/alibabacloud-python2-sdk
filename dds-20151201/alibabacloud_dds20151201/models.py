@@ -13428,16 +13428,18 @@ class DescribePriceResponseBodyOrderRuleIds(TeaModel):
 
 
 class DescribePriceResponseBodyOrder(TeaModel):
-    def __init__(self, coupons=None, currency=None, discount_amount=None, original_amount=None, rule_ids=None,
-                 show_discount_info=None, trade_amount=None):
+    def __init__(self, coupons=None, currency=None, discount_amount=None, optional_promotions=None,
+                 original_amount=None, prom_detail_list=None, rule_ids=None, show_discount_info=None, trade_amount=None):
         # The information of coupons.
         self.coupons = coupons  # type: DescribePriceResponseBodyOrderCoupons
         # The currency.
         self.currency = currency  # type: str
         # The discount amount of the order.
         self.discount_amount = discount_amount  # type: str
+        self.optional_promotions = optional_promotions  # type: str
         # The original price of the order.
         self.original_amount = original_amount  # type: str
+        self.prom_detail_list = prom_detail_list  # type: str
         # The rules of the order.
         self.rule_ids = rule_ids  # type: DescribePriceResponseBodyOrderRuleIds
         # Indicates whether the information of the discount is displayed.
@@ -13463,8 +13465,12 @@ class DescribePriceResponseBodyOrder(TeaModel):
             result['Currency'] = self.currency
         if self.discount_amount is not None:
             result['DiscountAmount'] = self.discount_amount
+        if self.optional_promotions is not None:
+            result['OptionalPromotions'] = self.optional_promotions
         if self.original_amount is not None:
             result['OriginalAmount'] = self.original_amount
+        if self.prom_detail_list is not None:
+            result['PromDetailList'] = self.prom_detail_list
         if self.rule_ids is not None:
             result['RuleIds'] = self.rule_ids.to_map()
         if self.show_discount_info is not None:
@@ -13482,8 +13488,12 @@ class DescribePriceResponseBodyOrder(TeaModel):
             self.currency = m.get('Currency')
         if m.get('DiscountAmount') is not None:
             self.discount_amount = m.get('DiscountAmount')
+        if m.get('OptionalPromotions') is not None:
+            self.optional_promotions = m.get('OptionalPromotions')
         if m.get('OriginalAmount') is not None:
             self.original_amount = m.get('OriginalAmount')
+        if m.get('PromDetailList') is not None:
+            self.prom_detail_list = m.get('PromDetailList')
         if m.get('RuleIds') is not None:
             temp_model = DescribePriceResponseBodyOrderRuleIds()
             self.rule_ids = temp_model.from_map(m['RuleIds'])
@@ -21348,8 +21358,9 @@ class ReleasePublicNetworkAddressResponse(TeaModel):
 
 
 class RenewDBInstanceRequest(TeaModel):
-    def __init__(self, auto_pay=None, business_info=None, client_token=None, coupon_no=None, dbinstance_id=None,
-                 owner_account=None, owner_id=None, period=None, resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, auto_pay=None, auto_renew=None, business_info=None, client_token=None, coupon_no=None,
+                 dbinstance_id=None, owner_account=None, owner_id=None, period=None, resource_owner_account=None,
+                 resource_owner_id=None):
         # Specifies whether to enable automatic payment for the instance. Valid values:
         # 
         # *   **true**: enables automatic payment. Make sure that you have sufficient balance within your account.
@@ -21357,6 +21368,7 @@ class RenewDBInstanceRequest(TeaModel):
         # 
         # Default value: **true**.
         self.auto_pay = auto_pay  # type: bool
+        self.auto_renew = auto_renew  # type: bool
         # The business information.
         self.business_info = business_info  # type: str
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
@@ -21383,6 +21395,8 @@ class RenewDBInstanceRequest(TeaModel):
         result = dict()
         if self.auto_pay is not None:
             result['AutoPay'] = self.auto_pay
+        if self.auto_renew is not None:
+            result['AutoRenew'] = self.auto_renew
         if self.business_info is not None:
             result['BusinessInfo'] = self.business_info
         if self.client_token is not None:
@@ -21407,6 +21421,8 @@ class RenewDBInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('AutoPay') is not None:
             self.auto_pay = m.get('AutoPay')
+        if m.get('AutoRenew') is not None:
+            self.auto_renew = m.get('AutoRenew')
         if m.get('BusinessInfo') is not None:
             self.business_info = m.get('BusinessInfo')
         if m.get('ClientToken') is not None:
