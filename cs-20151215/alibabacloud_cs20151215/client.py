@@ -1112,7 +1112,7 @@ class Client(OpenApiClient):
             action='DeleteTrigger',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%5Bcluster_id%5D/triggers/%5BId%5D',
+            pathname='/clusters/%s/triggers/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
