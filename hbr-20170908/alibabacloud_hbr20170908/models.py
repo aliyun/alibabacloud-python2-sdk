@@ -14544,10 +14544,10 @@ class DescribeVaultsResponseBodyVaultsVault(TeaModel):
                  created_time=None, dedup=None, description=None, encrypt_type=None, index_available=None, index_level=None,
                  index_update_time=None, kms_key_id=None, latest_replication_time=None, redundancy_type=None, replication=None,
                  replication_progress=None, replication_source_region_id=None, replication_source_vault=None,
-                 replication_source_vault_id=None, resource_group_id=None, retention=None, search_enabled=None, snapshot_count=None,
-                 source_types=None, status=None, storage_size=None, tags=None, trial_info=None, updated_time=None, vault_id=None,
-                 vault_name=None, vault_region_id=None, vault_status_message=None, vault_storage_class=None, vault_type=None,
-                 worm_enabled=None):
+                 replication_source_vault_id=None, replication_target_region_id=None, resource_group_id=None, retention=None,
+                 search_enabled=None, snapshot_count=None, source_types=None, status=None, storage_size=None, tags=None,
+                 trial_info=None, updated_time=None, vault_id=None, vault_name=None, vault_region_id=None,
+                 vault_status_message=None, vault_storage_class=None, vault_type=None, worm_enabled=None):
         self.archive_bytes_done = archive_bytes_done  # type: long
         self.archive_storage_size = archive_storage_size  # type: long
         self.backup_plan_statistics = backup_plan_statistics  # type: DescribeVaultsResponseBodyVaultsVaultBackupPlanStatistics
@@ -14571,6 +14571,7 @@ class DescribeVaultsResponseBodyVaultsVault(TeaModel):
         self.replication_source_region_id = replication_source_region_id  # type: str
         self.replication_source_vault = replication_source_vault  # type: bool
         self.replication_source_vault_id = replication_source_vault_id  # type: str
+        self.replication_target_region_id = replication_target_region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.retention = retention  # type: long
         self.search_enabled = search_enabled  # type: bool
@@ -14653,6 +14654,8 @@ class DescribeVaultsResponseBodyVaultsVault(TeaModel):
             result['ReplicationSourceVault'] = self.replication_source_vault
         if self.replication_source_vault_id is not None:
             result['ReplicationSourceVaultId'] = self.replication_source_vault_id
+        if self.replication_target_region_id is not None:
+            result['ReplicationTargetRegionId'] = self.replication_target_region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.retention is not None:
@@ -14739,6 +14742,8 @@ class DescribeVaultsResponseBodyVaultsVault(TeaModel):
             self.replication_source_vault = m.get('ReplicationSourceVault')
         if m.get('ReplicationSourceVaultId') is not None:
             self.replication_source_vault_id = m.get('ReplicationSourceVaultId')
+        if m.get('ReplicationTargetRegionId') is not None:
+            self.replication_target_region_id = m.get('ReplicationTargetRegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Retention') is not None:
