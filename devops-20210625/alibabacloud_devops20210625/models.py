@@ -35309,7 +35309,7 @@ class ListUserKeysRequest(TeaModel):
 
 class ListUserKeysResponseBodyResult(TeaModel):
     def __init__(self, created_at=None, expire_time=None, finger_print=None, id=None, key_scope=None,
-                 last_used_time=None, public_key=None, tittle=None):
+                 last_used_time=None, public_key=None, title=None):
         self.created_at = created_at  # type: str
         self.expire_time = expire_time  # type: str
         self.finger_print = finger_print  # type: str
@@ -35317,7 +35317,7 @@ class ListUserKeysResponseBodyResult(TeaModel):
         self.key_scope = key_scope  # type: str
         self.last_used_time = last_used_time  # type: str
         self.public_key = public_key  # type: str
-        self.tittle = tittle  # type: str
+        self.title = title  # type: str
 
     def validate(self):
         pass
@@ -35342,8 +35342,8 @@ class ListUserKeysResponseBodyResult(TeaModel):
             result['lastUsedTime'] = self.last_used_time
         if self.public_key is not None:
             result['publicKey'] = self.public_key
-        if self.tittle is not None:
-            result['tittle'] = self.tittle
+        if self.title is not None:
+            result['title'] = self.title
         return result
 
     def from_map(self, m=None):
@@ -35362,8 +35362,8 @@ class ListUserKeysResponseBodyResult(TeaModel):
             self.last_used_time = m.get('lastUsedTime')
         if m.get('publicKey') is not None:
             self.public_key = m.get('publicKey')
-        if m.get('tittle') is not None:
-            self.tittle = m.get('tittle')
+        if m.get('title') is not None:
+            self.title = m.get('title')
         return self
 
 
