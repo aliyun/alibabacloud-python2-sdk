@@ -866,6 +866,84 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_rtmp_device_with_options(request, runtime)
 
+    def create_stream_push_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.job_type):
+            query['JobType'] = request.job_type
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.push_url):
+            query['PushUrl'] = request.push_url
+        if not UtilClient.is_unset(request.stream_type):
+            query['StreamType'] = request.stream_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateStreamPushJob',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkvisual_20180120_models.CreateStreamPushJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_stream_push_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_stream_push_job_with_options(request, runtime)
+
+    def create_stream_snapshot_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.snapshot_interval):
+            query['SnapshotInterval'] = request.snapshot_interval
+        if not UtilClient.is_unset(request.stream_type):
+            query['StreamType'] = request.stream_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateStreamSnapshotJob',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkvisual_20180120_models.CreateStreamSnapshotJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_stream_snapshot_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_stream_snapshot_job_with_options(request, runtime)
+
     def create_time_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1383,6 +1461,78 @@ class Client(OpenApiClient):
     def delete_rtmp_key(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_rtmp_key_with_options(request, runtime)
+
+    def delete_stream_push_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteStreamPushJob',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkvisual_20180120_models.DeleteStreamPushJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_stream_push_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_stream_push_job_with_options(request, runtime)
+
+    def delete_stream_snapshot_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        if not UtilClient.is_unset(request.stream_type):
+            query['StreamType'] = request.stream_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteStreamSnapshotJob',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkvisual_20180120_models.DeleteStreamSnapshotJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_stream_snapshot_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_stream_snapshot_job_with_options(request, runtime)
 
     def delete_time_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3269,6 +3419,116 @@ class Client(OpenApiClient):
     def query_rtmp_key(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_rtmp_key_with_options(request, runtime)
+
+    def query_stream_push_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryStreamPushJob',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkvisual_20180120_models.QueryStreamPushJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_stream_push_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_stream_push_job_with_options(request, runtime)
+
+    def query_stream_push_job_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.job_type):
+            query['JobType'] = request.job_type
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryStreamPushJobList',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkvisual_20180120_models.QueryStreamPushJobListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_stream_push_job_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_stream_push_job_list_with_options(request, runtime)
+
+    def query_stream_snapshot_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        if not UtilClient.is_unset(request.iot_id):
+            query['IotId'] = request.iot_id
+        if not UtilClient.is_unset(request.iot_instance_id):
+            query['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.product_key):
+            query['ProductKey'] = request.product_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryStreamSnapshotJob',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkvisual_20180120_models.QueryStreamSnapshotJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_stream_snapshot_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_stream_snapshot_job_with_options(request, runtime)
 
     def query_time_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
