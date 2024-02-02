@@ -120,9 +120,6 @@ class AuthUserResponse(TeaModel):
         self.body = body  # type: AuthUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -341,9 +338,6 @@ class BatchQueryMotionShopTaskStatusResponse(TeaModel):
         self.body = body  # type: BatchQueryMotionShopTaskStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -494,9 +488,6 @@ class CreateAvatarTalkProjectResponse(TeaModel):
         self.body = body  # type: CreateAvatarTalkProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -710,9 +701,6 @@ class CreateDigitalHumanProjectResponse(TeaModel):
         self.body = body  # type: CreateDigitalHumanProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -910,9 +898,6 @@ class CreateLivePortraitProjectResponse(TeaModel):
         self.body = body  # type: CreateLivePortraitProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1048,9 +1033,6 @@ class GenerateMotionShopVideoUploadUrlResponse(TeaModel):
         self.body = body  # type: GenerateMotionShopVideoUploadUrlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1171,9 +1153,6 @@ class GetMapDataResponse(TeaModel):
         self.body = body  # type: GetMapDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1294,9 +1273,6 @@ class GetMapPublishDataResponse(TeaModel):
         self.body = body  # type: GetMapPublishDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1417,9 +1393,6 @@ class InitLocateResponse(TeaModel):
         self.body = body  # type: InitLocateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1591,9 +1564,6 @@ class ListCommonMaterialsResponse(TeaModel):
         self.body = body  # type: ListCommonMaterialsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1858,9 +1828,6 @@ class ListDigitalHumanMaterialsResponse(TeaModel):
         self.body = body  # type: ListDigitalHumanMaterialsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2099,9 +2066,6 @@ class ListLocationServiceResponse(TeaModel):
         self.body = body  # type: ListLocationServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2362,9 +2326,6 @@ class ListMotionShopTasksResponse(TeaModel):
         self.body = body  # type: ListMotionShopTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2505,9 +2466,6 @@ class LivePortraitFaceDetectResponse(TeaModel):
         self.body = body  # type: LivePortraitFaceDetectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2633,9 +2591,6 @@ class LocateResponse(TeaModel):
         self.body = body  # type: LocateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2661,6 +2616,162 @@ class LocateResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = LocateResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class LoginHuggingFaceRequest(TeaModel):
+    def __init__(self, token=None, type=None):
+        self.token = token  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(LoginHuggingFaceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.token is not None:
+            result['Token'] = self.token
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Token') is not None:
+            self.token = m.get('Token')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class LoginHuggingFaceResponseBodyData(TeaModel):
+    def __init__(self, jwt_token=None, nickname=None, uid=None):
+        self.jwt_token = jwt_token  # type: str
+        self.nickname = nickname  # type: str
+        self.uid = uid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(LoginHuggingFaceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.jwt_token is not None:
+            result['JwtToken'] = self.jwt_token
+        if self.nickname is not None:
+            result['Nickname'] = self.nickname
+        if self.uid is not None:
+            result['Uid'] = self.uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JwtToken') is not None:
+            self.jwt_token = m.get('JwtToken')
+        if m.get('Nickname') is not None:
+            self.nickname = m.get('Nickname')
+        if m.get('Uid') is not None:
+            self.uid = m.get('Uid')
+        return self
+
+
+class LoginHuggingFaceResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, error_name=None, http_code=None, message=None, request_id=None,
+                 success=None):
+        self.code = code  # type: str
+        self.data = data  # type: LoginHuggingFaceResponseBodyData
+        self.error_name = error_name  # type: str
+        self.http_code = http_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(LoginHuggingFaceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.error_name is not None:
+            result['ErrorName'] = self.error_name
+        if self.http_code is not None:
+            result['HttpCode'] = self.http_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = LoginHuggingFaceResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('ErrorName') is not None:
+            self.error_name = m.get('ErrorName')
+        if m.get('HttpCode') is not None:
+            self.http_code = m.get('HttpCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class LoginHuggingFaceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: LoginHuggingFaceResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(LoginHuggingFaceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = LoginHuggingFaceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2807,9 +2918,6 @@ class LoginModelScopeResponse(TeaModel):
         self.body = body  # type: LoginModelScopeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2945,9 +3053,6 @@ class MotionShopVideoDetectResponse(TeaModel):
         self.body = body  # type: MotionShopVideoDetectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3130,9 +3235,6 @@ class PopBatchQueryObjectGenerationProjectStatusResponse(TeaModel):
         self.body = body  # type: PopBatchQueryObjectGenerationProjectStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3295,9 +3397,6 @@ class PopBatchQueryObjectProjectStatusResponse(TeaModel):
         self.body = body  # type: PopBatchQueryObjectProjectStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3397,9 +3496,6 @@ class PopBuildFeatureToAvatarProjectResponse(TeaModel):
         self.body = body  # type: PopBuildFeatureToAvatarProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3499,9 +3595,6 @@ class PopBuildLivePortraitModelScopeProjectResponse(TeaModel):
         self.body = body  # type: PopBuildLivePortraitModelScopeProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3606,9 +3699,6 @@ class PopBuildObjectGenerationProjectResponse(TeaModel):
         self.body = body  # type: PopBuildObjectGenerationProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3723,9 +3813,6 @@ class PopBuildObjectProjectResponse(TeaModel):
         self.body = body  # type: PopBuildObjectProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3825,9 +3912,6 @@ class PopBuildPakRenderProjectResponse(TeaModel):
         self.body = body  # type: PopBuildPakRenderProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3932,9 +4016,6 @@ class PopBuildTextToAvatarProjectResponse(TeaModel):
         self.body = body  # type: PopBuildTextToAvatarProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4369,9 +4450,6 @@ class PopCreateFeatureToAvatarProjectResponse(TeaModel):
         self.body = body  # type: PopCreateFeatureToAvatarProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4512,9 +4590,6 @@ class PopCreateLivePortraitModelScopeProjectResponse(TeaModel):
         self.body = body  # type: PopCreateLivePortraitModelScopeProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4753,9 +4828,6 @@ class PopCreateMaterialResponse(TeaModel):
         self.body = body  # type: PopCreateMaterialResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4906,9 +4978,6 @@ class PopCreateObjectGenerationProjectResponse(TeaModel):
         self.body = body  # type: PopCreateObjectGenerationProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5759,9 +5828,6 @@ class PopCreateObjectProjectResponse(TeaModel):
         self.body = body  # type: PopCreateObjectProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5974,9 +6040,6 @@ class PopCreatePakRenderProjectResponse(TeaModel):
         self.body = body  # type: PopCreatePakRenderProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6194,9 +6257,6 @@ class PopCreateTextToAvatarProjectResponse(TeaModel):
         self.body = body  # type: PopCreateTextToAvatarProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6301,9 +6361,6 @@ class PopDeleteMaterialResponse(TeaModel):
         self.body = body  # type: PopDeleteMaterialResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8548,9 +8605,6 @@ class PopGetAITryOnJobResponse(TeaModel):
         self.body = body  # type: PopGetAITryOnJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10817,9 +10871,6 @@ class PopListAITryOnJobsResponse(TeaModel):
         self.body = body  # type: PopListAITryOnJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11058,9 +11109,6 @@ class PopListCommonMaterialsAllResponse(TeaModel):
         self.body = body  # type: PopListCommonMaterialsAllResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11284,9 +11332,6 @@ class PopListFeatureToAvatarMaterialsResponse(TeaModel):
         self.body = body  # type: PopListFeatureToAvatarMaterialsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11748,9 +11793,6 @@ class PopListFeatureToAvatarProjectResponse(TeaModel):
         self.body = body  # type: PopListFeatureToAvatarProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11948,9 +11990,6 @@ class PopListLivePortraitModelScopeMaterialsResponse(TeaModel):
         self.body = body  # type: PopListLivePortraitModelScopeMaterialsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12669,9 +12708,6 @@ class PopListObjectCaseResponse(TeaModel):
         self.body = body  # type: PopListObjectCaseResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12949,9 +12985,6 @@ class PopListObjectGenerationProjectResponse(TeaModel):
         self.body = body  # type: PopListObjectGenerationProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13701,9 +13734,6 @@ class PopListObjectProjectResponse(TeaModel):
         self.body = body  # type: PopListObjectProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13896,9 +13926,6 @@ class PopListPakRenderExpressionResponse(TeaModel):
         self.body = body  # type: PopListPakRenderExpressionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14344,9 +14371,6 @@ class PopListTextToAvatarProjectResponse(TeaModel):
         self.body = body  # type: PopListTextToAvatarProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15024,9 +15048,6 @@ class PopObjectProjectDetailResponse(TeaModel):
         self.body = body  # type: PopObjectProjectDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15203,9 +15224,6 @@ class PopObjectRetrievalResponse(TeaModel):
         self.body = body  # type: PopObjectRetrievalResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15361,9 +15379,6 @@ class PopObjectRetrievalUploadDataResponse(TeaModel):
         self.body = body  # type: PopObjectRetrievalUploadDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15732,9 +15747,6 @@ class PopQueryAvatarProjectDetailResponse(TeaModel):
         self.body = body  # type: PopQueryAvatarProjectDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15974,9 +15986,6 @@ class PopQueryLatestAvatarProjectDetailByUserResponse(TeaModel):
         self.body = body  # type: PopQueryLatestAvatarProjectDetailByUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16184,9 +16193,6 @@ class PopQueryLivePortraitModelScopeProjectDetailResponse(TeaModel):
         self.body = body  # type: PopQueryLivePortraitModelScopeProjectDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16432,9 +16438,6 @@ class PopQueryObjectGenerationProjectDetailResponse(TeaModel):
         self.body = body  # type: PopQueryObjectGenerationProjectDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16539,9 +16542,6 @@ class PopRetryAITryOnTaskResponse(TeaModel):
         self.body = body  # type: PopRetryAITryOnTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16708,9 +16708,6 @@ class PopSubmitAITryOnJobResponse(TeaModel):
         self.body = body  # type: PopSubmitAITryOnJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16897,9 +16894,6 @@ class PopUploadMaterialResponse(TeaModel):
         self.body = body  # type: PopUploadMaterialResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17019,9 +17013,6 @@ class PopVideoSaveSourceResponse(TeaModel):
         self.body = body  # type: PopVideoSaveSourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17220,9 +17211,6 @@ class QueryDigitalHumanProjectResponse(TeaModel):
         self.body = body  # type: QueryDigitalHumanProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17368,9 +17356,6 @@ class QueryLongTtsResultResponse(TeaModel):
         self.body = body  # type: QueryLongTtsResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17562,9 +17547,6 @@ class QueryMotionShopVideoDetectResultResponse(TeaModel):
         self.body = body  # type: QueryMotionShopVideoDetectResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17679,9 +17661,6 @@ class SubmitLongTtsTaskResponse(TeaModel):
         self.body = body  # type: SubmitLongTtsTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17827,9 +17806,6 @@ class SubmitMotionShopTaskResponse(TeaModel):
         self.body = body  # type: SubmitMotionShopTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17944,9 +17920,6 @@ class UpdateUserEmailResponse(TeaModel):
         self.body = body  # type: UpdateUserEmailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
