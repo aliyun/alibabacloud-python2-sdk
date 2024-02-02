@@ -1,3 +1,7 @@
+2024-02-02 Version: 1.6.0
+- Support API QueryPhoneNumberOnlineTime.
+
+
 2024-01-12 Version: 1.5.2
 - Generated python2 2020-02-17 for Dytnsapi.
 
