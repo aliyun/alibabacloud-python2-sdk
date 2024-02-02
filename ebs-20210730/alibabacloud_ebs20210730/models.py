@@ -78,9 +78,6 @@ class AddDiskReplicaPairResponse(TeaModel):
         self.body = body  # type: AddDiskReplicaPairResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -142,9 +139,6 @@ class ApplyLensServiceResponse(TeaModel):
         self.body = body  # type: ApplyLensServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -249,9 +243,6 @@ class BindEnterpriseSnapshotPolicyResponse(TeaModel):
         self.body = body  # type: BindEnterpriseSnapshotPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -313,9 +304,6 @@ class CancelLensServiceResponse(TeaModel):
         self.body = body  # type: CancelLensServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -350,7 +338,7 @@ class ChangeResourceGroupRequest(TeaModel):
                  resource_type=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
-        # The ID of the new resource group. You can view the available resource groups in the Resource Management console. For more information, see [View basic information of a resource group](https://help.aliyun.com/document_detail/151181.htm?spm=a2c4g.11186623.0.0.15ef75c87zvMhL).
+        # The ID of the new resource group. You can view the available resource groups in the Resource Management console. For more information, see [View basic information of a resource group](~~151181~~).
         self.new_resource_group_id = new_resource_group_id  # type: str
         # The region ID of the resource. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
@@ -431,9 +419,6 @@ class ChangeResourceGroupResponse(TeaModel):
         self.body = body  # type: ChangeResourceGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -532,9 +517,6 @@ class ClearPairDrillResponse(TeaModel):
         self.body = body  # type: ClearPairDrillResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -633,9 +615,6 @@ class ClearReplicaGroupDrillResponse(TeaModel):
         self.body = body  # type: ClearReplicaGroupDrillResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -846,9 +825,6 @@ class CreateDedicatedBlockStorageClusterResponse(TeaModel):
         self.body = body  # type: CreateDedicatedBlockStorageClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1044,9 +1020,6 @@ class CreateDiskReplicaGroupResponse(TeaModel):
         self.body = body  # type: CreateDiskReplicaGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1299,9 +1272,6 @@ class CreateDiskReplicaPairResponse(TeaModel):
         self.body = body  # type: CreateDiskReplicaPairResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1937,9 +1907,6 @@ class CreateEnterpriseSnapshotPolicyResponse(TeaModel):
         self.body = body  # type: CreateEnterpriseSnapshotPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2038,9 +2005,6 @@ class DeleteDiskReplicaGroupResponse(TeaModel):
         self.body = body  # type: DeleteDiskReplicaGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2139,9 +2103,6 @@ class DeleteDiskReplicaPairResponse(TeaModel):
         self.body = body  # type: DeleteDiskReplicaPairResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2240,9 +2201,6 @@ class DeleteEnterpriseSnapshotPolicyResponse(TeaModel):
         self.body = body  # type: DeleteEnterpriseSnapshotPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2701,9 +2659,6 @@ class DescribeDedicatedBlockStorageClusterDisksResponse(TeaModel):
         self.body = body  # type: DescribeDedicatedBlockStorageClusterDisksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3229,9 +3184,6 @@ class DescribeDedicatedBlockStorageClustersResponse(TeaModel):
         self.body = body  # type: DescribeDedicatedBlockStorageClustersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3465,9 +3417,6 @@ class DescribeDiskEventsResponse(TeaModel):
         self.body = body  # type: DescribeDiskEventsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3686,9 +3635,6 @@ class DescribeDiskMonitorDataResponse(TeaModel):
         self.body = body  # type: DescribeDiskMonitorDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3881,9 +3827,6 @@ class DescribeDiskMonitorDataListResponse(TeaModel):
         self.body = body  # type: DescribeDiskMonitorDataListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4313,9 +4256,6 @@ class DescribeDiskReplicaGroupsResponse(TeaModel):
         self.body = body  # type: DescribeDiskReplicaGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4420,9 +4360,6 @@ class DescribeDiskReplicaPairProgressResponse(TeaModel):
         self.body = body  # type: DescribeDiskReplicaPairProgressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4909,9 +4846,6 @@ class DescribeDiskReplicaPairsResponse(TeaModel):
         self.body = body  # type: DescribeDiskReplicaPairsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4943,9 +4877,9 @@ class DescribeDiskReplicaPairsResponse(TeaModel):
 
 class DescribeEnterpriseSnapshotPolicyRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of the tag.
+        # The key of tag N of the enterprise-level snapshot policy.
         self.key = key  # type: str
-        # The value of the tag.
+        # The value of tag N of the enterprise-level snapshot policy.
         self.value = value  # type: str
 
     def validate(self):
@@ -4975,33 +4909,25 @@ class DescribeEnterpriseSnapshotPolicyRequestTag(TeaModel):
 class DescribeEnterpriseSnapshotPolicyRequest(TeaModel):
     def __init__(self, client_token=None, disk_ids=None, max_results=None, next_token=None, page_number=None,
                  page_size=None, policy_ids=None, region_id=None, resource_group_id=None, tag=None):
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests.
-        # 
-        # The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How do I ensure idempotence ](~~25693~~).
+        # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
+        # The list of disks.
         self.disk_ids = disk_ids  # type: list[str]
-        # The maximum number of entries to be returned. You can use this parameter together with NextToken.
-        # 
-        # Valid values: 1 to 500.
-        # 
-        # Default value: 10.
+        # The maximum number of entries per page.
         self.max_results = max_results  # type: int
-        # The token that is used for the next query. Valid values:
-        # 
-        # *   If the value of **NextToken** is not returned, it indicates that no next query is to be sent.
-        # *   If a value of **NextToken** is returned, the value is the token that is used for the subsequent query.
+        # The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request. You must specify the token that is obtained from the previous query as the value of NextToken.
         self.next_token = next_token  # type: str
-        # The number of the page to return.
+        # The page number.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
+        # The number of entries per page.
         self.page_size = page_size  # type: int
-        # The list of policies.
+        # The IDs of enterprise-level snapshot policies.
         self.policy_ids = policy_ids  # type: list[str]
-        # The region ID . You can call the [DescribeRegions](~~354276~~) operation to query the most recent list of regions in which snapshot policy is supported.
+        # The region ID. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The ID of the resource group to which the policy belongs.
+        # The ID of the resource group to which the enterprise-level snapshot policy belongs.
         self.resource_group_id = resource_group_id  # type: str
-        # The list of tags.
+        # The tags of the enterprise-level snapshot policies. Valid values of N: 1 to 20.
         self.tag = tag  # type: list[DescribeEnterpriseSnapshotPolicyRequestTag]
 
     def validate(self):
@@ -5070,9 +4996,9 @@ class DescribeEnterpriseSnapshotPolicyRequest(TeaModel):
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesCrossRegionCopyInfoRegions(TeaModel):
     def __init__(self, region_id=None, retain_days=None):
-        # The region ID of the destination. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
+        # The ID of the destination region.
         self.region_id = region_id  # type: str
-        # Number of days to retain the destination snapshot. The range of values is greater than 1.
+        # The retention period of snapshot copies in the destination region. Unit: day.
         self.retain_days = retain_days  # type: int
 
     def validate(self):
@@ -5101,13 +5027,9 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesCrossRegionCopyInfoReg
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesCrossRegionCopyInfo(TeaModel):
     def __init__(self, enabled=None, regions=None):
-        # Whether cross-region replication is enabled. The range of values:
-        # 
-        # - true
-        # 
-        # - false
+        # Indicates whether the cross-region replication feature is enabled.
         self.enabled = enabled  # type: bool
-        # Destination region information.
+        # The destination regions that store snapshot copies.
         self.regions = regions  # type: list[DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesCrossRegionCopyInfoRegions]
 
     def validate(self):
@@ -5144,15 +5066,11 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesCrossRegionCopyInfo(Te
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesRetainRule(TeaModel):
     def __init__(self, number=None, time_interval=None, time_unit=None):
-        # Maximum number of retained snapshots.
+        # The maximum number of snapshots that can be retained.
         self.number = number  # type: int
-        # The time interval , valid value greater than 1.
+        # The value of the retention period of snapshots.
         self.time_interval = time_interval  # type: int
-        # The unit of time, valid values:
-        # 
-        # - DAYS
-        # 
-        # - WEEKS
+        # The unit of the retention period of snapshots.
         self.time_unit = time_unit  # type: str
 
     def validate(self):
@@ -5185,9 +5103,7 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesRetainRule(TeaModel):
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSchedule(TeaModel):
     def __init__(self, cron_expression=None):
-        # The time when the policy will to be scheduled. Valid values: Set the parameter in a cron expression.
-        # 
-        # For example, you can use 0 0 4 1/1 * ? to specify 04:00:00 (UTC+8) on the first day of each month.
+        # The cron expression of the enterprise-level snapshot policy.
         self.cron_expression = cron_expression  # type: str
 
     def validate(self):
@@ -5212,18 +5128,11 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSchedule(TeaModel):
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSpecialRetainRulesRules(TeaModel):
     def __init__(self, special_period_unit=None, time_interval=None, time_unit=None):
-        # The periodic unit for specially retained snapshots. If configured to WEEKS, it provides special retention for the first snapshot of each week. The retention period is determined by TimeUnit and TimeInterval. The range of values are:
-        # - WEEKS
-        # - MONTHS
-        # - YEARS
+        # The unit of the special retention period.
         self.special_period_unit = special_period_unit  # type: str
-        # Retention Time Value. The range of values is greater than 1.
+        # The value of the retention period.
         self.time_interval = time_interval  # type: int
-        # Retention time unit for special snapshots. The range of values:
-        # 
-        # - DAYS
-        # 
-        # - WEEKS
+        # The unit of the retention period.
         self.time_unit = time_unit  # type: str
 
     def validate(self):
@@ -5256,10 +5165,7 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSpecialRetainRulesRule
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSpecialRetainRules(TeaModel):
     def __init__(self, enabled=None, rules=None):
-        # Indicates whether the special retention is enabled.
-        # 
-        # *   true: enable
-        # *   false: disable
+        # Indicates whether the special retention period is enabled.
         self.enabled = enabled  # type: bool
         # The special retention rules.
         self.rules = rules  # type: list[DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSpecialRetainRulesRules]
@@ -5298,11 +5204,7 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSpecialRetainRules(Tea
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesStorageRule(TeaModel):
     def __init__(self, enable_immediate_access=None):
-        # Whether to enable the rapid availability of snapshots. The range of values:
-        # 
-        # - true
-        # 
-        # - false
+        # Indicates whether the instant access feature is enabled.
         self.enable_immediate_access = enable_immediate_access  # type: bool
 
     def validate(self):
@@ -5327,9 +5229,9 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesStorageRule(TeaModel):
 
 class DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesTags(TeaModel):
     def __init__(self, tag_key=None, tag_value=None):
-        # The key of a tag.
+        # The key of the tag of the enterprise-level snapshot policy.
         self.tag_key = tag_key  # type: str
-        # The value of a tag.
+        # The value of the tag of the enterprise-level snapshot policy.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -5360,43 +5262,37 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPolicies(TeaModel):
     def __init__(self, create_time=None, cross_region_copy_info=None, desc=None, disk_ids=None,
                  managed_for_ecs=None, name=None, policy_id=None, resource_group_id=None, retain_rule=None, schedule=None,
                  special_retain_rules=None, state=None, storage_rule=None, tags=None, target_count=None, target_type=None):
-        # Creation Time.
+        # The time when the enterprise-level snapshot policy was created.
         self.create_time = create_time  # type: str
-        # Snapshot replication destination information.
+        # The replication rule of snapshots in the enterprise-level snapshot policy.
         self.cross_region_copy_info = cross_region_copy_info  # type: DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesCrossRegionCopyInfo
-        # The description of the policy.
+        # The description of the enterprise-level snapshot policy.
         self.desc = desc  # type: str
+        # The list of disks.
         self.disk_ids = disk_ids  # type: list[str]
-        # Indicates whether it is an ECS snapshot policy，The range of values:
-        # 
-        # - true
-        # - false
+        # Indicates whether snapshots are managed.
         self.managed_for_ecs = managed_for_ecs  # type: bool
-        # The name of the policy.
+        # The name of the enterprise-level snapshot policy.
         self.name = name  # type: str
-        # The id of the policy.
+        # The ID of the enterprise-level snapshot policy.
         self.policy_id = policy_id  # type: str
-        # The resource group
+        # the resource group
         self.resource_group_id = resource_group_id  # type: str
-        # The snapshot retention rule.
+        # The retention rule of the enterprise-level snapshot policy.
         self.retain_rule = retain_rule  # type: DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesRetainRule
-        # The rule for scheduling.
+        # The scheduling rule of the enterprise-level snapshot policy.
         self.schedule = schedule  # type: DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSchedule
-        # The special snapshot retention rules.
+        # The special retention rules of the enterprise-level snapshot policy.
         self.special_retain_rules = special_retain_rules  # type: DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesSpecialRetainRules
-        # The status of the policy. Valid values:
-        # 
-        # - ENABLED: Enable policy execution.
-        # 
-        # - DISABLED: Disable policy execution.
+        # The status of the enterprise-level snapshot policy.
         self.state = state  # type: str
-        # Advanced snapshot features.
+        # The storage rule of snapshots in the enterprise-level snapshot policy.
         self.storage_rule = storage_rule  # type: DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesStorageRule
-        # The list of tags.
+        # the pair tags
         self.tags = tags  # type: list[DescribeEnterpriseSnapshotPolicyResponseBodyPoliciesTags]
-        # Number of bound targets.
+        # The number of objects that are associated with the enterprise-level snapshot policy.
         self.target_count = target_count  # type: int
-        # The target type.
+        # The type of the enterprise-level snapshot policy.
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -5505,15 +5401,15 @@ class DescribeEnterpriseSnapshotPolicyResponseBodyPolicies(TeaModel):
 class DescribeEnterpriseSnapshotPolicyResponseBody(TeaModel):
     def __init__(self, next_token=None, page_number=None, page_size=None, policies=None, request_id=None,
                  total_count=None):
-        # The query token returned in this call.
+        # A pagination token. It can be used in the next request to retrieve a new page of results. If NextToken is empty, no next page exists.
         self.next_token = next_token  # type: str
         # The page number.
         self.page_number = page_number  # type: int
         # The number of entries per page.
         self.page_size = page_size  # type: int
-        # The list of policies.
+        # The returned enterprise-level snapshot policies.
         self.policies = policies  # type: list[DescribeEnterpriseSnapshotPolicyResponseBodyPolicies]
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The total number of entries returned.
         self.total_count = total_count  # type: long
@@ -5573,9 +5469,6 @@ class DescribeEnterpriseSnapshotPolicyResponse(TeaModel):
         self.body = body  # type: DescribeEnterpriseSnapshotPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5647,9 +5540,6 @@ class DescribeLensServiceStatusResponse(TeaModel):
         self.body = body  # type: DescribeLensServiceStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5818,9 +5708,6 @@ class DescribeMetricDataResponse(TeaModel):
         self.body = body  # type: DescribeMetricDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6062,9 +5949,6 @@ class DescribePairDrillsResponse(TeaModel):
         self.body = body  # type: DescribePairDrillsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6277,9 +6161,6 @@ class DescribeRegionsResponse(TeaModel):
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6566,9 +6447,6 @@ class DescribeReplicaGroupDrillsResponse(TeaModel):
         self.body = body  # type: DescribeReplicaGroupDrillsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6667,9 +6545,6 @@ class FailoverDiskReplicaGroupResponse(TeaModel):
         self.body = body  # type: FailoverDiskReplicaGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6770,9 +6645,6 @@ class FailoverDiskReplicaPairResponse(TeaModel):
         self.body = body  # type: FailoverDiskReplicaPairResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7008,9 +6880,6 @@ class ListTagResourcesResponse(TeaModel):
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7123,9 +6992,6 @@ class ModifyDedicatedBlockStorageClusterAttributeResponse(TeaModel):
         self.body = body  # type: ModifyDedicatedBlockStorageClusterAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7251,9 +7117,6 @@ class ModifyDiskReplicaGroupResponse(TeaModel):
         self.body = body  # type: ModifyDiskReplicaGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7379,9 +7242,6 @@ class ModifyDiskReplicaPairResponse(TeaModel):
         self.body = body  # type: ModifyDiskReplicaPairResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7407,6 +7267,235 @@ class ModifyDiskReplicaPairResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyDiskReplicaPairResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryDedicatedBlockStorageClusterInventoryDataRequest(TeaModel):
+    def __init__(self, client_token=None, dbsc_id=None, end_time=None, period=None, region_id=None, start_time=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests.
+        # 
+        # The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How do I ensure idempotence ](~~25693~~).
+        self.client_token = client_token  # type: str
+        # The ID of the dedicated block storage cluster.
+        self.dbsc_id = dbsc_id  # type: str
+        # End timestamp of trend data.
+        self.end_time = end_time  # type: long
+        # The time interval （seconds） between data retrieval points.
+        self.period = period  # type: int
+        # The region ID of the dedicated block storage cluster.
+        self.region_id = region_id  # type: str
+        # Start timestamp of trend data.
+        self.start_time = start_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDedicatedBlockStorageClusterInventoryDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dbsc_id is not None:
+            result['DbscId'] = self.dbsc_id
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.period is not None:
+            result['Period'] = self.period
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DbscId') is not None:
+            self.dbsc_id = m.get('DbscId')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Period') is not None:
+            self.period = m.get('Period')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class QueryDedicatedBlockStorageClusterInventoryDataResponseBodyDataMonitorItems(TeaModel):
+    def __init__(self, available_size=None, total_size=None):
+        # Available capacity size of the dedicated block storage cluster.
+        self.available_size = available_size  # type: long
+        # Total capacity size of the dedicated block storage cluster.
+        self.total_size = total_size  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDedicatedBlockStorageClusterInventoryDataResponseBodyDataMonitorItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.available_size is not None:
+            result['AvailableSize'] = self.available_size
+        if self.total_size is not None:
+            result['TotalSize'] = self.total_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AvailableSize') is not None:
+            self.available_size = m.get('AvailableSize')
+        if m.get('TotalSize') is not None:
+            self.total_size = m.get('TotalSize')
+        return self
+
+
+class QueryDedicatedBlockStorageClusterInventoryDataResponseBodyData(TeaModel):
+    def __init__(self, monitor_items=None, resource_id=None, timestamp=None):
+        # The returned metrics.
+        self.monitor_items = monitor_items  # type: QueryDedicatedBlockStorageClusterInventoryDataResponseBodyDataMonitorItems
+        # The ID list of the resource.
+        self.resource_id = resource_id  # type: str
+        # The timestamp when the data is collected.
+        self.timestamp = timestamp  # type: str
+
+    def validate(self):
+        if self.monitor_items:
+            self.monitor_items.validate()
+
+    def to_map(self):
+        _map = super(QueryDedicatedBlockStorageClusterInventoryDataResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.monitor_items is not None:
+            result['MonitorItems'] = self.monitor_items.to_map()
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MonitorItems') is not None:
+            temp_model = QueryDedicatedBlockStorageClusterInventoryDataResponseBodyDataMonitorItems()
+            self.monitor_items = temp_model.from_map(m['MonitorItems'])
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        return self
+
+
+class QueryDedicatedBlockStorageClusterInventoryDataResponseBody(TeaModel):
+    def __init__(self, data=None, dbsc_id=None, dbsc_name=None, disk_category=None, request_id=None,
+                 total_count=None):
+        # The returned data.
+        self.data = data  # type: list[QueryDedicatedBlockStorageClusterInventoryDataResponseBodyData]
+        # The ID of the dedicated block storage cluster.
+        self.dbsc_id = dbsc_id  # type: str
+        # The name of the dedicated block storage cluster.
+        self.dbsc_name = dbsc_name  # type: str
+        # The type of the disk. Valid values:
+        # 
+        # *   cloud_essd: enhanced SSD (ESSD).
+        self.disk_category = disk_category  # type: str
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The total number of entries returned.
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryDedicatedBlockStorageClusterInventoryDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.dbsc_id is not None:
+            result['DbscId'] = self.dbsc_id
+        if self.dbsc_name is not None:
+            result['DbscName'] = self.dbsc_name
+        if self.disk_category is not None:
+            result['DiskCategory'] = self.disk_category
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = QueryDedicatedBlockStorageClusterInventoryDataResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('DbscId') is not None:
+            self.dbsc_id = m.get('DbscId')
+        if m.get('DbscName') is not None:
+            self.dbsc_name = m.get('DbscName')
+        if m.get('DiskCategory') is not None:
+            self.disk_category = m.get('DiskCategory')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class QueryDedicatedBlockStorageClusterInventoryDataResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryDedicatedBlockStorageClusterInventoryDataResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryDedicatedBlockStorageClusterInventoryDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryDedicatedBlockStorageClusterInventoryDataResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -7488,9 +7577,6 @@ class RemoveDiskReplicaPairResponse(TeaModel):
         self.body = body  # type: RemoveDiskReplicaPairResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7595,9 +7681,6 @@ class ReprotectDiskReplicaGroupResponse(TeaModel):
         self.body = body  # type: ReprotectDiskReplicaGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7704,9 +7787,6 @@ class ReprotectDiskReplicaPairResponse(TeaModel):
         self.body = body  # type: ReprotectDiskReplicaPairResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7732,132 +7812,6 @@ class ReprotectDiskReplicaPairResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ReprotectDiskReplicaPairResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class StartDiskMonitorRequest(TeaModel):
-    def __init__(self, disk_ids=None, region_id=None):
-        # The IDs of the disks for which you want to enable near real-time monitoring.
-        self.disk_ids = disk_ids  # type: list[str]
-        # The ID of the region in which you want to enable near real-time monitoring for disks. You can call the [DescribeRegions](~~354276~~) operation to query the list of regions that support CloudLens for EBS.
-        self.region_id = region_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(StartDiskMonitorRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.disk_ids is not None:
-            result['DiskIds'] = self.disk_ids
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DiskIds') is not None:
-            self.disk_ids = m.get('DiskIds')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        return self
-
-
-class StartDiskMonitorShrinkRequest(TeaModel):
-    def __init__(self, disk_ids_shrink=None, region_id=None):
-        # The IDs of the disks for which you want to enable near real-time monitoring.
-        self.disk_ids_shrink = disk_ids_shrink  # type: str
-        # The ID of the region in which you want to enable near real-time monitoring for disks. You can call the [DescribeRegions](~~354276~~) operation to query the list of regions that support CloudLens for EBS.
-        self.region_id = region_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(StartDiskMonitorShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.disk_ids_shrink is not None:
-            result['DiskIds'] = self.disk_ids_shrink
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DiskIds') is not None:
-            self.disk_ids_shrink = m.get('DiskIds')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        return self
-
-
-class StartDiskMonitorResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        # The request ID.
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(StartDiskMonitorResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class StartDiskMonitorResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: StartDiskMonitorResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(StartDiskMonitorResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = StartDiskMonitorResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -7942,9 +7896,6 @@ class StartDiskReplicaGroupResponse(TeaModel):
         self.body = body  # type: StartDiskReplicaGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8054,9 +8005,6 @@ class StartDiskReplicaPairResponse(TeaModel):
         self.body = body  # type: StartDiskReplicaPairResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8163,9 +8111,6 @@ class StartPairDrillResponse(TeaModel):
         self.body = body  # type: StartPairDrillResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8272,9 +8217,6 @@ class StartReplicaGroupDrillResponse(TeaModel):
         self.body = body  # type: StartReplicaGroupDrillResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8300,132 +8242,6 @@ class StartReplicaGroupDrillResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StartReplicaGroupDrillResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class StopDiskMonitorRequest(TeaModel):
-    def __init__(self, disk_ids=None, region_id=None):
-        # The IDs of the disks for which you want to disable near real-time monitoring.
-        self.disk_ids = disk_ids  # type: list[str]
-        # The ID of the region in which you want to disable near real-time monitoring for disks. You can call the [DescribeRegions](~~354276~~) operation to query the list of regions that support CloudLens for EBS.
-        self.region_id = region_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(StopDiskMonitorRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.disk_ids is not None:
-            result['DiskIds'] = self.disk_ids
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DiskIds') is not None:
-            self.disk_ids = m.get('DiskIds')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        return self
-
-
-class StopDiskMonitorShrinkRequest(TeaModel):
-    def __init__(self, disk_ids_shrink=None, region_id=None):
-        # The IDs of the disks for which you want to disable near real-time monitoring.
-        self.disk_ids_shrink = disk_ids_shrink  # type: str
-        # The ID of the region in which you want to disable near real-time monitoring for disks. You can call the [DescribeRegions](~~354276~~) operation to query the list of regions that support CloudLens for EBS.
-        self.region_id = region_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(StopDiskMonitorShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.disk_ids_shrink is not None:
-            result['DiskIds'] = self.disk_ids_shrink
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DiskIds') is not None:
-            self.disk_ids_shrink = m.get('DiskIds')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        return self
-
-
-class StopDiskMonitorResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        # The request ID.
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(StopDiskMonitorResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class StopDiskMonitorResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: StopDiskMonitorResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(StopDiskMonitorResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = StopDiskMonitorResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -8499,9 +8315,6 @@ class StopDiskReplicaGroupResponse(TeaModel):
         self.body = body  # type: StopDiskReplicaGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8600,9 +8413,6 @@ class StopDiskReplicaPairResponse(TeaModel):
         self.body = body  # type: StopDiskReplicaPairResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8756,9 +8566,6 @@ class TagResourcesResponse(TeaModel):
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8863,9 +8670,6 @@ class UnbindEnterpriseSnapshotPolicyResponse(TeaModel):
         self.body = body  # type: UnbindEnterpriseSnapshotPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8992,9 +8796,6 @@ class UntagResourcesResponse(TeaModel):
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9505,9 +9306,6 @@ class UpdateEnterpriseSnapshotPolicyResponse(TeaModel):
         self.body = body  # type: UpdateEnterpriseSnapshotPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9618,9 +9416,6 @@ class UpdateSolutionInstanceAttributeResponse(TeaModel):
         self.body = body  # type: UpdateSolutionInstanceAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 

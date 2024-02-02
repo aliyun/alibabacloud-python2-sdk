@@ -308,10 +308,10 @@ class Client(OpenApiClient):
 
     def create_dedicated_block_storage_cluster_with_options(self, request, runtime):
         """
-        Dedicated block storage clusters are physically isolated from public block storage clusters. The owner of each dedicated block storage cluster has exclusive access to all resources in the cluster. For more information, see [Overview](~~208883~~).
+        Dedicated block storage clusters are physically isolated from public block storage clusters. The owner of each dedicated block storage cluster has exclusive access to all resources in the cluster.
         Disks created in a dedicated block storage cluster can be attached only to Elastic Compute Service (ECS) instances that reside in the same zone as the cluster. Before you create a dedicated block storage cluster, decide the regions and zones in which to deploy your cloud resources.
         Dedicated block storage clusters are classified into basic and performance types. When you create a dedicated block storage cluster, select a cluster type based on your business requirements.
-        You are charged for creating dedicated block storage clusters. For more information, see [~~208884~~](~~208884~~).
+        You are charged for creating dedicated block storage clusters.
         
 
         @param request: CreateDedicatedBlockStorageClusterRequest
@@ -363,10 +363,10 @@ class Client(OpenApiClient):
 
     def create_dedicated_block_storage_cluster(self, request):
         """
-        Dedicated block storage clusters are physically isolated from public block storage clusters. The owner of each dedicated block storage cluster has exclusive access to all resources in the cluster. For more information, see [Overview](~~208883~~).
+        Dedicated block storage clusters are physically isolated from public block storage clusters. The owner of each dedicated block storage cluster has exclusive access to all resources in the cluster.
         Disks created in a dedicated block storage cluster can be attached only to Elastic Compute Service (ECS) instances that reside in the same zone as the cluster. Before you create a dedicated block storage cluster, decide the regions and zones in which to deploy your cloud resources.
         Dedicated block storage clusters are classified into basic and performance types. When you create a dedicated block storage cluster, select a cluster type based on your business requirements.
-        You are charged for creating dedicated block storage clusters. For more information, see [~~208884~~](~~208884~~).
+        You are charged for creating dedicated block storage clusters.
         
 
         @param request: CreateDedicatedBlockStorageClusterRequest
@@ -1824,6 +1824,64 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_disk_replica_pair_with_options(request, runtime)
 
+    def query_dedicated_block_storage_cluster_inventory_data_with_options(self, request, runtime):
+        """
+        Period is the time interval between data retrieval points. When set to 60 (minute interval), a maximum of 1440 data points can be returned; when set to 3600 (hour interval), a maximum of 744 data points can be returned; and when set to 86400 (day interval), a maximum of 366 data points can be returned.
+        
+
+        @param request: QueryDedicatedBlockStorageClusterInventoryDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryDedicatedBlockStorageClusterInventoryDataResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        body = {}
+        if not UtilClient.is_unset(request.dbsc_id):
+            body['DbscId'] = request.dbsc_id
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.period):
+            body['Period'] = request.period
+        if not UtilClient.is_unset(request.region_id):
+            body['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryDedicatedBlockStorageClusterInventoryData',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.QueryDedicatedBlockStorageClusterInventoryDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_dedicated_block_storage_cluster_inventory_data(self, request):
+        """
+        Period is the time interval between data retrieval points. When set to 60 (minute interval), a maximum of 1440 data points can be returned; when set to 3600 (hour interval), a maximum of 744 data points can be returned; and when set to 86400 (day interval), a maximum of 366 data points can be returned.
+        
+
+        @param request: QueryDedicatedBlockStorageClusterInventoryDataRequest
+
+        @return: QueryDedicatedBlockStorageClusterInventoryDataResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.query_dedicated_block_storage_cluster_inventory_data_with_options(request, runtime)
+
     def remove_disk_replica_pair_with_options(self, request, runtime):
         """
         ## [](#)Usage notes
@@ -2003,62 +2061,6 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.reprotect_disk_replica_pair_with_options(request, runtime)
-
-    def start_disk_monitor_with_options(self, tmp_req, runtime):
-        """
-        ## Usage notes
-        *   CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
-        *   CloudLens for EBS can be used to monitor the performance of enhanced SSDs (ESSDs), standard SSDs, and ultra disks. After you enable CloudLens for EBS, you can enable the data collection feature to obtain the near real-time monitoring data. For more information, see [Enable near real-time monitoring for disks](~~354196~~).
-        
-
-        @param tmp_req: StartDiskMonitorRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: StartDiskMonitorResponse
-        """
-        UtilClient.validate_model(tmp_req)
-        request = ebs_20210730_models.StartDiskMonitorShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.disk_ids):
-            request.disk_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.disk_ids, 'DiskIds', 'json')
-        query = {}
-        if not UtilClient.is_unset(request.disk_ids_shrink):
-            query['DiskIds'] = request.disk_ids_shrink
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='StartDiskMonitor',
-            version='2021-07-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ebs_20210730_models.StartDiskMonitorResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def start_disk_monitor(self, request):
-        """
-        ## Usage notes
-        *   CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
-        *   CloudLens for EBS can be used to monitor the performance of enhanced SSDs (ESSDs), standard SSDs, and ultra disks. After you enable CloudLens for EBS, you can enable the data collection feature to obtain the near real-time monitoring data. For more information, see [Enable near real-time monitoring for disks](~~354196~~).
-        
-
-        @param request: StartDiskMonitorRequest
-
-        @return: StartDiskMonitorResponse
-        """
-        runtime = util_models.RuntimeOptions()
-        return self.start_disk_monitor_with_options(request, runtime)
 
     def start_disk_replica_group_with_options(self, request, runtime):
         """
@@ -2277,60 +2279,6 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.start_replica_group_drill_with_options(request, runtime)
-
-    def stop_disk_monitor_with_options(self, tmp_req, runtime):
-        """
-        ## Usage notes
-        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
-        
-
-        @param tmp_req: StopDiskMonitorRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: StopDiskMonitorResponse
-        """
-        UtilClient.validate_model(tmp_req)
-        request = ebs_20210730_models.StopDiskMonitorShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.disk_ids):
-            request.disk_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.disk_ids, 'DiskIds', 'json')
-        query = {}
-        if not UtilClient.is_unset(request.disk_ids_shrink):
-            query['DiskIds'] = request.disk_ids_shrink
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='StopDiskMonitor',
-            version='2021-07-30',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ebs_20210730_models.StopDiskMonitorResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def stop_disk_monitor(self, request):
-        """
-        ## Usage notes
-        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
-        
-
-        @param request: StopDiskMonitorRequest
-
-        @return: StopDiskMonitorResponse
-        """
-        runtime = util_models.RuntimeOptions()
-        return self.stop_disk_monitor_with_options(request, runtime)
 
     def stop_disk_replica_group_with_options(self, request, runtime):
         """
