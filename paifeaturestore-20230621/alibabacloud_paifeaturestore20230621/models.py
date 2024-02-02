@@ -6453,10 +6453,11 @@ class ListProjectFeatureViewsResponseBodyFeatureViewsFeatures(TeaModel):
 
 
 class ListProjectFeatureViewsResponseBodyFeatureViews(TeaModel):
-    def __init__(self, feature_view_id=None, features=None, name=None):
+    def __init__(self, feature_view_id=None, features=None, name=None, type=None):
         self.feature_view_id = feature_view_id  # type: str
         self.features = features  # type: list[ListProjectFeatureViewsResponseBodyFeatureViewsFeatures]
         self.name = name  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         if self.features:
@@ -6478,6 +6479,8 @@ class ListProjectFeatureViewsResponseBodyFeatureViews(TeaModel):
                 result['Features'].append(k.to_map() if k else None)
         if self.name is not None:
             result['Name'] = self.name
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
@@ -6491,6 +6494,8 @@ class ListProjectFeatureViewsResponseBodyFeatureViews(TeaModel):
                 self.features.append(temp_model.from_map(k))
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
