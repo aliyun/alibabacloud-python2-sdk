@@ -3593,7 +3593,7 @@ class InitializeRequest(TeaModel):
                  doc_type=None, face_picture_base_64=None, face_picture_url=None, flow_type=None, id_face_quality=None,
                  id_spoof=None, language_config=None, merchant_biz_id=None, merchant_user_id=None, meta_info=None, ocr=None,
                  operation_mode=None, pages=None, product_code=None, product_config=None, product_flow=None, return_url=None,
-                 scene_code=None, service_level=None):
+                 scene_code=None, security_level=None, service_level=None):
         self.authorize = authorize  # type: str
         self.callback_token = callback_token  # type: str
         self.callback_url = callback_url  # type: str
@@ -3618,6 +3618,7 @@ class InitializeRequest(TeaModel):
         self.product_flow = product_flow  # type: str
         self.return_url = return_url  # type: str
         self.scene_code = scene_code  # type: str
+        self.security_level = security_level  # type: str
         self.service_level = service_level  # type: str
 
     def validate(self):
@@ -3675,6 +3676,8 @@ class InitializeRequest(TeaModel):
             result['ReturnUrl'] = self.return_url
         if self.scene_code is not None:
             result['SceneCode'] = self.scene_code
+        if self.security_level is not None:
+            result['SecurityLevel'] = self.security_level
         if self.service_level is not None:
             result['ServiceLevel'] = self.service_level
         return result
@@ -3727,6 +3730,8 @@ class InitializeRequest(TeaModel):
             self.return_url = m.get('ReturnUrl')
         if m.get('SceneCode') is not None:
             self.scene_code = m.get('SceneCode')
+        if m.get('SecurityLevel') is not None:
+            self.security_level = m.get('SecurityLevel')
         if m.get('ServiceLevel') is not None:
             self.service_level = m.get('ServiceLevel')
         return self
