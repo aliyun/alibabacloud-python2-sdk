@@ -353,6 +353,17 @@ class Client(OpenApiClient):
         return self.list_tag_resources_with_options(request, runtime)
 
     def modify_prepay_instance_spec_with_options(self, request, runtime):
+        """
+        @deprecated : ModifyPrepayInstanceSpec is deprecated, please use foasconsole::2019-06-01::ModifyInstanceSpec instead.
+        
+
+        @param request: ModifyPrepayInstanceSpecRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyPrepayInstanceSpecResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         body_flat = {}
@@ -380,10 +391,30 @@ class Client(OpenApiClient):
         )
 
     def modify_prepay_instance_spec(self, request):
+        """
+        @deprecated : ModifyPrepayInstanceSpec is deprecated, please use foasconsole::2019-06-01::ModifyInstanceSpec instead.
+        
+
+        @param request: ModifyPrepayInstanceSpecRequest
+
+        @return: ModifyPrepayInstanceSpecResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_prepay_instance_spec_with_options(request, runtime)
 
     def modify_prepay_namespace_spec_with_options(self, request, runtime):
+        """
+        @deprecated : ModifyPrepayNamespaceSpec is deprecated, please use foasconsole::2019-06-01::ModifyNamespaceSpec instead.
+        
+
+        @param request: ModifyPrepayNamespaceSpecRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyPrepayNamespaceSpecResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         body_flat = {}
@@ -411,6 +442,15 @@ class Client(OpenApiClient):
         )
 
     def modify_prepay_namespace_spec(self, request):
+        """
+        @deprecated : ModifyPrepayNamespaceSpec is deprecated, please use foasconsole::2019-06-01::ModifyNamespaceSpec instead.
+        
+
+        @param request: ModifyPrepayNamespaceSpecRequest
+
+        @return: ModifyPrepayNamespaceSpecResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_prepay_namespace_spec_with_options(request, runtime)
 
