@@ -1,3 +1,10 @@
+2024-02-04 Version: 1.0.5
+- Update API AbolishApiadd SecurityToken param.
+- Update API AbolishApiForInneradd SecurityToken param.
+- Update API CheckAoneAppAuditadd SecurityToken param.
+- Update API DescribeBidByUserIdForInneradd SecurityToken param.
+
+
 2024-01-26 Version: 1.0.4
 - Generated python2 2016-02-01 for CloudAPI.
 
