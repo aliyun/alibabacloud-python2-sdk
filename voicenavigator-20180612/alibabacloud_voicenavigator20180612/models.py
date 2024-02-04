@@ -5,11 +5,12 @@ from Tea.model import TeaModel
 
 class AssociateChatbotInstanceRequest(TeaModel):
     def __init__(self, chatbot_instance_id=None, chatbot_name=None, instance_id=None, nlu_service_params_json=None,
-                 union_source=None):
+                 nlu_service_type=None, union_source=None):
         self.chatbot_instance_id = chatbot_instance_id  # type: str
         self.chatbot_name = chatbot_name  # type: str
         self.instance_id = instance_id  # type: str
         self.nlu_service_params_json = nlu_service_params_json  # type: str
+        self.nlu_service_type = nlu_service_type  # type: str
         self.union_source = union_source  # type: str
 
     def validate(self):
@@ -29,6 +30,8 @@ class AssociateChatbotInstanceRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.nlu_service_params_json is not None:
             result['NluServiceParamsJson'] = self.nlu_service_params_json
+        if self.nlu_service_type is not None:
+            result['NluServiceType'] = self.nlu_service_type
         if self.union_source is not None:
             result['UnionSource'] = self.union_source
         return result
@@ -43,6 +46,8 @@ class AssociateChatbotInstanceRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('NluServiceParamsJson') is not None:
             self.nlu_service_params_json = m.get('NluServiceParamsJson')
+        if m.get('NluServiceType') is not None:
+            self.nlu_service_type = m.get('NluServiceType')
         if m.get('UnionSource') is not None:
             self.union_source = m.get('UnionSource')
         return self
@@ -79,9 +84,6 @@ class AssociateChatbotInstanceResponse(TeaModel):
         self.body = body  # type: AssociateChatbotInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -112,8 +114,14 @@ class AssociateChatbotInstanceResponse(TeaModel):
 
 
 class AuditTTSVoiceRequest(TeaModel):
-    def __init__(self, instance_id=None, speech_rate=None, text=None, voice=None, volume=None):
+    def __init__(self, access_key=None, app_key=None, engine=None, instance_id=None, pitch_rate=None,
+                 secret_key=None, speech_rate=None, text=None, voice=None, volume=None):
+        self.access_key = access_key  # type: str
+        self.app_key = app_key  # type: str
+        self.engine = engine  # type: str
         self.instance_id = instance_id  # type: str
+        self.pitch_rate = pitch_rate  # type: str
+        self.secret_key = secret_key  # type: str
         self.speech_rate = speech_rate  # type: str
         self.text = text  # type: str
         self.voice = voice  # type: str
@@ -128,8 +136,18 @@ class AuditTTSVoiceRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.access_key is not None:
+            result['AccessKey'] = self.access_key
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.engine is not None:
+            result['Engine'] = self.engine
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.pitch_rate is not None:
+            result['PitchRate'] = self.pitch_rate
+        if self.secret_key is not None:
+            result['SecretKey'] = self.secret_key
         if self.speech_rate is not None:
             result['SpeechRate'] = self.speech_rate
         if self.text is not None:
@@ -142,8 +160,18 @@ class AuditTTSVoiceRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessKey') is not None:
+            self.access_key = m.get('AccessKey')
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('PitchRate') is not None:
+            self.pitch_rate = m.get('PitchRate')
+        if m.get('SecretKey') is not None:
+            self.secret_key = m.get('SecretKey')
         if m.get('SpeechRate') is not None:
             self.speech_rate = m.get('SpeechRate')
         if m.get('Text') is not None:
@@ -191,9 +219,6 @@ class AuditTTSVoiceResponse(TeaModel):
         self.body = body  # type: AuditTTSVoiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -324,9 +349,6 @@ class BeginDialogueResponse(TeaModel):
         self.body = body  # type: BeginDialogueResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -452,9 +474,6 @@ class CollectedNumberResponse(TeaModel):
         self.body = body  # type: CollectedNumberResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -570,9 +589,6 @@ class CreateDownloadUrlResponse(TeaModel):
         self.body = body  # type: CreateDownloadUrlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -688,9 +704,6 @@ class CreateInstanceResponse(TeaModel):
         self.body = body  # type: CreateInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -816,9 +829,6 @@ class DebugBeginDialogueResponse(TeaModel):
         self.body = body  # type: DebugBeginDialogueResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -933,9 +943,6 @@ class DebugCollectedNumberResponse(TeaModel):
         self.body = body  # type: DebugCollectedNumberResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1055,9 +1062,6 @@ class DebugDialogueResponse(TeaModel):
         self.body = body  # type: DebugDialogueResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1142,9 +1146,6 @@ class DeleteInstanceResponse(TeaModel):
         self.body = body  # type: DeleteInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1275,9 +1276,6 @@ class DescribeConversationResponse(TeaModel):
         self.body = body  # type: DescribeConversationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1372,9 +1370,6 @@ class DescribeConversationContextResponse(TeaModel):
         self.body = body  # type: DescribeConversationContextResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1474,9 +1469,6 @@ class DescribeExportProgressResponse(TeaModel):
         self.body = body  # type: DescribeExportProgressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1623,9 +1615,6 @@ class DescribeInstanceResponse(TeaModel):
         self.body = body  # type: DescribeInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1873,9 +1862,6 @@ class DescribeNavigationConfigResponse(TeaModel):
         self.body = body  # type: DescribeNavigationConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1985,9 +1971,6 @@ class DescribeRecordingResponse(TeaModel):
         self.body = body  # type: DescribeRecordingResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2187,9 +2170,6 @@ class DescribeStatisticalDataResponse(TeaModel):
         self.body = body  # type: DescribeStatisticalDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2249,10 +2229,13 @@ class DescribeTTSConfigRequest(TeaModel):
 
 
 class DescribeTTSConfigResponseBody(TeaModel):
-    def __init__(self, app_key=None, nls_service_type=None, request_id=None, speech_rate=None, voice=None,
-                 volume=None):
+    def __init__(self, app_key=None, engine=None, engine_xunfei=None, nls_service_type=None, pitch_rate=None,
+                 request_id=None, speech_rate=None, voice=None, volume=None):
         self.app_key = app_key  # type: str
+        self.engine = engine  # type: str
+        self.engine_xunfei = engine_xunfei  # type: str
         self.nls_service_type = nls_service_type  # type: str
+        self.pitch_rate = pitch_rate  # type: int
         self.request_id = request_id  # type: str
         self.speech_rate = speech_rate  # type: int
         self.voice = voice  # type: str
@@ -2269,8 +2252,14 @@ class DescribeTTSConfigResponseBody(TeaModel):
         result = dict()
         if self.app_key is not None:
             result['AppKey'] = self.app_key
+        if self.engine is not None:
+            result['Engine'] = self.engine
+        if self.engine_xunfei is not None:
+            result['EngineXunfei'] = self.engine_xunfei
         if self.nls_service_type is not None:
             result['NlsServiceType'] = self.nls_service_type
+        if self.pitch_rate is not None:
+            result['PitchRate'] = self.pitch_rate
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.speech_rate is not None:
@@ -2285,8 +2274,14 @@ class DescribeTTSConfigResponseBody(TeaModel):
         m = m or dict()
         if m.get('AppKey') is not None:
             self.app_key = m.get('AppKey')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('EngineXunfei') is not None:
+            self.engine_xunfei = m.get('EngineXunfei')
         if m.get('NlsServiceType') is not None:
             self.nls_service_type = m.get('NlsServiceType')
+        if m.get('PitchRate') is not None:
+            self.pitch_rate = m.get('PitchRate')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('SpeechRate') is not None:
@@ -2305,9 +2300,6 @@ class DescribeTTSConfigResponse(TeaModel):
         self.body = body  # type: DescribeTTSConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2448,9 +2440,6 @@ class DialogueResponse(TeaModel):
         self.body = body  # type: DialogueResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2540,9 +2529,6 @@ class DisableInstanceResponse(TeaModel):
         self.body = body  # type: DisableInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2632,9 +2618,6 @@ class EnableInstanceResponse(TeaModel):
         self.body = body  # type: EnableInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2734,9 +2717,6 @@ class EndDialogueResponse(TeaModel):
         self.body = body  # type: EndDialogueResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2862,9 +2842,6 @@ class ExportConversationDetailsResponse(TeaModel):
         self.body = body  # type: ExportConversationDetailsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2975,9 +2952,6 @@ class ExportStatisticalDataResponse(TeaModel):
         self.body = body  # type: ExportStatisticalDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3268,9 +3242,6 @@ class GenerateUploadUrlResponse(TeaModel):
         self.body = body  # type: GenerateUploadUrlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3427,9 +3398,6 @@ class GetAsrConfigResponse(TeaModel):
         self.body = body  # type: GetAsrConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3529,9 +3497,6 @@ class GetRealTimeConcurrencyResponse(TeaModel):
         self.body = body  # type: GetRealTimeConcurrencyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3725,9 +3690,6 @@ class ListChatbotInstancesResponse(TeaModel):
         self.body = body  # type: ListChatbotInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3885,9 +3847,6 @@ class ListConversationDetailsResponse(TeaModel):
         self.body = body  # type: ListConversationDetailsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4128,9 +4087,6 @@ class ListConversationsResponse(TeaModel):
         self.body = body  # type: ListConversationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4386,9 +4342,6 @@ class ListDownloadTasksResponse(TeaModel):
         self.body = body  # type: ListDownloadTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4628,9 +4581,6 @@ class ListInstancesResponse(TeaModel):
         self.body = body  # type: ListInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4792,9 +4742,6 @@ class ModifyAsrConfigResponse(TeaModel):
         self.body = body  # type: ModifyAsrConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4894,9 +4841,6 @@ class ModifyGreetingConfigResponse(TeaModel):
         self.body = body  # type: ModifyGreetingConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4996,9 +4940,6 @@ class ModifyInstanceResponse(TeaModel):
         self.body = body  # type: ModifyInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5124,9 +5065,6 @@ class ModifySilenceTimeoutConfigResponse(TeaModel):
         self.body = body  # type: ModifySilenceTimeoutConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5157,9 +5095,11 @@ class ModifySilenceTimeoutConfigResponse(TeaModel):
 
 
 class ModifyTTSConfigRequest(TeaModel):
-    def __init__(self, app_key=None, instance_id=None, nls_service_type=None, speech_rate=None, voice=None,
-                 volume=None):
+    def __init__(self, app_key=None, engine=None, engine_xunfei=None, instance_id=None, nls_service_type=None,
+                 speech_rate=None, voice=None, volume=None):
         self.app_key = app_key  # type: str
+        self.engine = engine  # type: str
+        self.engine_xunfei = engine_xunfei  # type: str
         self.instance_id = instance_id  # type: str
         self.nls_service_type = nls_service_type  # type: str
         self.speech_rate = speech_rate  # type: str
@@ -5177,6 +5117,10 @@ class ModifyTTSConfigRequest(TeaModel):
         result = dict()
         if self.app_key is not None:
             result['AppKey'] = self.app_key
+        if self.engine is not None:
+            result['Engine'] = self.engine
+        if self.engine_xunfei is not None:
+            result['EngineXunfei'] = self.engine_xunfei
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.nls_service_type is not None:
@@ -5193,6 +5137,10 @@ class ModifyTTSConfigRequest(TeaModel):
         m = m or dict()
         if m.get('AppKey') is not None:
             self.app_key = m.get('AppKey')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('EngineXunfei') is not None:
+            self.engine_xunfei = m.get('EngineXunfei')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('NlsServiceType') is not None:
@@ -5237,9 +5185,6 @@ class ModifyTTSConfigResponse(TeaModel):
         self.body = body  # type: ModifyTTSConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5350,9 +5295,6 @@ class ModifyUnrecognizingConfigResponse(TeaModel):
         self.body = body  # type: ModifyUnrecognizingConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5551,9 +5493,6 @@ class QueryConversationsResponse(TeaModel):
         self.body = body  # type: QueryConversationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5679,9 +5618,6 @@ class SaveRecordingResponse(TeaModel):
         self.body = body  # type: SaveRecordingResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5801,9 +5737,6 @@ class SilenceTimeoutResponse(TeaModel):
         self.body = body  # type: SilenceTimeoutResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
