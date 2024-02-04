@@ -50472,15 +50472,18 @@ class HotelOrderQueryResponseBodyModuleOrderBaseInfo(TeaModel):
 
 
 class HotelOrderQueryResponseBodyModulePassengerList(TeaModel):
-    def __init__(self, cost_center_id=None, cost_center_name=None, cost_center_number=None, project_code=None,
-                 project_id=None, project_title=None, thirdpart_cost_center_id=None, thirdpart_project_id=None, user_id=None,
-                 user_name=None, user_type=None):
+    def __init__(self, apply_id=None, cost_center_id=None, cost_center_name=None, cost_center_number=None,
+                 itinerary_id=None, project_code=None, project_id=None, project_title=None, thirdpart_apply_id=None,
+                 thirdpart_cost_center_id=None, thirdpart_project_id=None, user_id=None, user_name=None, user_type=None):
+        self.apply_id = apply_id  # type: str
         self.cost_center_id = cost_center_id  # type: long
         self.cost_center_name = cost_center_name  # type: str
         self.cost_center_number = cost_center_number  # type: str
+        self.itinerary_id = itinerary_id  # type: str
         self.project_code = project_code  # type: str
         self.project_id = project_id  # type: long
         self.project_title = project_title  # type: str
+        self.thirdpart_apply_id = thirdpart_apply_id  # type: str
         self.thirdpart_cost_center_id = thirdpart_cost_center_id  # type: str
         self.thirdpart_project_id = thirdpart_project_id  # type: str
         self.user_id = user_id  # type: str
@@ -50496,18 +50499,24 @@ class HotelOrderQueryResponseBodyModulePassengerList(TeaModel):
             return _map
 
         result = dict()
+        if self.apply_id is not None:
+            result['apply_id'] = self.apply_id
         if self.cost_center_id is not None:
             result['cost_center_id'] = self.cost_center_id
         if self.cost_center_name is not None:
             result['cost_center_name'] = self.cost_center_name
         if self.cost_center_number is not None:
             result['cost_center_number'] = self.cost_center_number
+        if self.itinerary_id is not None:
+            result['itinerary_id'] = self.itinerary_id
         if self.project_code is not None:
             result['project_code'] = self.project_code
         if self.project_id is not None:
             result['project_id'] = self.project_id
         if self.project_title is not None:
             result['project_title'] = self.project_title
+        if self.thirdpart_apply_id is not None:
+            result['thirdpart_apply_id'] = self.thirdpart_apply_id
         if self.thirdpart_cost_center_id is not None:
             result['thirdpart_cost_center_id'] = self.thirdpart_cost_center_id
         if self.thirdpart_project_id is not None:
@@ -50522,18 +50531,24 @@ class HotelOrderQueryResponseBodyModulePassengerList(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('apply_id') is not None:
+            self.apply_id = m.get('apply_id')
         if m.get('cost_center_id') is not None:
             self.cost_center_id = m.get('cost_center_id')
         if m.get('cost_center_name') is not None:
             self.cost_center_name = m.get('cost_center_name')
         if m.get('cost_center_number') is not None:
             self.cost_center_number = m.get('cost_center_number')
+        if m.get('itinerary_id') is not None:
+            self.itinerary_id = m.get('itinerary_id')
         if m.get('project_code') is not None:
             self.project_code = m.get('project_code')
         if m.get('project_id') is not None:
             self.project_id = m.get('project_id')
         if m.get('project_title') is not None:
             self.project_title = m.get('project_title')
+        if m.get('thirdpart_apply_id') is not None:
+            self.thirdpart_apply_id = m.get('thirdpart_apply_id')
         if m.get('thirdpart_cost_center_id') is not None:
             self.thirdpart_cost_center_id = m.get('thirdpart_cost_center_id')
         if m.get('thirdpart_project_id') is not None:
