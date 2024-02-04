@@ -3131,6 +3131,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
             query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.dbendpoint_id):
+            query['DBEndpointId'] = request.dbendpoint_id
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.key):
@@ -6904,71 +6906,10 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.untag_resources_with_options(request, runtime)
 
-    def upgrade_dbcluster_minor_version_with_options(self, request, runtime):
-        """
-        > You can upgrade only the revision version of a PolarDB for MySQL cluster. For example, you can upgrade the version 8.0.1.1.3 of a PolarDB for MySQL cluster to the version 8.0.1.1.4.
-        
-
-        @param request: UpgradeDBClusterMinorVersionRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: UpgradeDBClusterMinorVersionResponse
-        """
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.dbcluster_id):
-            query['DBClusterId'] = request.dbcluster_id
-        if not UtilClient.is_unset(request.from_time_service):
-            query['FromTimeService'] = request.from_time_service
-        if not UtilClient.is_unset(request.owner_account):
-            query['OwnerAccount'] = request.owner_account
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.planned_end_time):
-            query['PlannedEndTime'] = request.planned_end_time
-        if not UtilClient.is_unset(request.planned_start_time):
-            query['PlannedStartTime'] = request.planned_start_time
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='UpgradeDBClusterMinorVersion',
-            version='2017-08-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            polardb_20170801_models.UpgradeDBClusterMinorVersionResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def upgrade_dbcluster_minor_version(self, request):
-        """
-        > You can upgrade only the revision version of a PolarDB for MySQL cluster. For example, you can upgrade the version 8.0.1.1.3 of a PolarDB for MySQL cluster to the version 8.0.1.1.4.
-        
-
-        @param request: UpgradeDBClusterMinorVersionRequest
-
-        @return: UpgradeDBClusterMinorVersionResponse
-        """
-        runtime = util_models.RuntimeOptions()
-        return self.upgrade_dbcluster_minor_version_with_options(request, runtime)
-
     def upgrade_dbcluster_version_with_options(self, request, runtime):
         """
-        >
-        *   You can update only the revision version of a PolarDB for MySQL cluster, for example, from 8.0.1.1.3 to 8.0.1.1.4.
-        *   You can use only your Alibaba Cloud account to create scheduled tasks that update the kernel version of a PolarDB for MySQL cluster. RAM users are not authorized to update the kernel version of a PolarDB for MySQL cluster.
+        >   You can update only the revision version of a PolarDB for MySQL cluster, for example, from 8.0.1.1.3 to 8.0.1.1.4.
+        >*   You can use only your Alibaba Cloud account to create scheduled tasks that update the kernel version of a PolarDB for MySQL cluster. RAM users are not authorized to update the kernel version of a PolarDB for MySQL cluster.
         
 
         @param request: UpgradeDBClusterVersionRequest
@@ -7024,9 +6965,8 @@ class Client(OpenApiClient):
 
     def upgrade_dbcluster_version(self, request):
         """
-        >
-        *   You can update only the revision version of a PolarDB for MySQL cluster, for example, from 8.0.1.1.3 to 8.0.1.1.4.
-        *   You can use only your Alibaba Cloud account to create scheduled tasks that update the kernel version of a PolarDB for MySQL cluster. RAM users are not authorized to update the kernel version of a PolarDB for MySQL cluster.
+        >   You can update only the revision version of a PolarDB for MySQL cluster, for example, from 8.0.1.1.3 to 8.0.1.1.4.
+        >*   You can use only your Alibaba Cloud account to create scheduled tasks that update the kernel version of a PolarDB for MySQL cluster. RAM users are not authorized to update the kernel version of a PolarDB for MySQL cluster.
         
 
         @param request: UpgradeDBClusterVersionRequest
