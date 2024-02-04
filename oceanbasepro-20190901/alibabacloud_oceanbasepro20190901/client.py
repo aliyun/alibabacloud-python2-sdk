@@ -856,7 +856,9 @@ class Client(OpenApiClient):
 
     def delete_instances_with_options(self, request, runtime):
         """
-        Alibaba Cloud provides SDKs in different languages to help you quickly integrate Alibaba Cloud products and services by using APIs. We recommend that you use an SDK to call APIs. In this way, you do not need to sign for verification.
+        Before you call this operation, ensure that the following requirements are met:
+        - The cluster is in the Running state.
+        - The cluster is a primary cluster and the billing method is pay-as-you-go.
         
 
         @param request: DeleteInstancesRequest
@@ -894,7 +896,9 @@ class Client(OpenApiClient):
 
     def delete_instances(self, request):
         """
-        Alibaba Cloud provides SDKs in different languages to help you quickly integrate Alibaba Cloud products and services by using APIs. We recommend that you use an SDK to call APIs. In this way, you do not need to sign for verification.
+        Before you call this operation, ensure that the following requirements are met:
+        - The cluster is in the Running state.
+        - The cluster is a primary cluster and the billing method is pay-as-you-go.
         
 
         @param request: DeleteInstancesRequest
@@ -2534,6 +2538,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_sqlsamples_with_options(request, runtime)
 
+    def describe_sample_sql_raw_texts_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.db_name):
+            body['DbName'] = request.db_name
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.limit):
+            body['Limit'] = request.limit
+        if not UtilClient.is_unset(request.sql_id):
+            body['SqlId'] = request.sql_id
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        if not UtilClient.is_unset(request.trace_id):
+            body['TraceId'] = request.trace_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeSampleSqlRawTexts',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.DescribeSampleSqlRawTextsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_sample_sql_raw_texts(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_sample_sql_raw_texts_with_options(request, runtime)
+
     def describe_security_ip_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -3757,6 +3803,8 @@ class Client(OpenApiClient):
             body['UserDirectVSwitchId'] = request.user_direct_vswitch_id
         if not UtilClient.is_unset(request.user_vswitch_id):
             body['UserVSwitchId'] = request.user_vswitch_id
+        if not UtilClient.is_unset(request.vpc_id):
+            body['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )

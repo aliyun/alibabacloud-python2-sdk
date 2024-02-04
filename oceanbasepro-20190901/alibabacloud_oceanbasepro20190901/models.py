@@ -485,9 +485,6 @@ class CancelProjectModifyRecordResponse(TeaModel):
         self.body = body  # type: CancelProjectModifyRecordResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -582,9 +579,6 @@ class CreateBackupSetDownloadLinkResponse(TeaModel):
         self.body = body  # type: CreateBackupSetDownloadLinkResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -716,9 +710,6 @@ class CreateDatabaseResponse(TeaModel):
         self.body = body  # type: CreateDatabaseResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -774,8 +765,14 @@ class CreateInstanceRequest(TeaModel):
         # - 62C400GB: 800 GB to 10000 GB    
         # The preceding minimum storage space sizes are the default storage space sizes of the corresponding cluster specification plans.
         self.disk_size = disk_size  # type: long
-        # The return result of the request.
+        # The type of the storage disk where the cluster is deployed. This parameter takes effect only for Standard Cluster Edition (Cloud Disk).
+        # Valid values:
+        # - cloud_essd_pl1: ESSD PL1.
+        # - cloud_essd_pl0: ESSD PL0. Default value: cloud_essd_pl1.
         self.disk_type = disk_type  # type: str
+        # Specifies whether to perform only a dry run for the request. Default value: false. Valid values:
+        # - true: Only a dry-run request is sent and the instance is not created. If the dry run succeeds, DryRunResult=true is returned. If the dry run fails, an error code is returned.
+        # - false: The actual request is sent and no dry run is performed. The instance is created if the requirements are met. By default, the DryRunResult parameter returns false if you set DryRun to false.
         self.dry_run = dry_run  # type: bool
         # The specifications of the cluster.     
         # You can specify one of the following four plans:   
@@ -788,6 +785,10 @@ class CreateInstanceRequest(TeaModel):
         # It must be 1 to 20 characters in length.   
         # If this parameter is not specified, the value is the instance ID of the cluster by default.
         self.instance_name = instance_name  # type: str
+        # Specifies whether to enable the control group feature.
+        # Valid values:
+        # - true
+        # - false
         self.isolation_optimization = isolation_optimization  # type: str
         # OceanBase Server version number.
         self.ob_version = ob_version  # type: str
@@ -801,8 +802,19 @@ class CreateInstanceRequest(TeaModel):
         # Valid value for subscription: Month or Year.
         # Default value: Month for subscription, and Hour for pay-as-you-go.
         self.period_unit = period_unit  # type: str
+        # Primary instance ID.
         self.primary_instance = primary_instance  # type: str
+        # Primary instance region.
         self.primary_region = primary_region  # type: str
+        # The number of full-featured replicas.
+        # - 3F: three full-featured replicas.
+        # - 2F1L: two full-featured replicas and one log replica.
+        # - 2F1A: two full-featured replicas and one arbitration service.
+        # - ApsaraDB for OceanBase earlier than V4.1 supports 3F and 2F1L.
+        # - ApsaraDB for OceanBase V4.1 or later supports 3F and 2F1A.
+        # - An ApsaraDB for OceanBase instance deployed across three zones supports only 3F.
+        # - An ApsaraDB for OceanBase instance deployed across two zones supports 2F1A or 2F1L, depending on the version.
+        # - An ApsaraDB for OceanBase instance deployed in a single zone supports 3F, 2F1A, or 2F1L, depending on the version.
         self.replica_mode = replica_mode  # type: str
         # The ID of the resource group to which the instance belongs.
         self.resource_group_id = resource_group_id  # type: str
@@ -905,11 +917,17 @@ class CreateInstanceRequest(TeaModel):
 
 class CreateInstanceResponseBodyData(TeaModel):
     def __init__(self, dry_run_result=None, instance_id=None, order_id=None, resource_group_id=None):
+        # The result of the dry-run request.
+        # 
+        # If the DryRun parameter is set to true and the dry run succeeds, the DryRunResult parameter returns true. Otherwise, an error code is returned.
+        # If the DryRun parameter is set to false, no dry run is performed and the DryRunResult parameter returns false.
         self.dry_run_result = dry_run_result  # type: bool
-        # 订单ID。该参数只有创建包年包月ECS实例（请求参数InstanceChargeType=PrePaid）时有返回值。
+        # Instance ID.
         self.instance_id = instance_id  # type: str
-        # 资源组ID
+        # Order ID. The ID of the order that you have placed.
+        # This parameter returns a value after you create a pre-paid or post-paid cluster.
         self.order_id = order_id  # type: str
+        # Resource group ID.
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -946,9 +964,8 @@ class CreateInstanceResponseBodyData(TeaModel):
 
 class CreateInstanceResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # 实例ID
         self.data = data  # type: CreateInstanceResponseBodyData
-        # Response parameters
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -984,9 +1001,6 @@ class CreateInstanceResponse(TeaModel):
         self.body = body  # type: CreateInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1210,9 +1224,6 @@ class CreateLabelResponse(TeaModel):
         self.body = body  # type: CreateLabelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1487,9 +1498,6 @@ class CreateMySqlDataSourceResponse(TeaModel):
         self.body = body  # type: CreateMySqlDataSourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1791,9 +1799,6 @@ class CreateOceanBaseDataSourceResponse(TeaModel):
         self.body = body  # type: CreateOceanBaseDataSourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1993,9 +1998,6 @@ class CreateOmsMysqlDataSourceResponse(TeaModel):
         self.body = body  # type: CreateOmsMysqlDataSourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2752,9 +2754,6 @@ class CreateOmsOpenAPIProjectResponse(TeaModel):
         self.body = body  # type: CreateOmsOpenAPIProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4479,9 +4478,6 @@ class CreateProjectResponse(TeaModel):
         self.body = body  # type: CreateProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5225,9 +5221,6 @@ class CreateProjectModifyRecordsResponse(TeaModel):
         self.body = body  # type: CreateProjectModifyRecordsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5477,9 +5470,6 @@ class CreateRdsPostgreSQLDataSourceResponse(TeaModel):
         self.body = body  # type: CreateRdsPostgreSQLDataSourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5630,9 +5620,6 @@ class CreateSecurityIpGroupResponse(TeaModel):
         self.body = body  # type: CreateSecurityIpGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5677,6 +5664,7 @@ class CreateTenantRequest(TeaModel):
         self.description = description  # type: str
         # The ID of the OceanBase cluster.
         self.instance_id = instance_id  # type: str
+        # The size of the log disk allocated to the tenant, in GB.
         self.log_disk = log_disk  # type: long
         # The memory size of the tenant, in GB.   
         # 
@@ -5685,6 +5673,8 @@ class CreateTenantRequest(TeaModel):
         # The primary zone of the tenant.    
         # It is one of the zones in which the cluster is deployed.
         self.primary_zone = primary_zone  # type: str
+        # Specifies to create a read-only zone. Separate the names of multiple zones with commas (,).
+        # ><notice><br>At present, this parameter is unavailable.></notice>
         self.read_only_zone_list = read_only_zone_list  # type: str
         # The tenant mode.    
         # Valid values: Oracle and MySQL.   
@@ -5817,9 +5807,6 @@ class CreateTenantResponse(TeaModel):
         self.body = body  # type: CreateTenantResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5924,9 +5911,6 @@ class CreateTenantReadOnlyConnectionResponse(TeaModel):
         self.body = body  # type: CreateTenantReadOnlyConnectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6088,9 +6072,6 @@ class CreateTenantSecurityIpGroupResponse(TeaModel):
         self.body = body  # type: CreateTenantSecurityIpGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6304,9 +6285,6 @@ class CreateTenantUserResponse(TeaModel):
         self.body = body  # type: CreateTenantUserResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6530,9 +6508,6 @@ class DeleteDataSourceResponse(TeaModel):
         self.body = body  # type: DeleteDataSourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6627,9 +6602,6 @@ class DeleteDatabasesResponse(TeaModel):
         self.body = body  # type: DeleteDatabasesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6661,8 +6633,19 @@ class DeleteDatabasesResponse(TeaModel):
 
 class DeleteInstancesRequest(TeaModel):
     def __init__(self, backup_retain_mode=None, dry_run=None, instance_ids=None):
+        # The backup retention strategy for cluster deletion. Valid values:  
+        # - receive_all: retains all backup sets.   
+        # - delete_all: deletes all backup sets.   
+        # - receive_last: retains the last backup set.    
+        # 
+        # > <br>Default value: delete_all.
         self.backup_retain_mode = backup_retain_mode  # type: str
+        # Specifies whether to perform only a dry run for the request. Default value: false. Valid values:
+        # - true: Only a dry-run request is sent and the instance is not deleted. If the dry run succeeds, DryRunResult=true is returned. If the dry run fails, an error code is returned.
+        # - false: The actual request is sent and no dry run is performed. The instance is deleted if the requirements are met. By default, false is returned for the parameter DryRunResult if you set DryRun to false.
         self.dry_run = dry_run  # type: bool
+        # The ID of the cluster to be deleted.   
+        # The value is a string in the JSON format.
         self.instance_ids = instance_ids  # type: str
 
     def validate(self):
@@ -6695,6 +6678,9 @@ class DeleteInstancesRequest(TeaModel):
 
 class DeleteInstancesResponseBodyData(TeaModel):
     def __init__(self, dry_run_result=None):
+        # The result of the dry-run request.
+        # - If the DryRun parameter is set to true and the dry run succeeds, the DryRunResult parameter returns true. Otherwise, an error code is returned.
+        # - If the DryRun parameter is set to false, no dry run is performed and the DryRunResult parameter returns false.
         self.dry_run_result = dry_run_result  # type: bool
 
     def validate(self):
@@ -6719,7 +6705,9 @@ class DeleteInstancesResponseBodyData(TeaModel):
 
 class DeleteInstancesResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The returned data.
         self.data = data  # type: DeleteInstancesResponseBodyData
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6755,9 +6743,6 @@ class DeleteInstancesResponse(TeaModel):
         self.body = body  # type: DeleteInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6962,9 +6947,6 @@ class DeleteOmsOpenAPIProjectResponse(TeaModel):
         self.body = body  # type: DeleteOmsOpenAPIProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7188,9 +7170,6 @@ class DeleteProjectResponse(TeaModel):
         self.body = body  # type: DeleteProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7320,9 +7299,6 @@ class DeleteSecurityIpGroupResponse(TeaModel):
         self.body = body  # type: DeleteSecurityIpGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7468,9 +7444,6 @@ class DeleteTenantSecurityIpGroupResponse(TeaModel):
         self.body = body  # type: DeleteTenantSecurityIpGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7569,9 +7542,6 @@ class DeleteTenantUsersResponse(TeaModel):
         self.body = body  # type: DeleteTenantUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7673,9 +7643,6 @@ class DeleteTenantsResponse(TeaModel):
         self.body = body  # type: DeleteTenantsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8112,9 +8079,6 @@ class DescribeAnomalySQLListResponse(TeaModel):
         self.body = body  # type: DescribeAnomalySQLListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8189,9 +8153,11 @@ class DescribeAvailableCpuResourceRequest(TeaModel):
 
 
 class DescribeAvailableCpuResourceResponseBodyData(TeaModel):
-    def __init__(self, max_cpu=None, min_cpu=None, unit_num=None):
+    def __init__(self, comment=None, max_cpu=None, min_cpu=None, review_code=None, unit_num=None):
+        self.comment = comment  # type: str
         self.max_cpu = max_cpu  # type: long
         self.min_cpu = min_cpu  # type: long
+        self.review_code = review_code  # type: str
         self.unit_num = unit_num  # type: long
 
     def validate(self):
@@ -8203,20 +8169,28 @@ class DescribeAvailableCpuResourceResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.comment is not None:
+            result['Comment'] = self.comment
         if self.max_cpu is not None:
             result['MaxCpu'] = self.max_cpu
         if self.min_cpu is not None:
             result['MinCpu'] = self.min_cpu
+        if self.review_code is not None:
+            result['ReviewCode'] = self.review_code
         if self.unit_num is not None:
             result['UnitNum'] = self.unit_num
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Comment') is not None:
+            self.comment = m.get('Comment')
         if m.get('MaxCpu') is not None:
             self.max_cpu = m.get('MaxCpu')
         if m.get('MinCpu') is not None:
             self.min_cpu = m.get('MinCpu')
+        if m.get('ReviewCode') is not None:
+            self.review_code = m.get('ReviewCode')
         if m.get('UnitNum') is not None:
             self.unit_num = m.get('UnitNum')
         return self
@@ -8266,9 +8240,6 @@ class DescribeAvailableCpuResourceResponse(TeaModel):
         self.body = body  # type: DescribeAvailableCpuResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8300,13 +8271,14 @@ class DescribeAvailableCpuResourceResponse(TeaModel):
 
 class DescribeAvailableMemResourceRequest(TeaModel):
     def __init__(self, cpu_num=None, instance_id=None, tenant_id=None, unit_num=None):
-        # The available memory size.
+        # The number of CPU cores.
         self.cpu_num = cpu_num  # type: long
-        # The ID of the region.
+        # The ID of the OceanBase cluster.
         self.instance_id = instance_id  # type: str
         # The ID of the tenant.
         self.tenant_id = tenant_id  # type: str
-        # The number of resource units in the tenant.
+        # The number of resource distribution nodes in the tenant.   
+        # The number is determined by the deployment mode of the cluster. If the cluster is deployed in 2-2-2 mode, the maximum number of resource distribution nodes is 2.
         self.unit_num = unit_num  # type: long
 
     def validate(self):
@@ -8343,10 +8315,13 @@ class DescribeAvailableMemResourceRequest(TeaModel):
 
 class DescribeAvailableMemResourceResponseBodyData(TeaModel):
     def __init__(self, max_mem=None, min_mem=None, safe_mem=None, used_mem=None):
+        # The maximum memory size for each resource unit, in GB.
         self.max_mem = max_mem  # type: long
-        # You can call this operation to query the available memory resource of an OceanBase Database tenant.
+        # The minimum memory size required for each resource unit, in GB.
         self.min_mem = min_mem  # type: long
+        # The maximum allowed memory usage, in GB.
         self.safe_mem = safe_mem  # type: str
+        # The number of resource units in the tenant.
         self.used_mem = used_mem  # type: long
 
     def validate(self):
@@ -8383,16 +8358,9 @@ class DescribeAvailableMemResourceResponseBodyData(TeaModel):
 
 class DescribeAvailableMemResourceResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # ```
-        # http(s)://[Endpoint]/?Action=DescribeAvailableMemResource
-        # &InstanceId=ob317v4uif****\
-        # &TenantId=ob2mr3oae0****\
-        # &UnitNum=2
-        # &CpuNum=14
-        # &Common request parameters
-        # ```
+        # The available memory size.
         self.data = data  # type: DescribeAvailableMemResourceResponseBodyData
-        # The number of CPU cores.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8428,9 +8396,6 @@ class DescribeAvailableMemResourceResponse(TeaModel):
         self.body = body  # type: DescribeAvailableMemResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8687,9 +8652,6 @@ class DescribeAvailableSpecResponse(TeaModel):
         self.body = body  # type: DescribeAvailableSpecResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9020,9 +8982,6 @@ class DescribeAvailableZoneResponse(TeaModel):
         self.body = body  # type: DescribeAvailableZoneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9169,9 +9128,6 @@ class DescribeCharsetResponse(TeaModel):
         self.body = body  # type: DescribeCharsetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9586,9 +9542,6 @@ class DescribeDataBackupSetResponse(TeaModel):
         self.body = body  # type: DescribeDataBackupSetResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9621,23 +9574,25 @@ class DescribeDataBackupSetResponse(TeaModel):
 class DescribeDatabasesRequest(TeaModel):
     def __init__(self, database_name=None, instance_id=None, page_number=None, page_size=None, search_key=None,
                  tenant_id=None, with_tables=None):
-        # It is an Alibaba Cloud asset management and configuration tool, with which you can manage multiple Alibaba Cloud products and services by using commands. It is easy to use and a good helper in migration to cloud.
+        # The name of the database.    
+        # You cannot use reserved keywords, such as test and mysql.
         self.database_name = database_name  # type: str
+        # Instance ID.
         self.instance_id = instance_id  # type: str
-        # The return result of the request.
+        # The number of the page returned.  
+        # - Start value: 1   
+        # - Default value: 1
         self.page_number = page_number  # type: int
-        # Alibaba Cloud provides SDKs in different languages to help you quickly integrate Alibaba Cloud products and services by using APIs. We recommend that you use an SDK to call APIs. In this way, you do not need to sign for verification.
+        # The number of rows returned on each page.  
+        # - Maximum value: 100.  
+        # - Default value: 10
         self.page_size = page_size  # type: int
-        # The information about the database tables.
+        # The search keyword.
         self.search_key = search_key  # type: str
-        # The request ID.
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: str
-        # The role of the account.    
-        # In MySQL mode, a role is a database-level role. Valid values:  
-        # - ReadWrite: a role that has the read and write privileges, namely ALL PRIVILEGES.  
-        # - ReadOnly: a role that has only the read-only privilege SELECT.   
-        # - DDL: a role that has the DDL privileges such as CREATE, DROP, ALTER, SHOW VIEW, and CREATE VIEW.   
-        # - DML: a role that has the DML privileges such as SELECT, INSERT, UPDATE, DELETE, and SHOW VIEW.
+        # Specifies whether to return the information of tables in the database.   
+        # Default value: false.
         self.with_tables = with_tables  # type: bool
 
     def validate(self):
@@ -9686,6 +9641,7 @@ class DescribeDatabasesRequest(TeaModel):
 
 class DescribeDatabasesResponseBodyDatabasesTables(TeaModel):
     def __init__(self, table_name=None):
+        # The name of the database table.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -9710,10 +9666,16 @@ class DescribeDatabasesResponseBodyDatabasesTables(TeaModel):
 
 class DescribeDatabasesResponseBodyDatabasesUsers(TeaModel):
     def __init__(self, privileges=None, role=None, user_name=None, user_type=None):
+        # If you have granted custom privileges on the database, this parameter indicates the custom privileges, separated by commas (,). Otherwise, no data is returned for this parameter.
         self.privileges = privileges  # type: str
-        # The request ID.
+        # The role of the account.    
+        # In MySQL mode, a role is a database-level role. Valid values:  
+        # - ReadWrite: a role that has the read and write privileges, namely ALL PRIVILEGES.  
+        # - ReadOnly: a role that has only the read-only privilege SELECT.   
+        # - DDL: a role that has the DDL privileges such as CREATE, DROP, ALTER, SHOW VIEW, and CREATE VIEW.   
+        # - DML: a role that has the DML privileges such as SELECT, INSERT, UPDATE, DELETE, and SHOW VIEW.
         self.role = role  # type: str
-        # Example 1
+        # The name of the account.
         self.user_name = user_name  # type: str
         # The type of the account. Valid values:  - Admin: the super administrator account. - Normal: a general account.
         self.user_type = user_type  # type: str
@@ -9754,31 +9716,35 @@ class DescribeDatabasesResponseBodyDatabases(TeaModel):
     def __init__(self, collation=None, create_time=None, data_size=None, database_name=None, db_type=None,
                  description=None, encoding=None, instance_id=None, required_size=None, status=None, tables=None, tenant_id=None,
                  tenant_name=None, users=None):
+        # The collation.
         self.collation = collation  # type: str
-        # Specifies whether to return the information of tables in the database.   
-        # Default value: false.
+        # The time when the database was created.
         self.create_time = create_time  # type: str
+        # The actual data size, in GB.
         self.data_size = data_size  # type: float
-        # The number of the page to return.   
-        # - Start value: 1   
-        # - Default value: 1
-        self.database_name = database_name  # type: str
-        # The return result of the request.
-        self.db_type = db_type  # type: str
         # The name of the database.
+        self.database_name = database_name  # type: str
+        # The database type.
+        self.db_type = db_type  # type: str
+        # The description of the database.
         self.description = description  # type: str
+        # The encoding standard of the database. Encoding standards such as utf8mb4 and GBK are supported.
+        self.encoding = encoding  # type: str
+        # The ID of the cluster.
+        self.instance_id = instance_id  # type: str
+        # The storage space required, in GB.
+        self.required_size = required_size  # type: float
         # The status of the database. Valid values:    
         # - ONLINE: The database is running.  
         # - DELETING: The database is being deleted.
-        self.encoding = encoding  # type: str
-        self.instance_id = instance_id  # type: str
-        self.required_size = required_size  # type: float
-        # The list of databases in the tenant.
         self.status = status  # type: str
+        # The information about the database tables.
         self.tables = tables  # type: list[DescribeDatabasesResponseBodyDatabasesTables]
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: str
+        # Tenant name.
         self.tenant_name = tenant_name  # type: str
-        # The name of the database table.
+        # The accounts that have privileges on the database.
         self.users = users  # type: list[DescribeDatabasesResponseBodyDatabasesUsers]
 
     def validate(self):
@@ -9872,10 +9838,11 @@ class DescribeDatabasesResponseBodyDatabases(TeaModel):
 
 class DescribeDatabasesResponseBody(TeaModel):
     def __init__(self, databases=None, request_id=None, total_count=None):
-        # The ID of the tenant.
+        # The list of databases in the tenant.
         self.databases = databases  # type: list[DescribeDatabasesResponseBodyDatabases]
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The search keyword.
+        # The total number of databases in the tenant.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -9921,9 +9888,6 @@ class DescribeDatabasesResponse(TeaModel):
         self.body = body  # type: DescribeDatabasesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9986,12 +9950,14 @@ class DescribeInstanceRequest(TeaModel):
 
 class DescribeInstanceResponseBodyInstanceDataDiskAutoScaleConfig(TeaModel):
     def __init__(self, auto_scale=None, max_disk_size=None, scale_step_in_merge=None, scale_step_in_normal=None,
-                 upper_merge_threshold=None, upper_threshold=None, upperbound=None):
+                 upper_merge_threshold=None, upper_scale_step=None, upper_scale_strategy=None, upper_threshold=None, upperbound=None):
         self.auto_scale = auto_scale  # type: bool
         self.max_disk_size = max_disk_size  # type: long
         self.scale_step_in_merge = scale_step_in_merge  # type: long
         self.scale_step_in_normal = scale_step_in_normal  # type: long
         self.upper_merge_threshold = upper_merge_threshold  # type: long
+        self.upper_scale_step = upper_scale_step  # type: str
+        self.upper_scale_strategy = upper_scale_strategy  # type: str
         self.upper_threshold = upper_threshold  # type: long
         self.upperbound = upperbound  # type: long
 
@@ -10014,6 +9980,10 @@ class DescribeInstanceResponseBodyInstanceDataDiskAutoScaleConfig(TeaModel):
             result['ScaleStepInNormal'] = self.scale_step_in_normal
         if self.upper_merge_threshold is not None:
             result['UpperMergeThreshold'] = self.upper_merge_threshold
+        if self.upper_scale_step is not None:
+            result['UpperScaleStep'] = self.upper_scale_step
+        if self.upper_scale_strategy is not None:
+            result['UpperScaleStrategy'] = self.upper_scale_strategy
         if self.upper_threshold is not None:
             result['UpperThreshold'] = self.upper_threshold
         if self.upperbound is not None:
@@ -10032,6 +10002,10 @@ class DescribeInstanceResponseBodyInstanceDataDiskAutoScaleConfig(TeaModel):
             self.scale_step_in_normal = m.get('ScaleStepInNormal')
         if m.get('UpperMergeThreshold') is not None:
             self.upper_merge_threshold = m.get('UpperMergeThreshold')
+        if m.get('UpperScaleStep') is not None:
+            self.upper_scale_step = m.get('UpperScaleStep')
+        if m.get('UpperScaleStrategy') is not None:
+            self.upper_scale_strategy = m.get('UpperScaleStrategy')
         if m.get('UpperThreshold') is not None:
             self.upper_threshold = m.get('UpperThreshold')
         if m.get('Upperbound') is not None:
@@ -10675,11 +10649,13 @@ class DescribeInstanceResponseBodyInstance(TeaModel):
     def __init__(self, auto_renewal=None, auto_upgrade_ob_version=None, available_zones=None,
                  cpu_architecture=None, create_time=None, data_disk_auto_scale=None, data_disk_auto_scale_config=None,
                  data_merge_time=None, deploy_mode=None, deploy_type=None, disk_type=None, enable_isolation_optimization=None,
-                 enable_proxy_service=None, enable_upgrade_log_disk=None, expire_time=None, in_temp_capacity_status=None,
+                 enable_proxy_service=None, enable_read_only_replica=None, enable_read_only_replica_management=None,
+                 enable_upgrade_log_disk=None, exclusive_unit_num_limit=None, expire_time=None, in_temp_capacity_status=None,
                  instance_class=None, instance_id=None, instance_name=None, instance_role=None, is_latest_ob_version=None,
                  is_trust_ecs=None, isolation_optimization=None, maintain_time=None, node_num=None, ob_rpm_version=None,
                  pay_type=None, proxy_cluster_id=None, proxy_service_status=None, read_only_resource=None,
-                 replica_mode=None, resource=None, series=None, status=None, tenant_creatable=None, version=None, zones=None):
+                 replica_mode=None, resource=None, series=None, shared_unit_num_limit=None, status=None, tenant_creatable=None,
+                 unit_spec=None, version=None, zones=None):
         # The operation that you want to perform. <br>Set the value to **DescribeInstance**.
         self.auto_renewal = auto_renewal  # type: bool
         # Example 1
@@ -10700,7 +10676,10 @@ class DescribeInstanceResponseBodyInstance(TeaModel):
         self.disk_type = disk_type  # type: str
         self.enable_isolation_optimization = enable_isolation_optimization  # type: bool
         self.enable_proxy_service = enable_proxy_service  # type: bool
+        self.enable_read_only_replica = enable_read_only_replica  # type: bool
+        self.enable_read_only_replica_management = enable_read_only_replica_management  # type: bool
         self.enable_upgrade_log_disk = enable_upgrade_log_disk  # type: bool
+        self.exclusive_unit_num_limit = exclusive_unit_num_limit  # type: int
         # The information of the OceanBase cluster.
         self.expire_time = expire_time  # type: str
         self.in_temp_capacity_status = in_temp_capacity_status  # type: bool
@@ -10729,9 +10708,11 @@ class DescribeInstanceResponseBodyInstance(TeaModel):
         self.resource = resource  # type: DescribeInstanceResponseBodyInstanceResource
         # Indicates whether the OBServer version is the latest.
         self.series = series  # type: str
+        self.shared_unit_num_limit = shared_unit_num_limit  # type: int
         # The information about cluster resources.
         self.status = status  # type: str
         self.tenant_creatable = tenant_creatable  # type: DescribeInstanceResponseBodyInstanceTenantCreatable
+        self.unit_spec = unit_spec  # type: str
         # You can call this operation to query the detailed information of an OceanBase cluster.
         self.version = version  # type: str
         self.zones = zones  # type: list[str]
@@ -10778,8 +10759,14 @@ class DescribeInstanceResponseBodyInstance(TeaModel):
             result['EnableIsolationOptimization'] = self.enable_isolation_optimization
         if self.enable_proxy_service is not None:
             result['EnableProxyService'] = self.enable_proxy_service
+        if self.enable_read_only_replica is not None:
+            result['EnableReadOnlyReplica'] = self.enable_read_only_replica
+        if self.enable_read_only_replica_management is not None:
+            result['EnableReadOnlyReplicaManagement'] = self.enable_read_only_replica_management
         if self.enable_upgrade_log_disk is not None:
             result['EnableUpgradeLogDisk'] = self.enable_upgrade_log_disk
+        if self.exclusive_unit_num_limit is not None:
+            result['ExclusiveUnitNumLimit'] = self.exclusive_unit_num_limit
         if self.expire_time is not None:
             result['ExpireTime'] = self.expire_time
         if self.in_temp_capacity_status is not None:
@@ -10818,10 +10805,14 @@ class DescribeInstanceResponseBodyInstance(TeaModel):
             result['Resource'] = self.resource.to_map()
         if self.series is not None:
             result['Series'] = self.series
+        if self.shared_unit_num_limit is not None:
+            result['SharedUnitNumLimit'] = self.shared_unit_num_limit
         if self.status is not None:
             result['Status'] = self.status
         if self.tenant_creatable is not None:
             result['TenantCreatable'] = self.tenant_creatable.to_map()
+        if self.unit_spec is not None:
+            result['UnitSpec'] = self.unit_spec
         if self.version is not None:
             result['Version'] = self.version
         if self.zones is not None:
@@ -10857,8 +10848,14 @@ class DescribeInstanceResponseBodyInstance(TeaModel):
             self.enable_isolation_optimization = m.get('EnableIsolationOptimization')
         if m.get('EnableProxyService') is not None:
             self.enable_proxy_service = m.get('EnableProxyService')
+        if m.get('EnableReadOnlyReplica') is not None:
+            self.enable_read_only_replica = m.get('EnableReadOnlyReplica')
+        if m.get('EnableReadOnlyReplicaManagement') is not None:
+            self.enable_read_only_replica_management = m.get('EnableReadOnlyReplicaManagement')
         if m.get('EnableUpgradeLogDisk') is not None:
             self.enable_upgrade_log_disk = m.get('EnableUpgradeLogDisk')
+        if m.get('ExclusiveUnitNumLimit') is not None:
+            self.exclusive_unit_num_limit = m.get('ExclusiveUnitNumLimit')
         if m.get('ExpireTime') is not None:
             self.expire_time = m.get('ExpireTime')
         if m.get('InTempCapacityStatus') is not None:
@@ -10899,11 +10896,15 @@ class DescribeInstanceResponseBodyInstance(TeaModel):
             self.resource = temp_model.from_map(m['Resource'])
         if m.get('Series') is not None:
             self.series = m.get('Series')
+        if m.get('SharedUnitNumLimit') is not None:
+            self.shared_unit_num_limit = m.get('SharedUnitNumLimit')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('TenantCreatable') is not None:
             temp_model = DescribeInstanceResponseBodyInstanceTenantCreatable()
             self.tenant_creatable = temp_model.from_map(m['TenantCreatable'])
+        if m.get('UnitSpec') is not None:
+            self.unit_spec = m.get('UnitSpec')
         if m.get('Version') is not None:
             self.version = m.get('Version')
         if m.get('Zones') is not None:
@@ -10951,9 +10952,6 @@ class DescribeInstanceResponse(TeaModel):
         self.body = body  # type: DescribeInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11085,9 +11083,6 @@ class DescribeInstanceCreatableZoneResponse(TeaModel):
         self.body = body  # type: DescribeInstanceCreatableZoneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11234,9 +11229,6 @@ class DescribeInstanceSSLResponse(TeaModel):
         self.body = body  # type: DescribeInstanceSSLResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11268,7 +11260,9 @@ class DescribeInstanceSSLResponse(TeaModel):
 
 class DescribeInstanceSecurityConfigsRequest(TeaModel):
     def __init__(self, check_id=None, instance_id=None):
+        # The unique identifier of the check.
         self.check_id = check_id  # type: str
+        # The ID of the OceanBase cluster.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -11298,10 +11292,15 @@ class DescribeInstanceSecurityConfigsRequest(TeaModel):
 class DescribeInstanceSecurityConfigsResponseBodyInstanceSecurityConfigsSecurityConfigs(TeaModel):
     def __init__(self, config_description=None, config_group=None, config_name=None, risk=None,
                  risk_description=None):
+        # The name of the check item.
         self.config_description = config_description  # type: str
+        # The group of the check.
         self.config_group = config_group  # type: str
+        # The name of the specific check item.
         self.config_name = config_name  # type: str
+        # Specifies whether a risk is detected.
         self.risk = risk  # type: bool
+        # Security recommendations.
         self.risk_description = risk_description  # type: str
 
     def validate(self):
@@ -11343,11 +11342,17 @@ class DescribeInstanceSecurityConfigsResponseBodyInstanceSecurityConfigsSecurity
 class DescribeInstanceSecurityConfigsResponseBodyInstanceSecurityConfigs(TeaModel):
     def __init__(self, check_id=None, check_time=None, instance_id=None, security_configs=None,
                  total_check_count=None, total_risk_count=None):
+        # The unique identifier of the check.
         self.check_id = check_id  # type: str
+        # The time when the check was performed.
         self.check_time = check_time  # type: str
+        # The ID of the OceanBase cluster.
         self.instance_id = instance_id  # type: str
+        # The list of check items.
         self.security_configs = security_configs  # type: list[DescribeInstanceSecurityConfigsResponseBodyInstanceSecurityConfigsSecurityConfigs]
+        # The total number of security check items for the cluster.
         self.total_check_count = total_check_count  # type: int
+        # The total number of detected cluster security risks.
         self.total_risk_count = total_risk_count  # type: int
 
     def validate(self):
@@ -11400,7 +11405,9 @@ class DescribeInstanceSecurityConfigsResponseBodyInstanceSecurityConfigs(TeaMode
 
 class DescribeInstanceSecurityConfigsResponseBody(TeaModel):
     def __init__(self, instance_security_configs=None, request_id=None):
+        # The return result of the request.
         self.instance_security_configs = instance_security_configs  # type: DescribeInstanceSecurityConfigsResponseBodyInstanceSecurityConfigs
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11436,9 +11443,6 @@ class DescribeInstanceSecurityConfigsResponse(TeaModel):
         self.body = body  # type: DescribeInstanceSecurityConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11580,9 +11584,6 @@ class DescribeInstanceTagsResponse(TeaModel):
         self.body = body  # type: DescribeInstanceTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11674,9 +11675,6 @@ class DescribeInstanceTenantModesResponse(TeaModel):
         self.body = body  # type: DescribeInstanceTenantModesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12373,9 +12371,6 @@ class DescribeInstanceTopologyResponse(TeaModel):
         self.body = body  # type: DescribeInstanceTopologyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12463,12 +12458,13 @@ class DescribeInstancesRequest(TeaModel):
 
 class DescribeInstancesResponseBodyInstancesDataDiskAutoScaleConfig(TeaModel):
     def __init__(self, auto_scale=None, max_disk_size=None, scale_step_in_merge=None, scale_step_in_normal=None,
-                 upper_merge_threshold=None, upper_threshold=None, upperbound=None):
+                 upper_merge_threshold=None, upper_scale_strategy=None, upper_threshold=None, upperbound=None):
         self.auto_scale = auto_scale  # type: bool
         self.max_disk_size = max_disk_size  # type: long
         self.scale_step_in_merge = scale_step_in_merge  # type: long
         self.scale_step_in_normal = scale_step_in_normal  # type: long
         self.upper_merge_threshold = upper_merge_threshold  # type: long
+        self.upper_scale_strategy = upper_scale_strategy  # type: str
         self.upper_threshold = upper_threshold  # type: long
         self.upperbound = upperbound  # type: long
 
@@ -12491,6 +12487,8 @@ class DescribeInstancesResponseBodyInstancesDataDiskAutoScaleConfig(TeaModel):
             result['ScaleStepInNormal'] = self.scale_step_in_normal
         if self.upper_merge_threshold is not None:
             result['UpperMergeThreshold'] = self.upper_merge_threshold
+        if self.upper_scale_strategy is not None:
+            result['UpperScaleStrategy'] = self.upper_scale_strategy
         if self.upper_threshold is not None:
             result['UpperThreshold'] = self.upper_threshold
         if self.upperbound is not None:
@@ -12509,6 +12507,8 @@ class DescribeInstancesResponseBodyInstancesDataDiskAutoScaleConfig(TeaModel):
             self.scale_step_in_normal = m.get('ScaleStepInNormal')
         if m.get('UpperMergeThreshold') is not None:
             self.upper_merge_threshold = m.get('UpperMergeThreshold')
+        if m.get('UpperScaleStrategy') is not None:
+            self.upper_scale_strategy = m.get('UpperScaleStrategy')
         if m.get('UpperThreshold') is not None:
             self.upper_threshold = m.get('UpperThreshold')
         if m.get('Upperbound') is not None:
@@ -12759,10 +12759,10 @@ class DescribeInstancesResponseBodyInstancesResource(TeaModel):
 class DescribeInstancesResponseBodyInstances(TeaModel):
     def __init__(self, available_zones=None, commodity_code=None, cpu=None, cpu_architecture=None, create_time=None,
                  data_disk_auto_scale_config=None, deploy_mode=None, deploy_type=None, disk_size=None, disk_type=None,
-                 enable_upgrade_nodes=None, expire_seconds=None, expire_time=None, in_temp_capacity_status=None, instance_class=None,
-                 instance_id=None, instance_name=None, instance_role=None, instance_type=None, maintain_time=None, mem=None,
-                 pay_type=None, resource=None, resource_group_id=None, series=None, state=None, used_disk_size=None,
-                 version=None, vpc_id=None):
+                 enable_read_only_replica_management=None, enable_upgrade_nodes=None, expire_seconds=None, expire_time=None,
+                 in_temp_capacity_status=None, instance_class=None, instance_id=None, instance_name=None, instance_role=None,
+                 instance_type=None, maintain_time=None, mem=None, pay_type=None, resource=None, resource_group_id=None,
+                 series=None, state=None, used_disk_size=None, version=None, vpc_id=None):
         # The time in UTC when the cluster expires.
         self.available_zones = available_zones  # type: list[str]
         # The storage space of each replica node in the cluster, in GB.
@@ -12784,6 +12784,7 @@ class DescribeInstancesResponseBodyInstances(TeaModel):
         self.disk_size = disk_size  # type: str
         # The number of CPU cores used in the cluster.
         self.disk_type = disk_type  # type: str
+        self.enable_read_only_replica_management = enable_read_only_replica_management  # type: bool
         # The ID of the OceanBase cluster.
         self.enable_upgrade_nodes = enable_upgrade_nodes  # type: bool
         # The whitelist information of the cluster.
@@ -12856,6 +12857,8 @@ class DescribeInstancesResponseBodyInstances(TeaModel):
             result['DiskSize'] = self.disk_size
         if self.disk_type is not None:
             result['DiskType'] = self.disk_type
+        if self.enable_read_only_replica_management is not None:
+            result['EnableReadOnlyReplicaManagement'] = self.enable_read_only_replica_management
         if self.enable_upgrade_nodes is not None:
             result['EnableUpgradeNodes'] = self.enable_upgrade_nodes
         if self.expire_seconds is not None:
@@ -12919,6 +12922,8 @@ class DescribeInstancesResponseBodyInstances(TeaModel):
             self.disk_size = m.get('DiskSize')
         if m.get('DiskType') is not None:
             self.disk_type = m.get('DiskType')
+        if m.get('EnableReadOnlyReplicaManagement') is not None:
+            self.enable_read_only_replica_management = m.get('EnableReadOnlyReplicaManagement')
         if m.get('EnableUpgradeNodes') is not None:
             self.enable_upgrade_nodes = m.get('EnableUpgradeNodes')
         if m.get('ExpireSeconds') is not None:
@@ -13011,9 +13016,6 @@ class DescribeInstancesResponse(TeaModel):
         self.body = body  # type: DescribeInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13149,9 +13151,6 @@ class DescribeMetricsDataResponse(TeaModel):
         self.body = body  # type: DescribeMetricsDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13310,9 +13309,6 @@ class DescribeNodeMetricsResponse(TeaModel):
         self.body = body  # type: DescribeNodeMetricsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13479,13 +13475,15 @@ class DescribeOasAnomalySQLListRequest(TeaModel):
 
 class DescribeOasAnomalySQLListResponseBodyDataSqlList(TeaModel):
     def __init__(self, avg_cpu_time=None, avg_db_time=None, avg_elapsed_time=None, avg_get_plan_time=None,
-                 cpu_time=None, db_name=None, diag_types=None, diagnosis=None, executions=None, last_executed_time=None,
-                 risk_level=None, sql_id=None, sql_text_short=None, suggestion=None, sum_db_time=None, sum_elapsed_time=None,
-                 user_name=None):
+                 avg_logical_reads=None, avg_retry_count=None, cpu_time=None, db_name=None, diag_types=None, diagnosis=None,
+                 executions=None, last_executed_time=None, risk_level=None, sql_id=None, sql_text_short=None, suggestion=None,
+                 sum_db_time=None, sum_elapsed_time=None, sum_retry_count=None, user_name=None):
         self.avg_cpu_time = avg_cpu_time  # type: float
         self.avg_db_time = avg_db_time  # type: float
         self.avg_elapsed_time = avg_elapsed_time  # type: float
         self.avg_get_plan_time = avg_get_plan_time  # type: float
+        self.avg_logical_reads = avg_logical_reads  # type: float
+        self.avg_retry_count = avg_retry_count  # type: float
         self.cpu_time = cpu_time  # type: float
         self.db_name = db_name  # type: str
         self.diag_types = diag_types  # type: list[str]
@@ -13498,6 +13496,7 @@ class DescribeOasAnomalySQLListResponseBodyDataSqlList(TeaModel):
         self.suggestion = suggestion  # type: str
         self.sum_db_time = sum_db_time  # type: float
         self.sum_elapsed_time = sum_elapsed_time  # type: str
+        self.sum_retry_count = sum_retry_count  # type: float
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -13517,6 +13516,10 @@ class DescribeOasAnomalySQLListResponseBodyDataSqlList(TeaModel):
             result['AvgElapsedTime'] = self.avg_elapsed_time
         if self.avg_get_plan_time is not None:
             result['AvgGetPlanTime'] = self.avg_get_plan_time
+        if self.avg_logical_reads is not None:
+            result['AvgLogicalReads'] = self.avg_logical_reads
+        if self.avg_retry_count is not None:
+            result['AvgRetryCount'] = self.avg_retry_count
         if self.cpu_time is not None:
             result['CpuTime'] = self.cpu_time
         if self.db_name is not None:
@@ -13541,6 +13544,8 @@ class DescribeOasAnomalySQLListResponseBodyDataSqlList(TeaModel):
             result['SumDbTime'] = self.sum_db_time
         if self.sum_elapsed_time is not None:
             result['SumElapsedTime'] = self.sum_elapsed_time
+        if self.sum_retry_count is not None:
+            result['SumRetryCount'] = self.sum_retry_count
         if self.user_name is not None:
             result['UserName'] = self.user_name
         return result
@@ -13555,6 +13560,10 @@ class DescribeOasAnomalySQLListResponseBodyDataSqlList(TeaModel):
             self.avg_elapsed_time = m.get('AvgElapsedTime')
         if m.get('AvgGetPlanTime') is not None:
             self.avg_get_plan_time = m.get('AvgGetPlanTime')
+        if m.get('AvgLogicalReads') is not None:
+            self.avg_logical_reads = m.get('AvgLogicalReads')
+        if m.get('AvgRetryCount') is not None:
+            self.avg_retry_count = m.get('AvgRetryCount')
         if m.get('CpuTime') is not None:
             self.cpu_time = m.get('CpuTime')
         if m.get('DbName') is not None:
@@ -13579,6 +13588,8 @@ class DescribeOasAnomalySQLListResponseBodyDataSqlList(TeaModel):
             self.sum_db_time = m.get('SumDbTime')
         if m.get('SumElapsedTime') is not None:
             self.sum_elapsed_time = m.get('SumElapsedTime')
+        if m.get('SumRetryCount') is not None:
+            self.sum_retry_count = m.get('SumRetryCount')
         if m.get('UserName') is not None:
             self.user_name = m.get('UserName')
         return self
@@ -13586,9 +13597,10 @@ class DescribeOasAnomalySQLListResponseBodyDataSqlList(TeaModel):
 
 class DescribeOasAnomalySQLListResponseBodyData(TeaModel):
     def __init__(self, avg_cpu_time=None, avg_db_time=None, avg_elapsed_time=None, avg_get_plan_time=None,
-                 cpu_time=None, db_name=None, diag_types=None, diagnosis=None, dynamic_sql=None, executions=None,
-                 last_executed_time=None, risk_level=None, sql_id=None, sql_list=None, sql_text_short=None, suggestion=None,
-                 sum_db_time=None, sum_elapsed_time=None, user_name=None):
+                 avg_logical_reads=None, avg_retry_count=None, cpu_time=None, db_name=None, diag_types=None, diagnosis=None,
+                 dynamic_sql=None, executions=None, last_executed_time=None, risk_level=None, sql_id=None, sql_list=None,
+                 sql_text_short=None, suggestion=None, sum_db_time=None, sum_elapsed_time=None, sum_retry_count=None,
+                 user_name=None):
         # Average CPU time of the suspicious SQL.
         self.avg_cpu_time = avg_cpu_time  # type: float
         self.avg_db_time = avg_db_time  # type: float
@@ -13596,6 +13608,8 @@ class DescribeOasAnomalySQLListResponseBodyData(TeaModel):
         self.avg_elapsed_time = avg_elapsed_time  # type: float
         # Average time to obtain the execution plan of the suspicious SQL.
         self.avg_get_plan_time = avg_get_plan_time  # type: float
+        self.avg_logical_reads = avg_logical_reads  # type: float
+        self.avg_retry_count = avg_retry_count  # type: float
         # CPU time of the suspicious SQL.
         self.cpu_time = cpu_time  # type: float
         # The name of the database.
@@ -13621,6 +13635,7 @@ class DescribeOasAnomalySQLListResponseBodyData(TeaModel):
         self.sum_db_time = sum_db_time  # type: float
         # Total response time of the suspicious SQL.
         self.sum_elapsed_time = sum_elapsed_time  # type: str
+        self.sum_retry_count = sum_retry_count  # type: float
         # Username.
         self.user_name = user_name  # type: str
 
@@ -13644,6 +13659,10 @@ class DescribeOasAnomalySQLListResponseBodyData(TeaModel):
             result['AvgElapsedTime'] = self.avg_elapsed_time
         if self.avg_get_plan_time is not None:
             result['AvgGetPlanTime'] = self.avg_get_plan_time
+        if self.avg_logical_reads is not None:
+            result['AvgLogicalReads'] = self.avg_logical_reads
+        if self.avg_retry_count is not None:
+            result['AvgRetryCount'] = self.avg_retry_count
         if self.cpu_time is not None:
             result['CpuTime'] = self.cpu_time
         if self.db_name is not None:
@@ -13674,6 +13693,8 @@ class DescribeOasAnomalySQLListResponseBodyData(TeaModel):
             result['SumDbTime'] = self.sum_db_time
         if self.sum_elapsed_time is not None:
             result['SumElapsedTime'] = self.sum_elapsed_time
+        if self.sum_retry_count is not None:
+            result['SumRetryCount'] = self.sum_retry_count
         if self.user_name is not None:
             result['UserName'] = self.user_name
         return result
@@ -13688,6 +13709,10 @@ class DescribeOasAnomalySQLListResponseBodyData(TeaModel):
             self.avg_elapsed_time = m.get('AvgElapsedTime')
         if m.get('AvgGetPlanTime') is not None:
             self.avg_get_plan_time = m.get('AvgGetPlanTime')
+        if m.get('AvgLogicalReads') is not None:
+            self.avg_logical_reads = m.get('AvgLogicalReads')
+        if m.get('AvgRetryCount') is not None:
+            self.avg_retry_count = m.get('AvgRetryCount')
         if m.get('CpuTime') is not None:
             self.cpu_time = m.get('CpuTime')
         if m.get('DbName') is not None:
@@ -13719,6 +13744,8 @@ class DescribeOasAnomalySQLListResponseBodyData(TeaModel):
             self.sum_db_time = m.get('SumDbTime')
         if m.get('SumElapsedTime') is not None:
             self.sum_elapsed_time = m.get('SumElapsedTime')
+        if m.get('SumRetryCount') is not None:
+            self.sum_retry_count = m.get('SumRetryCount')
         if m.get('UserName') is not None:
             self.user_name = m.get('UserName')
         return self
@@ -13776,9 +13803,6 @@ class DescribeOasAnomalySQLListResponse(TeaModel):
         self.body = body  # type: DescribeOasAnomalySQLListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13960,9 +13984,6 @@ class DescribeOasSQLDetailsResponse(TeaModel):
         self.body = body  # type: DescribeOasSQLDetailsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14072,7 +14093,7 @@ class DescribeOasSQLHistoryListRequest(TeaModel):
 class DescribeOasSQLHistoryListResponseBodyData(TeaModel):
     def __init__(self, avg_affected_rows=None, avg_application_wait_time=None, avg_block_cache_hit=None,
                  avg_block_index_cache_hit=None, avg_bloom_filter_cache_hit=None, avg_concurrency_wait_time=None, avg_cpu_time=None,
-                 avg_decode_time=None, avg_disk_reads=None, avg_elapsed_time=None, avg_execute_time=None,
+                 avg_db_time=None, avg_decode_time=None, avg_disk_reads=None, avg_elapsed_time=None, avg_execute_time=None,
                  avg_executor_rpc_count=None, avg_expected_worker_count=None, avg_get_plan_time=None, avg_logical_reads=None,
                  avg_memstore_read_rows=None, avg_net_time=None, avg_net_wait_time=None, avg_partition_count=None, avg_queue_time=None,
                  avg_return_rows=None, avg_row_cache_hit=None, avg_rpc_count=None, avg_schedule_time=None,
@@ -14083,7 +14104,7 @@ class DescribeOasSQLHistoryListResponseBodyData(TeaModel):
                  max_user_io_wait_time=None, max_wait_time=None, miss_plan_percentage=None, miss_plans=None, remote_plan_percentage=None,
                  remote_plans=None, ret_code_4012count=None, ret_code_4013count=None, ret_code_5001count=None,
                  ret_code_5024count=None, ret_code_5167count=None, ret_code_5217count=None, ret_code_6002count=None, retry_count=None,
-                 sqlid=None, server=None, strong_consistency_percentage=None, sum_elapsed_time=None,
+                 sqlid=None, server=None, strong_consistency_percentage=None, sum_db_time=None, sum_elapsed_time=None,
                  sum_logical_reads=None, sum_wait_time=None, table_scan_percentage=None, timestamp=None, user_name=None,
                  weak_consistency_percentage=None):
         # Average updated rows during the execution period.
@@ -14100,6 +14121,7 @@ class DescribeOasSQLHistoryListResponseBodyData(TeaModel):
         self.avg_concurrency_wait_time = avg_concurrency_wait_time  # type: float
         # Average CPU time (in milliseconds) during the execution period.
         self.avg_cpu_time = avg_cpu_time  # type: float
+        self.avg_db_time = avg_db_time  # type: float
         # Average syntax parsing time (in milliseconds) during the execution period.
         self.avg_decode_time = avg_decode_time  # type: float
         # Average physical read count during the execution period.
@@ -14206,6 +14228,7 @@ class DescribeOasSQLHistoryListResponseBodyData(TeaModel):
         self.server = server  # type: str
         # Strong consistent transaction percentage during the execution period.
         self.strong_consistency_percentage = strong_consistency_percentage  # type: float
+        self.sum_db_time = sum_db_time  # type: float
         # Total response time (in milliseconds) during the execution period.
         self.sum_elapsed_time = sum_elapsed_time  # type: float
         # Total logical reads.
@@ -14244,6 +14267,8 @@ class DescribeOasSQLHistoryListResponseBodyData(TeaModel):
             result['AvgConcurrencyWaitTime'] = self.avg_concurrency_wait_time
         if self.avg_cpu_time is not None:
             result['AvgCpuTime'] = self.avg_cpu_time
+        if self.avg_db_time is not None:
+            result['AvgDbTime'] = self.avg_db_time
         if self.avg_decode_time is not None:
             result['AvgDecodeTime'] = self.avg_decode_time
         if self.avg_disk_reads is not None:
@@ -14350,6 +14375,8 @@ class DescribeOasSQLHistoryListResponseBodyData(TeaModel):
             result['Server'] = self.server
         if self.strong_consistency_percentage is not None:
             result['StrongConsistencyPercentage'] = self.strong_consistency_percentage
+        if self.sum_db_time is not None:
+            result['SumDbTime'] = self.sum_db_time
         if self.sum_elapsed_time is not None:
             result['SumElapsedTime'] = self.sum_elapsed_time
         if self.sum_logical_reads is not None:
@@ -14382,6 +14409,8 @@ class DescribeOasSQLHistoryListResponseBodyData(TeaModel):
             self.avg_concurrency_wait_time = m.get('AvgConcurrencyWaitTime')
         if m.get('AvgCpuTime') is not None:
             self.avg_cpu_time = m.get('AvgCpuTime')
+        if m.get('AvgDbTime') is not None:
+            self.avg_db_time = m.get('AvgDbTime')
         if m.get('AvgDecodeTime') is not None:
             self.avg_decode_time = m.get('AvgDecodeTime')
         if m.get('AvgDiskReads') is not None:
@@ -14488,6 +14517,8 @@ class DescribeOasSQLHistoryListResponseBodyData(TeaModel):
             self.server = m.get('Server')
         if m.get('StrongConsistencyPercentage') is not None:
             self.strong_consistency_percentage = m.get('StrongConsistencyPercentage')
+        if m.get('SumDbTime') is not None:
+            self.sum_db_time = m.get('SumDbTime')
         if m.get('SumElapsedTime') is not None:
             self.sum_elapsed_time = m.get('SumElapsedTime')
         if m.get('SumLogicalReads') is not None:
@@ -14551,9 +14582,6 @@ class DescribeOasSQLHistoryListResponse(TeaModel):
         self.body = body  # type: DescribeOasSQLHistoryListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15069,9 +15097,6 @@ class DescribeOasSQLPlansResponse(TeaModel):
         self.body = body  # type: DescribeOasSQLPlansResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16197,9 +16222,6 @@ class DescribeOasSlowSQLListResponse(TeaModel):
         self.body = body  # type: DescribeOasSlowSQLListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17346,9 +17368,6 @@ class DescribeOasTopSQLListResponse(TeaModel):
         self.body = body  # type: DescribeOasTopSQLListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18605,9 +18624,6 @@ class DescribeOmsOpenAPIProjectResponse(TeaModel):
         self.body = body  # type: DescribeOmsOpenAPIProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19219,9 +19235,6 @@ class DescribeOmsOpenAPIProjectStepsResponse(TeaModel):
         self.body = body  # type: DescribeOmsOpenAPIProjectStepsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19398,9 +19411,6 @@ class DescribeOutlineBindingResponse(TeaModel):
         self.body = body  # type: DescribeOutlineBindingResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19619,9 +19629,6 @@ class DescribeParametersResponse(TeaModel):
         self.body = body  # type: DescribeParametersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19876,9 +19883,6 @@ class DescribeParametersHistoryResponse(TeaModel):
         self.body = body  # type: DescribeParametersHistoryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22242,9 +22246,6 @@ class DescribeProjectResponse(TeaModel):
         self.body = body  # type: DescribeProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23693,9 +23694,6 @@ class DescribeProjectComponentsResponse(TeaModel):
         self.body = body  # type: DescribeProjectComponentsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24003,9 +24001,6 @@ class DescribeProjectProgressResponse(TeaModel):
         self.body = body  # type: DescribeProjectProgressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24376,9 +24371,6 @@ class DescribeProjectStepMetricResponse(TeaModel):
         self.body = body  # type: DescribeProjectStepMetricResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24816,9 +24808,6 @@ class DescribeProjectStepsResponse(TeaModel):
         self.body = body  # type: DescribeProjectStepsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24965,9 +24954,6 @@ class DescribeRecommendIndexResponse(TeaModel):
         self.body = body  # type: DescribeRecommendIndexResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25115,9 +25101,6 @@ class DescribeSQLDetailsResponse(TeaModel):
         self.body = body  # type: DescribeSQLDetailsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25536,9 +25519,6 @@ class DescribeSQLHistoryListResponse(TeaModel):
         self.body = body  # type: DescribeSQLHistoryListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25763,9 +25743,6 @@ class DescribeSQLPlansResponse(TeaModel):
         self.body = body  # type: DescribeSQLPlansResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26237,9 +26214,6 @@ class DescribeSQLSamplesResponse(TeaModel):
         self.body = body  # type: DescribeSQLSamplesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26265,6 +26239,158 @@ class DescribeSQLSamplesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeSQLSamplesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeSampleSqlRawTextsRequest(TeaModel):
+    def __init__(self, db_name=None, end_time=None, instance_id=None, limit=None, sql_id=None, start_time=None,
+                 tenant_id=None, trace_id=None):
+        self.db_name = db_name  # type: str
+        self.end_time = end_time  # type: str
+        self.instance_id = instance_id  # type: str
+        self.limit = limit  # type: str
+        # SQL ID。
+        self.sql_id = sql_id  # type: str
+        self.start_time = start_time  # type: str
+        self.tenant_id = tenant_id  # type: str
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSampleSqlRawTextsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.db_name is not None:
+            result['DbName'] = self.db_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.limit is not None:
+            result['Limit'] = self.limit
+        if self.sql_id is not None:
+            result['SqlId'] = self.sql_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DbName') is not None:
+            self.db_name = m.get('DbName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Limit') is not None:
+            self.limit = m.get('Limit')
+        if m.get('SqlId') is not None:
+            self.sql_id = m.get('SqlId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
+        return self
+
+
+class DescribeSampleSqlRawTextsResponseBodyData(TeaModel):
+    def __init__(self, sql_text=None):
+        self.sql_text = sql_text  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSampleSqlRawTextsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sql_text is not None:
+            result['SqlText'] = self.sql_text
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SqlText') is not None:
+            self.sql_text = m.get('SqlText')
+        return self
+
+
+class DescribeSampleSqlRawTextsResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: DescribeSampleSqlRawTextsResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeSampleSqlRawTextsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = DescribeSampleSqlRawTextsResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeSampleSqlRawTextsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeSampleSqlRawTextsResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeSampleSqlRawTextsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeSampleSqlRawTextsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -26374,9 +26500,6 @@ class DescribeSecurityIpGroupsResponse(TeaModel):
         self.body = body  # type: DescribeSecurityIpGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26812,9 +26935,6 @@ class DescribeSlowSQLHistoryListResponse(TeaModel):
         self.body = body  # type: DescribeSlowSQLHistoryListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27396,9 +27516,6 @@ class DescribeSlowSQLListResponse(TeaModel):
         self.body = body  # type: DescribeSlowSQLListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28161,9 +28278,9 @@ class DescribeTenantResponseBodyTenant(TeaModel):
     def __init__(self, available_zones=None, charset=None, clog_service_status=None, collation=None,
                  create_time=None, data_merge_time=None, deploy_mode=None, deploy_type=None, description=None, disk_type=None,
                  enable_binlog_service=None, enable_clog_service=None, enable_internet_address_service=None, enable_parallel_query=None,
-                 enable_read_write_split=None, instance_type=None, master_intranet_address_zone=None, max_parallel_query_degree=None,
-                 pay_type=None, primary_zone=None, primary_zone_deploy_type=None, read_only_resource=None, series=None,
-                 status=None, tenant_connections=None, tenant_id=None, tenant_mode=None, tenant_name=None,
+                 enable_read_only_replica=None, enable_read_write_split=None, instance_type=None, master_intranet_address_zone=None,
+                 max_parallel_query_degree=None, pay_type=None, primary_zone=None, primary_zone_deploy_type=None, read_only_resource=None,
+                 series=None, status=None, tenant_connections=None, tenant_id=None, tenant_mode=None, tenant_name=None,
                  tenant_resource=None, tenant_zones=None, time_zone=None, vpc_id=None):
         # DescribeTenant
         self.available_zones = available_zones  # type: list[str]
@@ -28191,6 +28308,7 @@ class DescribeTenantResponseBodyTenant(TeaModel):
         # The deployment type of the primary zone.
         self.enable_internet_address_service = enable_internet_address_service  # type: bool
         self.enable_parallel_query = enable_parallel_query  # type: bool
+        self.enable_read_only_replica = enable_read_only_replica  # type: bool
         self.enable_read_write_split = enable_read_write_split  # type: bool
         # {
         #     "RequestId": "EE205C00-30E4-XXXX-XXXX-87E3A8A2AA0C",
@@ -28393,6 +28511,8 @@ class DescribeTenantResponseBodyTenant(TeaModel):
             result['EnableInternetAddressService'] = self.enable_internet_address_service
         if self.enable_parallel_query is not None:
             result['EnableParallelQuery'] = self.enable_parallel_query
+        if self.enable_read_only_replica is not None:
+            result['EnableReadOnlyReplica'] = self.enable_read_only_replica
         if self.enable_read_write_split is not None:
             result['EnableReadWriteSplit'] = self.enable_read_write_split
         if self.instance_type is not None:
@@ -28465,6 +28585,8 @@ class DescribeTenantResponseBodyTenant(TeaModel):
             self.enable_internet_address_service = m.get('EnableInternetAddressService')
         if m.get('EnableParallelQuery') is not None:
             self.enable_parallel_query = m.get('EnableParallelQuery')
+        if m.get('EnableReadOnlyReplica') is not None:
+            self.enable_read_only_replica = m.get('EnableReadOnlyReplica')
         if m.get('EnableReadWriteSplit') is not None:
             self.enable_read_write_split = m.get('EnableReadWriteSplit')
         if m.get('InstanceType') is not None:
@@ -28552,9 +28674,6 @@ class DescribeTenantResponse(TeaModel):
         self.body = body  # type: DescribeTenantResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28737,9 +28856,6 @@ class DescribeTenantEncryptionResponse(TeaModel):
         self.body = body  # type: DescribeTenantEncryptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28881,9 +28997,6 @@ class DescribeTenantMetricsResponse(TeaModel):
         self.body = body  # type: DescribeTenantMetricsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28915,8 +29028,11 @@ class DescribeTenantMetricsResponse(TeaModel):
 
 class DescribeTenantSecurityConfigsRequest(TeaModel):
     def __init__(self, check_id=None, instance_id=None, tenant_id=None):
+        # The unique identifier of the security check.
         self.check_id = check_id  # type: str
+        # The ID of the OceanBase cluster.
         self.instance_id = instance_id  # type: str
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: str
 
     def validate(self):
@@ -28950,10 +29066,15 @@ class DescribeTenantSecurityConfigsRequest(TeaModel):
 class DescribeTenantSecurityConfigsResponseBodyConfigsTenantSecurityConfigsSecurityConfigs(TeaModel):
     def __init__(self, config_description=None, config_group=None, config_name=None, risk=None,
                  risk_description=None):
+        # The name of the check item.
         self.config_description = config_description  # type: str
+        # The group of the risk.
         self.config_group = config_group  # type: str
+        # The name of the risk.
         self.config_name = config_name  # type: str
+        # Indicates whether the risk causes security issues.
         self.risk = risk  # type: bool
+        # The description of the risk.
         self.risk_description = risk_description  # type: str
 
     def validate(self):
@@ -28994,9 +29115,13 @@ class DescribeTenantSecurityConfigsResponseBodyConfigsTenantSecurityConfigsSecur
 
 class DescribeTenantSecurityConfigsResponseBodyConfigsTenantSecurityConfigs(TeaModel):
     def __init__(self, risk_count=None, security_configs=None, tenant_id=None, tenant_name=None):
+        # The number of detected tenant security risks.
         self.risk_count = risk_count  # type: int
+        # The list of risks.
         self.security_configs = security_configs  # type: list[DescribeTenantSecurityConfigsResponseBodyConfigsTenantSecurityConfigsSecurityConfigs]
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: str
+        # The name of the tenant.
         self.tenant_name = tenant_name  # type: str
 
     def validate(self):
@@ -29042,11 +29167,17 @@ class DescribeTenantSecurityConfigsResponseBodyConfigsTenantSecurityConfigs(TeaM
 class DescribeTenantSecurityConfigsResponseBodyConfigs(TeaModel):
     def __init__(self, check_id=None, check_time=None, instance_id=None, tenant_security_configs=None,
                  total_check_count=None, total_risk_count=None):
+        # The unique identifier of the check.
         self.check_id = check_id  # type: str
+        # The time when the check was performed.
         self.check_time = check_time  # type: str
+        # The ID of the OceanBase cluster.
         self.instance_id = instance_id  # type: str
+        # The check result.
         self.tenant_security_configs = tenant_security_configs  # type: list[DescribeTenantSecurityConfigsResponseBodyConfigsTenantSecurityConfigs]
+        # The total number of security check items.
         self.total_check_count = total_check_count  # type: int
+        # The total number of detected security risks.
         self.total_risk_count = total_risk_count  # type: int
 
     def validate(self):
@@ -29099,7 +29230,9 @@ class DescribeTenantSecurityConfigsResponseBodyConfigs(TeaModel):
 
 class DescribeTenantSecurityConfigsResponseBody(TeaModel):
     def __init__(self, configs=None, request_id=None):
+        # The list of parameters.
         self.configs = configs  # type: DescribeTenantSecurityConfigsResponseBodyConfigs
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29135,9 +29268,6 @@ class DescribeTenantSecurityConfigsResponse(TeaModel):
         self.body = body  # type: DescribeTenantSecurityConfigsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29295,9 +29425,6 @@ class DescribeTenantSecurityIpGroupsResponse(TeaModel):
         self.body = body  # type: DescribeTenantSecurityIpGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29447,9 +29574,6 @@ class DescribeTenantTagsResponse(TeaModel):
         self.body = body  # type: DescribeTenantTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29539,9 +29663,6 @@ class DescribeTenantUserRolesResponse(TeaModel):
         self.body = body  # type: DescribeTenantUserRolesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29789,9 +29910,6 @@ class DescribeTenantUsersResponse(TeaModel):
         self.body = body  # type: DescribeTenantUsersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29938,9 +30056,6 @@ class DescribeTenantZonesReadResponse(TeaModel):
         self.body = body  # type: DescribeTenantZonesReadResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30028,8 +30143,9 @@ class DescribeTenantsRequest(TeaModel):
 
 class DescribeTenantsResponseBodyTenants(TeaModel):
     def __init__(self, charset=None, collation=None, cpu=None, create_time=None, deploy_mode=None, deploy_type=None,
-                 description=None, mem=None, primary_zone=None, status=None, tenant_id=None, tenant_mode=None, tenant_name=None,
-                 unit_cpu=None, unit_mem=None, unit_num=None, used_disk_size=None, vpc_id=None):
+                 description=None, enable_read_only_replica=None, mem=None, primary_zone=None, status=None, tenant_id=None,
+                 tenant_mode=None, tenant_name=None, unit_cpu=None, unit_mem=None, unit_num=None, used_disk_size=None,
+                 vpc_id=None):
         self.charset = charset  # type: str
         self.collation = collation  # type: str
         # The total number of CPU cores of the tenant.
@@ -30043,6 +30159,7 @@ class DescribeTenantsResponseBodyTenants(TeaModel):
         self.deploy_type = deploy_type  # type: str
         # Example 1
         self.description = description  # type: str
+        self.enable_read_only_replica = enable_read_only_replica  # type: bool
         # The number of the page to return.   
         # Start value: 1
         # - Default value: 1
@@ -30119,6 +30236,8 @@ class DescribeTenantsResponseBodyTenants(TeaModel):
             result['DeployType'] = self.deploy_type
         if self.description is not None:
             result['Description'] = self.description
+        if self.enable_read_only_replica is not None:
+            result['EnableReadOnlyReplica'] = self.enable_read_only_replica
         if self.mem is not None:
             result['Mem'] = self.mem
         if self.primary_zone is not None:
@@ -30159,6 +30278,8 @@ class DescribeTenantsResponseBodyTenants(TeaModel):
             self.deploy_type = m.get('DeployType')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('EnableReadOnlyReplica') is not None:
+            self.enable_read_only_replica = m.get('EnableReadOnlyReplica')
         if m.get('Mem') is not None:
             self.mem = m.get('Mem')
         if m.get('PrimaryZone') is not None:
@@ -30236,9 +30357,6 @@ class DescribeTenantsResponse(TeaModel):
         self.body = body  # type: DescribeTenantsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30378,9 +30496,6 @@ class DescribeTimeZonesResponse(TeaModel):
         self.body = body  # type: DescribeTimeZonesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30977,9 +31092,6 @@ class DescribeTopSQLListResponse(TeaModel):
         self.body = body  # type: DescribeTopSQLListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31131,9 +31243,6 @@ class DescribeZonesResponse(TeaModel):
         self.body = body  # type: DescribeZonesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31399,9 +31508,6 @@ class GetUploadOssUrlResponse(TeaModel):
         self.body = body  # type: GetUploadOssUrlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31600,9 +31706,6 @@ class KillProcessListResponse(TeaModel):
         self.body = body  # type: KillProcessListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31840,9 +31943,6 @@ class ListAllLabelsResponse(TeaModel):
         self.body = body  # type: ListAllLabelsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32297,9 +32397,6 @@ class ListDataSourceResponse(TeaModel):
         self.body = body  # type: ListDataSourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32819,9 +32916,6 @@ class ListProjectFullVerifyResultResponse(TeaModel):
         self.body = body  # type: ListProjectFullVerifyResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34660,9 +34754,6 @@ class ListProjectModifyRecordsResponse(TeaModel):
         self.body = body  # type: ListProjectModifyRecordsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36160,9 +36251,6 @@ class ListProjectsResponse(TeaModel):
         self.body = body  # type: ListProjectsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36546,9 +36634,6 @@ class ListWorkerInstancesResponse(TeaModel):
         self.body = body  # type: ListWorkerInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36652,9 +36737,6 @@ class ModifyDatabaseDescriptionResponse(TeaModel):
         self.body = body  # type: ModifyDatabaseDescriptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36838,9 +36920,6 @@ class ModifyDatabaseUserRolesResponse(TeaModel):
         self.body = body  # type: ModifyDatabaseUserRolesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36934,9 +37013,6 @@ class ModifyInstanceNameResponse(TeaModel):
         self.body = body  # type: ModifyInstanceNameResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36968,8 +37044,13 @@ class ModifyInstanceNameResponse(TeaModel):
 
 class ModifyInstanceNodeNumRequest(TeaModel):
     def __init__(self, dry_run=None, instance_id=None, node_num=None):
+        # Specifies whether to perform only a dry run for the request. Default value: false. Valid values:
+        # - true: Only a dry-run request is sent and the number of nodes in the instance is not modified. If the dry run succeeds, DryRunResult=true is returned. If the dry run fails, an error code is returned.
+        # - false: The actual request is sent and no dry run is performed. The number of nodes is changed if the requirements are met. By default, the DryRunResult parameter returns false if you set DryRun to false.
         self.dry_run = dry_run  # type: bool
+        # The ID of the OceanBase cluster.
         self.instance_id = instance_id  # type: str
+        # The number of nodes in the cluster. If the cluster is deployed in n-n-n mode, the number of nodes in the cluster equals n × 3.
         self.node_num = node_num  # type: str
 
     def validate(self):
@@ -37002,7 +37083,11 @@ class ModifyInstanceNodeNumRequest(TeaModel):
 
 class ModifyInstanceNodeNumResponseBodyData(TeaModel):
     def __init__(self, dry_run_result=None, order_id=None):
+        # The result of the dry-run request.
+        # - If the DryRun parameter is set to true and the dry run succeeds, the DryRunResult parameter returns true. Otherwise, an error code is returned.
+        # - If the DryRun parameter is set to false, no dry run is performed and the DryRunResult parameter returns false.
         self.dry_run_result = dry_run_result  # type: bool
+        # The ID of the order.
         self.order_id = order_id  # type: str
 
     def validate(self):
@@ -37031,7 +37116,9 @@ class ModifyInstanceNodeNumResponseBodyData(TeaModel):
 
 class ModifyInstanceNodeNumResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The return result of the request.
         self.data = data  # type: ModifyInstanceNodeNumResponseBodyData
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -37067,9 +37154,6 @@ class ModifyInstanceNodeNumResponse(TeaModel):
         self.body = body  # type: ModifyInstanceNodeNumResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37101,10 +37185,25 @@ class ModifyInstanceNodeNumResponse(TeaModel):
 
 class ModifyInstanceSpecRequest(TeaModel):
     def __init__(self, disk_size=None, disk_type=None, dry_run=None, instance_class=None, instance_id=None):
+        # The size of the storage space, in GB. The required storage space varies based on the cluster specifications:
+        # - 8C32G: 100 GB to 10 TB.
+        # - 14C70G: 200 GB to 10 TB.
+        # - 30C180G: 400 GB to 10 TB.
+        # - 62C400G: 800 GB to 10 TB. The preceding minimum storage space sizes are the default storage space sizes of the corresponding cluster specification plans.
         self.disk_size = disk_size  # type: long
+        # Disk type.
         self.disk_type = disk_type  # type: str
+        # Specifies whether to perform only a dry run for the request. Default value: false. Valid values:
+        # - true: Only a dry-run request is sent and the instance settings are not modified. If the dry run succeeds, DryRunResult=true is returned. If the dry run fails, an error code is returned.
+        # - false: If the DryRun parameter is set to false, no dry run is performed and the DryRunResult parameter returns false.
         self.dry_run = dry_run  # type: bool
+        # The specifications of the cluster. You can specify one of the following four plans:
+        # - 8C32GB: indicates 8 CPU cores and 32 GB of memory.
+        # - 14C70GB: indicates 14 CPU cores and 70 GB of memory. This is the default value.
+        # - 30C180GB: indicates 30 CPU cores and 180 GB of memory.
+        # - 62C400GB: indicates 62 CPU cores and 400 GB of memory.
         self.instance_class = instance_class  # type: str
+        # The ID of the OceanBase cluster.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -37145,7 +37244,11 @@ class ModifyInstanceSpecRequest(TeaModel):
 
 class ModifyInstanceSpecResponseBodyData(TeaModel):
     def __init__(self, dry_run_result=None, order_id=None):
+        # The result of the dry-run request.
+        # - If the DryRun parameter is set to true and the dry run succeeds, the DryRunResult parameter returns true. Otherwise, an error code is returned.
+        # - If the DryRun parameter is set to false, no dry run is performed and the DryRunResult parameter returns false.
         self.dry_run_result = dry_run_result  # type: bool
+        # The ID of the order that you have placed.
         self.order_id = order_id  # type: str
 
     def validate(self):
@@ -37174,7 +37277,9 @@ class ModifyInstanceSpecResponseBodyData(TeaModel):
 
 class ModifyInstanceSpecResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The return data of the request.
         self.data = data  # type: ModifyInstanceSpecResponseBodyData
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -37210,9 +37315,6 @@ class ModifyInstanceSpecResponse(TeaModel):
         self.body = body  # type: ModifyInstanceSpecResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37309,9 +37411,6 @@ class ModifyInstanceTagsResponse(TeaModel):
         self.body = body  # type: ModifyInstanceTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37415,9 +37514,6 @@ class ModifyInstanceTemporaryCapacityResponse(TeaModel):
         self.body = body  # type: ModifyInstanceTemporaryCapacityResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37561,9 +37657,6 @@ class ModifyParametersResponse(TeaModel):
         self.body = body  # type: ModifyParametersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37705,9 +37798,6 @@ class ModifySecurityIpsResponse(TeaModel):
         self.body = body  # type: ModifySecurityIpsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37850,9 +37940,6 @@ class ModifyTenantEncryptionResponse(TeaModel):
         self.body = body  # type: ModifyTenantEncryptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -37884,7 +37971,8 @@ class ModifyTenantEncryptionResponse(TeaModel):
 
 class ModifyTenantPrimaryZoneRequest(TeaModel):
     def __init__(self, instance_id=None, master_intranet_address_zone=None, primary_zone=None,
-                 tenant_endpoint_direct_id=None, tenant_endpoint_id=None, tenant_id=None, user_direct_vswitch_id=None, user_vswitch_id=None):
+                 tenant_endpoint_direct_id=None, tenant_endpoint_id=None, tenant_id=None, user_direct_vswitch_id=None, user_vswitch_id=None,
+                 vpc_id=None):
         # The primary zone of the tenant.    
         # It is one of the zones in which the cluster is deployed.
         self.instance_id = instance_id  # type: str
@@ -37905,6 +37993,7 @@ class ModifyTenantPrimaryZoneRequest(TeaModel):
         self.user_direct_vswitch_id = user_direct_vswitch_id  # type: str
         # The request ID.
         self.user_vswitch_id = user_vswitch_id  # type: str
+        self.vpc_id = vpc_id  # type: str
 
     def validate(self):
         pass
@@ -37931,6 +38020,8 @@ class ModifyTenantPrimaryZoneRequest(TeaModel):
             result['UserDirectVSwitchId'] = self.user_direct_vswitch_id
         if self.user_vswitch_id is not None:
             result['UserVSwitchId'] = self.user_vswitch_id
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
         return result
 
     def from_map(self, m=None):
@@ -37951,6 +38042,8 @@ class ModifyTenantPrimaryZoneRequest(TeaModel):
             self.user_direct_vswitch_id = m.get('UserDirectVSwitchId')
         if m.get('UserVSwitchId') is not None:
             self.user_vswitch_id = m.get('UserVSwitchId')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
         return self
 
 
@@ -37985,9 +38078,6 @@ class ModifyTenantPrimaryZoneResponse(TeaModel):
         self.body = body  # type: ModifyTenantPrimaryZoneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38020,16 +38110,17 @@ class ModifyTenantPrimaryZoneResponse(TeaModel):
 class ModifyTenantResourceRequest(TeaModel):
     def __init__(self, cpu=None, instance_id=None, log_disk=None, memory=None, read_only_zone_list=None,
                  tenant_id=None):
-        # The memory size of the tenant, in GB.
-        self.cpu = cpu  # type: int
-        # The operation that you want to perform.   
-        # Set the value to **ModifyTenantResource**.
-        self.instance_id = instance_id  # type: str
-        self.log_disk = log_disk  # type: long
-        # The ID of the tenant.
-        self.memory = memory  # type: int
-        self.read_only_zone_list = read_only_zone_list  # type: str
         # The information about the CPU resources of the tenant.
+        self.cpu = cpu  # type: int
+        # The ID of the OceanBase cluster.
+        self.instance_id = instance_id  # type: str
+        # The size of the log disk allocated to the tenant, in GB.
+        self.log_disk = log_disk  # type: long
+        # The memory size of the tenant, in GB.
+        self.memory = memory  # type: int
+        # Specifies to create a read-only zone. Separate the names of multiple zones with commas (,).
+        self.read_only_zone_list = read_only_zone_list  # type: str
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: str
 
     def validate(self):
@@ -38074,7 +38165,9 @@ class ModifyTenantResourceRequest(TeaModel):
 
 class ModifyTenantResourceResponseBody(TeaModel):
     def __init__(self, request_id=None, tenant_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: str
 
     def validate(self):
@@ -38108,9 +38201,6 @@ class ModifyTenantResourceResponse(TeaModel):
         self.body = body  # type: ModifyTenantResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38272,9 +38362,6 @@ class ModifyTenantSecurityIpGroupResponse(TeaModel):
         self.body = body  # type: ModifyTenantSecurityIpGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38379,9 +38466,6 @@ class ModifyTenantTagsResponse(TeaModel):
         self.body = body  # type: ModifyTenantTagsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38487,9 +38571,6 @@ class ModifyTenantUserDescriptionResponse(TeaModel):
         self.body = body  # type: ModifyTenantUserDescriptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38605,9 +38686,6 @@ class ModifyTenantUserPasswordResponse(TeaModel):
         self.body = body  # type: ModifyTenantUserPasswordResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38824,9 +38902,6 @@ class ModifyTenantUserRolesResponse(TeaModel):
         self.body = body  # type: ModifyTenantUserRolesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -38981,9 +39056,6 @@ class ModifyTenantUserStatusResponse(TeaModel):
         self.body = body  # type: ModifyTenantUserStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39188,9 +39260,6 @@ class ReleaseOmsOpenAPIProjectResponse(TeaModel):
         self.body = body  # type: ReleaseOmsOpenAPIProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39414,9 +39483,6 @@ class ReleaseProjectResponse(TeaModel):
         self.body = body  # type: ReleaseProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39640,9 +39706,6 @@ class ReleaseWorkerInstanceResponse(TeaModel):
         self.body = body  # type: ReleaseWorkerInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -39847,9 +39910,6 @@ class ResetOmsOpenAPIProjectResponse(TeaModel):
         self.body = body  # type: ResetOmsOpenAPIProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -40055,9 +40115,6 @@ class ResumeOmsOpenAPIProjectResponse(TeaModel):
         self.body = body  # type: ResumeOmsOpenAPIProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -40281,9 +40338,6 @@ class ResumeProjectResponse(TeaModel):
         self.body = body  # type: ResumeProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -40507,9 +40561,6 @@ class RetryProjectModifyRecordsResponse(TeaModel):
         self.body = body  # type: RetryProjectModifyRecordsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -40826,9 +40877,6 @@ class SearchOmsOpenAPIMonitorMetricResponse(TeaModel):
         self.body = body  # type: SearchOmsOpenAPIMonitorMetricResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -42184,9 +42232,6 @@ class SearchOmsOpenAPIProjectsResponse(TeaModel):
         self.body = body  # type: SearchOmsOpenAPIProjectsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -42389,9 +42434,6 @@ class StartOmsOpenAPIProjectResponse(TeaModel):
         self.body = body  # type: StartOmsOpenAPIProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -42615,9 +42657,6 @@ class StartProjectResponse(TeaModel):
         self.body = body  # type: StartProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -42878,9 +42917,6 @@ class StartProjectsByLabelResponse(TeaModel):
         self.body = body  # type: StartProjectsByLabelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -43087,9 +43123,6 @@ class StopOmsOpenAPIProjectResponse(TeaModel):
         self.body = body  # type: StopOmsOpenAPIProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -43313,9 +43346,6 @@ class StopProjectResponse(TeaModel):
         self.body = body  # type: StopProjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -43539,9 +43569,6 @@ class StopProjectModifyRecordsResponse(TeaModel):
         self.body = body  # type: StopProjectModifyRecordsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -43802,9 +43829,6 @@ class StopProjectsByLabelResponse(TeaModel):
         self.body = body  # type: StopProjectsByLabelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -43946,9 +43970,6 @@ class SwitchoverInstanceResponse(TeaModel):
         self.body = body  # type: SwitchoverInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
