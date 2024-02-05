@@ -1452,6 +1452,116 @@ class Client(OpenApiClient):
         headers = aliding_20230426_models.CreateScheduleConferenceHeaders()
         return self.create_schedule_conference_with_options(request, headers, runtime)
 
+    def create_search_dome_with_options(self, tmp_req, tmp_header, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = aliding_20230426_models.CreateSearchDomeShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        headers = aliding_20230426_models.CreateSearchDomeShrinkHeaders()
+        OpenApiUtilClient.convert(tmp_header, headers)
+        if not UtilClient.is_unset(tmp_header.account_context):
+            headers.account_context_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_header.account_context, 'AccountContext', 'json')
+        if not UtilClient.is_unset(tmp_req.tenant_context):
+            request.tenant_context_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tenant_context, 'TenantContext', 'json')
+        if not UtilClient.is_unset(tmp_req.user_id_list):
+            request.user_id_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user_id_list, 'UserIdList', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.content):
+            body['Content'] = request.content
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.res_id):
+            body['ResId'] = request.res_id
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.tenant_context_shrink):
+            body['TenantContext'] = request.tenant_context_shrink
+        if not UtilClient.is_unset(request.user_id_list_shrink):
+            body['UserIdList'] = request.user_id_list_shrink
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.account_context_shrink):
+            real_headers['AccountContext'] = UtilClient.to_jsonstring(headers.account_context_shrink)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateSearchDome',
+            version='2023-04-26',
+            protocol='HTTPS',
+            pathname='/dingtalk/v1/watt/createSearchDome',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            aliding_20230426_models.CreateSearchDomeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_search_dome(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = aliding_20230426_models.CreateSearchDomeHeaders()
+        return self.create_search_dome_with_options(request, headers, runtime)
+
+    def create_search_keyword_with_options(self, tmp_req, tmp_header, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = aliding_20230426_models.CreateSearchKeywordShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        headers = aliding_20230426_models.CreateSearchKeywordShrinkHeaders()
+        OpenApiUtilClient.convert(tmp_header, headers)
+        if not UtilClient.is_unset(tmp_header.account_context):
+            headers.account_context_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_header.account_context, 'AccountContext', 'json')
+        if not UtilClient.is_unset(tmp_req.tenant_context):
+            request.tenant_context_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tenant_context, 'TenantContext', 'json')
+        if not UtilClient.is_unset(tmp_req.user_id_list):
+            request.user_id_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user_id_list, 'UserIdList', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.content):
+            body['Content'] = request.content
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.res_id):
+            body['ResId'] = request.res_id
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.tenant_context_shrink):
+            body['TenantContext'] = request.tenant_context_shrink
+        if not UtilClient.is_unset(request.user_id_list_shrink):
+            body['UserIdList'] = request.user_id_list_shrink
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.account_context_shrink):
+            real_headers['AccountContext'] = UtilClient.to_jsonstring(headers.account_context_shrink)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateSearchKeyword',
+            version='2023-04-26',
+            protocol='HTTPS',
+            pathname='/dingtalk/v1/watt/createSearchKeyword',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            aliding_20230426_models.CreateSearchKeywordResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_search_keyword(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = aliding_20230426_models.CreateSearchKeywordHeaders()
+        return self.create_search_keyword_with_options(request, headers, runtime)
+
     def create_sheet_with_options(self, tmp_req, tmp_header, runtime):
         UtilClient.validate_model(tmp_req)
         request = aliding_20230426_models.CreateSheetShrinkRequest()
@@ -2785,6 +2895,53 @@ class Client(OpenApiClient):
         headers = aliding_20230426_models.GetCorpTasksHeaders()
         return self.get_corp_tasks_with_options(request, headers, runtime)
 
+    def get_doc_content_with_options(self, tmp_req, tmp_header, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = aliding_20230426_models.GetDocContentShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        headers = aliding_20230426_models.GetDocContentShrinkHeaders()
+        OpenApiUtilClient.convert(tmp_header, headers)
+        if not UtilClient.is_unset(tmp_header.account_context):
+            headers.account_context_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_header.account_context, 'AccountContext', 'json')
+        if not UtilClient.is_unset(tmp_req.tenant_context):
+            request.tenant_context_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tenant_context, 'TenantContext', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.dentry_uuid):
+            body['DentryUuid'] = request.dentry_uuid
+        if not UtilClient.is_unset(request.target_format):
+            body['TargetFormat'] = request.target_format
+        if not UtilClient.is_unset(request.tenant_context_shrink):
+            body['TenantContext'] = request.tenant_context_shrink
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.account_context_shrink):
+            real_headers['AccountContext'] = UtilClient.to_jsonstring(headers.account_context_shrink)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetDocContent',
+            version='2023-04-26',
+            protocol='HTTPS',
+            pathname='/dingtalk/v2/documents/getDocContent',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            aliding_20230426_models.GetDocContentResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_doc_content(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = aliding_20230426_models.GetDocContentHeaders()
+        return self.get_doc_content_with_options(request, headers, runtime)
+
     def get_event_with_options(self, request, tmp_header, runtime):
         UtilClient.validate_model(request)
         headers = aliding_20230426_models.GetEventShrinkHeaders()
@@ -3235,6 +3392,51 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = aliding_20230426_models.GetInstancesByIdListHeaders()
         return self.get_instances_by_id_list_with_options(request, headers, runtime)
+
+    def get_live_replay_url_with_options(self, tmp_req, tmp_header, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = aliding_20230426_models.GetLiveReplayUrlShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        headers = aliding_20230426_models.GetLiveReplayUrlShrinkHeaders()
+        OpenApiUtilClient.convert(tmp_header, headers)
+        if not UtilClient.is_unset(tmp_header.account_context):
+            headers.account_context_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_header.account_context, 'AccountContext', 'json')
+        if not UtilClient.is_unset(tmp_req.tenant_context):
+            request.tenant_context_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tenant_context, 'TenantContext', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.live_id):
+            body['LiveId'] = request.live_id
+        if not UtilClient.is_unset(request.tenant_context_shrink):
+            body['TenantContext'] = request.tenant_context_shrink
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.account_context_shrink):
+            real_headers['AccountContext'] = UtilClient.to_jsonstring(headers.account_context_shrink)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetLiveReplayUrl',
+            version='2023-04-26',
+            protocol='HTTPS',
+            pathname='/dingtalk/v1/ysp/getLiveReplayUrl',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            aliding_20230426_models.GetLiveReplayUrlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_live_replay_url(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = aliding_20230426_models.GetLiveReplayUrlHeaders()
+        return self.get_live_replay_url_with_options(request, headers, runtime)
 
     def get_me_corp_submission_with_options(self, request, tmp_header, runtime):
         UtilClient.validate_model(request)
