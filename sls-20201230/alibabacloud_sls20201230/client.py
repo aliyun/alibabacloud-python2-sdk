@@ -172,10 +172,21 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.configuration):
+            body['configuration'] = request.configuration
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.schedule):
+            body['schedule'] = request.schedule
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(request.body)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateAlert',
@@ -186,7 +197,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='any'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateAlertResponse(),
@@ -495,6 +506,45 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_domain_with_options(project, request, headers, runtime)
+
+    def create_etlwith_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.configuration):
+            body['configuration'] = request.configuration
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateETL',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etls',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateETLResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_etl(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_etlwith_options(project, request, headers, runtime)
 
     def create_index_with_options(self, project, logstore, request, headers, runtime):
         """
@@ -826,6 +876,125 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_machine_group_with_options(project, request, headers, runtime)
 
+    def create_ossexport_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.configuration):
+            body['configuration'] = request.configuration
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateOSSExport',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossexports',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateOSSExportResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_ossexport(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_ossexport_with_options(project, request, headers, runtime)
+
+    def create_osshdfsexport_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.configuration):
+            body['configuration'] = request.configuration
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateOSSHDFSExport',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/osshdfsexports',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateOSSHDFSExportResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_osshdfsexport(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_osshdfsexport_with_options(project, request, headers, runtime)
+
+    def create_ossingestion_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.configuration):
+            body['configuration'] = request.configuration
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.schedule):
+            body['schedule'] = request.schedule
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateOSSIngestion',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossingestions',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateOSSIngestionResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_ossingestion(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_ossingestion_with_options(project, request, headers, runtime)
+
     def create_oss_external_store_with_options(self, project, request, headers, runtime):
         """
         ### [](#)Usage notes
@@ -1044,6 +1213,47 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_saved_search_with_options(project, request, headers, runtime)
 
+    def create_scheduled_sqlwith_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.configuration):
+            body['configuration'] = request.configuration
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.schedule):
+            body['schedule'] = request.schedule
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateScheduledSQL',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/scheduledsqls',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateScheduledSQLResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_scheduled_sql(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_scheduled_sqlwith_options(project, request, headers, runtime)
+
     def create_ticket_with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
@@ -1085,7 +1295,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='any'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.DeleteAlertResponse(),
@@ -1438,6 +1648,34 @@ class Client(OpenApiClient):
         headers = {}
         return self.delete_domain_with_options(project, domain_name, headers, runtime)
 
+    def delete_etlwith_options(self, project, etl_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteETL',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etls/%s' % TeaConverter.to_unicode(etl_name),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteETLResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_etl(self, project, etl_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_etlwith_options(project, etl_name, headers, runtime)
+
     def delete_external_store_with_options(self, project, external_store_name, headers, runtime):
         """
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
@@ -1697,6 +1935,90 @@ class Client(OpenApiClient):
         headers = {}
         return self.delete_machine_group_with_options(project, machine_group, headers, runtime)
 
+    def delete_ossexport_with_options(self, project, oss_export_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteOSSExport',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossexports/%s' % TeaConverter.to_unicode(oss_export_name),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteOSSExportResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_ossexport(self, project, oss_export_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_ossexport_with_options(project, oss_export_name, headers, runtime)
+
+    def delete_osshdfsexport_with_options(self, project, oss_export_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteOSSHDFSExport',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/osshdfsexports/%s' % TeaConverter.to_unicode(oss_export_name),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteOSSHDFSExportResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_osshdfsexport(self, project, oss_export_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_osshdfsexport_with_options(project, oss_export_name, headers, runtime)
+
+    def delete_ossingestion_with_options(self, project, oss_ingestion_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteOSSIngestion',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossingestions/%s' % TeaConverter.to_unicode(oss_ingestion_name),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteOSSIngestionResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_ossingestion(self, project, oss_ingestion_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_ossingestion_with_options(project, oss_ingestion_name, headers, runtime)
+
     def delete_project_with_options(self, project, headers, runtime):
         host_map = {}
         host_map['project'] = project
@@ -1819,8 +2141,37 @@ class Client(OpenApiClient):
         headers = {}
         return self.delete_saved_search_with_options(project, savedsearch_name, headers, runtime)
 
+    def delete_scheduled_sqlwith_options(self, project, scheduled_sqlname, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteScheduledSQL',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/scheduledsqls/%s' % TeaConverter.to_unicode(scheduled_sqlname),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteScheduledSQLResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_scheduled_sql(self, project, scheduled_sqlname):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_scheduled_sqlwith_options(project, scheduled_sqlname, headers, runtime)
+
     def delete_shipper_with_options(self, project, logstore, shipper_name, headers, runtime):
         """
+        @deprecated
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
         
 
@@ -1830,6 +2181,7 @@ class Client(OpenApiClient):
         @param runtime: runtime options for this request RuntimeOptions
 
         @return: DeleteShipperResponse
+        Deprecated
         """
         host_map = {}
         host_map['project'] = project
@@ -1855,10 +2207,12 @@ class Client(OpenApiClient):
 
     def delete_shipper(self, project, logstore, shipper_name):
         """
+        @deprecated
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
         
 
         @return: DeleteShipperResponse
+        Deprecated
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1880,7 +2234,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='any'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.DisableAlertResponse(),
@@ -1908,7 +2262,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='any'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.EnableAlertResponse(),
@@ -2467,6 +2821,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_dashboard_with_options(project, dashboard_name, headers, runtime)
+
+    def get_etlwith_options(self, project, etl_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetETL',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etls/%s' % TeaConverter.to_unicode(etl_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetETLResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_etl(self, project, etl_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_etlwith_options(project, etl_name, headers, runtime)
 
     def get_external_store_with_options(self, project, external_store_name, headers, runtime):
         """
@@ -3055,6 +3437,90 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_machine_group_with_options(project, machine_group, headers, runtime)
 
+    def get_ossexport_with_options(self, project, oss_export_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetOSSExport',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossexports/%s' % TeaConverter.to_unicode(oss_export_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetOSSExportResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_ossexport(self, project, oss_export_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_ossexport_with_options(project, oss_export_name, headers, runtime)
+
+    def get_osshdfsexport_with_options(self, project, oss_export_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetOSSHDFSExport',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/osshdfsexports/%s' % TeaConverter.to_unicode(oss_export_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetOSSHDFSExportResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_osshdfsexport(self, project, oss_export_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_osshdfsexport_with_options(project, oss_export_name, headers, runtime)
+
+    def get_ossingestion_with_options(self, project, oss_ingestion_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetOSSIngestion',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossingestions/%s' % TeaConverter.to_unicode(oss_ingestion_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetOSSIngestionResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_ossingestion(self, project, oss_ingestion_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_ossingestion_with_options(project, oss_ingestion_name, headers, runtime)
+
     def get_project_with_options(self, project, headers, runtime):
         """
         ### Usage notes
@@ -3262,8 +3728,37 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_saved_search_with_options(project, savedsearch_name, headers, runtime)
 
+    def get_scheduled_sqlwith_options(self, project, scheduled_sqlname, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetScheduledSQL',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/scheduledsqls/%s' % TeaConverter.to_unicode(scheduled_sqlname),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetScheduledSQLResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_scheduled_sql(self, project, scheduled_sqlname):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_scheduled_sqlwith_options(project, scheduled_sqlname, headers, runtime)
+
     def get_shipper_status_with_options(self, project, logstore, shipper_name, request, headers, runtime):
         """
+        @deprecated
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
         
 
@@ -3275,6 +3770,7 @@ class Client(OpenApiClient):
         @param runtime: runtime options for this request RuntimeOptions
 
         @return: GetShipperStatusResponse
+        Deprecated
         """
         UtilClient.validate_model(request)
         host_map = {}
@@ -3313,12 +3809,14 @@ class Client(OpenApiClient):
 
     def get_shipper_status(self, project, logstore, shipper_name, request):
         """
+        @deprecated
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
         
 
         @param request: GetShipperStatusRequest
 
         @return: GetShipperStatusResponse
+        Deprecated
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3742,6 +4240,41 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_domains_with_options(project, request, headers, runtime)
 
+    def list_etls_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListETLs',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etls',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListETLsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_etls(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_etls_with_options(project, request, headers, runtime)
+
     def list_external_store_with_options(self, project, request, headers, runtime):
         """
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
@@ -4054,6 +4587,111 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_machines_with_options(project, machine_group, request, headers, runtime)
 
+    def list_ossexports_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListOSSExports',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossexports',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListOSSExportsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_ossexports(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_ossexports_with_options(project, request, headers, runtime)
+
+    def list_osshdfsexports_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListOSSHDFSExports',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/osshdfsexports',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListOSSHDFSExportsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_osshdfsexports(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_osshdfsexports_with_options(project, request, headers, runtime)
+
+    def list_ossingestions_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListOSSIngestions',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossingestions',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListOSSIngestionsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_ossingestions(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_ossingestions_with_options(project, request, headers, runtime)
+
     def list_project_with_options(self, request, headers, runtime):
         """
         ### [](#)Usage notes
@@ -4171,6 +4809,41 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_saved_search_with_options(project, request, headers, runtime)
 
+    def list_scheduled_sqls_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListScheduledSQLs',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/scheduledsqls',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListScheduledSQLsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_scheduled_sqls(self, project, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_scheduled_sqls_with_options(project, request, headers, runtime)
+
     def list_shards_with_options(self, project, logstore, headers, runtime):
         host_map = {}
         host_map['project'] = project
@@ -4201,6 +4874,7 @@ class Client(OpenApiClient):
 
     def list_shipper_with_options(self, project, logstore, headers, runtime):
         """
+        @deprecated
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
         
 
@@ -4210,6 +4884,7 @@ class Client(OpenApiClient):
         @param runtime: runtime options for this request RuntimeOptions
 
         @return: ListShipperResponse
+        Deprecated
         """
         host_map = {}
         host_map['project'] = project
@@ -4235,10 +4910,12 @@ class Client(OpenApiClient):
 
     def list_shipper(self, project, logstore):
         """
+        @deprecated
         Host consists of a project name and a Simple Log Service endpoint. You must specify a project in Host.
         
 
         @return: ListShipperResponse
+        Deprecated
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4306,6 +4983,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_tag_resources_with_options(request, headers, runtime)
+
+    def merge_shard_with_options(self, project, logstore, shard, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='MergeShard',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/shards/%s?action=merge' % (TeaConverter.to_unicode(logstore), TeaConverter.to_unicode(shard)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='array'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.MergeShardResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def merge_shard(self, project, logstore, shard):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.merge_shard_with_options(project, logstore, shard, headers, runtime)
 
     def put_annotation_data_with_options(self, dataset_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4670,6 +5375,230 @@ class Client(OpenApiClient):
         headers = {}
         return self.split_shard_with_options(project, logstore, shard, request, headers, runtime)
 
+    def start_etlwith_options(self, project, etl_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StartETL',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etls/%s?action=START' % TeaConverter.to_unicode(etl_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.StartETLResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def start_etl(self, project, etl_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_etlwith_options(project, etl_name, headers, runtime)
+
+    def start_ossexport_with_options(self, project, oss_export_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StartOSSExport',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossexports/%s?action=START' % TeaConverter.to_unicode(oss_export_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.StartOSSExportResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def start_ossexport(self, project, oss_export_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_ossexport_with_options(project, oss_export_name, headers, runtime)
+
+    def start_osshdfsexport_with_options(self, project, oss_export_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StartOSSHDFSExport',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/osshdfsexports/%s?action=START' % TeaConverter.to_unicode(oss_export_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.StartOSSHDFSExportResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def start_osshdfsexport(self, project, oss_export_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_osshdfsexport_with_options(project, oss_export_name, headers, runtime)
+
+    def start_ossingestion_with_options(self, project, oss_ingestion_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StartOSSIngestion',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossingestions/%s?action=START' % TeaConverter.to_unicode(oss_ingestion_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.StartOSSIngestionResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def start_ossingestion(self, project, oss_ingestion_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_ossingestion_with_options(project, oss_ingestion_name, headers, runtime)
+
+    def stop_etlwith_options(self, project, etl_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StopETL',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etls/%s?action=STOP' % TeaConverter.to_unicode(etl_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.StopETLResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def stop_etl(self, project, etl_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_etlwith_options(project, etl_name, headers, runtime)
+
+    def stop_ossexport_with_options(self, project, oss_export_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StopOSSExport',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossexports/%s?action=STOP' % TeaConverter.to_unicode(oss_export_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.StopOSSExportResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def stop_ossexport(self, project, oss_export_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_ossexport_with_options(project, oss_export_name, headers, runtime)
+
+    def stop_osshdfsexport_with_options(self, project, oss_export_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StopOSSHDFSExport',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/osshdfsexports/%s?action=STOP' % TeaConverter.to_unicode(oss_export_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.StopOSSHDFSExportResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def stop_osshdfsexport(self, project, oss_export_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_osshdfsexport_with_options(project, oss_export_name, headers, runtime)
+
+    def stop_ossingestion_with_options(self, project, oss_ingestion_name, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StopOSSIngestion',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossingestions/%s?action=STOP' % TeaConverter.to_unicode(oss_ingestion_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.StopOSSIngestionResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def stop_ossingestion(self, project, oss_ingestion_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_ossingestion_with_options(project, oss_ingestion_name, headers, runtime)
+
     def tag_resources_with_options(self, request, headers, runtime):
         """
         ### Usage notes
@@ -4790,10 +5719,19 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.configuration):
+            body['configuration'] = request.configuration
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        if not UtilClient.is_unset(request.schedule):
+            body['schedule'] = request.schedule
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(request.body)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateAlert',
@@ -4804,7 +5742,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='any'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.UpdateAlertResponse(),
@@ -5075,6 +6013,43 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_dashboard_with_options(project, dashboard_name, request, headers, runtime)
+
+    def update_etlwith_options(self, project, etl_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.configuration):
+            body['configuration'] = request.configuration
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateETL',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/etls/%s' % TeaConverter.to_unicode(etl_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateETLResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_etl(self, project, etl_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_etlwith_options(project, etl_name, request, headers, runtime)
 
     def update_index_with_options(self, project, logstore, request, headers, runtime):
         """
@@ -5496,6 +6471,119 @@ class Client(OpenApiClient):
         headers = {}
         return self.update_machine_group_machine_with_options(project, machine_group, request, headers, runtime)
 
+    def update_ossexport_with_options(self, project, oss_export_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.configuration):
+            body['configuration'] = request.configuration
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateOSSExport',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossexports/%s' % TeaConverter.to_unicode(oss_export_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateOSSExportResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_ossexport(self, project, oss_export_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_ossexport_with_options(project, oss_export_name, request, headers, runtime)
+
+    def update_osshdfsexport_with_options(self, project, oss_export_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.configuration):
+            body['configuration'] = request.configuration
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateOSSHDFSExport',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/osshdfsexports/%s' % TeaConverter.to_unicode(oss_export_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateOSSHDFSExportResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_osshdfsexport(self, project, oss_export_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_osshdfsexport_with_options(project, oss_export_name, request, headers, runtime)
+
+    def update_ossingestion_with_options(self, project, oss_ingestion_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.configuration):
+            body['configuration'] = request.configuration
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        if not UtilClient.is_unset(request.schedule):
+            body['schedule'] = request.schedule
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateOSSIngestion',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ossingestions/%s' % TeaConverter.to_unicode(oss_ingestion_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateOSSIngestionResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_ossingestion(self, project, oss_ingestion_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_ossingestion_with_options(project, oss_ingestion_name, request, headers, runtime)
+
     def update_oss_external_store_with_options(self, project, external_store_name, request, headers, runtime):
         """
         ### [](#)Usage notes
@@ -5710,6 +6798,45 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_saved_search_with_options(project, savedsearch_name, request, headers, runtime)
+
+    def update_scheduled_sqlwith_options(self, project, scheduled_sqlname, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        body = {}
+        if not UtilClient.is_unset(request.configuration):
+            body['configuration'] = request.configuration
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            body['displayName'] = request.display_name
+        if not UtilClient.is_unset(request.schedule):
+            body['schedule'] = request.schedule
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateScheduledSQL',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/scheduledsqls/%s' % TeaConverter.to_unicode(scheduled_sqlname),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateScheduledSQLResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_scheduled_sql(self, project, scheduled_sqlname, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_scheduled_sqlwith_options(project, scheduled_sqlname, request, headers, runtime)
 
     def upsert_collection_policy_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
