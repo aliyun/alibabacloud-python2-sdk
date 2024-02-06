@@ -6879,6 +6879,241 @@ class ApplyApproveResponse(TeaModel):
         return self
 
 
+class ApplyExternalNodeStatusUpdateHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyExternalNodeStatusUpdateHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class ApplyExternalNodeStatusUpdateRequestOperationRecords(TeaModel):
+    def __init__(self, comment=None, operate_time=None, operator_name=None, result=None, type=None):
+        self.comment = comment  # type: str
+        self.operate_time = operate_time  # type: str
+        self.operator_name = operator_name  # type: str
+        self.result = result  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyExternalNodeStatusUpdateRequestOperationRecords, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.comment is not None:
+            result['comment'] = self.comment
+        if self.operate_time is not None:
+            result['operate_time'] = self.operate_time
+        if self.operator_name is not None:
+            result['operator_name'] = self.operator_name
+        if self.result is not None:
+            result['result'] = self.result
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('comment') is not None:
+            self.comment = m.get('comment')
+        if m.get('operate_time') is not None:
+            self.operate_time = m.get('operate_time')
+        if m.get('operator_name') is not None:
+            self.operator_name = m.get('operator_name')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class ApplyExternalNodeStatusUpdateRequest(TeaModel):
+    def __init__(self, node_id=None, operation_records=None, process_action_result=None):
+        self.node_id = node_id  # type: str
+        self.operation_records = operation_records  # type: list[ApplyExternalNodeStatusUpdateRequestOperationRecords]
+        self.process_action_result = process_action_result  # type: str
+
+    def validate(self):
+        if self.operation_records:
+            for k in self.operation_records:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ApplyExternalNodeStatusUpdateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.node_id is not None:
+            result['node_id'] = self.node_id
+        result['operation_records'] = []
+        if self.operation_records is not None:
+            for k in self.operation_records:
+                result['operation_records'].append(k.to_map() if k else None)
+        if self.process_action_result is not None:
+            result['process_action_result'] = self.process_action_result
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('node_id') is not None:
+            self.node_id = m.get('node_id')
+        self.operation_records = []
+        if m.get('operation_records') is not None:
+            for k in m.get('operation_records'):
+                temp_model = ApplyExternalNodeStatusUpdateRequestOperationRecords()
+                self.operation_records.append(temp_model.from_map(k))
+        if m.get('process_action_result') is not None:
+            self.process_action_result = m.get('process_action_result')
+        return self
+
+
+class ApplyExternalNodeStatusUpdateShrinkRequest(TeaModel):
+    def __init__(self, node_id=None, operation_records_shrink=None, process_action_result=None):
+        self.node_id = node_id  # type: str
+        self.operation_records_shrink = operation_records_shrink  # type: str
+        self.process_action_result = process_action_result  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyExternalNodeStatusUpdateShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.node_id is not None:
+            result['node_id'] = self.node_id
+        if self.operation_records_shrink is not None:
+            result['operation_records'] = self.operation_records_shrink
+        if self.process_action_result is not None:
+            result['process_action_result'] = self.process_action_result
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('node_id') is not None:
+            self.node_id = m.get('node_id')
+        if m.get('operation_records') is not None:
+            self.operation_records_shrink = m.get('operation_records')
+        if m.get('process_action_result') is not None:
+            self.process_action_result = m.get('process_action_result')
+        return self
+
+
+class ApplyExternalNodeStatusUpdateResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: bool
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyExternalNodeStatusUpdateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            self.module = m.get('module')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class ApplyExternalNodeStatusUpdateResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ApplyExternalNodeStatusUpdateResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ApplyExternalNodeStatusUpdateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ApplyExternalNodeStatusUpdateResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ApplyInvoiceTaskHeaders(TeaModel):
     def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
         self.common_headers = common_headers  # type: dict[str, str]
