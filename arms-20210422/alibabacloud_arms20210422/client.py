@@ -1314,12 +1314,16 @@ class Client(OpenApiClient):
     def get_stack_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.pid):
             query['Pid'] = request.pid
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.rpc_id):
             query['RpcID'] = request.rpc_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         if not UtilClient.is_unset(request.trace_id):
             query['TraceID'] = request.trace_id
         req = open_api_models.OpenApiRequest(
