@@ -166,9 +166,6 @@ class AddMdsMiniConfigResponse(TeaModel):
         self.body = body  # type: AddMdsMiniConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -283,9 +280,6 @@ class CancelPushSchedulerResponse(TeaModel):
         self.body = body  # type: CancelPushSchedulerResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -452,9 +446,6 @@ class ChangeMcubeMiniTaskStatusResponse(TeaModel):
         self.body = body  # type: ChangeMcubeMiniTaskStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -627,9 +618,6 @@ class ChangeMcubeNebulaTaskStatusResponse(TeaModel):
         self.body = body  # type: ChangeMcubeNebulaTaskStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -795,9 +783,6 @@ class ChangeMcubePublicTaskStatusResponse(TeaModel):
         self.body = body  # type: ChangeMcubePublicTaskStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -954,9 +939,6 @@ class CopyMcdpGroupResponse(TeaModel):
         self.body = body  # type: CopyMcdpGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1113,9 +1095,6 @@ class CreateMasCrowdResponse(TeaModel):
         self.body = body  # type: CreateMasCrowdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1272,9 +1251,6 @@ class CreateMasFunnelResponse(TeaModel):
         self.body = body  # type: CreateMasFunnelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1431,9 +1407,6 @@ class CreateMcdpEventResponse(TeaModel):
         self.body = body  # type: CreateMcdpEventResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1590,9 +1563,6 @@ class CreateMcdpEventAttributeResponse(TeaModel):
         self.body = body  # type: CreateMcdpEventAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1749,9 +1719,6 @@ class CreateMcdpGroupResponse(TeaModel):
         self.body = body  # type: CreateMcdpGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1908,9 +1875,6 @@ class CreateMcdpMaterialResponse(TeaModel):
         self.body = body  # type: CreateMcdpMaterialResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2067,9 +2031,6 @@ class CreateMcdpZoneResponse(TeaModel):
         self.body = body  # type: CreateMcdpZoneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2225,9 +2186,6 @@ class CreateMcubeMiniAppResponse(TeaModel):
         self.body = body  # type: CreateMcubeMiniAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2414,9 +2372,6 @@ class CreateMcubeMiniTaskResponse(TeaModel):
         self.body = body  # type: CreateMcubeMiniTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2577,9 +2532,6 @@ class CreateMcubeNebulaAppResponse(TeaModel):
         self.body = body  # type: CreateMcubeNebulaAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2824,9 +2776,6 @@ class CreateMcubeNebulaResourceResponse(TeaModel):
         self.body = body  # type: CreateMcubeNebulaResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3164,9 +3113,6 @@ class CreateMcubeNebulaTaskResponse(TeaModel):
         self.body = body  # type: CreateMcubeNebulaTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3400,9 +3346,6 @@ class CreateMcubeUpgradePackageResponse(TeaModel):
         self.body = body  # type: CreateMcubeUpgradePackageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3615,9 +3558,6 @@ class CreateMcubeUpgradeTaskResponse(TeaModel):
         self.body = body  # type: CreateMcubeUpgradeTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3768,9 +3708,6 @@ class CreateMcubeVhostResponse(TeaModel):
         self.body = body  # type: CreateMcubeVhostResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3926,9 +3863,6 @@ class CreateMcubeWhitelistResponse(TeaModel):
         self.body = body  # type: CreateMcubeWhitelistResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4085,9 +4019,6 @@ class CreateMcubeWhitelistForIdeResponse(TeaModel):
         self.body = body  # type: CreateMcubeWhitelistForIdeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4326,9 +4257,6 @@ class CreateMdsMiniprogramTaskResponse(TeaModel):
         self.body = body  # type: CreateMdsMiniprogramTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4485,9 +4413,6 @@ class CreateMsaEnhanceResponse(TeaModel):
         self.body = body  # type: CreateMsaEnhanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4654,9 +4579,6 @@ class CreateOpenGlobalDataResponse(TeaModel):
         self.body = body  # type: CreateOpenGlobalDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4818,9 +4740,6 @@ class CreateOpenSingleDataResponse(TeaModel):
         self.body = body  # type: CreateOpenSingleDataResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5012,9 +4931,6 @@ class DeleteCubecardWhitelistContentResponse(TeaModel):
         self.body = body  # type: DeleteCubecardWhitelistContentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5171,9 +5087,6 @@ class DeleteMcdpAimResponse(TeaModel):
         self.body = body  # type: DeleteMcdpAimResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5330,9 +5243,6 @@ class DeleteMcdpCrowdResponse(TeaModel):
         self.body = body  # type: DeleteMcdpCrowdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5489,9 +5399,6 @@ class DeleteMcdpEventAttributeByIdResponse(TeaModel):
         self.body = body  # type: DeleteMcdpEventAttributeByIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5648,9 +5555,6 @@ class DeleteMcdpEventByIdResponse(TeaModel):
         self.body = body  # type: DeleteMcdpEventByIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5807,9 +5711,6 @@ class DeleteMcdpMaterialResponse(TeaModel):
         self.body = body  # type: DeleteMcdpMaterialResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5966,9 +5867,6 @@ class DeleteMcdpZoneResponse(TeaModel):
         self.body = body  # type: DeleteMcdpZoneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6119,9 +6017,6 @@ class DeleteMcubeMiniAppResponse(TeaModel):
         self.body = body  # type: DeleteMcubeMiniAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6277,9 +6172,6 @@ class DeleteMcubeNebulaAppResponse(TeaModel):
         self.body = body  # type: DeleteMcubeNebulaAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6440,9 +6332,6 @@ class DeleteMcubeUpgradeResourceResponse(TeaModel):
         self.body = body  # type: DeleteMcubeUpgradeResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6593,9 +6482,6 @@ class DeleteMcubeWhitelistResponse(TeaModel):
         self.body = body  # type: DeleteMcubeWhitelistResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6787,9 +6673,6 @@ class DeleteMdsWhitelistContentResponse(TeaModel):
         self.body = body  # type: DeleteMdsWhitelistContentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6935,9 +6818,6 @@ class ExistMcubeRsaKeyResponse(TeaModel):
         self.body = body  # type: ExistMcubeRsaKeyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7105,9 +6985,6 @@ class ExportMappCenterAppConfigResponse(TeaModel):
         self.body = body  # type: ExportMappCenterAppConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7319,9 +7196,6 @@ class GetFileTokenForUploadToMsaResponse(TeaModel):
         self.body = body  # type: GetFileTokenForUploadToMsaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7477,9 +7351,6 @@ class GetLogUrlInMsaResponse(TeaModel):
         self.body = body  # type: GetLogUrlInMsaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7681,9 +7552,6 @@ class GetMcubeFileTokenResponse(TeaModel):
         self.body = body  # type: GetMcubeFileTokenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8004,9 +7872,6 @@ class GetMcubeNebulaResourceResponse(TeaModel):
         self.body = body  # type: GetMcubeNebulaResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8494,9 +8359,6 @@ class GetMcubeNebulaTaskDetailResponse(TeaModel):
         self.body = body  # type: GetMcubeNebulaTaskDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8968,9 +8830,6 @@ class GetMcubeUpgradePackageInfoResponse(TeaModel):
         self.body = body  # type: GetMcubeUpgradePackageInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9459,9 +9318,6 @@ class GetMcubeUpgradeTaskInfoResponse(TeaModel):
         self.body = body  # type: GetMcubeUpgradeTaskInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10019,9 +9875,6 @@ class GetMdsMiniConfigResponse(TeaModel):
         self.body = body  # type: GetMdsMiniConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10208,9 +10061,6 @@ class GetUserAppDonwloadUrlInMsaResponse(TeaModel):
         self.body = body  # type: GetUserAppDonwloadUrlInMsaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10537,9 +10387,6 @@ class GetUserAppEnhanceProcessInMsaResponse(TeaModel):
         self.body = body  # type: GetUserAppEnhanceProcessInMsaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10912,9 +10759,6 @@ class GetUserAppUploadProcessInMsaResponse(TeaModel):
         self.body = body  # type: GetUserAppUploadProcessInMsaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11193,9 +11037,6 @@ class ListMappCenterAppsResponse(TeaModel):
         self.body = body  # type: ListMappCenterAppsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11401,9 +11242,6 @@ class ListMappCenterWorkspacesResponse(TeaModel):
         self.body = body  # type: ListMappCenterWorkspacesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11595,9 +11433,6 @@ class ListMcdpAimResponse(TeaModel):
         self.body = body  # type: ListMcdpAimResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11831,9 +11666,6 @@ class ListMcubeMiniAppsResponse(TeaModel):
         self.body = body  # type: ListMcubeMiniAppsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12161,9 +11993,6 @@ class ListMcubeMiniPackagesResponse(TeaModel):
         self.body = body  # type: ListMcubeMiniPackagesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12428,9 +12257,6 @@ class ListMcubeMiniTasksResponse(TeaModel):
         self.body = body  # type: ListMcubeMiniTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12659,9 +12485,6 @@ class ListMcubeNebulaAppsResponse(TeaModel):
         self.body = body  # type: ListMcubeNebulaAppsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13041,9 +12864,6 @@ class ListMcubeNebulaResourcesResponse(TeaModel):
         self.body = body  # type: ListMcubeNebulaResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13396,9 +13216,6 @@ class ListMcubeNebulaTasksResponse(TeaModel):
         self.body = body  # type: ListMcubeNebulaTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13818,9 +13635,6 @@ class ListMcubeUpgradePackagesResponse(TeaModel):
         self.body = body  # type: ListMcubeUpgradePackagesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14246,9 +14060,6 @@ class ListMcubeUpgradeTasksResponse(TeaModel):
         self.body = body  # type: ListMcubeUpgradeTasksResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14494,9 +14305,6 @@ class ListMcubeWhitelistsResponse(TeaModel):
         self.body = body  # type: ListMcubeWhitelistsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15431,9 +15239,6 @@ class ListMgsApiResponse(TeaModel):
         self.body = body  # type: ListMgsApiResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15594,9 +15399,6 @@ class LogMsaQueryResponse(TeaModel):
         self.body = body  # type: LogMsaQueryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15731,9 +15533,6 @@ class MTRSOCRServiceResponse(TeaModel):
         self.body = body  # type: MTRSOCRServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15844,9 +15643,6 @@ class OpenApiAddActiveCodeResponse(TeaModel):
         self.body = body  # type: OpenApiAddActiveCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15957,9 +15753,6 @@ class OpenApiAddActiveSceneResponse(TeaModel):
         self.body = body  # type: OpenApiAddActiveSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16070,9 +15863,6 @@ class OpenApiCallbackResponse(TeaModel):
         self.body = body  # type: OpenApiCallbackResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16183,9 +15973,6 @@ class OpenApiDecodeResponse(TeaModel):
         self.body = body  # type: OpenApiDecodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16296,9 +16083,6 @@ class OpenApiDeleteActiveCodeResponse(TeaModel):
         self.body = body  # type: OpenApiDeleteActiveCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16409,9 +16193,6 @@ class OpenApiEncodeResponse(TeaModel):
         self.body = body  # type: OpenApiEncodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16527,9 +16308,6 @@ class OpenApiQueryActiveCodeResponse(TeaModel):
         self.body = body  # type: OpenApiQueryActiveCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16640,9 +16418,6 @@ class OpenApiQueryActiveSceneResponse(TeaModel):
         self.body = body  # type: OpenApiQueryActiveSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16753,9 +16528,6 @@ class OpenApiUniqueEncodeResponse(TeaModel):
         self.body = body  # type: OpenApiUniqueEncodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16866,9 +16638,6 @@ class OpenApiUpdateActiveCodeResponse(TeaModel):
         self.body = body  # type: OpenApiUpdateActiveCodeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16979,9 +16748,6 @@ class OpenApiUpdateActiveSceneResponse(TeaModel):
         self.body = body  # type: OpenApiUpdateActiveSceneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17143,9 +16909,6 @@ class PushBindResponse(TeaModel):
         self.body = body  # type: PushBindResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17523,9 +17286,6 @@ class PushBroadcastResponse(TeaModel):
         self.body = body  # type: PushBroadcastResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17975,9 +17735,6 @@ class PushMultipleResponse(TeaModel):
         self.body = body  # type: PushMultipleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18175,9 +17932,6 @@ class PushReportResponse(TeaModel):
         self.body = body  # type: PushReportResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18627,9 +18381,6 @@ class PushSimpleResponse(TeaModel):
         self.body = body  # type: PushSimpleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19038,9 +18789,6 @@ class PushTemplateResponse(TeaModel):
         self.body = body  # type: PushTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19191,9 +18939,6 @@ class PushUnBindResponse(TeaModel):
         self.body = body  # type: PushUnBindResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19219,6 +18964,141 @@ class PushUnBindResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = PushUnBindResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryInfoFromMdpRequest(TeaModel):
+    def __init__(self, app_id=None, mobile=None, mobile_md_5=None, mobile_sha_256=None, risk_scene=None,
+                 tenant_id=None, workspace_id=None):
+        self.app_id = app_id  # type: str
+        self.mobile = mobile  # type: str
+        self.mobile_md_5 = mobile_md_5  # type: str
+        self.mobile_sha_256 = mobile_sha_256  # type: str
+        self.risk_scene = risk_scene  # type: str
+        self.tenant_id = tenant_id  # type: str
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryInfoFromMdpRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.mobile is not None:
+            result['Mobile'] = self.mobile
+        if self.mobile_md_5 is not None:
+            result['MobileMd5'] = self.mobile_md_5
+        if self.mobile_sha_256 is not None:
+            result['MobileSha256'] = self.mobile_sha_256
+        if self.risk_scene is not None:
+            result['RiskScene'] = self.risk_scene
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('Mobile') is not None:
+            self.mobile = m.get('Mobile')
+        if m.get('MobileMd5') is not None:
+            self.mobile_md_5 = m.get('MobileMd5')
+        if m.get('MobileSha256') is not None:
+            self.mobile_sha_256 = m.get('MobileSha256')
+        if m.get('RiskScene') is not None:
+            self.risk_scene = m.get('RiskScene')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        return self
+
+
+class QueryInfoFromMdpResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None, result_code=None, result_message=None, success=None):
+        self.data = data  # type: str
+        self.request_id = request_id  # type: str
+        self.result_code = result_code  # type: int
+        self.result_message = result_message  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryInfoFromMdpResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result_code is not None:
+            result['ResultCode'] = self.result_code
+        if self.result_message is not None:
+            result['ResultMessage'] = self.result_message
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResultCode') is not None:
+            self.result_code = m.get('ResultCode')
+        if m.get('ResultMessage') is not None:
+            self.result_message = m.get('ResultMessage')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryInfoFromMdpResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryInfoFromMdpResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryInfoFromMdpResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryInfoFromMdpResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -19495,9 +19375,6 @@ class QueryMappCenterAppResponse(TeaModel):
         self.body = body  # type: QueryMappCenterAppResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19653,9 +19530,6 @@ class QueryMcdpAimResponse(TeaModel):
         self.body = body  # type: QueryMcdpAimResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19811,9 +19685,6 @@ class QueryMcdpZoneResponse(TeaModel):
         self.body = body  # type: QueryMcdpZoneResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20103,9 +19974,6 @@ class QueryMcubeMiniPackageResponse(TeaModel):
         self.body = body  # type: QueryMcubeMiniPackageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20364,9 +20232,6 @@ class QueryMcubeMiniTaskResponse(TeaModel):
         self.body = body  # type: QueryMcubeMiniTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20512,9 +20377,6 @@ class QueryMcubeVhostResponse(TeaModel):
         self.body = body  # type: QueryMcubeVhostResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21112,9 +20974,6 @@ class QueryMdsUpgradeTaskDetailResponse(TeaModel):
         self.body = body  # type: QueryMdsUpgradeTaskDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22054,9 +21913,6 @@ class QueryMgsApipageResponse(TeaModel):
         self.body = body  # type: QueryMgsApipageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22970,9 +22826,6 @@ class QueryMgsApirestResponse(TeaModel):
         self.body = body  # type: QueryMgsApirestResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23093,9 +22946,6 @@ class QueryMgsTestreqbodyautogenResponse(TeaModel):
         self.body = body  # type: QueryMgsTestreqbodyautogenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23371,9 +23221,6 @@ class QueryMpsSchedulerListResponse(TeaModel):
         self.body = body  # type: QueryMpsSchedulerListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23597,9 +23444,6 @@ class QueryPushAnalysisCoreIndexResponse(TeaModel):
         self.body = body  # type: QueryPushAnalysisCoreIndexResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23792,9 +23636,6 @@ class QueryPushAnalysisTaskDetailResponse(TeaModel):
         self.body = body  # type: QueryPushAnalysisTaskDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24072,9 +23913,6 @@ class QueryPushAnalysisTaskListResponse(TeaModel):
         self.body = body  # type: QueryPushAnalysisTaskListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24350,9 +24188,6 @@ class QueryPushSchedulerListResponse(TeaModel):
         self.body = body  # type: QueryPushSchedulerListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24503,9 +24338,6 @@ class RevokePushMessageResponse(TeaModel):
         self.body = body  # type: RevokePushMessageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24651,9 +24483,6 @@ class RevokePushTaskResponse(TeaModel):
         self.body = body  # type: RevokePushTaskResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24809,9 +24638,6 @@ class RunMsaDiffResponse(TeaModel):
         self.body = body  # type: RunMsaDiffResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24963,9 +24789,6 @@ class SaveMgsApirestResponse(TeaModel):
         self.body = body  # type: SaveMgsApirestResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25375,9 +25198,6 @@ class StartUserAppAsyncEnhanceInMsaResponse(TeaModel):
         self.body = body  # type: StartUserAppAsyncEnhanceInMsaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25580,9 +25400,6 @@ class UpdateMcubeWhitelistResponse(TeaModel):
         self.body = body  # type: UpdateMcubeWhitelistResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25790,9 +25607,6 @@ class UpdateMpaasAppInfoResponse(TeaModel):
         self.body = body  # type: UpdateMpaasAppInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25964,9 +25778,6 @@ class UploadBitcodeToMsaResponse(TeaModel):
         self.body = body  # type: UploadBitcodeToMsaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26262,9 +26073,6 @@ class UploadMcubeMiniPackageResponse(TeaModel):
         self.body = body  # type: UploadMcubeMiniPackageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26420,9 +26228,6 @@ class UploadMcubeRsaKeyResponse(TeaModel):
         self.body = body  # type: UploadMcubeRsaKeyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26773,9 +26578,6 @@ class UploadUserAppToMsaResponse(TeaModel):
         self.body = body  # type: UploadUserAppToMsaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
