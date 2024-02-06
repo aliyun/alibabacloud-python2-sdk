@@ -22242,7 +22242,8 @@ class UpgradeClusterAddonsResponse(TeaModel):
 
 
 class UpgradeClusterNodepoolRequest(TeaModel):
-    def __init__(self, image_id=None, kubernetes_version=None, runtime_type=None, runtime_version=None):
+    def __init__(self, image_id=None, kubernetes_version=None, runtime_type=None, runtime_version=None,
+                 use_replace=None):
         # The ID of the OS image that is used by the nodes.
         self.image_id = image_id  # type: str
         # The Kubernetes version that is used by the nodes.
@@ -22251,6 +22252,7 @@ class UpgradeClusterNodepoolRequest(TeaModel):
         self.runtime_type = runtime_type  # type: str
         # The version of the container runtime that is used by the nodes.
         self.runtime_version = runtime_version  # type: str
+        self.use_replace = use_replace  # type: bool
 
     def validate(self):
         pass
@@ -22269,6 +22271,8 @@ class UpgradeClusterNodepoolRequest(TeaModel):
             result['runtime_type'] = self.runtime_type
         if self.runtime_version is not None:
             result['runtime_version'] = self.runtime_version
+        if self.use_replace is not None:
+            result['use_replace'] = self.use_replace
         return result
 
     def from_map(self, m=None):
@@ -22281,6 +22285,8 @@ class UpgradeClusterNodepoolRequest(TeaModel):
             self.runtime_type = m.get('runtime_type')
         if m.get('runtime_version') is not None:
             self.runtime_version = m.get('runtime_version')
+        if m.get('use_replace') is not None:
+            self.use_replace = m.get('use_replace')
         return self
 
 
