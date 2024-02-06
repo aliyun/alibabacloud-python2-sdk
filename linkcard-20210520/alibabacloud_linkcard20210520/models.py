@@ -193,9 +193,6 @@ class AddCardToDirectionalGroupResponse(TeaModel):
         self.body = body  # type: AddCardToDirectionalGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -337,9 +334,6 @@ class AddDirectionalAddressResponse(TeaModel):
         self.body = body  # type: AddDirectionalAddressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -536,9 +530,6 @@ class AddDirectionalCardResponse(TeaModel):
         self.body = body  # type: AddDirectionalCardResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -649,9 +640,6 @@ class AddDirectionalGroupResponse(TeaModel):
         self.body = body  # type: AddDirectionalGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -827,9 +815,6 @@ class AddTagsToCardResponse(TeaModel):
         self.body = body  # type: AddTagsToCardResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -955,9 +940,6 @@ class BatchAddDirectionalAddressResponse(TeaModel):
         self.body = body  # type: BatchAddDirectionalAddressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1083,9 +1065,6 @@ class DeleteDirectionalAddressResponse(TeaModel):
         self.body = body  # type: DeleteDirectionalAddressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1196,9 +1175,6 @@ class DeleteDirectionalGroupResponse(TeaModel):
         self.body = body  # type: DeleteDirectionalGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1314,9 +1290,6 @@ class ForceActivationResponse(TeaModel):
         self.body = body  # type: ForceActivationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1844,9 +1817,6 @@ class GetCardDetailResponse(TeaModel):
         self.body = body  # type: GetCardDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2178,9 +2148,6 @@ class GetCardFlowInfoResponse(TeaModel):
         self.body = body  # type: GetCardFlowInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2291,9 +2258,6 @@ class GetCardLatestFlowResponse(TeaModel):
         self.body = body  # type: GetCardLatestFlowResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2500,9 +2464,6 @@ class GetCardRealStatusResponse(TeaModel):
         self.body = body  # type: GetCardRealStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3073,9 +3034,6 @@ class GetCardStatusStatisticsResponse(TeaModel):
         self.body = body  # type: GetCardStatusStatisticsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3289,9 +3247,6 @@ class GetCredentialPoolStatisticsResponse(TeaModel):
         self.body = body  # type: GetCredentialPoolStatisticsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3453,9 +3408,6 @@ class GetOperateResultResponse(TeaModel):
         self.body = body  # type: GetOperateResultResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3631,9 +3583,6 @@ class GetRealNameStatusResponse(TeaModel):
         self.body = body  # type: GetRealNameStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3800,9 +3749,6 @@ class GetSimCardStateDistributionResponse(TeaModel):
         self.body = body  # type: GetSimCardStateDistributionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4349,9 +4295,6 @@ class ListCardInfoResponse(TeaModel):
         self.body = body  # type: ListCardInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4570,9 +4513,6 @@ class ListDirectionalAddressResponse(TeaModel):
         self.body = body  # type: ListDirectionalAddressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4827,9 +4767,6 @@ class ListDirectionalDetailResponse(TeaModel):
         self.body = body  # type: ListDirectionalDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5229,9 +5166,6 @@ class ListOrderResponse(TeaModel):
         self.body = body  # type: ListOrderResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5376,9 +5310,6 @@ class RebindResumeSingleCardResponse(TeaModel):
         self.body = body  # type: RebindResumeSingleCardResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5551,9 +5482,6 @@ class RenewResponse(TeaModel):
         self.body = body  # type: RenewResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5698,9 +5626,6 @@ class ResumeSingleCardResponse(TeaModel):
         self.body = body  # type: ResumeSingleCardResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5899,9 +5824,6 @@ class SendMessageResponse(TeaModel):
         self.body = body  # type: SendMessageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6022,9 +5944,6 @@ class SetCardStopRuleResponse(TeaModel):
         self.body = body  # type: SetCardStopRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6169,9 +6088,6 @@ class StopSingleCardResponse(TeaModel):
         self.body = body  # type: StopSingleCardResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6287,9 +6203,6 @@ class UpdateAutoRechargeSwitchResponse(TeaModel):
         self.body = body  # type: UpdateAutoRechargeSwitchResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6400,9 +6313,6 @@ class VerifyIotCardResponse(TeaModel):
         self.body = body  # type: VerifyIotCardResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
