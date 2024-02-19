@@ -7803,8 +7803,14 @@ class GetAvatarTrainingJobResponse(TeaModel):
 
 
 class GetBatchMediaProducingJobRequest(TeaModel):
-    def __init__(self, job_id=None):
+    def __init__(self, job_id=None, signature=None, signature_mehtod=None, signature_nonce=None,
+                 signature_type=None, signature_version=None):
         self.job_id = job_id  # type: str
+        self.signature = signature  # type: str
+        self.signature_mehtod = signature_mehtod  # type: str
+        self.signature_nonce = signature_nonce  # type: str
+        self.signature_type = signature_type  # type: str
+        self.signature_version = signature_version  # type: str
 
     def validate(self):
         pass
@@ -7817,12 +7823,32 @@ class GetBatchMediaProducingJobRequest(TeaModel):
         result = dict()
         if self.job_id is not None:
             result['JobId'] = self.job_id
+        if self.signature is not None:
+            result['Signature'] = self.signature
+        if self.signature_mehtod is not None:
+            result['SignatureMehtod'] = self.signature_mehtod
+        if self.signature_nonce is not None:
+            result['SignatureNonce'] = self.signature_nonce
+        if self.signature_type is not None:
+            result['SignatureType'] = self.signature_type
+        if self.signature_version is not None:
+            result['SignatureVersion'] = self.signature_version
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('JobId') is not None:
             self.job_id = m.get('JobId')
+        if m.get('Signature') is not None:
+            self.signature = m.get('Signature')
+        if m.get('SignatureMehtod') is not None:
+            self.signature_mehtod = m.get('SignatureMehtod')
+        if m.get('SignatureNonce') is not None:
+            self.signature_nonce = m.get('SignatureNonce')
+        if m.get('SignatureType') is not None:
+            self.signature_type = m.get('SignatureType')
+        if m.get('SignatureVersion') is not None:
+            self.signature_version = m.get('SignatureVersion')
         return self
 
 
