@@ -4818,8 +4818,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_collection_data_with_options(request, runtime)
 
-    def query_content_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def query_content_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = gpdb_20160503_models.QueryContentShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.recall_window):
+            request.recall_window_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.recall_window, 'RecallWindow', 'json')
         query = {}
         if not UtilClient.is_unset(request.collection):
             query['Collection'] = request.collection
@@ -4833,6 +4837,8 @@ class Client(OpenApiClient):
             query['FileUrl'] = request.file_url
         if not UtilClient.is_unset(request.filter):
             query['Filter'] = request.filter
+        if not UtilClient.is_unset(request.include_vector):
+            query['IncludeVector'] = request.include_vector
         if not UtilClient.is_unset(request.metrics):
             query['Metrics'] = request.metrics
         if not UtilClient.is_unset(request.namespace):
@@ -4841,8 +4847,12 @@ class Client(OpenApiClient):
             query['NamespacePassword'] = request.namespace_password
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.recall_window_shrink):
+            query['RecallWindow'] = request.recall_window_shrink
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.rerank_factor):
+            query['RerankFactor'] = request.rerank_factor
         if not UtilClient.is_unset(request.top_k):
             query['TopK'] = request.top_k
         if not UtilClient.is_unset(request.use_full_text_retrieval):
