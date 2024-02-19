@@ -3511,7 +3511,8 @@ class DescribeDiskMonitorDataRequest(TeaModel):
 
 class DescribeDiskMonitorDataResponseBodyMonitorData(TeaModel):
     def __init__(self, bpspercent=None, burst_iocount=None, disk_id=None, iopspercent=None, read_bps=None,
-                 read_iops=None, timestamp=None, write_bps=None, write_iops=None):
+                 read_block_size=None, read_iops=None, read_latency=None, timestamp=None, write_bps=None, write_block_size=None,
+                 write_iops=None, write_latency=None):
         # The percentage of BPS.
         self.bpspercent = bpspercent  # type: long
         # The number of burst I/O operations.
@@ -3522,14 +3523,18 @@ class DescribeDiskMonitorDataResponseBodyMonitorData(TeaModel):
         self.iopspercent = iopspercent  # type: long
         # The read bandwidth of the disk. Unit: Mbit/s.
         self.read_bps = read_bps  # type: long
+        self.read_block_size = read_block_size  # type: long
         # The maximum number of read IOPS.
         self.read_iops = read_iops  # type: long
+        self.read_latency = read_latency  # type: long
         # The timestamp that is used to query the near real-time monitoring data of the disk. The time follows the [ISO 8601](~~25696~~) standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time is displayed in UTC.
         self.timestamp = timestamp  # type: str
         # The write bandwidth of the disk. Unit: Mbit/s.
         self.write_bps = write_bps  # type: long
+        self.write_block_size = write_block_size  # type: long
         # The maximum number of write IOPS.
         self.write_iops = write_iops  # type: long
+        self.write_latency = write_latency  # type: long
 
     def validate(self):
         pass
@@ -3550,14 +3555,22 @@ class DescribeDiskMonitorDataResponseBodyMonitorData(TeaModel):
             result['IOPSPercent'] = self.iopspercent
         if self.read_bps is not None:
             result['ReadBPS'] = self.read_bps
+        if self.read_block_size is not None:
+            result['ReadBlockSize'] = self.read_block_size
         if self.read_iops is not None:
             result['ReadIOPS'] = self.read_iops
+        if self.read_latency is not None:
+            result['ReadLatency'] = self.read_latency
         if self.timestamp is not None:
             result['Timestamp'] = self.timestamp
         if self.write_bps is not None:
             result['WriteBPS'] = self.write_bps
+        if self.write_block_size is not None:
+            result['WriteBlockSize'] = self.write_block_size
         if self.write_iops is not None:
             result['WriteIOPS'] = self.write_iops
+        if self.write_latency is not None:
+            result['WriteLatency'] = self.write_latency
         return result
 
     def from_map(self, m=None):
@@ -3572,14 +3585,22 @@ class DescribeDiskMonitorDataResponseBodyMonitorData(TeaModel):
             self.iopspercent = m.get('IOPSPercent')
         if m.get('ReadBPS') is not None:
             self.read_bps = m.get('ReadBPS')
+        if m.get('ReadBlockSize') is not None:
+            self.read_block_size = m.get('ReadBlockSize')
         if m.get('ReadIOPS') is not None:
             self.read_iops = m.get('ReadIOPS')
+        if m.get('ReadLatency') is not None:
+            self.read_latency = m.get('ReadLatency')
         if m.get('Timestamp') is not None:
             self.timestamp = m.get('Timestamp')
         if m.get('WriteBPS') is not None:
             self.write_bps = m.get('WriteBPS')
+        if m.get('WriteBlockSize') is not None:
+            self.write_block_size = m.get('WriteBlockSize')
         if m.get('WriteIOPS') is not None:
             self.write_iops = m.get('WriteIOPS')
+        if m.get('WriteLatency') is not None:
+            self.write_latency = m.get('WriteLatency')
         return self
 
 
@@ -4871,6 +4892,650 @@ class DescribeDiskReplicaPairsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeDiskReplicaPairsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDisksRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # The key of the tag.
+        self.key = key  # type: str
+        # The value of the tag.
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDisksRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeDisksRequest(TeaModel):
+    def __init__(self, category=None, disk_ids=None, disk_name=None, max_results=None, next_token=None,
+                 page_number=None, page_size=None, region_id=None, resource_group_id=None, status=None, tag=None, zone_id=None):
+        # The category of disks.
+        self.category = category  # type: str
+        # The IDs of the disks. The value is a JSON array that contains multiple disk IDs. Separate the IDs with commas (,).
+        self.disk_ids = disk_ids  # type: str
+        # The name of the disk.
+        self.disk_name = disk_name  # type: str
+        # The maximum number of entries per page. Valid values: 1 to 100.
+        # 
+        # Default values:
+        # 
+        # *   If this parameter is not specified or is set to a value smaller than 10, the default value is 10.
+        # *   If this parameter is set to a value greater than 100, the default value is 100.
+        self.max_results = max_results  # type: int
+        # A pagination token. It can be used in the next request to retrieve a new page of results. If NextToken is empty, no next page exists.
+        self.next_token = next_token  # type: str
+        # The page number.
+        self.page_number = page_number  # type: int
+        # The number of entries per page.
+        self.page_size = page_size  # type: int
+        # The ID of the region.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group to which the disk belongs.
+        self.resource_group_id = resource_group_id  # type: str
+        # The states of disk. Valid values:
+        # 
+        # *   In_use
+        # *   Available
+        # *   Attaching
+        # *   Detaching
+        # *   Creating
+        # *   ReIniting
+        self.status = status  # type: str
+        # The resource tags. You can specify up to 20 tags.
+        self.tag = tag  # type: list[DescribeDisksRequestTag]
+        # The ID of the zone.
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDisksRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.disk_ids is not None:
+            result['DiskIds'] = self.disk_ids
+        if self.disk_name is not None:
+            result['DiskName'] = self.disk_name
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.status is not None:
+            result['Status'] = self.status
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('DiskIds') is not None:
+            self.disk_ids = m.get('DiskIds')
+        if m.get('DiskName') is not None:
+            self.disk_name = m.get('DiskName')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeDisksRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class DescribeDisksResponseBodyDataAccessAuthorizationEcs(TeaModel):
+    def __init__(self, instance_id=None):
+        # The ID of the instance.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDisksResponseBodyDataAccessAuthorizationEcs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class DescribeDisksResponseBodyDataAccessAuthorizationPod(TeaModel):
+    def __init__(self, cluster_id=None, pod_id=None):
+        # The cluster ID.
+        self.cluster_id = cluster_id  # type: str
+        # The pod ID.
+        self.pod_id = pod_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDisksResponseBodyDataAccessAuthorizationPod, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.pod_id is not None:
+            result['PodId'] = self.pod_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('PodId') is not None:
+            self.pod_id = m.get('PodId')
+        return self
+
+
+class DescribeDisksResponseBodyDataAccessAuthorization(TeaModel):
+    def __init__(self, access_token=None, ecs=None, pod=None):
+        # The token that is used to access the disk.
+        self.access_token = access_token  # type: str
+        # The information of ecs.
+        self.ecs = ecs  # type: DescribeDisksResponseBodyDataAccessAuthorizationEcs
+        # The information of pod.
+        self.pod = pod  # type: DescribeDisksResponseBodyDataAccessAuthorizationPod
+
+    def validate(self):
+        if self.ecs:
+            self.ecs.validate()
+        if self.pod:
+            self.pod.validate()
+
+    def to_map(self):
+        _map = super(DescribeDisksResponseBodyDataAccessAuthorization, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['AccessToken'] = self.access_token
+        if self.ecs is not None:
+            result['Ecs'] = self.ecs.to_map()
+        if self.pod is not None:
+            result['Pod'] = self.pod.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessToken') is not None:
+            self.access_token = m.get('AccessToken')
+        if m.get('Ecs') is not None:
+            temp_model = DescribeDisksResponseBodyDataAccessAuthorizationEcs()
+            self.ecs = temp_model.from_map(m['Ecs'])
+        if m.get('Pod') is not None:
+            temp_model = DescribeDisksResponseBodyDataAccessAuthorizationPod()
+            self.pod = temp_model.from_map(m['Pod'])
+        return self
+
+
+class DescribeDisksResponseBodyDataAttachments(TeaModel):
+    def __init__(self, attached_time=None, instance_id=None, namespace_id=None):
+        # The time when the disk was attached.
+        self.attached_time = attached_time  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
+        self.namespace_id = namespace_id  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDisksResponseBodyDataAttachments, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attached_time is not None:
+            result['AttachedTime'] = self.attached_time
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.namespace_id is not None:
+            result['NamespaceId'] = self.namespace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AttachedTime') is not None:
+            self.attached_time = m.get('AttachedTime')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NamespaceId') is not None:
+            self.namespace_id = m.get('NamespaceId')
+        return self
+
+
+class DescribeDisksResponseBodyDataTags(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tag key.
+        self.tag_key = tag_key  # type: str
+        # The tag value.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDisksResponseBodyDataTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class DescribeDisksResponseBodyData(TeaModel):
+    def __init__(self, access_authorization=None, attached_time=None, attachments=None, bursting_enabled=None,
+                 category=None, creation_time=None, description=None, detached_time=None, device_nguid=None, disk_id=None,
+                 disk_name=None, encrypted=None, iops=None, iops_read=None, iops_write=None, kms_key_id=None, modify_at=None,
+                 performance_level=None, provisioned_iops=None, region_id=None, resource_group_id=None, size=None, status=None,
+                 tags=None, throughput=None, zone_id=None):
+        # The access authorization information of the disk.
+        self.access_authorization = access_authorization  # type: list[DescribeDisksResponseBodyDataAccessAuthorization]
+        # The time when the disk was attached.
+        self.attached_time = attached_time  # type: str
+        # The attachment information of the disk.
+        self.attachments = attachments  # type: list[DescribeDisksResponseBodyDataAttachments]
+        # Specifies whether to enable the performance burst feature for the disk. Valid values:
+        # 
+        # *   true: enable the performance burst feature.
+        # *   false: disable the performance burst feature.
+        self.bursting_enabled = bursting_enabled  # type: bool
+        # The category of disk.
+        self.category = category  # type: str
+        # The time when the disk was created.
+        self.creation_time = creation_time  # type: str
+        # The description of the disk. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.
+        self.description = description  # type: str
+        # The time when the disk was detached.
+        self.detached_time = detached_time  # type: str
+        # The maximum number of read and write operations per second. Unit: operations/s.
+        self.device_nguid = device_nguid  # type: str
+        # The ID of the disk.
+        self.disk_id = disk_id  # type: str
+        # The name of the disk.
+        self.disk_name = disk_name  # type: str
+        # Specifies whether to encrypt the disk. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false.
+        self.encrypted = encrypted  # type: bool
+        # IOPS。
+        self.iops = iops  # type: long
+        # The maximum number of read operations per second. Unit: operations/s.
+        self.iops_read = iops_read  # type: long
+        # The maximum number of write operations per second. Unit: operations/s.
+        self.iops_write = iops_write  # type: long
+        # The ID of the KMS key.
+        self.kms_key_id = kms_key_id  # type: str
+        # The time when the disk was modified.
+        self.modify_at = modify_at  # type: str
+        # The performance level of the ESSD. Valid values:
+        # 
+        # *   PL0: A single ESSD can deliver up to 10,000 random read/write IOPS.
+        # *   PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.
+        # *   PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.
+        # *   PL3: A single ESSD can deliver up to 1,000,000 random read/write IOPS.
+        # 
+        # Default value: PL1.
+        # 
+        # For more information about ESSD performance levels, see [ESSDs](~~122389~~).
+        self.performance_level = performance_level  # type: str
+        # The provisioned read/write IOPS of the ESSD AutoPL disk. Valid values: 0 to min{50,000, 1,000 × Capacity - Baseline IOPS}
+        # 
+        # Baseline IOPS = min{1,800 + 50 × Capacity, 50,000}
+        # 
+        # >  This parameter is available only if the DiskCategory parameter is set to cloud_auto. For more information, see [ESSD AutoPL disks](~~368372~~) and [Modify the performance configurations of an ESSD AutoPL disk](~~413275~~).
+        self.provisioned_iops = provisioned_iops  # type: long
+        # The region ID of the disk.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group to which the disk belongs.
+        self.resource_group_id = resource_group_id  # type: str
+        # The size of the disk. Unit: GB.
+        self.size = size  # type: long
+        # The states of disk. Valid values:
+        # 
+        # *   In_use
+        # *   Available
+        # *   Attaching
+        # *   Detaching
+        # *   Creating
+        # *   ReIniting
+        self.status = status  # type: str
+        # The details of the tags.
+        self.tags = tags  # type: list[DescribeDisksResponseBodyDataTags]
+        # The throughput of the disk.
+        # 
+        # Unit: MB/s.
+        self.throughput = throughput  # type: long
+        # The zone ID of the disk.
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        if self.access_authorization:
+            for k in self.access_authorization:
+                if k:
+                    k.validate()
+        if self.attachments:
+            for k in self.attachments:
+                if k:
+                    k.validate()
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDisksResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AccessAuthorization'] = []
+        if self.access_authorization is not None:
+            for k in self.access_authorization:
+                result['AccessAuthorization'].append(k.to_map() if k else None)
+        if self.attached_time is not None:
+            result['AttachedTime'] = self.attached_time
+        result['Attachments'] = []
+        if self.attachments is not None:
+            for k in self.attachments:
+                result['Attachments'].append(k.to_map() if k else None)
+        if self.bursting_enabled is not None:
+            result['BurstingEnabled'] = self.bursting_enabled
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.creation_time is not None:
+            result['CreationTime'] = self.creation_time
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.detached_time is not None:
+            result['DetachedTime'] = self.detached_time
+        if self.device_nguid is not None:
+            result['DeviceNguid'] = self.device_nguid
+        if self.disk_id is not None:
+            result['DiskId'] = self.disk_id
+        if self.disk_name is not None:
+            result['DiskName'] = self.disk_name
+        if self.encrypted is not None:
+            result['Encrypted'] = self.encrypted
+        if self.iops is not None:
+            result['Iops'] = self.iops
+        if self.iops_read is not None:
+            result['IopsRead'] = self.iops_read
+        if self.iops_write is not None:
+            result['IopsWrite'] = self.iops_write
+        if self.kms_key_id is not None:
+            result['KmsKeyId'] = self.kms_key_id
+        if self.modify_at is not None:
+            result['ModifyAt'] = self.modify_at
+        if self.performance_level is not None:
+            result['PerformanceLevel'] = self.performance_level
+        if self.provisioned_iops is not None:
+            result['ProvisionedIops'] = self.provisioned_iops
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.size is not None:
+            result['Size'] = self.size
+        if self.status is not None:
+            result['Status'] = self.status
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
+        if self.throughput is not None:
+            result['Throughput'] = self.throughput
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.access_authorization = []
+        if m.get('AccessAuthorization') is not None:
+            for k in m.get('AccessAuthorization'):
+                temp_model = DescribeDisksResponseBodyDataAccessAuthorization()
+                self.access_authorization.append(temp_model.from_map(k))
+        if m.get('AttachedTime') is not None:
+            self.attached_time = m.get('AttachedTime')
+        self.attachments = []
+        if m.get('Attachments') is not None:
+            for k in m.get('Attachments'):
+                temp_model = DescribeDisksResponseBodyDataAttachments()
+                self.attachments.append(temp_model.from_map(k))
+        if m.get('BurstingEnabled') is not None:
+            self.bursting_enabled = m.get('BurstingEnabled')
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('CreationTime') is not None:
+            self.creation_time = m.get('CreationTime')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DetachedTime') is not None:
+            self.detached_time = m.get('DetachedTime')
+        if m.get('DeviceNguid') is not None:
+            self.device_nguid = m.get('DeviceNguid')
+        if m.get('DiskId') is not None:
+            self.disk_id = m.get('DiskId')
+        if m.get('DiskName') is not None:
+            self.disk_name = m.get('DiskName')
+        if m.get('Encrypted') is not None:
+            self.encrypted = m.get('Encrypted')
+        if m.get('Iops') is not None:
+            self.iops = m.get('Iops')
+        if m.get('IopsRead') is not None:
+            self.iops_read = m.get('IopsRead')
+        if m.get('IopsWrite') is not None:
+            self.iops_write = m.get('IopsWrite')
+        if m.get('KmsKeyId') is not None:
+            self.kms_key_id = m.get('KmsKeyId')
+        if m.get('ModifyAt') is not None:
+            self.modify_at = m.get('ModifyAt')
+        if m.get('PerformanceLevel') is not None:
+            self.performance_level = m.get('PerformanceLevel')
+        if m.get('ProvisionedIops') is not None:
+            self.provisioned_iops = m.get('ProvisionedIops')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = DescribeDisksResponseBodyDataTags()
+                self.tags.append(temp_model.from_map(k))
+        if m.get('Throughput') is not None:
+            self.throughput = m.get('Throughput')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class DescribeDisksResponseBody(TeaModel):
+    def __init__(self, data=None, next_token=None, page_number=None, page_size=None, request_id=None,
+                 total_count=None):
+        # The data returned.
+        self.data = data  # type: list[DescribeDisksResponseBodyData]
+        # A pagination token. It can be used in the next request to retrieve a new page of results.
+        self.next_token = next_token  # type: str
+        # The page number.
+        self.page_number = page_number  # type: int
+        # The number of entries per page.
+        self.page_size = page_size  # type: int
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The total number of entries returned.
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDisksResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = DescribeDisksResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeDisksResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeDisksResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDisksResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeDisksResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -6670,6 +7335,503 @@ class FailoverDiskReplicaPairResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = FailoverDiskReplicaPairResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetDiskRequest(TeaModel):
+    def __init__(self, disk_id=None, region_id=None):
+        # The ID of the disk.
+        self.disk_id = disk_id  # type: str
+        # The region ID of the disk.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDiskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.disk_id is not None:
+            result['DiskId'] = self.disk_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DiskId') is not None:
+            self.disk_id = m.get('DiskId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class GetDiskResponseBodyDiskAccessAuthorizationEcs(TeaModel):
+    def __init__(self, instance_id=None):
+        # The ID of the instance.
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDiskResponseBodyDiskAccessAuthorizationEcs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class GetDiskResponseBodyDiskAccessAuthorizationPod(TeaModel):
+    def __init__(self, cluster_id=None, pod_id=None):
+        # The cluster ID.
+        self.cluster_id = cluster_id  # type: str
+        # The pod ID.
+        self.pod_id = pod_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDiskResponseBodyDiskAccessAuthorizationPod, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.pod_id is not None:
+            result['PodId'] = self.pod_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('PodId') is not None:
+            self.pod_id = m.get('PodId')
+        return self
+
+
+class GetDiskResponseBodyDiskAccessAuthorization(TeaModel):
+    def __init__(self, access_token=None, ecs=None, pod=None):
+        # The token that is used to access the disk.
+        self.access_token = access_token  # type: str
+        # The information of ecs.
+        self.ecs = ecs  # type: GetDiskResponseBodyDiskAccessAuthorizationEcs
+        # The information of pod.
+        self.pod = pod  # type: GetDiskResponseBodyDiskAccessAuthorizationPod
+
+    def validate(self):
+        if self.ecs:
+            self.ecs.validate()
+        if self.pod:
+            self.pod.validate()
+
+    def to_map(self):
+        _map = super(GetDiskResponseBodyDiskAccessAuthorization, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['AccessToken'] = self.access_token
+        if self.ecs is not None:
+            result['Ecs'] = self.ecs.to_map()
+        if self.pod is not None:
+            result['Pod'] = self.pod.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessToken') is not None:
+            self.access_token = m.get('AccessToken')
+        if m.get('Ecs') is not None:
+            temp_model = GetDiskResponseBodyDiskAccessAuthorizationEcs()
+            self.ecs = temp_model.from_map(m['Ecs'])
+        if m.get('Pod') is not None:
+            temp_model = GetDiskResponseBodyDiskAccessAuthorizationPod()
+            self.pod = temp_model.from_map(m['Pod'])
+        return self
+
+
+class GetDiskResponseBodyDiskAttachments(TeaModel):
+    def __init__(self, attached_time=None, instance_id=None, namespace_id=None):
+        # The time when the disk was attached.
+        self.attached_time = attached_time  # type: str
+        # The instance ID.
+        self.instance_id = instance_id  # type: str
+        # The ID of the namespace.
+        self.namespace_id = namespace_id  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDiskResponseBodyDiskAttachments, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attached_time is not None:
+            result['AttachedTime'] = self.attached_time
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.namespace_id is not None:
+            result['NamespaceId'] = self.namespace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AttachedTime') is not None:
+            self.attached_time = m.get('AttachedTime')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('NamespaceId') is not None:
+            self.namespace_id = m.get('NamespaceId')
+        return self
+
+
+class GetDiskResponseBodyDiskTags(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        # The tag key.
+        self.tag_key = tag_key  # type: str
+        # The tag value.
+        self.tag_value = tag_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDiskResponseBodyDiskTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        return self
+
+
+class GetDiskResponseBodyDisk(TeaModel):
+    def __init__(self, access_authorization=None, attached_time=None, attachments=None, bursting_enabled=None,
+                 category=None, creation_time=None, description=None, detached_time=None, device_nguid=None, disk_id=None,
+                 disk_name=None, encrypted=None, iops=None, iops_read=None, iops_write=None, kms_key_id=None, modify_at=None,
+                 performance_level=None, provisioned_iops=None, region_id=None, resource_group_id=None, size=None, status=None,
+                 tags=None, throughput=None, zone_id=None):
+        # The access authorization information of the disk.
+        self.access_authorization = access_authorization  # type: list[GetDiskResponseBodyDiskAccessAuthorization]
+        # The time when the disk was attached.
+        self.attached_time = attached_time  # type: str
+        # The attachment information of the disk.
+        self.attachments = attachments  # type: list[GetDiskResponseBodyDiskAttachments]
+        # Specifies whether to enable the performance burst feature for the disk. Valid values:
+        # 
+        # * true: enable the performance burst feature.
+        # * false: disable the performance burst feature.
+        self.bursting_enabled = bursting_enabled  # type: bool
+        # The category of the disk.
+        self.category = category  # type: str
+        # The time when the disk was created. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC. For more information, see [ISO 8601](~~25696~~).
+        self.creation_time = creation_time  # type: str
+        # The description of the disk.
+        self.description = description  # type: str
+        # The time when the disk was detached.
+        self.detached_time = detached_time  # type: str
+        # The maximum number of read and write operations per second. Unit: operations/s.
+        self.device_nguid = device_nguid  # type: str
+        # The ID of the disk.
+        self.disk_id = disk_id  # type: str
+        # The name of the disk.
+        self.disk_name = disk_name  # type: str
+        # Specifies whether to encrypt the disk. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false.
+        self.encrypted = encrypted  # type: bool
+        # IOPS。
+        self.iops = iops  # type: long
+        # The maximum number of read operations per second. Unit: operations/s.
+        self.iops_read = iops_read  # type: long
+        # The maximum number of write operations per second. Unit: operations/s.
+        self.iops_write = iops_write  # type: long
+        # The ID of the KMS key.
+        self.kms_key_id = kms_key_id  # type: str
+        # The time when the disk was modfied.
+        self.modify_at = modify_at  # type: str
+        # The performance level of the ESSD. Valid values:
+        # 
+        # * PL0: A single ESSD can deliver up to 10,000 random read/write IOPS.
+        # * PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.
+        # * PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.
+        # * PL3: A single ESSD can deliver up to 1,000,000 random read/write IOPS.
+        self.performance_level = performance_level  # type: str
+        # The provisioned read/write IOPS of the ESSD AutoPL disk. Valid values: 0 to min{50,000, 1,000 × Capacity - Baseline IOPS}
+        # 
+        # Baseline IOPS = min{1,800 + 50 × Capacity, 50,000}
+        # 
+        # >  This parameter is available only if the DiskCategory parameter is set to cloud_auto. For more information, see [ESSD AutoPL disks](~~368372~~) and [Modify the performance configurations of an ESSD AutoPL disk](~~413275~~).
+        self.provisioned_iops = provisioned_iops  # type: long
+        # The region ID of the disk. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group to which the disk belongs.
+        self.resource_group_id = resource_group_id  # type: str
+        # The size of the disk. Unit: GB.
+        self.size = size  # type: long
+        # The states of disk. Valid values:
+        # 
+        # * In_use
+        # * Available
+        # * Attaching
+        # * Detaching
+        # * Creating
+        # * ReIniting
+        self.status = status  # type: str
+        # The details of the tags.
+        self.tags = tags  # type: list[GetDiskResponseBodyDiskTags]
+        # The throughput of the disk.
+        # 
+        # Unit: MB/s.
+        self.throughput = throughput  # type: long
+        # The ID of the zone where the disk resides.
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        if self.access_authorization:
+            for k in self.access_authorization:
+                if k:
+                    k.validate()
+        if self.attachments:
+            for k in self.attachments:
+                if k:
+                    k.validate()
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetDiskResponseBodyDisk, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AccessAuthorization'] = []
+        if self.access_authorization is not None:
+            for k in self.access_authorization:
+                result['AccessAuthorization'].append(k.to_map() if k else None)
+        if self.attached_time is not None:
+            result['AttachedTime'] = self.attached_time
+        result['Attachments'] = []
+        if self.attachments is not None:
+            for k in self.attachments:
+                result['Attachments'].append(k.to_map() if k else None)
+        if self.bursting_enabled is not None:
+            result['BurstingEnabled'] = self.bursting_enabled
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.creation_time is not None:
+            result['CreationTime'] = self.creation_time
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.detached_time is not None:
+            result['DetachedTime'] = self.detached_time
+        if self.device_nguid is not None:
+            result['DeviceNguid'] = self.device_nguid
+        if self.disk_id is not None:
+            result['DiskId'] = self.disk_id
+        if self.disk_name is not None:
+            result['DiskName'] = self.disk_name
+        if self.encrypted is not None:
+            result['Encrypted'] = self.encrypted
+        if self.iops is not None:
+            result['Iops'] = self.iops
+        if self.iops_read is not None:
+            result['IopsRead'] = self.iops_read
+        if self.iops_write is not None:
+            result['IopsWrite'] = self.iops_write
+        if self.kms_key_id is not None:
+            result['KmsKeyId'] = self.kms_key_id
+        if self.modify_at is not None:
+            result['ModifyAt'] = self.modify_at
+        if self.performance_level is not None:
+            result['PerformanceLevel'] = self.performance_level
+        if self.provisioned_iops is not None:
+            result['ProvisionedIops'] = self.provisioned_iops
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.size is not None:
+            result['Size'] = self.size
+        if self.status is not None:
+            result['Status'] = self.status
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
+        if self.throughput is not None:
+            result['Throughput'] = self.throughput
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.access_authorization = []
+        if m.get('AccessAuthorization') is not None:
+            for k in m.get('AccessAuthorization'):
+                temp_model = GetDiskResponseBodyDiskAccessAuthorization()
+                self.access_authorization.append(temp_model.from_map(k))
+        if m.get('AttachedTime') is not None:
+            self.attached_time = m.get('AttachedTime')
+        self.attachments = []
+        if m.get('Attachments') is not None:
+            for k in m.get('Attachments'):
+                temp_model = GetDiskResponseBodyDiskAttachments()
+                self.attachments.append(temp_model.from_map(k))
+        if m.get('BurstingEnabled') is not None:
+            self.bursting_enabled = m.get('BurstingEnabled')
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('CreationTime') is not None:
+            self.creation_time = m.get('CreationTime')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('DetachedTime') is not None:
+            self.detached_time = m.get('DetachedTime')
+        if m.get('DeviceNguid') is not None:
+            self.device_nguid = m.get('DeviceNguid')
+        if m.get('DiskId') is not None:
+            self.disk_id = m.get('DiskId')
+        if m.get('DiskName') is not None:
+            self.disk_name = m.get('DiskName')
+        if m.get('Encrypted') is not None:
+            self.encrypted = m.get('Encrypted')
+        if m.get('Iops') is not None:
+            self.iops = m.get('Iops')
+        if m.get('IopsRead') is not None:
+            self.iops_read = m.get('IopsRead')
+        if m.get('IopsWrite') is not None:
+            self.iops_write = m.get('IopsWrite')
+        if m.get('KmsKeyId') is not None:
+            self.kms_key_id = m.get('KmsKeyId')
+        if m.get('ModifyAt') is not None:
+            self.modify_at = m.get('ModifyAt')
+        if m.get('PerformanceLevel') is not None:
+            self.performance_level = m.get('PerformanceLevel')
+        if m.get('ProvisionedIops') is not None:
+            self.provisioned_iops = m.get('ProvisionedIops')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = GetDiskResponseBodyDiskTags()
+                self.tags.append(temp_model.from_map(k))
+        if m.get('Throughput') is not None:
+            self.throughput = m.get('Throughput')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        return self
+
+
+class GetDiskResponseBody(TeaModel):
+    def __init__(self, disk=None, request_id=None):
+        # The information of the disk.
+        self.disk = disk  # type: GetDiskResponseBodyDisk
+        # The request ID.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.disk:
+            self.disk.validate()
+
+    def to_map(self):
+        _map = super(GetDiskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.disk is not None:
+            result['Disk'] = self.disk.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Disk') is not None:
+            temp_model = GetDiskResponseBodyDisk()
+            self.disk = temp_model.from_map(m['Disk'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetDiskResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetDiskResponseBody
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetDiskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetDiskResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
