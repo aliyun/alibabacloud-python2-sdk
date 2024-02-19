@@ -613,12 +613,10 @@ class AddImageRequestVMImageSpec(TeaModel):
 
 
 class AddImageRequest(TeaModel):
-    def __init__(self, container_image_spec=None, description=None, name=None, region_id=None, vmimage_spec=None,
-                 version=None):
+    def __init__(self, container_image_spec=None, description=None, name=None, vmimage_spec=None, version=None):
         self.container_image_spec = container_image_spec  # type: AddImageRequestContainerImageSpec
         self.description = description  # type: str
         self.name = name  # type: str
-        self.region_id = region_id  # type: str
         self.vmimage_spec = vmimage_spec  # type: AddImageRequestVMImageSpec
         self.version = version  # type: str
 
@@ -640,8 +638,6 @@ class AddImageRequest(TeaModel):
             result['Description'] = self.description
         if self.name is not None:
             result['Name'] = self.name
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         if self.vmimage_spec is not None:
             result['VMImageSpec'] = self.vmimage_spec.to_map()
         if self.version is not None:
@@ -657,8 +653,6 @@ class AddImageRequest(TeaModel):
             self.description = m.get('Description')
         if m.get('Name') is not None:
             self.name = m.get('Name')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         if m.get('VMImageSpec') is not None:
             temp_model = AddImageRequestVMImageSpec()
             self.vmimage_spec = temp_model.from_map(m['VMImageSpec'])
@@ -668,12 +662,11 @@ class AddImageRequest(TeaModel):
 
 
 class AddImageShrinkRequest(TeaModel):
-    def __init__(self, container_image_spec_shrink=None, description=None, name=None, region_id=None,
-                 vmimage_spec_shrink=None, version=None):
+    def __init__(self, container_image_spec_shrink=None, description=None, name=None, vmimage_spec_shrink=None,
+                 version=None):
         self.container_image_spec_shrink = container_image_spec_shrink  # type: str
         self.description = description  # type: str
         self.name = name  # type: str
-        self.region_id = region_id  # type: str
         self.vmimage_spec_shrink = vmimage_spec_shrink  # type: str
         self.version = version  # type: str
 
@@ -692,8 +685,6 @@ class AddImageShrinkRequest(TeaModel):
             result['Description'] = self.description
         if self.name is not None:
             result['Name'] = self.name
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         if self.vmimage_spec_shrink is not None:
             result['VMImageSpec'] = self.vmimage_spec_shrink
         if self.version is not None:
@@ -708,8 +699,6 @@ class AddImageShrinkRequest(TeaModel):
             self.description = m.get('Description')
         if m.get('Name') is not None:
             self.name = m.get('Name')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         if m.get('VMImageSpec') is not None:
             self.vmimage_spec_shrink = m.get('VMImageSpec')
         if m.get('Version') is not None:
@@ -1456,9 +1445,8 @@ class DeleteJobsResponse(TeaModel):
 
 
 class GetImageRequest(TeaModel):
-    def __init__(self, image_id=None, region_id=None):
+    def __init__(self, image_id=None):
         self.image_id = image_id  # type: str
-        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -1471,16 +1459,12 @@ class GetImageRequest(TeaModel):
         result = dict()
         if self.image_id is not None:
             result['ImageId'] = self.image_id
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('ImageId') is not None:
             self.image_id = m.get('ImageId')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         return self
 
 
@@ -2289,12 +2273,11 @@ class GetJobResponse(TeaModel):
 
 
 class ListImagesRequest(TeaModel):
-    def __init__(self, image_ids=None, image_names=None, page_number=None, page_size=None, region_id=None):
+    def __init__(self, image_ids=None, image_names=None, page_number=None, page_size=None):
         self.image_ids = image_ids  # type: list[str]
         self.image_names = image_names  # type: list[str]
         self.page_number = page_number  # type: long
         self.page_size = page_size  # type: long
-        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -2313,8 +2296,6 @@ class ListImagesRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -2327,19 +2308,15 @@ class ListImagesRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         return self
 
 
 class ListImagesShrinkRequest(TeaModel):
-    def __init__(self, image_ids_shrink=None, image_names_shrink=None, page_number=None, page_size=None,
-                 region_id=None):
+    def __init__(self, image_ids_shrink=None, image_names_shrink=None, page_number=None, page_size=None):
         self.image_ids_shrink = image_ids_shrink  # type: str
         self.image_names_shrink = image_names_shrink  # type: str
         self.page_number = page_number  # type: long
         self.page_size = page_size  # type: long
-        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -2358,8 +2335,6 @@ class ListImagesShrinkRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -2372,8 +2347,6 @@ class ListImagesShrinkRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         return self
 
 
@@ -2821,9 +2794,8 @@ class ListJobsResponse(TeaModel):
 
 
 class RemoveImageRequest(TeaModel):
-    def __init__(self, image_id=None, region_id=None):
+    def __init__(self, image_id=None):
         self.image_id = image_id  # type: str
-        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -2836,16 +2808,12 @@ class RemoveImageRequest(TeaModel):
         result = dict()
         if self.image_id is not None:
             result['ImageId'] = self.image_id
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('ImageId') is not None:
             self.image_id = m.get('ImageId')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         return self
 
 

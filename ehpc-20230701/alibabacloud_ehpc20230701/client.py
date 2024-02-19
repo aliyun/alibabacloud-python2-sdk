@@ -45,8 +45,6 @@ class Client(OpenApiClient):
             query['Description'] = request.description
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.vmimage_spec_shrink):
             query['VMImageSpec'] = request.vmimage_spec_shrink
         if not UtilClient.is_unset(request.version):
@@ -151,8 +149,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.image_id):
             query['ImageId'] = request.image_id
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -221,8 +217,6 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -291,8 +285,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.image_id):
             query['ImageId'] = request.image_id
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
