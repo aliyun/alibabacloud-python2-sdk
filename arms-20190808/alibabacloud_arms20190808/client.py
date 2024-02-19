@@ -2161,6 +2161,17 @@ class Client(OpenApiClient):
         return self.delete_app_list_with_options(request, runtime)
 
     def delete_cms_exporter_with_options(self, request, runtime):
+        """
+        @deprecated : DeleteCmsExporter is deprecated, please use ARMS::2019-08-08::DeleteAddonRelease instead.
+        
+
+        @param request: DeleteCmsExporterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteCmsExporterResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -2187,6 +2198,15 @@ class Client(OpenApiClient):
         )
 
     def delete_cms_exporter(self, request):
+        """
+        @deprecated : DeleteCmsExporter is deprecated, please use ARMS::2019-08-08::DeleteAddonRelease instead.
+        
+
+        @param request: DeleteCmsExporterRequest
+
+        @return: DeleteCmsExporterResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_cms_exporter_with_options(request, runtime)
 
@@ -3709,6 +3729,17 @@ class Client(OpenApiClient):
         return self.get_auth_token_with_options(request, runtime)
 
     def get_cloud_cluster_all_url_with_options(self, request, runtime):
+        """
+        @deprecated : GetCloudClusterAllUrl is deprecated, please use ARMS::2019-08-08::GetRemoteWriteUrl instead.
+        
+
+        @param request: GetCloudClusterAllUrlRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetCloudClusterAllUrlResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -3735,6 +3766,15 @@ class Client(OpenApiClient):
         )
 
     def get_cloud_cluster_all_url(self, request):
+        """
+        @deprecated : GetCloudClusterAllUrl is deprecated, please use ARMS::2019-08-08::GetRemoteWriteUrl instead.
+        
+
+        @param request: GetCloudClusterAllUrlRequest
+
+        @return: GetCloudClusterAllUrlResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_cloud_cluster_all_url_with_options(request, runtime)
 
@@ -4821,6 +4861,17 @@ class Client(OpenApiClient):
         return self.install_addon_with_options(request, runtime)
 
     def install_cms_exporter_with_options(self, request, runtime):
+        """
+        @deprecated : InstallCmsExporter is deprecated, please use ARMS::2019-08-08::InstallAddon instead.
+        
+
+        @param request: InstallCmsExporterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: InstallCmsExporterResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -4853,6 +4904,15 @@ class Client(OpenApiClient):
         )
 
     def install_cms_exporter(self, request):
+        """
+        @deprecated : InstallCmsExporter is deprecated, please use ARMS::2019-08-08::InstallAddon instead.
+        
+
+        @param request: InstallCmsExporterRequest
+
+        @return: InstallCmsExporterResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.install_cms_exporter_with_options(request, runtime)
 
@@ -5026,6 +5086,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_addon_releases_with_options(request, runtime)
 
+    def list_addons_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.aliyun_lang):
+            query['AliyunLang'] = request.aliyun_lang
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
+        if not UtilClient.is_unset(request.regexp):
+            query['Regexp'] = request.regexp
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.search):
+            query['Search'] = request.search
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAddons',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.ListAddonsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_addons(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_addons_with_options(request, runtime)
+
     def list_alert_events_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5145,6 +5241,17 @@ class Client(OpenApiClient):
         return self.list_cluster_from_grafana_with_options(request, runtime)
 
     def list_cms_instances_with_options(self, request, runtime):
+        """
+        @deprecated : ListCmsInstances is deprecated, please use ARMS::2019-08-08::ListEnvironmentAddons instead.
+        
+
+        @param request: ListCmsInstancesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListCmsInstancesResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_id):
@@ -5173,6 +5280,15 @@ class Client(OpenApiClient):
         )
 
     def list_cms_instances(self, request):
+        """
+        @deprecated : ListCmsInstances is deprecated, please use ARMS::2019-08-08::ListEnvironmentAddons instead.
+        
+
+        @param request: ListCmsInstancesRequest
+
+        @return: ListCmsInstancesResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_cms_instances_with_options(request, runtime)
 
