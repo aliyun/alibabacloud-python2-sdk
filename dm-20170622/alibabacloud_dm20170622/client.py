@@ -89,6 +89,10 @@ class Client(OpenApiClient):
             query['TagName'] = request.tag_name
         if not UtilClient.is_unset(request.template_name):
             query['TemplateName'] = request.template_name
+        if not UtilClient.is_unset(request.un_subscribe_filter_level):
+            query['UnSubscribeFilterLevel'] = request.un_subscribe_filter_level
+        if not UtilClient.is_unset(request.un_subscribe_link_type):
+            query['UnSubscribeLinkType'] = request.un_subscribe_link_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1473,6 +1477,10 @@ class Client(OpenApiClient):
             query['TextBody'] = request.text_body
         if not UtilClient.is_unset(request.to_address):
             query['ToAddress'] = request.to_address
+        if not UtilClient.is_unset(request.un_subscribe_filter_level):
+            query['UnSubscribeFilterLevel'] = request.un_subscribe_filter_level
+        if not UtilClient.is_unset(request.un_subscribe_link_type):
+            query['UnSubscribeLinkType'] = request.un_subscribe_link_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
