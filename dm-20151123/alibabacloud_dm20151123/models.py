@@ -78,9 +78,6 @@ class AddIpfilterResponse(TeaModel):
         self.body = body  # type: AddIpfilterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -180,9 +177,6 @@ class ApproveReplyMailAddressResponse(TeaModel):
         self.body = body  # type: ApproveReplyMailAddressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -215,7 +209,7 @@ class ApproveReplyMailAddressResponse(TeaModel):
 class BatchSendMailRequest(TeaModel):
     def __init__(self, account_name=None, address_type=None, click_trace=None, owner_id=None, receivers_name=None,
                  reply_address=None, reply_address_alias=None, resource_owner_account=None, resource_owner_id=None,
-                 tag_name=None, template_name=None):
+                 tag_name=None, template_name=None, un_subscribe_filter_level=None, un_subscribe_link_type=None):
         self.account_name = account_name  # type: str
         self.address_type = address_type  # type: int
         self.click_trace = click_trace  # type: str
@@ -227,6 +221,8 @@ class BatchSendMailRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         self.tag_name = tag_name  # type: str
         self.template_name = template_name  # type: str
+        self.un_subscribe_filter_level = un_subscribe_filter_level  # type: str
+        self.un_subscribe_link_type = un_subscribe_link_type  # type: str
 
     def validate(self):
         pass
@@ -259,6 +255,10 @@ class BatchSendMailRequest(TeaModel):
             result['TagName'] = self.tag_name
         if self.template_name is not None:
             result['TemplateName'] = self.template_name
+        if self.un_subscribe_filter_level is not None:
+            result['UnSubscribeFilterLevel'] = self.un_subscribe_filter_level
+        if self.un_subscribe_link_type is not None:
+            result['UnSubscribeLinkType'] = self.un_subscribe_link_type
         return result
 
     def from_map(self, m=None):
@@ -285,6 +285,10 @@ class BatchSendMailRequest(TeaModel):
             self.tag_name = m.get('TagName')
         if m.get('TemplateName') is not None:
             self.template_name = m.get('TemplateName')
+        if m.get('UnSubscribeFilterLevel') is not None:
+            self.un_subscribe_filter_level = m.get('UnSubscribeFilterLevel')
+        if m.get('UnSubscribeLinkType') is not None:
+            self.un_subscribe_link_type = m.get('UnSubscribeLinkType')
         return self
 
 
@@ -324,9 +328,6 @@ class BatchSendMailResponse(TeaModel):
         self.body = body  # type: BatchSendMailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -440,9 +441,6 @@ class CheckDomainResponse(TeaModel):
         self.body = body  # type: CheckDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -553,9 +551,6 @@ class CheckReplyToMailAddressResponse(TeaModel):
         self.body = body  # type: CheckReplyToMailAddressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -660,9 +655,6 @@ class CreateDomainResponse(TeaModel):
         self.body = body  # type: CreateDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -778,9 +770,6 @@ class CreateMailAddressResponse(TeaModel):
         self.body = body  # type: CreateMailAddressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -896,9 +885,6 @@ class CreateReceiverResponse(TeaModel):
         self.body = body  # type: CreateReceiverResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1009,9 +995,6 @@ class CreateTagResponse(TeaModel):
         self.body = body  # type: CreateTagResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1111,9 +1094,6 @@ class DeleteDomainResponse(TeaModel):
         self.body = body  # type: DeleteDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1213,9 +1193,6 @@ class DeleteInvalidAddressResponse(TeaModel):
         self.body = body  # type: DeleteInvalidAddressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1320,9 +1297,6 @@ class DeleteIpfilterByEdmIdResponse(TeaModel):
         self.body = body  # type: DeleteIpfilterByEdmIdResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1422,9 +1396,6 @@ class DeleteMailAddressResponse(TeaModel):
         self.body = body  # type: DeleteMailAddressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1526,9 +1497,6 @@ class DeleteReceiverResponse(TeaModel):
         self.body = body  # type: DeleteReceiverResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1634,9 +1602,6 @@ class DeleteReceiverDetailResponse(TeaModel):
         self.body = body  # type: DeleteReceiverDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1738,9 +1703,6 @@ class DeleteTagResponse(TeaModel):
         self.body = body  # type: DeleteTagResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1917,9 +1879,6 @@ class DescAccountSummaryResponse(TeaModel):
         self.body = body  # type: DescAccountSummaryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2170,9 +2129,6 @@ class DescDomainResponse(TeaModel):
         self.body = body  # type: DescDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2272,9 +2228,6 @@ class GetIpProtectionResponse(TeaModel):
         self.body = body  # type: GetIpProtectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2457,9 +2410,6 @@ class GetIpfilterListResponse(TeaModel):
         self.body = body  # type: GetIpfilterListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2732,9 +2682,6 @@ class GetTrackListResponse(TeaModel):
         self.body = body  # type: GetTrackListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3017,9 +2964,6 @@ class GetTrackListByMailFromAndTagNameResponse(TeaModel):
         self.body = body  # type: GetTrackListByMailFromAndTagNameResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3130,9 +3074,6 @@ class ModifyMailAddressResponse(TeaModel):
         self.body = body  # type: ModifyMailAddressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3253,9 +3194,6 @@ class ModifyPWByDomainResponse(TeaModel):
         self.body = body  # type: ModifyPWByDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3369,9 +3307,6 @@ class ModifyTagResponse(TeaModel):
         self.body = body  # type: ModifyTagResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3617,9 +3552,6 @@ class QueryDomainByParamResponse(TeaModel):
         self.body = body  # type: QueryDomainByParamResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3823,9 +3755,6 @@ class QueryInvalidAddressResponse(TeaModel):
         self.body = body  # type: QueryInvalidAddressResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4076,9 +4005,6 @@ class QueryMailAddressByParamResponse(TeaModel):
         self.body = body  # type: QueryMailAddressByParamResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4308,9 +4234,6 @@ class QueryReceiverByParamResponse(TeaModel):
         self.body = body  # type: QueryReceiverByParamResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4519,9 +4442,6 @@ class QueryReceiverDetailResponse(TeaModel):
         self.body = body  # type: QueryReceiverDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4720,9 +4640,6 @@ class QueryTagByParamResponse(TeaModel):
         self.body = body  # type: QueryTagByParamResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4957,9 +4874,6 @@ class QueryTaskByParamResponse(TeaModel):
         self.body = body  # type: QueryTaskByParamResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5138,9 +5052,6 @@ class SaveReceiverDetailResponse(TeaModel):
         self.body = body  # type: SaveReceiverDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5276,9 +5187,6 @@ class SendTestByTemplateResponse(TeaModel):
         self.body = body  # type: SendTestByTemplateResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5493,9 +5401,6 @@ class SenderStatisticsByTagNameAndBatchIDResponse(TeaModel):
         self.body = body  # type: SenderStatisticsByTagNameAndBatchIDResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5725,9 +5630,6 @@ class SenderStatisticsDetailByParamResponse(TeaModel):
         self.body = body  # type: SenderStatisticsDetailByParamResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5760,7 +5662,8 @@ class SenderStatisticsDetailByParamResponse(TeaModel):
 class SingleSendMailRequest(TeaModel):
     def __init__(self, account_name=None, address_type=None, click_trace=None, from_alias=None, html_body=None,
                  owner_id=None, reply_address=None, reply_address_alias=None, reply_to_address=None,
-                 resource_owner_account=None, resource_owner_id=None, subject=None, tag_name=None, text_body=None, to_address=None):
+                 resource_owner_account=None, resource_owner_id=None, subject=None, tag_name=None, text_body=None, to_address=None,
+                 un_subscribe_filter_level=None, un_subscribe_link_type=None):
         self.account_name = account_name  # type: str
         self.address_type = address_type  # type: int
         self.click_trace = click_trace  # type: str
@@ -5776,6 +5679,8 @@ class SingleSendMailRequest(TeaModel):
         self.tag_name = tag_name  # type: str
         self.text_body = text_body  # type: str
         self.to_address = to_address  # type: str
+        self.un_subscribe_filter_level = un_subscribe_filter_level  # type: str
+        self.un_subscribe_link_type = un_subscribe_link_type  # type: str
 
     def validate(self):
         pass
@@ -5816,6 +5721,10 @@ class SingleSendMailRequest(TeaModel):
             result['TextBody'] = self.text_body
         if self.to_address is not None:
             result['ToAddress'] = self.to_address
+        if self.un_subscribe_filter_level is not None:
+            result['UnSubscribeFilterLevel'] = self.un_subscribe_filter_level
+        if self.un_subscribe_link_type is not None:
+            result['UnSubscribeLinkType'] = self.un_subscribe_link_type
         return result
 
     def from_map(self, m=None):
@@ -5850,6 +5759,10 @@ class SingleSendMailRequest(TeaModel):
             self.text_body = m.get('TextBody')
         if m.get('ToAddress') is not None:
             self.to_address = m.get('ToAddress')
+        if m.get('UnSubscribeFilterLevel') is not None:
+            self.un_subscribe_filter_level = m.get('UnSubscribeFilterLevel')
+        if m.get('UnSubscribeLinkType') is not None:
+            self.un_subscribe_link_type = m.get('UnSubscribeLinkType')
         return self
 
 
@@ -5889,9 +5802,6 @@ class SingleSendMailResponse(TeaModel):
         self.body = body  # type: SingleSendMailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5991,9 +5901,6 @@ class UpdateIpProtectionResponse(TeaModel):
         self.body = body  # type: UpdateIpProtectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
