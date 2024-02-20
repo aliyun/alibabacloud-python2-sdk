@@ -7443,7 +7443,7 @@ class DescribeBackupPlansResponseBodyBackupPlansBackupPlanResourcesResource(TeaM
         self.extra = extra  # type: str
         # The ID of the data source.
         self.resource_id = resource_id  # type: str
-        # The type of the data source. Only **UDM_DISK** may be returned.
+        # The type of the data source. Valid value: **UDM_DISK**.
         self.source_type = source_type  # type: str
 
     def validate(self):
@@ -7509,25 +7509,25 @@ class DescribeBackupPlansResponseBodyBackupPlansBackupPlanResources(TeaModel):
 class DescribeBackupPlansResponseBodyBackupPlansBackupPlanRulesRule(TeaModel):
     def __init__(self, backup_type=None, destination_region_id=None, destination_retention=None, disabled=None,
                  do_copy=None, retention=None, rule_id=None, rule_name=None, schedule=None):
-        # The backup type. Only **COMPLETE** may be returned, which indicates full backup.
+        # The backup type. **COMPLETE** indicates full backup.
         self.backup_type = backup_type  # type: str
         # The ID of the region in which the remote backup vault resides.
         self.destination_region_id = destination_region_id  # type: str
-        # The retention period of the backup data in remote backup mode. Unit: day.
+        # The retention period of the backup data in remote backup mode. Unit: days.
         self.destination_retention = destination_retention  # type: long
         # Indicates whether the policy is disabled.
         self.disabled = disabled  # type: bool
         # Indicates whether the snapshot data is backed up to the backup vault.
         self.do_copy = do_copy  # type: bool
-        # The retention period of the backup data. Unit: day.
+        # The retention period of the backup data. Unit: days.
         self.retention = retention  # type: long
         # The ID of the policy.
         self.rule_id = rule_id  # type: str
         # The name of the policy.
         self.rule_name = rule_name  # type: str
-        # The backup policy. Format: `I|{startTime}|{interval}`. The system runs the first backup job at a point in time that is specified by `{startTime}` and the subsequent backup jobs at an interval that is specified by `{interval}`. The system does not run a backup job before the specified point in time. Each backup job, except the first one, starts only after the previous backup job is complete. For example, `I|1631685600|P1D` indicates that the system runs the first backup job at 14:00:00 on September 15, 2021 and the subsequent backup jobs once a day.
+        # The backup policy. Format: `I|{startTime}|{interval}`. The system runs the first backup job at a point in time that is specified by `{startTime}` and the subsequent backup jobs at an interval that is specified by `{interval}`. The system does not run a backup job before the specified point in time. Each backup job, except the first one, starts only after the previous backup job is completed. For example, `I|1631685600|P1D` indicates that the system runs the first backup job at 14:00:00 on September 15, 2021 and the subsequent backup jobs once a day.
         # 
-        # *   `startTime`: the time at which the system starts to run a backup job. The value is a UNIX timestamp. Unit: seconds.
+        # *   `startTime`: the time at which the system starts to run a backup job. The time follows the UNIX time format. Unit: seconds.
         # *   `interval`: the interval at which the system runs a backup job. The interval follows the ISO 8601 standard. For example, PT1H indicates an interval of 1 hour. P1D indicates an interval of one day.
         self.schedule = schedule  # type: str
 
@@ -7668,20 +7668,21 @@ class DescribeBackupPlansResponseBodyBackupPlansBackupPlan(TeaModel):
                  latest_execute_job_id=None, options=None, ots_detail=None, paths=None, plan_id=None, plan_name=None, prefix=None,
                  resources=None, retention=None, rules=None, schedule=None, source_type=None, speed_limit=None,
                  trial_info=None, updated_time=None, vault_id=None):
-        # The ID of the data source group for backup.
+        # The ID of the data source group.
         self.backup_source_group_id = backup_source_group_id  # type: str
-        # The backup type. Only **COMPLETE** may be returned, which indicates full backup.
+        # The backup type. **COMPLETE** indicates full backup.
         self.backup_type = backup_type  # type: str
-        # This parameter is valid only if **SourceType** is set to **OSS**. This parameter indicates the name of the OSS bucket.
+        # This parameter is valid only when **SourceType** is set to **OSS**. This parameter indicates the name of the OSS bucket.
         self.bucket = bucket  # type: str
+        # The configurations of the incremental file synchronization. This parameter is required only for data synchronization.
         self.change_list_path = change_list_path  # type: str
-        # The ID of a backup client.
+        # The ID of the backup client.
         self.client_id = client_id  # type: str
         # The ID of the client group.
         self.cluster_id = cluster_id  # type: str
-        # This parameter is valid only if **SourceType** is set to **NAS**. This parameter indicates the time when the file system was created. The value is a UNIX timestamp. Unit: seconds.
+        # This parameter is valid only when **SourceType** is set to **NAS**. This parameter indicates the time when the file system was created. This value is a UNIX timestamp. Unit: seconds.
         self.create_time = create_time  # type: long
-        # The time when the backup plan was created. The value is a UNIX timestamp. Unit: seconds.
+        # The time when the backup plan was created. This value is a UNIX timestamp. Unit: seconds.
         self.created_time = created_time  # type: long
         # The name of the Resource Access Management (RAM) role that is created within the source Alibaba Cloud account and assigned to the current Alibaba Cloud account to authorize the current Alibaba Cloud account to back up data across Alibaba Cloud accounts.
         self.cross_account_role_name = cross_account_role_name  # type: str
@@ -7707,15 +7708,15 @@ class DescribeBackupPlansResponseBodyBackupPlansBackupPlan(TeaModel):
         # *   true: The backup plan is disabled.
         # *   false: The backup plan is enabled.
         self.disabled = disabled  # type: bool
-        # This parameter is valid only if **SourceType** is set to **ECS_FILE**. This parameter indicates the paths to the files that are excluded from the backup job.
+        # This parameter is valid only when **SourceType** is set to **ECS_FILE**. This parameter indicates the paths to the files that are excluded from the backup job.
         self.exclude = exclude  # type: str
-        # This parameter is valid only if **SourceType** is set to **NAS**. This parameter indicates the ID of the NAS file system.
+        # This parameter is valid only when **SourceType** is set to **NAS**. This parameter indicates the ID of the NAS file system.
         self.file_system_id = file_system_id  # type: str
-        # This parameter is valid only if **SourceType** is set to **ECS_FILE**. This parameter indicates the paths to the files that are backed up.
+        # This parameter is valid only when **SourceType** is set to **ECS_FILE**. This parameter indicates the paths to the files that are backed up.
         self.include = include  # type: str
-        # The ID of the group to which the instance belongs.
+        # The ID of the instance group.
         self.instance_group_id = instance_group_id  # type: str
-        # This parameter is valid only if **SourceType** is set to **ECS_FILE**. This parameter indicates the ID of the ECS instance.
+        # This parameter is valid only when **SourceType** is set to **ECS_FILE**. This parameter indicates the ID of the ECS instance.
         self.instance_id = instance_id  # type: str
         # The name of the Tablestore instance.
         self.instance_name = instance_name  # type: str
@@ -7724,28 +7725,29 @@ class DescribeBackupPlansResponseBodyBackupPlansBackupPlan(TeaModel):
         # *   0: The feature is disabled.
         # *   1: The feature is enabled.
         self.keep_latest_snapshots = keep_latest_snapshots  # type: long
+        # The latest execution job id of plan.
         self.latest_execute_job_id = latest_execute_job_id  # type: str
-        # This parameter is valid only if **SourceType** is set to **ECS_FILE**. This parameter indicates whether Windows Volume Shadow Copy Service (VSS) is used to define a source path.
+        # This parameter is valid only when **SourceType** is set to **ECS_FILE**. This parameter indicates whether VSS is used to define a source path.
         self.options = options  # type: str
         # The details about the Tablestore instance.
         self.ots_detail = ots_detail  # type: DescribeBackupPlansResponseBodyBackupPlansBackupPlanOtsDetail
-        # The source paths. This parameter is valid only if **SourceType** is set to **ECS_FILE**.
+        # The source paths. This parameter is valid only when **SourceType** is set to **ECS_FILE**.
         self.paths = paths  # type: DescribeBackupPlansResponseBodyBackupPlansBackupPlanPaths
         # The ID of the backup plan.
         self.plan_id = plan_id  # type: str
         # The name of the backup plan.
         self.plan_name = plan_name  # type: str
-        # This parameter is valid only if **SourceType** is set to **OSS**. This parameter indicates the prefix of objects that are backed up.
+        # This parameter is valid only when **SourceType** is set to **OSS**. This parameter indicates the prefix of the objects that are backed up.
         self.prefix = prefix  # type: str
         # The backup resources. This parameter is valid only for disk backup.
         self.resources = resources  # type: DescribeBackupPlansResponseBodyBackupPlansBackupPlanResources
-        # The retention period of the backup data. Unit: day.
+        # The retention period of the backup data. Unit: days.
         self.retention = retention  # type: long
         # The backup policies. This parameter is valid only for disk backup.
         self.rules = rules  # type: DescribeBackupPlansResponseBodyBackupPlansBackupPlanRules
-        # The backup policy. Format: `I|{startTime}|{interval}`. The system runs the first backup job at a point in time that is specified by `{startTime}` and the subsequent backup jobs at an interval that is specified by `{interval}`. The system does not run a backup job before the specified point in time. Each backup job, except the first one, starts only after the previous backup job is complete. For example, `I|1631685600|P1D` indicates that the system runs the first backup job at 14:00:00 on September 15, 2021 and the subsequent backup jobs once a day.
+        # The backup policy. Format: `I|{startTime}|{interval}`. The system runs the first backup job at a point in time that is specified by `{startTime}` and the subsequent backup jobs at an interval that is specified by `{interval}`. The system does not run a backup job before the specified point in time. Each backup job, except the first one, starts only after the previous backup job is completed. For example, `I|1631685600|P1D` indicates that the system runs the first backup job at 14:00:00 on September 15, 2021 and the subsequent backup jobs once a day.
         # 
-        # *   **startTime**: the time at which the system starts to run a backup job. The value is a UNIX timestamp. Unit: seconds.
+        # *   **startTime**: the time at which the system starts to run a backup job. The time follows the UNIX time format. Unit: seconds.
         # *   **interval**: the interval at which the system runs a backup job. The interval follows the ISO 8601 standard. For example, PT1H indicates an interval of 1 hour. P1D indicates an interval of one day.
         self.schedule = schedule  # type: str
         # The type of the data source. Valid values:
@@ -7756,15 +7758,15 @@ class DescribeBackupPlansResponseBodyBackupPlansBackupPlan(TeaModel):
         # *   **OTS**: Tablestore instances
         # *   **UDM_ECS**: ECS instances
         self.source_type = source_type  # type: str
-        # This parameter is valid only if **SourceType** is set to **ECS_FILE**. This parameter indicates the throttling rules. Format: `{start}|{end}|{bandwidth}`. Multiple throttling rules are separated with vertical bars (`|`). A time range cannot overlap with another one.
+        # This parameter is valid only when **SourceType** is set to **ECS_FILE**. This parameter indicates the throttling rules. Format: `{start}|{end}|{bandwidth}`. Multiple throttling rules are separated with vertical bars (`|`). A time range cannot overlap with another one.
         # 
         # *   start: the start hour.
         # *   end: the end hour.
-        # *   bandwidth: the bandwidth. Unit: KB/s.
+        # *   bandwidth: the bandwidth. Unit: KB.
         self.speed_limit = speed_limit  # type: str
         # The free trial information.
         self.trial_info = trial_info  # type: DescribeBackupPlansResponseBodyBackupPlansBackupPlanTrialInfo
-        # The time when the backup plan was updated. The value is a UNIX timestamp. Unit: seconds.
+        # The time when the backup plan was updated. This value is a UNIX timestamp. Unit: seconds.
         self.updated_time = updated_time  # type: long
         # The ID of the backup vault.
         self.vault_id = vault_id  # type: str
@@ -7994,7 +7996,7 @@ class DescribeBackupPlansResponseBodyBackupPlans(TeaModel):
 class DescribeBackupPlansResponseBody(TeaModel):
     def __init__(self, backup_plans=None, code=None, message=None, page_number=None, page_size=None, request_id=None,
                  success=None, total_count=None):
-        # The returned backup plans that meet the specified conditions.
+        # The queried backup plans.
         self.backup_plans = backup_plans  # type: DescribeBackupPlansResponseBodyBackupPlans
         # The HTTP status code. The status code 200 indicates that the call is successful.
         self.code = code  # type: str
@@ -11323,8 +11325,9 @@ class DescribePoliciesV2ResponseBodyPoliciesRulesRetentionRules(TeaModel):
 
 
 class DescribePoliciesV2ResponseBodyPoliciesRules(TeaModel):
-    def __init__(self, backup_type=None, keep_latest_snapshots=None, replication_region_id=None, retention=None,
-                 retention_rules=None, rule_id=None, rule_type=None, schedule=None):
+    def __init__(self, archive_days=None, backup_type=None, keep_latest_snapshots=None, replication_region_id=None,
+                 retention=None, retention_rules=None, rule_id=None, rule_type=None, schedule=None, vault_id=None):
+        self.archive_days = archive_days  # type: long
         # This parameter is returned only if the value of the **RuleType** parameter is **BACKUP**. This parameter indicates the backup type. Only **COMPLETE** may be returned, which indicates full backup.
         self.backup_type = backup_type  # type: str
         # Indicates whether the feature of keeping at least one backup version is enabled. Valid values:
@@ -11354,6 +11357,7 @@ class DescribePoliciesV2ResponseBodyPoliciesRules(TeaModel):
         # *   startTime: the time when the system starts to run a backup job. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         # *   interval: the interval at which the system runs a backup job. The interval must follow the ISO 8601 standard. For example, PT1H indicates an interval of one hour. P1D indicates an interval of one day.
         self.schedule = schedule  # type: str
+        self.vault_id = vault_id  # type: str
 
     def validate(self):
         if self.retention_rules:
@@ -11367,6 +11371,8 @@ class DescribePoliciesV2ResponseBodyPoliciesRules(TeaModel):
             return _map
 
         result = dict()
+        if self.archive_days is not None:
+            result['ArchiveDays'] = self.archive_days
         if self.backup_type is not None:
             result['BackupType'] = self.backup_type
         if self.keep_latest_snapshots is not None:
@@ -11385,10 +11391,14 @@ class DescribePoliciesV2ResponseBodyPoliciesRules(TeaModel):
             result['RuleType'] = self.rule_type
         if self.schedule is not None:
             result['Schedule'] = self.schedule
+        if self.vault_id is not None:
+            result['VaultId'] = self.vault_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ArchiveDays') is not None:
+            self.archive_days = m.get('ArchiveDays')
         if m.get('BackupType') is not None:
             self.backup_type = m.get('BackupType')
         if m.get('KeepLatestSnapshots') is not None:
@@ -11408,6 +11418,8 @@ class DescribePoliciesV2ResponseBodyPoliciesRules(TeaModel):
             self.rule_type = m.get('RuleType')
         if m.get('Schedule') is not None:
             self.schedule = m.get('Schedule')
+        if m.get('VaultId') is not None:
+            self.vault_id = m.get('VaultId')
         return self
 
 
