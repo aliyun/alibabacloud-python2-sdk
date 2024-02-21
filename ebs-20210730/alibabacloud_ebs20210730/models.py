@@ -3521,19 +3521,23 @@ class DescribeDiskMonitorDataResponseBodyMonitorData(TeaModel):
         self.disk_id = disk_id  # type: str
         # The percentage of IOPS.
         self.iopspercent = iopspercent  # type: long
-        # The read bandwidth of the disk. Unit: Mbit/s.
+        # The read bandwidth of the disk. Unit: MByte/s.
         self.read_bps = read_bps  # type: long
+        # Read IO block size. Unit: Bytes
         self.read_block_size = read_block_size  # type: long
         # The maximum number of read IOPS.
         self.read_iops = read_iops  # type: long
+        # Read IO latency. Unit:  microsecond
         self.read_latency = read_latency  # type: long
         # The timestamp that is used to query the near real-time monitoring data of the disk. The time follows the [ISO 8601](~~25696~~) standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time is displayed in UTC.
         self.timestamp = timestamp  # type: str
-        # The write bandwidth of the disk. Unit: Mbit/s.
+        # The write bandwidth of the disk. Unit: MByte/s.
         self.write_bps = write_bps  # type: long
+        # Write IO block size. Unit: Bytes
         self.write_block_size = write_block_size  # type: long
         # The maximum number of write IOPS.
         self.write_iops = write_iops  # type: long
+        # Write IO latency. Unit: microsecond
         self.write_latency = write_latency  # type: long
 
     def validate(self):
@@ -8443,7 +8447,7 @@ class QueryDedicatedBlockStorageClusterInventoryDataRequest(TeaModel):
         self.dbsc_id = dbsc_id  # type: str
         # End timestamp of trend data.
         self.end_time = end_time  # type: long
-        # The time interval （seconds） between data retrieval points.
+        # The time interval (seconds) between data retrieval points.
         self.period = period  # type: int
         # The region ID of the dedicated block storage cluster.
         self.region_id = region_id  # type: str
