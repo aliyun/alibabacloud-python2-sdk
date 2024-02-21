@@ -169,6 +169,10 @@ class Client(OpenApiClient):
             query['FileOssUrl'] = request.file_oss_url
         if not UtilClient.is_unset(request.job_type):
             query['JobType'] = request.job_type
+        if not UtilClient.is_unset(request.max_du):
+            query['MaxDu'] = request.max_du
+        if not UtilClient.is_unset(request.min_du):
+            query['MinDu'] = request.min_du
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
@@ -452,6 +456,10 @@ class Client(OpenApiClient):
             query['ErrorNotice'] = request.error_notice
         if not UtilClient.is_unset(request.error_phone):
             query['ErrorPhone'] = request.error_phone
+        if not UtilClient.is_unset(request.max_du):
+            query['MaxDu'] = request.max_du
+        if not UtilClient.is_unset(request.min_du):
+            query['MinDu'] = request.min_du
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.reserve):
@@ -1011,6 +1019,10 @@ class Client(OpenApiClient):
             query['InstanceClass'] = request.instance_class
         if not UtilClient.is_unset(request.job_id):
             query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.max_du):
+            query['MaxDu'] = request.max_du
+        if not UtilClient.is_unset(request.min_du):
+            query['MinDu'] = request.min_du
         if not UtilClient.is_unset(request.pay_type):
             query['PayType'] = request.pay_type
         if not UtilClient.is_unset(request.period):
@@ -3680,6 +3692,16 @@ class Client(OpenApiClient):
         return self.modify_dedicated_cluster_with_options(request, runtime)
 
     def modify_dts_job_with_options(self, tmp_req, runtime):
+        """
+        When you configure a data synchronization task in the Data Transmission Service (DTS) console, you can move the pointer over *Next: Save Task Settings and Precheck** in the **Advanced Settings** step and click **Preview OpenAPI parameters** to view the parameters that are used to configure the task by calling an API operation.
+        
+
+        @param tmp_req: ModifyDtsJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDtsJobResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = dts_20200101_models.ModifyDtsJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -3736,6 +3758,14 @@ class Client(OpenApiClient):
         )
 
     def modify_dts_job(self, request):
+        """
+        When you configure a data synchronization task in the Data Transmission Service (DTS) console, you can move the pointer over *Next: Save Task Settings and Precheck** in the **Advanced Settings** step and click **Preview OpenAPI parameters** to view the parameters that are used to configure the task by calling an API operation.
+        
+
+        @param request: ModifyDtsJobRequest
+
+        @return: ModifyDtsJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dts_job_with_options(request, runtime)
 
@@ -4627,6 +4657,16 @@ class Client(OpenApiClient):
         return self.start_migration_job_with_options(request, runtime)
 
     def start_reverse_writer_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that your instance is not released and is paused. You can check the status of the instance in the Data Transmission Service (DTS) console or by calling the [DescribeDtsJobDetail](~~208925~~) operation.
+        
+
+        @param request: StartReverseWriterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StartReverseWriterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.check_point):
@@ -4653,6 +4693,14 @@ class Client(OpenApiClient):
         )
 
     def start_reverse_writer(self, request):
+        """
+        Before you call this operation, make sure that your instance is not released and is paused. You can check the status of the instance in the Data Transmission Service (DTS) console or by calling the [DescribeDtsJobDetail](~~208925~~) operation.
+        
+
+        @param request: StartReverseWriterRequest
+
+        @return: StartReverseWriterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.start_reverse_writer_with_options(request, runtime)
 

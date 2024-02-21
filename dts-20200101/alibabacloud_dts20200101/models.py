@@ -12,8 +12,8 @@ class ConfigureDtsJobRequest(TeaModel):
                  destination_endpoint_owner_id=None, destination_endpoint_password=None, destination_endpoint_port=None,
                  destination_endpoint_region=None, destination_endpoint_role=None, destination_endpoint_user_name=None,
                  disaster_recovery_job=None, dts_bis_label=None, dts_instance_id=None, dts_job_id=None, dts_job_name=None,
-                 error_notice=None, error_phone=None, file_oss_url=None, job_type=None, owner_id=None, region_id=None,
-                 reserve=None, source_endpoint_database_name=None, source_endpoint_engine_name=None,
+                 error_notice=None, error_phone=None, file_oss_url=None, job_type=None, max_du=None, min_du=None, owner_id=None,
+                 region_id=None, reserve=None, source_endpoint_database_name=None, source_endpoint_engine_name=None,
                  source_endpoint_ip=None, source_endpoint_instance_id=None, source_endpoint_instance_type=None,
                  source_endpoint_oracle_sid=None, source_endpoint_owner_id=None, source_endpoint_password=None, source_endpoint_port=None,
                  source_endpoint_region=None, source_endpoint_role=None, source_endpoint_user_name=None, source_endpoint_vswitch_id=None,
@@ -170,6 +170,8 @@ class ConfigureDtsJobRequest(TeaModel):
         # 
         # >  You must specify at least one of the **DtsJobId** and DtsInstanceId parameters. You can call the [DescribeDtsJobs](~~209702~~) operation to query the instance ID.
         self.job_type = job_type  # type: str
+        self.max_du = max_du  # type: float
+        self.min_du = min_du  # type: float
         self.owner_id = owner_id  # type: str
         # The URL of the Object Storage Service (OSS) bucket that stores the files related to the DTS task.
         self.region_id = region_id  # type: str
@@ -367,6 +369,10 @@ class ConfigureDtsJobRequest(TeaModel):
             result['FileOssUrl'] = self.file_oss_url
         if self.job_type is not None:
             result['JobType'] = self.job_type
+        if self.max_du is not None:
+            result['MaxDu'] = self.max_du
+        if self.min_du is not None:
+            result['MinDu'] = self.min_du
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -475,6 +481,10 @@ class ConfigureDtsJobRequest(TeaModel):
             self.file_oss_url = m.get('FileOssUrl')
         if m.get('JobType') is not None:
             self.job_type = m.get('JobType')
+        if m.get('MaxDu') is not None:
+            self.max_du = m.get('MaxDu')
+        if m.get('MinDu') is not None:
+            self.min_du = m.get('MinDu')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
@@ -527,13 +537,13 @@ class ConfigureDtsJobAdvanceRequest(TeaModel):
                  destination_endpoint_owner_id=None, destination_endpoint_password=None, destination_endpoint_port=None,
                  destination_endpoint_region=None, destination_endpoint_role=None, destination_endpoint_user_name=None,
                  disaster_recovery_job=None, dts_bis_label=None, dts_instance_id=None, dts_job_id=None, dts_job_name=None,
-                 error_notice=None, error_phone=None, file_oss_url_object=None, job_type=None, owner_id=None, region_id=None,
-                 reserve=None, source_endpoint_database_name=None, source_endpoint_engine_name=None,
-                 source_endpoint_ip=None, source_endpoint_instance_id=None, source_endpoint_instance_type=None,
-                 source_endpoint_oracle_sid=None, source_endpoint_owner_id=None, source_endpoint_password=None, source_endpoint_port=None,
-                 source_endpoint_region=None, source_endpoint_role=None, source_endpoint_user_name=None, source_endpoint_vswitch_id=None,
-                 src_ca_certificate_oss_url=None, src_ca_certificate_password=None, structure_initialization=None,
-                 synchronization_direction=None):
+                 error_notice=None, error_phone=None, file_oss_url_object=None, job_type=None, max_du=None, min_du=None,
+                 owner_id=None, region_id=None, reserve=None, source_endpoint_database_name=None,
+                 source_endpoint_engine_name=None, source_endpoint_ip=None, source_endpoint_instance_id=None,
+                 source_endpoint_instance_type=None, source_endpoint_oracle_sid=None, source_endpoint_owner_id=None,
+                 source_endpoint_password=None, source_endpoint_port=None, source_endpoint_region=None, source_endpoint_role=None,
+                 source_endpoint_user_name=None, source_endpoint_vswitch_id=None, src_ca_certificate_oss_url=None,
+                 src_ca_certificate_password=None, structure_initialization=None, synchronization_direction=None):
         # The type of the task. Valid values:
         # 
         # *   **MIGRATION**: data migration task
@@ -685,6 +695,8 @@ class ConfigureDtsJobAdvanceRequest(TeaModel):
         # 
         # >  You must specify at least one of the **DtsJobId** and DtsInstanceId parameters. You can call the [DescribeDtsJobs](~~209702~~) operation to query the instance ID.
         self.job_type = job_type  # type: str
+        self.max_du = max_du  # type: float
+        self.min_du = min_du  # type: float
         self.owner_id = owner_id  # type: str
         # The URL of the Object Storage Service (OSS) bucket that stores the files related to the DTS task.
         self.region_id = region_id  # type: str
@@ -882,6 +894,10 @@ class ConfigureDtsJobAdvanceRequest(TeaModel):
             result['FileOssUrl'] = self.file_oss_url_object
         if self.job_type is not None:
             result['JobType'] = self.job_type
+        if self.max_du is not None:
+            result['MaxDu'] = self.max_du
+        if self.min_du is not None:
+            result['MinDu'] = self.min_du
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
@@ -990,6 +1006,10 @@ class ConfigureDtsJobAdvanceRequest(TeaModel):
             self.file_oss_url_object = m.get('FileOssUrl')
         if m.get('JobType') is not None:
             self.job_type = m.get('JobType')
+        if m.get('MaxDu') is not None:
+            self.max_du = m.get('MaxDu')
+        if m.get('MinDu') is not None:
+            self.min_du = m.get('MinDu')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
@@ -1100,9 +1120,6 @@ class ConfigureDtsJobResponse(TeaModel):
         self.body = body  # type: ConfigureDtsJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1565,9 +1582,6 @@ class ConfigureMigrationJobResponse(TeaModel):
         self.body = body  # type: ConfigureMigrationJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1744,9 +1758,6 @@ class ConfigureMigrationJobAlertResponse(TeaModel):
         self.body = body  # type: ConfigureMigrationJobAlertResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1779,7 +1790,7 @@ class ConfigureMigrationJobAlertResponse(TeaModel):
 class ConfigureSubscriptionRequest(TeaModel):
     def __init__(self, checkpoint=None, db_list=None, dedicated_cluster_id=None, delay_notice=None,
                  delay_phone=None, delay_rule_time=None, dts_bis_label=None, dts_instance_id=None, dts_job_id=None,
-                 dts_job_name=None, error_notice=None, error_phone=None, region_id=None, reserve=None,
+                 dts_job_name=None, error_notice=None, error_phone=None, max_du=None, min_du=None, region_id=None, reserve=None,
                  source_endpoint_database_name=None, source_endpoint_engine_name=None, source_endpoint_ip=None,
                  source_endpoint_instance_id=None, source_endpoint_instance_type=None, source_endpoint_oracle_sid=None,
                  source_endpoint_owner_id=None, source_endpoint_password=None, source_endpoint_port=None, source_endpoint_region=None,
@@ -1829,6 +1840,8 @@ class ConfigureSubscriptionRequest(TeaModel):
         # *   This parameter is available only for users of the China site (aliyun.com). Only mobile numbers in the Chinese mainland are supported. You can specify up to 10 mobile numbers.
         # *   Users of the international site (alibabacloud.com) cannot receive alerts by using mobile phones, but can [configure alert rules for DTS tasks in the CloudMonitor console](~~175876~~).
         self.error_phone = error_phone  # type: str
+        self.max_du = max_du  # type: float
+        self.min_du = min_du  # type: float
         # The ID of the region in which the Data Transmission Service (DTS) instance resides. For more information, see [List of supported regions](~~141033~~).
         self.region_id = region_id  # type: str
         # The reserved parameter of DTS. The value must be a JSON string. You can specify this parameter to add more configurations of the source or destination database to the DTS task. For example, you can specify the data storage format of the destination Kafka database and the ID of the CEN instance. For more information, see [MigrationReserved](~~176470~~).
@@ -1942,6 +1955,10 @@ class ConfigureSubscriptionRequest(TeaModel):
             result['ErrorNotice'] = self.error_notice
         if self.error_phone is not None:
             result['ErrorPhone'] = self.error_phone
+        if self.max_du is not None:
+            result['MaxDu'] = self.max_du
+        if self.min_du is not None:
+            result['MinDu'] = self.min_du
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.reserve is not None:
@@ -2008,6 +2025,10 @@ class ConfigureSubscriptionRequest(TeaModel):
             self.error_notice = m.get('ErrorNotice')
         if m.get('ErrorPhone') is not None:
             self.error_phone = m.get('ErrorPhone')
+        if m.get('MaxDu') is not None:
+            self.max_du = m.get('MaxDu')
+        if m.get('MinDu') is not None:
+            self.min_du = m.get('MinDu')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('Reserve') is not None:
@@ -2118,9 +2139,6 @@ class ConfigureSubscriptionResponse(TeaModel):
         self.body = body  # type: ConfigureSubscriptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2464,9 +2482,6 @@ class ConfigureSubscriptionInstanceResponse(TeaModel):
         self.body = body  # type: ConfigureSubscriptionInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2643,9 +2658,6 @@ class ConfigureSubscriptionInstanceAlertResponse(TeaModel):
         self.body = body  # type: ConfigureSubscriptionInstanceAlertResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3105,9 +3117,6 @@ class ConfigureSynchronizationJobResponse(TeaModel):
         self.body = body  # type: ConfigureSynchronizationJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3296,9 +3305,6 @@ class ConfigureSynchronizationJobAlertResponse(TeaModel):
         self.body = body  # type: ConfigureSynchronizationJobAlertResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3448,9 +3454,6 @@ class ConfigureSynchronizationJobReplicatorCompareResponse(TeaModel):
         self.body = body  # type: ConfigureSynchronizationJobReplicatorCompareResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3692,9 +3695,6 @@ class CountJobByConditionResponse(TeaModel):
         self.body = body  # type: CountJobByConditionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3853,9 +3853,6 @@ class CreateConsumerChannelResponse(TeaModel):
         self.body = body  # type: CreateConsumerChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4007,9 +4004,6 @@ class CreateConsumerGroupResponse(TeaModel):
         self.body = body  # type: CreateConsumerGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4178,9 +4172,6 @@ class CreateDedicatedClusterMonitorRuleResponse(TeaModel):
         self.body = body  # type: CreateDedicatedClusterMonitorRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4213,8 +4204,9 @@ class CreateDedicatedClusterMonitorRuleResponse(TeaModel):
 class CreateDtsInstanceRequest(TeaModel):
     def __init__(self, auto_pay=None, auto_start=None, compute_unit=None, database_count=None,
                  destination_endpoint_engine_name=None, destination_region=None, du=None, fee_type=None, instance_class=None, job_id=None,
-                 pay_type=None, period=None, quantity=None, region_id=None, resource_group_id=None,
-                 source_endpoint_engine_name=None, source_region=None, sync_architecture=None, type=None, used_time=None):
+                 max_du=None, min_du=None, pay_type=None, period=None, quantity=None, region_id=None,
+                 resource_group_id=None, source_endpoint_engine_name=None, source_region=None, sync_architecture=None, type=None,
+                 used_time=None):
         # Specifies whether to automatically renew the DTS instance when it expires. Valid values:
         # 
         # *   **false**: does not automatically renew the DTS instance when it expires. This is the default value.
@@ -4281,6 +4273,8 @@ class CreateDtsInstanceRequest(TeaModel):
         # 
         # >  If this parameter is specified, you do not need to specify the **SourceRegion**, **DestinationRegion**, **Type**, **SourceEndpointEngineName**, or **DestinationEndpointEngineName** parameter. Even if these parameters are specified, the value of the **JobId** parameter takes precedence.
         self.job_id = job_id  # type: str
+        self.max_du = max_du  # type: float
+        self.min_du = min_du  # type: float
         # The billing method. Valid values:
         # 
         # *   **PrePaid**: subscription
@@ -4386,6 +4380,10 @@ class CreateDtsInstanceRequest(TeaModel):
             result['InstanceClass'] = self.instance_class
         if self.job_id is not None:
             result['JobId'] = self.job_id
+        if self.max_du is not None:
+            result['MaxDu'] = self.max_du
+        if self.min_du is not None:
+            result['MinDu'] = self.min_du
         if self.pay_type is not None:
             result['PayType'] = self.pay_type
         if self.period is not None:
@@ -4430,6 +4428,10 @@ class CreateDtsInstanceRequest(TeaModel):
             self.instance_class = m.get('InstanceClass')
         if m.get('JobId') is not None:
             self.job_id = m.get('JobId')
+        if m.get('MaxDu') is not None:
+            self.max_du = m.get('MaxDu')
+        if m.get('MinDu') is not None:
+            self.min_du = m.get('MinDu')
         if m.get('PayType') is not None:
             self.pay_type = m.get('PayType')
         if m.get('Period') is not None:
@@ -4515,9 +4517,6 @@ class CreateDtsInstanceResponse(TeaModel):
         self.body = body  # type: CreateDtsInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4723,9 +4722,6 @@ class CreateJobMonitorRuleResponse(TeaModel):
         self.body = body  # type: CreateJobMonitorRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4870,9 +4866,6 @@ class CreateMigrationJobResponse(TeaModel):
         self.body = body  # type: CreateMigrationJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4988,9 +4981,6 @@ class CreateReverseDtsJobResponse(TeaModel):
         self.body = body  # type: CreateReverseDtsJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5190,9 +5180,6 @@ class CreateSubscriptionInstanceResponse(TeaModel):
         self.body = body  # type: CreateSubscriptionInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5482,9 +5469,6 @@ class CreateSynchronizationJobResponse(TeaModel):
         self.body = body  # type: CreateSynchronizationJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5617,9 +5601,6 @@ class DeleteConsumerChannelResponse(TeaModel):
         self.body = body  # type: DeleteConsumerChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5747,9 +5728,6 @@ class DeleteConsumerGroupResponse(TeaModel):
         self.body = body  # type: DeleteConsumerGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5907,9 +5885,6 @@ class DeleteDtsJobResponse(TeaModel):
         self.body = body  # type: DeleteDtsJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6044,9 +6019,6 @@ class DeleteDtsJobsResponse(TeaModel):
         self.body = body  # type: DeleteDtsJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6167,9 +6139,6 @@ class DeleteMigrationJobResponse(TeaModel):
         self.body = body  # type: DeleteMigrationJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6290,9 +6259,6 @@ class DeleteSubscriptionInstanceResponse(TeaModel):
         self.body = body  # type: DeleteSubscriptionInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6413,9 +6379,6 @@ class DeleteSynchronizationJobResponse(TeaModel):
         self.body = body  # type: DeleteSynchronizationJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6572,9 +6535,6 @@ class DescribeChannelAccountResponse(TeaModel):
         self.body = body  # type: DescribeChannelAccountResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6840,9 +6800,6 @@ class DescribeCheckJobsResponse(TeaModel):
         self.body = body  # type: DescribeCheckJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7115,9 +7072,6 @@ class DescribeClusterOperateLogsResponse(TeaModel):
         self.body = body  # type: DescribeClusterOperateLogsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7353,9 +7307,6 @@ class DescribeClusterUsedUtilizationResponse(TeaModel):
         self.body = body  # type: DescribeClusterUsedUtilizationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7677,9 +7628,6 @@ class DescribeConnectionStatusResponse(TeaModel):
         self.body = body  # type: DescribeConnectionStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7920,9 +7868,6 @@ class DescribeConsumerChannelResponse(TeaModel):
         self.body = body  # type: DescribeConsumerChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8175,9 +8120,6 @@ class DescribeConsumerGroupResponse(TeaModel):
         self.body = body  # type: DescribeConsumerGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8310,9 +8252,6 @@ class DescribeDTSIPResponse(TeaModel):
         self.body = body  # type: DescribeDTSIPResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8344,9 +8283,16 @@ class DescribeDTSIPResponse(TeaModel):
 
 class DescribeDataCheckReportUrlRequest(TeaModel):
     def __init__(self, check_type=None, db_name=None, dts_job_id=None, tb_name=None):
+        # The data verification method. Valid values:
+        # 
+        # *   **1**: full data verification.
+        # *   **2**: incremental data verification.
         self.check_type = check_type  # type: int
+        # The name of the verified source database.
         self.db_name = db_name  # type: str
+        # The ID of the Data Transmission Service (DTS) task. You can call the [DescribeDtsJobs](~~209702~~) operation to query the task ID.
         self.dts_job_id = dts_job_id  # type: str
+        # The name of the table verified in the source database.
         self.tb_name = tb_name  # type: str
 
     def validate(self):
@@ -8384,11 +8330,17 @@ class DescribeDataCheckReportUrlRequest(TeaModel):
 class DescribeDataCheckReportUrlResponseBody(TeaModel):
     def __init__(self, dynamic_message=None, err_code=None, err_message=None, http_status_code=None,
                  request_id=None, success=None):
+        # The URL for downloading the verification report.
         self.dynamic_message = dynamic_message  # type: str
+        # The error code returned if the request failed.
         self.err_code = err_code  # type: str
+        # The error message returned if the request failed.
         self.err_message = err_message  # type: str
+        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: str
 
     def validate(self):
@@ -8438,9 +8390,6 @@ class DescribeDataCheckReportUrlResponse(TeaModel):
         self.body = body  # type: DescribeDataCheckReportUrlResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8744,9 +8693,6 @@ class DescribeDataCheckTableDetailsResponse(TeaModel):
         self.body = body  # type: DescribeDataCheckTableDetailsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8950,9 +8896,6 @@ class DescribeDataCheckTableDiffDetailsResponse(TeaModel):
         self.body = body  # type: DescribeDataCheckTableDiffDetailsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9214,9 +9157,6 @@ class DescribeDedicatedClusterResponse(TeaModel):
         self.body = body  # type: DescribeDedicatedClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9368,9 +9308,6 @@ class DescribeDedicatedClusterMonitorRuleResponse(TeaModel):
         self.body = body  # type: DescribeDedicatedClusterMonitorRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9631,9 +9568,6 @@ class DescribeDtsEtlJobVersionInfoResponse(TeaModel):
         self.body = body  # type: DescribeDtsEtlJobVersionInfoResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11284,10 +11218,11 @@ class DescribeDtsJobDetailResponseBodySubDistributedJobReverseJob(TeaModel):
                  data_synchronization_status=None, database_count=None, db_object=None, delay=None, dest_net_type=None,
                  destination_endpoint=None, dts_instance_id=None, dts_job_class=None, dts_job_direction=None, dts_job_id=None,
                  dts_job_name=None, end_timestamp=None, error_message=None, etl_calculator=None, expire_time=None,
-                 finish_time=None, group_id=None, is_demo_job=None, job_type=None, migration_mode=None, origin_type=None,
-                 pay_type=None, performance=None, precheck_status=None, reserved=None, retry_state=None, reverse_job=None,
-                 source_endpoint=None, status=None, structure_initialization_status=None, subscribe_topic=None,
-                 subscription_data_type=None, subscription_host=None, synchronization_direction=None, tag_list=None, task_type=None):
+                 finish_time=None, group_id=None, is_demo_job=None, job_type=None, max_du=None, migration_mode=None, min_du=None,
+                 origin_type=None, pay_type=None, performance=None, precheck_status=None, reserved=None, retry_state=None,
+                 reverse_job=None, source_endpoint=None, status=None, structure_initialization_status=None,
+                 subscribe_topic=None, subscription_data_type=None, subscription_host=None, synchronization_direction=None,
+                 tag_list=None, task_type=None):
         self.app_name = app_name  # type: str
         self.begin_timestamp = begin_timestamp  # type: str
         self.checkpoint = checkpoint  # type: str
@@ -11315,7 +11250,9 @@ class DescribeDtsJobDetailResponseBodySubDistributedJobReverseJob(TeaModel):
         self.group_id = group_id  # type: str
         self.is_demo_job = is_demo_job  # type: bool
         self.job_type = job_type  # type: str
+        self.max_du = max_du  # type: float
         self.migration_mode = migration_mode  # type: DescribeDtsJobDetailResponseBodySubDistributedJobReverseJobMigrationMode
+        self.min_du = min_du  # type: float
         self.origin_type = origin_type  # type: str
         self.pay_type = pay_type  # type: str
         self.performance = performance  # type: DescribeDtsJobDetailResponseBodySubDistributedJobReverseJobPerformance
@@ -11423,8 +11360,12 @@ class DescribeDtsJobDetailResponseBodySubDistributedJobReverseJob(TeaModel):
             result['IsDemoJob'] = self.is_demo_job
         if self.job_type is not None:
             result['JobType'] = self.job_type
+        if self.max_du is not None:
+            result['MaxDu'] = self.max_du
         if self.migration_mode is not None:
             result['MigrationMode'] = self.migration_mode.to_map()
+        if self.min_du is not None:
+            result['MinDu'] = self.min_du
         if self.origin_type is not None:
             result['OriginType'] = self.origin_type
         if self.pay_type is not None:
@@ -11521,9 +11462,13 @@ class DescribeDtsJobDetailResponseBodySubDistributedJobReverseJob(TeaModel):
             self.is_demo_job = m.get('IsDemoJob')
         if m.get('JobType') is not None:
             self.job_type = m.get('JobType')
+        if m.get('MaxDu') is not None:
+            self.max_du = m.get('MaxDu')
         if m.get('MigrationMode') is not None:
             temp_model = DescribeDtsJobDetailResponseBodySubDistributedJobReverseJobMigrationMode()
             self.migration_mode = temp_model.from_map(m['MigrationMode'])
+        if m.get('MinDu') is not None:
+            self.min_du = m.get('MinDu')
         if m.get('OriginType') is not None:
             self.origin_type = m.get('OriginType')
         if m.get('PayType') is not None:
@@ -11851,10 +11796,11 @@ class DescribeDtsJobDetailResponseBodySubDistributedJob(TeaModel):
                  data_synchronization_status=None, database_count=None, db_object=None, delay=None, dest_net_type=None,
                  destination_endpoint=None, dts_instance_id=None, dts_job_class=None, dts_job_direction=None, dts_job_id=None,
                  dts_job_name=None, end_timestamp=None, error_message=None, etl_calculator=None, expire_time=None,
-                 finish_time=None, group_id=None, is_demo_job=None, job_type=None, migration_mode=None, origin_type=None,
-                 pay_type=None, performance=None, precheck_status=None, reserved=None, retry_state=None, reverse_job=None,
-                 source_endpoint=None, status=None, structure_initialization_status=None, sub_sync_job=None, subscribe_topic=None,
-                 subscription_data_type=None, subscription_host=None, synchronization_direction=None, tag_list=None, task_type=None):
+                 finish_time=None, group_id=None, is_demo_job=None, job_type=None, max_du=None, migration_mode=None, min_du=None,
+                 origin_type=None, pay_type=None, performance=None, precheck_status=None, reserved=None, retry_state=None,
+                 reverse_job=None, source_endpoint=None, status=None, structure_initialization_status=None, sub_sync_job=None,
+                 subscribe_topic=None, subscription_data_type=None, subscription_host=None, synchronization_direction=None,
+                 tag_list=None, task_type=None):
         self.app_name = app_name  # type: str
         self.begin_timestamp = begin_timestamp  # type: str
         self.checkpoint = checkpoint  # type: str
@@ -11882,7 +11828,9 @@ class DescribeDtsJobDetailResponseBodySubDistributedJob(TeaModel):
         self.group_id = group_id  # type: str
         self.is_demo_job = is_demo_job  # type: bool
         self.job_type = job_type  # type: str
+        self.max_du = max_du  # type: float
         self.migration_mode = migration_mode  # type: DescribeDtsJobDetailResponseBodySubDistributedJobMigrationMode
+        self.min_du = min_du  # type: float
         self.origin_type = origin_type  # type: str
         self.pay_type = pay_type  # type: str
         self.performance = performance  # type: DescribeDtsJobDetailResponseBodySubDistributedJobPerformance
@@ -11993,8 +11941,12 @@ class DescribeDtsJobDetailResponseBodySubDistributedJob(TeaModel):
             result['IsDemoJob'] = self.is_demo_job
         if self.job_type is not None:
             result['JobType'] = self.job_type
+        if self.max_du is not None:
+            result['MaxDu'] = self.max_du
         if self.migration_mode is not None:
             result['MigrationMode'] = self.migration_mode.to_map()
+        if self.min_du is not None:
+            result['MinDu'] = self.min_du
         if self.origin_type is not None:
             result['OriginType'] = self.origin_type
         if self.pay_type is not None:
@@ -12093,9 +12045,13 @@ class DescribeDtsJobDetailResponseBodySubDistributedJob(TeaModel):
             self.is_demo_job = m.get('IsDemoJob')
         if m.get('JobType') is not None:
             self.job_type = m.get('JobType')
+        if m.get('MaxDu') is not None:
+            self.max_du = m.get('MaxDu')
         if m.get('MigrationMode') is not None:
             temp_model = DescribeDtsJobDetailResponseBodySubDistributedJobMigrationMode()
             self.migration_mode = temp_model.from_map(m['MigrationMode'])
+        if m.get('MinDu') is not None:
+            self.min_du = m.get('MinDu')
         if m.get('OriginType') is not None:
             self.origin_type = m.get('OriginType')
         if m.get('PayType') is not None:
@@ -13863,10 +13819,11 @@ class DescribeDtsJobDetailResponseBodySubSyncJob(TeaModel):
                  data_synchronization_status=None, database_count=None, db_object=None, delay=None, dest_net_type=None,
                  destination_endpoint=None, dts_instance_id=None, dts_job_class=None, dts_job_direction=None, dts_job_id=None,
                  dts_job_name=None, end_timestamp=None, error_message=None, etl_calculator=None, expire_time=None,
-                 finish_time=None, group_id=None, is_demo_job=None, job_type=None, migration_mode=None, origin_type=None,
-                 pay_type=None, performance=None, precheck_status=None, reserved=None, retry_state=None, reverse_job=None,
-                 source_endpoint=None, status=None, structure_initialization_status=None, sub_sync_job=None, subscribe_topic=None,
-                 subscription_data_type=None, subscription_host=None, synchronization_direction=None, tag_list=None, task_type=None):
+                 finish_time=None, group_id=None, is_demo_job=None, job_type=None, max_du=None, migration_mode=None, min_du=None,
+                 origin_type=None, pay_type=None, performance=None, precheck_status=None, reserved=None, retry_state=None,
+                 reverse_job=None, source_endpoint=None, status=None, structure_initialization_status=None, sub_sync_job=None,
+                 subscribe_topic=None, subscription_data_type=None, subscription_host=None, synchronization_direction=None,
+                 tag_list=None, task_type=None):
         self.app_name = app_name  # type: str
         self.begin_timestamp = begin_timestamp  # type: str
         self.checkpoint = checkpoint  # type: str
@@ -13894,7 +13851,9 @@ class DescribeDtsJobDetailResponseBodySubSyncJob(TeaModel):
         self.group_id = group_id  # type: str
         self.is_demo_job = is_demo_job  # type: bool
         self.job_type = job_type  # type: str
+        self.max_du = max_du  # type: float
         self.migration_mode = migration_mode  # type: DescribeDtsJobDetailResponseBodySubSyncJobMigrationMode
+        self.min_du = min_du  # type: float
         self.origin_type = origin_type  # type: str
         self.pay_type = pay_type  # type: str
         self.performance = performance  # type: DescribeDtsJobDetailResponseBodySubSyncJobPerformance
@@ -14005,8 +13964,12 @@ class DescribeDtsJobDetailResponseBodySubSyncJob(TeaModel):
             result['IsDemoJob'] = self.is_demo_job
         if self.job_type is not None:
             result['JobType'] = self.job_type
+        if self.max_du is not None:
+            result['MaxDu'] = self.max_du
         if self.migration_mode is not None:
             result['MigrationMode'] = self.migration_mode.to_map()
+        if self.min_du is not None:
+            result['MinDu'] = self.min_du
         if self.origin_type is not None:
             result['OriginType'] = self.origin_type
         if self.pay_type is not None:
@@ -14105,9 +14068,13 @@ class DescribeDtsJobDetailResponseBodySubSyncJob(TeaModel):
             self.is_demo_job = m.get('IsDemoJob')
         if m.get('JobType') is not None:
             self.job_type = m.get('JobType')
+        if m.get('MaxDu') is not None:
+            self.max_du = m.get('MaxDu')
         if m.get('MigrationMode') is not None:
             temp_model = DescribeDtsJobDetailResponseBodySubSyncJobMigrationMode()
             self.migration_mode = temp_model.from_map(m['MigrationMode'])
+        if m.get('MinDu') is not None:
+            self.min_du = m.get('MinDu')
         if m.get('OriginType') is not None:
             self.origin_type = m.get('OriginType')
         if m.get('PayType') is not None:
@@ -14238,10 +14205,11 @@ class DescribeDtsJobDetailResponseBody(TeaModel):
                  destination_endpoint=None, dts_bis_label=None, dts_instance_id=None, dts_job_class=None, dts_job_direction=None,
                  dts_job_id=None, dts_job_name=None, dynamic_message=None, end_timestamp=None, err_code=None, err_message=None,
                  error_message=None, etl_calculator=None, expire_time=None, finish_time=None, group_id=None,
-                 http_status_code=None, job_type=None, last_update_time=None, migration_mode=None, pay_type=None, request_id=None,
-                 reserved=None, resource_group_display_name=None, resource_group_id=None, retry_state=None,
-                 source_endpoint=None, status=None, sub_distributed_job=None, sub_sync_job=None, subscribe_topic=None,
-                 subscription_data_type=None, subscription_host=None, success=None, synchronization_direction=None, task_type=None):
+                 http_status_code=None, job_type=None, last_update_time=None, max_du=None, migration_mode=None, min_du=None,
+                 pay_type=None, request_id=None, reserved=None, resource_group_display_name=None, resource_group_id=None,
+                 retry_state=None, source_endpoint=None, status=None, sub_distributed_job=None, sub_sync_job=None,
+                 subscribe_topic=None, subscription_data_type=None, subscription_host=None, success=None,
+                 synchronization_direction=None, task_type=None):
         # The number of ApsaraDB RDS for MySQL instances that are attached to the source PolarDB-X 1.0 instance.
         self.app_name = app_name  # type: str
         # The consumption checkpoint of the change tracking instance. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
@@ -14349,8 +14317,10 @@ class DescribeDtsJobDetailResponseBody(TeaModel):
         self.http_status_code = http_status_code  # type: int
         self.job_type = job_type  # type: str
         self.last_update_time = last_update_time  # type: str
+        self.max_du = max_du  # type: float
         # The type of the destination instance.
         self.migration_mode = migration_mode  # type: DescribeDtsJobDetailResponseBodyMigrationMode
+        self.min_du = min_du  # type: float
         # The error message returned if the task failed.
         self.pay_type = pay_type  # type: str
         # The network type of the consumer client. Valid values:
@@ -14494,8 +14464,12 @@ class DescribeDtsJobDetailResponseBody(TeaModel):
             result['JobType'] = self.job_type
         if self.last_update_time is not None:
             result['LastUpdateTime'] = self.last_update_time
+        if self.max_du is not None:
+            result['MaxDu'] = self.max_du
         if self.migration_mode is not None:
             result['MigrationMode'] = self.migration_mode.to_map()
+        if self.min_du is not None:
+            result['MinDu'] = self.min_du
         if self.pay_type is not None:
             result['PayType'] = self.pay_type
         if self.request_id is not None:
@@ -14615,9 +14589,13 @@ class DescribeDtsJobDetailResponseBody(TeaModel):
             self.job_type = m.get('JobType')
         if m.get('LastUpdateTime') is not None:
             self.last_update_time = m.get('LastUpdateTime')
+        if m.get('MaxDu') is not None:
+            self.max_du = m.get('MaxDu')
         if m.get('MigrationMode') is not None:
             temp_model = DescribeDtsJobDetailResponseBodyMigrationMode()
             self.migration_mode = temp_model.from_map(m['MigrationMode'])
+        if m.get('MinDu') is not None:
+            self.min_du = m.get('MinDu')
         if m.get('PayType') is not None:
             self.pay_type = m.get('PayType')
         if m.get('RequestId') is not None:
@@ -14670,9 +14648,6 @@ class DescribeDtsJobDetailResponse(TeaModel):
         self.body = body  # type: DescribeDtsJobDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14709,6 +14684,10 @@ class DescribeDtsJobsRequest(TeaModel):
                  type=None, without_db_list=None):
         # The ID of the DTS dedicated cluster on which the task runs.
         self.dedicated_cluster_id = dedicated_cluster_id  # type: str
+        # The environment tag of the DTS instance. Valid values:
+        # 
+        # - **normal**\
+        # - **online**\
         self.dts_bis_label = dts_bis_label  # type: str
         # The ID of the data migration, data synchronization, or change tracking instance.
         self.dts_instance_id = dts_instance_id  # type: str
@@ -15353,11 +15332,11 @@ class DescribeDtsJobsResponseBodyDtsJobListMigrationMode(TeaModel):
         self.data_synchronization = data_synchronization  # type: bool
         # Indicates whether full data verification is performed. Valid values:
         # -  **true**: yes
-        # -   **false**: no
+        # -  **false**: no
         self.full_data_check = full_data_check  # type: bool
         # Indicates whether incremental data verification is performed. Valid values:
         # -  **true**: yes
-        # -   **false**: no
+        # -  **false**: no
         self.inc_data_check = inc_data_check  # type: bool
         # Indicates whether schema migration or schema synchronization is performed. Valid values:
         # 
@@ -15880,9 +15859,18 @@ class DescribeDtsJobsResponseBodyDtsJobListReverseJobErrorDetails(TeaModel):
 
 class DescribeDtsJobsResponseBodyDtsJobListReverseJobFullDataCheckStatus(TeaModel):
     def __init__(self, error_message=None, percent=None, progress=None, status=None):
+        # The error message returned if the task failed.
         self.error_message = error_message  # type: str
+        # The progress of the full data verification task. Unit: percentage.
         self.percent = percent  # type: str
+        # The progress of the full data verification task.
         self.progress = progress  # type: str
+        # The state of the full data verification task. Valid values:
+        # 
+        # - **NotStarted**: The verification is not started. 
+        # - **Checking**: The verification is in progress. 
+        # - **Failed**: The verification failed. 
+        # - **Finished**: The verification is complete.
         self.status = status  # type: str
 
     def validate(self):
@@ -15919,9 +15907,18 @@ class DescribeDtsJobsResponseBodyDtsJobListReverseJobFullDataCheckStatus(TeaMode
 
 class DescribeDtsJobsResponseBodyDtsJobListReverseJobIncDataCheckStatus(TeaModel):
     def __init__(self, error_message=None, percent=None, progress=None, status=None):
+        # The error message returned if the task failed.
         self.error_message = error_message  # type: str
+        # The progress of the incremental data verification task. Unit: percentage.
         self.percent = percent  # type: str
+        # The progress of the incremental data verification task.
         self.progress = progress  # type: str
+        # The state of the incremental data verification task. Valid values:
+        # 
+        # - **Catched**: The verification is delayed. 
+        # - **NotStarted**: The verification is not started. 
+        # - **Checking**: The verification is in progress. 
+        # - **Failed**: The verification failed.
         self.status = status  # type: str
 
     def validate(self):
@@ -15968,7 +15965,13 @@ class DescribeDtsJobsResponseBodyDtsJobListReverseJobMigrationMode(TeaModel):
         # -  **true**\
         # -  **false**\
         self.data_synchronization = data_synchronization  # type: bool
+        # Indicates whether full data verification is performed. Valid values:
+        # -  **true**: yes
+        # -  **false**: no
         self.full_data_check = full_data_check  # type: bool
+        # Indicates whether incremental data verification is performed. Valid values:
+        # -  **true**: yes
+        # -  **false**: no
         self.inc_data_check = inc_data_check  # type: bool
         # Indicates whether initial schema synchronization is performed. Valid values:
         # -  **true**\
@@ -16292,8 +16295,8 @@ class DescribeDtsJobsResponseBodyDtsJobListReverseJob(TeaModel):
                  data_synchronization_status=None, db_object=None, dedicated_cluster_id=None, delay=None, destination_endpoint=None,
                  dts_instance_id=None, dts_job_class=None, dts_job_direction=None, dts_job_id=None, dts_job_name=None,
                  du_usage=None, error_details=None, error_message=None, etl_safe_checkpoint=None, expire_time=None,
-                 full_data_check_status=None, inc_data_check_status=None, mem_usage=None, migration_mode=None, pay_type=None,
-                 performance=None, precheck_status=None, reserved=None, source_endpoint=None, status=None,
+                 full_data_check_status=None, inc_data_check_status=None, max_du=None, mem_usage=None, migration_mode=None, min_du=None,
+                 pay_type=None, performance=None, precheck_status=None, reserved=None, source_endpoint=None, status=None,
                  structure_initialization_status=None):
         # The start offset of incremental data synchronization. This value is a UNIX timestamp representing the number of seconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.checkpoint = checkpoint  # type: str
@@ -16337,12 +16340,16 @@ class DescribeDtsJobsResponseBodyDtsJobListReverseJob(TeaModel):
         # 
         # > This parameter is returned only if the returned value of **PayType** is **PrePaid**.
         self.expire_time = expire_time  # type: str
+        # The state information about the full data verification task.
         self.full_data_check_status = full_data_check_status  # type: DescribeDtsJobsResponseBodyDtsJobListReverseJobFullDataCheckStatus
+        # The state information about the incremental data verification task.
         self.inc_data_check_status = inc_data_check_status  # type: DescribeDtsJobsResponseBodyDtsJobListReverseJobIncDataCheckStatus
+        self.max_du = max_du  # type: float
         # The memory that has been used. Unit: MB.
         self.mem_usage = mem_usage  # type: str
         # The initial synchronization types.
         self.migration_mode = migration_mode  # type: DescribeDtsJobsResponseBodyDtsJobListReverseJobMigrationMode
+        self.min_du = min_du  # type: float
         # The billing method of the DTS instance. Valid values:
         # 
         # - **PrePaid**: subscription
@@ -16437,10 +16444,14 @@ class DescribeDtsJobsResponseBodyDtsJobListReverseJob(TeaModel):
             result['FullDataCheckStatus'] = self.full_data_check_status.to_map()
         if self.inc_data_check_status is not None:
             result['IncDataCheckStatus'] = self.inc_data_check_status.to_map()
+        if self.max_du is not None:
+            result['MaxDu'] = self.max_du
         if self.mem_usage is not None:
             result['MemUsage'] = self.mem_usage
         if self.migration_mode is not None:
             result['MigrationMode'] = self.migration_mode.to_map()
+        if self.min_du is not None:
+            result['MinDu'] = self.min_du
         if self.pay_type is not None:
             result['PayType'] = self.pay_type
         if self.performance is not None:
@@ -16509,11 +16520,15 @@ class DescribeDtsJobsResponseBodyDtsJobListReverseJob(TeaModel):
         if m.get('IncDataCheckStatus') is not None:
             temp_model = DescribeDtsJobsResponseBodyDtsJobListReverseJobIncDataCheckStatus()
             self.inc_data_check_status = temp_model.from_map(m['IncDataCheckStatus'])
+        if m.get('MaxDu') is not None:
+            self.max_du = m.get('MaxDu')
         if m.get('MemUsage') is not None:
             self.mem_usage = m.get('MemUsage')
         if m.get('MigrationMode') is not None:
             temp_model = DescribeDtsJobsResponseBodyDtsJobListReverseJobMigrationMode()
             self.migration_mode = temp_model.from_map(m['MigrationMode'])
+        if m.get('MinDu') is not None:
+            self.min_du = m.get('MinDu')
         if m.get('PayType') is not None:
             self.pay_type = m.get('PayType')
         if m.get('Performance') is not None:
@@ -16708,11 +16723,11 @@ class DescribeDtsJobsResponseBodyDtsJobList(TeaModel):
                  destination_endpoint=None, dts_bis_label=None, dts_instance_id=None, dts_job_class=None, dts_job_direction=None,
                  dts_job_id=None, dts_job_name=None, du_usage=None, end_timestamp=None, error_details=None, error_message=None,
                  etl_safe_checkpoint=None, expire_time=None, full_data_check_status=None, inc_data_check_status=None, job_type=None,
-                 mem_usage=None, migration_err_code=None, migration_err_help_doc_id=None, migration_err_help_doc_key=None,
-                 migration_err_msg=None, migration_err_type=None, migration_err_workaround=None, migration_mode=None,
-                 origin_type=None, pay_type=None, performance=None, precheck_status=None, reserved=None,
-                 resource_group_display_name=None, resource_group_id=None, retry_state=None, reverse_job=None, source_endpoint=None,
-                 status=None, structure_initialization_status=None, tag_list=None):
+                 max_du=None, mem_usage=None, migration_err_code=None, migration_err_help_doc_id=None,
+                 migration_err_help_doc_key=None, migration_err_msg=None, migration_err_type=None, migration_err_workaround=None,
+                 migration_mode=None, min_du=None, origin_type=None, pay_type=None, performance=None, precheck_status=None,
+                 reserved=None, resource_group_display_name=None, resource_group_id=None, retry_state=None,
+                 reverse_job=None, source_endpoint=None, status=None, structure_initialization_status=None, tag_list=None):
         # Indicates whether the **new** change tracking feature is used.
         # 
         # >  This parameter is returned only for change tracking instances of the new version.
@@ -16747,6 +16762,10 @@ class DescribeDtsJobsResponseBodyDtsJobList(TeaModel):
         self.delay = delay  # type: long
         # The connection settings of the destination instance.
         self.destination_endpoint = destination_endpoint  # type: DescribeDtsJobsResponseBodyDtsJobListDestinationEndpoint
+        # The environment tag of the DTS instance. Valid values:
+        # 
+        # - **normal**\
+        # - **online**\
         self.dts_bis_label = dts_bis_label  # type: str
         # The ID of the data synchronization instance.
         self.dts_instance_id = dts_instance_id  # type: str
@@ -16784,6 +16803,7 @@ class DescribeDtsJobsResponseBodyDtsJobList(TeaModel):
         # - **SYNC**: data synchronization task 
         # - **SUBSCRIBE**: change tracking task
         self.job_type = job_type  # type: str
+        self.max_du = max_du  # type: float
         # The memory that has been used. Unit: MB.
         self.mem_usage = mem_usage  # type: str
         # The error code.
@@ -16800,6 +16820,7 @@ class DescribeDtsJobsResponseBodyDtsJobList(TeaModel):
         self.migration_err_workaround = migration_err_workaround  # type: str
         # The migration or synchronization modes.
         self.migration_mode = migration_mode  # type: DescribeDtsJobsResponseBodyDtsJobListMigrationMode
+        self.min_du = min_du  # type: float
         # The source of the task. Valid values:
         # 
         # *   **PTS**\
@@ -16942,6 +16963,8 @@ class DescribeDtsJobsResponseBodyDtsJobList(TeaModel):
             result['IncDataCheckStatus'] = self.inc_data_check_status.to_map()
         if self.job_type is not None:
             result['JobType'] = self.job_type
+        if self.max_du is not None:
+            result['MaxDu'] = self.max_du
         if self.mem_usage is not None:
             result['MemUsage'] = self.mem_usage
         if self.migration_err_code is not None:
@@ -16958,6 +16981,8 @@ class DescribeDtsJobsResponseBodyDtsJobList(TeaModel):
             result['MigrationErrWorkaround'] = self.migration_err_workaround
         if self.migration_mode is not None:
             result['MigrationMode'] = self.migration_mode.to_map()
+        if self.min_du is not None:
+            result['MinDu'] = self.min_du
         if self.origin_type is not None:
             result['OriginType'] = self.origin_type
         if self.pay_type is not None:
@@ -17060,6 +17085,8 @@ class DescribeDtsJobsResponseBodyDtsJobList(TeaModel):
             self.inc_data_check_status = temp_model.from_map(m['IncDataCheckStatus'])
         if m.get('JobType') is not None:
             self.job_type = m.get('JobType')
+        if m.get('MaxDu') is not None:
+            self.max_du = m.get('MaxDu')
         if m.get('MemUsage') is not None:
             self.mem_usage = m.get('MemUsage')
         if m.get('MigrationErrCode') is not None:
@@ -17077,6 +17104,8 @@ class DescribeDtsJobsResponseBodyDtsJobList(TeaModel):
         if m.get('MigrationMode') is not None:
             temp_model = DescribeDtsJobsResponseBodyDtsJobListMigrationMode()
             self.migration_mode = temp_model.from_map(m['MigrationMode'])
+        if m.get('MinDu') is not None:
+            self.min_du = m.get('MinDu')
         if m.get('OriginType') is not None:
             self.origin_type = m.get('OriginType')
         if m.get('PayType') is not None:
@@ -18926,9 +18955,6 @@ class DescribeDtsJobsResponse(TeaModel):
         self.body = body  # type: DescribeDtsJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19187,9 +19213,6 @@ class DescribeDtsServiceLogResponse(TeaModel):
         self.body = body  # type: DescribeDtsServiceLogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19335,9 +19358,6 @@ class DescribeEndpointSwitchStatusResponse(TeaModel):
         self.body = body  # type: DescribeEndpointSwitchStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19536,9 +19556,6 @@ class DescribeEtlJobLogsResponse(TeaModel):
         self.body = body  # type: DescribeEtlJobLogsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20003,9 +20020,6 @@ class DescribeInitializationStatusResponse(TeaModel):
         self.body = body  # type: DescribeInitializationStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20244,9 +20258,6 @@ class DescribeJobMonitorRuleResponse(TeaModel):
         self.body = body  # type: DescribeJobMonitorRuleResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20520,9 +20531,6 @@ class DescribeMetricListResponse(TeaModel):
         self.body = body  # type: DescribeMetricListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20699,9 +20707,6 @@ class DescribeMigrationJobAlertResponse(TeaModel):
         self.body = body  # type: DescribeMigrationJobAlertResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21350,9 +21355,6 @@ class DescribeMigrationJobDetailResponse(TeaModel):
         self.body = body  # type: DescribeMigrationJobDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22065,9 +22067,6 @@ class DescribeMigrationJobStatusResponse(TeaModel):
         self.body = body  # type: DescribeMigrationJobStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22989,9 +22988,6 @@ class DescribeMigrationJobsResponse(TeaModel):
         self.body = body  # type: DescribeMigrationJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24414,9 +24410,6 @@ class DescribePreCheckStatusResponse(TeaModel):
         self.body = body  # type: DescribePreCheckStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24594,9 +24587,6 @@ class DescribeSubscriptionInstanceAlertResponse(TeaModel):
         self.body = body  # type: DescribeSubscriptionInstanceAlertResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25038,9 +25028,6 @@ class DescribeSubscriptionInstanceStatusResponse(TeaModel):
         self.body = body  # type: DescribeSubscriptionInstanceStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25712,9 +25699,6 @@ class DescribeSubscriptionInstancesResponse(TeaModel):
         self.body = body  # type: DescribeSubscriptionInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25973,9 +25957,6 @@ class DescribeSubscriptionMetaResponse(TeaModel):
         self.body = body  # type: DescribeSubscriptionMetaResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26176,9 +26157,6 @@ class DescribeSynchronizationJobAlertResponse(TeaModel):
         self.body = body  # type: DescribeSynchronizationJobAlertResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26329,9 +26307,6 @@ class DescribeSynchronizationJobReplicatorCompareResponse(TeaModel):
         self.body = body  # type: DescribeSynchronizationJobReplicatorCompareResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27170,9 +27145,6 @@ class DescribeSynchronizationJobStatusResponse(TeaModel):
         self.body = body  # type: DescribeSynchronizationJobStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27425,9 +27397,6 @@ class DescribeSynchronizationJobStatusListResponse(TeaModel):
         self.body = body  # type: DescribeSynchronizationJobStatusListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28388,9 +28357,6 @@ class DescribeSynchronizationJobsResponse(TeaModel):
         self.body = body  # type: DescribeSynchronizationJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28815,9 +28781,6 @@ class DescribeSynchronizationObjectModifyStatusResponse(TeaModel):
         self.body = body  # type: DescribeSynchronizationObjectModifyStatusResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28971,9 +28934,6 @@ class DescribeTagKeysResponse(TeaModel):
         self.body = body  # type: DescribeTagKeysResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29137,9 +29097,6 @@ class DescribeTagValuesResponse(TeaModel):
         self.body = body  # type: DescribeTagValuesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29305,9 +29262,6 @@ class InitDtsRdsInstanceResponse(TeaModel):
         self.body = body  # type: InitDtsRdsInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29699,9 +29653,6 @@ class ListDedicatedClusterResponse(TeaModel):
         self.body = body  # type: ListDedicatedClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29969,9 +29920,6 @@ class ListTagResourcesResponse(TeaModel):
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30129,9 +30077,6 @@ class ModifyConsumerChannelResponse(TeaModel):
         self.body = body  # type: ModifyConsumerChannelResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30289,9 +30234,6 @@ class ModifyConsumerGroupPasswordResponse(TeaModel):
         self.body = body  # type: ModifyConsumerGroupPasswordResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30419,9 +30361,6 @@ class ModifyConsumptionTimestampResponse(TeaModel):
         self.body = body  # type: ModifyConsumptionTimestampResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30573,9 +30512,6 @@ class ModifyDedicatedClusterResponse(TeaModel):
         self.body = body  # type: ModifyDedicatedClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30612,14 +30548,27 @@ class ModifyDtsJobRequest(TeaModel):
                  synchronization_direction=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The **ClientToken** parameter can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
-        self.data_initialization = data_initialization  # type: bool
-        self.data_synchronization = data_synchronization  # type: bool
-        # The objects of the data synchronization task after modification. The value is a JSON string. For more information, see [Objects of DTS tasks](~~209545~~).
+        # Specifies whether to perform full data migration or synchronization. Valid values:
         # 
-        # >  Before you call the ModifyDtsJob operation, we recommend that you call the [DescribeDtsJobDetail](~~208925~~) to query the current objects of the data synchronization task. Then, you can specify the new objects based on your business requirements. For example, if the current objects are Table A and Table B and you need to add Table C, you must specify Table A, Table B, and Table C for this parameter.
+        # *   **true**\
+        # *   **false**\
+        self.data_initialization = data_initialization  # type: bool
+        # Specifies whether to perform incremental data migration or synchronization. Valid values:
+        # 
+        # *   **false**\
+        # *   **true**\
+        self.data_synchronization = data_synchronization  # type: bool
+        # The objects of the data synchronization task after modification. The value must be a JSON string. For more information, see [Objects of DTS tasks](~~209545~~).
+        # 
+        # > 
+        # 
+        # *   The new value of DbList overwrites the original value. Make sure that all the objects that you want to synchronize are specified. Otherwise, some objects may be lost. Specify this parameter with caution.
+        # 
+        # *   Before you call the ModifyDtsJob operation, we recommend that you call the [DescribeDtsJobDetail](~~208925~~) operation to query the current objects of the data synchronization task. Then, you can specify the new objects based on your business requirements. For example, if the current objects are Table A and Table B and you need to add Table C, you must specify Table A, Table B, and Table C for this parameter.
         self.db_list = db_list  # type: dict[str, any]
         # The ID of the data synchronization instance.
         self.dts_instance_id = dts_instance_id  # type: str
+        # The synchronization task ID. You can call the [DescribeDtsJobs](~~209702~~) operation to query the task ID.
         self.dts_job_id = dts_job_id  # type: str
         # The operator that is related to the extract, transform, and load (ETL) feature and dedicated to T+1 business.
         self.etl_operator_column_reference = etl_operator_column_reference  # type: str
@@ -30633,6 +30582,10 @@ class ModifyDtsJobRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The reserved parameters of the data synchronization task. You can add reserved parameters instead of overwriting the existing reserved parameters. The value of the parameter is a MAP JSON string. You can specify this parameter to meet special requirements, such as specifying whether to automatically start the precheck of the data synchronization task. For more information, see [MigrationReserved](~~176470~~).
         self.reserved = reserved  # type: str
+        # Specifies whether to perform schema migration or synchronization. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.structure_initialization = structure_initialization  # type: bool
         # The synchronization direction. Valid values:
         # 
@@ -30723,14 +30676,27 @@ class ModifyDtsJobAdvanceRequest(TeaModel):
                  synchronization_direction=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The **ClientToken** parameter can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
-        self.data_initialization = data_initialization  # type: bool
-        self.data_synchronization = data_synchronization  # type: bool
-        # The objects of the data synchronization task after modification. The value is a JSON string. For more information, see [Objects of DTS tasks](~~209545~~).
+        # Specifies whether to perform full data migration or synchronization. Valid values:
         # 
-        # >  Before you call the ModifyDtsJob operation, we recommend that you call the [DescribeDtsJobDetail](~~208925~~) to query the current objects of the data synchronization task. Then, you can specify the new objects based on your business requirements. For example, if the current objects are Table A and Table B and you need to add Table C, you must specify Table A, Table B, and Table C for this parameter.
+        # *   **true**\
+        # *   **false**\
+        self.data_initialization = data_initialization  # type: bool
+        # Specifies whether to perform incremental data migration or synchronization. Valid values:
+        # 
+        # *   **false**\
+        # *   **true**\
+        self.data_synchronization = data_synchronization  # type: bool
+        # The objects of the data synchronization task after modification. The value must be a JSON string. For more information, see [Objects of DTS tasks](~~209545~~).
+        # 
+        # > 
+        # 
+        # *   The new value of DbList overwrites the original value. Make sure that all the objects that you want to synchronize are specified. Otherwise, some objects may be lost. Specify this parameter with caution.
+        # 
+        # *   Before you call the ModifyDtsJob operation, we recommend that you call the [DescribeDtsJobDetail](~~208925~~) operation to query the current objects of the data synchronization task. Then, you can specify the new objects based on your business requirements. For example, if the current objects are Table A and Table B and you need to add Table C, you must specify Table A, Table B, and Table C for this parameter.
         self.db_list = db_list  # type: dict[str, any]
         # The ID of the data synchronization instance.
         self.dts_instance_id = dts_instance_id  # type: str
+        # The synchronization task ID. You can call the [DescribeDtsJobs](~~209702~~) operation to query the task ID.
         self.dts_job_id = dts_job_id  # type: str
         # The operator that is related to the extract, transform, and load (ETL) feature and dedicated to T+1 business.
         self.etl_operator_column_reference = etl_operator_column_reference  # type: str
@@ -30744,6 +30710,10 @@ class ModifyDtsJobAdvanceRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The reserved parameters of the data synchronization task. You can add reserved parameters instead of overwriting the existing reserved parameters. The value of the parameter is a MAP JSON string. You can specify this parameter to meet special requirements, such as specifying whether to automatically start the precheck of the data synchronization task. For more information, see [MigrationReserved](~~176470~~).
         self.reserved = reserved  # type: str
+        # Specifies whether to perform schema migration or synchronization. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.structure_initialization = structure_initialization  # type: bool
         # The synchronization direction. Valid values:
         # 
@@ -30834,14 +30804,27 @@ class ModifyDtsJobShrinkRequest(TeaModel):
                  synchronization_direction=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The **ClientToken** parameter can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
-        self.data_initialization = data_initialization  # type: bool
-        self.data_synchronization = data_synchronization  # type: bool
-        # The objects of the data synchronization task after modification. The value is a JSON string. For more information, see [Objects of DTS tasks](~~209545~~).
+        # Specifies whether to perform full data migration or synchronization. Valid values:
         # 
-        # >  Before you call the ModifyDtsJob operation, we recommend that you call the [DescribeDtsJobDetail](~~208925~~) to query the current objects of the data synchronization task. Then, you can specify the new objects based on your business requirements. For example, if the current objects are Table A and Table B and you need to add Table C, you must specify Table A, Table B, and Table C for this parameter.
+        # *   **true**\
+        # *   **false**\
+        self.data_initialization = data_initialization  # type: bool
+        # Specifies whether to perform incremental data migration or synchronization. Valid values:
+        # 
+        # *   **false**\
+        # *   **true**\
+        self.data_synchronization = data_synchronization  # type: bool
+        # The objects of the data synchronization task after modification. The value must be a JSON string. For more information, see [Objects of DTS tasks](~~209545~~).
+        # 
+        # > 
+        # 
+        # *   The new value of DbList overwrites the original value. Make sure that all the objects that you want to synchronize are specified. Otherwise, some objects may be lost. Specify this parameter with caution.
+        # 
+        # *   Before you call the ModifyDtsJob operation, we recommend that you call the [DescribeDtsJobDetail](~~208925~~) operation to query the current objects of the data synchronization task. Then, you can specify the new objects based on your business requirements. For example, if the current objects are Table A and Table B and you need to add Table C, you must specify Table A, Table B, and Table C for this parameter.
         self.db_list_shrink = db_list_shrink  # type: str
         # The ID of the data synchronization instance.
         self.dts_instance_id = dts_instance_id  # type: str
+        # The synchronization task ID. You can call the [DescribeDtsJobs](~~209702~~) operation to query the task ID.
         self.dts_job_id = dts_job_id  # type: str
         # The operator that is related to the extract, transform, and load (ETL) feature and dedicated to T+1 business.
         self.etl_operator_column_reference = etl_operator_column_reference  # type: str
@@ -30855,6 +30838,10 @@ class ModifyDtsJobShrinkRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The reserved parameters of the data synchronization task. You can add reserved parameters instead of overwriting the existing reserved parameters. The value of the parameter is a MAP JSON string. You can specify this parameter to meet special requirements, such as specifying whether to automatically start the precheck of the data synchronization task. For more information, see [MigrationReserved](~~176470~~).
         self.reserved = reserved  # type: str
+        # Specifies whether to perform schema migration or synchronization. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.structure_initialization = structure_initialization  # type: bool
         # The synchronization direction. Valid values:
         # 
@@ -31002,9 +30989,6 @@ class ModifyDtsJobResponse(TeaModel):
         self.body = body  # type: ModifyDtsJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31104,9 +31088,6 @@ class ModifyDtsJobConfigResponse(TeaModel):
         self.body = body  # type: ModifyDtsJobConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31237,9 +31218,6 @@ class ModifyDtsJobDedicatedClusterResponse(TeaModel):
         self.body = body  # type: ModifyDtsJobDedicatedClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31382,9 +31360,6 @@ class ModifyDtsJobDuLimitResponse(TeaModel):
         self.body = body  # type: ModifyDtsJobDuLimitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31572,9 +31547,6 @@ class ModifyDtsJobEndpointResponse(TeaModel):
         self.body = body  # type: ModifyDtsJobEndpointResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31714,9 +31686,6 @@ class ModifyDtsJobNameResponse(TeaModel):
         self.body = body  # type: ModifyDtsJobNameResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31875,9 +31844,6 @@ class ModifyDtsJobPasswordResponse(TeaModel):
         self.body = body  # type: ModifyDtsJobPasswordResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32013,9 +31979,6 @@ class ModifyDynamicConfigResponse(TeaModel):
         self.body = body  # type: ModifyDynamicConfigResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32165,9 +32128,6 @@ class ModifySubscriptionResponse(TeaModel):
         self.body = body  # type: ModifySubscriptionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32295,9 +32255,6 @@ class ModifySubscriptionObjectResponse(TeaModel):
         self.body = body  # type: ModifySubscriptionObjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32443,9 +32400,6 @@ class ModifySynchronizationObjectResponse(TeaModel):
         self.body = body  # type: ModifySynchronizationObjectResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32632,9 +32586,6 @@ class RenewInstanceResponse(TeaModel):
         self.body = body  # type: RenewInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32784,9 +32735,6 @@ class ResetDtsJobResponse(TeaModel):
         self.body = body  # type: ResetDtsJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -32921,9 +32869,6 @@ class ResetSynchronizationJobResponse(TeaModel):
         self.body = body  # type: ResetSynchronizationJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33049,9 +32994,6 @@ class ReverseTwoWayDirectionResponse(TeaModel):
         self.body = body  # type: ReverseTwoWayDirectionResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33179,9 +33121,6 @@ class ShieldPrecheckResponse(TeaModel):
         self.body = body  # type: ShieldPrecheckResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33395,9 +33334,6 @@ class SkipPreCheckResponse(TeaModel):
         self.body = body  # type: SkipPreCheckResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33549,9 +33485,6 @@ class StartDtsJobResponse(TeaModel):
         self.body = body  # type: StartDtsJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33687,9 +33620,6 @@ class StartDtsJobsResponse(TeaModel):
         self.body = body  # type: StartDtsJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33810,9 +33740,6 @@ class StartMigrationJobResponse(TeaModel):
         self.body = body  # type: StartMigrationJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -33844,7 +33771,11 @@ class StartMigrationJobResponse(TeaModel):
 
 class StartReverseWriterRequest(TeaModel):
     def __init__(self, check_point=None, dts_job_id=None):
+        # The offset of the Incremental Write module. Specify a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC. 
+        # 
+        # > The default value is the offset that is automatically saved by DTS when the task is paused.
         self.check_point = check_point  # type: str
+        # The ID of the reverse task that was created by calling the CreateReverseDtsJob operation.
         self.dts_job_id = dts_job_id  # type: str
 
     def validate(self):
@@ -33873,9 +33804,13 @@ class StartReverseWriterRequest(TeaModel):
 
 class StartReverseWriterResponseBody(TeaModel):
     def __init__(self, err_code=None, err_message=None, request_id=None, success=None):
+        # The error code returned if the call failed.
         self.err_code = err_code  # type: str
+        # The error message returned if the request failed.
         self.err_message = err_message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the call was successful.
         self.success = success  # type: str
 
     def validate(self):
@@ -33917,9 +33852,6 @@ class StartReverseWriterResponse(TeaModel):
         self.body = body  # type: StartReverseWriterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34046,9 +33978,6 @@ class StartSubscriptionInstanceResponse(TeaModel):
         self.body = body  # type: StartSubscriptionInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34183,9 +34112,6 @@ class StartSynchronizationJobResponse(TeaModel):
         self.body = body  # type: StartSynchronizationJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34324,9 +34250,6 @@ class StopDedicatedClusterResponse(TeaModel):
         self.body = body  # type: StopDedicatedClusterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34476,9 +34399,6 @@ class StopDtsJobResponse(TeaModel):
         self.body = body  # type: StopDtsJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34614,9 +34534,6 @@ class StopDtsJobsResponse(TeaModel):
         self.body = body  # type: StopDtsJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34743,9 +34660,6 @@ class StopMigrationJobResponse(TeaModel):
         self.body = body  # type: StopMigrationJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -34968,9 +34882,6 @@ class SummaryJobDetailResponse(TeaModel):
         self.body = body  # type: SummaryJobDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35123,9 +35034,6 @@ class SuspendDtsJobResponse(TeaModel):
         self.body = body  # type: SuspendDtsJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35261,9 +35169,6 @@ class SuspendDtsJobsResponse(TeaModel):
         self.body = body  # type: SuspendDtsJobsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35390,9 +35295,6 @@ class SuspendMigrationJobResponse(TeaModel):
         self.body = body  # type: SuspendMigrationJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35527,9 +35429,6 @@ class SuspendSynchronizationJobResponse(TeaModel):
         self.body = body  # type: SuspendSynchronizationJobResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35660,9 +35559,6 @@ class SwitchPhysicalDtsJobToCloudResponse(TeaModel):
         self.body = body  # type: SwitchPhysicalDtsJobToCloudResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -35913,9 +35809,6 @@ class SwitchSynchronizationEndpointResponse(TeaModel):
         self.body = body  # type: SwitchSynchronizationEndpointResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36083,9 +35976,6 @@ class TagResourcesResponse(TeaModel):
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36269,9 +36159,6 @@ class TransferInstanceClassResponse(TeaModel):
         self.body = body  # type: TransferInstanceClassResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36472,9 +36359,6 @@ class TransferPayTypeResponse(TeaModel):
         self.body = body  # type: TransferPayTypeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36608,9 +36492,6 @@ class UntagResourcesResponse(TeaModel):
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36753,9 +36634,6 @@ class UpgradeTwoWayResponse(TeaModel):
         self.body = body  # type: UpgradeTwoWayResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -36910,9 +36788,6 @@ class WhiteIpListResponse(TeaModel):
         self.body = body  # type: WhiteIpListResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
