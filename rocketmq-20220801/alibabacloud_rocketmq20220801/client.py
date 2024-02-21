@@ -476,6 +476,31 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_topic_with_options(instance_id, topic_name, headers, runtime)
 
+    def list_available_zones_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListAvailableZones',
+            version='2022-08-01',
+            protocol='HTTPS',
+            pathname='/zones',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rocket_mq20220801_models.ListAvailableZonesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_available_zones(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_available_zones_with_options(headers, runtime)
+
     def list_consumer_group_subscriptions_with_options(self, instance_id, consumer_group_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
@@ -614,6 +639,31 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_instances_with_options(request, headers, runtime)
+
+    def list_regions_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListRegions',
+            version='2022-08-01',
+            protocol='HTTPS',
+            pathname='/regions',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rocket_mq20220801_models.ListRegionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_regions(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_regions_with_options(headers, runtime)
 
     def list_topics_with_options(self, instance_id, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
