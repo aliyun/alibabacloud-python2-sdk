@@ -77,9 +77,9 @@ class Client(OpenApiClient):
         request = foasconsole_20211028_models.CreateInstanceShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.resource_spec):
-            request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.resource_spec), 'ResourceSpec', 'json')
+            request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_spec, 'ResourceSpec', 'json')
         if not UtilClient.is_unset(tmp_req.storage):
-            request.storage_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.storage), 'Storage', 'json')
+            request.storage_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.storage, 'Storage', 'json')
         if not UtilClient.is_unset(tmp_req.v_switch_ids):
             request.v_switch_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.v_switch_ids, 'VSwitchIds', 'json')
         body = {}
@@ -135,7 +135,7 @@ class Client(OpenApiClient):
         request = foasconsole_20211028_models.CreateNamespaceShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.resource_spec):
-            request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.resource_spec), 'ResourceSpec', 'json')
+            request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_spec, 'ResourceSpec', 'json')
         body = {}
         if not UtilClient.is_unset(request.instance_id):
             body['InstanceId'] = request.instance_id
@@ -379,7 +379,7 @@ class Client(OpenApiClient):
         request = foasconsole_20211028_models.ModifyPrepayInstanceSpecShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.resource_spec):
-            request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.resource_spec), 'ResourceSpec', 'json')
+            request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_spec, 'ResourceSpec', 'json')
         body = {}
         if not UtilClient.is_unset(request.instance_id):
             body['InstanceId'] = request.instance_id
@@ -415,7 +415,7 @@ class Client(OpenApiClient):
         request = foasconsole_20211028_models.ModifyPrepayNamespaceSpecShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.resource_spec):
-            request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.resource_spec), 'ResourceSpec', 'json')
+            request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_spec, 'ResourceSpec', 'json')
         body = {}
         if not UtilClient.is_unset(request.instance_id):
             body['InstanceId'] = request.instance_id
@@ -495,9 +495,9 @@ class Client(OpenApiClient):
         request = foasconsole_20211028_models.QueryCreateInstancePriceShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.resource_spec):
-            request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.resource_spec), 'ResourceSpec', 'json')
+            request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_spec, 'ResourceSpec', 'json')
         if not UtilClient.is_unset(tmp_req.storage):
-            request.storage_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.storage), 'Storage', 'json')
+            request.storage_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.storage, 'Storage', 'json')
         if not UtilClient.is_unset(tmp_req.v_switch_ids):
             request.v_switch_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.v_switch_ids, 'VSwitchIds', 'json')
         body = {}
@@ -553,7 +553,7 @@ class Client(OpenApiClient):
         request = foasconsole_20211028_models.QueryModifyInstancePriceShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.resource_spec):
-            request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.resource_spec), 'ResourceSpec', 'json')
+            request.resource_spec_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_spec, 'ResourceSpec', 'json')
         body = {}
         if not UtilClient.is_unset(request.instance_id):
             body['InstanceId'] = request.instance_id
