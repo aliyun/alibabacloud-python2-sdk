@@ -1,3 +1,7 @@
+2024-02-21 Version: 1.0.22
+- Update API DeleteTransitRouterVbrAttachment: update response param.
+
+
 2024-01-19 Version: 1.0.21
 - Generated python2 2017-09-12 for Cbn.
 

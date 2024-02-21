@@ -114,9 +114,6 @@ class ActiveFlowLogResponse(TeaModel):
         self.body = body  # type: ActiveFlowLogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -357,9 +354,6 @@ class AddTrafficMatchRuleToTrafficMarkingPolicyResponse(TeaModel):
         self.body = body  # type: AddTrafficMatchRuleToTrafficMarkingPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -548,9 +542,6 @@ class AddTraficMatchRuleToTrafficMarkingPolicyResponse(TeaModel):
         self.body = body  # type: AddTraficMatchRuleToTrafficMarkingPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -664,9 +655,6 @@ class AssociateCenBandwidthPackageResponse(TeaModel):
         self.body = body  # type: AssociateCenBandwidthPackageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -800,9 +788,6 @@ class AssociateTransitRouterAttachmentWithRouteTableResponse(TeaModel):
         self.body = body  # type: AssociateTransitRouterAttachmentWithRouteTableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -929,9 +914,6 @@ class AssociateTransitRouterMulticastDomainResponse(TeaModel):
         self.body = body  # type: AssociateTransitRouterMulticastDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1072,9 +1054,6 @@ class AttachCenChildInstanceResponse(TeaModel):
         self.body = body  # type: AttachCenChildInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1193,9 +1172,6 @@ class CheckTransitRouterServiceResponse(TeaModel):
         self.body = body  # type: CheckTransitRouterServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1390,9 +1366,6 @@ class CreateCenResponse(TeaModel):
         self.body = body  # type: CreateCenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1669,9 +1642,6 @@ class CreateCenBandwidthPackageResponse(TeaModel):
         self.body = body  # type: CreateCenBandwidthPackageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1819,9 +1789,6 @@ class CreateCenChildInstanceRouteEntryToAttachmentResponse(TeaModel):
         self.body = body  # type: CreateCenChildInstanceRouteEntryToAttachmentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -1865,7 +1832,7 @@ class CreateCenChildInstanceRouteEntryToCenRequest(TeaModel):
         self.child_instance_id = child_instance_id  # type: str
         # The ID of the region where the network instance is deployed.
         # 
-        # You can call the [DescribeRegions](~~DescribeRegions~~) operation to query the most recent region list.
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.child_instance_region_id = child_instance_region_id  # type: str
         # The type of the attached network instance. Valid values:
         # 
@@ -1975,9 +1942,6 @@ class CreateCenChildInstanceRouteEntryToCenResponse(TeaModel):
         self.body = body  # type: CreateCenChildInstanceRouteEntryToCenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2206,9 +2170,6 @@ class CreateCenInterRegionTrafficQosPolicyResponse(TeaModel):
         self.body = body  # type: CreateCenInterRegionTrafficQosPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2350,9 +2311,6 @@ class CreateCenInterRegionTrafficQosQueueResponse(TeaModel):
         self.body = body  # type: CreateCenInterRegionTrafficQosQueueResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -2391,9 +2349,9 @@ class CreateCenRouteMapRequest(TeaModel):
                  prepend_as_path=None, priority=None, resource_owner_account=None, resource_owner_id=None, route_types=None,
                  source_child_instance_types=None, source_instance_ids=None, source_instance_ids_reverse_match=None, source_region_ids=None,
                  source_route_table_ids=None, transit_router_route_table_id=None, transmit_direction=None):
-        # The match method that is used to match routes against the AS paths. Valid values:
+        # The match method that is used to match routes based on AS paths. Valid values:
         # 
-        # *   **Include**: fuzzy match. A route meets the match condition if the AS path of the route overlaps with the AS paths specified in the match condition.
+        # *   **Include**: fuzzy match. A route meets the match condition if the AS path of the route overlaps with the AS path specified in the match condition.
         # *   **Complete**: exact match. A route is a match only if the AS path of the route is the same as an AS path specified in the match condition.
         self.as_path_match_mode = as_path_match_mode  # type: str
         # The ID of the CEN instance.
@@ -2406,13 +2364,13 @@ class CreateCenRouteMapRequest(TeaModel):
         # 
         # *   **Include**: fuzzy match. A route is a match if the route prefix is included in the match conditions.
         # 
-        #     For example, if you set the match condition to 10.10.0.0/16 and fuzzy match is enabled, the route whose prefix is 10.10.1.0/24 is a match.
+        # For example, if you set the match condition to 10.10.0.0/16 and fuzzy match is applied, the route whose prefix is 10.10.1.0/24 meets the match condition.
         # 
         # *   **Complete**: exact match. A route is a match only if the route prefix is the same as the prefix specified in the match condition.
         # 
-        #     For example, if you set the match condition to 10.10.0.0/16 and exact match is enabled, a route is a match only if the prefix is 10.10.0.0/16.
+        # For example, if you set the match condition to 10.10.0.0/16 and exact match is enabled, a route is a match only if the prefix is 10.10.0.0/16.
         self.cidr_match_mode = cidr_match_mode  # type: str
-        # The match method that is used to match routes based on the community. Valid values:
+        # The match method that is used to evaluate routes based on the community. Valid values:
         # 
         # *   **Include**: fuzzy match. A route meets the match condition if the community of the route overlaps with the community specified in the match condition.
         # *   **Complete**: exact match. A route meets the match condition only if the community of the route is the same as the community specified in the match condition.
@@ -2462,14 +2420,14 @@ class CreateCenRouteMapRequest(TeaModel):
         self.destination_instance_ids = destination_instance_ids  # type: list[str]
         # Specifies whether to exclude the destination network instance IDs. Valid values:
         # 
-        # *   **false** (default value): A route is a match if its destination network instance ID is in the list specified by **DestinationInstanceIds.N**.
+        # *   **false** (default value): A route meets the match condition if its destination network instance ID is in the list specified by **DestinationInstanceIds.N**.
         # *   **true**: A route meets the match condition if its destination network instance ID is not in the list specified by **DestinationInstanceIds.N**.
         self.destination_instance_ids_reverse_match = destination_instance_ids_reverse_match  # type: bool
         # The IDs of the destination route tables to which routes are evaluated. You can enter at most 32 route table IDs.
         # 
         # > The destination route table IDs take effect only when Direction is set to Export from Regional Gateway and the destination route tables belong to network instances deployed in the current region.
         self.destination_route_table_ids = destination_route_table_ids  # type: list[str]
-        # The action to be performed on a route that meets all match conditions. Valid values:
+        # The action to be performed on a route that meets all the match conditions. Valid values:
         # 
         # *   **Permit**: the route is permitted.
         # *   **Deny**: the route is denied.
@@ -2567,7 +2525,7 @@ class CreateCenRouteMapRequest(TeaModel):
         self.source_instance_ids = source_instance_ids  # type: list[str]
         # Specifies whether to exclude the source network instance IDs. Valid values:
         # 
-        # *   **false** (default value): A route is a match if its source network instance ID is in the list specified by **SourceInstanceIds.N**.
+        # *   **false** (default value): A route meets the match condition if its source network instance ID is in the list specified by **SourceInstanceIds.N**.
         # *   **true**: A route is a match if its source network instance ID is not in the list specified by **SourceInstanceIds.N**.
         self.source_instance_ids_reverse_match = source_instance_ids_reverse_match  # type: bool
         # The IDs of the source regions from which routes are evaluated. You can enter at most 32 region IDs.
@@ -2584,11 +2542,11 @@ class CreateCenRouteMapRequest(TeaModel):
         # 
         # *   **RegionIn**: Routes are advertised to the gateways in the regions that are connected by the CEN instance.
         # 
-        #     For example, routes are advertised from network instances deployed in the current region or other regions to the gateway deployed in the current region.
+        # For example, routes are advertised from network instances deployed in the current region or other regions to the gateway deployed in the current region.
         # 
         # *   **RegionOut**: Routes are advertised from the gateways in the regions that are connected by the CEN instance.
         # 
-        #     For example, routes are advertised from the gateway deployed in the current region to network instances deployed in the same region, or to gateways deployed in other regions.
+        # For example, routes are advertised from the gateway deployed in the current region to network instances deployed in the same region, or to gateways deployed in other regions.
         self.transmit_direction = transmit_direction  # type: str
 
     def validate(self):
@@ -2777,9 +2735,6 @@ class CreateCenRouteMapResponse(TeaModel):
         self.body = body  # type: CreateCenRouteMapResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3038,9 +2993,6 @@ class CreateFlowlogResponse(TeaModel):
         self.body = body  # type: CreateFlowlogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3338,9 +3290,6 @@ class CreateTrafficMarkingPolicyResponse(TeaModel):
         self.body = body  # type: CreateTrafficMarkingPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3503,9 +3452,6 @@ class CreateTransitRouteTableAggregationResponse(TeaModel):
         self.body = body  # type: CreateTransitRouteTableAggregationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -3672,13 +3618,13 @@ class CreateTransitRouterRequest(TeaModel):
         # 
         # >  Only Enterprise Edition transit routers support CIDR blocks.
         self.transit_router_cidr_list = transit_router_cidr_list  # type: list[CreateTransitRouterRequestTransitRouterCidrList]
-        # The description of the Enterprise Edition transit router.
+        # The description of the Enterprise Edition transit router instance.
         # 
-        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_description = transit_router_description  # type: str
         # The name of the Enterprise Edition transit router.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_name = transit_router_name  # type: str
 
     def validate(self):
@@ -3846,13 +3792,13 @@ class CreateTransitRouterShrinkRequest(TeaModel):
         # 
         # >  Only Enterprise Edition transit routers support CIDR blocks.
         self.transit_router_cidr_list_shrink = transit_router_cidr_list_shrink  # type: str
-        # The description of the Enterprise Edition transit router.
+        # The description of the Enterprise Edition transit router instance.
         # 
-        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_description = transit_router_description  # type: str
         # The name of the Enterprise Edition transit router.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_name = transit_router_name  # type: str
 
     def validate(self):
@@ -3969,9 +3915,6 @@ class CreateTransitRouterResponse(TeaModel):
         self.body = body  # type: CreateTransitRouterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4013,18 +3956,18 @@ class CreateTransitRouterCidrRequest(TeaModel):
         # 
         # >  If you do not set this parameter, ClientToken is set to the value of RequestId. The value of RequestId for each API request may be different.
         self.client_token = client_token  # type: str
-        # The description of the CIDR block.
+        # The description of the transit router CIDR block.
         # 
-        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.description = description  # type: str
         # Specifies whether to perform a dry run. Valid values:
         # 
         # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         # *   **false** (default): performs a dry run and sends the request.
         self.dry_run = dry_run  # type: bool
-        # The name of the CIDR block.
+        # The name of the transit router CIDR block.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -4147,9 +4090,6 @@ class CreateTransitRouterCidrResponse(TeaModel):
         self.body = body  # type: CreateTransitRouterCidrResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4249,11 +4189,11 @@ class CreateTransitRouterMulticastDomainRequest(TeaModel):
         self.transit_router_id = transit_router_id  # type: str
         # The description of the multicast domain.
         # 
-        # The description must be 0 to 256 characters in length, and can contain letters, digits, commas (,), periods (.), semicolons (;), forward slashes (/), at signs (@), underscores (\_), and hyphens (-).
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_multicast_domain_description = transit_router_multicast_domain_description  # type: str
         # The name of the multicast domain.
         # 
-        # The name must be 0 to 128 characters in length, and can contain letters, digits, commas (,), periods (.), semicolons (;), forward slashes (/), at signs (@), underscores (\_), and hyphens (-).
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_multicast_domain_name = transit_router_multicast_domain_name  # type: str
 
     def validate(self):
@@ -4366,9 +4306,6 @@ class CreateTransitRouterMulticastDomainResponse(TeaModel):
         self.body = body  # type: CreateTransitRouterMulticastDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4448,15 +4385,19 @@ class CreateTransitRouterPeerAttachmentRequest(TeaModel):
         # *   **false** (default): no
         # *   **true**: yes
         self.auto_publish_route_enabled = auto_publish_route_enabled  # type: bool
-        # The maximum bandwidth value of the inter-region connection. Unit: Mbit/s.
+        # The bandwidth value of the inter-region connection. Unit: Mbit/s.
+        # 
+        # *   This parameter specifies the maximum bandwidth value for the inter-region connection if you set **BandwidthType** to **BandwidthPackage**.
+        # *   This parameter specifies the bandwidth throttling threshold for the inter-region connection if you set **BandwidthType** to **DataTransfer**.
         self.bandwidth = bandwidth  # type: int
         # The method that is used to allocate bandwidth to the inter-region connection. Valid values:
         # 
-        # **BandwidthPackage**: allocates bandwidth from a bandwidth plan.
+        # *   **BandwidthPackage**: allocates bandwidth from a bandwidth plan.
+        # *   **DataTransfer**: bandwidth is billed based on the pay-by-data-transfer metering method.
         self.bandwidth_type = bandwidth_type  # type: str
         # The ID of the bandwidth plan that is used to allocate bandwidth to the inter-region connection.
         # 
-        # If this parameter is not set, the system allocates bandwidth that is used for testing purposes to the inter-region connection. The default bandwidth for testing purpose is 1 Kbit/s. You can use the bandwidth to test the connectivity of IPv4 networks.
+        # *   If you set **BandwidthType** to **DataTransfer**, you do not need to set this parameter.
         self.cen_bandwidth_package_id = cen_bandwidth_package_id  # type: str
         # The ID of the Cloud Enterprise Network (CEN) instance.
         self.cen_id = cen_id  # type: str
@@ -4466,9 +4407,11 @@ class CreateTransitRouterPeerAttachmentRequest(TeaModel):
         # 
         # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
         self.client_token = client_token  # type: str
-        # The default link type. Valid values:
-        # - **Platinum**: only available for the **Pay-By-Data-Transfer** bandwidth.
-        # - **Gold** (default)
+        # The default line type.
+        # 
+        # Valid values: Platinum and Gold.
+        # 
+        # Platinum is supported only when BandwidthType is set to DataTransfer.
         self.default_link_type = default_link_type  # type: str
         # Specifies whether to perform a dry run. Default values:
         # 
@@ -4640,9 +4583,6 @@ class CreateTransitRouterPeerAttachmentResponse(TeaModel):
         self.body = body  # type: CreateTransitRouterPeerAttachmentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4815,9 +4755,6 @@ class CreateTransitRouterPrefixListAssociationResponse(TeaModel):
         self.body = body  # type: CreateTransitRouterPrefixListAssociationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -4869,13 +4806,13 @@ class CreateTransitRouterRouteEntryRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The description of the route.
         # 
-        # The description must be 0 to 256 characters in length, and can contain letters, digits, commas (,), periods (.), semicolons (;), forward slashes (/), at signs (@), underscores (\_), and hyphens (-).
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_route_entry_description = transit_router_route_entry_description  # type: str
         # The destination CIDR block of the route.
         self.transit_router_route_entry_destination_cidr_block = transit_router_route_entry_destination_cidr_block  # type: str
         # The name of the route.
         # 
-        # The name must be 0 to 128 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_route_entry_name = transit_router_route_entry_name  # type: str
         # The ID of the network instance connection that you want to specify as the next hop.
         self.transit_router_route_entry_next_hop_id = transit_router_route_entry_next_hop_id  # type: str
@@ -4989,9 +4926,6 @@ class CreateTransitRouterRouteEntryResponse(TeaModel):
         self.body = body  # type: CreateTransitRouterRouteEntryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5117,11 +5051,11 @@ class CreateTransitRouterRouteTableRequest(TeaModel):
         self.transit_router_id = transit_router_id  # type: str
         # The description of the custom route table.
         # 
-        # The description must be 2 to 256 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -. You can also leave the description empty.
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_route_table_description = transit_router_route_table_description  # type: str
         # The name of the custom route table.
         # 
-        # The name must be 1 to 128 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -. You can also leave the name empty.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_route_table_name = transit_router_route_table_name  # type: str
 
     def validate(self):
@@ -5233,9 +5167,6 @@ class CreateTransitRouterRouteTableResponse(TeaModel):
         self.body = body  # type: CreateTransitRouterRouteTableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5340,11 +5271,11 @@ class CreateTransitRouterVbrAttachmentRequest(TeaModel):
         self.tag = tag  # type: list[CreateTransitRouterVbrAttachmentRequestTag]
         # The description of the VBR connection.
         # 
-        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_attachment_description = transit_router_attachment_description  # type: str
         # The name of the VBR connection.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). It must start with a letter.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_attachment_name = transit_router_attachment_name  # type: str
         # The ID of the Enterprise Edition transit router.
         self.transit_router_id = transit_router_id  # type: str
@@ -5477,9 +5408,6 @@ class CreateTransitRouterVbrAttachmentResponse(TeaModel):
         self.body = body  # type: CreateTransitRouterVbrAttachmentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -5624,11 +5552,11 @@ class CreateTransitRouterVpcAttachmentRequest(TeaModel):
         self.tag = tag  # type: list[CreateTransitRouterVpcAttachmentRequestTag]
         # The description of the VPC connection.
         # 
-        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_attachment_description = transit_router_attachment_description  # type: str
         # The name of the VPC connection.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). It must start with a letter.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_attachment_name = transit_router_attachment_name  # type: str
         # The ID of the Enterprise Edition transit router.
         self.transit_router_id = transit_router_id  # type: str
@@ -5782,9 +5710,6 @@ class CreateTransitRouterVpcAttachmentResponse(TeaModel):
         self.body = body  # type: CreateTransitRouterVpcAttachmentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6080,9 +6005,6 @@ class CreateTransitRouterVpnAttachmentResponse(TeaModel):
         self.body = body  # type: CreateTransitRouterVpnAttachmentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6223,9 +6145,6 @@ class DeactiveFlowLogResponse(TeaModel):
         self.body = body  # type: DeactiveFlowLogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6333,9 +6252,6 @@ class DeleteCenResponse(TeaModel):
         self.body = body  # type: DeleteCenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6441,9 +6357,6 @@ class DeleteCenBandwidthPackageResponse(TeaModel):
         self.body = body  # type: DeleteCenBandwidthPackageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6591,9 +6504,6 @@ class DeleteCenChildInstanceRouteEntryToAttachmentResponse(TeaModel):
         self.body = body  # type: DeleteCenChildInstanceRouteEntryToAttachmentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6747,9 +6657,6 @@ class DeleteCenChildInstanceRouteEntryToCenResponse(TeaModel):
         self.body = body  # type: DeleteCenChildInstanceRouteEntryToCenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -6876,9 +6783,6 @@ class DeleteCenInterRegionTrafficQosPolicyResponse(TeaModel):
         self.body = body  # type: DeleteCenInterRegionTrafficQosPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7005,9 +6909,6 @@ class DeleteCenInterRegionTrafficQosQueueResponse(TeaModel):
         self.body = body  # type: DeleteCenInterRegionTrafficQosQueueResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7129,9 +7030,6 @@ class DeleteCenRouteMapResponse(TeaModel):
         self.body = body  # type: DeleteCenRouteMapResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7272,9 +7170,6 @@ class DeleteFlowlogResponse(TeaModel):
         self.body = body  # type: DeleteFlowlogResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7307,15 +7202,15 @@ class DeleteFlowlogResponse(TeaModel):
 class DeleteRouteServiceInCenRequest(TeaModel):
     def __init__(self, access_region_id=None, cen_id=None, host=None, host_region_id=None, host_vpc_id=None,
                  owner_account=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The ID of the region in which the network instance of the cloud service that you want to access is deployed.
-        # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        # The ID of the region where the cloud service is accessed.
         self.access_region_id = access_region_id  # type: str
         # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
         # The IP addresses or CIDR blocks of the cloud service.
         self.host = host  # type: str
-        # The ID of the region in which the cloud service is deployed.
+        # The region ID of the cloud service.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.host_region_id = host_region_id  # type: str
         # The ID of the virtual private cloud (VPC) that is associated with the cloud service.
         self.host_vpc_id = host_vpc_id  # type: str
@@ -7408,9 +7303,6 @@ class DeleteRouteServiceInCenResponse(TeaModel):
         self.body = body  # type: DeleteRouteServiceInCenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7537,9 +7429,6 @@ class DeleteTrafficMarkingPolicyResponse(TeaModel):
         self.body = body  # type: DeleteTrafficMarkingPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7677,9 +7566,6 @@ class DeleteTransitRouteTableAggregationResponse(TeaModel):
         self.body = body  # type: DeleteTransitRouteTableAggregationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7806,9 +7692,6 @@ class DeleteTransitRouterResponse(TeaModel):
         self.body = body  # type: DeleteTransitRouterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -7951,9 +7834,6 @@ class DeleteTransitRouterCidrResponse(TeaModel):
         self.body = body  # type: DeleteTransitRouterCidrResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8078,9 +7958,6 @@ class DeleteTransitRouterMulticastDomainResponse(TeaModel):
         self.body = body  # type: DeleteTransitRouterMulticastDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8216,9 +8093,6 @@ class DeleteTransitRouterPeerAttachmentResponse(TeaModel):
         self.body = body  # type: DeleteTransitRouterPeerAttachmentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8385,9 +8259,6 @@ class DeleteTransitRouterPrefixListAssociationResponse(TeaModel):
         self.body = body  # type: DeleteTransitRouterPrefixListAssociationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8543,9 +8414,6 @@ class DeleteTransitRouterRouteEntryResponse(TeaModel):
         self.body = body  # type: DeleteTransitRouterRouteEntryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8672,9 +8540,6 @@ class DeleteTransitRouterRouteTableResponse(TeaModel):
         self.body = body  # type: DeleteTransitRouterRouteTableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8810,9 +8675,6 @@ class DeleteTransitRouterVbrAttachmentResponse(TeaModel):
         self.body = body  # type: DeleteTransitRouterVbrAttachmentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -8948,9 +8810,6 @@ class DeleteTransitRouterVpcAttachmentResponse(TeaModel):
         self.body = body  # type: DeleteTransitRouterVpcAttachmentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9086,9 +8945,6 @@ class DeleteTransitRouterVpnAttachmentResponse(TeaModel):
         self.body = body  # type: DeleteTransitRouterVpnAttachmentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9232,9 +9088,6 @@ class DeregisterTransitRouterMulticastGroupMembersResponse(TeaModel):
         self.body = body  # type: DeregisterTransitRouterMulticastGroupMembersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9372,9 +9225,6 @@ class DeregisterTransitRouterMulticastGroupSourcesResponse(TeaModel):
         self.body = body  # type: DeregisterTransitRouterMulticastGroupSourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9716,9 +9566,6 @@ class DescribeCenAttachedChildInstanceAttributeResponse(TeaModel):
         self.body = body  # type: DescribeCenAttachedChildInstanceAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -9953,9 +9800,6 @@ class DescribeCenAttachedChildInstancesResponse(TeaModel):
         self.body = body  # type: DescribeCenAttachedChildInstancesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -10622,9 +10466,6 @@ class DescribeCenBandwidthPackagesResponse(TeaModel):
         self.body = body  # type: DescribeCenBandwidthPackagesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11193,9 +11034,6 @@ class DescribeCenChildInstanceRouteEntriesResponse(TeaModel):
         self.body = body  # type: DescribeCenChildInstanceRouteEntriesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11345,9 +11183,6 @@ class DescribeCenGeographicSpanRemainingBandwidthResponse(TeaModel):
         self.body = body  # type: DescribeCenGeographicSpanRemainingBandwidthResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11565,9 +11400,6 @@ class DescribeCenGeographicSpansResponse(TeaModel):
         self.body = body  # type: DescribeCenGeographicSpansResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -11821,9 +11653,6 @@ class DescribeCenInterRegionBandwidthLimitsResponse(TeaModel):
         self.body = body  # type: DescribeCenInterRegionBandwidthLimitsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12065,9 +11894,6 @@ class DescribeCenPrivateZoneRoutesResponse(TeaModel):
         self.body = body  # type: DescribeCenPrivateZoneRoutesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -12562,9 +12388,6 @@ class DescribeCenRegionDomainRouteEntriesResponse(TeaModel):
         self.body = body  # type: DescribeCenRegionDomainRouteEntriesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13381,9 +13204,6 @@ class DescribeCenRouteMapsResponse(TeaModel):
         self.body = body  # type: DescribeCenRouteMapsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -13417,7 +13237,7 @@ class DescribeCenVbrHealthCheckRequest(TeaModel):
     def __init__(self, cen_id=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
                  resource_owner_account=None, resource_owner_id=None, vbr_instance_id=None, vbr_instance_owner_id=None,
                  vbr_instance_region_id=None):
-        # The ID of the CEN instance.
+        # The ID of the Cloud Enterprise Network (CEN) instance.
         self.cen_id = cen_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -13429,9 +13249,9 @@ class DescribeCenVbrHealthCheckRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The ID of the VBR.
         self.vbr_instance_id = vbr_instance_id  # type: str
-        # The ID of the Alibaba Cloud account that owns the VBR.
+        # The ID of the Alibaba Cloud account that owns the VBRs.
         self.vbr_instance_owner_id = vbr_instance_owner_id  # type: long
-        # The ID of the region where the VBR is deployed.
+        # The ID of the region where the VBRs are deployed.
         # 
         # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.vbr_instance_region_id = vbr_instance_region_id  # type: str
@@ -13498,19 +13318,19 @@ class DescribeCenVbrHealthCheckResponseBodyVbrHealthChecksVbrHealthCheck(TeaMode
                  vbr_instance_region_id=None):
         # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
-        # The description of the health check.
+        # The description.
         self.description = description  # type: str
         # The time interval at which probe packets are sent during the health check. Unit: seconds.
         self.health_check_interval = health_check_interval  # type: int
         # Indicates whether probing is enabled. Valid values:
         # 
-        # *   **true**: yes
+        # *   **true**: Probing is enabled.
         # 
-        #     If probing is enabled, the system does not switch to another route when the detected route is not reachable.
+        #         If you enable probing, the system does not switch to another route if the detected route is not reachable.
         # 
-        # *   **false**: no
+        # *   **false**: Probing is disabled.
         # 
-        #     If probing is disabled and a redundant route is specified, the system switches to the redundant route when the detected route is not reachable.
+        #           If probing is disabled and a redundant route is specified, the system switches to the redundant route when the detected route is not reachable.
         self.health_check_only = health_check_only  # type: bool
         # The source IP address of the health check.
         self.health_check_source_ip = health_check_source_ip  # type: str
@@ -13518,7 +13338,7 @@ class DescribeCenVbrHealthCheckResponseBodyVbrHealthChecksVbrHealthCheck(TeaMode
         self.health_check_target_ip = health_check_target_ip  # type: str
         # The number of probe packets that are sent during the health check.
         self.healthy_threshold = healthy_threshold  # type: int
-        # The ID of the VBR.
+        # The VBR ID.
         self.vbr_instance_id = vbr_instance_id  # type: str
         # The ID of the region where the VBR is deployed.
         self.vbr_instance_region_id = vbr_instance_region_id  # type: str
@@ -13613,7 +13433,7 @@ class DescribeCenVbrHealthCheckResponseBody(TeaModel):
         self.page_number = page_number  # type: int
         # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The total number of entries returned.
         self.total_count = total_count  # type: int
@@ -13665,9 +13485,6 @@ class DescribeCenVbrHealthCheckResponse(TeaModel):
         self.body = body  # type: DescribeCenVbrHealthCheckResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14142,9 +13959,6 @@ class DescribeCensResponse(TeaModel):
         self.body = body  # type: DescribeCensResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14333,9 +14147,6 @@ class DescribeChildInstanceRegionsResponse(TeaModel):
         self.body = body  # type: DescribeChildInstanceRegionsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -14433,9 +14244,9 @@ class DescribeFlowlogsRequest(TeaModel):
         self.log_store_name = log_store_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return. Default value: **1**.
+        # The page number. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page. Minimum value: **1**. Default value: **20**.
+        # The number of entries per page. Minimum value: **1**. Default value: **20**.
         self.page_size = page_size  # type: int
         # The name of the project where the flow log is stored.
         # 
@@ -14814,9 +14625,6 @@ class DescribeFlowlogsResponse(TeaModel):
         self.body = body  # type: DescribeFlowlogsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15010,9 +14818,6 @@ class DescribeGeographicRegionMembershipResponse(TeaModel):
         self.body = body  # type: DescribeGeographicRegionMembershipResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15305,9 +15110,6 @@ class DescribeGrantRulesToCenResponse(TeaModel):
         self.body = body  # type: DescribeGrantRulesToCenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15530,9 +15332,6 @@ class DescribeGrantRulesToResourceResponse(TeaModel):
         self.body = body  # type: DescribeGrantRulesToResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -15929,9 +15728,6 @@ class DescribePublishedRouteEntriesResponse(TeaModel):
         self.body = body  # type: DescribePublishedRouteEntriesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16197,9 +15993,6 @@ class DescribeRouteConflictResponse(TeaModel):
         self.body = body  # type: DescribeRouteConflictResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16235,23 +16028,23 @@ class DescribeRouteServicesInCenRequest(TeaModel):
                  resource_owner_id=None):
         # The ID of the region where the cloud service is accessed.
         self.access_region_id = access_region_id  # type: str
-        # The ID of the CEN instance.
+        # The ID of the Cloud Enterprise Network (CEN) instance.
         self.cen_id = cen_id  # type: str
         # The service address of the cloud service.
         # 
         # You can enter a domain name, an IP address, or a CIDR block.
         self.host = host  # type: str
-        # The ID of the region where the cloud service is deployed.
+        # The region ID of the cloud service.
         # 
         # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
         self.host_region_id = host_region_id  # type: str
-        # The ID of the virtual private cloud (VPC) that is associated with the cloud service.
+        # The ID of the VPC associated with the cloud service.
         self.host_vpc_id = host_vpc_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The number of entries to return per page. Default value: **10**. Valid values: **1** to **50**.
+        # The number of entries per page. Default value: **10**. Valid values: **1** to **50**.
         self.page_size = page_size  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -16353,15 +16146,15 @@ class DescribeRouteServicesInCenResponseBodyRouteServiceEntriesRouteServiceEntry
         self.description = description  # type: str
         # The service address of the cloud service.
         self.host = host  # type: str
-        # The ID of the region where the cloud service is deployed.
+        # The region ID of the cloud service.
         self.host_region_id = host_region_id  # type: str
-        # The ID of the VPC that is associated with the cloud service.
+        # The ID of the VPC associated with the cloud service.
         self.host_vpc_id = host_vpc_id  # type: str
         # The status of the cloud service. Valid values:
         # 
-        # *   **Creating**: The cloud service is being created.
-        # *   **Active**: The cloud service is available.
-        # *   **Deleting**: The cloud service is being deleted.
+        # *   **Creating**\
+        # *   **Active**\
+        # *   **Deleting**\
         self.status = status  # type: str
 
     def validate(self):
@@ -16449,11 +16242,11 @@ class DescribeRouteServicesInCenResponseBodyRouteServiceEntries(TeaModel):
 class DescribeRouteServicesInCenResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, route_service_entries=None,
                  total_count=None):
-        # The number of the returned page.
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
+        # The number of entries per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The information about the cloud services.
         self.route_service_entries = route_service_entries  # type: DescribeRouteServicesInCenResponseBodyRouteServiceEntries
@@ -16505,9 +16298,6 @@ class DescribeRouteServicesInCenResponse(TeaModel):
         self.body = body  # type: DescribeRouteServicesInCenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16754,9 +16544,6 @@ class DescribeTransitRouteTableAggregationResponse(TeaModel):
         self.body = body  # type: DescribeTransitRouteTableAggregationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -16949,9 +16736,6 @@ class DescribeTransitRouteTableAggregationDetailResponse(TeaModel):
         self.body = body  # type: DescribeTransitRouteTableAggregationDetailResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17096,9 +16880,6 @@ class DetachCenChildInstanceResponse(TeaModel):
         self.body = body  # type: DetachCenChildInstanceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17228,9 +17009,6 @@ class DisableCenVbrHealthCheckResponse(TeaModel):
         self.body = body  # type: DisableCenVbrHealthCheckResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17364,9 +17142,6 @@ class DisableTransitRouterRouteTablePropagationResponse(TeaModel):
         self.body = body  # type: DisableTransitRouterRouteTablePropagationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17493,9 +17268,6 @@ class DisassociateTransitRouterMulticastDomainResponse(TeaModel):
         self.body = body  # type: DisassociateTransitRouterMulticastDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17629,9 +17401,6 @@ class DissociateTransitRouterAttachmentFromRouteTableResponse(TeaModel):
         self.body = body  # type: DissociateTransitRouterAttachmentFromRouteTableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17813,9 +17582,6 @@ class EnableCenVbrHealthCheckResponse(TeaModel):
         self.body = body  # type: EnableCenVbrHealthCheckResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -17949,9 +17715,6 @@ class EnableTransitRouterRouteTablePropagationResponse(TeaModel):
         self.body = body  # type: EnableTransitRouterRouteTablePropagationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18098,9 +17861,6 @@ class GrantInstanceToTransitRouterResponse(TeaModel):
         self.body = body  # type: GrantInstanceToTransitRouterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18372,9 +18132,6 @@ class ListCenChildInstanceRouteEntriesToAttachmentResponse(TeaModel):
         self.body = body  # type: ListCenChildInstanceRouteEntriesToAttachmentResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18421,13 +18178,13 @@ class ListCenInterRegionTrafficQosPoliciesRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The description of the QoS policy.
         # 
-        # The description must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The description must start with a letter.
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.traffic_qos_policy_description = traffic_qos_policy_description  # type: str
         # The ID of the QoS policy.
         self.traffic_qos_policy_id = traffic_qos_policy_id  # type: str
         # The name of the QoS policy.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). It must start with a letter.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.traffic_qos_policy_name = traffic_qos_policy_name  # type: str
         # The ID of the inter-region connection.
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
@@ -18689,9 +18446,6 @@ class ListCenInterRegionTrafficQosPoliciesResponse(TeaModel):
         self.body = body  # type: ListCenInterRegionTrafficQosPoliciesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -18917,9 +18671,6 @@ class ListCenInterRegionTrafficQosQueuesResponse(TeaModel):
         self.body = body  # type: ListCenInterRegionTrafficQosQueuesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19177,9 +18928,6 @@ class ListGrantVSwitchEnisResponse(TeaModel):
         self.body = body  # type: ListGrantVSwitchEnisResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19399,9 +19147,6 @@ class ListGrantVSwitchesToCenResponse(TeaModel):
         self.body = body  # type: ListGrantVSwitchesToCenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -19727,9 +19472,6 @@ class ListTagResourcesResponse(TeaModel):
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20030,9 +19772,6 @@ class ListTrafficMarkingPoliciesResponse(TeaModel):
         self.body = body  # type: ListTrafficMarkingPoliciesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20179,9 +19918,6 @@ class ListTransitRouterAvailableResourceResponse(TeaModel):
         self.body = body  # type: ListTransitRouterAvailableResourceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20299,25 +20035,25 @@ class ListTransitRouterCidrResponseBodyCidrLists(TeaModel):
         self.description = description  # type: str
         # The type of the CIDR block.
         # 
-        # The value is set to **IPv4**, which indicates that the CIDR block is of the IPv4 type.
+        # The value is **IPv4**, which indicates that the CIDR block is of the IPv4 type.
         self.family = family  # type: str
         # The name of the CIDR block.
         self.name = name  # type: str
-        # Indicates whether the system is allowed to automatically add a route to the route table of the transit router.
+        # Indicates whether the system is allowed to automatically add a route to the route table of the transit router. Valid values:
         # 
-        # - **true**: yes.
+        # *   **true**\
         # 
-        #      A value of true indicates that if you create a private VPN connection and add a route learning policy for the VPC connection, the system automatically adds the following route to the route table of the transit router that is in route learning relationship with the VPN connection:
-        #       
-        #     A blackhole route whose destination CIDR block is the CIDR block of the transit router. The CIDR block of the transit router refers to the CIDR block from which gateway IP addresses are allocated to IPsec-VPN connections. 
-        #           
-        #    The blackhole route is advertised only to the route tables of VBRs that are connected to the transit router. 
+        #     A value of **true** indicates that after you create a private VPN connection and enable route learning for the connection, the system automatically adds a blackhole route to the route table of the transit router to which the VPN connection is attached.
         # 
-        # - **false**: no.
+        #     The destination CIDR block of the blackhole route is the CIDR block of the transit router. The CIDR block of the transit router refers to the CIDR block from which gateway IP addresses are allocated to IPsec-VPN connections.
+        # 
+        #     The blackhole route is advertised only to the route table of the virtual border router (VBR) that is connected to the transit router.
+        # 
+        # *   **false**\
         self.publish_cidr_route = publish_cidr_route  # type: bool
-        # The ID of the CIDR block.
+        # The ID of the transit router CIDR block.
         self.transit_router_cidr_id = transit_router_cidr_id  # type: str
-        # The ID of the transit router.
+        # The transit router ID.
         self.transit_router_id = transit_router_id  # type: str
 
     def validate(self):
@@ -20366,7 +20102,7 @@ class ListTransitRouterCidrResponseBodyCidrLists(TeaModel):
 
 class ListTransitRouterCidrResponseBody(TeaModel):
     def __init__(self, cidr_lists=None, request_id=None):
-        # The CIDR blocks of the transit router.
+        # The information about the CIDR block.
         self.cidr_lists = cidr_lists  # type: list[ListTransitRouterCidrResponseBodyCidrLists]
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -20410,9 +20146,6 @@ class ListTransitRouterCidrResponse(TeaModel):
         self.body = body  # type: ListTransitRouterCidrResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20699,9 +20432,6 @@ class ListTransitRouterCidrAllocationResponse(TeaModel):
         self.body = body  # type: ListTransitRouterCidrAllocationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -20965,9 +20695,6 @@ class ListTransitRouterMulticastDomainAssociationsResponse(TeaModel):
         self.body = body  # type: ListTransitRouterMulticastDomainAssociationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21113,9 +20840,6 @@ class ListTransitRouterMulticastDomainVSwitchesResponse(TeaModel):
         self.body = body  # type: ListTransitRouterMulticastDomainVSwitchesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21469,9 +21193,6 @@ class ListTransitRouterMulticastDomainsResponse(TeaModel):
         self.body = body  # type: ListTransitRouterMulticastDomainsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -21836,9 +21557,6 @@ class ListTransitRouterMulticastGroupsResponse(TeaModel):
         self.body = body  # type: ListTransitRouterMulticastGroupsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22042,21 +21760,20 @@ class ListTransitRouterPeerAttachmentsResponseBodyTransitRouterAttachments(TeaMo
                  peer_transit_router_id=None, peer_transit_router_owner_id=None, peer_transit_router_region_id=None, region_id=None,
                  resource_type=None, status=None, tags=None, transit_router_attachment_description=None,
                  transit_router_attachment_id=None, transit_router_attachment_name=None, transit_router_id=None):
-        # Indicates whether the local Enterprise Edition transit router automatically advertises routes of the inter-region connection to the peer transit router. Valid values:
+        # Indicates whether the local Enterprise Edition transit router automatically advertises routes of the cross-region connection to the peer transit router. Valid values:
         # 
-        # *   **false** (default): no
-        # *   **true**: yes
+        # *   **false** (default)
+        # *   **true**\
         self.auto_publish_route_enabled = auto_publish_route_enabled  # type: bool
-        # The maximum bandwidth value of the inter-region connection. Unit: Mbit/s.
+        # The bandwidth value of the inter-region connection. Unit: Mbit/s.
         # 
         # *   This parameter specifies the maximum bandwidth value for the inter-region connection if you set **BandwidthType** to **BandwidthPackage**.
         # *   This parameter specifies the bandwidth throttling threshold for the inter-region connection if you set **BandwidthType** to **DataTransfer**.
         self.bandwidth = bandwidth  # type: int
         # The bandwidth allocation method. Valid values:
         # 
-        # **BandwidthPackage**: allocates bandwidth from a bandwidth plan.
-        # 
-        # **DataTransfer**: bills bandwidth based on the pay-by-data-transfer metering method.
+        # *   **BandwidthPackage**: allocates bandwidth from a bandwidth plan.
+        # *   **DataTransfer**: bandwidth is billed based on the pay-by-data-transfer metering method.
         self.bandwidth_type = bandwidth_type  # type: str
         # The ID of the bandwidth plan that is used to allocate bandwidth to the inter-region connection.
         self.cen_bandwidth_package_id = cen_bandwidth_package_id  # type: str
@@ -22066,9 +21783,10 @@ class ListTransitRouterPeerAttachmentsResponseBodyTransitRouterAttachments(TeaMo
         # 
         # The time follows the ISO8601 standard in the `YYYY-MM-DDThh:mmZ` format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
-        # The default link type. Valid values:
-        # - **Gold**\
-        # - **Platinum**\
+        # The default line type.
+        # 
+        # *   **Gold** (default)
+        # *   **Platinum**\
         self.default_link_type = default_link_type  # type: str
         # The areas that are connected by the bandwidth plan.
         self.geographic_span_id = geographic_span_id  # type: str
@@ -22082,19 +21800,19 @@ class ListTransitRouterPeerAttachmentsResponseBodyTransitRouterAttachments(TeaMo
         self.region_id = region_id  # type: str
         # The type of the resource to which the transit router is connected. Valid values:
         # 
-        # *   **VPC**: VPC
+        # *   **VPC**: virtual private cloud (VPC)
         # *   **CCN**: Cloud Connect Network (CCN) instance
         # *   **VBR**: virtual border router (VBR)
         # *   **TR**: transit router
         self.resource_type = resource_type  # type: str
         # The status of the inter-region connection. Valid values:
         # 
-        # *   **Attached**: The inter-region connection is created.
-        # *   **Attaching**: The inter-region connection is being created on the transit router.
-        # *   **Detaching**: The inter-region connection is being deleted from the transit router.
-        # *   **Detached**: The inter-region connection is deleted from the transit router.
+        # *   **Attached**\
+        # *   **Attaching**\
+        # *   **Detaching**\
+        # *   **Detached**\
         self.status = status  # type: str
-        # The tags.
+        # A list of tags.
         self.tags = tags  # type: list[ListTransitRouterPeerAttachmentsResponseBodyTransitRouterAttachmentsTags]
         # The description of the inter-region connection.
         self.transit_router_attachment_description = transit_router_attachment_description  # type: str
@@ -22219,7 +21937,7 @@ class ListTransitRouterPeerAttachmentsResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # The total number of entries returned.
         self.total_count = total_count  # type: int
-        # The queried inter-region connections.
+        # A list of inter-region connections.
         self.transit_router_attachments = transit_router_attachments  # type: list[ListTransitRouterPeerAttachmentsResponseBodyTransitRouterAttachments]
 
     def validate(self):
@@ -22273,9 +21991,6 @@ class ListTransitRouterPeerAttachmentsResponse(TeaModel):
         self.body = body  # type: ListTransitRouterPeerAttachmentsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -22566,9 +22281,6 @@ class ListTransitRouterPrefixListAssociationResponse(TeaModel):
         self.body = body  # type: ListTransitRouterPrefixListAssociationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23126,9 +22838,6 @@ class ListTransitRouterRouteEntriesResponse(TeaModel):
         self.body = body  # type: ListTransitRouterRouteEntriesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23381,9 +23090,6 @@ class ListTransitRouterRouteTableAssociationsResponse(TeaModel):
         self.body = body  # type: ListTransitRouterRouteTableAssociationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -23629,9 +23335,6 @@ class ListTransitRouterRouteTablePropagationsResponse(TeaModel):
         self.body = body  # type: ListTransitRouterRouteTablePropagationsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24081,9 +23784,6 @@ class ListTransitRouterRouteTablesResponse(TeaModel):
         self.body = body  # type: ListTransitRouterRouteTablesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24471,9 +24171,6 @@ class ListTransitRouterVbrAttachmentsResponse(TeaModel):
         self.body = body  # type: ListTransitRouterVbrAttachmentsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -24953,9 +24650,6 @@ class ListTransitRouterVpcAttachmentsResponse(TeaModel):
         self.body = body  # type: ListTransitRouterVpcAttachmentsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25393,9 +25087,6 @@ class ListTransitRouterVpnAttachmentsResponse(TeaModel):
         self.body = body  # type: ListTransitRouterVpnAttachmentsResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -25909,9 +25600,6 @@ class ListTransitRoutersResponse(TeaModel):
         self.body = body  # type: ListTransitRoutersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26043,9 +25731,6 @@ class ModifyCenAttributeResponse(TeaModel):
         self.body = body  # type: ModifyCenAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26082,11 +25767,11 @@ class ModifyCenBandwidthPackageAttributeRequest(TeaModel):
         self.cen_bandwidth_package_id = cen_bandwidth_package_id  # type: str
         # The new description of the bandwidth plan.
         # 
-        # The description must be 2 to 256 characters in length. It must start with a letter and cannot start with `http://` or `https://`.
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.description = description  # type: str
         # The new name of the bandwidth plan.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter and cannot start with `http://` or `https://`.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -26169,9 +25854,6 @@ class ModifyCenBandwidthPackageAttributeResponse(TeaModel):
         self.body = body  # type: ModifyCenBandwidthPackageAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26287,9 +25969,6 @@ class ModifyCenBandwidthPackageSpecResponse(TeaModel):
         self.body = body  # type: ModifyCenBandwidthPackageSpecResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26684,9 +26363,6 @@ class ModifyCenRouteMapResponse(TeaModel):
         self.body = body  # type: ModifyCenRouteMapResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -26729,13 +26405,13 @@ class ModifyFlowLogAttributeRequest(TeaModel):
         self.client_token = client_token  # type: str
         # The new description of the flow log.
         # 
-        # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
+        # The description can be empty or 1 to 256 characters in length, and cannot start with http:// or https://.
         self.description = description  # type: str
         # The ID of the flow log.
         self.flow_log_id = flow_log_id  # type: str
         # The new name of the flow log.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
+        # The name can be empty or 1 to 128 characters in length, and cannot start with http:// or https://.
         self.flow_log_name = flow_log_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -26843,9 +26519,6 @@ class ModifyFlowLogAttributeResponse(TeaModel):
         self.body = body  # type: ModifyFlowLogAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27025,9 +26698,6 @@ class ModifyTransitRouterCidrResponse(TeaModel):
         self.body = body  # type: ModifyTransitRouterCidrResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27169,9 +26839,6 @@ class ModifyTransitRouterMulticastDomainResponse(TeaModel):
         self.body = body  # type: ModifyTransitRouterMulticastDomainResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27313,9 +26980,6 @@ class MoveResourceGroupResponse(TeaModel):
         self.body = body  # type: MoveResourceGroupResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27431,9 +27095,6 @@ class OpenTransitRouterServiceResponse(TeaModel):
         self.body = body  # type: OpenTransitRouterServiceResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27567,9 +27228,6 @@ class PublishRouteEntriesResponse(TeaModel):
         self.body = body  # type: PublishRouteEntriesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27685,9 +27343,6 @@ class RefreshTransitRouteTableAggregationResponse(TeaModel):
         self.body = body  # type: RefreshTransitRouteTableAggregationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27824,9 +27479,6 @@ class RegisterTransitRouterMulticastGroupMembersResponse(TeaModel):
         self.body = body  # type: RegisterTransitRouterMulticastGroupMembersResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -27979,9 +27631,6 @@ class RegisterTransitRouterMulticastGroupSourcesResponse(TeaModel):
         self.body = body  # type: RegisterTransitRouterMulticastGroupSourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28116,9 +27765,6 @@ class RemoveTrafficMatchRuleFromTrafficMarkingPolicyResponse(TeaModel):
         self.body = body  # type: RemoveTrafficMatchRuleFromTrafficMarkingPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28253,9 +27899,6 @@ class RemoveTraficMatchRuleFromTrafficMarkingPolicyResponse(TeaModel):
         self.body = body  # type: RemoveTraficMatchRuleFromTrafficMarkingPolicyResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28377,9 +28020,6 @@ class ReplaceTransitRouterRouteTableAssociationResponse(TeaModel):
         self.body = body  # type: ReplaceTransitRouterRouteTableAssociationResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28413,9 +28053,7 @@ class ResolveAndRouteServiceInCenRequest(TeaModel):
     def __init__(self, access_region_ids=None, cen_id=None, client_token=None, description=None, host=None,
                  host_region_id=None, host_vpc_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None):
-        # The ID of the region in which the cloud service that you want to access is deployed.
-        # 
-        # You can call the [DescribeChildInstanceRegions](~~132080~~) operation to query the most recent region list.
+        # The IDs of the regions where the cloud service is accessed.
         self.access_region_ids = access_region_ids  # type: list[str]
         # The ID of the CEN instance.
         self.cen_id = cen_id  # type: str
@@ -28427,7 +28065,7 @@ class ResolveAndRouteServiceInCenRequest(TeaModel):
         self.client_token = client_token  # type: str
         # The description of the cloud service.
         # 
-        # The description can be empty or 2 to 256 characters in length. It must start with a letter, and can contain digits, hyphens (-), periods (.), and underscores (\_). It cannot start with `http://` or `https://`.
+        # This parameter is optional. If you enter a description, it must be 1 to 256 characters in length and cannot start with http:// or https://.
         self.description = description  # type: str
         # The IP addresses or CIDR blocks of the cloud service.
         # 
@@ -28534,9 +28172,6 @@ class ResolveAndRouteServiceInCenResponse(TeaModel):
         self.body = body  # type: ResolveAndRouteServiceInCenResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28674,9 +28309,6 @@ class RevokeInstanceFromTransitRouterResponse(TeaModel):
         self.body = body  # type: RevokeInstanceFromTransitRouterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28806,9 +28438,6 @@ class RoutePrivateZoneInCenToVpcResponse(TeaModel):
         self.body = body  # type: RoutePrivateZoneInCenToVpcResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -28929,9 +28558,6 @@ class SetCenInterRegionBandwidthLimitResponse(TeaModel):
         self.body = body  # type: SetCenInterRegionBandwidthLimitResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29104,9 +28730,6 @@ class TagResourcesResponse(TeaModel):
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29222,9 +28845,6 @@ class TempUpgradeCenBandwidthPackageSpecResponse(TeaModel):
         self.body = body  # type: TempUpgradeCenBandwidthPackageSpecResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29338,9 +28958,6 @@ class UnassociateCenBandwidthPackageResponse(TeaModel):
         self.body = body  # type: UnassociateCenBandwidthPackageResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29451,9 +29068,6 @@ class UnroutePrivateZoneInCenToVpcResponse(TeaModel):
         self.body = body  # type: UnroutePrivateZoneInCenToVpcResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29579,9 +29193,6 @@ class UntagResourcesResponse(TeaModel):
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29617,12 +29228,12 @@ class UpdateCenInterRegionTrafficQosPolicyAttributeRequest(TeaModel):
                  traffic_qos_policy_name=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can use the client to generate the value, but you must make sure that the value is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
-        # Specifies whether to check the request without performing the operation. Valid values:
+        # Specifies whether to perform a dry run. Valid values:
         # 
-        # *   **true**: checks the request but does not modify the name and description of the QoS policy. The system checks whether the required parameters are set, whether the formats of the values are valid, and the service limits. If the request fails the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
-        # *   **false** (default): checks the request. If the request passes the check, the name and description of the QoS policy are modified.
+        # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error code is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, the operation is performed.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -29630,13 +29241,13 @@ class UpdateCenInterRegionTrafficQosPolicyAttributeRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The new description of the QoS policy.
         # 
-        # The description must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The description must start with a letter.
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.traffic_qos_policy_description = traffic_qos_policy_description  # type: str
         # The ID of the QoS policy.
         self.traffic_qos_policy_id = traffic_qos_policy_id  # type: str
         # The new name of the QoS policy.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.traffic_qos_policy_name = traffic_qos_policy_name  # type: str
 
     def validate(self):
@@ -29693,7 +29304,7 @@ class UpdateCenInterRegionTrafficQosPolicyAttributeRequest(TeaModel):
 
 class UpdateCenInterRegionTrafficQosPolicyAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29723,9 +29334,6 @@ class UpdateCenInterRegionTrafficQosPolicyAttributeResponse(TeaModel):
         self.body = body  # type: UpdateCenInterRegionTrafficQosPolicyAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -29774,13 +29382,13 @@ class UpdateCenInterRegionTrafficQosQueueAttributeRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The new description of the queue.
         # 
-        # The description must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The description must start with a letter.
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.qos_queue_description = qos_queue_description  # type: str
         # The queue ID.
         self.qos_queue_id = qos_queue_id  # type: str
         # The new name of the queue.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). It must start with a letter.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.qos_queue_name = qos_queue_name  # type: str
         # The percentage of the inter-region bandwidth that can be used by the queue.
         # 
@@ -29881,9 +29489,6 @@ class UpdateCenInterRegionTrafficQosQueueAttributeResponse(TeaModel):
         self.body = body  # type: UpdateCenInterRegionTrafficQosQueueAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30238,9 +29843,6 @@ class UpdateTrafficMarkingPolicyAttributeResponse(TeaModel):
         self.body = body  # type: UpdateTrafficMarkingPolicyAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30295,13 +29897,13 @@ class UpdateTransitRouterRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The description of the transit router.
         # 
-        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_description = transit_router_description  # type: str
         # The transit router ID.
         self.transit_router_id = transit_router_id  # type: str
         # The transit router name.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_name = transit_router_name  # type: str
 
     def validate(self):
@@ -30392,9 +29994,6 @@ class UpdateTransitRouterResponse(TeaModel):
         self.body = body  # type: UpdateTransitRouterResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30434,7 +30033,7 @@ class UpdateTransitRouterPeerAttachmentAttributeRequest(TeaModel):
         # *   **false** (default): no
         # *   **true**: yes
         self.auto_publish_route_enabled = auto_publish_route_enabled  # type: bool
-        # The maximum bandwidth value of the inter-region connection. Unit: Mbit/s.
+        # The bandwidth value of the inter-region connection. Unit: Mbit/s.
         # 
         # *   This parameter specifies the maximum bandwidth value for the inter-region connection if you set **BandwidthType** to **BandwidthPackage**.
         # *   This parameter specifies the bandwidth throttling threshold for the inter-region connection if you set **BandwidthType** to **DataTransfer**.
@@ -30446,7 +30045,7 @@ class UpdateTransitRouterPeerAttachmentAttributeRequest(TeaModel):
         self.bandwidth_type = bandwidth_type  # type: str
         # The ID of the bandwidth plan that is used to allocate bandwidth to the inter-region connection.
         # 
-        # > If you set **BandwidthType** to **DataTransfer**, you do not need to set this parameter.
+        # >  If you set **BandwidthType** to **DataTransfer**, you do not need to set this parameter.
         self.cen_bandwidth_package_id = cen_bandwidth_package_id  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
@@ -30454,9 +30053,11 @@ class UpdateTransitRouterPeerAttachmentAttributeRequest(TeaModel):
         # 
         # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
         self.client_token = client_token  # type: str
-        # The default link type. Valid values:
-        # - **Platinum**: only available for the **Pay-By-Data-Transfer** bandwidth.
-        # - **Gold** (default)
+        # The default line type.
+        # 
+        # Valid values: Platinum and Gold.
+        # 
+        # Platinum is supported only when BandwidthType is set to DataTransfer.
         self.default_link_type = default_link_type  # type: str
         # Specifies whether to perform a dry run to check information such as the permissions and the instance status. Default values:
         # 
@@ -30582,9 +30183,6 @@ class UpdateTransitRouterPeerAttachmentAttributeResponse(TeaModel):
         self.body = body  # type: UpdateTransitRouterPeerAttachmentAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30635,13 +30233,13 @@ class UpdateTransitRouterRouteEntryRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The new description of the route.
         # 
-        # The description must be 0 to 256 characters in length, and can contain letters, digits, commas (,), periods (.), semicolons (;), forward slashes (/), at signs (@), underscores (\_), and hyphens (-).
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_route_entry_description = transit_router_route_entry_description  # type: str
         # The ID of the route.
         self.transit_router_route_entry_id = transit_router_route_entry_id  # type: str
         # The new name of the route.
         # 
-        # The name must be 1 to 128 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -. You can also leave the name empty.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_route_entry_name = transit_router_route_entry_name  # type: str
 
     def validate(self):
@@ -30728,9 +30326,6 @@ class UpdateTransitRouterRouteEntryResponse(TeaModel):
         self.body = body  # type: UpdateTransitRouterRouteEntryResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30811,13 +30406,13 @@ class UpdateTransitRouterRouteTableRequest(TeaModel):
         self.route_table_options = route_table_options  # type: UpdateTransitRouterRouteTableRequestRouteTableOptions
         # The description of the route table.
         # 
-        # The description must be 2 to 256 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -. You can also leave the description empty.
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_route_table_description = transit_router_route_table_description  # type: str
         # The ID of the route table of the Enterprise Edition transit router.
         self.transit_router_route_table_id = transit_router_route_table_id  # type: str
         # The name of the route table.
         # 
-        # The name must be 1 to 128 characters in length, and can contain letters, digits, and the following special characters: , . ; / @ \_ -. You can also leave the name empty.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_route_table_name = transit_router_route_table_name  # type: str
 
     def validate(self):
@@ -30910,9 +30505,6 @@ class UpdateTransitRouterRouteTableResponse(TeaModel):
         self.body = body  # type: UpdateTransitRouterRouteTableResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -30968,13 +30560,13 @@ class UpdateTransitRouterVbrAttachmentAttributeRequest(TeaModel):
         self.resource_owner_id = resource_owner_id  # type: long
         # The new description of the VBR connection.
         # 
-        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
+        # The description must be 1 to 256 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_attachment_description = transit_router_attachment_description  # type: str
         # The ID of the VBR connection.
         self.transit_router_attachment_id = transit_router_attachment_id  # type: str
         # The new name of the VBR connection.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
+        # The name must be 1 to 128 characters in length, and cannot start with http:// or https://. You can also leave this parameter empty.
         self.transit_router_attachment_name = transit_router_attachment_name  # type: str
 
     def validate(self):
@@ -31065,9 +30657,6 @@ class UpdateTransitRouterVbrAttachmentAttributeResponse(TeaModel):
         self.body = body  # type: UpdateTransitRouterVbrAttachmentAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31220,9 +30809,6 @@ class UpdateTransitRouterVpcAttachmentAttributeResponse(TeaModel):
         self.body = body  # type: UpdateTransitRouterVpcAttachmentAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31451,9 +31037,6 @@ class UpdateTransitRouterVpcAttachmentZonesResponse(TeaModel):
         self.body = body  # type: UpdateTransitRouterVpcAttachmentZonesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31606,9 +31189,6 @@ class UpdateTransitRouterVpnAttachmentAttributeResponse(TeaModel):
         self.body = body  # type: UpdateTransitRouterVpnAttachmentAttributeResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
@@ -31730,9 +31310,6 @@ class WithdrawPublishedRouteEntriesResponse(TeaModel):
         self.body = body  # type: WithdrawPublishedRouteEntriesResponseBody
 
     def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
 
