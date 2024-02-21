@@ -86,6 +86,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_ip_with_options(request, runtime)
 
+    def attach_asset_group_to_instance_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ddosbgp_20180720_models.AttachAssetGroupToInstanceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.asset_group_list):
+            request.asset_group_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.asset_group_list, 'AssetGroupList', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.asset_group_list_shrink):
+            query['AssetGroupList'] = request.asset_group_list_shrink
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AttachAssetGroupToInstance',
+            version='2018-07-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddosbgp_20180720_models.AttachAssetGroupToInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def attach_asset_group_to_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.attach_asset_group_to_instance_with_options(request, runtime)
+
     def check_access_log_auth_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -118,9 +156,9 @@ class Client(OpenApiClient):
 
     def check_grant_with_options(self, request, runtime):
         """
-        Indicates whether Anti-DDoS Origin is authorized to obtain information about the assets within the current Alibaba Cloud account. Valid values:
-        *   **1**: Anti-DDoS Origin is authorized to obtain information about the assets within the current Alibaba Cloud account.
-        *   **0**: Anti-DDoS Origin is not authorized to obtain information about the assets within the current Alibaba Cloud account.
+        You can call the CheckGrant operation to query whether Anti-DDoS Origin is authorized to obtain information about the assets within the current Alibaba Cloud account.
+        ### Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: CheckGrantRequest
@@ -152,9 +190,9 @@ class Client(OpenApiClient):
 
     def check_grant(self, request):
         """
-        Indicates whether Anti-DDoS Origin is authorized to obtain information about the assets within the current Alibaba Cloud account. Valid values:
-        *   **1**: Anti-DDoS Origin is authorized to obtain information about the assets within the current Alibaba Cloud account.
-        *   **0**: Anti-DDoS Origin is not authorized to obtain information about the assets within the current Alibaba Cloud account.
+        You can call the CheckGrant operation to query whether Anti-DDoS Origin is authorized to obtain information about the assets within the current Alibaba Cloud account.
+        ### Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: CheckGrantRequest
@@ -324,8 +362,7 @@ class Client(OpenApiClient):
 
     def delete_ip_with_options(self, request, runtime):
         """
-        The ID of the Anti-DDoS Origin Enterprise instance.
-        >  You can call the [DescribeInstanceList](~~118698~~) operation to query the IDs of all Anti-DDoS Origin Enterprise instances.
+        The Anti-DDoS Origin Enterprise instance no longer protects the IP addresses that are removed.
         
 
         @param request: DeleteIpRequest
@@ -365,8 +402,7 @@ class Client(OpenApiClient):
 
     def delete_ip(self, request):
         """
-        The ID of the Anti-DDoS Origin Enterprise instance.
-        >  You can call the [DescribeInstanceList](~~118698~~) operation to query the IDs of all Anti-DDoS Origin Enterprise instances.
+        The Anti-DDoS Origin Enterprise instance no longer protects the IP addresses that are removed.
         
 
         @param request: DeleteIpRequest
@@ -408,9 +444,87 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_schedrule_on_demand_with_options(request, runtime)
 
+    def describe_asset_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAssetGroup',
+            version='2018-07-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddosbgp_20180720_models.DescribeAssetGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_asset_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_asset_group_with_options(request, runtime)
+
+    def describe_asset_group_to_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.member_uid):
+            query['MemberUid'] = request.member_uid
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAssetGroupToInstance',
+            version='2018-07-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddosbgp_20180720_models.DescribeAssetGroupToInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_asset_group_to_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_asset_group_to_instance_with_options(request, runtime)
+
     def describe_ddos_event_with_options(self, request, runtime):
         """
-        The number of entries to return on each page.
+        You can call the DescribeDdosEvent operation to query the details about the DDoS attack events that occurred on a specific Anti-DDoS Origin instance by page. The details include the start time, end time, attacked IP address, and status of each event.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DescribeDdosEventRequest
@@ -458,7 +572,9 @@ class Client(OpenApiClient):
 
     def describe_ddos_event(self, request):
         """
-        The number of entries to return on each page.
+        You can call the DescribeDdosEvent operation to query the details about the DDoS attack events that occurred on a specific Anti-DDoS Origin instance by page. The details include the start time, end time, attacked IP address, and status of each event.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DescribeDdosEventRequest
@@ -470,7 +586,8 @@ class Client(OpenApiClient):
 
     def describe_excpetion_count_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *DescribeExcpetionCount**.
+        ## Usage notes
+        You can call the DescribeExcpetionCount operation to query the number of assets that are in an abnormal state and the number of Anti-DDoS Origin instances that are about to expire in a specific region. For example, if blackhole filtering is triggered for an IP address, the IP address is in an abnormal state. An instance whose remaining validity period is less than seven days is considered as an instance that is about to expire.
         
 
         @param request: DescribeExcpetionCountRequest
@@ -506,7 +623,8 @@ class Client(OpenApiClient):
 
     def describe_excpetion_count(self, request):
         """
-        The operation that you want to perform. Set the value to *DescribeExcpetionCount**.
+        ## Usage notes
+        You can call the DescribeExcpetionCount operation to query the number of assets that are in an abnormal state and the number of Anti-DDoS Origin instances that are about to expire in a specific region. For example, if blackhole filtering is triggered for an IP address, the IP address is in an abnormal state. An instance whose remaining validity period is less than seven days is considered as an instance that is about to expire.
         
 
         @param request: DescribeExcpetionCountRequest
@@ -518,10 +636,9 @@ class Client(OpenApiClient):
 
     def describe_instance_list_with_options(self, request, runtime):
         """
-        The status of the instance. Valid values:
-        *   **1**: normal
-        *   **2**: expired
-        *   **3**: released
+        You can call the DescribeInstanceList operation to query the details of all Anti-DDoS Origin instances within your Alibaba Cloud account by page. The details include the ID, validity period, and status of each instance.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DescribeInstanceListRequest
@@ -579,10 +696,9 @@ class Client(OpenApiClient):
 
     def describe_instance_list(self, request):
         """
-        The status of the instance. Valid values:
-        *   **1**: normal
-        *   **2**: expired
-        *   **3**: released
+        You can call the DescribeInstanceList operation to query the details of all Anti-DDoS Origin instances within your Alibaba Cloud account by page. The details include the ID, validity period, and status of each instance.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DescribeInstanceListRequest
@@ -626,7 +742,7 @@ class Client(OpenApiClient):
 
     def describe_on_demand_ddos_event_with_options(self, request, runtime):
         """
-        The ID of the resource group.
+        >  Anti-DDoS Origin API operations are available for only Anti-DDoS Origin Enterprise users.
         
 
         @param request: DescribeOnDemandDdosEventRequest
@@ -674,7 +790,7 @@ class Client(OpenApiClient):
 
     def describe_on_demand_ddos_event(self, request):
         """
-        The ID of the resource group.
+        >  Anti-DDoS Origin API operations are available for only Anti-DDoS Origin Enterprise users.
         
 
         @param request: DescribeOnDemandDdosEventRequest
@@ -778,7 +894,9 @@ class Client(OpenApiClient):
 
     def describe_pack_ip_list_with_options(self, request, runtime):
         """
-        The number of entries to return on each page.
+        You can call the DescribePackIpList operation to query the details about each IP address that is protected by a specific Anti-DDoS Origin instance by page. The details include the IP address and the type of the cloud asset to which the IP address belongs. The details also include the status of the IP address, such as whether blackhole filtering is triggered for the IP address.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DescribePackIpListRequest
@@ -826,7 +944,9 @@ class Client(OpenApiClient):
 
     def describe_pack_ip_list(self, request):
         """
-        The number of entries to return on each page.
+        You can call the DescribePackIpList operation to query the details about each IP address that is protected by a specific Anti-DDoS Origin instance by page. The details include the IP address and the type of the cloud asset to which the IP address belongs. The details also include the status of the IP address, such as whether blackhole filtering is triggered for the IP address.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DescribePackIpListRequest
@@ -868,8 +988,10 @@ class Client(OpenApiClient):
 
     def describe_traffic_with_options(self, request, runtime):
         """
-        The bandwidth of attack traffic. Unit: bit/s.
-        >  This parameter is returned only if attack traffic exists.
+        You can call the DescribeTraffic operation to query traffic statistics of an Anti-DDoS Origin instance within a specific time period.
+        >  When you call this operation, you must configure the **InstanceId** parameter to specify the Anti-DDoS Origin instance whose traffic statistics you want to query.
+        ## Limits
+        You can call this operation once per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DescribeTrafficRequest
@@ -919,8 +1041,10 @@ class Client(OpenApiClient):
 
     def describe_traffic(self, request):
         """
-        The bandwidth of attack traffic. Unit: bit/s.
-        >  This parameter is returned only if attack traffic exists.
+        You can call the DescribeTraffic operation to query traffic statistics of an Anti-DDoS Origin instance within a specific time period.
+        >  When you call this operation, you must configure the **InstanceId** parameter to specify the Anti-DDoS Origin instance whose traffic statistics you want to query.
+        ## Limits
+        You can call this operation once per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: DescribeTrafficRequest
@@ -929,6 +1053,44 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_traffic_with_options(request, runtime)
+
+    def dettach_asset_group_to_instance_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ddosbgp_20180720_models.DettachAssetGroupToInstanceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.asset_group_list):
+            request.asset_group_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.asset_group_list, 'AssetGroupList', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.asset_group_list_shrink):
+            query['AssetGroupList'] = request.asset_group_list_shrink
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DettachAssetGroupToInstance',
+            version='2018-07-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddosbgp_20180720_models.DettachAssetGroupToInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dettach_asset_group_to_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.dettach_asset_group_to_instance_with_options(request, runtime)
 
     def get_sls_open_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1030,8 +1192,7 @@ class Client(OpenApiClient):
 
     def list_tag_resources_with_options(self, request, runtime):
         """
-        The ID of the region where the Anti-DDoS Origin instance resides.
-        >  You can call the [DescribeRegions](~~118703~~) operation to query the most recent region list.
+        You can call the ListTagResources operation to query the tags that are added to Anti-DDoS Origin instances at a time.
         
 
         @param request: ListTagResourcesRequest
@@ -1075,8 +1236,7 @@ class Client(OpenApiClient):
 
     def list_tag_resources(self, request):
         """
-        The ID of the region where the Anti-DDoS Origin instance resides.
-        >  You can call the [DescribeRegions](~~118703~~) operation to query the most recent region list.
+        You can call the ListTagResources operation to query the tags that are added to Anti-DDoS Origin instances at a time.
         
 
         @param request: ListTagResourcesRequest
@@ -1088,7 +1248,9 @@ class Client(OpenApiClient):
 
     def modify_remark_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *ModifyRemark**.
+        You can call the ModifyRemark operation to add remarks for a single Anti-DDoS Origin instance.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: ModifyRemarkRequest
@@ -1128,7 +1290,9 @@ class Client(OpenApiClient):
 
     def modify_remark(self, request):
         """
-        The operation that you want to perform. Set the value to *ModifyRemark**.
+        You can call the ModifyRemark operation to add remarks for a single Anti-DDoS Origin instance.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: ModifyRemarkRequest
@@ -1202,8 +1366,9 @@ class Client(OpenApiClient):
 
     def tag_resources_with_options(self, request, runtime):
         """
-        The ID of Anti-DDoS Origin Instance N to which you want to add tags.
-        >  You can call the [DescribeInstanceList](~~118698~~) operation to query the IDs of all Anti-DDoS Origin instances.
+        You can call the TagResources operation to add tags to Anti-DDoS Origin instances.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: TagResourcesRequest
@@ -1245,8 +1410,9 @@ class Client(OpenApiClient):
 
     def tag_resources(self, request):
         """
-        The ID of Anti-DDoS Origin Instance N to which you want to add tags.
-        >  You can call the [DescribeInstanceList](~~118698~~) operation to query the IDs of all Anti-DDoS Origin instances.
+        You can call the TagResources operation to add tags to Anti-DDoS Origin instances.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: TagResourcesRequest
